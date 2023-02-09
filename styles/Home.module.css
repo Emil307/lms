@@ -42,7 +42,6 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
 }
 
 .title,
@@ -60,9 +59,6 @@
   background: #fafafa;
   border-radius: 5px;
   padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
 .grid {
@@ -94,12 +90,10 @@
 
 .card h2 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
 }
 
 .card p {
   margin: 0;
-  font-size: 1.25rem;
   line-height: 1.5;
 }
 
@@ -118,10 +112,10 @@
 @media (prefers-color-scheme: dark) {
   .card,
   .footer {
-    border-color: #222;
+    border-color: var(--mantine-color-black);
   }
   .code {
-    background: #111;
+    background: var(--mantine-color-black);
   }
   .logo img {
     filter: invert(1);
