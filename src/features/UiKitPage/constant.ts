@@ -1,21 +1,21 @@
-import { DataGridProps } from "mantine-data-grid";
-import { TUser } from "./types";
+import {DataGridProps} from "mantine-data-grid";
+import {TUser} from "./types";
 
-export const columns: DataGridProps<TUser>['columns'] = [
+export const columns: DataGridProps<TUser>["columns"] = [
     {
-        header: 'Имя',
+        header: "Имя",
         accessorFn: (row) => row.name,
     },
     {
-        header: 'Пароль',
+        header: "Пароль",
         accessorFn: (row) => row.password,
     },
     {
-        header: 'Email',
+        header: "Email",
         accessorFn: (row) => row.email,
     },
     {
-        header: 'Описание',
+        header: "Описание",
         accessorFn: (row) => row.description,
-    }
-]
+    },
+];

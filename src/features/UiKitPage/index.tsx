@@ -1,13 +1,13 @@
 import React from "react";
-import { FInput, Input } from "src/ui/Forms/Input";
-import { Box, Flex, Grid } from "@mantine/core";
-import { Form } from "src/ui/Forms/Form";
-import { FormikConfig } from "formik";
-import { FButton, Button, FResetButton } from "src/ui/Forms/Button";
-import { DataGrid } from "mantine-data-grid";
-import { TUser } from "./types";
-import { columns } from "./constant";
-import { useListState } from "@mantine/hooks";
+import {Box, Flex, Grid} from "@mantine/core";
+import {FormikConfig} from "formik";
+import {DataGrid} from "mantine-data-grid";
+import {useListState} from "@mantine/hooks";
+import {FInput} from "src/ui/Forms/Input";
+import {Form} from "src/ui/Forms/Form";
+import {FButton, FResetButton} from "src/ui/Forms/Button";
+import {TUser} from "./types";
+import {columns} from "./constant";
 
 export default function UiKitPage() {
     const [users, handlers] = useListState<TUser>([]);
@@ -19,7 +19,7 @@ export default function UiKitPage() {
             name: "",
             password: "",
         },
-        onSubmit: async (values, helpers) => {
+        onSubmit: async (values, _helpers) => {
             return new Promise((resolve) => {
                 return setTimeout(() => {
                     resolve(handlers.append(values));
@@ -29,7 +29,7 @@ export default function UiKitPage() {
     };
 
     return (
-        <Box style={{ width: "50%" }}>
+        <Box style={{width: "50%"}}>
             <Form<TUser> config={cfg} persist>
                 <Grid>
                     <Grid.Col span={6}>

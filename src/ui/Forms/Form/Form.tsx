@@ -1,6 +1,6 @@
 import React from "react";
-import { Formik, FormikConfig, FormikValues } from "formik";
-import BaseForm, { BaseFormProps } from "./BaseForm";
+import {Formik, FormikConfig, FormikValues} from "formik";
+import BaseForm, {BaseFormProps} from "./BaseForm";
 import FormPersister from "./FormPersister";
 import FormOverlay from "./FormOverlay";
 
@@ -11,7 +11,7 @@ export interface FormProps<T extends FormikValues = FormikValues> {
     persist?: boolean;
 }
 
-function Form<T extends FormikValues = FormikValues>({ config, children, form, persist = false }: FormProps<T>) {
+function Form<T extends FormikValues = FormikValues>({config, children, form, persist = false}: FormProps<T>) {
     return (
         <Formik<T> {...config}>
             {(formikProps) => (
