@@ -1,4 +1,4 @@
-import {AxiosInstance, AxiosInterceptorOptions} from "axios";
+import { AxiosInstance, AxiosInterceptorOptions } from "axios";
 
 type TAxiosRequestInterceptors = Parameters<AxiosInstance["interceptors"]["request"]["use"]>;
 export type TAxiosRequestInterceptorSuccess = TAxiosRequestInterceptors[0];

@@ -17,8 +17,7 @@ export const deafultTheme: MantineThemeOverride = {
     colorScheme: "light",
     fontFamily: _futura.style.fontFamily,
     defaultRadius: "lg",
-    colors: {
-    },
+    colors: {},
     headings: {
         fontFamily: MontserratFont.style.fontFamily,
         fontWeight: MontserratFont.style.fontWeight,
@@ -26,22 +25,22 @@ export const deafultTheme: MantineThemeOverride = {
         sizes: {
             h1: {
                 fontSize: 32,
-                lineHeight: '39px',
+                lineHeight: "39px",
                 fontWeight: 700,
             },
             h2: {
                 fontSize: 24,
-                lineHeight: '30px',
+                lineHeight: "30px",
                 fontWeight: 700,
             },
             h3: {
                 fontSize: 20,
-                lineHeight: '27px',
+                lineHeight: "27px",
                 fontWeight: 700,
             },
             h4: {
                 fontSize: 16,
-                lineHeight: '22px',
+                lineHeight: "22px",
             },
             h5: {
                 fontSize: 15,

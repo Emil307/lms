@@ -6,10 +6,9 @@ export type IHasFio = {
     patronymic: string;
 };
 
-
 export abstract class BaseApi {
-    constructor(protected instance: AxiosInstance) { }
+    constructor(protected instance: AxiosInstance) {}
 }
 
 // export type ApiMethod<SchemaType extends z.Schema, ParamType = never>
-//     = (schema: SchemaType, params: ParamType) => Promise<z.infer<SchemaType>> 
+//     = (schema: SchemaType, params: ParamType) => Promise<z.infer<SchemaType>>

@@ -1,5 +1,5 @@
-import {DataGridProps} from "mantine-data-grid";
-import {TUser} from "./types";
+import { DataGridProps } from "mantine-data-grid";
+import { TUser } from "./types";
 
 export const columns: DataGridProps<TUser>["columns"] = [
     {

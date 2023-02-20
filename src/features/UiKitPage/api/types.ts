@@ -13,14 +13,9 @@ const $testData = z.object({
     datetime: $DateTime,
     time: z.string(),
     role: z.enum([Roles.USER, Roles.ADMIN, Roles.SUPERADMIN] as const),
-})
+});
 type TestData = z.infer<typeof $testData>;
 
-export {
-    $testData,
+export { $testData };
 
-}
-
-export type {
-    TestData
-}
+export type { TestData };

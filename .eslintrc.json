@@ -9,7 +9,7 @@
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
             "error",
-            { "argsIgnorePattern": "^_", "vars":"local" ,"ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_"}
+            { "argsIgnorePattern": "^_", "vars": "local", "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }
         ],
         "@typescript-eslint/no-unnecessary-condition": "warn",
         "import/no-unresolved": "error",
@@ -22,9 +22,6 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-var-requires": "off",
 
-        "import/order": [
-            "warn",
-            { "groups": ["external", "builtin", "internal", "sibling", "parent", "index", "type"] }
-        ]
+        "import/order": ["warn", { "groups": ["external", "builtin", "internal", "sibling", "parent", "index", "type"] }]
     }
 }

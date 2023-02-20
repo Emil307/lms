@@ -1,6 +1,6 @@
 import React from "react";
-import {useField} from "formik";
-import Input, {InputProps} from "./Input";
+import { useField } from "formik";
+import Input, { InputProps } from "./Input";
 
 export interface FInputProps extends InputProps {
     name: string;

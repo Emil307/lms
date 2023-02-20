@@ -1,7 +1,7 @@
 import React from "react";
-import {Form} from "formik";
+import { Form } from "formik";
 
-import {DefaultProps, Selectors, MantineNumberSize} from "@mantine/core";
+import { DefaultProps, Selectors, MantineNumberSize } from "@mantine/core";
 import useStyles from "./BaseForm.styles";
 
 // This type will contain a union with all selectors defined in useStyles,
@@ -18,12 +18,12 @@ type Props = BaseFormStyleProps & React.ComponentProps<typeof Form>;
 
 export interface BaseFormProps extends Props {}
 
-export default function BaseForm({children, radius, className, styles, unstyled, classNames, ...rest}: BaseFormProps) {
-    const {classes, cx} = useStyles(
+export default function BaseForm({ children, radius, className, styles, unstyled, classNames, ...rest }: BaseFormProps) {
+    const { classes, cx } = useStyles(
         // First argument of useStyles is styles params
         undefined,
         // Second argument is responsible for styles api integration
-        {name: "BaseForm", classNames, styles, unstyled}
+        { name: "BaseForm", classNames, styles, unstyled }
     );
 
     return (
