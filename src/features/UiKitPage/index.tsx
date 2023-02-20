@@ -1,15 +1,16 @@
 import React from "react";
-import {Box, Flex, Grid} from "@mantine/core";
-import {FormikConfig} from "formik";
-import {DataGrid} from "mantine-data-grid";
-import {useListState} from "@mantine/hooks";
-import {FInput} from "src/ui/Forms/Input";
-import {Form} from "src/ui/Forms/Form";
-import {FButton, FResetButton} from "src/ui/Forms/Button";
-import {TUser} from "./types";
-import {columns} from "./constant";
+import { Box, Flex, Grid, Title } from "@mantine/core";
+import { FormikConfig } from "formik";
+import { DataGrid } from "mantine-data-grid";
+import { useListState } from "@mantine/hooks";
+import { FInput } from "src/ui/Forms/Input";
+import { Form } from "src/ui/Forms/Form";
+import { FButton, FResetButton } from "src/ui/Forms/Button";
+import { TUser } from "./types";
+import { columns } from "./constant";
+import { uiKitApi } from "./api";
 
-export default function UiKitPage() {
+export default function UiKitPage(): JSX.Element {
     const [users, handlers] = useListState<TUser>([]);
 
     const cfg: FormikConfig<TUser> = {
@@ -20,16 +21,20 @@ export default function UiKitPage() {
             password: "",
         },
         onSubmit: async (values, _helpers) => {
+            const parsed = await uiKitApi.getTestData();
+
             return new Promise((resolve) => {
                 return setTimeout(() => {
-                    resolve(handlers.append(values));
+                    resolve(parsed);
+                    handlers.append(values);
                 }, 2000);
             });
         },
     };
 
     return (
-        <Box style={{width: "50%"}}>
+        <Box style={{ width: "50%" }}>
+            <Title>Test Montserrat</Title>
             <Form<TUser> config={cfg} persist>
                 <Grid>
                     <Grid.Col span={6}>
