@@ -18,15 +18,7 @@ type Props = BaseFormStyleProps & React.ComponentProps<typeof Form>;
 
 export interface BaseFormProps extends Props {}
 
-export default function BaseForm({
-    children,
-    radius,
-    className,
-    styles,
-    unstyled,
-    classNames,
-    ...rest
-}: BaseFormProps) {
+export default function BaseForm({ children, radius, className, styles, unstyled, classNames, ...rest }: BaseFormProps) {
     const { classes, cx } = useStyles(
         // First argument of useStyles is styles params
         undefined,

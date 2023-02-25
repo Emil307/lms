@@ -1,13 +1,13 @@
 import React from "react";
-import { FInput } from "src/ui/Forms/Input";
 import { Box, Flex, Grid } from "@mantine/core";
-import { Form } from "src/ui/Forms/Form";
 import { FormikConfig } from "formik";
-import { FButton, Button, FResetButton } from "src/ui/Forms/Button";
+import { useListState } from "@mantine/hooks";
+import { FInput } from "src/ui/Forms/Input";
+import { Form } from "src/ui/Forms/Form";
+import { FButton, FResetButton } from "src/ui/Forms/Button";
+import ManagedDataGrid from "src/ui/DataGrid/ManagedDataGrid";
 import { TUser } from "./types";
 import { columns, users as data } from "./constant";
-import { useListState } from "@mantine/hooks";
-import ManagedDataGrid from "src/ui/DataGrid/ManagedDataGrid";
 export enum QueryKeys {
     GET_OFFERS = "GET_OFFERS",
 }
@@ -22,7 +22,9 @@ export default function UiKitPage() {
             role: "",
             status: "",
         },
-        onSubmit: async (values, helpers) => {
+        onSubmit: async (values, _helpers) => {
+            const parsed = await uiKitApi.getTestData();
+
             return new Promise((resolve) => {
                 return setTimeout(() => {
                     resolve(handlers.append(values));
@@ -33,6 +35,7 @@ export default function UiKitPage() {
 
     return (
         <Box style={{ width: "50%" }}>
+            <Title>Test Montserrat</Title>
             <Form<TUser> config={cfg} persist>
                 <Grid>
                     <Grid.Col span={6}>
@@ -71,8 +74,7 @@ export default function UiKitPage() {
                         })
                     )
                 }
-                columns={columns}
-            >
+                columns={columns}>
                 <div>23123123213123</div>
             </ManagedDataGrid>
         </Box>

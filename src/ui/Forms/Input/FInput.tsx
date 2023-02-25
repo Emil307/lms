@@ -11,14 +11,5 @@ export default function FInput<T extends string = string>(props: FInputProps) {
 
     const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
 
-    return (
-        <Input
-            {...props}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            value={field.value}
-            name={field.name}
-            error={error}
-        />
-    );
+    return <Input {...props} onChange={field.onChange} onBlur={field.onBlur} value={field.value} name={field.name} error={error} />;
 }

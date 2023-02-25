@@ -1,66 +1,65 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MantineThemeOverride } from "@mantine/core";
-import { Montserrat } from '@next/font/google'
-import localFont from '@next/font/local'
+import { Montserrat } from "@next/font/google";
+import localFont from "@next/font/local";
 
 // Font files can be colocated inside of `pages`
-const _FuturaPT = localFont({
+const _futura = localFont({
     src: [
-        { path: '../../../public/fonts/FuturaPT/FuturaPT-Bold.woff', style: 'normal', weight: 'bold' },
-        { path: '../../../public/fonts/FuturaPT/FuturaPT-Book.woff', style: 'normal', weight: 'normal' }
+        { path: "../../../public/fonts/FuturaPT/FuturaPT-Bold.woff", style: "normal", weight: "bold" },
+        { path: "../../../public/fonts/FuturaPT/FuturaPT-Book.woff", style: "normal", weight: "normal" },
     ],
-})
+});
 
-const MontserratFont = Montserrat({ subsets: ['latin'] });
+const MontserratFont = Montserrat({ subsets: ["latin"] });
 
 export const defaultTheme: MantineThemeOverride = {
     colorScheme: 'light',
     fontFamily: "FuturaPT-Book",
     defaultRadius: "sm",
     headings: {
-        fontFamily: MontserratFont.className,
+        fontFamily: MontserratFont.style.fontFamily,
         fontWeight: MontserratFont.style.fontWeight,
 
         sizes: {
             h1: {
                 fontSize: 32,
-                lineHeight: 39,
+                lineHeight: "39px",
                 fontWeight: 700,
             },
             h2: {
                 fontSize: 24,
-                lineHeight: 30,
-                fontWeight: 700
+                lineHeight: "30px",
+                fontWeight: 700,
             },
             h3: {
                 fontSize: 20,
-                lineHeight: 27,
-                fontWeight: 700
+                lineHeight: "27px",
+                fontWeight: 700,
             },
             h4: {
                 fontSize: 16,
-                lineHeight: 22,
+                lineHeight: "22px",
             },
             h5: {
                 fontSize: 15,
-                fontWeight: 22
-            }
-        }
+                fontWeight: 22,
+            },
+        },
     },
     components: {
         BaseForm: {
             styles: (theme) => ({
                 root: {
-                    position: 'relative',
-                    'border': `1px solid ${theme.primaryColor}`,
-                    padding: '1.5rem',
-                    borderRadius: theme.fn.radius(theme.defaultRadius)
+                    position: "relative",
+                    border: `1px solid ${theme.colors.red[7]}`,
+                    padding: "1.1rem",
+                    borderRadius: theme.fn.radius(theme.defaultRadius),
                 },
-            })
-        }
-
-
-    }
-}
+            }),
+        },
+    },
+};
 /**root: {
     position: 'relative',
   },

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from ".";
 import { ButtonProps } from "./Button";
+import { Button } from ".";
 
 interface ResetButtonProps extends ButtonProps {}
 
