@@ -1,21 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MantineThemeOverride } from "@mantine/core";
-import { Montserrat } from "@next/font/google";
-import localFont from "@next/font/local";
+import * as fonts from './fonts';
 
-// Font files can be colocated inside of `pages`
-const _futura = localFont({
-    src: [
-        { path: "../../../public/fonts/FuturaPT/FuturaPT-Bold.woff", style: "normal", weight: "bold" },
-        { path: "../../../public/fonts/FuturaPT/FuturaPT-Book.woff", style: "normal", weight: "normal" },
-    ],
-});
 
-const MontserratFont = Montserrat({ subsets: ["latin"] });
+const { FuturaFont, MontserratFont } = fonts;
+
 
 export const defaultTheme: MantineThemeOverride = {
-    colorScheme: 'light',
-    fontFamily: "FuturaPT-Book",
+    colorScheme: 'dark',
+    fontFamily: FuturaFont.style.fontFamily,
     defaultRadius: "sm",
     headings: {
         fontFamily: MontserratFont.style.fontFamily,

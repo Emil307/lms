@@ -1,13 +1,16 @@
-import "../styles/globals.css";
-import { MantineProvider } from "@mantine/core";
-import { defaultTheme } from "src/config/mantine";
+import { ModalsProvider } from "@mantine/modals";
+import { QueryProvider, ThemeProvider } from "src/app/providers";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <MantineProvider withGlobalStyles theme={defaultTheme}>
-            <Component {...pageProps} />
-        </MantineProvider>
+        <ThemeProvider>
+            <QueryProvider pageProps={pageProps}>
+                <ModalsProvider>
+                    <Component {...pageProps} />
+                </ModalsProvider>
+            </QueryProvider>
+        </ThemeProvider>
     );
 }
 
