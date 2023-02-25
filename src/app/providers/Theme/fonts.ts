@@ -1,6 +1,6 @@
 
-import { Montserrat } from "@next/font/google";
-import localFont from "@next/font/local";
+import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 
 // Font files can be colocated inside of `pages`
 export const FuturaFont = localFont({

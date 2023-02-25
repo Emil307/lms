@@ -1,11 +1,8 @@
 import React from "react";
-import { Box, Flex, Grid } from "@mantine/core";
+import { Box, Flex, Grid, Title } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { useListState } from "@mantine/hooks";
-import { FInput } from "src/ui/Forms/Input";
-import { Form } from "src/ui/Forms/Form";
-import { FButton, FResetButton } from "src/ui/Forms/Button";
-import ManagedDataGrid from "src/ui/DataGrid/ManagedDataGrid";
+import { FButton, FInput, Form, FResetButton, ManagedDataGrid } from "@shared/ui";
 import { TUser } from "./types";
 import { columns, users as data } from "./constant";
 export enum QueryKeys {
@@ -23,8 +20,6 @@ export default function UiKitPage() {
             status: "",
         },
         onSubmit: async (values, _helpers) => {
-            const parsed = await uiKitApi.getTestData();
-
             return new Promise((resolve) => {
                 return setTimeout(() => {
                     resolve(handlers.append(values));

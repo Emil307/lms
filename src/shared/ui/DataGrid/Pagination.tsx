@@ -8,7 +8,7 @@ export interface Props<T extends Record<string, any>> {
 }
 
 export default function Pagination<T extends Record<string, any>>({ table }: Props<T>) {
-    const { setPageIndex, setPageCount, getPageCount, setPageSize, getState } = table;
+    const { setPageIndex, getPageCount, setPageSize, getState } = table;
     const {
         pagination: { pageIndex = 0, pageSize = 10 },
     } = getState();
@@ -30,7 +30,6 @@ export default function Pagination<T extends Record<string, any>>({ table }: Pro
                 value={pageSize.toString()}
                 onChange={(val) => {
                     setPageSize(Number(val.target.value));
-                    console.log(val);
                 }}
                 sx={{
                     "@media (min-width: 720px)": {

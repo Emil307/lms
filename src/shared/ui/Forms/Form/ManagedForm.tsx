@@ -28,7 +28,7 @@ export default function ManagedForm<T extends FormikValues = FormikValues>({
     const { isLoading: inProgress } = useMutation<T>({});
 
     const cfg: FormikConfig<T> = {
-        onSubmit: console.log,
+        onSubmit: console.warn,
         initialValues: data || initialValues || ({} as T),
     };
 
