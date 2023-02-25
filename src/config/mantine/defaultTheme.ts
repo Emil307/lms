@@ -12,7 +12,7 @@ const _FuturaPT = localFont({
 
 const MontserratFont = Montserrat({ subsets: ['latin'] });
 
-export const deafultTheme: MantineThemeOverride = {
+export const defaultTheme: MantineThemeOverride = {
     colorScheme: 'light',
     fontFamily: "FuturaPT-Book",
     defaultRadius: "sm",

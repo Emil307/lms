@@ -7,7 +7,9 @@ export type FormPersisterProps<T extends FormikValues> = {
     enabled?: boolean;
     initialValues: T;
 };
-
+/**
+ *  Механизм сохраняющий данные формы в LocalStorage для сохранения данных между перезагрузками страницы.
+ */
 export default function FormPersister<T extends FormikValues>({
     initialValues,
     enabled,

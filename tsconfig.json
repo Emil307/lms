@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
+        "allowJs": false,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
@@ -34,6 +34,6 @@
         "incremental": false,
         "isolatedModules": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/features/UiKitPage/constant.ts"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }

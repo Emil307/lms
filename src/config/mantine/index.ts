@@ -1,5 +1,5 @@
-import { deafultTheme } from './defaultTheme'
+import { defaultTheme } from './defaultTheme'
 
 export {
-    deafultTheme
+    defaultTheme as defaultTheme
 }
