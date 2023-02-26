@@ -13,7 +13,7 @@ const UiKit: NextPageWithLayout = () => {
 };
 
 UiKit.getLayout = function (page: ReactElement) {
-    return <AdminLayout>{page}</AdminLayout>;
+    return <AdminLayout>{ page } </AdminLayout>;
 }
 
 

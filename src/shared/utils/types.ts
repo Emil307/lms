@@ -1,8 +1,17 @@
 import { AxiosInstance } from "axios";
+import { NextPage } from "next";
+import { AppProps } from "next/app";
+import { ReactNode } from "react";
+import { ReactElement } from "react";
 
 export abstract class BaseApi {
     constructor(protected instance: AxiosInstance) { }
 }
 
-// export type ApiMethod<SchemaType extends z.Schema, ParamType = never>
-//     = (schema: SchemaType, params: ParamType) => Promise<z.infer<SchemaType>>
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+    getLayout?: (page: ReactElement) => ReactNode
+}
+
+export type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout
+}

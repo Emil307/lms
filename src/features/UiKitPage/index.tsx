@@ -29,7 +29,7 @@ export default function UiKitPage() {
     };
 
     return (
-        <Box style={{ width: "50%" }}>
+        <Box>
             <Title>Test Montserrat</Title>
             <Form<TUser> config={cfg} persist>
                 <Grid>

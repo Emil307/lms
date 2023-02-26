@@ -1,14 +1,14 @@
 import { ModalsProvider } from "@mantine/modals";
 import { QueryProvider, ThemeProvider } from "src/app/providers";
-import type { AppProps } from "next/app";
+import { AppPropsWithLayout } from "@shared/utils/types";
+import "@app/styles/index.scss";
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+    const getLayout = Component.getLayout ?? ((page) => page);
 
-function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider>
             <QueryProvider pageProps={pageProps}>
-                <ModalsProvider>
-                    <Component {...pageProps} />
-                </ModalsProvider>
+                <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
             </QueryProvider>
         </ThemeProvider>
     );
