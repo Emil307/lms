@@ -1,14 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { MantineColor } from "@mantine/core";
+import { MantineThemeColors } from "@mantine/core";
 import { MantineThemeOverride } from "@mantine/core";
 import * as fonts from './fonts';
+
+export const addMantineColor = (color: string): MantineThemeColors[MantineColor] => {
+    return [color, color, color, color, color, color, color, color, color, color];
+};
 
 
 const { FuturaFont, MontserratFont } = fonts;
 
 
 export const defaultTheme: MantineThemeOverride = {
-    colorScheme: 'dark',
+    colorScheme: 'light',
     fontFamily: FuturaFont.style.fontFamily,
+    primaryColor: 'primary',
+    colors: {
+        background: addMantineColor("#F7F7F7"),
+        primary: addMantineColor('#D6913D'),
+        neutral_gray: addMantineColor('#00042973')
+    },
     defaultRadius: "sm",
     headings: {
         fontFamily: MontserratFont.style.fontFamily,
@@ -45,7 +57,7 @@ export const defaultTheme: MantineThemeOverride = {
             styles: (theme) => ({
                 root: {
                     position: "relative",
-                    border: `1px solid ${theme.colors.red[7]}`,
+                    border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
                     padding: "1.1rem",
                     borderRadius: theme.fn.radius(theme.defaultRadius),
                 },

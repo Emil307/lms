@@ -9,5 +9,10 @@ export const FuturaFont = localFont({
         { path: "fonts/FuturaPT/FuturaPT-Book.woff", style: "normal", weight: "normal" },
     ],
 });
+export const CentroSansPro = localFont({
+    src: [
+        { path: "fonts/FuturaPT/PFCentroSansPro-Regular.woff", style: "normal", weight: "normal" },
+    ],
+});
 
 export const MontserratFont = Montserrat({ subsets: ["latin"] });

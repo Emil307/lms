@@ -33,7 +33,7 @@ export default function ManagedForm<T extends FormikValues = FormikValues>({
     };
 
     return (
-        <Form {...form} config={cfg} isLoading={isLoading || inProgress}>
+        <Form<T> {...form} config={cfg} isLoading={isLoading || inProgress}>
             {(formikProps) => (typeof children === "function" ? children(formikProps) : children)}
         </Form>
     );

@@ -22,10 +22,10 @@
             "@components/*": ["src/components/*"],
             "@public/*": ["./public/*"],
             "@layouts/*": ["src/layouts/*"],
-            "@pages/*": ["./pages/*"],
+            "@pages/*": ["./src/pages/*"],
             "@shared/*": ["src/shared/*"],
-            "@store/*": ["src/store/*"],
-            "@image/*": ["src/image/*"]
+            "@entities/*": ["src/entities/*"],
+            "@widgets/*": ["src/widgets/*"]
         },
         "skipLibCheck": true,
         "noEmit": true,
