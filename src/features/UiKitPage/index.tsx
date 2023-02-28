@@ -34,16 +34,16 @@ export default function UiKitPage() {
             <Form<TUser> config={cfg} persist>
                 <Grid>
                     <Grid.Col span={6}>
-                        <FInput name="fio" label="Имя" placeholder="Имя" />
+                        <FInput name="fio" label="Имя" />
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <FInput name="email" label="Email" placeholder="Email" />
+                        <FInput name="email" label="Email" />
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <FInput name="role" label="Пароль" placeholder="Пароль" />
+                        <FInput name="role" label="Пароль" />
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <FInput name="status" label="Описание" placeholder="Описание" />
+                        <FInput name="status" label="Описание" />
                     </Grid.Col>
                     <Grid.Col span={12}>
                         <Flex justify="space-between">

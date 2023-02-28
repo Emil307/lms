@@ -2,24 +2,47 @@
 import { MantineColor } from "@mantine/core";
 import { MantineThemeColors } from "@mantine/core";
 import { MantineThemeOverride } from "@mantine/core";
-import * as fonts from './fonts';
+import * as fonts from "./fonts";
 
 export const addMantineColor = (color: string): MantineThemeColors[MantineColor] => {
     return [color, color, color, color, color, color, color, color, color, color];
 };
 
-
 const { FuturaFont, MontserratFont } = fonts;
 
-
 export const defaultTheme: MantineThemeOverride = {
-    colorScheme: 'light',
+    colorScheme: "light",
     fontFamily: FuturaFont.style.fontFamily,
-    primaryColor: 'primary',
+    primaryColor: "primary",
     colors: {
+        primary: addMantineColor("#CC9A6C"),
+        primaryHover: addMantineColor("#CA905B"),
+        primary16: addMantineColor("rgba(204, 154, 108, 0.16)"),
+        primary8: addMantineColor("rgba(204, 154, 108, 0.08)"),
+        secondary: addMantineColor("#D6913D"),
+        secondaryHover: addMantineColor("#DA851F"),
+        secondary16: addMantineColor("rgba(225, 144, 46, 0.16)"),
+        secondary8: addMantineColor("rgba(225, 144, 46, 0.8)"),
+        dark: addMantineColor("#02062E"),
+        gray45: addMantineColor("rgba(0, 4, 41, 0.45)"),
+        gray20: addMantineColor("rgba(0, 4, 41, 0.2)"),
+        grayLight: addMantineColor("#EDEDF0"),
+        light: addMantineColor("#F7F7F7"),
+        white: addMantineColor("#FFFFFF"),
+        white56: addMantineColor("rgba(255, 255, 255, 0.56)"),
+        white16: addMantineColor("rgba(255, 255, 255, 0.16)"),
+        info: addMantineColor("#3C4FF5"),
+        info16: addMantineColor("rgba(122, 136, 255, 0.16)"),
+        done: addMantineColor("#2DCC46"),
+        doneDark: addMantineColor("#00AA1B"),
+        done16: addMantineColor("#rgba(0, 216, 35, 0.16)"),
+        error: addMantineColor("#FFB119"),
+        errorDark: addMantineColor("#E59700"),
+        error16: addMantineColor("rgba(255, 177, 25, 0.16)"),
+        warning: addMantineColor("#F23218"),
+        warning16: addMantineColor("rgba(242, 50, 24, 0.16)"),
         background: addMantineColor("#F7F7F7"),
-        primary: addMantineColor('#D6913D'),
-        neutral_gray: addMantineColor('#00042973')
+        neutral_gray: addMantineColor("#00042973"),
     },
     defaultRadius: "sm",
     headings: {
