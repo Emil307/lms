@@ -6,6 +6,7 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { Form } from "@shared/ui";
+import { Search } from "@shared/ui/Search";
 
 type Values = {
     login: string;
@@ -33,6 +34,7 @@ export const UIDemo = () => {
     };
     return (
         <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+            <Search placeholder="Search"/>
             <Input
                 onChange={(e) => setInputValuePassword(e.target.value)}
                 value={inputValuePassword}
