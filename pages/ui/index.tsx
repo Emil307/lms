@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Stack } from "@mantine/core";
+import { Box, Flex, Stack } from "@mantine/core";
 import { Target } from "react-feather";
 import * as Yup from "yup";
 import { FormikConfig } from "formik";
@@ -9,7 +9,7 @@ import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button } from "@shared/ui";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button, RingProgress } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -43,6 +43,7 @@ export const loginValidationSchema = Yup.object().shape({
 });
 
 export const UIDemo = () => {
+    const [valueRingProgress, setValueRingProgress] = useState(60);
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
     const [selectValue, setSelectValue] = useState("");
@@ -81,6 +82,16 @@ export const UIDemo = () => {
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
+                <Box display="flex">
+                    <RingProgress value={valueRingProgress} label="text" />
+                    <RingProgress value={valueRingProgress} size="small" />
+                </Box>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev - 10)}>
+                    -
+                </Button>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev + 10)}>
+                    +
+                </Button>
                 <Input
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
