@@ -6,6 +6,13 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { Form } from "@shared/ui";
+import { Tabs } from "@shared/ui/Tabs";
+
+const tabsList = [
+    { id: 1, label: "First", value: "1" },
+    { id: 2, label: "Second", value: "2" },
+    { id: 3, label: "Third", value: "3", isNew: true },
+];
 
 type Values = {
     login: string;
@@ -42,6 +49,7 @@ export const UIDemo = () => {
             />
             <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
             <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
+            <Tabs tabs={tabsList} />
             <Form config={config}>
                 <Stack>
                     <FInput label="Login" name="login" />
