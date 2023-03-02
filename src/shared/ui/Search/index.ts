@@ -1,3 +1,5 @@
-import Search from "./Search";
+import Search, { SearchProps } from "./Search";
 
 export { Search };
+
+export type { SearchProps };

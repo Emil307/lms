@@ -21,6 +21,7 @@ export const loginValidationSchema = Yup.object().shape({
 export const UIDemo = () => {
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
+    const [searchValue, setSearchValue] = useState("");
 
     const config: FormikConfig<Values> = {
         initialValues: {
@@ -34,7 +35,7 @@ export const UIDemo = () => {
     };
     return (
         <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
-            <Search placeholder="Search"/>
+            <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
             <Input
                 onChange={(e) => setInputValuePassword(e.target.value)}
                 value={inputValuePassword}
