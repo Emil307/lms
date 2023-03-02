@@ -10,7 +10,7 @@ import { defaultTheme } from "@app/providers/Theme/theme";
 import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button, RingProgress, FSlider } from "@shared/ui";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button, RingProgress, FSlider, Tooltip } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -256,7 +256,9 @@ export const UIDemo = () => {
                             />
                             <FCheckbox name="isConsentProcessingOfPersonalData" />
                             <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
-                            <Button type="submit">Submit</Button>
+                            <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
+                                <Button type="submit">Submit</Button>
+                            </Tooltip>
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                 Prev
