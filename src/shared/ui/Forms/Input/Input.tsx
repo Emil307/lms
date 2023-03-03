@@ -3,14 +3,12 @@ import { memo, ReactNode, useCallback, useState } from "react";
 import { Eye, EyeOff } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { usePassword } from "@shared/utils/usePassword";
-import { useInputStyles } from "./InputStyles";
+import { useInputStyles } from "../../../styles/InputStyles";
 
-export interface InputProps extends React.ComponentProps<typeof MInput> {
-    sizeInput?: "small" | "normal";
-}
+export interface InputProps extends React.ComponentProps<typeof MInput> {}
 
 const MemoizedInput = memo(function Input(props: InputProps) {
-    const { type, icon, rightSection, sizeInput } = props;
+    const { type, icon, rightSection, size } = props;
 
     const isPasswordField = type === "password";
     const { isPasswordVisible, toggleVisibility } = usePassword();
@@ -40,7 +38,7 @@ const MemoizedInput = memo(function Input(props: InputProps) {
 
     const [focused, setFocused] = useState(false);
 
-    const { classes } = useInputStyles({ floating: !!props.value || focused, icon: icon, size: sizeInput });
+    const { classes } = useInputStyles({ floating: !!props.value || focused, icon: icon, size: size });
 
     return (
         <MInput
