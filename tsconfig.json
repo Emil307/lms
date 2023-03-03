@@ -19,7 +19,7 @@
         "paths": {
             "@app/*": ["./src/app/*"],
             "@fonts/*": ["./src/app/providers/theme/fonts/*"],
-            "@components/*": ["src/components/*"],
+            "@components": ["src/components"],
             "@public/*": ["./public/*"],
             "@layouts/*": ["src/layouts/*"],
             "@pages/*": ["./src/pages/*"],
