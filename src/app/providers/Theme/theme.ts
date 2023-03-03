@@ -86,6 +86,27 @@ export const defaultTheme: MantineThemeOverride = {
                 },
             }),
         },
+        Select: {
+            styles: (theme) => ({
+                dropdown: {},
+                item: {
+                    padding: 12,
+                    ":hover": {
+                        backgroundColor: theme.colors.primary8[0],
+                        borderRadius: 8
+                    },
+                    "&[data-selected]": {
+                        backgroundColor: theme.colors.primary8[0],
+                        borderRadius: 8,
+                        color: theme.colors.dark[0],
+                        ":hover": {
+                            backgroundColor: theme.colors.primary8[0],
+                            borderRadius: 8
+                        },
+                    },
+                },
+            }),
+        },
     },
 };
 /**root: {
