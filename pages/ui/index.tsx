@@ -24,6 +24,7 @@ import {
     FSlider,
     Tooltip,
     DisplayField,
+    FSwitch,
 } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
@@ -66,6 +67,8 @@ type Values = {
     multi: string[];
     isConsentProcessingOfPersonalData: boolean;
     price: number;
+    hasOwner: boolean;
+    hasPassword: boolean;
 };
 
 const radioGroupValues = [
@@ -117,6 +120,8 @@ export const UIDemo = () => {
             multi: [],
             isConsentProcessingOfPersonalData: false,
             price: 1500,
+            hasOwner: true,
+            hasPassword: false,
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
@@ -309,6 +314,8 @@ export const UIDemo = () => {
                             <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
                                 <Button type="submit">Submit</Button>
                             </Tooltip>
+                            <FSwitch name="hasOwner" label="llalal" labelPosition="left" variant="primary" />
+                            <FSwitch name="hasPassword" variant="secondary" />
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                 Prev
