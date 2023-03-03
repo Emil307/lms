@@ -6,7 +6,7 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { Form } from "@shared/ui";
+import { Form, FProgressBar } from "@shared/ui";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -19,6 +19,7 @@ type Values = {
     login: string;
     password: string;
     select: string;
+    step: number;
 };
 
 export const loginValidationSchema = Yup.object().shape({
@@ -41,6 +42,7 @@ export const UIDemo = () => {
             login: "",
             password: "",
             select: "",
+            step: 10,
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
@@ -61,12 +63,21 @@ export const UIDemo = () => {
             <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
             <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
             <Form config={config}>
-                <Stack>
-                    <FInput label="Login" name="login" />
-                    <FInput type="password" label="Password" name="password" />
-                    <FSelect label="Select" name="select" data={testDataSelect} />
-                    <Button type="submit">Submit</Button>
-                </Stack>
+                {({ setFieldValue, values }) => (
+                    <Stack>
+                        <FInput label="Login" name="login" />
+                        <FInput type="password" label="Password" name="password" />
+                        <FSelect label="Select" name="select" data={testDataSelect} />
+                        <Button type="submit">Submit</Button>
+                        <FProgressBar name="step" label="вопросов" maxValue={16} />
+                        <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
+                            Prev
+                        </Button>
+                        <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
+                            Next
+                        </Button>
+                    </Stack>
+                )}
             </Form>
         </Stack>
     );
