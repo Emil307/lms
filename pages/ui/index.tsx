@@ -7,12 +7,30 @@ import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { BreadCrumbs, Form, FProgressBar, TBreadCrumbItem } from "@shared/ui";
+import { MultiSelect } from "@shared/ui/Forms/MultiSelect";
 
 const testDataSelect = [
     { value: "react", label: "React" },
     { value: "ng", label: "Angular" },
     { value: "svelte", label: "Svelte" },
     { value: "vue", label: "Vue" },
+];
+
+const dataMultiSelect = [
+    { value: "react", label: "React" },
+    { value: "ng", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "vue", label: "Vue" },
+    { value: "riot", label: "Riot" },
+    { value: "next", label: "Next.js" },
+    { value: "blitz", label: "Blitz.js" },
+    { value: "react2", label: "React2" },
+    { value: "ng2", label: "Angular2" },
+    { value: "svelte2", label: "Svelte2" },
+    { value: "vue2", label: "Vue2" },
+    { value: "riot2", label: "Riot2" },
+    { value: "next2", label: "Next.js2" },
+    { value: "blitz2", label: "Blitz.js2" },
 ];
 
 type Values = {
@@ -32,6 +50,11 @@ export const UIDemo = () => {
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
     const [selectValue, setSelectValue] = useState("");
+    const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
+
+    const handlerSelectValue = (value: string[]) => {
+        setMultiSelectValue(value);
+    };
 
     const handlerChangeSelect = (value: string) => {
         setSelectValue(value);
@@ -59,6 +82,7 @@ export const UIDemo = () => {
         <>
             <BreadCrumbs items={breadCrumbsItems} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+                <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Input
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
