@@ -7,6 +7,7 @@ import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { BreadCrumbs, Form, FProgressBar, TBreadCrumbItem } from "@shared/ui";
+import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -43,6 +44,8 @@ export const UIDemo = () => {
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
 
+    const [date, setDate] = useState<Date | null>(null);
+
     const config: FormikConfig<Values> = {
         initialValues: {
             login: "",
@@ -70,6 +73,7 @@ export const UIDemo = () => {
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
+                <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />
                 <Form config={config}>
                     {({ setFieldValue, values }) => (
                         <Stack>
