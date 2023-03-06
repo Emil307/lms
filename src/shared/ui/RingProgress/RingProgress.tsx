@@ -14,7 +14,7 @@ const MemoizedRingProgress = memo(function RingProgress({ value, label, size = "
     const { classes } = useStyles({ size });
     const sections = useMemo(() => [{ value, color: "secondary" }], [value]);
     const thickness = useMemo(() => (size === "small" ? 4.8 : 9.6), [size]);
-    const sizeValue = useMemo(() => (size === "small" ? 60 : 120), [size]);
+    const sizeValue = useMemo(() => (size === "small" ? 64 : 128), [size]);
     const labelContent = useMemo(
         () => (
             <Box>
