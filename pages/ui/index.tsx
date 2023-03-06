@@ -6,7 +6,7 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { BreadCrumbs, Form, FProgressBar, Rating, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -21,6 +21,7 @@ type Values = {
     password: string;
     select: string;
     step: number;
+    isConsentProcessingOfPersonalData: boolean;
 };
 
 export const loginValidationSchema = Yup.object().shape({
@@ -52,6 +53,7 @@ export const UIDemo = () => {
             password: "",
             select: "",
             step: 10,
+            isConsentProcessingOfPersonalData: false,
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
@@ -82,6 +84,12 @@ export const UIDemo = () => {
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
+                            <FCheckbox
+                                name="isConsentProcessingOfPersonalData"
+                                label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
+                            />
+                            <FCheckbox name="isConsentProcessingOfPersonalData" />
+                            <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
                             <Button type="submit">Submit</Button>
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
