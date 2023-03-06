@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Box, Tabs as MTabs } from "@mantine/core";
+import { Box, Tabs as MTabs, TabsProps as MTabsProps } from "@mantine/core";
 import { useTabsStyles } from "./TabsStyles";
 
 interface TabItem {
@@ -9,7 +9,7 @@ interface TabItem {
     isNew?: boolean;
 }
 
-export interface TabsProps extends Omit<React.ComponentProps<typeof MTabs>, "children"> {
+export interface TabsProps extends MTabsProps {
     tabs: TabItem[];
 }
 
