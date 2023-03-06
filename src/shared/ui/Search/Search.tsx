@@ -1,19 +1,20 @@
 import React, { memo } from "react";
-import { TextInput as MInput } from "@mantine/core";
+import { TextInput as MInput, TextInputProps as MTextInputProps } from "@mantine/core";
 import { Search as SearchIcon, X } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { useSearchStyles } from "./searchStyles";
 
-export interface SearchProps extends React.ComponentProps<typeof MInput> {
+export interface SearchProps extends MTextInputProps {
     styleVariant?: "default" | "course";
     setValue: (value: string) => void;
 }
 
-const Search = ({ setValue, value, styleVariant = "default", ...props }: SearchProps) => {
+const Search = ({ setValue, onChange = () => undefined, value, styleVariant = "default", ...props }: SearchProps) => {
     const { classes } = useSearchStyles({ styleVariant }, { name: "Search" });
 
-    const handlerChange = (currentValue: string) => {
-        setValue(currentValue);
+    const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(e);
+        setValue(e.currentTarget.value);
     };
 
     const RightSection = () => {
@@ -28,7 +29,7 @@ const Search = ({ setValue, value, styleVariant = "default", ...props }: SearchP
             icon={<SearchIcon size={16} color={defaultTheme.colors?.primary?.[0]} />}
             classNames={classes}
             rightSection={<RightSection />}
-            onChange={(e) => handlerChange(e.currentTarget.value)}
+            onChange={handlerChange}
         />
     );
 };
