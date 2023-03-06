@@ -6,7 +6,9 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, } from "@shared/ui";
+import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
+import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -19,14 +21,23 @@ const testDataSelect = [
 type Values = {
     login: string;
     password: string;
+    option: string;
     select: string;
     step: number;
     isConsentProcessingOfPersonalData: boolean;
 };
 
+const radioGroupValues = [
+    { id: "1", label: "1000", value: "1" },
+    { id: "2", label: "2000", value: "2" },
+    { id: "3", label: "3000", value: "3", disabled: true },
+    { id: "4", label: "4000", value: "4", disabled: true },
+];
+
 export const loginValidationSchema = Yup.object().shape({
     login: Yup.string().required("Это обязательное поле"),
     password: Yup.string().required("Это обязательное поле"),
+    option: Yup.string().required("Выберите что-то"),
     select: Yup.string().required("Нужно что-то выбрать"),
 });
 
@@ -51,6 +62,7 @@ export const UIDemo = () => {
         initialValues: {
             login: "",
             password: "",
+            option: "",
             select: "",
             step: 10,
             isConsentProcessingOfPersonalData: false,
@@ -73,6 +85,11 @@ export const UIDemo = () => {
                     icon={<Target color={defaultTheme.colors?.gray45?.[0]} />}
                     type="password"
                 />
+                <RadioGroup>
+                    {radioGroupValues.map((item) => {
+                        return <Radio key={item.id} label={item.label} value={item.value} />;
+                    })}
+                </RadioGroup>
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
@@ -84,6 +101,12 @@ export const UIDemo = () => {
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
+
+                            <FRadioGroup name="option">
+                                {radioGroupValues.map((item) => {
+                                    return <Radio key={item.id} label={item.label} value={item.value} />;
+                                })}
+                            </FRadioGroup>
                             <FCheckbox
                                 name="isConsentProcessingOfPersonalData"
                                 label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
