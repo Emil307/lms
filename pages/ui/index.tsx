@@ -7,7 +7,7 @@ import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { BreadCrumbs, Form, FProgressBar, TBreadCrumbItem } from "@shared/ui";
-import { MultiSelect } from "@shared/ui/Forms/MultiSelect";
+import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -38,12 +38,14 @@ type Values = {
     password: string;
     select: string;
     step: number;
+    multi: string[];
 };
 
 export const loginValidationSchema = Yup.object().shape({
     login: Yup.string().required("Это обязательное поле"),
     password: Yup.string().required("Это обязательное поле"),
     select: Yup.string().required("Нужно что-то выбрать"),
+    multi: Yup.array().min(1, "Выберете хотя бы один пункт"),
 });
 
 export const UIDemo = () => {
@@ -72,6 +74,7 @@ export const UIDemo = () => {
             password: "",
             select: "",
             step: 10,
+            multi: [],
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
@@ -100,6 +103,7 @@ export const UIDemo = () => {
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
+                            <FMultiSelect data={dataMultiSelect} value={multiSelectValue} name="multi" label="Multi" />
                             <Button type="submit">Submit</Button>
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>

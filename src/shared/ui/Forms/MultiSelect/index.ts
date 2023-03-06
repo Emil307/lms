@@ -1,4 +1,5 @@
 import MultiSelect, { MultiSelectProps } from "./MultiSelect";
+import FMultiSelect, { FMultiSelectProps } from "./FMultiSelect";
 
-export { MultiSelect };
-export type { MultiSelectProps };
+export { MultiSelect, FMultiSelect };
+export type { MultiSelectProps, FMultiSelectProps };
