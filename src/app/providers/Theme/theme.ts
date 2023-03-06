@@ -43,6 +43,7 @@ export const defaultTheme: MantineThemeOverride = {
         warning16: addMantineColor("rgba(242, 50, 24, 0.16)"),
         background: addMantineColor("#F7F7F7"),
         neutral_gray: addMantineColor("#00042973"),
+        shadowGray: addMantineColor("#00126e"),
     },
     defaultRadius: "sm",
     headings: {
@@ -93,7 +94,7 @@ export const defaultTheme: MantineThemeOverride = {
                     padding: 12,
                     ":hover": {
                         backgroundColor: theme.colors.primary8[0],
-                        borderRadius: 8
+                        borderRadius: 8,
                     },
                     "&[data-selected]": {
                         backgroundColor: theme.colors.primary8[0],
@@ -101,7 +102,7 @@ export const defaultTheme: MantineThemeOverride = {
                         color: theme.colors.dark[0],
                         ":hover": {
                             backgroundColor: theme.colors.primary8[0],
-                            borderRadius: 8
+                            borderRadius: 8,
                         },
                     },
                 },

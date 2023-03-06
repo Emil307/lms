@@ -6,10 +6,21 @@ export interface FMultiSelectProps extends MultiSelectProps {
     name: string;
 }
 
-const FMultiSelect = ({ name, ...props }: FMultiSelectProps) => {
+const FMultiSelect = ({ name, onChange = () => undefined, onBlur = () => undefined, ...props }: FMultiSelectProps) => {
     const [field, meta, helper] = useField(name);
     const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
-    return <MultiSelect {...props} onChange={helper.setValue} onBlur={field.onBlur} value={field.value} name={field.name} error={error} />;
+
+    const handlerChange = (value: string[]) => {
+        onChange(value);
+        helper.setValue(value);
+    };
+
+    const handlerBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+        onBlur(e);
+        field.onBlur;
+    };
+
+    return <MultiSelect {...props} onChange={handlerChange} onBlur={handlerBlur} value={field.value} name={field.name} error={error} />;
 };
 
 export default FMultiSelect;
