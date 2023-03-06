@@ -108,6 +108,19 @@ export const defaultTheme: MantineThemeOverride = {
                 },
             }),
         },
+        DatePicker: {
+            defaultProps: {
+                inputFormat: "DD/MM/YYYY",
+                locale: "ru"
+            },
+            styles: (theme) => ({
+                day: {
+                    ":hover": {
+                        backgroundColor: theme.colors.primary16[0],
+                    },
+                },
+            }),
+        },
     },
 };
 /**root: {

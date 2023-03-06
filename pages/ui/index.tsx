@@ -6,8 +6,11 @@ import { FormikConfig } from "formik";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { BreadCrumbs, Form, FProgressBar, TBreadCrumbItem } from "@shared/ui";
 import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
+import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
+import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating } from "@shared/ui";
+import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -36,14 +39,24 @@ const dataMultiSelect = [
 type Values = {
     login: string;
     password: string;
+    option: string;
     select: string;
     step: number;
     multi: string[];
+    isConsentProcessingOfPersonalData: boolean;
 };
+
+const radioGroupValues = [
+    { id: "1", label: "1000", value: "1" },
+    { id: "2", label: "2000", value: "2" },
+    { id: "3", label: "3000", value: "3", disabled: true },
+    { id: "4", label: "4000", value: "4", disabled: true },
+];
 
 export const loginValidationSchema = Yup.object().shape({
     login: Yup.string().required("Это обязательное поле"),
     password: Yup.string().required("Это обязательное поле"),
+    option: Yup.string().required("Выберите что-то"),
     select: Yup.string().required("Нужно что-то выбрать"),
     multi: Yup.array().min(1, "Выберете хотя бы один пункт"),
 });
@@ -68,13 +81,17 @@ export const UIDemo = () => {
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
 
+    const [date, setDate] = useState<Date | null>(null);
+
     const config: FormikConfig<Values> = {
         initialValues: {
             login: "",
             password: "",
+            option: "",
             select: "",
             step: 10,
             multi: [],
+            isConsentProcessingOfPersonalData: false,
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
@@ -86,6 +103,8 @@ export const UIDemo = () => {
             <BreadCrumbs items={breadCrumbsItems} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
+                <Rating defaultValue={2} count={5} />
+                <Rating defaultValue={1} count={1} readOnly size="small" />
                 <Input
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
@@ -93,10 +112,16 @@ export const UIDemo = () => {
                     icon={<Target color={defaultTheme.colors?.gray45?.[0]} />}
                     type="password"
                 />
+                <RadioGroup>
+                    {radioGroupValues.map((item) => {
+                        return <Radio key={item.id} label={item.label} value={item.value} />;
+                    })}
+                </RadioGroup>
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
+                <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />
                 <Form config={config}>
                     {({ setFieldValue, values }) => (
                         <Stack>
@@ -104,6 +129,17 @@ export const UIDemo = () => {
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
                             <FMultiSelect data={dataMultiSelect} value={multiSelectValue} name="multi" label="Multi" />
+                            <FRadioGroup name="option">
+                                {radioGroupValues.map((item) => {
+                                    return <Radio key={item.id} label={item.label} value={item.value} />;
+                                })}
+                            </FRadioGroup>
+                            <FCheckbox
+                                name="isConsentProcessingOfPersonalData"
+                                label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
+                            />
+                            <FCheckbox name="isConsentProcessingOfPersonalData" />
+                            <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
                             <Button type="submit">Submit</Button>
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
