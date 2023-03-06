@@ -93,7 +93,7 @@ export const defaultTheme: MantineThemeOverride = {
                     padding: 12,
                     ":hover": {
                         backgroundColor: theme.colors.primary8[0],
-                        borderRadius: 8
+                        borderRadius: 8,
                     },
                     "&[data-selected]": {
                         backgroundColor: theme.colors.primary8[0],
@@ -101,8 +101,21 @@ export const defaultTheme: MantineThemeOverride = {
                         color: theme.colors.dark[0],
                         ":hover": {
                             backgroundColor: theme.colors.primary8[0],
-                            borderRadius: 8
+                            borderRadius: 8,
                         },
+                    },
+                },
+            }),
+        },
+        DatePicker: {
+            defaultProps: {
+                inputFormat: "DD/MM/YYYY",
+                locale: "ru"
+            },
+            styles: (theme) => ({
+                day: {
+                    ":hover": {
+                        backgroundColor: theme.colors.primary16[0],
                     },
                 },
             }),
