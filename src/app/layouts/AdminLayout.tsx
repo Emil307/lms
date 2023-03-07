@@ -16,13 +16,16 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                     width={{ base: 300 }}
                     pl={0}
                     height="auto"
-                    p="lg"
+                    p={16}
                     sx={() => ({
                         backgroundColor: "inherit",
                         border: "none",
                     })}>
                     <Navbar.Section>
-                        <Logo />
+                        <Box pl={24}>
+                            <Logo />
+                        </Box>
+
                         <Box mt={32}>
                             <Sidebar />
                         </Box>
@@ -42,7 +45,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                 <Header />
             }
             footer={<Footer />}>
-            <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem"), })} px={32} py={32}>
+            <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
                 {children}
             </Box>
         </AppShell>
