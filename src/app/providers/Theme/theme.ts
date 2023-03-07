@@ -8,7 +8,7 @@ export const addMantineColor = (color: string): MantineThemeColors[MantineColor]
     return [color, color, color, color, color, color, color, color, color, color];
 };
 
-const { FuturaFont, MontserratFont } = fonts;
+const { FuturaFont, MontserratFont, ManropeFont } = fonts;
 
 export const defaultTheme: MantineThemeOverride = {
     colorScheme: "light",
@@ -110,13 +110,20 @@ export const defaultTheme: MantineThemeOverride = {
         DatePicker: {
             defaultProps: {
                 inputFormat: "DD/MM/YYYY",
-                locale: "ru"
+                locale: "ru",
             },
             styles: (theme) => ({
                 day: {
                     ":hover": {
                         backgroundColor: theme.colors.primary16[0],
                     },
+                },
+            }),
+        },
+        Button: {
+            styles: (theme) => ({
+                root: {
+                    fontFamily: ManropeFont.style.fontFamily,
                 },
             }),
         },

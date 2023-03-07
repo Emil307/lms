@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Stack } from "@mantine/core";
+import { Box, Stack } from "@mantine/core";
 import { Target } from "react-feather";
 import * as Yup from "yup";
 import { FormikConfig } from "formik";
@@ -8,7 +8,7 @@ import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating } from "@shared/ui";
+import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button } from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -90,6 +90,10 @@ export const UIDemo = () => {
                         return <Radio key={item.id} label={item.label} value={item.value} />;
                     })}
                 </RadioGroup>
+                <Box>
+                    <Button variant="primary" leftIcon={<Target/>} rightIcon={<Target/>}>Button</Button>
+                </Box>
+
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
