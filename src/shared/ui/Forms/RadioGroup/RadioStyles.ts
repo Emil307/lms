@@ -10,7 +10,6 @@ export const useRadioStyles = createStyles((theme) => ({
             },
         },
     },
-
     label: {
         paddingLeft: "8px",
         cursor: "pointer",
@@ -26,6 +25,6 @@ export const useRadioStyles = createStyles((theme) => ({
         ":disabled": {
             border: `1px solid ${theme.fn.rgba(theme.colors.primary[0], 0.0)}`,
             backgroundColor: theme.colors.gray20[0],
-        }
+        },
     },
 }));
