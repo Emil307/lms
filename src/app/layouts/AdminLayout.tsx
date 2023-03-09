@@ -5,12 +5,15 @@ import Logo from "@components/Logo";
 import { Sidebar } from "@widgets/Sidebar";
 import Footer from "./AdminLayout/ui/Footer/Footer";
 import Header from "./AdminLayout/ui/Header/Header";
+import { useAdminLayoutStyles } from "./AdminLayoutStyles";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
+    const { classes } = useAdminLayoutStyles();
     return (
         <AppShell
+            // padding="lg"
+            classNames={classes}
             layout="alt"
-            padding="lg"
             navbar={
                 <Navbar
                     width={{ base: 300 }}
@@ -33,17 +36,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                     <Navbar.Section>{/* Footer with user */}</Navbar.Section>
                 </Navbar>
             }
-            header={
-                // <Header
-                //     height={104}
-                //     p="xs"
-                //     py="lg"
-                //     sx={() => ({
-                //         backgroundColor: "inherit",
-                //         border: "none",
-                //     })}>qwew</Header>
-                <Header />
-            }
+            header={<Header />}
             footer={<Footer />}>
             <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
                 {children}

@@ -6,7 +6,7 @@ import { Notification } from "@components/Notification";
 const Header = () => {
     const { classes } = useHeaderStyles();
     return (
-        <MHeader classNames={classes} height="auto">
+        <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex justify="space-between">
                 <Notification />
 
