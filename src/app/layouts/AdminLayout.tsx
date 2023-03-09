@@ -11,7 +11,6 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
     const { classes } = useAdminLayoutStyles();
     return (
         <AppShell
-            // padding="lg"
             classNames={classes}
             layout="alt"
             navbar={

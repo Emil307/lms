@@ -2,10 +2,9 @@ import React from "react";
 import { Container, Flex, Footer as MFooter, Text } from "@mantine/core";
 import Logo from "@components/Logo";
 import { useFooterStyles } from "./FooterStyles";
-import { X } from "react-feather";
+import { Facebook, Target, X } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
-
-// export interface FooterProps extends MFooterProps {}
+import { Button } from "@shared/ui";
 
 const Footer = () => {
     const { classes } = useFooterStyles();
@@ -40,7 +39,7 @@ const Footer = () => {
                     </Flex>
                 </Flex>
                 <Flex>
-                    <X />
+                    <Button size="large" iconButton>12</Button>
                     <X />
                 </Flex>
             </Flex>

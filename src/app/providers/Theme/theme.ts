@@ -128,10 +128,20 @@ export const defaultTheme: MantineThemeOverride = {
                 },
             }),
         },
+
         Text: {
             styles: (theme) => ({
                 root: {
                     fontFamily: ManropeFont.style.fontFamily,
+                },
+            }),
+        },
+        Button: {
+            styles: () => ({
+                root: {
+                    fontFamily: ManropeFont.style.fontFamily,
+                    fontWeight: 600,
+                    borderRadius: 8,
                 },
             }),
         },
