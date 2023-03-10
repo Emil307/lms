@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { Accordion } from "@mantine/core";
-import { useSidebarItemWithChildrenStyles } from "./useSidebarItemWithChildrenStyles";
-import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
 import { Minus, Plus } from "react-feather";
 import { useToggle } from "@mantine/hooks";
+import { useSidebarItemWithChildrenStyles } from "./useSidebarItemWithChildrenStyles";
+import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
 interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;
 }

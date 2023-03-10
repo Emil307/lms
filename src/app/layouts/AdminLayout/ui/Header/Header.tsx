@@ -1,16 +1,27 @@
 import React from "react";
-import { Box, Flex, Header as MHeader } from "@mantine/core";
+import { Avatar, Flex, Header as MHeader, Stack, Text } from "@mantine/core";
+import { Button } from "@shared/ui";
 import { useHeaderStyles } from "./HeaderStyles";
-import { Notification } from "@components/Notification";
 
 const Header = () => {
     const { classes } = useHeaderStyles();
     return (
         <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex justify="space-between">
-                <Notification />
+                <Button variant="text">Notification</Button>
 
-                <Box>Avatar Setting Exit</Box>
+                <Flex align="center" gap={32}>
+                    <Flex align="center" gap={16}>
+                        <Avatar w={50} h={50} />
+                        <Stack spacing={0}>
+                            <Text>Name</Text> <Text>Name</Text>
+                        </Stack>
+                    </Flex>
+                    <Flex gap={8}>
+                        <Button variant="text">1</Button>
+                        <Button variant="text">2</Button>
+                    </Flex>
+                </Flex>
             </Flex>
         </MHeader>
     );

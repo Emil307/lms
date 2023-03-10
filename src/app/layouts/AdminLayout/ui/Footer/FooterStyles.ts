@@ -7,7 +7,7 @@ export const useFooterStyles = createStyles((theme) => ({
         padding: "0 24px",
         position: "static",
         maxHeight: 192,
-        marginTop: 32
+        marginTop: 32,
     },
     inner: {
         height: 136,
