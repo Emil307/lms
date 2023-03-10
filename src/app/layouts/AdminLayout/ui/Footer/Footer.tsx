@@ -1,10 +1,12 @@
 import React from "react";
 import { Container, Flex, Footer as MFooter, Text } from "@mantine/core";
 import Logo from "@components/Logo";
-import { useFooterStyles } from "./FooterStyles";
-import { Facebook, Target, X } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
+
 import { Button } from "@shared/ui";
+import IconFaceBook from "public/icons/icon24px/social/facebook.svg";
+import IconVK from "public/icons/icon24px/social/VK.svg";
+import { useFooterStyles } from "./FooterStyles";
 
 const Footer = () => {
     const { classes } = useFooterStyles();
@@ -38,9 +40,13 @@ const Footer = () => {
                         </Container>
                     </Flex>
                 </Flex>
-                <Flex>
-                    <Button size="large" iconButton>12</Button>
-                    <X />
+                <Flex gap={16}>
+                    <Button size="large" iconButton>
+                        <IconFaceBook />
+                    </Button>
+                    <Button size="large" iconButton>
+                        <IconVK />
+                    </Button>
                 </Flex>
             </Flex>
             <Container h={48} mt={8} pt={16} pb={16} ta="center">

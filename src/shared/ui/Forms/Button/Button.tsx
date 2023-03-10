@@ -1,4 +1,4 @@
-import { Button as MButton, ButtonProps as MButtonProps } from "@mantine/core";
+import { Button as MButton, ButtonProps as MButtonProps, } from "@mantine/core";
 import { memo } from "react";
 import { useButtonStyles } from "./ButtonStyles";
 

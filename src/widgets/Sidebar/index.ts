@@ -1,7 +1,3 @@
-import Item from './Item'
-import Sidebar from './Sidebar'
+import Sidebar from "./Sidebar";
 
-export {
-    Item,
-    Sidebar
-}
+export { Sidebar };
