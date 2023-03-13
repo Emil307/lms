@@ -12,7 +12,7 @@ const { FuturaFont, MontserratFont, ManropeFont } = fonts;
 
 export const defaultTheme: MantineThemeOverride = {
     colorScheme: "light",
-    fontFamily: FuturaFont.style.fontFamily,
+    fontFamily: ManropeFont.style.fontFamily,
     primaryColor: "primary",
     colors: {
         primary: addMantineColor("#CC9A6C"),

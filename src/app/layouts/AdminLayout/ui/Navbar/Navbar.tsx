@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, Navbar as MNavbar } from "@mantine/core";
 import { Sidebar } from "@widgets/Sidebar";
-import Logo from "@components/Logo";
+import { Logo } from "src/components/Logo";
+
 
 const Navbar = () => {
     return (

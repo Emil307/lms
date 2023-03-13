@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "formulahendry.auto-rename-tag",
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "meganrogge.template-string-converter",
+        "eamodio.gitlens",
+        "wayou.vscode-todo-highlight",
+        "KnisterPeter.vscode-commitizen"
+    ]
+}
