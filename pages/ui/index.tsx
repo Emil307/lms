@@ -7,6 +7,7 @@ import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
+import { Tabs } from "@shared/ui/Tabs";
 import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
@@ -18,6 +19,12 @@ const testDataSelect = [
     { value: "ng", label: "Angular" },
     { value: "svelte", label: "Svelte" },
     { value: "vue", label: "Vue" },
+];
+
+const tabsList = [
+    { id: 1, label: "First", value: "1" },
+    { id: 2, label: "Second", value: "2" },
+    { id: 3, label: "Third", value: "3", withIndicator: true },
 ];
 
 type Values = {
@@ -83,6 +90,7 @@ export const UIDemo = () => {
         <>
             <BreadCrumbs items={breadCrumbsItems} />
             <Logo />
+            <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
