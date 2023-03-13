@@ -7,6 +7,7 @@ import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
+import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
 import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button, RingProgress } from "@shared/ui";
@@ -46,6 +47,7 @@ export const UIDemo = () => {
     const [valueRingProgress, setValueRingProgress] = useState(60);
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
 
     const handlerChangeSelect = (value: string) => {
@@ -227,7 +229,7 @@ export const UIDemo = () => {
                         Button
                     </Button>
                 </Flex>
-
+                <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
