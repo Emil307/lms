@@ -1,13 +1,14 @@
 import React from "react";
 import { Box, Navbar as MNavbar } from "@mantine/core";
-import { Sidebar } from "@widgets/Sidebar";
+
 import { Logo } from "src/components/Logo";
+import { Sidebar } from "./Sidebar";
 
 
-const Navbar = () => {
+const NavbarAdmin = () => {
     return (
         <MNavbar
-            width={{ base: 300 }}
+            width={{ base: 280 }}
             pl={0}
             height="auto"
             p={16}
@@ -19,11 +20,11 @@ const Navbar = () => {
                 <Logo />
             </Box>
 
-            <Box mt={32}>
+            <Box mt={48}>
                 <Sidebar />
             </Box>
         </MNavbar>
     );
 };
 
-export default Navbar;
+export default NavbarAdmin;

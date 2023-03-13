@@ -1,10 +1,10 @@
 import { createStyles } from "@mantine/core";
 
-export const useHeaderStyles = createStyles(() => ({
+export const useHeaderAdminStyles = createStyles(() => ({
     root: {
         position: "static",
-        marginLeft: 300,
-        padding: "32px 32px 32px 20px",
+        marginLeft: 280,
+        padding: "32px 0px 32px 0px",
         border: "none",
         backgroundColor: "inherit",
         height: 104,

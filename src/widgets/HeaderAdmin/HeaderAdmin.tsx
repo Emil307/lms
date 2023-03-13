@@ -1,10 +1,10 @@
 import React from "react";
 import { Avatar, Flex, Header as MHeader, Stack, Text } from "@mantine/core";
 import { Button } from "@shared/ui";
-import { useHeaderStyles } from "./HeaderStyles";
+import { useHeaderAdminStyles } from "./HeaderAdminStyles";
 
-const Header = () => {
-    const { classes } = useHeaderStyles();
+const HeaderAdmin = () => {
+    const { classes } = useHeaderAdminStyles();
     return (
         <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex justify="space-between">
@@ -27,4 +27,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderAdmin;

@@ -1,10 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-export const useFooterStyles = createStyles((theme) => ({
+export const useFooterAdminStyles = createStyles((theme) => ({
     root: {
         backgroundColor: "inherit",
         borderTop: "none",
-        padding: "0 24px",
+        padding: 0,
+        paddingLeft: 24,
         position: "static",
         maxHeight: 192,
         marginTop: 32,
@@ -12,7 +13,12 @@ export const useFooterStyles = createStyles((theme) => ({
     inner: {
         height: 136,
         backgroundColor: theme.colors.white[0],
-        padding: 32,
+        padding: "32px 24px",
         borderRadius: 24,
+
+        a: {
+            textDecoration: "none",
+            color: theme.colors.dark[0],
+        },
     },
 }));

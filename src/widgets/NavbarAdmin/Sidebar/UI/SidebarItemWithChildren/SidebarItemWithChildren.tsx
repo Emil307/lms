@@ -21,9 +21,9 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
         return null;
     }
     return (
-        <Accordion classNames={classes} onClick={handlerOpen} chevron={isOpen ? <Minus /> : <Plus />}>
+        <Accordion classNames={classes} chevron={isOpen ? <Minus /> : <Plus />}>
             <Accordion.Item value={label}>
-                <Accordion.Control p={0}>
+                <Accordion.Control p={0} onClick={handlerOpen}>
                     <SidebarItem icon={icon} isActive={isActive} label={label} />
                 </Accordion.Control>
                 <Accordion.Panel pl={56}>{children}</Accordion.Panel>
