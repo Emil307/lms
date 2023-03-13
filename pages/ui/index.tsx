@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Flex, Stack } from "@mantine/core";
+import { Box, Flex, Stack, Text } from "@mantine/core";
 import { Target } from "react-feather";
 import * as Yup from "yup";
 import { FormikConfig } from "formik";
@@ -10,7 +10,19 @@ import { defaultTheme } from "@app/providers/Theme/theme";
 import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button, RingProgress, FSlider, Tooltip } from "@shared/ui";
+import {
+    BreadCrumbs,
+    FCheckbox,
+    Form,
+    FProgressBar,
+    TBreadCrumbItem,
+    Rating,
+    Button,
+    RingProgress,
+    FSlider,
+    Tooltip,
+    DisplayField,
+} from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -86,6 +98,9 @@ export const UIDemo = () => {
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
+                <DisplayField label="Фамилия" value="Алексеева" variant="compact" />
+                <DisplayField label="Имя" value="Екатерина" render={(middlename) => <Text sx={{ color: "red" }}>{middlename}</Text>} />
+                <DisplayField label="Отчество" />
                 <Box display="flex">
                     <RingProgress value={valueRingProgress} label="text" />
                     <RingProgress value={valueRingProgress} size="small" />
