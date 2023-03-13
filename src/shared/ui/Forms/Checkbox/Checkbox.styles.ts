@@ -6,6 +6,9 @@ export default createStyles((theme) => ({
         width: 24,
         height: 24,
     },
+    body: {
+        alignItems: "center",
+    },
     input: {
         width: 24,
         height: 24,

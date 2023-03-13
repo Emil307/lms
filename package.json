@@ -6,19 +6,21 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "prepare": "node ./scripts/prepare.js",
+        "cm": "cz"
     },
     "dependencies": {
         "@emotion/react": "^11.10.5",
         "@emotion/server": "^11.10.0",
-        "@mantine/carousel": "^5.10.3",
-        "@mantine/core": "^5.10.3",
-        "@mantine/dates": "^5.10.3",
-        "@mantine/dropzone": "^5.10.3",
-        "@mantine/hooks": "^5.10.3",
-        "@mantine/modals": "^5.10.3",
-        "@mantine/next": "^5.10.4",
-        "@mantine/notifications": "^5.10.3",
+        "@mantine/carousel": "^5.10.5",
+        "@mantine/core": "^5.10.5",
+        "@mantine/dates": "^5.10.5",
+        "@mantine/dropzone": "^5.10.5",
+        "@mantine/hooks": "^5.10.5",
+        "@mantine/modals": "^5.10.5",
+        "@mantine/next": "^5.10.5",
+        "@mantine/notifications": "^5.10.5",
         "@tabler/icons-react": "^2.5.0",
         "@tanstack/react-query": "^4.0.9",
         "@tanstack/react-query-devtools": "^4.24.10",
@@ -34,19 +36,30 @@
         "react-dom": "^18.2.0",
         "react-feather": "^2.0.10",
         "sass": "^1.58.3",
-        "yup": "^1.0.2",
-        "zod": "^3.20.6"
+        "zod": "^3.20.6",
+        "zod-formik-adapter": "^1.2.0"
     },
     "devDependencies": {
+        "@commitlint/cli": "^17.4.4",
         "@svgr/webpack": "^6.5.1",
         "@types/node": "18.7.15",
         "@types/react": "18.0.18",
         "@types/react-dom": "18.0.6",
         "@typescript-eslint/eslint-plugin": "^5.52.0",
         "@typescript-eslint/parser": "^5.53.0",
+        "commitizen": "^4.3.0",
+        "commitlint-config-cz": "^0.13.3",
+        "cz-customizable": "^7.0.0",
+        "cz-customizable-ghooks": "^2.0.0",
         "eslint": "8.23.0",
         "eslint-config-next": "12.2.5",
+        "husky": "^8.0.0",
         "nextjs-routes": "^1.0.8",
         "typescript": "^4.9.5"
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-customizable"
+        }
     }
 }

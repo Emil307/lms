@@ -1,8 +1,8 @@
 import { Box } from "@mantine/core";
 import { AppShell, Navbar, Header } from "@mantine/core";
 import React from "react";
-import Logo from "@components/Logo";
 import { Sidebar } from "@widgets/Sidebar";
+import { Logo } from "@components";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
     return (

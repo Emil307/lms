@@ -1,15 +1,30 @@
 import React, { useState } from "react";
-import { Button, Stack } from "@mantine/core";
+import { Box, Flex, Stack, Text } from "@mantine/core";
 import { Target } from "react-feather";
 import * as Yup from "yup";
 import { FormikConfig } from "formik";
+import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
+import { Tabs } from "@shared/ui/Tabs";
+import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating } from "@shared/ui";
+import {
+    BreadCrumbs,
+    FCheckbox,
+    Form,
+    FProgressBar,
+    TBreadCrumbItem,
+    Rating,
+    Button,
+    RingProgress,
+    FSlider,
+    Tooltip,
+    DisplayField,
+} from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -36,6 +51,12 @@ const dataMultiSelect = [
     { value: "blitz2", label: "Blitz.js2" },
 ];
 
+const tabsList = [
+    { id: 1, label: "First", value: "1" },
+    { id: 2, label: "Second", value: "2" },
+    { id: 3, label: "Third", value: "3", withIndicator: true },
+];
+
 type Values = {
     login: string;
     password: string;
@@ -44,6 +65,7 @@ type Values = {
     step: number;
     multi: string[];
     isConsentProcessingOfPersonalData: boolean;
+    price: number;
 };
 
 const radioGroupValues = [
@@ -62,8 +84,10 @@ export const loginValidationSchema = Yup.object().shape({
 });
 
 export const UIDemo = () => {
+    const [valueRingProgress, setValueRingProgress] = useState(60);
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
 
@@ -92,19 +116,36 @@ export const UIDemo = () => {
             step: 10,
             multi: [],
             isConsentProcessingOfPersonalData: false,
+            price: 1500,
         },
         validationSchema: loginValidationSchema,
         onSubmit: () => {
             return;
         },
     };
+
     return (
         <>
             <BreadCrumbs items={breadCrumbsItems} />
+            <Logo />
+            <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
+                <DisplayField label="Фамилия" value="Алексеева" variant="compact" />
+                <DisplayField label="Имя" value="Екатерина" render={(middlename) => <Text sx={{ color: "red" }}>{middlename}</Text>} />
+                <DisplayField label="Отчество" />
+                <Box display="flex">
+                    <RingProgress value={valueRingProgress} label="text" />
+                    <RingProgress value={valueRingProgress} size="small" />
+                </Box>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev - 10)}>
+                    -
+                </Button>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev + 10)}>
+                    +
+                </Button>
                 <Input
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
@@ -117,6 +158,130 @@ export const UIDemo = () => {
                         return <Radio key={item.id} label={item.label} value={item.value} />;
                     })}
                 </RadioGroup>
+                <Flex gap={16}>
+                    <Button variant="primary" size="large" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="primary" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="primary" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="primary" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="primary" size="small" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="primary" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+
+                <Flex gap={16}>
+                    <Button variant="secondary" size="large" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="secondary" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="secondary" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="secondary" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="secondary" size="small" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="secondary" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="border" size="large" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="border" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="border" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="border" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="border" size="small" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="border" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+
+                <Flex gap={16}>
+                    <Button variant="white" size="large" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="white" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="white" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="white" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="white" size="small" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="white" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+
+                <Flex gap={16}>
+                    <Button variant="text" size="large" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="text" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="text" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="text" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Flex gap={16}>
+                    <Button variant="text" size="small" leftIcon={<Target />} rightIcon={<Target />}>
+                        Button
+                    </Button>
+                    <Button variant="text" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
+                        Button
+                    </Button>
+                </Flex>
+                <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
@@ -125,6 +290,7 @@ export const UIDemo = () => {
                 <Form config={config}>
                     {({ setFieldValue, values }) => (
                         <Stack>
+                            <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
@@ -140,7 +306,9 @@ export const UIDemo = () => {
                             />
                             <FCheckbox name="isConsentProcessingOfPersonalData" />
                             <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
-                            <Button type="submit">Submit</Button>
+                            <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
+                                <Button type="submit">Submit</Button>
+                            </Tooltip>
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                 Prev

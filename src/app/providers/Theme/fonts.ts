@@ -9,8 +9,8 @@ export const FuturaFont = localFont({
     ],
 });
 export const CentroSansPro = localFont({
-    src: [{ path: "fonts/FuturaPT/PFCentroSansPro-Regular.woff", style: "normal", weight: "normal" }],
+    src: [{ path: "fonts/FuturaPT/CenturyGothicPaneuropeanRegular.ttf", style: "normal", weight: "normal" }],
 });
 
 export const MontserratFont = Montserrat({ subsets: ["latin"] });
-export const ManropeFont = Manrope({ subsets: ["latin"], weight: ["500", "600"] });
+export const ManropeFont = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"] });
