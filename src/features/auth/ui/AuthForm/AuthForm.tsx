@@ -5,7 +5,7 @@ import { AtSign, ChevronLeft, Shield } from "react-feather";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useRouter } from "next/router";
 import { Button, Checkbox, FInput, Form } from "@shared/ui";
-import Logo from "@components/Logo";
+import { Logo } from "@components";
 import useStyles from "./AuthForm.styles";
 import { $authFormValidationSchema, AuthData } from "../../api";
 
