@@ -8,7 +8,7 @@ export const addMantineColor = (color: string): MantineThemeColors[MantineColor]
     return [color, color, color, color, color, color, color, color, color, color];
 };
 
-const { FuturaFont, MontserratFont } = fonts;
+const { FuturaFont, MontserratFont, ManropeFont } = fonts;
 
 export const defaultTheme: MantineThemeOverride = {
     colorScheme: "light",
@@ -83,6 +83,49 @@ export const defaultTheme: MantineThemeOverride = {
                     border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
                     padding: "1.1rem",
                     borderRadius: theme.fn.radius(theme.defaultRadius),
+                },
+            }),
+        },
+        Select: {
+            styles: (theme) => ({
+                dropdown: {},
+                item: {
+                    padding: 12,
+                    ":hover": {
+                        backgroundColor: theme.colors.primary8[0],
+                        borderRadius: 8,
+                    },
+                    "&[data-selected]": {
+                        backgroundColor: theme.colors.primary8[0],
+                        borderRadius: 8,
+                        color: theme.colors.dark[0],
+                        ":hover": {
+                            backgroundColor: theme.colors.primary8[0],
+                            borderRadius: 8,
+                        },
+                    },
+                },
+            }),
+        },
+        DatePicker: {
+            defaultProps: {
+                inputFormat: "DD/MM/YYYY",
+                locale: "ru",
+            },
+            styles: (theme) => ({
+                day: {
+                    ":hover": {
+                        backgroundColor: theme.colors.primary16[0],
+                    },
+                },
+            }),
+        },
+        Button: {
+            styles: () => ({
+                root: {
+                    fontFamily: ManropeFont.style.fontFamily,
+                    fontWeight: 600,
+                    borderRadius: 8,
                 },
             }),
         },
