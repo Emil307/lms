@@ -34,5 +34,6 @@ declare module "@mantine/core" {
         | "error16"
         | "warning"
         | "warning16"
+        | "shadowGray"
         | DefaultMantineColor;
 }

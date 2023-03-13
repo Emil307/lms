@@ -7,6 +7,7 @@ import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
+import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
 import { Tabs } from "@shared/ui/Tabs";
 import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
@@ -33,6 +34,23 @@ const testDataSelect = [
     { value: "vue", label: "Vue" },
 ];
 
+const dataMultiSelect = [
+    { value: "react", label: "React" },
+    { value: "ng", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "vue", label: "Vue" },
+    { value: "riot", label: "Riot" },
+    { value: "next", label: "Next.js" },
+    { value: "blitz", label: "Blitz.js" },
+    { value: "react2", label: "React2" },
+    { value: "ng2", label: "Angular2" },
+    { value: "svelte2", label: "Svelte2" },
+    { value: "vue2", label: "Vue2" },
+    { value: "riot2", label: "Riot2" },
+    { value: "next2", label: "Next.js2" },
+    { value: "blitz2", label: "Blitz.js2" },
+];
+
 const tabsList = [
     { id: 1, label: "First", value: "1" },
     { id: 2, label: "Second", value: "2" },
@@ -45,6 +63,7 @@ type Values = {
     option: string;
     select: string;
     step: number;
+    multi: string[];
     isConsentProcessingOfPersonalData: boolean;
     price: number;
 };
@@ -61,6 +80,7 @@ export const loginValidationSchema = Yup.object().shape({
     password: Yup.string().required("Это обязательное поле"),
     option: Yup.string().required("Выберите что-то"),
     select: Yup.string().required("Нужно что-то выбрать"),
+    multi: Yup.array().min(1, "Выберете хотя бы один пункт"),
 });
 
 export const UIDemo = () => {
@@ -69,6 +89,11 @@ export const UIDemo = () => {
     const [inputValuePassword, setInputValuePassword] = useState("");
     const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
+    const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
+
+    const handlerSelectValue = (value: string[]) => {
+        setMultiSelectValue(value);
+    };
 
     const handlerChangeSelect = (value: string) => {
         setSelectValue(value);
@@ -89,6 +114,7 @@ export const UIDemo = () => {
             option: "",
             select: "",
             step: 10,
+            multi: [],
             isConsentProcessingOfPersonalData: false,
             price: 1500,
         },
@@ -104,6 +130,7 @@ export const UIDemo = () => {
             <Logo />
             <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+                <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
                 <DisplayField label="Фамилия" value="Алексеева" variant="compact" />
@@ -267,7 +294,7 @@ export const UIDemo = () => {
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
-
+                            <FMultiSelect data={dataMultiSelect} value={multiSelectValue} name="multi" label="Multi" />
                             <FRadioGroup name="option">
                                 {radioGroupValues.map((item) => {
                                     return <Radio key={item.id} label={item.label} value={item.value} />;

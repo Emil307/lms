@@ -43,6 +43,7 @@ export const defaultTheme: MantineThemeOverride = {
         warning16: addMantineColor("rgba(242, 50, 24, 0.16)"),
         background: addMantineColor("#F7F7F7"),
         neutral_gray: addMantineColor("#00042973"),
+        shadowGray: addMantineColor("#00126e"),
     },
     defaultRadius: "sm",
     headings: {
