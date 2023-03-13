@@ -29,14 +29,4 @@ export const useTabsStyles = createStyles((theme) => ({
         fontSize: 16,
         lineHeight: "24px",
     },
-    circle: {
-        content: "''",
-        position: "absolute",
-        right: 8,
-        top: 8,
-        height: 8,
-        width: 8,
-        borderRadius: 50,
-        backgroundColor: theme.colors.done[0],
-    },
 }));

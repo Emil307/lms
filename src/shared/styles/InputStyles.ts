@@ -1,8 +1,8 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, MantineSize } from "@mantine/core";
 import { ReactNode } from "react";
 
 export const useInputStyles = createStyles(
-    (theme, { floating, icon, size }: { floating: boolean; icon?: ReactNode; size?: "normal" | "small" }) => ({
+    (theme, { floating, icon, size, clearable }: { floating: boolean; icon?: ReactNode; size?: MantineSize; clearable?: boolean }) => ({
         root: {
             position: "relative",
             ":hover": {
@@ -13,12 +13,12 @@ export const useInputStyles = createStyles(
             },
         },
         wrapper: {
-            marginBottom: 0
+            marginBottom: 0,
         },
         label: {
             position: "absolute",
             zIndex: 2,
-            top: size === "small" ? 16 : 20,
+            top: size === "sm" ? 16 : 20,
             left: icon ? "50px" : "18px",
             transition: "transform 150ms ease, color 150ms ease, font-size 150ms ease, padding 150ms ease",
             transform: floating ? `translate(0px, -6px)` : "none",
@@ -30,8 +30,8 @@ export const useInputStyles = createStyles(
             width: "50px",
         },
         input: {
-            height: size === "small" ? 48 : 56,
-            paddingTop: size === "small" ? "28px" : "24px",
+            height: size === "sm" ? 48 : 56,
+            paddingTop: size === "sm" ? "28px" : "24px",
             paddingLeft: "18px",
             paddingRight: "18px",
             border: `1px solid ${theme.colors.gray20[0]}`,
@@ -48,7 +48,7 @@ export const useInputStyles = createStyles(
                 color: theme.colors.dark[0],
             },
             "&[aria-invalid=true]": {
-                border: `1px solid ${theme.colors.warning[0]}`
+                border: `1px solid ${theme.colors.warning[0]}`,
             },
         },
         withIcon: {
@@ -57,9 +57,10 @@ export const useInputStyles = createStyles(
         rightSection: {
             width: "50px",
             cursor: "pointer",
+            pointerEvents: !clearable ? "none" : "auto",
         },
         error: {
-            position: "absolute",
+            // position: "absolute",
             color: theme.colors.warning[0],
         },
     })

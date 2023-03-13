@@ -19,7 +19,7 @@
         "paths": {
             "@app/*": ["./src/app/*"],
             "@fonts/*": ["./src/app/providers/theme/fonts/*"],
-            "@components/*": ["src/components/*"],
+            "@components": ["src/components"],
             "@public/*": ["./public/*"],
             "@layouts/*": ["src/layouts/*"],
             "@pages/*": ["./src/pages/*"],
@@ -33,5 +33,5 @@
         "isolatedModules": true
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "scripts"]
 }
