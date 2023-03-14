@@ -31,7 +31,7 @@ export default function UiKitPage() {
     return (
         <Box>
             <Title>Test Montserrat</Title>
-            <Form<TUser> config={cfg} persist>
+            <Form<TUser> config={cfg}>
                 <Grid>
                     <Grid.Col span={6}>
                         <FInput name="fio" label="Имя" />
