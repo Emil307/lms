@@ -13,4 +13,4 @@ export const CentroSansPro = localFont({
 });
 
 export const MontserratFont = Montserrat({ subsets: ["latin"] });
-export const ManropeFont = Manrope({ subsets: ["latin"], weight: ["500", "600"] });
+export const ManropeFont = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"] });

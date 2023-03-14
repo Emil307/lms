@@ -81,11 +81,11 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
     }
 };
 
-const getStylesForSize = (size: ButtonSize, iconButton?: boolean): CSSObject => {
+const getStylesForSize = (size: ButtonSize): CSSObject => {
     switch (size) {
         case "large": {
             return {
-                padding: iconButton ? 16 : "16px 32px",
+                padding: "16px 32px",
                 height: 56,
                 fontSize: 18,
                 lineHeight: 24,
@@ -93,7 +93,7 @@ const getStylesForSize = (size: ButtonSize, iconButton?: boolean): CSSObject => 
         }
         case "medium": {
             return {
-                padding: iconButton ? 16 : "12px 24px",
+                padding: "12px 24px",
                 height: 48,
                 fontSize: 16,
                 lineHeight: 24,
@@ -101,7 +101,7 @@ const getStylesForSize = (size: ButtonSize, iconButton?: boolean): CSSObject => 
         }
         case "small": {
             return {
-                padding: iconButton ? 16 : "8px 16px",
+                padding: "8px 16px",
                 height: 40,
                 fontSize: 14,
                 lineHeight: 24,
@@ -112,11 +112,9 @@ const getStylesForSize = (size: ButtonSize, iconButton?: boolean): CSSObject => 
     }
 };
 
-export const useButtonStyles = createStyles(
-    (theme, { variant, size, iconButton }: { variant: ButtonVariant; size: ButtonSize; iconButton?: boolean }) => ({
-        root: {
-            ...getStylesForVariant(variant, theme),
-            ...getStylesForSize(size, iconButton),
-        },
-    })
-);
+export const useButtonStyles = createStyles((theme, { variant, size }: { variant: ButtonVariant; size: ButtonSize }) => ({
+    root: {
+        ...getStylesForVariant(variant, theme),
+        ...getStylesForSize(size),
+    },
+}));

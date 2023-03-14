@@ -8,11 +8,10 @@ export interface ButtonProps extends Omit<MButtonProps, "size" | "variant"> {
     size?: ButtonSize;
     variant?: ButtonVariant;
     onClick?: () => void;
-    iconButton?: boolean;
 }
 
-const MemoizedButton = memo(function Button({ variant = "primary", size = "medium", iconButton, ...props }: ButtonProps) {
-    const { classes } = useButtonStyles({ variant, size, iconButton });
+const MemoizedButton = memo(function Button({ variant = "primary", size = "medium", ...props }: ButtonProps) {
+    const { classes } = useButtonStyles({ variant, size });
     return <MButton {...props} classNames={classes} />;
 });
 

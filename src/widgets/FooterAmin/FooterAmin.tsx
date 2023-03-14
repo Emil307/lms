@@ -42,10 +42,10 @@ const FooterAdmin = () => {
                     </Flex>
                 </Flex>
                 <Flex gap={16}>
-                    <Button size="large" iconButton>
+                    <Button size="large" sx={{ padding: 16 }}>
                         <IconFaceBook />
                     </Button>
-                    <Button size="large" iconButton>
+                    <Button size="large" sx={{ padding: 16 }}>
                         <IconVK />
                     </Button>
                 </Flex>
