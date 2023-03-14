@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box, Flex, Stack, Text } from "@mantine/core";
 import { Target } from "react-feather";
-import * as Yup from "yup";
 import { FormikConfig } from "formik";
+import { z } from "zod";
 import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
@@ -78,12 +78,11 @@ const radioGroupValues = [
     { id: "4", label: "4000", value: "4", disabled: true },
 ];
 
-export const loginValidationSchema = Yup.object().shape({
-    login: Yup.string().required("Это обязательное поле"),
-    password: Yup.string().required("Это обязательное поле"),
-    option: Yup.string().required("Выберите что-то"),
-    select: Yup.string().required("Нужно что-то выбрать"),
-    multi: Yup.array().min(1, "Выберете хотя бы один пункт"),
+export const $loginValidationSchema = z.object({
+    login: z.string({ required_error: "Это обязательное поле" }),
+    password: z.string({ required_error: "Это обязательное поле" }),
+    option: z.string({ required_error: "Выберите что-то" }),
+    select: z.string({ required_error: "Нужно что-то выбрать" }),
 });
 
 export const UIDemo = () => {
@@ -123,7 +122,7 @@ export const UIDemo = () => {
             hasOwner: true,
             hasPassword: false,
         },
-        validationSchema: loginValidationSchema,
+        validationSchema: $loginValidationSchema,
         onSubmit: () => {
             return;
         },

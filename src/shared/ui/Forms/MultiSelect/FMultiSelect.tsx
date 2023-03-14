@@ -17,7 +17,7 @@ const FMultiSelect = ({ name, onChange = () => undefined, onBlur = () => undefin
 
     const handlerBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
         onBlur(e);
-        field.onBlur();
+        field.onBlur(e);
     };
 
     return <MultiSelect {...props} onChange={handlerChange} onBlur={handlerBlur} value={field.value} name={field.name} error={error} />;
