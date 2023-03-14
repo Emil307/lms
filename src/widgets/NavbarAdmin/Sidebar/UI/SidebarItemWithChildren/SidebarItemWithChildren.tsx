@@ -8,7 +8,7 @@ interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;
 }
 
-export default function SidebarItemWithChildren({ children, icon, isActive = false, label, roles }: SidebarItemWithChildrenProps) {
+export default function SidebarItemWithChildren({ children, icon, isActive = false, label, roles = [] }: SidebarItemWithChildrenProps) {
     const [isOpen, setIsOpen] = useToggle();
     const role = "ADMIN";
     const handlerOpen = () => {
@@ -17,7 +17,7 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
 
     const { classes } = useSidebarItemWithChildrenStyles();
 
-    if (roles && !roles.includes(role)) {
+    if (!roles.includes(role)) {
         return null;
     }
     return (

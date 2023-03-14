@@ -53,7 +53,6 @@ export const defaultTheme: MantineThemeOverride = {
         lg: 16,
         xl: 20,
     },
-    lineHeight: "px",
     headings: {
         fontFamily: MontserratFont.style.fontFamily,
         fontWeight: MontserratFont.style.fontWeight,
@@ -126,14 +125,6 @@ export const defaultTheme: MantineThemeOverride = {
                     ":hover": {
                         backgroundColor: theme.colors.primary16[0],
                     },
-                },
-            }),
-        },
-
-        Text: {
-            styles: (theme) => ({
-                root: {
-                    fontFamily: ManropeFont.style.fontFamily,
                 },
             }),
         },
