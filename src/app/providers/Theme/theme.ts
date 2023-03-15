@@ -43,8 +43,16 @@ export const defaultTheme: MantineThemeOverride = {
         warning16: addMantineColor("rgba(242, 50, 24, 0.16)"),
         background: addMantineColor("#F7F7F7"),
         neutral_gray: addMantineColor("#00042973"),
+        shadowGray: addMantineColor("#00126e"),
     },
     defaultRadius: "sm",
+    fontSizes: {
+        xs: 10,
+        sm: 12,
+        md: 14,
+        lg: 16,
+        xl: 20,
+    },
     headings: {
         fontFamily: MontserratFont.style.fontFamily,
         fontWeight: MontserratFont.style.fontWeight,

@@ -1,41 +1,22 @@
 import { Box } from "@mantine/core";
-import { AppShell, Navbar, Header } from "@mantine/core";
+import { AppShell } from "@mantine/core";
 import React from "react";
-import Logo from "@components/Logo";
-import { Sidebar } from "@widgets/Sidebar";
+import FooterAdmin from "@widgets/FooterAmin/FooterAmin";
+import HeaderAdmin from "@widgets/HeaderAdmin/HeaderAdmin";
+import { useAdminLayoutStyles } from "./AdminLayoutStyles";
+import Navbar from "../../widgets/NavbarAdmin/NavbarAdmin";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
+    const { classes } = useAdminLayoutStyles();
     return (
         <AppShell
-            padding="lg"
-            navbar={
-                <Navbar
-                    width={{ base: 300 }}
-                    pl={0}
-                    height="auto"
-                    p="lg"
-                    sx={() => ({
-                        backgroundColor: "inherit",
-                        border: "none",
-                    })}>
-                    <Navbar.Section grow mt="md">
-                        <Sidebar />
-                    </Navbar.Section>
-                    <Navbar.Section>{/* Footer with user */}</Navbar.Section>
-                </Navbar>
-            }
-            header={
-                <Header
-                    height={104}
-                    p="xs"
-                    py="lg"
-                    sx={() => ({
-                        backgroundColor: "inherit",
-                        border: "none",
-                    })}>
-                    <Logo />
-                </Header>
-            }>
+            padding={0}
+            pr={24}
+            classNames={classes}
+            layout="alt"
+            navbar={<Navbar />}
+            header={<HeaderAdmin />}
+            footer={<FooterAdmin />}>
             <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
                 {children}
             </Box>

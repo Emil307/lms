@@ -1,14 +1,31 @@
 import React, { useState } from "react";
-import { Flex, Stack } from "@mantine/core";
+import { Box, Flex, Stack, Text } from "@mantine/core";
 import { Target } from "react-feather";
-import * as Yup from "yup";
 import { FormikConfig } from "formik";
+import { z } from "zod";
+import { Logo } from "@components";
 import { FInput, Input } from "@shared/ui/Forms/Input";
 import { FSelect, Select } from "@shared/ui/Forms/Select";
 import { defaultTheme } from "@app/providers/Theme/theme";
+import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
+import { Tabs } from "@shared/ui/Tabs";
+import { Search } from "@shared/ui/Search";
 import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
 import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
-import { BreadCrumbs, FCheckbox, Form, FProgressBar, TBreadCrumbItem, Rating, Button } from "@shared/ui";
+import {
+    BreadCrumbs,
+    FCheckbox,
+    Form,
+    FProgressBar,
+    TBreadCrumbItem,
+    Rating,
+    Button,
+    RingProgress,
+    FSlider,
+    Tooltip,
+    DisplayField,
+    FSwitch,
+} from "@shared/ui";
 import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
@@ -18,13 +35,40 @@ const testDataSelect = [
     { value: "vue", label: "Vue" },
 ];
 
+const dataMultiSelect = [
+    { value: "react", label: "React" },
+    { value: "ng", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "vue", label: "Vue" },
+    { value: "riot", label: "Riot" },
+    { value: "next", label: "Next.js" },
+    { value: "blitz", label: "Blitz.js" },
+    { value: "react2", label: "React2" },
+    { value: "ng2", label: "Angular2" },
+    { value: "svelte2", label: "Svelte2" },
+    { value: "vue2", label: "Vue2" },
+    { value: "riot2", label: "Riot2" },
+    { value: "next2", label: "Next.js2" },
+    { value: "blitz2", label: "Blitz.js2" },
+];
+
+const tabsList = [
+    { id: 1, label: "First", value: "1" },
+    { id: 2, label: "Second", value: "2" },
+    { id: 3, label: "Third", value: "3", withIndicator: true },
+];
+
 type Values = {
     login: string;
     password: string;
     option: string;
     select: string;
     step: number;
+    multi: string[];
     isConsentProcessingOfPersonalData: boolean;
+    price: number;
+    hasOwner: boolean;
+    hasPassword: boolean;
 };
 
 const radioGroupValues = [
@@ -34,17 +78,24 @@ const radioGroupValues = [
     { id: "4", label: "4000", value: "4", disabled: true },
 ];
 
-export const loginValidationSchema = Yup.object().shape({
-    login: Yup.string().required("Это обязательное поле"),
-    password: Yup.string().required("Это обязательное поле"),
-    option: Yup.string().required("Выберите что-то"),
-    select: Yup.string().required("Нужно что-то выбрать"),
+export const $loginValidationSchema = z.object({
+    login: z.string({ required_error: "Это обязательное поле" }),
+    password: z.string({ required_error: "Это обязательное поле" }),
+    option: z.string({ required_error: "Выберите что-то" }),
+    select: z.string({ required_error: "Нужно что-то выбрать" }),
 });
 
 export const UIDemo = () => {
+    const [valueRingProgress, setValueRingProgress] = useState(60);
     const [inputValue, setInputValue] = useState("");
     const [inputValuePassword, setInputValuePassword] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
+    const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
+
+    const handlerSelectValue = (value: string[]) => {
+        setMultiSelectValue(value);
+    };
 
     const handlerChangeSelect = (value: string) => {
         setSelectValue(value);
@@ -65,9 +116,13 @@ export const UIDemo = () => {
             option: "",
             select: "",
             step: 10,
+            multi: [],
             isConsentProcessingOfPersonalData: false,
+            price: 1500,
+            hasOwner: true,
+            hasPassword: false,
         },
-        validationSchema: loginValidationSchema,
+        validationSchema: $loginValidationSchema,
         onSubmit: () => {
             return;
         },
@@ -76,9 +131,25 @@ export const UIDemo = () => {
     return (
         <>
             <BreadCrumbs items={breadCrumbsItems} />
+            <Logo />
+            <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+                <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
+                <DisplayField label="Фамилия" value="Алексеева" variant="compact" />
+                <DisplayField label="Имя" value="Екатерина" render={(middlename) => <Text sx={{ color: "red" }}>{middlename}</Text>} />
+                <DisplayField label="Отчество" />
+                <Box display="flex">
+                    <RingProgress value={valueRingProgress} label="text" />
+                    <RingProgress value={valueRingProgress} size="small" />
+                </Box>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev - 10)}>
+                    -
+                </Button>
+                <Button type="button" onClick={() => setValueRingProgress((prev) => prev + 10)}>
+                    +
+                </Button>
                 <Input
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
@@ -214,7 +285,7 @@ export const UIDemo = () => {
                         Button
                     </Button>
                 </Flex>
-
+                <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
@@ -223,10 +294,11 @@ export const UIDemo = () => {
                 <Form config={config}>
                     {({ setFieldValue, values }) => (
                         <Stack>
+                            <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                             <FInput label="Login" name="login" />
                             <FInput type="password" label="Password" name="password" />
                             <FSelect label="Select" name="select" data={testDataSelect} />
-
+                            <FMultiSelect data={dataMultiSelect} value={multiSelectValue} name="multi" label="Multi" />
                             <FRadioGroup name="option">
                                 {radioGroupValues.map((item) => {
                                     return <Radio key={item.id} label={item.label} value={item.value} />;
@@ -238,7 +310,11 @@ export const UIDemo = () => {
                             />
                             <FCheckbox name="isConsentProcessingOfPersonalData" />
                             <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
-                            <Button type="submit">Submit</Button>
+                            <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
+                                <Button type="submit">Submit</Button>
+                            </Tooltip>
+                            <FSwitch name="hasOwner" label="llalal" labelPosition="left" variant="primary" />
+                            <FSwitch name="hasPassword" variant="secondary" />
                             <FProgressBar name="step" label="вопросов" maxValue={16} />
                             <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                 Prev

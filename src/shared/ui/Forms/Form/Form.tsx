@@ -3,6 +3,7 @@ import { Formik, FormikConfig, FormikValues } from "formik";
 import BaseForm, { BaseFormProps } from "./BaseForm";
 import FormPersister from "./components/FormPersister";
 import FormOverlay from "./components/FormOverlay";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 
 export interface FormProps<T extends FormikValues = FormikValues> {
     config: FormikConfig<T>;
@@ -32,7 +33,7 @@ function Form<T extends FormikValues = FormikValues>({
     );
 
     return (
-        <Formik<T> {...config} onSubmit={onSubmit}>
+        <Formik<T> {...config} validationSchema={toFormikValidationSchema(config.validationSchema)} onSubmit={onSubmit}>
             {(formikProps) => (
                 <FormPersister initialValues={config.initialValues} enabled={persist}>
                     <BaseForm {...form}>
