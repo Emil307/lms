@@ -2,11 +2,11 @@ import React from "react";
 import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 
-import UiKitPage from "src/features/UiKitPage";
+import { UserIndexPage } from "src/features/UserPage";
 import { NextPageWithLayout } from "@shared/utils/types";
 
 const UiKit: NextPageWithLayout = () => {
-    return <UiKitPage />;
+    return <UserIndexPage />;
 };
 
 UiKit.getLayout = function (page: ReactElement) {

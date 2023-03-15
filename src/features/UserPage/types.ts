@@ -4,8 +4,12 @@ export const $DateTime = z.coerce.date();
 
 export type TUser = {
     id: number;
-    fio: string;
-    role: string;
+    fullName: string;
     email: string;
-    status: string;
+    role: string[];
+    isActive: boolean;
 };
+
+export interface IUser {
+    data: TUser[]
+}
