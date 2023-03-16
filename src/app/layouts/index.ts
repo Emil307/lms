@@ -1,5 +1,4 @@
-import AdminLayout from "./AdminLayout"
+import AdminLayout from "./AdminLayout";
+export * from "./AuthLayout";
 
-export {
-    AdminLayout
-}
+export { AdminLayout };
