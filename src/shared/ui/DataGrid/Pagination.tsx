@@ -10,11 +10,10 @@ export interface Props<T extends Record<string, any>> {
 
 export default function Pagination<T extends Record<string, any>>({ table }: Props<T>) {
     const { setPageIndex, getPageCount, setPageSize, getState } = table;
-
-    const {
-        pagination: { pageIndex = 0, pageSize = 10 },
-    } = getState();
     const router = useRouter();
+    const {
+        pagination: { pageIndex = 0, pageSize = Number(router.query.perPage) ?? 10 },
+    } = getState();
 
     const pushOnPage = (selectedPage: number) => {
         setPageIndex(selectedPage);
@@ -28,6 +27,18 @@ export default function Pagination<T extends Record<string, any>>({ table }: Pro
         );
     };
 
+    const pushOnperPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setPageSize(Number(e.target.value));
+        router.push(
+            {
+                pathname: router.pathname,
+                query: { ...router.query, perPage: `${e.target.value}` },
+            },
+            undefined,
+            { shallow: true }
+        );
+    };
+
     return (
         <Flex justify="space-between" align="center" gap="lg" py="xs" px="sm">
             <Box>
@@ -35,11 +46,9 @@ export default function Pagination<T extends Record<string, any>>({ table }: Pro
             </Box>
             <MPagination total={getPageCount()} page={pageIndex} size="md" onChange={pushOnPage} withControls={false} />
             <NativeSelect
-                data={["5", "10"]}
+                data={["5", "10", "15"]}
                 value={pageSize.toString()}
-                onChange={(val) => {
-                    setPageSize(Number(val.target.value));
-                }}
+                onChange={pushOnperPage}
                 sx={{
                     "@media (min-width: 720px)": {
                         display: "flex",

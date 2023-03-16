@@ -1,7 +1,7 @@
 import Axios from "axios";
-import { defaultHeaders, errorLogger } from "./helpers";
+import { defaultHeaders, errorLogger, handleAxiosError } from "./helpers";
 import { tokenInterceptor } from "./interceptors/request";
-// import { responderInterceptor } from "./interceptors/response";
+import { responderInterceptor } from "./interceptors/response";
 
 export const axios = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -14,4 +14,4 @@ export const axios = Axios.create({
  */
 axios.interceptors.request.use(tokenInterceptor, errorLogger, { runWhen: () => true });
 
-// axios.interceptors.response.use(responderInterceptor, handleAxiosError);
+axios.interceptors.response.use(responderInterceptor, handleAxiosError);

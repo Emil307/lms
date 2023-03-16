@@ -2,17 +2,27 @@ import { useMantineTheme } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React from "react";
+import { FormikConfig } from "formik";
+import { z } from "zod";
+import { Form } from "@shared/ui";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
 import { DataGridResponse } from "./types";
 
 type ExtendedProps<T extends Record<string, any>> = React.PropsWithChildren<Omit<BaseDataGridProps<T>, "data" | "key">>;
 
-export interface ManagedDataGridProps<T extends Record<string, any>> extends ExtendedProps<T> {
+export interface ManagedDataGridProps<T extends Record<string, any>, D extends Record<string, any>> extends ExtendedProps<T> {
     getData: (params: any) => Promise<DataGridResponse<T>>;
     queryKey: string[];
+    initialFilter: D;
 }
 
-export default function ManagedDataGrid<T extends Record<string, any>>({ getData, queryKey, children, ...rest }: ManagedDataGridProps<T>) {
+export default function ManagedDataGrid<T extends Record<string, any>, D extends Record<string, any>>({
+    getData,
+    queryKey,
+    children,
+    initialFilter,
+    ...rest
+}: ManagedDataGridProps<T, D>) {
     const router = useRouter();
     //TODO: Filters and Sorting
     const {
@@ -22,18 +32,37 @@ export default function ManagedDataGrid<T extends Record<string, any>>({ getData
         isFetching,
     } = useQuery<DataGridResponse<T>>({
         queryKey: queryKey,
-        queryFn: getData,
+        queryFn: () => getData(router.query),
         enabled: router.isReady,
     });
 
-    const data = queryData?.data.data ?? [];
-    const pagination = queryData?.data.meta.pagination;
-   
+    const $validationSchema = z.object({});
+
+    const cfg: FormikConfig<D> = {
+        initialValues: {
+            ...initialFilter,
+        },
+        validationSchema: $validationSchema,
+        onSubmit: async (values) => {
+            router.push(
+                {
+                    pathname: router.pathname,
+                    query: { ...values, page: "1" },
+                },
+                undefined,
+                { shallow: true }
+            );
+        },
+    };
+
+    const data = queryData?.data ?? [];
+    const pagination = queryData?.meta.pagination;
+
     const theme = useMantineTheme();
 
     return (
         <>
-            {!!children && children}
+            <Form config={cfg}>{children}</Form>
             <BaseDataGrid<T>
                 {...rest}
                 enableFilters={rest.enableFilters || false}
@@ -60,18 +89,6 @@ export default function ManagedDataGrid<T extends Record<string, any>>({ getData
                         boxShadow: "none",
                     },
                 }}
-                // mantineTableFooterRowProps={{
-                //     sx: {
-                //         backgroundColor: "red",
-                //     },
-                // }}
-                mantineTableBodyRowProps={
-                    {
-                        // sx: {
-                        //     border: "none",
-                        // },
-                    }
-                }
                 mantineTableBodyCellProps={{
                     sx: {
                         border: "none !important",

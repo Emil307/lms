@@ -2,7 +2,7 @@ import { createStyles, MantineSize } from "@mantine/core";
 import { ReactNode } from "react";
 
 export const useInputStyles = createStyles(
-    (theme, { floating, icon, size, clearable }: { floating: boolean; icon?: ReactNode; size?: MantineSize; clearable?: boolean }) => ({
+    (theme, { floating, icon, size }: { floating: boolean; icon?: ReactNode; size?: MantineSize }) => ({
         root: {
             position: "relative",
             ":hover": {
@@ -57,7 +57,7 @@ export const useInputStyles = createStyles(
         rightSection: {
             width: "50px",
             cursor: "pointer",
-            pointerEvents: !clearable ? "none" : "auto",
+            // pointerEvents: !clearable ? "none" : "auto",
         },
         error: {
             // position: "absolute",

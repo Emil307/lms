@@ -96,9 +96,6 @@ export const defaultTheme: MantineThemeOverride = {
         },
         Select: {
             styles: (theme) => ({
-                root: {
-                    fontFamily: ManropeFont.style.fontFamily,
-                },
                 item: {
                     padding: 12,
                     ":hover": {

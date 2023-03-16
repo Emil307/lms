@@ -14,7 +14,6 @@ const MemoizedSelect = (props: SelectProps) => {
         icon,
         size="md",
         searchable,
-        clearable,
         onChange = () => undefined,
         onFocus = () => undefined,
         onBlur = () => undefined,
@@ -28,8 +27,7 @@ const MemoizedSelect = (props: SelectProps) => {
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
             icon: icon || searchable,
-            size: size,
-            clearable: clearable && props.value?.toString().trim().length !== 0,
+            size: size
         },
         { name: "Select", classNames, styles, unstyled}
     );

@@ -1,5 +1,5 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { TUser } from "./types";
+import { TUser } from "@entities/user/api/types";
 
 export const columns: MRT_ColumnDef<TUser>["columns"] = [
     {

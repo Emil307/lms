@@ -8,7 +8,6 @@ export interface FRadioGroupProps extends RadioGroupProps {
 
 export const FRadioGroup = ({ name, onChange = () => undefined, ...props }: FRadioGroupProps) => {
     const [field, meta, helpers] = useField(name);
-
     const handlerChange = (value: string) => {
         onChange(value);
         helpers.setValue(value);
