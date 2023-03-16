@@ -21,5 +21,10 @@ export const $signUpFormValidationSchema = z.object({
     agreementWithConditionsAndTerms: z.boolean({ required_error: "Примите пользовательское соглашение" }),
 });
 
+export const $forgotPasswordFormValidationSchema = z.object({
+    email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
+});
+
 export type AuthData = z.infer<typeof $authFormValidationSchema>;
 export type SignUpFormData = z.infer<typeof $signUpFormValidationSchema>;
+export type ForgotPasswordFormData = z.infer<typeof $forgotPasswordFormValidationSchema>;

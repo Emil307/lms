@@ -1,12 +1,9 @@
 import React from "react";
 import { Container, Flex, Footer as MFooter, Text } from "@mantine/core";
-
-import { defaultTheme } from "@app/providers/Theme/theme";
-
 import { Button } from "@shared/ui";
 import IconFaceBook from "public/icons/icon24px/social/facebook.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
-import { Logo } from "src/components/Logo";
+import { Logo } from "@components/Logo";
 import { useFooterAdminStyles } from "./FooterAdminStyles";
 
 const FooterAdmin = () => {
@@ -23,7 +20,7 @@ const FooterAdmin = () => {
                             </Text>
                         </Container>
                         <Container mt={8} ml={0} p={0}>
-                            <Text fw={500} fz={12} lh="16px" color={defaultTheme.colors?.gray45?.[0]}>
+                            <Text fw={500} fz={12} lh="16px" color="gray45">
                                 Пишите, если есть вопросы
                             </Text>
                         </Container>
@@ -35,7 +32,7 @@ const FooterAdmin = () => {
                             </Text>
                         </Container>
                         <Container mt={8} ml={0} p={0} maw={180}>
-                            <Text size="md" fw={500} fz={12} color={defaultTheme.colors?.gray45?.[0]}>
+                            <Text size="md" fw={500} fz={12} color="gray45">
                                 Звоните, если нужна помощь. Звонок по России бесплатный.
                             </Text>
                         </Container>
