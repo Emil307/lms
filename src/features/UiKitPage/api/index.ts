@@ -1,5 +1,5 @@
 import { axios } from "@app/config/axios";
-import { BaseApi } from "@shared/utils/types";
+import { BaseApi } from "@shared/utils";
 import { $testData, TestData } from "./types";
 
 export class UiKitApi extends BaseApi {

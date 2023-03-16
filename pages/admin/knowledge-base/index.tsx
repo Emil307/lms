@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 
 import UiKitPage from "src/features/UiKitPage";
-import { NextPageWithLayout } from "@shared/utils/types";
+import { NextPageWithLayout } from "@shared/utils";
 
 const UiKit: NextPageWithLayout = () => {
     return <UiKitPage />;

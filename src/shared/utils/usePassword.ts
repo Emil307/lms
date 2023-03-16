@@ -1,6 +1,6 @@
 import { useToggle } from "@mantine/hooks";
 
-interface UsePasswordProps {
+export interface UsePasswordProps {
     isPasswordVisible: boolean;
     toggleVisibility: () => void;
 }

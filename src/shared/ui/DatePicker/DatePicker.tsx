@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DatePicker as MDatePicker, DatePickerProps as MDatePickerProps } from "@mantine/dates";
 import { Calendar } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { useInputStyles } from "@shared/styles/InputStyles";
+import { useInputStyles } from "@shared/styles";
 
 export interface DatePickerProps extends MDatePickerProps {}
 
@@ -18,8 +18,8 @@ export const DatePicker = (props: DatePickerProps) => {
 
     const onDropdownOpenHandler = () => {
         onDropdownOpen();
-        setFocused(true)
-    }
+        setFocused(true);
+    };
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
         onFocus(e);
