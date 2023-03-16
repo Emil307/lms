@@ -13,14 +13,14 @@ type ExtendedProps<T extends Record<string, any>> = React.PropsWithChildren<Omit
 export interface ManagedDataGridProps<T extends Record<string, any>, D extends Record<string, any>> extends ExtendedProps<T> {
     getData: (params: any) => Promise<DataGridResponse<T>>;
     queryKey: string[];
-    initialFilter: D;
+    filters: D;
 }
 
 export default function ManagedDataGrid<T extends Record<string, any>, D extends Record<string, any>>({
     getData,
     queryKey,
     children,
-    initialFilter,
+    filters,
     ...rest
 }: ManagedDataGridProps<T, D>) {
     const router = useRouter();
@@ -39,9 +39,7 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
     const $validationSchema = z.object({});
 
     const cfg: FormikConfig<D> = {
-        initialValues: {
-            ...initialFilter,
-        },
+        initialValues: filters,
         validationSchema: $validationSchema,
         onSubmit: async (values) => {
             router.push(

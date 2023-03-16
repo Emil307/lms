@@ -66,7 +66,7 @@ export const UserList = () => {
     const router = useRouter();
     const { page, isActive, search, perPage } = router.query as { page: string; isActive: string; search: string; perPage: string };
 
-    const initialFilter = {
+    const filters = {
         isActive: isActive ?? "",
         search: search ?? "",
     };
@@ -84,7 +84,7 @@ export const UserList = () => {
                 <ManagedDataGrid<TUser, TFilters>
                     queryKey={[QueryKeys.GET_USERS, page, isActive, search, perPage]}
                     columns={columns}
-                    initialFilter={initialFilter}
+                    filters={filters}
                     getData={usersApi.getUsers}
                     renderRowActionMenuItems={() => (
                         <Menu>

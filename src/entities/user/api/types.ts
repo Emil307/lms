@@ -24,7 +24,8 @@ const $usersResponse = z.object({
             count: z.number(),
             current_page: z.number(),
             links: z.object({
-                next: z.string(),
+                next: z.string().nullish(),
+                previous: z.string().nullish(),
             }),
             per_page: z.number(),
             total: z.number(),

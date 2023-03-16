@@ -15,7 +15,8 @@ export function $DataGridResponse<T extends ZodTypeAny>(schema: T) {
                 current_page: z.number(),
                 total_pages: z.number(),
                 links: z.object({
-                    next: z.string(),
+                    next: z.string().nullish(),
+                    previous: z.string().nullish(),
                 }),
             }),
         }),
