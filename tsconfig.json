@@ -19,13 +19,14 @@
         "paths": {
             "@app/*": ["./src/app/*"],
             "@fonts/*": ["./src/app/providers/theme/fonts/*"],
-            "@components": ["src/components"],
+            "@components/*": ["src/components/*"],
             "@public/*": ["./public/*"],
             "@layouts/*": ["src/layouts/*"],
             "@pages/*": ["./src/pages/*"],
             "@shared/*": ["src/shared/*"],
             "@entities/*": ["src/entities/*"],
-            "@widgets/*": ["src/widgets/*"]
+            "@widgets/*": ["src/widgets/*"],
+            "@features/*": ["src/features/*"]
         },
         "skipLibCheck": true,
         "noEmit": true,

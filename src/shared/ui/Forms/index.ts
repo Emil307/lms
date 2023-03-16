@@ -5,3 +5,6 @@ export * from "./ProgressBar";
 export * from "./Checkbox";
 export * from "./Slider";
 export * from "./Switch";
+export * from "./Select";
+export * from "./MultiSelect";
+export * from "./RadioGroup";

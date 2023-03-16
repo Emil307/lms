@@ -34,7 +34,7 @@ module.exports = {
         footer: "Задачи над которой ведется работа? (опционально) Формат => BG-XXXXX \n",
         confirmCommit: "Продолжить с коммитом выше?",
     },
-    scopes: [{ name: "Общее" }],
+    scopes: [{ name: "Общее" }, { name: "Админка" }, { name: "Пользовательская часть" }],
     allowCustomScopes: true,
     skipEmptyScopes: true,
     ticketNumberPrefix: "BG-",

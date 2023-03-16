@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, FormikConfig, FormikValues } from "formik";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 import BaseForm, { BaseFormProps } from "./BaseForm";
 import FormPersister from "./components/FormPersister";
 import FormOverlay from "./components/FormOverlay";
-import { toFormikValidationSchema } from "zod-formik-adapter";
 
 export interface FormProps<T extends FormikValues = FormikValues> {
     config: FormikConfig<T>;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { memo } from "react";
+import { TBreadCrumbItem } from "@shared/ui";
 import useStyles from "./Crumb.styles";
-import { TBreadCrumbItem } from "../../types";
 
 export interface CrumbProps {
     item: TBreadCrumbItem;

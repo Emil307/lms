@@ -8,6 +8,7 @@ declare module "nextjs-routes" {
   export type Route =
     | StaticRoute<"/admin/users">
     | StaticRoute<"/api/hello">
+    | StaticRoute<"/auth">
     | StaticRoute<"/">
     | StaticRoute<"/ui">;
 

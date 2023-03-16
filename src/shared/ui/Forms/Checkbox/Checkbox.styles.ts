@@ -60,6 +60,7 @@ export default createStyles((theme) => ({
         },
     },
     label: {
+        paddingTop: 4,
         paddingLeft: 8,
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,

@@ -2,17 +2,15 @@ import React, { memo, useState } from "react";
 import { Select as MSelect } from "@mantine/core";
 import { ChevronDown, Search, X } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
+import { useInputStyles } from "@shared/styles";
 import { SelectItem } from "./SelectItem";
-import { useInputStyles } from "../../../styles/InputStyles";
 
-export interface SelectProps extends React.ComponentProps<typeof MSelect> {
-
-}
+export interface SelectProps extends React.ComponentProps<typeof MSelect> {}
 
 const MemoizedSelect = (props: SelectProps) => {
     const {
         icon,
-        size="md",
+        size = "md",
         searchable,
         onChange = () => undefined,
         onFocus = () => undefined,
@@ -29,7 +27,7 @@ const MemoizedSelect = (props: SelectProps) => {
             icon: icon || searchable,
             size: size
         },
-        { name: "Select", classNames, styles, unstyled}
+        { name: "Select", classNames, styles, unstyled }
     );
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {

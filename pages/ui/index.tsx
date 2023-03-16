@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import { Box, Flex, Stack, Text } from "@mantine/core";
+import { Box, Stack, Text, useMantineTheme } from "@mantine/core";
 import { Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
-import { Logo } from "@components";
-import { FInput, Input } from "@shared/ui/Forms/Input";
-import { FSelect, Select } from "@shared/ui/Forms/Select";
-import { defaultTheme } from "@app/providers/Theme/theme";
-import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
-import { Tabs } from "@shared/ui/Tabs";
-import { Search } from "@shared/ui/Search";
-import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
-import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
+import { Logo } from "@components/Logo";
 import {
     BreadCrumbs,
     FCheckbox,
@@ -25,8 +17,19 @@ import {
     Tooltip,
     DisplayField,
     FSwitch,
+    Tabs,
+    MultiSelect,
+    Input,
+    RadioGroup,
+    Radio,
+    Search,
+    Select,
+    DatePicker,
+    FInput,
+    FSelect,
+    FMultiSelect,
+    FRadioGroup,
 } from "@shared/ui";
-import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -92,6 +95,7 @@ export const UIDemo = () => {
     const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
+    const theme = useMantineTheme();
 
     const handlerSelectValue = (value: string[]) => {
         setMultiSelectValue(value);
@@ -154,7 +158,7 @@ export const UIDemo = () => {
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
                     label="Label"
-                    icon={<Target color={defaultTheme.colors?.gray45?.[0]} />}
+                    icon={<Target color={theme.colors.gray45[0]} />}
                     type="password"
                 />
                 <RadioGroup>
@@ -162,129 +166,6 @@ export const UIDemo = () => {
                         return <Radio key={item.id} label={item.label} value={item.value} />;
                     })}
                 </RadioGroup>
-                <Flex gap={16}>
-                    <Button variant="primary" size="large" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="primary" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="primary" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="primary" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="primary" size="small" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="primary" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-
-                <Flex gap={16}>
-                    <Button variant="secondary" size="large" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="secondary" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="secondary" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="secondary" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="secondary" size="small" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="secondary" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="border" size="large" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="border" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="border" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="border" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="border" size="small" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="border" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-
-                <Flex gap={16}>
-                    <Button variant="white" size="large" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="white" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="white" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="white" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="white" size="small" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="white" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-
-                <Flex gap={16}>
-                    <Button variant="text" size="large" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="text" size="large" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="text" size="medium" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="text" size="medium" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
-                <Flex gap={16}>
-                    <Button variant="text" size="small" leftIcon={<Target />} rightIcon={<Target />}>
-                        Button
-                    </Button>
-                    <Button variant="text" size="small" leftIcon={<Target />} rightIcon={<Target />} disabled>
-                        Button
-                    </Button>
-                </Flex>
                 <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
                 <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
@@ -295,8 +176,8 @@ export const UIDemo = () => {
                     {({ setFieldValue, values }) => (
                         <Stack>
                             <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
-                            <FInput label="Login" name="login" />
-                            <FInput type="password" label="Password" name="password" />
+                            <FInput label="Login" name="login" description="lalalala" />
+                            <FInput type="password" label="Password" name="password" success={true} />
                             <FSelect label="Select" name="select" data={testDataSelect} />
                             <FMultiSelect data={dataMultiSelect} value={multiSelectValue} name="multi" label="Multi" />
                             <FRadioGroup name="option">
