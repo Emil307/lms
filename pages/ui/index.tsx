@@ -95,7 +95,6 @@ export const UIDemo = () => {
     const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
-
     const theme = useMantineTheme();
 
     const handlerSelectValue = (value: string[]) => {
