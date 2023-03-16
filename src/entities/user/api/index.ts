@@ -4,7 +4,7 @@ import { $usersResponse, UsersResponseType } from "./types";
 
 export class UsersApi extends BaseApi {
     async getUsers(params: any): Promise<UsersResponseType> {
-        const result = await axios.get("/users", { params: params });
+        const result = await axios.get("admin/users", { params: params });
         return $usersResponse.parse(result);
     }
 }

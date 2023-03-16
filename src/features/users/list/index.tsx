@@ -11,7 +11,7 @@ import { Menu } from "@shared/ui/DataGrid/Menu";
 import { MenuItem } from "@shared/ui/DataGrid/MenuItem";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { TUser } from "@entities/user/api/types";
-import { usersApi } from "../../entities/user/api";
+import { usersApi } from "@entities/user/api";
 
 export enum QueryKeys {
     GET_USERS = "GET_USERS",
@@ -62,7 +62,7 @@ type TFilters = {
 
 export const $validationSchema = z.object({});
 
-export const UserList = () => {
+const UserList = () => {
     const router = useRouter();
     const { page, isActive, search, perPage } = router.query as { page: string; isActive: string; search: string; perPage: string };
 
@@ -119,3 +119,5 @@ export const UserList = () => {
         </Box>
     );
 };
+
+export default UserList;
