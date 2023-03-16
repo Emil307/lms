@@ -2,7 +2,15 @@ import { createStyles, MantineSize } from "@mantine/core";
 import { ReactNode } from "react";
 
 export const useInputStyles = createStyles(
-    (theme, { floating, icon, size, clearable }: { floating: boolean; icon?: ReactNode; size?: MantineSize; clearable?: boolean }) => ({
+    (
+        theme,
+        {
+            floating,
+            icon,
+            size,
+            statusSuccess,
+        }: { floating: boolean; icon?: ReactNode; size?: MantineSize; clearable?: boolean; statusSuccess?: boolean }
+    ) => ({
         root: {
             position: "relative",
             ":hover": {
@@ -34,13 +42,13 @@ export const useInputStyles = createStyles(
             paddingTop: size === "sm" ? "28px" : "24px",
             paddingLeft: "18px",
             paddingRight: "18px",
-            border: `1px solid ${theme.colors.gray20[0]}`,
+            border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : `1px solid ${theme.colors.gray20[0]}`,
             borderRadius: "8px",
             fontSize: "14px",
             lineHeight: "16px",
             ":hover, :focus": {
                 boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-                border: "1px solid rgba(0,0,0,0.0)",
+                border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : "1px solid rgba(0,0,0,0.0)",
                 cursor: "pointer",
             },
             ":disabled": {
@@ -57,11 +65,52 @@ export const useInputStyles = createStyles(
         rightSection: {
             width: "50px",
             cursor: "pointer",
-            pointerEvents: !clearable ? "none" : "auto",
         },
+
         error: {
-            // position: "absolute",
-            color: theme.colors.warning[0],
+            display: "flex",
+            gap: 4,
+            marginTop: 4,
+
+            svg: {
+                width: 16,
+                height: 16,
+                color: theme.colors.warning,
+            },
+
+            "> div": {
+                width: "calc(100% - 20px)",
+                paddingTop: 2,
+                color: theme.colors.dark,
+                fontWeight: 400,
+                fontSize: 10,
+                lineHeight: "12px",
+            },
+        },
+        description: {
+            display: "flex",
+            flexDirection: "column",
+
+            "> div": {
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 4,
+                marginTop: 4,
+
+                svg: {
+                    width: "16px !important",
+                    height: "16px !important",
+                },
+
+                "> div": {
+                    width: "calc(100% - 20px)",
+                    paddingTop: 2,
+                    color: theme.colors.dark,
+                    fontWeight: 400,
+                    fontSize: 10,
+                    lineHeight: "12px",
+                },
+            },
         },
     })
 );
