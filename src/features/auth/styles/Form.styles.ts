@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+export const useFormStyles = createStyles((theme) => ({
     root: {
         position: "relative",
         padding: 24,

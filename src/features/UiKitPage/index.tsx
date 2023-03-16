@@ -5,6 +5,7 @@ import { useListState } from "@mantine/hooks";
 import { FButton, FInput, Form, FResetButton, ManagedDataGrid } from "@shared/ui";
 import { TUser } from "./types";
 import { columns, users as data } from "./constant";
+
 export enum QueryKeys {
     GET_OFFERS = "GET_OFFERS",
 }

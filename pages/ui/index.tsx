@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import { Box, Stack, Text } from "@mantine/core";
+import { Box, Stack, Text, useMantineTheme } from "@mantine/core";
 import { Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
-import { Logo } from "@components";
-import { FInput, Input } from "@shared/ui/Forms/Input";
-import { FSelect, Select } from "@shared/ui/Forms/Select";
-import { defaultTheme } from "@app/providers/Theme/theme";
-import { FMultiSelect, MultiSelect } from "@shared/ui/Forms/MultiSelect";
-import { Tabs } from "@shared/ui/Tabs";
-import { Search } from "@shared/ui/Search";
-import { FRadioGroup, RadioGroup } from "@shared/ui/Forms/RadioGroup";
-import { Radio } from "@shared/ui/Forms/RadioGroup/Radio";
+import { Logo } from "@components/Logo";
 import {
     BreadCrumbs,
     FCheckbox,
@@ -25,8 +17,19 @@ import {
     Tooltip,
     DisplayField,
     FSwitch,
+    Tabs,
+    MultiSelect,
+    Input,
+    RadioGroup,
+    Radio,
+    Search,
+    Select,
+    DatePicker,
+    FInput,
+    FSelect,
+    FMultiSelect,
+    FRadioGroup,
 } from "@shared/ui";
-import { DatePicker } from "@shared/ui/DatePicker";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -93,6 +96,8 @@ export const UIDemo = () => {
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
 
+    const theme = useMantineTheme();
+
     const handlerSelectValue = (value: string[]) => {
         setMultiSelectValue(value);
     };
@@ -154,7 +159,7 @@ export const UIDemo = () => {
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
                     label="Label"
-                    icon={<Target color={defaultTheme.colors?.gray45?.[0]} />}
+                    icon={<Target color={theme.colors.gray45[0]} />}
                     type="password"
                 />
                 <RadioGroup>

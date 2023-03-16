@@ -2,25 +2,23 @@ import { Box, Group, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft, Shield } from "react-feather";
-import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useRouter } from "next/router";
 import { Button, Checkbox, FInput, Form } from "@shared/ui";
-import { Logo } from "@components";
-import useStyles from "./AuthForm.styles";
-import { $authFormValidationSchema, AuthData } from "../../api";
+import { Logo } from "@components/Logo";
+import { $authFormValidationSchema, AuthData, useFormStyles } from "@features/auth";
 
 export interface AuthFormProps {}
 
 const AuthForm = (_props: AuthFormProps) => {
     const router = useRouter();
-    const { classes } = useStyles();
+    const { classes } = useFormStyles();
     const theme = useMantineTheme();
     const config: FormikConfig<AuthData> = {
         initialValues: {
             login: "",
             password: "",
         },
-        validationSchema: toFormikValidationSchema($authFormValidationSchema),
+        validationSchema: $authFormValidationSchema,
         onSubmit: () => {
             return;
         },
