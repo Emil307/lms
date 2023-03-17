@@ -4,7 +4,7 @@ export type TUser = {
     id: number;
     fullName: string;
     email: string;
-    role: string;
+    roleName: string;
     isActive: boolean;
 };
 
@@ -15,7 +15,7 @@ const $usersResponse = z.object({
             fullName: z.string(),
             id: z.number(),
             isActive: z.boolean(),
-            role: z.string(),
+            roleName: z.string(),
         })
     ),
     meta: z.object({

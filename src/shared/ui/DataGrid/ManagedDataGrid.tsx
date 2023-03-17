@@ -1,10 +1,11 @@
 import { useMantineTheme } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormikConfig } from "formik";
-import { z } from "zod";
+import { MRT_SortingState } from "mantine-react-table";
 import { Form } from "@shared/ui";
+import { $validationSchema } from "@features/users/list/types/validation";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
 import { DataGridResponse } from "./types";
 
@@ -36,10 +37,9 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
         enabled: router.isReady,
     });
 
-    const $validationSchema = z.object({});
-
     const cfg: FormikConfig<D> = {
         initialValues: filters,
+        enableReinitialize: true,
         validationSchema: $validationSchema,
         onSubmit: async (values) => {
             router.push(
@@ -58,11 +58,46 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
 
     const theme = useMantineTheme();
 
+    const [sorting, setSorting] = useState<MRT_SortingState>([]);
+
+    useEffect(() => {
+        if (!router.isReady) return;
+        if (!sorting[0]) {
+            const resetSortParams = router.query;
+            delete resetSortParams["sort"];
+            // delete resetSortParams["order"];
+            router.push(
+                {
+                    pathname: router.pathname,
+                    query: {
+                        ...resetSortParams,
+                    },
+                },
+                undefined,
+                { shallow: true }
+            );
+            return;
+        }
+        router.push(
+            {
+                pathname: router.pathname,
+                query: {
+                    ...router.query,
+                    sort: `{"${sorting[0].id}":"${sorting[0].desc ? "desc" : "asc"}"}`,
+                },
+            },
+            undefined,
+            { shallow: true }
+        );
+    }, [sorting]);
+
     return (
         <>
             <Form config={cfg}>{children}</Form>
             <BaseDataGrid<T>
                 {...rest}
+                onSortingChange={setSorting}
+                manualSorting
                 enableFilters={rest.enableFilters || false}
                 enableColumnActions={rest.enableColumnActions || false}
                 data={data}
@@ -73,6 +108,7 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
                         pageIndex: pagination?.current_page || 0,
                         pageSize: pagination?.per_page || 10,
                     },
+                    sorting,
                 }}
                 pageCount={pagination?.total_pages || 0}
                 manualPagination

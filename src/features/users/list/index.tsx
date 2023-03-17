@@ -1,9 +1,7 @@
 import { Box, Flex, Title } from "@mantine/core";
 import { Calendar, PlusCircle, X } from "react-feather";
-import { MRT_ColumnDef } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { z } from "zod";
-import { FInput } from "@shared/ui";
+import { FSearch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { FSelect } from "@shared/ui/Forms/Select";
 import { Button, ManagedDataGrid } from "@shared/ui";
@@ -12,34 +10,8 @@ import { MenuItem } from "@shared/ui/DataGrid/MenuItem";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
-
-export enum QueryKeys {
-    GET_USERS = "GET_USERS",
-}
-
-const columns: MRT_ColumnDef<TUser>["columns"] = [
-    {
-        header: "ID",
-        accessorKey: "id",
-    },
-    {
-        header: "ФИО",
-        accessorKey: "fullName",
-    },
-    {
-        header: "Роль",
-        accessorKey: "role",
-    },
-    {
-        header: "Email",
-        accessorKey: "email",
-    },
-    {
-        header: "Статус",
-        accessorKey: "isActive",
-        Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
-    },
-];
+import { QueryKeys } from "@shared/constant";
+import { columns } from "./constant";
 
 // TODO - брать с бэка, когда будет эндпоинт
 const testDataSelect = [
@@ -60,12 +32,15 @@ type TFilters = {
     search: string;
 };
 
-export const $validationSchema = z.object({});
-
 const UserList = () => {
     const router = useRouter();
-    const { page, isActive, search, perPage } = router.query as { page: string; isActive: string; search: string; perPage: string };
-
+    const { page, isActive, search, perPage, sort } = router.query as {
+        page: string;
+        isActive: string;
+        search: string;
+        perPage: string;
+        sort: string;
+    };
     const filters = {
         isActive: isActive ?? "",
         search: search ?? "",
@@ -82,7 +57,8 @@ const UserList = () => {
 
             <Box mt={24}>
                 <ManagedDataGrid<TUser, TFilters>
-                    queryKey={[QueryKeys.GET_USERS, page, isActive, search, perPage]}
+                    queryKey={[QueryKeys.GET_USERS, page, isActive, search, perPage, sort]}
+                    manualSorting
                     columns={columns}
                     filters={filters}
                     getData={usersApi.getUsers}
@@ -100,18 +76,18 @@ const UserList = () => {
                     enableRowSelection>
                     <Box mb={24}>
                         <Flex gap={8}>
-                            <FInput size="sm" name="search" label="Поиск" />
+                            <FSearch size="sm" name="search" />
                             <FSelect name="role" size="sm" data={testDataSelect} clearable label="Select" />
                         </Flex>
                         <Box>
-                            <FRadioGroup name="isActive">
+                            <FRadioGroup name="isActive" defaultValue="">
                                 {radioGroupValues.map((item) => {
-                                    return <Radio key={item.id} label={item.label} value={item.value} defaultValue="" />;
+                                    return <Radio key={item.id} label={item.label} value={item.value} />;
                                 })}
                             </FRadioGroup>
                         </Box>
                         <Button mt={8} type="submit">
-                            Submit
+                            Найти
                         </Button>
                     </Box>
                 </ManagedDataGrid>

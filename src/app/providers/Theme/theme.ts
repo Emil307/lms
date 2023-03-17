@@ -54,14 +54,14 @@ export const defaultTheme: MantineThemeOverride = {
         xl: 20,
     },
     headings: {
-        fontFamily: MontserratFont.style.fontFamily,
-        fontWeight: MontserratFont.style.fontWeight,
+        fontFamily: ManropeFont.style.fontFamily,
+        fontWeight: ManropeFont.style.fontWeight,
 
         sizes: {
             h1: {
                 fontSize: 32,
-                lineHeight: "39px",
-                fontWeight: 700,
+                lineHeight: "40px",
+                fontWeight: 600,
             },
             h2: {
                 fontSize: 24,
@@ -85,12 +85,12 @@ export const defaultTheme: MantineThemeOverride = {
     },
     components: {
         BaseForm: {
-            styles: (theme) => ({
+            styles: () => ({
                 root: {
-                    position: "relative",
-                    border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
-                    padding: "1.1rem",
-                    borderRadius: theme.fn.radius(theme.defaultRadius),
+                    // position: "relative",
+                    // border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
+                    // padding: "1.1rem",
+                    // borderRadius: theme.fn.radius(theme.defaultRadius),
                 },
             }),
         },

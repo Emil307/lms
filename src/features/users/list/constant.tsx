@@ -12,7 +12,7 @@ export const columns: MRT_ColumnDef<TUser>["columns"] = [
     },
     {
         header: "Роль",
-        accessorKey: "role",
+        accessorKey: "roleName",
     },
     {
         header: "Email",
@@ -21,5 +21,6 @@ export const columns: MRT_ColumnDef<TUser>["columns"] = [
     {
         header: "Статус",
         accessorKey: "isActive",
+        Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];
