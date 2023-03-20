@@ -3,7 +3,7 @@ import { AppProps } from "next/app";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PropsWithChildren } from "react";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,

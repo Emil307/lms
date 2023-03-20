@@ -1,17 +1,17 @@
 import { Box, Flex, Title } from "@mantine/core";
-import { Calendar, PlusCircle, X } from "react-feather";
+import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
 import { useRouter } from "next/router";
-import { FSearch } from "@shared/ui";
+import { openModal } from "@mantine/modals";
+import { FSearch, MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { FSelect } from "@shared/ui/Forms/Select";
 import { Button, ManagedDataGrid } from "@shared/ui";
-import { Menu } from "@shared/ui/DataGrid/Menu";
-import { MenuItem } from "@shared/ui/DataGrid/MenuItem";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
 import { QueryKeys } from "@shared/constant";
 import { columns } from "./constant";
+import { UserDeleteModal } from "./ui/UserDeleteModal";
 
 // TODO - брать с бэка, когда будет эндпоинт
 const testDataSelect = [
@@ -46,6 +46,15 @@ const UserList = () => {
         search: search ?? "",
     };
 
+    const openModalDeleteUser = (id: number, fio: string) => {
+        openModal({
+            modalId: `${id}`,
+            title: "Удаление пользователя",
+            centered: true,
+            children: <UserDeleteModal id={id} fio={fio} />,
+        });
+    };
+
     return (
         <Box>
             <Flex align="center" justify="space-between">
@@ -62,31 +71,45 @@ const UserList = () => {
                     columns={columns}
                     filters={filters}
                     getData={usersApi.getUsers}
-                    renderRowActionMenuItems={() => (
-                        <Menu>
-                            <MenuItem>
-                                <X size={16} color={defaultTheme.colors?.primary?.[0]} /> Удалить
-                            </MenuItem>
-                            <MenuItem>
-                                <Calendar size={16} color={defaultTheme.colors?.primary?.[0]} /> Добавить
-                            </MenuItem>
-                        </Menu>
-                    )}
+                    countName="Учеников"
+                    initialState={{
+                        columnOrder: ["mrt-row-select", "id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
+                    }}
+                    enablePinning
+                    renderRowActions={({ row }) => {
+                        return (
+                            <MenuDataGrid>
+                                <MenuItemDataGrid closeMenuOnClick={false}>
+                                    Деактивировать <Switch variant="primary" />
+                                </MenuItemDataGrid>
+                                <MenuItemDataGrid>
+                                    <Eye size={16} color={defaultTheme.colors?.primary?.[0]} /> Открыть
+                                </MenuItemDataGrid>
+                                <MenuItemDataGrid>
+                                    <Edit3 size={16} color={defaultTheme.colors?.primary?.[0]} /> Редактировать
+                                </MenuItemDataGrid>
+                                <MenuItemDataGrid onClick={() => openModalDeleteUser(row.original.id, row.original.fullName)}>
+                                    <Trash size={16} color={defaultTheme.colors?.primary?.[0]} /> Удалить
+                                </MenuItemDataGrid>
+                            </MenuDataGrid>
+                        );
+                    }}
+                    enableColumnFilterModes
                     enableRowActions
                     enableRowSelection>
                     <Box mb={24}>
-                        <Flex gap={8}>
-                            <FSearch size="sm" name="search" />
+                        <Flex columnGap={8} rowGap={0}>
+                            <FSearch w={380} size="sm" name="search" placeholder="Поиск" />
                             <FSelect name="role" size="sm" data={testDataSelect} clearable label="Select" />
                         </Flex>
-                        <Box>
+                        <Box mt={16}>
                             <FRadioGroup name="isActive" defaultValue="">
                                 {radioGroupValues.map((item) => {
-                                    return <Radio key={item.id} label={item.label} value={item.value} />;
+                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
                                 })}
                             </FRadioGroup>
                         </Box>
-                        <Button mt={8} type="submit">
+                        <Button mt={16} type="submit">
                             Найти
                         </Button>
                     </Box>

@@ -22,7 +22,7 @@ export const defaultTheme: MantineThemeOverride = {
         secondary: addMantineColor("#D6913D"),
         secondaryHover: addMantineColor("#DA851F"),
         secondary16: addMantineColor("rgba(225, 144, 46, 0.16)"),
-        secondary8: addMantineColor("rgba(225, 144, 46, 0.8)"),
+        secondary8: addMantineColor("rgba(225, 144, 46, 0.08)"),
         dark: addMantineColor("#02062E"),
         gray45: addMantineColor("rgba(0, 4, 41, 0.45)"),
         gray20: addMantineColor("rgba(0, 4, 41, 0.2)"),
@@ -133,6 +133,18 @@ export const defaultTheme: MantineThemeOverride = {
                     fontFamily: ManropeFont.style.fontFamily,
                     fontWeight: 600,
                     borderRadius: 8,
+                },
+            }),
+        },
+        Modal: {
+            styles: (theme) => ({
+                title: {
+                    fontWeight: 600,
+                    fontSize: 20,
+                    lineHeight: "24px",
+                },
+                close: {
+                    color: theme.colors.primary[0],
                 },
             }),
         },

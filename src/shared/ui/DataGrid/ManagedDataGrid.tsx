@@ -1,4 +1,4 @@
-import { useMantineTheme } from "@mantine/core";
+import { Box, useMantineTheme } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ export interface ManagedDataGridProps<T extends Record<string, any>, D extends R
     getData: (params: any) => Promise<DataGridResponse<T>>;
     queryKey: string[];
     filters: D;
+    countName?: string;
 }
 
 export default function ManagedDataGrid<T extends Record<string, any>, D extends Record<string, any>>({
@@ -22,6 +23,7 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
     queryKey,
     children,
     filters,
+    countName,
     ...rest
 }: ManagedDataGridProps<T, D>) {
     const router = useRouter();
@@ -65,7 +67,6 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
         if (!sorting[0]) {
             const resetSortParams = router.query;
             delete resetSortParams["sort"];
-            // delete resetSortParams["order"];
             router.push(
                 {
                     pathname: router.pathname,
@@ -94,63 +95,78 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
     return (
         <>
             <Form config={cfg}>{children}</Form>
-            <BaseDataGrid<T>
-                {...rest}
-                onSortingChange={setSorting}
-                manualSorting
-                enableFilters={rest.enableFilters || false}
-                enableColumnActions={rest.enableColumnActions || false}
-                data={data}
-                rowCount={pagination?.count}
-                state={{
-                    isLoading: isLoading || isRefetching || isFetching,
-                    pagination: {
-                        pageIndex: pagination?.current_page || 0,
-                        pageSize: pagination?.per_page || 10,
-                    },
-                    sorting,
-                }}
-                pageCount={pagination?.total_pages || 0}
-                manualPagination
-                mantineTableHeadRowProps={{
-                    sx: {
-                        backgroundColor: theme.colors.light[0],
-                    },
-                }}
-                mantinePaperProps={{
-                    sx: {
-                        border: "none",
-                        boxShadow: "none",
-                    },
-                }}
-                mantineTableBodyCellProps={{
-                    sx: {
-                        border: "none !important",
-                        fontSize: "14px !important",
-                        lineHeight: "16px !important",
-                    },
-                }}
-                mantineSelectAllCheckboxProps={{
-                    sx: {
-                        input: {
-                            backgroundColor: theme.colors.grayLight[0],
-                            border: "none",
-                            borderRadius: 8,
-                            cursor: "pointer",
+            {countName && (
+                <Box
+                    sx={{
+                        color: theme.colors.gray45[0],
+                        lineHeight: "16px",
+                        span: {
+                            color: theme.colors.dark[0],
                         },
-                    },
-                }}
-                mantineSelectCheckboxProps={{
-                    sx: {
-                        input: {
-                            backgroundColor: theme.colors.grayLight[0],
-                            border: "none",
-                            borderRadius: 8,
-                            cursor: "pointer",
+                    }}
+                    mt={32}>
+                    {countName}: <span>10</span> из <span>20</span>
+                </Box>
+            )}
+            <Box mt={24}>
+                <BaseDataGrid<T>
+                    {...rest}
+                    onSortingChange={setSorting}
+                    manualSorting
+                    enableFilters={rest.enableFilters || false}
+                    enableColumnActions={rest.enableColumnActions || false}
+                    data={data}
+                    rowCount={pagination?.count}
+                    state={{
+                        isLoading: isLoading || isRefetching || isFetching,
+                        pagination: {
+                            pageIndex: pagination?.current_page || 0,
+                            pageSize: pagination?.per_page || 10,
                         },
-                    },
-                }}
-            />
+                        sorting,
+                    }}
+                    pageCount={pagination?.total_pages || 0}
+                    manualPagination
+                    mantineTableHeadRowProps={{
+                        sx: {
+                            backgroundColor: theme.colors.light[0],
+                        },
+                    }}
+                    mantinePaperProps={{
+                        sx: {
+                            border: "none",
+                            boxShadow: "none",
+                        },
+                    }}
+                    mantineTableBodyCellProps={{
+                        sx: {
+                            border: "none !important",
+                            fontSize: "14px !important",
+                            lineHeight: "16px !important",
+                        },
+                    }}
+                    mantineSelectAllCheckboxProps={{
+                        sx: {
+                            input: {
+                                backgroundColor: theme.colors.grayLight[0],
+                                border: "none",
+                                borderRadius: 8,
+                                cursor: "pointer",
+                            },
+                        },
+                    }}
+                    mantineSelectCheckboxProps={{
+                        sx: {
+                            input: {
+                                backgroundColor: theme.colors.grayLight[0],
+                                border: "none",
+                                borderRadius: 8,
+                                cursor: "pointer",
+                            },
+                        },
+                    }}
+                />
+            </Box>
         </>
     );
 }
