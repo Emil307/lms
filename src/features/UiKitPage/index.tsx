@@ -9,6 +9,7 @@ import { columns, users as data } from "./constant";
 export enum QueryKeys {
     GET_OFFERS = "GET_OFFERS",
 }
+
 export default function UiKitPage() {
     const [users, handlers] = useListState<TUser>(data);
 

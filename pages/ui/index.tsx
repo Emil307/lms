@@ -31,6 +31,7 @@ import {
     FRadioGroup,
     FFileButton,
 } from "@shared/ui";
+import { ControlPanel, FControlPanel } from "@components/Forms";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -141,6 +142,7 @@ export const UIDemo = () => {
             <Logo />
             <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+                <ControlPanel variant="primary" label="Уведомлять о проверенных домашних заданиях" />
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
                 <Rating defaultValue={1} count={1} readOnly size="small" />
@@ -195,6 +197,11 @@ export const UIDemo = () => {
                             />
                             <FCheckbox name="isConsentProcessingOfPersonalData" />
                             <FCheckbox name="isConsentProcessingOfPersonalData" disabled />
+                            <FControlPanel
+                                name="isConsentProcessingOfPersonalData"
+                                label="Уведомлять о проверенных домашних заданиях"
+                                variant="primary"
+                            />
                             <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
                                 <Button type="submit">Submit</Button>
                             </Tooltip>
