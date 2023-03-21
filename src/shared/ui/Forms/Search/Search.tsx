@@ -6,10 +6,10 @@ import { useSearchStyles } from "./searchStyles";
 
 export interface SearchProps extends MTextInputProps {
     styleVariant?: "default" | "course";
-    setValue: (value: string) => void;
+    setValue?: (value: string) => void;
 }
 
-const Search = ({ setValue, onChange = () => undefined, value, styleVariant = "default", ...props }: SearchProps) => {
+const Search = ({ setValue = () => undefined, onChange = () => undefined, value, styleVariant = "default", ...props }: SearchProps) => {
     const { classes } = useSearchStyles({ styleVariant }, { name: "Search" });
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {

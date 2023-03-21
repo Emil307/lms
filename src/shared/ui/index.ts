@@ -6,4 +6,4 @@ export * from "./RingProgress";
 export * from "./Tooltip";
 export * from "./DisplayField";
 export * from "./Tabs";
-export * from "./Search";
+export * from "./Forms/Search";

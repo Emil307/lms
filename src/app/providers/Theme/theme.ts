@@ -22,7 +22,7 @@ export const defaultTheme: MantineThemeOverride = {
         secondary: addMantineColor("#D6913D"),
         secondaryHover: addMantineColor("#DA851F"),
         secondary16: addMantineColor("rgba(225, 144, 46, 0.16)"),
-        secondary8: addMantineColor("rgba(225, 144, 46, 0.8)"),
+        secondary8: addMantineColor("rgba(225, 144, 46, 0.08)"),
         dark: addMantineColor("#02062E"),
         gray45: addMantineColor("rgba(0, 4, 41, 0.45)"),
         gray20: addMantineColor("rgba(0, 4, 41, 0.2)"),
@@ -54,14 +54,14 @@ export const defaultTheme: MantineThemeOverride = {
         xl: 20,
     },
     headings: {
-        fontFamily: MontserratFont.style.fontFamily,
-        fontWeight: MontserratFont.style.fontWeight,
+        fontFamily: ManropeFont.style.fontFamily,
+        fontWeight: ManropeFont.style.fontWeight,
 
         sizes: {
             h1: {
                 fontSize: 32,
-                lineHeight: "39px",
-                fontWeight: 700,
+                lineHeight: "40px",
+                fontWeight: 600,
             },
             h2: {
                 fontSize: 24,
@@ -84,19 +84,8 @@ export const defaultTheme: MantineThemeOverride = {
         },
     },
     components: {
-        BaseForm: {
-            styles: (theme) => ({
-                root: {
-                    position: "relative",
-                    border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
-                    padding: "1.1rem",
-                    borderRadius: theme.fn.radius(theme.defaultRadius),
-                },
-            }),
-        },
         Select: {
             styles: (theme) => ({
-                dropdown: {},
                 item: {
                     padding: 12,
                     ":hover": {
@@ -134,6 +123,18 @@ export const defaultTheme: MantineThemeOverride = {
                     fontFamily: ManropeFont.style.fontFamily,
                     fontWeight: 600,
                     borderRadius: 8,
+                },
+            }),
+        },
+        Modal: {
+            styles: (theme) => ({
+                title: {
+                    fontWeight: 600,
+                    fontSize: 20,
+                    lineHeight: "24px",
+                },
+                close: {
+                    color: theme.colors.primary[0],
                 },
             }),
         },

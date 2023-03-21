@@ -12,10 +12,10 @@ export default function Sidebar() {
     return (
         <Box>
             <SidebarItem
-                label="Домашнее задание"
+                label="UI"
                 isActive={router.pathname.includes("/admin/homework")}
                 icon={<Book color={theme.colors.primary[9]} />}
-                href="/admin/homework"
+                href="/ui"
             />
             <SidebarItem
                 label="Пользователи"
@@ -32,7 +32,7 @@ export default function Sidebar() {
                     inner={true}
                     label="Тэги"
                     icon={<User color={theme.colors.primary[9]} />}
-                    href="/admin/groups"
+                    href="/admin/users"
                     isActive={router.pathname.includes("/admin/groups")}
                 />
             </SidebarItemWithChildren>
@@ -46,11 +46,11 @@ export default function Sidebar() {
                     inner={true}
                     label="Знания 1"
                     icon={<User color={theme.colors.primary[9]} />}
-                    href="/admin/knowledge-base"
+                    href="/admin/users"
                     isActive={router.pathname.includes("/admin/knowledge-base")}
                 />
-                <SidebarItem inner={true} label="Знания 2" icon={<User color={theme.colors.primary[9]} />} href="/admin/homework" />
-                <SidebarItem inner={true} label="Знания 3" icon={<User color={theme.colors.primary[9]} />} href="/admin/homework" />
+                <SidebarItem inner={true} label="Знания 2" icon={<User color={theme.colors.primary[9]} />} href="/admin/users" />
+                <SidebarItem inner={true} label="Знания 3" icon={<User color={theme.colors.primary[9]} />} href="/admin/users" />
             </SidebarItemWithChildren>
         </Box>
     );
