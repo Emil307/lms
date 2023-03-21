@@ -10,6 +10,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/api/hello">
     | StaticRoute<"/auth">
     | StaticRoute<"/">
+    | StaticRoute<"/profile/settings">
     | StaticRoute<"/ui">;
 
   interface StaticRoute<Pathname> {

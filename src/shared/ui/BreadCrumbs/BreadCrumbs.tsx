@@ -1,14 +1,14 @@
-import { Breadcrumbs as MBreadcrumbs, Box } from "@mantine/core";
+import { Breadcrumbs as MBreadcrumbs, BreadcrumbsProps as MBreadcrumbsProps, Box } from "@mantine/core";
 import { memo, useMemo } from "react";
 import { TBreadCrumbItem } from "./types";
 import useStyles from "./BreadCrumbs.styles";
 import { Crumb } from "./components";
 
-interface TBreadCrumbsProps {
+interface TBreadCrumbsProps extends Omit<MBreadcrumbsProps, "children"> {
     items: TBreadCrumbItem[];
 }
 
-const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items }: TBreadCrumbsProps) {
+const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items, ...props }: TBreadCrumbsProps) {
     const { classes } = useStyles();
 
     const separator = useMemo(
@@ -26,7 +26,7 @@ const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items }: TBreadCrumbsPro
     );
 
     return (
-        <MBreadcrumbs separator={separator} classNames={classes}>
+        <MBreadcrumbs {...props} separator={separator} classNames={classes}>
             {items.map((item, index) => (
                 <Crumb key={index} item={item} isActive={index === items.length - 1} />
             ))}
