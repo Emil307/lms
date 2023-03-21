@@ -3,7 +3,7 @@ import React from "react";
 import { Settings, Shield, User } from "react-feather";
 import { BreadCrumbs, Button, DisplayField, TBreadCrumbItem } from "@shared/ui";
 import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
-import { GetMeResponse, useMe } from "@shared/api";
+import { GetMeResponse, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 
 const fields: ProfileInfoDisplayFields<GetMeResponse> = [
