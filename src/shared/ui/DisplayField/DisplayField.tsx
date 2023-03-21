@@ -21,9 +21,9 @@ const MemoizedDisplayField = memo(function DisplayField({
 
     const renderValue = useMemo(() => {
         if (render) {
-            return render(value ?? defaultValue);
+            return render(value || defaultValue);
         }
-        return <Text className={classes.value}>{value ?? defaultValue}</Text>;
+        return <Text className={classes.value}>{value || defaultValue}</Text>;
     }, [render, value, defaultValue]);
 
     return (

@@ -1,14 +1,17 @@
 import { Avatar, Box, Group } from "@mantine/core";
 import { ReactNode, useMemo } from "react";
+import lodashGet from "lodash.get";
 import { DisplayField, DisplayFieldProps } from "@shared/ui";
 import useStyles from "./ProfileInfo.styles";
 
-export type ProfileInfoDisplayFields<T> = (DisplayFieldProps & { name: keyof T })[];
+export type ProfileInfoDisplayFields<T> = (DisplayFieldProps & {
+    name: keyof T | string;
+})[];
 
 export interface ProfileInfoProps<T> {
     fields: ProfileInfoDisplayFields<T>;
-    avatarSrc: string;
-    values: T;
+    avatarSrc?: string;
+    values?: T;
     actionSlot?: ReactNode;
 }
 
@@ -26,7 +29,7 @@ export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot }
     const renderFields = useMemo(
         () =>
             fields.map(({ value, ...field }, index) => (
-                <DisplayField key={index} {...field} value={values[field.name] as string} variant="compact" />
+                <DisplayField key={index} {...field} value={lodashGet(values, field.name)} variant="compact" />
             )),
         [fields, values]
     );
