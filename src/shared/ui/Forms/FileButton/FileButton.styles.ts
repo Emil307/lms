@@ -19,6 +19,7 @@ export default createStyles((theme) => ({
     },
     label: {
         fontWeight: 600,
+        fontSize: 16,
         lineHeight: "24px",
     },
 }));
