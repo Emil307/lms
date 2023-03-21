@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Stack, Text, useMantineTheme } from "@mantine/core";
-import { Target } from "react-feather";
+import { Edit3, Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
 import { Logo } from "@components/Logo";
@@ -29,6 +29,7 @@ import {
     FSelect,
     FMultiSelect,
     FRadioGroup,
+    FFileButton,
 } from "@shared/ui";
 
 const testDataSelect = [
@@ -72,6 +73,7 @@ type Values = {
     price: number;
     hasOwner: boolean;
     hasPassword: boolean;
+    avatarImage: File | null;
 };
 
 const radioGroupValues = [
@@ -106,7 +108,7 @@ export const UIDemo = () => {
     };
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Главная страница", href: { pathname: "/ui" } },
+        { title: "Гfeat/93940-file-buttonлавная страница", href: { pathname: "/ui" } },
         { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
@@ -125,6 +127,7 @@ export const UIDemo = () => {
             price: 1500,
             hasOwner: true,
             hasPassword: false,
+            avatarImage: null,
         },
         validationSchema: $loginValidationSchema,
         onSubmit: () => {
@@ -175,6 +178,7 @@ export const UIDemo = () => {
                 <Form config={config}>
                     {({ setFieldValue, values }) => (
                         <Stack>
+                            <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                             <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                             <FInput label="Login" name="login" description="lalalala" />
                             <FInput type="password" label="Password" name="password" success={true} />
