@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { REGEXP_PASSWORD } from "../utils";
+import { REGEXP_PASSWORD } from "@features/utils";
 
 export const $authFormValidationSchema = z.object({
     login: z.string({ required_error: "Введите email" }),
