@@ -4,11 +4,11 @@ import { MRT_TableInstance } from "mantine-react-table";
 import { Pagination as MPagination, Flex, NativeSelect, Box, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 
-export interface Props<T extends Record<string, any>> {
+export interface Pagination<T extends Record<string, any>> {
     table: MRT_TableInstance<T>;
 }
 
-export default function Pagination<T extends Record<string, any>>({ table }: Props<T>) {
+export default function Pagination<T extends Record<string, any>>({ table }: Pagination<T>) {
     const { setPageIndex, getPageCount, setPageSize, getState } = table;
     const router = useRouter();
     const {

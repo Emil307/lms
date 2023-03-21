@@ -7,4 +7,3 @@ export * from "./Tooltip";
 export * from "./DisplayField";
 export * from "./Tabs";
 export * from "./Forms/Search";
-export * from "./DatePicker";

@@ -1,3 +1,1 @@
-import UserDeleteModal from "./UserDeletModal";
-
-export { UserDeleteModal };
+export * from "./UserDeleteModal";

@@ -1,9 +1,5 @@
-import Form from './Form'
-import BaseForm from './BaseForm'
-import ManagedForm from './ManagedForm'
+import Form, { type FormProps } from "./Form";
+import ManagedForm, { type ManagedFormProps } from "./ManagedForm";
 
-export {
-    Form,
-    BaseForm,
-    ManagedForm
-}
+export * from "./BaseForm";
+export { Form, ManagedForm, FormProps, ManagedFormProps };

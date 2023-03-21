@@ -1,4 +1,4 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { openModal } from "@mantine/modals";
@@ -6,12 +6,11 @@ import { FSearch, MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { FSelect } from "@shared/ui/Forms/Select";
 import { Button, ManagedDataGrid } from "@shared/ui";
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
 import { QueryKeys } from "@shared/constant";
 import { columns } from "./constant";
-import { UserDeleteModal } from "./ui/UserDeleteModal";
+import UserDeleteModal from "./ui/UserDeleteModal/UserDeleteModal";
 
 // TODO - брать с бэка, когда будет эндпоинт
 const testDataSelect = [
@@ -83,13 +82,22 @@ const UserList = () => {
                                     Деактивировать <Switch variant="primary" />
                                 </MenuItemDataGrid>
                                 <MenuItemDataGrid>
-                                    <Eye size={16} color={defaultTheme.colors?.primary?.[0]} /> Открыть
+                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                                        <Eye />
+                                    </ThemeIcon>
+                                    Открыть
                                 </MenuItemDataGrid>
                                 <MenuItemDataGrid>
-                                    <Edit3 size={16} color={defaultTheme.colors?.primary?.[0]} /> Редактировать
+                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                                        <Edit3 />
+                                    </ThemeIcon>
+                                    Редактировать
                                 </MenuItemDataGrid>
                                 <MenuItemDataGrid onClick={() => openModalDeleteUser(row.original.id, row.original.fullName)}>
-                                    <Trash size={16} color={defaultTheme.colors?.primary?.[0]} /> Удалить
+                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                                        <Trash />
+                                    </ThemeIcon>
+                                    Удалить
                                 </MenuItemDataGrid>
                             </MenuDataGrid>
                         );

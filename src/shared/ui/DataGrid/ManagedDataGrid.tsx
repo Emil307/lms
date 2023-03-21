@@ -105,7 +105,7 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
                         },
                     }}
                     mt={32}>
-                    {countName}: <span>{queryData?.meta.pagination.per_page}</span> из <span>{queryData?.meta.pagination.total}</span>
+                    {countName}: <span>{pagination?.per_page}</span> из <span>{pagination?.total}</span>
                 </Box>
             )}
             <Box mt={24}>

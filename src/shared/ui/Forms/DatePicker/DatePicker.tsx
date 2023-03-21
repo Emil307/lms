@@ -1,41 +1,31 @@
-import React, { memo, useMemo, useState } from "react";
-import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, Text, useMantineTheme } from "@mantine/core";
-import { AlertTriangle, CheckCircle, ChevronDown, Info, X } from "react-feather";
+import React, { useMemo, useState } from "react";
+import { DatePicker as MDatePicker, DatePickerProps as MDatePickerProps } from "@mantine/dates";
+import { AlertTriangle, Calendar, CheckCircle, Info } from "react-feather";
+import { Group, ThemeIcon, Text, useMantineTheme } from "@mantine/core";
 import { z } from "zod";
-import { defaultTheme } from "@app/providers/Theme/theme";
-import { useMultiSelectStyles } from "./MultiSelectStyles";
+import { useInputStyles } from "@shared/styles";
 
-export interface MultiSelectProps extends MMultiSelectProps {
+export interface DatePickerProps extends MDatePickerProps {
     success?: string | boolean;
 }
 
-const MultiSelect = ({
-    error,
-    success = false,
-    description,
-    onChange = () => undefined,
-    onFocus = () => undefined,
-    onBlur = () => undefined,
-    ...props
-}: MultiSelectProps) => {
+const DatePicker = (props: DatePickerProps) => {
+    const {
+        description,
+        error,
+        success = false,
+        size,
+        onChange = () => undefined,
+        onFocus = () => undefined,
+        onDropdownClose = () => undefined,
+        onDropdownOpen = () => undefined,
+    } = props;
     const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
-    const statusSuccess = useMemo(() => !!props.value?.length && !error && !!success, [props.value, error, success]);
 
-    const { classes } = useMultiSelectStyles({ isValue: focused || (!!props.value && props.value.length > 0), statusSuccess });
-
-    const handlerClear = () => {
-        onChange([]);
-    };
-
-    const RightSection = () => {
-        if (props.rightSection) {
-            return <>{props.rightSection}</>;
-        }
-        if (!!props.value && props.value.length > 0) {
-            return <X color={defaultTheme.colors?.gray45?.[0]} onClick={handlerClear} />;
-        }
-        return <ChevronDown style={{ pointerEvents: "none" }} color={defaultTheme.colors?.gray45?.[0]} />;
+    const onDropdownOpenHandler = () => {
+        onDropdownOpen();
+        setFocused(true);
     };
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -43,15 +33,23 @@ const MultiSelect = ({
         setFocused(true);
     };
 
-    const onBlurHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-        onBlur(e);
+    const onDropCloseHandler = () => {
+        onDropdownClose();
         setFocused(false);
     };
 
-    const handlerOnChange = (value: string[]) => {
+    const handlerOnChange = (value: Date | null) => {
         onChange(value);
         setFocused(false);
     };
+
+    const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
+
+    const { classes } = useInputStyles({
+        floating: !!props.value || focused,
+        size: size,
+        statusSuccess,
+    });
 
     const renderError = useMemo(
         () =>
@@ -88,13 +86,18 @@ const MultiSelect = ({
     }, [statusSuccess, success, description]);
 
     return (
-        <MMultiSelect
+        <MDatePicker
             {...props}
             classNames={classes}
             onChange={handlerOnChange}
+            onDropdownOpen={onDropdownOpenHandler}
             onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-            rightSection={<RightSection />}
+            onDropdownClose={onDropCloseHandler}
+            rightSection={
+                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                    <Calendar />
+                </ThemeIcon>
+            }
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
@@ -102,4 +105,4 @@ const MultiSelect = ({
     );
 };
 
-export default memo(MultiSelect);
+export default DatePicker;

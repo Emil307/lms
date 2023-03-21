@@ -1,3 +1,1 @@
-import { useDeleteUser } from "./useDeleteUser";
-
-export { useDeleteUser };
+export * from "./useDeleteUser";

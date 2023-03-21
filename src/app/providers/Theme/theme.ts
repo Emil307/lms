@@ -84,16 +84,6 @@ export const defaultTheme: MantineThemeOverride = {
         },
     },
     components: {
-        BaseForm: {
-            styles: () => ({
-                root: {
-                    // position: "relative",
-                    // border: `1px solid ${theme.fn.darken(theme.primaryColor, 0.2)}`,
-                    // padding: "1.1rem",
-                    // borderRadius: theme.fn.radius(theme.defaultRadius),
-                },
-            }),
-        },
         Select: {
             styles: (theme) => ({
                 item: {

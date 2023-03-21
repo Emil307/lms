@@ -33,7 +33,7 @@ const UserDeleteModal = ({ id, fio }: UserDeleteModalProps) => {
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить пользователя, «‎ID: ${id} ${fio}»‎?`}</Box>
+                <Box className={classes.text}>{`Вы действительно хотите удалить пользователя, «ID: ${id} ${fio}»?`}</Box>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={() => closeModal(`${id}`)} loading={deleteUser.isLoading}>
