@@ -1,6 +1,7 @@
 import { ModalsProvider } from "@mantine/modals";
-import { QueryProvider, ThemeProvider } from "src/app/providers";
+import { QueryProvider, ThemeProvider } from "@app/providers";
 import { AppPropsWithLayout } from "@shared/utils";
+
 import "@app/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
