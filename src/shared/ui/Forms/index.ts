@@ -9,3 +9,4 @@ export * from "./Select";
 export * from "./MultiSelect";
 export * from "./RadioGroup";
 export * from "./FileButton";
+export * from "./DatePicker";

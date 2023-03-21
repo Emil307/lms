@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Formik, FormikConfig, FormikValues } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import BaseForm, { BaseFormProps } from "./BaseForm";
+import { BaseForm, BaseFormProps } from "./BaseForm";
 import FormPersister from "./components/FormPersister";
 import FormOverlay from "./components/FormOverlay";
 
@@ -31,9 +31,13 @@ function Form<T extends FormikValues = FormikValues>({
         },
         [config.onSubmit]
     );
+    const validationSchema = useMemo(
+        () => (config.validationSchema ? toFormikValidationSchema(config.validationSchema) : null),
+        [config.validationSchema]
+    );
 
     return (
-        <Formik<T> {...config} validationSchema={toFormikValidationSchema(config.validationSchema)} onSubmit={onSubmit}>
+        <Formik<T> {...config} validationSchema={validationSchema} onSubmit={onSubmit}>
             {(formikProps) => (
                 <FormPersister initialValues={config.initialValues} enabled={persist}>
                     <BaseForm {...form}>

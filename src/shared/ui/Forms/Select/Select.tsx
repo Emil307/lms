@@ -1,11 +1,14 @@
-import React, { memo, useState } from "react";
-import { Select as MSelect } from "@mantine/core";
-import { ChevronDown, Search, X } from "react-feather";
+import React, { memo, useMemo, useState } from "react";
+import { Group, Select as MSelect, SelectProps as MSelectProps, Text, useMantineTheme } from "@mantine/core";
+import { AlertTriangle, CheckCircle, ChevronDown, Info, Search, X } from "react-feather";
+import { z } from "zod";
 import { defaultTheme } from "@app/providers/Theme/theme";
 import { useInputStyles } from "@shared/styles";
 import { SelectItem } from "./SelectItem";
 
-export interface SelectProps extends React.ComponentProps<typeof MSelect> {}
+export interface SelectProps extends MSelectProps {
+    success?: string | boolean;
+}
 
 const MemoizedSelect = (props: SelectProps) => {
     const {
@@ -19,15 +22,23 @@ const MemoizedSelect = (props: SelectProps) => {
         classNames,
         styles,
         unstyled,
+        description,
+        error,
+        success = false,
     } = props;
 
+    const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
+
+    const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
+
     const { classes } = useInputStyles(
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
             icon: icon || searchable,
             size: size,
             clearable: clearable && props.value?.toString().trim().length !== 0,
+            statusSuccess,
         },
         { name: "Select", classNames, styles, unstyled }
     );
@@ -61,6 +72,40 @@ const MemoizedSelect = (props: SelectProps) => {
         return <ChevronDown style={{ pointerEvents: "none" }} color={defaultTheme.colors?.gray45?.[0]} />;
     };
 
+    const renderError = useMemo(
+        () =>
+            error && (
+                <>
+                    <AlertTriangle />
+                    <Text>{error}</Text>
+                </>
+            ),
+        [error]
+    );
+
+    const renderDescription = useMemo(() => {
+        if (!description && !(success && statusSuccess)) {
+            return;
+        }
+
+        return (
+            <>
+                {statusSuccess && !z.boolean().safeParse(success).success && (
+                    <Group>
+                        <CheckCircle color={theme.colors.done[0]} />
+                        <Text>{success}</Text>
+                    </Group>
+                )}
+                {description && (
+                    <Group>
+                        <Info color={theme.colors.primaryHover[0]} />
+                        <Text>{description}</Text>
+                    </Group>
+                )}
+            </>
+        );
+    }, [statusSuccess, success, description]);
+
     return (
         <MSelect
             {...props}
@@ -71,6 +116,9 @@ const MemoizedSelect = (props: SelectProps) => {
             classNames={classes}
             itemComponent={props.itemComponent ?? SelectItem}
             rightSection={<RightSection />}
+            inputWrapperOrder={["label", "input", "error", "description"]}
+            error={renderError}
+            description={renderDescription}
         />
     );
 };
