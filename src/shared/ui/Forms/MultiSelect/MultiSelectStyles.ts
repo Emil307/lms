@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export const useMultiSelectStyles = createStyles((theme, { isValue }: { isValue: boolean }) => ({
+export const useMultiSelectStyles = createStyles((theme, { isValue, statusSuccess }: { isValue: boolean; statusSuccess?: boolean }) => ({
     root: {
         position: "relative",
         ":hover": {
@@ -24,36 +24,101 @@ export const useMultiSelectStyles = createStyles((theme, { isValue }: { isValue:
         color: theme.colors.gray45[0],
     },
     input: {
+        display: "flex",
         minHeight: 48,
-        paddingLeft: "18px",
-        paddingRight: "18px",
-        border: `1px solid ${theme.colors.gray20[0]} !important`,
-        borderRadius: "8px",
-        fontSize: "14px",
+        paddingLeft: 18,
+        paddingRight: 36,
+        border: statusSuccess ? `1px solid ${theme.colors.done[0]} !important` : `1px solid ${theme.colors.gray20[0]}`,
+        borderRadius: 8,
+        fontSize: 14,
         lineHeight: "16px",
         ":hover, :focus": {
             boxShadow: `0px 1px 2px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.04)}, 0px 0px 16px ${theme.fn.rgba(
                 theme.colors.shadowGray[0],
                 0.04
             )} !important`,
-            border: `1px solid ${theme.fn.rgba(theme.colors.primary[0], 0.0)} !important`,
+            border: `1px solid ${theme.fn.rgba(theme.colors.primary[0], 0.0)} `,
             cursor: "pointer",
         },
         ":disabled": {
-            border: `1px solid ${theme.fn.rgba(theme.colors.neutral_gray[0], 0.2)}`,
+            border: `1px solid ${theme.fn.rgba(theme.colors.neutral_gray[0], 0.2)} `,
             color: theme.colors.dark[0],
         },
         "&[aria-invalid=true]": {
-            border: `1px solid ${theme.colors.warning[0]}`,
+            border: `1px solid ${theme.colors.warning[0]} `,
         },
     },
-    error: {
-        position: "absolute",
-        color: theme.colors.warning[0],
+
+    defaultValue: {
+        height: 24,
+        paddingInline: 6,
+        backgroundColor: theme.colors.primary8,
     },
+    defaultValueLabel: {
+        color: theme.colors.dark,
+    },
+    defaultValueRemove: {
+        minWidth: 16,
+        minHeight: 16,
+        width: 16,
+        height: 16,
+        color: theme.colors.primary,
+        svg: {
+            strokeWidth: 1,
+            path: {
+                stroke: theme.colors.primary,
+            },
+        },
+    },
+
     rightSection: {
         width: "50px",
         cursor: "pointer",
         pointerEvents: !isValue ? "none" : "auto",
+    },
+    error: {
+        display: "flex",
+        gap: 4,
+        marginTop: 4,
+
+        svg: {
+            width: 16,
+            height: 16,
+            color: theme.colors.warning,
+        },
+
+        "> div": {
+            width: "calc(100% - 20px)",
+            paddingTop: 2,
+            color: theme.colors.dark,
+            fontWeight: 400,
+            fontSize: 10,
+            lineHeight: "12px",
+        },
+    },
+    description: {
+        display: "flex",
+        flexDirection: "column",
+
+        "> div": {
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 4,
+            marginTop: 4,
+
+            svg: {
+                width: "16px !important",
+                height: "16px !important",
+            },
+
+            "> div": {
+                width: "calc(100% - 20px)",
+                paddingTop: 2,
+                color: theme.colors.dark,
+                fontWeight: 400,
+                fontSize: 10,
+                lineHeight: "12px",
+            },
+        },
     },
 }));

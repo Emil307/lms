@@ -7,7 +7,7 @@ export interface FCheckboxProps extends CheckboxProps {
     onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function FProgressBar({ onChange = () => undefined, ...props }: FCheckboxProps) {
+export default function FCheckbox({ onChange = () => undefined, ...props }: FCheckboxProps) {
     const [field, _meta, helpers] = useField<boolean>(props.name);
 
     const handleChange = useCallback((newValue: ChangeEvent<HTMLInputElement>) => {
