@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import { Box, Stack, Text, useMantineTheme } from "@mantine/core";
+import { Box, Stack, Text, ThemeIcon } from "@mantine/core";
 import { Edit3, Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
+import { closeModal, openModal } from "@mantine/modals";
 import { Logo } from "@components/Logo";
 import {
     BreadCrumbs,
-    FCheckbox,
-    Form,
-    FProgressBar,
-    TBreadCrumbItem,
-    Rating,
     Button,
-    RingProgress,
-    FSlider,
-    Tooltip,
     DisplayField,
+    FCheckbox,
+    FProgressBar,
+    FSlider,
     FSwitch,
     Tabs,
-    MultiSelect,
     Input,
     RadioGroup,
     Radio,
@@ -31,8 +26,15 @@ import {
     FFileButton,
     FDatePicker,
     DatePicker,
+    TBreadCrumbItem,
+    MultiSelect,
+    Rating,
+    RingProgress,
+    Tooltip,
+    Form,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
+import { ChangePasswordModal } from "@features/changePassword";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -101,7 +103,6 @@ export const UIDemo = () => {
     const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
-    const theme = useMantineTheme();
 
     const handlerSelectValue = (value: string[]) => {
         setMultiSelectValue(value);
@@ -140,6 +141,8 @@ export const UIDemo = () => {
         },
     };
 
+    const handleCloseModal = () => closeModal("CHANGE_PASSWORD");
+
     return (
         <>
             <BreadCrumbs items={breadCrumbsItems} />
@@ -167,7 +170,11 @@ export const UIDemo = () => {
                     onChange={(e) => setInputValuePassword(e.target.value)}
                     value={inputValuePassword}
                     label="Label"
-                    icon={<Target color={theme.colors.gray45[0]} />}
+                    icon={
+                        <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <Target />
+                        </ThemeIcon>
+                    }
                     type="password"
                 />
                 <RadioGroup>
@@ -226,6 +233,18 @@ export const UIDemo = () => {
                                 </Button>
                                 <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
                                     Next
+                                </Button>
+                                <Button
+                                    onClick={() =>
+                                        openModal({
+                                            modalId: "CHANGE_PASSWORD",
+                                            title: "Изменение пароля",
+                                            centered: true,
+                                            size: 408,
+                                            children: <ChangePasswordModal onClose={handleCloseModal} />,
+                                        })
+                                    }>
+                                    Show Modal
                                 </Button>
                             </Stack>
                         );

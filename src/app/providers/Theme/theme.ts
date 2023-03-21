@@ -133,8 +133,23 @@ export const defaultTheme: MantineThemeOverride = {
                     fontSize: 20,
                     lineHeight: "24px",
                 },
+                modal: {
+                    padding: "24px !important",
+                    borderRadius: 16,
+                    background: theme.colors.white[0],
+                    boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+                },
                 close: {
-                    color: theme.colors.primary[0],
+                    svg: {
+                        color: theme.colors.primary[0],
+                    },
+                },
+                header: {
+                    marginBottom: 24,
+                    fontWeight: 600,
+                    fontSize: 20,
+                    lineHeight: "24px",
+                    color: theme.colors.dark[0],
                 },
             }),
         },

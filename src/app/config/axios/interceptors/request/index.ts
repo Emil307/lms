@@ -1,4 +1,4 @@
-import { getCookie } from 'cookies-next'
+import { getCookie } from "cookies-next";
 import { TAxiosRequestInterceptorSuccess } from "@app/config/axios/types";
 import { ECookies } from "@app/config/axios/cookies";
 export const tokenInterceptor: TAxiosRequestInterceptorSuccess = (config) => {

@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Navbar as MNavbar } from "@mantine/core";
-
 import { Logo } from "@components/Logo";
 import { Sidebar } from "./Sidebar";
 
