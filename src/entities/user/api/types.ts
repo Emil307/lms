@@ -1,40 +1,22 @@
 import { z } from "zod";
+import { $paginationResponse } from "@shared/types";
 
-export type TUser = {
-    id: number;
-    fullName: string;
-    email: string;
-    roleName: string;
-    isActive: boolean;
-};
+const $user = z.object({
+    email: z.string(),
+    fullName: z.string(),
+    id: z.number(),
+    isActive: z.boolean(),
+    roleName: z.string(),
+});
 
 const $usersResponse = z.object({
-    data: z.array(
-        z.object({
-            email: z.string(),
-            fullName: z.string(),
-            id: z.number(),
-            isActive: z.boolean(),
-            roleName: z.string(),
-        })
-    ),
-    meta: z.object({
-        pagination: z.object({
-            count: z.number(),
-            current_page: z.number(),
-            links: z.object({
-                next: z.string().nullish(),
-                previous: z.string().nullish(),
-            }),
-            per_page: z.number(),
-            total: z.number(),
-            total_pages: z.number(),
-        }),
-    }),
+    data: z.array($user),
+    meta: $paginationResponse,
 });
 
 type UsersResponseType = z.infer<typeof $usersResponse>;
+type TUser = z.infer<typeof $user>;
 
 export { $usersResponse };
 
-export type { UsersResponseType };
+export type { UsersResponseType, TUser };

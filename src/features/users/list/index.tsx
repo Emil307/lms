@@ -72,7 +72,7 @@ const UserList = () => {
                     getData={usersApi.getUsers}
                     countName="Учеников"
                     initialState={{
-                        columnOrder: ["mrt-row-select", "id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
+                        columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
                     }}
                     enablePinning
                     renderRowActions={({ row }) => {
