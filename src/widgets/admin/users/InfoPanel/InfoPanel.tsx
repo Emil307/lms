@@ -13,7 +13,7 @@ const InfoPanel = () => {
                     ID: <span>157</span>
                 </Box>
                 <Flex gap={8}>
-                    Деактивировать <Switch variant="secondary" />
+                    <Switch variant="secondary" label="Деактивировать" labelPosition="left" />
                 </Flex>
                 <Checkbox label="Отображать на главной" />
                 <Box className={classes.infoItem}>

@@ -13,4 +13,9 @@ export const useSettingUserStyles = createStyles((theme) => ({
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
     },
+    desc: {
+        color: theme.colors.gray45[0],
+        fontSize: 16,
+        lineHeight: "24px",
+    },
 }));

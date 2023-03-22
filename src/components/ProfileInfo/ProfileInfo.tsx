@@ -13,10 +13,10 @@ export interface ProfileInfoProps<T> {
     avatarSrc?: string;
     values?: T;
     actionSlot?: ReactNode;
-    variant?: "admin" | "user";
+    variant?: "whiteBg" | "grayBg";
 }
 
-export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, variant="user" }: ProfileInfoProps<T>) {
+export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, variant="whiteBg" }: ProfileInfoProps<T>) {
     const { classes } = useStyles({variant});
 
     const renderActions = useMemo(() => {

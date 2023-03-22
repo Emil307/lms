@@ -64,14 +64,14 @@ export const defaultTheme: MantineThemeOverride = {
                 fontWeight: 600,
             },
             h2: {
-                fontSize: 26,
+                fontSize: 24,
                 lineHeight: "32px",
-                fontWeight: 700,
+                fontWeight: 600,
             },
             h3: {
                 fontSize: 20,
-                lineHeight: "27px",
-                fontWeight: 700,
+                lineHeight: "24px",
+                fontWeight: 600,
             },
             h4: {
                 fontSize: 18,

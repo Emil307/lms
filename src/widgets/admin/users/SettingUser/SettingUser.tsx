@@ -3,8 +3,9 @@ import React from "react";
 import { Bell, Info, Shield, Trash, User, UserCheck } from "react-feather";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { ControlPanel, ProfileInfo, ProfileInfoDisplayFields } from "@components/index";
 import { GetMeResponse } from "@entities/auth";
+import { ControlPanel } from "@components/Forms";
+import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
 import { useSettingUserStyles } from "./SettingUser.styles";
 
 const fields: ProfileInfoDisplayFields<GetMeResponse> = [
@@ -17,34 +18,34 @@ const SettingUser = () => {
     const { classes } = useSettingUserStyles();
     return (
         <Box mt={32}>
-            <Flex gap={48} align="center">
-                <Title order={2}>Настройки пользователя</Title>
-                {/* TODO - при подключении апи перенести модалку с подключением в общий юай юзеров */}
-                <Button
-                    variant="text"
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <Trash />
-                        </ThemeIcon>
-                    }>
-                    Удалить пользователя
-                </Button>
-            </Flex>
             <Box mt={32} className={classes.info}>
-                <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
-                    <Fieldset label="Личные данные" icon={<User />}>
-                        <DisplayField label="Фамилия" value="Смирнова" />
-                        <DisplayField label="Имя" value="Екатерина" />
-                        <DisplayField label="Отчество" value="Владимировна" />
+                <Group sx={{ flexDirection: "column", alignItems: "flex-start"}}>
+                    <Flex gap={48} align="center">
+                        <Title order={2}>Настройки пользователя</Title>
+                        {/* TODO - при подключении апи перенести модалку с подключением в общий юай юзеров */}
+                        <Button
+                            variant="text"
+                            leftIcon={
+                                <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                                    <Trash />
+                                </ThemeIcon>
+                            }>
+                            Удалить пользователя
+                        </Button>
+                    </Flex>
+                    <Fieldset mt={32} label="Личные данные" icon={<User />}>
+                        <DisplayField key="family" label="Фамилия" value="Смирнова" />
+                        <DisplayField key="name" label="Имя" value="Екатерина" />
+                        <DisplayField key="secondName" label="Отчество" value="Владимировна" />
                     </Fieldset>
 
-                    <Fieldset label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value="Ученик" />
-                        <DisplayField label="Email" value="admim@admin.com" />
+                    <Fieldset mt={24} label="Системные данные" icon={<Shield />}>
+                        <DisplayField key="role" label="Роль" value="Ученик" />
+                        <DisplayField key="email" label="Email" value="admim@admin.com" />
                     </Fieldset>
 
-                    <Fieldset label="О преподавателе" icon={<UserCheck />}>
-                        <Box style={{ width: 376 }}>
+                    <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
+                        <Box sx={{ width: 376 }}>
                             <Image
                                 radius="lg"
                                 src="https://images.unsplash.com/photo-1511216335778-7cb8f49fa7a3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -58,22 +59,22 @@ const SettingUser = () => {
                             </Flex>
                         </Box>
                     </Fieldset>
-                    <Box>
+                    <Box className={classes.desc} mt={16}>
                         Екатерина Владимировна постоянно повышает свою квалификацию через самообразование, активную работу в методических
                         объединениях, на курсах Галерея Бизнеса. По итогам аттестации __года Екатерина Владимировна присвоена высшая
                         (первая) квалификационная категория по должности учитель.
                     </Box>
-                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                        <Box className={classes.settingsNotification} w="100%">
-                            <ControlPanel label="Уведомлять о домашних заданиях требующих проверки" variant="secondary" />
-                            <ControlPanel label="Уведомлять о новых сообщениях в чате поддержки" variant="secondary" />
+                    <Fieldset mt={24} label="Настройки уведомлений" icon={<Bell />}>
+                        <Box key="box" className={classes.settingsNotification} w="100%">
+                            <ControlPanel key="homeWork" label="Уведомлять о домашних заданиях требующих проверки" variant="secondary" />
+                            <ControlPanel key="newMessage" label="Уведомлять о новых сообщениях в чате поддержки" variant="secondary" />
                         </Box>
                     </Fieldset>
                 </Group>
                 <Box>
                     {/* TODO - API */}
                     <ProfileInfo
-                        variant="admin"
+                        variant="whiteBg"
                         fields={fields}
                         actionSlot={
                             <>

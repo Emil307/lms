@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/api/keys";
+import { QueryKeys } from "@shared/constant";
 import { $getMeResponse, authApi, GetMeResponse } from "@entities/auth";
 
 export const useMe = () => {
