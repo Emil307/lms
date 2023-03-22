@@ -36,6 +36,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-feather": "^2.0.10",
+        "react-yandex-maps": "^4.6.0",
         "sass": "^1.58.3",
         "zod": "^3.20.6",
         "zod-formik-adapter": "^1.2.0"
