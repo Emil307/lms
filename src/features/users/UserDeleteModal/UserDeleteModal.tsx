@@ -2,6 +2,8 @@ import { Box, Flex, Stack, useMantineTheme } from "@mantine/core";
 import { closeModal } from "@mantine/modals";
 import React from "react";
 import { AlertTriangle } from "react-feather";
+import { useRouter } from "next/router";
+import { LinkProps } from "next/link";
 import { Button } from "@shared/ui";
 import { useDeleteUser } from "@entities/user/query";
 import { queryClient } from "@app/providers";
@@ -9,11 +11,13 @@ import { QueryKeys } from "@shared/constant";
 import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
 
 interface UserDeleteModalProps {
-    id: number;
+    id: string;
     fio: string;
+    redirectUrl?: LinkProps["href"];
 }
 
-const UserDeleteModal = ({ id, fio }: UserDeleteModalProps) => {
+const UserDeleteModal = ({ id, fio, redirectUrl }: UserDeleteModalProps) => {
+    const router = useRouter();
     const theme = useMantineTheme();
     const { classes } = UserDeleteModalStyles();
     const deleteUser = useDeleteUser();
@@ -22,6 +26,8 @@ const UserDeleteModal = ({ id, fio }: UserDeleteModalProps) => {
             await deleteUser.mutateAsync(id);
             queryClient.refetchQueries([QueryKeys.GET_USERS]);
             closeModal(`${id}`);
+            if (!redirectUrl) return;
+            router.push(redirectUrl)
         } catch {
             // TODO - вызвать сообщение об ошибке
             closeModal(`${id}`);

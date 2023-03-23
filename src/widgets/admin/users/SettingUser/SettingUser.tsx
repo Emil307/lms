@@ -1,11 +1,14 @@
 import { Box, Flex, Group, ThemeIcon, Title, Image, Text } from "@mantine/core";
 import React from "react";
 import { Bell, Info, Shield, Trash, User, UserCheck } from "react-feather";
+import { openModal } from "@mantine/modals";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
 import { GetMeResponse } from "@entities/auth";
 import { ControlPanel } from "@components/Forms";
 import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
+import { useDetailUser } from "@entities/user";
+import { UserDeleteModal } from "@features/users";
 import { useSettingUserStyles } from "./SettingUser.styles";
 
 const fields: ProfileInfoDisplayFields<GetMeResponse> = [
@@ -14,16 +17,33 @@ const fields: ProfileInfoDisplayFields<GetMeResponse> = [
     { name: "email", label: "Email" },
 ];
 
-const SettingUser = () => {
+interface SettingUserProps {
+    id: string;
+}
+
+const SettingUser = ({ id }: SettingUserProps) => {
     const { classes } = useSettingUserStyles();
+    const { data } = useDetailUser(id);
+
+    const openModalDeleteUser = () => {
+        openModal({
+            modalId: `${id}`,
+            title: "Удаление пользователя",
+            centered: true,
+            children: (
+                <UserDeleteModal redirectUrl="/admin/users" id={id} fio={`${data?.firstName} ${data?.patronymic} ${data?.lastName}`} />
+            ),
+        });
+    };
+
     return (
-        <Box mt={32}>
+        <Box>
             <Box mt={32} className={classes.info}>
-                <Group sx={{ flexDirection: "column", alignItems: "flex-start"}}>
+                <Group sx={{ flexDirection: "column", alignItems: "flex-start" }}>
                     <Flex gap={48} align="center">
                         <Title order={2}>Настройки пользователя</Title>
-                        {/* TODO - при подключении апи перенести модалку с подключением в общий юай юзеров */}
                         <Button
+                            onClick={openModalDeleteUser}
                             variant="text"
                             leftIcon={
                                 <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
@@ -32,16 +52,17 @@ const SettingUser = () => {
                             }>
                             Удалить пользователя
                         </Button>
+                        {/* <UserDeleteButton id={id} /> */}
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<User />}>
-                        <DisplayField key="family" label="Фамилия" value="Смирнова" />
-                        <DisplayField key="name" label="Имя" value="Екатерина" />
-                        <DisplayField key="secondName" label="Отчество" value="Владимировна" />
+                        <DisplayField label="Фамилия" value={data?.lastName} />
+                        <DisplayField label="Имя" value={data?.firstName} />
+                        <DisplayField label="Отчество" value={data?.patronymic} />
                     </Fieldset>
 
                     <Fieldset mt={24} label="Системные данные" icon={<Shield />}>
-                        <DisplayField key="role" label="Роль" value="Ученик" />
-                        <DisplayField key="email" label="Email" value="admim@admin.com" />
+                        <DisplayField label="Роль" value={data?.roleName} />
+                        <DisplayField label="Email" value={data?.email} />
                     </Fieldset>
 
                     <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
@@ -60,14 +81,12 @@ const SettingUser = () => {
                         </Box>
                     </Fieldset>
                     <Box className={classes.desc} mt={16}>
-                        Екатерина Владимировна постоянно повышает свою квалификацию через самообразование, активную работу в методических
-                        объединениях, на курсах Галерея Бизнеса. По итогам аттестации __года Екатерина Владимировна присвоена высшая
-                        (первая) квалификационная категория по должности учитель.
+                        {data?.description}
                     </Box>
                     <Fieldset mt={24} label="Настройки уведомлений" icon={<Bell />}>
                         <Box key="box" className={classes.settingsNotification} w="100%">
-                            <ControlPanel key="homeWork" label="Уведомлять о домашних заданиях требующих проверки" variant="secondary" />
-                            <ControlPanel key="newMessage" label="Уведомлять о новых сообщениях в чате поддержки" variant="secondary" />
+                            <ControlPanel label="Уведомлять о домашних заданиях требующих проверки" variant="secondary" />
+                            <ControlPanel label="Уведомлять о новых сообщениях в чате поддержки" variant="secondary" />
                         </Box>
                     </Fieldset>
                 </Group>
