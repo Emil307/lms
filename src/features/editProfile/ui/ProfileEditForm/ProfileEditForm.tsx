@@ -50,7 +50,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                                     fontWeight: 600,
                                     fontSize: 16,
                                     lineHeight: "24px",
-                                    color: theme.colors.dark,
+                                    color: theme.colors.dark[0],
                                 }}>
                                 Личные данные
                             </Text>
@@ -88,7 +88,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                                     fontWeight: 600,
                                     fontSize: 16,
                                     lineHeight: "24px",
-                                    color: theme.colors.dark,
+                                    color: theme.colors.dark[0],
                                 }}>
                                 Системные данные
                             </Text>

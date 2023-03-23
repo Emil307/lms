@@ -28,7 +28,7 @@ export default createStyles((theme) => ({
         fontSize: 14,
         lineHeight: "16px",
         fontWeight: 400,
-        color: theme.colors.white,
+        color: theme.colors.white[0],
     },
     linksGroup: {
         columnGap: 32,
@@ -43,6 +43,6 @@ export default createStyles((theme) => ({
         fontSize: 14,
         lineHeight: "16px",
         fontWeight: 400,
-        color: theme.colors.white,
+        color: theme.colors.white[0],
     },
 }));

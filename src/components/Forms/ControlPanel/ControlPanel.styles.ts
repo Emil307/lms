@@ -8,13 +8,13 @@ export default createStyles((theme, { checked = false }: { checked?: boolean }) 
         paddingInline: 18,
         paddingBlock: 16,
         gap: 8,
-        backgroundColor: checked ? theme.colors.white : "transparent",
+        backgroundColor: checked ? theme.colors.white[0] : "transparent",
         borderRadius: 8,
     },
     label: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: checked ? theme.colors.dark : theme.colors.gray45,
+        color: checked ? theme.colors.dark[0] : theme.colors.gray45[0],
     },
 }));

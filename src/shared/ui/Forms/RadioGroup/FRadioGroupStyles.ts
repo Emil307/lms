@@ -9,13 +9,13 @@ export const useRadioGroupStyles = createStyles((theme) => ({
         svg: {
             width: 16,
             height: 16,
-            color: theme.colors.warning,
+            color: theme.colors.warning[0],
         },
 
         "> div": {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark,
+            color: theme.colors.dark[0],
             fontWeight: 400,
             fontSize: 10,
             lineHeight: "12px",
@@ -39,7 +39,7 @@ export const useRadioGroupStyles = createStyles((theme) => ({
             "> div": {
                 width: "calc(100% - 20px)",
                 paddingTop: 2,
-                color: theme.colors.dark,
+                color: theme.colors.dark[0],
                 fontWeight: 400,
                 fontSize: 10,
                 lineHeight: "12px",

@@ -17,7 +17,7 @@ const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items, ...props }: TBrea
                 w={4}
                 h={4}
                 sx={(theme) => ({
-                    backgroundColor: theme.colors.secondary,
+                    backgroundColor: theme.colors.secondary[0],
                     borderRadius: "50%",
                 })}
             />

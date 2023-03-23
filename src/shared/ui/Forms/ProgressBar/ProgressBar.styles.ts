@@ -13,6 +13,6 @@ export default createStyles((theme) => ({
     },
     bar: {
         borderRadius: "16px !important",
-        backgroundColor: theme.colors.dark,
+        backgroundColor: theme.colors.dark[0],
     },
 }));
