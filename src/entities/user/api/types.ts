@@ -33,8 +33,26 @@ const $usersResponse = z.object({
     }),
 });
 
+const $userDetailResponse = z.object({
+    description: z.string(),
+    email: z.string(),
+    firstName: z.string(),
+    id: z.number(),
+    isActive: z.boolean(),
+    isStatic: z.boolean(),
+    lastName: z.string(),
+    loginIn: z.string(),
+    notifications: z.array(z.string()).optional(),
+    patronymic: z.string(),
+    roleId: z.number(),
+    roleName: z.string(),
+    updatedAt: z.string(),
+});
+
+type UserDetailResponse = z.infer<typeof $userDetailResponse>;
+
 type UsersResponseType = z.infer<typeof $usersResponse>;
 
-export { $usersResponse };
+export { $usersResponse, $userDetailResponse };
 
-export type { UsersResponseType };
+export type { UsersResponseType, UserDetailResponse };
