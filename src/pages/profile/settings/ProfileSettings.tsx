@@ -37,7 +37,7 @@ const ProfileSettingsPage = () => {
                             fontWeight: 600,
                             fontSize: 32,
                             lineHeight: "40px",
-                            color: theme.colors.dark,
+                            color: theme.colors.dark[0],
                         })}>
                         Настройки профиля
                     </Text>
@@ -50,7 +50,7 @@ const ProfileSettingsPage = () => {
                     padding: 32,
                     gap: 56,
                     borderRadius: 24,
-                    backgroundColor: theme.colors.white,
+                    backgroundColor: theme.colors.white[0],
                 })}>
                 <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
                     <Fieldset label="Личные данные" icon={<User />}>
@@ -70,7 +70,7 @@ const ProfileSettingsPage = () => {
                             sx={(theme) => ({
                                 padding: 4,
                                 borderRadius: 12,
-                                backgroundColor: theme.colors.light,
+                                backgroundColor: theme.colors.light[0],
                             })}
                             w="100%">
                             {notifications.map((notification) => (

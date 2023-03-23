@@ -16,7 +16,7 @@ export const useRadioStyles = createStyles((theme) => ({
     },
     radio: {
         cursor: "pointer",
-        backgroundColor: theme.colors.grayLight,
+        backgroundColor: theme.colors.grayLight[0],
         border: `1px solid ${theme.fn.rgba(theme.colors.primary[0], 0.0)}`,
         ":hover": {
             border: `1px solid ${theme.colors.primary[0]}`,

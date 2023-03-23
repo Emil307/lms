@@ -1,10 +1,9 @@
 import { createStyles } from "@mantine/core";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 
 export default createStyles((theme, { variant }: { variant: "primary" | "secondary" }) => ({
     track: {
         minWidth: 48,
-        backgroundColor: variant === "secondary" ? theme.colors.gray20 : theme.colors.dark,
+        backgroundColor: variant === "secondary" ? theme.colors.gray20[0] : theme.colors.dark[0],
         border: "none",
     },
     thumb: {
@@ -22,29 +21,29 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
 
         ":checked": {
             "+ .mantine-Switch-track": {
-                backgroundColor: variant === "secondary" ? theme.colors.done : theme.colors.primary,
+                backgroundColor: variant === "secondary" ? theme.colors.done[0] : theme.colors.primary[0],
 
                 ".mantine-Switch-thumb": {
-                    backgroundColor: theme.colors.white,
+                    backgroundColor: theme.colors.white[0],
                 },
             },
         },
 
         ":disabled": {
             "+ .mantine-Switch-track": {
-                backgroundColor: theme.colors.grayLight,
+                backgroundColor: theme.colors.grayLight[0],
 
                 ".mantine-Switch-thumb": {
-                    backgroundColor: theme.colors.gray20,
+                    backgroundColor: theme.colors.gray20[0],
                 },
             },
 
             ":checked": {
                 "+ .mantine-Switch-track": {
-                    backgroundColor: theme.colors.gray45,
+                    backgroundColor: theme.colors.gray45[0],
 
                     ".mantine-Switch-thumb": {
-                        backgroundColor: theme.colors.grayLight,
+                        backgroundColor: theme.colors.grayLight[0],
                     },
                 },
             },
@@ -58,9 +57,8 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
     },
     label: {
         paddingRight: 8,
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         lineHeight: "16px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
 }));

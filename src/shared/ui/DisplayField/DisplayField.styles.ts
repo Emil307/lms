@@ -12,11 +12,11 @@ export default createStyles((theme, { variant }: { variant: "compact" | "default
         fontWeight: 500,
         fontSize: variant === "default" ? 16 : 12,
         lineHeight: variant === "default" ? "24px" : "16px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
     value: {
         fontWeight: 500,
         lineHeight: "24px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
 }));

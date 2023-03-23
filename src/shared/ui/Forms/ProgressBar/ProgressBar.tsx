@@ -1,6 +1,5 @@
 import { Box, Progress as MProgress, ProgressProps as MProgressProps, Text } from "@mantine/core";
 import { memo, useMemo } from "react";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 import useStyles from "./ProgressBar.styles";
 
 export interface ProgressBarProps extends MProgressProps {
@@ -16,10 +15,12 @@ const MemoizedProgressBar = memo(function ProgressBar({ label, value = 0, maxVal
         <Box className={classes.wrapper}>
             <MProgress {...props} value={valueProgress} classNames={classes} />
             <Text
-                sx={{
-                    fontFamily: ManropeFont.style.fontFamily,
-                    fontWeight: ManropeFont.style.fontWeight,
-                }}>{`${value}/${maxValue} ${label}`}</Text>
+                sx={(theme) => ({
+                    fontWeight: 600,
+                    fontSize: 16,
+                    lineHeight: "24px",
+                    color: theme.colors.dark[0],
+                })}>{`${value}/${maxValue} ${label}`}</Text>
         </Box>
     );
 });
