@@ -4,7 +4,7 @@ import { Button } from "@shared/ui";
 import IconFaceBook from "public/icons/icon24px/social/facebook.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import { Logo } from "@components/Logo";
-import { useFooterAdminStyles } from "./FooterAdminStyles";
+import { useFooterAdminStyles } from "./FooterAdmin.styles";
 
 const FooterAdmin = () => {
     const { classes } = useFooterAdminStyles();

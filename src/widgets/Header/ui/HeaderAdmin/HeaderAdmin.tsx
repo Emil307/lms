@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Flex, Header as MHeader, Stack, Text } from "@mantine/core";
 import { Button } from "@shared/ui";
-import { useHeaderAdminStyles } from "./HeaderAdminStyles";
+import { useHeaderAdminStyles } from "./HeaderAdmin.styles";
 
 const HeaderAdmin = () => {
     const { classes } = useHeaderAdminStyles();
