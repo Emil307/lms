@@ -1,5 +1,4 @@
 import { createStyles } from "@mantine/core";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 
 export default createStyles((theme) => ({
     inner: {
@@ -13,8 +12,8 @@ export default createStyles((theme) => ({
         width: 24,
         height: 24,
         borderRadius: 8,
-        borderColor: theme.colors.grayLight,
-        backgroundColor: theme.colors.grayLight,
+        borderColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.grayLight[0],
 
         "& + svg": {
             position: "absolute",
@@ -29,42 +28,41 @@ export default createStyles((theme) => ({
 
         ":checked": {
             "& + svg": {
-                color: theme.colors.white,
+                color: theme.colors.white[0],
             },
         },
 
         ":hover": {
-            borderColor: theme.colors.primary,
-            backgroundColor: theme.colors.white,
+            borderColor: theme.colors.primary[0],
+            backgroundColor: theme.colors.white[0],
 
             ":checked": {
-                backgroundColor: theme.colors.white,
+                backgroundColor: theme.colors.white[0],
 
                 "& + svg": {
-                    color: theme.colors.primary,
+                    color: theme.colors.primary[0],
                 },
             },
         },
 
         ":disabled": {
             border: "none",
-            backgroundColor: theme.colors.gray20,
+            backgroundColor: theme.colors.gray20[0],
         },
 
         ":disabled:checked": {
             border: "none",
-            backgroundColor: theme.colors.gray20,
+            backgroundColor: theme.colors.gray20[0],
             "& + svg": {
-                color: theme.colors.dark,
+                color: theme.colors.dark[0],
             },
         },
     },
     label: {
         paddingTop: 4,
         paddingLeft: 8,
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
         lineHeight: "16px",
     },
 }));

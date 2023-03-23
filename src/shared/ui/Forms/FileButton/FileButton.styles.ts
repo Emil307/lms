@@ -6,12 +6,12 @@ export default createStyles((theme) => ({
         paddingLeft: 0,
         paddingRight: 0,
         height: "auto",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
         backgroundColor: "transparent",
 
         ":hover": {
             backgroundColor: "transparent",
-            color: theme.colors.primaryHover,
+            color: theme.colors.primaryHover[0],
         },
     },
     leftIcon: {

@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         height: 24,
         top: -34,
         borderRadius: 8,
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.primary[0],
         fontSize: 0,
 
         svg: {

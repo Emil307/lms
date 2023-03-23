@@ -3,7 +3,7 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme, { size }: { size: "small" | "normal" }) => ({
     symbolGroup: {
         '&:has(>input[data-active="true"]) ~ div>label>div>svg>path': {
-            stroke: theme.colors.gray20,
+            stroke: theme.colors.gray20[0],
             fill: "none",
         },
 
@@ -12,8 +12,8 @@ export default createStyles((theme, { size }: { size: "small" | "normal" }) => (
         },
 
         "svg path": {
-            stroke: theme.colors.secondary,
-            fill: theme.colors.secondary,
+            stroke: theme.colors.secondary[0],
+            fill: theme.colors.secondary[0],
         },
     },
 }));

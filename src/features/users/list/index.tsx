@@ -10,7 +10,7 @@ import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
 import { QueryKeys } from "@shared/constant";
 import { columns } from "./constant";
-import UserDeleteModal from "./ui/UserDeleteModal/UserDeleteModal";
+import UserDeleteModal from "../UserDeleteModal/UserDeleteModal";
 
 // TODO - брать с бэка, когда будет эндпоинт
 const testDataSelect = [
@@ -45,7 +45,7 @@ const UserList = () => {
         search: search ?? "",
     };
 
-    const openModalDeleteUser = (id: number, fio: string) => {
+    const openModalDeleteUser = (id: string, fio: string) => {
         openModal({
             modalId: `${id}`,
             title: "Удаление пользователя",
@@ -93,7 +93,7 @@ const UserList = () => {
                                     </ThemeIcon>
                                     Редактировать
                                 </MenuItemDataGrid>
-                                <MenuItemDataGrid onClick={() => openModalDeleteUser(row.original.id, row.original.fullName)}>
+                                <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), row.original.fullName)}>
                                     <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                                         <Trash />
                                     </ThemeIcon>

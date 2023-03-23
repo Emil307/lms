@@ -17,13 +17,13 @@ export default createStyles((theme) => ({
         marginBottom: 16,
 
         svg: {
-            color: theme.colors.gray45,
+            color: theme.colors.gray45[0],
         },
     },
     title: {
         fontWeight: 600,
         fontSize: 18,
         lineHeight: "24px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
 }));
