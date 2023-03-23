@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactElement } from "react";
-import { AdminLayout } from "@app/layouts";
+import { UserLayout } from "@app/layouts";
 
 import { NextPageWithLayout } from "@shared/utils";
 import { ProfilePage } from "@pages/profile";
@@ -10,7 +10,7 @@ const Profile: NextPageWithLayout = () => {
 };
 
 Profile.getLayout = function (page: ReactElement) {
-    return <AdminLayout>{page} </AdminLayout>;
+    return <UserLayout>{page} </UserLayout>;
 };
 
 export default Profile;

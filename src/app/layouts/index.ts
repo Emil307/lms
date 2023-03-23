@@ -1,4 +1,3 @@
-import AdminLayout from "./AdminLayout";
+export * from "./AdminLayout";
 export * from "./AuthLayout";
-
-export { AdminLayout };
+export * from "./UserLayout";

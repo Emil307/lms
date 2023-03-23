@@ -1,10 +1,10 @@
 import { Box } from "@mantine/core";
 import { AppShell } from "@mantine/core";
 import React from "react";
-import FooterAdmin from "@widgets/FooterAmin/FooterAmin";
-import HeaderAdmin from "@widgets/HeaderAdmin/HeaderAdmin";
-import { useAdminLayoutStyles } from "./AdminLayoutStyles";
-import Navbar from "../../widgets/NavbarAdmin/NavbarAdmin";
+import { FooterAdmin } from "@widgets/Footer";
+import { HeaderAdmin } from "@widgets/Header";
+import { NavbarAdmin } from "@widgets/NavbarAdmin";
+import { useAdminLayoutStyles } from "./AdminLayout.styles";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
     const { classes } = useAdminLayoutStyles();
@@ -14,7 +14,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
             pr={24}
             classNames={classes}
             layout="alt"
-            navbar={<Navbar />}
+            navbar={<NavbarAdmin />}
             header={<HeaderAdmin />}
             footer={<FooterAdmin />}>
             <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
