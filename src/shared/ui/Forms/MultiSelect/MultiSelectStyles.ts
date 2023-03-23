@@ -52,21 +52,21 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
     defaultValue: {
         height: 24,
         paddingInline: 6,
-        backgroundColor: theme.colors.primary8,
+        backgroundColor: theme.colors.primary8[0],
     },
     defaultValueLabel: {
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     defaultValueRemove: {
         minWidth: 16,
         minHeight: 16,
         width: 16,
         height: 16,
-        color: theme.colors.primary,
+        color: theme.colors.primary[0],
         svg: {
             strokeWidth: 1,
             path: {
-                stroke: theme.colors.primary,
+                stroke: theme.colors.primary[0],
             },
         },
     },
@@ -84,13 +84,13 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
         svg: {
             width: 16,
             height: 16,
-            color: theme.colors.warning,
+            color: theme.colors.warning[0],
         },
 
         "> div": {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark,
+            color: theme.colors.dark[0],
             fontWeight: 400,
             fontSize: 10,
             lineHeight: "12px",
@@ -114,7 +114,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
             "> div": {
                 width: "calc(100% - 20px)",
                 paddingTop: 2,
-                color: theme.colors.dark,
+                color: theme.colors.dark[0],
                 fontWeight: 400,
                 fontSize: 10,
                 lineHeight: "12px",

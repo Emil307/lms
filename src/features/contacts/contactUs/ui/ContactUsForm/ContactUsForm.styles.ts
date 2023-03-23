@@ -15,19 +15,19 @@ export default createStyles((theme) => ({
         fontWeight: 600,
         fontSize: 26,
         lineHeight: "32px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     headingDescription: {
         fontWeight: 500,
         fontSize: 16,
         lineHeight: "24px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     link: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.primary,
+        color: theme.colors.primary[0],
         textDecoration: "none",
 
         "&:hover": {
@@ -38,6 +38,6 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
 }));

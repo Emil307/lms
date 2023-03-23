@@ -8,7 +8,7 @@ export default createStyles((theme) => ({
         padding: 32,
         paddingTop: 24,
         borderRadius: 16,
-        backgroundColor: theme.colors.light,
+        backgroundColor: theme.colors.light[0],
     },
     content: {
         flexDirection: "column",

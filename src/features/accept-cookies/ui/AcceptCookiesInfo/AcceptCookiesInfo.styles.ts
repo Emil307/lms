@@ -10,13 +10,13 @@ export default createStyles((theme) => ({
         padding: 24,
         borderRadius: 16,
         boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
-        backgroundColor: theme.colors.dark,
+        backgroundColor: theme.colors.dark[0],
     },
     text: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
         textAlign: "center",
-        color: theme.colors.white,
+        color: theme.colors.white[0],
     },
 }));

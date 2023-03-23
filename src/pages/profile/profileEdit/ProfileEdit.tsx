@@ -33,9 +33,9 @@ const ProfileEditPage = (_props: ProfileEditPageProps) => {
                             <ThemeIcon
                                 sx={{
                                     minWidth: 48,
-                                    background: theme.colors.secondary16,
+                                    background: theme.colors.secondary16[0],
                                     svg: {
-                                        color: theme.colors.secondary,
+                                        color: theme.colors.secondary[0],
                                     },
                                 }}
                                 color="secondary"
@@ -44,7 +44,7 @@ const ProfileEditPage = (_props: ProfileEditPageProps) => {
                                 h={48}>
                                 <AlertTriangle />
                             </ThemeIcon>
-                            <Text sx={(theme) => ({ fontWeight: 500, fontSize: 16, lineHeight: "24px", color: theme.colors.dark })}>
+                            <Text sx={(theme) => ({ fontWeight: 500, fontSize: 16, lineHeight: "24px", color: theme.colors.dark[0] })}>
                                 Вы хотите сохранить изменения перед закрытием?
                             </Text>
                         </Group>
@@ -77,14 +77,14 @@ const ProfileEditPage = (_props: ProfileEditPageProps) => {
                             fontWeight: 600,
                             fontSize: 32,
                             lineHeight: "40px",
-                            color: theme.colors.dark,
+                            color: theme.colors.dark[0],
                         })}>
                         Настройки профиля
                     </Text>
                 </Group>
             </Box>
 
-            <Box sx={(theme) => ({ borderRadius: 24, backgroundColor: theme.colors.white, form: { border: "none", padding: 32 } })}>
+            <Box sx={(theme) => ({ borderRadius: 24, backgroundColor: theme.colors.white[0], form: { border: "none", padding: 32 } })}>
                 <ProfileEditForm data={userData} onEditPassword={handleEditPassword} onClose={handleClose} isLoading={isLoading} />
             </Box>
         </Group>
