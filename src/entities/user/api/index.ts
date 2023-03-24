@@ -1,6 +1,14 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils/types";
-import { $userDetailResponse, $usersResponse, UserDetailResponse, UsersResponseType } from "./types";
+import {
+    $userCreateResponse,
+    $userDetailResponse,
+    $usersResponse,
+    UserCreateRequest,
+    UserCreateResponse,
+    UserDetailResponse,
+    UsersResponseType,
+} from "./types";
 
 export class UsersApi extends BaseApi {
     async getUsers(params: any): Promise<UsersResponseType> {
@@ -16,6 +24,11 @@ export class UsersApi extends BaseApi {
     async getDetailUser(id: string): Promise<UserDetailResponse> {
         const result = await axios.get(`admin/users/${id}`);
         return $userDetailResponse.parse(result);
+    }
+
+    async createUser(data: UserCreateRequest): Promise<UserCreateResponse> {
+        const result = await axios.post("/admin/users", data);
+        return $userCreateResponse.parse(result);
     }
 }
 
