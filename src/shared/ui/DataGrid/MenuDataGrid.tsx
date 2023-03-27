@@ -15,8 +15,12 @@ const useMenuStyles = createStyles((theme) => ({
         display: "flex",
         marginLeft: "auto",
         borderRadius: 60,
+        zIndex: 10000,
+        cursor: "pointer",
+        pointerEvents: "fill",
+        position: "relative",
         ":hover": {
-            backgroundColor: theme.colors.secondary8[8],
+            backgroundColor: theme.colors.secondary8[0],
         },
     },
 }));
@@ -28,7 +32,7 @@ const MenuDataGrid = ({ children, ...props }: MenuProps) => {
         <Menu {...props}>
             <Menu.Target>
                 <ActionIcon className={classes.action}>
-                    <MoreVertical width={24} height={24} color={defaultTheme.colors?.primary?.[0]} />
+                    <MoreVertical width={24} height={24} color={defaultTheme.colors?.dark?.[0]} />
                 </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown className={classes.wrapper}>{children}</Menu.Dropdown>

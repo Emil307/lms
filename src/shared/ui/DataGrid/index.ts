@@ -1,5 +1,7 @@
-import DataGrid from "./BaseDataGrid";
+import BaseDataGrid from "./BaseDataGrid";
+import DataGrid from "./DataGrid";
 import ManagedDataGrid from "./ManagedDataGrid";
 import MenuDataGrid from "./MenuDataGrid";
 import MenuItemDataGrid from "./MenuItemDataGrid";
-export { DataGrid, ManagedDataGrid, MenuDataGrid, MenuItemDataGrid };
+import PaginationDataGrid from "./PaginationDataGrid";
+export { BaseDataGrid, ManagedDataGrid, MenuDataGrid, MenuItemDataGrid, DataGrid, PaginationDataGrid };

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MRT_SortingState } from "mantine-react-table";
 import { $paginationResponse } from "@shared/types";
 
 const $user = z.object({
@@ -30,6 +31,16 @@ const $userDetailResponse = z.object({
     updatedAt: z.string(),
 });
 
+interface UsersRequestParamsType {
+    sorting?: MRT_SortingState;
+    perPage: number;
+    page: number;
+    query?: string;
+    filters?: {
+        isActive?: "0" | "1";
+    };
+}
+
 type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
 
 type UsersResponseType = z.infer<typeof $usersResponse>;
@@ -37,4 +48,4 @@ type TUser = z.infer<typeof $user>;
 
 export { $usersResponse, $userDetailResponse };
 
-export type { UsersResponseType, TUser, UserDetailResponseType };
+export type { UsersResponseType, TUser, UserDetailResponseType, UsersRequestParamsType };

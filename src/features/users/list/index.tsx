@@ -1,15 +1,19 @@
 import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
-import { useRouter } from "next/router";
 import { openModal } from "@mantine/modals";
-import { FSearch, MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
+import { useState } from "react";
+import { FormikConfig } from "formik";
+import { MRT_Cell, MRT_Row, MRT_SortingState } from "mantine-react-table";
+import { useRouter } from "next/router";
+import { DataGrid, Form, FSearch, MenuDataGrid, MenuItemDataGrid, PaginationDataGrid, Switch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { FSelect } from "@shared/ui/Forms/Select";
-import { Button, ManagedDataGrid } from "@shared/ui";
+import { Button } from "@shared/ui";
 import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
-import { QueryKeys } from "@shared/constant";
+import { useUsers } from "@entities/user";
 import { columns } from "./constant";
+import { $validationSchema } from "./types/validation";
 import UserDeleteModal from "../UserDeleteModal/UserDeleteModal";
 
 // TODO - брать с бэка, когда будет эндпоинт
@@ -26,25 +30,15 @@ const radioGroupValues = [
     { id: "3", label: "Все", value: "" },
 ];
 
-type TFilters = {
-    isActive: string;
-    search: string;
-};
+interface TFilters {
+    isActive?: "1" | "0" | "";
+    query: string;
+}
 
 const UserList = () => {
     const router = useRouter();
-    const { page, isActive, search, perPage, sort } = router.query as {
-        page: string;
-        isActive: string;
-        search: string;
-        perPage: string;
-        sort: string;
-    };
-    const filters = {
-        isActive: isActive ?? "",
-        search: search ?? "",
-    };
-
+    const [filters, setFilters] = useState({ filters: {}, query: "" });
+    const [sorting, setSorting] = useState<MRT_SortingState>([]);
     const openModalDeleteUser = (id: string, fio: string) => {
         openModal({
             modalId: `${id}`,
@@ -52,6 +46,41 @@ const UserList = () => {
             centered: true,
             children: <UserDeleteModal id={id} fio={fio} />,
         });
+    };
+
+    const cfg: FormikConfig<TFilters> = {
+        initialValues: { isActive: "", query: "" },
+        enableReinitialize: true,
+        validationSchema: $validationSchema,
+        onSubmit: async (values) => {
+            setFilters({ query: values.query, filters: { ...(values.isActive !== "" && { isActive: values.isActive }) } });
+        },
+    };
+
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 5,
+    });
+
+    const { data, isLoading, isRefetching, isFetching } = useUsers({
+        ...filters,
+        sorting,
+        perPage: pagination.pageSize,
+        page: pagination.pageIndex + 1,
+    });
+
+    const totalPage = data?.meta.pagination.total_pages;
+    const firstElemIndex = (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + 1;
+    const lastElemIndex =
+        (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
+
+    const handlerClickRow = (row: MRT_Row<TUser>) => {
+        router.push(`/admin/users/${row.original.id}`);
+    };
+
+    const handlerClickCell = (cell: MRT_Cell<TUser>) => {
+        if (cell.column.id === "mrt-row-actions") return;
+        router.push(`/admin/users/${cell.row.original.id}`);
     };
 
     return (
@@ -64,11 +93,23 @@ const UserList = () => {
             </Flex>
 
             <Box mt={24}>
-                <ManagedDataGrid<TUser, TFilters>
-                    queryKey={[QueryKeys.GET_USERS, page, isActive, search, perPage, sort]}
+                <DataGrid<TUser>
                     manualSorting
+                    onSortingChange={setSorting}
+                    onClickCell={handlerClickCell}
+                    rowCount={data?.meta.pagination.count}
+                    state={{
+                        isLoading: isLoading || isRefetching || isFetching,
+                        pagination: {
+                            pageIndex: data?.meta.pagination.current_page || 0,
+                            pageSize: data?.meta.pagination.per_page || 10,
+                        },
+                        sorting,
+                    }}
+                    onClickRow={handlerClickRow}
+                    pageCount={totalPage || 0}
                     columns={columns}
-                    filters={filters}
+                    data={data?.data ?? []}
                     getData={usersApi.getUsers}
                     countName="Учеников"
                     initialState={{
@@ -102,26 +143,42 @@ const UserList = () => {
                             </MenuDataGrid>
                         );
                     }}
+                    onPaginationChange={setPagination}
                     enableColumnFilterModes
                     enableRowActions
-                    enableRowSelection>
-                    <Box mb={24}>
-                        <Flex columnGap={8} rowGap={0}>
-                            <FSearch w={380} size="sm" name="search" placeholder="Поиск" />
-                            <FSelect name="role" size="sm" data={testDataSelect} clearable label="Select" />
-                        </Flex>
-                        <Box mt={16}>
-                            <FRadioGroup name="isActive" defaultValue="">
-                                {radioGroupValues.map((item) => {
-                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                })}
-                            </FRadioGroup>
+                    enableRowSelection
+                    renderBottomToolbar={({ table }) => {
+                        if (!data?.meta.pagination) {
+                            return null;
+                        }
+                        return (
+                            <PaginationDataGrid
+                                table={table}
+                                firstElemIndex={firstElemIndex}
+                                lastElemIndex={lastElemIndex}
+                                count={totalPage}
+                            />
+                        );
+                    }}>
+                    <Form config={cfg}>
+                        <Box mb={24}>
+                            <Flex columnGap={8} rowGap={0}>
+                                <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
+                                <FSelect name="role" size="sm" data={testDataSelect} clearable label="Select" />
+                            </Flex>
+                            <Box mt={16}>
+                                <FRadioGroup name="isActive" defaultValue="">
+                                    {radioGroupValues.map((item) => {
+                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                    })}
+                                </FRadioGroup>
+                            </Box>
+                            <Button mt={16} type="submit">
+                                Найти
+                            </Button>
                         </Box>
-                        <Button mt={16} type="submit">
-                            Найти
-                        </Button>
-                    </Box>
-                </ManagedDataGrid>
+                    </Form>
+                </DataGrid>
             </Box>
         </Box>
     );
