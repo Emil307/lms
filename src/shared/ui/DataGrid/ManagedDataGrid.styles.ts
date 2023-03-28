@@ -15,15 +15,12 @@ export const useManagedDataGridStyles = createStyles((theme) => ({
         lineHeight: "16px !important",
         borderBottom: `2px solid ${theme.colors.light[0]} !important`,
         zIndex: 99,
-        ":last-child": {
-            backgroundColor:"red !important",
+        ":last-of-type": {
             pointerEvents: "none",
         }
     },
     tableBodyRow: {
         cursor: "pointer",
-        // color: "red",
-        // TODO - реализовать зеленный индикатор (:before - ломает таблицу, можно попробовать добавить кастомный элемент в Cell для таблицы)
     },
     tableContainer: {
         borderRadius: 8,

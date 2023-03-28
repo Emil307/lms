@@ -59,13 +59,13 @@ export default function PaginationDataGrid<T extends Record<string, any>>({ tabl
                 value={pageSize.toString()}
                 onChange={pushOnPerPage}
                 sx={{
-                    cursor: "pointer",
                     label: {
                         fontSize: 14,
                         lineHeight: "16px",
                         color: theme.colors.gray45[0],
                     },
                     select: {
+                        cursor: "pointer",
                         border: "none",
                     },
                     "@media (min-width: 720px)": {

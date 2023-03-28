@@ -1,6 +1,6 @@
-import { Box, useMantineTheme } from "@mantine/core";
+import { Box, CSSObject, useMantineTheme } from "@mantine/core";
 import React from "react";
-import { MRT_Cell, MRT_Row } from "mantine-react-table";
+import { MRT_Cell } from "mantine-react-table";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
 import { DataGridResponse } from "./types";
 import { useManagedDataGridStyles } from "./ManagedDataGrid.styles";
@@ -11,26 +11,29 @@ export interface ManagedDataGridProps<T extends Record<string, any>> extends Ext
     getData: (params: any) => Promise<DataGridResponse<T>>;
     countName?: string;
     data: T[];
-    onClickRow?: (row: MRT_Row<T>) => void;
     onClickCell?: (cell: MRT_Cell<T>) => void;
+    getStylesForCell?: (cell: MRT_Cell<T>) => CSSObject;
+    total?: number;
+    perPage?: number;
 }
 
 export default function DataGrid<T extends Record<string, any>>({
     children,
     countName,
+    total,
+    perPage,
     data,
-    onClickRow,
     onClickCell,
+    getStylesForCell,
     ...rest
 }: ManagedDataGridProps<T>) {
     const { classes } = useManagedDataGridStyles();
-
     const theme = useMantineTheme();
 
     return (
         <>
             {children}
-            {countName && (
+            {countName && perPage && total && (
                 <Box
                     sx={{
                         color: theme.colors.gray45[0],
@@ -40,7 +43,7 @@ export default function DataGrid<T extends Record<string, any>>({
                         },
                     }}
                     mt={32}>
-                    {/* {countName}: <span>{pagination?.per_page}</span> из <span>{pagination?.total}</span> */}
+                    {countName}: <span>{perPage}</span> из <span>{total}</span>
                 </Box>
             )}
             <Box mt={24}>
@@ -73,6 +76,10 @@ export default function DataGrid<T extends Record<string, any>>({
                             onClick: () => {
                                 if (!onClickCell) return;
                                 onClickCell(cell);
+                            },
+                            sx: () => {
+                                if (!getStylesForCell) return {};
+                                return { ...getStylesForCell(cell) };
                             },
                         };
                     }}

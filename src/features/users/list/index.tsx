@@ -1,9 +1,9 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, CSSObject, Flex, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
 import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { useState } from "react";
 import { FormikConfig } from "formik";
-import { MRT_Cell, MRT_Row, MRT_SortingState } from "mantine-react-table";
+import { MRT_Cell, MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { DataGrid, Form, FSearch, MenuDataGrid, MenuItemDataGrid, PaginationDataGrid, Switch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
@@ -37,29 +37,12 @@ interface TFilters {
 
 const UserList = () => {
     const router = useRouter();
+    const theme = useMantineTheme();
     const [filters, setFilters] = useState({ filters: {}, query: "" });
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
-    const openModalDeleteUser = (id: string, fio: string) => {
-        openModal({
-            modalId: `${id}`,
-            title: "Удаление пользователя",
-            centered: true,
-            children: <UserDeleteModal id={id} fio={fio} />,
-        });
-    };
-
-    const cfg: FormikConfig<TFilters> = {
-        initialValues: { isActive: "", query: "" },
-        enableReinitialize: true,
-        validationSchema: $validationSchema,
-        onSubmit: async (values) => {
-            setFilters({ query: values.query, filters: { ...(values.isActive !== "" && { isActive: values.isActive }) } });
-        },
-    };
-
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 5,
+        pageSize: 10,
     });
 
     const { data, isLoading, isRefetching, isFetching } = useUsers({
@@ -74,13 +57,53 @@ const UserList = () => {
     const lastElemIndex =
         (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
 
-    const handlerClickRow = (row: MRT_Row<TUser>) => {
-        router.push(`/admin/users/${row.original.id}`);
+    const openModalDeleteUser = (id: string, fio: string) => {
+        openModal({
+            modalId: `${id}`,
+            title: "Удаление пользователя",
+            centered: true,
+            children: <UserDeleteModal id={id} fio={fio} />,
+        });
+    };
+
+    const getStylesForCell = (cell: MRT_Cell<TUser>): CSSObject => {
+        return {
+            ":first-of-type": {
+                position: "relative",
+                ":before": {
+                    content: "''",
+                    position: "absolute",
+                    backgroundColor: cell.row.original.isActive ? theme.colors.done[0] : theme.colors.light[0],
+                    width: 4,
+                    borderRadius: "0 8px 8px 0",
+                    height: "100%",
+                    top: 1,
+                    bottom: 1,
+                    left: 0,
+                },
+            },
+        };
+    };
+
+    const pushOnUserDetail = (id: number) => {
+        router.push(`/admin/users/${id}`);
     };
 
     const handlerClickCell = (cell: MRT_Cell<TUser>) => {
         if (cell.column.id === "mrt-row-actions") return;
-        router.push(`/admin/users/${cell.row.original.id}`);
+        pushOnUserDetail(cell.row.original.id);
+    };
+
+    const cfg: FormikConfig<TFilters> = {
+        initialValues: { isActive: "", query: "" },
+        enableReinitialize: true,
+        validationSchema: $validationSchema,
+        onSubmit: async (values) => {
+            setFilters({ query: values.query, filters: { ...(values.isActive !== "" && { isActive: values.isActive }) } });
+            setPagination((prev) => {
+                return { ...prev, pageIndex: 0 };
+            });
+        },
     };
 
     return (
@@ -94,6 +117,7 @@ const UserList = () => {
 
             <Box mt={24}>
                 <DataGrid<TUser>
+                    getStylesForCell={getStylesForCell}
                     manualSorting
                     onSortingChange={setSorting}
                     onClickCell={handlerClickCell}
@@ -106,12 +130,13 @@ const UserList = () => {
                         },
                         sorting,
                     }}
-                    onClickRow={handlerClickRow}
                     pageCount={totalPage || 0}
                     columns={columns}
                     data={data?.data ?? []}
                     getData={usersApi.getUsers}
-                    countName="Учеников"
+                    countName="Пользователей"
+                    perPage={data?.meta.pagination.per_page}
+                    total={data?.meta.pagination.total}
                     initialState={{
                         columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
                     }}
@@ -120,9 +145,19 @@ const UserList = () => {
                         return (
                             <MenuDataGrid>
                                 <MenuItemDataGrid closeMenuOnClick={false}>
-                                    Деактивировать <Switch variant="primary" />
+                                    Деактивировать <Switch variant="primary" checked={row.original.isActive} />
                                 </MenuItemDataGrid>
-                                <MenuItemDataGrid>
+                                <Box
+                                    sx={{
+                                        height: 1,
+                                        backgroundColor: theme.colors.light[0],
+                                        margin: "0 12px",
+                                    }}></Box>
+                                <MenuItemDataGrid
+                                    mt={8}
+                                    onClick={() => {
+                                        pushOnUserDetail(row.original.id);
+                                    }}>
                                     <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                                         <Eye />
                                     </ThemeIcon>
