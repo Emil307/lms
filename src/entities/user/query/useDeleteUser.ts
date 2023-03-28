@@ -7,7 +7,7 @@ export const useDeleteUser = (): UseMutationResult<unknown, unknown, string, unk
 };
 
 export const useDetailUser = (id: string) => {
-    return useQuery([QueryKeys.GET_USER], () => usersApi.getDetailUser(id), {
+    return useQuery([QueryKeys.GET_USER, id], () => usersApi.getDetailUser(id), {
         enabled: !!id,
     });
 };

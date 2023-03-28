@@ -10,13 +10,19 @@ export interface MenuProps extends MMenuProps {
 const useMenuStyles = createStyles((theme) => ({
     wrapper: {
         padding: 8,
+        right: "16px !important",
+        left: "auto !important",
     },
     action: {
         display: "flex",
         marginLeft: "auto",
         borderRadius: 60,
+        zIndex: 99,
+        cursor: "pointer",
+        pointerEvents: "fill",
+        position: "relative",
         ":hover": {
-            backgroundColor: theme.colors.secondary8[8],
+            backgroundColor: theme.colors.secondary8[0],
         },
     },
 }));
@@ -25,10 +31,10 @@ const MenuDataGrid = ({ children, ...props }: MenuProps) => {
     const { classes } = useMenuStyles();
 
     return (
-        <Menu {...props}>
+        <Menu {...props} withinPortal>
             <Menu.Target>
                 <ActionIcon className={classes.action}>
-                    <MoreVertical width={24} height={24} color={defaultTheme.colors?.primary?.[0]} />
+                    <MoreVertical width={24} height={24} color={defaultTheme.colors?.dark?.[0]} />
                 </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown className={classes.wrapper}>{children}</Menu.Dropdown>
