@@ -4,7 +4,7 @@ import { $getAboutResponse, $getContactsResponse, GetAboutResponse, GetContactsR
 
 class StaticPageApi extends BaseApi {
     async getContacts(): Promise<GetContactsResponse> {
-        const response = await this.instance.get("contacts");
+        const response = await this.instance.get("static-page/contacts");
         return $getContactsResponse.parse(response);
     }
     async getAbout(): Promise<GetAboutResponse> {
