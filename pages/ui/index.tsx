@@ -17,7 +17,6 @@ import {
     Input,
     RadioGroup,
     Radio,
-    Search,
     Select,
     FInput,
     FSelect,
@@ -32,9 +31,14 @@ import {
     RingProgress,
     Tooltip,
     Form,
+    Search,
+    FFileInput,
+    FFileInputMultiple,
+    UploadedFile,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
+import { useUploadImage, useUploadVideo } from "@entities/storage";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -79,6 +83,9 @@ type Values = {
     hasPassword: boolean;
     avatarImage: File | null;
     date: Date | null;
+    logo: File | UploadedFile | null;
+    doc: File[] | UploadedFile[];
+    attachments: File[] | UploadedFile[];
 };
 
 const radioGroupValues = [
@@ -94,6 +101,7 @@ export const $loginValidationSchema = z.object({
     option: z.string({ required_error: "Выберите что-то" }),
     select: z.string({ required_error: "Нужно что-то выбрать" }),
     multi: z.array(z.string()).min(1, "Мин 1 элемент"),
+    doc: z.array(z.any()).min(1, "Мин 1 один файл"),
 });
 
 export const UIDemo = () => {
@@ -113,7 +121,7 @@ export const UIDemo = () => {
     };
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Гfeat/93940-file-buttonлавная страница", href: { pathname: "/ui" } },
+        { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
@@ -134,6 +142,25 @@ export const UIDemo = () => {
             hasPassword: false,
             avatarImage: null,
             date: null,
+            logo: {
+                id: 115,
+                name: "test2.jpeg",
+                extension: "jpeg",
+                size: 208642,
+                absolutePath:
+                    "https://api-bucket.addamant-work.ru/business-galery-public/images/Z4HsGLrX4oQL3ezwIPUyR8rmV5pdeXAgs7guTN6O.jpg",
+            },
+            doc: [],
+            attachments: [
+                {
+                    id: 115,
+                    name: "test2.jpeg",
+                    extension: "jpeg",
+                    size: 208642,
+                    absolutePath:
+                        "https://api-bucket.addamant-work.ru/business-galery-public/images/Z4HsGLrX4oQL3ezwIPUyR8rmV5pdeXAgs7guTN6O.jpg",
+                },
+            ],
         },
         validationSchema: $loginValidationSchema,
         onSubmit: () => {
@@ -143,12 +170,14 @@ export const UIDemo = () => {
 
     const handleCloseModal = () => closeModal("CHANGE_PASSWORD");
 
+    const handleDownloadFile = (_id: number) => undefined;
+
     return (
         <>
             <BreadCrumbs items={breadCrumbsItems} />
             <Logo />
             <Tabs tabs={tabsList} />
-            <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto" }}>
+            <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto", backgroundColor: "white" }}>
                 <ControlPanel variant="primary" label="Уведомлять о проверенных домашних заданиях" />
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
@@ -188,8 +217,7 @@ export const UIDemo = () => {
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />
-
-                <Form config={config} disableOverlay>
+                <Form config={config}>
                     {({ setFieldValue, values }) => {
                         return (
                             <Stack>
@@ -228,6 +256,45 @@ export const UIDemo = () => {
                                 <FSwitch name="hasOwner" label="llalal" labelPosition="left" variant="primary" />
                                 <FSwitch name="hasPassword" variant="secondary" />
                                 <FProgressBar name="step" label="вопросов" maxValue={16} />
+                                <FFileInput
+                                    type="video"
+                                    name="img"
+                                    title="Загрузить картинку с ПК"
+                                    // fileFormats={["jpeg", "jpg", "png"]}
+                                    fileFormats={["mp4"]}
+                                    withDeleteButton
+                                    useUploadFile={useUploadVideo}
+                                    titleButtonFileDialog="Видос"
+                                />
+
+                                {/* <FFileInput
+                                    type="image"
+                                    name="img"
+                                    title="Загрузить картинку с ПК"
+                                    fileFormats={["jpeg", "jpg", "png"]}
+                                    withDeleteButton
+                                    useUploadFile={useUploadImage}
+                                    // fileUploadUrl="https://gallery-back.addamant-work.ru/api/storage/uploads/images"
+                                    // imageMaxHeight={300}
+                                    // h={500}
+                                />
+
+                                <FFileInput
+                                    type="document"
+                                    name="logo"
+                                    title="Загрузить файл с ПК"
+                                    fileFormats={["jpeg", "jpg", "png"]}
+                                    useUploadFile={useUploadImage}
+                                /> */}
+                                <FFileInputMultiple
+                                    type="document"
+                                    nameForInitialFiles="attachments"
+                                    nameForLoadedFiles="doc"
+                                    title="Загрузить документы с ПК"
+                                    fileFormats={["pdf", "jpeg", "jpg", "png"]}
+                                    useUploadFile={useUploadImage}
+                                    onDownloadInitialFile={handleDownloadFile}
+                                />
                                 <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                     Prev
                                 </Button>
