@@ -10,7 +10,7 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();
     return (
         <AppShell padding={16} classNames={classes} layout="alt" header={<HeaderUser />} footer={<FooterUser />}>
-            <Box sx={{ marginInline: "auto", maxWidth: 1320, paddingTop: 32 }}>{children}</Box>
+            <Box sx={{ marginInline: "auto", maxWidth: 1320, paddingTop: 32, paddingBottom: 96 }}>{children}</Box>
         </AppShell>
     );
 }

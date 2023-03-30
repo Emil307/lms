@@ -2,7 +2,7 @@ import { Box, Title, Text, Group } from "@mantine/core";
 import React from "react";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
 import { Map } from "@features/contacts";
-import { useContacts } from "@entities/textPage";
+import { useContacts } from "@entities/staticPage";
 
 const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Главная страница", href: { pathname: "/" } },

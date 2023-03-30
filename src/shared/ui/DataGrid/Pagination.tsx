@@ -16,7 +16,7 @@ export default function Pagination<T extends Record<string, any>>({ table, first
     const router = useRouter();
     const theme = useMantineTheme();
     const {
-        pagination: { pageIndex = 0, pageSize = Number(router.query.perPage) ?? 10 },
+        pagination: { pageIndex = 0, pageSize = Number(router.query.perPage) || 10 },
     } = getState();
     const pushOnPage = (selectedPage: number) => {
         setPageIndex(selectedPage);
@@ -86,7 +86,7 @@ export default function Pagination<T extends Record<string, any>>({ table, first
                         color: theme.colors.gray45[0],
                     },
                     select: {
-                        border: "none"
+                        border: "none",
                     },
                     "@media (min-width: 720px)": {
                         display: "flex",
