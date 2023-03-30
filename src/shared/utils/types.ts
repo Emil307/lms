@@ -24,3 +24,10 @@ export enum Roles {
     "Менеджер",
     "Администратор",
 }
+
+export interface FormErrorResponse {
+    message: string;
+    errors: {
+        [key: string]: string[];
+    };
+}
