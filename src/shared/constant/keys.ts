@@ -1,6 +1,7 @@
 export enum QueryKeys {
     GET_ME = "GET_ME",
     GET_CONTACTS = "GET_CONTACTS",
+    GET_ABOUT = "GET_ABOUT",
     GET_USERS = "GET_USERS",
     GET_USER = "GET_USER",
 }

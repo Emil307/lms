@@ -1,3 +1,3 @@
 export * from "./hooks";
-export * from "./pageApi";
+export * from "./staticPageApi";
 export * from "./types";
