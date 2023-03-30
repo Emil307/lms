@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Text, ThemeIcon } from "@mantine/core";
+import { Avatar, Box, Stack, Text, ThemeIcon } from "@mantine/core";
 import { Edit3, Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
@@ -81,7 +81,7 @@ type Values = {
     price: number;
     hasOwner: boolean;
     hasPassword: boolean;
-    avatarImage: File | null;
+    avatarImage: UploadedFile | null;
     date: Date | null;
     logo: File | UploadedFile | null;
     doc: File[] | UploadedFile[];
@@ -221,7 +221,13 @@ export const UIDemo = () => {
                     {({ setFieldValue, values }) => {
                         return (
                             <Stack>
-                                <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                <Avatar src={values.avatarImage?.absolutePath || ""} />
+                                <FFileButton
+                                    name="avatarImage"
+                                    label="Изменить аватар"
+                                    buttonProps={{ leftIcon: <Edit3 /> }}
+                                    useUploadFile={useUploadImage}
+                                />
                                 <FDatePicker name="date" success="alalala" description="rtrtrtrt" />
                                 <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                                 <FInput label="Login" name="login" description="lalalala" />
