@@ -6,6 +6,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Button, FFileButton, FInput, Form } from "@shared/ui";
 import { adaptDataForProfileEditForm, initialValuesProfileEditForm } from "@features/editProfile";
 import { $updateMeRequest, GetMeResponse, UpdateMeRequest, useUpdateMe } from "@entities/auth";
+import { useUploadAvatar } from "@entities/storage";
 import useStyles from "./ProfileEditForm.styles";
 
 export interface ProfileEditFormProps {
@@ -56,13 +57,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                             </Text>
                         </Group>
                         <Group sx={{ gap: 24 }}>
-                            <Avatar
-                                className={classes.avatarIcon}
-                                src={values.avatar ? URL.createObjectURL(values.avatar) : null}
-                                alt="avatar"
-                                w={84}
-                                h={84}
-                                radius={50}>
+                            <Avatar className={classes.avatarIcon} src={values.avatar?.absolutePath} alt="avatar" w={84} h={84} radius={50}>
                                 <AvatarIcon />
                             </Avatar>
                             <Flex sx={{ flexDirection: "column", gap: 8 }}>
@@ -70,7 +65,12 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                                     <Text className={classes.avatarUsername}>{`${adaptData.firstname} ${adaptData.lastname}`}</Text>
                                     <Text className={classes.avatarRole}>{adaptData.role}</Text>
                                 </Flex>
-                                <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                <FFileButton
+                                    name="avatar"
+                                    label="Изменить аватар"
+                                    buttonProps={{ leftIcon: <Edit3 /> }}
+                                    useUploadFile={useUploadAvatar}
+                                />
                             </Flex>
                         </Group>
                         <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>

@@ -16,6 +16,9 @@ export default createStyles((theme) => ({
     },
     leftIcon: {
         marginRight: 8,
+        svg: {
+            stroke: theme.colors.dark[0],
+        },
     },
     label: {
         fontWeight: 600,
