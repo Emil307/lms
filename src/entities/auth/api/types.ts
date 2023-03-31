@@ -1,5 +1,5 @@
-import { $uploadedFile } from "@shared/ui";
 import { z } from "zod";
+import { $uploadedFile } from "@shared/ui";
 
 export interface ChangePasswordRequest {
     oldPassword: string;
@@ -22,6 +22,7 @@ export const $getMeResponse = z.object({
             firstName: z.string(),
             lastName: z.string(),
             patronymic: z.string(),
+            avatar: $uploadedFile.nullable().optional(),
         }),
     }),
     role: z.object({
@@ -33,11 +34,12 @@ export const $getMeResponse = z.object({
 });
 
 export const $updateMeRequest = z.object({
-    firstname: z.string({ required_error: "Введите имя" }),
-    lastname: z.string({ required_error: "Введите фамилию" }),
+    firstName: z.string({ required_error: "Введите имя" }),
+    lastName: z.string({ required_error: "Введите фамилию" }),
     patronymic: z.string().optional(),
     email: z.string({ required_error: "Введите email" }),
     avatar: $uploadedFile.nullable().optional(),
+    role: z.string(),
 });
 
 export const $updateMeResponse = z.object({

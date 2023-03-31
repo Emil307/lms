@@ -62,7 +62,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                             </Avatar>
                             <Flex sx={{ flexDirection: "column", gap: 8 }}>
                                 <Flex sx={{ flexDirection: "column", gap: 4 }}>
-                                    <Text className={classes.avatarUsername}>{`${adaptData.firstname} ${adaptData.lastname}`}</Text>
+                                    <Text className={classes.avatarUsername}>{`${adaptData.firstName} ${adaptData.lastName}`}</Text>
                                     <Text className={classes.avatarRole}>{adaptData.role}</Text>
                                 </Flex>
                                 <FFileButton
@@ -74,8 +74,8 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                             </Flex>
                         </Group>
                         <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
-                            <FInput name="firstname" label="Имя" size="sm" miw={252} withAsterisk />
-                            <FInput name="lastname" label="Фамилия" size="sm" miw={252} withAsterisk />
+                            <FInput name="firstName" label="Имя" size="sm" miw={252} withAsterisk />
+                            <FInput name="lastName" label="Фамилия" size="sm" miw={252} withAsterisk />
                             <FInput name="patronymic" label="Отчество" size="sm" miw={252} />
                         </Flex>
                     </Flex>

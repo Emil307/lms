@@ -1,10 +1,19 @@
-import { useMutation } from "@tanstack/react-query";
-import { MutationKeys } from "@shared/constant";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $updateMeResponse, authApi, UpdateMeRequest } from "@entities/auth";
 
 export const useUpdateMe = () => {
-    return useMutation([MutationKeys.UPDATE_ME], async (data: UpdateMeRequest) => {
-        const response = await authApi.updateMe(data);
-        return $updateMeResponse.parse(response);
-    });
+    const queryClient = useQueryClient();
+    return useMutation(
+        [MutationKeys.UPDATE_ME],
+        async (data: UpdateMeRequest) => {
+            const response = await authApi.updateMe(data);
+            return $updateMeResponse.parse(response);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries([QueryKeys.GET_ME]);
+            },
+        }
+    );
 };
