@@ -3,6 +3,7 @@ import { z } from "zod";
 export type GetContactsResponse = z.infer<typeof $getContactsResponse>;
 export type ContactUsRequest = z.infer<typeof $contactUsRequest>;
 export type GetAboutResponse = z.infer<typeof $getAboutResponse>;
+export type GetPublicOfferResponse = z.infer<typeof $getPublicOfferResponse>;
 
 export const $getContactsResponse = z.object({
     title: z.string(),
@@ -19,6 +20,10 @@ export const $getAboutResponse = z.object({
     title: z.string(),
     shortContent: z.string(),
     fullContent: z.string(),
+});
+
+export const $getPublicOfferResponse = z.object({
+    content: z.string(),
 });
 
 export const $contactUsRequest = z.object({

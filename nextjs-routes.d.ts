@@ -15,7 +15,8 @@ declare module "nextjs-routes" {
     | StaticRoute<"/">
     | StaticRoute<"/profile/edit">
     | StaticRoute<"/profile/settings">
-    | StaticRoute<"/ui">;
+    | StaticRoute<"/ui">
+    | StaticRoute<"/userAgreement">;
 
   interface StaticRoute<Pathname> {
     pathname: Pathname;

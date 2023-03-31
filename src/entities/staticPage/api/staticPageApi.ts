@@ -1,6 +1,13 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
-import { $getAboutResponse, $getContactsResponse, GetAboutResponse, GetContactsResponse } from "./types";
+import {
+    $getAboutResponse,
+    $getContactsResponse,
+    $getPublicOfferResponse,
+    GetAboutResponse,
+    GetContactsResponse,
+    GetPublicOfferResponse,
+} from "./types";
 
 class StaticPageApi extends BaseApi {
     async getContacts(): Promise<GetContactsResponse> {
@@ -10,6 +17,10 @@ class StaticPageApi extends BaseApi {
     async getAbout(): Promise<GetAboutResponse> {
         const response = await this.instance.get("static-page/about");
         return $getAboutResponse.parse(response);
+    }
+    async getPublicOffer(): Promise<GetPublicOfferResponse> {
+        const response = await this.instance.get("static-page/publicOffer");
+        return $getPublicOfferResponse.parse(response);
     }
 }
 
