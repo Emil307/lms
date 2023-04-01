@@ -2,7 +2,7 @@ import { Box, Title, Text, Group } from "@mantine/core";
 import React from "react";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
 import { Map } from "@features/contacts";
-import { useContacts } from "@entities/textPage";
+import { useContacts } from "@entities/staticPage";
 
 const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Главная страница", href: { pathname: "/" } },
@@ -63,6 +63,9 @@ const ContactsPage = () => {
                                     fontSize: 16,
                                     lineHeight: "24px",
                                     color: theme.colors.dark[0],
+                                    p: {
+                                        margin: 0,
+                                    },
                                 })}
                                 dangerouslySetInnerHTML={{ __html: contactsData.requisites }}
                             />

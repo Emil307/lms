@@ -8,6 +8,8 @@ import { Form } from "@shared/ui";
 import { $validationSchema } from "@features/users/list/types/validation";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
 import { DataGridResponse } from "./types";
+import { useManagedDataGridStyles } from "./ManagedDataGrid.styles";
+import Pagination from "./Pagination";
 
 type ExtendedProps<T extends Record<string, any>> = React.PropsWithChildren<Omit<BaseDataGridProps<T>, "data" | "key">>;
 
@@ -27,6 +29,7 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
     ...rest
 }: ManagedDataGridProps<T, D>) {
     const router = useRouter();
+    const { classes } = useManagedDataGridStyles();
     //TODO: Filters and Sorting
     const {
         isLoading,
@@ -92,6 +95,9 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
         );
     }, [sorting]);
 
+    const firstElemIndex = (pagination?.per_page ?? 0) * ((pagination?.current_page ?? 0) - 1) + 1;
+    const lastElemIndex = (pagination?.per_page ?? 0) * ((pagination?.current_page ?? 0) - 1) + (pagination?.count ?? 0);
+
     return (
         <>
             <Form config={cfg}>{children}</Form>
@@ -128,42 +134,44 @@ export default function ManagedDataGrid<T extends Record<string, any>, D extends
                     pageCount={pagination?.total_pages || 0}
                     manualPagination
                     mantineTableHeadRowProps={{
-                        sx: {
-                            backgroundColor: theme.colors.light[0],
-                        },
+                        className: classes.tableHeadRow,
+                    }}
+                    mantineTableHeadCellProps={{
+                        className: classes.tableHeadCell,
+                    }}
+                    mantineColumnActionsButtonProps={{
+                        className: classes.columnActionsButton,
                     }}
                     mantinePaperProps={{
-                        sx: {
-                            border: "none",
-                            boxShadow: "none",
-                        },
+                        className: classes.paper,
+                    }}
+                    mantineTableContainerProps={{
+                        className: classes.tableContainer,
+                    }}
+                    mantineTableBodyRowProps={{
+                        className: classes.tableBodyRow,
                     }}
                     mantineTableBodyCellProps={{
-                        sx: {
-                            border: "none !important",
-                            fontSize: "14px !important",
-                            lineHeight: "16px !important",
-                        },
+                        className: classes.tableBodyCell,
                     }}
                     mantineSelectAllCheckboxProps={{
-                        sx: {
-                            input: {
-                                backgroundColor: theme.colors.grayLight[0],
-                                border: "none",
-                                borderRadius: 8,
-                                cursor: "pointer",
-                            },
-                        },
+                        className: classes.selectCheckbox,
                     }}
                     mantineSelectCheckboxProps={{
-                        sx: {
-                            input: {
-                                backgroundColor: theme.colors.grayLight[0],
-                                border: "none",
-                                borderRadius: 8,
-                                cursor: "pointer",
-                            },
-                        },
+                        className: classes.selectCheckbox,
+                    }}
+                    renderBottomToolbar={({ table }) => {
+                        if (!pagination) {
+                            return null;
+                        }
+                        return (
+                            <Pagination
+                                table={table}
+                                firstElemIndex={firstElemIndex}
+                                lastElemIndex={lastElemIndex}
+                                count={pagination.total}
+                            />
+                        );
                     }}
                 />
             </Box>

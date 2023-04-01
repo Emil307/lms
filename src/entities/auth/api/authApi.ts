@@ -7,7 +7,7 @@ class AuthApi extends BaseApi {
         return this.instance.get("authentication/user");
     }
     updateMe(data: UpdateMeRequest): Promise<UpdateMeResponse> {
-        return this.instance.put("me/update", { data });
+        return this.instance.put("me/update", data);
     }
     changePassword(payload: ChangePasswordRequest): Promise<void> {
         return this.instance.put("me/change-password", payload);

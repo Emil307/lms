@@ -7,12 +7,20 @@ import {
     UserCreateRequest,
     UserCreateResponse,
     UserDetailResponse,
+    UsersRequestParamsType,
     UsersResponseType,
 } from "./types";
 
 export class UsersApi extends BaseApi {
-    async getUsers(params: any): Promise<UsersResponseType> {
-        const result = await axios.get("admin/users", { params: { ...params, sort: JSON.parse(params.sort ?? "{}") } });
+    async getUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
+        const result = await axios.get("admin/users", {
+            // TODO - посмотреть что будет на бэке на следующих индексовых страницах, написать универсальные функции для параметров
+            params: {
+                ...params,
+                filter: params.filters,
+                sort: params.sorting?.[0] ? { [params.sorting[0].id]: params.sorting[0].desc ? "desc" : "asc" } : null,
+            },
+        });
         return $usersResponse.parse(result);
     }
 

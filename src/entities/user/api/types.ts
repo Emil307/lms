@@ -1,36 +1,18 @@
 import { z } from "zod";
+import { MRT_SortingState } from "mantine-react-table";
+import { $paginationResponse } from "@shared/types";
 
-export type TUser = {
-    id: number;
-    fullName: string;
-    email: string;
-    roleName: string;
-    isActive: boolean;
-};
+const $user = z.object({
+    email: z.string(),
+    fullName: z.string(),
+    id: z.number(),
+    isActive: z.boolean(),
+    roleName: z.string(),
+});
 
 const $usersResponse = z.object({
-    data: z.array(
-        z.object({
-            email: z.string(),
-            fullName: z.string(),
-            id: z.number(),
-            isActive: z.boolean(),
-            roleName: z.string(),
-        })
-    ),
-    meta: z.object({
-        pagination: z.object({
-            count: z.number(),
-            current_page: z.number(),
-            links: z.object({
-                next: z.string().nullish(),
-                previous: z.string().nullish(),
-            }),
-            per_page: z.number(),
-            total: z.number(),
-            total_pages: z.number(),
-        }),
-    }),
+    data: z.array($user),
+    meta: $paginationResponse,
 });
 
 const $userDetailResponse = z.object({
@@ -77,8 +59,20 @@ const $userCreateResponse = z.object({
 });
 
 type UserDetailResponse = z.infer<typeof $userDetailResponse>;
+interface UsersRequestParamsType {
+    sorting?: MRT_SortingState;
+    perPage: number;
+    page: number;
+    query?: string;
+    filters?: {
+        isActive?: "0" | "1";
+    };
+}
+
+type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
 
 type UsersResponseType = z.infer<typeof $usersResponse>;
+type TUser = z.infer<typeof $user>;
 
 type UserCreateRequest = z.infer<typeof $userCreate>;
 
@@ -86,4 +80,12 @@ type UserCreateResponse = z.infer<typeof $userCreateResponse>;
 
 export { $usersResponse, $userDetailResponse, $userCreate, $userCreateResponse };
 
-export type { UsersResponseType, UserDetailResponse, UserCreateRequest, UserCreateResponse };
+export type {
+    UsersResponseType,
+    TUser,
+    UserDetailResponse,
+    UsersRequestParamsType,
+    UserCreateResponse,
+    UserCreateRequest,
+    UserDetailResponseType,
+};

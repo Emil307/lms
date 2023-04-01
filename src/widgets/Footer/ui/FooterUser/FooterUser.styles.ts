@@ -3,9 +3,7 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         paddingTop: 56,
-        "@media (max-width: 1440px)": {
-            position: "inherit",
-        },
+        position: "inherit",
     },
     inner: {
         flexDirection: "column",

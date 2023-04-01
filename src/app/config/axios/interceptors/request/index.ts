@@ -7,3 +7,8 @@ export const tokenInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.headers["Authorization"] = `Bearer ${bearerToken}`;
     return config;
 };
+
+export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+    config.headers["Content-Type"] = "multipart/form-data";
+    return config;
+};

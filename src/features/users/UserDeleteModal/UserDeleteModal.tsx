@@ -24,10 +24,10 @@ const UserDeleteModal = ({ id, fio, redirectUrl }: UserDeleteModalProps) => {
     const handlerDeleteUser = async () => {
         try {
             await deleteUser.mutateAsync(id);
-            queryClient.refetchQueries([QueryKeys.GET_USERS]);
+            queryClient.invalidateQueries([QueryKeys.GET_USERS]);
             closeModal(`${id}`);
             if (!redirectUrl) return;
-            router.push(redirectUrl)
+            router.push(redirectUrl);
         } catch {
             // TODO - вызвать сообщение об ошибке
             closeModal(`${id}`);

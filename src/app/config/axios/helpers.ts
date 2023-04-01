@@ -25,6 +25,15 @@ export const whenDownloadingFiles: TAxiosRunWhen = (config) => {
     return config.responseType === "blob";
 };
 
+/**
+ *
+ * @param config AxiosConfigObject
+ * @returns true если запрос для загрузки файлов
+ */
+export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
+    return !!config.url?.includes("storage/uploads/");
+};
+
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);
 
 export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosError) => {
