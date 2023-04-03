@@ -217,6 +217,9 @@ export const UIDemo = () => {
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />
+                <Button variant="text" leftIcon={<Edit3 />} rightIcon={<Edit3 />}>
+                    TEXT
+                </Button>
                 <Form config={config}>
                     {({ setFieldValue, values }) => {
                         return (
