@@ -32,9 +32,9 @@ function List<T extends { id: unknown }>({
                     <Loader size="lg" />
                 </Flex>
             )}
-            <Grid {...props} gutter={24} mb={{ sm: -20 }}>
+            <Grid {...props} gutter={24}>
                 {data?.map((row) => (
-                    <Grid.Col {...colProps} key={`row-${row.id}`} sm={6} pb={{ sm: 20 }}>
+                    <Grid.Col {...colProps} key={`row-${row.id}`}>
                         {renderItem({ data: row, onClick })}
                     </Grid.Col>
                 ))}
