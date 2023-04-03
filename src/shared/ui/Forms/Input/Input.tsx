@@ -17,10 +17,10 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
     const { isPasswordVisible, toggleVisibility } = usePassword();
 
     const getType = () => {
-        if (isPasswordField && isPasswordVisible) {
+        if (isPasswordField && !isPasswordVisible) {
             return "password";
         }
-        if (isPasswordField && !isPasswordVisible) {
+        if (isPasswordField && isPasswordVisible) {
             return "text";
         }
         return props.type;

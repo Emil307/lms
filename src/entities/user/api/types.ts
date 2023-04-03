@@ -38,8 +38,10 @@ const $userCreate = z.object({
     firstName: z.string({ required_error: "Это обязательное поле" }),
     lastName: z.string({ required_error: "Это обязательное поле" }),
     patronymic: z.string({ required_error: "Это обязательное поле" }),
-    description: z.string(),
+    description: z.string().optional(),
     isActive: z.boolean(),
+    roleId: z.string(),
+    avatarId: z.number().nullable(),
 });
 
 const $userCreateResponse = z.object({

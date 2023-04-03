@@ -3,26 +3,18 @@ import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { useState } from "react";
 import { FormikConfig } from "formik";
-import { MRT_Cell, MRT_SortingState } from "mantine-react-table";
+import { MRT_Cell, MRT_Row, MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, Form, FSearch, MenuDataGrid, MenuItemDataGrid, PaginationDataGrid, Switch } from "@shared/ui";
+import { DataGrid, Form, FSearch, FSelect, MenuDataGrid, MenuItemDataGrid, PaginationDataGrid, Switch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
-import { FSelect } from "@shared/ui/Forms/Select";
 import { Button } from "@shared/ui";
 import { TUser } from "@entities/user/api/types";
 import { usersApi } from "@entities/user/api";
-import { useUsers } from "@entities/user";
+import { useActivateUser, useDeactivateUser, useUsers } from "@entities/user";
+import { useRoles } from "@entities/roles";
 import { columns } from "./constant";
 import { $validationSchema } from "./types/validation";
 import UserDeleteModal from "../UserDeleteModal/UserDeleteModal";
-
-// TODO - брать с бэка, когда будет эндпоинт
-const testDataSelect = [
-    { value: "react", label: "React" },
-    { value: "ng", label: "Angular" },
-    { value: "svelte", label: "Svelte" },
-    { value: "vue", label: "Vue" },
-];
 
 const radioGroupValues = [
     { id: "1", label: "Активен", value: "1" },
@@ -33,6 +25,7 @@ const radioGroupValues = [
 interface TFilters {
     isActive?: "1" | "0" | "";
     query: string;
+    role: string;
 }
 
 const UserList = () => {
@@ -66,6 +59,15 @@ const UserList = () => {
         });
     };
 
+    const roles = useRoles();
+
+    const rolesSelectOption = roles.data?.data.map((item) => {
+        return {
+            value: item.name,
+            label: item.display_name,
+        };
+    });
+
     const getStylesForCell = (cell: MRT_Cell<TUser>): CSSObject => {
         return {
             ":first-of-type": {
@@ -95,22 +97,43 @@ const UserList = () => {
     };
 
     const cfg: FormikConfig<TFilters> = {
-        initialValues: { isActive: "", query: "" },
+        initialValues: { isActive: "", query: "", role: "" },
         enableReinitialize: true,
         validationSchema: $validationSchema,
         onSubmit: async (values) => {
-            setFilters({ query: values.query, filters: { ...(values.isActive !== "" && { isActive: values.isActive }) } });
+            setFilters({
+                query: values.query,
+                filters: {
+                    ...(values.isActive !== "" && { isActive: values.isActive }),
+                    ...(values.role !== "" && { roleName: values.role }),
+                },
+            });
             setPagination((prev) => {
                 return { ...prev, pageIndex: 0 };
             });
         },
     };
 
+    const activateUser = useActivateUser();
+    const deactivateUser = useDeactivateUser();
+
+    const toggleActivateUser = async (row: MRT_Row<TUser>) => {
+        if (row.original.isActive) {
+            await deactivateUser.mutateAsync(String(row.original.id));
+            return;
+        }
+        await activateUser.mutateAsync(String(row.original.id));
+    };
+
+    const pushOnCreateUser = () => {
+        router.push("/admin/users/create");
+    };
+
     return (
         <Box>
             <Flex align="center" justify="space-between">
                 <Title>Пользователи</Title>
-                <Button variant="secondary" size="large" leftIcon={<PlusCircle />}>
+                <Button onClick={pushOnCreateUser} variant="secondary" size="large" leftIcon={<PlusCircle />}>
                     Создать пользователя
                 </Button>
             </Flex>
@@ -144,7 +167,11 @@ const UserList = () => {
                     renderRowActions={({ row }) => {
                         return (
                             <MenuDataGrid>
-                                <MenuItemDataGrid closeMenuOnClick={false}>
+                                <MenuItemDataGrid
+                                    onClick={() => {
+                                        toggleActivateUser(row);
+                                    }}
+                                    closeMenuOnClick={false}>
                                     Деактивировать <Switch variant="primary" checked={row.original.isActive} />
                                 </MenuItemDataGrid>
                                 <Box
@@ -199,7 +226,14 @@ const UserList = () => {
                         <Box mb={24}>
                             <Flex columnGap={8} rowGap={0}>
                                 <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
-                                <FSelect name="role" size="sm" data={testDataSelect} clearable label="Select" />
+                                <FSelect
+                                    name="role"
+                                    size="sm"
+                                    data={rolesSelectOption ?? []}
+                                    clearable
+                                    label="Роль"
+                                    disabled={roles.isLoading}
+                                />
                             </Flex>
                             <Box mt={16}>
                                 <FRadioGroup name="isActive" defaultValue="">

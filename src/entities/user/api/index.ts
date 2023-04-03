@@ -24,9 +24,16 @@ export class UsersApi extends BaseApi {
         return $usersResponse.parse(result);
     }
 
-    async deleteUser(id: string) {
-        const result = await axios.delete(`admin/users/${id}`);
-        return result;
+    async deleteUser(id: string): Promise<void> {
+        await axios.delete(`admin/users/${id}`);
+    }
+
+    async activateUser(id: string): Promise<void> {
+        await axios.put(`admin/users/${id}/activate`);
+    }
+
+    async deactivateUser(id: string): Promise<void> {
+        await axios.put(`admin/users/${id}/deactivate`);
     }
 
     async getDetailUser(id: string): Promise<UserDetailResponse> {
@@ -35,7 +42,7 @@ export class UsersApi extends BaseApi {
     }
 
     async createUser(data: UserCreateRequest): Promise<UserCreateResponse> {
-        const result = await axios.post("/admin/users", data);
+        const result = await axios.post("admin/users", data);
         return $userCreateResponse.parse(result);
     }
 }

@@ -5,6 +5,7 @@ export enum QueryKeys {
     GET_PUBLIC_OFFER = "GET_PUBLIC_OFFER",
     GET_USERS = "GET_USERS",
     GET_USER = "GET_USER",
+    GET_ROLES = "GET_ROLES",
 }
 
 export enum MutationKeys {
@@ -15,4 +16,6 @@ export enum MutationKeys {
     UPLOAD_IMAGE = "UPLOAD_IMAGE",
     UPLOAD_DOCUMENT = "UPLOAD_DOCUMENT",
     UPLOAD_VIDEO = "UPLOAD_VIDEO",
+    ACTIVATE_USER = "ACTIVATE_USER",
+    DEACTIVATE_USER = "DEACTIVATE_USER",
 }
