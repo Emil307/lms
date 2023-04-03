@@ -61,9 +61,9 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
     if (isAuthError && window.location.pathname.split("/")[1] === "auth") {
         return Promise.reject(error);
     }
-    // if (isAuthError) {
-    //     window.location.href = "/logout";
-    //     return Promise.reject(error);
-    // }
+    if (isAuthError) {
+        window.location.href = "/logout";
+        return Promise.reject(error);
+    }
     return Promise.reject(error);
 };

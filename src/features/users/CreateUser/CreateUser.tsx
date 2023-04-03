@@ -67,7 +67,6 @@ const CreateUser = () => {
                         </Flex>
                         <Fieldset mt={32} label="Личные данные" icon={<User />}>
                             <Box>
-                                {/* TODO -  */}
                                 <Flex gap={24}>
                                     <Avatar src={values.avatar?.absolutePath} alt="avatar" w={84} h={84} radius={50}>
                                         <AvatarIcon />
