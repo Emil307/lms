@@ -1,8 +1,9 @@
 import React from "react";
 import { Container, Flex, Footer as MFooter, Text } from "@mantine/core";
 import { Button } from "@shared/ui";
-import IconFaceBook from "public/icons/icon24px/social/facebook.svg";
+import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
+import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import { Logo } from "@components/Logo";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
 
@@ -40,10 +41,13 @@ const FooterAdmin = () => {
                 </Flex>
                 <Flex gap={16}>
                     <Button size="large" sx={{ padding: 16 }}>
-                        <IconFaceBook />
+                        <IconVK />
                     </Button>
                     <Button size="large" sx={{ padding: 16 }}>
-                        <IconVK />
+                        <IconWhatsapp />
+                    </Button>
+                    <Button size="large" sx={{ padding: 16 }}>
+                        <IconTelegram />
                     </Button>
                 </Flex>
             </Flex>
