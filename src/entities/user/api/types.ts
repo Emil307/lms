@@ -12,7 +12,9 @@ const $user = z.object({
 
 const $usersResponse = z.object({
     data: z.array($user),
-    meta: z.object({ pagination: $pagination }),
+    meta: z.object({
+        pagination: $pagination,
+    }),
 });
 
 const $userDetailResponse = z.object({
