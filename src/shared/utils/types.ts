@@ -35,12 +35,12 @@ export type Pagination = z.infer<typeof $pagination>;
 
 export const $pagination = z.object({
     count: z.number(),
-    currentPage: z.number(),
+    current_page: z.number(),
     links: z.object({
         next: z.string(),
         previous: z.string(),
     }),
-    perPage: z.number(),
+    per_page: z.number(),
     total: z.number(),
-    totalPages: z.number(),
+    total_pages: z.number(),
 });
