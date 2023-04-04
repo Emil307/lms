@@ -3,7 +3,7 @@ import { memo, useMemo } from "react";
 import Image from "next/image";
 import { CourseBlock } from "@entities/course";
 import IconCalendar from "public/icons/calendar.svg";
-import { getLocalizationDate } from "@features/courses/utils";
+import { getHumanDate } from "@shared/utils";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps extends Omit<MCardProps, "children"> {
@@ -25,7 +25,13 @@ const MemoizedHeader = memo(function Footer({ data, ...props }: HeaderProps) {
 
     const renderEndDate = useMemo(() => {
         if (data.dateEnd) {
-            return <Text className={classes.endDate}>{`Доступ: до ${getLocalizationDate(data.dateEnd)}`}</Text>;
+            return (
+                <Text className={classes.endDate}>{`Доступ: до ${getHumanDate(new Date(data.dateEnd), {
+                    month: "long",
+                    day: "2-digit",
+                    year: "numeric",
+                })}`}</Text>
+            );
         }
         return <Text className={classes.endDate}>Бессрочный доступ</Text>;
     }, [data.dateEnd]);
