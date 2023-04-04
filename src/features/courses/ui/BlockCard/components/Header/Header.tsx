@@ -1,0 +1,62 @@
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Flex, ThemeIcon, Title, Text } from "@mantine/core";
+import { memo, useMemo } from "react";
+import Image from "next/image";
+import { CourseBlock } from "@entities/course";
+import IconCalendar from "public/icons/calendar.svg";
+import { getLocalizationDate } from "@features/courses/utils";
+import useStyles from "./Header.styles";
+
+export interface HeaderProps extends Omit<MCardProps, "children"> {
+    data: CourseBlock;
+}
+
+const MemoizedHeader = memo(function Footer({ data, ...props }: HeaderProps) {
+    const { classes } = useStyles({ isNew: data.isNew, inProgress: data.onProgress });
+
+    const renderStatus = useMemo(() => {
+        if (data.onProgress) {
+            return "В процессе";
+        }
+        if (data.isNew) {
+            return "Новый";
+        }
+        return "Пройден";
+    }, [data.isNew, data.onProgress]);
+
+    const renderEndDate = useMemo(() => {
+        if (data.dateEnd) {
+            return <Text className={classes.endDate}>{`Доступ: до ${getLocalizationDate(data.dateEnd)}`}</Text>;
+        }
+        return <Text className={classes.endDate}>Бессрочный доступ</Text>;
+    }, [data.dateEnd]);
+
+    return (
+        <MCard.Section {...props} className={classes.root}>
+            <Flex direction="column" gap={8} sx={{ flex: 1, minHeight: 124 }}>
+                <Badge variant="outline" className={classes.status}>
+                    {renderStatus}
+                </Badge>
+                <Title order={4} color="dark" lineClamp={2}>
+                    {data.name}
+                </Title>
+                <Flex align="center" sx={{ gap: 8 }}>
+                    <ThemeIcon color="secondary16" w={32} h={32} sx={{ borderRadius: 56 }}>
+                        <IconCalendar />
+                    </ThemeIcon>
+                    {renderEndDate}
+                </Flex>
+            </Flex>
+            <Box className={classes.imageWrapper}>
+                <Image
+                    src={data.picture.data.path}
+                    loader={({ src }) => `${src}`}
+                    layout="fill"
+                    objectFit="cover"
+                    alt={data.picture.data.name}
+                />
+            </Box>
+        </MCard.Section>
+    );
+});
+
+export default MemoizedHeader;
