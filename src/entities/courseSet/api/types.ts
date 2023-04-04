@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $pagination } from "@shared/utils";
+import { $pagination } from "@shared/types";
 import { $uploadedFile } from "@shared/ui";
 
 export type CourseSet = z.infer<typeof $courseSet>;

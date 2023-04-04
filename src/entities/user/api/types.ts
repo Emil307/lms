@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { MRT_SortingState } from "mantine-react-table";
-import { $paginationResponse } from "@shared/types";
+import { $pagination } from "@shared/types";
 
 const $user = z.object({
     email: z.string(),
@@ -12,7 +12,7 @@ const $user = z.object({
 
 const $usersResponse = z.object({
     data: z.array($user),
-    meta: $paginationResponse,
+    meta: z.object({ pagination: $pagination }),
 });
 
 const $userDetailResponse = z.object({

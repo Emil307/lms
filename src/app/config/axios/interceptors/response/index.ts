@@ -22,7 +22,7 @@ export const responderInterceptor: TAxiosResponseInterceptorSuccess = (response)
             const { data, success, status, ...rest } = responseObject;
             return { data: responseObject.data, ...rest };
         }
-        return responseObject.data;
+        return responseObject;
     } catch (error: unknown) {
         console.error("Response Interceptor", error);
         return response;

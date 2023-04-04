@@ -30,7 +30,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                     fontWeight: 600,
                     fontSize: 16,
                     lineHeight: "24px",
-                    color: theme.colors.white,
+                    color: theme.colors.white[0],
                     padding: "12px 24px",
                 })}
                 type="button"
@@ -44,7 +44,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                         fontWeight: 600,
                         fontSize: 16,
                         lineHeight: "24px",
-                        color: theme.colors.white,
+                        color: theme.colors.white[0],
                         padding: "12px 24px",
                     })}
                     type="button"

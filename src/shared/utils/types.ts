@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ReactNode } from "react";
 import { ReactElement } from "react";
-import { z } from "zod";
+import { Pagination } from "@shared/types";
 
 export abstract class BaseApi {
     constructor(protected instance: AxiosInstance) {}
@@ -17,30 +17,9 @@ export type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
 
-export interface FormErrorResponse {
-    message: string;
-    errors: {
-        [key: string]: string[];
-    };
-}
-
 export interface TPaginationResponse<T> {
     data: T;
     meta: {
         pagination: Pagination;
     };
 }
-
-export type Pagination = z.infer<typeof $pagination>;
-
-export const $pagination = z.object({
-    count: z.number(),
-    current_page: z.number(),
-    links: z.object({
-        next: z.string(),
-        previous: z.string(),
-    }),
-    per_page: z.number(),
-    total: z.number(),
-    total_pages: z.number(),
-});

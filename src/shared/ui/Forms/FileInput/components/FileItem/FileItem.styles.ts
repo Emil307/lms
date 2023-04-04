@@ -10,7 +10,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
 
         "&:hover": {
             [`.${getRef("icon")}`]: {
-                backgroundColor: status ? "transparent" : theme.colors.secondary16,
+                backgroundColor: status ? "transparent" : theme.colors.secondary16[0],
             },
         },
     },
@@ -24,22 +24,22 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         minHeight: 48,
         gap: 4,
         borderRadius: 8,
-        backgroundColor: status ? "transparent" : theme.colors.secondary8,
-        color: status === "error" ? theme.colors.warning : theme.colors.secondary,
+        backgroundColor: status ? "transparent" : theme.colors.secondary8[0],
+        color: status === "error" ? theme.colors.warning[0] : theme.colors.secondary[0],
     },
     statusInfo: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: status === "error" ? theme.colors.warning : theme.colors.dark,
+        color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
     extension: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
     content: {
         display: "flex",
@@ -57,14 +57,14 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "18px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     fileSize: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
     buttonDownload: {
         width: "fit-content",
@@ -75,7 +75,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
 
         "&:hover": {
             backgroundColor: "transparent",

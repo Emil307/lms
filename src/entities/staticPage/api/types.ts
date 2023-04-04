@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+export type FaqItem = z.infer<typeof $faqItem>;
+
+export type GetFaqResponse = z.infer<typeof $getFaqResponse>;
 export type GetContactsResponse = z.infer<typeof $getContactsResponse>;
 export type ContactUsRequest = z.infer<typeof $contactUsRequest>;
 export type GetAboutResponse = z.infer<typeof $getAboutResponse>;
@@ -35,3 +38,10 @@ export const $contactUsRequest = z.object({
     description: z.string(),
     isAgree: z.boolean(),
 });
+
+export const $faqItem = z.object({
+    question: z.string(),
+    answer: z.string(),
+});
+
+export const $getFaqResponse = z.array($faqItem);

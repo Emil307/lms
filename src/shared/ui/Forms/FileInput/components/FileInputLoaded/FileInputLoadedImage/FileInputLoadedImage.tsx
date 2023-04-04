@@ -6,7 +6,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
 import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 import useStyles from "./FileInputLoadedImage.styles";
 
 export interface FileInputLoadedImageProps {
