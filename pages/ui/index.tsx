@@ -122,7 +122,6 @@ export const UIDemo = () => {
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
         { title: "Главная страница", href: { pathname: "/ui" } },
-        { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
 
