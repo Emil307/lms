@@ -1,1 +1,1 @@
-export * from "./getLocalizationDate";
+export * from "./getDiscountedAmounts";
