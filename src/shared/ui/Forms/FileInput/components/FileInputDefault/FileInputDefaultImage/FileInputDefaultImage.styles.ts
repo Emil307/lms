@@ -29,7 +29,7 @@ export default createStyles((theme, _params, getRef) => ({
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: theme.colors.gray45,
+                background: theme.colors.gray45[0],
                 opacity: 1,
                 borderRadius: 16,
             },
@@ -75,7 +75,7 @@ export default createStyles((theme, _params, getRef) => ({
         svg: {
             width: 64,
             height: 64,
-            color: theme.colors.white,
+            color: theme.colors.white[0],
         },
     },
     buttons: {

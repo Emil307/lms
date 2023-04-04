@@ -166,7 +166,7 @@ export const defaultTheme: MantineThemeOverride = {
                 root: {},
                 item: {
                     borderRadius: 16,
-                    backgroundColor: theme.colors.white,
+                    backgroundColor: theme.colors.white[0],
 
                     "&[data-active]": {
                         border: "none",

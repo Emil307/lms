@@ -57,6 +57,13 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                     color: theme.colors.gray45[0],
                     border: `2px solid ${theme.fn.rgba(theme.colors.gray20[0], 0)}`,
                 },
+                "&[data-loading]": {
+                    ".mantine-Button-icon": {
+                        svg: {
+                            stroke: theme.colors.dark[0],
+                        },
+                    },
+                },
             };
         }
         case "text": {

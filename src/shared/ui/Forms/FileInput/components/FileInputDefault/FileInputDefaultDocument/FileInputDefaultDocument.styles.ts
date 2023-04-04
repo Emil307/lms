@@ -13,13 +13,13 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     description: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 12,
         lineHeight: "16px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
 }));

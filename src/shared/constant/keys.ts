@@ -5,6 +5,7 @@ export enum QueryKeys {
     GET_PUBLIC_OFFER = "GET_PUBLIC_OFFER",
     GET_USERS = "GET_USERS",
     GET_USER = "GET_USER",
+    GET_FAQ = "GET_FAQ",
 }
 
 export enum MutationKeys {

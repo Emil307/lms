@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
             navbar={<NavbarAdmin />}
             header={<HeaderAdmin />}
             footer={<FooterAdmin />}>
-            <Box sx={(theme) => ({ background: "white", borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
+            <Box sx={(theme) => ({ backgroundColor: theme.colors.white[0], borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
                 {children}
             </Box>
         </AppShell>

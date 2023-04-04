@@ -1,3 +1,1 @@
-import { $paginationResponse } from "./types";
-
-export { $paginationResponse };
+export * from "./types";
