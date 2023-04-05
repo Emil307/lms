@@ -13,3 +13,4 @@ export * from "./DatePicker";
 export * from "./FileInput";
 export * from "./Search";
 export * from "./Rating";
+export * from "./Textarea";
