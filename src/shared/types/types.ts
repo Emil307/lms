@@ -27,3 +27,10 @@ export const $pagination = z.object({
     total: z.number(),
     total_pages: z.number(),
 });
+
+export interface FormErrorResponse {
+    message: string;
+    errors: {
+        [key: string]: string[];
+    };
+}

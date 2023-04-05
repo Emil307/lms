@@ -13,6 +13,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/auth">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
+    | StaticRoute<"/course-sets">
     | StaticRoute<"/faq">
     | StaticRoute<"/">
     | StaticRoute<"/my-courses">
