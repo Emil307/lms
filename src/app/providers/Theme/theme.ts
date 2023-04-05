@@ -60,13 +60,6 @@ export const defaultTheme: MantineThemeOverride = {
         lg: 16,
         xl: 20,
     },
-    breakpoints: {
-        xs: 375,
-        sm: 744,
-        md: 1024,
-        lg: 1440,
-        xl: 1920,
-    },
     headings: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: ManropeFont.style.fontWeight,
