@@ -7,11 +7,11 @@ import { defaultTheme } from "@app/providers/Theme/theme";
 export type Ref = HTMLDivElement;
 
 export const SelectItem = React.forwardRef<Ref, SelectItemProps>((props, ref) => {
-    const { value, selected } = props;
+    const { selected, label } = props;
 
     return (
         <Flex align="center" justify="space-between" ref={ref} {...props}>
-            {value}
+            {label}
             {selected && <Check width={16} color={defaultTheme.colors?.primary?.[0]} />}
         </Flex>
     );

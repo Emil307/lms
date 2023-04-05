@@ -91,6 +91,16 @@ export const defaultTheme: MantineThemeOverride = {
             },
         },
     },
+    globalStyles: (theme) => ({
+        "::-webkit-scrollbar": {
+            backgroundColor: "transparent",
+            width: 4,
+        },
+        "::-webkit-scrollbar-thumb": {
+            backgroundColor: theme.colors.gray20[0],
+            borderRadius: 2,
+        },
+    }),
     components: {
         Select: {
             styles: (theme) => ({

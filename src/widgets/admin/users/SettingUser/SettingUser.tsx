@@ -1,19 +1,23 @@
 import { Box, Flex, Group, ThemeIcon, Title, Image, Text } from "@mantine/core";
 import React from "react";
-import { Bell, Info, Shield, Trash, User, UserCheck } from "react-feather";
+import { Info, Shield, Trash, User, UserCheck } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { GetMeResponse } from "@entities/auth";
-import { ControlPanel } from "@components/Forms";
 import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { UserDeleteModal } from "@features/users";
 import { useSettingUserStyles } from "./SettingUser.styles";
 
-const fields: ProfileInfoDisplayFields<GetMeResponse> = [
-    { name: "profile.data.firstName", label: "Имя" },
-    { name: "role.data.name", label: "Роль" },
+interface ProfileUser {
+    fio: string;
+    roleName: string;
+    email: string;
+}
+
+const fields: ProfileInfoDisplayFields<ProfileUser> = [
+    { name: "fio", label: "Фио" },
+    { name: "roleName", label: "Роль" },
     { name: "email", label: "Email" },
 ];
 
@@ -24,6 +28,12 @@ interface SettingUserProps {
 const SettingUser = ({ id }: SettingUserProps) => {
     const { classes } = useSettingUserStyles();
     const { data } = useDetailUser(id);
+
+    const dataProfile = {
+        fio: `${data?.firstName} ${data?.patronymic} ${data?.lastName}`,
+        roleName: data?.roleName ?? "",
+        email: data?.email ?? "",
+    };
 
     const openModalDeleteUser = () => {
         openModal({
@@ -52,7 +62,6 @@ const SettingUser = ({ id }: SettingUserProps) => {
                             }>
                             Удалить пользователя
                         </Button>
-                        {/* <UserDeleteButton id={id} /> */}
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<User />}>
                         <DisplayField label="Фамилия" value={data?.lastName} />
@@ -67,6 +76,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
 
                     <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
                         <Box sx={{ width: 376 }}>
+                            {/* TODO - нужно поле с бэка */}
                             <Image
                                 radius="lg"
                                 src="https://images.unsplash.com/photo-1511216335778-7cb8f49fa7a3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -83,16 +93,12 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     <Box className={classes.desc} mt={16}>
                         {data?.description}
                     </Box>
-                    <Fieldset mt={24} label="Настройки уведомлений" icon={<Bell />}>
-                        <Box key="box" className={classes.settingsNotification} w="100%">
-                            <ControlPanel label="Уведомлять о домашних заданиях требующих проверки" variant="secondary" />
-                            <ControlPanel label="Уведомлять о новых сообщениях в чате поддержки" variant="secondary" />
-                        </Box>
-                    </Fieldset>
+                    {/* TODO - уведомления еще не реализованы */}
                 </Group>
                 <Box>
-                    {/* TODO - API */}
                     <ProfileInfo
+                        avatarSrc={data?.avatarUrl}
+                        values={dataProfile}
                         variant="whiteBg"
                         fields={fields}
                         actionSlot={

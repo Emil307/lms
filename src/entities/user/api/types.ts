@@ -31,8 +31,40 @@ const $userDetailResponse = z.object({
     roleId: z.number(),
     roleName: z.string(),
     updatedAt: z.string(),
+    avatarUrl: z.string(),
 });
 
+const $userCreate = z.object({
+    email: z.string({ required_error: "Это обязательное поле" }),
+    password: z.string({ required_error: "Это обязательное поле" }),
+    passwordConfirmation: z.string({ required_error: "Это обязательное поле" }),
+    firstName: z.string({ required_error: "Это обязательное поле" }),
+    lastName: z.string({ required_error: "Это обязательное поле" }),
+    patronymic: z.string({ required_error: "Это обязательное поле" }),
+    description: z.string().optional(),
+    isActive: z.boolean(),
+    roleId: z.string(),
+    avatarId: z.number().nullable(),
+    additionalImageId: z.number().nullable(),
+});
+
+const $userCreateResponse = z.object({
+    id: z.number(),
+    email: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string(),
+    description: z.string(),
+    roleName: z.string().optional(),
+    roleId: z.number().optional(),
+    isActive: z.boolean(),
+    isStatic: z.boolean().optional(),
+    notifications: z.array(z.string()).optional(),
+    loginIn: z.string(),
+    updatedAt: z.string(),
+});
+
+type UserDetailResponse = z.infer<typeof $userDetailResponse>;
 interface UsersRequestParamsType {
     sorting?: MRT_SortingState;
     perPage: number;
@@ -48,6 +80,18 @@ type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
 type UsersResponseType = z.infer<typeof $usersResponse>;
 type TUser = z.infer<typeof $user>;
 
-export { $usersResponse, $userDetailResponse };
+type UserCreateRequest = z.infer<typeof $userCreate>;
 
-export type { UsersResponseType, TUser, UserDetailResponseType, UsersRequestParamsType };
+type UserCreateResponse = z.infer<typeof $userCreateResponse>;
+
+export { $usersResponse, $userDetailResponse, $userCreate, $userCreateResponse };
+
+export type {
+    UsersResponseType,
+    TUser,
+    UserDetailResponse,
+    UsersRequestParamsType,
+    UserCreateResponse,
+    UserCreateRequest,
+    UserDetailResponseType,
+};
