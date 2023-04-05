@@ -14,7 +14,6 @@ import {
 export class UsersApi extends BaseApi {
     async getUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
         const result = await axios.get("admin/users", {
-            // TODO - посмотреть что будет на бэке на следующих индексовых страницах, написать универсальные функции для параметров
             params: {
                 ...params,
                 filter: params.filters,

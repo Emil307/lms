@@ -1,20 +1,18 @@
-import { Box, CSSObject, Flex, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
-import { Edit3, Eye, PlusCircle, Trash } from "react-feather";
-import { openModal } from "@mantine/modals";
+import { Box, CSSObject, Flex, Title, useMantineTheme } from "@mantine/core";
+import { PlusCircle } from "react-feather";
 import { useState } from "react";
 import { FormikConfig } from "formik";
-import { MRT_Cell, MRT_Row, MRT_SortingState } from "mantine-react-table";
+import { MRT_Cell, MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, Form, FSearch, FSelect, MenuDataGrid, MenuItemDataGrid, PaginationDataGrid, Switch } from "@shared/ui";
+import { DataGrid, Form, FSearch, FSelect, PaginationDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser } from "@entities/user/api/types";
-import { usersApi } from "@entities/user/api";
-import { useActivateUser, useDeactivateUser, useUsers } from "@entities/user";
+import { useUsers } from "@entities/user";
 import { useRoles } from "@entities/roles";
 import { columns } from "./constant";
 import { $validationSchema } from "./types/validation";
-import UserDeleteModal from "../UserDeleteModal/UserDeleteModal";
+import { UsersListMenu } from "./components/UsersListMenu";
 
 const radioGroupValues = [
     { id: "1", label: "Активен", value: "1" },
@@ -50,21 +48,12 @@ const UserList = () => {
     const lastElemIndex =
         (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
 
-    const openModalDeleteUser = (id: string, fio: string) => {
-        openModal({
-            modalId: `${id}`,
-            title: "Удаление пользователя",
-            centered: true,
-            children: <UserDeleteModal id={id} fio={fio} />,
-        });
-    };
-
     const roles = useRoles();
 
     const rolesSelectOption = roles.data?.data.map((item) => {
         return {
             value: item.name,
-            label: item.display_name,
+            label: item.displayName,
         };
     });
 
@@ -88,7 +77,7 @@ const UserList = () => {
     };
 
     const pushOnUserDetail = (id: number) => {
-        router.push(`/admin/users/${id}`);
+        router.push({ pathname: "/admin/users/[id]", query: { id: String(id) } });
     };
 
     const handlerClickCell = (cell: MRT_Cell<TUser>) => {
@@ -112,17 +101,6 @@ const UserList = () => {
                 return { ...prev, pageIndex: 0 };
             });
         },
-    };
-
-    const activateUser = useActivateUser();
-    const deactivateUser = useDeactivateUser();
-
-    const toggleActivateUser = async (row: MRT_Row<TUser>) => {
-        if (row.original.isActive) {
-            await deactivateUser.mutateAsync(String(row.original.id));
-            return;
-        }
-        await activateUser.mutateAsync(String(row.original.id));
     };
 
     const pushOnCreateUser = () => {
@@ -156,7 +134,6 @@ const UserList = () => {
                     pageCount={totalPage || 0}
                     columns={columns}
                     data={data?.data ?? []}
-                    getData={usersApi.getUsers}
                     countName="Пользователей"
                     perPage={data?.meta.pagination.per_page}
                     total={data?.meta.pagination.total}
@@ -165,45 +142,7 @@ const UserList = () => {
                     }}
                     enablePinning
                     renderRowActions={({ row }) => {
-                        return (
-                            <MenuDataGrid>
-                                <MenuItemDataGrid
-                                    onClick={() => {
-                                        toggleActivateUser(row);
-                                    }}
-                                    closeMenuOnClick={false}>
-                                    Деактивировать <Switch variant="primary" checked={row.original.isActive} />
-                                </MenuItemDataGrid>
-                                <Box
-                                    sx={{
-                                        height: 1,
-                                        backgroundColor: theme.colors.light[0],
-                                        margin: "0 12px",
-                                    }}></Box>
-                                <MenuItemDataGrid
-                                    mt={8}
-                                    onClick={() => {
-                                        pushOnUserDetail(row.original.id);
-                                    }}>
-                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
-                                        <Eye />
-                                    </ThemeIcon>
-                                    Открыть
-                                </MenuItemDataGrid>
-                                <MenuItemDataGrid>
-                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
-                                        <Edit3 />
-                                    </ThemeIcon>
-                                    Редактировать
-                                </MenuItemDataGrid>
-                                <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), row.original.fullName)}>
-                                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
-                                        <Trash />
-                                    </ThemeIcon>
-                                    Удалить
-                                </MenuItemDataGrid>
-                            </MenuDataGrid>
-                        );
+                        return <UsersListMenu row={row} />;
                     }}
                     onPaginationChange={setPagination}
                     enableColumnFilterModes

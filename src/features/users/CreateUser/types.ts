@@ -11,7 +11,8 @@ export const $schemaValidatorCreateUser = z.object({
     description: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.string(),
-    avatar: $uploadedFile.nullable().nullable(),
+    avatar: $uploadedFile.nullable(),
+    additionalImage: $uploadedFile.nullable(),
 });
 
 export type UserCreateForm = z.infer<typeof $schemaValidatorCreateUser>;

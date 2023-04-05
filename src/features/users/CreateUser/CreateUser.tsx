@@ -5,13 +5,13 @@ import { useMantineTheme } from "@mantine/core";
 import { Edit3, Shield, User, UserCheck } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
 import { useCreateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { FTextArea } from "@shared/ui/Forms/TextArea";
 import { useRoles } from "@entities/roles";
-import { useUploadAvatar } from "@entities/storage";
+import { useUploadAvatar, useUploadImage } from "@entities/storage";
 import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
 
 const CreateUser = () => {
@@ -35,12 +35,17 @@ const CreateUser = () => {
             isActive: false,
             roleId: String(roles.data?.data.at(0)?.id ?? 0),
             avatar: null,
+            additionalImage: null,
         },
         enableReinitialize: true,
         validationSchema: $schemaValidatorCreateUser,
         onSubmit: async (values, { setFieldError }) => {
             try {
-                await createUser.mutateAsync({ ...values, avatarId: values.avatar?.id ?? null });
+                await createUser.mutateAsync({
+                    ...values,
+                    avatarId: values.avatar?.id ?? null,
+                    additionalImageId: values.additionalImage?.id ?? null,
+                });
             } catch (error) {
                 if (axios.isAxiosError(error)) {
                     for (const errorField in error.response?.data.errors) {
@@ -89,7 +94,7 @@ const CreateUser = () => {
                             <Box>
                                 <FRadioGroup name="roleId">
                                     {roles.data?.data.map((item) => {
-                                        return <Radio size="md" key={item.id} label={item.display_name} value={String(item.id)} />;
+                                        return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                     })}
                                 </FRadioGroup>
                                 <Flex mt={24} gap={8}>
@@ -108,11 +113,18 @@ const CreateUser = () => {
                         </Fieldset>
                         {roles.data?.data.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
                             <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
-                                {/* TODO - бэк в работе, тут должена быть загрузка изображения */}
-
+                                <FFileInput
+                                    name="additionalImage"
+                                    title="Загрузите файл"
+                                    useUploadFile={useUploadImage}
+                                    type="image"
+                                    withDeleteButton
+                                    w={376}
+                                />
                                 <FTextArea w={600} autosize minRows={4} name="description" />
                             </Fieldset>
                         )}
+
                         {/* TODO - нотификация в разработке на бэке, как появится добавить */}
                         <Flex mt={32} gap={8}>
                             <Button variant="border" size="large" onClick={handlerCancel}>

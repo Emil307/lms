@@ -4,7 +4,7 @@ import { $paginationResponse } from "@shared/types";
 const $role = z.object({
     id: z.number(),
     name: z.string(),
-    display_name: z.string(),
+    displayName: z.string(),
 });
 
 export const $rolesResponse = z.object({

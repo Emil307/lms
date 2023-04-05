@@ -2,13 +2,11 @@ import { Box, CSSObject, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { MRT_Cell } from "mantine-react-table";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
-import { DataGridResponse } from "./types";
 import { useManagedDataGridStyles } from "./ManagedDataGrid.styles";
 
 type ExtendedProps<T extends Record<string, any>> = React.PropsWithChildren<Omit<BaseDataGridProps<T>, "data" | "key">>;
 
 export interface ManagedDataGridProps<T extends Record<string, any>> extends ExtendedProps<T> {
-    getData: (params: any) => Promise<DataGridResponse<T>>;
     countName?: string;
     data: T[];
     onClickCell?: (cell: MRT_Cell<T>) => void;
@@ -74,8 +72,7 @@ export default function DataGrid<T extends Record<string, any>>({
                         return {
                             className: classes.tableBodyCell,
                             onClick: () => {
-                                if (!onClickCell) return;
-                                onClickCell(cell);
+                                onClickCell?.(cell);
                             },
                             sx: () => {
                                 if (!getStylesForCell) return {};

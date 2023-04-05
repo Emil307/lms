@@ -29,6 +29,7 @@ const $userDetailResponse = z.object({
     roleId: z.number(),
     roleName: z.string(),
     updatedAt: z.string(),
+    avatarUrl: z.string(),
 });
 
 const $userCreate = z.object({
@@ -42,6 +43,7 @@ const $userCreate = z.object({
     isActive: z.boolean(),
     roleId: z.string(),
     avatarId: z.number().nullable(),
+    additionalImageId: z.number().nullable(),
 });
 
 const $userCreateResponse = z.object({
