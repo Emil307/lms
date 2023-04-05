@@ -1,5 +1,4 @@
 import { Card as MCard, Button, Text, Flex } from "@mantine/core";
-import { memo } from "react";
 import { CourseDiscount } from "@entities/coursePackage";
 import { getDiscountedAmount } from "@shared/utils";
 import useStyles from "./AmountInfo.styles";
@@ -12,7 +11,7 @@ export interface AmountInfoProps {
     };
 }
 
-const MemoizedAmountInfo = memo(function AmountInfo({ data }: AmountInfoProps) {
+const AmountInfo = ({ data }: AmountInfoProps) => {
     const { classes } = useStyles();
 
     const renderAmount = () => {
@@ -42,10 +41,10 @@ const MemoizedAmountInfo = memo(function AmountInfo({ data }: AmountInfoProps) {
                     })}>
                     Стоимость пакета
                 </Text>
-                <> {renderAmount}</>
+                <> {renderAmount()}</>
             </Flex>
         </MCard.Section>
     );
-});
+};
 
-export default MemoizedAmountInfo;
+export default AmountInfo;
