@@ -9,7 +9,7 @@ export default createStyles((theme, _params, getRef) => ({
 
         "&:hover": {
             [`.${getRef("icon")}`]: {
-                backgroundColor: theme.colors.secondary16,
+                backgroundColor: theme.colors.secondary16[0],
             },
         },
     },
@@ -23,15 +23,15 @@ export default createStyles((theme, _params, getRef) => ({
         minHeight: 48,
         gap: 4,
         borderRadius: 8,
-        backgroundColor: theme.colors.secondary8,
-        color: theme.colors.secondary,
+        backgroundColor: theme.colors.secondary8[0],
+        color: theme.colors.secondary[0],
     },
     extension: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
     content: {
         display: "flex",
@@ -49,14 +49,14 @@ export default createStyles((theme, _params, getRef) => ({
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
     },
     fileSize: {
         fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.gray45,
+        color: theme.colors.gray45[0],
     },
     buttonDownload: {
         width: "fit-content",
@@ -66,7 +66,7 @@ export default createStyles((theme, _params, getRef) => ({
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",
-        color: theme.colors.dark,
+        color: theme.colors.dark[0],
 
         "&:hover": {
             backgroundColor: "transparent",

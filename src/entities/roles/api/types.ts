@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $paginationResponse } from "@shared/types";
+import { $pagination } from "@shared/types";
 
 const $role = z.object({
     id: z.number(),
@@ -9,7 +9,9 @@ const $role = z.object({
 
 export const $rolesResponse = z.object({
     data: z.array($role),
-    meta: $paginationResponse,
+    meta: z.object({
+        pagination: $pagination,
+    }),
 });
 
 type RolesResponseType = z.infer<typeof $rolesResponse>;

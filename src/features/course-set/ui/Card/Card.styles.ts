@@ -10,8 +10,9 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.white[0],
     },
     content: {
-        alignItems: "flex-start",
+        alignItems: "flex-end",
         justifyContent: "space-between",
+        flexWrap: "wrap-reverse",
         minHeight: 136,
         gap: 32,
     },

@@ -5,13 +5,13 @@ import { useMantineTheme } from "@mantine/core";
 import { Edit3, Shield, User, UserCheck } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FFileInput, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, Form, FRadioGroup, FSwitch, FTextarea, Radio } from "@shared/ui";
 import { useCreateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { FTextArea } from "@shared/ui/Forms/TextArea";
 import { useRoles } from "@entities/roles";
 import { useUploadAvatar, useUploadImage } from "@entities/storage";
+
 import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
 
 const CreateUser = () => {
@@ -121,7 +121,7 @@ const CreateUser = () => {
                                     withDeleteButton
                                     w={376}
                                 />
-                                <FTextArea w={600} autosize minRows={4} name="description" />
+                                <FTextarea w={600} autosize minRows={4} name="description" />
                             </Fieldset>
                         )}
 

@@ -32,11 +32,11 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                 </Flex>
                 <Box className={classes.imageWrapper}>
                     <Image
-                        src={data.picture.absolutePath}
+                        src={data.picture?.data.path || ""}
                         loader={({ src }) => `${src}`}
                         layout="fill"
                         objectFit="cover"
-                        alt={data.picture.name}
+                        alt={data.picture?.data.name || ""}
                     />
                 </Box>
             </Group>

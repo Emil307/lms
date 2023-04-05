@@ -6,6 +6,9 @@ export enum QueryKeys {
     GET_USERS = "GET_USERS",
     GET_USER = "GET_USER",
     GET_ROLES = "GET_ROLES",
+    GET_FAQ = "GET_FAQ",
+    GET_MY_COURSES = "GET_MY_COURSES",
+    GET_COURSE_SETS = "GET_COURSE_SETS",
 }
 
 export enum MutationKeys {

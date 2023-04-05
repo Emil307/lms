@@ -14,8 +14,7 @@ const MemoizedCardMore = memo(function CardMore({ countCardSet, ...props }: Card
     const { classes } = useStyles();
     const router = useRouter();
 
-    //TODO: изменить маршрут после добавления индексной страницы с подборками курсов
-    const handleClick = () => router.push("/");
+    const handleClick = () => router.push("/course-sets");
 
     return (
         <Box {...props} className={classes.root}>

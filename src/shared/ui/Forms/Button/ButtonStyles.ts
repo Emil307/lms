@@ -57,22 +57,26 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                     color: theme.colors.gray45[0],
                     border: `2px solid ${theme.fn.rgba(theme.colors.gray20[0], 0)}`,
                 },
+                "&[data-loading]": {
+                    ".mantine-Button-icon": {
+                        svg: {
+                            stroke: theme.colors.dark[0],
+                        },
+                    },
+                },
             };
         }
         case "text": {
             return {
-                backgroundColor: theme.colors.white[0],
-                border: `2px solid ${theme.fn.rgba(theme.colors.gray20[0], 0)}`,
+                padding: 0,
+                backgroundColor: "transparent",
                 color: theme.colors.dark[0],
+                height: 24,
                 ":hover": {
-                    backgroundColor: theme.colors.grayLight[0],
-                    border: `2px solid ${theme.fn.rgba(theme.colors.gray20[0], 0)}`,
-                    color: theme.colors.primaryHover[0],
+                    backgroundColor: "transparent",
                 },
                 ":disabled": {
-                    backgroundColor: theme.colors.white[0],
-                    color: theme.colors.gray45[0],
-                    border: `2px solid ${theme.fn.rgba(theme.colors.gray20[0], 0)}`,
+                    backgroundColor: "transparent",
                 },
             };
         }
@@ -114,7 +118,7 @@ const getStylesForSize = (size: ButtonSize): CSSObject => {
 
 export const useButtonStyles = createStyles((theme, { variant, size }: { variant: ButtonVariant; size: ButtonSize }) => ({
     root: {
-        ...getStylesForVariant(variant, theme),
         ...getStylesForSize(size),
+        ...getStylesForVariant(variant, theme),
     },
 }));

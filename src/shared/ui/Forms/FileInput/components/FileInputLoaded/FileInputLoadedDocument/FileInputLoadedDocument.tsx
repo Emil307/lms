@@ -4,7 +4,7 @@ import { Edit3, Trash, X } from "react-feather";
 import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
 import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {

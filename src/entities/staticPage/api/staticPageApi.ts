@@ -3,9 +3,11 @@ import { BaseApi } from "@shared/utils";
 import {
     $getAboutResponse,
     $getContactsResponse,
+    $getFaqResponse,
     $getPublicOfferResponse,
     GetAboutResponse,
     GetContactsResponse,
+    GetFaqResponse,
     GetPublicOfferResponse,
 } from "./types";
 
@@ -21,6 +23,11 @@ class StaticPageApi extends BaseApi {
     async getPublicOffer(): Promise<GetPublicOfferResponse> {
         const response = await this.instance.get("static-page/publicOffer");
         return $getPublicOfferResponse.parse(response);
+    }
+
+    async getFaq(): Promise<GetFaqResponse> {
+        const response = await this.instance.get("static-page/faq");
+        return $getFaqResponse.parse(response);
     }
 }
 

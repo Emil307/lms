@@ -3,7 +3,7 @@ import { Button, FileButton as MFileButton, FileButtonProps as MFileButtonProps 
 import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { memo, ReactNode, useCallback } from "react";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 import { UploadedFile } from "@shared/ui";
 import { UploadFileRequest } from "@entities/storage";
 import useButtonStyles from "./FileButton.styles";

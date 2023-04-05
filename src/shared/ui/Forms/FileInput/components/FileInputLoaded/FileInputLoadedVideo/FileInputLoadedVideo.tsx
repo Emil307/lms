@@ -4,7 +4,7 @@ import { PlayCircle } from "react-feather";
 import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 import { UploadFileRequest } from "@entities/storage";
 import useStyles from "./FileInputLoadedVideo.styles";
 

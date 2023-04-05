@@ -39,6 +39,7 @@ import {
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
 import { useUploadImage, useUploadVideo } from "@entities/storage";
+import { ReviewForm } from "@features/review";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -121,7 +122,6 @@ export const UIDemo = () => {
     };
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Главная страница", href: { pathname: "/ui" } },
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
@@ -217,6 +217,9 @@ export const UIDemo = () => {
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />
+                <Button variant="text" leftIcon={<Edit3 />} rightIcon={<Edit3 />}>
+                    TEXT
+                </Button>
                 <Form config={config}>
                     {({ setFieldValue, values }) => {
                         return (
@@ -318,6 +321,34 @@ export const UIDemo = () => {
                                         })
                                     }>
                                     Show Modal
+                                </Button>
+                                <Button
+                                    onClick={() =>
+                                        openModal({
+                                            modalId: "CHANGE_PASSWORD",
+                                            title: "Оставить отзыв",
+                                            centered: true,
+                                            size: 408,
+                                            children: (
+                                                <ReviewForm
+                                                    data={{
+                                                        name: "Оптимизация управления финансами",
+                                                        rating: 4.8,
+                                                        reviewCount: 4,
+                                                        categories: [
+                                                            {
+                                                                id: 12,
+                                                                name: "categoryName",
+                                                                slug: "categorySlug",
+                                                            },
+                                                        ],
+                                                    }}
+                                                    onClose={handleCloseModal}
+                                                />
+                                            ),
+                                        })
+                                    }>
+                                    Show Review Modal
                                 </Button>
                             </Stack>
                         );

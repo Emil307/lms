@@ -13,7 +13,7 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         backgroundColor: "transparent",
 
         ":hover": {
-            backgroundColor: theme.colors.secondary16,
+            backgroundColor: theme.colors.secondary16[0],
         },
     },
     inner: {

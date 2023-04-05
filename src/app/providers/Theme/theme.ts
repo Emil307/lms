@@ -35,7 +35,7 @@ export const defaultTheme: MantineThemeOverride = {
         info16: addMantineColor("rgba(122, 136, 255, 0.16)"),
         done: addMantineColor("#2DCC46"),
         doneDark: addMantineColor("#00AA1B"),
-        done16: addMantineColor("#rgba(0, 216, 35, 0.16)"),
+        done16: addMantineColor("rgba(0, 216, 35, 0.16)"),
         error: addMantineColor("#FFB119"),
         errorDark: addMantineColor("#E59700"),
         error16: addMantineColor("rgba(255, 177, 25, 0.16)"),
@@ -46,6 +46,13 @@ export const defaultTheme: MantineThemeOverride = {
         shadowGray: addMantineColor("#00126e"),
     },
     defaultRadius: "sm",
+    breakpoints: {
+        xs: 375,
+        sm: 744,
+        md: 1024,
+        lg: 1440,
+        xl: 1920,
+    },
     fontSizes: {
         xs: 10,
         sm: 12,
@@ -161,6 +168,116 @@ export const defaultTheme: MantineThemeOverride = {
                     fontSize: 20,
                     lineHeight: "24px",
                     color: theme.colors.dark[0],
+                },
+            }),
+        },
+        Accordion: {
+            styles: (theme) => ({
+                root: {},
+                item: {
+                    borderRadius: 16,
+                    backgroundColor: theme.colors.white[0],
+
+                    "&[data-active]": {
+                        border: "none",
+                        boxShadow: " 0px 16px 32px rgba(2, 6, 46, 0.08)",
+                    },
+
+                    "&:not(:first-of-type)": {
+                        marginTop: 8,
+                    },
+                },
+                control: {
+                    padding: 32,
+                },
+                label: {
+                    fontWeight: 600,
+                    fontSize: 20,
+                    lineHeight: "24px",
+                    color: theme.colors.dark[0],
+                },
+                content: {
+                    padding: "0 32px 40px",
+                    fontWeight: 500,
+                    fontSize: 16,
+                    lineHeight: "24px",
+                    color: theme.colors.gray45[0],
+                },
+            }),
+        },
+        List: {
+            styles: (theme) => ({
+                root: {
+                    display: "table",
+                },
+                item: {
+                    display: "table-row",
+                    counterIncrement: "list-item",
+
+                    ":before": {
+                        content: 'counter(list-item, decimal) ".\\a0"',
+                        display: "table-cell",
+                        width: 24,
+                        color: theme.colors.dark[0],
+                    },
+
+                    span: {
+                        display: "flex",
+                        paddingBlock: 8,
+                        marginLeft: 8,
+                        gap: 8,
+                        color: theme.colors.dark[0],
+                    },
+                },
+            }),
+        },
+        Carousel: {
+            styles: (theme) => ({
+                root: {},
+                viewport: {
+                    marginBottom: 48,
+                },
+                controls: {
+                    top: "calc(50% - 60px)",
+                    left: -22,
+                    right: -22,
+                    padding: 0,
+
+                    "@media (max-width: 1440px)": {
+                        left: -8,
+                        right: -8,
+                    },
+                },
+                control: {
+                    width: 56,
+                    height: 56,
+                    borderRadius: 48,
+                    border: "none",
+                    color: theme.colors.dark[0],
+                    opacity: 1,
+
+                    "&[data-inactive]": {
+                        opacity: 0,
+                    },
+
+                    ":hover": {
+                        boxShadow: "drop-shadow(0px 1px 2px rgba(0, 18, 110, 0.04)) drop-shadow(0px 0px 16px rgba(0, 18, 110, 0.04));",
+                    },
+                },
+
+                indicators: {
+                    position: "initial",
+                },
+                indicator: {
+                    height: 6,
+                    width: 11,
+                    borderRadius: 8,
+                    backgroundColor: theme.colors.gray20[0],
+
+                    "&[data-active]": {
+                        width: 23,
+                        backgroundColor: theme.colors.dark[0],
+                    },
                 },
             }),
         },

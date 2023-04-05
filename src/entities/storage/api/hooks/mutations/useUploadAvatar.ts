@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { MutationKeys } from "@shared/constant";
 import { storageApi, UploadFileRequest } from "@entities/storage";
 import { UploadedFile } from "@shared/ui";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 
 export const useUploadAvatar = () => {
     return useMutation<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>(

@@ -4,9 +4,16 @@ import useStyles from "./ProgressBar.styles";
 
 export interface ProgressBarProps extends MProgressProps {
     maxValue: number;
+    hiddenLabel?: boolean;
 }
 
-const MemoizedProgressBar = memo(function ProgressBar({ label, value = 0, maxValue = 100, ...props }: ProgressBarProps) {
+const MemoizedProgressBar = memo(function ProgressBar({
+    label,
+    value = 0,
+    maxValue = 100,
+    hiddenLabel = false,
+    ...props
+}: ProgressBarProps) {
     const { classes } = useStyles();
 
     const valueProgress = useMemo(() => (value / maxValue) * 100, [value, maxValue]);
@@ -14,13 +21,15 @@ const MemoizedProgressBar = memo(function ProgressBar({ label, value = 0, maxVal
     return (
         <Box className={classes.wrapper}>
             <MProgress {...props} value={valueProgress} classNames={classes} />
-            <Text
-                sx={(theme) => ({
-                    fontWeight: 600,
-                    fontSize: 16,
-                    lineHeight: "24px",
-                    color: theme.colors.dark[0],
-                })}>{`${value}/${maxValue} ${label}`}</Text>
+            {!hiddenLabel && (
+                <Text
+                    sx={(theme) => ({
+                        fontWeight: 600,
+                        fontSize: 16,
+                        lineHeight: "24px",
+                        color: theme.colors.dark[0],
+                    })}>{`${value}/${maxValue} ${label}`}</Text>
+            )}
         </Box>
     );
 });

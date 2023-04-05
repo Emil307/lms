@@ -5,7 +5,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { getFileSize } from "@shared/utils";
 import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
