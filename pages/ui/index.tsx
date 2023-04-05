@@ -39,6 +39,7 @@ import {
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
 import { useUploadImage, useUploadVideo } from "@entities/storage";
+import { ReviewForm } from "@features/review";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -320,6 +321,34 @@ export const UIDemo = () => {
                                         })
                                     }>
                                     Show Modal
+                                </Button>
+                                <Button
+                                    onClick={() =>
+                                        openModal({
+                                            modalId: "CHANGE_PASSWORD",
+                                            title: "Оставить отзыв",
+                                            centered: true,
+                                            size: 408,
+                                            children: (
+                                                <ReviewForm
+                                                    data={{
+                                                        name: "Оптимизация управления финансами",
+                                                        rating: 4.8,
+                                                        reviewCount: 4,
+                                                        categories: [
+                                                            {
+                                                                id: 12,
+                                                                name: "categoryName",
+                                                                slug: "categorySlug",
+                                                            },
+                                                        ],
+                                                    }}
+                                                    onClose={handleCloseModal}
+                                                />
+                                            ),
+                                        })
+                                    }>
+                                    Show Review Modal
                                 </Button>
                             </Stack>
                         );
