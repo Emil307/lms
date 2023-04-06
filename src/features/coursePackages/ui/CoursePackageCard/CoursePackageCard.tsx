@@ -22,7 +22,7 @@ const MemoizedCoursePackageCard = memo(function CoursePackageCard({ data, childr
                 </Title>
                 <Text className={classes.description}>{data.description}</Text>
             </MCard.Section>
-            <MCard.Section className={classes.section} h={160}>
+            <MCard.Section className={classes.section} sx={{ flex: 1, height: 160 }}>
                 <Text>{`${data.courses.meta.pagination.total} ${getPluralString(
                     data.courses.meta.pagination.total,
                     "курс",

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { QueryKeys } from "@shared/constant";
 import { usersApi } from "../api";
 import { UsersRequestParamsType } from "../api/types";
-import { useRouter } from "next/router";
 
 export const useUsers = (params: UsersRequestParamsType) => {
     const router = useRouter();
