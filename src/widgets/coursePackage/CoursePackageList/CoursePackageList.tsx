@@ -166,27 +166,6 @@ const data: CoursePackage[] = [
                     price: 9500,
                     isPurchased: true,
                 },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: true,
-                },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: false,
-                },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: false,
-                },
             ],
             meta: {
                 pagination: {
@@ -228,7 +207,7 @@ const CoursePackageList = ({ title, description, ...props }: CoursePackageListPr
             </Flex>
             <Carousel<CoursePackage> data={data} slideSize={648}>
                 {(props) => (
-                    <CoursePackageCard {...props} w={648}>
+                    <CoursePackageCard {...props} h={420} w={648}>
                         {(props) => <CourseListFromPackage {...props} />}
                     </CoursePackageCard>
                 )}
