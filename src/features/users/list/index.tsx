@@ -4,12 +4,12 @@ import { useState } from "react";
 import { FormikConfig } from "formik";
 import { MRT_Cell, MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, Form, FSearch, FSelect, PaginationDataGrid } from "@shared/ui";
+import { DataGrid, Form, FSearch, FSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser } from "@entities/user/api/types";
-import { useUsers } from "@entities/user";
-import { useRoles } from "@entities/roles";
+import { useAdministratorUsers, useAdministratorsUsersFilters } from "@entities/user";
+import Pagination from "@shared/ui/DataGrid/Pagination";
 import { columns } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { UsersListMenu } from "./components/UsersListMenu";
@@ -28,19 +28,25 @@ interface TFilters {
 
 const UserList = () => {
     const router = useRouter();
+    const { page, perPage, isActive, roleName, query } = router.query as {
+        page?: string;
+        perPage?: string;
+        isActive?: "1" | "0" | "";
+        roleName?: string;
+        query?: string;
+    };
     const theme = useMantineTheme();
-    const [filters, setFilters] = useState({ filters: {}, query: "" });
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 10,
-    });
 
-    const { data, isLoading, isRefetching, isFetching } = useUsers({
-        ...filters,
+    const { data, isLoading, isRefetching, isFetching } = useAdministratorUsers({
+        query: query ?? "",
+        filters: {
+            ...(isActive && { isActive: isActive }),
+            ...(roleName && { roleName: roleName }),
+        },
         sorting,
-        perPage: pagination.pageSize,
-        page: pagination.pageIndex + 1,
+        perPage: perPage ? Number(perPage) : 10,
+        page: page ? Number(page) : 1,
     });
 
     const totalPage = data?.meta.pagination.total_pages;
@@ -48,9 +54,9 @@ const UserList = () => {
     const lastElemIndex =
         (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
 
-    const roles = useRoles();
+    const userFilters = useAdministratorsUsersFilters();
 
-    const rolesSelectOption = roles.data?.data.map((item) => {
+    const rolesSelectOption = userFilters.data?.data.roles.map((item) => {
         return {
             value: item.name,
             label: item.displayName,
@@ -86,20 +92,18 @@ const UserList = () => {
     };
 
     const cfg: FormikConfig<TFilters> = {
-        initialValues: { isActive: "", query: "", role: "" },
+        initialValues: { isActive: isActive ?? "", query: query ?? "", role: roleName ?? "" },
         enableReinitialize: true,
         validationSchema: $validationSchema,
         onSubmit: async (values) => {
-            setFilters({
-                query: values.query,
-                filters: {
-                    ...(values.isActive !== "" && { isActive: values.isActive }),
-                    ...(values.role !== "" && { roleName: values.role }),
+            router.push(
+                {
+                    pathname: router.pathname,
+                    query: { ...router.query, isActive: values.isActive, roleName: values.role, query: values.query, page: "1" },
                 },
-            });
-            setPagination((prev) => {
-                return { ...prev, pageIndex: 0 };
-            });
+                undefined,
+                { shallow: true }
+            );
         },
     };
 
@@ -144,7 +148,6 @@ const UserList = () => {
                     renderRowActions={({ row }) => {
                         return <UsersListMenu row={row} />;
                     }}
-                    onPaginationChange={setPagination}
                     enableColumnFilterModes
                     enableRowActions
                     enableRowSelection
@@ -152,14 +155,7 @@ const UserList = () => {
                         if (!data?.meta.pagination) {
                             return null;
                         }
-                        return (
-                            <PaginationDataGrid
-                                table={table}
-                                firstElemIndex={firstElemIndex}
-                                lastElemIndex={lastElemIndex}
-                                count={totalPage}
-                            />
-                        );
+                        return <Pagination table={table} firstElemIndex={firstElemIndex} lastElemIndex={lastElemIndex} count={totalPage} />;
                     }}>
                     <Form config={cfg}>
                         <Box mb={24}>
@@ -171,7 +167,7 @@ const UserList = () => {
                                     data={rolesSelectOption ?? []}
                                     clearable
                                     label="Роль"
-                                    disabled={roles.isLoading}
+                                    disabled={userFilters.isLoading}
                                 />
                             </Flex>
                             <Box mt={16}>

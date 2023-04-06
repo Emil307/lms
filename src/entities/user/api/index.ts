@@ -3,15 +3,19 @@ import { BaseApi } from "@shared/utils/types";
 import {
     $userCreateResponse,
     $userDetailResponse,
+    $usersAdministratorsCreateOptions,
     $usersResponse,
     UserCreateRequest,
     UserCreateResponse,
     UserDetailResponse,
+    UsersAdministratorsCreateOptionsResponse,
+    UsersAdministratorsFiltersResponse,
     UsersRequestParamsType,
     UsersResponseType,
 } from "./types";
 
 export class UsersApi extends BaseApi {
+    // TODO - возможно уже не нужен, уточнить у бэков
     async getUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
         const result = await axios.get("admin/users", {
             params: {
@@ -21,6 +25,27 @@ export class UsersApi extends BaseApi {
             },
         });
         return $usersResponse.parse(result);
+    }
+
+    async getAdministratorUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
+        const result = await axios.get("/admin/users/administrators", {
+            params: {
+                ...params,
+                filter: params.filters,
+                sort: params.sorting?.[0] ? { [params.sorting[0].id]: params.sorting[0].desc ? "desc" : "asc" } : null,
+            },
+        });
+        return $usersResponse.parse(result);
+    }
+
+    async getAdministratorsUsersFilters(): Promise<UsersAdministratorsFiltersResponse> {
+        const result = await axios.get("/admin/users/administrators/filters");
+        return result;
+    }
+
+    async getUsersAdministratorsCreateOptions(): Promise<UsersAdministratorsCreateOptionsResponse> {
+        const result = await axios.get("admin/users/administrators/create");
+        return $usersAdministratorsCreateOptions.parse(result);
     }
 
     async deleteUser(id: string): Promise<void> {

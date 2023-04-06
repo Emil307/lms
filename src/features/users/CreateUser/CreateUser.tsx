@@ -6,10 +6,9 @@ import { Edit3, Shield, User, UserCheck } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Button, FFileButton, FFileInput, FInput, Form, FRadioGroup, FSwitch, FTextarea, Radio } from "@shared/ui";
-import { useCreateUser } from "@entities/user";
+import { useAdministratorsCreateOptions, useCreateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { useRoles } from "@entities/roles";
 import { useUploadAvatar, useUploadImage } from "@entities/storage";
 
 import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
@@ -17,7 +16,8 @@ import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
 const CreateUser = () => {
     const router = useRouter();
     const theme = useMantineTheme();
-    const roles = useRoles();
+    const options = useAdministratorsCreateOptions();
+
     const createUser = useCreateUser();
 
     const handlerCancel = () => {
@@ -33,7 +33,7 @@ const CreateUser = () => {
             patronymic: "",
             description: "",
             isActive: false,
-            roleId: String(roles.data?.data.at(0)?.id ?? 0),
+            roleId: String(options.data?.roles.at(0)?.id ?? 0),
             avatar: null,
             additionalImage: null,
         },
@@ -41,11 +41,14 @@ const CreateUser = () => {
         validationSchema: $schemaValidatorCreateUser,
         onSubmit: async (values, { setFieldError }) => {
             try {
-                await createUser.mutateAsync({
+                const res = await createUser.mutateAsync({
                     ...values,
                     avatarId: values.avatar?.id ?? null,
                     additionalImageId: values.additionalImage?.id ?? null,
                 });
+                if (res.id) {
+                    router.push({ pathname: "/admin/users/[id]", query: { id: String(res.id) } });
+                }
             } catch (error) {
                 if (axios.isAxiosError(error)) {
                     for (const errorField in error.response?.data.errors) {
@@ -93,7 +96,7 @@ const CreateUser = () => {
                         <Fieldset mt={32} label="Системные данные" icon={<Shield />}>
                             <Box>
                                 <FRadioGroup name="roleId">
-                                    {roles.data?.data.map((item) => {
+                                    {options.data?.roles.map((item) => {
                                         return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                     })}
                                 </FRadioGroup>
@@ -111,7 +114,7 @@ const CreateUser = () => {
                                 </Flex>
                             </Box>
                         </Fieldset>
-                        {roles.data?.data.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
+                        {options.data?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
                             <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
                                 <FFileInput
                                     name="additionalImage"

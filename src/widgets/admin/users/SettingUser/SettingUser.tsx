@@ -75,20 +75,18 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     </Fieldset>
 
                     <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
-                        <Box sx={{ width: 376 }}>
-                            {/* TODO - нужно поле с бэка */}
-                            <Image
-                                radius="lg"
-                                src="https://images.unsplash.com/photo-1511216335778-7cb8f49fa7a3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                                alt="User"
-                            />
-                            <Flex mt={4} gap={4} align="center">
-                                <ThemeIcon size={16} color="primaryHover" variant="outline" sx={{ border: "none" }}>
-                                    <Info />
-                                </ThemeIcon>
-                                <Text>Рекомендуемый размер изображения: 376х220 px</Text>
-                            </Flex>
-                        </Box>
+                        {data?.additionalImageUrl && (
+                            <Box sx={{ width: 376 }}>
+                                {/* TODO - нужно поле с бэка */}
+                                <Image radius="lg" src={data.additionalImageUrl} alt="User" />
+                                <Flex mt={4} gap={4} align="center">
+                                    <ThemeIcon size={16} color="primaryHover" variant="outline" sx={{ border: "none" }}>
+                                        <Info />
+                                    </ThemeIcon>
+                                    <Text>Рекомендуемый размер изображения: 376х220 px</Text>
+                                </Flex>
+                            </Box>
+                        )}
                     </Fieldset>
                     <Box className={classes.desc} mt={16}>
                         {data?.description}
@@ -97,7 +95,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
                 </Group>
                 <Box>
                     <ProfileInfo
-                        avatarSrc={data?.avatarUrl}
+                        avatarSrc={data?.avatarUrl ?? ""}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

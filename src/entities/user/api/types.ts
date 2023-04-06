@@ -18,7 +18,7 @@ const $usersResponse = z.object({
 });
 
 const $userDetailResponse = z.object({
-    description: z.string(),
+    description: z.string().nullable(),
     email: z.string(),
     firstName: z.string(),
     id: z.number(),
@@ -31,7 +31,8 @@ const $userDetailResponse = z.object({
     roleId: z.number(),
     roleName: z.string(),
     updatedAt: z.string(),
-    avatarUrl: z.string(),
+    avatarUrl: z.string().nullable(),
+    additionalImageUrl: z.string().nullable(),
 });
 
 const $userCreate = z.object({
@@ -54,7 +55,7 @@ const $userCreateResponse = z.object({
     firstName: z.string(),
     lastName: z.string(),
     patronymic: z.string(),
-    description: z.string(),
+    description: z.string().nullable(),
     roleName: z.string().optional(),
     roleId: z.number().optional(),
     isActive: z.boolean(),
@@ -62,6 +63,24 @@ const $userCreateResponse = z.object({
     notifications: z.array(z.string()).optional(),
     loginIn: z.string(),
     updatedAt: z.string(),
+    additionalImageId: z.number().nullable(),
+    additionalImageUrl: z.string().nullable(),
+});
+
+const $role = z.object({
+    id: z.number(),
+    name: z.string(),
+    displayName: z.string(),
+});
+
+const $usersAdministratorsFilters = z.object({
+    data: z.object({
+        roles: z.array($role),
+    }),
+});
+
+const $usersAdministratorsCreateOptions = z.object({
+    roles: z.array($role),
 });
 
 type UserDetailResponse = z.infer<typeof $userDetailResponse>;
@@ -79,12 +98,12 @@ type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
 
 type UsersResponseType = z.infer<typeof $usersResponse>;
 type TUser = z.infer<typeof $user>;
-
 type UserCreateRequest = z.infer<typeof $userCreate>;
-
 type UserCreateResponse = z.infer<typeof $userCreateResponse>;
+type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministratorsFilters>;
+type UsersAdministratorsCreateOptionsResponse = z.infer<typeof $usersAdministratorsCreateOptions>;
 
-export { $usersResponse, $userDetailResponse, $userCreate, $userCreateResponse };
+export { $usersResponse, $userDetailResponse, $userCreate, $userCreateResponse, $usersAdministratorsCreateOptions };
 
 export type {
     UsersResponseType,
@@ -94,4 +113,6 @@ export type {
     UserCreateResponse,
     UserCreateRequest,
     UserDetailResponseType,
+    UsersAdministratorsFiltersResponse,
+    UsersAdministratorsCreateOptionsResponse,
 };

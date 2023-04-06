@@ -15,6 +15,7 @@ export default function Pagination<T extends Record<string, any>>({ table, first
     const { setPageIndex, getPageCount, setPageSize, getState } = table;
     const router = useRouter();
     const theme = useMantineTheme();
+
     const {
         pagination: { pageIndex = 0, pageSize = Number(router.query.perPage) || 10 },
     } = getState();
@@ -35,7 +36,7 @@ export default function Pagination<T extends Record<string, any>>({ table, first
         router.push(
             {
                 pathname: router.pathname,
-                query: { ...router.query, perPage: `${e.target.value}` },
+                query: { ...router.query, perPage: `${e.target.value}`, page: "1" },
             },
             undefined,
             { shallow: true }
