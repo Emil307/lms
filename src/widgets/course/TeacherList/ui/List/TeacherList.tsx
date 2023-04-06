@@ -1,8 +1,7 @@
-import { Box, BoxProps, Flex, Title, Text, Group, Card as MCard, Badge } from "@mantine/core";
+import { Box, BoxProps, Flex, Title, Text, Group } from "@mantine/core";
 import { useMemo } from "react";
-import Image from "next/image";
 import { CourseTeacher } from "@entities/course";
-import { getPluralString } from "@shared/utils";
+import { CourseTeacherCard } from "@features/courses";
 import useStyles from "./TeacherList.styles";
 
 export interface TeacherListProps extends Omit<BoxProps, "children"> {}
@@ -56,47 +55,14 @@ const data: CourseTeacher[] = [
 const TeacherList = (props: TeacherListProps) => {
     const { classes } = useStyles();
 
-    const renderTeachers = useMemo(
-        () =>
-            data.map((teacher) => {
-                return (
-                    <MCard key={teacher.id} className={classes.card} maw={424}>
-                        <MCard.Section className={classes.cardImageSection}>
-                            <Box className={classes.imageWrapper}>
-                                <Image
-                                    src={teacher.profile.avatar.path}
-                                    loader={({ src }) => `${src}`}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt={teacher.profile.avatar.name}
-                                />
-                            </Box>
-                            <Group className={classes.cardSectionContent}>
-                                <Badge variant="outline" className={classes.countCourse}>
-                                    {`${teacher.courseCount} ${getPluralString(teacher.courseCount, "курс", "курса", "курсов")}`}
-                                </Badge>
-                            </Group>
-                        </MCard.Section>
-                        <MCard.Section className={classes.cardContentBody}>
-                            <Title order={3} color="dark" lineClamp={2}>
-                                {`${teacher.profile.firstName} ${teacher.profile.lastName}`}
-                            </Title>
-                            <Text className={classes.userDescription} lineClamp={5}>
-                                {teacher.profile.description}
-                            </Text>
-                        </MCard.Section>
-                    </MCard>
-                );
-            }),
-        [data]
-    );
+    const renderTeachers = useMemo(() => data.map((teacher) => <CourseTeacherCard key={teacher.id} data={teacher} />), [data]);
     return (
         <Box {...props}>
             <Flex direction="column" gap={8} mb={32}>
                 <Title order={2} color="dark">
                     Наставники помогают найти ответы
                 </Title>
-                <Text className={classes.userDescription}>
+                <Text className={classes.headingDescription}>
                     Опытные руководители разбирают случаи из вашей рабочей практики и дают обратную связь.
                 </Text>
             </Flex>

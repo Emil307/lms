@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Group, Title, Text } from "@mantine/core";
+import { Box, BoxProps, Flex, Group, Title, Text, TitleProps } from "@mantine/core";
 import { Edit } from "react-feather";
 import { GetCourseReviewsResponse, Review } from "@entities/course";
 import { Button, Rating } from "@shared/ui";
@@ -7,7 +7,9 @@ import { Carousel } from "@components/Carousel";
 import { ReviewCard } from "@features/courses";
 import useStyles from "./StudentReviews.styles";
 
-export interface StudentReviewsProps extends Omit<BoxProps, "children"> {}
+export interface StudentReviewsProps extends Omit<BoxProps, "children"> {
+    titleProps?: TitleProps;
+}
 
 const data: GetCourseReviewsResponse = {
     averageRating: 4.8,
@@ -100,13 +102,15 @@ const data: GetCourseReviewsResponse = {
     },
 };
 
-const StudentReviews = (props: StudentReviewsProps) => {
+const StudentReviews = ({ titleProps, ...props }: StudentReviewsProps) => {
     const { classes } = useStyles();
     return (
         <Box {...props} className={classes.root}>
             <Group sx={{ justifyContent: "space-between", marginBottom: 32 }}>
                 <Group sx={{ columnGap: 24 }}>
-                    <Title order={2}>Отзывы студентов</Title>
+                    <Title order={2} {...titleProps}>
+                        Отзывы студентов
+                    </Title>
                     <Flex align="flex-end" gap={16}>
                         <Flex gap={4}>
                             <Flex align="center" gap={2}>
