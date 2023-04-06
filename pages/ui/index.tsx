@@ -287,14 +287,14 @@ export const UIDemo = () => {
                                     // imageMaxHeight={300}
                                     // h={500}
                                 />
-*/}
+
                                 <FFileInput
                                     type="document"
                                     name="logo"
                                     title="Загрузить файл с ПК"
                                     fileFormats={["jpeg", "jpg", "png"]}
                                     useUploadFile={useUploadImage}
-                                />
+                                /> */}
                                 <FFileInputMultiple
                                     type="document"
                                     nameForInitialFiles="attachments"

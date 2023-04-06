@@ -15,7 +15,6 @@ import {
 } from "./types";
 
 export class UsersApi extends BaseApi {
-    // TODO - возможно уже не нужен, уточнить у бэков
     async getUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
         const result = await axios.get("admin/users", {
             params: {

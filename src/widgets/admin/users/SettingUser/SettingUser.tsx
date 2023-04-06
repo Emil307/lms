@@ -77,7 +77,6 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
                         {data?.additionalImageUrl && (
                             <Box sx={{ width: 376 }}>
-                                {/* TODO - нужно поле с бэка */}
                                 <Image radius="lg" src={data.additionalImageUrl} alt="User" />
                                 <Flex mt={4} gap={4} align="center">
                                     <ThemeIcon size={16} color="primaryHover" variant="outline" sx={{ border: "none" }}>
