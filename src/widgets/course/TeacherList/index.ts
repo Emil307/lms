@@ -1,3 +1,1 @@
-import TeacherList, { type TeacherListProps } from "./TeacherList";
-
-export { TeacherList, TeacherListProps };
+export * from "./ui";

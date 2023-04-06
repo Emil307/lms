@@ -1,14 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    root: {},
-    headingDescription: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    card: {
+    root: {
         width: "100%",
         padding: "24px !important",
         borderRadius: 16,

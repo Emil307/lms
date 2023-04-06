@@ -12,6 +12,7 @@ export interface ListProps<T> extends Omit<MGridProps, "children"> {
     pagination?: TPagination;
     onPaginationChange?: Dispatch<SetStateAction<TPagination>>;
     isLoading?: boolean;
+    cardMore?: ReactNode;
 }
 
 function List<T extends { id: unknown }>({
@@ -20,6 +21,7 @@ function List<T extends { id: unknown }>({
     withPagination,
     pagination,
     isLoading,
+    cardMore,
     renderItem,
     onClick = () => undefined,
     onPaginationChange,
@@ -38,6 +40,11 @@ function List<T extends { id: unknown }>({
                         {renderItem({ data: row, onClick })}
                     </Grid.Col>
                 ))}
+                {data?.length && cardMore && (
+                    <Grid.Col {...colProps} key="card-more">
+                        {cardMore}
+                    </Grid.Col>
+                )}
             </Grid>
             {withPagination && pagination && <Pagination {...pagination} onPaginationChange={onPaginationChange} />}
         </>

@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import { useRouter } from "next/router";
 import React from "react";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
-import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, TeacherList } from "@widgets/course";
+import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, CourseTeacherList } from "@widgets/course";
 import { CourseDetailData } from "@entities/course";
 import { CoursePackageList } from "@widgets/coursePackage";
 
@@ -110,7 +110,7 @@ const CourseDetailPage = (_props: CourseDetailPageProps) => {
                     <AuthorInfo data={data} />
                 </Flex>
                 <ProgramTrainingList />
-                <TeacherList />
+                <CourseTeacherList />
                 <CoursePackageList
                     title={`Курс «${data.name}» содержится в пакетах`}
                     description="Выберите дополнительный курс по более выгодной цене."
