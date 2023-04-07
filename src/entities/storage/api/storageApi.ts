@@ -13,7 +13,6 @@ class StorageApi extends BaseApi {
         const response = await this.instance.post("storage/uploads/images", getFileFormData(data));
         return $uploadedFile.parse(response);
     }
-
     async uploadDocument(data: UploadFileRequest): Promise<UploadedFile> {
         const response = await this.instance.post("storage/uploads/documents", getFileFormData(data));
         return $uploadedFile.parse(response);

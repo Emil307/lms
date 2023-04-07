@@ -10,6 +10,7 @@ export type InitialFile = {
     fileName: string;
     fileSize: number;
     fileUrl: string;
+    data: File | UploadedFile;
 };
 
 export type LoadedFile = {

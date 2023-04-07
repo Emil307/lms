@@ -8,7 +8,13 @@ export interface FFileInputProps extends Omit<FileInputProps, "onError" | "file"
     onLoad?: (file: UploadedFile) => void;
 }
 
-export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoadedFile = () => undefined, ...props }: FFileInputProps) {
+export default function FFileInput({
+    name,
+    onLoad = () => undefined,
+    onDeleteLoadedFile = () => undefined,
+    onDeleteInitialFile = () => undefined,
+    ...props
+}: FFileInputProps) {
     const [field, meta, helpers] = useField<UploadedFile | File | undefined>(name);
     const [initialFilesData, setInitialFilesData] = useState<InitialFile[]>([]);
 
@@ -25,6 +31,7 @@ export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoa
                     fileName: field.value.name,
                     fileSize: field.value.size,
                     fileUrl: URL.createObjectURL(field.value),
+                    data: field.value,
                 },
             ]);
         } else {
@@ -34,6 +41,7 @@ export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoa
                     fileName: field.value.name,
                     fileSize: field.value.size,
                     fileUrl: field.value.absolutePath,
+                    data: field.value,
                 },
             ]);
         }
@@ -44,9 +52,14 @@ export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoa
         helpers.setValue(file);
     };
 
-    const handleDeleteFile = (id: number, remainFiles: (File | UploadedFile)[]) => {
+    const handleDeleteLoadedFile = (id: number, remainFiles: (File | UploadedFile)[]) => {
         onDeleteLoadedFile(id, remainFiles);
         helpers.setValue(undefined);
+    };
+
+    const handleDeleteInitialFile = (id: number) => {
+        onDeleteInitialFile(id);
+        setInitialFilesData((prev) => prev.filter(({ fileId }) => id !== fileId));
     };
 
     return (
@@ -54,7 +67,8 @@ export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoa
             {...props}
             initialFilesData={initialFilesData}
             onLoad={handleLoadFile}
-            onDeleteLoadedFile={handleDeleteFile}
+            onDeleteLoadedFile={handleDeleteLoadedFile}
+            onDeleteInitialFile={handleDeleteInitialFile}
             error={error}
         />
     );

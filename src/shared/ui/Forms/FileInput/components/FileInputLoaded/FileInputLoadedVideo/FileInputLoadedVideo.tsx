@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { Box, Button, Loader, ThemeIcon } from "@mantine/core";
 import { PlayCircle } from "react-feather";
-import { UseMutationResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
-import { FormErrorResponse } from "@shared/types";
-import { UploadFileRequest } from "@entities/storage";
+import { useUploadFile } from "@entities/storage";
 import useStyles from "./FileInputLoadedVideo.styles";
 
 export interface FileInputLoadedVideoProps {
@@ -19,12 +16,12 @@ export interface FileInputLoadedVideoProps {
     error?: string;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
-    useUploadFile: () => UseMutationResult<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>;
     onUpdateFile: (data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
 export default function FileInputLoadedVideo({
+    type,
     fileId,
     file,
     fileUrl,
@@ -32,7 +29,6 @@ export default function FileInputLoadedVideo({
     withDeleteButton = false,
     onOpenFileDialog = () => undefined,
     onDelete = () => undefined,
-    useUploadFile,
     onUpdateFile,
     onError,
 }: FileInputLoadedVideoProps) {
@@ -43,7 +39,7 @@ export default function FileInputLoadedVideo({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file },
+                { file, type },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(resp);

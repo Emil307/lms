@@ -1,11 +1,7 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { Box, Text } from "@mantine/core";
-import { UseMutationResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { getFileSize } from "@shared/utils";
-import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/types";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
@@ -41,7 +37,6 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     onDeleteLoadedFile?: (id: number, remainFiles: (File | UploadedFile)[]) => void;
     onDeleteInitialFile?: (id: number) => void;
     onDownloadInitialFile?: (id: number) => void;
-    useUploadFile: () => UseMutationResult<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>;
 }
 
 const MemoizedFileInput = memo(function FileInput({
@@ -61,8 +56,8 @@ const MemoizedFileInput = memo(function FileInput({
     onLoad,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
+    onDeleteInitialFile = () => undefined,
     onDownloadInitialFile = () => undefined,
-    useUploadFile,
     ...props
 }: FileInputProps) {
     const openRef = useRef<() => void>(null);
@@ -160,7 +155,23 @@ const MemoizedFileInput = memo(function FileInput({
                     withDeleteButton={withDeleteButton}
                     onOpenFileDialog={handleOnOpenFileDialog}
                     onDelete={handleDeleteLoadedFile}
-                    useUploadFile={useUploadFile}
+                    onUpdateFile={onLoad}
+                    onError={handleErrorLoadFile}
+                />
+            );
+        }
+        if (!multiple && type !== "document" && initialFilesData[0]?.fileId && !loadedFiles[0]?.error) {
+            return (
+                <FileInputLoaded
+                    fileId={initialFilesData[0].fileId}
+                    file={initialFilesData[0].data}
+                    fileUrl={initialFilesData[0].fileUrl}
+                    type={type}
+                    imageMaxWidth={imageMaxWidth}
+                    imageMaxHeight={imageMaxHeight}
+                    withDeleteButton={withDeleteButton}
+                    onOpenFileDialog={handleOnOpenFileDialog}
+                    onDelete={onDeleteInitialFile}
                     onUpdateFile={onLoad}
                     onError={handleErrorLoadFile}
                 />
@@ -205,7 +216,6 @@ const MemoizedFileInput = memo(function FileInput({
                         withDeleteButton={withDeleteButton}
                         onEdit={handleReplaceLoadedFile}
                         onDelete={handleDeleteLoadedFile}
-                        useUploadFile={useUploadFile}
                         onUpdateFile={onLoad}
                         error={file.error}
                         onError={handleErrorLoadFile}

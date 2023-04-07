@@ -24,6 +24,9 @@ const nextConfig = {
         esmExternals: false,
     },
     swcMinify: true,
+    images: {
+        loader: "custom",
+    },
 };
 
 module.exports = withRoutes(withSVGR(nextConfig));

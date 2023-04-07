@@ -10,7 +10,14 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();
     return (
         <Box>
-            <Image src={backgroundImageAuth} alt="background" layout="fill" objectFit="cover" objectPosition="center" />
+            <Image
+                src={backgroundImageAuth}
+                alt="background"
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
+                loader={({ src }) => `${src}`}
+            />
             <AppShell
                 footer={
                     <Footer height="auto" p="lg" bg="transparent" className={classes.footerRoot}>

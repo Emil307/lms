@@ -9,8 +9,6 @@ import { Button, FFileButton, FFileInput, FInput, Form, FRadioGroup, FSwitch, FT
 import { useAdministratorsCreateOptions, useCreateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { useUploadAvatar, useUploadImage } from "@entities/storage";
-
 import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
 
 const CreateUser = () => {
@@ -80,12 +78,7 @@ const CreateUser = () => {
                                     <Avatar src={values.avatar?.absolutePath} alt="avatar" w={84} h={84} radius={50}>
                                         <AvatarIcon />
                                     </Avatar>
-                                    <FFileButton
-                                        name="avatar"
-                                        label="Изменить аватар"
-                                        buttonProps={{ leftIcon: <Edit3 /> }}
-                                        useUploadFile={useUploadAvatar}
-                                    />
+                                    <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 </Flex>
                                 <Flex mt={24} gap={8}>
                                     <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
@@ -117,14 +110,7 @@ const CreateUser = () => {
                         </Fieldset>
                         {options?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
                             <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
-                                <FFileInput
-                                    name="additionalImage"
-                                    title="Загрузите файл"
-                                    useUploadFile={useUploadImage}
-                                    type="image"
-                                    withDeleteButton
-                                    w={376}
-                                />
+                                <FFileInput name="additionalImage" title="Загрузите файл" type="image" withDeleteButton w={376} />
                                 <FTextarea w={600} autosize minRows={4} name="description" />
                             </Fieldset>
                         )}

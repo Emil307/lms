@@ -6,7 +6,6 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Button, FFileButton, FInput, Form } from "@shared/ui";
 import { adaptDataForProfileEditForm, initialValuesProfileEditForm } from "@features/editProfile";
 import { $updateMeRequest, GetMeResponse, UpdateMeRequest, useUpdateMe } from "@entities/auth";
-import { useUploadAvatar } from "@entities/storage";
 import useStyles from "./ProfileEditForm.styles";
 
 export interface ProfileEditFormProps {
@@ -65,12 +64,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                                     <Text className={classes.avatarUsername}>{`${adaptData.firstName} ${adaptData.lastName}`}</Text>
                                     <Text className={classes.avatarRole}>{adaptData.role}</Text>
                                 </Flex>
-                                <FFileButton
-                                    name="avatar"
-                                    label="Изменить аватар"
-                                    buttonProps={{ leftIcon: <Edit3 /> }}
-                                    useUploadFile={useUploadAvatar}
-                                />
+                                <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                             </Flex>
                         </Group>
                         <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
@@ -93,7 +87,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                                 Системные данные
                             </Text>
                         </Group>
-                        <Text className={classes.role}>{`Роль:${adaptData.role}`}</Text>
+                        <Text className={classes.role}>{`Роль: ${adaptData.role}`}</Text>
                         <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
                             <FInput name="email" label="Email" size="sm" miw={252} withAsterisk />
                             <Button type="button" variant="border" onClick={onEditPassword}>

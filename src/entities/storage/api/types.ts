@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export type UploadFileRequest = z.infer<typeof $uploadFileRequest>;
+export type UploadFileType = "avatar" | "image" | "video" | "document";
 
 export enum FileFormat {
     "jpg",
