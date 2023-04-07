@@ -7,28 +7,46 @@ export interface ChangePasswordRequest {
     passwordConfirmation: string;
 }
 
-export type GetMeResponse = z.infer<typeof $getMeResponse>;
+export type User = z.infer<typeof $user>;
 export type UpdateMeRequest = z.infer<typeof $updateMeRequest>;
 export type UpdateMeResponse = z.infer<typeof $updateMeResponse>;
+export type SignUpRequest = z.infer<typeof $signUpRequest>;
+export type SignUpResponse = z.infer<typeof $signUpResponse>;
+export type AuthenticateResponse = z.infer<typeof $authenticateResponse>;
+export type ResetPasswordRequest = z.infer<typeof $resetPasswordRequest>;
+export type RecoveryPasswordRequest = z.infer<typeof $recoveryPasswordRequest>;
 
-export const $getMeResponse = z.object({
-    id: z.number(),
+export const $user = z.object({
+    data: z.object({
+        id: z.number(),
+        email: z.string(),
+        isActive: z.boolean(),
+        isStatic: z.boolean(),
+        profile: z.object({
+            data: z.object({
+                id: z.number(),
+                firstName: z.string(),
+                lastName: z.string().nullable(),
+                patronymic: z.string().nullable(),
+                avatar: $uploadedFile.nullable(),
+                description: z.string().nullable(),
+            }),
+        }),
+        role: z.object({
+            data: z.object({ id: z.number(), name: z.string(), displayName: z.string() }),
+        }),
+    }),
+});
+
+export const $recoveryPasswordRequest = z.object({
+    email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
+});
+
+export const $resetPasswordRequest = z.object({
+    password: z.string(),
+    passwordConfirmation: z.string(),
+    token: z.string(),
     email: z.string(),
-    isActive: z.boolean(),
-    isStatic: z.boolean(),
-    profile: z.object({
-        id: z.number(),
-        firstName: z.string(),
-        lastName: z.string(),
-        patronymic: z.string(),
-        avatar: $uploadedFile.nullable(),
-        description: z.string().nullable(),
-    }),
-    role: z.object({
-        id: z.number(),
-        name: z.string(),
-        displayName: z.string(),
-    }),
 });
 
 export const $updateMeRequest = z.object({
@@ -52,5 +70,36 @@ export const $updateMeResponse = z.object({
             lastName: z.string(),
             patronymic: z.string(),
         }),
+    }),
+});
+
+export const $signUpRequest = z.object({
+    firstName: z.string(),
+    email: z.string(),
+    password: z.string(),
+    passwordConfirmation: z.string(),
+});
+
+export const $signUpResponse = z.object({
+    data: z.object({
+        tokenType: z.string(),
+        expiresIn: z.number(),
+        accessToken: z.string(),
+        refreshToken: z.string(),
+    }),
+    meta: z.object({
+        user: $user,
+    }),
+});
+
+export const $authenticateResponse = z.object({
+    data: z.object({
+        tokenType: z.string(),
+        expiresIn: z.number(),
+        accessToken: z.string(),
+        refreshToken: z.string(),
+    }),
+    meta: z.object({
+        user: $user,
     }),
 });

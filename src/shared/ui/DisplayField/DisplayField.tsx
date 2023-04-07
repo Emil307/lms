@@ -5,7 +5,7 @@ import useStyles from "./DisplayField.styles";
 export interface DisplayFieldProps {
     variant?: "compact" | "default"; //label над значением или на одном уровне
     label: string; // Описание
-    value?: string; //Значение
+    value?: string | null; //Значение
     render?: (value: string) => ReactNode; //На случай если нужно отредерить что-то своё.
     defaultValue?: string;
 }

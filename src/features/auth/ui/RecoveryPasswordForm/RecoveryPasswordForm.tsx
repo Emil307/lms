@@ -2,9 +2,11 @@ import { Box, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
+import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
 import { $recoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { Logo } from "@components/Logo";
+import { useResetPassword } from "@entities/auth";
 
 export interface RecoveryPasswordFormProps {}
 
@@ -13,14 +15,22 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
+    const { mutate: resetPassword, isLoading } = useResetPassword();
+
     const config: FormikConfig<RecoveryPasswordFormData> = {
         initialValues: {
             password: "",
-            confirmPassword: "",
+            passwordConfirmation: "",
         },
         validationSchema: $recoveryPasswordFormValidationSchema,
-        onSubmit: () => {
-            return;
+        onSubmit: (values, { setFieldError }) => {
+            resetPassword(values, {
+                onError: (error) => {
+                    if (axios.isAxiosError(error)) {
+                        setFieldError("passwordConfirmation", error.response?.data);
+                    }
+                },
+            });
         },
     };
     const handleClickBack = () => router.back();
@@ -49,14 +59,14 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
                             description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
                         />
                         <FInput
-                            name="confirmPassword"
+                            name="passwordConfirmation"
                             label="Повторите новый пароль"
                             type="password"
                             icon={<Shield color={theme.colors.gray45[0]} />}
                             success="Пароли совпадают"
                         />
                     </Box>
-                    <Button type="submit" variant="secondary" size="large" w="100%">
+                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
                         Сохранить
                     </Button>
                 </Form>

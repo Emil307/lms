@@ -1,12 +1,12 @@
 import { Box, Group, LoadingOverlay, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
-import { Settings, Shield, User } from "react-feather";
+import { Settings, Shield, User as UserIcon } from "react-feather";
 import { BreadCrumbs, Button, DisplayField, TBreadCrumbItem } from "@shared/ui";
 import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
-import { GetMeResponse, useMe } from "@entities/auth";
+import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 
-const fields: ProfileInfoDisplayFields<GetMeResponse> = [
+const fields: ProfileInfoDisplayFields<User> = [
     { name: "profile.data.firstName", label: "Имя" },
     { name: "role.data.name", label: "Роль" },
     { name: "email", label: "Email" },
@@ -53,15 +53,15 @@ const ProfileSettingsPage = () => {
                     backgroundColor: theme.colors.white[0],
                 })}>
                 <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
-                    <Fieldset label="Личные данные" icon={<User />}>
-                        <DisplayField label="Фамилия" value={userData?.profile.lastName} />
-                        <DisplayField label="Имя" value={userData?.profile.firstName} />
-                        <DisplayField label="Отчество" value={userData?.profile.patronymic} />
+                    <Fieldset label="Личные данные" icon={<UserIcon />}>
+                        <DisplayField label="Фамилия" value={userData?.data.profile.data.lastName} />
+                        <DisplayField label="Имя" value={userData?.data.profile.data.firstName} />
+                        <DisplayField label="Отчество" value={userData?.data.profile.data.patronymic} />
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={userData?.role.name} />
-                        <DisplayField label="Email" value={userData?.email} />
+                        <DisplayField label="Роль" value={userData?.data.role.data.displayName} />
+                        <DisplayField label="Email" value={userData?.data.email} />
                     </Fieldset>
 
                     {/* TODO: Скрыто, так нет функционала для работы с уведомлениями */}
