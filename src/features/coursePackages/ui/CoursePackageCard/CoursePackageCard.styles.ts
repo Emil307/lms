@@ -2,14 +2,16 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
+        display: "flex",
+        flexDirection: "column",
         height: "100%",
+        padding: "24px !important",
         borderRadius: 16,
     },
     section: {
         display: "flex",
         flexDirection: "column",
         margin: "0px !important",
-        marginBottom: "32px !important",
         gap: 16,
     },
     description: {

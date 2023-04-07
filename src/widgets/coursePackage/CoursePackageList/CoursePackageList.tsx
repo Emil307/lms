@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Title, Text } from "@mantine/core";
+import { Box, BoxProps, Flex, Title, Text, TitleProps } from "@mantine/core";
 import { Carousel } from "@components/Carousel";
 import { CoursePackage } from "@entities/coursePackage";
 import { CourseListFromPackage, CoursePackageCard } from "@features/coursePackages";
@@ -6,6 +6,7 @@ import useStyles from "./CoursePackageList.styles";
 
 export interface CoursePackageListProps extends Omit<BoxProps, "children"> {
     title: string;
+    titleProps?: TitleProps;
     description?: string;
 }
 
@@ -166,27 +167,6 @@ const data: CoursePackage[] = [
                     price: 9500,
                     isPurchased: true,
                 },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: true,
-                },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: false,
-                },
-                {
-                    id: 123,
-                    name: "coursePackage course name",
-                    slug: "coursePackage course slug",
-                    price: 9500,
-                    isPurchased: false,
-                },
             ],
             meta: {
                 pagination: {
@@ -216,19 +196,19 @@ const data: CoursePackage[] = [
     },
 ];
 
-const CoursePackageList = ({ title, description, ...props }: CoursePackageListProps) => {
+const CoursePackageList = ({ title, description, titleProps, ...props }: CoursePackageListProps) => {
     const { classes } = useStyles();
     return (
         <Box {...props} className={classes.root}>
             <Flex direction="column" gap={8} mb={32}>
-                <Title order={2} color="dark">
+                <Title order={2} color="dark" {...titleProps}>
                     {title}
                 </Title>
                 {description && <Text className={classes.headingDescription}>{description}</Text>}
             </Flex>
             <Carousel<CoursePackage> data={data} slideSize={648}>
                 {(props) => (
-                    <CoursePackageCard {...props} w={648}>
+                    <CoursePackageCard {...props} h={420} w={648}>
                         {(props) => <CourseListFromPackage {...props} />}
                     </CoursePackageCard>
                 )}

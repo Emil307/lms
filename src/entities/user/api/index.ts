@@ -4,6 +4,7 @@ import {
     $userCreateResponse,
     $userDetailResponse,
     $usersAdministratorsCreateOptions,
+    $usersAdministratorsFilters,
     $usersResponse,
     UserCreateRequest,
     UserCreateResponse,
@@ -27,7 +28,7 @@ export class UsersApi extends BaseApi {
     }
 
     async getAdministratorUsers(params: UsersRequestParamsType): Promise<UsersResponseType> {
-        const result = await axios.get("/admin/users/administrators", {
+        const result = await axios.get("admin/users/administrators", {
             params: {
                 ...params,
                 filter: params.filters,
@@ -38,8 +39,8 @@ export class UsersApi extends BaseApi {
     }
 
     async getAdministratorsUsersFilters(): Promise<UsersAdministratorsFiltersResponse> {
-        const result = await axios.get("/admin/users/administrators/filters");
-        return result;
+        const result = await axios.get("admin/users/administrators/filters");
+        return $usersAdministratorsFilters.parse(result);
     }
 
     async getUsersAdministratorsCreateOptions(): Promise<UsersAdministratorsCreateOptionsResponse> {

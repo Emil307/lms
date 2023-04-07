@@ -30,15 +30,17 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         {data.description}
                     </Text>
                 </Flex>
-                <Box className={classes.imageWrapper}>
-                    <Image
-                        src={data.picture?.data.path || ""}
-                        loader={({ src }) => `${src}`}
-                        layout="fill"
-                        objectFit="cover"
-                        alt={data.picture?.data.name || ""}
-                    />
-                </Box>
+                {data.picture && (
+                    <Box className={classes.imageWrapper}>
+                        <Image
+                            src={data.picture.data.path || ""}
+                            loader={({ src }) => `${src}`}
+                            layout="fill"
+                            objectFit="cover"
+                            alt={data.picture.data.name || ""}
+                        />
+                    </Box>
+                )}
             </Group>
             <Box>
                 <Button

@@ -5,9 +5,12 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
     content: {
         overflow: isOpen ? "auto" : "hidden",
         "> div": {
-            maxHeight: 128,
+            maxHeight: 117,
             width: "100%",
         },
+    },
+    control: {
+        marginTop: 16,
     },
     spoilerLabelText: {
         fontWeight: 600,

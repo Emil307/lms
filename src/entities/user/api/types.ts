@@ -91,6 +91,7 @@ interface UsersRequestParamsType {
     query?: string;
     filters?: {
         isActive?: "0" | "1";
+        roleName?: string;
     };
 }
 
@@ -103,7 +104,14 @@ type UserCreateResponse = z.infer<typeof $userCreateResponse>;
 type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministratorsFilters>;
 type UsersAdministratorsCreateOptionsResponse = z.infer<typeof $usersAdministratorsCreateOptions>;
 
-export { $usersResponse, $userDetailResponse, $userCreate, $userCreateResponse, $usersAdministratorsCreateOptions };
+export {
+    $usersResponse,
+    $userDetailResponse,
+    $userCreate,
+    $userCreateResponse,
+    $usersAdministratorsCreateOptions,
+    $usersAdministratorsFilters,
+};
 
 export type {
     UsersResponseType,

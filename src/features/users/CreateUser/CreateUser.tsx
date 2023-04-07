@@ -16,7 +16,8 @@ import { $schemaValidatorCreateUser, UserCreateForm } from "./types";
 const CreateUser = () => {
     const router = useRouter();
     const theme = useMantineTheme();
-    const options = useAdministratorsCreateOptions();
+    const { data: options } = useAdministratorsCreateOptions();
+    const defaultRole = String(options?.roles.at(0)?.id ?? 0);
 
     const createUser = useCreateUser();
 
@@ -33,7 +34,7 @@ const CreateUser = () => {
             patronymic: "",
             description: "",
             isActive: false,
-            roleId: String(options.data?.roles.at(0)?.id ?? 0),
+            roleId: defaultRole,
             avatar: null,
             additionalImage: null,
         },
@@ -96,7 +97,7 @@ const CreateUser = () => {
                         <Fieldset mt={32} label="Системные данные" icon={<Shield />}>
                             <Box>
                                 <FRadioGroup name="roleId">
-                                    {options.data?.roles.map((item) => {
+                                    {options?.roles.map((item) => {
                                         return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                     })}
                                 </FRadioGroup>
@@ -114,7 +115,7 @@ const CreateUser = () => {
                                 </Flex>
                             </Box>
                         </Fieldset>
-                        {options.data?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
+                        {options?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
                             <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
                                 <FFileInput
                                     name="additionalImage"
