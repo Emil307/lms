@@ -1,11 +1,5 @@
 import { z } from "zod";
-import { $pagination } from "@shared/types";
-
-const $role = z.object({
-    id: z.number(),
-    name: z.string(),
-    displayName: z.string(),
-});
+import { $pagination, $role } from "@shared/types";
 
 export const $rolesResponse = z.object({
     data: z.array($role),
