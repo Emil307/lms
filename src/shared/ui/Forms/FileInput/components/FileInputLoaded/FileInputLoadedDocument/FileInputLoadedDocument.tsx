@@ -1,10 +1,7 @@
-import { UseMutationResult } from "@tanstack/react-query";
 import React, { useEffect, useMemo } from "react";
 import { Edit3, Trash, X } from "react-feather";
-import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
-import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/types";
+import { useUploadFile } from "@entities/storage";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
@@ -14,18 +11,17 @@ export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "statu
     error?: string;
     onDelete?: (fileId: number) => void;
     onEdit?: (fileId: number) => void;
-    useUploadFile: () => UseMutationResult<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>;
     onUpdateFile: (data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
 export default function FileInputLoadedDocument({
+    type,
     fileId,
     file,
     error,
     onDelete = () => undefined,
     onEdit = () => undefined,
-    useUploadFile,
     onUpdateFile,
     onError,
     ...props
@@ -35,7 +31,7 @@ export default function FileInputLoadedDocument({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file },
+                { file, type },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(resp);
@@ -66,5 +62,5 @@ export default function FileInputLoadedDocument({
         return <X cursor="pointer" onClick={() => onDelete(fileId)} />;
     }, [status, fileId]);
 
-    return <FileItem {...props} fileId={fileId} status={status} actionSlot={actionSlot} />;
+    return <FileItem {...props} type={type} fileId={fileId} status={status} actionSlot={actionSlot} />;
 }

@@ -17,19 +17,17 @@ export const $getMeResponse = z.object({
     isActive: z.boolean(),
     isStatic: z.boolean(),
     profile: z.object({
-        data: z.object({
-            id: z.number(),
-            firstName: z.string(),
-            lastName: z.string(),
-            patronymic: z.string(),
-            avatar: $uploadedFile.nullable().optional(),
-        }),
+        id: z.number(),
+        firstName: z.string(),
+        lastName: z.string(),
+        patronymic: z.string(),
+        avatar: $uploadedFile.nullable(),
+        description: z.string().nullable(),
     }),
     role: z.object({
-        data: z.object({
-            id: z.number(),
-            name: z.string(),
-        }),
+        id: z.number(),
+        name: z.string(),
+        displayName: z.string(),
     }),
 });
 

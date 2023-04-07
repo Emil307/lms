@@ -42,6 +42,7 @@ export default function FFileInputMultiple({
             fileName: file.name,
             fileSize: file.size,
             fileUrl: file.absolutePath,
+            data: file,
         }));
     }, [fieldInitial.name, fieldInitial.value]);
 

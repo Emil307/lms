@@ -38,7 +38,6 @@ import {
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
-import { useUploadImage, useUploadVideo } from "@entities/storage";
 import { ReviewForm } from "@features/review";
 
 const testDataSelect = [
@@ -225,12 +224,7 @@ export const UIDemo = () => {
                         return (
                             <Stack>
                                 <Avatar src={values.avatarImage?.absolutePath || ""} />
-                                <FFileButton
-                                    name="avatarImage"
-                                    label="Изменить аватар"
-                                    buttonProps={{ leftIcon: <Edit3 /> }}
-                                    useUploadFile={useUploadImage}
-                                />
+                                <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 <FDatePicker name="date" success="alalala" description="rtrtrtrt" />
                                 <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                                 <FInput label="Login" name="login" description="lalalala" />
@@ -266,14 +260,14 @@ export const UIDemo = () => {
                                 <FSwitch name="hasPassword" variant="secondary" />
                                 <FProgressBar name="step" label="вопросов" maxValue={16} />
                                 <FFileInput
-                                    type="video"
-                                    name="img"
+                                    type="image"
+                                    name="logo"
                                     title="Загрузить картинку с ПК"
-                                    // fileFormats={["jpeg", "jpg", "png"]}
-                                    fileFormats={["mp4"]}
+                                    fileFormats={["jpeg", "jpg", "png"]}
+                                    // fileFormats={["mp4"]}
                                     withDeleteButton
-                                    useUploadFile={useUploadVideo}
-                                    titleButtonFileDialog="Видос"
+                                    // useUploadFile={useUploadVideo}
+                                    titleButtonFileDialog="IMAGE"
                                 />
 
                                 {/* <FFileInput
@@ -301,7 +295,6 @@ export const UIDemo = () => {
                                     nameForLoadedFiles="doc"
                                     title="Загрузить документы с ПК"
                                     fileFormats={["pdf", "jpeg", "jpg", "png"]}
-                                    useUploadFile={useUploadImage}
                                     onDownloadInitialFile={handleDownloadFile}
                                 />
                                 <Button type="button" onClick={() => setFieldValue("step", --values.step)}>

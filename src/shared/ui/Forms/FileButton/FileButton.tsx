@@ -1,21 +1,18 @@
 import { ButtonProps } from "@mantine/core";
 import { Button, FileButton as MFileButton, FileButtonProps as MFileButtonProps } from "@mantine/core";
-import { UseMutationResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { memo, ReactNode, useCallback } from "react";
-import { FormErrorResponse } from "@shared/types";
 import { UploadedFile } from "@shared/ui";
-import { UploadFileRequest } from "@entities/storage";
+import { UploadFileType, useUploadFile } from "@entities/storage";
 import useButtonStyles from "./FileButton.styles";
 
 export interface FileButtonProps extends Omit<MFileButtonProps, "children" | "onChange"> {
     label: ReactNode;
+    type?: UploadFileType;
     buttonProps?: Omit<ButtonProps, "OnChange">;
-    useUploadFile: () => UseMutationResult<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>;
     onChange: (file: UploadedFile | null) => void;
 }
 
-const MemoizedFileButton = memo(function FileButton({ label, buttonProps, useUploadFile, onChange, ...props }: FileButtonProps) {
+const MemoizedFileButton = memo(function FileButton({ label, buttonProps, type = "avatar", onChange, ...props }: FileButtonProps) {
     const { classes } = useButtonStyles();
 
     const { mutate: uploadFile, isLoading: isUploading } = useUploadFile();
@@ -23,7 +20,7 @@ const MemoizedFileButton = memo(function FileButton({ label, buttonProps, useUpl
     const handleChange = useCallback((payload: File | null) => {
         if (payload !== null) {
             return uploadFile(
-                { file: payload },
+                { file: payload, type },
                 {
                     onSuccess: (uploadedImage) => {
                         onChange(uploadedImage);

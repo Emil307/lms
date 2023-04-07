@@ -2,11 +2,8 @@ import NextImage from "next/image";
 import React, { useEffect } from "react";
 import { Box, Button, Loader, ThemeIcon } from "@mantine/core";
 import { Image as ImageIcon } from "react-feather";
-import { UseMutationResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { isFile, UploadedFile } from "@shared/ui";
-import { UploadFileRequest } from "@entities/storage";
-import { FormErrorResponse } from "@shared/types";
+import { useUploadFile } from "@entities/storage";
 import useStyles from "./FileInputLoadedImage.styles";
 
 export interface FileInputLoadedImageProps {
@@ -20,12 +17,12 @@ export interface FileInputLoadedImageProps {
     error?: string;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
-    useUploadFile: () => UseMutationResult<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest>;
     onUpdateFile: (data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
 export default function FileInputLoadedImage({
+    type,
     fileId,
     file,
     fileUrl,
@@ -35,7 +32,6 @@ export default function FileInputLoadedImage({
     withDeleteButton = false,
     onOpenFileDialog = () => undefined,
     onDelete = () => undefined,
-    useUploadFile,
     onUpdateFile,
     onError,
 }: FileInputLoadedImageProps) {
@@ -46,7 +42,7 @@ export default function FileInputLoadedImage({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file },
+                { file, type },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(resp);
@@ -70,6 +66,7 @@ export default function FileInputLoadedImage({
                 src={fileUrl}
                 width={imageMaxWidth}
                 height={imageMaxHeight}
+                loader={({ src }) => `${src}`}
                 alt="file-preview"
                 objectFit="scale-down"
                 layout="intrinsic"
