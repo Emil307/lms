@@ -1,8 +1,7 @@
 import { Box, Group, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
-import { AtSign, ChevronLeft, Shield } from "react-feather";
-import { useRouter } from "next/router";
+import { AtSign, Shield } from "react-feather";
 import axios from "axios";
 import { Button, Checkbox, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
@@ -12,7 +11,6 @@ import { useAuthenticateMe } from "@entities/auth";
 export interface AuthFormProps {}
 
 const AuthForm = (_props: AuthFormProps) => {
-    const router = useRouter();
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
@@ -35,15 +33,14 @@ const AuthForm = (_props: AuthFormProps) => {
             });
         },
     };
-    const handleClickBack = () => router.back();
 
     return (
         <Box className={classes.root}>
-            <Button variant="white" className={classes.buttonBack} onClick={handleClickBack}>
-                <ChevronLeft />
-            </Button>
             <Box className={classes.inner}>
-                <Logo />
+                <Link href="/" className={classes.logoLink}>
+                    <Logo />
+                </Link>
+
                 <Text className={classes.headingTitle}>
                     Войдите в свой профиль, <br /> чтобы начать учиться
                 </Text>

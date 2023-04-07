@@ -4,14 +4,16 @@ import { IconBrandMessenger } from "@tabler/icons-react";
 import { Folder, Heart } from "react-feather";
 import { useRouter } from "next/router";
 import { Route } from "nextjs-routes";
+import Link from "next/link";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
+import { useSession } from "@features/auth";
 import useStyles from "./HeaderUser.styles";
 
 const menuLinks: { label: string; href: Route; icon: ReactNode }[] = [
     {
         label: "Все курсы",
-        href: { pathname: "/" },
+        href: { pathname: "/courses" },
         icon: <Folder />,
     },
     {
@@ -24,12 +26,18 @@ const menuLinks: { label: string; href: Route; icon: ReactNode }[] = [
 const HeaderUser = () => {
     const router = useRouter();
     const { classes } = useStyles();
+    const { user } = useSession();
+
+    const handleRedirectLogin = () => router.push("/auth");
+    const handleRedirectSignUp = () => router.push("/auth/sign-up");
 
     return (
         <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex className={classes.inner}>
                 <Group sx={{ gap: 89 }}>
-                    <Logo />
+                    <Link href="/" className={classes.logoLink}>
+                        <Logo />
+                    </Link>
                     <Group sx={{ gap: 12 }}>
                         {menuLinks.map((menuItem, index) => (
                             <Button
@@ -47,17 +55,24 @@ const HeaderUser = () => {
                     </Group>
                 </Group>
 
-                <Group sx={{ gap: 56 }}>
-                    <Group>
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <Heart />
-                        </ThemeIcon>
+                {!user && (
+                    <Group sx={{ gap: 56 }}>
+                        <Group>
+                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                                <Heart />
+                            </ThemeIcon>
+                        </Group>
+
+                        <Group sx={{ gap: 8 }}>
+                            <Button variant="secondary" onClick={handleRedirectSignUp}>
+                                Регистрация
+                            </Button>
+                            <Button variant="border" onClick={handleRedirectLogin}>
+                                Войти
+                            </Button>
+                        </Group>
                     </Group>
-                    <Group sx={{ gap: 8 }}>
-                        <Button variant="secondary">Регистрация</Button>
-                        <Button variant="border"> Войти</Button>
-                    </Group>
-                </Group>
+                )}
             </Flex>
         </MHeader>
     );

@@ -47,7 +47,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
             );
         },
     };
-    const handleClickBack = () => router.back();
+    const handleClickBack = () => router.push("/auth");
 
     return (
         <Box className={classes.root}>
@@ -55,7 +55,9 @@ const SignUpForm = (_props: SignUpFormProps) => {
                 <ChevronLeft />
             </Button>
             <Box className={classes.inner}>
-                <Logo />
+                <Link href="/" className={classes.logoLink}>
+                    <Logo />
+                </Link>
                 <Text className={classes.headingTitle}>
                     Создайте аккаунт <br /> и начните свое обучение
                 </Text>

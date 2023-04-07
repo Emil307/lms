@@ -2,9 +2,10 @@ import { getCookie } from "cookies-next";
 import { TAxiosRequestInterceptorSuccess } from "@app/config/axios/types";
 import { ECookies } from "@app/config/axios/cookies";
 export const tokenInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
-    const bearerToken = getCookie(ECookies.TOKEN);
-    if (!bearerToken) return config;
-    config.headers["Authorization"] = `Bearer ${bearerToken}`;
+    const token = getCookie(ECookies.TOKEN);
+    const tokenType = getCookie(ECookies.TOKEN_TYPE);
+    if (!token || !tokenType) return config;
+    config.headers["Authorization"] = `${tokenType} ${token}`;
     return config;
 };
 
