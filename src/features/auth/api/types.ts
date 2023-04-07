@@ -2,40 +2,37 @@ import { z } from "zod";
 import { REGEXP_PASSWORD } from "@features/utils";
 
 export const $authFormValidationSchema = z.object({
-    login: z.string({ required_error: "Введите email" }),
+    email: z.string({ required_error: "Введите email" }),
     password: z.string({ required_error: "Введите пароль" }),
 });
 
 export const $signUpFormValidationSchema = z.object({
-    username: z.string({ required_error: "Введите имя" }),
+    firstName: z.string({ required_error: "Введите имя" }),
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
     passwords: z
         .object({
             password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
-            confirmPassword: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+            passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
         })
-        .refine((passwords) => passwords.password === passwords.confirmPassword, {
+        .refine((passwords) => passwords.password === passwords.passwordConfirmation, {
             message: "Пароли не совпадают",
-            path: ["confirmPassword"],
+            path: ["passwordConfirmation"],
         }),
-    agreementWithConditionsAndTerms: z.boolean({ required_error: "Примите пользовательское соглашение" }),
-});
-
-export const $forgotPasswordFormValidationSchema = z.object({
-    email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
+    agreementWithConditionsAndTerms: z.boolean().refine((val) => !!val, {
+        message: "Примите пользовательское соглашение",
+    }),
 });
 
 export const $recoveryPasswordFormValidationSchema = z
     .object({
         password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
-        confirmPassword: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+        passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
     })
-    .refine((value) => value.password === value.confirmPassword, {
+    .refine((value) => value.password === value.passwordConfirmation, {
         message: "Пароли не совпадают",
-        path: ["confirmPassword"],
+        path: ["passwordConfirmation"],
     });
 
 export type AuthData = z.infer<typeof $authFormValidationSchema>;
 export type SignUpFormData = z.infer<typeof $signUpFormValidationSchema>;
-export type ForgotPasswordFormData = z.infer<typeof $forgotPasswordFormValidationSchema>;
 export type RecoveryPasswordFormData = z.infer<typeof $recoveryPasswordFormValidationSchema>;

@@ -3,6 +3,7 @@ import { QueryProvider, ThemeProvider } from "@app/providers";
 import { AppPropsWithLayout } from "@shared/utils";
 
 import "@app/styles/index.scss";
+import SessionProvider from "@app/providers/SessionProvider";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);
@@ -10,7 +11,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return (
         <ThemeProvider>
             <QueryProvider pageProps={pageProps}>
-                <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
+                <SessionProvider>
+                    <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
+                </SessionProvider>
             </QueryProvider>
         </ThemeProvider>
     );

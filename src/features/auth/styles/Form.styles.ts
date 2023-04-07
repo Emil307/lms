@@ -3,6 +3,7 @@ import { createStyles } from "@mantine/core";
 export const useFormStyles = createStyles((theme) => ({
     root: {
         position: "relative",
+        width: "100%",
         padding: 24,
         paddingTop: 32,
         borderRadius: 16,

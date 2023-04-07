@@ -3,9 +3,11 @@ import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft } from "react-feather";
 import { useRouter } from "next/router";
+import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
-import { $forgotPasswordFormValidationSchema, ForgotPasswordFormData, useFormStyles } from "@features/auth";
+import { useFormStyles } from "@features/auth";
+import { $recoveryPasswordRequest, RecoveryPasswordRequest, useRecoveryPassword } from "@entities/auth";
 
 export interface ForgotPasswordFormProps {}
 
@@ -14,13 +16,21 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
-    const config: FormikConfig<ForgotPasswordFormData> = {
+    const { mutate: recovery, isLoading } = useRecoveryPassword();
+
+    const config: FormikConfig<RecoveryPasswordRequest> = {
         initialValues: {
             email: "",
         },
-        validationSchema: $forgotPasswordFormValidationSchema,
-        onSubmit: () => {
-            return;
+        validationSchema: $recoveryPasswordRequest,
+        onSubmit: (values, { setFieldError }) => {
+            recovery(values, {
+                onError: (error) => {
+                    if (axios.isAxiosError(error)) {
+                        setFieldError("email", error.response?.data);
+                    }
+                },
+            });
         },
     };
     const handleClickBack = () => router.back();
@@ -47,7 +57,7 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
                             icon={<AtSign color={theme.colors.gray45[0]} />}
                             description="Пришлем вам ссылку на восстановление пароля"
                         />
-                        <Button type="submit" variant="secondary" size="large" w="100%">
+                        <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
                             Выслать
                         </Button>
                     </Box>

@@ -18,6 +18,8 @@ export enum QueryKeys {
 }
 
 export enum MutationKeys {
+    AUTHENTICATE_ME = "UPDATE_ME",
+    SIGN_UP = "SIGN_UP",
     UPDATE_ME = "UPDATE_ME",
     CHANGE_PASSWORD = "CHANGE_PASSWORD",
     DELETE_USER = "DELETE_USER",

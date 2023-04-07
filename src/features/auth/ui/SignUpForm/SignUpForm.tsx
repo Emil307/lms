@@ -3,9 +3,11 @@ import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
+import axios from "axios";
 import { Button, FCheckbox, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { $signUpFormValidationSchema, SignUpFormData, useFormStyles } from "@features/auth";
+import { useSignUp } from "@entities/auth";
 
 export interface SignUpFormProps {}
 
@@ -14,19 +16,35 @@ const SignUpForm = (_props: SignUpFormProps) => {
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
+    const { mutate: signUp, isLoading } = useSignUp();
+
     const config: FormikConfig<SignUpFormData> = {
         initialValues: {
-            username: "",
+            firstName: "",
             email: "",
             passwords: {
                 password: "",
-                confirmPassword: "",
+                passwordConfirmation: "",
             },
             agreementWithConditionsAndTerms: false,
         },
         validationSchema: $signUpFormValidationSchema,
-        onSubmit: () => {
-            return;
+        onSubmit: (values, { setFieldError }) => {
+            signUp(
+                { firstName: values.firstName, email: values.email, ...values.passwords },
+                {
+                    onError: (error) => {
+                        if (axios.isAxiosError(error)) {
+                            for (const errorField in error.response?.data.errors) {
+                                if (["password", "passwordConfirmation"].includes(errorField)) {
+                                    setFieldError(`passwords.${errorField}`, error.response?.data.errors[errorField][0]);
+                                }
+                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
+                            }
+                        }
+                    },
+                }
+            );
         },
     };
     const handleClickBack = () => router.back();
@@ -43,7 +61,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                 </Text>
                 <Text className={classes.headingDescription}>
                     У вас уже есть профиль?
-                    <Link href="/" className={classes.signUpLink}>
+                    <Link href="/auth" className={classes.signUpLink}>
                         Войдите
                     </Link>
                 </Text>
@@ -55,7 +73,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                             gap: 8,
                             marginBottom: 16,
                         }}>
-                        <FInput name="username" label="Как к вам обращаться?" icon={<User color={theme.colors.gray45[0]} />} />
+                        <FInput name="firstName" label="Как к вам обращаться?" icon={<User color={theme.colors.gray45[0]} />} />
                         <FInput name="email" label="Введите email" icon={<AtSign color={theme.colors.gray45[0]} />} />
                         <FInput
                             name="passwords.password"
@@ -65,7 +83,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                             description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
                         />
                         <FInput
-                            name="passwords.confirmPassword"
+                            name="passwords.passwordConfirmation"
                             label="Повторите пароль"
                             type="password"
                             icon={<Shield color={theme.colors.gray45[0]} />}
@@ -73,11 +91,11 @@ const SignUpForm = (_props: SignUpFormProps) => {
                         />
                     </Box>
                     <FCheckbox
-                        sx={{ marginBottom: 24 }}
                         name="agreementWithConditionsAndTerms"
                         label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
+                        wrapperProps={{ sx: { marginBottom: 24 } }}
                     />
-                    <Button type="submit" variant="secondary" size="large" w="100%">
+                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
                         Начать обучение
                     </Button>
                 </Form>

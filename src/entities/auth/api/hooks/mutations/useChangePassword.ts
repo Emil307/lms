@@ -3,7 +3,5 @@ import { MutationKeys } from "@shared/constant";
 import { authApi, ChangePasswordRequest } from "@entities/auth";
 
 export const useChangePassword = () => {
-    return useMutation([MutationKeys.CHANGE_PASSWORD], (data: ChangePasswordRequest) => {
-        return authApi.changePassword(data);
-    });
+    return useMutation([MutationKeys.CHANGE_PASSWORD], (data: ChangePasswordRequest) => authApi.changePassword(data));
 };

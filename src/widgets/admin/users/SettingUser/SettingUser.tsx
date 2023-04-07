@@ -1,6 +1,6 @@
 import { Box, Flex, Group, ThemeIcon, Title, Image, Text } from "@mantine/core";
 import React from "react";
-import { Info, Shield, Trash, User, UserCheck } from "react-feather";
+import { Info, Shield, Trash, User as UserIcon, UserCheck } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
@@ -63,7 +63,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
                             Удалить пользователя
                         </Button>
                     </Flex>
-                    <Fieldset mt={32} label="Личные данные" icon={<User />}>
+                    <Fieldset mt={32} label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={data?.lastName} />
                         <DisplayField label="Имя" value={data?.firstName} />
                         <DisplayField label="Отчество" value={data?.patronymic} />

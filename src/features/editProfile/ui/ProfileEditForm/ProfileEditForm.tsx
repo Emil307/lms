@@ -1,15 +1,15 @@
 import { Avatar, Flex, Group, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
-import { Edit3, Shield, User } from "react-feather";
+import { Edit3, Shield, User as UserIcon } from "react-feather";
 import axios from "axios";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Button, FFileButton, FInput, Form } from "@shared/ui";
 import { adaptDataForProfileEditForm, initialValuesProfileEditForm } from "@features/editProfile";
-import { $updateMeRequest, GetMeResponse, UpdateMeRequest, useUpdateMe } from "@entities/auth";
+import { $updateMeRequest, User, UpdateMeRequest, useUpdateMe } from "@entities/auth";
 import useStyles from "./ProfileEditForm.styles";
 
 export interface ProfileEditFormProps {
-    data?: GetMeResponse;
+    data?: User;
     isLoading?: boolean;
     onEditPassword: () => void;
     onClose: (dirty: boolean) => void;
@@ -44,7 +44,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                 <Flex direction="column" gap={32}>
                     <Flex direction="column" gap={24}>
                         <Group>
-                            <User color={theme.colors.gray45[0]} />
+                            <UserIcon color={theme.colors.gray45[0]} />
                             <Text
                                 sx={{
                                     fontWeight: 600,
