@@ -58,7 +58,7 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
     if (isAccessError && requestMethod !== "get") {
         return Promise.reject(error);
     }
-    if (isAuthError && window.location.pathname.split("/")[1] === "auth") {
+    if (isAuthError && (window.location.pathname.split("/")[1] === "auth" || window.location.pathname === "/")) {
         return Promise.reject(error);
     }
     if (isAuthError) {

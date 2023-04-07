@@ -3,6 +3,7 @@ import { FormikConfig } from "formik";
 import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Link from "next/link";
 import { Button, FInput, Form } from "@shared/ui";
 import { $recoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { Logo } from "@components/Logo";
@@ -33,7 +34,7 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
             });
         },
     };
-    const handleClickBack = () => router.back();
+    const handleClickBack = () => router.push("/auth/forgot-password");
 
     return (
         <Box className={classes.root}>
@@ -41,7 +42,9 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
                 <ChevronLeft />
             </Button>
             <Box className={classes.inner}>
-                <Logo />
+                <Link href="/" className={classes.logoLink}>
+                    <Logo />
+                </Link>
                 <Text className={classes.headingTitle}>Восстановление пароля</Text>
                 <Form config={config} disableOverlay>
                     <Box

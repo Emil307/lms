@@ -40,6 +40,10 @@ export const useFormStyles = createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.primary[0],
     },
+    logoLink: {
+        color: theme.colors.dark[0],
+        textDecoration: "none",
+    },
     recoveryPasswordLink: {
         fontWeight: 500,
         fontSize: 14,

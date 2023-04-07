@@ -12,4 +12,8 @@ export default createStyles((theme) => ({
         marginInline: "auto",
         paddingInline: 16,
     },
+    logoLink: {
+        color: theme.colors.dark[0],
+        textDecoration: "none",
+    },
 }));

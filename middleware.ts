@@ -7,6 +7,11 @@ export function middleware(req: NextRequest) {
     const token = req.cookies.get("TOKEN")?.value || "";
 
     const unathPaths = ["/auth", "/auth/forgot-password", "/auth/recovery-password", "/auth/sign-up"];
+    const publicPaths = ["/"];
+
+    if (publicPaths.includes(url.pathname)) {
+        return NextResponse.next();
+    }
 
     if (token && unathPaths.includes(url.pathname)) {
         url.pathname = "/";

@@ -33,7 +33,7 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
             });
         },
     };
-    const handleClickBack = () => router.back();
+    const handleClickBack = () => router.push("/auth");
 
     return (
         <Box className={classes.root}>
@@ -41,7 +41,9 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
                 <ChevronLeft />
             </Button>
             <Box className={classes.inner}>
-                <Logo />
+                <Link href="/" className={classes.logoLink}>
+                    <Logo />
+                </Link>
                 <Text className={classes.headingTitle}>Забыли пароль?</Text>
                 <Text className={classes.headingDescription}>
                     Вспомнили пароль?
