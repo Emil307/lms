@@ -138,6 +138,7 @@ export const $courseDetailData = z.object({
     //FIXME: currentLesson изменит схему после того как будет реальный эндпоинт
     currentLesson: z.null(),
 });
+export type GetCoursesResponse = z.infer<typeof $getCoursesResponse>;
 
 export const $courseBlock = z.object({
     id: z.number(),
@@ -232,6 +233,13 @@ export const $getCourseProgramResponse = z.object({
 
 export const $getCourseProgramModuleLessonsResponse = z.object({
     data: z.array($courseProgramModuleLesson),
+    meta: z.object({
+        pagination: $pagination,
+    }),
+});
+
+export const $getCoursesResponse = z.object({
+    data: z.array($course),
     meta: z.object({
         pagination: $pagination,
     }),
