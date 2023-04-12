@@ -35,6 +35,7 @@ import {
     FFileInput,
     FFileInputMultiple,
     UploadedFile,
+    FDateRangePicker,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
@@ -86,6 +87,10 @@ type Values = {
     logo: File | UploadedFile | null;
     doc: File[] | UploadedFile[];
     attachments: File[] | UploadedFile[];
+    ranges: {
+        dateFrom: Date | null;
+        dateTo: Date | null;
+    };
 };
 
 const radioGroupValues = [
@@ -102,6 +107,10 @@ export const $loginValidationSchema = z.object({
     select: z.string({ required_error: "Нужно что-то выбрать" }),
     multi: z.array(z.string()).min(1, "Мин 1 элемент"),
     doc: z.array(z.any()).min(1, "Мин 1 один файл"),
+    ranges: z.object({
+        dateTo: z.date({ required_error: "AAAAAA" }),
+        dateFrom: z.date({ required_error: "BBBBB" }),
+    }),
 });
 
 export const UIDemo = () => {
@@ -160,8 +169,12 @@ export const UIDemo = () => {
                         "https://api-bucket.addamant-work.ru/business-galery-public/images/Z4HsGLrX4oQL3ezwIPUyR8rmV5pdeXAgs7guTN6O.jpg",
                 },
             ],
+            ranges: {
+                dateTo: null,
+                dateFrom: null,
+            },
         },
-        validationSchema: $loginValidationSchema,
+        // validationSchema: $loginValidationSchema,
         onSubmit: () => {
             return;
         },
@@ -269,6 +282,7 @@ export const UIDemo = () => {
                                     // useUploadFile={useUploadVideo}
                                     titleButtonFileDialog="IMAGE"
                                 />
+                                <FDateRangePicker name="ranges.dateFrom" nameTo="ranges.dateTo" label="FDateRangePicker" />
 
                                 {/* <FFileInput
                                     type="image"

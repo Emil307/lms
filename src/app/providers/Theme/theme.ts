@@ -3,6 +3,7 @@ import { MantineColor } from "@mantine/core";
 import { MantineThemeColors } from "@mantine/core";
 import { MantineThemeOverride } from "@mantine/core";
 import * as fonts from "./fonts";
+import "dayjs/locale/ru";
 
 export const addMantineColor = (color: string): MantineThemeColors[MantineColor] => {
     return [color, color, color, color, color, color, color, color, color, color];
@@ -131,6 +132,71 @@ export const defaultTheme: MantineThemeOverride = {
                 day: {
                     ":hover": {
                         backgroundColor: theme.colors.primary16[0],
+                    },
+                },
+            }),
+        },
+        DateRangePicker: {
+            defaultProps: {
+                inputFormat: "DD.MM.YYYY",
+                locale: "ru",
+            },
+            styles: (theme) => ({
+                input: {
+                    fontWeight: 500,
+                },
+                dropdown: {
+                    padding: 8,
+                    paddingTop: 16,
+                    borderRadius: 16,
+                },
+                calendarHeaderControl: {
+                    width: 24,
+                    height: 24,
+                    color: theme.colors.dark[0],
+                },
+                calendarHeaderLevel: {
+                    height: 24,
+                    fontWeight: 500,
+                    fontSize: 14,
+                    lineHeight: "16px",
+                },
+                calendarHeader: {
+                    alignItems: "center",
+                    marginBottom: 8,
+                },
+                weekdayCell: {
+                    paddingBottom: 14,
+                },
+                cell: {
+                    borderTop: "none",
+                },
+                day: {
+                    width: 32,
+                    height: 32,
+                    margin: 1,
+                    fontWeight: 500,
+                    fontSize: 12,
+                    lineHeight: "16px",
+                    color: theme.colors.dark[0],
+
+                    "&[data-weekend]": {
+                        color: theme.colors.dark[0],
+                    },
+
+                    "&[data-outside]": {
+                        color: theme.colors.gray45[0],
+                    },
+
+                    "&[data-in-range]": {
+                        borderRadius: 6,
+                        backgroundColor: theme.colors.primary16[0],
+                        color: theme.colors.dark[0],
+                    },
+                    "&[data-selected]": {
+                        borderRadius: 6,
+                        backgroundColor: theme.colors.primary[0],
+                        color: theme.colors.white[0],
                     },
                 },
             }),

@@ -1,15 +1,19 @@
 import React, { memo, useMemo, useState } from "react";
-import { DatePicker as MDatePicker, DatePickerProps as MDatePickerProps } from "@mantine/dates";
-import { AlertTriangle, Calendar, CheckCircle, Info } from "react-feather";
+import { DateRangePicker as MDateRangePicker, DateRangePickerProps as MDateRangePickerProps, DateRangePickerValue } from "@mantine/dates";
+import { AlertTriangle, CheckCircle, Info } from "react-feather";
 import { Group, ThemeIcon, Text, useMantineTheme } from "@mantine/core";
 import { z } from "zod";
+import dayjs from "dayjs";
+import IconCalendar from "public/icons/calendar2.svg";
 import { useInputStyles } from "@shared/styles";
 
-export interface DatePickerProps extends MDatePickerProps {
+export interface DateRangePickerProps extends Omit<MDateRangePickerProps, "value" | "onChange"> {
     success?: string | boolean;
+    value?: [string | null, string | null];
+    onChange?: (value: [string | null, string | null]) => void;
 }
 
-const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
+const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props }: DateRangePickerProps) {
     const {
         description,
         error,
@@ -38,15 +42,17 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         setFocused(false);
     };
 
-    const handlerOnChange = (value: Date | null) => {
-        onChange(value);
+    const handleChange = (value: DateRangePickerValue) => {
+        const from = value[0] ? dayjs(value[0]).format() : null;
+        const to = value[1] ? dayjs(value[1]).format() : null;
+        onChange([from, to]);
         setFocused(false);
     };
 
-    const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
+    const statusSuccess = !!value?.[0] && !error && !!success;
 
     const { classes } = useInputStyles({
-        floating: !!props.value || focused,
+        floating: !!value?.[0] || focused,
         size: size,
         statusSuccess,
     });
@@ -85,17 +91,29 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         );
     }, [statusSuccess, success, description]);
 
+    const getValues = (): DateRangePickerValue => [value?.[0] ? new Date(value[0]) : null, value?.[1] ? new Date(value[1]) : null];
+
     return (
-        <MDatePicker
+        <MDateRangePicker
             {...props}
+            value={getValues()}
+            hideWeekdays={false}
             classNames={classes}
-            onChange={handlerOnChange}
+            onChange={handleChange}
             onDropdownOpen={onDropdownOpenHandler}
             onFocus={onFocusHandler}
             onDropdownClose={onDropCloseHandler}
             rightSection={
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
-                    <Calendar />
+                <ThemeIcon
+                    variant="outline"
+                    sx={(theme) => ({
+                        border: "none",
+                        "svg path": {
+                            fill: theme.colors.gray45[0],
+                            fillOpacity: 1,
+                        },
+                    })}>
+                    <IconCalendar />
                 </ThemeIcon>
             }
             inputWrapperOrder={["label", "input", "error", "description"]}
@@ -105,4 +123,4 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
     );
 });
 
-export default MemoizedDatePicker;
+export default MemoizedDateRangePicker;
