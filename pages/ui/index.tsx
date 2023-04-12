@@ -36,6 +36,8 @@ import {
     FFileInputMultiple,
     UploadedFile,
     FDateRangePicker,
+    TimeRangeInput,
+    FTimeRangeInput,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
@@ -135,6 +137,7 @@ export const UIDemo = () => {
     ];
 
     const [date, setDate] = useState<Date | null>(null);
+    const [rangeDate, setRangeDate] = useState<[string | null, string | null]>([null, null]);
 
     const config: FormikConfig<Values> = {
         initialValues: {
@@ -190,6 +193,7 @@ export const UIDemo = () => {
             <Logo />
             <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto", backgroundColor: "white" }}>
+                <TimeRangeInput value={rangeDate} onChange={setRangeDate} label="allalalalal" clearable />
                 <ControlPanel variant="primary" label="Уведомлять о проверенных домашних заданиях" />
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
                 <Rating defaultValue={2} count={5} />
@@ -236,6 +240,7 @@ export const UIDemo = () => {
                     {({ setFieldValue, values }) => {
                         return (
                             <Stack>
+                                <FTimeRangeInput name="ranges.dateFrom" nameTo="ranges.dateTo" />
                                 <Avatar src={values.avatarImage?.absolutePath || ""} />
                                 <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 <FDatePicker name="date" success="alalala" description="rtrtrtrt" />

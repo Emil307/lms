@@ -6,7 +6,7 @@ import useStyles from "./TeacherList.styles";
 
 export interface TeacherListProps extends Omit<BoxProps, "children"> {}
 
-//FIXME: Удалить после подключения к энпоинту
+//TODO: Удалить после подключения к энпоинту
 const data: CourseTeacher[] = [
     {
         id: 1,

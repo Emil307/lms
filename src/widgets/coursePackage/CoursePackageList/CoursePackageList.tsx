@@ -10,7 +10,7 @@ export interface CoursePackageListProps extends Omit<BoxProps, "children"> {
     description?: string;
 }
 
-//FIXME: Удалить после подключения эндпоинта
+//TODO: Удалить после подключения эндпоинта
 const data: CoursePackage[] = [
     {
         id: 1,

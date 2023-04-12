@@ -8,7 +8,7 @@ import { CoursePackageList } from "@widgets/coursePackage";
 
 export interface CourseDetailPageProps {}
 
-//FIXME: удалить после подключения API
+//TODO: удалить после подключения API
 const data: CourseDetailData = {
     name: "Оптимизация управления финансами",
     picture: {

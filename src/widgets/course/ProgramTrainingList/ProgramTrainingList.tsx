@@ -11,7 +11,7 @@ import useStyles from "./ProgramTrainingList.styles";
 
 export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {}
 
-//FIXME: Удалить после подключения к энпоинту
+//TODO: Удалить после подключения к энпоинту
 const data: GetCourseProgramResponse = {
     moduleCount: 11,
     lessonCount: 32,

@@ -7,7 +7,7 @@ export interface TeacherCarouselListProps extends Omit<BoxProps, "children"> {
     titleProps?: TitleProps;
 }
 
-//FIXME: Удалить после подключения к энпоинту
+//TODO: Удалить после подключения к энпоинту
 const data: CourseTeacher[] = [
     {
         id: 1,

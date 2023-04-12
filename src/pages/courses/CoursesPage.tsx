@@ -6,7 +6,7 @@ import { List } from "@components/List";
 import { CourseCard } from "@features/courses";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
 
-//FIXME: удалить после подключения API
+//TODO: удалить после подключения API
 const list: Course[] = [
     {
         id: 1,

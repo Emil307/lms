@@ -12,7 +12,7 @@ import { FaqAccordionList } from "@features/faq";
 import { Button } from "@shared/ui";
 import IconComment from "public/icons/comment.svg";
 
-//FIXME: удалить после подключения API
+//TODO: удалить после подключения API
 const list: Course[] = [
     {
         id: 1,
