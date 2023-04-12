@@ -135,7 +135,7 @@ export const $courseDetailData = z.object({
         passed: z.number(),
     }),
     isNew: z.boolean(),
-    //FIXME: currentLesson изменит схему после того как будет реальный эндпоинт
+    //TODO: currentLesson изменит схему после того как будет реальный эндпоинт
     currentLesson: z.null(),
 });
 export type GetCoursesResponse = z.infer<typeof $getCoursesResponse>;

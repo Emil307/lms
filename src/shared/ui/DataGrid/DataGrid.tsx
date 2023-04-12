@@ -1,4 +1,4 @@
-import { Box, CSSObject, useMantineTheme } from "@mantine/core";
+import { Box, CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { MRT_Cell } from "mantine-react-table";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
@@ -13,6 +13,9 @@ export interface ManagedDataGridProps<T extends Record<string, any>> extends Ext
     getStylesForCell?: (cell: MRT_Cell<T>) => CSSObject;
     total?: number;
     perPage?: number;
+    //TODO: Это временные пропсы perPage (count), getStylesCell (getStylesForCell)
+    count?: number;
+    getStylesCell?: (theme: MantineTheme, cell: MRT_Cell<T>) => CSSObject;
 }
 
 export default function DataGrid<T extends Record<string, any>>({
@@ -21,6 +24,8 @@ export default function DataGrid<T extends Record<string, any>>({
     total,
     perPage,
     data,
+    count,
+    getStylesCell,
     onClickCell,
     getStylesForCell,
     ...rest
@@ -75,8 +80,8 @@ export default function DataGrid<T extends Record<string, any>>({
                                 onClickCell?.(cell);
                             },
                             sx: () => {
-                                if (!getStylesForCell) return {};
-                                return { ...getStylesForCell(cell) };
+                                if (!getStylesCell) return {};
+                                return { ...getStylesCell(theme, cell) };
                             },
                         };
                     }}

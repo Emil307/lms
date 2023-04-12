@@ -82,7 +82,7 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
     const [focused, setFocused] = useState(false);
 
     const { classes } = useInputStyles({
-        floating: !!props.value || focused,
+        floating: !!props.value?.toString().length || focused,
         icon,
         size,
         statusSuccess,

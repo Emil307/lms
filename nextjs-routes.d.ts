@@ -7,6 +7,12 @@
 declare module "nextjs-routes" {
   export type Route =
     | StaticRoute<"/about">
+    | DynamicRoute<"/admin/groups/[id]/composition", { "id": string }>
+    | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/groups/[id]", { "id": string }>
+    | DynamicRoute<"/admin/groups/[id]/schedule", { "id": string }>
+    | StaticRoute<"/admin/groups/create">
+    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">

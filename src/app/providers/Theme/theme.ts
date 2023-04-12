@@ -201,6 +201,25 @@ export const defaultTheme: MantineThemeOverride = {
                 },
             }),
         },
+        TimeRangeInput: {
+            styles: () => ({
+                separator: {
+                    padding: 0,
+                },
+                input: {
+                    paddingTop: "22px !important",
+                    paddingLeft: "15px !important",
+                },
+            }),
+        },
+        TimeInput: {
+            styles: () => ({
+                timeInput: {
+                    fontWeight: 500,
+                    fontSize: 14,
+                },
+            }),
+        },
         Button: {
             styles: () => ({
                 root: {
