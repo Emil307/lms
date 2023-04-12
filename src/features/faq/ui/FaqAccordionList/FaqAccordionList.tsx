@@ -18,7 +18,7 @@ const FaqAccordionList = (props: FaqAccordionListProps) => {
 
     const renderFaq = useMemo(
         () =>
-            faqData?.map((qnaItem, index) => (
+            faqData?.data.map((qnaItem, index) => (
                 <Accordion.Item key={index} value={`${qnaItem.question}_${index}`}>
                     <Accordion.Control chevron={getChevron(selected.includes(`${qnaItem.question}_${index}`))}>
                         {qnaItem.question}

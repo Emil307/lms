@@ -44,4 +44,4 @@ export const $faqItem = z.object({
     answer: z.string(),
 });
 
-export const $getFaqResponse = z.array($faqItem);
+export const $getFaqResponse = z.object({ data: z.array($faqItem) });
