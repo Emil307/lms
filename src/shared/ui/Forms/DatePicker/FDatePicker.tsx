@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useField } from "formik";
 import DatePicker, { DatePickerProps } from "./DatePicker";
 
@@ -14,7 +14,7 @@ export default function FDatePicker({ onChange = () => undefined, ...props }: FD
         helpers.setValue(newValue);
     }, []);
 
-    const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
+    const error = (meta.touched && meta.error) || null;
 
     return <DatePicker {...props} value={field.value} onChange={handleChange} error={error} />;
 }
