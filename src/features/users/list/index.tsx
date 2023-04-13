@@ -1,4 +1,4 @@
-import { Box, CSSObject, Flex, Title, useMantineTheme } from "@mantine/core";
+import { Box, CSSObject, Flex, MantineTheme, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { useState } from "react";
 import { FormikConfig } from "formik";
@@ -8,7 +8,7 @@ import { DataGrid, Form, FSearch, FSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser } from "@entities/user/api/types";
-import { useAdministratorUsers, useAdministratorsUsersFilters } from "@entities/user";
+import { useAdminUsers, useAdminUsersFilters } from "@entities/user";
 import Pagination from "@shared/ui/DataGrid/Pagination";
 import { columns } from "./constant";
 import { $validationSchema } from "./types/validation";
@@ -35,10 +35,9 @@ const UserList = () => {
         roleName?: string;
         query?: string;
     };
-    const theme = useMantineTheme();
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
 
-    const { data, isLoading, isRefetching, isFetching } = useAdministratorUsers({
+    const { data, isLoading, isRefetching, isFetching } = useAdminUsers({
         query: query ?? "",
         filters: {
             ...(isActive && { isActive: isActive }),
@@ -54,7 +53,7 @@ const UserList = () => {
     const lastElemIndex =
         (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
 
-    const userFilters = useAdministratorsUsersFilters();
+    const userFilters = useAdminUsersFilters();
 
     const rolesSelectOption = userFilters.data?.roles.map((item) => {
         return {
@@ -63,7 +62,7 @@ const UserList = () => {
         };
     });
 
-    const getStylesForCell = (cell: MRT_Cell<TUser>): CSSObject => {
+    const getStylesForCell = (theme: MantineTheme, cell: MRT_Cell<TUser>): CSSObject => {
         return {
             ":first-of-type": {
                 position: "relative",
@@ -122,7 +121,7 @@ const UserList = () => {
 
             <Box mt={24}>
                 <DataGrid<TUser>
-                    getStylesForCell={getStylesForCell}
+                    getStylesCell={getStylesForCell}
                     manualSorting
                     onSortingChange={setSorting}
                     onClickCell={handlerClickCell}
@@ -139,7 +138,7 @@ const UserList = () => {
                     columns={columns}
                     data={data?.data ?? []}
                     countName="Пользователей"
-                    perPage={data?.meta.pagination.per_page}
+                    count={data?.meta.pagination.count}
                     total={data?.meta.pagination.total}
                     initialState={{
                         columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],

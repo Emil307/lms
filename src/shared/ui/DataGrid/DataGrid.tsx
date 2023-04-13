@@ -22,9 +22,9 @@ export default function DataGrid<T extends Record<string, any>>({
     children,
     countName,
     total,
+    count,
     perPage,
     data,
-    count,
     getStylesCell,
     onClickCell,
     getStylesForCell,
@@ -36,7 +36,7 @@ export default function DataGrid<T extends Record<string, any>>({
     return (
         <>
             {children}
-            {countName && perPage && total && (
+            {countName && count && total && (
                 <Box
                     sx={{
                         color: theme.colors.gray45[0],
@@ -46,7 +46,7 @@ export default function DataGrid<T extends Record<string, any>>({
                         },
                     }}
                     mt={32}>
-                    {countName}: <span>{perPage}</span> из <span>{total}</span>
+                    {countName}: <span>{count}</span> из <span>{total}</span>
                 </Box>
             )}
             <Box mt={24}>
