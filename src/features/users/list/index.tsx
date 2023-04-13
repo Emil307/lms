@@ -56,7 +56,7 @@ const UserList = () => {
 
     const userFilters = useAdministratorsUsersFilters();
 
-    const rolesSelectOption = userFilters.data?.data.roles.map((item) => {
+    const rolesSelectOption = userFilters.data?.roles.map((item) => {
         return {
             value: item.name,
             label: item.displayName,

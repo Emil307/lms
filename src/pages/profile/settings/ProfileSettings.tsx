@@ -54,14 +54,14 @@ const ProfileSettingsPage = () => {
                 })}>
                 <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
-                        <DisplayField label="Фамилия" value={userData?.data.profile.data.lastName} />
-                        <DisplayField label="Имя" value={userData?.data.profile.data.firstName} />
-                        <DisplayField label="Отчество" value={userData?.data.profile.data.patronymic} />
+                        <DisplayField label="Фамилия" value={userData?.profile.data.lastName} />
+                        <DisplayField label="Имя" value={userData?.profile.data.firstName} />
+                        <DisplayField label="Отчество" value={userData?.profile.data.patronymic} />
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={userData?.data.role.data.displayName} />
-                        <DisplayField label="Email" value={userData?.data.email} />
+                        <DisplayField label="Роль" value={userData?.role.data.displayName} />
+                        <DisplayField label="Email" value={userData?.email} />
                     </Fieldset>
 
                     {/* TODO: Скрыто, так нет функционала для работы с уведомлениями */}
