@@ -37,6 +37,7 @@ export default createStyles((theme) => ({
         },
     },
     perPageInfo: {
+        paddingBlock: 16,
         fontWeight: 500,
         color: theme.colors.gray45[0],
         fontSize: 14,
