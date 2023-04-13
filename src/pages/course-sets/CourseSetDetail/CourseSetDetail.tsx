@@ -39,7 +39,7 @@ const data: CourseSet = {
                 lessonCount: 11,
                 price: 9500,
                 discount: {
-                    data: {},
+                    data: null,
                 },
                 categories: {
                     data: {
@@ -68,7 +68,7 @@ const data: CourseSet = {
                 lessonCount: 11,
                 price: 9500,
                 discount: {
-                    data: {},
+                    data: null,
                 },
                 categories: {
                     data: {

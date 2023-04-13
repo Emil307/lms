@@ -1,8 +1,32 @@
 import { z } from "zod";
 import { MRT_SortingState } from "mantine-react-table";
 import { $pagination } from "@shared/types";
+import { REGEXP_PASSWORD } from "@features/utils";
+import { $uploadedFile } from "@shared/ui";
 
-const $user = z.object({
+export type TUser = z.infer<typeof $user>;
+
+export interface UsersRequestParamsType {
+    sorting?: MRT_SortingState;
+    perPage: number;
+    page: number;
+    query?: string;
+    filters?: {
+        isActive?: "0" | "1";
+        roleName?: string;
+    };
+}
+export type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
+export type UserDetailResponse = z.infer<typeof $userDetailResponse>;
+export type UsersResponseType = z.infer<typeof $usersResponse>;
+export type UserCreateResponse = z.infer<typeof $userCreateResponse>;
+export type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministratorsFilters>;
+export type UsersAdministratorsCreateOptionsResponse = z.infer<typeof $usersAdministratorsCreateOptions>;
+export type GetAdminStudentsFiltersResponse = z.infer<typeof $getAdminStudentsFiltersResponse>;
+export type UpdateUserRequest = z.infer<typeof $updateUserRequest>;
+export type CreateUserRequest = z.infer<typeof $createUserRequest>;
+
+export const $user = z.object({
     email: z.string(),
     fullName: z.string(),
     id: z.number(),
@@ -10,14 +34,14 @@ const $user = z.object({
     roleName: z.string(),
 });
 
-const $usersResponse = z.object({
+export const $usersResponse = z.object({
     data: z.array($user),
     meta: z.object({
         pagination: $pagination,
     }),
 });
 
-const $userDetailResponse = z.object({
+export const $userDetailResponse = z.object({
     description: z.string().nullable(),
     email: z.string(),
     firstName: z.string(),
@@ -35,21 +59,28 @@ const $userDetailResponse = z.object({
     additionalImageUrl: z.string().nullable(),
 });
 
-const $userCreate = z.object({
-    email: z.string({ required_error: "Это обязательное поле" }),
-    password: z.string({ required_error: "Это обязательное поле" }),
-    passwordConfirmation: z.string({ required_error: "Это обязательное поле" }),
-    firstName: z.string({ required_error: "Это обязательное поле" }),
-    lastName: z.string({ required_error: "Это обязательное поле" }),
-    patronymic: z.string({ required_error: "Это обязательное поле" }),
-    description: z.string().optional(),
-    isActive: z.boolean(),
-    roleId: z.string(),
-    avatarId: z.number().nullable(),
-    additionalImageId: z.number().nullable(),
-});
+export const $createUserRequest = z
+    .object({
+        email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
+        password: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+        passwordConfirmation: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+        firstName: z.string({ required_error: "Это обязательное поле" }),
+        lastName: z.string({ required_error: "Это обязательное поле" }),
+        patronymic: z.string().optional(),
+        description: z.string().optional(),
+        isActive: z.boolean(),
+        roleId: z.string(),
+        avatar: $uploadedFile.nullable(),
+        additionalImage: $uploadedFile.nullable(),
+        avatarId: z.number().optional(),
+        additionalImageId: z.number().optional(),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+        message: "Пароли должны совпадать",
+        path: ["passwordConfirmation"],
+    });
 
-const $userCreateResponse = z.object({
+export const $userCreateResponse = z.object({
     id: z.number(),
     email: z.string(),
     firstName: z.string(),
@@ -67,58 +98,40 @@ const $userCreateResponse = z.object({
     additionalImageUrl: z.string().nullable(),
 });
 
-const $role = z.object({
+export const $updateUserRequest = z.object({
+    email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
+    // password: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+    // passwordConfirmation: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+    firstName: z.string({ required_error: "Это обязательное поле" }),
+    lastName: z.string({ required_error: "Это обязательное поле" }),
+    patronymic: z.string().optional(),
+    // description: z.string().optional(),
+    isActive: z.boolean(),
+    roleId: z.string(),
+    avatar: $uploadedFile.nullable(),
+    additionalImage: $uploadedFile.nullable(),
+    avatarId: z.number().optional(),
+    additionalImageId: z.number().optional(),
+});
+// .refine((data) => data.password === data.passwordConfirmation, {
+//     message: "Пароли должны совпадать",
+//     path: ["passwordConfirmation"],
+// });
+
+export const $role = z.object({
     id: z.number(),
     name: z.string(),
     displayName: z.string(),
 });
 
-const $usersAdministratorsFilters = z.object({
+export const $usersAdministratorsFilters = z.object({
     roles: z.array($role),
 });
 
-const $usersAdministratorsCreateOptions = z.object({
+export const $getAdminStudentsFiltersResponse = z.object({
     roles: z.array($role),
 });
 
-type UserDetailResponse = z.infer<typeof $userDetailResponse>;
-interface UsersRequestParamsType {
-    sorting?: MRT_SortingState;
-    perPage: number;
-    page: number;
-    query?: string;
-    filters?: {
-        isActive?: "0" | "1";
-        roleName?: string;
-    };
-}
-
-type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
-
-type UsersResponseType = z.infer<typeof $usersResponse>;
-type TUser = z.infer<typeof $user>;
-type UserCreateRequest = z.infer<typeof $userCreate>;
-type UserCreateResponse = z.infer<typeof $userCreateResponse>;
-type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministratorsFilters>;
-type UsersAdministratorsCreateOptionsResponse = z.infer<typeof $usersAdministratorsCreateOptions>;
-
-export {
-    $usersResponse,
-    $userDetailResponse,
-    $userCreate,
-    $userCreateResponse,
-    $usersAdministratorsCreateOptions,
-    $usersAdministratorsFilters,
-};
-
-export type {
-    UsersResponseType,
-    TUser,
-    UserDetailResponse,
-    UsersRequestParamsType,
-    UserCreateResponse,
-    UserCreateRequest,
-    UserDetailResponseType,
-    UsersAdministratorsFiltersResponse,
-    UsersAdministratorsCreateOptionsResponse,
-};
+export const $usersAdministratorsCreateOptions = z.object({
+    roles: z.array($role),
+});

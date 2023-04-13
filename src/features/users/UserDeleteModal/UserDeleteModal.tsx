@@ -5,9 +5,9 @@ import { AlertTriangle } from "react-feather";
 import { useRouter } from "next/router";
 import { LinkProps } from "next/link";
 import { Button } from "@shared/ui";
-import { useDeleteUser } from "@entities/user/query";
 import { queryClient } from "@app/providers";
 import { QueryKeys } from "@shared/constant";
+import { useDeleteUser } from "@entities/user";
 import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
 
 interface UserDeleteModalProps {

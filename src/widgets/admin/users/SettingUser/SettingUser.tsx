@@ -74,8 +74,8 @@ const SettingUser = ({ id }: SettingUserProps) => {
                         <DisplayField label="Email" value={data?.email} />
                     </Fieldset>
 
-                    <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
-                        {data?.additionalImageUrl && (
+                    {data?.additionalImageUrl && (
+                        <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
                             <Box sx={{ width: 376 }}>
                                 <Image radius="lg" src={data.additionalImageUrl} alt="User" />
                                 <Flex mt={4} gap={4} align="center">
@@ -85,8 +85,9 @@ const SettingUser = ({ id }: SettingUserProps) => {
                                     <Text>Рекомендуемый размер изображения: 376х220 px</Text>
                                 </Flex>
                             </Box>
-                        )}
-                    </Fieldset>
+                        </Fieldset>
+                    )}
+
                     <Box className={classes.desc} mt={16}>
                         {data?.description}
                     </Box>

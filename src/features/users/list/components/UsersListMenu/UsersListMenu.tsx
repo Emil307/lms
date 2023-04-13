@@ -15,14 +15,13 @@ interface UsersListMenuProps {
 const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const router = useRouter();
     const theme = useMantineTheme();
-    const activateUser = useActivateUser();
-    const deactivateUser = useDeactivateUser();
-    const toggleActivateUser = async (row: MRT_Row<TUser>) => {
+    const activateUser = useActivateUser(String(row.original.id));
+    const deactivateUser = useDeactivateUser(String(row.original.id));
+    const toggleActivateUser = (row: MRT_Row<TUser>) => {
         if (row.original.isActive) {
-            await deactivateUser.mutateAsync(String(row.original.id));
-            return;
+            return deactivateUser.mutate();
         }
-        await activateUser.mutateAsync(String(row.original.id));
+        activateUser.mutate();
     };
 
     const openModalDeleteUser = (id: string, fio: string) => {

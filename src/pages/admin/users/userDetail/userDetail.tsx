@@ -2,7 +2,7 @@ import { Box, Loader, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, TBreadCrumbItem } from "@shared/ui";
-import { InfoPanel, SettingUser } from "@widgets/admin";
+import { InfoPanel, SettingUser } from "@widgets/admin/users";
 import { useDetailUser } from "@entities/user";
 
 const UserDetail = () => {

@@ -1,8 +1,8 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { Checkbox, Switch } from "@shared/ui";
-import { useDetailUser } from "@entities/user/query";
 import { getHumanDate } from "@shared/utils";
+import { useDetailUser } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 interface InfoPanel {
