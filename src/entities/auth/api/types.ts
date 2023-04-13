@@ -86,7 +86,9 @@ export const $signUpResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $user,
+        user: z.object({
+            data: $user,
+        }),
     }),
 });
 
@@ -98,6 +100,8 @@ export const $authenticateResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $user,
+        user: z.object({
+            data: $user,
+        }),
     }),
 });
