@@ -9,13 +9,12 @@ import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;
-    onClick?: (cardId: number) => void;
 }
 
-const MemoizedCard = memo(function Card({ data, onClick = () => undefined, ...props }: CardProps) {
+const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const handleClickCard = () => onClick(data.id);
+    const handleClickCard = () => undefined;
 
     return (
         <MCard {...props} className={classes.root} onClick={handleClickCard}>
@@ -32,7 +31,7 @@ const MemoizedCard = memo(function Card({ data, onClick = () => undefined, ...pr
                 <Group className={classes.cardSectionContent}>
                     {data.isDiscount && (
                         <Badge variant="outline" className={classes.discount}>
-                            {data.discount.data.value} %
+                            {data.discount.data?.value} %
                         </Badge>
                     )}
                     <Badge variant="outline" className={classes.category}>
