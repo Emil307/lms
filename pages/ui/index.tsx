@@ -42,6 +42,7 @@ import {
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ChangePasswordModal } from "@features/changePassword";
 import { ReviewForm } from "@features/review";
+import { createNotification, ToastType } from "@shared/utils";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -361,6 +362,17 @@ export const UIDemo = () => {
                                         })
                                     }>
                                     Show Review Modal
+                                </Button>
+                                <Button
+                                    type="button"
+                                    onClick={() => {
+                                        createNotification({
+                                            type: ToastType.SUCCESS,
+                                            title: "Default notification",
+                                            message: "Hey there, your code is awesome",
+                                        });
+                                    }}>
+                                    Show Notification
                                 </Button>
                             </Stack>
                         );

@@ -1,9 +1,9 @@
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import { QueryProvider, ThemeProvider } from "@app/providers";
 import { AppPropsWithLayout } from "@shared/utils";
-
-import "@app/styles/index.scss";
 import SessionProvider from "@app/providers/SessionProvider";
+import "@app/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);
@@ -12,7 +12,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <ThemeProvider>
             <QueryProvider pageProps={pageProps}>
                 <SessionProvider>
-                    <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
+                    <NotificationsProvider position="bottom-right" limit={2}>
+                        <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
+                    </NotificationsProvider>
                 </SessionProvider>
             </QueryProvider>
         </ThemeProvider>

@@ -74,9 +74,7 @@ const $role = z.object({
 });
 
 const $usersAdministratorsFilters = z.object({
-    data: z.object({
-        roles: z.array($role),
-    }),
+    roles: z.array($role),
 });
 
 const $usersAdministratorsCreateOptions = z.object({

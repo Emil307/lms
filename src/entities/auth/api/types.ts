@@ -17,24 +17,22 @@ export type ResetPasswordRequest = z.infer<typeof $resetPasswordRequest>;
 export type RecoveryPasswordRequest = z.infer<typeof $recoveryPasswordRequest>;
 
 export const $user = z.object({
-    data: z.object({
-        id: z.number(),
-        email: z.string(),
-        isActive: z.boolean(),
-        isStatic: z.boolean(),
-        profile: z.object({
-            data: z.object({
-                id: z.number(),
-                firstName: z.string(),
-                lastName: z.string().nullable(),
-                patronymic: z.string().nullable(),
-                avatar: $uploadedFile.nullable(),
-                description: z.string().nullable(),
-            }),
+    id: z.number(),
+    email: z.string(),
+    isActive: z.boolean(),
+    isStatic: z.boolean(),
+    profile: z.object({
+        data: z.object({
+            id: z.number(),
+            firstName: z.string(),
+            lastName: z.string().nullable(),
+            patronymic: z.string().nullable(),
+            avatar: $uploadedFile.nullable(),
+            description: z.string().nullable(),
         }),
-        role: z.object({
-            data: z.object({ id: z.number(), name: z.string(), displayName: z.string() }),
-        }),
+    }),
+    role: z.object({
+        data: z.object({ id: z.number(), name: z.string(), displayName: z.string() }),
     }),
 });
 
