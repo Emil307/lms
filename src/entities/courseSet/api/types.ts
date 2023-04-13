@@ -1,11 +1,14 @@
 import { z } from "zod";
 import { $pagination } from "@shared/types";
+import { $uploadedFile } from "@shared/ui";
+import { $course } from "@entities/course";
 
 export type CourseSet = z.infer<typeof $courseSet>;
 export type CourseFromCourseSet = z.infer<typeof $courseFromCourseSet>;
 
 export type GetCourseSetsResponse = z.infer<typeof $getCourseSetsResponse>;
 export type GetCourseSetsRequest = z.infer<typeof $getCourseSetsRequest>;
+export type GetCourseSetRequest = z.infer<typeof $getCourseSetRequest>;
 
 export const $courseFromCourseSet = z.object({
     id: z.number(),
@@ -31,7 +34,7 @@ export const $courseSet = z.object({
     name: z.string(),
     description: z.string(),
     courses: z.object({
-        data: z.array($courseFromCourseSet),
+        data: z.array($course),
         meta: z.object({
             pagination: $pagination,
         }),
@@ -81,9 +84,30 @@ export const $getCourseSetsRequest = z.object({
     perPage: z.number().optional(),
 });
 
+export const $getCourseSetRequest = z.object({
+    id: z.number(),
+    page: z.number().optional(),
+    perPage: z.number().optional(),
+});
+
 export const $getCourseSetsResponse = z.object({
     data: z.array($courseSet),
     meta: z.object({
         pagination: $pagination,
+    }),
+});
+
+export const $getCourseSetResponse = z.object({
+    id: z.number(),
+    name: z.string(),
+    picture: z.object({
+        data: $uploadedFile,
+    }),
+    description: z.string(),
+    courses: z.object({
+        data: z.array($courseSet),
+        meta: z.object({
+            pagination: $pagination,
+        }),
     }),
 });
