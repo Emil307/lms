@@ -10,7 +10,7 @@ export interface AmountInfoProps {
 const AmountInfo = ({ data }: AmountInfoProps) => {
     const { classes } = useStyles();
 
-    if (data.isDiscount && data.discount.data.value) {
+    if (data.isDiscount && data.discount.data?.value) {
         return (
             <Group sx={{ gap: 6 }}>
                 <Text className={classes.price}>{`${getDiscountedAmounts(data.price, data.discount.data.value)} ₽`}</Text>

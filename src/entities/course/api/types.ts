@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { $pagination } from "@shared/types";
 
-export type CourseBlock = z.infer<typeof $courseBlock>;
 export type Course = z.infer<typeof $course>;
+export type CourseBlock = z.infer<typeof $courseBlock>;
 export type FileDocument = z.infer<typeof $fileDocument>;
 export type CourseDetailData = z.infer<typeof $courseDetailData>;
 export type CourseProgram = z.infer<typeof $courseProgram>;
@@ -15,6 +15,8 @@ export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $getCoursePro
 export type GetCourseProgramModuleLessonsRequest = z.infer<typeof $getCourseProgramModuleLessonsRequest>;
 export type GetCourseTeachersResponse = z.infer<typeof $getCourseTeachersResponse>;
 export type GetCourseReviewsResponse = z.infer<typeof $getCourseReviewsResponse>;
+export type GetCoursesResponse = z.infer<typeof $getCoursesResponse>;
+export type GetFavoriteCoursesResponse = z.infer<typeof $getFavoriteCoursesResponse>;
 
 export const $fileDocument = z.object({
     name: z.string(),
@@ -138,7 +140,44 @@ export const $courseDetailData = z.object({
     //TODO: currentLesson изменит схему после того как будет реальный эндпоинт
     currentLesson: z.null(),
 });
-export type GetCoursesResponse = z.infer<typeof $getCoursesResponse>;
+
+export const $course = z.object({
+    id: z.number(),
+    name: z.string(),
+    picture: z.object({
+        data: z.object({
+            name: z.string(),
+            path: z.string(),
+            type: z.string(),
+            size: z.number(),
+        }),
+    }),
+    dateStart: z.string().datetime().nullable(),
+    lessonCount: z.number(),
+    price: z.number(),
+    discount: z.object({
+        data: z
+            .object({
+                isActive: z.boolean(),
+                type: z.string(),
+                value: z.number(),
+                from: z.string().datetime().nullable(),
+                to: z.string().datetime().nullable(),
+            })
+            .nullable(),
+    }),
+    categories: z.object({
+        data: z.object({
+            id: z.number(),
+            name: z.string(),
+            slug: z.string(),
+        }),
+    }),
+    isInteractive: z.boolean(),
+    isDiscount: z.boolean(),
+    isPurchased: z.boolean(),
+    isFavorite: z.boolean(),
+});
 
 export const $courseBlock = z.object({
     id: z.number(),
@@ -169,44 +208,6 @@ export const $courseBlock = z.object({
             title: z.string(),
         })
         .nullable(),
-});
-
-export const $course = z.object({
-    id: z.number(),
-    name: z.string(),
-    picture: z.object({
-        data: z.object({
-            name: z.string(),
-            path: z.string(),
-            type: z.string(),
-            size: z.number(),
-        }),
-    }),
-    dateStart: z.string().datetime().nullable(),
-    lessonCount: z.number(),
-    price: z.number(),
-    discount: z.object({
-        data: z
-            .object({
-                isActive: z.boolean(),
-                type: z.string(),
-                value: z.number(),
-                from: z.string().datetime().nullable(),
-                to: z.string().datetime().nullable(),
-            })
-            .partial(),
-    }),
-    categories: z.object({
-        data: z.object({
-            id: z.number(),
-            name: z.string(),
-            slug: z.string(),
-        }),
-    }),
-    isInteractive: z.boolean(),
-    isDiscount: z.boolean(),
-    isPurchased: z.boolean(),
-    isFavorite: z.boolean(),
 });
 
 export const $getMyCoursesResponse = z.object({
@@ -265,5 +266,12 @@ export const $getCourseReviewsResponse = z.object({
         meta: z.object({
             pagination: $pagination,
         }),
+    }),
+});
+
+export const $getFavoriteCoursesResponse = z.object({
+    data: z.array($course),
+    meta: z.object({
+        pagination: $pagination,
     }),
 });

@@ -64,7 +64,7 @@ const list: Course[] = [
         lessonCount: 11,
         price: 9500,
         discount: {
-            data: {},
+            data: null,
         },
         categories: {
             data: {
@@ -93,7 +93,7 @@ const list: Course[] = [
         lessonCount: 11,
         price: 9500,
         discount: {
-            data: {},
+            data: null,
         },
         categories: {
             data: {
@@ -122,7 +122,7 @@ const list: Course[] = [
         lessonCount: 11,
         price: 9500,
         discount: {
-            data: {},
+            data: null,
         },
         categories: {
             data: {
