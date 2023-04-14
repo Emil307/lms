@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Book, Briefcase, Folder, Settings, User, Users } from "react-feather";
+import { Book, Folder, Settings, User, Users } from "react-feather";
 import { useMantineTheme } from "@mantine/core";
 import SidebarItem from "./UI/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./UI/SidebarItemWithChildren/SidebarItemWithChildren";
@@ -37,32 +37,17 @@ export default function Sidebar() {
             />
 
             <SidebarItemWithChildren
+                roles={["ADMIN"]}
                 label="Настройки"
-                isActive={router.pathname.includes("/admin/groups")}
+                isActive={router.pathname.includes("/admin/settings")}
                 icon={<Settings color={theme.colors.primary[9]} />}>
                 <SidebarItem
                     inner={true}
-                    label="Тэги"
+                    label="Теги"
                     icon={<User color={theme.colors.primary[9]} />}
-                    href="/admin/users"
-                    isActive={router.pathname.includes("/admin/groups")}
+                    href="/admin/settings/tags"
+                    isActive={router.pathname.includes("/admin/settings/tags")}
                 />
-            </SidebarItemWithChildren>
-
-            <SidebarItemWithChildren
-                roles={["Admin"]}
-                label="База знаний"
-                isActive={router.pathname.includes("/admin/knowledge-base")}
-                icon={<Briefcase color={theme.colors.primary[9]} />}>
-                <SidebarItem
-                    inner={true}
-                    label="Знания 1"
-                    icon={<User color={theme.colors.primary[9]} />}
-                    href="/admin/users"
-                    isActive={router.pathname.includes("/admin/knowledge-base")}
-                />
-                <SidebarItem inner={true} label="Знания 2" icon={<User color={theme.colors.primary[9]} />} href="/admin/users" />
-                <SidebarItem inner={true} label="Знания 3" icon={<User color={theme.colors.primary[9]} />} href="/admin/users" />
             </SidebarItemWithChildren>
         </Box>
     );

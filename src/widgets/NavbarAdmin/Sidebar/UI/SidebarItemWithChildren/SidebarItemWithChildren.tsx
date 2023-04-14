@@ -17,12 +17,13 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
 
     const { classes } = useSidebarItemWithChildrenStyles();
 
+    //TODO: Это условие пока убрано, вернемся позднее
     if (!roles.includes(role)) {
         return null;
     }
     return (
         <Accordion classNames={classes} chevron={isOpen ? <Minus /> : <Plus />}>
-            <Accordion.Item value={label}>
+            <Accordion.Item value={label} sx={{ backgroundColor: "transparent", "&[data-active]": { boxShadow: "none" } }}>
                 <Accordion.Control p={0} onClick={handlerOpen}>
                     <SidebarItem icon={icon} isActive={isActive} label={label} />
                 </Accordion.Control>
