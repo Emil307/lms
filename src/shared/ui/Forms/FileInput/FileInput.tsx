@@ -1,6 +1,7 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
-import { Box, Text } from "@mantine/core";
+import { Box, Group, Text } from "@mantine/core";
+import { Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
 import {
@@ -225,6 +226,19 @@ const MemoizedFileInput = memo(function FileInput({
         );
     }, [initialFilesData, loadedFiles]);
 
+    const renderDescription = () => {
+        if (!description) {
+            return;
+        }
+
+        return (
+            <Group className={classes.description}>
+                <Info />
+                <Text>{description}</Text>
+            </Group>
+        );
+    };
+
     const errorMessage = useMemo(() => {
         if (props.error && !isErrorLoadFile) {
             return (
@@ -251,20 +265,23 @@ const MemoizedFileInput = memo(function FileInput({
 
     return (
         <Box className={classes.wrapper}>
-            <Dropzone
-                {...props}
-                openRef={openRef}
-                classNames={classes}
-                accept={getCorrectFileFormatsForInput(fileFormats)}
-                onDrop={handleDropFiles}
-                onFileDialogCancel={handleFileDialogCancel}
-                onReject={handleRejectFiles}
-                maxSize={getRemainFilesSize()}
-                multiple={!replaceLoadedFileId.current && multiple}
-                activateOnClick={false}>
-                {contentInsideDropzone}
-                {errorMessage}
-            </Dropzone>
+            <Box>
+                <Dropzone
+                    {...props}
+                    openRef={openRef}
+                    classNames={classes}
+                    accept={getCorrectFileFormatsForInput(fileFormats)}
+                    onDrop={handleDropFiles}
+                    onFileDialogCancel={handleFileDialogCancel}
+                    onReject={handleRejectFiles}
+                    maxSize={getRemainFilesSize()}
+                    multiple={!replaceLoadedFileId.current && multiple}
+                    activateOnClick={false}>
+                    {contentInsideDropzone}
+                    {errorMessage}
+                </Dropzone>
+                {renderDescription()}
+            </Box>
             {contentOutsideDropzone}
         </Box>
     );

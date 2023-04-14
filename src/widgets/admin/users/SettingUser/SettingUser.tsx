@@ -1,12 +1,13 @@
 import { Box, Flex, Group, ThemeIcon, Title, Image, Text } from "@mantine/core";
 import React from "react";
 import { Info, Shield, Trash, User as UserIcon, UserCheck } from "react-feather";
-import { openModal } from "@mantine/modals";
+import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
 import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
-import { UserDeleteModal } from "@features/users";
+import { ChangePasswordForm, UserDeleteModal } from "@features/users";
 import { useSettingUserStyles } from "./SettingUser.styles";
 
 interface ProfileUser {
@@ -26,6 +27,7 @@ interface SettingUserProps {
 }
 
 const SettingUser = ({ id }: SettingUserProps) => {
+    const router = useRouter();
     const { classes } = useSettingUserStyles();
     const { data } = useDetailUser(id);
 
@@ -45,6 +47,19 @@ const SettingUser = ({ id }: SettingUserProps) => {
             ),
         });
     };
+
+    const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
+
+    const handleOpenChangePasswordModal = () =>
+        openModal({
+            modalId: "CHANGE_PASSWORD",
+            title: "Изменение пароля",
+            centered: true,
+            size: 408,
+            children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
+        });
+
+    const openEditUserPage = () => router.push({ pathname: "/admin/users/[id]/edit", query: { id } });
 
     return (
         <Box>
@@ -101,8 +116,12 @@ const SettingUser = ({ id }: SettingUserProps) => {
                         fields={fields}
                         actionSlot={
                             <>
-                                <Button variant="secondary">Редактировать данные</Button>
-                                <Button variant="border">Изменить пароль</Button>
+                                <Button variant="secondary" onClick={openEditUserPage}>
+                                    Редактировать данные
+                                </Button>
+                                <Button variant="border" onClick={handleOpenChangePasswordModal}>
+                                    Изменить пароль
+                                </Button>
                             </>
                         }
                     />

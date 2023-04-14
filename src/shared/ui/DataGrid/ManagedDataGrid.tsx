@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { FormikConfig } from "formik";
 import { MRT_SortingState } from "mantine-react-table";
 import { Form } from "@shared/ui";
-import { $validationSchema } from "@features/users/list/types/validation";
+import { $validationSchema } from "@features/users/ui/List/types/validation";
 import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
 import { DataGridResponse } from "./types";
 import { useManagedDataGridStyles } from "./ManagedDataGrid.styles";

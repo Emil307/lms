@@ -40,9 +40,9 @@ import {
     FTimeRangeInput,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
-import { ChangePasswordModal } from "@features/changePassword";
 import { ReviewForm } from "@features/review";
 import { createNotification, ToastType } from "@shared/utils";
+import { ChangePasswordForm } from "@features/auth";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -330,7 +330,7 @@ export const UIDemo = () => {
                                             title: "Изменение пароля",
                                             centered: true,
                                             size: 408,
-                                            children: <ChangePasswordModal onClose={handleCloseModal} />,
+                                            children: <ChangePasswordForm onClose={handleCloseModal} />,
                                         })
                                     }>
                                     Show Modal

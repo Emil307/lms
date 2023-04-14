@@ -3,8 +3,8 @@ import { FormikConfig } from "formik";
 import { Shield } from "react-feather";
 import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
-import { $changePasswordFormValidationSchema, ChangePasswordFormData } from "@features/changePassword";
 import { useChangePassword } from "@entities/auth";
+import { $changePasswordFormValidationSchema, ChangePasswordFormData } from "@features/auth";
 
 export interface ChangePasswordFormProps {
     onClose: () => void;

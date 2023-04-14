@@ -18,6 +18,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/students/create">
     | StaticRoute<"/admin/students">
+    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
