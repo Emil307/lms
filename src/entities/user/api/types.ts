@@ -100,12 +100,9 @@ export const $userCreateResponse = z.object({
 
 export const $updateUserRequest = z.object({
     email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
-    // password: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
-    // passwordConfirmation: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
     firstName: z.string({ required_error: "Это обязательное поле" }),
     lastName: z.string({ required_error: "Это обязательное поле" }),
     patronymic: z.string().optional(),
-    // description: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.string(),
     avatar: $uploadedFile.nullable(),
@@ -113,10 +110,6 @@ export const $updateUserRequest = z.object({
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),
 });
-// .refine((data) => data.password === data.passwordConfirmation, {
-//     message: "Пароли должны совпадать",
-//     path: ["passwordConfirmation"],
-// });
 
 export const $role = z.object({
     id: z.number(),

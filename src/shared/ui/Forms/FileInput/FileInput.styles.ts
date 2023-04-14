@@ -53,4 +53,24 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
             },
         },
     },
+    description: {
+        display: "flex",
+        alignItems: "center",
+        gap: 4,
+        marginTop: 4,
+
+        svg: {
+            color: theme.colors.primaryHover[0],
+            width: "16px !important",
+            height: "16px !important",
+        },
+
+        "> div": {
+            paddingTop: 2,
+            color: theme.colors.dark[0],
+            fontWeight: 400,
+            fontSize: 10,
+            lineHeight: "12px",
+        },
+    },
 }));

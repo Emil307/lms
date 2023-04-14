@@ -33,6 +33,20 @@ export const $recoveryPasswordFormValidationSchema = z
         path: ["passwordConfirmation"],
     });
 
+export const $changePasswordFormValidationSchema = z.object({
+    oldPassword: z.string({ required_error: "Введите пароль" }),
+    newPasswords: z
+        .object({
+            password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+            passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+        })
+        .refine((value) => value.password === value.passwordConfirmation, {
+            message: "Пароли не совпадают",
+            path: ["passwordConfirmation"],
+        }),
+});
+
 export type AuthData = z.infer<typeof $authFormValidationSchema>;
 export type SignUpFormData = z.infer<typeof $signUpFormValidationSchema>;
 export type RecoveryPasswordFormData = z.infer<typeof $recoveryPasswordFormValidationSchema>;
+export type ChangePasswordFormData = z.infer<typeof $changePasswordFormValidationSchema>;

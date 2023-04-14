@@ -6,7 +6,7 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { TUser, useActivateUser, useDeactivateUser } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { UserDeleteModal } from "@features/users/UserDeleteModal";
+import { UserDeleteModal } from "@features/users";
 
 interface UsersListMenuProps {
     row: MRT_Row<TUser>;
