@@ -1,21 +1,13 @@
 import { z } from "zod";
-import { MRT_SortingState } from "mantine-react-table";
-import { $pagination } from "@shared/types";
-import { REGEXP_PASSWORD } from "@features/utils";
+import { REGEXP_PASSWORD } from "@shared/constant";
 import { $uploadedFile } from "@shared/ui";
+import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
 export type TUser = z.infer<typeof $user>;
 
-export interface UsersRequestParamsType {
-    sorting?: MRT_SortingState;
-    perPage: number;
-    page: number;
-    query?: string;
-    filters?: {
-        isActive?: "0" | "1";
-        roleName?: string;
-    };
-}
+export type UsersFilters = z.infer<typeof $usersFilters>;
+
+export type UsersRequestParamsType = TRequestFilterParams<UsersFilters>;
 export type UserDetailResponseType = z.infer<typeof $userDetailResponse>;
 export type UserDetailResponse = z.infer<typeof $userDetailResponse>;
 export type UsersResponseType = z.infer<typeof $usersResponse>;
@@ -34,12 +26,7 @@ export const $user = z.object({
     roleName: z.string(),
 });
 
-export const $usersResponse = z.object({
-    data: z.array($user),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $usersResponse = $getPaginationResponseType($user);
 
 export const $userDetailResponse = z.object({
     description: z.string().nullable(),
@@ -127,4 +114,10 @@ export const $getAdminStudentsFiltersResponse = z.object({
 
 export const $usersAdministratorsCreateOptions = z.object({
     roles: z.array($role),
+});
+
+export const $usersFilters = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
+    roleName: z.string(),
 });

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArticleFilter } from "@entities/article";
-import { TPaginationResponse } from "@shared/types";
 import { FilterList } from "../FilterList";
+import { TPaginationResponse } from "@shared/utils";
 
 export interface FilterBySubCategoriesProps {
     initialFilterData: TPaginationResponse<ArticleFilter[]>;

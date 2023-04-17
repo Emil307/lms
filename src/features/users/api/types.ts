@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { REGEXP_PASSWORD } from "@features/utils";
+import { REGEXP_PASSWORD } from "@shared/constant";
 
 export type ChangePasswordFormValidationSchema = z.infer<typeof $changePasswordFormValidationSchema>;
 

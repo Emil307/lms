@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ReactNode } from "react";
 import { ReactElement } from "react";
-import { Pagination } from "@shared/types";
+import { TPagination } from "@shared/types";
 
 export abstract class BaseApi {
     constructor(protected instance: AxiosInstance) {}
@@ -17,9 +17,9 @@ export type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
 
-export interface TPaginationResponse<T> {
+export type TPaginationResponse<T> = {
     data: T;
     meta: {
-        pagination: Pagination;
+        pagination: TPagination;
     };
-}
+};

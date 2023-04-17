@@ -1,5 +1,5 @@
 import { InfiniteQueryObserverResult, QueryFunction, QueryKey, useInfiniteQuery, UseInfiniteQueryOptions } from "@tanstack/react-query";
-import { TPaginationResponse } from "./types";
+import { TPaginationResponse } from "../utils";
 
 type TData<T> = {
     data: TPaginationResponse<T[]> | undefined;

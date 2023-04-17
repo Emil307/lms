@@ -12,6 +12,7 @@ export const useUpdateCategory = (id: string) => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_SUBCATEGORIES]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORY, id]);
             },
         }

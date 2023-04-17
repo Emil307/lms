@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { CategoryList, CreateCategoryForm } from "@features/categories";
+import { List as CategoryList, CreateCategoryForm } from "@features/categories";
 
 const CategoriesPage = () => {
     const handleCloseCreateCategoryModal = () => closeModal("CREATE_CATEGORY");

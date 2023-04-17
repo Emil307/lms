@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $pagination } from "@shared/types";
+import { $getPaginationResponseType } from "@shared/types";
 import { $course } from "@entities/course";
 
 export type CoursePackage = z.infer<typeof $coursePackage>;
@@ -38,12 +38,7 @@ export const $coursePackage = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string(),
-    courses: z.object({
-        data: z.array($courseFromCoursePackage),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    courses: $getPaginationResponseType($courseFromCoursePackage),
     price: z.number(),
     isDiscount: z.boolean(),
     discount: $courseDiscount,
@@ -55,12 +50,7 @@ export const $getCoursePackageResponse = z.object({
     name: z.string(),
     picture: $file,
     description: z.string(),
-    courses: z.object({
-        data: z.array($course),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    courses: $getPaginationResponseType($course),
     price: z.number(),
     isDiscount: z.boolean(),
     discount: z
@@ -75,9 +65,4 @@ export const $getCoursePackageResponse = z.object({
     isPurchased: z.boolean(),
 });
 
-export const $getCoursePackagesResponse = z.object({
-    data: z.array($coursePackage),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getCoursePackagesResponse = $getPaginationResponseType($coursePackage);

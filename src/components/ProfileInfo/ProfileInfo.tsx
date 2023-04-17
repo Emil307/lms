@@ -16,8 +16,8 @@ export interface ProfileInfoProps<T> {
     variant?: "whiteBg" | "grayBg";
 }
 
-export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, variant="whiteBg" }: ProfileInfoProps<T>) {
-    const { classes } = useStyles({variant});
+export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, variant = "whiteBg" }: ProfileInfoProps<T>) {
+    const { classes } = useStyles({ variant });
 
     const renderActions = useMemo(() => {
         if (!actionSlot) {

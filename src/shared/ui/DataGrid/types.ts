@@ -1,24 +1,19 @@
 import { z } from "zod";
-import { ZodTypeAny } from "zod/lib";
+import { FormikConfig } from "formik";
+import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
 
-export type DefaultDataGridEntityType<T> = T extends Record<string, any> ? T : never;
-export type DataGridResponse<T> = z.infer<ReturnType<typeof $DataGridResponse>> & { data: T[] };
+export type DataGridResponse<T> = z.infer<ReturnType<typeof $getPaginationResponseType>> & { data: T[] };
 
-export function $DataGridResponse<T extends ZodTypeAny>(schema: T) {
-    return z.object({
-        data: schema.array(),
-        meta: z.object({
-            pagination: z.object({
-                total: z.number(),
-                count: z.number(),
-                per_page: z.number(),
-                current_page: z.number(),
-                total_pages: z.number(),
-                links: z.object({
-                    next: z.string().nullish(),
-                    previous: z.string().nullish(),
-                }),
-            }),
-        }),
-    });
-}
+export type TDefaultPageQueryParams = {
+    page: string;
+    perPage: string;
+    sortField: string;
+    sortOrder: TSortOrder;
+};
+
+export type TFunctionParams<F> = TDefaultRequestParams & Required<F>;
+
+export type TFilterTable<F> = {
+    initialValues: Required<F>;
+    validationSchema?: FormikConfig<F>["validationSchema"];
+};

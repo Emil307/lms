@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { REGEXP_PASSWORD } from "@features/utils";
+import { REGEXP_PASSWORD } from "@shared/constant";
 
 export const $authFormValidationSchema = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),

@@ -4,8 +4,7 @@ import { useEventListener, useIntersection } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
 import { ArticleCategoryFilters, ArticleFilter } from "@entities/article";
-import { TPaginationResponse } from "@shared/types";
-import { getPluralString } from "@shared/utils";
+import { getPluralString, TPaginationResponse } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
 
