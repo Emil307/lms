@@ -7,40 +7,40 @@
 declare module "nextjs-routes" {
   export type Route =
     | StaticRoute<"/about">
+    | StaticRoute<"/admin/groups/create">
+    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/groups/[id]/composition", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/schedule", { "id": string }>
-    | StaticRoute<"/admin/groups/create">
-    | StaticRoute<"/admin/groups">
-    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
+    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/tags">
-    | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/students/create">
     | StaticRoute<"/admin/students">
-    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/users/[id]", { "id": string }>
+    | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
+    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/api/hello">
-    | DynamicRoute<"/article-collection/[categoryId]", { "categoryId": string }>
-    | DynamicRoute<"/article-collection/favorite/[articleId]", { "articleId": string }>
     | StaticRoute<"/article-collection/favorite">
+    | DynamicRoute<"/article-collection/favorite/[articleId]", { "articleId": string }>
     | StaticRoute<"/article-collection">
-    | DynamicRoute<"/article-collection/my-courses/[courseId]", { "courseId": string }>
     | StaticRoute<"/article-collection/my-courses">
+    | DynamicRoute<"/article-collection/my-courses/[courseId]", { "courseId": string }>
+    | DynamicRoute<"/article-collection/[categoryId]", { "categoryId": string }>
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">
     | StaticRoute<"/auth/sign-up">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
-    | DynamicRoute<"/course-sets/[id]", { "id": string }>
     | StaticRoute<"/course-sets">
-    | DynamicRoute<"/courses/[id]", { "id": string }>
+    | DynamicRoute<"/course-sets/[id]", { "id": string }>
     | StaticRoute<"/courses">
+    | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/faq">
     | StaticRoute<"/">
     | StaticRoute<"/my-courses/favorite">

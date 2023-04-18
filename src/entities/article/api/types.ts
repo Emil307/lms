@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { $pagination } from "@shared/types";
 import { $uploadedFile } from "@shared/ui";
+import {$getPaginationResponseType, $pagination} from "@shared/types";
 
 export type Article = z.infer<typeof $article>;
 export type ArticlePackageDiscount = z.infer<typeof $articlePackageDiscount>;
@@ -82,19 +82,9 @@ export const $articlePackage = z.object({
     price: z.number(),
 });
 
-export const $getArticlePackagesResponse = z.object({
-    data: z.array($articlePackage),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getArticlePackagesResponse = $getPaginationResponseType($articlePackage);
 
-export const $getArticlesResponse = z.object({
-    data: z.array($article),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getArticlesResponse = $getPaginationResponseType($article);
 
 export const $articleCategoryFilters = z.object({
     search: z.string().optional(),
@@ -103,33 +93,13 @@ export const $articleCategoryFilters = z.object({
     tags: z.array(z.string()).optional(),
 });
 
-export const $getArticleCategoriesResponse = z.object({
-    data: z.array($articleCategory),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getArticleCategoriesResponse = $getPaginationResponseType($articleCategory);
 
-export const $getArticleCoursesResponse = z.object({
-    data: z.array($articleCourse),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getArticleCoursesResponse = $getPaginationResponseType($articleCourse);
 
 export const $getArticleFiltersResponse = z.object({
-    categories: z.object({
-        data: z.array($articleFilter),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
-    tags: z.object({
-        data: z.array($articleFilter),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    categories: $getPaginationResponseType($articleFilter),
+    tags: $getPaginationResponseType($articleFilter),
 });
 
 //TODO: Это ооочень примерно так как даже на текущий момент и моковских эндпоинтов нет

@@ -12,13 +12,7 @@ import {
 
 class TagApi extends BaseApi {
     async getAdminTags(params: GetAdminTagsRequest): Promise<GetAdminTagsResponse> {
-        const response = await this.instance.get("admin/tags", {
-            params: {
-                ...params,
-                sort: params.sorting?.[0] ? { [params.sorting[0].id]: params.sorting[0].desc ? "desc" : "asc" } : null,
-            },
-        });
-
+        const response = await this.instance.get("admin/tags", { params });
         return $getAdminTagsResponse.parse(response);
     }
 

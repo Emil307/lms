@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { GroupList } from "@features/groups";
+import { List as GroupList } from "@features/groups";
 
 const AdminGroups: NextPageWithLayout = () => {
     return (

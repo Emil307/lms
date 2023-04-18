@@ -1,24 +1,18 @@
 import { z } from "zod";
-import { MRT_SortingState } from "mantine-react-table";
-import { $pagination } from "@shared/types";
+import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
 export type Group = z.infer<typeof $group>;
 export type ScheduleLine = z.infer<typeof $scheduleLine>;
 
-export interface GetAdminGroupsRequest {
-    sorting?: MRT_SortingState;
-    perPage: number;
-    page: number;
-    query?: string;
-    filters?: {
-        isActive?: "0" | "1";
-    };
-}
+export type GroupsListFilters = z.infer<typeof $groupListFilters>;
+export type GroupSchedulesFilters = z.infer<typeof $groupSchedulesFilters>;
+
+export type GetAdminGroupsRequest = TRequestFilterParams<GroupsListFilters>;
 export type CreateGroupRequest = z.infer<typeof $createGroupRequest>;
 export type UpdateGroupRequest = z.infer<typeof $updateGroupRequest>;
 export type GetAdminGroupsResponse = z.infer<typeof $getAdminGroupsResponse>;
 export type GetAdminGroupResponse = z.infer<typeof $getAdminGroupResponse>;
-export type GroupSchedulesFilters = z.infer<typeof $groupSchedulesFilters>;
+export type GetGroupSchedulesRequest = TRequestFilterParams<GroupSchedulesFilters>;
 export type GetGroupSchedulesResponse = z.infer<typeof $getGroupSchedulesResponse>;
 export type AddScheduleToGroupRequest = z.infer<typeof $addScheduleToGroupRequest>;
 export type RemoveScheduleFromGroupRequest = z.infer<typeof $removeScheduleFromGroupRequest>;
@@ -101,29 +95,22 @@ export const $updateGroupRequest = z.object({
     isActive: z.boolean(),
 });
 
-export const $getAdminGroupsResponse = z.object({
-    data: z.array($group),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getAdminGroupsResponse = $getPaginationResponseType($group);
 
 export const $getAdminGroupResponse = $group.extend({
     teacherId: z.number().nullable(),
 });
 
-export const $groupSchedulesFilters = z.object({
-    groupId: z.string(),
-    page: z.number().optional(),
-    perPage: z.number().optional(),
+export const $groupListFilters = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
 });
 
-export const $getGroupSchedulesResponse = z.object({
-    data: z.array($scheduleLine),
-    meta: z.object({
-        pagination: $pagination,
-    }),
+export const $groupSchedulesFilters = z.object({
+    groupId: z.string(),
 });
+
+export const $getGroupSchedulesResponse = $getPaginationResponseType($scheduleLine);
 
 export const $addScheduleToGroupRequest = z.object({
     scheduleDate: z

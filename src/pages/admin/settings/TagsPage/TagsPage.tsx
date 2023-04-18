@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { CreateTagForm, TagList } from "@features/tags";
+import { CreateTagForm, List as TagList } from "@features/tags";
 
 const TagsPage = () => {
     const handleCloseCreateTagModal = () => closeModal("CREATE_TAG");

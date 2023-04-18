@@ -1,6 +1,6 @@
 import { Box, Flex, Pagination as MPagination, PaginationProps as MPaginationProps, Text } from "@mantine/core";
 import { Dispatch, SetStateAction, useMemo } from "react";
-import { Pagination as TPagination } from "@shared/types";
+import { TPagination } from "@shared/types";
 import { getPluralString } from "@shared/utils";
 import useStyles from "./Pagination.styles";
 

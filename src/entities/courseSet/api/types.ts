@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $pagination } from "@shared/types";
+import { $getPaginationResponseType } from "@shared/types";
 import { $uploadedFile } from "@shared/ui";
 import { $course } from "@entities/course";
 
@@ -33,12 +33,7 @@ export const $courseSet = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string(),
-    courses: z.object({
-        data: z.array($course),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    courses: $getPaginationResponseType($course),
     price: z.number(),
     isDiscount: z.boolean(),
     discount: z.object({
@@ -90,12 +85,7 @@ export const $getCourseSetRequest = z.object({
     perPage: z.number().optional(),
 });
 
-export const $getCourseSetsResponse = z.object({
-    data: z.array($courseSet),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getCourseSetsResponse = $getPaginationResponseType($courseSet);
 
 export const $getCourseSetResponse = z.object({
     id: z.number(),
@@ -104,10 +94,5 @@ export const $getCourseSetResponse = z.object({
         data: $uploadedFile,
     }),
     description: z.string(),
-    courses: z.object({
-        data: z.array($courseSet),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    courses: $getPaginationResponseType($courseSet),
 });

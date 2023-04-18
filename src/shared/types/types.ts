@@ -1,4 +1,5 @@
-import { z } from "zod";
+import { z, ZodTypeAny } from "zod";
+import { FormikValues } from "formik";
 
 export interface FormErrorResponse {
     message: string;
@@ -7,14 +8,13 @@ export interface FormErrorResponse {
     };
 }
 
-export interface TPaginationResponse<T> {
-    data: T;
-    meta: {
-        pagination: Pagination;
-    };
-}
-
-export type Pagination = z.infer<typeof $pagination>;
+const $sortOrder = z.literal("asc").or(z.literal("desc"));
+const $sortRequest = z.record(z.string(), $sortOrder);
+const $defaultRequestParams = z.object({
+    sort: $sortRequest.optional(),
+    perPage: z.number(),
+    page: z.number(),
+});
 
 export const $pagination = z.object({
     count: z.number(),
@@ -28,9 +28,19 @@ export const $pagination = z.object({
     total_pages: z.number(),
 });
 
-export interface FormErrorResponse {
-    message: string;
-    errors: {
-        [key: string]: string[];
-    };
+export type TSortOrder = z.infer<typeof $sortOrder>;
+export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
+export type TPagination = z.infer<typeof $pagination>;
+
+export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & T;
+
+const $defaultMeta = z.object({
+    pagination: $pagination,
+});
+
+export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
+    return z.object({
+        data: data.array(),
+        meta: $defaultMeta,
+    });
 }

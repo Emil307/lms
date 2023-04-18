@@ -12,6 +12,7 @@ export const useCreateCategory = (parentId?: number) => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_SUBCATEGORIES]);
             },
         }
     );

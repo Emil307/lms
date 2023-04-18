@@ -1,12 +1,7 @@
 import { z } from "zod";
-import { $pagination, $role } from "@shared/types";
+import { $getPaginationResponseType, $role } from "@shared/types";
 
-export const $rolesResponse = z.object({
-    data: z.array($role),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $rolesResponse = $getPaginationResponseType($role);
 
 type RolesResponseType = z.infer<typeof $rolesResponse>;
 

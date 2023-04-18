@@ -1,7 +1,5 @@
-import BaseDataGrid from "./BaseDataGrid";
-import DataGrid from "./DataGrid";
-import ManagedDataGrid from "./ManagedDataGrid";
-import MenuDataGrid from "./MenuDataGrid";
-import MenuItemDataGrid from "./MenuItemDataGrid";
-import PaginationDataGrid from "./PaginationDataGrid";
-export { BaseDataGrid, ManagedDataGrid, MenuDataGrid, MenuItemDataGrid, DataGrid, PaginationDataGrid };
+import DataGrid, { type TDataGridProps } from "./DataGrid";
+
+export { DataGrid, TDataGridProps };
+export * from "./components/MenuDataGrid";
+export * from "./components/MenuItemDataGrid";

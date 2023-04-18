@@ -5,7 +5,7 @@ import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
 import { CourseSet, useCourseSets } from "@entities/courseSet";
 import { CourseSetCard } from "@features/course-set";
 import { List } from "@components/List";
-import { Pagination } from "@shared/types";
+import { TPagination } from "@shared/types";
 
 const initialPagination = {
     count: 0,
@@ -20,7 +20,7 @@ const CourseSetsPage = () => {
     const router = useRouter();
     const page = router.query.page || 1;
 
-    const [pagination, setPagination] = useState<Pagination>(initialPagination);
+    const [pagination, setPagination] = useState<TPagination>(initialPagination);
     const { data: courseSetsData, isFetching } = useCourseSets({ page: Number(page) });
 
     const titlePage = `Топовые подборки курсов ${new Date().getFullYear()}`;

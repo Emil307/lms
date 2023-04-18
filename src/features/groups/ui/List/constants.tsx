@@ -1,6 +1,6 @@
-import { MRT_Cell, MRT_ColumnDef } from "mantine-react-table";
-import { CSSObject, Flex, MantineTheme, Text } from "@mantine/core";
-import { Group } from "@entities/group";
+import { MRT_ColumnDef } from "mantine-react-table";
+import { Flex, Text } from "@mantine/core";
+import { Group, GroupsListFilters } from "@entities/group";
 import { getHumanDate } from "@shared/utils";
 
 export const columns: MRT_ColumnDef<Group>["columns"] = [
@@ -76,21 +76,4 @@ export const radioGroupValues = [
     { id: "3", label: "Не активен", value: "0" },
 ];
 
-export const getStylesForCell = (theme: MantineTheme, cell: MRT_Cell<Group>): CSSObject => {
-    return {
-        ":first-of-type": {
-            position: "relative",
-            ":before": {
-                content: "''",
-                position: "absolute",
-                backgroundColor: cell.row.original.isActive ? theme.colors.done[0] : theme.colors.light[0],
-                width: 4,
-                borderRadius: "0 8px 8px 0",
-                height: "100%",
-                top: 1,
-                bottom: 1,
-                left: 0,
-            },
-        },
-    };
-};
+export const filterInitialValues: GroupsListFilters = { isActive: "", query: "" };

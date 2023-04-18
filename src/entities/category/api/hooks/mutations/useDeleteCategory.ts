@@ -12,6 +12,7 @@ export const useDeleteCategory = (categoryId: string) => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_SUBCATEGORIES]);
             },
         }
     );

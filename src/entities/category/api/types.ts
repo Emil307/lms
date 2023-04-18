@@ -1,22 +1,24 @@
 import { z } from "zod";
-import { MRT_SortingState } from "mantine-react-table";
-import { $pagination } from "@shared/types";
+import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
 export type AdminCategory = z.infer<typeof $adminCategory>;
 
+export type CategoriesFilters = z.infer<typeof $categoriesFilters>;
+export type SubCategoriesFilters = z.infer<typeof $subCategoriesExtraFilters>;
+
+export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters>;
+export type GetAdminSubCategoriesRequest = TRequestFilterParams<SubCategoriesFilters>;
 export type GetAdminCategoriesResponse = z.infer<typeof $getAdminCategoriesResponse>;
 export type UpdateAdminCategoryRequest = z.infer<typeof $updateAdminCategoryRequest>;
 export type CreateAdminCategoryRequest = z.infer<typeof $createAdminCategoryRequest>;
-export interface GetAdminCategoriesRequest {
-    sorting?: MRT_SortingState;
-    perPage: number;
-    page: number;
-    query?: string;
-    filter?: {
-        hasParent?: "0" | "1";
-        parentId?: string;
-    };
-}
+
+const $subCategoriesExtraFilters = z.object({
+    parentId: z.string()
+})
+
+export const $categoriesFilters = z.object({
+    query: z.string(),
+});
 
 export const $adminCategory = z.object({
     id: z.number(),
@@ -26,12 +28,7 @@ export const $adminCategory = z.object({
     isActive: z.boolean(),
 });
 
-export const $getAdminCategoriesResponse = z.object({
-    data: z.array($adminCategory),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getAdminCategoriesResponse = $getPaginationResponseType($adminCategory);
 export const $updateAdminCategoryRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
     parentId: z.number().optional(),

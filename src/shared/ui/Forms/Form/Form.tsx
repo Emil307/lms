@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Formik, FormikConfig, FormikValues } from "formik";
+import React, { Ref, useMemo } from "react";
+import { Formik, FormikConfig, FormikProps, FormikValues } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { BaseForm, BaseFormProps } from "./BaseForm";
 import FormPersister from "./components/FormPersister";
@@ -11,6 +11,7 @@ export interface FormProps<T extends FormikValues = FormikValues> {
     form?: Omit<BaseFormProps, "onSubmit">;
     children?: React.ComponentProps<typeof Formik<T>>["children"];
     isLoading?: boolean;
+    customRef?: Ref<FormikProps<T>>;
     //TODO: Улучшить работу persist:
     // Добавить параметры указания как именно сохранять,
     // добавить возможность исключать поля (например пароль из persist'a), добавить возможность указания времени debounce.
@@ -21,6 +22,7 @@ function Form<T extends FormikValues = FormikValues>({
     config,
     children,
     form,
+    customRef,
     persist = false,
     disableOverlay = false,
     isLoading = false,
@@ -37,7 +39,7 @@ function Form<T extends FormikValues = FormikValues>({
     );
 
     return (
-        <Formik<T> {...config} validationSchema={validationSchema} onSubmit={onSubmit}>
+        <Formik<T> {...config} validationSchema={validationSchema} onSubmit={onSubmit} innerRef={customRef}>
             {(formikProps) => (
                 <FormPersister initialValues={config.initialValues} enabled={persist}>
                     <BaseForm {...form}>

@@ -7,7 +7,7 @@ import {
     AdminCategory,
     $adminCategory,
     CreateAdminCategoryRequest,
-    UpdateAdminCategoryRequest,
+    UpdateAdminCategoryRequest, GetAdminSubCategoriesRequest,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -15,10 +15,23 @@ class CategoryApi extends BaseApi {
         const response = await this.instance.get("admin/categories", {
             params: {
                 ...params,
-                sort: params.sorting?.[0] ? { [params.sorting[0].id]: params.sorting[0].desc ? "desc" : "asc" } : null,
-            },
+                filter: {
+                    hasParent: "0"
+                },
+            }
         });
+        return $getAdminCategoriesResponse.parse(response);
+    }
 
+    async getAdminSubCategories({ parentId, ...params }: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
+        const response = await this.instance.get("admin/categories", {
+            params: {
+                ...params,
+                filter: {
+                    parentId
+                }
+            }
+        });
         return $getAdminCategoriesResponse.parse(response);
     }
 

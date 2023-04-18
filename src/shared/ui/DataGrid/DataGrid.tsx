@@ -1,98 +1,61 @@
-import { Box, CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
-import React from "react";
-import { MRT_Cell } from "mantine-react-table";
-import BaseDataGrid, { BaseDataGridProps } from "./BaseDataGrid";
-import { useManagedDataGridStyles } from "./ManagedDataGrid.styles";
+import { Box } from "@mantine/core";
+import React, { memo } from "react";
+import { FormikValues } from "formik";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps } from "./components";
+import { DataGridResponse, TFunctionParams } from "./types";
+import { useTableQueryParams } from "./utils";
 
-type ExtendedProps<T extends Record<string, any>> = React.PropsWithChildren<Omit<BaseDataGridProps<T>, "data" | "key">>;
+type TExtendedProps<T extends Record<string, any>, F> = Omit<TFilterProps<F>, "filterParams"> &
+    Omit<TBaseTableProps<T>, "data" | "key" | "pagination" | "isLoading">;
 
-export interface ManagedDataGridProps<T extends Record<string, any>> extends ExtendedProps<T> {
+export type TDataGridProps<T extends Record<string, any>, F, R> = {
+    queryFunction: (params: R) => Promise<DataGridResponse<T>>;
+    queryKey: string;
+    queryCacheKeys?: Array<keyof R>;
     countName?: string;
-    data: T[];
-    onClickCell?: (cell: MRT_Cell<T>) => void;
-    getStylesForCell?: (cell: MRT_Cell<T>) => CSSObject;
-    total?: number;
-    perPage?: number;
-    //TODO: Это временные пропсы perPage (count), getStylesCell (getStylesForCell)
-    count?: number;
-    getStylesCell?: (theme: MantineTheme, cell: MRT_Cell<T>) => CSSObject;
-}
+} & TExtendedProps<T, F>;
 
-export default function DataGrid<T extends Record<string, any>>({
-    children,
-    countName,
-    total,
-    count,
-    perPage,
-    data,
-    getStylesCell,
-    onClickCell,
-    getStylesForCell,
-    ...rest
-}: ManagedDataGridProps<T>) {
-    const { classes } = useManagedDataGridStyles();
-    const theme = useMantineTheme();
+function DataGrid<T extends Record<string, any>, F extends FormikValues = FormikValues, R extends TFunctionParams<F> = TFunctionParams<F>>(
+    props: TDataGridProps<T, F, R>
+) {
+    const router = useRouter();
+    const { queryFunction, queryKey, queryCacheKeys = [], children, countName, filter, ...rest } = props;
+    const filterFields = filter ? Object.keys(filter.initialValues).map((key) => key) : [];
+    const { paramsForRequest, filterParams } = useTableQueryParams<F, R>(filterFields);
+
+    const {
+        data: queryData,
+        isLoading,
+        isRefetching,
+        isFetching,
+    } = useQuery<DataGridResponse<T>>({
+        queryKey: [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
+        queryFn: () => queryFunction(paramsForRequest),
+        enabled: router.isReady,
+    });
 
     return (
         <>
-            {children}
-            {countName && count && total && (
-                <Box
-                    sx={{
-                        color: theme.colors.gray45[0],
-                        lineHeight: "16px",
-                        span: {
-                            color: theme.colors.dark[0],
-                        },
-                    }}
-                    mt={32}>
-                    {countName}: <span>{count}</span> из <span>{total}</span>
-                </Box>
-            )}
+            <Filter<F> filter={filter} filterParams={filterParams}>
+                {children}
+            </Filter>
+            <CountData countName={countName} pagination={queryData?.meta.pagination} />
             <Box mt={24}>
-                <BaseDataGrid<T>
+                <BaseTable<T>
                     {...rest}
-                    data={data}
-                    manualSorting
-                    enableFilters={rest.enableFilters || false}
-                    enableColumnActions={rest.enableColumnActions || false}
+                    isLoading={isLoading || isRefetching || isFetching}
+                    data={queryData?.data}
+                    pagination={queryData?.meta.pagination}
+                    enableFilters={false}
+                    enableColumnActions={false}
                     manualPagination
-                    mantineTableHeadRowProps={{
-                        className: classes.tableHeadRow,
-                    }}
-                    mantineTableHeadCellProps={{
-                        className: classes.tableHeadCell,
-                    }}
-                    mantineColumnActionsButtonProps={{
-                        className: classes.columnActionsButton,
-                    }}
-                    mantinePaperProps={{
-                        className: classes.paper,
-                    }}
-                    mantineTableContainerProps={{
-                        className: classes.tableContainer,
-                    }}
-                    mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
-                    mantineTableBodyCellProps={({ cell }) => {
-                        return {
-                            className: classes.tableBodyCell,
-                            onClick: () => {
-                                onClickCell?.(cell);
-                            },
-                            sx: () => {
-                                if (!getStylesCell) return {};
-                                return { ...getStylesCell(theme, cell) };
-                            },
-                        };
-                    }}
-                    mantineSelectAllCheckboxProps={{
-                        className: classes.selectCheckbox,
-                    }}
-                    mantineSelectCheckboxProps={{
-                        className: classes.selectCheckbox,
-                    }}
+                    manualSorting
                 />
             </Box>
         </>
     );
 }
+
+export default memo(DataGrid) as typeof DataGrid;

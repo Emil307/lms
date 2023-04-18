@@ -35,7 +35,7 @@ const MemoizedSelect = (props: SelectProps) => {
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
             icon: icon || searchable,
-            size: size
+            size: size,
         },
         { name: "Select", classNames, styles, unstyled }
     );

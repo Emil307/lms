@@ -18,15 +18,13 @@ import {
 } from "./types";
 
 class GroupApi extends BaseApi {
-    async getAdminGroups(params: GetAdminGroupsRequest): Promise<GetAdminGroupsResponse> {
+    async getAdminGroups({ isActive, ...params }: GetAdminGroupsRequest): Promise<GetAdminGroupsResponse> {
         const response = await this.instance.get("admin/groups", {
             params: {
                 ...params,
-                filter: params.filters,
-                sort: params.sorting?.[0] ? { [params.sorting[0].id]: params.sorting[0].desc ? "desc" : "asc" } : null,
+                filter: { isActive },
             },
         });
-
         return $getAdminGroupsResponse.parse(response);
     }
     async getAdminGroup(courseId: string): Promise<GetAdminGroupResponse> {

@@ -1,6 +1,6 @@
 import { ColProps as MColProps, GridProps as MGridProps, Grid, Loader, Flex } from "@mantine/core";
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { Pagination as TPagination } from "@shared/types";
+import { TPagination } from "@shared/types";
 import { Pagination } from "./components";
 
 export interface ListProps<T> extends Omit<MGridProps, "children"> {

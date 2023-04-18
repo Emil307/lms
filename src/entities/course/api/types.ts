@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $pagination } from "@shared/types";
+import { $getPaginationResponseType } from "@shared/types";
 
 export type Course = z.infer<typeof $course>;
 export type CourseBlock = z.infer<typeof $courseBlock>;
@@ -210,12 +210,7 @@ export const $courseBlock = z.object({
         .nullable(),
 });
 
-export const $getMyCoursesResponse = z.object({
-    data: z.array($courseBlock),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getMyCoursesResponse = $getPaginationResponseType($courseBlock);
 
 export const $getCourseProgramResponse = z.object({
     moduleCount: z.number(),
@@ -224,54 +219,24 @@ export const $getCourseProgramResponse = z.object({
     testCount: z.number(),
     dateStart: z.string().datetime().nullable(),
     dateEnd: z.string().datetime().nullable(),
-    modules: z.object({
-        data: z.array($courseProgram),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    modules: $getPaginationResponseType($courseProgram),
 });
 
-export const $getCourseProgramModuleLessonsResponse = z.object({
-    data: z.array($courseProgramModuleLesson),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getCourseProgramModuleLessonsResponse = $getPaginationResponseType($courseProgramModuleLesson);
 
-export const $getCoursesResponse = z.object({
-    data: z.array($course),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getCoursesResponse = $getPaginationResponseType($course);
 
 export const $getCourseProgramModuleLessonsRequest = z.object({
     courseId: z.number(),
     programId: z.number(),
 });
 
-export const $getCourseTeachersResponse = z.object({
-    data: z.array($courseTeacher),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getCourseTeachersResponse = $getPaginationResponseType($courseTeacher);
 
 export const $getCourseReviewsResponse = z.object({
     averageRating: z.number(),
     reviewCount: z.number(),
-    reviews: z.object({
-        data: z.array($review),
-        meta: z.object({
-            pagination: $pagination,
-        }),
-    }),
+    reviews: $getPaginationResponseType($review),
 });
 
-export const $getFavoriteCoursesResponse = z.object({
-    data: z.array($course),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getFavoriteCoursesResponse = $getPaginationResponseType($course);
