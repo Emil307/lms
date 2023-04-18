@@ -237,7 +237,7 @@ export const defaultTheme: MantineThemeOverride = {
                     lineHeight: "24px",
                 },
                 modal: {
-                    padding: "24px !important",
+                    padding: "32px 24px 24px !important",
                     borderRadius: 16,
                     background: theme.colors.white[0],
                     boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
