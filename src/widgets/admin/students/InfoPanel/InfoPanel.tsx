@@ -16,6 +16,8 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { mutate: activate } = useActivateUser(id);
     const { mutate: deactivate } = useDeactivateUser(id);
 
+    const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
+
     const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
         day: "2-digit",
         month: "long",
@@ -41,7 +43,13 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 </Box>
                 <Flex gap={8} align="center" className={classes.infoItem}>
                     Статус:
-                    <Switch variant="secondary" label="Деактивировать" labelPosition="left" onChange={handleChangeActiveStatus} />
+                    <Switch
+                        variant="secondary"
+                        label={labelActivitySwitch}
+                        labelPosition="left"
+                        checked={data?.isActive}
+                        onChange={handleChangeActiveStatus}
+                    />
                 </Flex>
                 <Box className={classes.infoItem}>
                     Последний вход: <span>{lastLoginDate}</span>

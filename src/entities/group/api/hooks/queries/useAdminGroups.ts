@@ -8,5 +8,6 @@ export const useAdminGroups = (params: GetAdminGroupsRequest) => {
     return useQuery([QueryKeys.GET_ADMIN_GROUPS, params], () => groupApi.getAdminGroups(params), {
         keepPreviousData: true,
         enabled: router.isReady,
+        refetchOnMount: true,
     });
 };

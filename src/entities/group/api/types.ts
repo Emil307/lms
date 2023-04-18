@@ -41,12 +41,12 @@ export const $group = z.object({
 
 export const $scheduleLine = z.object({
     id: z.number(),
-    date: z.string().datetime(),
+    date: z.string(),
     timings: z.object({
         data: z.array(
             z.object({
-                from: z.string().datetime(),
-                to: z.string().datetime(),
+                from: z.string(),
+                to: z.string(),
             })
         ),
     }),
@@ -108,10 +108,8 @@ export const $getAdminGroupsResponse = z.object({
     }),
 });
 
-export const $getAdminGroupResponse = z.object({
-    data: $group.extend({
-        teacherId: z.number().nullable(),
-    }),
+export const $getAdminGroupResponse = $group.extend({
+    teacherId: z.number().nullable(),
 });
 
 export const $groupSchedulesFilters = z.object({

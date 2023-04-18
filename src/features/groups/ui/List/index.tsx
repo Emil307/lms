@@ -39,13 +39,13 @@ const GroupList = () => {
     const lastElemIndex =
         (data?.meta.pagination.per_page ?? 0) * ((data?.meta.pagination.current_page ?? 0) - 1) + (data?.meta.pagination.count ?? 0);
 
-    const pushOnUserDetail = (id: number) => {
-        router.push({ pathname: "/admin/users/[id]", query: { id: String(id) } });
+    const openGroupDetail = (id: number) => {
+        router.push({ pathname: "/admin/groups/[id]", query: { id: String(id) } });
     };
 
     const handlerClickCell = (cell: MRT_Cell<Group>) => {
         if (cell.column.id === "mrt-row-actions") return;
-        pushOnUserDetail(cell.row.original.id);
+        openGroupDetail(cell.row.original.id);
     };
 
     const cfg: FormikConfig<TGroupListFilters> = {
