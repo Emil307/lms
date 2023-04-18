@@ -13,27 +13,23 @@ export interface CourseListProps extends Omit<SpoilerProps, "children" | "maxHei
 const CourseListFromPackage = ({ data, ...props }: CourseListProps) => {
     const { classes } = useStyles();
 
-    const showLabel = useMemo(() => {
-        return (
-            <Flex gap={8}>
-                <Text className={classes.spoilerLabelText}>Показать все</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
-                    <ChevronDown />
-                </ThemeIcon>
-            </Flex>
-        );
-    }, [data.courses.meta.pagination.total]);
+    const showLabel = (
+        <Flex gap={8}>
+            <Text className={classes.spoilerLabelText}>Показать все</Text>
+            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+                <ChevronDown />
+            </ThemeIcon>
+        </Flex>
+    );
 
-    const hideLabel = useMemo(() => {
-        return (
-            <Flex gap={8}>
-                <Text className={classes.spoilerLabelText}>Свернуть</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
-                    <ChevronUp />
-                </ThemeIcon>
-            </Flex>
-        );
-    }, []);
+    const hideLabel = (
+        <Flex gap={8}>
+            <Text className={classes.spoilerLabelText}>Свернуть</Text>
+            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+                <ChevronUp />
+            </ThemeIcon>
+        </Flex>
+    );
 
     const renderCourses = useMemo(() => data.courses.data.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
 

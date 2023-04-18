@@ -23,7 +23,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
 
     const { classes } = useStyles({ isOpen });
 
-    const showLabel = useMemo(() => {
+    const showLabel = () => {
         const hiddenCountCourse = data.courses.meta.pagination.total - 3;
         return (
             <Flex gap={8}>
@@ -38,18 +38,16 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
                 </ThemeIcon>
             </Flex>
         );
-    }, [data.courses.meta.pagination.total]);
+    };
 
-    const hideLabel = useMemo(() => {
-        return (
-            <Flex gap={8}>
-                <Text className={classes.spoilerLabelText}>Свернуть</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
-                    <ChevronUp />
-                </ThemeIcon>
-            </Flex>
-        );
-    }, []);
+    const hideLabel = (
+        <Flex gap={8}>
+            <Text className={classes.spoilerLabelText}>Свернуть</Text>
+            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+                <ChevronUp />
+            </ThemeIcon>
+        </Flex>
+    );
 
     const renderCourses = useMemo(() => data.courses.data.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
 
@@ -60,7 +58,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
             classNames={classes}
             controlRef={spoilerControlRef}
             maxHeight={88}
-            showLabel={showLabel}
+            showLabel={showLabel()}
             hideLabel={hideLabel}>
             <Flex direction="column" gap={8}>
                 {renderCourses}

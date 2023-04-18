@@ -23,6 +23,12 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
     | StaticRoute<"/api/hello">
+    | DynamicRoute<"/article-collection/[categoryId]", { "categoryId": string }>
+    | DynamicRoute<"/article-collection/favorite/[articleId]", { "articleId": string }>
+    | StaticRoute<"/article-collection/favorite">
+    | StaticRoute<"/article-collection">
+    | DynamicRoute<"/article-collection/my-courses/[courseId]", { "courseId": string }>
+    | StaticRoute<"/article-collection/my-courses">
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">

@@ -55,7 +55,7 @@ const HeaderUser = () => {
                     </Group>
                 </Group>
 
-                {!user && (
+                {!user?.id && (
                     <Group sx={{ gap: 56 }}>
                         <Group>
                             <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
