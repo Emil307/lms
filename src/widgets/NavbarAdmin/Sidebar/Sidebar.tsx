@@ -48,6 +48,13 @@ export default function Sidebar() {
                     href="/admin/settings/tags"
                     isActive={router.pathname.includes("/admin/settings/tags")}
                 />
+                <SidebarItem
+                    inner={true}
+                    label="Категории курсов"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/settings/categories"
+                    isActive={router.pathname.includes("/admin/settings/categories")}
+                />
             </SidebarItemWithChildren>
         </Box>
     );

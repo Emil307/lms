@@ -30,7 +30,7 @@ const CreateGroupForm = () => {
         onSubmit: (values, { setFieldError }) => {
             createGroup.mutate(values, {
                 onSuccess: (response) => {
-                    router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.data.id) } });
+                    router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.id) } });
                 },
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {

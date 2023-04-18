@@ -19,7 +19,7 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
     const { classes } = useSettingUserStyles();
     const { data: groupData } = useAdminGroup(id);
 
-    const handleOpenEditGroup = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.data.id) } });
+    const handleOpenEditGroup = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
 
     const handleCloseDeleteGroupModal = () => closeModal("DELETE_GROUP");
 
@@ -28,23 +28,23 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
             modalId: "DELETE_GROUP",
             title: "Удаление группы",
             centered: true,
-            children: <DeleteGroupModal id={id} name={groupData?.data.name || ""} onClose={handleCloseDeleteGroupModal} />,
+            children: <DeleteGroupModal id={id} name={groupData?.name || ""} onClose={handleCloseDeleteGroupModal} />,
         });
     };
 
     const studyDates = useMemo(() => {
-        if (!groupData?.data.education.from || !groupData.data.education.to) {
+        if (!groupData?.education.from || !groupData.education.to) {
             return "-";
         }
-        return `${getHumanDate(new Date(groupData.data.education.from), {
+        return `${getHumanDate(new Date(groupData.education.from), {
             month: "long",
             day: "2-digit",
-        })} - ${getHumanDate(new Date(groupData.data.education.from), {
+        })} - ${getHumanDate(new Date(groupData.education.from), {
             month: "long",
             day: "2-digit",
             year: "numeric",
         })}`;
-    }, [groupData?.data.education]);
+    }, [groupData?.education]);
 
     return (
         <Box>
@@ -66,22 +66,22 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
                         </Button>
                     </Flex>
                     <Fieldset mt={32} label="Направление обучения" icon={<Flag />}>
-                        <DisplayField label="Учебный курс" value={groupData?.data.courseName} />
+                        <DisplayField label="Учебный курс" value={groupData?.courseName} />
                     </Fieldset>
                     <Fieldset mt={32} label="Данные группы" icon={<FolderPlus />}>
-                        <DisplayField label="Название группы" value={groupData?.data.name} />
+                        <DisplayField label="Название группы" value={groupData?.name} />
                         <DisplayField label="Даты обучения" value={studyDates} />
-                        <DisplayField label="Учеников в группе (max)" value={String(groupData?.data.students)} />
+                        <DisplayField label="Учеников в группе (max)" value={String(groupData?.students)} />
                     </Fieldset>
                     <Fieldset mt={32} label="Преподаватели группы" icon={<Users />}>
-                        <DisplayField label="ФИО" value={groupData?.data.teacherFullName} />
+                        <DisplayField label="ФИО" value={groupData?.teacherFullName} />
                     </Fieldset>
                 </Group>
                 <Box>
                     <Flex className={classes.groupInfo}>
-                        <DisplayField label="Учебный курс" value={groupData?.data.courseName} variant="compact" />
-                        <DisplayField label="Название группы" value={groupData?.data.courseName} variant="compact" />
-                        <DisplayField label="Максимальная численность" value={String(groupData?.data.students)} variant="compact" />
+                        <DisplayField label="Учебный курс" value={groupData?.courseName} variant="compact" />
+                        <DisplayField label="Название группы" value={groupData?.courseName} variant="compact" />
+                        <DisplayField label="Максимальная численность" value={String(groupData?.students)} variant="compact" />
                         <Button variant="secondary" mt={16} onClick={handleOpenEditGroup}>
                             Редактировать данные
                         </Button>

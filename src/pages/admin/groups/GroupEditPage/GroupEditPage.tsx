@@ -12,7 +12,7 @@ const GroupEditPage = () => {
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
         { title: "Группы", href: { pathname: "/admin/groups" } },
-        { title: groupData?.data.name || "", href: { pathname: "/admin/groups/[id]/edit", query: { id } } },
+        { title: groupData?.name || "", href: { pathname: "/admin/groups/[id]/edit", query: { id } } },
     ];
 
     const handleCancel = () => {
@@ -26,7 +26,7 @@ const GroupEditPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <EditGroupForm data={groupData?.data} onClose={handleCancel} />
+            <EditGroupForm data={groupData} onClose={handleCancel} />
         </Box>
     );
 };

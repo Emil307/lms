@@ -13,7 +13,7 @@ const GroupDetailPage = () => {
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
         { title: "Группы", href: { pathname: "/admin/groups" } },
-        { title: groupData?.data.name || "", href: { pathname: "/admin/groups/[id]", query: { id: id } } },
+        { title: groupData?.name || "", href: { pathname: "/admin/groups/[id]", query: { id: id } } },
     ];
 
     const handleChangeTab = (value: string | null) => {

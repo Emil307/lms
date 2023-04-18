@@ -16,6 +16,8 @@ const ListMenu = ({ row }: ListMenuProps) => {
     const activateUser = useActivateUser(String(row.original.id));
     const deactivateUser = useDeactivateUser(String(row.original.id));
 
+    const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
+
     const toggleActivateUser = (row: MRT_Row<TUser>) => {
         if (row.original.isActive) {
             return deactivateUser.mutate();
@@ -39,7 +41,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                     toggleActivateUser(row);
                 }}
                 closeMenuOnClick={false}>
-                Деактивировать <Switch variant="primary" checked={row.original.isActive} />
+                <Switch variant="primary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
             </MenuItemDataGrid>
             <Box
                 sx={{

@@ -18,6 +18,8 @@ const GroupsListMenu = ({ row }: GroupsListMenuProps) => {
     const { mutate: activate } = useActivateGroup(String(row.original.id));
     const { mutate: deactivate } = useDeactivateGroup(String(row.original.id));
 
+    const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
+
     const handleChangeActiveStatus = () => {
         if (row.original.isActive) {
             return deactivate();
@@ -42,7 +44,7 @@ const GroupsListMenu = ({ row }: GroupsListMenuProps) => {
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={handleChangeActiveStatus} closeMenuOnClick={false}>
-                Деактивировать <Switch variant="secondary" checked={row.original.isActive} />
+                <Switch variant="secondary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
             </MenuItemDataGrid>
             <Box
                 sx={{

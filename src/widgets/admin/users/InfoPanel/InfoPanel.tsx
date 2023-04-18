@@ -13,6 +13,8 @@ const InfoPanel = ({ id }: InfoPanel) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
 
+    const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
+
     const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
         day: "2-digit",
         month: "long",
@@ -31,7 +33,7 @@ const InfoPanel = ({ id }: InfoPanel) => {
                 </Box>
                 {/* TODO - нужен функционал от бэка */}
                 <Flex gap={8}>
-                    <Switch variant="secondary" label="Деактивировать" labelPosition="left" />
+                    <Switch variant="secondary" checked={data?.isActive} label={labelActivitySwitch} labelPosition="left" />
                 </Flex>
                 <Checkbox label="Отображать на главной" />
                 <Box className={classes.infoItem}>

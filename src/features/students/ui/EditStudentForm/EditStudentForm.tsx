@@ -58,7 +58,12 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
                             </Box>
                             <Flex gap={8}>
                                 <Text className={classes.infoItem}>Статус:</Text>
-                                <FSwitch name="isActive" variant="secondary" label="Деактивировать" labelPosition="left" />
+                                <FSwitch
+                                    name="isActive"
+                                    variant="secondary"
+                                    label={values.isActive ? "Деактивировать" : "Активировать"}
+                                    labelPosition="left"
+                                />
                             </Flex>
 
                             {/* TODO: Добавить Последний вход и последнее изменение когда будет сделано на беке */}

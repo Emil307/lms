@@ -17,6 +17,9 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const theme = useMantineTheme();
     const activateUser = useActivateUser(String(row.original.id));
     const deactivateUser = useDeactivateUser(String(row.original.id));
+
+    const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
+
     const toggleActivateUser = (row: MRT_Row<TUser>) => {
         if (row.original.isActive) {
             return deactivateUser.mutate();
@@ -38,12 +41,8 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     };
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid
-                onClick={() => {
-                    toggleActivateUser(row);
-                }}
-                closeMenuOnClick={false}>
-                Деактивировать <Switch variant="primary" checked={row.original.isActive} />
+            <MenuItemDataGrid onClick={() => toggleActivateUser(row)} closeMenuOnClick={false}>
+                <Switch variant="primary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
             </MenuItemDataGrid>
             <Box
                 sx={{
