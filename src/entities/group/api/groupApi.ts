@@ -50,9 +50,7 @@ class GroupApi extends BaseApi {
 
     // schedules
     async getGroupSchedules({ groupId, ...params }: GetGroupSchedulesRequest): Promise<GetGroupSchedulesResponse> {
-        const response = await this.instance.get(`admin/groups/${groupId}/schedules`, {
-            params,
-        });
+        const response = await this.instance.get(`admin/groups/${groupId}/schedules`, { params });
         return $getGroupSchedulesResponse.parse(response);
     }
     addScheduleToGroup({ groupId, ...data }: AddScheduleToGroupRequest & { groupId?: string }): Promise<void> {
