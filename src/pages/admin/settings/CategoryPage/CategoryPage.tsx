@@ -5,11 +5,8 @@ import { BreadCrumbs } from "@shared/ui";
 import { useAdminCategory } from "@entities/category";
 import { InfoPanel } from "@widgets/admin/categories";
 import { SubCategoryList } from "@features/categories";
+import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
-
-interface TRouterQueries {
-    id: string;
-}
 
 const CategoryPage = () => {
     const router = useRouter();

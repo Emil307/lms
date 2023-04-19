@@ -5,10 +5,7 @@ import { BreadCrumbs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { EditUserForm } from "@features/users";
 import { getBreadCrumbsItems } from "./utils";
-
-interface TRouterQueries {
-    id: string;
-}
+import { TRouterQueries } from "@shared/types";
 
 const UserEditPage = () => {
     const router = useRouter();
