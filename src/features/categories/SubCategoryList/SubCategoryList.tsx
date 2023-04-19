@@ -6,13 +6,10 @@ import { DataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminCategory, categoryApi, SubCategoriesFilters, useAdminCategory } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
+import { TRouterQueries } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 import { CreateCategoryForm } from "../CreateCategoryForm";
-
-interface TRouterQueries {
-    id: string;
-}
 
 const SubCategoryList = () => {
     const router = useRouter();

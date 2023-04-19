@@ -7,10 +7,7 @@ import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminCategory } from "@entities/category";
 import { DeleteCategoryModal, EditCategoryForm } from "@features/categories";
-
-interface TRouterQueries {
-    id: string;
-}
+import { TRouterQueries } from "@shared/types";
 
 interface UsersListMenuProps {
     row: MRT_Row<AdminCategory>;

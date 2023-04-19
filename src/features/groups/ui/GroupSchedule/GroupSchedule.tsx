@@ -4,15 +4,16 @@ import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { DataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { groupApi, ScheduleLine } from "@entities/group";
+import { groupApi, GroupSchedulesFilters, ScheduleLine } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
 import { QueryKeys } from "@shared/constant";
+import { TRouterQueries } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 
 const GroupSchedule = () => {
     const router = useRouter();
-    const { id } = router.query as { id: string };
+    const { id: groupId } = router.query as TRouterQueries;
 
     const handleCloseCreateScheduleModal = () => closeModal("CREATE_SCHEDULE");
 
@@ -21,7 +22,7 @@ const GroupSchedule = () => {
             modalId: "CREATE_SCHEDULE",
             title: "Добавление занятия",
             centered: true,
-            children: <CreateScheduleForm groupId={id} onClose={handleCloseCreateScheduleModal} />,
+            children: <CreateScheduleForm groupId={groupId} onClose={handleCloseCreateScheduleModal} />,
         });
     };
 
@@ -43,10 +44,10 @@ const GroupSchedule = () => {
                 </Button>
             </Flex>
 
-            <DataGrid<ScheduleLine>
+            <DataGrid<ScheduleLine, GroupSchedulesFilters>
                 queryKey={QueryKeys.GET_GROUP_SCHEDULES}
-                queryFunction={(params) => groupApi.getGroupSchedules({ groupId: id, ...params })}
-                queryCacheKeys={["page", "perPage", "sort"]}
+                queryFunction={(params) => groupApi.getGroupSchedules({ ...params, groupId })}
+                queryCacheKeys={["page", "perPage", "sort", "groupId"]}
                 columns={columns}
                 countName="Занятий"
                 initialState={{
