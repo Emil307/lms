@@ -22,11 +22,11 @@ export const $group = z.object({
     id: z.number(),
     name: z.string(),
     courseName: z.string(),
-    createdAt: z.string().datetime(),
+    createdAt: z.coerce.date(),
     students: z.number(),
     education: z.object({
-        from: z.string().datetime(),
-        to: z.string().datetime(),
+        from: z.coerce.date(),
+        to: z.coerce.date(),
     }),
     teacherFullName: z.string(),
     status: z.string().nullable(),
@@ -35,12 +35,13 @@ export const $group = z.object({
 
 export const $scheduleLine = z.object({
     id: z.number(),
-    date: z.string(),
+    date: z.coerce.date(),
     timings: z.object({
         data: z.array(
             z.object({
-                from: z.string(),
-                to: z.string(),
+                id: z.number().optional(),
+                from: z.coerce.date(),
+                to: z.coerce.date(),
             })
         ),
     }),
@@ -49,14 +50,13 @@ export const $scheduleLine = z.object({
 export const $createGroupRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
     courseName: z.string({ required_error: "Выберите курс" }).nullish(),
-    educationFrom: z
-        .string()
-        .datetime({ offset: true })
+    educationFrom: z.coerce
+        .date()
         .nullable()
         .refine((value) => value !== null, {
             message: "Выберите даты",
         }),
-    educationTo: z.string().datetime({ offset: true }).nullable(),
+    educationTo: z.coerce.date().nullable(),
 
     maxStudents: z
         .number({ required_error: "Введите количество" })
@@ -74,14 +74,13 @@ export const $updateGroupRequest = z.object({
     id: z.number(),
     name: z.string({ required_error: "Введите название" }),
     courseName: z.string({ required_error: "Выберите курс" }).nullish(),
-    educationFrom: z
-        .string()
-        .datetime({ offset: true })
+    educationFrom: z.coerce
+        .date()
         .nullable()
         .refine((value) => value !== null, {
             message: "Выберите даты",
         }),
-    educationTo: z.string().datetime({ offset: true }).nullable(),
+    educationTo: z.coerce.date().nullable(),
 
     maxStudents: z
         .number({ required_error: "Введите количество" })
@@ -113,12 +112,8 @@ export const $groupSchedulesFilters = z.object({
 export const $getGroupSchedulesResponse = $getPaginationResponseType($scheduleLine);
 
 export const $addScheduleToGroupRequest = z.object({
-    scheduleDate: z
-        .date()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите датy",
-        }),
+    scheduleDate: z.string(),
+
     scheduleTimings: z.array(
         z
             .object({
@@ -141,38 +136,12 @@ export const $removeScheduleFromGroupRequest = z.object({
 
 export const $updateScheduleFromGroupRequest = z.object({
     scheduleId: z.number(),
-    scheduleDate: z
-        .date()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите датy",
-        }),
-    oldTimings: z.array(
-        z
-            .object({
-                from: z
-                    .string()
-                    .datetime({ offset: true })
-                    .nullable()
-                    .refine((value) => value !== null, {
-                        message: "Выберите время",
-                    }),
-                to: z.string().datetime({ offset: true }).nullable(),
-            })
-            .optional()
-    ),
-    newTimings: z.array(
-        z
-            .object({
-                from: z
-                    .string()
-                    .datetime({ offset: true })
-                    .nullable()
-                    .refine((value) => value !== null, {
-                        message: "Выберите время",
-                    }),
-                to: z.string().datetime({ offset: true }).nullable(),
-            })
-            .optional()
+    scheduleDate: z.string().datetime({ offset: true }),
+    scheduleTimings: z.array(
+        z.object({
+            id: z.number().optional(),
+            from: z.string().datetime({ offset: true }),
+            to: z.string().datetime({ offset: true }),
+        })
     ),
 });

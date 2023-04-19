@@ -1,6 +1,10 @@
 import { z, ZodTypeAny } from "zod";
 import { FormikValues } from "formik";
 
+export interface TRouterQueries {
+    id: string;
+}
+
 export interface FormErrorResponse {
     message: string;
     errors: {

@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
@@ -10,8 +9,8 @@ import {
     GetAdminGroupResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
+    GetGroupSchedulesRequest,
     GetGroupSchedulesResponse,
-    GroupSchedulesFilters,
     RemoveScheduleFromGroupRequest,
     UpdateGroupRequest,
     UpdateScheduleFromGroupRequest,
@@ -50,18 +49,20 @@ class GroupApi extends BaseApi {
     }
 
     // schedules
-    async getGroupSchedules({ groupId, ...params }: GroupSchedulesFilters): Promise<GetGroupSchedulesResponse> {
-        const response = await this.instance.get(`admin/groups/${groupId}/schedules`, { params });
+    async getGroupSchedules({ groupId, ...params }: GetGroupSchedulesRequest): Promise<GetGroupSchedulesResponse> {
+        const response = await this.instance.get(`admin/groups/${groupId}/schedules`, {
+            params,
+        });
         return $getGroupSchedulesResponse.parse(response);
     }
     addScheduleToGroup({ groupId, ...data }: AddScheduleToGroupRequest & { groupId?: string }): Promise<void> {
-        return this.instance.post(`admin/groups/${groupId}/add-schedule`, { ...data, scheduleDate: dayjs(data.scheduleDate).format() });
+        return this.instance.post(`admin/groups/${groupId}/add-schedule`, data);
     }
     removeScheduleFromGroup({ groupId, ...data }: RemoveScheduleFromGroupRequest & { groupId?: string }): Promise<void> {
         return this.instance.delete(`admin/groups/${groupId}/remove-schedule`, { data });
     }
     updateScheduleFromGroup({ groupId, ...data }: UpdateScheduleFromGroupRequest & { groupId?: string }): Promise<void> {
-        return this.instance.put(`admin/groups/${groupId}/update-schedule`, { ...data, scheduleDate: dayjs(data.scheduleDate).format() });
+        return this.instance.put(`admin/groups/${groupId}/update-schedule`, data);
     }
 }
 

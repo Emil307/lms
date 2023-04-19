@@ -2,8 +2,10 @@ import { Box, Flex, Group } from "@mantine/core";
 import { FieldArray, FormikConfig } from "formik";
 import axios from "axios";
 import { PlusCircle, Trash } from "react-feather";
-import { Button, FDatePicker, FTimeRangeInput, Form } from "@shared/ui";
-import { $addScheduleToGroupRequest, AddScheduleToGroupRequest, useAddScheduleToGroup } from "@entities/group";
+import { Button, FDatePicker, FTimeInput, Form } from "@shared/ui";
+import { useAddScheduleToGroup } from "@entities/group";
+import { $createScheduleFormValidation, CreateScheduleFormValidation } from "./types";
+import { adaptCreateScheduleFormRequest } from "./utils";
 
 export interface CreateScheduleFormProps {
     groupId?: string;
@@ -13,14 +15,14 @@ export interface CreateScheduleFormProps {
 const CreateScheduleForm = ({ groupId, onClose }: CreateScheduleFormProps) => {
     const { mutate: addScheduleToGroup } = useAddScheduleToGroup(groupId);
 
-    const config: FormikConfig<AddScheduleToGroupRequest> = {
+    const config: FormikConfig<CreateScheduleFormValidation> = {
         initialValues: {
             scheduleDate: null,
             scheduleTimings: [],
         },
-        validationSchema: $addScheduleToGroupRequest,
+        validationSchema: $createScheduleFormValidation,
         onSubmit: async (values, { setFieldError }) => {
-            addScheduleToGroup(values, {
+            addScheduleToGroup(adaptCreateScheduleFormRequest(values), {
                 onSuccess: () => {
                     onClose();
                 },
@@ -67,11 +69,11 @@ const CreateScheduleForm = ({ groupId, onClose }: CreateScheduleFormProps) => {
                                                 const handleRemoveInterval = () => remove(index);
                                                 return (
                                                     <Flex key={index} align="center" justify="space-between">
-                                                        <FTimeRangeInput
-                                                            name={`scheduleTimings.${index}.from`}
-                                                            nameTo={`scheduleTimings.${index}.to`}
-                                                            label="Время занятия"
-                                                        />
+                                                        <Flex gap={8}>
+                                                            <FTimeInput name={`scheduleTimings.${index}.from`} label="Начало" w={90} />
+                                                            <FTimeInput name={`scheduleTimings.${index}.to`} label="Конец" w={90} />
+                                                        </Flex>
+
                                                         <Button
                                                             variant="text"
                                                             size="small"

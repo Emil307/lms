@@ -1,6 +1,6 @@
-import { TPagination } from "@shared/types";
 import { Box, useMantineTheme } from "@mantine/core";
 import React from "react";
+import { TPagination } from "@shared/types";
 
 export type TCountDataProps = {
     countName?: string;

@@ -1,20 +1,17 @@
 import { Box, Loader, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Tabs, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs, Tabs } from "@shared/ui";
 import { useAdminGroup } from "@entities/group";
 import { GroupInfoPanel, SettingGroup } from "@widgets/admin/groups";
+import { TRouterQueries } from "@shared/types";
 import { tabsList } from "./constants";
+import { getBreadCrumbsItems } from "./utils";
 
 const GroupDetailPage = () => {
     const router = useRouter();
-    const { id } = router.query as { id: string };
+    const { id } = router.query as TRouterQueries;
     const { data: groupData, isLoading, isError } = useAdminGroup(id);
-
-    const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Группы", href: { pathname: "/admin/groups" } },
-        { title: groupData?.name || "", href: { pathname: "/admin/groups/[id]", query: { id: id } } },
-    ];
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
@@ -40,7 +37,7 @@ const GroupDetailPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={breadCrumbsItems} />
+            <BreadCrumbs items={getBreadCrumbsItems({ groupName: groupData.name, id })} mb={8} />
             <GroupInfoPanel id={id} />
             <Tabs value={tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
             <SettingGroup id={id} />

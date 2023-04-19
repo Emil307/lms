@@ -38,6 +38,7 @@ import {
     FDateRangePicker,
     TimeRangeInput,
     FTimeRangeInput,
+    FTimeInput,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ReviewForm } from "@features/review";
@@ -94,6 +95,7 @@ type Values = {
         dateFrom: Date | null;
         dateTo: Date | null;
     };
+    dateTime: string | null;
 };
 
 const radioGroupValues = [
@@ -111,9 +113,25 @@ export const $loginValidationSchema = z.object({
     multi: z.array(z.string()).min(1, "Мин 1 элемент"),
     doc: z.array(z.any()).min(1, "Мин 1 один файл"),
     ranges: z.object({
-        dateTo: z.date({ required_error: "AAAAAA" }),
-        dateFrom: z.date({ required_error: "BBBBB" }),
+        dateTo: z
+            .string({ required_error: "AAAAAA" })
+            .nullable()
+            .refine((value) => value !== null, {
+                message: "Выберите время",
+            }),
+        dateFrom: z
+            .string({ required_error: "BBBBB" })
+            .nullable()
+            .refine((value) => value !== null, {
+                message: "Выберите время",
+            }),
     }),
+    dateTime: z
+        .string({ required_error: "AAAAAA" })
+        .nullable()
+        .refine((value) => value !== null, {
+            message: "Выберите время",
+        }),
 });
 
 export const UIDemo = () => {
@@ -177,8 +195,9 @@ export const UIDemo = () => {
                 dateTo: null,
                 dateFrom: null,
             },
+            dateTime: null,
         },
-        // validationSchema: $loginValidationSchema,
+        validationSchema: $loginValidationSchema,
         onSubmit: () => {
             return;
         },
@@ -241,7 +260,8 @@ export const UIDemo = () => {
                     {({ setFieldValue, values }) => {
                         return (
                             <Stack>
-                                <FTimeRangeInput name="ranges.dateFrom" nameTo="ranges.dateTo" />
+                                <FTimeInput name="dateTime" label="TimeInput" />
+                                <FTimeRangeInput name="ranges.dateFrom" nameTo="ranges.dateTo" label="TimeRangeInput" />
                                 <Avatar src={values.avatarImage?.absolutePath || ""} />
                                 <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 <FDatePicker name="date" success="alalala" description="rtrtrtrt" />

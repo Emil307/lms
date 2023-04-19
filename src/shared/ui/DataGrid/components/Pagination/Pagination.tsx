@@ -2,8 +2,8 @@ import React from "react";
 import { MRT_TableInstance } from "mantine-react-table";
 import { Pagination as MPagination, Flex, NativeSelect, Box, Text } from "@mantine/core";
 import { TPagination } from "@shared/types";
-import { useTablePagination } from "../../utils";
 import { usePaginationStyles } from "./Pagination.styles";
+import { useTablePagination } from "../../utils";
 
 export type TPaginationProps<T extends Record<string, any>> = {
     table: MRT_TableInstance<T>;

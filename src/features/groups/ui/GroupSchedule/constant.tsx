@@ -4,13 +4,15 @@ import dayjs from "dayjs";
 import { ScheduleLine } from "@entities/group";
 import { getHumanDate } from "@shared/utils";
 
+export const columnOrder = ["date", "timings", "mrt-row-actions"];
+
 export const columns: MRT_ColumnDef<ScheduleLine>["columns"] = [
     {
         header: "Дата занятия",
         accessorKey: "date",
         Cell: ({ cell }) => (
             <>
-                {getHumanDate(new Date(cell.getValue() as string), {
+                {getHumanDate(cell.getValue() as Date, {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",

@@ -1,8 +1,8 @@
 import { FormikConfig, FormikHelpers, FormikProps, FormikValues } from "formik";
-import { Form } from "@shared/ui";
-import React, {ReactNode, useEffect, useRef} from "react";
-import { TFilterTable } from "../../types";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { Form } from "@shared/ui";
+import { TFilterTable } from "../../types";
 
 export type TFilterProps<F> = {
     filter?: TFilterTable<F>;
