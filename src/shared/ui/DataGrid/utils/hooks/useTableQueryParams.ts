@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { TDefaultPageQueryParams, TFunctionParams } from "../../types";
 import { FormikValues } from "formik";
+import { TDefaultPageQueryParams, TFunctionParams } from "../../types";
 
 export const useTableQueryParams = <F extends FormikValues, R extends TFunctionParams<F>>(filterFields: Array<keyof F>) => {
     const router = useRouter();

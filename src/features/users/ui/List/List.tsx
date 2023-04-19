@@ -7,10 +7,10 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser, UsersFilters } from "@entities/user/api/types";
 import { useAdminUsersFilters, usersApi } from "@entities/user";
+import { QueryKeys } from "@shared/constant";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { UsersListMenu } from "./components/UsersListMenu";
-import { QueryKeys } from "@shared/constant";
 
 const UserList = () => {
     const router = useRouter();

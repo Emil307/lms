@@ -1,19 +1,16 @@
 import { Box, Loader } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs } from "@shared/ui";
 import { useAdminGroup } from "@entities/group";
 import { EditGroupForm } from "@features/groups";
+import { TRouterQueries } from "@shared/types";
+import { getBreadCrumbsItems } from "./utils";
 
 const GroupEditPage = () => {
     const router = useRouter();
-    const { id } = router.query as { id: string };
+    const { id } = router.query as TRouterQueries;
     const { data: groupData, isLoading } = useAdminGroup(id);
-
-    const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Группы", href: { pathname: "/admin/groups" } },
-        { title: groupData?.name || "", href: { pathname: "/admin/groups/[id]/edit", query: { id } } },
-    ];
 
     const handleCancel = () => {
         router.push("/admin/groups");
@@ -25,7 +22,7 @@ const GroupEditPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={breadCrumbsItems} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ groupName: groupData?.name, id })} mb={8} />
             <EditGroupForm data={groupData} onClose={handleCancel} />
         </Box>
     );

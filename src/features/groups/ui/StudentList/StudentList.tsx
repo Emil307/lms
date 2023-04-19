@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { DataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
+import { QueryKeys } from "@shared/constant";
 import { columns } from "./constant";
 import { ListMenu } from "./components";
-import { QueryKeys } from "@shared/constant";
 
 const StudentList = () => {
     const router = useRouter();

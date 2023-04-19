@@ -209,11 +209,20 @@ export const defaultTheme: MantineThemeOverride = {
                 input: {
                     paddingTop: "22px !important",
                     paddingLeft: "15px !important",
+
+                    ".mantine-TimeInput-input": {
+                        paddingTop: "0 !important",
+                        paddingLeft: "0 !important",
+                    },
                 },
             }),
         },
         TimeInput: {
             styles: () => ({
+                input: {
+                    paddingTop: "22px !important",
+                    paddingLeft: "15px !important",
+                },
                 timeInput: {
                     fontWeight: 500,
                     fontSize: 14,

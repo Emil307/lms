@@ -6,9 +6,9 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser, UsersFilters } from "@entities/user/api/types";
 import { useAdminStudentsFilters, usersApi } from "@entities/user";
+import { QueryKeys } from "@shared/constant";
 import { StudentsListMenu } from "./components/ListMenu";
 import { columns, radioGroupValues, filterInitialValues } from "./constant";
-import { QueryKeys } from "@shared/constant";
 
 const List = () => {
     const router = useRouter();

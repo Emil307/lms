@@ -2,9 +2,9 @@ import { Box, Flex } from "@mantine/core";
 import { DataGrid, FSearch } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminTag, tagApi, TagsFilters } from "@entities/tag";
+import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns, filterInitialValues } from "./constant";
 import { ListMenu } from "./components";
-import { QueryKeys } from "@shared/constant";
 
 const List = () => {
     return (

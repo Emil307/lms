@@ -2,8 +2,10 @@ import { Box, Flex, Group } from "@mantine/core";
 import { FieldArray, FormikConfig } from "formik";
 import axios from "axios";
 import { PlusCircle, Trash } from "react-feather";
-import { Button, FDatePicker, FTimeRangeInput, Form } from "@shared/ui";
-import { $updateScheduleFromGroupRequest, ScheduleLine, UpdateScheduleFromGroupRequest, useUpdateScheduleFromGroup } from "@entities/group";
+import { Button, FDatePicker, Form, FTimeInput } from "@shared/ui";
+import { ScheduleLine, useUpdateScheduleFromGroup } from "@entities/group";
+import { $updateScheduleFormValidation, UpdateScheduleFormValidation } from "./types";
+import { adaptUpdateScheduleFormRequest } from "./utils";
 
 export interface EditScheduleFormProps {
     groupId?: string;
@@ -14,16 +16,14 @@ export interface EditScheduleFormProps {
 const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => {
     const { mutate: updateSchedule } = useUpdateScheduleFromGroup(groupId);
 
-    const config: FormikConfig<UpdateScheduleFromGroupRequest> = {
+    const config: FormikConfig<UpdateScheduleFormValidation> = {
         initialValues: {
-            scheduleId: data.id,
-            scheduleDate: data.date ? new Date(data.date) : null,
-            oldTimings: data.timings.data,
-            newTimings: data.timings.data,
+            scheduleDate: data.date,
+            scheduleTimings: data.timings.data,
         },
-        validationSchema: $updateScheduleFromGroupRequest,
+        validationSchema: $updateScheduleFormValidation,
         onSubmit: async (values, { setFieldError }) => {
-            updateSchedule(values, {
+            updateSchedule(adaptUpdateScheduleFormRequest({ ...values, scheduleId: data.id }), {
                 onSuccess: () => {
                     onClose();
                 },
@@ -51,7 +51,7 @@ const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => 
                                 marginBottom: 24,
                             }}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
-                            <FieldArray name="newTimings">
+                            <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
                                     const handleAddInterval = () => push({ to: null, from: null });
 
@@ -66,15 +66,14 @@ const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => 
                                                 size="small">
                                                 Добавить интервал
                                             </Button>
-                                            {values.newTimings.map((_scheduleTiming, index) => {
+                                            {values.scheduleTimings.map((_scheduleTiming, index) => {
                                                 const handleRemoveInterval = () => remove(index);
                                                 return (
                                                     <Flex key={index} align="center" justify="space-between">
-                                                        <FTimeRangeInput
-                                                            name={`newTimings.${index}.from`}
-                                                            nameTo={`newTimings.${index}.to`}
-                                                            label="Время занятия"
-                                                        />
+                                                        <Flex gap={8}>
+                                                            <FTimeInput name={`scheduleTimings.${index}.from`} label="Начало" w={90} />
+                                                            <FTimeInput name={`scheduleTimings.${index}.to`} label="Конец" w={90} />
+                                                        </Flex>
                                                         <Button
                                                             variant="text"
                                                             size="small"

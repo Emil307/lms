@@ -6,9 +6,9 @@ import { DataGrid, FSearch } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
+import { QueryKeys } from "@shared/constant";
 import { columns, radioGroupValues, filterInitialValues } from "./constants";
 import { GroupsListMenu } from "./components";
-import { QueryKeys } from "@shared/constant";
 
 const GroupList = () => {
     const router = useRouter();

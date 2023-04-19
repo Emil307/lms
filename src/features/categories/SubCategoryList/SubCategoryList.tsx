@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { DataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import {AdminCategory, categoryApi, SubCategoriesFilters, useAdminCategory} from "@entities/category";
+import { AdminCategory, categoryApi, SubCategoriesFilters, useAdminCategory } from "@entities/category";
+import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 import { CreateCategoryForm } from "../CreateCategoryForm";
-import { QueryKeys } from "@shared/constant";
 
 interface TRouterQueries {
-    id: string
+    id: string;
 }
 
 const SubCategoryList = () => {
@@ -60,9 +60,7 @@ const SubCategoryList = () => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}
-                >
-            </DataGrid>
+                renderRowActions={({ row }) => <ListMenu row={row} />}></DataGrid>
         </Box>
     );
 };

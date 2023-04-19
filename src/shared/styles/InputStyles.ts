@@ -47,6 +47,10 @@ export const useInputStyles = createStyles(
             fontSize: "14px",
             lineHeight: "16px",
 
+            ".mantine-TimeInput-controls": {
+                opacity: floating ? 1 : 0,
+            },
+
             ".mantine-TimeRangeInput-inputWrapper": {
                 opacity: floating ? 1 : 0,
             },

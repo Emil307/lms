@@ -1,10 +1,10 @@
 import { MantineReactTable, MantineReactTableProps, MRT_Cell } from "mantine-react-table";
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
 import React from "react";
-import { prepareColumns, useTableSort } from "../../utils";
-import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import { TPagination } from "@shared/types";
+import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
+import { prepareColumns, useTableSort } from "../../utils";
 import { Pagination } from "../../components";
 
 export type TBaseTableProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> & {

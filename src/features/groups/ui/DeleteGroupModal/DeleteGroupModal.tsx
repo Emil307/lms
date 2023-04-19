@@ -7,11 +7,11 @@ import useStyles from "./DeleteGroupModal.styles";
 
 interface DeleteGroupModalProps {
     id: string;
-    name: string;
+    name?: string;
     onClose: () => void;
 }
 
-const DeleteGroupModal = ({ id, name, onClose }: DeleteGroupModalProps) => {
+const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
     const deleteGroup = useDeleteGroup(id);

@@ -28,7 +28,7 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
             modalId: "DELETE_GROUP",
             title: "Удаление группы",
             centered: true,
-            children: <DeleteGroupModal id={id} name={groupData?.name || ""} onClose={handleCloseDeleteGroupModal} />,
+            children: <DeleteGroupModal id={id} name={groupData?.name} onClose={handleCloseDeleteGroupModal} />,
         });
     };
 
@@ -36,10 +36,10 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
         if (!groupData?.education.from || !groupData.education.to) {
             return "-";
         }
-        return `${getHumanDate(new Date(groupData.education.from), {
+        return `${getHumanDate(groupData.education.from, {
             month: "long",
             day: "2-digit",
-        })} - ${getHumanDate(new Date(groupData.education.from), {
+        })} - ${getHumanDate(groupData.education.from, {
             month: "long",
             day: "2-digit",
             year: "numeric",

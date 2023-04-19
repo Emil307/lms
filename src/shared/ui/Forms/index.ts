@@ -16,3 +16,4 @@ export * from "./Rating";
 export * from "./Textarea";
 export * from "./DateRangePicker";
 export * from "./TimeRangeInput";
+export * from "./TimeInput";

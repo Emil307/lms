@@ -4,12 +4,9 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
+import { TRouterQueries } from "@shared/types";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
-
-interface TRouterQueries {
-    id: string;
-}
 
 const StudentDetailPage = () => {
     const router = useRouter();
