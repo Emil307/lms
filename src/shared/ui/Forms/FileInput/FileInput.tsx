@@ -20,8 +20,9 @@ import useStyles from "./FileInput.styles";
 
 export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad" | "onDrop"> {
     type: "image" | "document" | "video";
-    title: string;
+    title?: string;
     description?: string;
+    descriptionInside?: string;
     exampleUrl?: string;
     fileFormats?: FileFormat[];
     maxFileSize?: number;
@@ -44,6 +45,7 @@ const MemoizedFileInput = memo(function FileInput({
     type,
     title,
     description,
+    descriptionInside,
     exampleUrl,
     multiple = false,
     withDeleteButton = false,
@@ -186,6 +188,7 @@ const MemoizedFileInput = memo(function FileInput({
                 exampleUrl={exampleUrl}
                 onOpenFileDialog={handleOnOpenFileDialog}
                 titleButtonFileDialog={titleButtonFileDialog}
+                description={descriptionInside}
             />
         );
     }, [loadedFiles, initialFilesData, multiple, type]);

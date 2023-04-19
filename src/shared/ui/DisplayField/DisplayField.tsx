@@ -1,4 +1,4 @@
-import { Group, Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import { memo, ReactNode, useMemo } from "react";
 import useStyles from "./DisplayField.styles";
 
@@ -27,10 +27,10 @@ const MemoizedDisplayField = memo(function DisplayField({
     }, [render, value, defaultValue]);
 
     return (
-        <Group className={classes.root}>
+        <Flex className={classes.root}>
             <Text className={classes.label}>{label}</Text>
             {renderValue}
-        </Group>
+        </Flex>
     );
 });
 

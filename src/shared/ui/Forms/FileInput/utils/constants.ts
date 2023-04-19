@@ -1,7 +1,7 @@
 import { FileFormat } from "./types";
 
 export const DEFAULT_MAX_FILE_SIZE = 26214400;
-export const DEFAULT_IMAGE_MAX_WIDTH = 578;
+export const DEFAULT_IMAGE_MAX_WIDTH = 1320;
 export const DEFAULT_IMAGE_MAX_HEIGHT = 292;
 
 export const MIME_TYPES: { [key in FileFormat]: string } = {

@@ -9,6 +9,7 @@ export default createStyles((theme, { variant }: { variant: "compact" | "default
         width: "100%",
     },
     label: {
+        alignSelf: "self-start",
         fontWeight: 500,
         fontSize: variant === "default" ? 16 : 12,
         lineHeight: variant === "default" ? "24px" : "16px",
@@ -18,5 +19,6 @@ export default createStyles((theme, { variant }: { variant: "compact" | "default
         fontWeight: 500,
         lineHeight: "24px",
         color: theme.colors.dark[0],
+        textAlign: "end",
     },
 }));

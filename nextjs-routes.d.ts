@@ -15,6 +15,11 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
+    | StaticRoute<"/admin/settings/main-page/advantages">
+    | StaticRoute<"/admin/settings/main-page/banner">
+    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
+    | StaticRoute<"/admin/settings/main-page/reviews/create">
+    | StaticRoute<"/admin/settings/main-page/reviews">
     | StaticRoute<"/admin/settings/tags">
     | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/students/[id]", { "id": string }>
