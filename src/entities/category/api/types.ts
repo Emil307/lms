@@ -13,8 +13,8 @@ export type UpdateAdminCategoryRequest = z.infer<typeof $updateAdminCategoryRequ
 export type CreateAdminCategoryRequest = z.infer<typeof $createAdminCategoryRequest>;
 
 const $subCategoriesExtraFilters = z.object({
-    parentId: z.string()
-})
+    parentId: z.string(),
+});
 
 export const $categoriesFilters = z.object({
     query: z.string(),
@@ -24,7 +24,7 @@ export const $adminCategory = z.object({
     id: z.number(),
     name: z.string(),
     subCategories: z.number(),
-    createdAt: z.string().datetime(),
+    createdAt: z.coerce.date(),
     isActive: z.boolean(),
 });
 

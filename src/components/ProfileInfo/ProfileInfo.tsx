@@ -2,6 +2,7 @@ import { Avatar, Box, Group } from "@mantine/core";
 import { ReactNode, useMemo } from "react";
 import { get } from "lodash";
 import { DisplayField, DisplayFieldProps } from "@shared/ui";
+import AvatarIcon from "public/icons/avatar.svg";
 import useStyles from "./ProfileInfo.styles";
 
 export type ProfileInfoDisplayFields<T> = (DisplayFieldProps & {
@@ -38,7 +39,15 @@ export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, 
     return (
         <Box className={classes.root}>
             <Group className={classes.content}>
-                <Avatar src={avatarSrc} alt="avatar" w={84} h={84} radius={50} />
+                <Avatar
+                    src={avatarSrc}
+                    alt="avatar"
+                    w={84}
+                    h={84}
+                    radius={50}
+                    styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                    <AvatarIcon />
+                </Avatar>
                 {renderFields}
             </Group>
             {renderActions}
