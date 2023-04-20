@@ -18,7 +18,7 @@ export const columns: MRT_ColumnDef<AdminTag>["columns"] = [
         accessorKey: "createdAt",
         Cell: ({ cell }) => (
             <>
-                {getHumanDate(new Date(cell.getValue() as string), {
+                {getHumanDate(cell.getValue() as Date, {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",

@@ -1,12 +1,58 @@
-import React from "react";
-import { Textarea as MTextarea, TextareaProps as MTextareaProps } from "@mantine/core";
+import React, { useMemo } from "react";
+import { Group, Textarea as MTextarea, TextareaProps as MTextareaProps, Text, useMantineTheme } from "@mantine/core";
+import { AlertTriangle, CheckCircle, Info } from "react-feather";
+import { z } from "zod";
 import { useTextareaStyles } from "./Textarea.styles";
 
-export interface TextareaProps extends MTextareaProps {}
+export interface TextareaProps extends MTextareaProps {
+    success?: string | boolean;
+}
 
-const Textarea = ({ ...props }: TextareaProps) => {
+const Textarea = ({ success, error, description, ...props }: TextareaProps) => {
     const { classes } = useTextareaStyles();
-    return <MTextarea {...props} classNames={classes} />;
+    const theme = useMantineTheme();
+
+    const renderError = error && (
+        <>
+            <AlertTriangle />
+            <Text>{error}</Text>
+        </>
+    );
+
+    const statusSuccess = !!props.value && !error && !!success;
+
+    const renderDescription = useMemo(() => {
+        if (!description && !(success && statusSuccess)) {
+            return;
+        }
+
+        return (
+            <>
+                {statusSuccess && !z.boolean().safeParse(success).success && (
+                    <Group>
+                        <CheckCircle color={theme.colors.done[0]} />
+                        <Text>{success}</Text>
+                    </Group>
+                )}
+                {description && (
+                    <Group>
+                        <Info color={theme.colors.primaryHover[0]} />
+                        <Text>{description}</Text>
+                    </Group>
+                )}
+            </>
+        );
+    }, [statusSuccess, success, description]);
+
+    return (
+        <MTextarea
+            {...props}
+            classNames={classes}
+            inputWrapperOrder={["label", "input", "error", "description"]}
+            error={renderError}
+            description={renderDescription}
+        />
+    );
 };
 
 export default Textarea;

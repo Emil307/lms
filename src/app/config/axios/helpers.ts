@@ -34,6 +34,15 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
     return !!config.url?.includes("storage/uploads/");
 };
 
+/**
+ *
+ * @param config AxiosConfigObject
+ * @returns true если запрос из микроча COURSES
+ */
+export const whenAuthorsRoute: TAxiosRunWhen = (config) => {
+    return !!config.url?.includes("authors");
+};
+
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);
 
 export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosError) => {

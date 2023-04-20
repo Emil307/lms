@@ -13,7 +13,7 @@ export type CreateAdminTagRequest = z.infer<typeof $createAdminTagRequest>;
 export const $adminTag = z.object({
     id: z.number(),
     name: z.string(),
-    createdAt: z.string().datetime(),
+    createdAt: z.coerce.date(),
 });
 
 export const $getAdminTagsResponse = $getPaginationResponseType($adminTag);

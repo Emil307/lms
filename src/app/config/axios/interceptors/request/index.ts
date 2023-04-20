@@ -13,3 +13,8 @@ export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.headers["Content-Type"] = "multipart/form-data";
     return config;
 };
+
+export const authorsInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+    config.baseURL = process.env.NEXT_PUBLIC_API_URL_COURSES;
+    return config;
+};

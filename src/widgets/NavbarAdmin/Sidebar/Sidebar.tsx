@@ -57,6 +57,13 @@ export default function Sidebar() {
                 />
                 <SidebarItem
                     inner={true}
+                    label="Авторы курсов"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/settings/authors"
+                    isActive={router.pathname.includes("/admin/settings/authors")}
+                />
+                <SidebarItem
+                    inner={true}
                     label="Титульная страница"
                     icon={<User color={theme.colors.primary[9]} />}
                     href="/admin/settings/main-page/reviews"

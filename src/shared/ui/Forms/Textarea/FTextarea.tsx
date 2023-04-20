@@ -8,7 +8,7 @@ export interface FTextareaProps extends TextareaProps {
 
 const FTextarea = (props: FTextareaProps) => {
     const [field, meta] = useField(props.name);
-    const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
+    const error = (meta.touched && meta.error) || null;
 
     return <Textarea {...props} name={props.name} value={field.value} onChange={field.onChange} error={error} />;
 };
