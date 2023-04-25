@@ -39,11 +39,13 @@ import {
     TimeRangeInput,
     FTimeRangeInput,
     FTimeInput,
+    FTextEditor,
 } from "@shared/ui";
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ReviewForm } from "@features/review";
 import { createNotification, ToastType } from "@shared/utils";
 import { ChangePasswordForm } from "@features/auth";
+import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -96,6 +98,7 @@ type Values = {
         dateTo: Date | null;
     };
     dateTime: string | null;
+    content: string;
 };
 
 const radioGroupValues = [
@@ -132,6 +135,9 @@ export const $loginValidationSchema = z.object({
         .refine((value) => value !== null, {
             message: "Выберите время",
         }),
+    content: z.string({ required_error: "Введите контент" }).refine((value) => value.replace(REGEXP_TEXTEDITOR_INNER_TEXT, "").length, {
+        message: "Введите контент",
+    }),
 });
 
 export const UIDemo = () => {
@@ -166,6 +172,7 @@ export const UIDemo = () => {
             select: "",
             step: 10,
             multi: [],
+            content: "",
             isConsentProcessingOfPersonalData: false,
             price: 1500,
             hasOwner: true,
@@ -260,6 +267,12 @@ export const UIDemo = () => {
                     {({ setFieldValue, values }) => {
                         return (
                             <Stack>
+                                <FTextEditor
+                                    name="content"
+                                    description="Размер сообщения не больше 1000 симвовлов"
+                                    h={320}
+                                    success="alalalaalalal"
+                                />
                                 <FTimeInput name="dateTime" label="TimeInput" />
                                 <FTimeRangeInput name="ranges.dateFrom" nameTo="ranges.dateTo" label="TimeRangeInput" />
                                 <Avatar src={values.avatarImage?.absolutePath || ""} />
@@ -292,9 +305,7 @@ export const UIDemo = () => {
                                     label="Уведомлять о проверенных домашних заданиях"
                                     variant="primary"
                                 />
-                                <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
-                                    <Button type="submit">Submit</Button>
-                                </Tooltip>
+
                                 <FSwitch name="hasOwner" label="llalal" labelPosition="left" variant="primary" />
                                 <FSwitch name="hasPassword" variant="secondary" />
                                 <FProgressBar name="step" label="вопросов" maxValue={16} />
@@ -337,9 +348,14 @@ export const UIDemo = () => {
                                     fileFormats={["pdf", "jpeg", "jpg", "png"]}
                                     onDownloadInitialFile={handleDownloadFile}
                                 />
+
+                                <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
+                                    <Button type="submit">Submit</Button>
+                                </Tooltip>
                                 <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                     Prev
                                 </Button>
+
                                 <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
                                     Next
                                 </Button>
