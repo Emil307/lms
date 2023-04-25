@@ -1,15 +1,29 @@
 import { Box } from "@mantine/core";
-import { Map as YMap, MapState, YMaps, Placemark as YPlacemark } from "react-yandex-maps";
+import { Map as YMap, YMaps, Placemark as YPlacemark } from "@pbe/react-yandex-maps";
+import {control} from "yandex-maps";
 
-export interface MapProps {}
+export interface IMapProps {
+    behaviors?: string[] | undefined;
+    bounds?: number[][] | undefined;
+    center?: number[] | undefined;
+    controls?: Array<
+        string
+        | control.ZoomControl
+        | control.RulerControl
+        | control.TypeSelector
+        > | undefined;
+    margin?: number[][] | number[] | undefined;
+    type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid" | undefined;
+    zoom?: number | undefined;
+}
 
-export const defaultMapState: MapState = {
+export const defaultMapState: IMapProps = {
     center: [57.626867, 39.886259],
     zoom: 14,
     controls: ["zoomControl", "fullscreenControl", "geolocationControl", "searchControl", "typeSelector"],
 };
 
-const Map = (_props: MapProps) => {
+const Map = (_props: IMapProps) => {
     return (
         <YMaps>
             <Box
