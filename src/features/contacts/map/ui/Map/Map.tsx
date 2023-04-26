@@ -1,17 +1,12 @@
 import { Box } from "@mantine/core";
 import { Map as YMap, YMaps, Placemark as YPlacemark } from "@pbe/react-yandex-maps";
-import {control} from "yandex-maps";
+import { control } from "yandex-maps";
 
 export interface IMapProps {
     behaviors?: string[] | undefined;
     bounds?: number[][] | undefined;
     center?: number[] | undefined;
-    controls?: Array<
-        string
-        | control.ZoomControl
-        | control.RulerControl
-        | control.TypeSelector
-        > | undefined;
+    controls?: Array<string | control.ZoomControl | control.RulerControl | control.TypeSelector> | undefined;
     margin?: number[][] | number[] | undefined;
     type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid" | undefined;
     zoom?: number | undefined;

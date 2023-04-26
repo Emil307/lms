@@ -3,9 +3,10 @@ import { MRT_Row } from "mantine-react-table";
 import React from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useActivateUser, useDeactivateUser } from "@entities/user";
+import { TUser, useChangeUserActivityStatus } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
+import { getFullNameFromProfile } from "@shared/utils";
 
 interface ListMenuProps {
     row: MRT_Row<TUser>;
@@ -13,16 +14,12 @@ interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const theme = useMantineTheme();
-    const activateUser = useActivateUser(String(row.original.id));
-    const deactivateUser = useDeactivateUser(String(row.original.id));
+    const changeUserActivityStatus = useChangeUserActivityStatus(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
     const toggleActivateUser = (row: MRT_Row<TUser>) => {
-        if (row.original.isActive) {
-            return deactivateUser.mutate();
-        }
-        activateUser.mutate();
+        changeUserActivityStatus.mutate(!row.original.isActive);
     };
 
     const openModalDeleteUser = (id: string, fio: string) => {
@@ -61,7 +58,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), row.original.fullName)}>
+            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), getFullNameFromProfile(row.original.profile))}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

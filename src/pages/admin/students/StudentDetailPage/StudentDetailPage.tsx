@@ -7,13 +7,14 @@ import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
+import { getFullNameFromProfile } from "@shared/utils";
 
 const StudentDetailPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
     const { data: userData, isLoading, isError } = useDetailUser(id);
 
-    const userName = `${userData?.firstName} ${userData?.lastName}`;
+    const userName = getFullNameFromProfile(userData?.profile);
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {

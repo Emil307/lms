@@ -4,7 +4,6 @@ import {
     $getAdminStudentsFiltersResponse,
     $userCreateResponse,
     $userDetailResponse,
-    $usersAdministratorsCreateOptions,
     $usersAdministratorsFilters,
     $usersResponse,
     GetAdminStudentsFiltersResponse,
@@ -12,10 +11,10 @@ import {
     CreateUserRequest,
     UserCreateResponse,
     UserDetailResponse,
-    UsersAdministratorsCreateOptionsResponse,
     UsersAdministratorsFiltersResponse,
     UsersRequestParamsType,
     UsersResponseType,
+    ChangeUserActivityStatusRequest,
 } from "./types";
 
 export class UsersApi extends BaseApi {
@@ -33,38 +32,33 @@ export class UsersApi extends BaseApi {
     }
 
     async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<UsersResponseType> {
-        const result = await this.instance.get("admin/users/administrators", {
-            params: {
-                ...params,
-                filter: {
-                    roleName,
-                    isActive,
+        const result = await this.instance.post(
+            "admin/users/administrators/list",
+            {},
+            {
+                params: {
+                    ...params,
+                    filter: {
+                        roleName,
+                        isActive,
+                    },
                 },
-            },
-        });
+            }
+        );
         return $usersResponse.parse(result);
     }
 
     async getAdminUsersFilters(): Promise<UsersAdministratorsFiltersResponse> {
-        const result = await this.instance.get("admin/users/administrators/filters");
+        const result = await this.instance.get("admin/users/administrators/resources");
         return $usersAdministratorsFilters.parse(result);
-    }
-
-    async getUsersAdminCreateOptions(): Promise<UsersAdministratorsCreateOptionsResponse> {
-        const result = await this.instance.get("admin/users/administrators/create");
-        return $usersAdministratorsCreateOptions.parse(result);
     }
 
     async deleteUser(id: string): Promise<void> {
         await this.instance.delete(`admin/users/${id}`);
     }
 
-    async activateUser(id: string): Promise<void> {
-        await this.instance.put(`admin/users/${id}/activate`);
-    }
-
-    async deactivateUser(id: string): Promise<void> {
-        await this.instance.put(`admin/users/${id}/deactivate`);
+    async changeUserActivityStatus({ id, isActive }: ChangeUserActivityStatusRequest): Promise<void> {
+        await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
     }
 
     async getDetailUser(id: string): Promise<UserDetailResponse> {
@@ -84,7 +78,7 @@ export class UsersApi extends BaseApi {
 
     //students
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
-        const result = await this.instance.get("admin/users/students/filters");
+        const result = await this.instance.get("admin/users/students/resources");
         return $getAdminStudentsFiltersResponse.parse(result);
     }
 }

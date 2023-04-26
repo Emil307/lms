@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { $uploadedFile } from "@shared/ui";
-import {$getPaginationResponseType, $pagination} from "@shared/types";
+import { $getPaginationResponseType, $pagination } from "@shared/types";
 
 export type Article = z.infer<typeof $article>;
 export type ArticlePackageDiscount = z.infer<typeof $articlePackageDiscount>;

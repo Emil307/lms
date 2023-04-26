@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useActivateUser, useDeactivateUser } from "@entities/user";
+import { TUser, useChangeUserActivityStatus } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
+import { getFullNameFromProfile } from "@shared/utils";
 
 interface UsersListMenuProps {
     row: MRT_Row<TUser>;
@@ -15,16 +16,12 @@ interface UsersListMenuProps {
 const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const router = useRouter();
     const theme = useMantineTheme();
-    const activateUser = useActivateUser(String(row.original.id));
-    const deactivateUser = useDeactivateUser(String(row.original.id));
+    const changeUserActivityStatus = useChangeUserActivityStatus(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
     const toggleActivateUser = (row: MRT_Row<TUser>) => {
-        if (row.original.isActive) {
-            return deactivateUser.mutate();
-        }
-        activateUser.mutate();
+        changeUserActivityStatus.mutate(!row.original.isActive);
     };
 
     const openModalDeleteUser = (id: string, fio: string) => {
@@ -39,6 +36,11 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const pushOnUserDetail = (id: number) => {
         router.push({ pathname: "/admin/users/[id]", query: { id: String(id) } });
     };
+
+    const pushOnUserEdit = (id: number) => {
+        router.push({ pathname: "/admin/users/[id]/edit", query: { id: String(id) } });
+    };
+
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={() => toggleActivateUser(row)} closeMenuOnClick={false}>
@@ -60,13 +62,13 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
-            <MenuItemDataGrid>
+            <MenuItemDataGrid onClick={() => pushOnUserEdit(row.original.id)}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), row.original.fullName)}>
+            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), getFullNameFromProfile(row.original.profile))}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

@@ -1,4 +1,3 @@
-export * from "./useAdminCreateOptions";
 export * from "./useAdminUsersFilters";
 export * from "./useAdminUsers";
 export * from "./useAdminStudentsFilters";

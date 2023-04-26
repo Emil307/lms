@@ -23,7 +23,7 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
     const { data: options } = useAdminStudentsFilters();
     const updateUser = useUpdateUser(String(data?.id));
 
-    const currentRole = String(options?.roles.find((role) => role.id === data?.roleId)?.id);
+    const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
     const config: FormikConfig<UpdateUserRequest> = {
         initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForEditForm(data) },
@@ -73,7 +73,7 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
                             <>
                                 <Flex gap={24}>
                                     <Avatar
-                                        src={values.avatar?.absolutePath || data?.avatarUrl}
+                                        src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
                                         alt="avatar"
                                         w={84}
                                         h={84}

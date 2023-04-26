@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
 import { EditStudentForm } from "@features/students";
 import { useDetailUser } from "@entities/user";
+import { getFullNameFromProfile } from "@shared/utils";
 
 const EditStudentPage = () => {
     const router = useRouter();
@@ -11,7 +12,7 @@ const EditStudentPage = () => {
 
     const { data: userData } = useDetailUser(id);
 
-    const userName = `${userData?.firstName} ${userData?.lastName}`;
+    const userName = getFullNameFromProfile(userData?.profile);
 
     const breadCrumbsItems: TBreadCrumbItem[] = [
         { title: "Ученики", href: { pathname: "/admin/students" } },
