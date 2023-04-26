@@ -68,9 +68,9 @@ const mockDataResponse: GetArticleDetailResponse = {
         pagination: {
             count: 1,
             total: 3,
-            per_page: 1,
-            current_page: 2,
-            total_pages: 3,
+            perPage: 1,
+            currentPage: 2,
+            totalPages: 3,
             links: {
                 previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
                 next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",

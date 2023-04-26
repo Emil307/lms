@@ -85,8 +85,8 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                 </Group>
             </Flex>
             <Flex direction="column" gap={16}>
-                <Text className={classes.countCoursesInPackage}>{`${data.courses.meta.pagination.total} ${getPluralString(
-                    data.courses.meta.pagination.total,
+                <Text className={classes.countCoursesInPackage}>{`${data.courses.pagination.total} ${getPluralString(
+                    data.courses.pagination.total,
                     "курс",
                     "курса",
                     "курсов"

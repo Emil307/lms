@@ -41,13 +41,13 @@ function DataGrid<T extends Record<string, any>, F extends FormikValues = Formik
             <Filter<F> filter={filter} filterParams={filterParams}>
                 {children}
             </Filter>
-            <CountData countName={countName} pagination={queryData?.meta.pagination} />
+            <CountData countName={countName} pagination={queryData?.pagination} />
             <Box mt={24}>
                 <BaseTable<T>
                     {...rest}
                     isLoading={isLoading || isRefetching || isFetching}
                     data={queryData?.data}
-                    pagination={queryData?.meta.pagination}
+                    pagination={queryData?.pagination}
                     enableFilters={false}
                     enableColumnActions={false}
                     manualPagination

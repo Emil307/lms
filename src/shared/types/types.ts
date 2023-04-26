@@ -22,14 +22,14 @@ const $defaultRequestParams = z.object({
 
 export const $pagination = z.object({
     count: z.number(),
-    current_page: z.number(),
+    currentPage: z.number(),
     links: z.object({
         next: z.string().nullish(),
         previous: z.string().nullish(),
     }),
-    per_page: z.number(),
+    perPage: z.number(),
     total: z.number(),
-    total_pages: z.number(),
+    totalPages: z.number(),
 });
 
 export type TSortOrder = z.infer<typeof $sortOrder>;
@@ -38,13 +38,14 @@ export type TPagination = z.infer<typeof $pagination>;
 
 export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & T;
 
-const $defaultMeta = z.object({
+export const $defaultMeta = z.object({
     pagination: $pagination,
 });
 
 export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
     return z.object({
         data: data.array(),
-        meta: $defaultMeta,
+        pagination: $pagination,
+        // meta: $defaultMeta,
     });
 }

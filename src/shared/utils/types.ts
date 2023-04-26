@@ -19,7 +19,5 @@ export type AppPropsWithLayout = AppProps & {
 
 export type TPaginationResponse<T> = {
     data: T;
-    meta: {
-        pagination: TPagination;
-    };
+    pagination: TPagination;
 };

@@ -54,13 +54,13 @@ const ProfileSettingsPage = () => {
                 })}>
                 <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
-                        <DisplayField label="Фамилия" value={userData?.profile.data.lastName} />
-                        <DisplayField label="Имя" value={userData?.profile.data.firstName} />
-                        <DisplayField label="Отчество" value={userData?.profile.data.patronymic} />
+                        <DisplayField label="Фамилия" value={userData?.profile.lastName} />
+                        <DisplayField label="Имя" value={userData?.profile.firstName} />
+                        <DisplayField label="Отчество" value={userData?.profile.patronymic} />
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={userData?.role.data.displayName} />
+                        <DisplayField label="Роль" value={userData?.roles?.[0].displayName} />
                         <DisplayField label="Email" value={userData?.email} />
                     </Fieldset>
 

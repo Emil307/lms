@@ -9,11 +9,11 @@ import { TPagination } from "@shared/types";
 
 const initialPagination = {
     count: 0,
-    current_page: 1,
+    currentPage: 1,
     links: {},
-    per_page: 1,
+    perPage: 1,
     total: 0,
-    total_pages: 0,
+    totalPages: 0,
 };
 
 const CourseSetsPage = () => {
@@ -32,7 +32,7 @@ const CourseSetsPage = () => {
     ];
 
     useEffect(() => {
-        router.push({ pathname: router.pathname, query: { page: pagination.current_page.toString() } }, undefined, { shallow: true });
+        router.push({ pathname: router.pathname, query: { page: pagination.currentPage.toString() } }, undefined, { shallow: true });
     }, [pagination]);
 
     return (
@@ -47,7 +47,7 @@ const CourseSetsPage = () => {
                 data={courseSetsData?.data}
                 renderItem={(props) => <CourseSetCard {...props} />}
                 withPagination
-                pagination={courseSetsData?.meta.pagination}
+                pagination={courseSetsData?.pagination}
                 onPaginationChange={setPagination}
                 isLoading={isFetching}
             />

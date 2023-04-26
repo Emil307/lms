@@ -24,7 +24,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
     const { classes } = useStyles({ isOpen });
 
     const showLabel = () => {
-        const hiddenCountCourse = data.courses.meta.pagination.total - 3;
+        const hiddenCountCourse = data.courses.pagination.total - 3;
         return (
             <Flex gap={8}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(

@@ -10,11 +10,11 @@ export interface PaginationProps extends MPaginationProps, TPagination {
 
 const Pagination = ({ onPaginationChange = () => undefined, ...props }: PaginationProps) => {
     const { classes } = useStyles();
-    const hiddenPagination = props.total_pages < 2;
+    const hiddenPagination = props.totalPages < 2;
 
     const countViewedItems = useMemo(
-        () => props.per_page * (props.current_page - 1) + props.count,
-        [props.per_page, props.count, props.current_page]
+        () => props.perPage * (props.currentPage - 1) + props.count,
+        [props.perPage, props.count, props.currentPage]
     );
 
     const handleChangePage = (pageNumber: number) => {
@@ -23,7 +23,7 @@ const Pagination = ({ onPaginationChange = () => undefined, ...props }: Paginati
 
     return (
         <Flex justify="space-between" align="center" w="100%">
-            <MPagination {...props} total={props.total_pages} hidden={hiddenPagination} classNames={classes} onChange={handleChangePage} />
+            <MPagination {...props} total={props.totalPages} hidden={hiddenPagination} classNames={classes} onChange={handleChangePage} />
             <Box>
                 <Text className={classes.perPageInfo}>
                     Всего: <span>{`${countViewedItems} ${getPluralString(countViewedItems, "курс", "курса", "курсов")}`}</span> из
