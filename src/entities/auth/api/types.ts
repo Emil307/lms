@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { $uploadedFile } from "@shared/ui";
+import { $profile, $role } from "@shared/types";
 
 export interface ChangePasswordRequest {
     oldPassword: string;
@@ -19,16 +20,8 @@ export type RecoveryPasswordRequest = z.infer<typeof $recoveryPasswordRequest>;
 export const $user = z.object({
     id: z.number(),
     email: z.string(),
-    profile: z.object({
-        id: z.number(),
-        firstName: z.string(),
-        lastName: z.string().nullable(),
-        patronymic: z.string().nullable(),
-        avatar: $uploadedFile.nullable(),
-        description: z.string().nullable(),
-    }),
-
-    roles: z.array(z.object({ id: z.number(), name: z.string(), displayName: z.string() })),
+    profile: $profile,
+    roles: z.array($role),
 });
 
 export const $recoveryPasswordRequest = z.object({
@@ -81,9 +74,7 @@ export const $signUpResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: z.object({
-            data: $user,
-        }),
+        user: $user,
     }),
 });
 

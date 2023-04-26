@@ -10,6 +10,7 @@ import { useDetailUser } from "@entities/user";
 import { UserDeleteModal } from "@features/users";
 import { useSettingUserStyles } from "./StudentSettings.styles";
 import { fields } from "./constants";
+import { getFullNameFromProfile } from "@shared/utils";
 
 interface StudentSettingsProps {
     id: string;
@@ -21,8 +22,8 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
     const { data } = useDetailUser(id);
 
     const dataProfile = {
-        fio: `${data?.firstName} ${data?.patronymic} ${data?.lastName}`,
-        roleName: data?.roleName ?? "",
+        fio: getFullNameFromProfile(data?.profile),
+        roleName: data?.roles[0].displayName ?? "",
         email: data?.email ?? "",
     };
 
@@ -31,9 +32,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
             modalId: `${id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: (
-                <UserDeleteModal redirectUrl="/admin/students" id={id} fio={`${data?.firstName} ${data?.patronymic} ${data?.lastName}`} />
-            ),
+            children: <UserDeleteModal redirectUrl="/admin/students" id={id} fio={getFullNameFromProfile(data?.profile)} />,
         });
     };
 
@@ -57,13 +56,13 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                         </Button>
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<UserIcon />}>
-                        <DisplayField label="Фамилия" value={data?.lastName} />
-                        <DisplayField label="Имя" value={data?.firstName} />
-                        <DisplayField label="Отчество" value={data?.patronymic} />
+                        <DisplayField label="Фамилия" value={data?.profile.lastName} />
+                        <DisplayField label="Имя" value={data?.profile.firstName} />
+                        <DisplayField label="Отчество" value={data?.profile.patronymic} />
                     </Fieldset>
 
                     <Fieldset mt={24} label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={data?.roleName} />
+                        <DisplayField label="Роль" value={data?.roles[0].displayName} />
                         <DisplayField label="Email" value={data?.email} />
                     </Fieldset>
 
@@ -71,7 +70,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                 </Group>
                 <Box>
                     <ProfileInfo
-                        avatarSrc={data?.avatarUrl ?? ""}
+                        avatarSrc={data?.profile.avatar?.absolutePath ?? ""}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

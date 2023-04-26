@@ -1,26 +1,16 @@
-import { Box, Flex, Group, ThemeIcon, Title, Image, Text } from "@mantine/core";
+import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
-import { Info, Shield, Trash, User as UserIcon, UserCheck } from "react-feather";
+import { Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
+import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { ChangePasswordForm, UserDeleteModal } from "@features/users";
 import { useSettingUserStyles } from "./SettingUser.styles";
-
-interface ProfileUser {
-    fio: string;
-    roleName: string;
-    email: string;
-}
-
-const fields: ProfileInfoDisplayFields<ProfileUser> = [
-    { name: "fio", label: "Фио" },
-    { name: "roleName", label: "Роль" },
-    { name: "email", label: "Email" },
-];
+import { getFullNameFromProfile } from "@shared/utils";
+import { fields } from "./constants";
 
 interface SettingUserProps {
     id: string;
@@ -32,8 +22,8 @@ const SettingUser = ({ id }: SettingUserProps) => {
     const { data } = useDetailUser(id);
 
     const dataProfile = {
-        fio: `${data?.firstName} ${data?.patronymic} ${data?.lastName}`,
-        roleName: data?.roleName ?? "",
+        fio: getFullNameFromProfile(data?.profile),
+        roleName: data?.roles[0].displayName ?? "",
         email: data?.email ?? "",
     };
 
@@ -42,9 +32,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
             modalId: `${id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: (
-                <UserDeleteModal redirectUrl="/admin/users" id={id} fio={`${data?.firstName} ${data?.patronymic} ${data?.lastName}`} />
-            ),
+            children: <UserDeleteModal redirectUrl="/admin/users" id={id} fio={getFullNameFromProfile(data?.profile)} />,
         });
     };
 
@@ -79,38 +67,39 @@ const SettingUser = ({ id }: SettingUserProps) => {
                         </Button>
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<UserIcon />}>
-                        <DisplayField label="Фамилия" value={data?.lastName} />
-                        <DisplayField label="Имя" value={data?.firstName} />
-                        <DisplayField label="Отчество" value={data?.patronymic} />
+                        <DisplayField label="Фамилия" value={data?.profile.lastName} />
+                        <DisplayField label="Имя" value={data?.profile.firstName} />
+                        <DisplayField label="Отчество" value={data?.profile.patronymic} />
                     </Fieldset>
 
                     <Fieldset mt={24} label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={data?.roleName} />
+                        <DisplayField label="Роль" value={data?.roles[0].displayName} />
                         <DisplayField label="Email" value={data?.email} />
                     </Fieldset>
 
-                    {data?.additionalImageUrl && (
-                        <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>
-                            <Box sx={{ width: 376 }}>
-                                <Image radius="lg" src={data.additionalImageUrl} alt="User" />
-                                <Flex mt={4} gap={4} align="center">
-                                    <ThemeIcon size={16} color="primaryHover" variant="outline" sx={{ border: "none" }}>
-                                        <Info />
-                                    </ThemeIcon>
-                                    <Text>Рекомендуемый размер изображения: 376х220 px</Text>
-                                </Flex>
-                            </Box>
-                        </Fieldset>
-                    )}
+                    {/*TODO: Расскоментить, когда добавят image для препода*/}
+                    {/*{data?.additionalImageUrl && (*/}
+                    {/*    <Fieldset mt={24} label="О преподавателе" icon={<UserCheck />}>*/}
+                    {/*        <Box sx={{ width: 376 }}>*/}
+                    {/*            <Image radius="lg" src={data.additionalImageUrl} alt="User" />*/}
+                    {/*            <Flex mt={4} gap={4} align="center">*/}
+                    {/*                <ThemeIcon size={16} color="primaryHover" variant="outline" sx={{ border: "none" }}>*/}
+                    {/*                    <Info />*/}
+                    {/*                </ThemeIcon>*/}
+                    {/*                <Text>Рекомендуемый размер изображения: 376х220 px</Text>*/}
+                    {/*            </Flex>*/}
+                    {/*        </Box>*/}
+                    {/*    </Fieldset>*/}
+                    {/*)}*/}
 
                     <Box className={classes.desc} mt={16}>
-                        {data?.description}
+                        {data?.profile.description}
                     </Box>
                     {/* TODO - уведомления еще не реализованы */}
                 </Group>
                 <Box>
                     <ProfileInfo
-                        avatarSrc={data?.avatarUrl ?? ""}
+                        avatarSrc={data?.profile.avatar?.absolutePath ?? ""}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

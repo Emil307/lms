@@ -25,11 +25,11 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
     const { data: options } = useAdminUsersFilters();
     const updateUser = useUpdateUser(String(data?.id));
 
-    const currentRole = String(options?.roles.find((role) => role.id === data?.roleId)?.id);
+    const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
     const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
 
-    const handleOpenChangePasswordModal = () =>
+    const handleOpenChangePasswordModal = () => {
         openModal({
             modalId: "CHANGE_PASSWORD",
             title: "Изменение пароля",
@@ -37,6 +37,7 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
             size: 408,
             children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
         });
+    };
 
     const config: FormikConfig<UpdateUserRequest> = {
         initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForEditForm(data) },
@@ -81,7 +82,7 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
                             <>
                                 <Flex gap={24}>
                                     <Avatar
-                                        src={values.avatar?.absolutePath || data?.avatarUrl}
+                                        src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
                                         alt="avatar"
                                         w={84}
                                         h={84}

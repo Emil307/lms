@@ -6,14 +6,14 @@ import { useDetailUser } from "@entities/user";
 import { EditUserForm } from "@features/users";
 import { getBreadCrumbsItems } from "./utils";
 import { TRouterQueries } from "@shared/types";
+import { getFullNameFromProfile } from "@shared/utils";
 
 const UserEditPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
     const { data: userData } = useDetailUser(id);
-
-    const userName = `${userData?.firstName} ${userData?.lastName}`;
+    const userName = getFullNameFromProfile(userData?.profile);
 
     const handleCloseForm = () => router.push("/admin/users");
 

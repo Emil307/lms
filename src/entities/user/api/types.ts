@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
 import { $uploadedFile } from "@shared/ui";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $getPaginationResponseType, $profile, $role, TRequestFilterParams } from "@shared/types";
 
 export type TUser = z.infer<typeof $user>;
 
@@ -13,38 +13,25 @@ export type UserDetailResponse = z.infer<typeof $userDetailResponse>;
 export type UsersResponseType = z.infer<typeof $usersResponse>;
 export type UserCreateResponse = z.infer<typeof $userCreateResponse>;
 export type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministratorsFilters>;
-export type UsersAdministratorsCreateOptionsResponse = z.infer<typeof $usersAdministratorsCreateOptions>;
 export type GetAdminStudentsFiltersResponse = z.infer<typeof $getAdminStudentsFiltersResponse>;
 export type UpdateUserRequest = z.infer<typeof $updateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $createUserRequest>;
+export type ChangeUserActivityStatusRequest = z.infer<typeof $userActivityStatusRequest>;
 
 export const $user = z.object({
     email: z.string(),
-    fullName: z.string(),
     id: z.number(),
     isActive: z.boolean(),
-    roleName: z.string(),
+    isStatic: z.boolean(),
+    profile: $profile,
+    roles: z.array($role),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
 });
 
 export const $usersResponse = $getPaginationResponseType($user);
 
-export const $userDetailResponse = z.object({
-    description: z.string().nullable(),
-    email: z.string(),
-    firstName: z.string(),
-    id: z.number(),
-    isActive: z.boolean(),
-    isStatic: z.boolean(),
-    lastName: z.string(),
-    loginIn: z.string(),
-    notifications: z.array(z.string()).optional(),
-    patronymic: z.string(),
-    roleId: z.number(),
-    roleName: z.string(),
-    updatedAt: z.string(),
-    avatarUrl: z.string().nullable(),
-    additionalImageUrl: z.string().nullable(),
-});
+export const $userDetailResponse = $user;
 
 export const $createUserRequest = z
     .object({
@@ -98,10 +85,9 @@ export const $updateUserRequest = z.object({
     additionalImageId: z.number().optional(),
 });
 
-export const $role = z.object({
-    id: z.number(),
-    name: z.string(),
-    displayName: z.string(),
+export const $userActivityStatusRequest = z.object({
+    id: z.string(),
+    isActive: z.boolean(),
 });
 
 export const $usersAdministratorsFilters = z.object({
@@ -109,10 +95,6 @@ export const $usersAdministratorsFilters = z.object({
 });
 
 export const $getAdminStudentsFiltersResponse = z.object({
-    roles: z.array($role),
-});
-
-export const $usersAdministratorsCreateOptions = z.object({
     roles: z.array($role),
 });
 

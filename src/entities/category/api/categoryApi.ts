@@ -7,7 +7,8 @@ import {
     AdminCategory,
     $adminCategory,
     CreateAdminCategoryRequest,
-    UpdateAdminCategoryRequest, GetAdminSubCategoriesRequest,
+    UpdateAdminCategoryRequest,
+    GetAdminSubCategoriesRequest,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -16,9 +17,9 @@ class CategoryApi extends BaseApi {
             params: {
                 ...params,
                 filter: {
-                    hasParent: "0"
+                    hasParent: "0",
                 },
-            }
+            },
         });
         return $getAdminCategoriesResponse.parse(response);
     }
@@ -28,9 +29,9 @@ class CategoryApi extends BaseApi {
             params: {
                 ...params,
                 filter: {
-                    parentId
-                }
-            }
+                    parentId,
+                },
+            },
         });
         return $getAdminCategoriesResponse.parse(response);
     }

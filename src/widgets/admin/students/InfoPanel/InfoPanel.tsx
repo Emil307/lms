@@ -1,8 +1,8 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Switch } from "@shared/ui";
-import { getHumanDate } from "@shared/utils";
-import { useActivateUser, useDeactivateUser, useDetailUser } from "@entities/user";
+import { getFullNameFromProfile } from "@shared/utils";
+import { useChangeUserActivityStatus, useDetailUser } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -13,30 +13,27 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
 
-    const { mutate: activate } = useActivateUser(id);
-    const { mutate: deactivate } = useDeactivateUser(id);
+    const changeUserActivityStatus = useChangeUserActivityStatus(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
-        day: "2-digit",
-        month: "long",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
+    {
+        /* TODO - информации о последнем входе пока нет */
+    }
+    // const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
+    //     day: "2-digit",
+    //     month: "long",
+    //     hour: "2-digit",
+    //     minute: "2-digit",
+    // });
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
-        if (newValue.target.checked) {
-            return activate();
-        }
-        return deactivate();
+        changeUserActivityStatus.mutate(newValue.target.checked);
     };
 
     return (
         <Box>
-            <Title mt={8}>
-                {data?.firstName} {data?.patronymic} {data?.lastName}
-            </Title>
+            <Title mt={8}>{getFullNameFromProfile(data?.profile)}</Title>
             <Flex mt={24} gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>
@@ -52,7 +49,8 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Box className={classes.infoItem}>
-                    Последний вход: <span>{lastLoginDate}</span>
+                    {/* TODO - информации о последнем входе пока нет */}
+                    {/*Последний вход: <span>{lastLoginDate}</span>*/}
                 </Box>
                 {/* TODO - информации о последних изменениях на бэке пока нет */}
             </Flex>

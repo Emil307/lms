@@ -12,7 +12,7 @@ import {
 
 class TagApi extends BaseApi {
     async getAdminTags(params: GetAdminTagsRequest): Promise<GetAdminTagsResponse> {
-        const response = await this.instance.get("admin/tags", { params });
+        const response = await this.instance.post("admin/tags/list", {}, { params });
         return $getAdminTagsResponse.parse(response);
     }
 
@@ -25,6 +25,7 @@ class TagApi extends BaseApi {
         const response = await this.instance.post(`admin/tags`, data);
         return $adminTag.parse(response);
     }
+
     async updateAdminTag(id: string, data: UpdateAdminTagRequest): Promise<AdminTag> {
         const response = await this.instance.put(`admin/tags/${id}`, data);
         return $adminTag.parse(response);
