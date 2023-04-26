@@ -29,7 +29,7 @@ export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T
     const fullOptions: typeof options = {
         getNextPageParam: (lastPage, pages) => {
             const nextPage = pages.length + 1;
-            return nextPage <= lastPage.meta.pagination.total_pages ? nextPage : undefined;
+            return nextPage <= lastPage.pagination.totalPages ? nextPage : undefined;
         },
         ...options,
     };
@@ -39,7 +39,7 @@ export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T
     if (data) {
         const onlyData = data.pages.map((page) => page.data);
         const cleanData = onlyData.flat();
-        result = { data: cleanData, meta: { pagination: data.pages[data.pages.length - 1].meta.pagination } };
+        result = { data: cleanData, pagination: data.pages[data.pages.length - 1].pagination };
     }
     return { data: result, ...rest };
 }

@@ -32,7 +32,7 @@ function BaseTable<T extends Record<string, any>>({
     const { classes } = useBaseTableStyles();
     const columns = rest.columns || prepareColumns(data);
     const rowCount = pagination?.count;
-    const totalPage = pagination?.total_pages || 0;
+    const totalPage = pagination?.totalPages || 0;
 
     const { sorting, setSorting } = useTableSort();
 
@@ -57,8 +57,8 @@ function BaseTable<T extends Record<string, any>>({
                 isLoading,
                 sorting,
                 pagination: {
-                    pageIndex: pagination?.current_page || 0,
-                    pageSize: pagination?.per_page || 10,
+                    pageIndex: pagination?.currentPage || 0,
+                    pageSize: pagination?.perPage || 10,
                 },
             }}
             onSortingChange={setSorting}

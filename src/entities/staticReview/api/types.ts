@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { $uploadedFile } from "@shared/ui";
-import { $pagination, TDefaultRequestParams } from "@shared/types";
+import { $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 export type AdminStaticReview = z.infer<typeof $adminStaticReview>;
 export type AdminStaticReviewDetail = z.infer<typeof $adminStaticReviewDetail>;
@@ -35,12 +35,7 @@ export const $adminStaticReviewDetail = z.object({
     content: z.string(),
 });
 
-export const $getAdminStaticReviewsResponse = z.object({
-    data: z.array($adminStaticReview),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getAdminStaticReviewsResponse = $getPaginationResponseType($adminStaticReview);
 
 export const $createAdminStaticReviewRequest = z
     .object({

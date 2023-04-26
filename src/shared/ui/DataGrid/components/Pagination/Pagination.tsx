@@ -32,7 +32,7 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
                     {`${firstElemIndex}-${lastElemIndex}`} <span>из</span> {data.total}
                 </Text>
             </Box>
-            {data.total_pages > 1 && (
+            {data.totalPages > 1 && (
                 <MPagination
                     className={classes.paginationButtons}
                     total={getPageCount()}

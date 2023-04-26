@@ -134,9 +134,9 @@ const list: Course[] = [
 const pagination = {
     total: 79,
     count: 4,
-    per_page: 15,
-    current_page: 6,
-    total_pages: 6,
+    perPage: 15,
+    currentPage: 6,
+    totalPages: 6,
     links: {
         previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
         next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",

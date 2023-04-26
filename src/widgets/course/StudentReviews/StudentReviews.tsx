@@ -86,17 +86,16 @@ const data: GetCourseReviewsResponse = {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             },
         ],
-        meta: {
-            pagination: {
-                count: 1,
-                total: 3,
-                per_page: 1,
-                current_page: 2,
-                total_pages: 3,
-                links: {
-                    previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
-                    next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",
-                },
+
+        pagination: {
+            count: 1,
+            total: 3,
+            perPage: 1,
+            currentPage: 2,
+            totalPages: 3,
+            links: {
+                previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
+                next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",
             },
         },
     },

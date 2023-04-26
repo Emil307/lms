@@ -51,8 +51,8 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         <ThemeIcon className={classes.iconButtonLinkCourse}>
                             <ChevronRight />
                         </ThemeIcon>
-                    }>{`${data.courses.meta.pagination.total} ${getPluralString(
-                    data.courses.meta.pagination.total,
+                    }>{`${data.courses.pagination.total} ${getPluralString(
+                    data.courses.pagination.total,
                     "курс",
                     "курса",
                     "курсов"

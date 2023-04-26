@@ -31,7 +31,7 @@ const FavoriteCoursesList = ({ data }: FavoriteCoursesListProps) => {
             renderItem={(props) => <CourseCard {...props} />}
             colProps={{ lg: 4, md: 4, sm: 6, pb: { sm: 20 } }}
             withPagination
-            pagination={data.meta.pagination}
+            pagination={data.pagination}
             mb={{ sm: -20 }}
         />
     );

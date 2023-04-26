@@ -30,13 +30,13 @@ const FilterList = ({ field, filterName, searchPlaceholder, showLabelPluralStrin
     });
 
     useEffect(() => {
-        if (entry?.isIntersecting && filterData.meta.pagination.links.next) {
-            onLoad(filterData.meta.pagination.links.next);
+        if (entry?.isIntersecting && filterData.pagination.links.next) {
+            onLoad(filterData.pagination.links.next);
         }
     }, [entry]);
 
     const showLabel = () => {
-        const hiddenCountCourse = filterData.meta.pagination.total - 3;
+        const hiddenCountCourse = filterData.pagination.total - 3;
         return (
             <Flex gap={8}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(

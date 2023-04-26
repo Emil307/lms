@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $pagination, TDefaultRequestParams } from "@shared/types";
+import { $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 export type FaqItem = z.infer<typeof $faqItem>;
 export type Advantage = z.infer<typeof $advantage>;
@@ -102,12 +102,7 @@ export const $getMainBannerResponse = z.object({
     }),
 });
 
-export const $getAdvantagesResponse = z.object({
-    data: z.array($advantage),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
+export const $getAdvantagesResponse = $getPaginationResponseType($advantage);
 
 export const $createAdvantageRequest = z.object({
     title: z.string({ required_error: "Введите заголовок" }),

@@ -1,2 +1,2 @@
-import Map, { type MapProps } from "./Map";
-export { Map, MapProps };
+import Map, { type IMapProps } from "./Map";
+export { Map, IMapProps };

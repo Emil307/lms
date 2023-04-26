@@ -118,17 +118,15 @@ const data: CourseSet = {
                 isFavorite: false,
             },
         ],
-        meta: {
-            pagination: {
-                count: 1,
-                total: 3,
-                per_page: 1,
-                current_page: 2,
-                total_pages: 1,
-                links: {
-                    previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
-                    next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",
-                },
+        pagination: {
+            count: 1,
+            total: 3,
+            perPage: 1,
+            currentPage: 2,
+            totalPages: 1,
+            links: {
+                previous: "http =>//0.0.0.0/api/test?name=123&test=123&page=1",
+                next: "http =>//0.0.0.0/api/test?name=123&test=123&page=3",
             },
         },
     },
@@ -164,7 +162,7 @@ const CourseSetDetailPage = () => {
                         data={data.courses.data}
                         renderItem={(props) => <CourseCard {...props} />}
                         withPagination
-                        pagination={data.courses.meta.pagination}
+                        pagination={data.courses.pagination}
                     />
                 </Flex>
             </Flex>
