@@ -1,2 +1,1 @@
-export * from "./contactUs";
-export * from "./map";
+export * from "./ui";

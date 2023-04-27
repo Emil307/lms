@@ -2,7 +2,7 @@ import React from "react";
 import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import ContactsPage from "@pages/contacts";
+import { ContactsPage } from "@pages/contacts";
 
 const Contacts: NextPageWithLayout = () => {
     return <ContactsPage />;

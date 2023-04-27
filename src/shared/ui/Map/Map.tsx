@@ -1,8 +1,9 @@
 import { Box } from "@mantine/core";
 import { Map as YMap, YMaps, Placemark as YPlacemark } from "@pbe/react-yandex-maps";
 import { control } from "yandex-maps";
+import useStyles from "./Map.styles";
 
-export interface IMapProps {
+export interface MapProps {
     behaviors?: string[] | undefined;
     bounds?: number[][] | undefined;
     center?: number[] | undefined;
@@ -12,27 +13,16 @@ export interface IMapProps {
     zoom?: number | undefined;
 }
 
-export const defaultMapState: IMapProps = {
-    center: [57.626867, 39.886259],
-    zoom: 14,
-    controls: ["zoomControl", "fullscreenControl", "geolocationControl", "searchControl", "typeSelector"],
-};
+const Map = (props: MapProps) => {
+    const { classes } = useStyles();
 
-const Map = (_props: IMapProps) => {
     return (
         <YMaps>
-            <Box
-                sx={{
-                    height: 420,
-                    width: "100%",
-                    "> div > ymaps:not(:last-child)": {
-                        display: "none",
-                    },
-                }}>
+            <Box className={classes.container}>
                 <YMap
                     width="100%"
                     height="100%"
-                    defaultState={defaultMapState}
+                    defaultState={props}
                     modules={[
                         "SuggestView",
                         "control.ZoomControl",
@@ -41,7 +31,7 @@ const Map = (_props: IMapProps) => {
                         "control.SearchControl",
                         "control.TypeSelector",
                     ]}>
-                    <YPlacemark defaultGeometry={defaultMapState.center} />
+                    <YPlacemark defaultGeometry={props.center} />
                 </YMap>
             </Box>
         </YMaps>
