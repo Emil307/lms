@@ -6,3 +6,4 @@ export * from "./Tooltip";
 export * from "./DisplayField";
 export * from "./Tabs";
 export * from "./Prompt";
+export * from "./Map";
