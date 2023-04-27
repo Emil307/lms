@@ -4,7 +4,7 @@ import React from "react";
 import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
-import { prepareColumns, useTableSort } from "../../utils";
+import { prepareColumns, useTableSelect, useTableSort } from "../../utils";
 import { Pagination } from "../../components";
 
 export type TBaseTableProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> & {
@@ -16,6 +16,7 @@ export type TBaseTableProps<T extends Record<string, any>> = Omit<MantineReactTa
     onClickCell?: (cell: MRT_Cell<T>) => void;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderActiveBadge?: (row: MRT_Cell<T>) => boolean;
+    getSelectedRows?: () => void;
 };
 
 function BaseTable<T extends Record<string, any>>({
@@ -35,9 +36,13 @@ function BaseTable<T extends Record<string, any>>({
     const totalPage = pagination?.totalPages || 0;
 
     const { sorting, setSorting } = useTableSort();
+    const { rowSelection, setRowSelection } = useTableSelect();
 
     const handleClickCell = (cell: MRT_Cell<T>) => {
         if (cell.column.id === "mrt-row-actions") {
+            return;
+        }
+        if (cell.column.id === "mrt-row-select") {
             return;
         }
         onClickCell && onClickCell(cell);
@@ -60,8 +65,12 @@ function BaseTable<T extends Record<string, any>>({
                     pageIndex: pagination?.currentPage || 0,
                     pageSize: pagination?.perPage || 10,
                 },
+                rowSelection,
             }}
+            onRowSelectionChange={setRowSelection}
             onSortingChange={setSorting}
+            enableSelectAll
+            enableRowSelection
             enableDensityToggle={false}
             localization={MRT_Localization_RU}
             enableTopToolbar={false}
