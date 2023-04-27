@@ -18,3 +18,4 @@ export * from "./TimeRangeInput";
 export * from "./TimeInput";
 export * from "./TextEditor";
 export * from "./Textarea";
+export * from "./CheckboxGroup";
