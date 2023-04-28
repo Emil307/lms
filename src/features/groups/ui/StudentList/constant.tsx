@@ -58,12 +58,10 @@ export const columns: MRT_ColumnDef<Group>["columns"] = [
     {
         header: "Преподаватель",
         accessorKey: "teacherFullName",
-        // Cell: ({ cell }) => <Text>{cell.getValue()}</Text>,
     },
     {
         header: "Статус группы",
         accessorKey: "status",
-        // Cell: ({ cell }) => <Text>{cell.getValue()}</Text>,
     },
     {
         header: "Статус",

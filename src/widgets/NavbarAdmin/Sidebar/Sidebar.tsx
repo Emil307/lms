@@ -69,6 +69,13 @@ export default function Sidebar() {
                     href="/admin/settings/main-page/reviews"
                     isActive={router.pathname.includes("/admin/settings/main-page")}
                 />
+                <SidebarItem
+                    inner={true}
+                    label="Пакеты базы знаний"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/settings/article-packages"
+                    isActive={router.pathname.includes("/admin/settings/article-packages")}
+                />
             </SidebarItemWithChildren>
         </Box>
     );

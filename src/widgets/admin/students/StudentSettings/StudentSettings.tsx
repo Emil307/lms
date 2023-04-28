@@ -8,9 +8,9 @@ import { Button, DisplayField } from "@shared/ui";
 import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { UserDeleteModal } from "@features/users";
+import { getFullNameFromProfile } from "@shared/utils";
 import { useSettingUserStyles } from "./StudentSettings.styles";
 import { fields } from "./constants";
-import { getFullNameFromProfile } from "@shared/utils";
 
 interface StudentSettingsProps {
     id: string;

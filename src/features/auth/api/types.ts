@@ -3,7 +3,8 @@ import { REGEXP_PASSWORD } from "@shared/constant";
 
 export const $authFormValidationSchema = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
-    // password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
+    // TODO: вернуть как у всех тестовых учеток будут валидные пароли
+    password: z.string({ required_error: "Введите пароль" }), //.regex(REGEXP_PASSWORD, "Неверный формат"),
 });
 
 export const $signUpFormValidationSchema = z.object({

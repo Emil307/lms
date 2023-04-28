@@ -5,9 +5,9 @@ import { BreadCrumbs, Tabs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
+import { getFullNameFromProfile } from "@shared/utils";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
-import { getFullNameFromProfile } from "@shared/utils";
 
 const StudentDetailPage = () => {
     const router = useRouter();

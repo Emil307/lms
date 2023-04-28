@@ -17,7 +17,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
     const handleCloseDeleteReviewModal = () => closeModal("DELETE_STATIC_REVIEW");
-    // const handleCloseEditTagModal = () => closeModal("EDIT_TAG");
 
     const openModalDeleteReview = () => {
         openModal({
@@ -29,15 +28,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
             ),
         });
     };
-
-    // const openModalEditTag = () => {
-    //     openModal({
-    //         modalId: "EDIT_TAG",
-    //         title: "Редактирование",
-    //         centered: true,
-    //         children: <EditTagForm data={row.original} onClose={handleCloseEditTagModal} />,
-    //     });
-    // };
 
     const handleChangeActiveStatus = () => {
         if (row.original.isActive) {

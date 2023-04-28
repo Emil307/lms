@@ -43,6 +43,15 @@ export const whenAuthorsRoute: TAxiosRunWhen = (config) => {
     return !!config.url?.includes("authors");
 };
 
+/**
+ *
+ * @param config AxiosConfigObject
+ * @returns true если запрос из микроча ARTICLES
+ */
+export const whenArticlesRoute: TAxiosRunWhen = (config) => {
+    return !!config.url?.includes("articles") || !!config.url?.includes("admin/articles") || !!config.url?.includes("article-packages");
+};
+
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);
 
 export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosError) => {
