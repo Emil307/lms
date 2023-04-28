@@ -18,3 +18,8 @@ export const authorsInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.baseURL = process.env.NEXT_PUBLIC_API_URL_COURSES;
     return config;
 };
+
+export const articlesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+    config.baseURL = process.env.NEXT_PUBLIC_API_URL_ARTICLES;
+    return config;
+};

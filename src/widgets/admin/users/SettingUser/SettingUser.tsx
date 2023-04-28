@@ -8,8 +8,8 @@ import { Button, DisplayField } from "@shared/ui";
 import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { ChangePasswordForm, UserDeleteModal } from "@features/users";
-import { useSettingUserStyles } from "./SettingUser.styles";
 import { getFullNameFromProfile } from "@shared/utils";
+import { useSettingUserStyles } from "./SettingUser.styles";
 import { fields } from "./constants";
 
 interface SettingUserProps {

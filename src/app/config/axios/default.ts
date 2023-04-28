@@ -1,6 +1,13 @@
 import Axios from "axios";
-import { defaultHeaders, errorLogger, handleAxiosError, whenAuthorsRoute, whenUsingUploadToStorageRoute } from "./helpers";
-import { authorsInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
+import {
+    defaultHeaders,
+    errorLogger,
+    handleAxiosError,
+    whenArticlesRoute,
+    whenAuthorsRoute,
+    whenUsingUploadToStorageRoute,
+} from "./helpers";
+import { articlesInterceptor, authorsInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
 import { responderInterceptor } from "./interceptors/response";
 
 export const axios = Axios.create({
@@ -23,5 +30,10 @@ axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenU
  *  Меняй baseUrl, если работаешь с микрачом COURSES.
  */
 axios.interceptors.request.use(authorsInterceptor, errorLogger, { runWhen: whenAuthorsRoute });
+
+/**
+ *  Меняй baseUrl, если работаешь с микрачом ARTICLES.
+ */
+axios.interceptors.request.use(articlesInterceptor, errorLogger, { runWhen: whenArticlesRoute });
 
 axios.interceptors.response.use(responderInterceptor, handleAxiosError);

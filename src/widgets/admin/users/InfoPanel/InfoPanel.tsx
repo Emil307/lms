@@ -2,8 +2,8 @@ import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Checkbox, Switch } from "@shared/ui";
 import { useChangeUserActivityStatus, useDetailUser } from "@entities/user";
-import { useInfoPanelStyles } from "./InfoPanel.styles";
 import { getFullNameFromProfile } from "@shared/utils";
+import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 export interface InfoPanelProps {
     id: string;

@@ -1,6 +1,6 @@
 import { Group, Loader, Text } from "@mantine/core";
-import { Map } from "@shared/ui";
 import React from "react";
+import { Map } from "@shared/ui";
 import { useContacts } from "@entities/staticPage";
 import useStyles from "./ContactsList.styles";
 import { mapState } from "./constants";

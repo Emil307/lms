@@ -1,8 +1,8 @@
 import { Box, Title } from "@mantine/core";
 import React from "react";
 import { BreadCrumbs } from "@shared/ui";
-import { breadCrumbsItems } from "./constants";
 import { ContactsList } from "@features/contacts";
+import { breadCrumbsItems } from "./constants";
 import useStyles from "./ContactsPage.styles";
 
 const ContactsPage = () => {

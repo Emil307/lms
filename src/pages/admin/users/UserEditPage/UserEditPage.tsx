@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { EditUserForm } from "@features/users";
-import { getBreadCrumbsItems } from "./utils";
 import { TRouterQueries } from "@shared/types";
 import { getFullNameFromProfile } from "@shared/utils";
+import { getBreadCrumbsItems } from "./utils";
 
 const UserEditPage = () => {
     const router = useRouter();

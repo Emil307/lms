@@ -20,6 +20,7 @@ export const useSidebarStyles = createStyles((theme, { isActive, inner }: { isAc
         padding: 12,
     },
     text: {
+        fontWeight: 600,
         fontSize: inner ? 14 : 16,
         lineHeight: "24px",
     },
