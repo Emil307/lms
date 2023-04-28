@@ -3,18 +3,24 @@ import { DatePicker as MDatePicker, DatePickerProps as MDatePickerProps } from "
 import { AlertTriangle, Calendar, CheckCircle, Info } from "react-feather";
 import { Group, ThemeIcon, Text, useMantineTheme } from "@mantine/core";
 import { z } from "zod";
+import dayjs from "dayjs";
 import { useInputStyles } from "@shared/styles";
 
-export interface DatePickerProps extends MDatePickerProps {
+export interface DatePickerProps extends Omit<MDatePickerProps, "value" | "onChange"> {
+    dateStringFormat?: string;
+    value?: Date | string | null;
+    onChange?: (value: Date | string | null) => void;
     success?: string | boolean;
 }
 
 const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
     const {
+        value,
         description,
         error,
         success = false,
         size,
+        dateStringFormat,
         onChange = () => undefined,
         onFocus = () => undefined,
         onDropdownClose = () => undefined,
@@ -38,9 +44,13 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         setFocused(false);
     };
 
-    const handlerOnChange = (value: Date | null) => {
-        onChange(value);
+    const handleChange = (value: Date | null) => {
         setFocused(false);
+        if (dateStringFormat && value) {
+            onChange(dayjs(value).format(dateStringFormat));
+            return;
+        }
+        onChange(value);
     };
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
@@ -85,11 +95,19 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         );
     }, [statusSuccess, success, description]);
 
+    const getValue = () => {
+        if (!value || (typeof value === "string" && !dayjs(value).isValid())) {
+            return null;
+        }
+        return new Date(value);
+    };
+
     return (
         <MDatePicker
             {...props}
             classNames={classes}
-            onChange={handlerOnChange}
+            value={getValue()}
+            onChange={handleChange}
             onDropdownOpen={onDropdownOpenHandler}
             onFocus={onFocusHandler}
             onDropdownClose={onDropCloseHandler}
