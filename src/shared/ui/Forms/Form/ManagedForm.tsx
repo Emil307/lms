@@ -1,39 +1,53 @@
-import { QueryKey, useMutation, UseMutationOptions, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { FormikConfig, FormikValues } from "formik";
 import React from "react";
 import Form, { FormProps } from "./Form";
+import axios from "axios";
 
-type ExtendedProps<T extends FormikValues = FormikValues> = Omit<FormProps<T>, "config">;
+type ExtendedProps<F extends FormikValues = FormikValues> = Omit<FormProps<F>, "config">;
 
-export interface ManagedFormProps<T extends FormikValues = FormikValues> extends ExtendedProps<T> {
-    queryKey?: QueryKey;
-    queryFn?: () => Promise<T> | T;
-    mutation?: UseMutationOptions<T>;
-    initialValues?: FormikConfig<T>["initialValues"];
+export interface ManagedFormProps<F extends FormikValues, R extends Record<string, any>> extends ExtendedProps<F> {
+    mutationKey: string;
+    mutationFunction: (params: F) => Promise<R>;
+    onSuccess: (response: R) => void;
+    onError?: (error: unknown) => void;
+    initialValues: FormikConfig<F>["initialValues"];
+    validationSchema?: FormikConfig<F>["validationSchema"];
 }
-//TODO: Закончить работу.
-export default function ManagedForm<T extends FormikValues = FormikValues>({
-    queryKey,
-    queryFn = () => ({} as T),
+
+export default function ManagedForm<F extends FormikValues, R extends Record<string, any>>({
+    mutationKey,
+    mutationFunction,
+    onSuccess,
+    onError = () => undefined,
     initialValues,
+    validationSchema,
     children,
     ...form
-}: ManagedFormProps<T>) {
-    const { data, isLoading } = useQuery<T>({
-        queryKey,
-        queryFn,
-        enabled: !!queryKey && !!queryFn,
-    });
+}: ManagedFormProps<F, R>) {
+    const { isLoading, mutate } = useMutation<R, unknown, F>([mutationKey], { mutationFn: mutationFunction });
 
-    const { isLoading: inProgress } = useMutation<T>({});
-
-    const cfg: FormikConfig<T> = {
-        onSubmit: console.warn,
-        initialValues: data || initialValues || ({} as T),
+    const cfg: FormikConfig<F> = {
+        initialValues,
+        validationSchema,
+        enableReinitialize: true,
+        onSubmit: (values, { setFieldError }) => {
+            mutate(values, {
+                onSuccess: (response) => onSuccess(response),
+                onError: (error) => {
+                    if (axios.isAxiosError(error)) {
+                        for (const errorField in error.response?.data.errors) {
+                            setFieldError(errorField, error.response?.data.errors[errorField][0]);
+                        }
+                    }
+                    onError(error);
+                },
+            })
+        }
     };
 
     return (
-        <Form<T> {...form} config={cfg} isLoading={isLoading || inProgress}>
+        <Form {...form} config={cfg} isLoading={isLoading}>
             {(formikProps) => (typeof children === "function" ? children(formikProps) : children)}
         </Form>
     );

@@ -5,10 +5,11 @@ import useStyles from "./Fieldset.styles";
 export interface FieldsetProps extends BoxProps {
     icon?: ReactNode;
     label: string;
+    showDivider?: boolean;
     children: ReactNode | ReactNode[];
 }
 
-const MemoizedFieldset = memo(function Fieldset({ icon, label, children, ...props }: FieldsetProps) {
+const MemoizedFieldset = memo(function Fieldset({ icon, label, showDivider = true, children, ...props }: FieldsetProps) {
     const { classes } = useStyles();
 
     const renderRows = useMemo(() => {
@@ -16,7 +17,7 @@ const MemoizedFieldset = memo(function Fieldset({ icon, label, children, ...prop
             return children.map((child, index) => (
                 <Fragment key={index}>
                     {child}
-                    {index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
+                    {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
                 </Fragment>
             ));
         }

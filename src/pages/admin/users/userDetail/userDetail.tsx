@@ -13,6 +13,15 @@ const UserDetail = () => {
     const { id } = router.query as TRouterQueries;
     const { data, isLoading, isError } = useDetailUser(id);
 
+    const handleChangeTab = (value: string | null) => {
+        switch (value) {
+            // TODO - переключение виджетов по табам, когда будет апи и сверстано все остальное
+            default:
+                router.push({ pathname: "/admin/users/[id]", query: { id } });
+                break;
+        }
+    };
+
     if (!router.isReady || isLoading) {
         return <Loader />;
     }
@@ -26,7 +35,7 @@ const UserDetail = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ data })} />
             <InfoPanel id={id} />
             {/* TODO - переключение виджетов по табам, когда будет апи и сверстано все остальное */}
-            <Tabs tabs={tabsList} mt={32} />
+            <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} />
             <SettingUser id={id} />
         </Box>
     );

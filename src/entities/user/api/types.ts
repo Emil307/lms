@@ -54,23 +54,7 @@ export const $createUserRequest = z
         path: ["passwordConfirmation"],
     });
 
-export const $userCreateResponse = z.object({
-    id: z.number(),
-    email: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-    patronymic: z.string(),
-    description: z.string().nullable(),
-    roleName: z.string().optional(),
-    roleId: z.number().optional(),
-    isActive: z.boolean(),
-    isStatic: z.boolean().optional(),
-    notifications: z.array(z.string()).optional(),
-    loginIn: z.string(),
-    updatedAt: z.string(),
-    additionalImageId: z.number().nullable(),
-    additionalImageUrl: z.string().nullable(),
-});
+export const $userCreateResponse = $user;
 
 export const $updateUserRequest = z.object({
     email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
