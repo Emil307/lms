@@ -17,7 +17,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
     {
-        /* TODO - информации о последнем входе пока нет */
+        /* TODO: - информации о последнем входе пока нет */
     }
     // const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
     //     day: "2-digit",
@@ -50,10 +50,10 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 </Flex>
                 <Checkbox label="Отображать на главной" />
                 <Box className={classes.infoItem}>
-                    {/* TODO - информации о последнем входе пока нет */}
+                    {/* TODO: - информации о последнем входе пока нет */}
                     {/*Последний вход: <span>{lastLoginDate}</span>*/}
                 </Box>
-                {/* TODO - информации о последних изменениях на бэке пока не будет */}
+                {/* TODO: - информации о последних изменениях на бэке пока не будет */}
             </Flex>
         </Box>
     );

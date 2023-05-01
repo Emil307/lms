@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, useMantineTheme } from "@mantine/core";
+import { Box, Flex, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import dayjs from "dayjs";
@@ -34,7 +34,7 @@ const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProp
         .join(", ");
 
     return (
-        <Stack>
+        <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
@@ -53,7 +53,7 @@ const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProp
                     Удалить
                 </Button>
             </Flex>
-        </Stack>
+        </Flex>
     );
 };
 

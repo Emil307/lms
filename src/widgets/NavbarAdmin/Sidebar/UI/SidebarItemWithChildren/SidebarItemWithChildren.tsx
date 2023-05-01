@@ -15,7 +15,7 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
         setIsOpen();
     };
 
-    const { classes } = useSidebarItemWithChildrenStyles();
+    const { classes } = useSidebarItemWithChildrenStyles({ isActive });
 
     //TODO: Это условие пока убрано, вернемся позднее
     if (!roles.includes(role)) {

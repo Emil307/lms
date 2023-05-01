@@ -355,7 +355,7 @@ export const UIDemo = () => {
                                 <Button type="button" onClick={() => setFieldValue("step", --values.step)}>
                                     Prev
                                 </Button>
-
+                                <FTextEditor name="content" />
                                 <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
                                     Next
                                 </Button>
