@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Book, Folder, Settings, User, Users } from "react-feather";
+import { Book, Briefcase, Folder, Settings, User, Users } from "react-feather";
 import { useMantineTheme } from "@mantine/core";
 import SidebarItem from "./UI/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./UI/SidebarItemWithChildren/SidebarItemWithChildren";
@@ -34,6 +34,12 @@ export default function Sidebar() {
                 isActive={router.pathname.includes("/admin/groups")}
                 icon={<Folder color={theme.colors.primary[9]} />}
                 href="/admin/groups"
+            />
+            <SidebarItem
+                label="База знаний"
+                isActive={router.pathname.includes("/admin/articles")}
+                icon={<Briefcase color={theme.colors.primary[9]} />}
+                href="/admin/articles"
             />
 
             <SidebarItemWithChildren

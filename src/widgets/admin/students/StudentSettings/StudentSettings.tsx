@@ -66,7 +66,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                         <DisplayField label="Email" value={data?.email} />
                     </Fieldset>
 
-                    {/* TODO - уведомления еще не реализованы */}
+                    {/* TODO: - уведомления еще не реализованы */}
                 </Group>
                 <Box>
                     <ProfileInfo
