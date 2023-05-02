@@ -9,7 +9,7 @@ export interface FDatePickerProps extends DatePickerProps {
 export default function FDatePicker({ onChange = () => undefined, ...props }: FDatePickerProps) {
     const [field, meta, helpers] = useField(props.name);
 
-    const handleChange = useCallback((newValue: Date | null) => {
+    const handleChange = useCallback((newValue: Date | string | null) => {
         onChange(newValue);
         helpers.setValue(newValue);
     }, []);
