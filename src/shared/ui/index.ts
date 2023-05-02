@@ -8,3 +8,4 @@ export * from "./Tabs";
 export * from "./Prompt";
 export * from "./Map";
 export * from "./ConfirmActionModal";
+export * from "./EmptyData";
