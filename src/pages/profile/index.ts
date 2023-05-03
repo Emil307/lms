@@ -1,2 +1,2 @@
-export * from "./settings";
-export * from "./profileEdit";
+export * from "./ProfileEditPage";
+export * from "./ProfilePage";

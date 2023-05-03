@@ -44,20 +44,7 @@ export const $updateMeRequest = z.object({
     role: z.string(),
 });
 
-export const $updateMeResponse = z.object({
-    id: z.number(),
-    email: z.string(),
-    isActive: z.boolean(),
-    roleName: z.string(),
-    profile: z.object({
-        data: z.object({
-            id: z.number(),
-            firstName: z.string(),
-            lastName: z.string(),
-            patronymic: z.string(),
-        }),
-    }),
-});
+export const $updateMeResponse = $user.omit({ roles: true });
 
 export const $signUpRequest = z.object({
     firstName: z.string(),

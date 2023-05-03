@@ -31,7 +31,9 @@ class AuthApi extends BaseApi {
         return $signUpResponse.parse(response);
     }
     async updateMe(data: UpdateMeRequest): Promise<UpdateMeResponse> {
-        const response = this.instance.put("me/update", data);
+        //TODO: Это временное решение передавать isActive=true пока бек не поправит это
+        //https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/57
+        const response = await this.instance.put("me/update", { ...data, isActive: true });
         return $updateMeResponse.parse(response);
     }
     changePassword(payload: ChangePasswordRequest): Promise<void> {

@@ -7,3 +7,4 @@ export * from "./DisplayField";
 export * from "./Tabs";
 export * from "./Prompt";
 export * from "./Map";
+export * from "./ConfirmActionModal";

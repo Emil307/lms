@@ -32,7 +32,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
         <ManagedForm<CreateUserRequest, UserCreateResponse>
             initialValues={getInitialValuesForm(defaultRole)}
             validationSchema={$createUserRequest}
-            mutationKey={MutationKeys.CREATE_USER}
+            mutationKey={[MutationKeys.CREATE_USER]}
             mutationFunction={createUser}
             onSuccess={onSuccess}>
             {({ values, dirty }) => (

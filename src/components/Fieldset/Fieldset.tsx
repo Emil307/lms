@@ -6,10 +6,11 @@ export interface FieldsetProps extends BoxProps {
     icon?: ReactNode;
     label: string;
     showDivider?: boolean;
+    legendProps?: BoxProps;
     children: ReactNode | ReactNode[];
 }
 
-const MemoizedFieldset = memo(function Fieldset({ icon, label, showDivider = true, children, ...props }: FieldsetProps) {
+const MemoizedFieldset = memo(function Fieldset({ icon, label, showDivider = true, children, legendProps, ...props }: FieldsetProps) {
     const { classes } = useStyles();
 
     const renderRows = useMemo(() => {
@@ -27,7 +28,7 @@ const MemoizedFieldset = memo(function Fieldset({ icon, label, showDivider = tru
 
     return (
         <Box {...props} component="fieldset" className={classes.fieldset}>
-            <Box component="legend" className={classes.legend}>
+            <Box {...legendProps} component="legend" className={classes.legend}>
                 {icon}
                 <Text className={classes.title}>{label}</Text>
             </Box>
