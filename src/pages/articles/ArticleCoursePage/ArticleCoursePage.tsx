@@ -13,17 +13,17 @@ const ArticleCoursePage = () => {
     const handleChangeTab = (value: string | null) => {
         switch (value) {
             case "favorite":
-                router.push({ pathname: `/article-collection/favorite` });
+                router.push({ pathname: `/articles/favorite` });
                 break;
             case "my-courses":
-                router.push({ pathname: `/article-collection/my-courses` });
+                router.push({ pathname: `/articles/my-courses` });
                 break;
             default:
-                router.push({ pathname: `/article-collection` });
+                router.push({ pathname: `/articles` });
                 break;
         }
     };
-    const handleClickBackToList = () => router.push("/article-collection/my-courses");
+    const handleClickBackToList = () => router.push("/articles/my-courses");
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 32 }}>

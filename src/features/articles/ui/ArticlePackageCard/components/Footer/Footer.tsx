@@ -1,7 +1,7 @@
 import { Card as MCard, Text, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { ArticlePackage } from "@entities/article";
-import { getDiscountedAmount, getPluralString } from "@shared/utils";
+import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button } from "@shared/ui";
 import { InvoicePaymentForm } from "@features/coursePackages";
@@ -28,15 +28,12 @@ const Footer = ({ data }: FooterProps) => {
         });
 
     const renderAmount = () => {
-        const { isDiscount, discount, price } = data;
-        //TODO: Из-за кривых моков, когда будет реальный эндпоинт нужно удалить нижнее
-        if (Array.isArray(discount.data)) {
-            return null;
-        }
-        if (isDiscount && discount.data?.value) {
+        const { discount, price } = data;
+
+        if (discount?.data.amount) {
             return (
                 <Flex sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${getDiscountedAmount(price, discount.data.value).toLocaleString("ru")} ₽`}</Text>
+                    <Text className={classes.price}>{`${discount.data.amount.toLocaleString("ru")} ₽`}</Text>
                     <Text className={classes.priceWithoutDiscount}>{`${price.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );
@@ -49,8 +46,8 @@ const Footer = ({ data }: FooterProps) => {
             <Flex direction="column" gap={6}>
                 <Flex gap={8}>
                     <IconStarFour />
-                    <Text className={classes.countPackages}>{`${data.totalArticles} ${getPluralString(
-                        data.totalArticles,
+                    <Text className={classes.countPackages}>{`${data.articlesCount} ${getPluralString(
+                        data.articlesCount,
                         "статья",
                         "статьи",
                         "статей"

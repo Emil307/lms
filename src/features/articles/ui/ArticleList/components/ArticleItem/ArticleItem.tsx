@@ -16,7 +16,7 @@ const MemoizedArticleItem = memo(function ArticleItem({ data, ...props }: Articl
 
     const handleFavorite = () => undefined;
 
-    const openArticle = () => router.push({ pathname: "/article-collection/favorite/[articleId]", query: { articleId: String(data.id) } });
+    const openArticle = () => router.push({ pathname: "/articles/favorite/[articleId]", query: { articleId: String(data.id) } });
 
     return (
         <Flex {...props} className={classes.root} onClick={openArticle}>

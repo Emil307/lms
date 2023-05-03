@@ -2,7 +2,7 @@ import React from "react";
 import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { ArticleCategoryPage } from "@pages/article-collection";
+import { ArticleCategoryPage } from "@pages/articles";
 
 const ArticleCategory: NextPageWithLayout = () => {
     return <ArticleCategoryPage />;

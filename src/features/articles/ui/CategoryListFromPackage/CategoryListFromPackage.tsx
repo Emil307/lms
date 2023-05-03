@@ -40,7 +40,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
         </Flex>
     );
 
-    const renderCourses = useMemo(
+    const renderCategories = useMemo(
         () => data.categories.data.map((category) => <CategoryItem key={category.id} data={category} />),
         [data.categories.data]
     );
@@ -55,7 +55,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
             showLabel={showLabel}
             hideLabel={hideLabel}>
             <Flex direction="column" gap={8}>
-                {renderCourses}
+                {renderCategories}
             </Flex>
         </MSpoiler>
     );

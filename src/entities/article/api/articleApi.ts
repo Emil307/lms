@@ -9,6 +9,7 @@ import {
     $getArticleCoursesResponse,
     $getArticleFiltersResponse,
     $getArticlePackagesResponse,
+    $getArticlesFromArticlePackage,
     $getArticlesResponse,
     AdminArticleDetails,
     ArticleCategoryFilters,
@@ -23,6 +24,7 @@ import {
     GetArticleCoursesResponse,
     GetArticleFiltersResponse,
     GetArticlePackagesResponse,
+    GetArticlesFromArticlePackage,
     GetArticlesResponse,
     UpdateArticleRequest,
 } from "./types";
@@ -62,6 +64,10 @@ class ArticleApi extends BaseApi {
     async getArticlePackages(): Promise<GetArticlePackagesResponse> {
         const response = await this.instance.get("article-packages");
         return $getArticlePackagesResponse.parse(response);
+    }
+    async getArticlesFromArticlePackage(articlePackageId: number): Promise<GetArticlesFromArticlePackage> {
+        const response = await this.instance.get(`article-packages/${articlePackageId}/articles`);
+        return $getArticlesFromArticlePackage.parse(response);
     }
     async getArticles(): Promise<GetArticlesResponse> {
         const response = await this.instance.get("articles");

@@ -7,6 +7,6 @@ interface TGetBreadCrumbsItemsProps {
 
 export const getBreadCrumbsItems = ({ categoryId, title }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Главная страница", href: { pathname: "/" } },
-    { title: "База знаний", href: { pathname: "/article-collection" } },
-    { title, href: { pathname: "/article-collection/[categoryId]", query: { categoryId } } },
+    { title: "База знаний", href: { pathname: "/articles" } },
+    { title, href: { pathname: "/articles/[categoryId]", query: { categoryId } } },
 ];

@@ -1,50 +1,57 @@
 import { Box, Title, ThemeIcon, Flex } from "@mantine/core";
 import React from "react";
-import { IconBook2 } from "@tabler/icons-react";
+import { IconArrowNarrowLeft, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Tabs } from "@shared/ui";
+import { BreadCrumbs, Button, Tabs } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
-import { ArticleCategoryList, ArticlePackageCard, CategoryListFromPackage, Filters } from "@features/articles";
+import { ArticleList, ArticlePackageCard, CategoryListFromPackage, Filters } from "@features/articles";
 import { ArticlePackage, useArticlePackages } from "@entities/article";
-import { breadCrumbsItems, tabsList } from "./constants";
+import { tabsList } from "./constants";
+import { getBreadCrumbsItems } from "./utils";
 
-const ArticleCollectionPage = () => {
+const ArticleCategoryPage = () => {
     const router = useRouter();
     const { data: articlePackages } = useArticlePackages();
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
             case "favorite":
-                router.push({ pathname: `/article-collection/favorite` });
+                router.push({ pathname: `/articles/favorite` });
                 break;
             case "my-courses":
-                router.push({ pathname: `/article-collection/my-courses` });
+                router.push({ pathname: `/articles/my-courses` });
                 break;
             default:
-                router.push({ pathname: `/article-collection` });
+                router.push({ pathname: `/articles` });
                 break;
         }
     };
+    const handleClickBackToList = () => router.push("/articles");
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 32 }}>
             <Box>
-                <BreadCrumbs items={breadCrumbsItems} mb={8} />
+                {/* TODO: Поменять title и query при подключении нормального реального эндпоинта */}
+                <BreadCrumbs items={getBreadCrumbsItems({ title: "Консалтинг", categoryId: "123" })} mb={8} />
                 <Title order={1} color="dark" sx={{ display: "flex", gap: 12, alignItems: "center" }}>
                     <ThemeIcon color="primaryHover" variant="outline" sx={{ border: "none", height: 36, width: 36 }}>
                         <IconBook2 height={36} width={36} />
                     </ThemeIcon>
-                    База знаний
+                    {/* TODO: Поменять на title категории при подключении нормального реального эндпоинта */}
+                    Консалтинг
                 </Title>
             </Box>
-            <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} />
+            <Tabs tabs={tabsList} value={tabsList[1].value} onTabChange={handleChangeTab} />
 
             <Flex gap={32}>
                 <Filters w={264} miw="max-content" />
                 <Flex direction="column" gap={64} w="calc(100% - 296px)">
-                    <Box>
-                        <ArticleCategoryList />
-                    </Box>
+                    <Flex direction="column" gap={32}>
+                        <Button variant="white" w="min-content" leftIcon={<IconArrowNarrowLeft />} onClick={handleClickBackToList}>
+                            Все категории
+                        </Button>
+                        <ArticleList />
+                    </Flex>
 
                     {articlePackages?.data && (
                         <Flex direction="column" gap={32}>
@@ -64,4 +71,4 @@ const ArticleCollectionPage = () => {
     );
 };
 
-export default ArticleCollectionPage;
+export default ArticleCategoryPage;
