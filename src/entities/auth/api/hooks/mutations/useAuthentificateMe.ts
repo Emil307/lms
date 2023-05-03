@@ -20,7 +20,7 @@ export const useAuthenticateMe = () => {
             }
 
             //TODO: Это временно пока не будет главной для авторизованного пользователя
-            router.push("/profile/settings");
+            router.push("/profile");
         },
     });
 };

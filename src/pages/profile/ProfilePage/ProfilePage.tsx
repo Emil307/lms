@@ -1,48 +1,47 @@
-import { Box, Group, LoadingOverlay, Text, useMantineTheme } from "@mantine/core";
+import { Box, Flex, LoadingOverlay, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
 import { Settings, Shield, User as UserIcon } from "react-feather";
-import { BreadCrumbs, Button, DisplayField, TBreadCrumbItem } from "@shared/ui";
-import { ProfileInfo, ProfileInfoDisplayFields } from "@components/ProfileInfo";
+import { useRouter } from "next/router";
+import { closeModal, openModal } from "@mantine/modals";
+import { BreadCrumbs, Button, DisplayField } from "@shared/ui";
+import { ProfileInfo } from "@components/ProfileInfo";
 import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
+import { ChangePasswordForm } from "@features/auth";
+import { breadCrumbsItems, fields } from "./constants";
 
-const fields: ProfileInfoDisplayFields<User> = [
-    { name: "profile.data.firstName", label: "Имя" },
-    { name: "role.data.name", label: "Роль" },
-    { name: "email", label: "Email" },
-];
-
-const breadCrumbsItems: TBreadCrumbItem[] = [
-    { title: "Мой профиль", href: { pathname: "/" } },
-    { title: "Настройки профиля", href: { pathname: "/profile/settings" } },
-];
-
-const ProfileSettingsPage = () => {
-    const theme = useMantineTheme();
-
+const ProfilePage = () => {
+    const router = useRouter();
     const { data: userData, isLoading } = useMe();
+
+    const handleRedirectEditProfile = () => router.push("/profile/edit");
+
+    const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
+
+    const handleOpenChangePasswordModal = () =>
+        openModal({
+            modalId: "CHANGE_PASSWORD",
+            title: "Изменение пароля",
+            centered: true,
+            size: 408,
+            children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
+        });
 
     if (isLoading) {
         return <LoadingOverlay visible overlayBlur={2} />;
     }
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 32 }}>
-            <Box>
-                <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Group sx={{ gap: 12 }}>
-                    <Settings width={32} height={32} color={theme.colors.primaryHover[0]} />
-                    <Text
-                        sx={(theme) => ({
-                            fontWeight: 600,
-                            fontSize: 32,
-                            lineHeight: "40px",
-                            color: theme.colors.dark[0],
-                        })}>
-                        Настройки профиля
-                    </Text>
-                </Group>
-            </Box>
+        <Box>
+            <BreadCrumbs items={breadCrumbsItems} mb={8} />
+            <Flex gap={16} align="center" mb={32}>
+                <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                    <Settings width={32} height={32} />
+                </ThemeIcon>
+                <Title order={1} color="dark">
+                    Настройки профиля
+                </Title>
+            </Flex>
             <Box
                 sx={(theme) => ({
                     display: "grid",
@@ -52,7 +51,7 @@ const ProfileSettingsPage = () => {
                     borderRadius: 24,
                     backgroundColor: theme.colors.white[0],
                 })}>
-                <Group sx={() => ({ flexDirection: "column", alignItems: "flex-start", gap: 24 })}>
+                <Flex direction="column" gap={24}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
@@ -60,7 +59,7 @@ const ProfileSettingsPage = () => {
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>
-                        <DisplayField label="Роль" value={userData?.roles?.[0].displayName} />
+                        <DisplayField label="Роль" value={userData?.roles[0].displayName} />
                         <DisplayField label="Email" value={userData?.email} />
                     </Fieldset>
 
@@ -84,17 +83,21 @@ const ProfileSettingsPage = () => {
                             ))}
                         </Box>
                     </Fieldset> */}
-                </Group>
+                </Flex>
                 <Box>
-                    <ProfileInfo
-                        //TODO: добавить аватар, когда будет возможность
-                        // avatarSrc={userData.avatarSrc}
+                    <ProfileInfo<User>
+                        variant="grayBg"
+                        avatarSrc={userData?.profile.avatar?.absolutePath}
                         fields={fields}
                         values={userData}
                         actionSlot={
                             <>
-                                <Button variant="secondary">Редактировать данные</Button>
-                                <Button variant="border">Изменить пароль</Button>
+                                <Button variant="secondary" onClick={handleRedirectEditProfile}>
+                                    Редактировать данные
+                                </Button>
+                                <Button variant="border" onClick={handleOpenChangePasswordModal}>
+                                    Изменить пароль
+                                </Button>
                             </>
                         }
                     />
@@ -104,4 +107,4 @@ const ProfileSettingsPage = () => {
     );
 };
 
-export default ProfileSettingsPage;
+export default ProfilePage;

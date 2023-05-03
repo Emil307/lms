@@ -1,12 +1,11 @@
 import React from "react";
 import { ReactElement } from "react";
-
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { ProfilePageEdit } from "@pages/profile";
+import { ProfileEditPage } from "@pages/profile";
 
 const ProfileEdit: NextPageWithLayout = () => {
-    return <ProfilePageEdit />;
+    return <ProfileEditPage />;
 };
 
 ProfileEdit.getLayout = function (page: ReactElement) {

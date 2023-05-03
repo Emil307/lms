@@ -7,6 +7,7 @@ import useStyles from "./ProfileInfo.styles";
 
 export type ProfileInfoDisplayFields<T> = (DisplayFieldProps & {
     name: keyof T | string;
+    renderString?: (value: T[keyof T], item?: T) => string;
 })[];
 
 export interface ProfileInfoProps<T> {
@@ -30,9 +31,10 @@ export default function ProfileInfo<T>({ avatarSrc, fields, values, actionSlot, 
 
     const renderFields = useMemo(
         () =>
-            fields.map(({ value, ...field }, index) => (
-                <DisplayField key={index} {...field} value={get(values, field.name)} variant="compact" />
-            )),
+            fields.map(({ value, ...field }, index) => {
+                const getValue = field.renderString ? field.renderString(get(values, field.name), values) : get(values, field.name);
+                return <DisplayField key={index} {...field} value={getValue} variant="compact" />;
+            }),
         [fields, values]
     );
 
