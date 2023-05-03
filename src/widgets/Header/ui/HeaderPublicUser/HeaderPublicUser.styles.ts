@@ -6,6 +6,7 @@ export default createStyles((theme) => ({
         position: "static",
     },
     inner: {
+        alignItems: "center",
         justifyContent: "space-between",
         maxWidth: 1320,
         minHeight: 96,
@@ -17,20 +18,9 @@ export default createStyles((theme) => ({
         textDecoration: "none",
     },
     actionIcon: {
-        width: 56,
         height: 40,
-        borderRadius: 160,
+        width: 56,
         color: theme.colors.dark[0],
-        backgroundColor: theme.colors.white[0],
-
-        ":hover": {
-            color: theme.colors.secondary[0],
-            backgroundColor: theme.colors.grayLight[0],
-        },
-
-        ":active": {
-            color: theme.colors.dark[0],
-            backgroundColor: theme.colors.grayLight[0],
-        },
+        borderRadius: 160,
     },
 }));
