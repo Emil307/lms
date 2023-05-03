@@ -12,6 +12,8 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
 import { adaptDataForEditForm } from "./utils";
 import useStyles from "./EditUserForm.styles";
+import { checkRoleOrder } from "@shared/utils";
+import { useMe } from "@entities/auth";
 
 export interface EditUserFormProps {
     data?: UserDetailResponse;
@@ -21,9 +23,11 @@ export interface EditUserFormProps {
 const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+    const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
 
-    const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
+    const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
+    const currentRole = String(filteredRoles?.find((role) => role.id === data?.roles[0].id)?.id);
 
     const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
 
@@ -55,9 +59,9 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
             mutationFunction={updateUser}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_USER, String(data?.id)] }]}
             hasConfirmModal
-            onClose={onClose}
+            onCancel={onClose}
             onSuccess={onSuccess}>
-            {({ values, dirty, onClose }) => (
+            {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={32} align="center">
                         <Box className={classes.infoItem}>
@@ -95,7 +99,7 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
                     <Fieldset label="Системные данные" icon={<Shield />}>
                         <Flex direction="column" gap={16}>
                             <FRadioGroup name="roleId">
-                                {options?.roles.map((item) => {
+                                {filteredRoles?.map((item) => {
                                     return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                 })}
                             </FRadioGroup>
@@ -107,7 +111,7 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
                             </Flex>
                         </Flex>
                     </Fieldset>
-                    {options?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
+                    {filteredRoles?.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
                         <Fieldset label="О преподавателе" icon={<UserCheck />}>
                             <Flex direction="column" gap={24}>
                                 <FFileInput
@@ -119,14 +123,21 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
                                     w={376}
                                     description="Рекомендуемый размер изображения: 376х220 px"
                                 />
-                                <FTextarea w={772} autosize minRows={4} name="description" />
+                                <FTextarea
+                                    w={772}
+                                    autosize
+                                    minRows={4}
+                                    name="description"
+                                    placeholder="Достижения и регалии"
+                                    description="до 190 символов"
+                                />
                             </Flex>
                         </Fieldset>
                     )}
 
                     {/* TODO: - нотификация в разработке на бэке, как появится -> добавить  */}
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>

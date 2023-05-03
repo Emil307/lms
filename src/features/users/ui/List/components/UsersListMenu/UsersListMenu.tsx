@@ -18,7 +18,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const router = useRouter();
     const { user } = useSession();
 
-    const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) > 0;
+    const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
 
     const changeUserActivityStatus = useChangeUserActivityStatus(String(row.original.id));
 

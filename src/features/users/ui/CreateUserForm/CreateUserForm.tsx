@@ -9,16 +9,16 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./utils";
+import { useMe } from "@entities/auth";
+import { checkRoleOrder } from "@shared/utils";
 
-export interface CreateUserFormProps {
-    onClose: () => void;
-}
-
-const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
+const CreateUserForm = () => {
     const router = useRouter();
     const theme = useMantineTheme();
+    const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
-    const defaultRole = String(options?.roles.at(0)?.id ?? 0);
+    const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
+    const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
 
     const createUser = (values: CreateUserRequest) => {
         return usersApi.createUser({ ...values, avatarId: values.avatar?.id, additionalImageId: values.additionalImage?.id });
@@ -26,6 +26,10 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
 
     const onSuccess = (response: UserCreateResponse) => {
         router.push({ pathname: "/admin/users/[id]", query: { id: String(response.id) } });
+    };
+
+    const onCancel = () => {
+        router.push("/admin/users");
     };
 
     return (
@@ -70,7 +74,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                     <Fieldset label="Системные данные" icon={<Shield />}>
                         <Box>
                             <FRadioGroup name="roleId">
-                                {options?.roles.map((item) => {
+                                {filteredRoles?.map((item) => {
                                     return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                 })}
                             </FRadioGroup>
@@ -115,7 +119,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
 
                     {/* TODO: - нотификация в разработке на бэке, как появится -> добавить */}
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
