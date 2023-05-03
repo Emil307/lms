@@ -44,7 +44,6 @@ import {
 import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ReviewForm } from "@features/review";
 import { createNotification, ToastType } from "@shared/utils";
-import { ChangePasswordForm } from "@features/auth";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 
 const testDataSelect = [
@@ -358,18 +357,6 @@ export const UIDemo = () => {
                                 <FTextEditor name="content" />
                                 <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
                                     Next
-                                </Button>
-                                <Button
-                                    onClick={() =>
-                                        openModal({
-                                            modalId: "CHANGE_PASSWORD",
-                                            title: "Изменение пароля",
-                                            centered: true,
-                                            size: 408,
-                                            children: <ChangePasswordForm onClose={handleCloseModal} />,
-                                        })
-                                    }>
-                                    Show Modal
                                 </Button>
                                 <Button
                                     onClick={() =>

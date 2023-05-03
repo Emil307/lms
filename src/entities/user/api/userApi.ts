@@ -15,6 +15,7 @@ import {
     UsersRequestParamsType,
     UsersResponseType,
     ChangeUserActivityStatusRequest,
+    ChangeUserPasswordRequest,
 } from "./types";
 
 export class UsersApi extends BaseApi {
@@ -71,9 +72,13 @@ export class UsersApi extends BaseApi {
         return $userCreateResponse.parse(result);
     }
 
-    async updateUser({ id, ...data }: UpdateUserRequest & { id?: string }): Promise<UserDetailResponse> {
+    async updateUser({ id, ...data }: UpdateUserRequest & { id?: number }): Promise<UserDetailResponse> {
         const result = await this.instance.put(`admin/users/${id}`, data);
         return $userDetailResponse.parse(result);
+    }
+
+    async changeUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<void> {
+        await this.instance.put(`admin/users/${id}/change-password`, data);
     }
 
     //students

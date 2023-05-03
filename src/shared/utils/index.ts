@@ -9,3 +9,4 @@ export * from "./getDiscountedAmount";
 export * from "./getMonthDifference";
 export * from "./showNotification";
 export * from "./getFullNameFromProfile";
+export * from "./checkRoleOrder";

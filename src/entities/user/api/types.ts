@@ -17,6 +17,7 @@ export type GetAdminStudentsFiltersResponse = z.infer<typeof $getAdminStudentsFi
 export type UpdateUserRequest = z.infer<typeof $updateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $createUserRequest>;
 export type ChangeUserActivityStatusRequest = z.infer<typeof $userActivityStatusRequest>;
+export type ChangeUserPasswordRequest = z.infer<typeof $changeUserPasswordRequest>;
 
 export const $user = z.object({
     email: z.string(),
@@ -86,4 +87,11 @@ export const $usersFilters = z.object({
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
     query: z.string(),
     roleName: z.string(),
+});
+
+export const $changeUserPasswordRequest = z.object({
+    id: z.number().nullish(),
+    oldPassword: z.string().optional(),
+    password: z.string(),
+    passwordConfirmation: z.string(),
 });

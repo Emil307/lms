@@ -1,3 +1,3 @@
-import UsersListMenu from "./UsersListMenu";
+import UsersListMenu, { type UsersListMenuProps } from "./UsersListMenu";
 
-export { UsersListMenu };
+export { UsersListMenu, UsersListMenuProps };

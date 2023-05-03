@@ -7,8 +7,9 @@ import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
 import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
-import { ChangePasswordForm, UserDeleteModal } from "@features/users";
-import { getFullNameFromProfile } from "@shared/utils";
+import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
+import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
+import { useSession } from "@features/auth";
 import { useSettingUserStyles } from "./SettingUser.styles";
 import { fields } from "./constants";
 
@@ -20,6 +21,8 @@ const SettingUser = ({ id }: SettingUserProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
     const { data } = useDetailUser(id);
+    const { user: authUser } = useSession();
+    const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > -1;
 
     const dataProfile = {
         fio: getFullNameFromProfile(data?.profile),
@@ -44,7 +47,9 @@ const SettingUser = ({ id }: SettingUserProps) => {
             title: "Изменение пароля",
             centered: true,
             size: 408,
-            children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
+            children: (
+                <ChangeUserPasswordForm userData={{ id: data?.id, roleId: data?.roles[0].id }} onClose={handleCloseChangePasswordModal} />
+            ),
         });
 
     const openEditUserPage = () => router.push({ pathname: "/admin/users/[id]/edit", query: { id } });
@@ -55,16 +60,18 @@ const SettingUser = ({ id }: SettingUserProps) => {
                 <Group sx={{ flexDirection: "column", alignItems: "flex-start" }}>
                     <Flex gap={48} align="center">
                         <Title order={2}>Настройки пользователя</Title>
-                        <Button
-                            onClick={openModalDeleteUser}
-                            variant="text"
-                            leftIcon={
-                                <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                    <Trash />
-                                </ThemeIcon>
-                            }>
-                            Удалить пользователя
-                        </Button>
+                        {isRoleOrder && (
+                            <Button
+                                onClick={openModalDeleteUser}
+                                variant="text"
+                                leftIcon={
+                                    <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                                        <Trash />
+                                    </ThemeIcon>
+                                }>
+                                Удалить пользователя
+                            </Button>
+                        )}
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={data?.profile.lastName} />
@@ -104,14 +111,16 @@ const SettingUser = ({ id }: SettingUserProps) => {
                         variant="whiteBg"
                         fields={fields}
                         actionSlot={
-                            <>
-                                <Button variant="secondary" onClick={openEditUserPage}>
-                                    Редактировать данные
-                                </Button>
-                                <Button variant="border" onClick={handleOpenChangePasswordModal}>
-                                    Изменить пароль
-                                </Button>
-                            </>
+                            isRoleOrder && (
+                                <>
+                                    <Button variant="secondary" onClick={openEditUserPage} disabled={!isRoleOrder}>
+                                        Редактировать данные
+                                    </Button>
+                                    <Button variant="border" onClick={handleOpenChangePasswordModal} disabled={!isRoleOrder}>
+                                        Изменить пароль
+                                    </Button>
+                                </>
+                            )
                         }
                     />
                 </Box>

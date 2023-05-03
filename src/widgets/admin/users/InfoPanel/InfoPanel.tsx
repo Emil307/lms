@@ -2,7 +2,8 @@ import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Checkbox, Switch } from "@shared/ui";
 import { useChangeUserActivityStatus, useDetailUser } from "@entities/user";
-import { getFullNameFromProfile } from "@shared/utils";
+import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
+import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 export interface InfoPanelProps {
@@ -12,7 +13,10 @@ export interface InfoPanelProps {
 const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
+    const { user: authUser } = useSession();
     const changeUserActivityStatus = useChangeUserActivityStatus(id);
+
+    const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
@@ -46,6 +50,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         labelPosition="left"
                         checked={data?.isActive}
                         onChange={handleChangeActiveStatus}
+                        disabled={!isRoleOrder}
                     />
                 </Flex>
                 <Checkbox label="Отображать на главной" />
