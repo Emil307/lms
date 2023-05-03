@@ -12,9 +12,10 @@ import useStyles from "./ProfileEditForm.styles";
 export interface ProfileEditFormProps {
     data?: User;
     isLoading?: boolean;
+    onEditPassword: () => void;
 }
 
-const ProfileEditForm = ({ data, isLoading }: ProfileEditFormProps) => {
+const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
@@ -23,8 +24,6 @@ const ProfileEditForm = ({ data, isLoading }: ProfileEditFormProps) => {
     const updateMe = (values: UpdateMeRequest) => {
         return authApi.updateMe(values);
     };
-
-    const handleEditPassword = () => router.push("/profile/edit");
 
     const handleCloseForm = () => {
         router.push("/profile");
@@ -75,7 +74,7 @@ const ProfileEditForm = ({ data, isLoading }: ProfileEditFormProps) => {
                             <Text className={classes.role}>{`Роль: ${adaptData.role}`}</Text>
                             <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
                                 <FInput name="email" label="Email" size="sm" miw={252} disabled />
-                                <Button type="button" variant="border" onClick={handleEditPassword}>
+                                <Button type="button" variant="border" onClick={onEditPassword}>
                                     Изменить пароль
                                 </Button>
                             </Flex>
