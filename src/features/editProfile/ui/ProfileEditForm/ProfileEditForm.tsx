@@ -12,11 +12,9 @@ import useStyles from "./ProfileEditForm.styles";
 export interface ProfileEditFormProps {
     data?: User;
     isLoading?: boolean;
-    onEditPassword: () => void;
-    onClose: () => void;
 }
 
-const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEditFormProps) => {
+const ProfileEditForm = ({ data, isLoading }: ProfileEditFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
@@ -26,7 +24,9 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
         return authApi.updateMe(values);
     };
 
-    const onSuccess = () => {
+    const handleEditPassword = () => router.push("/profile/edit");
+
+    const handleCloseForm = () => {
         router.push("/profile");
     };
 
@@ -38,9 +38,9 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ME] }]}
             mutationFunction={updateMe}
             isLoading={isLoading}
-            onClose={onClose}
-            onSuccess={onSuccess}>
-            {({ values, dirty, onClose }) => (
+            onCancel={handleCloseForm}
+            onSuccess={handleCloseForm}>
+            {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>
                         <Flex direction="column" gap={24}>
@@ -75,7 +75,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                             <Text className={classes.role}>{`Роль: ${adaptData.role}`}</Text>
                             <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
                                 <FInput name="email" label="Email" size="sm" miw={252} disabled />
-                                <Button type="button" variant="border" onClick={onEditPassword}>
+                                <Button type="button" variant="border" onClick={handleEditPassword}>
                                     Изменить пароль
                                 </Button>
                             </Flex>
@@ -83,7 +83,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword, onClose }: ProfileEd
                     </Fieldset>
 
                     <Group className={classes.actions}>
-                        <Button type="button" variant="border" size="large" onClick={onClose}>
+                        <Button type="button" variant="border" size="large" onClick={onCancel}>
                             Отмена
                         </Button>
                         <Button type="submit" variant="secondary" size="large" disabled={!dirty}>
