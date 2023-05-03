@@ -55,9 +55,9 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
             mutationFunction={updateUser}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_USER, String(data?.id)] }]}
             hasConfirmModal
-            onClose={onClose}
+            onCancel={onClose}
             onSuccess={onSuccess}>
-            {({ values, dirty, onClose }) => (
+            {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={32} align="center">
                         <Box className={classes.infoItem}>
@@ -126,7 +126,7 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
 
                     {/* TODO: - нотификация в разработке на бэке, как появится -> добавить  */}
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>

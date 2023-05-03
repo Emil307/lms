@@ -8,6 +8,7 @@ export function middleware(req: NextRequest) {
 
     const unathPaths = ["/auth", "/auth/forgot-password", "/auth/recovery-password", "/auth/sign-up"];
     const publicPaths = ["/"];
+    const disabledRedirectUrls = ["/logout"];
 
     if (publicPaths.includes(url.pathname)) {
         return NextResponse.next();
@@ -24,6 +25,11 @@ export function middleware(req: NextRequest) {
 
     if (!token && unathPaths.includes(url.pathname)) {
         return NextResponse.next();
+    }
+
+    if (disabledRedirectUrls.includes(req.nextUrl.pathname)) {
+        url.pathname = "/auth";
+        return NextResponse.redirect(url);
     }
 
     url.search = `redirect=${req.nextUrl.pathname}`;
