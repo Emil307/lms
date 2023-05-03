@@ -5,3 +5,4 @@ export * from "./useArticles";
 export * from "./useArticleCourses";
 export * from "./useAdminArticleResource";
 export * from "./useAdminArticle";
+export * from "./useArticlesFromArticlePackage";

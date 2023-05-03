@@ -2,7 +2,7 @@ import React from "react";
 import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { ArticleDetailPage } from "@pages/article-collection";
+import { ArticleDetailPage } from "@pages/articles";
 
 const ArticleDetail: NextPageWithLayout = () => {
     return <ArticleDetailPage />;

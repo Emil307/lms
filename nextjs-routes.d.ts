@@ -49,12 +49,12 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
     | StaticRoute<"/api/hello">
-    | DynamicRoute<"/article-collection/[categoryId]", { "categoryId": string }>
-    | DynamicRoute<"/article-collection/favorite/[articleId]", { "articleId": string }>
-    | StaticRoute<"/article-collection/favorite">
-    | StaticRoute<"/article-collection">
-    | DynamicRoute<"/article-collection/my-courses/[courseId]", { "courseId": string }>
-    | StaticRoute<"/article-collection/my-courses">
+    | DynamicRoute<"/articles/[categoryId]", { "categoryId": string }>
+    | DynamicRoute<"/articles/favorite/[articleId]", { "articleId": string }>
+    | StaticRoute<"/articles/favorite">
+    | StaticRoute<"/articles">
+    | DynamicRoute<"/articles/my-courses/[courseId]", { "courseId": string }>
+    | StaticRoute<"/articles/my-courses">
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">

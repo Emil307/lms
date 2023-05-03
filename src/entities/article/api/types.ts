@@ -8,6 +8,7 @@ export type ArticleCategory = z.infer<typeof $articleCategory>;
 export type ArticlePackage = z.infer<typeof $articlePackage>;
 export type ArticleFilter = z.infer<typeof $articleFilter>;
 export type ArticleCourse = z.infer<typeof $articleCourse>;
+export type ArticleFromArticlePackage = z.infer<typeof $articleFromArticlePackage>;
 
 export type AdminArticle = z.infer<typeof $adminArticle>;
 export type AdminArticleDetails = z.infer<typeof $adminArticleDetails>;
@@ -24,6 +25,7 @@ export type GetArticleCategoriesResponse = z.infer<typeof $getArticleCategoriesR
 export type GetArticleFiltersResponse = z.infer<typeof $getArticleFiltersResponse>;
 export type GetArticleCoursesResponse = z.infer<typeof $getArticleCoursesResponse>;
 export type GetArticleDetailResponse = z.infer<typeof $getArticleDetailResponse>;
+export type GetArticlesFromArticlePackage = z.infer<typeof $getArticlesFromArticlePackage>;
 
 export type CreateArticleRequest = z.infer<typeof $createArticleRequest>;
 export type UpdateArticleRequest = z.infer<typeof $updateArticleRequest>;
@@ -46,7 +48,7 @@ export const $article = z.object({
 export const $articleCategory = z.object({
     id: z.number(),
     name: z.string(),
-    articleCount: z.number(),
+    articlesCount: z.number(),
 });
 
 export const $articleCourse = z.object({
@@ -61,42 +63,31 @@ export const $articleFilter = z.object({
     slug: z.string(),
 });
 
+export const $articleFromArticlePackage = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
 //TODO: Объединить с дисконтами из других сущностей
 export const $articlePackageDiscount = z.object({
-    data: z
-        .object({
-            is_active: z.boolean(),
-            type: z.string(),
-            value: z.number(),
-            from: z.string().datetime().nullable(),
-            to: z.string().datetime().nullable(),
-        })
-        .nullable()
-        .or(
-            z.array(
-                z.object({
-                    is_active: z.boolean(),
-                    type: z.string(),
-                    value: z.number(),
-                    from: z.string().datetime().nullable(),
-                    to: z.string().datetime().nullable(),
-                })
-            )
-        ),
+    data: z.object({
+        type: z.literal("percentage").or(z.literal("currency")),
+        amount: z.number(),
+        startingDate: z.coerce.date().nullable(),
+        finishingDate: z.coerce.date().nullable(),
+    }),
 });
 
 export const $articlePackage = z.object({
     id: z.number(),
     name: z.string(),
-    description: z.string(),
+    articlesCount: z.number(),
+    price: z.number(),
+    discountPrice: z.number().nullable(),
     categories: z.object({
         data: z.array($articleCategory),
     }),
-
-    isDiscount: z.boolean(),
-    discount: $articlePackageDiscount,
-    totalArticles: z.number(),
-    price: z.number(),
+    discount: $articlePackageDiscount.nullable(),
 });
 
 export const $getArticlePackagesResponse = $getPaginationResponseType($articlePackage);
@@ -243,3 +234,4 @@ export const $deleteAdminArticleMaterialRequest = z.object({
     articleId: z.string(),
     materialId: z.number(),
 });
+export const $getArticlesFromArticlePackage = $getPaginationResponseType($articleFromArticlePackage);

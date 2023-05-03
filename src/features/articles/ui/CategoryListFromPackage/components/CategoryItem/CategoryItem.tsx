@@ -26,7 +26,7 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data }: CategoryItemPr
             title: data.name,
             centered: true,
             size: 456,
-            children: <ArticleListFromCategory onClose={handleCloseModal} />,
+            children: <ArticleListFromCategory categoryId={data.id} onClose={handleCloseModal} />,
         });
 
     return (
@@ -40,8 +40,8 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data }: CategoryItemPr
                 </Tooltip>
             </Flex>
             <Divider my="xs" sx={{ flex: 1 }} color="gray45" variant="dashed" />
-            <Text className={classes.price}>{`${data.articleCount} ${getPluralString(
-                data.articleCount,
+            <Text className={classes.price}>{`${data.articlesCount} ${getPluralString(
+                data.articlesCount,
                 "статья",
                 "статьи",
                 "статей"

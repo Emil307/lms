@@ -14,7 +14,7 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
     const { classes } = useStyles();
     const router = useRouter();
 
-    const handleOpenCategory = () => router.push({ pathname: "/article-collection/[categoryId]", query: { categoryId: String(data.id) } });
+    const handleOpenCategory = () => router.push({ pathname: "/articles/[categoryId]", query: { categoryId: String(data.id) } });
 
     return (
         <Flex {...props} className={classes.root}>
@@ -25,8 +25,8 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
                 <Title order={3} color="dark" lineClamp={1}>
                     {data.name}
                 </Title>
-                <Text className={classes.countArticles}>{`${data.articleCount} ${getPluralString(
-                    data.articleCount,
+                <Text className={classes.countArticles}>{`${data.articlesCount} ${getPluralString(
+                    data.articlesCount,
                     "статья",
                     "статьи",
                     "статей"

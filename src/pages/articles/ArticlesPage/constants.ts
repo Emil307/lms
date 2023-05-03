@@ -8,6 +8,5 @@ export const tabsList = [
 
 export const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Главная страница", href: { pathname: "/" } },
-    { title: "База знаний", href: { pathname: "/article-collection" } },
-    { title: "Избранное", href: { pathname: "/article-collection/favorite" } },
+    { title: "База знаний", href: { pathname: "/articles" } },
 ];

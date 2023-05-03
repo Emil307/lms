@@ -6,19 +6,19 @@ import { BreadCrumbs, Tabs } from "@shared/ui";
 import { ArticleList, Filters } from "@features/articles";
 import { breadCrumbsItems, tabsList } from "./constants";
 
-const ArticleCollectionFavoritePage = () => {
+const ArticlesPage = () => {
     const router = useRouter();
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
             case "favorite":
-                router.push({ pathname: `/article-collection/favorite` });
+                router.push({ pathname: `/articles/favorite` });
                 break;
             case "my-courses":
-                router.push({ pathname: `/article-collection/my-courses` });
+                router.push({ pathname: `/articles/my-courses` });
                 break;
             default:
-                router.push({ pathname: `/article-collection` });
+                router.push({ pathname: `/articles` });
                 break;
         }
     };
@@ -46,4 +46,4 @@ const ArticleCollectionFavoritePage = () => {
     );
 };
 
-export default ArticleCollectionFavoritePage;
+export default ArticlesPage;
