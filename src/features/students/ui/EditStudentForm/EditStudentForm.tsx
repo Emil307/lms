@@ -21,7 +21,7 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
     const { data: options } = useAdminStudentsFilters();
-    const updateUser = useUpdateUser(String(data?.id));
+    const updateUser = useUpdateUser(data?.id);
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 

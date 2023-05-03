@@ -8,6 +8,7 @@ export const $profile = z.object({
     patronymic: z.string().nullable(),
     avatar: $uploadedFile.nullable(),
     description: z.string().nullable(),
+    additionalImage: $uploadedFile.nullable().optional(),
 });
 
 export type TProfile = z.infer<typeof $profile>;

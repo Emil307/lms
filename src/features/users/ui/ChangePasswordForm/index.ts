@@ -1,3 +1,3 @@
-import ChangePasswordForm, { type ChangePasswordFormProps } from "./ChangePasswordForm";
+import ChangeUserPasswordForm, { type ChangeUserPasswordFormProps } from "./ChangePasswordForm";
 
-export { ChangePasswordForm, ChangePasswordFormProps };
+export { ChangeUserPasswordForm, ChangeUserPasswordFormProps };
