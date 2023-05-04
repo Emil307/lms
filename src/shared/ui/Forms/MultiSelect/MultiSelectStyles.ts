@@ -12,6 +12,12 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
     },
     wrapper: {
         marginBottom: 0,
+        borderRadius: 8,
+        border: "none",
+
+        ":hover, :focus": {
+            boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
+        },
     },
     label: {
         position: "absolute",
@@ -34,17 +40,14 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
         fontSize: 14,
         lineHeight: "16px",
         ":hover, :focus": {
-            boxShadow: `0px 1px 2px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.04)}, 0px 0px 16px ${theme.fn.rgba(
-                theme.colors.shadowGray[0],
-                0.04
-            )} !important`,
-            border: `1px solid ${theme.fn.rgba(theme.colors.primary[0], 0.0)} `,
+            border: "1px solid transparent",
             cursor: "pointer",
         },
         ":disabled": {
             border: `1px solid ${theme.fn.rgba(theme.colors.neutral_gray[0], 0.2)} `,
             color: theme.colors.dark[0],
         },
+
         "&[aria-invalid=true]": {
             border: `1px solid ${theme.colors.warning[0]} `,
         },
