@@ -15,7 +15,7 @@ export const columns: MRT_ColumnDef<AdminCategory>["columns"] = [
     },
     {
         header: "Подкатегорий",
-        accessorKey: "subCategories",
+        accessorKey: "subCategoriesCount",
     },
     {
         header: "Дата создания",

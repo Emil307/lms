@@ -15,7 +15,7 @@ export const useUploadFile = () => {
                 case "image":
                     return storageApi.uploadImage(data);
                 case "video":
-                    return storageApi.uploadAvatar(data);
+                    return storageApi.uploadVideo(data);
                 default:
                     return storageApi.uploadDocument(data);
             }

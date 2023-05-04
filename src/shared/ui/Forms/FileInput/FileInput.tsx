@@ -1,6 +1,6 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
-import { Box, Group, Text } from "@mantine/core";
+import { Box, BoxProps, Group, Text } from "@mantine/core";
 import { Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
@@ -34,6 +34,8 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     initialFilesData?: InitialFile[];
     loadedFilesData?: LoadedFile[];
     titleButtonFileDialog?: string;
+    containerFilesProps?: BoxProps;
+    educational?: boolean;
     onLoad: (file: UploadedFile) => void;
     onError?: () => void;
     onDeleteLoadedFile?: (id: number, remainFiles: (File | UploadedFile)[]) => void;
@@ -49,6 +51,7 @@ const MemoizedFileInput = memo(function FileInput({
     exampleUrl,
     multiple = false,
     withDeleteButton = false,
+    educational = false,
     fileFormats = [],
     maxFileSize = DEFAULT_MAX_FILE_SIZE,
     imageMaxWidth = DEFAULT_IMAGE_MAX_WIDTH,
@@ -56,6 +59,7 @@ const MemoizedFileInput = memo(function FileInput({
     initialFilesData = [],
     loadedFilesData = [],
     titleButtonFileDialog,
+    containerFilesProps,
     onLoad,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
@@ -155,6 +159,7 @@ const MemoizedFileInput = memo(function FileInput({
                     error={loadedFiles[0].error}
                     imageMaxWidth={imageMaxWidth}
                     imageMaxHeight={imageMaxHeight}
+                    educational={educational}
                     withDeleteButton={withDeleteButton}
                     onOpenFileDialog={handleOnOpenFileDialog}
                     onDelete={handleDeleteLoadedFile}
@@ -173,6 +178,7 @@ const MemoizedFileInput = memo(function FileInput({
                     imageMaxWidth={imageMaxWidth}
                     imageMaxHeight={imageMaxHeight}
                     withDeleteButton={withDeleteButton}
+                    educational={educational}
                     onOpenFileDialog={handleOnOpenFileDialog}
                     onDelete={onDeleteInitialFile}
                     onUpdateFile={onLoad}
@@ -198,7 +204,7 @@ const MemoizedFileInput = memo(function FileInput({
             return null;
         }
         return (
-            <Box className={classes.containerFiles}>
+            <Box {...containerFilesProps} className={classes.containerFiles}>
                 {initialFilesData.map((file) => (
                     <FileItem
                         key={file.fileId}
@@ -218,6 +224,7 @@ const MemoizedFileInput = memo(function FileInput({
                         fileSize={file.data.size ? getFileSize(file.data.size) : ""}
                         type="document"
                         withDeleteButton={withDeleteButton}
+                        educational={educational}
                         onEdit={handleReplaceLoadedFile}
                         onDelete={handleDeleteLoadedFile}
                         onUpdateFile={onLoad}

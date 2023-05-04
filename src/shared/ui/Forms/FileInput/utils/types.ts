@@ -40,7 +40,9 @@ export type FileFormat =
     | "xlsx"
     | "ppt"
     | "pptx"
-    | "exe";
+    | "exe"
+    | "avi"
+    | "mpg";
 
 export const $uploadedFile = z.object({
     id: z.number(),

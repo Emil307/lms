@@ -9,6 +9,7 @@ export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "statu
     withDeleteButton?: boolean;
     file: File | UploadedFile;
     error?: string;
+    educational?: boolean;
     onDelete?: (fileId: number) => void;
     onEdit?: (fileId: number) => void;
     onUpdateFile: (data: UploadedFile) => void;
@@ -20,6 +21,7 @@ export default function FileInputLoadedDocument({
     fileId,
     file,
     error,
+    educational = false,
     onDelete = () => undefined,
     onEdit = () => undefined,
     onUpdateFile,
@@ -31,7 +33,7 @@ export default function FileInputLoadedDocument({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file, type },
+                { file, type, educational },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(resp);

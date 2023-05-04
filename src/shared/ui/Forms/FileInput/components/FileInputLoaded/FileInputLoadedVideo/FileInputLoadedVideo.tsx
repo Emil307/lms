@@ -14,6 +14,7 @@ export interface FileInputLoadedVideoProps {
     imageMaxHeight: number;
     withDeleteButton?: boolean;
     error?: string;
+    educational?: boolean;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
     onUpdateFile: (data: UploadedFile) => void;
@@ -27,6 +28,7 @@ export default function FileInputLoadedVideo({
     fileUrl,
     error,
     withDeleteButton = false,
+    educational = false,
     onOpenFileDialog = () => undefined,
     onDelete = () => undefined,
     onUpdateFile,
@@ -39,7 +41,7 @@ export default function FileInputLoadedVideo({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file, type },
+                { file, type, educational },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(resp);

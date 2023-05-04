@@ -6,7 +6,7 @@ export type AdminCategory = z.infer<typeof $adminCategory>;
 export type CategoriesFilters = z.infer<typeof $categoriesFilters>;
 export type SubCategoriesFilters = z.infer<typeof $subCategoriesExtraFilters>;
 
-export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters>;
+export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters & { isActive?: boolean }>;
 export type GetAdminSubCategoriesRequest = TRequestFilterParams<SubCategoriesFilters>;
 export type GetAdminCategoriesResponse = z.infer<typeof $getAdminCategoriesResponse>;
 export type UpdateAdminCategoryRequest = z.infer<typeof $updateAdminCategoryRequest>;
@@ -23,8 +23,9 @@ export const $categoriesFilters = z.object({
 export const $adminCategory = z.object({
     id: z.number(),
     name: z.string(),
-    subCategories: z.number(),
+    subCategoriesCount: z.number(),
     createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     isActive: z.boolean(),
 });
 

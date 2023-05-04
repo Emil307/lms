@@ -70,6 +70,13 @@ export default function Sidebar() {
                 />
                 <SidebarItem
                     inner={true}
+                    label="Справочник материалов"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/settings/materials"
+                    isActive={router.pathname.includes("/admin/settings/materials")}
+                />
+                <SidebarItem
+                    inner={true}
                     label="Титульная страница"
                     icon={<User color={theme.colors.primary[9]} />}
                     href="/admin/settings/main-page/reviews"

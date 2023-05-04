@@ -9,6 +9,9 @@ export const getFileFormData = (data: UploadFileRequest): FormData => {
     if (data.visibility) {
         formData.append(`visibility`, data.visibility);
     }
+    if (data.educational) {
+        formData.append(`educational`, "1");
+    }
 
     return formData;
 };
