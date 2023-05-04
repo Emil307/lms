@@ -1,4 +1,4 @@
-export * from "./useChangeUserActivityStatus";
+export * from "./useUpdateActivityUser";
 export * from "./useChangeUserPassword";
 export * from "./useCreateUser";
 export * from "./useDeleteUser";

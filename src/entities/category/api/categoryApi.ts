@@ -1,14 +1,17 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $getAdminCategoriesResponse,
+    $GetAdminCategoriesResponse,
     GetAdminCategoriesResponse,
     GetAdminCategoriesRequest,
     AdminCategory,
-    $adminCategory,
+    $AdminCategory,
     CreateAdminCategoryRequest,
     UpdateAdminCategoryRequest,
     GetAdminSubCategoriesRequest,
+    UpdateActivityStatusCategoryRequest,
+    UpdateActivityStatusCategoryResponse,
+    $UpdateActivityStatusCategoryResponse,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -20,7 +23,7 @@ class CategoryApi extends BaseApi {
                 isActive,
             },
         });
-        return $getAdminCategoriesResponse.parse(response);
+        return $GetAdminCategoriesResponse.parse(response);
     }
 
     async getAdminSubCategories({ parentId, ...params }: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
@@ -32,33 +35,33 @@ class CategoryApi extends BaseApi {
                 },
             },
         });
-        return $getAdminCategoriesResponse.parse(response);
+        return $GetAdminCategoriesResponse.parse(response);
     }
 
     async getAdminCategory(id?: string): Promise<AdminCategory> {
         const response = await this.instance.get(`admin/categories/${id}`);
-        return $adminCategory.parse(response);
+        return $AdminCategory.parse(response);
     }
 
     async createAdminCategory(data: CreateAdminCategoryRequest): Promise<AdminCategory> {
         const response = await this.instance.post(`admin/categories`, data);
-        return $adminCategory.parse(response);
+        return $AdminCategory.parse(response);
     }
     async updateAdminCategory({ id, ...data }: UpdateAdminCategoryRequest & { id: string }): Promise<AdminCategory> {
         const response = await this.instance.put(`admin/categories/${id}`, data);
-        return $adminCategory.parse(response);
+        return $AdminCategory.parse(response);
     }
 
     async deleteCategory(id: string): Promise<void> {
         await this.instance.delete(`admin/categories/${id}`);
     }
 
-    async activateCategory(id: string): Promise<void> {
-        await axios.put(`admin/categories/${id}/activate`);
-    }
-
-    async deactivateCategory(id: string): Promise<void> {
-        await axios.put(`admin/categories/${id}/deactivate`);
+    async updateActivityStatusCategory({
+        id,
+        isActive,
+    }: UpdateActivityStatusCategoryRequest): Promise<UpdateActivityStatusCategoryResponse> {
+        const response = await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
+        return $UpdateActivityStatusCategoryResponse.parse(response);
     }
 }
 

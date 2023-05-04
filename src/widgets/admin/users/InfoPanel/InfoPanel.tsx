@@ -1,7 +1,7 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Checkbox, Switch } from "@shared/ui";
-import { useChangeUserActivityStatus, useDetailUser } from "@entities/user";
+import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
@@ -14,7 +14,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
     const { user: authUser } = useSession();
-    const changeUserActivityStatus = useChangeUserActivityStatus(id);
+    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(id);
 
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
@@ -30,9 +30,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     //     minute: "2-digit",
     // });
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
-        changeUserActivityStatus.mutate(newValue.target.checked);
-    };
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
         <Box>

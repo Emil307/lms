@@ -2,7 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Switch } from "@shared/ui";
 import { getFullNameFromProfile } from "@shared/utils";
-import { useChangeUserActivityStatus, useDetailUser } from "@entities/user";
+import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -13,7 +13,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
 
-    const changeUserActivityStatus = useChangeUserActivityStatus(id);
+    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
@@ -27,9 +27,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     //     minute: "2-digit",
     // });
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
-        changeUserActivityStatus.mutate(newValue.target.checked);
-    };
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
         <Box>

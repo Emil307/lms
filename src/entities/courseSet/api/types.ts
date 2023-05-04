@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { $getPaginationResponseType } from "@shared/types";
-import { $uploadedFile } from "@shared/ui";
+import { $UploadedFile, $getPaginationResponseType } from "@shared/types";
 import { $course } from "@entities/course";
 
 export type CourseSet = z.infer<typeof $courseSet>;
@@ -91,7 +90,7 @@ export const $getCourseSetResponse = z.object({
     id: z.number(),
     name: z.string(),
     picture: z.object({
-        data: $uploadedFile,
+        data: $UploadedFile,
     }),
     description: z.string(),
     courses: $getPaginationResponseType($courseSet),

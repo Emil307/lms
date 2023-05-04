@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { UploadedFile } from "@shared/types";
 
 export interface FileRejection {
     file: File;
@@ -18,8 +18,6 @@ export type LoadedFile = {
     data: File | UploadedFile;
     error?: string;
 };
-
-export type UploadedFile = z.infer<typeof $uploadedFile>;
 
 export type FileFormat =
     | "jpg"
@@ -43,11 +41,3 @@ export type FileFormat =
     | "exe"
     | "avi"
     | "mpg";
-
-export const $uploadedFile = z.object({
-    id: z.number(),
-    name: z.string(),
-    extension: z.string(),
-    size: z.number(),
-    absolutePath: z.string(),
-});

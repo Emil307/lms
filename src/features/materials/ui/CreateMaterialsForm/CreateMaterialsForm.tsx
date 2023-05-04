@@ -1,9 +1,10 @@
 import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { FormikConfig } from "formik";
-import { Button, FFileInputMultiple, Form, UploadedFile } from "@shared/ui";
+import { Button, FFileInputMultiple, Form } from "@shared/ui";
 import { CreateMaterialsDataForm, FileTypeCard, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { getDataFromSessionStorage } from "@shared/utils";
+import { UploadedFile } from "@shared/types";
 import { $createMaterialsFormValidationSchema, CreateMaterialsFormValidationSchema } from "./types";
 import { getInitialValues } from "./utils";
 

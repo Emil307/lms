@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import React, { useMemo } from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { CreateMaterialsForm, EditMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
-import { UploadedFile } from "@shared/ui";
+import { UploadedFile } from "@shared/types";
 import { fileTypeCards } from "./constants";
 import { MaterialTypeCard } from "./components";
 

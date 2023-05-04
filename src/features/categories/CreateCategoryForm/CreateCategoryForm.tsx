@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import React from "react";
 import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
-import { $createAdminCategoryRequest, CreateAdminCategoryRequest, useCreateCategory } from "@entities/category";
+import { $CreateAdminCategoryRequest, CreateAdminCategoryRequest, useCreateCategory } from "@entities/category";
 import { initialValues } from "./constants";
 
 export interface CreateCategoryFormProps {
@@ -16,7 +16,7 @@ const CreateCategoryForm = ({ parentId, onClose }: CreateCategoryFormProps) => {
 
     const config: FormikConfig<CreateAdminCategoryRequest> = {
         initialValues: initialValues,
-        validationSchema: $createAdminCategoryRequest,
+        validationSchema: $CreateAdminCategoryRequest,
         onSubmit: (values, { setFieldError }) => {
             createCategory.mutate(values, {
                 onSuccess: () => {

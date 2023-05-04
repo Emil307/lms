@@ -1,7 +1,8 @@
 import { useField } from "formik";
 import React, { useEffect, useMemo, useState } from "react";
+import { UploadedFile } from "@shared/types";
 import FileInput, { FileInputProps } from "./FileInput";
-import { InitialFile, isFile, UploadedFile } from "./utils";
+import { InitialFile, isFile } from "./utils";
 
 export interface FFileInputProps extends Omit<FileInputProps, "onError" | "file" | "fileName" | "fileSize" | "fileUrl" | "onLoad"> {
     name: string;

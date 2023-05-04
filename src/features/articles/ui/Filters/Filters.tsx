@@ -1,7 +1,7 @@
 import { ActionIcon, Flex, FlexProps, Group } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
-import { $articleCategoryFilters, ArticleCategoryFilters, useArticleFilters } from "@entities/article";
+import { $ArticleCategoryFilters, ArticleCategoryFilters, useArticleFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
 import { FilterBySubCategories, FilterByTags } from "./components";
 
@@ -17,7 +17,7 @@ const Filters = (props: FiltersProps) => {
             tags: [],
             subCategories: [],
         },
-        validationSchema: $articleCategoryFilters,
+        validationSchema: $ArticleCategoryFilters,
         onSubmit: (_values) => {
             return;
         },

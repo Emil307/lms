@@ -7,7 +7,7 @@ import { queryClient } from "@app/providers";
 
 export const useUpdateActivityStatusUploadedFile = (id: number) => {
     return useMutation<boolean, AxiosError<FormErrorResponse>, boolean>(
-        [MutationKeys.UPDATE_ACTIVITY_STATUS_UPLOADED_FILE, id],
+        [MutationKeys.UPDATE_ACTIVITY_UPLOADED_FILE, id],
         (status: boolean) => storageApi.updateActivityStatusUploadedFile({ id, status }),
         {
             onMutate: async (updatedStatus) => {
@@ -42,6 +42,9 @@ export const useUpdateActivityStatusUploadedFile = (id: number) => {
                 if (typeof context === "object" && context !== null && "previousFilesData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_UPLOADED_FILES], context.previousFilesData);
                 }
+            },
+            onSettled() {
+                queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
             },
         }
     );

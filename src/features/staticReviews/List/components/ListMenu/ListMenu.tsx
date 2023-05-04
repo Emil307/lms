@@ -1,6 +1,6 @@
 import { Divider, ThemeIcon } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
@@ -29,17 +29,23 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
     };
 
-    const handleChangeActiveStatus = () => {
-        if (row.original.isActive) {
-            return deactivate();
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
+        if (newValue.target.checked) {
+            return activate();
         }
-        return activate();
+        return deactivate();
     };
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={handleChangeActiveStatus} closeMenuOnClick={false}>
-                <Switch variant="secondary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
+            <MenuItemDataGrid closeMenuOnClick={false}>
+                <Switch
+                    variant="secondary"
+                    checked={row.original.isActive}
+                    label={labelActivitySwitch}
+                    labelPosition="left"
+                    onChange={handleChangeActiveStatus}
+                />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid>

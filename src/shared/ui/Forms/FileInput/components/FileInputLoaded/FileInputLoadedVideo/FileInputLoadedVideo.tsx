@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Box, Button, Loader, ThemeIcon } from "@mantine/core";
 import { PlayCircle } from "react-feather";
-import { isFile, UploadedFile } from "@shared/ui";
+import { isFile } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
+import { UploadedFile } from "@shared/types";
 import useStyles from "./FileInputLoadedVideo.styles";
 
 export interface FileInputLoadedVideoProps {

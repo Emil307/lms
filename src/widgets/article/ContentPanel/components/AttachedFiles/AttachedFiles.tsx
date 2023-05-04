@@ -1,8 +1,9 @@
 import { Flex, Group, ThemeIcon, Title } from "@mantine/core";
 import { Paperclip } from "react-feather";
 import { useMemo } from "react";
-import { FileItem, UploadedFile } from "@shared/ui";
+import { FileItem } from "@shared/ui";
 import { getFileSize } from "@shared/utils";
+import { UploadedFile } from "@shared/types";
 import useStyles from "./AttachedFiles.styles";
 import { VideoItem } from "../VideoItem";
 

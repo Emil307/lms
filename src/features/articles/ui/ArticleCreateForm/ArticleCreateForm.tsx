@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { Button, FInput, FMultiSelect, Form, FSelect, FSwitch, FTextEditor } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { $createArticleRequest, CreateArticleRequest, useAdminArticleResource, useCreateArticle } from "@entities/article";
+import { $CreateArticleRequest, CreateArticleRequest, useAdminArticleResource, useCreateArticle } from "@entities/article";
 import { initialValues } from "./constant";
 
 const ArticleCreateForm = () => {
@@ -39,7 +39,7 @@ const ArticleCreateForm = () => {
     const config: FormikConfig<CreateArticleRequest> = {
         initialValues,
         enableReinitialize: true,
-        validationSchema: $createArticleRequest,
+        validationSchema: $CreateArticleRequest,
         onSubmit: (values, { setFieldError }) => {
             createArticle.mutate(values, {
                 onSuccess: (_response) => {

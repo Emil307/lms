@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
-import { $uploadedFile } from "@shared/ui";
+import { $UploadedFile, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
 export type Author = z.infer<typeof $author>;
 
@@ -29,12 +28,12 @@ export const $getAuthorsResponse = $getPaginationResponseType($author);
 
 export const $createAuthorRequest = $author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
     avatarId: z.number().nullish(),
-    avatar: $uploadedFile.nullable(),
+    avatar: $UploadedFile.nullable(),
 });
 
 export const $updateAuthorRequest = $author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
     avatarId: z.number().nullish(),
-    avatar: $uploadedFile.nullable(),
+    avatar: $UploadedFile.nullable(),
 });
 
 export const $updateActivityAuthorRequest = z.object({

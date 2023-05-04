@@ -1,7 +1,7 @@
 import { useField } from "formik";
 import React, { useCallback } from "react";
+import { UploadedFile } from "@shared/types";
 import FileButton, { FileButtonProps } from "./FileButton";
-import { UploadedFile } from "../FileInput";
 
 export interface FFileButtonProps extends Omit<FileButtonProps, "name" | "onChange"> {
     name: string;
