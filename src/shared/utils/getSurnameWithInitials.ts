@@ -1,10 +1,10 @@
-type TProps = {
+type TParams = {
     firstName?: string;
     lastName?: string | null;
     patronymic?: string | null;
 };
 
-export const getSurnameWithInitials = (data: TProps | undefined) => {
+export const getSurnameWithInitials = (data: TParams | undefined) => {
     let fullName = "";
     if (!data) {
         return fullName;

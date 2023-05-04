@@ -1,7 +1,7 @@
 import { Box, Group } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch, FSelect } from "@shared/ui";
+import { DataGrid, FSearch, FSelect, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -17,11 +17,6 @@ import { ListMenu } from "./components";
 const List = () => {
     const router = useRouter();
     const articlePackageResources = useAdminArticlePackageResource();
-
-    const categoriesOptions = articlePackageResources.data?.categories.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
 
     // TODO: Добавить редирект как добавиться детальная страница
     const openArticlePackageDetailPage = (id: number) =>
@@ -57,7 +52,11 @@ const List = () => {
                             <FSelect
                                 name="categoryId"
                                 size="sm"
-                                data={categoriesOptions ?? []}
+                                data={prepareOptionsForSelect({
+                                    data: articlePackageResources.data?.categories,
+                                    value: "id",
+                                    label: "name",
+                                })}
                                 clearable
                                 label="Категория"
                                 disabled={articlePackageResources.isLoading}

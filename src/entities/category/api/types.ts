@@ -25,7 +25,7 @@ export const $CategoriesFilters = z.object({
 export const $AdminCategory = z.object({
     id: z.number(),
     name: z.string(),
-    subCategoriesCount: z.number(),
+    subCategoriesCount: z.number().optional(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     isActive: z.boolean(),

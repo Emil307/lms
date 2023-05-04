@@ -5,7 +5,19 @@ import { AlignLeft } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
-import { Button, FDateRangePicker, FInput, FMultiSelect, Form, FRadioGroup, FSwitch, FTextarea, Input, Radio } from "@shared/ui";
+import {
+    Button,
+    FDateRangePicker,
+    FInput,
+    FMultiSelect,
+    Form,
+    FRadioGroup,
+    FSwitch,
+    FTextarea,
+    Input,
+    prepareOptionsForSelect,
+    Radio,
+} from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { useAdminArticlePackageResource, useCreateArticlePackage } from "@entities/articlePackage";
 import { initialValues, radioGroupValues } from "./constants";
@@ -22,17 +34,6 @@ const CreateArticlePackageForm = ({ onClose }: CreateArticlePackageFormProps) =>
     const router = useRouter();
 
     const articlePackageResources = useAdminArticlePackageResource();
-
-    const categoriesOptions = articlePackageResources.data?.categories.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
-
-    const tagsOptions = articlePackageResources.data?.tags.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
-
     const createArticlePackage = useCreateArticlePackage();
 
     const config: FormikConfig<CreateArticlePackageFormValidation> = {
@@ -78,8 +79,20 @@ const CreateArticlePackageForm = ({ onClose }: CreateArticlePackageFormProps) =>
                         <Fieldset label="Общее" icon={<IconClipboardText />} maw={512}>
                             <Flex direction="column" gap={8} w="100%">
                                 <FInput name="name" label="Наименование" size="sm" />
-                                <FMultiSelect data={categoriesOptions || []} name="categories" label="Категории" />
-                                <FMultiSelect data={tagsOptions || []} name="tags" label="Теги" />
+                                <FMultiSelect
+                                    data={prepareOptionsForSelect({
+                                        data: articlePackageResources.data?.categories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    name="categories"
+                                    label="Категории"
+                                />
+                                <FMultiSelect
+                                    data={prepareOptionsForSelect({ data: articlePackageResources.data?.tags, value: "id", label: "name" })}
+                                    name="tags"
+                                    label="Теги"
+                                />
                                 <FInput name="price" label="Стоимость пакета" type="number" size="sm" w="50%" />
                             </Flex>
                         </Fieldset>
