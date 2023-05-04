@@ -51,8 +51,23 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
 
     const statusSuccess = !!value?.[0] && !error && !!success;
 
+    const rightSection = (
+        <ThemeIcon
+            variant="outline"
+            sx={(theme) => ({
+                border: "none",
+                "svg path": {
+                    fill: theme.colors.gray45[0],
+                    fillOpacity: 1,
+                },
+            })}>
+            <IconCalendar />
+        </ThemeIcon>
+    );
+
     const { classes } = useInputStyles({
         floating: !!value?.[0] || focused,
+        rightSection: rightSection,
         size: size,
         statusSuccess,
     });
@@ -103,19 +118,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
             onDropdownOpen={onDropdownOpenHandler}
             onFocus={onFocusHandler}
             onDropdownClose={onDropCloseHandler}
-            rightSection={
-                <ThemeIcon
-                    variant="outline"
-                    sx={(theme) => ({
-                        border: "none",
-                        "svg path": {
-                            fill: theme.colors.gray45[0],
-                            fillOpacity: 1,
-                        },
-                    })}>
-                    <IconCalendar />
-                </ThemeIcon>
-            }
+            rightSection={rightSection}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}

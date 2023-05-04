@@ -7,9 +7,17 @@ export const useInputStyles = createStyles(
         {
             floating,
             icon,
+            rightSection,
             size,
             statusSuccess,
-        }: { floating: boolean; icon?: ReactNode; size?: MantineSize; clearable?: boolean; statusSuccess?: boolean }
+        }: {
+            floating: boolean;
+            icon?: ReactNode;
+            rightSection?: ReactNode;
+            size?: MantineSize;
+            clearable?: boolean;
+            statusSuccess?: boolean;
+        }
     ) => ({
         root: {
             position: "relative",
@@ -41,7 +49,7 @@ export const useInputStyles = createStyles(
             height: size === "sm" ? 48 : 56,
             paddingTop: size === "sm" ? "24px" : "28px",
             paddingLeft: "18px",
-            paddingRight: "18px",
+            paddingRight: rightSection ? 50 : 18,
             border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : `1px solid ${theme.colors.gray20[0]}`,
             borderRadius: "8px",
             fontSize: "14px",
