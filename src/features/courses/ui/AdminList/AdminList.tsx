@@ -1,6 +1,6 @@
 import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
-import { DataGrid, FMultiSelect, FSearch, FSelect } from "@shared/ui";
+import { DataGrid, FMultiSelect, FSearch, FSelect, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -10,34 +10,6 @@ import { AdminCourse, AdminCoursesFilters, courseApi, useAdminCourseResources } 
 
 const AdminCoursesList = () => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
-
-    const getCategorySelectOptions = () => {
-        return coursesFilters?.categories.map((item) => ({
-            value: String(item.id),
-            label: item.name,
-        }));
-    };
-
-    const getTagsSelectOptions = () => {
-        return coursesFilters?.tags.map((item) => ({
-            value: String(item.id),
-            label: item.name,
-        }));
-    };
-
-    const getTeachersSelectOptions = () => {
-        return coursesFilters?.teachers.map((item) => ({
-            value: String(item.id),
-            label: `${item.profile.lastName} ${item.profile.firstName}`,
-        }));
-    };
-
-    const getDiscountTypesSelectOptions = () => {
-        return coursesFilters?.discountTypes.map((item) => ({
-            value: item.type,
-            label: item.name,
-        }));
-    };
 
     return (
         <Box>
@@ -80,7 +52,7 @@ const AdminCoursesList = () => {
                                 w={252}
                                 name="category"
                                 size="sm"
-                                data={getCategorySelectOptions() ?? []}
+                                data={prepareOptionsForSelect({ data: coursesFilters?.categories, value: "id", label: "name" })}
                                 clearable
                                 label="Категория"
                                 disabled={isLoadingFilters}
@@ -88,14 +60,18 @@ const AdminCoursesList = () => {
                             <FMultiSelect
                                 w={252}
                                 name="tags"
-                                data={getTagsSelectOptions() ?? []}
+                                data={prepareOptionsForSelect({ data: coursesFilters?.tags, value: "id", label: "name" })}
                                 label="Теги"
                                 disabled={isLoadingFilters}
                             />
                             <FMultiSelect
                                 w={252}
                                 name="teachers"
-                                data={getTeachersSelectOptions() ?? []}
+                                data={prepareOptionsForSelect({
+                                    data: coursesFilters?.teachers,
+                                    value: "id",
+                                    label: (data) => `${data.profile.lastName} ${data.profile.firstName}`,
+                                })}
                                 label="Преподаватели"
                                 disabled={isLoadingFilters}
                             />
@@ -107,7 +83,7 @@ const AdminCoursesList = () => {
                                 w={252}
                                 name="discountType"
                                 size="sm"
-                                data={getDiscountTypesSelectOptions() ?? []}
+                                data={prepareOptionsForSelect({ data: coursesFilters?.discountTypes, value: "type", label: "name" })}
                                 clearable
                                 label="Скидка"
                                 disabled={isLoadingFilters}

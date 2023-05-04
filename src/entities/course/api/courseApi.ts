@@ -38,7 +38,6 @@ class CourseApi extends BaseApi {
             {
                 filter: {
                     isActive,
-                    // createdAt,
                     tagIds: {
                         items: tags,
                         operator: "or",
@@ -51,11 +50,7 @@ class CourseApi extends BaseApi {
                     "discount.type": discountType,
                 },
             },
-            {
-                params: {
-                    ...params,
-                },
-            }
+            { params }
         );
         return $adminCoursesResponse.parse(response);
     }

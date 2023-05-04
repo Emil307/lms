@@ -5,7 +5,7 @@ import { Edit3 } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
-import { Button, FInput, FMultiSelect, Form, FSelect, FSwitch, FTextEditor } from "@shared/ui";
+import { Button, FInput, FMultiSelect, Form, FSelect, FSwitch, FTextEditor, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { $CreateArticleRequest, CreateArticleRequest, useAdminArticleResource, useCreateArticle } from "@entities/article";
 import { initialValues } from "./constant";
@@ -14,22 +14,6 @@ const ArticleCreateForm = () => {
     const router = useRouter();
 
     const articleResources = useAdminArticleResource();
-
-    const categoriesOptions = articleResources.data?.categories.data.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
-
-    const subcategoriesOptions = articleResources.data?.subcategories.data.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
-
-    const tagsOptions = articleResources.data?.tags.data.map((item) => ({
-        value: String(item.id),
-        label: item.name,
-    }));
-
     const createArticle = useCreateArticle();
 
     const handleCancel = () => {
@@ -77,7 +61,11 @@ const ArticleCreateForm = () => {
                                 <FSelect
                                     name="categoryId"
                                     size="sm"
-                                    data={categoriesOptions ?? []}
+                                    data={prepareOptionsForSelect({
+                                        data: articleResources.data?.categories.data,
+                                        value: "id",
+                                        label: "name",
+                                    })}
                                     clearable
                                     label="Выберите категорию"
                                     disabled={articleResources.isLoading}
@@ -85,7 +73,11 @@ const ArticleCreateForm = () => {
                                 <FSelect
                                     name="subcategoryId"
                                     size="sm"
-                                    data={subcategoriesOptions ?? []}
+                                    data={prepareOptionsForSelect({
+                                        data: articleResources.data?.subcategories.data,
+                                        value: "id",
+                                        label: "name",
+                                    })}
                                     clearable
                                     label="Выберите подкатегории"
                                     disabled={articleResources.isLoading}
@@ -93,7 +85,7 @@ const ArticleCreateForm = () => {
                                 <FMultiSelect
                                     name="tags"
                                     size="sm"
-                                    data={tagsOptions ?? []}
+                                    data={prepareOptionsForSelect({ data: articleResources.data?.tags.data, value: "id", label: "name" })}
                                     clearable
                                     label="Теги статьи"
                                     disabled={articleResources.isLoading}

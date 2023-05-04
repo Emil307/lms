@@ -27,12 +27,10 @@ class CategoryApi extends BaseApi {
     }
 
     async getAdminSubCategories({ parentId, ...params }: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
-        const response = await this.instance.get("admin/categories", {
-            params: {
-                ...params,
-                filter: {
-                    parentId,
-                },
+        const response = await this.instance.post("admin/categories/list", {
+            ...params,
+            filter: {
+                parentId,
             },
         });
         return $GetAdminCategoriesResponse.parse(response);
@@ -60,7 +58,7 @@ class CategoryApi extends BaseApi {
         id,
         isActive,
     }: UpdateActivityStatusCategoryRequest): Promise<UpdateActivityStatusCategoryResponse> {
-        const response = await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
+        const response = await this.instance.put(`admin/categories/${id}/activity-status`, { isActive });
         return $UpdateActivityStatusCategoryResponse.parse(response);
     }
 }

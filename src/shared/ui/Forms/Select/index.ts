@@ -1,5 +1,5 @@
-import Select, { SelectProps } from "./Select";
-import FSelect, { FSelectProps } from "./FSelect";
+import Select, { type SelectProps } from "./Select";
+import FSelect, { type FSelectProps } from "./FSelect";
+import { prepareOptionsForSelect } from "./utils";
 
-export { Select, FSelect };
-export type { SelectProps, FSelectProps };
+export { Select, FSelect, SelectProps, FSelectProps, prepareOptionsForSelect };
