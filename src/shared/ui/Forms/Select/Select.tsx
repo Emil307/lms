@@ -1,8 +1,7 @@
 import React, { memo, useMemo, useState } from "react";
-import { Group, Select as MSelect, SelectProps as MSelectProps, Text, useMantineTheme } from "@mantine/core";
+import { Flex, Select as MSelect, SelectProps as MSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, Search, X } from "react-feather";
 import { z } from "zod";
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { useInputStyles } from "@shared/styles";
 import { SelectItem } from "./SelectItem";
 
@@ -28,6 +27,7 @@ const MemoizedSelect = (props: SelectProps) => {
 
     const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
+    const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
 
@@ -59,14 +59,34 @@ const MemoizedSelect = (props: SelectProps) => {
         setFocused(false);
     };
 
+    const handleDropdownOpen = () => {
+        setOpenedDropdown(true);
+    };
+
+    const handleDropdownClose = () => {
+        setOpenedDropdown(false);
+    };
+
     const RightSection = () => {
         if (props.rightSection) {
             return <>{props.rightSection}</>;
         }
         if (props.value && props.clearable) {
-            return <X color={defaultTheme.colors?.gray45?.[0]} onClick={handlerClear} />;
+            return (
+                <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", pointerEvents: "initial" }} onClick={handlerClear}>
+                    <X />
+                </ThemeIcon>
+            );
         }
-        return <ChevronDown style={{ pointerEvents: "none" }} color={defaultTheme.colors?.gray45?.[0]} />;
+        return (
+            <ThemeIcon
+                variant="outline"
+                color="gray45"
+                sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}
+                onClick={handlerClear}>
+                <ChevronDown />
+            </ThemeIcon>
+        );
     };
 
     const renderError = useMemo(
@@ -88,20 +108,31 @@ const MemoizedSelect = (props: SelectProps) => {
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
+                    <Flex gap={16}>
                         <CheckCircle color={theme.colors.done[0]} />
                         <Text>{success}</Text>
-                    </Group>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
+                    <Flex gap={16}>
                         <Info color={theme.colors.primaryHover[0]} />
                         <Text>{description}</Text>
-                    </Group>
+                    </Flex>
                 )}
             </>
         );
     }, [statusSuccess, success, description]);
+
+    const renderIcon = () => {
+        if (searchable) {
+            return (
+                <ThemeIcon color="primary" variant="outline" sx={{ border: "none" }}>
+                    <Search />
+                </ThemeIcon>
+            );
+        }
+        return icon;
+    };
 
     return (
         <MSelect
@@ -109,13 +140,15 @@ const MemoizedSelect = (props: SelectProps) => {
             onChange={handlerOnChange}
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
-            icon={searchable ? <Search color={defaultTheme.colors?.primary?.[0]} /> : icon}
+            icon={renderIcon()}
             classNames={classes}
             itemComponent={props.itemComponent ?? SelectItem}
             rightSection={<RightSection />}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
+            onDropdownOpen={handleDropdownOpen}
+            onDropdownClose={handleDropdownClose}
         />
     );
 };

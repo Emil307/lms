@@ -22,6 +22,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
         fontSize: "14px",
         lineHeight: "16px",
         color: theme.colors.gray45[0],
+        pointerEvents: "none",
     },
     input: {
         display: "flex",
@@ -74,7 +75,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
     rightSection: {
         width: "50px",
         cursor: "pointer",
-        pointerEvents: !isValue ? "none" : "auto",
+        pointerEvents: "none",
     },
     error: {
         display: "flex",
