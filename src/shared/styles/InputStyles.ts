@@ -33,6 +33,7 @@ export const useInputStyles = createStyles(
             fontSize: floating ? "10px" : "14px",
             lineHeight: floating ? "12px" : "16px",
             color: theme.colors.gray45[0],
+            pointerEvents: "none",
         },
         icon: {
             width: "50px",
@@ -74,6 +75,7 @@ export const useInputStyles = createStyles(
         rightSection: {
             width: "50px",
             cursor: "pointer",
+            pointerEvents: "none",
         },
 
         error: {

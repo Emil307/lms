@@ -30,11 +30,11 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
         if (rightSection) return rightSection;
         if (isPasswordField)
             return isPasswordVisible ? (
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }} onClick={toggleVisibility}>
+                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none", pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <Eye />
                 </ThemeIcon>
             ) : (
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }} onClick={toggleVisibility}>
+                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none", pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <EyeOff />
                 </ThemeIcon>
             );

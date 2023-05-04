@@ -1,8 +1,7 @@
 import React, { memo, useMemo, useState } from "react";
-import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, Text, useMantineTheme } from "@mantine/core";
+import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, X } from "react-feather";
 import { z } from "zod";
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { useMultiSelectStyles } from "./MultiSelectStyles";
 
 export interface MultiSelectProps extends MMultiSelectProps {
@@ -20,6 +19,8 @@ const MultiSelect = ({
 }: MultiSelectProps) => {
     const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
+    const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
+
     const statusSuccess = useMemo(() => !!props.value?.length && !error && !!success, [props.value, error, success]);
 
     const { classes } = useMultiSelectStyles({ isValue: focused || (!!props.value && props.value.length > 0), statusSuccess });
@@ -33,9 +34,17 @@ const MultiSelect = ({
             return <>{props.rightSection}</>;
         }
         if (!!props.value && props.value.length > 0) {
-            return <X color={defaultTheme.colors?.gray45?.[0]} onClick={handlerClear} />;
+            return (
+                <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", pointerEvents: "initial" }} onClick={handlerClear}>
+                    <X />
+                </ThemeIcon>
+            );
         }
-        return <ChevronDown style={{ pointerEvents: "none" }} color={defaultTheme.colors?.gray45?.[0]} />;
+        return (
+            <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+                <ChevronDown />
+            </ThemeIcon>
+        );
     };
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -51,6 +60,14 @@ const MultiSelect = ({
     const handlerOnChange = (value: string[]) => {
         onChange(value);
         setFocused(false);
+    };
+
+    const handleDropdownOpen = () => {
+        setOpenedDropdown(true);
+    };
+
+    const handleDropdownClose = () => {
+        setOpenedDropdown(false);
     };
 
     const renderError = useMemo(
@@ -98,6 +115,8 @@ const MultiSelect = ({
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
+            onDropdownOpen={handleDropdownOpen}
+            onDropdownClose={handleDropdownClose}
         />
     );
 };
