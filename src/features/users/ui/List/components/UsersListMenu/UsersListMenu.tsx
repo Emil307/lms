@@ -1,10 +1,10 @@
 import { Divider, ThemeIcon } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useChangeUserActivityStatus } from "@entities/user";
+import { TUser, useUpdateActivityStatusUser } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
@@ -20,11 +20,11 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
 
     const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
 
-    const changeUserActivityStatus = useChangeUserActivityStatus(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const toggleActivateUser = () => changeUserActivityStatus.mutate(!row.original.isActive);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     const openModalDeleteUser = () => {
         openModal({
@@ -52,8 +52,14 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     }
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={toggleActivateUser} closeMenuOnClick={false}>
-                <Switch variant="primary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
+            <MenuItemDataGrid closeMenuOnClick={false}>
+                <Switch
+                    variant="secondary"
+                    checked={row.original.isActive}
+                    label={labelActivitySwitch}
+                    labelPosition="left"
+                    onChange={handleChangeActiveStatus}
+                />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={pushOnUserDetail}>

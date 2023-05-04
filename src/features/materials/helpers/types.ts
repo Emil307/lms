@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { ReactNode } from "react";
-import { $uploadedFile, FileFormat } from "@shared/ui";
+import { FileFormat } from "@shared/ui";
+import { $UploadedFile } from "@shared/types";
 
 export type MaterialFile = z.infer<typeof $materialFile>;
 
@@ -22,7 +23,7 @@ export const $materialFile = z.object({
 });
 
 export const $createMaterialsDataForm = z.object({
-    materials: $uploadedFile.array().min(1, "Минимум 1 один файл"),
+    materials: $UploadedFile.array().min(1, "Минимум 1 один файл"),
     files: $materialFile.array(),
     categoryIds: z.string().array(),
     isBinding: z.boolean(),

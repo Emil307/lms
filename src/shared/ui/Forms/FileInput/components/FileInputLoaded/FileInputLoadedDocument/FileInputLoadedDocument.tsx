@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from "react";
 import { Edit3, Trash, X } from "react-feather";
-import { isFile, UploadedFile } from "@shared/ui";
+import { isFile } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
+import { UploadedFile } from "@shared/types";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {

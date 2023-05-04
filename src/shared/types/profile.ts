@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { $uploadedFile } from "@shared/ui";
+import { $UploadedFile } from "./uploadedFile";
 
 export const $profile = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string().nullable(),
     patronymic: z.string().nullable(),
-    avatar: $uploadedFile.nullable(),
+    avatar: $UploadedFile.nullable(),
     description: z.string().nullable(),
-    additionalImage: $uploadedFile.nullable().optional(),
+    additionalImage: $UploadedFile.nullable().optional(),
 });
 
 export type TProfile = z.infer<typeof $profile>;

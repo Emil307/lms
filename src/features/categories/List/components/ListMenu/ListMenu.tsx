@@ -1,11 +1,11 @@
 import { Divider, ThemeIcon } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminCategory, useActivateCategory, useDeactivateCategory } from "@entities/category";
+import { AdminCategory, useUpdateActivityCategory } from "@entities/category";
 import { DeleteCategoryModal, EditCategoryForm } from "@features/categories";
 
 interface ListMenuProps {
@@ -14,23 +14,18 @@ interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
-    const { mutate: activate } = useActivateCategory(String(row.original.id));
-    const { mutate: deactivate } = useDeactivateCategory(String(row.original.id));
+
+    const { mutate: updateActivityStatus } = useUpdateActivityCategory(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
+
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     const handleOpenCategoryDetail = () =>
         router.push({ pathname: "/admin/settings/categories/[id]", query: { id: String(row.original.id) } });
 
     const handleCloseDeleteCategoryModal = () => closeModal("DELETE_CATEGORY");
     const handleCloseEditCategoryModal = () => closeModal("EDIT_CATEGORY");
-
-    const handleChangeActiveStatus = () => {
-        if (row.original.isActive) {
-            return deactivate();
-        }
-        return activate();
-    };
 
     const openModalDeleteCategory = () => {
         openModal({
@@ -54,8 +49,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={handleChangeActiveStatus} closeMenuOnClick={false}>
-                <Switch variant="secondary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
+            <MenuItemDataGrid closeMenuOnClick={false}>
+                <Switch
+                    variant="secondary"
+                    checked={row.original.isActive}
+                    label={labelActivitySwitch}
+                    labelPosition="left"
+                    onChange={handleChangeActiveStatus}
+                />
             </MenuItemDataGrid>
 
             <Divider size={1} color="light" mx={12} />

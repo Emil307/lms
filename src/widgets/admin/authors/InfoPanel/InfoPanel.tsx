@@ -13,7 +13,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data } = useAuthor(id);
 
-    const { mutate: updateActivity } = useUpdateActivityAuthor(id);
+    const { mutate: updateActivityStatus } = useUpdateActivityAuthor(id);
 
     const createdAtDate = getHumanDate(new Date(data?.createdAt ?? ""), {
         day: "2-digit",
@@ -29,7 +29,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         minute: "2-digit",
     });
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivity(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
         <Flex gap={32} align="center">
@@ -42,7 +42,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     variant="secondary"
                     label="Деактивировать"
                     labelPosition="left"
-                    checked={!!data?.isActive}
+                    checked={data?.isActive}
                     onChange={handleChangeActiveStatus}
                 />
             </Flex>

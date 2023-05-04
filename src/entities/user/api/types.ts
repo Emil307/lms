@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
-import { $uploadedFile } from "@shared/ui";
-import { $getPaginationResponseType, $profile, $role, TRequestFilterParams } from "@shared/types";
+import { $UploadedFile, $getPaginationResponseType, $profile, $role, TRequestFilterParams } from "@shared/types";
 
 export type TUser = z.infer<typeof $user>;
 
@@ -16,7 +15,7 @@ export type UsersAdministratorsFiltersResponse = z.infer<typeof $usersAdministra
 export type GetAdminStudentsFiltersResponse = z.infer<typeof $getAdminStudentsFiltersResponse>;
 export type UpdateUserRequest = z.infer<typeof $updateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $createUserRequest>;
-export type ChangeUserActivityStatusRequest = z.infer<typeof $userActivityStatusRequest>;
+export type UpdateActivityStatusUserRequest = z.infer<typeof $UpdateActivityStatusUserRequest>;
 export type ChangeUserPasswordRequest = z.infer<typeof $changeUserPasswordRequest>;
 
 export const $user = z.object({
@@ -45,8 +44,8 @@ export const $createUserRequest = z
         description: z.string().optional(),
         isActive: z.boolean(),
         roleId: z.string(),
-        avatar: $uploadedFile.nullable(),
-        additionalImage: $uploadedFile.nullable(),
+        avatar: $UploadedFile.nullable(),
+        additionalImage: $UploadedFile.nullable(),
         avatarId: z.number().optional(),
         additionalImageId: z.number().optional(),
     })
@@ -64,13 +63,13 @@ export const $updateUserRequest = z.object({
     patronymic: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.string(),
-    avatar: $uploadedFile.nullable(),
-    additionalImage: $uploadedFile.nullable(),
+    avatar: $UploadedFile.nullable(),
+    additionalImage: $UploadedFile.nullable(),
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),
 });
 
-export const $userActivityStatusRequest = z.object({
+export const $UpdateActivityStatusUserRequest = z.object({
     id: z.string(),
     isActive: z.boolean(),
 });

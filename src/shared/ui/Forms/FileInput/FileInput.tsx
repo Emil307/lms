@@ -3,6 +3,7 @@ import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Group, Text } from "@mantine/core";
 import { Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
+import { UploadedFile } from "@shared/types";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
@@ -14,7 +15,6 @@ import {
     InitialFile,
     isFile,
     LoadedFile,
-    UploadedFile,
 } from "./utils";
 import useStyles from "./FileInput.styles";
 

@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { $uploadedFile } from "@shared/ui";
-import { $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
+import { $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 export type AdminStaticReview = z.infer<typeof $adminStaticReview>;
 export type AdminStaticReviewDetail = z.infer<typeof $adminStaticReviewDetail>;
@@ -49,11 +48,11 @@ export const $createAdminStaticReviewRequest = z
         lastName: z.string().optional(),
         position: z.string().optional(),
         quote: z.string().optional(),
-        preview: $uploadedFile.nullable().refine((value) => value !== null, {
+        preview: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите изображение",
         }),
-        avatar: $uploadedFile.nullable(),
-        video: $uploadedFile.nullable().refine((value) => value !== null, {
+        avatar: $UploadedFile.nullable(),
+        video: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите видео",
         }),
     })
@@ -94,11 +93,11 @@ export const $updateAdminStaticReviewRequest = z
         lastName: z.string().optional(),
         position: z.string().optional(),
         quote: z.string().optional(),
-        preview: $uploadedFile.nullable().refine((value) => value !== null, {
+        preview: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите изображение",
         }),
-        avatar: $uploadedFile.nullable(),
-        video: $uploadedFile.nullable().refine((value) => value !== null, {
+        avatar: $UploadedFile.nullable(),
+        video: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите видео",
         }),
     })

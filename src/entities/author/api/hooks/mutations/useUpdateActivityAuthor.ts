@@ -46,6 +46,9 @@ export const useUpdateActivityAuthor = (id: string) => {
                     queryClient.setQueriesData([QueryKeys.GET_AUTHORS], context.previousAuthorsData);
                 }
             },
+            onSettled() {
+                queryClient.invalidateQueries([QueryKeys.GET_AUTHORS]);
+            },
         }
     );
 };

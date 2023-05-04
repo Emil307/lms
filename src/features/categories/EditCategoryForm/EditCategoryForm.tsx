@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import React from "react";
 import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
-import { $updateAdminCategoryRequest, AdminCategory, UpdateAdminCategoryRequest, useUpdateCategory } from "@entities/category";
+import { $UpdateAdminCategoryRequest, AdminCategory, UpdateAdminCategoryRequest, useUpdateCategory } from "@entities/category";
 import { initialValues } from "./constants";
 
 export interface EditCategoryFormProps {
@@ -21,7 +21,7 @@ const EditCategoryForm = ({ data, parentId, onClose }: EditCategoryFormProps) =>
             ...data,
         },
         enableReinitialize: true,
-        validationSchema: $updateAdminCategoryRequest,
+        validationSchema: $UpdateAdminCategoryRequest,
         onSubmit: (values, { setFieldError }) => {
             updateCategory.mutate(
                 { ...values, parentId },

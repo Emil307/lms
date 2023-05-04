@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $uploadedFile } from "@shared/ui";
+import { $UploadedFile } from "@shared/types";
 
 export type CreateMaterialsFormValidationSchema = z.infer<typeof $createMaterialsFormValidationSchema>;
 
@@ -12,5 +12,5 @@ export const $materialFile = z.object({
 });
 
 export const $createMaterialsFormValidationSchema = z.object({
-    materials: $uploadedFile.array().min(1, "Минимум 1 один файл"),
+    materials: $UploadedFile.array().min(1, "Минимум 1 один файл"),
 });

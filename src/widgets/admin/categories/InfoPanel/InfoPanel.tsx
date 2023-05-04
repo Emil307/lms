@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Folder } from "react-feather";
 import { Switch } from "@shared/ui";
-import { useActivateCategory, useAdminCategory, useDeactivateCategory } from "@entities/category";
+import { useAdminCategory, useUpdateActivityCategory } from "@entities/category";
 import { getHumanDate } from "@shared/utils";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -14,10 +14,11 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useAdminCategory(id);
 
-    const { mutate: activate } = useActivateCategory(id);
-    const { mutate: deactivate } = useDeactivateCategory(id);
+    const { mutate: updateActivityStatus } = useUpdateActivityCategory(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
+
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     const createdAtDate = getHumanDate(new Date(data?.createdAt ?? ""), {
         day: "numeric",
@@ -26,13 +27,6 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         hour: "2-digit",
         minute: "2-digit",
     });
-
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
-        if (newValue.target.checked) {
-            return activate();
-        }
-        return deactivate();
-    };
 
     return (
         <Box>

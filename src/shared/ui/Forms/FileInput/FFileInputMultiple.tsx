@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from "react";
 import { useField } from "formik";
+import { UploadedFile } from "@shared/types";
 import FileInput, { FileInputProps } from "./FileInput";
-import { InitialFile, UploadedFile } from "./utils";
+import { InitialFile } from "./utils";
 
 export interface FFileInputMultipleProps extends Omit<FileInputProps, "onLoad"> {
     nameForInitialFiles?: string;

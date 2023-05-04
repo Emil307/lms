@@ -1,9 +1,9 @@
 import { Box, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useChangeUserActivityStatus } from "@entities/user";
+import { TUser, useUpdateActivityStatusUser } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { getFullNameFromProfile } from "@shared/utils";
@@ -14,13 +14,11 @@ interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const theme = useMantineTheme();
-    const changeUserActivityStatus = useChangeUserActivityStatus(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const toggleActivateUser = (row: MRT_Row<TUser>) => {
-        changeUserActivityStatus.mutate(!row.original.isActive);
-    };
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     const openModalDeleteUser = (id: string, fio: string) => {
         openModal({
@@ -33,12 +31,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid
-                onClick={() => {
-                    toggleActivateUser(row);
-                }}
-                closeMenuOnClick={false}>
-                <Switch variant="primary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
+            <MenuItemDataGrid closeMenuOnClick={false}>
+                <Switch
+                    variant="primary"
+                    checked={row.original.isActive}
+                    label={labelActivitySwitch}
+                    labelPosition="left"
+                    onChange={handleChangeActiveStatus}
+                />
             </MenuItemDataGrid>
             <Box
                 sx={{

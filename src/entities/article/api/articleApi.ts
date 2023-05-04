@@ -1,16 +1,17 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $adminArticleDetails,
-    $getAdminArticleMaterialsResponse,
-    $getAdminArticlesResourceResponse,
-    $getAdminArticlesResponse,
-    $getArticleCategoriesResponse,
-    $getArticleCoursesResponse,
-    $getArticleFiltersResponse,
-    $getArticlePackagesResponse,
-    $getArticlesFromArticlePackage,
-    $getArticlesResponse,
+    $AdminArticleDetails,
+    $GetAdminArticleMaterialsResponse,
+    $GetAdminArticlesResourceResponse,
+    $GetAdminArticlesResponse,
+    $GetArticleCategoriesResponse,
+    $GetArticleCoursesResponse,
+    $GetArticleFiltersResponse,
+    $GetArticlePackagesResponse,
+    $GetArticlesFromArticlePackage,
+    $GetArticlesResponse,
+    $UpdateActivityStatusArticleResponse,
     AdminArticleDetails,
     ArticleCategoryFilters,
     CreateArticleRequest,
@@ -26,6 +27,8 @@ import {
     GetArticlePackagesResponse,
     GetArticlesFromArticlePackage,
     GetArticlesResponse,
+    UpdateActivityStatusArticleRequest,
+    UpdateActivityStatusArticleResponse,
     UpdateArticleRequest,
 } from "./types";
 
@@ -48,71 +51,68 @@ class ArticleApi extends BaseApi {
                 },
             },
         });
-        return $getAdminArticlesResponse.parse(response);
+        return $GetAdminArticlesResponse.parse(response);
     }
 
     async getAdminArticle(id?: string): Promise<AdminArticleDetails> {
         const response = await this.instance.get(`admin/articles/${id}`);
-        return $adminArticleDetails.parse(response);
+        return $AdminArticleDetails.parse(response);
     }
 
     async getAdminArticleResource(): Promise<GetAdminArticlesResourceResponse> {
         const response = await this.instance.get("admin/articles/resource");
-        return $getAdminArticlesResourceResponse.parse(response);
+        return $GetAdminArticlesResourceResponse.parse(response);
     }
 
     async getArticlePackages(): Promise<GetArticlePackagesResponse> {
         const response = await this.instance.get("article-packages");
-        return $getArticlePackagesResponse.parse(response);
+        return $GetArticlePackagesResponse.parse(response);
     }
     async getArticlesFromArticlePackage(articlePackageId: number): Promise<GetArticlesFromArticlePackage> {
         const response = await this.instance.get(`article-packages/${articlePackageId}/articles`);
-        return $getArticlesFromArticlePackage.parse(response);
+        return $GetArticlesFromArticlePackage.parse(response);
     }
     async getArticles(): Promise<GetArticlesResponse> {
         const response = await this.instance.get("articles");
-        return $getArticlesResponse.parse(response);
+        return $GetArticlesResponse.parse(response);
     }
     async getArticleCategories(data: ArticleCategoryFilters): Promise<GetArticleCategoriesResponse> {
         const response = await this.instance.get("articles-by-category", { data });
-        return $getArticleCategoriesResponse.parse(response);
+        return $GetArticleCategoriesResponse.parse(response);
     }
     async getArticleFilters(): Promise<GetArticleFiltersResponse> {
         const response = await this.instance.get("articles/filters");
-        return $getArticleFiltersResponse.parse(response);
+        return $GetArticleFiltersResponse.parse(response);
     }
     async getArticleCourses(): Promise<GetArticleCoursesResponse> {
         const response = await this.instance.get("articles-by-course");
-        return $getArticleCoursesResponse.parse(response);
+        return $GetArticleCoursesResponse.parse(response);
     }
 
     async createArticle(data: CreateArticleRequest): Promise<AdminArticleDetails> {
         const response = await this.instance.post("admin/articles", data);
-        return $adminArticleDetails.parse(response);
+        return $AdminArticleDetails.parse(response);
     }
 
     async updateArticle({ id, ...data }: UpdateArticleRequest & { id: string }): Promise<AdminArticleDetails> {
         const response = await this.instance.put(`admin/articles/${id}`, data);
-        return $adminArticleDetails.parse(response);
+        return $AdminArticleDetails.parse(response);
     }
 
     async deleteArticle(id: string): Promise<void> {
         await this.instance.delete(`admin/articles/${id}`);
     }
 
-    async activateArticle(id: string): Promise<void> {
-        await axios.put(`admin/articles/${id}/activate`);
-    }
-
-    async deactivateArticle(id: string): Promise<void> {
-        await axios.put(`admin/articles/${id}/deactivate`);
+    async updateActivityStatusArticle({ id, isActive }: UpdateActivityStatusArticleRequest): Promise<UpdateActivityStatusArticleResponse> {
+        const response = await this.instance.put(`admin/articles/${id}/activity-status`, { isActive });
+        return $UpdateActivityStatusArticleResponse.parse(response);
     }
 
     //MATERIALS
 
     async getAdminArticleMaterials({ articleId, ...params }: GetAdminArticleMaterialsRequest): Promise<GetAdminArticleMaterialsResponse> {
         const response = await this.instance.get(`admin/articles/${articleId}/materials`, { params });
-        return $getAdminArticleMaterialsResponse.parse(response);
+        return $GetAdminArticleMaterialsResponse.parse(response);
     }
 
     async deleteArticleMaterial({ articleId, materialId }: DeleteAdminArticleMaterialRequest): Promise<void> {

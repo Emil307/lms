@@ -1,7 +1,7 @@
-import { UploadedFile } from "@shared/ui";
 import { REGEXP_FILE_EXTENSION } from "@shared/constant";
 import { UpdateUploadedFilesRequest } from "@entities/storage";
 import { CreateMaterialsDataForm } from "@features/materials";
+import { UploadedFile } from "@shared/types";
 import { MaterialFile, UpdateMaterialsFormValidationSchema } from "./types";
 
 interface TGetInitialValues {

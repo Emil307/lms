@@ -1,7 +1,7 @@
 import { Box, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
@@ -20,11 +20,11 @@ const GroupsListMenu = ({ row }: GroupsListMenuProps) => {
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = () => {
-        if (row.original.isActive) {
-            return deactivate();
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
+        if (newValue.target.checked) {
+            return activate();
         }
-        return activate();
+        return deactivate();
     };
 
     const handleCloseDeleteGroupModal = () => closeModal("DELETE_GROUP");
@@ -43,8 +43,14 @@ const GroupsListMenu = ({ row }: GroupsListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={handleChangeActiveStatus} closeMenuOnClick={false}>
-                <Switch variant="secondary" checked={row.original.isActive} label={labelActivitySwitch} labelPosition="left" />
+            <MenuItemDataGrid closeMenuOnClick={false}>
+                <Switch
+                    variant="secondary"
+                    checked={row.original.isActive}
+                    label={labelActivitySwitch}
+                    labelPosition="left"
+                    onChange={handleChangeActiveStatus}
+                />
             </MenuItemDataGrid>
             <Box
                 sx={{

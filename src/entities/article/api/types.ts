@@ -1,42 +1,43 @@
 import { z } from "zod";
-import { $uploadedFile } from "@shared/ui";
-import { $getPaginationResponseType, $pagination, TRequestFilterParams } from "@shared/types";
+import { $UploadedFile, $getPaginationResponseType, $pagination, TRequestFilterParams } from "@shared/types";
 
-export type Article = z.infer<typeof $article>;
-export type ArticlePackageDiscount = z.infer<typeof $articlePackageDiscount>;
-export type ArticleCategory = z.infer<typeof $articleCategory>;
-export type ArticlePackage = z.infer<typeof $articlePackage>;
-export type ArticleFilter = z.infer<typeof $articleFilter>;
-export type ArticleCourse = z.infer<typeof $articleCourse>;
-export type ArticleFromArticlePackage = z.infer<typeof $articleFromArticlePackage>;
+export type Article = z.infer<typeof $Article>;
+export type ArticlePackageDiscount = z.infer<typeof $ArticlePackageDiscount>;
+export type ArticleCategory = z.infer<typeof $ArticleCategory>;
+export type ArticlePackage = z.infer<typeof $ArticlePackage>;
+export type ArticleFilter = z.infer<typeof $ArticleFilter>;
+export type ArticleCourse = z.infer<typeof $ArticleCourse>;
+export type ArticleFromArticlePackage = z.infer<typeof $ArticleFromArticlePackage>;
 
-export type AdminArticle = z.infer<typeof $adminArticle>;
-export type AdminArticleDetails = z.infer<typeof $adminArticleDetails>;
-export type ResourceOption = z.infer<typeof $resourceOption>;
-export type AdminArticleMaterial = z.infer<typeof $adminArticleMaterial>;
+export type AdminArticle = z.infer<typeof $AdminArticle>;
+export type AdminArticleDetails = z.infer<typeof $AdminArticleDetails>;
+export type ResourceOption = z.infer<typeof $ResourceOption>;
+export type AdminArticleMaterial = z.infer<typeof $AdminArticleMaterial>;
 
-export type AdminArticlesFilters = z.infer<typeof $adminArticlesFilters>;
-export type AdminArticleMaterialsFilters = z.infer<typeof $adminArticleMaterialsFilters>;
+export type AdminArticlesFilters = z.infer<typeof $AdminArticlesFilters>;
+export type AdminArticleMaterialsFilters = z.infer<typeof $AdminArticleMaterialsFilters>;
 
-export type ArticleCategoryFilters = z.infer<typeof $articleCategoryFilters>;
-export type GetArticlesResponse = z.infer<typeof $getArticlesResponse>;
-export type GetArticlePackagesResponse = z.infer<typeof $getArticlePackagesResponse>;
-export type GetArticleCategoriesResponse = z.infer<typeof $getArticleCategoriesResponse>;
-export type GetArticleFiltersResponse = z.infer<typeof $getArticleFiltersResponse>;
-export type GetArticleCoursesResponse = z.infer<typeof $getArticleCoursesResponse>;
-export type GetArticleDetailResponse = z.infer<typeof $getArticleDetailResponse>;
-export type GetArticlesFromArticlePackage = z.infer<typeof $getArticlesFromArticlePackage>;
+export type ArticleCategoryFilters = z.infer<typeof $ArticleCategoryFilters>;
+export type GetArticlesResponse = z.infer<typeof $GetArticlesResponse>;
+export type GetArticlePackagesResponse = z.infer<typeof $GetArticlePackagesResponse>;
+export type GetArticleCategoriesResponse = z.infer<typeof $GetArticleCategoriesResponse>;
+export type GetArticleFiltersResponse = z.infer<typeof $GetArticleFiltersResponse>;
+export type GetArticleCoursesResponse = z.infer<typeof $GetArticleCoursesResponse>;
+export type GetArticleDetailResponse = z.infer<typeof $GetArticleDetailResponse>;
+export type GetArticlesFromArticlePackage = z.infer<typeof $GetArticlesFromArticlePackage>;
 
-export type CreateArticleRequest = z.infer<typeof $createArticleRequest>;
-export type UpdateArticleRequest = z.infer<typeof $updateArticleRequest>;
-export type GetAdminArticlesResponse = z.infer<typeof $getAdminArticlesResponse>;
+export type CreateArticleRequest = z.infer<typeof $CreateArticleRequest>;
+export type UpdateArticleRequest = z.infer<typeof $UpdateArticleRequest>;
+export type GetAdminArticlesResponse = z.infer<typeof $GetAdminArticlesResponse>;
 export type GetAdminArticlesRequest = TRequestFilterParams<AdminArticlesFilters>;
-export type GetAdminArticlesResourceResponse = z.infer<typeof $getAdminArticlesResourceResponse>;
+export type GetAdminArticlesResourceResponse = z.infer<typeof $GetAdminArticlesResourceResponse>;
 export type GetAdminArticleMaterialsRequest = TRequestFilterParams<AdminArticleMaterialsFilters>;
-export type GetAdminArticleMaterialsResponse = z.infer<typeof $getAdminArticleMaterialsResponse>;
-export type DeleteAdminArticleMaterialRequest = z.infer<typeof $deleteAdminArticleMaterialRequest>;
+export type GetAdminArticleMaterialsResponse = z.infer<typeof $GetAdminArticleMaterialsResponse>;
+export type DeleteAdminArticleMaterialRequest = z.infer<typeof $DeleteAdminArticleMaterialRequest>;
+export type UpdateActivityStatusArticleRequest = z.infer<typeof $UpdateActivityStatusArticleRequest>;
+export type UpdateActivityStatusArticleResponse = z.infer<typeof $UpdateActivityStatusArticleResponse>;
 
-export const $article = z.object({
+export const $Article = z.object({
     id: z.number(),
     name: z.string(),
     likes: z.number(),
@@ -45,31 +46,31 @@ export const $article = z.object({
     isFavorite: z.boolean(),
 });
 
-export const $articleCategory = z.object({
+export const $ArticleCategory = z.object({
     id: z.number(),
     name: z.string(),
     articlesCount: z.number(),
 });
 
-export const $articleCourse = z.object({
+export const $ArticleCourse = z.object({
     id: z.number(),
     name: z.string(),
     articleCount: z.number(),
 });
 
-export const $articleFilter = z.object({
+export const $ArticleFilter = z.object({
     id: z.number(),
     name: z.string(),
     slug: z.string(),
 });
 
-export const $articleFromArticlePackage = z.object({
+export const $ArticleFromArticlePackage = z.object({
     id: z.number(),
     name: z.string(),
 });
 
 //TODO: Объединить с дисконтами из других сущностей
-export const $articlePackageDiscount = z.object({
+export const $ArticlePackageDiscount = z.object({
     data: z.object({
         type: z.literal("percentage").or(z.literal("currency")),
         amount: z.number(),
@@ -78,40 +79,40 @@ export const $articlePackageDiscount = z.object({
     }),
 });
 
-export const $articlePackage = z.object({
+export const $ArticlePackage = z.object({
     id: z.number(),
     name: z.string(),
     articlesCount: z.number(),
     price: z.number(),
     discountPrice: z.number().nullable(),
     categories: z.object({
-        data: z.array($articleCategory),
+        data: z.array($ArticleCategory),
     }),
-    discount: $articlePackageDiscount.nullable(),
+    discount: $ArticlePackageDiscount.nullable(),
 });
 
-export const $getArticlePackagesResponse = $getPaginationResponseType($articlePackage);
+export const $GetArticlePackagesResponse = $getPaginationResponseType($ArticlePackage);
 
-export const $getArticlesResponse = $getPaginationResponseType($article);
+export const $GetArticlesResponse = $getPaginationResponseType($Article);
 
-export const $articleCategoryFilters = z.object({
+export const $ArticleCategoryFilters = z.object({
     search: z.string().optional(),
     page: z.string().optional(),
     subCategories: z.array(z.string()).optional(),
     tags: z.array(z.string()).optional(),
 });
 
-export const $getArticleCategoriesResponse = $getPaginationResponseType($articleCategory);
+export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategory);
 
-export const $getArticleCoursesResponse = $getPaginationResponseType($articleCourse);
+export const $GetArticleCoursesResponse = $getPaginationResponseType($ArticleCourse);
 
-export const $getArticleFiltersResponse = z.object({
-    categories: $getPaginationResponseType($articleFilter),
-    tags: $getPaginationResponseType($articleFilter),
+export const $GetArticleFiltersResponse = z.object({
+    categories: $getPaginationResponseType($ArticleFilter),
+    tags: $getPaginationResponseType($ArticleFilter),
 });
 
 //TODO: Это ооочень примерно так как даже на текущий момент и моковских эндпоинтов нет
-export const $getArticleDetailResponse = z.object({
+export const $GetArticleDetailResponse = z.object({
     data: z.object({
         id: z.number(),
         name: z.string(),
@@ -122,10 +123,10 @@ export const $getArticleDetailResponse = z.object({
         dislikesCount: z.number(),
         isFavorite: z.boolean(),
         videos: z.object({
-            data: z.array($uploadedFile),
+            data: z.array($UploadedFile),
         }),
         documents: z.object({
-            data: z.array($uploadedFile),
+            data: z.array($UploadedFile),
         }),
         tags: z.object({
             data: z.array(z.object({ id: z.number(), name: z.string(), slug: z.string() })),
@@ -141,7 +142,7 @@ export const $getArticleDetailResponse = z.object({
 //TODO: Это то что уже с микроча
 //
 
-export const $adminArticlesFilters = z.object({
+export const $AdminArticlesFilters = z.object({
     query: z.string(),
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
     categoryId: z.string(),
@@ -149,11 +150,11 @@ export const $adminArticlesFilters = z.object({
     courseId: z.string(),
 });
 
-export const $adminArticleMaterialsFilters = z.object({
+export const $AdminArticleMaterialsFilters = z.object({
     articleId: z.string(),
 });
 
-export const $adminArticle = z.object({
+export const $AdminArticle = z.object({
     id: z.number(),
     name: z.string(),
     category: z.string(),
@@ -162,7 +163,7 @@ export const $adminArticle = z.object({
     isActive: z.boolean(),
 });
 
-export const $adminArticleDetails = z.object({
+export const $AdminArticleDetails = z.object({
     id: z.number(),
     name: z.string(),
     content: z.string(),
@@ -185,14 +186,14 @@ export const $adminArticleDetails = z.object({
     }),
 });
 
-export const $adminArticleMaterial = z.object({
+export const $AdminArticleMaterial = z.object({
     id: z.number(),
     name: z.string(),
     size: z.number(),
     isActive: z.boolean(),
 });
 
-export const $createArticleRequest = z.object({
+export const $CreateArticleRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
     content: z.string({ required_error: "Введите контент" }),
     isActive: z.boolean(),
@@ -212,26 +213,35 @@ export const $createArticleRequest = z.object({
     tags: z.array(z.coerce.number()).optional(),
 });
 
-export const $updateArticleRequest = $createArticleRequest;
+export const $UpdateArticleRequest = $CreateArticleRequest;
 
-export const $getAdminArticlesResponse = $getPaginationResponseType($adminArticle);
+export const $GetAdminArticlesResponse = $getPaginationResponseType($AdminArticle);
 
-export const $resourceOption = z.object({
+export const $ResourceOption = z.object({
     id: z.number(),
     name: z.string(),
 });
 
-export const $getAdminArticlesResourceResponse = z.object({
-    categories: $getPaginationResponseType($resourceOption),
-    subcategories: $getPaginationResponseType($resourceOption),
-    courses: $getPaginationResponseType($resourceOption),
-    tags: $getPaginationResponseType($resourceOption),
+export const $GetAdminArticlesResourceResponse = z.object({
+    categories: $getPaginationResponseType($ResourceOption),
+    subcategories: $getPaginationResponseType($ResourceOption),
+    courses: $getPaginationResponseType($ResourceOption),
+    tags: $getPaginationResponseType($ResourceOption),
 });
 
-export const $getAdminArticleMaterialsResponse = $getPaginationResponseType($adminArticleMaterial);
+export const $GetAdminArticleMaterialsResponse = $getPaginationResponseType($AdminArticleMaterial);
 
-export const $deleteAdminArticleMaterialRequest = z.object({
+export const $DeleteAdminArticleMaterialRequest = z.object({
     articleId: z.string(),
     materialId: z.number(),
 });
-export const $getArticlesFromArticlePackage = $getPaginationResponseType($articleFromArticlePackage);
+export const $GetArticlesFromArticlePackage = $getPaginationResponseType($ArticleFromArticlePackage);
+
+export const $UpdateActivityStatusArticleRequest = z.object({
+    id: z.string(),
+    isActive: z.boolean(),
+});
+
+export const $UpdateActivityStatusArticleResponse = z.object({
+    isActive: z.boolean(),
+});
