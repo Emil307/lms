@@ -24,6 +24,8 @@ export const MIME_TYPES: { [key in FileFormat]: string } = {
     ppt: "application/vnd.ms-powerpoint",
     pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     exe: "application/vnd.microsoft.portable-executable",
+    avi: "video/x-msvideo",
+    mpg: "video/mpeg",
 };
 
 export const getCorrectFileFormatsForDropZone = (formats: FileFormat[]) => formats.map((format) => MIME_TYPES[format]);

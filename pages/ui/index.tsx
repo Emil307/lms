@@ -160,7 +160,7 @@ export const UIDemo = () => {
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
 
-    const [date, setDate] = useState<string | Date | null>(null);
+    const [date, setDate] = useState<Date | string | null>(null);
     const [rangeDate, setRangeDate] = useState<[string | null, string | null]>([null, null]);
 
     const config: FormikConfig<Values> = {
@@ -203,8 +203,8 @@ export const UIDemo = () => {
             },
             dateTime: null,
         },
-        validationSchema: $loginValidationSchema,
-        onSubmit: () => {
+        // validationSchema: $loginValidationSchema,
+        onSubmit: (_values) => {
             return;
         },
     };
@@ -315,7 +315,7 @@ export const UIDemo = () => {
                                     fileFormats={["jpeg", "jpg", "png"]}
                                     // fileFormats={["mp4"]}
                                     withDeleteButton
-                                    // useUploadFile={useUploadVideo}
+                                    // isModePreview={false}
                                     titleButtonFileDialog="IMAGE"
                                 />
                                 <FDateRangePicker name="ranges.dateFrom" nameTo="ranges.dateTo" label="FDateRangePicker" />

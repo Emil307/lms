@@ -257,6 +257,7 @@ export const defaultTheme: MantineThemeOverride = {
                     },
                 },
                 header: {
+                    alignItems: "flex-start",
                     marginBottom: 24,
                     fontWeight: 600,
                     fontSize: 20,

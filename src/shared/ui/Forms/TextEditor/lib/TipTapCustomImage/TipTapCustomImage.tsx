@@ -39,9 +39,11 @@ export const TipTapCustomImage = (uploadFn: UploadFn) => {
     return Node.create<ImageOptions>({
         name: "image",
 
-        defaultOptions: {
-            inline: false,
-            HTMLAttributes: {},
+        addOptions() {
+            return {
+                inline: false,
+                HTMLAttributes: {},
+            };
         },
 
         inline() {

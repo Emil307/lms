@@ -12,13 +12,12 @@ import {
 } from "./types";
 
 class CategoryApi extends BaseApi {
-    async getAdminCategories(params: GetAdminCategoriesRequest): Promise<GetAdminCategoriesResponse> {
-        const response = await this.instance.get("admin/categories", {
-            params: {
-                ...params,
-                filter: {
-                    hasParent: "0",
-                },
+    async getAdminCategories({ isActive, ...params }: GetAdminCategoriesRequest): Promise<GetAdminCategoriesResponse> {
+        const response = await this.instance.post("admin/categories/list", {
+            ...params,
+            filter: {
+                hasParent: "0",
+                isActive,
             },
         });
         return $getAdminCategoriesResponse.parse(response);
