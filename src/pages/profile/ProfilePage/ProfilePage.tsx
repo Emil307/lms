@@ -8,7 +8,7 @@ import { ProfileInfo } from "@components/ProfileInfo";
 import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
-import { breadCrumbsItems, fields } from "./constants";
+import {breadCrumbsItems, fields} from "@pages/profile/ProfilePage/constants";
 
 const ProfilePage = () => {
     const router = useRouter();

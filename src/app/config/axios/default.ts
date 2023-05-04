@@ -4,7 +4,7 @@ import {
     errorLogger,
     handleAxiosError,
     whenArticlesRoute,
-    whenAuthorsRoute,
+    whenCoursesRoute,
     whenUsingUploadToStorageRoute,
 } from "./helpers";
 import { articlesInterceptor, authorsInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
@@ -29,7 +29,7 @@ axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenU
 /**
  *  Меняй baseUrl, если работаешь с микрачом COURSES.
  */
-axios.interceptors.request.use(authorsInterceptor, errorLogger, { runWhen: whenAuthorsRoute });
+axios.interceptors.request.use(authorsInterceptor, errorLogger, { runWhen: whenCoursesRoute });
 
 /**
  *  Меняй baseUrl, если работаешь с микрачом ARTICLES.

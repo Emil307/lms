@@ -36,7 +36,7 @@ export type TSortOrder = z.infer<typeof $sortOrder>;
 export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
 export type TPagination = z.infer<typeof $pagination>;
 
-export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & T;
+export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & Partial<T>;
 
 export const $defaultMeta = z.object({
     pagination: $pagination,

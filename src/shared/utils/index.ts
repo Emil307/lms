@@ -10,4 +10,6 @@ export * from "./getMonthDifference";
 export * from "./showNotification";
 export * from "./getFullNameFromProfile";
 export * from "./checkRoleOrder";
+export * from "./getSurnameWithInitials";
+export * from "./getLocaleString";
 export * from "./getDataFromSessionStorage";

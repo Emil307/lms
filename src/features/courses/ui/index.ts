@@ -5,6 +5,7 @@ import CourseTeacherCard, { type TeacherCardProps as CourseTeacherCardProps } fr
 
 export * from "./ProgramModuleLessonsList";
 export * from "./ReviewCard";
+export * from "./AdminList";
 export {
     CourseCard,
     CourseBlockCard,

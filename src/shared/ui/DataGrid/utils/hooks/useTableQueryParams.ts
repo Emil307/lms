@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import { FormikValues } from "formik";
-import { TDefaultPageQueryParams, TFunctionParams } from "../../types";
+import { TDefaultPageQueryParams, TFilterTable, TFunctionParams } from "../../types";
 
-export const useTableQueryParams = <F extends FormikValues, R extends TFunctionParams<F>>(filterFields: Array<keyof F>) => {
+export const useTableQueryParams = <F extends FormikValues, R extends TFunctionParams<F>>(
+    filterFields: TFilterTable<F>["initialValues"] | undefined
+) => {
     const router = useRouter();
     const allParams = router.query;
     const { page = 1, perPage = 10, sortField, sortOrder, ...params } = allParams;
@@ -30,11 +32,19 @@ export const useTableQueryParams = <F extends FormikValues, R extends TFunctionP
 
     const prepareFiltersParams = () => {
         const necessaryFilterParams = {} as Partial<F>;
+        if (!filterFields) {
+            return necessaryFilterParams;
+        }
         const currentFilterParams = { ...params } as Partial<F>;
-        filterFields.forEach((fieldKey) => {
+        Object.keys(filterFields).forEach((fieldKey: keyof F) => {
             const value = currentFilterParams[fieldKey];
+            if (Array.isArray(filterFields[fieldKey]) && !Array.isArray(value)) {
+                necessaryFilterParams[fieldKey] = value ? ([value] as Partial<F>[keyof F]) : ([] as Partial<F>[keyof F]);
+                return;
+            }
             necessaryFilterParams[fieldKey] = value === "" ? undefined : value;
         });
+
         return necessaryFilterParams;
     };
 
