@@ -34,9 +34,6 @@ export default function Filter<F extends FormikValues>({ filter, filterParams, c
     };
 
     const handleSubmit = async (values: F, helpers: FormikHelpers<F>) => {
-        if (!formRef.current || !formRef.current.dirty) {
-            return;
-        }
         router.push(
             {
                 pathname: router.pathname,

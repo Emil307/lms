@@ -22,8 +22,7 @@ function DataGrid<T extends Record<string, any>, F extends FormikValues = Formik
 ) {
     const router = useRouter();
     const { queryFunction, queryKey, queryCacheKeys = [], children, countName, filter, ...rest } = props;
-    const filterFields = filter ? Object.keys(filter.initialValues).map((key) => key) : [];
-    const { paramsForRequest, filterParams } = useTableQueryParams<F, R>(filterFields);
+    const { paramsForRequest, filterParams } = useTableQueryParams<F, R>(filter?.initialValues);
 
     const {
         data: queryData,

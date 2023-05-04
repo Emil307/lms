@@ -39,8 +39,8 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
  * @param config AxiosConfigObject
  * @returns true если запрос из микроча COURSES
  */
-export const whenAuthorsRoute: TAxiosRunWhen = (config) => {
-    return !!config.url?.includes("authors");
+export const whenCoursesRoute: TAxiosRunWhen = (config) => {
+    return !!config.url?.includes("authors") || !!config.url?.includes("courses");
 };
 
 /**
