@@ -34,6 +34,7 @@ const MemoizedSelect = (props: SelectProps) => {
     const { classes } = useInputStyles(
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
+            rightSection: true,
             icon: icon || searchable,
             size: size,
         },

@@ -1,4 +1,4 @@
-import { TextInput as MInput, Text, Group, useMantineTheme, ThemeIcon } from "@mantine/core";
+import { TextInput as MInput, Text, Group, ThemeIcon } from "@mantine/core";
 import { memo, ReactNode, useCallback, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle, Eye, EyeOff, Info } from "react-feather";
 import { z } from "zod";
@@ -11,7 +11,6 @@ export interface InputProps extends React.ComponentProps<typeof MInput> {
 
 const MemoizedInput = memo(function Input({ success = false, error, description, ...props }: InputProps) {
     const { type, icon, rightSection, size } = props;
-    const theme = useMantineTheme();
 
     const isPasswordField = type === "password";
     const { isPasswordVisible, toggleVisibility } = usePassword();
@@ -63,13 +62,17 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
+                        <ThemeIcon variant="outline" color="done" sx={{ border: "none" }}>
+                            <CheckCircle />
+                        </ThemeIcon>
                         <Text>{success}</Text>
                     </Group>
                 )}
                 {description && (
                     <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
+                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                            <Info />
+                        </ThemeIcon>
                         <Text>{description}</Text>
                     </Group>
                 )}
@@ -84,6 +87,7 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
     const { classes } = useInputStyles({
         floating: !!props.value?.toString().length || focused,
         icon,
+        rightSection: right,
         size,
         statusSuccess,
     });

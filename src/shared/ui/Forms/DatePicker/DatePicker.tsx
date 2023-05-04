@@ -55,8 +55,15 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
 
+    const rightSection = (
+        <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+            <Calendar />
+        </ThemeIcon>
+    );
+
     const { classes } = useInputStyles({
         floating: !!props.value || focused,
+        rightSection,
         size: size,
         statusSuccess,
     });
@@ -111,11 +118,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
             onDropdownOpen={onDropdownOpenHandler}
             onFocus={onFocusHandler}
             onDropdownClose={onDropCloseHandler}
-            rightSection={
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
-                    <Calendar />
-                </ThemeIcon>
-            }
+            rightSection={rightSection}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
