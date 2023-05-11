@@ -1,5 +1,6 @@
 import { z, ZodTypeAny } from "zod";
 import { FormikValues } from "formik";
+import { $profile } from "./profile";
 
 export interface TRouterQueries {
     id: string;
@@ -43,11 +44,23 @@ export type TSortOrder = z.infer<typeof $sortOrder>;
 export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
 export type TPagination = z.infer<typeof $pagination>;
 export type Discount = z.infer<typeof $Discount>;
+export type LastUpdated = z.infer<typeof $LastUpdated>;
 
 export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & Partial<T>;
 
 export const $defaultMeta = z.object({
     pagination: $pagination,
+});
+
+export const $LastUpdated = z.object({
+    date: z.coerce.date(),
+    user: z
+        .object({
+            id: z.number(),
+            email: z.string(),
+            profile: $profile.omit({ avatar: true, additionalImage: true }),
+        })
+        .nullable(),
 });
 
 export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
