@@ -12,61 +12,61 @@ declare module "nextjs-routes" {
 
   export type Route =
     | StaticRoute<"/about">
-    | StaticRoute<"/admin/articles/create">
-    | StaticRoute<"/admin/articles">
     | DynamicRoute<"/admin/articles/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/articles/[id]", { "id": string }>
     | DynamicRoute<"/admin/articles/[id]/materials", { "id": string }>
+    | StaticRoute<"/admin/articles/create">
+    | StaticRoute<"/admin/articles">
     | StaticRoute<"/admin/courses">
-    | StaticRoute<"/admin/groups/create">
-    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/groups/[id]/composition", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/schedule", { "id": string }>
-    | StaticRoute<"/admin/settings/article-packages/create">
-    | StaticRoute<"/admin/settings/article-packages">
+    | StaticRoute<"/admin/groups/create">
+    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/settings/article-packages/[id]/articles", { "id": string }>
     | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>
-    | StaticRoute<"/admin/settings/authors/create">
-    | StaticRoute<"/admin/settings/authors">
+    | StaticRoute<"/admin/settings/article-packages/create">
+    | StaticRoute<"/admin/settings/article-packages">
     | DynamicRoute<"/admin/settings/authors/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/settings/authors/[id]", { "id": string }>
-    | StaticRoute<"/admin/settings/categories">
+    | StaticRoute<"/admin/settings/authors/create">
+    | StaticRoute<"/admin/settings/authors">
     | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
+    | StaticRoute<"/admin/settings/categories">
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner">
+    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/reviews/create">
     | StaticRoute<"/admin/settings/main-page/reviews">
-    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
-    | StaticRoute<"/admin/students/create">
-    | StaticRoute<"/admin/students">
     | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/students/[id]", { "id": string }>
-    | StaticRoute<"/admin/users/create">
-    | StaticRoute<"/admin/users">
+    | StaticRoute<"/admin/students/create">
+    | StaticRoute<"/admin/students">
     | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/users/[id]", { "id": string }>
+    | StaticRoute<"/admin/users/create">
+    | StaticRoute<"/admin/users">
     | StaticRoute<"/api/hello">
-    | StaticRoute<"/articles/favorite">
-    | DynamicRoute<"/articles/favorite/[articleId]", { "articleId": string }>
-    | StaticRoute<"/articles">
-    | StaticRoute<"/articles/my-courses">
-    | DynamicRoute<"/articles/my-courses/[courseId]", { "courseId": string }>
     | DynamicRoute<"/articles/[categoryId]", { "categoryId": string }>
+    | DynamicRoute<"/articles/favorite/[articleId]", { "articleId": string }>
+    | StaticRoute<"/articles/favorite">
+    | StaticRoute<"/articles">
+    | DynamicRoute<"/articles/my-courses/[courseId]", { "courseId": string }>
+    | StaticRoute<"/articles/my-courses">
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">
     | StaticRoute<"/auth/sign-up">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
-    | StaticRoute<"/course-sets">
     | DynamicRoute<"/course-sets/[id]", { "id": string }>
-    | StaticRoute<"/courses">
+    | StaticRoute<"/course-sets">
     | DynamicRoute<"/courses/[id]", { "id": string }>
+    | StaticRoute<"/courses">
     | StaticRoute<"/faq">
     | StaticRoute<"/">
     | StaticRoute<"/logout">
