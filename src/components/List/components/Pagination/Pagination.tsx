@@ -1,35 +1,45 @@
-import { Box, Flex, Pagination as MPagination, PaginationProps as MPaginationProps, Text } from "@mantine/core";
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Flex, Pagination as MPagination, Text } from "@mantine/core";
 import { TPagination } from "@shared/types";
 import { getPluralString } from "@shared/utils";
 import useStyles from "./Pagination.styles";
+import { useListPagination } from "../../utils";
 
-export interface PaginationProps extends MPaginationProps, TPagination {
-    onPaginationChange?: Dispatch<SetStateAction<TPagination>>;
+export interface PaginationProps {
+    data?: TPagination;
+    onPaginationChange?: (page: number) => void;
+    declensionWordCountItems?: [string, string, string];
 }
 
-const Pagination = ({ onPaginationChange = () => undefined, ...props }: PaginationProps) => {
+const Pagination = ({ data, declensionWordCountItems, onPaginationChange = () => undefined }: PaginationProps) => {
     const { classes } = useStyles();
-    const hiddenPagination = props.totalPages < 2;
 
-    const countViewedItems = useMemo(
-        () => props.perPage * (props.currentPage - 1) + props.count,
-        [props.perPage, props.count, props.currentPage]
-    );
+    const { lastElemIndex, pageIndex, handleChangePage } = useListPagination({ data });
 
-    const handleChangePage = (pageNumber: number) => {
-        onPaginationChange((prev) => ({ ...prev, current_page: pageNumber }));
+    const handleChangePagination = (pageNumber: number) => {
+        handleChangePage(pageNumber);
+        onPaginationChange(pageNumber);
     };
 
+    if (!data) {
+        return null;
+    }
+
     return (
-        <Flex justify="space-between" align="center" w="100%">
-            <MPagination {...props} total={props.totalPages} hidden={hiddenPagination} classNames={classes} onChange={handleChangePage} />
-            <Box>
+        <Flex justify="space-between" align="center" wrap="wrap" w="100%" mt={32}>
+            <MPagination
+                total={data.totalPages}
+                hidden={data.totalPages < 2}
+                classNames={classes}
+                onChange={handleChangePagination}
+                page={pageIndex}
+            />
+
+            {declensionWordCountItems && (
                 <Text className={classes.perPageInfo}>
-                    Всего: <span>{`${countViewedItems} ${getPluralString(countViewedItems, "курс", "курса", "курсов")}`}</span> из
-                    <span>{` ${props.total}`}</span>
+                    Всего: <span>{`${lastElemIndex} ${getPluralString(lastElemIndex, ...declensionWordCountItems)}`}</span> из
+                    <span>{` ${data.total}`}</span>
                 </Text>
-            </Box>
+            )}
         </Flex>
     );
 };
