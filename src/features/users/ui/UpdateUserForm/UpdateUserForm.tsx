@@ -3,24 +3,25 @@ import React from "react";
 import { Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
+import dayjs from "dayjs";
 import { Button, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
-import { $updateUserRequest, UpdateUserRequest, useAdminUsersFilters, UserDetailResponse, usersApi } from "@entities/user";
+import { $UpdateUserRequest, UpdateUserRequest, useAdminUsersFilters, UserDetailResponse, usersApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { getInitialValuesForm } from "./constants";
-import { adaptDataForEditForm } from "./utils";
-import useStyles from "./EditUserForm.styles";
 import { checkRoleOrder } from "@shared/utils";
 import { useMe } from "@entities/auth";
+import { getInitialValuesForm } from "./constants";
+import { adaptDataForUpdateForm } from "./utils";
+import useStyles from "./UpdateUserForm.styles";
 
-export interface EditUserFormProps {
+export interface UpdateUserFormProps {
     data?: UserDetailResponse;
     onClose: () => void;
 }
 
-const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
+const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
     const { data: profileData } = useMe();
@@ -53,8 +54,8 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
 
     return (
         <ManagedForm<UpdateUserRequest, UserDetailResponse>
-            initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataForEditForm(data) }}
-            validationSchema={$updateUserRequest}
+            initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataForUpdateForm(data) }}
+            validationSchema={$UpdateUserRequest}
             mutationKey={[MutationKeys.UPDATE_USER, data?.id]}
             mutationFunction={updateUser}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_USER, String(data?.id)] }]}
@@ -71,8 +72,10 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
                             <Text className={classes.infoItem}>Статус:</Text>
                             <FSwitch name="isActive" variant="secondary" label="Деактивировать" labelPosition="left" />
                         </Flex>
-
-                        {/* TODO: Добавить Последний вход и последнее изменение когда будет сделано на беке  */}
+                        <Box className={classes.infoItem}>
+                            Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
+                        </Box>
+                        {/* TODO: Добавить последнее изменение когда будет сделано на беке  */}
                     </Flex>
 
                     <Fieldset label="Личные данные" icon={<User />}>
@@ -150,4 +153,4 @@ const EditUserForm = ({ data, onClose }: EditUserFormProps) => {
     );
 };
 
-export default EditUserForm;
+export default UpdateUserForm;

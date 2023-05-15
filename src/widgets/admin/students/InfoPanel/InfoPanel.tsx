@@ -1,5 +1,6 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
+import dayjs from "dayjs";
 import { Switch } from "@shared/ui";
 import { getFullNameFromProfile } from "@shared/utils";
 import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
@@ -16,16 +17,6 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
-
-    {
-        /* TODO - информации о последнем входе пока нет */
-    }
-    // const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
-    //     day: "2-digit",
-    //     month: "long",
-    //     hour: "2-digit",
-    //     minute: "2-digit",
-    // });
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
@@ -47,8 +38,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Box className={classes.infoItem}>
-                    {/* TODO - информации о последнем входе пока нет */}
-                    {/*Последний вход: <span>{lastLoginDate}</span>*/}
+                    Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
                 {/* TODO - информации о последних изменениях на бэке пока нет */}
             </Flex>

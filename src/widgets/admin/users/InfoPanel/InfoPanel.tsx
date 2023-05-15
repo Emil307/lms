@@ -1,5 +1,6 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
+import dayjs from "dayjs";
 import { Checkbox, Switch } from "@shared/ui";
 import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
@@ -19,16 +20,6 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
-
-    {
-        /* TODO: - информации о последнем входе пока нет */
-    }
-    // const lastLoginDate = getHumanDate(new Date(data?.loginIn ?? ""), {
-    //     day: "2-digit",
-    //     month: "long",
-    //     hour: "2-digit",
-    //     minute: "2-digit",
-    // });
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
@@ -53,8 +44,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 </Flex>
                 <Checkbox label="Отображать на главной" />
                 <Box className={classes.infoItem}>
-                    {/* TODO: - информации о последнем входе пока нет */}
-                    {/*Последний вход: <span>{lastLoginDate}</span>*/}
+                    Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
                 {/* TODO: - информации о последних изменениях на бэке пока не будет */}
             </Flex>

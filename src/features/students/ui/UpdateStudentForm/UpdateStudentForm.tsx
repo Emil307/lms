@@ -4,20 +4,21 @@ import React from "react";
 import { Edit3, Shield, User } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
-import { $updateUserRequest, UpdateUserRequest, useAdminStudentsFilters, UserDetailResponse, useUpdateUser } from "@entities/user";
+import { $UpdateUserRequest, UpdateUserRequest, useAdminStudentsFilters, UserDetailResponse, useUpdateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { getInitialValuesForm } from "./constants";
-import useStyles from "./EditStudentForm.styles";
-import { adaptDataForEditForm } from "./utils";
+import useStyles from "./UpdateStudentForm.styles";
+import { adaptDataForUpdateForm } from "./utils";
 
-export interface EditStudentFormProps {
+export interface UpdateStudentFormProps {
     data?: UserDetailResponse;
     onClose: () => void;
 }
 
-const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
+const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
     const { data: options } = useAdminStudentsFilters();
@@ -26,9 +27,9 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
     const config: FormikConfig<UpdateUserRequest> = {
-        initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForEditForm(data) },
+        initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForUpdateForm(data) },
         enableReinitialize: true,
-        validationSchema: $updateUserRequest,
+        validationSchema: $UpdateUserRequest,
         onSubmit: (values, { setFieldError }) => {
             updateUser.mutate(
                 { ...values, avatarId: values.avatar?.id },
@@ -65,8 +66,11 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
                                     labelPosition="left"
                                 />
                             </Flex>
+                            <Box className={classes.infoItem}>
+                                Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
+                            </Box>
 
-                            {/* TODO: Добавить Последний вход и последнее изменение когда будет сделано на беке */}
+                            {/* TODO: Добавить последнее изменение когда будет сделано на беке */}
                         </Flex>
 
                         <Fieldset label="Личные данные" icon={<User />}>
@@ -119,4 +123,4 @@ const EditStudentForm = ({ data, onClose }: EditStudentFormProps) => {
     );
 };
 
-export default EditStudentForm;
+export default UpdateStudentForm;

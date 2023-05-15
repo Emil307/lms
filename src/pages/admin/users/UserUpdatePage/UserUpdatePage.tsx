@@ -3,12 +3,12 @@ import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
-import { EditUserForm } from "@features/users";
+import { UpdateUserForm } from "@features/users";
 import { TRouterQueries } from "@shared/types";
 import { getFullNameFromProfile } from "@shared/utils";
 import { getBreadCrumbsItems } from "./utils";
 
-const UserEditPage = () => {
+const UserUpdatePage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
@@ -23,9 +23,9 @@ const UserEditPage = () => {
             <Title order={1} color="dark" mb={24}>
                 {userName}
             </Title>
-            <EditUserForm data={userData} onClose={handleCloseForm} />
+            <UpdateUserForm data={userData} onClose={handleCloseForm} />
         </Box>
     );
 };
 
-export default UserEditPage;
+export default UserUpdatePage;

@@ -4,8 +4,8 @@ import { PlusCircle } from "react-feather";
 import { openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { List as MaterialList } from "@features/materials";
-import useStyles from "./MaterialsPage.styles";
 import { SelectTypeMaterial } from "@widgets/material";
+import useStyles from "./MaterialsPage.styles";
 
 const MaterialsPage = () => {
     const { classes } = useStyles();

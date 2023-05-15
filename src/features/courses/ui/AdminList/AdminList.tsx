@@ -1,12 +1,12 @@
 import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
+import React from "react";
 import { DataGrid, FMultiSelect, FSearch, FSelect, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { radioGroupValues, filterInitialValues, columns } from "./constant";
-import React from "react";
 import { AdminCourse, AdminCoursesFilters, courseApi, useAdminCourseResources } from "@entities/course";
+import { radioGroupValues, filterInitialValues, columns } from "./constant";
 
 const AdminCoursesList = () => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();

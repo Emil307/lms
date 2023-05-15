@@ -6,7 +6,7 @@ import { queryClient } from "@app/providers";
 export const useChangeUserPassword = (id?: number): UseMutationResult<void, unknown, Omit<ChangeUserPasswordRequest, "id">> => {
     return useMutation(
         [MutationKeys.CHANGE_USER_PASSWORD, id],
-        (data) => usersApi.changeUserPassword({ id, ...data }),
+        (data) => usersApi.updateUserPassword({ id, ...data }),
 
         {
             onSuccess: () => {
