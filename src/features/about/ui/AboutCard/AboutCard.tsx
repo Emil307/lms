@@ -19,10 +19,12 @@ const MemoizedAboutCard = memo(function AboutCard({ data, ...props }: AboutCardP
                     <Image
                         src={data.banner.absolutePath}
                         loader={({ src }) => `${src}`}
-                        layout="fill"
-                        objectFit="cover"
                         alt={data.banner.name}
-                    />
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "cover"
+                        }} />
                 </MCard.Section>
             )}
             <MCard.Section className={classes.contentSection}>

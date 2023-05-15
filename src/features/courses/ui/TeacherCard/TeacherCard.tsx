@@ -19,10 +19,12 @@ const MemoizedTeacherCard = memo(function Card({ data, ...props }: TeacherCardPr
                     <Image
                         src={data.profile.avatar.path}
                         loader={({ src }) => `${src}`}
-                        layout="fill"
-                        objectFit="cover"
                         alt={data.profile.avatar.name}
-                    />
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "cover"
+                        }} />
                 </Box>
                 <Group className={classes.cardSectionContent}>
                     <Badge variant="outline" className={classes.countCourse}>

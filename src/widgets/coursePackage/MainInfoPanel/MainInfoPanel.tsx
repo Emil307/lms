@@ -77,10 +77,12 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                         <Image
                             src={data.picture.path}
                             loader={({ src }) => `${src}`}
-                            layout="fill"
-                            objectFit="cover"
                             alt={data.picture.name}
-                        />
+                            fill
+                            sizes="100vw"
+                            style={{
+                                objectFit: "cover"
+                            }} />
                     </Box>
                 </Group>
             </Flex>
