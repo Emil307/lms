@@ -1,38 +1,36 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils/types";
 import {
-    $getAdminStudentsFiltersResponse,
-    $userCreateResponse,
-    $userDetailResponse,
-    $usersAdministratorsFilters,
-    $usersResponse,
     GetAdminStudentsFiltersResponse,
     UpdateUserRequest,
     CreateUserRequest,
     UserCreateResponse,
     UserDetailResponse,
-    UsersAdministratorsFiltersResponse,
     UsersRequestParamsType,
-    UsersResponseType,
     ChangeUserPasswordRequest,
     UpdateActivityStatusUserRequest,
+    $GetUsersResponse,
+    GetUsersResponse,
+    $GetUsersAdminFiltersResponse,
+    GetUsersAdminFiltersResponse,
+    $UserDetailResponse,
+    $UserCreateResponse,
+    $GetAdminStudentsFiltersResponse,
 } from "./types";
 
 export class UsersApi extends BaseApi {
-    async getUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<UsersResponseType> {
-        const result = await this.instance.get("admin/users", {
-            params: {
-                ...params,
-                filter: {
-                    roleName,
-                    isActive,
-                },
+    async getUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
+        const result = await this.instance.post("admin/users/list", {
+            ...params,
+            filter: {
+                roleName,
+                isActive,
             },
         });
-        return $usersResponse.parse(result);
+        return $GetUsersResponse.parse(result);
     }
 
-    async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<UsersResponseType> {
+    async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
         const result = await this.instance.post(
             "admin/users/administrators/list",
             {},
@@ -46,12 +44,12 @@ export class UsersApi extends BaseApi {
                 },
             }
         );
-        return $usersResponse.parse(result);
+        return $GetUsersResponse.parse(result);
     }
 
-    async getAdminUsersFilters(): Promise<UsersAdministratorsFiltersResponse> {
+    async getAdminUsersFilters(): Promise<GetUsersAdminFiltersResponse> {
         const result = await this.instance.get("admin/users/administrators/resources");
-        return $usersAdministratorsFilters.parse(result);
+        return $GetUsersAdminFiltersResponse.parse(result);
     }
 
     async deleteUser(id: string): Promise<void> {
@@ -63,29 +61,29 @@ export class UsersApi extends BaseApi {
         await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
     }
 
-    async getDetailUser(id: string): Promise<UserDetailResponse> {
+    async showUser(id: string): Promise<UserDetailResponse> {
         const result = await this.instance.get(`admin/users/${id}`);
-        return $userDetailResponse.parse(result);
+        return $UserDetailResponse.parse(result);
     }
 
     async createUser(data: CreateUserRequest): Promise<UserCreateResponse> {
         const result = await this.instance.post("admin/users", data);
-        return $userCreateResponse.parse(result);
+        return $UserCreateResponse.parse(result);
     }
 
     async updateUser({ id, ...data }: UpdateUserRequest & { id?: number }): Promise<UserDetailResponse> {
         const result = await this.instance.put(`admin/users/${id}`, data);
-        return $userDetailResponse.parse(result);
+        return $UserDetailResponse.parse(result);
     }
 
-    async changeUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<void> {
+    async updateUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<void> {
         await this.instance.put(`admin/users/${id}/change-password`, data);
     }
 
     //students
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
         const result = await this.instance.get("admin/users/students/resources");
-        return $getAdminStudentsFiltersResponse.parse(result);
+        return $GetAdminStudentsFiltersResponse.parse(result);
     }
 }
 

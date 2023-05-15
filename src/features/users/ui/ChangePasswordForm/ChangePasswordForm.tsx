@@ -18,7 +18,7 @@ export interface ChangeUserPasswordFormProps {
 const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormProps) => {
     const { user } = useSession();
     const changeUserPassword = ({ isOldPassword, ...values }: Omit<ChangePasswordFormValidationSchema, "id">) => {
-        return usersApi.changeUserPassword({ id: userData.id, ...values });
+        return usersApi.updateUserPassword({ id: userData.id, ...values });
     };
 
     const onSuccess = () => {

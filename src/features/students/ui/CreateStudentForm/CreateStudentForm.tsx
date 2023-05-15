@@ -6,7 +6,7 @@ import { Edit3, Shield, User } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
-import { $createUserRequest, useAdminStudentsFilters, useCreateUser, CreateUserRequest } from "@entities/user";
+import { $CreateUserRequest, useAdminStudentsFilters, useCreateUser, CreateUserRequest } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 
@@ -37,7 +37,7 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
             additionalImage: null,
         },
         enableReinitialize: true,
-        validationSchema: $createUserRequest,
+        validationSchema: $CreateUserRequest,
         onSubmit: (values, { setFieldError }) => {
             createUser.mutate(
                 { ...values, avatarId: values.avatar?.id },

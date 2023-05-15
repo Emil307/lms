@@ -2,11 +2,11 @@ import { Box, Title } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
-import { EditStudentForm } from "@features/students";
+import { UpdateStudentForm } from "@features/students";
 import { useDetailUser } from "@entities/user";
 import { getFullNameFromProfile } from "@shared/utils";
 
-const EditStudentPage = () => {
+const UpdateStudentPage = () => {
     const router = useRouter();
     const { id } = router.query as { id: string };
 
@@ -30,9 +30,9 @@ const EditStudentPage = () => {
             <Title order={1} color="dark" mb={24}>
                 {userName}
             </Title>
-            <EditStudentForm data={userData} onClose={handleCloseForm} />
+            <UpdateStudentForm data={userData} onClose={handleCloseForm} />
         </Box>
     );
 };
 
-export default EditStudentPage;
+export default UpdateStudentPage;

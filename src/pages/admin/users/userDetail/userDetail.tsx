@@ -15,7 +15,7 @@ const UserDetail = () => {
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
-            // TODO - переключение виджетов по табам, когда будет апи и сверстано все остальное
+            // TODO: - переключение виджетов по табам, когда будет апи и сверстано все остальное
             default:
                 router.push({ pathname: "/admin/users/[id]", query: { id } });
                 break;
@@ -34,7 +34,7 @@ const UserDetail = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ data })} />
             <InfoPanel id={id} />
-            {/* TODO - переключение виджетов по табам, когда будет апи и сверстано все остальное */}
+            {/* TODO: - переключение виджетов по табам, когда будет апи и сверстано все остальное */}
             <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} />
             <SettingUser id={id} />
         </Box>

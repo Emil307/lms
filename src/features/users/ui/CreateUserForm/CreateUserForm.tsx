@@ -4,13 +4,13 @@ import { useMantineTheme } from "@mantine/core";
 import { Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
-import { $createUserRequest, CreateUserRequest, useAdminUsersFilters, UserCreateResponse, usersApi } from "@entities/user";
+import { $CreateUserRequest, CreateUserRequest, useAdminUsersFilters, UserCreateResponse, usersApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
-import { getInitialValuesForm } from "./utils";
 import { useMe } from "@entities/auth";
 import { checkRoleOrder } from "@shared/utils";
+import { getInitialValuesForm } from "./utils";
 
 const CreateUserForm = () => {
     const router = useRouter();
@@ -35,7 +35,7 @@ const CreateUserForm = () => {
     return (
         <ManagedForm<CreateUserRequest, UserCreateResponse>
             initialValues={getInitialValuesForm(defaultRole)}
-            validationSchema={$createUserRequest}
+            validationSchema={$CreateUserRequest}
             mutationKey={[MutationKeys.CREATE_USER]}
             mutationFunction={createUser}
             onSuccess={onSuccess}>

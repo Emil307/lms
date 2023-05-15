@@ -2,13 +2,13 @@ import React from "react";
 import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
-import { EditStudentPage } from "@pages/admin/students";
+import { UpdateStudentPage } from "@pages/admin/students";
 import { AdminPage } from "@components/AdminPage";
 
 const StudentEdit: NextPageWithLayout = () => {
     return (
         <AdminPage title="Редактирование данных ученика">
-            <EditStudentPage />
+            <UpdateStudentPage />
         </AdminPage>
     );
 };
