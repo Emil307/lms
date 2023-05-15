@@ -7,7 +7,7 @@ import {
     whenCoursesRoute,
     whenUsingUploadToStorageRoute,
 } from "./helpers";
-import { articlesInterceptor, authorsInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
+import { articlesInterceptor, coursesInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
 import { responderInterceptor } from "./interceptors/response";
 
 export const axios = Axios.create({
@@ -29,7 +29,7 @@ axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenU
 /**
  *  Меняй baseUrl, если работаешь с микрачом COURSES.
  */
-axios.interceptors.request.use(authorsInterceptor, errorLogger, { runWhen: whenCoursesRoute });
+axios.interceptors.request.use(coursesInterceptor, errorLogger, { runWhen: whenCoursesRoute });
 
 /**
  *  Меняй baseUrl, если работаешь с микрачом ARTICLES.

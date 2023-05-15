@@ -1,47 +1,50 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $Discount, $UploadedFile, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
-export type AdminCourse = z.infer<typeof $adminCourse>;
-export type Course = z.infer<typeof $course>;
-export type CourseBlock = z.infer<typeof $courseBlock>;
-export type FileDocument = z.infer<typeof $fileDocument>;
-export type CourseDetailData = z.infer<typeof $courseDetailData>;
-export type CourseProgram = z.infer<typeof $courseProgram>;
-export type CourseTeacher = z.infer<typeof $courseTeacher>;
-export type Review = z.infer<typeof $review>;
+export type AdminCourse = z.infer<typeof $AdminCourse>;
+export type Course = z.infer<typeof $Course>;
+export type CourseBlock = z.infer<typeof $CourseBlock>;
+export type FileDocument = z.infer<typeof $FileDocument>;
+export type CourseDetailData = z.infer<typeof $CourseDetailData>;
+export type CourseProgram = z.infer<typeof $CourseProgram>;
+export type CourseTeacher = z.infer<typeof $CourseTeacher>;
+export type Review = z.infer<typeof $Review>;
 
-export type AdminCoursesFilters = z.infer<typeof $adminCoursesFilters>;
+export type AdminCoursesFilters = z.infer<typeof $AdminCoursesFilters>;
+export type CoursesFilters = z.infer<typeof $CoursesFilters>;
 
 export type AdminCoursesRequestParamsType = TRequestFilterParams<AdminCoursesFilters>;
-export type AdminCourseResourcesResponse = z.infer<typeof $getAdminCourseResources>;
-export type AdminCoursesResponse = z.infer<typeof $adminCoursesResponse>;
-export type GetCourseProgramResponse = z.infer<typeof $getCourseProgramResponse>;
-export type GetMyCoursesResponse = z.infer<typeof $getMyCoursesResponse>;
-export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $getCourseProgramModuleLessonsResponse>;
-export type GetCourseProgramModuleLessonsRequest = z.infer<typeof $getCourseProgramModuleLessonsRequest>;
-export type GetCourseTeachersResponse = z.infer<typeof $getCourseTeachersResponse>;
-export type GetCourseReviewsResponse = z.infer<typeof $getCourseReviewsResponse>;
-export type GetCoursesResponse = z.infer<typeof $getCoursesResponse>;
-export type GetFavoriteCoursesResponse = z.infer<typeof $getFavoriteCoursesResponse>;
+export type CoursesRequestParamsType = TRequestFilterParams<CoursesFilters>;
 
-export const $fileDocument = z.object({
+export type AdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResources>;
+export type GetAdminCoursesResponse = z.infer<typeof $GetAdminCoursesResponse>;
+export type GetCourseProgramResponse = z.infer<typeof $GetCourseProgramResponse>;
+export type GetMyCoursesResponse = z.infer<typeof $GetMyCoursesResponse>;
+export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $GetCourseProgramModuleLessonsResponse>;
+export type GetCourseProgramModuleLessonsRequest = z.infer<typeof $GetCourseProgramModuleLessonsRequest>;
+export type GetCourseTeachersResponse = z.infer<typeof $GetCourseTeachersResponse>;
+export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
+export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
+export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
+
+export const $FileDocument = z.object({
     name: z.string(),
     path: z.string(),
     type: z.string(),
     size: z.number(),
 });
 
-const $adminCourseCategory = z.object({
+const $AdminCourseCategory = z.object({
     id: z.number(),
     name: z.string(),
 });
 
-const $adminCourseTag = z.object({
+const $AdminCourseTag = z.object({
     id: z.number(),
     name: z.string(),
 });
 
-const $adminCourseTeacher = z.object({
+const $AdminCourseTeacher = z.object({
     id: z.number(),
     profile: z.object({
         firstName: z.string(),
@@ -49,49 +52,42 @@ const $adminCourseTeacher = z.object({
     }),
 });
 
-const $adminCourseAuthor = z.object({
+const $AdminCourseAuthor = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
 });
 
-const $adminCourseDiscountType = z.object({
+const $AdminCourseDiscountType = z.object({
     type: z.string(),
     name: z.string(),
 });
 
-const $adminCourseDiscount = z.object({
-    type: z.literal("percentage").or(z.literal("currency")),
-    amount: z.number(),
-    startingDate: z.string(),
-    finishingDate: z.string(),
+export const $GetAdminCourseResources = z.object({
+    categories: z.array($AdminCourseCategory),
+    subcategories: z.array($AdminCourseCategory),
+    tags: z.array($AdminCourseTag),
+    authors: z.array($AdminCourseAuthor),
+    teachers: z.array($AdminCourseTeacher),
+    discountTypes: z.array($AdminCourseDiscountType),
 });
 
-export const $getAdminCourseResources = z.object({
-    categories: z.array($adminCourseCategory),
-    subcategories: z.array($adminCourseCategory),
-    tags: z.array($adminCourseTag),
-    authors: z.array($adminCourseAuthor),
-    teachers: z.array($adminCourseTeacher),
-    discountTypes: z.array($adminCourseDiscountType),
-});
-
-export const $adminCourse = z.object({
+export const $AdminCourse = z.object({
     id: z.number(),
     name: z.string(),
     price: z.number(),
     discountPrice: z.number(),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
-    category: $adminCourseCategory.nullable(),
-    tags: z.array($adminCourseTag),
-    teachers: z.array($adminCourseTeacher),
-    discount: $adminCourseDiscount.nullable(),
+    category: $AdminCourseCategory.nullable(),
+    tags: z.array($AdminCourseTag),
+    teachers: z.array($AdminCourseTeacher),
+    discount: $Discount.nullable(),
 });
 
-export const $adminCoursesResponse = $getPaginationResponseType($adminCourse);
+export const $GetAdminCoursesResponse = $getPaginationResponseType($AdminCourse);
 
-export const $adminCoursesFilters = z.object({
+export const $AdminCoursesFilters = z.object({
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
     query: z.string(),
     // createdAt: z.string().datetime(),
@@ -101,20 +97,29 @@ export const $adminCoursesFilters = z.object({
     discountType: z.string(),
 });
 
-export const $courseProgram = z.object({
+export const $CoursesFilters = z.object({
+    hasDiscount: z.boolean(),
+    query: z.string(),
+    tags: z.array(z.string()),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+    collectionIds: z.string(),
+});
+
+export const $CourseProgram = z.object({
     id: z.number(),
     name: z.string(),
     lessonCount: z.number(),
     practiceCount: z.number(),
 });
 
-export const $courseProgramModuleLesson = z.object({
+export const $CourseProgramModuleLesson = z.object({
     name: z.string(),
     hasHomework: z.boolean(),
     hasTest: z.boolean(),
 });
 
-export const $courseTeacher = z.object({
+export const $CourseTeacher = z.object({
     id: z.number(),
     email: z.string(),
     isActive: z.boolean(),
@@ -126,16 +131,16 @@ export const $courseTeacher = z.object({
         lastName: z.string(),
         patronymic: z.string(),
         description: z.string(),
-        avatar: $fileDocument,
+        avatar: $FileDocument,
     }),
 });
 
-export const $review = z.object({
+export const $Review = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
     patronymic: z.string(),
-    avatar: $fileDocument,
+    avatar: $FileDocument,
     rating: z.number(),
     course: z.object({
         id: z.number(),
@@ -148,10 +153,10 @@ export const $review = z.object({
     content: z.string(),
 });
 
-export const $courseDetailData = z.object({
+export const $CourseDetailData = z.object({
     name: z.string(),
     picture: z.object({
-        data: $fileDocument,
+        data: $FileDocument,
     }),
     dateStart: z.string().datetime().nullable(),
     dateEnd: z.string().datetime().nullable(),
@@ -194,7 +199,7 @@ export const $courseDetailData = z.object({
                 lastName: z.string(),
                 patronymic: z.string(),
                 avatar: z.object({
-                    data: $fileDocument,
+                    data: $FileDocument,
                 }),
                 description: z.string(),
             }),
@@ -217,45 +222,26 @@ export const $courseDetailData = z.object({
     currentLesson: z.null(),
 });
 
-export const $course = z.object({
+export const $Course = z.object({
     id: z.number(),
     name: z.string(),
-    picture: z.object({
-        data: z.object({
-            name: z.string(),
-            path: z.string(),
-            type: z.string(),
-            size: z.number(),
-        }),
-    }),
-    dateStart: z.string().datetime().nullable(),
-    lessonCount: z.number(),
+    description: z.string(),
     price: z.number(),
-    discount: z.object({
-        data: z
-            .object({
-                isActive: z.boolean(),
-                type: z.string(),
-                value: z.number(),
-                from: z.string().datetime().nullable(),
-                to: z.string().datetime().nullable(),
-            })
-            .nullable(),
-    }),
-    categories: z.object({
-        data: z.object({
+    discountPrice: z.number(),
+    type: z.literal("interactive").or(z.literal("autonomous")),
+    startingDate: z.coerce.date(),
+    cover: $UploadedFile.nullable(),
+    category: z
+        .object({
             id: z.number(),
             name: z.string(),
-            slug: z.string(),
-        }),
-    }),
-    isInteractive: z.boolean(),
-    isDiscount: z.boolean(),
-    isPurchased: z.boolean(),
-    isFavorite: z.boolean(),
+        })
+        .nullable(),
+
+    discount: $Discount.nullable(),
 });
 
-export const $courseBlock = z.object({
+export const $CourseBlock = z.object({
     id: z.number(),
     name: z.string(),
     picture: z.object({
@@ -286,33 +272,33 @@ export const $courseBlock = z.object({
         .nullable(),
 });
 
-export const $getMyCoursesResponse = $getPaginationResponseType($courseBlock);
+export const $GetMyCoursesResponse = $getPaginationResponseType($CourseBlock);
 
-export const $getCourseProgramResponse = z.object({
+export const $GetCourseProgramResponse = z.object({
     moduleCount: z.number(),
     lessonCount: z.number(),
     homeworkCount: z.number(),
     testCount: z.number(),
     dateStart: z.string().datetime().nullable(),
     dateEnd: z.string().datetime().nullable(),
-    modules: $getPaginationResponseType($courseProgram),
+    modules: $getPaginationResponseType($CourseProgram),
 });
 
-export const $getCourseProgramModuleLessonsResponse = $getPaginationResponseType($courseProgramModuleLesson);
+export const $GetCourseProgramModuleLessonsResponse = $getPaginationResponseType($CourseProgramModuleLesson);
 
-export const $getCoursesResponse = $getPaginationResponseType($course);
+export const $GetCoursesResponse = $getPaginationResponseType($Course);
 
-export const $getCourseProgramModuleLessonsRequest = z.object({
+export const $GetCourseProgramModuleLessonsRequest = z.object({
     courseId: z.number(),
     programId: z.number(),
 });
 
-export const $getCourseTeachersResponse = $getPaginationResponseType($courseTeacher);
+export const $GetCourseTeachersResponse = $getPaginationResponseType($CourseTeacher);
 
-export const $getCourseReviewsResponse = z.object({
+export const $GetCourseReviewsResponse = z.object({
     averageRating: z.number(),
     reviewCount: z.number(),
-    reviews: $getPaginationResponseType($review),
+    reviews: $getPaginationResponseType($Review),
 });
 
-export const $getFavoriteCoursesResponse = $getPaginationResponseType($course);
+export const $GetFavoriteCoursesResponse = $getPaginationResponseType($Course);

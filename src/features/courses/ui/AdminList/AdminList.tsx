@@ -8,7 +8,7 @@ import { QueryKeys } from "@shared/constant";
 import { AdminCourse, AdminCoursesFilters, courseApi, useAdminCourseResources } from "@entities/course";
 import { radioGroupValues, filterInitialValues, columns } from "./constant";
 
-const AdminCoursesList = () => {
+const AdminList = () => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
 
     return (
@@ -106,4 +106,4 @@ const AdminCoursesList = () => {
     );
 };
 
-export default AdminCoursesList;
+export default AdminList;

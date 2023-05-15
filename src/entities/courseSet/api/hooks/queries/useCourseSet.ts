@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@shared/constant";
-import { CourseSet, courseSetApi, GetCourseSetRequest } from "@entities/courseSet";
+import { courseSetApi, CourseSetDetail } from "@entities/courseSet";
 
-export const useCourseSet = (params: GetCourseSetRequest) => {
-    return useQuery<CourseSet>([QueryKeys.GET_COURSE_SET, params], () => courseSetApi.getCourseSet(params));
+export const useCourseSet = (id: string) => {
+    return useQuery<CourseSetDetail>([QueryKeys.GET_COURSE_SET, id], () => courseSetApi.getCourseSet(id), { enabled: !!id });
 };

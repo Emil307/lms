@@ -14,7 +14,7 @@ export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     return config;
 };
 
-export const authorsInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+export const coursesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.baseURL = process.env.NEXT_PUBLIC_API_URL_COURSES;
     return config;
 };

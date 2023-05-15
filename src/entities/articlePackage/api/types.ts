@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $Discount, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
-export type Discount = z.infer<typeof $Discount>;
 export type AdminArticlePackageCategory = z.infer<typeof $AdminArticlePackageCategory>;
 export type AdminArticlePackageTag = z.infer<typeof $AdminArticlePackageTag>;
 export type AdminArticlePackage = z.infer<typeof $AdminArticlePackage>;
@@ -23,13 +22,6 @@ export type GetAdminArticlesFromArticlePackageResponse = z.infer<typeof $GetAdmi
 export type DeleteAdminArticleFromPackageRequest = z.infer<typeof $DeleteAdminArticleFromPackageRequest>;
 export type UpdateActivityStatusArticlePackageRequest = z.infer<typeof $UpdateActivityStatusArticlePackageRequest>;
 export type UpdateActivityStatusArticlePackageResponse = z.infer<typeof $UpdateActivityStatusArticlePackageResponse>;
-
-export const $Discount = z.object({
-    type: z.literal("percentage").or(z.literal("currency")).optional(),
-    amount: z.number().optional(),
-    startingDate: z.coerce.date().nullable(),
-    finishingDate: z.coerce.date().nullable(),
-});
 
 export const $ResourceOption = z.object({
     id: z.number(),

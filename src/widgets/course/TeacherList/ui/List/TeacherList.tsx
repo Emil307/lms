@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex, Title, Text, Group } from "@mantine/core";
 import { useMemo } from "react";
 import { CourseTeacher } from "@entities/course";
-import { CourseTeacherCard } from "@features/courses";
+import { TeacherCard as CourseTeacherCard } from "@features/courses";
 import useStyles from "./TeacherList.styles";
 
 export interface TeacherListProps extends Omit<BoxProps, "children"> {}

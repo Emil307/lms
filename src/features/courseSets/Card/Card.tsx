@@ -1,8 +1,9 @@
 import { Box, BoxProps, Flex, Title, Text, Group, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
-import Image from "next/image";
 import { ChevronRight } from "react-feather";
 import { useRouter } from "next/router";
+import * as TablerIcons from "@tabler/icons";
+import * as FeatherIcons from "react-feather";
 import { CourseSet } from "@entities/courseSet";
 import { Button } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
@@ -16,8 +17,18 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
     const { classes } = useStyles();
     const router = useRouter();
 
-    //TODO: изменить маршрут после добавления страницы с подборками курсов
-    const handleClick = () => router.push("/");
+    const handleClick = () => router.push({ pathname: "/course-sets/[id]", query: { id: data.id.toString() } });
+
+    const getIcon = () => {
+        const IconTabler = data.iconName in TablerIcons ? TablerIcons[data.iconName as keyof typeof TablerIcons] : null;
+
+        if (IconTabler) {
+            return <IconTabler width={64} height={64} strokeWidth={1} />;
+        }
+
+        const IconFeater = data.iconName in FeatherIcons ? FeatherIcons[data.iconName as keyof typeof FeatherIcons] : FeatherIcons.Image;
+        return <IconFeater width={64} height={64} strokeWidth={1} />;
+    };
 
     return (
         <Box {...props} className={classes.root}>
@@ -30,19 +41,7 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         {data.description}
                     </Text>
                 </Flex>
-                {data.picture && (
-                    <Box className={classes.imageWrapper}>
-                        <Image
-                            src={data.picture.data.path || ""}
-                            loader={({ src }) => `${src}`}
-                            alt={data.picture.data.name || ""}
-                            fill
-                            sizes="100vw"
-                            style={{
-                                objectFit: "cover"
-                            }} />
-                    </Box>
-                )}
+                <Flex className={classes.iconWrapper}>{getIcon()}</Flex>
             </Group>
             <Box>
                 <Button
@@ -53,12 +52,7 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         <ThemeIcon className={classes.iconButtonLinkCourse}>
                             <ChevronRight />
                         </ThemeIcon>
-                    }>{`${data.courses.pagination.total} ${getPluralString(
-                    data.courses.pagination.total,
-                    "курс",
-                    "курса",
-                    "курсов"
-                )}`}</Button>
+                    }>{`${data.coursesCount} ${getPluralString(data.coursesCount, "курс", "курса", "курсов")}`}</Button>
             </Box>
         </Box>
     );

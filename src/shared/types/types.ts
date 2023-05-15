@@ -32,9 +32,17 @@ export const $pagination = z.object({
     totalPages: z.number(),
 });
 
+export const $Discount = z.object({
+    type: z.literal("percentage").or(z.literal("currency")).optional(),
+    amount: z.number().optional(),
+    startingDate: z.coerce.date().nullable(),
+    finishingDate: z.coerce.date().nullable(),
+});
+
 export type TSortOrder = z.infer<typeof $sortOrder>;
 export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
 export type TPagination = z.infer<typeof $pagination>;
+export type Discount = z.infer<typeof $Discount>;
 
 export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & Partial<T>;
 

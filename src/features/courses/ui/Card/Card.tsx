@@ -1,44 +1,50 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Flex, Group, Text } from "@mantine/core";
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text, Flex } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
-import IconStarFour from "public/icons/starFour.svg";
-import { getPluralString } from "@shared/utils";
 import { Course } from "@entities/course";
 import useStyles from "./Card.styles";
-import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
+import { AmountInfo, StartDateBlock } from "./components";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;
 }
 
 const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
-    const { classes } = useStyles({ isFavorite: data.isFavorite });
+    const { classes } = useStyles({
+        // TODO: Добавить isFavorite когда бек поправит
+        isFavorite: false,
+        // data.isFavorite
+    });
 
     const handleClickCard = () => undefined;
+
+    const discountValue = data.discount && `${data.discount.amount} ${data.discount.type === "percentage" ? "%" : "₽"}`;
 
     return (
         <MCard {...props} className={classes.root} onClick={handleClickCard}>
             <MCard.Section className={classes.cardImageSection}>
                 <Box className={classes.imageWrapper}>
-                    <Image
-                        src={data.picture.data.path}
-                        loader={({ src }) => `${src}`}
-                        alt={data.picture.data.name}
-                        fill
-                        sizes="100vw"
-                        style={{
-                            objectFit: "cover"
-                        }} />
+                    {data.cover && (
+                        <Image
+                            src={data.cover.absolutePath}
+                            loader={({ src }) => `${src}`}
+                            layout="fill"
+                            objectFit="cover"
+                            alt={data.cover.name}
+                        />
+                    )}
                 </Box>
                 <Group className={classes.cardSectionContent}>
-                    {data.isDiscount && (
+                    {discountValue && (
                         <Badge variant="outline" className={classes.discount}>
-                            {data.discount.data?.value} %
+                            {discountValue}
                         </Badge>
                     )}
-                    <Badge variant="outline" className={classes.category}>
-                        {data.categories.data.name}
-                    </Badge>
+                    {data.category && (
+                        <Badge variant="outline" className={classes.category}>
+                            {data.category.name}
+                        </Badge>
+                    )}
                 </Group>
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody}>
@@ -48,15 +54,17 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                     </Text>
                     <StartDateBlock />
                 </Box>
+                {/* TODO: Добавить кол-во уроков и isFavorite  когда бек поправит*/}
                 <Group sx={{ justifyContent: "space-between" }}>
                     <Flex direction="column">
-                        <Group sx={{ gap: 6 }}>
+                        {/* <Group sx={{ gap: 6 }}>
                             <IconStarFour />
+
                             <Text>{`${data.lessonCount} ${getPluralString(data.lessonCount, "урок", "урока", "уроков")}`}</Text>
-                        </Group>
+                        </Group> */}
                         <AmountInfo data={data} />
                     </Flex>
-                    <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />
+                    {/* <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} /> */}
                 </Group>
             </MCard.Section>
         </MCard>
