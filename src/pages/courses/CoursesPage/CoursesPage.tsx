@@ -4,7 +4,8 @@ import { Folder } from "react-feather";
 import { Course } from "@entities/course";
 import { List } from "@components/List";
 import { CourseCard } from "@features/courses";
-import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs } from "@shared/ui";
+import { breadCrumbsItems } from "./constants";
 
 //TODO: удалить после подключения API
 const list: Course[] = [
@@ -144,11 +145,6 @@ const pagination = {
 };
 
 const CoursesPage = () => {
-    const breadCrumbsItems: TBreadCrumbItem[] = [
-        { title: "Главная страница", href: { pathname: "/" } },
-        { title: "Курсы", href: { pathname: "/courses" } },
-    ];
-
     // TODO: Обновить после добавления страницы с деталями курса
     const handleClickCard = () => undefined;
 
