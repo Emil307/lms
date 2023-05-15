@@ -38,10 +38,12 @@ const Details = () => {
                             <Image
                                 src={data?.image.data.absolutePath || ""}
                                 loader={({ src }) => `${src}`}
-                                layout="fill"
-                                objectFit="cover"
                                 alt={data?.image.data.name || ""}
-                            />
+                                fill
+                                sizes="100vw"
+                                style={{
+                                    objectFit: "cover"
+                                }} />
                         </Box>
                         <Flex direction="column" gap={8}>
                             <DisplayField label="Заголовок баннера" value={data?.title} variant="compact" />

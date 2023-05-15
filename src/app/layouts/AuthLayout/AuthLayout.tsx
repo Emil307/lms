@@ -13,11 +13,13 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
             <Image
                 src={backgroundImageAuth}
                 alt="background"
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
                 loader={({ src }) => `${src}`}
-            />
+                fill
+                sizes="100vw"
+                style={{
+                    objectFit: "cover",
+                    objectPosition: "center"
+                }} />
             <AppShell
                 footer={
                     <Footer height="auto" p="lg" bg="transparent" className={classes.footerRoot}>

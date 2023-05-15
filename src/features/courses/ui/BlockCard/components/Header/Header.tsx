@@ -56,10 +56,12 @@ const MemoizedHeader = memo(function Footer({ data, ...props }: HeaderProps) {
                 <Image
                     src={data.picture.data.path}
                     loader={({ src }) => `${src}`}
-                    layout="fill"
-                    objectFit="cover"
                     alt={data.picture.data.name}
-                />
+                    fill
+                    sizes="100vw"
+                    style={{
+                        objectFit: "cover"
+                    }} />
             </Box>
         </MCard.Section>
     );

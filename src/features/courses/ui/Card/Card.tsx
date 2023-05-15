@@ -23,10 +23,12 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                     <Image
                         src={data.picture.data.path}
                         loader={({ src }) => `${src}`}
-                        layout="fill"
-                        objectFit="cover"
                         alt={data.picture.data.name}
-                    />
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "cover"
+                        }} />
                 </Box>
                 <Group className={classes.cardSectionContent}>
                     {data.isDiscount && (
