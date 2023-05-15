@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import { AtSign, PhoneCall, User } from "react-feather";
 import Link from "next/link";
 import { Button, FCheckbox, FInput, Form } from "@shared/ui";
-import { $contactUsRequest, ContactUsRequest } from "@entities/staticPage";
+import { $ContactUsRequest, ContactUsRequest } from "@entities/staticPage";
 import useStyles from "./ContactUsForm.styles";
 
 export interface ContactUsFormProps extends MBoxProps {}
@@ -18,7 +18,7 @@ const ContactUsForm = (props: ContactUsFormProps) => {
             description: "",
             isAgree: false,
         },
-        validationSchema: $contactUsRequest,
+        validationSchema: $ContactUsRequest,
         onSubmit: () => {
             return;
         },

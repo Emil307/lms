@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import React from "react";
 import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
-import { $createAdvantageRequest, CreateAdvantageRequest, useCreateAdvantage } from "@entities/staticPage";
+import { $CreateAdvantageRequest, CreateAdvantageRequest, useCreateAdvantage } from "@entities/staticPage";
 import { initialValues } from "./constants";
 
 export interface CreateAdvantageFormProps {
@@ -15,7 +15,7 @@ const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
 
     const config: FormikConfig<CreateAdvantageRequest> = {
         initialValues: initialValues,
-        validationSchema: $createAdvantageRequest,
+        validationSchema: $CreateAdvantageRequest,
         onSubmit: (values, { setFieldError }) => {
             createAdvantage.mutate(values, {
                 onSuccess: () => {

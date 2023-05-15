@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import React from "react";
 import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
-import { $updateAdvantageRequest, Advantage, UpdateAdvantageRequest, useUpdateAdvantage } from "@entities/staticPage";
+import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, useUpdateAdvantage } from "@entities/staticPage";
 import { initialValues } from "./constants";
 
 export interface EditAdvantageFormProps {
@@ -20,7 +20,7 @@ const EditAdvantageForm = ({ data, onClose }: EditAdvantageFormProps) => {
             ...data,
         },
         enableReinitialize: true,
-        validationSchema: $updateAdvantageRequest,
+        validationSchema: $UpdateAdvantageRequest,
         onSubmit: (values, { setFieldError }) => {
             updateAdvantage.mutate(values, {
                 onSuccess: () => {

@@ -18,12 +18,10 @@ const FaqAccordionList = (props: FaqAccordionListProps) => {
 
     const renderFaq = useMemo(
         () =>
-            faqData?.data.map((qnaItem, index) => (
-                <Accordion.Item key={index} value={`${qnaItem.question}_${index}`}>
-                    <Accordion.Control chevron={getChevron(selected.includes(`${qnaItem.question}_${index}`))}>
-                        {qnaItem.question}
-                    </Accordion.Control>
-                    <Accordion.Panel>{qnaItem.answer}</Accordion.Panel>
+            faqData?.map((faqItem) => (
+                <Accordion.Item key={faqItem.id} value={faqItem.id.toString()}>
+                    <Accordion.Control chevron={getChevron(selected.includes(faqItem.id.toString()))}>{faqItem.question}</Accordion.Control>
+                    <Accordion.Panel>{faqItem.answer}</Accordion.Panel>
                 </Accordion.Item>
             )),
         [faqData, selected]
