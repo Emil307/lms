@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex, Title, Group, TitleProps } from "@mantine/core";
 import { CourseTeacher } from "@entities/course";
 import { Carousel } from "@components/Carousel";
-import { CourseTeacherCard } from "@features/courses";
+import { TeacherCard as CourseTeacherCard } from "@features/courses";
 
 export interface TeacherCarouselListProps extends Omit<BoxProps, "children"> {
     titleProps?: TitleProps;

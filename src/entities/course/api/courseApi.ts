@@ -1,28 +1,31 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $getCourseProgramModuleLessonsResponse,
-    $getCourseProgramResponse,
-    $getMyCoursesResponse,
     GetCourseProgramModuleLessonsRequest,
     GetCourseProgramModuleLessonsResponse,
     GetCourseProgramResponse,
     GetMyCoursesResponse,
     GetCourseReviewsResponse,
     GetCourseTeachersResponse,
-    $getCourseTeachersResponse,
-    $getCourseReviewsResponse,
     AdminCourseResourcesResponse,
-    $getAdminCourseResources,
-    AdminCoursesResponse,
-    $adminCoursesResponse,
     AdminCoursesRequestParamsType,
+    CoursesRequestParamsType,
+    $GetAdminCourseResources,
+    GetAdminCoursesResponse,
+    $GetAdminCoursesResponse,
+    GetCoursesResponse,
+    $GetCoursesResponse,
+    $GetMyCoursesResponse,
+    $GetCourseProgramResponse,
+    $GetCourseProgramModuleLessonsResponse,
+    $GetCourseTeachersResponse,
+    $GetCourseReviewsResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
     async getAdminCourseResources(): Promise<AdminCourseResourcesResponse> {
         const response = await this.instance.get("admin/courses/resources");
-        return $getAdminCourseResources.parse(response);
+        return $GetAdminCourseResources.parse(response);
     }
 
     async getAdminCourses({
@@ -32,7 +35,7 @@ class CourseApi extends BaseApi {
         teachers,
         discountType,
         ...params
-    }: AdminCoursesRequestParamsType): Promise<AdminCoursesResponse> {
+    }: AdminCoursesRequestParamsType): Promise<GetAdminCoursesResponse> {
         const response = await this.instance.post(
             "admin/courses/list",
             {
@@ -52,17 +55,45 @@ class CourseApi extends BaseApi {
             },
             { params }
         );
-        return $adminCoursesResponse.parse(response);
+        return $GetAdminCoursesResponse.parse(response);
+    }
+
+    async getCourses({
+        tags,
+        categoryId,
+        subcategoryId,
+        hasDiscount,
+        collectionIds,
+
+        ...params
+    }: CoursesRequestParamsType): Promise<GetCoursesResponse> {
+        const response = await this.instance.post("courses/list", {
+            ...params,
+            filter: {
+                hasDiscount,
+                collectionIds,
+                "category.id": categoryId,
+                "subcategory.id": subcategoryId,
+
+                ...(tags && {
+                    tagIds: {
+                        items: tags,
+                        operator: "or",
+                    },
+                }),
+            },
+        });
+        return $GetCoursesResponse.parse(response);
     }
 
     async getMyCourses(): Promise<GetMyCoursesResponse> {
         const response = await this.instance.get("courses/my");
-        return $getMyCoursesResponse.parse(response);
+        return $GetMyCoursesResponse.parse(response);
     }
 
     async getCourseProgram(courseId: number): Promise<GetCourseProgramResponse> {
         const response = await this.instance.get(`courses/${courseId}/program`);
-        return $getCourseProgramResponse.parse(response);
+        return $GetCourseProgramResponse.parse(response);
     }
 
     async getCourseProgramModuleLessons({
@@ -70,17 +101,17 @@ class CourseApi extends BaseApi {
         programId,
     }: GetCourseProgramModuleLessonsRequest): Promise<GetCourseProgramModuleLessonsResponse> {
         const response = await this.instance.get(`/courses/${courseId}/program/${programId}`);
-        return $getCourseProgramModuleLessonsResponse.parse(response);
+        return $GetCourseProgramModuleLessonsResponse.parse(response);
     }
 
     async getCourseTeachers(): Promise<GetCourseTeachersResponse> {
         const response = await this.instance.get(`teachers`);
-        return $getCourseTeachersResponse.parse(response);
+        return $GetCourseTeachersResponse.parse(response);
     }
 
     async getCourseReviews(courseId: number): Promise<GetCourseReviewsResponse> {
         const response = await this.instance.get(`courses/${courseId}/reviews`);
-        return $getCourseReviewsResponse.parse(response);
+        return $GetCourseReviewsResponse.parse(response);
     }
 }
 

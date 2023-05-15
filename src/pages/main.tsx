@@ -3,8 +3,8 @@ import React from "react";
 import { Folder } from "react-feather";
 import { List } from "@components/List";
 import { CourseSet, useCourseSets } from "@entities/courseSet";
-import { CourseSetCard, CourseSetCardMore } from "@features/course-set";
-import { CourseCard } from "@features/courses";
+import { Card as CourseSetCard, CardMore as CourseSetCardMore } from "@features/courseSets";
+import { Card as CourseCard } from "@features/courses";
 import { Course } from "@entities/course";
 import { CourseTeacherCarouselList, StudentReviews } from "@widgets/course";
 import { CoursePackageList } from "@widgets/coursePackage";
@@ -16,130 +16,110 @@ import IconComment from "public/icons/comment.svg";
 const list: Course[] = [
     {
         id: 1,
-        name: "courseTitle",
-        picture: {
-            data: {
-                name: "fileName.jpg",
-                path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                type: "image/jpg",
-                size: 12311,
-            },
-        },
-        dateStart: "2023-02-01T13:13:11.000000Z",
-        lessonCount: 11,
-        price: 9500,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
         discount: {
-            data: {
-                isActive: true,
-                type: "percentage",
-                value: 13,
-                from: "2023-02-01T13:13:11.000000Z",
-                to: "2023-11-11T13:13:11.000000Z",
-            },
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
         },
-        categories: {
-            data: {
-                id: 12,
-                name: "categoryName",
-                slug: "categorySlug",
-            },
-        },
-        isInteractive: true,
-        isDiscount: true,
-        isPurchased: false,
-        isFavorite: false,
     },
     {
         id: 2,
-        name: "courseTitle",
-        picture: {
-            data: {
-                name: "fileName.jpg",
-                path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                type: "image/jpg",
-                size: 12311,
-            },
-        },
-        dateStart: "2023-02-01T13:13:11.000000Z",
-        lessonCount: 11,
-        price: 9500,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
         discount: {
-            data: null,
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
         },
-        categories: {
-            data: {
-                id: 12,
-                name: "categoryName",
-                slug: "categorySlug",
-            },
-        },
-        isInteractive: false,
-        isDiscount: false,
-        isPurchased: false,
-        isFavorite: false,
     },
     {
         id: 3,
-        name: "courseTitle",
-        picture: {
-            data: {
-                name: "fileName.jpg",
-                path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                type: "image/jpg",
-                size: 12311,
-            },
-        },
-        dateStart: "2023-02-01T13:13:11.000000Z",
-        lessonCount: 11,
-        price: 9500,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
         discount: {
-            data: null,
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
         },
-        categories: {
-            data: {
-                id: 12,
-                name: "categoryName",
-                slug: "categorySlug",
-            },
-        },
-        isInteractive: true,
-        isDiscount: false,
-        isPurchased: true,
-        isFavorite: true,
     },
     {
         id: 4,
-        name: "courseTitle",
-        picture: {
-            data: {
-                name: "fileName.jpg",
-                path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                type: "image/jpg",
-                size: 12311,
-            },
-        },
-        dateStart: "2023-02-01T13:13:11.000000Z",
-        lessonCount: 11,
-        price: 9500,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
         discount: {
-            data: null,
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
         },
-        categories: {
-            data: {
-                id: 12,
-                name: "categoryName",
-                slug: "categorySlug",
-            },
+    },
+    {
+        id: 5,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
+        discount: {
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
         },
-        isInteractive: true,
-        isDiscount: false,
-        isPurchased: true,
-        isFavorite: true,
+    },
+    {
+        id: 6,
+        name: "Name",
+        description: "Description",
+        price: 1499,
+        discountPrice: 1000,
+        type: "interactive",
+        startingDate: new Date("2023-05-10"),
+        cover: null,
+        category: null,
+        discount: {
+            type: "currency",
+            amount: 499,
+            startingDate: new Date("2023-05-10"),
+            finishingDate: new Date("2023-05-10"),
+        },
     },
 ];
 
 const MainPage = () => {
-    const { data: courseSetsData, isFetching } = useCourseSets({ perPage: 2 });
+    const { data: courseSetsData, isFetching } = useCourseSets({ perPage: 2, page: 1 });
     const titleCourseSets = `Топовые подборки курсов ${new Date().getFullYear()}`;
 
     return (

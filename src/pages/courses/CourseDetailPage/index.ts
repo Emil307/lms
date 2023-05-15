@@ -1,3 +1,3 @@
-import CourseDetailPage, { type CourseDetailPageProps } from "./CourseDetailPage";
+import CourseDetailPage from "./CourseDetailPage";
 
-export { CourseDetailPage, CourseDetailPageProps };
+export { CourseDetailPage };

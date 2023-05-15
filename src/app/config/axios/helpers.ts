@@ -40,7 +40,7 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
  * @returns true если запрос из микроча COURSES
  */
 export const whenCoursesRoute: TAxiosRunWhen = (config) => {
-    return !!config.url?.includes("authors") || !!config.url?.includes("courses");
+    return !!config.url?.includes("authors") || !!config.url?.includes("courses") || !!config.url?.includes("course-collections");
 };
 
 /**

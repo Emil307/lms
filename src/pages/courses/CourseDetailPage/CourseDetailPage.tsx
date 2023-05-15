@@ -1,12 +1,12 @@
 import { Flex } from "@mantine/core";
 import React from "react";
+import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
 import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, CourseTeacherList } from "@widgets/course";
 import { CourseDetailData } from "@entities/course";
 import { CoursePackageList } from "@widgets/coursePackage";
+import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
-
-export interface CourseDetailPageProps {}
 
 //TODO: удалить после подключения API
 const data: CourseDetailData = {
@@ -92,11 +92,13 @@ const data: CourseDetailData = {
     currentLesson: null,
 };
 
-const CourseDetailPage = (_props: CourseDetailPageProps) => {
+const CourseDetailPage = () => {
+    const router = useRouter();
+    const { id } = router.query as TRouterQueries;
+
     return (
         <Flex direction="column" gap={32}>
-            {/* TODO: поменять id после подключения реального эндпоинта */}
-            <BreadCrumbs items={getBreadCrumbsItems({ courseName: data.name, id: String(1) })} />
+            <BreadCrumbs items={getBreadCrumbsItems({ courseName: data.name, id })} />
             <Flex direction="column" gap={64}>
                 <Flex direction="column" gap={16}>
                     <MainInfoPanel data={data} />

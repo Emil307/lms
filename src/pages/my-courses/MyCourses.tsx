@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Folder, Heart } from "react-feather";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Button, Tabs, TBreadCrumbItem } from "@shared/ui";
-import { CourseBlockCard, CourseSettedCard } from "@features/courses";
+import { BlockCard as CourseBlockCard, SettedCard as CourseSettedCard } from "@features/courses";
 import { CourseBlock, GetMyCoursesResponse } from "@entities/course";
 import { List } from "@components/List";
 

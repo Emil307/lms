@@ -1,15 +1,15 @@
 import { z } from "zod";
-import { $UploadedFile, $getPaginationResponseType } from "@shared/types";
-import { $course } from "@entities/course";
+import { $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
-export type CourseSet = z.infer<typeof $courseSet>;
-export type CourseFromCourseSet = z.infer<typeof $courseFromCourseSet>;
+export type CourseSet = z.infer<typeof $CourseSet>;
+export type CourseSetDetail = z.infer<typeof $CourseSetDetail>;
+export type CourseFromCourseSet = z.infer<typeof $CourseFromCourseSet>;
 
-export type GetCourseSetsResponse = z.infer<typeof $getCourseSetsResponse>;
-export type GetCourseSetsRequest = z.infer<typeof $getCourseSetsRequest>;
-export type GetCourseSetRequest = z.infer<typeof $getCourseSetRequest>;
+export type GetCourseSetRequest = z.infer<typeof $GetCourseSetRequest>;
+export type GetCourseSetsRequest = TDefaultRequestParams;
+export type GetCourseSetsResponse = z.infer<typeof $GetCourseSetsResponse>;
 
-export const $courseFromCourseSet = z.object({
+export const $CourseFromCourseSet = z.object({
     id: z.number(),
     name: z.string(),
     slug: z.string(),
@@ -28,70 +28,34 @@ export const $courseFromCourseSet = z.object({
         .optional(),
 });
 
-export const $courseSet = z.object({
+export const $CourseSet = z.object({
     id: z.number(),
+    iconName: z.string(),
     name: z.string(),
     description: z.string(),
-    courses: $getPaginationResponseType($course),
-    price: z.number(),
-    isDiscount: z.boolean(),
-    discount: z.object({
-        data: z
-            .object({
-                is_active: z.boolean(),
-                type: z.string(),
-                value: z.number(),
-                from: z.string().datetime().nullable(),
-                to: z.string().datetime().nullable(),
-            })
-            .nullable()
-            .or(
-                z.array(
-                    z
-                        .object({
-                            is_active: z.boolean(),
-                            type: z.string(),
-                            value: z.number(),
-                            from: z.string().datetime().nullable(),
-                            to: z.string().datetime().nullable(),
-                        })
-                        .nullable()
-                )
-            ),
-    }),
-    isPurchased: z.boolean(),
-    //TODO: на беке нет то что ниже
-    picture: z
-        .object({
-            data: z.object({
-                name: z.string(),
-                path: z.string(),
-                type: z.string(),
-                size: z.number(),
-            }),
-        })
-        .optional(),
+    coursesCount: z.number(),
 });
 
-export const $getCourseSetsRequest = z.object({
-    page: z.number().optional(),
-    perPage: z.number().optional(),
+export const $CourseSetDetail = $CourseSet.omit({ coursesCount: true }).extend({
+    isActive: z.boolean(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
 });
 
-export const $getCourseSetRequest = z.object({
+export const $GetCourseSetRequest = z.object({
     id: z.number(),
     page: z.number().optional(),
     perPage: z.number().optional(),
 });
 
-export const $getCourseSetsResponse = $getPaginationResponseType($courseSet);
+export const $GetCourseSetsResponse = $getPaginationResponseType($CourseSet);
 
-export const $getCourseSetResponse = z.object({
+export const $GetCourseSetResponse = z.object({
     id: z.number(),
     name: z.string(),
     picture: z.object({
         data: $UploadedFile,
     }),
     description: z.string(),
-    courses: $getPaginationResponseType($courseSet),
+    courses: $getPaginationResponseType($CourseSet),
 });

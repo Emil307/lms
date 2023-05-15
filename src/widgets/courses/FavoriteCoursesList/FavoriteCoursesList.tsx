@@ -1,7 +1,7 @@
 import { Group, Title, Text, Flex } from "@mantine/core";
 import { List } from "@components/List";
 import { Course, GetFavoriteCoursesResponse } from "@entities/course";
-import { CourseCard } from "@features/courses";
+import { Card as CourseCard } from "@features/courses";
 import IconEmptyBox from "public/icons/emptyBox.svg";
 import useStyles from "./FavoriteCoursesList.styles";
 

@@ -1,3 +1,3 @@
-import AdminCoursesList from "./AdminList";
+import AdminList from "./AdminList";
 
-export { AdminCoursesList };
+export { AdminList };

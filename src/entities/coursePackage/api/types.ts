@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { $getPaginationResponseType } from "@shared/types";
-import { $course } from "@entities/course";
+import { $Course } from "@entities/course";
 
 export type CoursePackage = z.infer<typeof $coursePackage>;
 export type CourseFromCoursePackage = z.infer<typeof $courseFromCoursePackage>;
@@ -50,7 +50,7 @@ export const $getCoursePackageResponse = z.object({
     name: z.string(),
     picture: $file,
     description: z.string(),
-    courses: $getPaginationResponseType($course),
+    courses: $getPaginationResponseType($Course),
     price: z.number(),
     isDiscount: z.boolean(),
     discount: z
