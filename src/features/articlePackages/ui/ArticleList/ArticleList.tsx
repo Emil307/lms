@@ -34,11 +34,10 @@ const ArticleList = ({ articlePackageId }: ArticleListProps) => {
             </Flex>
             <DataGrid<AdminArticleFromArticlePackage, AdminArticlesFromArticlePackageFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES_FROM_ARTICLE_PACKAGE}
-                queryFunction={(params) => articlePackageApi.getAdminArticleFromArticlePackage({ ...params, articlePackageId })}
+                queryFunction={(params) => articlePackageApi.getAdminArticlesFromArticlePackage({ ...params, articlePackageId })}
                 queryCacheKeys={["page", "perPage", "sort", "articlePackageId"]}
                 onClickCell={handlerClickCell}
-                //TODO: Когда бек добавит статусы активности
-                // renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
                 countName="статей"
                 initialState={{

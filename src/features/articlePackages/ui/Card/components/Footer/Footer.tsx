@@ -1,10 +1,10 @@
 import { Card as MCard, Text, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
-import { ArticlePackage } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button } from "@shared/ui";
 import { InvoicePaymentForm } from "@features/coursePackages";
+import { ArticlePackage } from "@entities/articlePackage";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
@@ -12,7 +12,7 @@ export interface FooterProps {
 }
 
 const Footer = ({ data }: FooterProps) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles({ hasDiscount: !!data.discount });
 
     //TODO: Вызов модалки скорее всего нужно будет позднее вынести на уровни выше
     // тк сейчас feature импортирует feature
@@ -28,17 +28,17 @@ const Footer = ({ data }: FooterProps) => {
         });
 
     const renderAmount = () => {
-        const { discount, price } = data;
+        const { discount, fullPrice } = data;
 
-        if (discount?.data.amount) {
+        if (discount?.amount) {
             return (
-                <Flex sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${discount.data.amount.toLocaleString("ru")} ₽`}</Text>
-                    <Text className={classes.priceWithoutDiscount}>{`${price.toLocaleString("ru")} ₽`}</Text>
+                <Flex align="center" sx={{ gap: 6 }}>
+                    <Text className={classes.price}>{`${discount.amount.toLocaleString("ru")} ₽`}</Text>
+                    <Text className={classes.priceWithoutDiscount}>{`${fullPrice.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );
         }
-        return <Text className={classes.price}>{`${price.toLocaleString("ru")} ₽`}</Text>;
+        return <Text className={classes.price}>{`${fullPrice.toLocaleString("ru")} ₽`}</Text>;
     };
 
     return (

@@ -1,5 +1,5 @@
 import { ColProps as MColProps, GridProps as MGridProps, Grid, Loader, Flex } from "@mantine/core";
-import { ReactNode } from "react";
+import { ReactNode, Ref } from "react";
 import { TPagination } from "@shared/types";
 import { Pagination } from "./components";
 
@@ -14,6 +14,7 @@ export interface ListProps<T> extends Omit<MGridProps, "children"> {
     onPaginationChange?: (page: number) => void;
     isLoading?: boolean;
     cardMore?: ReactNode;
+    lastElemRef?: Ref<HTMLDivElement>;
 }
 
 function List<T extends { id: unknown }>({
@@ -27,6 +28,7 @@ function List<T extends { id: unknown }>({
     declensionWordCountItems,
     onClick = () => undefined,
     onPaginationChange,
+    lastElemRef,
     ...props
 }: ListProps<T>) {
     return (
@@ -38,7 +40,7 @@ function List<T extends { id: unknown }>({
             )}
             <Grid {...props} gutter={24}>
                 {data?.map((row) => (
-                    <Grid.Col {...colProps} key={`row-${row.id}`}>
+                    <Grid.Col {...colProps} key={`row-${row.id}`} ref={lastElemRef}>
                         {renderItem({ data: row, onClick })}
                     </Grid.Col>
                 ))}

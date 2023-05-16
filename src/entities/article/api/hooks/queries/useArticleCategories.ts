@@ -3,5 +3,7 @@ import { articleApi, ArticleCategory, ArticleCategoryFilters } from "@entities/a
 import { useInfiniteRequest } from "@shared/utils";
 
 export const useArticleCategories = (filters: ArticleCategoryFilters) => {
-    return useInfiniteRequest<ArticleCategory>([QueryKeys.GET_ARTICLE_CATEGORIES, filters], () => articleApi.getArticleCategories(filters));
+    return useInfiniteRequest<ArticleCategory>([QueryKeys.GET_ARTICLE_CATEGORIES, filters], ({ pageParam = 1 }) =>
+        articleApi.getArticleCategories({ ...filters, page: pageParam })
+    );
 };
