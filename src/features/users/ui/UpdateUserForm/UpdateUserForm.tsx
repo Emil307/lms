@@ -10,7 +10,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { checkRoleOrder } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification, getFullNameFromProfile } from "@shared/utils";
 import { useMe } from "@entities/auth";
 import { getInitialValuesForm } from "./constants";
 import { adaptDataForUpdateForm } from "./utils";
@@ -39,7 +39,10 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             centered: true,
             size: 408,
             children: (
-                <ChangeUserPasswordForm userData={{ id: data?.id, roleId: data?.roles[0].id }} onClose={handleCloseChangePasswordModal} />
+                <ChangeUserPasswordForm
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullNameFromProfile(data?.profile) }}
+                    onClose={handleCloseChangePasswordModal}
+                />
             ),
         });
     };
@@ -49,7 +52,18 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     };
 
     const onSuccess = (response: UserDetailResponse) => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Изменения сохранены",
+        });
         router.push({ pathname: "/admin/users/[id]", query: { id: String(response.id) } });
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления пользователя",
+        });
     };
 
     return (
@@ -61,7 +75,8 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_USER, String(data?.id)] }]}
             hasConfirmModal
             onCancel={onClose}
-            onSuccess={onSuccess}>
+            onSuccess={onSuccess}
+            onError={onError}>
             {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={32} align="center">

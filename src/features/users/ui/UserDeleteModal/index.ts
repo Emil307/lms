@@ -1,3 +1,3 @@
-import UserDeleteModal from "./UserDeleteModal";
+import UserDeleteModal, { type UserDeleteModalProps } from "./UserDeleteModal";
 
-export { UserDeleteModal };
+export { UserDeleteModal, UserDeleteModalProps };

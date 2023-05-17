@@ -1,4 +1,5 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import {
@@ -7,10 +8,12 @@ import {
     UpdateActivityStatusArticlePackageResponse,
     articlePackageApi,
 } from "@entities/articlePackage";
+import { ToastType, createNotification } from "@shared/utils";
+import { FormErrorResponse } from "@shared/types";
 
 export const useUpdateActivityArticlePackage = (
     id: string
-): UseMutationResult<UpdateActivityStatusArticlePackageResponse, unknown, boolean, unknown> => {
+): UseMutationResult<UpdateActivityStatusArticlePackageResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
         [MutationKeys.UPDATE_ACTIVITY_ARTICLE_PACKAGE, id],
         (isActive: boolean) => articlePackageApi.updateActivityStatusArticlePackage({ id, isActive }),
@@ -54,9 +57,28 @@ export const useUpdateActivityArticlePackage = (
                 if (typeof context === "object" && "previousArticlePackagesData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES], context.previousArticlePackagesData);
                 }
+
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка изменения статуса",
+                });
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES]);
+            },
+            onSuccess: () => {
+                const articlePackageData = queryClient.getQueryData<AdminArticlePackageDetails>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id]);
+                const articlePackageFromList = queryClient
+                    .getQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES])?.[0]?.[1]
+                    ?.data.find((articlePackage) => articlePackage.id.toString() === id);
+
+                const statusMessage = articlePackageData?.isActive || articlePackageFromList?.isActive ? "активирован" : "деактивирован";
+
+                createNotification({
+                    type: ToastType.INFO,
+                    title: "Изменение статуса",
+                    message: `Пакет статей "${articlePackageData?.name || articlePackageFromList?.name}" ${statusMessage}.`,
+                });
             },
         }
     );

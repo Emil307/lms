@@ -19,16 +19,19 @@ const StudentDetailPage = () => {
     const handleChangeTab = (value: string | null) => {
         switch (value) {
             case "courses":
-                router.push({ pathname: `/admin/groups/[id]`, query: { id } });
+                //TODO: поменять урл как появится страница
+                router.push({ pathname: "/admin/students/[id]", query: { id } });
                 break;
             case "groups":
-                router.push({ pathname: `/admin/groups/[id]`, query: { id } });
+                //TODO: поменять урл как появится страница
+                router.push({ pathname: "/admin/students/[id]", query: { id } });
                 break;
             case "knowledge-packs":
-                router.push({ pathname: `/admin/groups/[id]`, query: { id } });
+                //TODO: поменять урл как появится страница
+                router.push({ pathname: "/admin/students/[id]", query: { id } });
                 break;
             default:
-                router.push({ pathname: `/admin/students/[id]`, query: { id } });
+                router.push({ pathname: "/admin/students/[id]", query: { id } });
                 break;
         }
     };

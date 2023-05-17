@@ -56,7 +56,7 @@ class GroupApi extends BaseApi {
     addScheduleToGroup({ groupId, ...data }: AddScheduleToGroupRequest & { groupId?: string }): Promise<void> {
         return this.instance.post(`admin/groups/${groupId}/add-schedule`, data);
     }
-    removeScheduleFromGroup({ groupId, ...data }: RemoveScheduleFromGroupRequest & { groupId?: string }): Promise<void> {
+    removeScheduleFromGroup({ groupId, ...data }: RemoveScheduleFromGroupRequest): Promise<void> {
         return this.instance.delete(`admin/groups/${groupId}/remove-schedule`, { data });
     }
     updateScheduleFromGroup({ groupId, ...data }: UpdateScheduleFromGroupRequest & { groupId?: string }): Promise<void> {

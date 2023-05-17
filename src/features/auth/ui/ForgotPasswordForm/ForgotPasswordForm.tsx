@@ -27,7 +27,7 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
             recovery(values, {
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {
-                        setFieldError("email", error.response?.data);
+                        setFieldError("email", error.response?.data.message);
                     }
                 },
             });

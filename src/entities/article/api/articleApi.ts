@@ -40,15 +40,13 @@ class ArticleApi extends BaseApi {
         courseId,
         ...params
     }: GetAdminArticlesRequest): Promise<GetAdminArticlesResponse> {
-        const response = await this.instance.get("admin/articles", {
-            params: {
-                ...params,
-                filter: {
-                    isActive,
-                    categoryId,
-                    subcategoryId,
-                    courseId,
-                },
+        const response = await this.instance.post("admin/articles/list", {
+            ...params,
+            filter: {
+                isActive,
+                categoryId,
+                subcategoryId,
+                courseId,
             },
         });
         return $GetAdminArticlesResponse.parse(response);

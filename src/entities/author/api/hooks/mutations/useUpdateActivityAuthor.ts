@@ -4,6 +4,7 @@ import { Author, GetAuthorsResponse, authorApi } from "@entities/author";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateActivityAuthor = (id: string) => {
     //TODO: Поправить как обновят беки что при обвлении всегда возвращается модель
@@ -45,9 +46,32 @@ export const useUpdateActivityAuthor = (id: string) => {
                 if (typeof context === "object" && context !== null && "previousAuthorsData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_AUTHORS], context.previousAuthorsData);
                 }
+
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка изменения статуса",
+                });
             },
             onSettled() {
+                queryClient.invalidateQueries([QueryKeys.GET_AUTHOR, id]);
                 queryClient.invalidateQueries([QueryKeys.GET_AUTHORS]);
+            },
+            onSuccess: () => {
+                const authorData = queryClient.getQueryData<Author>([QueryKeys.GET_AUTHOR, id]);
+                const authorFromList = queryClient
+                    .getQueriesData<GetAuthorsResponse>([QueryKeys.GET_AUTHORS])?.[0]?.[1]
+                    ?.data.find((author) => author.id.toString() === id);
+
+                const statusMessage = authorData?.isActive || authorFromList?.isActive ? "активирован" : "деактивирован";
+
+                const fioByAuthorData = [authorData?.lastName, authorData?.firstName, authorData?.patronymic].join(" ");
+                const fioByAuthorFromList = [authorFromList?.lastName, authorFromList?.firstName, authorFromList?.patronymic].join(" ");
+
+                createNotification({
+                    type: ToastType.INFO,
+                    title: "Изменение статуса",
+                    message: `Пользователь "${fioByAuthorData || fioByAuthorFromList}" ${statusMessage}.`,
+                });
             },
         }
     );

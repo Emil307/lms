@@ -48,6 +48,8 @@ const EditAuthorForm = ({ data, onClose = () => undefined }: EditAuthorFormProps
             );
         },
     };
+
+    //TODO: на ManagedForm
     return (
         <Box>
             <Form config={config}>

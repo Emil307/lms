@@ -4,6 +4,7 @@ import { GetUploadedFilesResponse, UploadedMaterialFileDetails, storageApi } fro
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateActivityStatusUploadedFile = (id: number) => {
     return useMutation<boolean, AxiosError<FormErrorResponse>, boolean>(
@@ -11,8 +12,8 @@ export const useUpdateActivityStatusUploadedFile = (id: number) => {
         (status: boolean) => storageApi.updateActivityStatusUploadedFile({ id, status }),
         {
             onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILES, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILE] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILE, id] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILES] });
 
                 const previousFileData = queryClient.getQueryData<UploadedMaterialFileDetails>([QueryKeys.GET_UPLOADED_FILE, id]);
                 const previousFilesData = queryClient.getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES]);
@@ -42,9 +43,28 @@ export const useUpdateActivityStatusUploadedFile = (id: number) => {
                 if (typeof context === "object" && context !== null && "previousFilesData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_UPLOADED_FILES], context.previousFilesData);
                 }
+
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка изменения статуса",
+                });
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
+            },
+            onSuccess: () => {
+                const materialData = queryClient.getQueryData<UploadedMaterialFileDetails>([QueryKeys.GET_UPLOADED_FILE, id]);
+                const materialFromList = queryClient
+                    .getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES])?.[0]?.[1]
+                    ?.data.find((material) => material.id === id);
+
+                const statusMessage = materialData?.isActive || materialFromList?.isActive ? "активирован" : "деактивирован";
+
+                createNotification({
+                    type: ToastType.INFO,
+                    title: "Изменение статуса",
+                    message: `Материал "${materialData?.name || materialFromList?.name}" ${statusMessage}.`,
+                });
             },
         }
     );

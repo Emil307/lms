@@ -4,7 +4,6 @@ import React from "react";
 import axios from "axios";
 import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
-import dayjs from "dayjs";
 import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, Form, prepareOptionsForSelect } from "@shared/ui";
 import { AdminArticleDetails, useAdminArticleResource, useUpdateArticle } from "@entities/article";
 import { Fieldset } from "@components/Fieldset";
@@ -84,7 +83,8 @@ const ArticleEditForm = ({ data, onClose }: ArticleEditFormProps) => {
 
                             <Box className={classes.infoItem}>
                                 {/* TODO: - информации о последних изменениях на бэке пока нет (кто именно изменил автора) */}
-                                Изменение: <span>{data?.updated_at ? dayjs(data.updated_at).format("DD.MM.YYYY HH:mm") : "-"}</span>
+                                Изменение:
+                                {/* <span>{data?.lastUpdated?.date ? dayjs(data.lastUpdated.date).format("DD.MM.YYYY HH:mm") : "-"}</span> */}
                             </Box>
                         </Flex>
                         <Title order={2} color="dark">

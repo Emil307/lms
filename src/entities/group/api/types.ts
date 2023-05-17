@@ -71,7 +71,7 @@ export const $createGroupRequest = z.object({
 });
 
 export const $updateGroupRequest = z.object({
-    id: z.number(),
+    id: z.string(),
     name: z.string({ required_error: "Введите название" }),
     courseName: z.string({ required_error: "Выберите курс" }).nullish(),
     educationFrom: z.coerce
@@ -131,6 +131,7 @@ export const $addScheduleToGroupRequest = z.object({
 });
 
 export const $removeScheduleFromGroupRequest = z.object({
+    groupId: z.string().optional(),
     scheduleId: z.number(),
 });
 

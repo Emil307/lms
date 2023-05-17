@@ -6,9 +6,11 @@ import { FormErrorResponse } from "@shared/types";
 import getStyles from "./showNotification.styles";
 import { ToastType } from "./constants";
 
-export interface TNotificationProps extends MNotificationProps {
+export interface TNotificationProps extends Omit<MNotificationProps, "message"> {
     type: ToastType;
     srcImage?: string;
+    message?: React.ReactNode;
+    isMinimized?: boolean;
 }
 
 export const isErrorsArray = (error?: AxiosError): error is AxiosError<FormErrorResponse> => {
@@ -39,7 +41,7 @@ export const handleShowToast = (error: AxiosError) => {
     }
 };
 
-export const createNotification = ({ type, srcImage, ...props }: TNotificationProps) => {
+export const createNotification = ({ type, srcImage, message = "", isMinimized = false, ...props }: TNotificationProps) => {
     const getIcon = () => {
         switch (type) {
             case ToastType.INFO:
@@ -64,7 +66,8 @@ export const createNotification = ({ type, srcImage, ...props }: TNotificationPr
 
     return showNotification({
         ...props,
-        styles: (theme) => getStyles({ type, isMinimized: !props.message })(theme),
+        message,
+        styles: (theme) => getStyles({ type, isMinimized })(theme),
         icon: getIcon(),
     });
 };

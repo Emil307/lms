@@ -1,13 +1,13 @@
 import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
 import { Shield, Trash, User as UserIcon } from "react-feather";
-import { openModal } from "@mantine/modals";
+import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
 import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
-import { UserDeleteModal } from "@features/users";
+import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
 import { getFullNameFromProfile } from "@shared/utils";
 import { useSettingUserStyles } from "./StudentSettings.styles";
 import { fields } from "./constants";
@@ -37,6 +37,22 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
     };
 
     const openUserEditPage = () => router.push({ pathname: "/admin/students/[id]/edit", query: { id } });
+
+    const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
+
+    const handleOpenChangePasswordModal = () =>
+        openModal({
+            modalId: "CHANGE_PASSWORD",
+            title: "Изменение пароля",
+            centered: true,
+            size: 408,
+            children: (
+                <ChangeUserPasswordForm
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: dataProfile.fio }}
+                    onClose={handleCloseChangePasswordModal}
+                />
+            ),
+        });
 
     return (
         <Box>
@@ -79,8 +95,9 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                                 <Button variant="secondary" onClick={openUserEditPage}>
                                     Редактировать данные
                                 </Button>
-                                {/* TODO: Когда будет эндпоинт для этого подключить модальное окно */}
-                                <Button variant="border">Изменить пароль</Button>
+                                <Button variant="border" onClick={handleOpenChangePasswordModal}>
+                                    Изменить пароль
+                                </Button>
                             </>
                         }
                     />

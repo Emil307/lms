@@ -22,7 +22,7 @@ const EditGroupForm = ({ data, onClose }: EditGroupFormProps) => {
     const { classes } = useStyles();
     const [showTeachersSelect, setShowTeachersSelect] = useState(false);
 
-    const updateGroup = useUpdateGroup();
+    const updateGroup = useUpdateGroup(String(data?.id));
 
     const renderStatus = useMemo(() => {
         switch (data?.status) {
@@ -45,21 +45,18 @@ const EditGroupForm = ({ data, onClose }: EditGroupFormProps) => {
         enableReinitialize: true,
         validationSchema: $createGroupRequest,
         onSubmit: (values, { setFieldError }) => {
-            updateGroup.mutate(
-                { id: data?.id || 0, ...values },
-                {
-                    onSuccess: (response) => {
-                        router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.id) } });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
+            updateGroup.mutate(values, {
+                onSuccess: (response) => {
+                    router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.id) } });
+                },
+                onError: (error) => {
+                    if (axios.isAxiosError(error)) {
+                        for (const errorField in error.response?.data.errors) {
+                            setFieldError(errorField, error.response?.data.errors[errorField][0]);
                         }
-                    },
-                }
-            );
+                    }
+                },
+            });
         },
     };
     return (

@@ -9,7 +9,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
-import { checkRoleOrder } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
 import { getInitialValuesForm } from "./utils";
 
 const CreateUserForm = () => {
@@ -25,11 +25,23 @@ const CreateUserForm = () => {
     };
 
     const onSuccess = (response: UserCreateResponse) => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Создание пользователя",
+            message: "Пользователь успешно создан",
+        });
         router.push({ pathname: "/admin/users/[id]", query: { id: String(response.id) } });
     };
 
     const onCancel = () => {
         router.push("/admin/users");
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка создания пользователя",
+        });
     };
 
     return (
@@ -38,7 +50,8 @@ const CreateUserForm = () => {
             validationSchema={$CreateUserRequest}
             mutationKey={[MutationKeys.CREATE_USER]}
             mutationFunction={createUser}
-            onSuccess={onSuccess}>
+            onSuccess={onSuccess}
+            onError={onError}>
             {({ values, dirty }) => (
                 <Flex gap={32} direction="column">
                     <Flex gap={8} mt={24} align="center">

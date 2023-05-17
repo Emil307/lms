@@ -5,13 +5,16 @@ import { Edit3, Shield, User } from "react-feather";
 import axios from "axios";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
+import { closeModal, openModal } from "@mantine/modals";
 import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
 import { $UpdateUserRequest, UpdateUserRequest, useAdminStudentsFilters, UserDetailResponse, useUpdateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
+import { ToastType, createNotification, getFullNameFromProfile } from "@shared/utils";
+import { ChangeUserPasswordForm } from "@features/users";
 import { getInitialValuesForm } from "./constants";
-import useStyles from "./UpdateStudentForm.styles";
 import { adaptDataForUpdateForm } from "./utils";
+import useStyles from "./UpdateStudentForm.styles";
 
 export interface UpdateStudentFormProps {
     data?: UserDetailResponse;
@@ -25,6 +28,23 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
     const updateUser = useUpdateUser(data?.id);
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
+
+    const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
+
+    const handleOpenChangePasswordModal = () => {
+        openModal({
+            modalId: "CHANGE_PASSWORD",
+            title: "Изменение пароля",
+            centered: true,
+            size: 408,
+            children: (
+                <ChangeUserPasswordForm
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullNameFromProfile(data?.profile) }}
+                    onClose={handleCloseChangePasswordModal}
+                />
+            ),
+        });
+    };
 
     const config: FormikConfig<UpdateUserRequest> = {
         initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForUpdateForm(data) },
@@ -42,6 +62,11 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                             for (const errorField in error.response?.data.errors) {
                                 setFieldError(errorField, error.response?.data.errors[errorField][0]);
                             }
+
+                            createNotification({
+                                type: ToastType.WARN,
+                                title: "Ошибка обновления ученика",
+                            });
                         }
                     },
                 }
@@ -101,7 +126,13 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                                         return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
                                     })}
                                 </FRadioGroup>
-                                <Button type="button" variant="border" size="large" w="100%" maw={252}>
+                                <Button
+                                    type="button"
+                                    onClick={handleOpenChangePasswordModal}
+                                    variant="border"
+                                    size="large"
+                                    w="100%"
+                                    maw={252}>
                                     Изменить пароль
                                 </Button>
                             </Flex>
