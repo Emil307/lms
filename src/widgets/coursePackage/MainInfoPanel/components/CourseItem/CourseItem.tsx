@@ -1,20 +1,27 @@
 import { ActionIcon, Divider, Flex, Text } from "@mantine/core";
 import { memo } from "react";
 import { ChevronRight } from "react-feather";
-import { Course } from "@entities/course";
+import { useRouter } from "next/router";
+import { CourseFromCoursePackage } from "@entities/coursePackage";
 import useStyles from "./CourseItem.styles";
 
 export interface CourseItemProps {
-    data: Course;
+    data: CourseFromCoursePackage;
 }
 
 const MemoizedCourseItem = memo(function CourseItem({ data }: CourseItemProps) {
     const { classes } = useStyles();
+    const router = useRouter();
+
+    const handleRedirectCoursePage = () => {
+        router.push({ pathname: "/courses/[id]", query: { id: String(data.id) } });
+    };
+
     return (
         <Flex key={data.id} gap={16}>
             <Flex align="center" gap={8}>
                 <Text className={classes.name}>{data.name}</Text>
-                <ActionIcon className={classes.iconLink}>
+                <ActionIcon className={classes.iconLink} onClick={handleRedirectCoursePage}>
                     <ChevronRight />
                 </ActionIcon>
             </Flex>

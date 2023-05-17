@@ -5,3 +5,4 @@ export * from "./useCourseTeachers";
 export * from "./useCourseReviews";
 export * from "./useAdminCourseResources";
 export * from "./useCourses";
+export * from "./useCoursesInfinite";

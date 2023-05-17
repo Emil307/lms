@@ -1,35 +1,44 @@
 import { Box, BoxProps, Flex, Group, Text, Title } from "@mantine/core";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import Image from "next/image";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { getDiscountedAmount, getPluralString } from "@shared/utils";
-import { GetCoursePackageResponse } from "@entities/coursePackage";
-
+import { getPluralString } from "@shared/utils";
 import { InvoicePaymentForm } from "@features/coursePackages";
-import useStyles from "./MainInfoPanel.styles";
+import { CoursePackageDetail } from "@entities/coursePackage";
 import { CourseList, DiscountInfo } from "./components";
+import useStyles from "./MainInfoPanel.styles";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
-    data: GetCoursePackageResponse;
+    data: CoursePackageDetail;
 }
 
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {
-    const { classes } = useStyles();
+    const { classes } = useStyles({ hasDiscount: data.hasDiscount && !!data.discountPrice });
 
     const handleCloseModal = () => closeModal("INVOICE_PAYMENT");
 
-    const renderAmount = useMemo(() => {
-        if (data.isDiscount && data.discount?.value) {
+    const handleGetAccessPackage = () => {
+        openModal({
+            modalId: "INVOICE_PAYMENT",
+            title: "Счет на оплату",
+            centered: true,
+            size: 456,
+            children: <InvoicePaymentForm onClose={handleCloseModal} />,
+        });
+    };
+
+    const renderAmount = () => {
+        if (data.hasDiscount && data.discountPrice) {
             return (
-                <Group sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${getDiscountedAmount(data.price, data.discount.value)} ₽`}</Text>
+                <Flex align="center" gap={6}>
+                    <Text className={classes.price}>{`${data.discountPrice} ₽`}</Text>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price} ₽`}</Text>
-                </Group>
+                </Flex>
             );
         }
         return <Text className={classes.price}>{`${data.price} ₽`}</Text>;
-    }, [data.price, data.isDiscount, data.discount]);
+    };
 
     return (
         <Box {...props} className={classes.root}>
@@ -43,7 +52,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                         flex: 1,
                     }}>
                     <Flex direction="column" gap={16}>
-                        <DiscountInfo data={{ discount: data.discount, isDiscount: data.isDiscount }} />
+                        <DiscountInfo data={{ discount: data.discount, hasDiscount: data.hasDiscount }} />
                         <Title order={1} color="dark" lineClamp={2}>
                             {data.name}
                         </Title>
@@ -53,42 +62,35 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     </Flex>
 
                     <Group sx={{ columnGap: 24, marginBottom: 16 }}>
-                        <Button
-                            variant="secondary"
-                            onClick={() =>
-                                openModal({
-                                    modalId: "INVOICE_PAYMENT",
-                                    title: "Счет на оплату",
-                                    centered: true,
-                                    size: 456,
-                                    children: <InvoicePaymentForm onClose={handleCloseModal} />,
-                                })
-                            }>
+                        <Button variant="secondary" onClick={handleGetAccessPackage}>
                             Получить доступ
                         </Button>
                         <Flex direction="column">
                             <Text>Стоимость пакета</Text>
-                            {renderAmount}
+                            {renderAmount()}
                         </Flex>
                     </Group>
                 </Group>
                 <Group>
                     <Box className={classes.imageWrapper}>
-                        <Image
-                            src={data.picture.path}
-                            loader={({ src }) => `${src}`}
-                            alt={data.picture.name}
-                            fill
-                            sizes="100vw"
-                            style={{
-                                objectFit: "cover"
-                            }} />
+                        {data.cover && (
+                            <Image
+                                src={data.cover.absolutePath}
+                                loader={({ src }) => `${src}`}
+                                alt={data.cover.name}
+                                fill
+                                sizes="100vw"
+                                style={{
+                                    objectFit: "cover",
+                                }}
+                            />
+                        )}
                     </Box>
                 </Group>
             </Flex>
             <Flex direction="column" gap={16}>
-                <Text className={classes.countCoursesInPackage}>{`${data.courses.pagination.total} ${getPluralString(
-                    data.courses.pagination.total,
+                <Text className={classes.countCoursesInPackage}>{`${data.coursesCount} ${getPluralString(
+                    data.coursesCount,
                     "курс",
                     "курса",
                     "курсов"

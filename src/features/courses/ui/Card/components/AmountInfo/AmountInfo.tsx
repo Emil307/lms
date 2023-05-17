@@ -3,11 +3,11 @@ import { Course } from "@entities/course";
 import useStyles from "./AmountInfo.styles";
 
 export interface AmountInfoProps {
-    data: Pick<Course, "discountPrice" | "price">;
+    data: Pick<Course, "discountPrice" | "price" | "discount">;
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles({ hasDiscount: !!data.discount });
 
     if (data.discountPrice) {
         return (

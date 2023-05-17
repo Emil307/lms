@@ -1,15 +1,14 @@
 import { Flex, Spoiler as MSpoiler, SpoilerProps as SpoilerProps, Text, ThemeIcon } from "@mantine/core";
 import { useMemo } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { GetCoursePackageResponse } from "@entities/coursePackage";
+import { CoursePackageDetail } from "@entities/coursePackage";
 import useStyles from "./CourseList.styles";
 import { CourseItem } from "../CourseItem";
 
 export interface CourseListProps extends Omit<SpoilerProps, "children" | "maxHeight" | "hideLabel" | "showLabel"> {
-    data: GetCoursePackageResponse;
+    data: CoursePackageDetail;
 }
 
-//TODO: Пока просто отображает список без пагинации
 const CourseListFromPackage = ({ data, ...props }: CourseListProps) => {
     const { classes } = useStyles();
 
@@ -31,7 +30,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListProps) => {
         </Flex>
     );
 
-    const renderCourses = useMemo(() => data.courses.data.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
+    const renderCourses = useMemo(() => data.courses.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
 
     return (
         <MSpoiler {...props} classNames={classes} maxHeight={184} showLabel={showLabel} hideLabel={hideLabel}>

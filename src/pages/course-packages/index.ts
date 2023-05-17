@@ -1,1 +1,1 @@
-export * from "./CoursePackageDetail";
+export * from "./CoursePackageDetailPage";

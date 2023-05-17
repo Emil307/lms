@@ -1,26 +1,24 @@
-import { Card as MCard, Button, Text, Flex } from "@mantine/core";
-import { CourseDiscount } from "@entities/coursePackage";
-import { getDiscountedAmount } from "@shared/utils";
+import { Card as MCard, Text, Flex } from "@mantine/core";
+import { useRouter } from "next/router";
+import { Button } from "@shared/ui";
+import { CoursePackage } from "@entities/coursePackage";
 import useStyles from "./AmountInfo.styles";
 
 export interface AmountInfoProps {
-    data: {
-        isDiscount: boolean;
-        discount?: CourseDiscount;
-        price: number;
-    };
+    data: Pick<CoursePackage, "discount" | "discountPrice" | "price" | "id">;
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
-    const { classes } = useStyles();
+    const router = useRouter();
+    const { classes } = useStyles({ hasDiscount: !!data.discount });
+
+    const handleClickCard = () => router.push({ pathname: "/course-packages/[id]", query: { id: data.id.toString() } });
 
     const renderAmount = () => {
-        if (data.isDiscount && data.discount?.value) {
+        if (data.discount) {
             return (
-                <Flex sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${getDiscountedAmount(data.price, data.discount.value).toLocaleString(
-                        "ru"
-                    )} ₽`}</Text>
+                <Flex align="center" sx={{ gap: 6 }}>
+                    <Text className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Text>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );
@@ -30,18 +28,10 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
 
     return (
         <MCard.Section className={classes.root}>
-            <Button>Подробнее</Button>
-            <Flex direction="column" gap={6}>
-                <Text
-                    sx={(theme) => ({
-                        fontWeight: 500,
-                        fontSize: 14,
-                        lineHeight: "16px",
-                        color: theme.colors.dark[0],
-                    })}>
-                    Стоимость пакета
-                </Text>
-                <> {renderAmount()}</>
+            <Button onClick={handleClickCard}>Подробнее</Button>
+            <Flex direction="column" gap={data.discount ? 2 : 6}>
+                <Text className={classes.amountDescription}>Стоимость пакета</Text>
+                {renderAmount()}
             </Flex>
         </MCard.Section>
     );

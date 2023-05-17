@@ -7,7 +7,7 @@ import { Card as CourseSetCard, CardMore as CourseSetCardMore } from "@features/
 import { Card as CourseCard } from "@features/courses";
 import { Course } from "@entities/course";
 import { CourseTeacherCarouselList, StudentReviews } from "@widgets/course";
-import { CoursePackageList } from "@widgets/coursePackage";
+import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { FaqAccordionList } from "@features/faq";
 import { Button } from "@shared/ui";
 import IconComment from "public/icons/comment.svg";
@@ -148,7 +148,7 @@ const MainPage = () => {
                 </Button>
             </Flex>
             <StudentReviews titleProps={{ order: 1 }} />
-            <CoursePackageList title="Пакетные предложения" titleProps={{ order: 1 }} />
+            <CoursePackageCarouselList title="Пакетные предложения" titleProps={{ order: 1 }} />
             <CourseTeacherCarouselList titleProps={{ order: 1 }} />
             <Flex direction="column" gap={32}>
                 <Title order={1} color="dark">
