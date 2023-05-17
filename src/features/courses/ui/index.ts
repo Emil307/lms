@@ -6,3 +6,4 @@ export * from "./ProgramModuleLessonsList";
 export * from "./ReviewCard";
 export * from "./SettedCard";
 export * from "./TeacherCard";
+export * from "./List";

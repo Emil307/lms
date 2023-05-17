@@ -1,29 +1,28 @@
 import { Card as MCard, Badge } from "@mantine/core";
-import { CourseDiscount } from "@entities/coursePackage";
 import { getHumanDate } from "@shared/utils";
+import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
 export interface DiscountInfoProps {
-    data: {
-        isDiscount: boolean;
-        discount?: CourseDiscount;
-    };
+    discount?: Discount | null;
 }
 
-const DiscountInfo = ({ data }: DiscountInfoProps) => {
+const DiscountInfo = ({ discount }: DiscountInfoProps) => {
     const { classes } = useStyles();
-    if (!data.isDiscount || !data.discount) {
+    if (!discount) {
         return null;
     }
+
+    const discountValue = `${discount.amount} ${discount.type === "percentage" ? "%" : "₽"}`;
 
     return (
         <MCard.Section className={classes.root}>
             <Badge variant="outline" className={classes.discount}>
-                {data.discount.value} %
+                {discountValue}
             </Badge>
-            {data.discount.to && (
+            {discount.finishingDate && (
                 <Badge variant="outline" className={classes.discountEndDate}>
-                    {`Доступно до ${getHumanDate(new Date(data.discount.to), {
+                    {`Доступно до ${getHumanDate(discount.finishingDate, {
                         month: "long",
                         day: "2-digit",
                         year: "numeric",

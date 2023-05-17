@@ -26,6 +26,7 @@ export type GetCourseTeachersResponse = z.infer<typeof $GetCourseTeachersRespons
 export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
 export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
+export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
 
 export const $FileDocument = z.object({
     name: z.string(),
@@ -104,7 +105,10 @@ export const $CoursesFilters = z.object({
     categoryId: z.string(),
     subcategoryId: z.string(),
     collectionIds: z.string(),
+    packageIds: z.string().optional(),
 });
+
+export const $GetCoursesInfiniteRequest = $CoursesFilters.partial();
 
 export const $CourseProgram = z.object({
     id: z.number(),

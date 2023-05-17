@@ -23,6 +23,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
         overflow: "hidden",
         width: "100%",
         height: 168,
+        background: "rgba(0, 4, 41, 0.15)",
     },
     cardSectionContent: {
         position: "absolute",

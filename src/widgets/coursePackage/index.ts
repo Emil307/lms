@@ -1,2 +1,2 @@
 export * from "./MainInfoPanel";
-export * from "./CoursePackageList";
+export * from "./CarouselList";

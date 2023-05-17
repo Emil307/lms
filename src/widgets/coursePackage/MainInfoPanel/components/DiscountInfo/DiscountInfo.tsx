@@ -1,30 +1,32 @@
 import { Badge, Flex } from "@mantine/core";
 import { memo } from "react";
-import { CourseDiscount } from "@entities/coursePackage";
 import { getHumanDate } from "@shared/utils";
+import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
 export interface DiscountInfoProps {
     data: {
-        isDiscount: boolean;
-        discount?: CourseDiscount;
+        hasDiscount: boolean;
+        discount?: Discount | null;
     };
 }
 
 const MemoizedDiscountInfo = memo(function DiscountInfo({ data }: DiscountInfoProps) {
     const { classes } = useStyles();
-    if (!data.isDiscount || !data.discount) {
+    if (!data.hasDiscount || !data.discount) {
         return null;
     }
+
+    const discountValue = `${data.discount.amount} ${data.discount.type === "percentage" ? "%" : "₽"}`;
 
     return (
         <Flex gap={8}>
             <Badge variant="outline" className={classes.discount}>
-                {data.discount.value} %
+                {discountValue}
             </Badge>
-            {data.discount.to && (
+            {data.discount.finishingDate && (
                 <Badge variant="outline" className={classes.discountEndDate}>
-                    {`Доступно до ${getHumanDate(new Date(data.discount.to), {
+                    {`Доступно до ${getHumanDate(data.discount.finishingDate, {
                         month: "long",
                         day: "2-digit",
                     })}`}

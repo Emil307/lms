@@ -28,9 +28,12 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         <Image
                             src={data.cover.absolutePath}
                             loader={({ src }) => `${src}`}
-                            layout="fill"
-                            objectFit="cover"
                             alt={data.cover.name}
+                            fill
+                            sizes="100vw"
+                            style={{
+                                objectFit: "cover",
+                            }}
                         />
                     )}
                 </Box>

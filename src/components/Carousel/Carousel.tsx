@@ -3,12 +3,12 @@ import { Carousel as MCarousel, CarouselProps as MCarouselProps } from "@mantine
 import { ArrowLeft, ArrowRight } from "react-feather";
 
 export interface CarouselProps<T> extends Omit<MCarouselProps, "children"> {
-    data: T[];
+    data?: T[];
     lastElemRef?: Ref<HTMLDivElement>;
     children: ({ data }: { data: T }) => ReactNode;
 }
 
-function Carousel<T extends { id: unknown }>({ data, lastElemRef, children, ...props }: CarouselProps<T>) {
+function Carousel<T extends { id: unknown }>({ data = [], lastElemRef, children, ...props }: CarouselProps<T>) {
     const renderSlides = useMemo(
         () =>
             data.map((item) => (

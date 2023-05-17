@@ -15,16 +15,18 @@ const MemoizedCoursePackageCard = memo(function CoursePackageCard({ data, childr
 
     return (
         <MCard {...props} className={classes.root}>
-            <DiscountInfo data={{ discount: data.discount, isDiscount: data.isDiscount }} />
-            <MCard.Section className={classes.section}>
+            <DiscountInfo discount={data.discount} />
+            <MCard.Section className={classes.section} h={82}>
                 <Title order={3} color="dark">
                     {data.name}
                 </Title>
-                <Text className={classes.description}>{data.description}</Text>
+                <Text className={classes.description} lineClamp={2}>
+                    {data.description}
+                </Text>
             </MCard.Section>
             <MCard.Section className={classes.section} sx={{ flex: 1, height: 160 }}>
-                <Text>{`${data.courses.pagination.total} ${getPluralString(
-                    data.courses.pagination.total,
+                <Text className={classes.countCourses}>{`${data.courses.length} ${getPluralString(
+                    data.courses.length,
                     "курс",
                     "курса",
                     "курсов"

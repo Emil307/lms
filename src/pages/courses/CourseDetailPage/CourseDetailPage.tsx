@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
 import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, CourseTeacherList } from "@widgets/course";
 import { CourseDetailData } from "@entities/course";
-import { CoursePackageList } from "@widgets/coursePackage";
+import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 
@@ -106,7 +106,7 @@ const CourseDetailPage = () => {
                 </Flex>
                 <ProgramTrainingList />
                 <CourseTeacherList />
-                <CoursePackageList
+                <CoursePackageCarouselList
                     title={`Курс «${data.name}» содержится в пакетах`}
                     description="Выберите дополнительный курс по более выгодной цене."
                 />

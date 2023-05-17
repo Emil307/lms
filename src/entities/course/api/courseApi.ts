@@ -20,6 +20,7 @@ import {
     $GetCourseProgramModuleLessonsResponse,
     $GetCourseTeachersResponse,
     $GetCourseReviewsResponse,
+    GetCoursesInfiniteRequest,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -64,9 +65,9 @@ class CourseApi extends BaseApi {
         subcategoryId,
         hasDiscount,
         collectionIds,
-
+        packageIds,
         ...params
-    }: CoursesRequestParamsType): Promise<GetCoursesResponse> {
+    }: CoursesRequestParamsType | GetCoursesInfiniteRequest): Promise<GetCoursesResponse> {
         const response = await this.instance.post("courses/list", {
             ...params,
             filter: {
@@ -78,6 +79,12 @@ class CourseApi extends BaseApi {
                 ...(tags && {
                     tagIds: {
                         items: tags,
+                        operator: "or",
+                    },
+                }),
+                ...(packageIds && {
+                    packageIds: {
+                        items: [packageIds],
                         operator: "or",
                     },
                 }),

@@ -11,7 +11,6 @@ export interface CourseListFromPackageProps extends Omit<SpoilerProps, "children
     data: CoursePackage;
 }
 
-//TODO: Пока просто отображает список без пагинации
 const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +23,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
     const { classes } = useStyles({ isOpen });
 
     const showLabel = () => {
-        const hiddenCountCourse = data.courses.pagination.total - 3;
+        const hiddenCountCourse = data.courses.length - 3;
         return (
             <Flex gap={8}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
@@ -49,7 +48,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
         </Flex>
     );
 
-    const renderCourses = useMemo(() => data.courses.data.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
+    const renderCourses = useMemo(() => data.courses.map((course) => <CourseItem key={course.id} data={course} />), [data.courses]);
 
     return (
         <MSpoiler

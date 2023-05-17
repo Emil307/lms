@@ -20,4 +20,10 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.gray45[0],
     },
+    countCourses: {
+        fontWeight: 500,
+        fontSize: 14,
+        lineHeight: "16px",
+        color: theme.colors.gray45[0],
+    },
 }));
