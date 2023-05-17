@@ -5,12 +5,14 @@ import { usersApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
 import { useSession } from "@features/auth";
+import { ToastType, createNotification } from "@shared/utils";
 import { getInitialValues } from "./utils";
 
 export interface ChangeUserPasswordFormProps {
     userData: {
         id?: number;
         roleId?: number;
+        fio?: string;
     };
     onClose: () => void;
 }
@@ -22,7 +24,19 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
     };
 
     const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Новый пароль установлен",
+            message: `Пароль пользователя "${userData.fio}" успешно изменен`,
+        });
         onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления пароля",
+        });
     };
 
     return (
@@ -31,7 +45,8 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
             validationSchema={$changePasswordFormValidationSchema}
             mutationKey={[MutationKeys.CHANGE_USER_PASSWORD, userData.id]}
             mutationFunction={changeUserPassword}
-            onSuccess={onSuccess}>
+            onSuccess={onSuccess}
+            onError={onError}>
             {({ dirty, values }) => (
                 <Flex direction="column" gap={24}>
                     <Flex direction="column" gap={16}>

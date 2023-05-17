@@ -4,6 +4,7 @@ import { Button, FInput, ManagedForm } from "@shared/ui";
 import { authApi } from "@entities/auth";
 import { $changePasswordFormValidationSchema, ChangePasswordFormData } from "@features/auth";
 import { MutationKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 
 export interface ChangePasswordFormProps {
@@ -16,7 +17,19 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
     };
 
     const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Новый пароль установлен",
+            message: `Пароль успешно изменен`,
+        });
         onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления пароля",
+        });
     };
 
     return (
@@ -26,7 +39,8 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                 validationSchema={$changePasswordFormValidationSchema}
                 mutationKey={[MutationKeys.CHANGE_PASSWORD]}
                 mutationFunction={changePassword}
-                onSuccess={onSuccess}>
+                onSuccess={onSuccess}
+                onError={onError}>
                 <Flex direction="column" gap={16} mb={24}>
                     <FInput
                         name="oldPassword"

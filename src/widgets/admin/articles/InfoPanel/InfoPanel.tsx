@@ -1,6 +1,5 @@
 import { Box, Flex, Title, Text, ThemeIcon, BoxProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
-import dayjs from "dayjs";
 import { ThumbsDown, ThumbsUp } from "react-feather";
 import { Switch } from "@shared/ui";
 import { useAdminArticle, useUpdateActivityArticle } from "@entities/article";
@@ -55,10 +54,10 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         </Flex>
                     </Flex>
                 </Flex>
-
-                <Box className={classes.infoItem}>
-                    Изменение: <span>{articleData?.updated_at ? dayjs(articleData.updated_at).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                </Box>
+                {/* TODO: Добавить информацию lastUpdated как добавиться компонент LastUpdated */}
+                {/* <Box className={classes.infoItem}>
+                    Изменение: 
+                </Box> */}
             </Flex>
         </Box>
     );

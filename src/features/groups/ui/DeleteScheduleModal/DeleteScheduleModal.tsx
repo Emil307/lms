@@ -16,17 +16,14 @@ interface DeleteScheduleModalProps {
 const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteSchedule = useDeleteScheduleFromGroup(groupId);
+    const deleteSchedule = useDeleteScheduleFromGroup({ groupId, scheduleId: data.id });
 
     const handleSubmit = () => {
-        deleteSchedule.mutate(
-            { scheduleId: data.id },
-            {
-                onSuccess: () => {
-                    onClose();
-                },
-            }
-        );
+        deleteSchedule.mutate(null, {
+            onSuccess: () => {
+                onClose();
+            },
+        });
     };
 
     const timingsRow = data.timings.data

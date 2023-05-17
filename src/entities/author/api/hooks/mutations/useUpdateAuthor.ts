@@ -4,6 +4,7 @@ import { authorApi, Author, UpdateAuthorRequest, GetAuthorsResponse } from "@ent
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateAuthor = (id: string) => {
     return useMutation<Author, AxiosError<FormErrorResponse>, UpdateAuthorRequest>(
@@ -44,6 +45,21 @@ export const useUpdateAuthor = (id: string) => {
                 if (typeof context === "object" && context !== null && "previousAuthorsData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_AUTHORS], context.previousAuthorsData);
                 }
+
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка обновления ученика",
+                });
+            },
+            onSettled() {
+                queryClient.invalidateQueries([QueryKeys.GET_AUTHOR, id]);
+                queryClient.invalidateQueries([QueryKeys.GET_AUTHORS]);
+            },
+            onSuccess: () => {
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Изменения сохранены",
+                });
             },
         }
     );

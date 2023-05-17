@@ -4,6 +4,7 @@ import { UpdateUploadedFilesRequest, storageApi } from "@entities/storage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateUploadedFiles = (fileId?: number) => {
     return useMutation<void, AxiosError<FormErrorResponse>, UpdateUploadedFilesRequest>(
@@ -13,6 +14,17 @@ export const useUpdateUploadedFiles = (fileId?: number) => {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILE, fileId || {}]);
+
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Изменения сохранены",
+                });
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка обновления файлов",
+                });
             },
         }
     );

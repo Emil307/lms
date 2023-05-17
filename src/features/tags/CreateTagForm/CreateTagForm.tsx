@@ -31,6 +31,7 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
             });
         },
     };
+    //TODO: на ManagedForm
     return (
         <Box>
             <Form config={config}>

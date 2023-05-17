@@ -27,7 +27,6 @@ export const $AdminCategory = z.object({
     name: z.string(),
     subCategoriesCount: z.number().optional(),
     createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
     isActive: z.boolean(),
 });
 

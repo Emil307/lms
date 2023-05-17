@@ -157,8 +157,8 @@ export const $AdminArticleMaterialsFilters = z.object({
 export const $AdminArticle = z.object({
     id: z.number(),
     name: z.string(),
-    category: z.string(),
-    subcategory: z.string(),
+    category: z.object({ name: z.string() }),
+    subcategory: z.object({ name: z.string() }),
     courses: z.array(z.string()),
     isActive: z.boolean(),
 });
@@ -167,23 +167,18 @@ export const $AdminArticleDetails = z.object({
     id: z.number(),
     name: z.string(),
     content: z.string(),
-    category: z.string(),
-    subcategory: z.string(),
+    category: z.object({ id: z.number(), name: z.string() }),
+    subcategory: z.object({ id: z.number(), name: z.string() }),
     isActive: z.boolean(),
     likesCount: z.number(),
     dislikesCount: z.number(),
-    //TODO: Обновить на camelCase посл е того как бек исправит это
-    updated_at: z.coerce.date(),
-    created_at: z.coerce.date(),
-    //TODO: Обновить структуру после фиксов со стороны бека
-    tags: z.object({
-        data: z.array(
-            z.object({
-                id: z.number(),
-                name: z.string(),
-            })
-        ),
-    }),
+    createdAt: z.coerce.date(),
+    tags: z.array(
+        z.object({
+            id: z.number(),
+            name: z.string(),
+        })
+    ),
 });
 
 export const $AdminArticleMaterial = z.object({

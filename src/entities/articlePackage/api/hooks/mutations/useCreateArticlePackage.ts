@@ -4,6 +4,7 @@ import { AdminArticlePackageDetails, CreateAdminArticlePackageRequest, articlePa
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useCreateArticlePackage = () => {
     return useMutation<AdminArticlePackageDetails, AxiosError<FormErrorResponse>, CreateAdminArticlePackageRequest>(
@@ -12,6 +13,18 @@ export const useCreateArticlePackage = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES]);
+
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Создание пакета",
+                    message: "Пакет успешно создан",
+                });
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка создания пакета",
+                });
             },
         }
     );

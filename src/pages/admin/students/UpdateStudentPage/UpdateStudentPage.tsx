@@ -20,8 +20,7 @@ const UpdateStudentPage = () => {
     ];
 
     const handleCloseForm = () => {
-        //TODO: редиректить на детальную страницу ученика
-        router.push("/admin/students");
+        router.push({ pathname: "/admin/students/[id]", query: { id } });
     };
 
     return (

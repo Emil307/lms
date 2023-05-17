@@ -1,8 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys } from "@shared/constant";
+import { MutationKeys, QueryKeys } from "@shared/constant";
 import { storageApi, UploadFileRequest, UploadFileType } from "@entities/storage";
 import { FormErrorResponse, UploadedFile } from "@shared/types";
+import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUploadFile = () => {
     return useMutation<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest & { type: UploadFileType }>(
@@ -18,6 +20,17 @@ export const useUploadFile = () => {
                 default:
                     return storageApi.uploadDocument(data);
             }
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка загрузки файла",
+                });
+            },
         }
     );
 };

@@ -48,7 +48,10 @@ const SettingUser = ({ id }: SettingUserProps) => {
             centered: true,
             size: 408,
             children: (
-                <ChangeUserPasswordForm userData={{ id: data?.id, roleId: data?.roles[0].id }} onClose={handleCloseChangePasswordModal} />
+                <ChangeUserPasswordForm
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: dataProfile.fio }}
+                    onClose={handleCloseChangePasswordModal}
+                />
             ),
         });
 

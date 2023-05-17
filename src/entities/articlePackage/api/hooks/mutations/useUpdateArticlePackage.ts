@@ -4,6 +4,7 @@ import { AdminArticlePackageDetails, UpdateAdminArticlePackageRequest, articlePa
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateArticlePackage = (id: string) => {
     return useMutation<AdminArticlePackageDetails, AxiosError<FormErrorResponse>, UpdateAdminArticlePackageRequest>(
@@ -14,6 +15,18 @@ export const useUpdateArticlePackage = (id: string) => {
             onSuccess() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES]);
+
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Изменения сохранены",
+                });
+            },
+
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка обновления пакета статей",
+                });
             },
         }
     );

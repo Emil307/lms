@@ -7,6 +7,7 @@ import { adaptDataForProfileEditForm, initialValuesProfileEditForm } from "@feat
 import { $updateMeRequest, User, UpdateMeRequest, UpdateMeResponse, authApi } from "@entities/auth";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
+import { ToastType, createNotification } from "@shared/utils";
 import useStyles from "./ProfileEditForm.styles";
 
 export interface ProfileEditFormProps {
@@ -29,6 +30,21 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
         router.push("/profile");
     };
 
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Изменения сохранены!",
+        });
+        router.push("/profile");
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления профиля",
+        });
+    };
+
     return (
         <ManagedForm<UpdateMeRequest, UpdateMeResponse>
             initialValues={{ ...initialValuesProfileEditForm, ...adaptData }}
@@ -38,7 +54,8 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
             mutationFunction={updateMe}
             isLoading={isLoading}
             onCancel={handleCloseForm}
-            onSuccess={handleCloseForm}>
+            onSuccess={onSuccess}
+            onError={onError}>
             {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>

@@ -18,10 +18,12 @@ export const columns: MRT_ColumnDef<AdminArticle>["columns"] = [
     {
         header: "Категория",
         accessorKey: "category",
+        accessorFn: (row) => row.category.name,
     },
     {
         header: "Подкатегория",
         accessorKey: "subcategory",
+        accessorFn: (row) => row.subcategory.name,
     },
 
     {

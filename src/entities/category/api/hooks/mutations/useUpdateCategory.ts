@@ -4,6 +4,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { AdminCategory, categoryApi, UpdateAdminCategoryRequest } from "@entities/category";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateCategory = (id: string) => {
     return useMutation<AdminCategory, AxiosError<FormErrorResponse>, UpdateAdminCategoryRequest>(
@@ -14,6 +15,17 @@ export const useUpdateCategory = (id: string) => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_SUBCATEGORIES]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORY, id]);
+
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Изменения сохранены",
+                });
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка обновления категории",
+                });
             },
         }
     );

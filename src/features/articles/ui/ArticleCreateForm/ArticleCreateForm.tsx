@@ -26,8 +26,8 @@ const ArticleCreateForm = () => {
         validationSchema: $CreateArticleRequest,
         onSubmit: (values, { setFieldError }) => {
             createArticle.mutate(values, {
-                onSuccess: (_response) => {
-                    //TODO: добавить редирект когда будет страница просмотра статьи
+                onSuccess: (response) => {
+                    router.push({ pathname: "/admin/articles/[id]", query: { id: response.id.toString() } });
                 },
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {
@@ -39,6 +39,8 @@ const ArticleCreateForm = () => {
             });
         },
     };
+
+    //TODO: переписать на ManagedForm
     return (
         <Form config={config}>
             {({ values }) => {

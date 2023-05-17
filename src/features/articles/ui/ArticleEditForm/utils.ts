@@ -9,9 +9,10 @@ interface TAdaptEditFormValuesProps {
 export const adaptEditFormValues = ({ data, resource }: TAdaptEditFormValuesProps): Partial<UpdateArticleFormValidation> => {
     return {
         ...data,
-        categoryId: resource?.categories.data.find((category) => category.name === data?.category)?.id.toString() || null,
-        subcategoryId: resource?.subcategories.data.find((subcategory) => subcategory.name === data?.subcategory)?.id.toString() || null,
-        tags: data?.tags.data.map((tag) => tag.id.toString()),
+        categoryId: resource?.categories.data.find((category) => category.name === data?.category.name)?.id.toString() || null,
+        subcategoryId:
+            resource?.subcategories.data.find((subcategory) => subcategory.name === data?.subcategory.name)?.id.toString() || null,
+        tags: data?.tags.map((tag) => tag.id.toString()),
     };
 };
 

@@ -33,7 +33,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
         <MenuDataGrid>
             <MenuItemDataGrid closeMenuOnClick={false}>
                 <Switch
-                    variant="primary"
+                    variant="secondary"
                     checked={row.original.isActive}
                     label={labelActivitySwitch}
                     labelPosition="left"

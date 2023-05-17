@@ -2,7 +2,6 @@ import { Box, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
-import axios from "axios";
 import Link from "next/link";
 import { Button, FInput, Form } from "@shared/ui";
 import { $recoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
@@ -27,9 +26,7 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
         onSubmit: (values, { setFieldError }) => {
             resetPassword(values, {
                 onError: (error) => {
-                    if (axios.isAxiosError(error)) {
-                        setFieldError("passwordConfirmation", error.response?.data);
-                    }
+                    setFieldError("passwordConfirmation", error.response?.data.message);
                 },
             });
         },

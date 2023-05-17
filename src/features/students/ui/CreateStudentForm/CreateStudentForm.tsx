@@ -9,6 +9,7 @@ import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "
 import { $CreateUserRequest, useAdminStudentsFilters, useCreateUser, CreateUserRequest } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
+import { ToastType, createNotification } from "@shared/utils";
 
 export interface CreateStudentFormProps {
     onClose: () => void;
@@ -42,21 +43,32 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
             createUser.mutate(
                 { ...values, avatarId: values.avatar?.id },
                 {
-                    onSuccess: (_response) => {
-                        //TODO: После добавления страницы с деталями студента заменить url
-                        router.push({ pathname: "/admin/students" });
+                    onSuccess: (response) => {
+                        createNotification({
+                            type: ToastType.SUCCESS,
+                            title: "Создание ученика",
+                            message: "Ученик добавлен",
+                        });
+                        router.push({ pathname: "/admin/students/[id]", query: { id: response.id.toString() } });
                     },
                     onError: (error) => {
                         if (axios.isAxiosError(error)) {
                             for (const errorField in error.response?.data.errors) {
                                 setFieldError(errorField, error.response?.data.errors[errorField][0]);
                             }
+
+                            createNotification({
+                                type: ToastType.WARN,
+                                title: "Ошибка создания ученика",
+                            });
                         }
                     },
                 }
             );
         },
     };
+
+    //TODO: переписать на ManagedForm
     return (
         <Form config={config}>
             {({ values, dirty }) => (

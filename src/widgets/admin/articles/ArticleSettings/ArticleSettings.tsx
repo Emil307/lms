@@ -32,7 +32,7 @@ const ArticleSettings = ({ id }: ArticleSettingsProps) => {
         });
     };
 
-    const tagsNames = articleData?.tags.data.map((tag) => tag.name).join(", ");
+    const tagsNames = articleData?.tags.map((tag) => tag.name).join(", ");
 
     return (
         <Box>
@@ -55,9 +55,9 @@ const ArticleSettings = ({ id }: ArticleSettingsProps) => {
                     </Flex>
                     <Fieldset label="Настройки" icon={<Edit3 />}>
                         <DisplayField label="Название статьи" value={articleData?.name} />
-                        <DisplayField label="Категория" value={articleData?.category} />
+                        <DisplayField label="Категория" value={articleData?.category.name} />
                         {/*TODO: Подкатегории должны быть массивом, поправить как бекенд это исправит*/}
-                        <DisplayField label="Подкатегория" value={articleData?.subcategory} />
+                        <DisplayField label="Подкатегория" value={articleData?.subcategory.name} />
                         <DisplayField label="Теги" value={tagsNames} />
                     </Fieldset>
                     <Fieldset label="Контент статьи" icon={<IconFileText />}>
@@ -67,7 +67,7 @@ const ArticleSettings = ({ id }: ArticleSettingsProps) => {
                 <Box>
                     <Flex className={classes.groupInfo}>
                         <DisplayField label="Статья" value={articleData?.name} variant="compact" />
-                        <DisplayField label="Категория" value={articleData?.category} variant="compact" />
+                        <DisplayField label="Категория" value={articleData?.category.name} variant="compact" />
                         <Button variant="secondary" mt={16} onClick={handleOpenEditArticle}>
                             Редактировать данные
                         </Button>

@@ -4,6 +4,7 @@ import { AdminStaticReviewDetail, UpdateAdminStaticReviewRequest, staticReviewAp
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
+import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateStaticReview = (id: string) => {
     return useMutation<AdminStaticReviewDetail, AxiosError<FormErrorResponse>, UpdateAdminStaticReviewRequest>(
@@ -11,8 +12,19 @@ export const useUpdateStaticReview = (id: string) => {
         (data) => staticReviewApi.updateAdminStaticReview(id, data),
         {
             onSuccess: () => {
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Изменения сохранены",
+                });
+
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STATIC_REVIEWS]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STATIC_REVIEW, id]);
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка обновления отзыва",
+                });
             },
         }
     );

@@ -5,12 +5,11 @@ import { AlertTriangle } from "react-feather";
 import { useRouter } from "next/router";
 import { LinkProps } from "next/link";
 import { Button } from "@shared/ui";
-import { queryClient } from "@app/providers";
-import { QueryKeys } from "@shared/constant";
 import { useDeleteUser } from "@entities/user";
+import { ToastType, createNotification } from "@shared/utils";
 import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
 
-interface UserDeleteModalProps {
+export interface UserDeleteModalProps {
     id: string;
     fio: string;
     redirectUrl?: LinkProps["href"];
@@ -21,31 +20,47 @@ const UserDeleteModal = ({ id, fio, redirectUrl }: UserDeleteModalProps) => {
     const theme = useMantineTheme();
     const { classes } = UserDeleteModalStyles();
     const deleteUser = useDeleteUser();
-    const handlerDeleteUser = async () => {
-        try {
-            await deleteUser.mutateAsync(id);
-            queryClient.invalidateQueries([QueryKeys.GET_USERS]);
-            closeModal(`${id}`);
-            if (!redirectUrl) return;
-            router.push(redirectUrl);
-        } catch {
-            // TODO - вызвать сообщение об ошибке
-            closeModal(`${id}`);
-        }
+
+    const handleDeleteUser = async () => {
+        deleteUser.mutate(id, {
+            onSuccess: () => {
+                closeModal(`${id}`);
+                createNotification({
+                    type: ToastType.SUCCESS,
+                    title: "Удаление пользователя",
+                    message: `Пользователь "${fio}" успешно удален`,
+                });
+                if (!redirectUrl) {
+                    return;
+                }
+                router.push(redirectUrl);
+            },
+            onError: () => {
+                createNotification({
+                    type: ToastType.WARN,
+                    title: "Ошибка удаления пользователя",
+                });
+
+                closeModal(`${id}`);
+            },
+        });
     };
+
+    const handleCancel = () => closeModal(`${id}`);
+
     return (
         <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить пользователя, «ID: ${id} ${fio}»?`}</Box>
+                <Box className={classes.text}>{`Вы действительно хотите удалить пользователя, «${id}: ${fio}»?`}</Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={() => closeModal(`${id}`)} loading={deleteUser.isLoading} w="100%">
+                <Button size="large" variant="border" onClick={handleCancel} loading={deleteUser.isLoading} w="100%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handlerDeleteUser} loading={deleteUser.isLoading} w="100%">
+                <Button size="large" variant="secondary" onClick={handleDeleteUser} loading={deleteUser.isLoading} w="100%">
                     Удалить
                 </Button>
             </Flex>

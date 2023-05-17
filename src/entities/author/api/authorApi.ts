@@ -13,12 +13,10 @@ import {
 
 class AuthorApi extends BaseApi {
     async getAuthors({ isActive, ...params }: GetAuthorsRequestParams): Promise<GetAuthorsResponse> {
-        const response = await this.instance.post("authors/fetch", {
-            params: {
-                ...params,
-                filter: {
-                    isActive,
-                },
+        const response = await this.instance.post("authors/list", {
+            ...params,
+            filter: {
+                isActive,
             },
         });
 
