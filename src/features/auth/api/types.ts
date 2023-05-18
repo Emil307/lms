@@ -9,6 +9,7 @@ export const $authFormValidationSchema = z.object({
 
 export const $signUpFormValidationSchema = z.object({
     firstName: z.string({ required_error: "Введите имя" }),
+    lastName: z.string({ required_error: "Введите фамилию" }),
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
     passwords: z
         .object({
