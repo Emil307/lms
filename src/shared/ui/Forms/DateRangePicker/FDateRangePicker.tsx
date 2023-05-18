@@ -11,7 +11,7 @@ const FDateRangePicker = ({ onChange = () => undefined, ...props }: FDateRangePi
     const [field, meta, helpers] = useField(props.name);
     const [fieldTo, _metaTo, helpersTo] = useField(props.nameTo);
 
-    const handleChange = useCallback((newValue: [string | null, string | null]) => {
+    const handleChange = useCallback((newValue: [Date | null, Date | null]) => {
         onChange(newValue);
         helpers.setValue(newValue[0]);
         helpersTo.setValue(newValue[1]);

@@ -3,14 +3,13 @@ import { DateRangePicker as MDateRangePicker, DateRangePickerProps as MDateRange
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
 import { Group, ThemeIcon, Text, useMantineTheme } from "@mantine/core";
 import { z } from "zod";
-import dayjs from "dayjs";
 import IconCalendar from "public/icons/calendar2.svg";
 import { useInputStyles } from "@shared/styles";
 
 export interface DateRangePickerProps extends Omit<MDateRangePickerProps, "value" | "onChange"> {
     success?: string | boolean;
-    value?: [string | null, string | null];
-    onChange?: (value: [string | null, string | null]) => void;
+    value?: [Date | null, Date | null];
+    onChange?: (value: [Date | null, Date | null]) => void;
 }
 
 const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props }: DateRangePickerProps) {
@@ -43,9 +42,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
     };
 
     const handleChange = (value: DateRangePickerValue) => {
-        const from = value[0] ? dayjs(value[0]).format() : null;
-        const to = value[1] ? dayjs(value[1]).format() : null;
-        onChange([from, to]);
+        onChange([value[0], value[1]]);
         setFocused(false);
     };
 
@@ -106,12 +103,10 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
         );
     }, [statusSuccess, success, description]);
 
-    const getValues = (): DateRangePickerValue => [value?.[0] ? new Date(value[0]) : null, value?.[1] ? new Date(value[1]) : null];
-
     return (
         <MDateRangePicker
             {...props}
-            value={getValues()}
+            value={value}
             hideWeekdays={false}
             classNames={classes}
             onChange={handleChange}

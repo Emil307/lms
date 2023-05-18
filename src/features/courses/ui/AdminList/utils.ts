@@ -1,0 +1,31 @@
+import dayjs from "dayjs";
+import { TFunctionParams } from "@shared/ui/DataGrid/types";
+import { AdminCoursesFiltersForm, AdminCoursesRequest } from "@entities/course";
+
+export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCoursesFiltersForm>): AdminCoursesRequest => {
+    const { createdAtFrom, createdAtTo, tags = [], teachers = [], discountType, isActive, category, ...rest } = params;
+
+    return {
+        ...rest,
+        filter: {
+            isActive: isActive === "" ? undefined : isActive,
+            "discount.type": discountType,
+            "category.id": category,
+            tagIds: {
+                items: tags,
+                operator: "or",
+            },
+            teacherIds: {
+                items: teachers,
+                operator: "or",
+            },
+            ...(createdAtFrom &&
+                createdAtTo && {
+                    createdAt: {
+                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
+                        operator: "range",
+                    },
+                }),
+        },
+    };
+};

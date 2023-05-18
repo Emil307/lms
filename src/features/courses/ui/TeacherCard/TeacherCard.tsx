@@ -23,8 +23,9 @@ const MemoizedTeacherCard = memo(function Card({ data, ...props }: TeacherCardPr
                         fill
                         sizes="100vw"
                         style={{
-                            objectFit: "cover"
-                        }} />
+                            objectFit: "cover",
+                        }}
+                    />
                 </Box>
                 <Group className={classes.cardSectionContent}>
                     <Badge variant="outline" className={classes.countCourse}>

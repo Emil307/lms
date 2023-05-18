@@ -42,8 +42,9 @@ const Details = () => {
                                 fill
                                 sizes="100vw"
                                 style={{
-                                    objectFit: "cover"
-                                }} />
+                                    objectFit: "cover",
+                                }}
+                            />
                         </Box>
                         <Flex direction="column" gap={8}>
                             <DisplayField label="Заголовок баннера" value={data?.title} variant="compact" />

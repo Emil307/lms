@@ -1,7 +1,7 @@
 import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
-import { DataGrid } from "@shared/ui";
+import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleFromArticlePackage, AdminArticlesFromArticlePackageFilters, articlePackageApi } from "@entities/articlePackage";
@@ -32,7 +32,7 @@ const ArticleList = ({ articlePackageId }: ArticleListProps) => {
                     Добавить статью
                 </Button>
             </Flex>
-            <DataGrid<AdminArticleFromArticlePackage, AdminArticlesFromArticlePackageFilters>
+            <ManagedDataGrid<AdminArticleFromArticlePackage, AdminArticlesFromArticlePackageFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES_FROM_ARTICLE_PACKAGE}
                 queryFunction={(params) => articlePackageApi.getAdminArticleFromArticlePackage({ ...params, articlePackageId })}
                 queryCacheKeys={["page", "perPage", "sort", "articlePackageId"]}

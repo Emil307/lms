@@ -31,24 +31,18 @@ export class UsersApi extends BaseApi {
     }
 
     async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
-        const result = await this.instance.post(
-            "admin/users/administrators/list",
-            {},
-            {
-                params: {
-                    ...params,
-                    filter: {
-                        roleName,
-                        isActive,
-                    },
-                },
-            }
-        );
+        const result = await this.instance.post("admin/users/administrators/list", {
+            ...params,
+            filter: {
+                roleName,
+                isActive,
+            },
+        });
         return $GetUsersResponse.parse(result);
     }
 
     async getAdminUsersFilters(): Promise<GetUsersAdminFiltersResponse> {
-        const result = await this.instance.get("admin/users/administrators/resources");
+        const result = await this.instance.get("admin/users/administrators/filters");
         return $GetUsersAdminFiltersResponse.parse(result);
     }
 
@@ -82,7 +76,7 @@ export class UsersApi extends BaseApi {
 
     //students
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
-        const result = await this.instance.get("admin/users/students/resources");
+        const result = await this.instance.get("admin/users/students/filters");
         return $GetAdminStudentsFiltersResponse.parse(result);
     }
 }

@@ -1,7 +1,7 @@
 import { Box, Group } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch, FSelect, prepareOptionsForSelect } from "@shared/ui";
+import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -20,7 +20,7 @@ const List = () => {
 
     return (
         <Box mt={24}>
-            <DataGrid<AdminArticle, AdminArticlesFilters>
+            <ManagedDataGrid<AdminArticle, AdminArticlesFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(params)}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query", "categoryId", "subcategoryId", "courseId"]}
@@ -83,7 +83,7 @@ const List = () => {
                         Найти
                     </Button>
                 </Box>
-            </DataGrid>
+            </ManagedDataGrid>
         </Box>
     );
 };

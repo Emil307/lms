@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch, FSelect } from "@shared/ui";
+import { FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser, UsersFilters } from "@entities/user/api/types";
@@ -27,7 +27,7 @@ const List = () => {
 
     return (
         <Box mt={24}>
-            <DataGrid<TUser, UsersFilters>
+            <ManagedDataGrid<TUser, UsersFilters>
                 queryKey={QueryKeys.GET_STUDENTS}
                 queryFunction={(params) => usersApi.getAdminUsers(params)}
                 queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
@@ -74,7 +74,7 @@ const List = () => {
                         </Flex>
                     </Box>
                 )}
-            </DataGrid>
+            </ManagedDataGrid>
         </Box>
     );
 };

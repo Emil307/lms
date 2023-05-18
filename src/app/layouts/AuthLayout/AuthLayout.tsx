@@ -18,8 +18,9 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
                 sizes="100vw"
                 style={{
                     objectFit: "cover",
-                    objectPosition: "center"
-                }} />
+                    objectPosition: "center",
+                }}
+            />
             <AppShell
                 footer={
                     <Footer height="auto" p="lg" bg="transparent" className={classes.footerRoot}>

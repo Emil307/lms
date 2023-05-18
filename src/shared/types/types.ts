@@ -1,6 +1,5 @@
-import { z, ZodTypeAny } from "zod";
-import { FormikValues } from "formik";
 import { $profile } from "./profile";
+import { z, ZodRawShape, ZodTypeAny } from "zod";
 
 export interface TRouterQueries {
     id: string;
@@ -15,11 +14,17 @@ export interface FormErrorResponse {
 
 const $sortOrder = z.literal("asc").or(z.literal("desc"));
 const $sortRequest = z.record(z.string(), $sortOrder);
-const $defaultRequestParams = z.object({
-    sort: $sortRequest.optional(),
+
+const $pageParams = z.object({
     perPage: z.number(),
     page: z.number(),
 });
+
+const $sortParams = z.object({
+    sort: $sortRequest.optional(),
+});
+
+const $defaultRequestParams = $pageParams.merge($sortParams);
 
 export const $pagination = z.object({
     count: z.number(),
@@ -40,13 +45,30 @@ export const $Discount = z.object({
     finishingDate: z.coerce.date().nullable(),
 });
 
+export const $multiValueOperator = z.literal("or").or(z.literal("and")).or(z.literal("not"));
+export const $dateOperator = z.literal("range").or(z.literal("between"));
+
+export const $filtersRequest = z
+    .object({
+        query: z.string().optional(),
+        filter: z.record(z.string(), z.any()).optional(),
+    })
+    .merge($defaultRequestParams);
+
+export type TFiltersRequest = z.infer<typeof $filtersRequest>;
+
+export type TMultiValueOperator = z.infer<typeof $multiValueOperator>;
+export type TDateOperator = z.infer<typeof $dateOperator>;
+
 export type TSortOrder = z.infer<typeof $sortOrder>;
 export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
+export type TPageParams = z.infer<typeof $pageParams>;
+export type TSortParams = z.infer<typeof $sortParams>;
 export type TPagination = z.infer<typeof $pagination>;
 export type Discount = z.infer<typeof $Discount>;
 export type LastUpdated = z.infer<typeof $LastUpdated>;
 
-export type TRequestFilterParams<T extends FormikValues> = TDefaultRequestParams & Partial<T>;
+export type TRequestFilterParams<T extends Record<string, any>> = TDefaultRequestParams & Partial<T>;
 
 export const $defaultMeta = z.object({
     pagination: $pagination,
@@ -62,6 +84,24 @@ export const $LastUpdated = z.object({
         })
         .nullable(),
 });
+
+export function $getFiltersRequestType<T extends ZodRawShape>(data: z.ZodObject<T>) {
+    return data.deepPartial().merge($defaultRequestParams);
+}
+
+export function $getMultiValueObjectType<T extends TMultiValueOperator = "or">(data: z.ZodString, operator: z.ZodLiteral<T>) {
+    return z.object({
+        items: z.array(data),
+        operator,
+    });
+}
+
+export function $getDateObjectType<T extends TDateOperator = "range">(operator: z.ZodLiteral<T>) {
+    return z.object({
+        items: z.array(z.string().nullable(), z.string().nullable()),
+        operator,
+    });
+}
 
 export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
     return z.object({

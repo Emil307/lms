@@ -72,8 +72,9 @@ export default function FileInputLoadedImage({
                 style={{
                     maxWidth: "100%",
                     height: "auto",
-                    objectFit: "scale-down"
-                }} />
+                    objectFit: "scale-down",
+                }}
+            />
             <Box className={classes.imageBack}>
                 <Box className={classes.control}>
                     <ImageIcon />

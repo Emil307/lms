@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
-import { DataGrid } from "@shared/ui";
+import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { groupApi, GroupSchedulesFilters, ScheduleLine } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
@@ -44,7 +44,7 @@ const GroupSchedule = () => {
                 </Button>
             </Flex>
 
-            <DataGrid<ScheduleLine, GroupSchedulesFilters>
+            <ManagedDataGrid<ScheduleLine, GroupSchedulesFilters>
                 queryKey={QueryKeys.GET_GROUP_SCHEDULES}
                 queryFunction={(params) => groupApi.getGroupSchedules({ ...params, groupId })}
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}

@@ -53,14 +53,19 @@ export const createNotification = ({ type, srcImage, message = "", isMinimized =
             case ToastType.ERROR:
                 return <AlertCircle />;
             default:
-                return srcImage ? <Image
-                    src={srcImage}
-                    alt="image"
-                    fill
-                    style={{
-                        maxWidth: "100%",
-                        height: "auto"
-                    }} /> : <ImageIcon />;
+                return srcImage ? (
+                    <Image
+                        src={srcImage}
+                        alt="image"
+                        fill
+                        style={{
+                            maxWidth: "100%",
+                            height: "auto",
+                        }}
+                    />
+                ) : (
+                    <ImageIcon />
+                );
         }
     };
 

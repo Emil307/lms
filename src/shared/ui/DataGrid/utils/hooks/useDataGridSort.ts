@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { TDefaultSortQueryParams } from "@shared/ui/DataGrid/types";
+import { TSortParams } from "@shared/types";
 
-export const useTableSort = () => {
+export const useDataGridSort = (disableQueryParams: boolean) => {
     const router = useRouter();
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
 
+    const { sortField, sortOrder } = router.query as TDefaultSortQueryParams;
+
     useEffect(() => {
+        if (disableQueryParams) {
+            return;
+        }
         setSorting(getInitialSortParams());
     }, [router.isReady]);
 
     useEffect(() => {
-        if (!router.isReady) {
+        if (!router.isReady || disableQueryParams) {
             return;
         }
         router.push(
@@ -24,9 +31,21 @@ export const useTableSort = () => {
         );
     }, [sorting, router.isReady]);
 
+    const prepareSortParams = (): TSortParams | undefined => {
+        if (disableQueryParams && !sorting.length) {
+            return undefined;
+        }
+        if (!disableQueryParams && !sortField) {
+            return undefined;
+        }
+        if (disableQueryParams) {
+            return { sort: { [sorting[0].id]: sorting[0].desc ? "desc" : "asc" } };
+        }
+        return { sort: { [sortField]: sortOrder } };
+    };
+
     const getInitialSortParams = () => {
-        const { sortField, sortOrder } = router.query;
-        if (!sortField || !sortOrder || Array.isArray(sortField)) {
+        if (!sortField || Array.isArray(sortField)) {
             return [];
         }
         return [{ id: sortField, desc: sortOrder === "desc" }];
@@ -45,5 +64,5 @@ export const useTableSort = () => {
         return newQueryParams;
     };
 
-    return { sorting, setSorting };
+    return { sorting, setSorting, sortParams: prepareSortParams() };
 };

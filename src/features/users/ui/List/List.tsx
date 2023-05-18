@@ -2,7 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch, FSelect } from "@shared/ui";
+import { FSearch, FSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { TUser, UsersFilters } from "@entities/user/api/types";
@@ -11,6 +11,7 @@ import { QueryKeys } from "@shared/constant";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { UsersListMenu } from "./components";
+import { ManagedDataGrid } from "@shared/ui";
 
 const UserList = () => {
     const router = useRouter();
@@ -45,7 +46,7 @@ const UserList = () => {
             </Flex>
 
             <Box mt={24}>
-                <DataGrid<TUser, UsersFilters>
+                <ManagedDataGrid<TUser, UsersFilters>
                     queryKey={QueryKeys.GET_USERS}
                     queryFunction={(params) => usersApi.getAdminUsers(params)}
                     queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
@@ -63,30 +64,39 @@ const UserList = () => {
                     renderRowActions={({ row }) => {
                         return <UsersListMenu row={row} />;
                     }}>
-                    <Box mb={24}>
-                        <Flex columnGap={8} rowGap={0}>
-                            <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
-                            <FSelect
-                                name="roleName"
-                                size="sm"
-                                data={rolesSelectOption ?? []}
-                                clearable
-                                label="Роль"
-                                disabled={userFilters.isLoading}
-                            />
-                        </Flex>
-                        <Box mt={16}>
-                            <FRadioGroup name="isActive" defaultValue="">
-                                {radioGroupValues.map((item) => {
-                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                })}
-                            </FRadioGroup>
+                    {({ dirty, resetForm }) => (
+                        <Box mb={24}>
+                            <Flex columnGap={8} rowGap={0}>
+                                <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
+                                <FSelect
+                                    name="roleName"
+                                    size="sm"
+                                    data={rolesSelectOption ?? []}
+                                    clearable
+                                    label="Роль"
+                                    disabled={userFilters.isLoading}
+                                />
+                            </Flex>
+                            <Box mt={16}>
+                                <FRadioGroup name="isActive" defaultValue="">
+                                    {radioGroupValues.map((item) => {
+                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                    })}
+                                </FRadioGroup>
+                            </Box>
+                            <Flex gap={16} mt={16}>
+                                <Button w={164} type="submit">
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={resetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
                         </Box>
-                        <Button mt={16} type="submit">
-                            Найти
-                        </Button>
-                    </Box>
-                </DataGrid>
+                    )}
+                </ManagedDataGrid>
             </Box>
         </Box>
     );

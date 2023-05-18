@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
-import { Button, DataGrid } from "@shared/ui";
+import { Button, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleMaterial, AdminArticleMaterialsFilters, articleApi } from "@entities/article";
 import { columns, columnOrder } from "./constants";
@@ -24,10 +24,11 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
                     Добавить материалы
                 </Button>
             </Flex>
-            <DataGrid<AdminArticleMaterial, AdminArticleMaterialsFilters>
+            <ManagedDataGrid<AdminArticleMaterial, unknown, AdminArticleMaterialsFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_MATERIALS}
-                queryFunction={(params) => articleApi.getAdminArticleMaterials({ ...params, articleId })}
+                queryFunction={(params) => articleApi.getAdminArticleMaterials(params)}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
+                extraFilterParams={{ articleId }}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
                 countName="Материалов"

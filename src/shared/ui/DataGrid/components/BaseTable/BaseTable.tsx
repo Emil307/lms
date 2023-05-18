@@ -2,22 +2,28 @@ import { MantineReactTable, MantineReactTableProps, MRT_Cell } from "mantine-rea
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
 import React from "react";
 import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
+import { RowSelectionState, SortingState } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
-import { prepareColumns, useTableSelect, useTableSort } from "../../utils";
-import { Pagination } from "../../components";
+import { prepareColumns } from "../../utils";
+import { Pagination, TPaginationProps } from "../../components";
 
-export type TBaseTableProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> & {
+type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
+    Pick<TPaginationProps<T>, "perPageOptions">;
+
+export type TBaseTableProps<T extends Record<string, any>> = {
     data?: T[];
     columns?: MantineReactTableProps<T>["columns"];
     pagination?: TPagination;
     perPageOptions?: string[];
     isLoading: boolean;
+    sorting?: SortingState;
+    rowSelection?: RowSelectionState;
     onClickCell?: (cell: MRT_Cell<T>) => void;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderActiveBadge?: (row: MRT_Cell<T>) => boolean;
     getSelectedRows?: () => void;
-};
+} & TExtendedProps<T>;
 
 function BaseTable<T extends Record<string, any>>({
     data = [],
@@ -26,6 +32,8 @@ function BaseTable<T extends Record<string, any>>({
     pagination,
     perPageOptions,
     isLoading,
+    sorting,
+    rowSelection,
     renderActiveBadge = () => false,
     ...rest
 }: TBaseTableProps<T>) {
@@ -34,9 +42,6 @@ function BaseTable<T extends Record<string, any>>({
     const columns = rest.columns || prepareColumns(data);
     const rowCount = pagination?.count;
     const totalPage = pagination?.totalPages || 0;
-
-    const { sorting, setSorting } = useTableSort();
-    const { rowSelection, setRowSelection } = useTableSelect();
 
     const handleClickCell = (cell: MRT_Cell<T>) => {
         if (cell.column.id === "mrt-row-actions") {
@@ -67,8 +72,6 @@ function BaseTable<T extends Record<string, any>>({
                 },
                 rowSelection,
             }}
-            onRowSelectionChange={setRowSelection}
-            onSortingChange={setSorting}
             enableSelectAll
             enableRowSelection
             enableDensityToggle={false}

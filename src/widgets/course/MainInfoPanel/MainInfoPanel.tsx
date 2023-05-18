@@ -142,8 +142,9 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                             fill
                             sizes="100vw"
                             style={{
-                                objectFit: "cover"
-                            }} />
+                                objectFit: "cover",
+                            }}
+                        />
                     </Box>
                 </Group>
             </Flex>

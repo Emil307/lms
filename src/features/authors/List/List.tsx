@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch } from "@shared/ui";
+import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { Author, AuthorsFilters, authorApi } from "@entities/author";
@@ -21,7 +21,7 @@ const List = () => {
 
     return (
         <Box>
-            <DataGrid<Author, AuthorsFilters>
+            <ManagedDataGrid<Author, AuthorsFilters>
                 queryKey={QueryKeys.GET_AUTHORS}
                 queryFunction={(params) => authorApi.getAuthors(params)}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
@@ -53,7 +53,7 @@ const List = () => {
                         </Box>
                     </Box>
                 )}
-            </DataGrid>
+            </ManagedDataGrid>
         </Box>
     );
 };

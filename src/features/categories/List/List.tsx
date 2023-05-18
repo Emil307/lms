@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch } from "@shared/ui";
+import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminCategory, CategoriesFilters, categoryApi } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
@@ -21,7 +21,7 @@ const List = () => {
 
     return (
         <Box mt={24}>
-            <DataGrid<AdminCategory, CategoriesFilters>
+            <ManagedDataGrid<AdminCategory, CategoriesFilters>
                 queryKey={QueryKeys.GET_ADMIN_CATEGORIES}
                 queryFunction={(params) => categoryApi.getAdminCategories(params)}
                 queryCacheKeys={["page", "perPage", "sort", "query"]}
@@ -44,7 +44,7 @@ const List = () => {
                         </Button>
                     </Flex>
                 )}
-            </DataGrid>
+            </ManagedDataGrid>
         </Box>
     );
 };

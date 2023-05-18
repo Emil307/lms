@@ -1,12 +1,13 @@
 import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import React from "react";
-import { DataGrid, FMultiSelect, FSearch, FSelect, prepareOptionsForSelect } from "@shared/ui";
+import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { AdminCourse, AdminCoursesFilters, courseApi, useAdminCourseResources } from "@entities/course";
+import { AdminCourse, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
 import { radioGroupValues, filterInitialValues, columns } from "./constant";
+import { adaptGetAdminCoursesRequest } from "./utils";
 
 const AdminList = () => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
@@ -21,10 +22,23 @@ const AdminList = () => {
             </Flex>
 
             <Box mt={24}>
-                <DataGrid<AdminCourse, AdminCoursesFilters>
+                <ManagedDataGrid<AdminCourse, AdminCoursesFiltersForm>
+                    disableQueryParams={false}
                     queryKey={QueryKeys.GET_ADMIN_COURSES}
-                    queryFunction={(params) => courseApi.getAdminCourses(params)}
-                    queryCacheKeys={["page", "perPage", "sort", "query", "isActive", "tags", "teachers", "category", "discountType"]}
+                    queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
+                    queryCacheKeys={[
+                        "page",
+                        "perPage",
+                        "sort",
+                        "query",
+                        "isActive",
+                        "tags",
+                        "teachers",
+                        "category",
+                        "discountType",
+                        "createdAtFrom",
+                        "createdAtTo",
+                    ]}
                     filter={{
                         initialValues: filterInitialValues,
                     }}
@@ -75,8 +89,7 @@ const AdminList = () => {
                                 label="Преподаватели"
                                 disabled={isLoadingFilters}
                             />
-                            {/*TODO Добавить пикер для даты создания курса*/}
-                            {/*<FDateRangePicker name="ranges.dateFrom" nameTo="ranges.dateTo" label="FDateRangePicker" />*/}
+                            <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" />
                         </Flex>
                         <Box mt={16}>
                             <FSelect
@@ -100,7 +113,7 @@ const AdminList = () => {
                             Найти
                         </Button>
                     </Box>
-                </DataGrid>
+                </ManagedDataGrid>
             </Box>
         </Box>
     );

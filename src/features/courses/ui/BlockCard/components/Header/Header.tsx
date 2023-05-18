@@ -60,8 +60,9 @@ const MemoizedHeader = memo(function Footer({ data, ...props }: HeaderProps) {
                     fill
                     sizes="100vw"
                     style={{
-                        objectFit: "cover"
-                    }} />
+                        objectFit: "cover",
+                    }}
+                />
             </Box>
         </MCard.Section>
     );
