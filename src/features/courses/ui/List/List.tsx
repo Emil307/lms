@@ -1,15 +1,15 @@
-import { Box } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import { useRouter } from "next/router";
 import { List as ListComponent } from "@components/List";
 import { Course, useCourses } from "@entities/course";
 import { initialParams } from "./constants";
 import { Card } from "../Card";
 
-export interface ListProps {
+export interface ListProps extends BoxProps {
     collectionIds?: string;
 }
 
-const List = ({ collectionIds }: ListProps) => {
+const List = ({ collectionIds, ...props }: ListProps) => {
     const router = useRouter();
     const page = router.query.page || 1;
 
@@ -18,7 +18,7 @@ const List = ({ collectionIds }: ListProps) => {
     const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 
     return (
-        <Box>
+        <Box {...props} w="100%">
             <ListComponent<Course>
                 data={courseSetsData?.data}
                 renderItem={(props) => <Card {...props} />}
