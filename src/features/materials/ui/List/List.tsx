@@ -1,5 +1,5 @@
 import { Box, Flex } from "@mantine/core";
-import { DataGrid, FDatePicker, FRadioGroup, FSearch, FSelect, Radio } from "@shared/ui";
+import { FDatePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { MaterialsFilters, UploadedMaterialFile, storageApi, useUploadedFileResource } from "@entities/storage";
@@ -20,7 +20,7 @@ const List = () => {
     }));
 
     return (
-        <DataGrid<UploadedMaterialFile, MaterialsFilters>
+        <ManagedDataGrid<UploadedMaterialFile, MaterialsFilters>
             queryKey={QueryKeys.GET_UPLOADED_FILES}
             queryFunction={(params) => storageApi.getUploadedFiles(params)}
             queryCacheKeys={["page", "perPage", "sort", "query", "type", "isActive", "createdAt", "categoryIds"]}
@@ -75,7 +75,7 @@ const List = () => {
                     </Flex>
                 </Box>
             )}
-        </DataGrid>
+        </ManagedDataGrid>
     );
 };
 

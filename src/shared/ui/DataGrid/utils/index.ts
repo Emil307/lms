@@ -1,4 +1,4 @@
 import { prepareColumns } from "./prepareColumns";
-import { useTableSort, useTablePagination, useTableQueryParams, useTableSelect } from "./hooks";
+import { useDataGridSort, useTablePagination, useDataGridPagination, useDataGridFilters, useDataGridSelect } from "./hooks";
 
-export { prepareColumns, useTableSort, useTablePagination, useTableQueryParams, useTableSelect };
+export { prepareColumns, useDataGridSort, useTablePagination, useDataGridPagination, useDataGridFilters, useDataGridSelect };

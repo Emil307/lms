@@ -47,9 +47,7 @@ class StaticPageApi extends BaseApi {
     }
 
     async getAdvantages(params: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
-        const response = await this.instance.get("static-page/advantages", {
-            params,
-        });
+        const response = await this.instance.post("static-page/advantages/list", params);
         return $GetAdvantagesResponse.parse(response);
     }
     async getAdvantage(id: string): Promise<Advantage> {

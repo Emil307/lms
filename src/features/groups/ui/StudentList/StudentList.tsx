@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid } from "@shared/ui";
+import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
@@ -38,7 +38,7 @@ const StudentList = () => {
                     Добавить ученика
                 </Button>
             </Flex>
-            <DataGrid<Group, GroupsListFilters>
+            <ManagedDataGrid<Group, GroupsListFilters>
                 queryKey={QueryKeys.GET_ADMIN_GROUPS}
                 queryFunction={(params) => groupApi.getAdminGroups(params)}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
@@ -62,7 +62,7 @@ const StudentList = () => {
                 }}
                 renderRowActions={({ row }) => {
                     return <ListMenu row={row} />;
-                }}></DataGrid>
+                }}></ManagedDataGrid>
         </Box>
     );
 };

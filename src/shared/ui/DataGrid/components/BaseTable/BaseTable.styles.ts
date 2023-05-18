@@ -49,6 +49,9 @@ export const useBaseTableStyles = createStyles((theme) => ({
     },
     tableHeadCell: {
         borderBottom: "none !important",
+        ".mantine-TableHeadCell-Content-Wrapper": {
+            whiteSpace: "nowrap",
+        },
 
         button: {
             marginLeft: "8px !important",

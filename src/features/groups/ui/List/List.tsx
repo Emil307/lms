@@ -2,7 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { DataGrid, FSearch } from "@shared/ui";
+import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
@@ -35,7 +35,7 @@ const GroupList = () => {
             </Flex>
 
             <Box mt={24}>
-                <DataGrid<Group, GroupsListFilters>
+                <ManagedDataGrid<Group, GroupsListFilters>
                     queryKey={QueryKeys.GET_ADMIN_GROUPS}
                     queryFunction={(params) => groupApi.getAdminGroups(params)}
                     queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
@@ -79,7 +79,7 @@ const GroupList = () => {
                             Найти
                         </Button>
                     </Box>
-                </DataGrid>
+                </ManagedDataGrid>
             </Box>
         </Box>
     );

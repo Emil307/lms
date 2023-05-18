@@ -1,6 +1,7 @@
-import { useTableSort } from "./useTableSort";
+import { useDataGridSort } from "./useDataGridSort";
+import { useDataGridPagination } from "./useDataGridPagination";
+import { useDataGridFilters } from "./useDataGridFilters";
 import { useTablePagination } from "./useTablePagination";
-import { useTableQueryParams } from "./useTableQueryParams";
-import { useTableSelect } from "./useTableSelect";
+import { useDataGridSelect } from "./useDataGridSelect";
 
-export { useTableSort, useTablePagination, useTableQueryParams, useTableSelect };
+export { useDataGridSort, useDataGridPagination, useDataGridFilters, useTablePagination, useDataGridSelect };

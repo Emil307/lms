@@ -1,5 +1,5 @@
 import { Box, Flex } from "@mantine/core";
-import { DataGrid, FSearch } from "@shared/ui";
+import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminTag, tagApi, TagsFilters } from "@entities/tag";
 import { QueryKeys } from "@shared/constant";
@@ -9,7 +9,7 @@ import { ListMenu } from "./components";
 const List = () => {
     return (
         <Box mt={24}>
-            <DataGrid<AdminTag, TagsFilters>
+            <ManagedDataGrid<AdminTag, TagsFilters>
                 queryKey={QueryKeys.GET_ADMIN_TAGS}
                 queryFunction={(params) => tagApi.getAdminTags(params)}
                 queryCacheKeys={["page", "perPage", "sort", "query"]}
@@ -30,7 +30,7 @@ const List = () => {
                         </Button>
                     </Flex>
                 )}
-            </DataGrid>
+            </ManagedDataGrid>
         </Box>
     );
 };

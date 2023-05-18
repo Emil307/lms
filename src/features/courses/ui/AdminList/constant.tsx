@@ -1,5 +1,5 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { AdminCourse, AdminCoursesFilters } from "@entities/course";
+import { AdminCourse, AdminCoursesFiltersForm } from "@entities/course";
 import { getHumanDate, getLocaleString } from "@shared/utils";
 import { getSurnameWithInitials } from "@shared/utils/getSurnameWithInitials";
 
@@ -74,4 +74,13 @@ export const radioGroupValues = [
     { id: "3", label: "Не активен", value: "0" },
 ];
 
-export const filterInitialValues: AdminCoursesFilters = { query: "", isActive: "", tags: [], teachers: [], category: "", discountType: "" };
+export const filterInitialValues: AdminCoursesFiltersForm = {
+    query: "",
+    createdAtFrom: null,
+    createdAtTo: null,
+    isActive: "",
+    tags: [],
+    teachers: [],
+    category: "",
+    discountType: "",
+};

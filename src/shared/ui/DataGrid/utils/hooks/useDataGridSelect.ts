@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { MRT_RowSelectionState } from "mantine-react-table";
 import { useRouter } from "next/router";
 
-export const useTableSelect = () => {
+export const useDataGridSelect = (disableQueryParams: boolean) => {
     const router = useRouter();
     const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
 
     useEffect(() => {
+        if (disableQueryParams) {
+            return;
+        }
         setRowSelection(getInitialSelectParams());
     }, [router.isReady]);
 
     useEffect(() => {
-        if (!router.isReady) {
+        if (!router.isReady || disableQueryParams) {
             return;
         }
         router.push(

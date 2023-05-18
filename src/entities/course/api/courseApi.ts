@@ -1,96 +1,33 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    GetAdminCoursesRequest,
+    GetAdminCoursesResponse,
     GetCourseProgramModuleLessonsRequest,
     GetCourseProgramModuleLessonsResponse,
     GetCourseProgramResponse,
     GetMyCoursesResponse,
     GetCourseReviewsResponse,
     GetCourseTeachersResponse,
-    AdminCourseResourcesResponse,
-    AdminCoursesRequestParamsType,
-    CoursesRequestParamsType,
-    $GetAdminCourseResources,
-    GetAdminCoursesResponse,
+    GetAdminCourseResourcesResponse,
+    $GetAdminCourseResourcesResponse,
     $GetAdminCoursesResponse,
-    GetCoursesResponse,
-    $GetCoursesResponse,
     $GetMyCoursesResponse,
     $GetCourseProgramResponse,
     $GetCourseProgramModuleLessonsResponse,
     $GetCourseTeachersResponse,
     $GetCourseReviewsResponse,
-    GetCoursesInfiniteRequest,
 } from "./types";
 
 class CourseApi extends BaseApi {
-    async getAdminCourseResources(): Promise<AdminCourseResourcesResponse> {
+    async getAdminCourseResources(): Promise<GetAdminCourseResourcesResponse> {
         const response = await this.instance.get("admin/courses/resources");
-        return $GetAdminCourseResources.parse(response);
+        return $GetAdminCourseResourcesResponse.parse(response);
     }
 
-    async getAdminCourses({
-        isActive,
-        tags,
-        category,
-        teachers,
-        discountType,
-        ...params
-    }: AdminCoursesRequestParamsType): Promise<GetAdminCoursesResponse> {
-        const response = await this.instance.post(
-            "admin/courses/list",
-            {
-                filter: {
-                    isActive,
-                    tagIds: {
-                        items: tags,
-                        operator: "or",
-                    },
-                    teacherIds: {
-                        items: teachers,
-                        operator: "or",
-                    },
-                    "category.id": category,
-                    "discount.type": discountType,
-                },
-            },
-            { params }
-        );
+    async getAdminCourses(data: GetAdminCoursesRequest): Promise<GetAdminCoursesResponse> {
+        const response = await this.instance.post("admin/courses/list", data);
         return $GetAdminCoursesResponse.parse(response);
-    }
-
-    async getCourses({
-        tags,
-        categoryId,
-        subcategoryId,
-        hasDiscount,
-        collectionIds,
-        packageIds,
-        ...params
-    }: CoursesRequestParamsType | GetCoursesInfiniteRequest): Promise<GetCoursesResponse> {
-        const response = await this.instance.post("courses/list", {
-            ...params,
-            filter: {
-                hasDiscount,
-                collectionIds,
-                "category.id": categoryId,
-                "subcategory.id": subcategoryId,
-
-                ...(tags && {
-                    tagIds: {
-                        items: tags,
-                        operator: "or",
-                    },
-                }),
-                ...(packageIds && {
-                    packageIds: {
-                        items: [packageIds],
-                        operator: "or",
-                    },
-                }),
-            },
-        });
-        return $GetCoursesResponse.parse(response);
     }
 
     async getMyCourses(): Promise<GetMyCoursesResponse> {

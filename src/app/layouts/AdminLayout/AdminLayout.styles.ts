@@ -5,6 +5,7 @@ export const useAdminLayoutStyles = createStyles(() => ({
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
+        maxWidth: "calc(100vw - 24px)",
     },
     header: {
         flex: "0 0 auto",
@@ -14,6 +15,7 @@ export const useAdminLayoutStyles = createStyles(() => ({
         flex: "1 0 auto",
     },
     main: {
+        maxWidth: "100%",
         minHeight: "100%",
     },
     footer: {

@@ -1,11 +1,6 @@
 import { createStyles } from "@mantine/core";
 
 export const useMenuStyles = createStyles((theme) => ({
-    wrapper: {
-        padding: 8,
-        right: "16px !important",
-        left: "auto !important",
-    },
     action: {
         display: "flex",
         marginLeft: "auto",

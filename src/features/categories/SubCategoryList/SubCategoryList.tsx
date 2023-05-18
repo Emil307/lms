@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
-import { DataGrid } from "@shared/ui";
+import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminCategory, categoryApi, SubCategoriesFilters, useAdminCategory } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
@@ -47,7 +47,7 @@ const SubCategoryList = () => {
                     </Button>
                 )}
             </Flex>
-            <DataGrid<AdminCategory, SubCategoriesFilters>
+            <ManagedDataGrid<AdminCategory, SubCategoriesFilters>
                 queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES}
                 queryFunction={(params) => categoryApi.getAdminSubCategories({ ...params, parentId })}
                 queryCacheKeys={["page", "perPage", "sort", "parentId"]}
@@ -57,7 +57,7 @@ const SubCategoryList = () => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}></DataGrid>
+                renderRowActions={({ row }) => <ListMenu row={row} />}></ManagedDataGrid>
         </Box>
     );
 };
