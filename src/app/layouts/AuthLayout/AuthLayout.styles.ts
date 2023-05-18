@@ -1,6 +1,20 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    imageWrapper: {
+        position: "absolute",
+        width: "100vw",
+        height: "100vh",
+
+        "&::after": {
+            display: "block",
+            position: "relative",
+            width: "100vw",
+            height: "100vh",
+            content: '""',
+            background: "linear-gradient(0deg, rgba(0, 4, 41, 0.2), rgba(0, 4, 41, 0.2))",
+        },
+    },
     footerRoot: {
         display: "flex",
         alignItems: "center",
