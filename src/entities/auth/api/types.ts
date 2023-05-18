@@ -47,6 +47,7 @@ export const $updateMeResponse = $user.omit({ roles: true });
 
 export const $signUpRequest = z.object({
     firstName: z.string(),
+    lastName: z.string(),
     email: z.string(),
     password: z.string(),
     passwordConfirmation: z.string(),

@@ -1,4 +1,4 @@
-import { Box, Text, useMantineTheme } from "@mantine/core";
+import { Box, Flex, Text, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
@@ -20,6 +20,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
 
     const config: FormikConfig<SignUpFormData> = {
         initialValues: {
+            lastName: "",
             firstName: "",
             email: "",
             passwords: {
@@ -31,7 +32,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
         validationSchema: $signUpFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             signUp(
-                { firstName: values.firstName, email: values.email, ...values.passwords },
+                { ...values, ...values.passwords },
                 {
                     onError: (error) => {
                         if (axios.isAxiosError(error)) {
@@ -75,7 +76,11 @@ const SignUpForm = (_props: SignUpFormProps) => {
                             gap: 8,
                             marginBottom: 16,
                         }}>
-                        <FInput name="firstName" label="Как к вам обращаться?" icon={<User color={theme.colors.gray45[0]} />} />
+                        <Flex gap={8}>
+                            <FInput name="firstName" label="Ваше имя" icon={<User color={theme.colors.gray45[0]} />} />
+                            <FInput name="lastName" label="Ваша фамилия" icon={<User color={theme.colors.gray45[0]} />} />
+                        </Flex>
+
                         <FInput name="email" label="Введите email" icon={<AtSign color={theme.colors.gray45[0]} />} />
                         <FInput
                             name="passwords.password"
