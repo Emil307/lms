@@ -48,15 +48,6 @@ export const $Discount = z.object({
 export const $multiValueOperator = z.literal("or").or(z.literal("and")).or(z.literal("not"));
 export const $dateOperator = z.literal("range").or(z.literal("between"));
 
-export const $filtersRequest = z
-    .object({
-        query: z.string().optional(),
-        filter: z.record(z.string(), z.any()).optional(),
-    })
-    .merge($defaultRequestParams);
-
-export type TFiltersRequest = z.infer<typeof $filtersRequest>;
-
 export type TMultiValueOperator = z.infer<typeof $multiValueOperator>;
 export type TDateOperator = z.infer<typeof $dateOperator>;
 
@@ -86,7 +77,7 @@ export const $LastUpdated = z.object({
 });
 
 export function $getFiltersRequestType<T extends ZodRawShape>(data: z.ZodObject<T>) {
-    return data.deepPartial().merge($defaultRequestParams);
+    return data.merge($defaultRequestParams);
 }
 
 export function $getMultiValueObjectType<T extends TMultiValueOperator = "or">(data: z.ZodString, operator: z.ZodLiteral<T>) {
