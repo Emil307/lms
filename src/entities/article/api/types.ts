@@ -2,12 +2,9 @@ import { z } from "zod";
 import { $UploadedFile, $getPaginationResponseType, $pagination, TRequestFilterParams } from "@shared/types";
 
 export type Article = z.infer<typeof $Article>;
-export type ArticlePackageDiscount = z.infer<typeof $ArticlePackageDiscount>;
 export type ArticleCategory = z.infer<typeof $ArticleCategory>;
-export type ArticlePackage = z.infer<typeof $ArticlePackage>;
 export type ArticleFilter = z.infer<typeof $ArticleFilter>;
 export type ArticleCourse = z.infer<typeof $ArticleCourse>;
-export type ArticleFromArticlePackage = z.infer<typeof $ArticleFromArticlePackage>;
 
 export type AdminArticle = z.infer<typeof $AdminArticle>;
 export type AdminArticleDetails = z.infer<typeof $AdminArticleDetails>;
@@ -19,13 +16,10 @@ export type AdminArticleMaterialsFilters = z.infer<typeof $AdminArticleMaterials
 
 export type ArticleCategoryFilters = z.infer<typeof $ArticleCategoryFilters>;
 export type GetArticlesResponse = z.infer<typeof $GetArticlesResponse>;
-export type GetArticlePackagesResponse = z.infer<typeof $GetArticlePackagesResponse>;
 export type GetArticleCategoriesResponse = z.infer<typeof $GetArticleCategoriesResponse>;
 export type GetArticleFiltersResponse = z.infer<typeof $GetArticleFiltersResponse>;
 export type GetArticleCoursesResponse = z.infer<typeof $GetArticleCoursesResponse>;
 export type GetArticleDetailResponse = z.infer<typeof $GetArticleDetailResponse>;
-export type GetArticlesFromArticlePackage = z.infer<typeof $GetArticlesFromArticlePackage>;
-
 export type CreateArticleRequest = z.infer<typeof $CreateArticleRequest>;
 export type UpdateArticleRequest = z.infer<typeof $UpdateArticleRequest>;
 export type GetAdminArticlesResponse = z.infer<typeof $GetAdminArticlesResponse>;
@@ -63,35 +57,6 @@ export const $ArticleFilter = z.object({
     name: z.string(),
     slug: z.string(),
 });
-
-export const $ArticleFromArticlePackage = z.object({
-    id: z.number(),
-    name: z.string(),
-});
-
-//TODO: Объединить с дисконтами из других сущностей
-export const $ArticlePackageDiscount = z.object({
-    data: z.object({
-        type: z.literal("percentage").or(z.literal("currency")),
-        amount: z.number(),
-        startingDate: z.coerce.date().nullable(),
-        finishingDate: z.coerce.date().nullable(),
-    }),
-});
-
-export const $ArticlePackage = z.object({
-    id: z.number(),
-    name: z.string(),
-    articlesCount: z.number(),
-    price: z.number(),
-    discountPrice: z.number().nullable(),
-    categories: z.object({
-        data: z.array($ArticleCategory),
-    }),
-    discount: $ArticlePackageDiscount.nullable(),
-});
-
-export const $GetArticlePackagesResponse = $getPaginationResponseType($ArticlePackage);
 
 export const $GetArticlesResponse = $getPaginationResponseType($Article);
 
@@ -230,7 +195,6 @@ export const $DeleteAdminArticleMaterialRequest = z.object({
     articleId: z.string(),
     materialId: z.number(),
 });
-export const $GetArticlesFromArticlePackage = $getPaginationResponseType($ArticleFromArticlePackage);
 
 export const $UpdateActivityStatusArticleRequest = z.object({
     id: z.string(),

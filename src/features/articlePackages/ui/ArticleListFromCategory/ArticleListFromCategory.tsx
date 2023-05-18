@@ -1,20 +1,30 @@
 import { Box, Flex, FlexProps, Grid, ScrollArea, Text } from "@mantine/core";
+import { useIntersection } from "@mantine/hooks";
+import { useEffect } from "react";
 import { List } from "@components/List";
-import { ArticleFromArticlePackage, useArticlesFromArticlePackage } from "@entities/article";
 import { Button } from "@shared/ui";
+import { ArticleFromArticlePackage, useArticlesFromArticlePackage } from "@entities/articlePackage";
 import { ArticleItem } from "./components";
 import useStyles from "./ArticleListFromCategory.styles";
 
 export interface ArticleListFromCategoryProps extends FlexProps {
+    articlePackageId: number;
     categoryId: number;
     onClose: () => void;
 }
 
-const ArticleListFromCategory = ({ categoryId, onClose, ...props }: ArticleListFromCategoryProps) => {
+const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...props }: ArticleListFromCategoryProps) => {
     const { classes } = useStyles();
 
-    //TODO: Поменять на запрос на получение статей по определенной категории
-    const { data: articlesData } = useArticlesFromArticlePackage(categoryId);
+    const { data: articlesData, hasNextPage, fetchNextPage } = useArticlesFromArticlePackage({ categoryId, articlePackageId });
+
+    const { ref: lastElemRef, entry } = useIntersection();
+
+    useEffect(() => {
+        if (entry?.isIntersecting && hasNextPage) {
+            fetchNextPage();
+        }
+    }, [entry]);
 
     return (
         <Flex {...props} direction="column" gap={24}>
@@ -31,6 +41,7 @@ const ArticleListFromCategory = ({ categoryId, onClose, ...props }: ArticleListF
                             m={0}
                             colProps={{ p: 0, py: 2, pr: 12 }}
                             renderItem={(props) => <ArticleItem {...props} />}
+                            lastElemRef={lastElemRef}
                         />
                     </ScrollArea>
                 </Box>

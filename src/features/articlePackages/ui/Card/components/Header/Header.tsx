@@ -1,43 +1,38 @@
-import { Card as MCard, Badge, Group, Flex, Title, Box } from "@mantine/core";
+import { Card as MCard, Badge, Group, Flex, Title, Box, Text } from "@mantine/core";
 import { getHumanDate } from "@shared/utils";
-import { ArticlePackageDiscount } from "@entities/article";
 import IconBooks from "@public/icons/books.svg";
+import { ArticlePackage } from "@entities/articlePackage";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps {
-    data: {
-        name: string;
-        //TODO: Добавить как бекенда добавит это поле
-        // description: string;
-        discount: ArticlePackageDiscount | null;
-    };
+    data: Pick<ArticlePackage, "name" | "description" | "discount">;
 }
 
-const Header = ({ data: { discount, name } }: HeaderProps) => {
+const Header = ({ data: { discount, name, description } }: HeaderProps) => {
     const { classes } = useStyles();
 
     const discountInfo = () => {
-        if (!discount?.data) {
+        if (!discount) {
             return null;
         }
 
         return (
             <Group sx={{ gap: 8 }}>
-                {discount.data.type === "percentage" && (
+                {discount.type === "percentage" && (
                     <Badge variant="outline" className={classes.discount}>
-                        {discount.data.amount} %
+                        {discount.amount} %
                     </Badge>
                 )}
 
-                {discount.data.type === "currency" && (
+                {discount.type === "currency" && (
                     <Badge variant="outline" className={classes.discount}>
-                        {`-${discount.data.amount} ₽`}
+                        {`-${discount.amount} ₽`}
                     </Badge>
                 )}
 
-                {discount.data.finishingDate && (
+                {discount.finishingDate && (
                     <Badge variant="outline" className={classes.discountEndDate}>
-                        {`Доступно до ${getHumanDate(discount.data.finishingDate, {
+                        {`Доступно до ${getHumanDate(discount.finishingDate, {
                             month: "long",
                             day: "2-digit",
                             year: "numeric",
@@ -59,8 +54,9 @@ const Header = ({ data: { discount, name } }: HeaderProps) => {
                     <Title order={3} color="dark">
                         {name}
                     </Title>
-                    {/* //TODO: Добавить как бекенда добавит это поле */}
-                    {/* <Text className={classes.description}>{description}</Text> */}
+                    <Text className={classes.description} lineClamp={1}>
+                        {description}
+                    </Text>
                 </Flex>
             </Flex>
         </MCard.Section>

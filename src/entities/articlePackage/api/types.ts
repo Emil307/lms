@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { $Discount, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $ArticleCategory } from "@entities/article";
 
 export type AdminArticlePackageCategory = z.infer<typeof $AdminArticlePackageCategory>;
 export type AdminArticlePackageTag = z.infer<typeof $AdminArticlePackageTag>;
@@ -7,6 +8,8 @@ export type AdminArticlePackage = z.infer<typeof $AdminArticlePackage>;
 export type AdminArticlePackageDetails = z.infer<typeof $AdminArticlePackageDetails>;
 export type AdminArticleFromArticlePackage = z.infer<typeof $AdminArticleFromArticlePackage>;
 export type ResourceOption = z.infer<typeof $ResourceOption>;
+export type ArticlePackage = z.infer<typeof $ArticlePackage>;
+export type ArticleFromArticlePackage = z.infer<typeof $ArticleFromArticlePackage>;
 
 export type AdminArticlePackagesFilters = z.infer<typeof $AdminArticlePackagesFilters>;
 export type AdminArticlesFromArticlePackageFilters = z.infer<typeof $AdminArticlesFromArticlePackageFilters>;
@@ -19,9 +22,12 @@ export type GetAdminArticlePackagesResourceResponse = z.infer<typeof $GetAdminAr
 export type CreateAdminArticlePackageRequest = z.infer<typeof $CreateAdminArticlePackageRequest>;
 export type UpdateAdminArticlePackageRequest = z.infer<typeof $UpdateAdminArticlePackageRequest>;
 export type GetAdminArticlesFromArticlePackageResponse = z.infer<typeof $GetAdminArticlesFromArticlePackageResponse>;
+export type GetArticlesFromArticlePackage = z.infer<typeof $GetArticlesFromArticlePackage>;
 export type DeleteAdminArticleFromPackageRequest = z.infer<typeof $DeleteAdminArticleFromPackageRequest>;
 export type UpdateActivityStatusArticlePackageRequest = z.infer<typeof $UpdateActivityStatusArticlePackageRequest>;
 export type UpdateActivityStatusArticlePackageResponse = z.infer<typeof $UpdateActivityStatusArticlePackageResponse>;
+export type GetArticlePackagesResponse = z.infer<typeof $GetArticlePackagesResponse>;
+export type GetArticlesFromArticlePackageRequest = z.infer<typeof $GetArticlesFromArticlePackageRequest>;
 
 export const $ResourceOption = z.object({
     id: z.number(),
@@ -36,6 +42,17 @@ export const $AdminArticlePackageCategory = z.object({
 export const $AdminArticlePackageTag = z.object({
     id: z.number(),
     name: z.string(),
+});
+
+export const $ArticlePackage = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    fullPrice: z.number(),
+    discountPrice: z.number().nullable(),
+    articlesCount: z.number(),
+    discount: $Discount.nullable(),
+    categories: $ArticleCategory.array(),
 });
 
 export const $AdminArticlePackage = z.object({
@@ -53,13 +70,23 @@ export const $AdminArticlePackageDetails = $AdminArticlePackage.extend({
     tags: $AdminArticlePackageTag.array(),
 });
 
-export const $AdminArticleFromArticlePackage = z.object({
+export const $ArticleFromArticlePackage = z.object({
     id: z.number(),
     name: z.string(),
+    content: z.string(),
+    isActive: z.boolean(),
+    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date(),
+    category: z.object({ id: z.number(), name: z.string() }),
+});
+
+export const $AdminArticleFromArticlePackage = $ArticleFromArticlePackage.extend({
     courses: z.object({ id: z.number(), name: z.string() }).array(),
     category: z.object({ id: z.number(), name: z.string() }),
     subcategory: z.object({ id: z.number(), name: z.string() }),
 });
+
+export const $GetArticlesFromArticlePackage = $getPaginationResponseType($ArticleFromArticlePackage);
 
 export const $GetAdminArticlesFromArticlePackageResponse = $getPaginationResponseType($AdminArticleFromArticlePackage);
 
@@ -127,4 +154,12 @@ export const $UpdateActivityStatusArticlePackageRequest = z.object({
 
 export const $UpdateActivityStatusArticlePackageResponse = z.object({
     isActive: z.boolean(),
+});
+
+export const $GetArticlePackagesResponse = $getPaginationResponseType($ArticlePackage);
+
+export const $GetArticlesFromArticlePackageRequest = z.object({
+    articlePackageId: z.number(),
+    categoryId: z.number(),
+    page: z.number(),
 });

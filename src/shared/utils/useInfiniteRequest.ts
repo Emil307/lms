@@ -35,10 +35,12 @@ export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T
     };
 
     const { data, ...rest } = useInfiniteQuery<TQueryFnData>(queryKey, queryFn, fullOptions);
+
     let result: TData<T>["data"];
     if (data) {
         const onlyData = data.pages.map((page) => page.data);
         const cleanData = onlyData.flat();
+
         result = { data: cleanData, pagination: data.pages[data.pages.length - 1].pagination };
     }
     return { data: result, ...rest };

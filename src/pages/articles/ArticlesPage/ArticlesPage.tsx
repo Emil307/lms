@@ -5,8 +5,10 @@ import { useRouter } from "next/router";
 import { useIntersection } from "@mantine/hooks";
 import { BreadCrumbs, Tabs } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
-import { ArticlePackageCard, CategoryListFromPackage, Filters } from "@features/articles";
-import { ArticlePackage, useArticlePackages } from "@entities/article";
+import { Filters } from "@features/articles";
+import { Card as ArticlePackageCard } from "@features/articlePackages";
+import { ArticlePackage, useArticlePackages } from "@entities/articlePackage";
+import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { breadCrumbsItems, tabsList } from "./constants";
 
 const ArticleCollectionPage = () => {
@@ -15,7 +17,7 @@ const ArticleCollectionPage = () => {
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);

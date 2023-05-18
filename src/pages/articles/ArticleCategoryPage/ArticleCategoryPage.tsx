@@ -4,8 +4,10 @@ import { IconArrowNarrowLeft, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Button, Tabs } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
-import { ArticleList, ArticlePackageCard, CategoryListFromPackage, Filters } from "@features/articles";
-import { ArticlePackage, useArticlePackages } from "@entities/article";
+import { ArticleList, Filters } from "@features/articles";
+import { ArticlePackage, useArticlePackages } from "@entities/articlePackage";
+import { Card as ArticlePackageCard } from "@features/articlePackages";
+import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 

@@ -15,7 +15,7 @@ export default createStyles((theme) => ({
         margin: "0px !important",
         gap: 16,
     },
-    description: {
+    contentLabel: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
