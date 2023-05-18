@@ -13,7 +13,7 @@ const List = ({ collectionIds, ...props }: ListProps) => {
     const router = useRouter();
     const page = router.query.page || 1;
 
-    const { data: courseSetsData, isFetching } = useCourses({ ...initialParams, page: Number(page), collectionIds });
+    const { data: courseSetsData, isFetching } = useCourses({ ...initialParams, page: Number(page), filter: { collectionIds } });
 
     const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 

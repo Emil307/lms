@@ -6,11 +6,15 @@ import { Course, useCoursesInfinite } from "@entities/course";
 import { Card } from "@features/courses";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
-    packageId?: string;
+    packageId: string;
 }
 
 const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
-    const { data: coursePackages, hasNextPage, fetchNextPage } = useCoursesInfinite({ packageIds: packageId });
+    const {
+        data: coursePackages,
+        hasNextPage,
+        fetchNextPage,
+    } = useCoursesInfinite({ filter: { packageIds: { items: [packageId], operator: "or" } } });
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {

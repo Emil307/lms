@@ -20,6 +20,12 @@ export type TManagedDataGridProps<T extends Record<string, any>, F, E, R, K exte
     disableQueryParams?: boolean;
 } & TExtendedProps<T, F, E, K>;
 
+/**
+ * Компонент таблицы с фильтрами.
+ * @template T - Тип возвращаемого массива данных.
+ * @template F - Тип фильтра Formik.
+ * @template Е - Тип object дял передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
+ */
 function ManagedDataGrid<
     T extends Record<string, any>,
     F = unknown,

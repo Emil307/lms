@@ -1,5 +1,12 @@
 import { z } from "zod";
-import { $getDateObjectType, $getFiltersRequestType, $getMultiValueObjectType, $Discount, $UploadedFile, $getPaginationResponseType } from "@shared/types";
+import {
+    $getDateObjectType,
+    $getFiltersRequestType,
+    $getMultiValueObjectType,
+    $Discount,
+    $UploadedFile,
+    $getPaginationResponseType,
+} from "@shared/types";
 
 export type AdminCourse = z.infer<typeof $AdminCourse>;
 export type Course = z.infer<typeof $Course>;
@@ -15,6 +22,7 @@ export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
 export type GetAdminCoursesRequest = z.infer<typeof $GetAdminCoursesRequest>;
 export type GetAdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResourcesResponse>;
 export type GetAdminCoursesResponse = z.infer<typeof $GetAdminCoursesResponse>;
+export type GetCoursesRequest = z.infer<typeof $GetCoursesFiltersRequest>;
 export type GetCourseProgramResponse = z.infer<typeof $GetCourseProgramResponse>;
 export type GetMyCoursesResponse = z.infer<typeof $GetMyCoursesResponse>;
 export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $GetCourseProgramModuleLessonsResponse>;
@@ -23,6 +31,7 @@ export type GetCourseTeachersResponse = z.infer<typeof $GetCourseTeachersRespons
 export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
 export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
+export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
 
 export const $FileDocument = z.object({
     name: z.string(),
@@ -46,7 +55,7 @@ const $AdminCourseTeacher = z.object({
     profile: z.object({
         firstName: z.string(),
         lastName: z.string(),
-        patronymic: z.string().nullable()
+        patronymic: z.string().optional(),
     }),
 });
 
@@ -96,31 +105,39 @@ export const $AdminCoursesFiltersForm = z.object({
     discountType: z.string(),
 });
 
-export const $AdminCoursesFiltersRequest = z.object({
-    query: z.string(),
-    filter: z.object({
-        isActive: z.literal("1").or(z.literal("0")),
-        tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
-        teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
-        createdAt: $getDateObjectType(z.literal("range")),
-        "category.id": z.string(),
-        "discount.type": z.string(),
-    }),
+export const $AdminCoursesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")),
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            createdAt: $getDateObjectType(z.literal("range")),
+            "category.id": z.string(),
+            "discount.type": z.string(),
+        })
+        .partial(),
 });
 
-export const $GetAdminCoursesRequest = $getFiltersRequestType($AdminCoursesFiltersRequest);
+export const $GetAdminCoursesRequest = $getFiltersRequestType($AdminCoursesRequest);
 
 export const $CoursesFilters = z.object({
-    hasDiscount: z.boolean(),
-    query: z.string(),
-    tags: z.array(z.string()),
-    categoryId: z.string(),
-    subcategoryId: z.string(),
-    collectionIds: z.string(),
-    packageIds: z.string().optional(),
+    query: z.string().optional(),
+    filter: z
+        .object({
+            hasDiscount: z.boolean(),
+            tags: $getMultiValueObjectType(z.string(), z.literal("or")),
+            "category.id": z.string(),
+            "subcategory.id": z.string(),
+            collectionIds: z.string(),
+            packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+        })
+        .partial(),
 });
 
-export const $GetCoursesInfiniteRequest = $CoursesFilters.partial();
+export const $GetCoursesFiltersRequest = $getFiltersRequestType($CoursesFilters);
+
+export const $GetCoursesInfiniteRequest = $CoursesFilters;
 
 export const $CourseProgram = z.object({
     id: z.number(),

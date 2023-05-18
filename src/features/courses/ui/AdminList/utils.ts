@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
-import { AdminCoursesFiltersForm, AdminCoursesRequest } from "@entities/course";
+import { AdminCoursesFiltersForm, GetAdminCoursesRequest } from "@entities/course";
 
-export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCoursesFiltersForm>): AdminCoursesRequest => {
+export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCoursesFiltersForm>): GetAdminCoursesRequest => {
     const { createdAtFrom, createdAtTo, tags = [], teachers = [], discountType, isActive, category, ...rest } = params;
 
     return {
