@@ -8,10 +8,10 @@ import { Button } from "@shared/ui";
 import { TUser, UsersFilters } from "@entities/user/api/types";
 import { useAdminUsersFilters, usersApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
+import { ManagedDataGrid } from "@shared/ui";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { UsersListMenu } from "./components";
-import { ManagedDataGrid } from "@shared/ui";
 
 const UserList = () => {
     const router = useRouter();
@@ -61,9 +61,7 @@ const UserList = () => {
                     initialState={{
                         columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
                     }}
-                    renderRowActions={({ row }) => {
-                        return <UsersListMenu row={row} />;
-                    }}>
+                    renderRowActions={({ row }) => <UsersListMenu row={row} />}>
                     {({ dirty, resetForm }) => (
                         <Box mb={24}>
                             <Flex columnGap={8} rowGap={0}>

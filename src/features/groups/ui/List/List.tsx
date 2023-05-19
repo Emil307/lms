@@ -7,8 +7,9 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
-import { columns, radioGroupValues, filterInitialValues } from "./constants";
+import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
 import { GroupsListMenu } from "./components";
+import { adaptGetAdminGroupsRequest } from "./utils";
 
 const GroupList = () => {
     const router = useRouter();
@@ -37,7 +38,7 @@ const GroupList = () => {
             <Box mt={24}>
                 <ManagedDataGrid<Group, GroupsListFilters>
                     queryKey={QueryKeys.GET_ADMIN_GROUPS}
-                    queryFunction={(params) => groupApi.getAdminGroups(params)}
+                    queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                     queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
                     filter={{
                         initialValues: filterInitialValues,
@@ -45,20 +46,9 @@ const GroupList = () => {
                     renderActiveBadge={(cell) => cell.row.original.isActive}
                     onClickCell={handlerClickCell}
                     columns={columns}
-                    countName="Пользователей"
+                    countName="Групп"
                     initialState={{
-                        columnOrder: [
-                            "id",
-                            "courseName",
-                            "createdAt",
-                            "name",
-                            "students",
-                            "education",
-                            "teacherFullName",
-                            "status",
-                            "isActive",
-                            "mrt-row-actions",
-                        ],
+                        columnOrder,
                     }}
                     renderRowActions={({ row }) => {
                         return <GroupsListMenu row={row} />;

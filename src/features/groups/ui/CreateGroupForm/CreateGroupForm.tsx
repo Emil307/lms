@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { Button, FDateRangePicker, FInput, Form, FSwitch, Switch } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { $createGroupRequest, CreateGroupRequest, useCreateGroup } from "@entities/group";
+import { $CreateGroupRequest, CreateGroupRequest, useCreateGroup } from "@entities/group";
 import { initialValuesCreateGroupForm } from "@features/groups";
 import useStyles from "./CreateGroupForm.styles";
 
@@ -26,7 +26,7 @@ const CreateGroupForm = () => {
     const config: FormikConfig<CreateGroupRequest> = {
         initialValues: initialValuesCreateGroupForm,
         enableReinitialize: true,
-        validationSchema: $createGroupRequest,
+        validationSchema: $CreateGroupRequest,
         onSubmit: (values, { setFieldError }) => {
             createGroup.mutate(values, {
                 onSuccess: (response) => {

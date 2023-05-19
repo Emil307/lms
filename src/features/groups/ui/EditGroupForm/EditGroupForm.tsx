@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Button, FDateRangePicker, FInput, Form, FSwitch, Switch } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { $createGroupRequest, CreateGroupRequest, Group, useUpdateGroup } from "@entities/group";
+import { $CreateGroupRequest, CreateGroupRequest, Group, useUpdateGroup } from "@entities/group";
 import { initialValuesCreateGroupForm } from "@features/groups/api";
 import { adaptDataForEditGroupForm } from "@features/groups";
 import useStyles from "./EditGroupForm.styles";
@@ -43,7 +43,7 @@ const EditGroupForm = ({ data, onClose }: EditGroupFormProps) => {
             ...adaptDataForEditGroupForm(data),
         },
         enableReinitialize: true,
-        validationSchema: $createGroupRequest,
+        validationSchema: $CreateGroupRequest,
         onSubmit: (values, { setFieldError }) => {
             updateGroup.mutate(values, {
                 onSuccess: (response) => {

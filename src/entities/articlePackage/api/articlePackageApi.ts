@@ -86,11 +86,9 @@ class ArticlePackageApi extends BaseApi {
     //ARTICLES FROM ARTICLE_PACKAGE
     async getAdminArticlesFromArticlePackage({
         articlePackageId,
-        ...params
+        ...data
     }: GetAdminArticlesFromArticlePackageRequestParams): Promise<GetAdminArticlesFromArticlePackageResponse> {
-        const response = await this.instance.post(`admin/article-packages/${articlePackageId}/articles/list`, {
-            params,
-        });
+        const response = await this.instance.post(`admin/article-packages/${articlePackageId}/articles/list`, data);
         return $GetAdminArticlesFromArticlePackageResponse.parse(response);
     }
 

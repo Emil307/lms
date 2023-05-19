@@ -26,13 +26,8 @@ class CategoryApi extends BaseApi {
         return $GetAdminCategoriesResponse.parse(response);
     }
 
-    async getAdminSubCategories({ parentId, ...params }: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
-        const response = await this.instance.post("admin/categories/list", {
-            ...params,
-            filter: {
-                parentId,
-            },
-        });
+    async getAdminSubCategories(data: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
+        const response = await this.instance.post("admin/categories/list", data);
         return $GetAdminCategoriesResponse.parse(response);
     }
 
