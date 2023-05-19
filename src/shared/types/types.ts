@@ -50,7 +50,6 @@ export const $dateOperator = z.literal("range").or(z.literal("between"));
 
 export type TMultiValueOperator = z.infer<typeof $multiValueOperator>;
 export type TDateOperator = z.infer<typeof $dateOperator>;
-
 export type TSortOrder = z.infer<typeof $sortOrder>;
 export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
 export type TPageParams = z.infer<typeof $pageParams>;

@@ -1,16 +1,15 @@
 import React from "react";
 import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
-
 import { NextPageWithLayout } from "@shared/utils";
-import FaqPage from "@pages/faq";
+import { FAQPage } from "@pages/staticPages";
 
-const Faq: NextPageWithLayout = () => {
-    return <FaqPage />;
+const FAQ: NextPageWithLayout = () => {
+    return <FAQPage />;
 };
 
-Faq.getLayout = function (page: ReactElement) {
+FAQ.getLayout = function (page: ReactElement) {
     return <UserLayout>{page} </UserLayout>;
 };
 
-export default Faq;
+export default FAQ;

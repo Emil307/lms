@@ -17,6 +17,7 @@ import {
     LoadedFile,
 } from "./utils";
 import useStyles from "./FileInput.styles";
+import _ from "lodash";
 
 export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad" | "onDrop"> {
     type: "image" | "document" | "video";
@@ -78,6 +79,13 @@ const MemoizedFileInput = memo(function FileInput({
     }, [loadedFilesData]);
 
     const { classes } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
+
+    //Это для сброса значений FileInput'a в форме
+    useEffect(() => {
+        if (!multiple && !_.isEqual(loadedFiles, loadedFilesData)) {
+            setLoadedFiles(loadedFilesData);
+        }
+    }, [loadedFilesData]);
 
     const handleOnOpenFileDialog = useCallback(() => openRef.current && openRef.current(), [openRef]);
 
