@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Book, Briefcase, Folder, Settings, User, Users } from "react-feather";
+import { Book, Briefcase, Folder, Layout, Settings, User, Users } from "react-feather";
 import { useMantineTheme } from "@mantine/core";
 import SidebarItem from "./UI/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./UI/SidebarItemWithChildren/SidebarItemWithChildren";
@@ -88,6 +88,41 @@ export default function Sidebar() {
                     icon={<User color={theme.colors.primary[9]} />}
                     href="/admin/settings/article-packages"
                     isActive={router.pathname.includes("/admin/settings/article-packages")}
+                />
+            </SidebarItemWithChildren>
+            <SidebarItemWithChildren
+                roles={["ADMIN"]}
+                label="Страницы"
+                isActive={router.pathname.includes("/admin/static-pages")}
+                icon={<Layout color={theme.colors.primary[9]} />}>
+                <SidebarItem
+                    inner={true}
+                    label="О проекте"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/static-pages/about"
+                    isActive={router.pathname.includes("/admin/static-pages/about")}
+                />
+                <SidebarItem
+                    inner={true}
+                    label="Публичная оферта"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/static-pages/user-agreement"
+                    isActive={router.pathname.includes("/admin/static-pages/user-agreement")}
+                />
+                <SidebarItem
+                    inner={true}
+                    label="Контакты"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/static-pages/contacts"
+                    isActive={router.pathname.includes("/admin/static-pages/contacts")}
+                />
+
+                <SidebarItem
+                    inner={true}
+                    label="Вопрос-ответ"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/static-pages/faq"
+                    isActive={router.pathname.includes("/admin/static-pages/faq")}
                 />
             </SidebarItemWithChildren>
         </Box>

@@ -7,6 +7,17 @@ interface TUseSidebarItemWithChildrenStylesProps {
 export const useSidebarItemWithChildrenStyles = createStyles((theme, { isActive }: TUseSidebarItemWithChildrenStylesProps) => ({
     item: {
         border: "none",
+
+        borderRadius: 16,
+        backgroundColor: "inherit",
+
+        "&[data-active]": {
+            backgroundColor: "inherit",
+            boxShadow: "none",
+        },
+        "&:not(:first-of-type)": {
+            backgroundColor: "inherit",
+        },
     },
     content: {
         padding: 0,

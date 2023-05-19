@@ -8,7 +8,7 @@ import { Card as CourseCard } from "@features/courses";
 import { Course } from "@entities/course";
 import { CourseTeacherCarouselList, StudentReviews } from "@widgets/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
-import { FaqAccordionList } from "@features/faq";
+import { AccordionList as FaqAccordionList } from "@features/faq";
 import { Button } from "@shared/ui";
 import IconComment from "public/icons/comment.svg";
 

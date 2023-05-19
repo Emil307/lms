@@ -43,6 +43,10 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/settings/main-page/reviews">
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
+    | StaticRoute<"/admin/static-pages/about">
+    | StaticRoute<"/admin/static-pages/contacts">
+    | StaticRoute<"/admin/static-pages/faq">
+    | StaticRoute<"/admin/static-pages/user-agreement">
     | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/students/create">
@@ -77,7 +81,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/profile/edit">
     | StaticRoute<"/profile">
     | StaticRoute<"/ui">
-    | StaticRoute<"/userAgreement">;
+    | StaticRoute<"/user-agreement">;
 
   interface StaticRoute<Pathname> {
     pathname: Pathname;

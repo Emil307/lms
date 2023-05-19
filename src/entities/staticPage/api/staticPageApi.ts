@@ -1,65 +1,80 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    $AdminFaqItem,
     $Advantage,
     $GetAboutResponse,
+    $GetAdminFaqResponse,
     $GetAdvantagesResponse,
     $GetContactsResponse,
     $GetFaqResponse,
     $GetMainBannerResponse,
     $GetPublicOfferResponse,
+    $UpdateFaqActivityStatusResponse,
+    AdminFaqItem,
     Advantage,
     CreateAdvantageRequest,
+    CreateFaqRequest,
     GetAboutResponse,
+    GetAdminFaqResponse,
     GetAdvantagesRequest,
     GetAdvantagesResponse,
     GetContactsResponse,
     GetFaqResponse,
     GetMainBannerResponse,
     GetPublicOfferResponse,
+    UpdateAboutRequest,
     UpdateAdvantageRequest,
     UpdateMainBannerRequest,
+    UpdateContactsRequest,
+    UpdateFaqActivityStatusRequest,
+    UpdateFaqActivityStatusResponse,
+    UpdateFaqOrderRequest,
+    UpdateFaqRequest,
+    UpdatePublicOfferRequest,
 } from "./types";
 
 class StaticPageApi extends BaseApi {
-    async getContacts(): Promise<GetContactsResponse> {
-        const response = await this.instance.get("static-page/contacts");
-        return $GetContactsResponse.parse(response);
-    }
+    //ABOUT
     async getAbout(): Promise<GetAboutResponse> {
         const response = await this.instance.get("static-page/about");
         return $GetAboutResponse.parse(response);
     }
+
+    async updateAbout(data: UpdateAboutRequest): Promise<GetAboutResponse> {
+        const response = await this.instance.put("admin/static-page/about", data);
+        return $GetAboutResponse.parse(response);
+    }
+
+    //CONTACTS
+    async getContacts(): Promise<GetContactsResponse> {
+        const response = await this.instance.get("static-page/contacts");
+        return $GetContactsResponse.parse(response);
+    }
+
+    async updateContacts(data: UpdateContactsRequest): Promise<GetContactsResponse> {
+        const response = await this.instance.put("admin/static-page/contacts", data);
+        return $GetContactsResponse.parse(response);
+    }
+
+    //PUBLIC_OFFER
     async getPublicOffer(): Promise<GetPublicOfferResponse> {
         const response = await this.instance.get("static-page/publicOffer");
         return $GetPublicOfferResponse.parse(response);
     }
 
-    async getFaq(): Promise<GetFaqResponse> {
-        const response = await this.instance.post("static-page/faq/list", {
-            paginate: false,
-        });
-        return $GetFaqResponse.parse(response);
-    }
-
-    // MAIN BANNER
-    async getMainBanner(): Promise<GetMainBannerResponse> {
-        const response = await this.instance.get("static-page/indexBanner");
-        return $GetMainBannerResponse.parse(response);
-    }
-
-    async updateMainBanner(data: UpdateMainBannerRequest): Promise<void> {
-        await this.instance.put("admin/static-page/indexBanner", data);
+    async updatePublicOffer(data: UpdatePublicOfferRequest): Promise<GetPublicOfferResponse> {
+        const response = await this.instance.put("admin/static-page/publicOffer", data);
+        return $GetPublicOfferResponse.parse(response);
     }
 
     //ADVANTAGES
-
-    async getAdminAdvantages(data: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
-        const response = await this.instance.post("admin/static-page/advantages/list", data);
-        return $GetAdvantagesResponse.parse(response);
-    }
     async getAdvantages(params: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
         const response = await this.instance.post("static-page/advantages/list", params);
+        return $GetAdvantagesResponse.parse(response);
+    }
+    async getAdminAdvantages(data: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
+        const response = await this.instance.post("admin/static-page/advantages/list", data);
         return $GetAdvantagesResponse.parse(response);
     }
     async getAdvantage(id: string): Promise<Advantage> {
@@ -80,6 +95,55 @@ class StaticPageApi extends BaseApi {
     async deleteAdvantage(id: string): Promise<void> {
         await this.instance.delete(`admin/static-page/advantages/${id}`);
     }
+
+    //MAIN_BANNER
+    async getMainBanner(): Promise<GetMainBannerResponse> {
+        const response = await this.instance.get("static-page/indexBanner");
+        return $GetMainBannerResponse.parse(response);
+    }
+
+    async updateMainBanner(data: UpdateMainBannerRequest): Promise<GetMainBannerResponse> {
+        const response = await this.instance.put("admin/static-page/indexBanner", data);
+        return $GetMainBannerResponse.parse(response);
+    }
+
+    //FAQ
+    async getFaq(): Promise<GetFaqResponse> {
+        const response = await this.instance.post("static-page/faq/list", {
+            paginate: false,
+        });
+        return $GetFaqResponse.parse(response);
+    }
+
+    async getAdminFaq(): Promise<GetAdminFaqResponse> {
+        const response = await this.instance.post("admin/static-page/faq/list");
+        return $GetAdminFaqResponse.parse(response);
+    }
+
+    async createFaq(data: CreateFaqRequest): Promise<AdminFaqItem> {
+        const response = await this.instance.post("admin/static-page/faq", data);
+        return $AdminFaqItem.parse(response);
+    }
+
+    async updateFaq({ id, ...data }: UpdateFaqRequest): Promise<AdminFaqItem> {
+        const response = await this.instance.put(`admin/static-page/faq/${id}`, data);
+        return $AdminFaqItem.parse(response);
+    }
+
+    async updateFaqOrder({ id, ...data }: UpdateFaqOrderRequest): Promise<AdminFaqItem> {
+        const response = await this.instance.put(`admin/static-page/faq/${id}/change-order`, data);
+        return $AdminFaqItem.parse(response);
+    }
+    async updateActivityStatusFaq({ id, isActive }: UpdateFaqActivityStatusRequest): Promise<UpdateFaqActivityStatusResponse> {
+        const response = await this.instance.put(`admin/static-page/faq/${id}/activity-status`, { isActive });
+        return $UpdateFaqActivityStatusResponse.parse(response);
+    }
+
+    async deleteFaq(id: number): Promise<void> {
+        await this.instance.delete(`admin/static-page/faq/${id}`);
+    }
+
+    //TODO: Добавить поинт на обновление статуса активности
 }
 
 export const staticPageApi = new StaticPageApi(axios);

@@ -13,7 +13,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     mutationKey: MutationKey;
     keysInvalidateQueries?: { queryKey?: QueryKey; filters?: InvalidateQueryFilters<unknown>; options?: InvalidateOptions }[];
     mutationFunction: (params: F) => Promise<R>;
-    onSuccess: (response: R) => void;
+    onSuccess: (response: R, formikHelpers: Omit<FormikHelpers<F>, "setFieldError">) => void;
     onError?: (error: unknown) => void;
     onCancel?: () => void;
     initialValues: FormikConfig<F>["initialValues"];
@@ -41,6 +41,7 @@ export default function ManagedForm<F extends FormikValues, R>({
 
     const handleCloseWithoutSave = () => {
         handleCloseConfirmModal();
+        formRef.current?.resetForm({ values: initialValues });
         onCancel();
     };
 
@@ -51,6 +52,7 @@ export default function ManagedForm<F extends FormikValues, R>({
 
     const handleCancel = (dirty: boolean) => {
         if (!dirty) {
+            formRef.current?.resetForm({ values: initialValues });
             return onCancel();
         }
 
@@ -63,11 +65,11 @@ export default function ManagedForm<F extends FormikValues, R>({
         });
     };
 
-    const handleSubmit = (values: F, { setFieldError }: FormikHelpers<F>) => {
+    const handleSubmit = (values: F, { setFieldError, ...formikHelpers }: FormikHelpers<F>) => {
         mutate(values, {
             onSuccess: (response) => {
                 keysInvalidateQueries?.map((params) => queryClient.invalidateQueries(params));
-                onSuccess(response);
+                onSuccess(response, formikHelpers);
             },
             onError: (error) => {
                 if (axios.isAxiosError(error)) {

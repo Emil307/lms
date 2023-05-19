@@ -1,4 +1,4 @@
-import React, { ReactNode, memo } from "react";
+import React, { ReactNode, memo, useEffect } from "react";
 import { RichTextEditor, RichTextEditorProps } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
@@ -34,6 +34,13 @@ const MemoizedTextEditor = memo(function TextEditor({
             setValue(props.editor.getHTML());
         },
     });
+
+    // Это нужно чтобы сбрасывать значение редактора
+    useEffect(() => {
+        if (editor?.getHTML() !== value && value) {
+            editor?.commands.setContent(value);
+        }
+    }, [value]);
 
     const renderError = error && (
         <Group className={classes.error}>

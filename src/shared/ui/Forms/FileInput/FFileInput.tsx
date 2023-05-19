@@ -46,7 +46,7 @@ export default function FFileInput({
                 },
             ]);
         }
-    }, []);
+    }, [field.value]);
 
     const handleLoadFile = (file: UploadedFile) => {
         onLoad(file);
