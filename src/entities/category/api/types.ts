@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $getFiltersRequestType, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
 export type AdminCategory = z.infer<typeof $AdminCategory>;
 
@@ -7,7 +7,7 @@ export type CategoriesFilters = z.infer<typeof $CategoriesFilters>;
 export type SubCategoriesFilters = z.infer<typeof $SubCategoriesExtraFilters>;
 
 export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters & { isActive?: boolean }>;
-export type GetAdminSubCategoriesRequest = TRequestFilterParams<SubCategoriesFilters>;
+export type GetAdminSubCategoriesRequest = z.infer<typeof $GetAdminSubCategoriesRequest>;
 export type GetAdminCategoriesResponse = z.infer<typeof $GetAdminCategoriesResponse>;
 export type UpdateAdminCategoryRequest = z.infer<typeof $UpdateAdminCategoryRequest>;
 export type CreateAdminCategoryRequest = z.infer<typeof $CreateAdminCategoryRequest>;
@@ -31,6 +31,16 @@ export const $AdminCategory = z.object({
 });
 
 export const $GetAdminCategoriesResponse = $getPaginationResponseType($AdminCategory);
+
+export const $AdminSubCategoriesRequest = z.object({
+    filter: z
+        .object({
+            parentId: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetAdminSubCategoriesRequest = $getFiltersRequestType($AdminSubCategoriesRequest);
 
 export const $UpdateAdminCategoryRequest = z.object({
     name: z.string({ required_error: "Введите название" }),

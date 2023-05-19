@@ -1,7 +1,20 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex, Text } from "@mantine/core";
-import { Group } from "@entities/group";
+import { Group, GroupsListFilters } from "@entities/group";
 import { getHumanDate } from "@shared/utils";
+
+export const columnOrder = [
+    "id",
+    "courseName",
+    "createdAt",
+    "name",
+    "students",
+    "education",
+    "teacherFullName",
+    "status",
+    "isActive",
+    "mrt-row-actions",
+];
 
 export const columns: MRT_ColumnDef<Group>["columns"] = [
     {
@@ -69,3 +82,8 @@ export const columns: MRT_ColumnDef<Group>["columns"] = [
         Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];
+
+export const filterInitialValues: GroupsListFilters = {
+    isActive: "",
+    query: "",
+};

@@ -1,7 +1,7 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { ScheduleLine } from "@entities/group";
+import { GroupSchedulesFilters, ScheduleLine } from "@entities/group";
 import { getHumanDate } from "@shared/utils";
 
 export const columnOrder = ["date", "timings", "mrt-row-actions"];
@@ -35,3 +35,7 @@ export const columns: MRT_ColumnDef<ScheduleLine>["columns"] = [
         },
     },
 ];
+
+export const filterInitialValues: GroupSchedulesFilters = {
+    groupId: "",
+};

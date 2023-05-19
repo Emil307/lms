@@ -1,24 +1,24 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $getFiltersRequestType, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
-export type Group = z.infer<typeof $group>;
-export type ScheduleLine = z.infer<typeof $scheduleLine>;
+export type Group = z.infer<typeof $Group>;
+export type ScheduleLine = z.infer<typeof $ScheduleLine>;
 
-export type GroupsListFilters = z.infer<typeof $groupListFilters>;
-export type GroupSchedulesFilters = z.infer<typeof $groupSchedulesFilters>;
+export type GroupsListFilters = z.infer<typeof $GroupListFilters>;
+export type GroupSchedulesFilters = z.infer<typeof $GroupSchedulesFilters>;
 
-export type GetAdminGroupsRequest = TRequestFilterParams<GroupsListFilters>;
-export type CreateGroupRequest = z.infer<typeof $createGroupRequest>;
-export type UpdateGroupRequest = z.infer<typeof $updateGroupRequest>;
-export type GetAdminGroupsResponse = z.infer<typeof $getAdminGroupsResponse>;
-export type GetAdminGroupResponse = z.infer<typeof $getAdminGroupResponse>;
+export type GetAdminGroupsRequest = z.infer<typeof $GetAdminGroupsRequest>; //TRequestFilterParams<GroupsListFilters>;
+export type CreateGroupRequest = z.infer<typeof $CreateGroupRequest>;
+export type UpdateGroupRequest = z.infer<typeof $UpdateGroupRequest>;
+export type GetAdminGroupsResponse = z.infer<typeof $GetAdminGroupsResponse>;
+export type GetAdminGroupResponse = z.infer<typeof $GetAdminGroupResponse>;
 export type GetGroupSchedulesRequest = TRequestFilterParams<GroupSchedulesFilters>;
-export type GetGroupSchedulesResponse = z.infer<typeof $getGroupSchedulesResponse>;
-export type AddScheduleToGroupRequest = z.infer<typeof $addScheduleToGroupRequest>;
-export type RemoveScheduleFromGroupRequest = z.infer<typeof $removeScheduleFromGroupRequest>;
-export type UpdateScheduleFromGroupRequest = z.infer<typeof $updateScheduleFromGroupRequest>;
+export type GetGroupSchedulesResponse = z.infer<typeof $GetGroupSchedulesResponse>;
+export type AddScheduleToGroupRequest = z.infer<typeof $AddScheduleToGroupRequest>;
+export type RemoveScheduleFromGroupRequest = z.infer<typeof $RemoveScheduleFromGroupRequest>;
+export type UpdateScheduleFromGroupRequest = z.infer<typeof $UpdateScheduleFromGroupRequest>;
 
-export const $group = z.object({
+export const $Group = z.object({
     id: z.number(),
     name: z.string(),
     courseName: z.string(),
@@ -33,7 +33,7 @@ export const $group = z.object({
     isActive: z.boolean(),
 });
 
-export const $scheduleLine = z.object({
+export const $ScheduleLine = z.object({
     id: z.number(),
     date: z.coerce.date(),
     timings: z.object({
@@ -47,7 +47,17 @@ export const $scheduleLine = z.object({
     }),
 });
 
-export const $createGroupRequest = z.object({
+export const $AdminGroupsRequest = z.object({
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+        })
+        .partial(),
+});
+
+export const $GetAdminGroupsRequest = $getFiltersRequestType($AdminGroupsRequest);
+
+export const $CreateGroupRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
     courseName: z.string({ required_error: "Выберите курс" }).nullish(),
     educationFrom: z.coerce
@@ -70,7 +80,7 @@ export const $createGroupRequest = z.object({
     isActive: z.boolean(),
 });
 
-export const $updateGroupRequest = z.object({
+export const $UpdateGroupRequest = z.object({
     id: z.string(),
     name: z.string({ required_error: "Введите название" }),
     courseName: z.string({ required_error: "Выберите курс" }).nullish(),
@@ -94,24 +104,24 @@ export const $updateGroupRequest = z.object({
     isActive: z.boolean(),
 });
 
-export const $getAdminGroupsResponse = $getPaginationResponseType($group);
+export const $GetAdminGroupsResponse = $getPaginationResponseType($Group);
 
-export const $getAdminGroupResponse = $group.extend({
+export const $GetAdminGroupResponse = $Group.extend({
     teacherId: z.number().nullable(),
 });
 
-export const $groupListFilters = z.object({
+export const $GroupListFilters = z.object({
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
     query: z.string(),
 });
 
-export const $groupSchedulesFilters = z.object({
+export const $GroupSchedulesFilters = z.object({
     groupId: z.string(),
 });
 
-export const $getGroupSchedulesResponse = $getPaginationResponseType($scheduleLine);
+export const $GetGroupSchedulesResponse = $getPaginationResponseType($ScheduleLine);
 
-export const $addScheduleToGroupRequest = z.object({
+export const $AddScheduleToGroupRequest = z.object({
     scheduleDate: z.string(),
 
     scheduleTimings: z.array(
@@ -130,12 +140,12 @@ export const $addScheduleToGroupRequest = z.object({
     ),
 });
 
-export const $removeScheduleFromGroupRequest = z.object({
+export const $RemoveScheduleFromGroupRequest = z.object({
     groupId: z.string().optional(),
     scheduleId: z.number(),
 });
 
-export const $updateScheduleFromGroupRequest = z.object({
+export const $UpdateScheduleFromGroupRequest = z.object({
     scheduleId: z.number(),
     scheduleDate: z.string().datetime({ offset: true }),
     scheduleTimings: z.array(

@@ -8,7 +8,7 @@ import { groupApi, GroupSchedulesFilters, ScheduleLine } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
 import { QueryKeys } from "@shared/constant";
 import { TRouterQueries } from "@shared/types";
-import { columnOrder, columns } from "./constant";
+import { columnOrder, columns, filterInitialValues } from "./constant";
 import { ListMenu } from "./components";
 
 const GroupSchedule = () => {
@@ -53,6 +53,7 @@ const GroupSchedule = () => {
                 initialState={{
                     columnOrder,
                 }}
+                filter={{ initialValues: filterInitialValues }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
             />
         </Box>

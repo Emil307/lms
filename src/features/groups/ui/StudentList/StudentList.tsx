@@ -6,8 +6,9 @@ import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { Group, groupApi, GroupsListFilters } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
-import { columns } from "./constant";
+import { columnOrder, columns, filterInitialValues } from "./constant";
 import { ListMenu } from "./components";
+import { adaptGetAdminGroupsRequest } from "./utils";
 
 const StudentList = () => {
     const router = useRouter();
@@ -38,31 +39,21 @@ const StudentList = () => {
                     Добавить ученика
                 </Button>
             </Flex>
+            {/* //TODO: Поменять эндпоинт на получение учеников в группе, как бекенд будет готов */}
             <ManagedDataGrid<Group, GroupsListFilters>
                 queryKey={QueryKeys.GET_ADMIN_GROUPS}
-                queryFunction={(params) => groupApi.getAdminGroups(params)}
+                queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
                 onClickCell={handlerClickCell}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
                 countName="Ученики"
                 initialState={{
-                    columnOrder: [
-                        "id",
-                        "courseName",
-                        "createdAt",
-                        "name",
-                        "students",
-                        "education",
-                        "teacherFullName",
-                        "status",
-                        "isActive",
-                        "mrt-row-actions",
-                    ],
+                    columnOrder,
                 }}
-                renderRowActions={({ row }) => {
-                    return <ListMenu row={row} />;
-                }}></ManagedDataGrid>
+                filter={{ initialValues: filterInitialValues }}
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+            />
         </Box>
     );
 };

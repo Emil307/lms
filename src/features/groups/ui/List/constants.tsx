@@ -3,6 +3,19 @@ import { Flex, Text } from "@mantine/core";
 import { Group, GroupsListFilters } from "@entities/group";
 import { getHumanDate } from "@shared/utils";
 
+export const columnOrder = [
+    "id",
+    "courseName",
+    "createdAt",
+    "name",
+    "students",
+    "education",
+    "teacherFullName",
+    "status",
+    "isActive",
+    "mrt-row-actions",
+];
+
 export const columns: MRT_ColumnDef<Group>["columns"] = [
     {
         header: "ID",

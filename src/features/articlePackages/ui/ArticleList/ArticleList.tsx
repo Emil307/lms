@@ -32,9 +32,9 @@ const ArticleList = ({ articlePackageId }: ArticleListProps) => {
                     Добавить статью
                 </Button>
             </Flex>
-            <ManagedDataGrid<AdminArticleFromArticlePackage, AdminArticlesFromArticlePackageFilters>
+            <ManagedDataGrid<AdminArticleFromArticlePackage, unknown, AdminArticlesFromArticlePackageFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES_FROM_ARTICLE_PACKAGE}
-                queryFunction={(params) => articlePackageApi.getAdminArticlesFromArticlePackage({ ...params, articlePackageId })}
+                queryFunction={(params) => articlePackageApi.getAdminArticlesFromArticlePackage(params)}
                 queryCacheKeys={["page", "perPage", "sort", "articlePackageId"]}
                 onClickCell={handlerClickCell}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
@@ -43,6 +43,7 @@ const ArticleList = ({ articlePackageId }: ArticleListProps) => {
                 initialState={{
                     columnOrder,
                 }}
+                extraFilterParams={{ articlePackageId }}
                 renderRowActions={({ row }) => <ListMenu row={row} articlePackageId={articlePackageId} />}
             />
         </Box>

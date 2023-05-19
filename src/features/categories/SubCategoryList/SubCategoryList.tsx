@@ -9,6 +9,7 @@ import { QueryKeys } from "@shared/constant";
 import { TRouterQueries } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
+import { adaptGetAdminSubCategoriesRequest } from "./utils";
 import { CreateCategoryForm } from "../CreateCategoryForm";
 
 const SubCategoryList = () => {
@@ -47,9 +48,9 @@ const SubCategoryList = () => {
                     </Button>
                 )}
             </Flex>
-            <ManagedDataGrid<AdminCategory, SubCategoriesFilters>
+            <ManagedDataGrid<AdminCategory, unknown, SubCategoriesFilters>
                 queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES}
-                queryFunction={(params) => categoryApi.getAdminSubCategories({ ...params, parentId })}
+                queryFunction={(params) => categoryApi.getAdminSubCategories(adaptGetAdminSubCategoriesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "parentId"]}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
@@ -57,7 +58,9 @@ const SubCategoryList = () => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}></ManagedDataGrid>
+                extraFilterParams={{ parentId }}
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+            />
         </Box>
     );
 };
