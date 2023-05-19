@@ -2,15 +2,12 @@ import { Box, Title } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
-import { EditStaticReviewForm } from "@features/staticReviews";
+import { UpdateStaticReviewForm } from "@features/staticReviews";
 import { useAdminStaticReview } from "@entities/staticReview";
+import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 
-interface TRouterQueries {
-    id: string;
-}
-
-const EditStaticReviewPage = () => {
+const UpdateStaticReviewPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
@@ -26,9 +23,9 @@ const EditStaticReviewPage = () => {
             <Title order={1} color="dark">
                 {fullName}
             </Title>
-            <EditStaticReviewForm data={data} onClose={handleCloseForm} />
+            <UpdateStaticReviewForm data={data} onClose={handleCloseForm} />
         </Box>
     );
 };
 
-export default EditStaticReviewPage;
+export default UpdateStaticReviewPage;

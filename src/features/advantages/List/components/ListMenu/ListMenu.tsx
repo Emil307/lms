@@ -5,7 +5,7 @@ import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { Advantage } from "@entities/staticPage";
-import { DeleteAdvantageModal, EditAdvantageForm } from "@features/advantages";
+import { DeleteAdvantageModal, UpdateAdvantageForm } from "@features/advantages";
 
 interface ListMenuProps {
     row: MRT_Row<Advantage>;
@@ -13,7 +13,7 @@ interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const handleCloseDeleteAdvantageModal = () => closeModal("DELETE_ADVANTAGE");
-    const handleCloseEditAdvantageModal = () => closeModal("EDIT_ADVANTAGE");
+    const handleCloseEditAdvantageModal = () => closeModal("UPDATE_ADVANTAGE");
 
     const openModalDeleteAdvantage = () => {
         openModal({
@@ -28,10 +28,10 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     const openModalAdvantageTag = () => {
         openModal({
-            modalId: "EDIT_ADVANTAGE",
+            modalId: "UPDATE_ADVANTAGE",
             title: "Редактирование",
             centered: true,
-            children: <EditAdvantageForm data={row.original} onClose={handleCloseEditAdvantageModal} />,
+            children: <UpdateAdvantageForm data={row.original} onClose={handleCloseEditAdvantageModal} />,
         });
     };
 

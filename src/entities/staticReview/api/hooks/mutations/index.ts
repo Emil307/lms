@@ -1,5 +1,2 @@
-export * from "./useDeactivateStaticReview";
-export * from "./useActivateStaticReview";
+export * from "./useUpdateActivityStatusStaticReview";
 export * from "./useDeleteStaticReview";
-export * from "./useCreateStaticReview";
-export * from "./useUpdateStaticReview";

@@ -112,7 +112,7 @@ export const useInputStyles = createStyles(
 
             "> div": {
                 display: "flex",
-                alignItems: "flex-start",
+                alignItems: "center",
                 gap: 4,
                 marginTop: 4,
 
@@ -121,7 +121,11 @@ export const useInputStyles = createStyles(
                     height: "16px !important",
                 },
 
-                "> div": {
+                "> div:first-type": {
+                    alignSelf: "flex-start",
+                },
+
+                ".mantine-Text-root": {
                     width: "calc(100% - 20px)",
                     paddingTop: 2,
                     color: theme.colors.dark[0],

@@ -15,6 +15,8 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     const { mutate: updateActivityStatus } = useUpdateActivityAuthor(id);
 
+    const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
+
     const createdAtDate = getHumanDate(new Date(data?.createdAt ?? ""), {
         day: "2-digit",
         month: "long",
@@ -40,7 +42,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 Статус:
                 <Switch
                     variant="secondary"
-                    label="Деактивировать"
+                    label={labelActivitySwitch}
                     labelPosition="left"
                     checked={data?.isActive}
                     onChange={handleChangeActiveStatus}

@@ -17,13 +17,20 @@ export const useDeleteAdvantage = (id: string) => {
                     .getQueriesData<GetAdvantagesResponse>([QueryKeys.GET_ADVANTAGES])[0]?.[1]
                     ?.data.find((advantage) => advantage.id.toString() === id);
 
+                const advantageFromAdminList = queryClient
+                    .getQueriesData<GetAdvantagesResponse>([QueryKeys.GET_ADMIN_ADVANTAGES])[0]?.[1]
+                    ?.data.find((advantage) => advantage.id.toString() === id);
+
                 createNotification({
                     type: ToastType.SUCCESS,
                     title: "Удаление карточки преимущества",
-                    message: `Карточка с преимуществом "${advantageData?.title || advantageFromList?.title}" успешно удалена`,
+                    message: `Карточка с преимуществом "${
+                        advantageData?.title || advantageFromList?.title || advantageFromAdminList?.title
+                    }" успешно удалена`,
                 });
 
                 queryClient.invalidateQueries([QueryKeys.GET_ADVANTAGES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ADVANTAGES]);
             },
             onError: () => {
                 createNotification({

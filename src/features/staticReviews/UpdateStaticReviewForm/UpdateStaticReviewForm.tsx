@@ -1,67 +1,76 @@
 import { Box, Text, Flex, Avatar } from "@mantine/core";
-import { FormikConfig } from "formik";
 import React from "react";
-import { useMantineTheme } from "@mantine/core";
 import { Edit3, User, Video } from "react-feather";
-import axios from "axios";
-import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, Form, FSwitch, FTextarea } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import {
-    $createAdminStaticReviewRequest,
-    AdminStaticReviewDetail,
-    CreateAdminStaticReviewRequest,
-    useUpdateStaticReview,
+    $updateAdminStaticReviewRequest,
+    AdminStaticReview,
+    UpdateAdminStaticReviewRequest,
+    staticReviewApi,
 } from "@entities/staticReview";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
-import useStyles from "./EditStaticReviewForm.styles";
-import { adaptDataForEditReviewForm } from "./utils";
+import useStyles from "./UpdateStaticReviewForm.styles";
+import { adaptDataForUpdateReviewForm } from "./utils";
 
-export interface EditStaticReviewFormProps {
-    data?: AdminStaticReviewDetail;
+export interface UpdateStaticReviewFormProps {
+    data?: AdminStaticReview;
     onClose: () => void;
 }
 
-const EditStaticReviewForm = ({ data, onClose }: EditStaticReviewFormProps) => {
+const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) => {
     const { classes } = useStyles();
-    const router = useRouter();
-    const theme = useMantineTheme();
 
-    const updateStaticReview = useUpdateStaticReview(String(data?.id));
-
-    const config: FormikConfig<CreateAdminStaticReviewRequest> = {
-        initialValues: { ...initialValues, ...adaptDataForEditReviewForm(data) },
-        enableReinitialize: true,
-        validationSchema: $createAdminStaticReviewRequest,
-        onSubmit: (values, { setFieldError }) => {
-            updateStaticReview.mutate(
-                { ...values, authorAvatarId: values.avatar?.id, previewId: values.preview?.id, videoId: values.video?.id },
-                {
-                    onSuccess: () => {
-                        router.push({ pathname: "/admin/settings/main-page/reviews" });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
-                        }
-                    },
-                }
-            );
-        },
+    const updateStaticReview = (values: UpdateAdminStaticReviewRequest) => {
+        return staticReviewApi.updateAdminStaticReview({
+            ...values,
+            authorAvatarId: values.avatar?.id,
+            previewId: values.preview?.id,
+            videoId: values.video?.id,
+            id: data?.id,
+        });
     };
+
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Изменения сохранены",
+        });
+        onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновление статического отзыва",
+        });
+    };
+
     return (
-        <Form config={config}>
+        <ManagedForm<UpdateAdminStaticReviewRequest, AdminStaticReview>
+            initialValues={{ ...initialValues, ...adaptDataForUpdateReviewForm(data) }}
+            validationSchema={$updateAdminStaticReviewRequest}
+            mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, data?.id.toString()]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] },
+                { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS, data?.id.toString()] },
+            ]}
+            mutationFunction={updateStaticReview}
+            onSuccess={onSuccess}
+            hasConfirmModal
+            onCancel={onClose}
+            onError={onError}>
             {({ values, dirty }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={8} mt={24} align="center">
                         <Text
-                            sx={{
+                            sx={(theme) => ({
                                 color: theme.colors.gray45[0],
-                            }}>
+                            })}>
                             Статус:
                         </Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
@@ -142,8 +151,8 @@ const EditStaticReviewForm = ({ data, onClose }: EditStaticReviewFormProps) => {
                     </Flex>
                 </Flex>
             )}
-        </Form>
+        </ManagedForm>
     );
 };
 
-export default EditStaticReviewForm;
+export default UpdateStaticReviewForm;

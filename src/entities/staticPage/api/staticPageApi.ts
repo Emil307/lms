@@ -18,6 +18,7 @@ import {
     GetMainBannerResponse,
     GetPublicOfferResponse,
     UpdateAdvantageRequest,
+    UpdateMainBannerRequest,
 } from "./types";
 
 class StaticPageApi extends BaseApi {
@@ -41,11 +42,22 @@ class StaticPageApi extends BaseApi {
         return $GetFaqResponse.parse(response);
     }
 
+    // MAIN BANNER
     async getMainBanner(): Promise<GetMainBannerResponse> {
         const response = await this.instance.get("static-page/indexBanner");
         return $GetMainBannerResponse.parse(response);
     }
 
+    async updateMainBanner(data: UpdateMainBannerRequest): Promise<void> {
+        await this.instance.put("admin/static-page/indexBanner", data);
+    }
+
+    //ADVANTAGES
+
+    async getAdminAdvantages(data: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
+        const response = await this.instance.post("admin/static-page/advantages/list", data);
+        return $GetAdvantagesResponse.parse(response);
+    }
     async getAdvantages(params: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
         const response = await this.instance.post("static-page/advantages/list", params);
         return $GetAdvantagesResponse.parse(response);
@@ -56,17 +68,17 @@ class StaticPageApi extends BaseApi {
     }
 
     async createAdvantage(data: CreateAdvantageRequest): Promise<Advantage> {
-        const response = await this.instance.post("static-page/advantages", data);
+        const response = await this.instance.post("admin/static-page/advantages", data);
         return $Advantage.parse(response);
     }
 
-    async updateAdvantage({ id, ...data }: UpdateAdvantageRequest & { id: string }): Promise<Advantage> {
-        const response = await this.instance.put(`static-page/advantages/${id}`, data);
+    async updateAdvantage({ id, ...data }: UpdateAdvantageRequest & { id?: number }): Promise<Advantage> {
+        const response = await this.instance.put(`admin/static-page/advantages/${id}`, data);
         return $Advantage.parse(response);
     }
 
     async deleteAdvantage(id: string): Promise<void> {
-        await this.instance.delete(`static-page/advantages/${id}`);
+        await this.instance.delete(`admin/static-page/advantages/${id}`);
     }
 }
 

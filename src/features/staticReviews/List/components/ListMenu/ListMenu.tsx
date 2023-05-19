@@ -3,8 +3,9 @@ import { MRT_Row } from "mantine-react-table";
 import React, { ChangeEvent } from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminStaticReview, useActivateStaticReview, useDeactivateStaticReview } from "@entities/staticReview";
+import { AdminStaticReview, useUpdateActivityStatusStaticReview } from "@entities/staticReview";
 import { DeleteStaticReviewModal } from "@features/staticReviews";
 
 interface ListMenuProps {
@@ -12,8 +13,8 @@ interface ListMenuProps {
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {
-    const { mutate: activate } = useActivateStaticReview(String(row.original.id));
-    const { mutate: deactivate } = useDeactivateStaticReview(String(row.original.id));
+    const router = useRouter();
+    const { mutate: updateActivity } = useUpdateActivityStatusStaticReview(row.original.id);
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
     const handleCloseDeleteReviewModal = () => closeModal("DELETE_STATIC_REVIEW");
@@ -24,17 +25,19 @@ const ListMenu = ({ row }: ListMenuProps) => {
             title: "Удаление отзыва",
             centered: true,
             children: (
-                <DeleteStaticReviewModal id={String(row.original.id)} name={row.original.fullName} onClose={handleCloseDeleteReviewModal} />
+                <DeleteStaticReviewModal
+                    id={String(row.original.id)}
+                    name={`${row.original.lastName} ${row.original.firstName}`}
+                    onClose={handleCloseDeleteReviewModal}
+                />
             ),
         });
     };
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
-        if (newValue.target.checked) {
-            return activate();
-        }
-        return deactivate();
-    };
+    const openEditReview = () =>
+        router.push({ pathname: "/admin/settings/main-page/reviews/[id]/edit", query: { id: String(row.original.id) } });
+
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivity(newValue.target.checked);
 
     return (
         <MenuDataGrid>
@@ -48,7 +51,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
-            <MenuItemDataGrid>
+            <MenuItemDataGrid onClick={openEditReview}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Edit3 />
                 </ThemeIcon>

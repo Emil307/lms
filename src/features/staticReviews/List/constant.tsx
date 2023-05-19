@@ -1,19 +1,19 @@
-import { Avatar, CSSObject, MantineTheme, Text } from "@mantine/core";
-import { MRT_Cell, MRT_ColumnDef } from "mantine-react-table";
+import { Avatar, Text } from "@mantine/core";
+import { MRT_ColumnDef } from "mantine-react-table";
 import { Camera } from "react-feather";
 import { AdminStaticReview } from "@entities/staticReview";
 import { Tooltip } from "@shared/ui";
 
-export const columnOrder = ["avatarUrl", "fullName", "position", "videoName", "quote", "mrt-row-actions"];
+export const columnOrder = ["authorAvatar.absolutePath", "lastName", "position", "video.name", "quote", "mrt-row-actions"];
 
 export const columns: MRT_ColumnDef<AdminStaticReview>["columns"] = [
     {
         header: "Фото",
-        accessorKey: "avatarUrl",
-        Cell: ({ cell }) => (
+        accessorKey: "authorAvatar.absolutePath",
+        Cell: ({ row }) => (
             <>
                 <Avatar
-                    src={cell.getValue() as string}
+                    src={row.original.authorAvatar?.absolutePath}
                     mih={32}
                     miw={32}
                     w={32}
@@ -44,7 +44,13 @@ export const columns: MRT_ColumnDef<AdminStaticReview>["columns"] = [
     },
     {
         header: "ФИО",
-        accessorKey: "fullName",
+        accessorKey: "lastName",
+        accessorFn: (row) => {
+            if (!row.lastName || !row.firstName) {
+                return "";
+            }
+            return `${row.lastName} ${row.firstName}`;
+        },
     },
     {
         header: "Об авторе",
@@ -52,36 +58,17 @@ export const columns: MRT_ColumnDef<AdminStaticReview>["columns"] = [
     },
     {
         header: "Видео",
-        accessorKey: "videoName",
+        accessorKey: "video.name",
     },
     {
         header: "Краткий отзыв",
         accessorKey: "quote",
-        Cell: ({ cell }) => (
+        Cell: ({ row }) => (
             <>
-                <Tooltip label={cell.getValue() as string}>
-                    <Text lineClamp={1}>{cell.getValue() as string}</Text>
+                <Tooltip label={row.original.quote}>
+                    <Text lineClamp={1}>{row.original.quote}</Text>
                 </Tooltip>
             </>
         ),
     },
 ];
-
-export const getStylesForCell = (theme: MantineTheme, cell: MRT_Cell<AdminStaticReview>): CSSObject => {
-    return {
-        ":first-of-type": {
-            position: "relative",
-            ":before": {
-                content: "''",
-                position: "absolute",
-                backgroundColor: cell.row.original.isActive ? theme.colors.done[0] : theme.colors.light[0],
-                width: 4,
-                borderRadius: "0 8px 8px 0",
-                height: "100%",
-                top: 1,
-                bottom: 1,
-                left: 0,
-            },
-        },
-    };
-};

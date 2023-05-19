@@ -2,36 +2,27 @@ import { z } from "zod";
 import { $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 export type AdminStaticReview = z.infer<typeof $adminStaticReview>;
-export type AdminStaticReviewDetail = z.infer<typeof $adminStaticReviewDetail>;
 
 export type GetAdminStaticReviewsResponse = z.infer<typeof $getAdminStaticReviewsResponse>;
 export type CreateAdminStaticReviewRequest = z.infer<typeof $createAdminStaticReviewRequest>;
 export type UpdateAdminStaticReviewRequest = z.infer<typeof $updateAdminStaticReviewRequest>;
+export type UpdateActivityStaticReviewRequest = z.infer<typeof $updateActivityStaticReviewRequest>;
+export type UpdateActivityStaticReviewResponse = z.infer<typeof $updateActivityStaticReviewResponse>;
 
 export type GetAdminStaticReviewsRequest = TDefaultRequestParams;
 
 export const $adminStaticReview = z.object({
     id: z.number(),
-    avatarUrl: z.string().nullable(), //TODO:
-    fullName: z.string(),
-    position: z.string().nullable(),
-    quote: z.string().nullable(),
-    videoName: z.string(),
-    isActive: z.boolean(),
-});
-
-export const $adminStaticReviewDetail = z.object({
-    id: z.number(),
-    isActive: z.boolean(),
-    avatarUrl: z.string().nullable(), //TODO:
-    videoUrl: z.string().nullable(), //TODO:
-    previewUrl: z.string().nullable(), //TODO:
+    authorAvatar: $UploadedFile.nullable(),
     authorIsActive: z.boolean(),
-    firstName: z.string(),
-    lastName: z.string(),
-    position: z.string().nullable(),
-    quote: z.string().nullable(),
     content: z.string(),
+    firstName: z.string().nullish(),
+    lastName: z.string().nullish(),
+    position: z.string().nullable(),
+    isActive: z.boolean(),
+    preview: $UploadedFile.nullable(), //TODO:
+    quote: z.string().nullable(),
+    video: $UploadedFile.nullable(), //TODO:
 });
 
 export const $getAdminStaticReviewsResponse = $getPaginationResponseType($adminStaticReview);
@@ -44,8 +35,8 @@ export const $createAdminStaticReviewRequest = z
         content: z.string({ required_error: "Введите заголовок" }),
         authorIsActive: z.boolean(),
         authorAvatarId: z.number().optional(),
-        firstName: z.string().optional(),
-        lastName: z.string().optional(),
+        firstName: z.string().nullish(),
+        lastName: z.string().nullish(),
         position: z.string().optional(),
         quote: z.string().optional(),
         preview: $UploadedFile.nullable().refine((value) => value !== null, {
@@ -81,47 +72,13 @@ export const $createAdminStaticReviewRequest = z
         }
     );
 
-export const $updateAdminStaticReviewRequest = z
-    .object({
-        isActive: z.boolean(),
-        videoId: z.number().optional(),
-        previewId: z.number().optional(),
-        content: z.string({ required_error: "Введите заголовок" }),
-        authorIsActive: z.boolean(),
-        authorAvatarId: z.number().optional(),
-        firstName: z.string().optional(),
-        lastName: z.string().optional(),
-        position: z.string().optional(),
-        quote: z.string().optional(),
-        preview: $UploadedFile.nullable().refine((value) => value !== null, {
-            message: "Выберите изображение",
-        }),
-        avatar: $UploadedFile.nullable(),
-        video: $UploadedFile.nullable().refine((value) => value !== null, {
-            message: "Выберите видео",
-        }),
-    })
-    .refine(
-        (data) => {
-            if (!data.authorIsActive) {
-                return true;
-            }
-            return !!data.firstName;
-        },
-        {
-            message: "Введите имя",
-            path: ["firstName"],
-        }
-    )
-    .refine(
-        (data) => {
-            if (!data.authorIsActive) {
-                return true;
-            }
-            return !!data.lastName;
-        },
-        {
-            message: "Введите фамилию",
-            path: ["lastName"],
-        }
-    );
+export const $updateAdminStaticReviewRequest = $createAdminStaticReviewRequest;
+
+export const $updateActivityStaticReviewRequest = z.object({
+    id: z.number(),
+    isActive: z.boolean(),
+});
+
+export const $updateActivityStaticReviewResponse = z.object({
+    isActive: z.boolean(),
+});
