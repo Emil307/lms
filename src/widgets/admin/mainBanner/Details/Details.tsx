@@ -2,6 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { IconAlignLeft, IconClipboardText } from "@tabler/icons-react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
 import { useMainBanner } from "@entities/staticPage";
@@ -9,10 +10,10 @@ import useStyles from "./Details.styles";
 
 const Details = () => {
     const { classes } = useStyles();
+    const router = useRouter();
     const { data } = useMainBanner();
 
-    //TODO: Добавить редирект на страницу редактирования банера
-    const openBannerEditPage = () => undefined;
+    const openBannerEditPage = () => router.push("/admin/settings/main-page/banner/edit");
 
     return (
         <Box>
@@ -36,9 +37,9 @@ const Details = () => {
                     <Flex className={classes.bannerCardInfo}>
                         <Box className={classes.imageWrapper}>
                             <Image
-                                src={data?.image.data.absolutePath || ""}
+                                src={data?.image.absolutePath || ""}
                                 loader={({ src }) => `${src}`}
-                                alt={data?.image.data.name || ""}
+                                alt={data?.image.name || ""}
                                 fill
                                 sizes="100vw"
                                 style={{

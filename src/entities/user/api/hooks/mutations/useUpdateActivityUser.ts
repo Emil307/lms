@@ -77,7 +77,8 @@ export const useUpdateActivityStatusUser = (id: string): UseMutationResult<void,
                 .getQueriesData<GetUsersResponse>([QueryKeys.GET_STUDENTS])?.[0]?.[1]
                 ?.data.find((user) => user.id.toString() === id);
 
-            const statusMessage = userData?.isActive ? "активирован" : "деактивирован";
+            const statusMessage =
+                userData?.isActive || userFromList?.isActive || studentFromList?.isActive ? "активирован" : "деактивирован";
             const fio = getFullNameFromProfile(userData?.profile || userFromList?.profile || studentFromList?.profile);
             createNotification({
                 type: ToastType.INFO,

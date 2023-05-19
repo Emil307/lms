@@ -1,5 +1,5 @@
-import { $profile } from "./profile";
 import { z, ZodRawShape, ZodTypeAny } from "zod";
+import { $profile } from "./profile";
 
 export interface TRouterQueries {
     id: string;

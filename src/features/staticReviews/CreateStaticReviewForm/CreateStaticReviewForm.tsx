@@ -1,15 +1,19 @@
 import { Box, Text, Flex, Avatar } from "@mantine/core";
-import { FormikConfig } from "formik";
+
 import React from "react";
-import { useMantineTheme } from "@mantine/core";
 import { Edit3, User, Video } from "react-feather";
-import axios from "axios";
-import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, Form, FSwitch, FTextarea } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { $createAdminStaticReviewRequest, CreateAdminStaticReviewRequest, useCreateStaticReview } from "@entities/staticReview";
+import {
+    $createAdminStaticReviewRequest,
+    AdminStaticReview,
+    CreateAdminStaticReviewRequest,
+    staticReviewApi,
+} from "@entities/staticReview";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import useStyles from "./CreateStaticReviewForm.styles";
 
@@ -19,42 +23,50 @@ export interface CreateStaticReviewFormProps {
 
 const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
     const { classes } = useStyles();
-    const router = useRouter();
-    const theme = useMantineTheme();
 
-    const createStaticReview = useCreateStaticReview();
-
-    const config: FormikConfig<CreateAdminStaticReviewRequest> = {
-        initialValues,
-        enableReinitialize: true,
-        validationSchema: $createAdminStaticReviewRequest,
-        onSubmit: (values, { setFieldError }) => {
-            createStaticReview.mutate(
-                { ...values, authorAvatarId: values.avatar?.id, previewId: values.preview?.id, videoId: values.video?.id },
-                {
-                    onSuccess: () => {
-                        router.push({ pathname: "/admin/settings/main-page/reviews" });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
-                        }
-                    },
-                }
-            );
-        },
+    const createStaticReview = (values: CreateAdminStaticReviewRequest) => {
+        return staticReviewApi.createStaticReview({
+            ...values,
+            authorAvatarId: values.avatar?.id,
+            previewId: values.preview?.id,
+            videoId: values.video?.id,
+        });
     };
+
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Создание отзыва",
+            message: "Статический отзыв успешно создан",
+        });
+        onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка создания статического отзыва",
+        });
+    };
+
     return (
-        <Form config={config}>
-            {({ values, dirty }) => (
+        <ManagedForm<CreateAdminStaticReviewRequest, AdminStaticReview>
+            initialValues={initialValues}
+            validationSchema={$createAdminStaticReviewRequest}
+            mutationKey={[MutationKeys.CREATE_STATIC_REVIEW]}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
+            mutationFunction={createStaticReview}
+            onSuccess={onSuccess}
+            hasConfirmModal
+            onCancel={onClose}
+            onError={onError}>
+            {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={8} mt={24} align="center">
                         <Text
-                            sx={{
+                            sx={(theme) => ({
                                 color: theme.colors.gray45[0],
-                            }}>
+                            })}>
                             Статус:
                         </Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
@@ -126,7 +138,7 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
                     </Box>
 
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
@@ -135,7 +147,7 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
                     </Flex>
                 </Flex>
             )}
-        </Form>
+        </ManagedForm>
     );
 };
 

@@ -1,13 +1,15 @@
 import { Flex, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Prompt, Tabs } from "@shared/ui";
+import { LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
 import { MainBannerDetails } from "@widgets/admin/mainBanner";
+import { useMainBanner } from "@entities/staticPage";
 import { tabsList } from "./constants";
 
 const MainBannerPage = () => {
     const router = useRouter();
     const [showPrompt, setShowPrompt] = useState(true);
+    const { data } = useMainBanner();
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
@@ -27,9 +29,13 @@ const MainBannerPage = () => {
 
     return (
         <Flex direction="column" gap={32}>
-            <Title order={1} color="dark">
-                Титульная страница
-            </Title>
+            <Flex direction="column" gap={24}>
+                <Title order={1} color="dark">
+                    Титульная страница
+                </Title>
+                <LastUpdatedInfo data={data?.lastUpdated} />
+            </Flex>
+
             <Tabs value={tabsList[1].value} tabs={tabsList} onTabChange={handleChangeTab} />
             {showPrompt && (
                 <Prompt

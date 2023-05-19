@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { UpdateStaticReviewPage } from "@pages/admin/settings";
+import { MainBannerEditPage } from "@pages/admin/settings";
 
-const UpdateReview: NextPageWithLayout = () => {
+const BannerEdit: NextPageWithLayout = () => {
     return (
-        <AdminPage title="Редактирование отзыва">
-            <UpdateStaticReviewPage />
+        <AdminPage title="Редактирование главного банера">
+            <MainBannerEditPage />
         </AdminPage>
     );
 };
 
-UpdateReview.getLayout = function (page: ReactElement) {
+BannerEdit.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default UpdateReview;
+export default BannerEdit;

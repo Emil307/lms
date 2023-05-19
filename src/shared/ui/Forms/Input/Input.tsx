@@ -1,4 +1,4 @@
-import { TextInput as MInput, Text, Group, ThemeIcon } from "@mantine/core";
+import { TextInput as MInput, Text, ThemeIcon, Flex } from "@mantine/core";
 import { memo, ReactNode, useCallback, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle, Eye, EyeOff, Info } from "react-feather";
 import { z } from "zod";
@@ -61,20 +61,20 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
+                    <Flex gap={16}>
                         <ThemeIcon variant="outline" color="done" sx={{ border: "none" }}>
                             <CheckCircle />
                         </ThemeIcon>
                         <Text>{success}</Text>
-                    </Group>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
+                    <Flex gap={16}>
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <Info />
                         </ThemeIcon>
                         <Text>{description}</Text>
-                    </Group>
+                    </Flex>
                 )}
             </>
         );

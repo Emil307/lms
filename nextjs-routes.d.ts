@@ -36,6 +36,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
     | StaticRoute<"/admin/settings/main-page/advantages">
+    | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">
     | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/reviews/create">

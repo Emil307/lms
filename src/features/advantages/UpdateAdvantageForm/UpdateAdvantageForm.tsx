@@ -1,25 +1,25 @@
 import { Flex } from "@mantine/core";
 import React from "react";
 import { Button, FInput, ManagedForm } from "@shared/ui";
-import { $CreateAdvantageRequest, Advantage, CreateAdvantageRequest, staticPageApi } from "@entities/staticPage";
+import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 
-export interface CreateAdvantageFormProps {
+export interface UpdateAdvantageFormProps {
+    data?: Advantage;
     onClose: () => void;
 }
 
-const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
-    const createAdvantage = (values: CreateAdvantageRequest) => {
-        return staticPageApi.createAdvantage(values);
+const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
+    const updateAdvantage = (values: UpdateAdvantageRequest) => {
+        return staticPageApi.updateAdvantage({ ...values, id: data?.id });
     };
 
     const onSuccess = () => {
         createNotification({
             type: ToastType.SUCCESS,
-            title: "Создание карточки преимущества",
-            message: "Карточка успешно создана",
+            title: "Изменения сохранены",
         });
         onClose();
     };
@@ -27,17 +27,23 @@ const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
     const onError = () => {
         createNotification({
             type: ToastType.WARN,
-            title: "Ошибка создания карточки преимущества",
+            title: "Ошибка обновления карточки преимущества",
         });
     };
 
     return (
-        <ManagedForm<CreateAdvantageRequest, Advantage>
-            initialValues={initialValues}
-            validationSchema={$CreateAdvantageRequest}
-            mutationKey={[MutationKeys.CREATE_ADVANTAGE]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ADVANTAGES] }]}
-            mutationFunction={createAdvantage}
+        <ManagedForm<UpdateAdvantageRequest, Advantage>
+            initialValues={{
+                ...initialValues,
+                ...data,
+            }}
+            validationSchema={$UpdateAdvantageRequest}
+            mutationKey={[MutationKeys.UPDATE_ADVANTAGE]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADVANTAGE, String(data?.id)] },
+                { queryKey: [QueryKeys.GET_ADMIN_ADVANTAGES] },
+            ]}
+            mutationFunction={updateAdvantage}
             onSuccess={onSuccess}
             onError={onError}>
             <Flex direction="column" gap={8}>
@@ -56,4 +62,4 @@ const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
     );
 };
 
-export default CreateAdvantageForm;
+export default UpdateAdvantageForm;

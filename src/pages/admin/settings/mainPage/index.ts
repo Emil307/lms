@@ -1,5 +1,6 @@
 export * from "./CreateStaticReviewPage";
-export * from "./EditStaticReviewPage";
+export * from "./UpdateStaticReviewPage";
 export * from "./StaticReviewsPage";
 export * from "./AdvantagesPage";
 export * from "./MainBannerPage";
+export * from "./MainBannerEditPage";

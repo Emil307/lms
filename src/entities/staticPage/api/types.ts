@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
+import { $LastUpdated, $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 export type FaqItem = z.infer<typeof $FaqItem>;
 export type Advantage = z.infer<typeof $Advantage>;
@@ -13,6 +13,7 @@ export type GetMainBannerResponse = z.infer<typeof $GetMainBannerResponse>;
 export type GetAdvantagesResponse = z.infer<typeof $GetAdvantagesResponse>;
 export type CreateAdvantageRequest = z.infer<typeof $CreateAdvantageRequest>;
 export type UpdateAdvantageRequest = z.infer<typeof $UpdateAdvantageRequest>;
+export type UpdateMainBannerRequest = z.infer<typeof $updateMainBannerRequest>;
 
 export type GetAdvantagesRequest = TDefaultRequestParams;
 
@@ -71,36 +72,9 @@ export const $GetMainBannerResponse = z.object({
     authorLastName: z.string(),
     authorAbout: z.string(),
     authorShortQuote: z.string(),
-    image: z.object({
-        data: z.object({
-            name: z.string(),
-            extension: z.string(),
-            size: z.number(),
-            absolutePath: z.string(),
-            id: z.number(),
-            type: z.object({
-                value: z.string(),
-                name: z.string(),
-            }),
-            isActive: z.boolean(),
-            createdAt: z.coerce.date(),
-        }),
-    }),
-    authorImage: z.object({
-        data: z.object({
-            name: z.string(),
-            extension: z.string(),
-            size: z.number(),
-            absolutePath: z.string(),
-            id: z.number(),
-            type: z.object({
-                value: z.string(),
-                name: z.string(),
-            }),
-            isActive: z.boolean(),
-            createdAt: z.coerce.date(),
-        }),
-    }),
+    image: $UploadedFile,
+    authorImage: $UploadedFile,
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $GetAdvantagesResponse = $getPaginationResponseType($Advantage);
@@ -114,3 +88,46 @@ export const $UpdateAdvantageRequest = z.object({
     title: z.string({ required_error: "Введите заголовок" }),
     description: z.string({ required_error: "Введите пояснение" }),
 });
+
+export const $updateMainBannerRequest = z
+    .object({
+        indexBannerFile: $UploadedFile.nullable().refine((value) => value !== null, {
+            message: "Выберите изображение",
+        }),
+        indexBannerAuthorAvatar: $UploadedFile.nullable(),
+        indexBannerImage: z.number().optional(),
+        indexBannerTitle: z.string({ required_error: "Введите заголовок" }),
+        indexBannerSubTitle: z.string({ required_error: "Введите подзаголовок" }),
+        indexBannerButtonText: z.string({ required_error: "Введите название кнопки" }),
+        indexBannerButtonLink: z.string({ required_error: "Укажите ссылку" }),
+        indexBannerAuthorActive: z.number().nullish(),
+        indexBannerAuthorImage: z.number().nullish(),
+        indexBannerAuthorFirstName: z.string().optional(),
+        indexBannerAuthorLastName: z.string().optional(),
+        indexBannerAuthorAbout: z.string().optional(),
+        indexBannerAuthorShortQuote: z.string().optional(),
+    })
+    .refine(
+        (data) => {
+            if (!data.indexBannerAuthorActive) {
+                return true;
+            }
+            return !!data.indexBannerAuthorFirstName;
+        },
+        {
+            message: "Введите имя",
+            path: ["indexBannerAuthorFirstName"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.indexBannerAuthorActive) {
+                return true;
+            }
+            return !!data.indexBannerAuthorLastName;
+        },
+        {
+            message: "Введите фамилию",
+            path: ["indexBannerAuthorLastName"],
+        }
+    );

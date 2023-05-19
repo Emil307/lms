@@ -63,10 +63,20 @@ export default function FFileInput({
         setInitialFilesData((prev) => prev.filter(({ fileId }) => id !== fileId));
     };
 
+    const loadedFilesData = field.value
+        ? [
+              {
+                  id: 1,
+                  data: field.value,
+              },
+          ]
+        : [];
+
     return (
         <FileInput
             {...props}
             initialFilesData={initialFilesData}
+            loadedFilesData={loadedFilesData}
             onLoad={handleLoadFile}
             onDeleteLoadedFile={handleDeleteLoadedFile}
             onDeleteInitialFile={handleDeleteInitialFile}

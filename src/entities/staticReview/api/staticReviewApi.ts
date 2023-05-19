@@ -1,44 +1,45 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $adminStaticReviewDetail,
+    $adminStaticReview,
     $getAdminStaticReviewsResponse,
-    AdminStaticReviewDetail,
+    $updateActivityStaticReviewResponse,
+    AdminStaticReview,
     CreateAdminStaticReviewRequest,
     GetAdminStaticReviewsRequest,
     GetAdminStaticReviewsResponse,
+    UpdateActivityStaticReviewRequest,
+    UpdateActivityStaticReviewResponse,
     UpdateAdminStaticReviewRequest,
 } from "./types";
 
 class StaticReviewApi extends BaseApi {
     async getAdminStaticReviews(params: GetAdminStaticReviewsRequest): Promise<GetAdminStaticReviewsResponse> {
-        const response = await this.instance.get("admin/static-reviews", {
-            params,
-        });
+        const response = await this.instance.post("admin/static-reviews/list", params);
 
         return $getAdminStaticReviewsResponse.parse(response);
     }
 
-    async getStaticReview(id: string): Promise<AdminStaticReviewDetail> {
+    async getStaticReview(id: string): Promise<AdminStaticReview> {
         const response = await this.instance.get(`admin/static-reviews/${id}`);
-        return $adminStaticReviewDetail.parse(response);
+        return $adminStaticReview.parse(response);
     }
 
-    async createStaticReview(data: CreateAdminStaticReviewRequest): Promise<AdminStaticReviewDetail> {
+    async createStaticReview(data: CreateAdminStaticReviewRequest): Promise<AdminStaticReview> {
         const response = await this.instance.post("admin/static-reviews", data);
-        return $adminStaticReviewDetail.parse(response);
+        return $adminStaticReview.parse(response);
     }
-    async updateAdminStaticReview(id: string, data: UpdateAdminStaticReviewRequest): Promise<AdminStaticReviewDetail> {
+    async updateAdminStaticReview({ id, ...data }: UpdateAdminStaticReviewRequest & { id?: number }): Promise<AdminStaticReview> {
         const response = await this.instance.put(`admin/static-reviews/${id}`, data);
-        return $adminStaticReviewDetail.parse(response);
+        return $adminStaticReview.parse(response);
     }
 
-    async activateStaticReview(id: string): Promise<void> {
-        await this.instance.put(`admin/static-reviews/${id}/activate`);
-    }
-
-    async deactivateStaticReview(id: string): Promise<void> {
-        await this.instance.put(`admin/static-reviews/${id}/deactivate`);
+    async updateActivityStatusStaticReview({
+        id,
+        isActive,
+    }: UpdateActivityStaticReviewRequest): Promise<UpdateActivityStaticReviewResponse> {
+        const response = await this.instance.put(`admin/static-reviews/${id}/activity-status`, { isActive });
+        return $updateActivityStaticReviewResponse.parse(response);
     }
 
     async deleteStaticReview(id: string): Promise<void> {

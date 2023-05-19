@@ -8,7 +8,7 @@ import { breadCrumbsItems } from "./constants";
 const CreateStaticReviewPage = () => {
     const router = useRouter();
 
-    const handleCloseForm = () => router.push("/admin/students");
+    const handleCloseForm = () => router.push("/admin/settings/main-page/reviews");
 
     return (
         <Box>

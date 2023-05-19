@@ -1,5 +1,5 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
-import { memo, useCallback, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Group, Text } from "@mantine/core";
 import { Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
@@ -72,6 +72,10 @@ const MemoizedFileInput = memo(function FileInput({
     const replaceLoadedFileId = useRef<number | null>(null);
     const [isErrorLoadFile, setIsErrorLoadFile] = useState(false);
     const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData);
+
+    useEffect(() => {
+        setLoadedFiles(loadedFilesData);
+    }, [loadedFilesData]);
 
     const { classes } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
 
