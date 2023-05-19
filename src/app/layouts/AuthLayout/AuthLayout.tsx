@@ -10,17 +10,19 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();
     return (
         <Box>
-            <Image
-                src={backgroundImageAuth}
-                alt="background"
-                loader={({ src }) => `${src}`}
-                fill
-                sizes="100vw"
-                style={{
-                    objectFit: "cover",
-                    objectPosition: "center",
-                }}
-            />
+            <Box className={classes.imageWrapper}>
+                <Image
+                    src={backgroundImageAuth}
+                    alt="background"
+                    loader={({ src }) => `${src}`}
+                    fill
+                    sizes="100vw"
+                    style={{
+                        objectFit: "cover",
+                        objectPosition: "center",
+                    }}
+                />
+            </Box>
             <AppShell
                 footer={
                     <Footer height="auto" p="lg" bg="transparent" className={classes.footerRoot}>
