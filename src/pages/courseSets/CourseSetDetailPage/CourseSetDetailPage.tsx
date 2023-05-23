@@ -49,7 +49,7 @@ const CourseSetDetailPage = () => {
                 <Title order={2} color="dark">
                     Другие актуальные подборки
                 </Title>
-                <CourseSetList perPage={1} hasCardMore />
+                <CourseSetList perPage={1} hasCardMore exceptionCourseSetId={id} />
             </Flex>
         </Flex>
     );
