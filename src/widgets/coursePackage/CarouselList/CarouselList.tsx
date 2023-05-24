@@ -5,18 +5,23 @@ import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
 import { CourseListFromPackage, CoursePackageCard } from "@features/coursePackages";
 import useStyles from "./CarouselList.styles";
+import { adaptDataForUpdateAboutForm } from "./utils";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     title: string;
     titleProps?: TitleProps;
     description?: string;
+    exceptionCoursePackageId?: string;
 }
 
-const CarouselList = ({ title, description, titleProps, ...props }: CarouselListProps) => {
+const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, ...props }: CarouselListProps) => {
     const { classes } = useStyles();
 
-    //TODO: Добавить возможность фильтрации на исключение одного пакета
-    const { data: coursePackages, hasNextPage, fetchNextPage } = useCoursePackages();
+    const {
+        data: coursePackages,
+        hasNextPage,
+        fetchNextPage,
+    } = useCoursePackages(adaptDataForUpdateAboutForm({ exceptionCoursePackageId }));
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
