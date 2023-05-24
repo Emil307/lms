@@ -1,11 +1,14 @@
 import { z } from "zod";
-import { $Discount, $UploadedFile, $getPaginationResponseType } from "@shared/types";
+import { $Discount, $UploadedFile, $getFiltersRequestType, $getMultiValueObjectType, $getPaginationResponseType } from "@shared/types";
 import { $Course } from "@entities/course";
 
 export type CoursePackage = z.infer<typeof $CoursePackage>;
 export type CoursePackageDetail = z.infer<typeof $CoursePackageDetail>;
 export type CourseFromCoursePackage = z.infer<typeof $CourseFromCoursePackage>;
 
+export type CoursePackagesFiltersForm = z.infer<typeof $CoursePackagesFiltersForm>;
+
+export type GetCoursePackagesRequest = z.infer<typeof $GetCoursePackagesRequest>;
 export type GetCoursePackagesResponse = z.infer<typeof $GetCoursePackagesResponse>;
 
 export const $CourseFromCoursePackage = $Course
@@ -46,3 +49,17 @@ export const $CoursePackageDetail = $CoursePackage.extend({
 });
 
 export const $GetCoursePackagesResponse = $getPaginationResponseType($CoursePackage);
+
+export const $CoursePackagesRequest = z.object({
+    filter: z
+        .object({
+            id: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetCoursePackagesRequest = $getFiltersRequestType($CoursePackagesRequest).partial();
+
+export const $CoursePackagesFiltersForm = z.object({
+    exceptionCoursePackageId: z.string().optional(),
+});

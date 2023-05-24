@@ -27,7 +27,7 @@ const CoursePackageDetailPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ packageName: data.name, id })} />
             <MainInfoPanel data={data} />
             <CourseCarouselList packageId={id} mb={32} />
-            <CoursePackageCarouselList title="Другие пакетные предложения" />
+            <CoursePackageCarouselList title="Другие пакетные предложения" exceptionCoursePackageId={id} />
         </Box>
     );
 };
