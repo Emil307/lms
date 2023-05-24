@@ -7,7 +7,7 @@ import axios from "axios";
 import { Button, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { useFormStyles } from "@features/auth";
-import { $recoveryPasswordRequest, RecoveryPasswordRequest, useRecoveryPassword } from "@entities/auth";
+import { $RecoveryPasswordRequest, RecoveryPasswordRequest, useRecoveryPassword } from "@entities/auth";
 
 export interface ForgotPasswordFormProps {}
 
@@ -22,7 +22,7 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
         initialValues: {
             email: "",
         },
-        validationSchema: $recoveryPasswordRequest,
+        validationSchema: $RecoveryPasswordRequest,
         onSubmit: (values, { setFieldError }) => {
             recovery(values, {
                 onError: (error) => {

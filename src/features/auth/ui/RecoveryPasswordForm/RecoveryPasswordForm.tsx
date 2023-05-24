@@ -4,7 +4,7 @@ import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button, FInput, Form } from "@shared/ui";
-import { $recoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
+import { $RecoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { Logo } from "@components/Logo";
 import { useResetPassword } from "@entities/auth";
 
@@ -22,7 +22,7 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
             password: "",
             passwordConfirmation: "",
         },
-        validationSchema: $recoveryPasswordFormValidationSchema,
+        validationSchema: $RecoveryPasswordFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             resetPassword(values, {
                 onError: (error) => {

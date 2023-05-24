@@ -1,12 +1,12 @@
 import { User, UpdateMeRequest } from "@entities/auth";
 
-export const adaptDataForProfileEditForm = (user?: User): UpdateMeRequest => {
+export const adaptDataForProfileEditForm = (user?: User): Partial<UpdateMeRequest> => {
     return {
-        firstName: user?.profile.firstName || "",
-        lastName: user?.profile.lastName || "",
+        firstName: user?.profile.firstName,
+        lastName: user?.profile.lastName,
         patronymic: user?.profile.patronymic || "",
-        email: user?.email || "",
-        role: user?.roles?.[0].displayName || "",
+        email: user?.email,
+        role: user?.roles[0].displayName,
         avatar: user?.profile.avatar,
     };
 };

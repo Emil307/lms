@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { $UploadedFile, $profile, $role } from "@shared/types";
+import { $UserNotifications } from "@entities/notification";
 
 export interface ChangePasswordRequest {
     oldPassword: string;
@@ -7,34 +8,36 @@ export interface ChangePasswordRequest {
     passwordConfirmation: string;
 }
 
-export type User = z.infer<typeof $user>;
-export type UpdateMeRequest = z.infer<typeof $updateMeRequest>;
-export type UpdateMeResponse = z.infer<typeof $updateMeResponse>;
-export type SignUpRequest = z.infer<typeof $signUpRequest>;
-export type SignUpResponse = z.infer<typeof $signUpResponse>;
-export type AuthenticateResponse = z.infer<typeof $authenticateResponse>;
-export type ResetPasswordRequest = z.infer<typeof $resetPasswordRequest>;
-export type RecoveryPasswordRequest = z.infer<typeof $recoveryPasswordRequest>;
+export type User = z.infer<typeof $User>;
 
-export const $user = z.object({
+export type UpdateMeRequest = z.infer<typeof $UpdateMeRequest>;
+export type UpdateMeResponse = z.infer<typeof $UpdateMeResponse>;
+export type SignUpRequest = z.infer<typeof $SignUpRequest>;
+export type SignUpResponse = z.infer<typeof $SignUpResponse>;
+export type AuthenticateResponse = z.infer<typeof $AuthenticateResponse>;
+export type ResetPasswordRequest = z.infer<typeof $ResetPasswordRequest>;
+export type RecoveryPasswordRequest = z.infer<typeof $RecoveryPasswordRequest>;
+
+export const $User = z.object({
     id: z.number(),
     email: z.string(),
     profile: $profile,
     roles: z.array($role),
+    notifications: $UserNotifications,
 });
 
-export const $recoveryPasswordRequest = z.object({
+export const $RecoveryPasswordRequest = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
 });
 
-export const $resetPasswordRequest = z.object({
+export const $ResetPasswordRequest = z.object({
     password: z.string(),
     passwordConfirmation: z.string(),
     token: z.string(),
     email: z.string(),
 });
 
-export const $updateMeRequest = z.object({
+export const $UpdateMeRequest = z.object({
     firstName: z.string({ required_error: "Введите имя" }),
     lastName: z.string({ required_error: "Введите фамилию" }),
     patronymic: z.string().optional(),
@@ -43,9 +46,9 @@ export const $updateMeRequest = z.object({
     role: z.string(),
 });
 
-export const $updateMeResponse = $user.omit({ roles: true });
+export const $UpdateMeResponse = $User.omit({ roles: true, notifications: true });
 
-export const $signUpRequest = z.object({
+export const $SignUpRequest = z.object({
     firstName: z.string(),
     lastName: z.string(),
     email: z.string(),
@@ -53,7 +56,7 @@ export const $signUpRequest = z.object({
     passwordConfirmation: z.string(),
 });
 
-export const $signUpResponse = z.object({
+export const $SignUpResponse = z.object({
     data: z.object({
         tokenType: z.string(),
         expiresIn: z.number(),
@@ -61,11 +64,11 @@ export const $signUpResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $user,
+        user: $User.omit({ notifications: true }),
     }),
 });
 
-export const $authenticateResponse = z.object({
+export const $AuthenticateResponse = z.object({
     data: z.object({
         tokenType: z.string(),
         expiresIn: z.number(),
@@ -73,6 +76,6 @@ export const $authenticateResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $user,
+        user: $User.omit({ notifications: true }),
     }),
 });

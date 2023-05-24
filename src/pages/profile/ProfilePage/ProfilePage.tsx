@@ -1,6 +1,6 @@
 import { Box, Flex, LoadingOverlay, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
-import { Settings, Shield, User as UserIcon } from "react-feather";
+import { Bell, Settings, Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { BreadCrumbs, Button, DisplayField } from "@shared/ui";
@@ -8,11 +8,16 @@ import { ProfileInfo } from "@components/ProfileInfo";
 import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
-import { breadCrumbsItems, fields } from "@pages/profile/ProfilePage/constants";
+import { List as NotificationList } from "@widgets/notifications";
+import { useUpdateUserNotification } from "@entities/notification";
+import { breadCrumbsItems, fields } from "./constants";
+import useStyles from "./ProfilePage.styles";
 
 const ProfilePage = () => {
     const router = useRouter();
+    const { classes } = useStyles();
     const { data: userData, isLoading } = useMe();
+    const { mutate: updateNotification } = useUpdateUserNotification();
 
     const handleRedirectEditProfile = () => router.push("/profile/edit");
 
@@ -26,6 +31,10 @@ const ProfilePage = () => {
             size: 408,
             children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
         });
+
+    const handleChangeNotification = (notification: string, isActive: boolean) => {
+        updateNotification({ notification, isActive });
+    };
 
     if (isLoading) {
         return <LoadingOverlay visible overlayBlur={2} />;
@@ -42,15 +51,7 @@ const ProfilePage = () => {
                     Настройки профиля
                 </Title>
             </Flex>
-            <Box
-                sx={(theme) => ({
-                    display: "grid",
-                    gridTemplateColumns: "1fr 334px",
-                    padding: 32,
-                    gap: 56,
-                    borderRadius: 24,
-                    backgroundColor: theme.colors.white[0],
-                })}>
+            <Box className={classes.content}>
                 <Flex direction="column" gap={24}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
@@ -63,26 +64,9 @@ const ProfilePage = () => {
                         <DisplayField label="Email" value={userData?.email} />
                     </Fieldset>
 
-                    {/* TODO: Скрыто, так нет функционала для работы с уведомлениями */}
-                    {/* <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                        <Box
-                            sx={(theme) => ({
-                                padding: 4,
-                                borderRadius: 12,
-                                backgroundColor: theme.colors.light[0],
-                            })}
-                            w="100%">
-                            {notifications.map((notification) => (
-                                <ControlPanel
-                                    key={notification.id}
-                                    label={notification.label}
-                                    variant="primary"
-                                    checked={notification.value}
-                                    onChange={() => handleChange(notification.id)}
-                                />
-                            ))}
-                        </Box>
-                    </Fieldset> */}
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <NotificationList notifications={userData?.notifications} variant="primary" onChange={handleChangeNotification} />
+                    </Fieldset>
                 </Flex>
                 <Box>
                     <ProfileInfo<User>

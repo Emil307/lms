@@ -2,14 +2,14 @@ import React from "react";
 import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { ProfileEditPage } from "@pages/profile";
+import { UpdateProfilePage } from "@pages/profile";
 
-const ProfileEdit: NextPageWithLayout = () => {
-    return <ProfileEditPage />;
+const UpdateProfile: NextPageWithLayout = () => {
+    return <UpdateProfilePage />;
 };
 
-ProfileEdit.getLayout = function (page: ReactElement) {
+UpdateProfile.getLayout = function (page: ReactElement) {
     return <UserLayout>{page} </UserLayout>;
 };
 
-export default ProfileEdit;
+export default UpdateProfile;

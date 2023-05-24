@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
 import { Button, FInput, ManagedForm } from "@shared/ui";
 import { authApi } from "@entities/auth";
-import { $changePasswordFormValidationSchema, ChangePasswordFormData } from "@features/auth";
+import { $ChangePasswordFormValidationSchema, ChangePasswordFormData } from "@features/auth";
 import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
@@ -36,7 +36,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
         <Box>
             <ManagedForm<ChangePasswordFormData, void>
                 initialValues={initialValues}
-                validationSchema={$changePasswordFormValidationSchema}
+                validationSchema={$ChangePasswordFormValidationSchema}
                 mutationKey={[MutationKeys.CHANGE_PASSWORD]}
                 mutationFunction={changePassword}
                 onSuccess={onSuccess}

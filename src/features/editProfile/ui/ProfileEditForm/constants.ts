@@ -1,6 +1,6 @@
 import { UpdateMeRequest } from "@entities/auth";
 
-export const initialValuesProfileEditForm: UpdateMeRequest = {
+export const initialValues: UpdateMeRequest = {
     firstName: "",
     lastName: "",
     patronymic: "",

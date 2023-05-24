@@ -3,12 +3,13 @@ import { Edit3, Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Button, FFileButton, FInput, ManagedForm } from "@shared/ui";
-import { adaptDataForProfileEditForm, initialValuesProfileEditForm } from "@features/editProfile";
-import { $updateMeRequest, User, UpdateMeRequest, UpdateMeResponse, authApi } from "@entities/auth";
+import { adaptDataForProfileEditForm } from "@features/editProfile";
+import { $UpdateMeRequest, User, UpdateMeRequest, UpdateMeResponse, authApi } from "@entities/auth";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import useStyles from "./ProfileEditForm.styles";
+import { initialValues } from "./constants";
 
 export interface ProfileEditFormProps {
     data?: User;
@@ -47,8 +48,8 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
 
     return (
         <ManagedForm<UpdateMeRequest, UpdateMeResponse>
-            initialValues={{ ...initialValuesProfileEditForm, ...adaptData }}
-            validationSchema={$updateMeRequest}
+            initialValues={{ ...initialValues, ...adaptData }}
+            validationSchema={$UpdateMeRequest}
             mutationKey={[MutationKeys.UPDATE_ME]}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ME] }]}
             mutationFunction={updateMe}

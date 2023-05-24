@@ -8,7 +8,7 @@ import { useMe } from "@entities/auth";
 import { ChangePasswordForm } from "@features/auth";
 import { breadCrumbsItems } from "./constants";
 
-const ProfileEditPage = () => {
+const UpdateProfilePage = () => {
     const { data: userData, isLoading } = useMe();
 
     const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
@@ -50,4 +50,4 @@ const ProfileEditPage = () => {
     );
 };
 
-export default ProfileEditPage;
+export default UpdateProfilePage;

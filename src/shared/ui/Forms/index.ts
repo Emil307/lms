@@ -19,3 +19,4 @@ export * from "./TimeInput";
 export * from "./TextEditor";
 export * from "./Textarea";
 export * from "./CheckboxGroup";
+export * from "./ControlPanel";
