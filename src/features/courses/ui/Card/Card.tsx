@@ -2,8 +2,10 @@ import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text, Flex }
 import { memo } from "react";
 import Image from "next/image";
 import { Course } from "@entities/course";
+import { getPluralString } from "@shared/utils";
+import IconStarFour from "public/icons/starFour.svg";
 import useStyles from "./Card.styles";
-import { AmountInfo, StartDateBlock } from "./components";
+import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;
@@ -11,9 +13,7 @@ export interface CardProps extends Omit<MCardProps, "children"> {
 
 const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
     const { classes } = useStyles({
-        // TODO: Добавить isFavorite когда бек поправит
-        isFavorite: false,
-        // data.isFavorite
+        isFavorite: data.isFavorite,
     });
 
     const handleClickCard = () => undefined;
@@ -57,17 +57,15 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                     </Text>
                     <StartDateBlock />
                 </Box>
-                {/* TODO: Добавить кол-во уроков и isFavorite  когда бек поправит*/}
                 <Group sx={{ justifyContent: "space-between" }}>
                     <Flex direction="column">
-                        {/* <Group sx={{ gap: 6 }}>
+                        <Group sx={{ gap: 6 }}>
                             <IconStarFour />
-
-                            <Text>{`${data.lessonCount} ${getPluralString(data.lessonCount, "урок", "урока", "уроков")}`}</Text>
-                        </Group> */}
+                            <Text>{`${data.lessonsCount} ${getPluralString(data.lessonsCount, "урок", "урока", "уроков")}`}</Text>
+                        </Group>
                         <AmountInfo data={data} />
                     </Flex>
-                    {/* <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} /> */}
+                    <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />
                 </Group>
             </MCard.Section>
         </MCard>

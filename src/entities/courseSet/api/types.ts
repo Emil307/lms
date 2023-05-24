@@ -1,12 +1,14 @@
 import { z } from "zod";
-import { $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
+import { $UploadedFile, $getFiltersRequestType, $getMultiValueObjectType, $getPaginationResponseType } from "@shared/types";
 
 export type CourseSet = z.infer<typeof $CourseSet>;
 export type CourseSetDetail = z.infer<typeof $CourseSetDetail>;
 export type CourseFromCourseSet = z.infer<typeof $CourseFromCourseSet>;
 
+export type CourseSetsFiltersForm = z.infer<typeof $CourseSetsFiltersForm>;
+
 export type GetCourseSetRequest = z.infer<typeof $GetCourseSetRequest>;
-export type GetCourseSetsRequest = TDefaultRequestParams;
+export type GetCourseSetsRequest = z.infer<typeof $GetCourseSetsRequest>;
 export type GetCourseSetsResponse = z.infer<typeof $GetCourseSetsResponse>;
 
 export const $CourseFromCourseSet = z.object({
@@ -58,4 +60,21 @@ export const $GetCourseSetResponse = z.object({
     }),
     description: z.string(),
     courses: $getPaginationResponseType($CourseSet),
+});
+
+export const $CourseSetsRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            id: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetCourseSetsRequest = $getFiltersRequestType($CourseSetsRequest);
+
+export const $CourseSetsFiltersForm = z.object({
+    exceptionCourseSetId: z.string().optional(),
+    perPage: z.number(),
+    page: z.number(),
 });

@@ -263,6 +263,8 @@ export const $Course = z.object({
     discountPrice: z.number(),
     type: z.literal("interactive").or(z.literal("autonomous")),
     startingDate: z.coerce.date(),
+    isFavorite: z.boolean(),
+    lessonsCount: z.number(),
     cover: $UploadedFile.nullable(),
     category: z
         .object({
