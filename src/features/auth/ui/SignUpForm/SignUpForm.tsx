@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Button, FCheckbox, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
-import { $signUpFormValidationSchema, SignUpFormData, useFormStyles } from "@features/auth";
+import { $SignUpFormValidationSchema, SignUpFormData, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
 
 export interface SignUpFormProps {}
@@ -29,7 +29,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
             },
             agreementWithConditionsAndTerms: false,
         },
-        validationSchema: $signUpFormValidationSchema,
+        validationSchema: $SignUpFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             signUp(
                 { ...values, ...values.passwords },

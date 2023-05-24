@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
 
-export const $authFormValidationSchema = z.object({
+export const $AuthFormValidationSchema = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
     // TODO: вернуть как у всех тестовых учеток будут валидные пароли
     password: z.string({ required_error: "Введите пароль" }), //.regex(REGEXP_PASSWORD, "Неверный формат"),
 });
 
-export const $signUpFormValidationSchema = z.object({
+export const $SignUpFormValidationSchema = z.object({
     firstName: z.string({ required_error: "Введите имя" }),
     lastName: z.string({ required_error: "Введите фамилию" }),
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
@@ -25,7 +25,7 @@ export const $signUpFormValidationSchema = z.object({
     }),
 });
 
-export const $recoveryPasswordFormValidationSchema = z
+export const $RecoveryPasswordFormValidationSchema = z
     .object({
         password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
         passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
@@ -35,7 +35,7 @@ export const $recoveryPasswordFormValidationSchema = z
         path: ["passwordConfirmation"],
     });
 
-export const $changePasswordFormValidationSchema = z.object({
+export const $ChangePasswordFormValidationSchema = z.object({
     oldPassword: z.string({ required_error: "Введите пароль" }),
     newPasswords: z
         .object({
@@ -48,7 +48,7 @@ export const $changePasswordFormValidationSchema = z.object({
         }),
 });
 
-export type AuthData = z.infer<typeof $authFormValidationSchema>;
-export type SignUpFormData = z.infer<typeof $signUpFormValidationSchema>;
-export type RecoveryPasswordFormData = z.infer<typeof $recoveryPasswordFormValidationSchema>;
-export type ChangePasswordFormData = z.infer<typeof $changePasswordFormValidationSchema>;
+export type AuthData = z.infer<typeof $AuthFormValidationSchema>;
+export type SignUpFormData = z.infer<typeof $SignUpFormValidationSchema>;
+export type RecoveryPasswordFormData = z.infer<typeof $RecoveryPasswordFormValidationSchema>;
+export type ChangePasswordFormData = z.infer<typeof $ChangePasswordFormValidationSchema>;

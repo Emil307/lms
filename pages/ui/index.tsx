@@ -40,8 +40,9 @@ import {
     FTimeInput,
     FTextEditor,
     TextEditor,
+    ControlPanel,
+    FControlPanel,
 } from "@shared/ui";
-import { ControlPanel, FControlPanel } from "@components/Forms";
 import { ReviewForm } from "@features/review";
 import { createNotification, ToastType } from "@shared/utils";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";

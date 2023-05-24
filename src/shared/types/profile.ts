@@ -4,7 +4,7 @@ import { $UploadedFile } from "./uploadedFile";
 export const $profile = z.object({
     id: z.number(),
     firstName: z.string(),
-    lastName: z.string().nullable(),
+    lastName: z.string(),
     patronymic: z.string().nullable(),
     avatar: $UploadedFile.nullable(),
     description: z.string().nullable(),

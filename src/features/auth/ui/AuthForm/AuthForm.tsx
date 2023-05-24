@@ -5,7 +5,7 @@ import { AtSign, Shield } from "react-feather";
 import axios from "axios";
 import { Button, Checkbox, FInput, Form } from "@shared/ui";
 import { Logo } from "@components/Logo";
-import { $authFormValidationSchema, AuthData, useFormStyles } from "@features/auth";
+import { $AuthFormValidationSchema, AuthData, useFormStyles } from "@features/auth";
 import { useAuthenticateMe } from "@entities/auth";
 
 export interface AuthFormProps {}
@@ -21,7 +21,7 @@ const AuthForm = (_props: AuthFormProps) => {
             email: "",
             password: "",
         },
-        validationSchema: $authFormValidationSchema,
+        validationSchema: $AuthFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             authenticate(values, {
                 onError: (error) => {

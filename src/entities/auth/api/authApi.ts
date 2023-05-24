@@ -7,32 +7,32 @@ import {
     UpdateMeRequest,
     UpdateMeResponse,
     SignUpRequest,
-    $user,
-    $signUpResponse,
     SignUpResponse,
-    $updateMeResponse,
     AuthenticateResponse,
-    $authenticateResponse,
     ResetPasswordRequest,
     RecoveryPasswordRequest,
+    $User,
+    $AuthenticateResponse,
+    $SignUpResponse,
+    $UpdateMeResponse,
 } from "./types";
 
 class AuthApi extends BaseApi {
     async getMe(): Promise<User> {
         const response = await this.instance.get("authentication/user");
-        return $user.parse(response);
+        return $User.parse(response);
     }
     async authenticateMe(data: AuthData): Promise<AuthenticateResponse> {
         const response = await this.instance.post("authentication/authenticate", data);
-        return $authenticateResponse.parse(response);
+        return $AuthenticateResponse.parse(response);
     }
     async signUp(data: SignUpRequest): Promise<SignUpResponse> {
         const response = await this.instance.post("authentication/register", data);
-        return $signUpResponse.parse(response);
+        return $SignUpResponse.parse(response);
     }
     async updateMe(data: UpdateMeRequest): Promise<UpdateMeResponse> {
         const response = await this.instance.put("me/update", data);
-        return $updateMeResponse.parse(response);
+        return $UpdateMeResponse.parse(response);
     }
     changePassword(payload: ChangePasswordRequest): Promise<void> {
         return this.instance.put("me/change-password", payload);
