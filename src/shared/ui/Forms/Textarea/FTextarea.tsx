@@ -10,7 +10,7 @@ const FTextarea = (props: FTextareaProps) => {
     const [field, meta] = useField(props.name);
     const error = (meta.touched && meta.error) || null;
 
-    return <Textarea {...props} name={props.name} value={field.value} onChange={field.onChange} error={error} />;
+    return <Textarea {...props} name={props.name} value={field.value} onBlur={field.onBlur} onChange={field.onChange} error={error} />;
 };
 
 export default FTextarea;

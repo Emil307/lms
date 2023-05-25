@@ -6,6 +6,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { ConfirmActionModal } from "@shared/ui/ConfirmActionModal";
 import { queryClient } from "@app/providers";
 import Form, { FormProps } from "./Form";
+import { DetectorFormUpdate } from "@shared/ui/Forms/Form/components";
 
 type ExtendedProps<F extends FormikValues = FormikValues> = Omit<FormProps<F>, "config">;
 
@@ -13,11 +14,13 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     mutationKey: MutationKey;
     keysInvalidateQueries?: { queryKey?: QueryKey; filters?: InvalidateQueryFilters<unknown>; options?: InvalidateOptions }[];
     mutationFunction: (params: F) => Promise<R>;
+    onChange?: (formikProps: FormikProps<F>) => void;
     onSuccess: (response: R, formikHelpers: Omit<FormikHelpers<F>, "setFieldError">) => void;
     onError?: (error: unknown) => void;
     onCancel?: () => void;
     initialValues: FormikConfig<F>["initialValues"];
     validationSchema?: FormikConfig<F>["validationSchema"];
+    validateOnChange?: boolean;
     hasConfirmModal?: boolean;
     children: React.ReactNode | ((props: FormikProps<F> & { onCancel: () => void }) => React.ReactNode);
 }
@@ -27,10 +30,12 @@ export default function ManagedForm<F extends FormikValues, R>({
     keysInvalidateQueries,
     mutationFunction,
     onSuccess,
+    onChange = () => undefined,
     onCancel = () => undefined,
     onError = () => undefined,
     initialValues,
     validationSchema,
+    validateOnChange = true,
     children,
     ...form
 }: ManagedFormProps<F, R>) {
@@ -82,23 +87,32 @@ export default function ManagedForm<F extends FormikValues, R>({
         });
     };
 
+    const renderForm = (formikProps: FormikProps<F>) => {
+        if (typeof children === "function") {
+            return children({
+                ...formikProps,
+                onCancel: () => handleCancel(formikProps.dirty),
+            });
+        }
+        return children;
+    };
+
     const cfg: FormikConfig<F> = {
         initialValues,
         validationSchema,
         enableReinitialize: true,
+        validateOnChange: validateOnChange,
         onSubmit: handleSubmit,
     };
 
     return (
         <Form {...form} config={cfg} isLoading={isLoading} customRef={formRef}>
-            {(formikProps) =>
-                typeof children === "function"
-                    ? children({
-                          ...formikProps,
-                          onCancel: () => handleCancel(formikProps.dirty),
-                      })
-                    : children
-            }
+            {(formikProps) => (
+                <>
+                    {renderForm(formikProps)}
+                    <DetectorFormUpdate onChange={() => onChange(formikProps)} />
+                </>
+            )}
         </Form>
     );
 }

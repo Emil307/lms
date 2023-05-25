@@ -38,9 +38,11 @@ export const $pagination = z.object({
     totalPages: z.number(),
 });
 
+export const $DiscountType = z.literal("percentage").or(z.literal("currency"));
+
 export const $Discount = z.object({
-    type: z.literal("percentage").or(z.literal("currency")).optional(),
-    amount: z.number().optional(),
+    type: $DiscountType,
+    amount: z.number(),
     startingDate: z.coerce.date().nullable(),
     finishingDate: z.coerce.date().nullable(),
 });

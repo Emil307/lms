@@ -1,9 +1,9 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { AdminCourse, AdminCoursesFiltersForm } from "@entities/course";
+import { AdminCourseFromList, AdminCoursesFiltersForm } from "@entities/course";
 import { getHumanDate, getLocaleString } from "@shared/utils";
 import { getSurnameWithInitials } from "@shared/utils/getSurnameWithInitials";
 
-export const columns: MRT_ColumnDef<AdminCourse>["columns"] = [
+export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",

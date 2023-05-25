@@ -7,3 +7,5 @@ export * from "./ReviewCard";
 export * from "./SettedCard";
 export * from "./TeacherCard";
 export * from "./List";
+export * from "./CreateCourseForm";
+export * from "./UpdateCourseForm";

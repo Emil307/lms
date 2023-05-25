@@ -1,51 +1,58 @@
-import { Box, Flex } from "@mantine/core";
-import { FormikConfig } from "formik";
+import { Flex } from "@mantine/core";
 import React from "react";
-import axios from "axios";
-import { Button, FInput, Form } from "@shared/ui";
-import { $CreateAdminCategoryRequest, CreateAdminCategoryRequest, useCreateCategory } from "@entities/category";
+import { Button, FInput, ManagedForm } from "@shared/ui";
+import { $CreateAdminCategoryRequest, AdminCategory, categoryApi, CreateAdminCategoryRequest } from "@entities/category";
 import { initialValues } from "./constants";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { createNotification, ToastType } from "@shared/utils";
 
 export interface CreateCategoryFormProps {
     parentId?: number;
+    isActive?: boolean;
     onClose: () => void;
 }
 
-const CreateCategoryForm = ({ parentId, onClose }: CreateCategoryFormProps) => {
-    const createCategory = useCreateCategory(parentId);
-
-    const config: FormikConfig<CreateAdminCategoryRequest> = {
-        initialValues: initialValues,
-        validationSchema: $CreateAdminCategoryRequest,
-        onSubmit: (values, { setFieldError }) => {
-            createCategory.mutate(values, {
-                onSuccess: () => {
-                    onClose();
-                },
-                onError: (error) => {
-                    if (axios.isAxiosError(error)) {
-                        for (const errorField in error.response?.data.errors) {
-                            setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                        }
-                    }
-                },
-            });
-        },
+const CreateCategoryForm = ({ parentId, isActive = false, onClose }: CreateCategoryFormProps) => {
+    const createCategory = (values: CreateAdminCategoryRequest) => {
+        return categoryApi.createAdminCategory({ parentId, isActive, ...values });
     };
+
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Создание категории",
+            message: "Категория успешно создана",
+        });
+        onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка создания категории",
+        });
+    };
+
     return (
-        <Box>
-            <Form config={config}>
-                <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />
-                <Flex mt={32} gap={8}>
-                    <Button variant="border" size="large" onClick={onClose} w="100%">
-                        Отмена
-                    </Button>
-                    <Button type="submit" variant="secondary" size="large" w="100%">
-                        Сохранить
-                    </Button>
-                </Flex>
-            </Form>
-        </Box>
+        <ManagedForm<CreateAdminCategoryRequest, AdminCategory>
+            mutationKey={[MutationKeys.CREATE_CATEGORY]}
+            mutationFunction={createCategory}
+            initialValues={initialValues}
+            validationSchema={$CreateAdminCategoryRequest}
+            onSuccess={onSuccess}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] }, { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES] }]}
+            onError={onError}
+            disableOverlay>
+            <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />
+            <Flex mt={32} gap={8}>
+                <Button variant="border" size="large" onClick={onClose} w="100%">
+                    Отмена
+                </Button>
+                <Button type="submit" variant="secondary" size="large" w="100%">
+                    Сохранить
+                </Button>
+            </Flex>
+        </ManagedForm>
     );
 };
 

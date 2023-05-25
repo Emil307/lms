@@ -6,10 +6,10 @@ import { queryClient } from "@app/providers";
 import { AdminCategory, categoryApi, CreateAdminCategoryRequest } from "@entities/category";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useCreateCategory = (parentId?: number) => {
+export const useCreateCategory = (isActive: boolean, parentId?: number) => {
     return useMutation<AdminCategory, AxiosError<FormErrorResponse>, CreateAdminCategoryRequest>(
         [MutationKeys.CREATE_CATEGORY],
-        (data) => categoryApi.createAdminCategory({ parentId, ...data }),
+        (data) => categoryApi.createAdminCategory({ parentId, isActive, ...data }),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);

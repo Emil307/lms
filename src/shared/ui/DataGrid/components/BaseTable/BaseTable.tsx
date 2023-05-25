@@ -34,7 +34,7 @@ function BaseTable<T extends Record<string, any>>({
     isLoading,
     sorting,
     rowSelection,
-    renderActiveBadge = () => false,
+    renderActiveBadge,
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();
@@ -94,8 +94,8 @@ function BaseTable<T extends Record<string, any>>({
             }}
             mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
             mantineTableBodyCellProps={({ cell }) => {
-                const isActiveCell = renderActiveBadge(cell);
-                const cellClassName = getStylesForCell({ isActive: isActiveCell }).classes.tableBodyCell;
+                const isActiveCell = renderActiveBadge ? renderActiveBadge(cell) : false;
+                const cellClassName = getStylesForCell({ renderActive: !!renderActiveBadge, isActive: isActiveCell }).classes.tableBodyCell;
                 return {
                     className: cellClassName,
                     onClick: () => {

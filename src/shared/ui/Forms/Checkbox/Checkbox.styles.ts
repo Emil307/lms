@@ -59,8 +59,8 @@ export default createStyles((theme) => ({
         },
     },
     label: {
-        paddingTop: 4,
         paddingLeft: 8,
+        fontSize: "14px",
         fontWeight: 500,
         color: theme.colors.dark[0],
         lineHeight: "16px",

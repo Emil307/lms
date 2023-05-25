@@ -4,5 +4,6 @@ export * from "./useCourseProgramModuleLessons";
 export * from "./useCourseTeachers";
 export * from "./useCourseReviews";
 export * from "./useAdminCourseResources";
+export * from "./useAdminCourse";
 export * from "./useCourses";
 export * from "./useCoursesInfinite";

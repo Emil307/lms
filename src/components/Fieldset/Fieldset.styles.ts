@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
     fieldset: {
         display: "flex",
         flexDirection: "column",
@@ -8,13 +8,13 @@ export default createStyles((theme) => ({
         width: "100%",
         margin: 0,
         padding: 0,
-        gap: 7.5,
+        gap: 8,
         border: "none",
     },
     legend: {
         display: "flex",
         gap: 16,
-        marginBottom: 16,
+        marginBottom: isOpen ? 16 : 0,
 
         svg: {
             color: theme.colors.gray45[0],

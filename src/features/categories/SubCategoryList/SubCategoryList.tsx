@@ -23,7 +23,7 @@ const SubCategoryList = () => {
             modalId: "CREATE_SUBCATEGORY",
             title: "Создание подкатегории",
             centered: true,
-            children: <CreateCategoryForm parentId={Number(parentId)} onClose={handleCloseCreateCategoryModal} />,
+            children: <CreateCategoryForm parentId={Number(parentId)} isActive onClose={handleCloseCreateCategoryModal} />,
         });
     };
 
@@ -50,9 +50,8 @@ const SubCategoryList = () => {
             </Flex>
             <ManagedDataGrid<AdminCategory, unknown, SubCategoriesFilters>
                 queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES}
-                queryFunction={(params) => categoryApi.getAdminSubCategories(adaptGetAdminSubCategoriesRequest(params))}
+                queryFunction={(params) => categoryApi.getAdminPaginateSubCategories(adaptGetAdminSubCategoriesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "parentId"]}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
                 countName="Подкатегорий"
                 initialState={{

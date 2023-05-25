@@ -6,7 +6,7 @@ export interface FRadioGroupProps extends RadioGroupProps {
     name: string;
 }
 
-export const FRadioGroup = ({ name, onChange = () => undefined, ...props }: FRadioGroupProps) => {
+export const FRadioGroup = ({ name, onChange = () => undefined, children, ...props }: FRadioGroupProps) => {
     const [field, meta, helpers] = useField(name);
     const handlerChange = (value: string) => {
         onChange(value);
@@ -15,5 +15,9 @@ export const FRadioGroup = ({ name, onChange = () => undefined, ...props }: FRad
 
     const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
 
-    return <RadioGroup {...props} onChange={handlerChange} name={name} value={field.value} error={error} />;
+    return (
+        <RadioGroup {...props} onChange={handlerChange} name={name} value={field.value} error={error}>
+            {children}
+        </RadioGroup>
+    );
 };

@@ -7,7 +7,10 @@ export type CategoriesFilters = z.infer<typeof $CategoriesFilters>;
 export type SubCategoriesFilters = z.infer<typeof $SubCategoriesExtraFilters>;
 
 export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters & { isActive?: boolean }>;
+export type GetAdminSubCategoriesPaginateRequest = z.infer<typeof $GetAdminSubCategoriesPaginateRequest>;
 export type GetAdminSubCategoriesRequest = z.infer<typeof $GetAdminSubCategoriesRequest>;
+export type GetAdminSubCategoriesPaginateResponse = z.infer<typeof $GetAdminSubCategoriesPaginateResponse>;
+export type GetAdminSubCategoriesResponse = z.infer<typeof $GetAdminSubCategoriesResponse>;
 export type GetAdminCategoriesResponse = z.infer<typeof $GetAdminCategoriesResponse>;
 export type UpdateAdminCategoryRequest = z.infer<typeof $UpdateAdminCategoryRequest>;
 export type CreateAdminCategoryRequest = z.infer<typeof $CreateAdminCategoryRequest>;
@@ -31,16 +34,21 @@ export const $AdminCategory = z.object({
 });
 
 export const $GetAdminCategoriesResponse = $getPaginationResponseType($AdminCategory);
+export const $GetAdminSubCategoriesPaginateResponse = $GetAdminCategoriesResponse;
 
-export const $AdminSubCategoriesRequest = z.object({
+export const $AdminSubCategoriesFiltersRequest = z.object({
     filter: z
         .object({
             parentId: z.string(),
         })
         .partial(),
+    paginate: z.boolean(),
 });
 
-export const $GetAdminSubCategoriesRequest = $getFiltersRequestType($AdminSubCategoriesRequest);
+export const $GetAdminSubCategoriesRequest = $AdminSubCategoriesFiltersRequest;
+export const $GetAdminSubCategoriesResponse = z.array($AdminCategory);
+
+export const $GetAdminSubCategoriesPaginateRequest = $getFiltersRequestType($AdminSubCategoriesFiltersRequest);
 
 export const $UpdateAdminCategoryRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
@@ -49,6 +57,7 @@ export const $UpdateAdminCategoryRequest = z.object({
 
 export const $CreateAdminCategoryRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
+    isActive: z.boolean().optional(),
     parentId: z.number().optional(),
 });
 

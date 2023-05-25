@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useMemo, useRef, useState } from "react";
 import { Flex, Select as MSelect, SelectProps as MSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, Search, X } from "react-feather";
 import { z } from "zod";
@@ -25,6 +25,7 @@ const MemoizedSelect = (props: SelectProps) => {
         success = false,
     } = props;
 
+    const ref = useRef<HTMLInputElement | null>(null);
     const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
     const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
@@ -55,9 +56,13 @@ const MemoizedSelect = (props: SelectProps) => {
         onChange("");
     };
 
-    const handlerOnChange = (value: string) => {
-        onChange(value);
+    const handlerOnChange = (value: string | null) => {
         setFocused(false);
+        if (!value) {
+            onChange("");
+            return;
+        }
+        onChange(value);
     };
 
     const handleDropdownOpen = () => {
@@ -80,11 +85,7 @@ const MemoizedSelect = (props: SelectProps) => {
             );
         }
         return (
-            <ThemeIcon
-                variant="outline"
-                color="gray45"
-                sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}
-                onClick={handlerClear}>
+            <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
                 <ChevronDown />
             </ThemeIcon>
         );
@@ -138,6 +139,7 @@ const MemoizedSelect = (props: SelectProps) => {
     return (
         <MSelect
             {...props}
+            ref={ref}
             onChange={handlerOnChange}
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
