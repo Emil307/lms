@@ -21,6 +21,14 @@ import {
     $GetCoursesResponse,
     GetCoursesRequest,
     GetCoursesInfiniteRequest,
+    $CreateCourseResponse,
+    CreateCourseRequest,
+    UpdateCourseRequest,
+    CreateCourseResponse,
+    UpdateCourseResponse,
+    $UpdateCourseResponse,
+    GetAdminCourseResponse,
+    $GetAdminCourseResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -32,6 +40,21 @@ class CourseApi extends BaseApi {
     async getAdminCourses(data: GetAdminCoursesRequest): Promise<GetAdminCoursesResponse> {
         const response = await this.instance.post("admin/courses/list", data);
         return $GetAdminCoursesResponse.parse(response);
+    }
+
+    async getAdminCourse(id: string): Promise<GetAdminCourseResponse> {
+        const response = await this.instance.get(`admin/courses/${id}`);
+        return $GetAdminCourseResponse.parse(response);
+    }
+
+    async createCourse(data: CreateCourseRequest): Promise<CreateCourseResponse> {
+        const response = await this.instance.post("admin/courses", data);
+        return $CreateCourseResponse.parse(response);
+    }
+
+    async updateCourse({ id, ...data }: UpdateCourseRequest): Promise<UpdateCourseResponse> {
+        const response = await this.instance.put(`admin/courses/${id}`, data);
+        return $UpdateCourseResponse.parse(response);
     }
 
     async getCourses(data: GetCoursesRequest | GetCoursesInfiniteRequest): Promise<GetCoursesResponse> {

@@ -16,7 +16,7 @@ export default function FFileInput({
     onDeleteInitialFile = () => undefined,
     ...props
 }: FFileInputProps) {
-    const [field, meta, helpers] = useField<UploadedFile | File | undefined>(name);
+    const [field, meta, helpers] = useField<UploadedFile | File | null>(name);
     const [initialFilesData, setInitialFilesData] = useState<InitialFile[]>([]);
 
     const error = useMemo(() => (meta.touched && meta.error) || undefined, [meta.error, meta.touched]);
@@ -55,12 +55,13 @@ export default function FFileInput({
 
     const handleDeleteLoadedFile = (id: number, remainFiles: (File | UploadedFile)[]) => {
         onDeleteLoadedFile(id, remainFiles);
-        helpers.setValue(undefined);
+        helpers.setValue(null);
+        setInitialFilesData([]);
     };
 
     const handleDeleteInitialFile = (id: number) => {
         onDeleteInitialFile(id);
-        setInitialFilesData((prev) => prev.filter(({ fileId }) => id !== fileId));
+        setInitialFilesData([]);
     };
 
     const loadedFilesData = field.value

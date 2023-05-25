@@ -12,6 +12,11 @@ import {
     UpdateActivityStatusCategoryRequest,
     UpdateActivityStatusCategoryResponse,
     $UpdateActivityStatusCategoryResponse,
+    GetAdminSubCategoriesPaginateRequest,
+    $GetAdminSubCategoriesPaginateResponse,
+    $GetAdminSubCategoriesResponse,
+    GetAdminSubCategoriesPaginateResponse,
+    GetAdminSubCategoriesResponse,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -26,14 +31,19 @@ class CategoryApi extends BaseApi {
         return $GetAdminCategoriesResponse.parse(response);
     }
 
-    async getAdminSubCategories(data: GetAdminSubCategoriesRequest): Promise<GetAdminCategoriesResponse> {
-        const response = await this.instance.post("admin/categories/list", data);
-        return $GetAdminCategoriesResponse.parse(response);
-    }
-
     async getAdminCategory(id?: string): Promise<AdminCategory> {
         const response = await this.instance.get(`admin/categories/${id}`);
         return $AdminCategory.parse(response);
+    }
+
+    async getAdminSubCategories(data: GetAdminSubCategoriesRequest): Promise<GetAdminSubCategoriesResponse> {
+        const response = await this.instance.post("admin/categories/list", data);
+        return $GetAdminSubCategoriesResponse.parse(response);
+    }
+
+    async getAdminPaginateSubCategories(data: GetAdminSubCategoriesPaginateRequest): Promise<GetAdminSubCategoriesPaginateResponse> {
+        const response = await this.instance.post("admin/categories/list", data);
+        return $GetAdminSubCategoriesPaginateResponse.parse(response);
     }
 
     async createAdminCategory(data: CreateAdminCategoryRequest): Promise<AdminCategory> {

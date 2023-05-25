@@ -98,7 +98,10 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
             classNames={classes}
             type={getType()}
             onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onBlur={(event) => {
+                props.onBlur && props.onBlur(event);
+                setFocused(false);
+            }}
             rightSection={right}
             icon={icon}
             inputWrapperOrder={["label", "input", "error", "description"]}

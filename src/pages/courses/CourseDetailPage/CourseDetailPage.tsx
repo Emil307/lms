@@ -29,7 +29,7 @@ const data: CourseDetailData = {
     discount: {
         data: {
             isActive: true,
-            type: "value",
+            type: "currency",
             value: 13,
             from: "2023-02-01T13:13:11.000000Z",
             to: "2023-11-11T13:13:11.000000Z",

@@ -5,6 +5,7 @@ export const useTextareaStyles = createStyles((theme) => ({
         padding: "20px 18px",
         fontSize: "14px",
         lineHeight: "16px",
+        borderRadius: "8px",
         ":hover, :focus": {
             boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
             border: "1px solid rgba(0,0,0,0.0)",

@@ -6,6 +6,7 @@ import {
     $Discount,
     $UploadedFile,
     $getPaginationResponseType,
+    $DiscountType,
 } from "@shared/types";
 
 export type AdminCourse = z.infer<typeof $AdminCourse>;
@@ -19,9 +20,18 @@ export type Review = z.infer<typeof $Review>;
 
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
 
+export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
 export type GetAdminCoursesRequest = z.infer<typeof $GetAdminCoursesRequest>;
 export type GetAdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResourcesResponse>;
 export type GetAdminCoursesResponse = z.infer<typeof $GetAdminCoursesResponse>;
+export type GetAdminCourseResponse = z.infer<typeof $GetAdminCourseResponse>;
+export type CreateCourseFormValues = z.infer<typeof $CreateCourseFormValues>;
+export type UpdateCourseFormValues = z.infer<typeof $UpdateCourseFormValues>;
+export type CreateCourseRequest = z.infer<typeof $CreateCourseRequest>;
+export type CreateCourseResponse = z.infer<typeof $CreateCourseResponse>;
+export type UpdateCourseRequest = z.infer<typeof $UpdateCourseRequest>;
+export type UpdateCourseResponse = z.infer<typeof $UpdateCourseResponse>;
+
 export type GetCoursesRequest = z.infer<typeof $GetCoursesFiltersRequest>;
 export type GetCourseProgramResponse = z.infer<typeof $GetCourseProgramResponse>;
 export type GetMyCoursesResponse = z.infer<typeof $GetMyCoursesResponse>;
@@ -33,12 +43,16 @@ export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
 export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
 
+export type CourseType = z.infer<typeof $CourseType>;
+
 export const $FileDocument = z.object({
     name: z.string(),
     path: z.string(),
     type: z.string(),
     size: z.number(),
 });
+
+export const $CourseType = z.literal("interactive").or(z.literal("autonomous"));
 
 const $AdminCourseCategory = z.object({
     id: z.number(),
@@ -52,11 +66,14 @@ const $AdminCourseTag = z.object({
 
 const $AdminCourseTeacher = z.object({
     id: z.number(),
-    profile: z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        patronymic: z.string().optional(),
-    }),
+    email: z.string().optional(),
+    profile: z
+        .object({
+            firstName: z.string(),
+            lastName: z.string(),
+            patronymic: z.string().optional(),
+        })
+        .optional(),
 });
 
 const $AdminCourseAuthor = z.object({
@@ -70,6 +87,33 @@ const $AdminCourseDiscountType = z.object({
     name: z.string(),
 });
 
+export const $AdminCourse = z.object({
+    id: z.number(),
+    name: z.string(),
+    type: $CourseType,
+    price: z.number(),
+    discountPrice: z.number(),
+    cover: $UploadedFile.nullable(),
+    isActive: z.boolean(),
+    description: z.string().nullable(),
+    category: $AdminCourseCategory.nullable(),
+    tags: z.array($AdminCourseTag),
+    hasTeachers: z.boolean(),
+    teachers: z.array($AdminCourseTeacher),
+    subcategory: $AdminCourseCategory.nullable(),
+    hasAuthors: z.boolean(),
+    authors: z.array($AdminCourseAuthor),
+    hasDiscount: z.boolean(),
+    discount: $Discount.nullable(),
+    isDemonstrative: z.boolean(),
+    isFulfillment: z.boolean(),
+    isPopular: z.boolean(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+});
+
+export const $CreateCourseResponse = $AdminCourse;
+
 export const $GetAdminCourseResourcesResponse = z.object({
     categories: z.array($AdminCourseCategory),
     subcategories: z.array($AdminCourseCategory),
@@ -79,20 +123,20 @@ export const $GetAdminCourseResourcesResponse = z.object({
     discountTypes: z.array($AdminCourseDiscountType),
 });
 
-export const $AdminCourse = z.object({
-    id: z.number(),
-    name: z.string(),
-    price: z.number(),
-    discountPrice: z.number(),
-    isActive: z.boolean(),
-    createdAt: z.coerce.date(),
-    category: $AdminCourseCategory.nullable(),
-    tags: z.array($AdminCourseTag),
-    teachers: z.array($AdminCourseTeacher),
-    discount: $Discount.nullable(),
+export const $AdminCourseFromList = $AdminCourse.pick({
+    id: true,
+    name: true,
+    price: true,
+    discountPrice: true,
+    isActive: true,
+    createdAt: true,
+    category: true,
+    tags: true,
+    teachers: true,
+    discount: true,
 });
 
-export const $GetAdminCoursesResponse = $getPaginationResponseType($AdminCourse);
+export const $GetAdminCoursesResponse = $getPaginationResponseType($AdminCourseFromList);
 
 export const $AdminCoursesFiltersForm = z.object({
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
@@ -120,6 +164,153 @@ export const $AdminCoursesRequest = z.object({
 });
 
 export const $GetAdminCoursesRequest = $getFiltersRequestType($AdminCoursesRequest);
+export const $GetAdminCourseResponse = $AdminCourse;
+
+export const $CreateCourseFormValues = z
+    .object({
+        cover: $UploadedFile.nullable(),
+        category: z.string().optional(),
+        subCategory: z.string().optional(),
+        tagIds: z.array(z.string()),
+        hasAuthors: z.boolean(),
+        authorIds: z.array(z.string()),
+        hasTeachers: z.boolean(),
+        teacherIds: z.array(z.string()),
+        name: z.string({ required_error: "Введите название" }),
+        description: z.string().optional(),
+        price: z.string({ required_error: "Введите стоимость" }).refine(
+            (value) => {
+                const price = Number(value);
+                return Number.isInteger(price) && price >= 0;
+            },
+            { message: "Стоимость должна быть целым неотрицательным числом" }
+        ),
+        isInteractive: z.boolean(),
+        isActive: z.boolean(),
+        isDemonstrative: z.boolean(),
+        isPopular: z.boolean(),
+        hasDiscount: z.boolean(),
+        discount: z.object({
+            type: $DiscountType,
+            amount: z.string().optional(),
+            startingDate: z.date().nullable(),
+            finishingDate: z.date().nullable(),
+        }),
+    })
+    .refine(
+        (data) => {
+            if (!data.category) {
+                return true;
+            }
+            return !!data.subCategory;
+        },
+        {
+            message: "Выберите подкатегорию",
+            path: ["subCategory"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasDiscount) {
+                return true;
+            }
+            const amount = Number(data.discount.amount);
+            return Number.isInteger(amount) && amount > 0;
+        },
+        {
+            message: "Размер скидки должен быть целым числом и больше 0",
+            path: ["discount.amount"],
+        }
+    )
+    .refine(
+        (data) => {
+            if ((!data.hasDiscount && !data.discount.amount) || data.discount.type === "currency") {
+                return true;
+            }
+            return 100 >= Number(data.discount.amount);
+        },
+        {
+            message: "Размер скидки не может быть больше 100%",
+            path: ["discount.amount"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasDiscount || !data.price || !data.discount.amount || data.discount.type === "percentage") {
+                return true;
+            }
+            return Number(data.price) >= Number(data.discount.amount);
+        },
+        {
+            message: "Размер скидки не может быть больше стоимости",
+            path: ["discount.amount"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasDiscount) {
+                return true;
+            }
+            return !!data.discount.startingDate && !!data.discount.finishingDate;
+        },
+        {
+            message: "Выберите период",
+            path: ["discount.startingDate"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasTeachers) {
+                return true;
+            }
+            return data.teacherIds.length > 0;
+        },
+        {
+            message: "Выберите преподавателей",
+            path: ["teacherIds"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasAuthors) {
+                return true;
+            }
+            return data.authorIds.length > 0;
+        },
+        {
+            message: "Выберите Авторов",
+            path: ["authorIds"],
+        }
+    );
+
+export const $CreateCourseRequest = z.object({
+    coverId: z.number().nullable(),
+    category: z.string().optional(),
+    subCategory: z.string().optional(),
+    tagIds: z.array(z.string()),
+    hasAuthors: z.boolean(),
+    authorIds: z.array(z.string()),
+    hasTeachers: z.boolean(),
+    teacherIds: z.array(z.string()),
+    name: z.string(),
+    description: z.string().optional(),
+    price: z.string(),
+    type: $CourseType,
+    isActive: z.boolean(),
+    isDemonstrative: z.boolean(),
+    isPopular: z.boolean(),
+    hasDiscount: z.boolean(),
+    discount: z
+        .object({
+            type: $DiscountType,
+            amount: z.string().optional(),
+            startingDate: z.string(),
+            finishingDate: z.string(),
+        })
+        .nullish(),
+});
+
+export const $UpdateCourseFormValues = $CreateCourseFormValues;
 
 export const $CoursesFilters = z.object({
     query: z.string().optional(),
@@ -134,6 +325,11 @@ export const $CoursesFilters = z.object({
         })
         .partial(),
 });
+
+export const $UpdateCourseRequest = $CreateCourseRequest.extend({
+    id: z.string(),
+});
+export const $UpdateCourseResponse = $AdminCourse;
 
 export const $GetCoursesFiltersRequest = $getFiltersRequestType($CoursesFilters);
 
@@ -203,7 +399,7 @@ export const $CourseDetailData = z.object({
         data: z
             .object({
                 isActive: z.boolean(),
-                type: z.string(),
+                type: $DiscountType,
                 value: z.number(),
                 from: z.string().datetime().nullable(),
                 to: z.string().datetime().nullable(),
@@ -261,7 +457,7 @@ export const $Course = z.object({
     description: z.string(),
     price: z.number(),
     discountPrice: z.number(),
-    type: z.literal("interactive").or(z.literal("autonomous")),
+    type: $CourseType,
     startingDate: z.coerce.date(),
     isFavorite: z.boolean(),
     lessonsCount: z.number(),

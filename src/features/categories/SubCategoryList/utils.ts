@@ -1,7 +1,7 @@
-import { GetAdminSubCategoriesRequest, SubCategoriesFilters } from "@entities/category";
+import { GetAdminSubCategoriesPaginateRequest, SubCategoriesFilters } from "@entities/category";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
-export const adaptGetAdminSubCategoriesRequest = (params: TFunctionParams<SubCategoriesFilters>): GetAdminSubCategoriesRequest => {
+export const adaptGetAdminSubCategoriesRequest = (params: TFunctionParams<SubCategoriesFilters>): GetAdminSubCategoriesPaginateRequest => {
     const { parentId, ...rest } = params;
 
     return {
@@ -9,5 +9,6 @@ export const adaptGetAdminSubCategoriesRequest = (params: TFunctionParams<SubCat
         filter: {
             parentId,
         },
+        paginate: true,
     };
 };

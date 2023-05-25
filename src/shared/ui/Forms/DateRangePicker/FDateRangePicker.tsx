@@ -19,7 +19,7 @@ const FDateRangePicker = ({ onChange = () => undefined, ...props }: FDateRangePi
 
     const error = (meta.touched && meta.error) || null;
 
-    return <DateRangePicker {...props} value={[field.value, fieldTo.value]} onChange={handleChange} error={error} />;
+    return <DateRangePicker {...props} value={[field.value, fieldTo.value]} onChange={handleChange} onBlur={field.onBlur} error={error} />;
 };
 
 export default FDateRangePicker;

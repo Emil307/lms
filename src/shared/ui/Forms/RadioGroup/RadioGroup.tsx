@@ -8,7 +8,7 @@ export interface RadioGroupProps extends MRadioGroupProps {
     success?: string;
 }
 
-export const RadioGroup = ({ children, error, success, description, ...props }: RadioGroupProps) => {
+export const RadioGroup = ({ children, error, success, description, spacing = 16, ...props }: RadioGroupProps) => {
     const theme = useMantineTheme();
     const { classes } = useRadioGroupStyles();
     const statusSuccess = useMemo(() => !!props.value?.length && !error && !!success, [props.value, error, success]);
@@ -51,6 +51,7 @@ export const RadioGroup = ({ children, error, success, description, ...props }: 
         <MRadio.Group
             classNames={classes}
             {...props}
+            spacing={spacing}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}>

@@ -30,9 +30,11 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
         if (data.isDiscount && data.discount.data.value) {
             return (
                 <Group sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${getDiscountedAmount(data.price, data.discount.data.value).toLocaleString(
-                        "ru"
-                    )} ₽`}</Text>
+                    <Text className={classes.price}>{`${getDiscountedAmount(
+                        data.price,
+                        data.discount.data.value,
+                        data.discount.data.type
+                    ).toLocaleString("ru")} ₽`}</Text>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
                 </Group>
             );
