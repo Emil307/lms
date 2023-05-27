@@ -4,6 +4,8 @@ export type UserNotifications = z.infer<typeof $UserNotifications>;
 
 export type UpdateUserNotificationRequest = z.infer<typeof $UpdateUserNotificationRequest>;
 export type UpdateUserNotificationResponse = z.infer<typeof $UpdateUserNotificationResponse>;
+export type UpdateAdminUserNotificationRequest = z.infer<typeof $UpdateAdminUserNotificationRequest>;
+export type UpdateAdminUserNotificationResponse = z.infer<typeof $UpdateAdminUserNotificationResponse>;
 
 export const $UserNotifications = z
     .object({
@@ -23,3 +25,9 @@ export const $UpdateUserNotificationRequest = z.object({
 export const $UpdateUserNotificationResponse = z.object({
     isActive: z.boolean(),
 });
+
+export const $UpdateAdminUserNotificationRequest = $UpdateUserNotificationRequest.extend({
+    userId: z.string(),
+});
+
+export const $UpdateAdminUserNotificationResponse = $UpdateUserNotificationResponse;

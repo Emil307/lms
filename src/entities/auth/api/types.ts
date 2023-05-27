@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $UploadedFile, $profile, $role } from "@shared/types";
+import { $UploadedFile, $profile, $Role } from "@shared/types";
 import { $UserNotifications } from "@entities/notification";
 
 export interface ChangePasswordRequest {
@@ -22,7 +22,7 @@ export const $User = z.object({
     id: z.number(),
     email: z.string(),
     profile: $profile,
-    roles: z.array($role),
+    roles: z.array($Role),
     notifications: $UserNotifications,
 });
 

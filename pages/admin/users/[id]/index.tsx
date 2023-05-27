@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactElement } from "react";
-import { UserDetail } from "@pages/admin/users";
+import { UserDetailPage } from "@pages/admin/users";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
@@ -8,7 +8,7 @@ import { AdminPage } from "@components/AdminPage";
 const AdminUsers: NextPageWithLayout = () => {
     return (
         <AdminPage title="Настройки пользователя">
-            <UserDetail />
+            <UserDetailPage />
         </AdminPage>
     );
 };

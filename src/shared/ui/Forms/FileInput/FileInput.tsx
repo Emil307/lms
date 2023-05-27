@@ -2,6 +2,7 @@ import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Group, Text } from "@mantine/core";
 import { Info } from "react-feather";
+import _ from "lodash";
 import { getFileSize } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
@@ -17,7 +18,6 @@ import {
     LoadedFile,
 } from "./utils";
 import useStyles from "./FileInput.styles";
-import _ from "lodash";
 
 export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad" | "onDrop"> {
     type: "image" | "document" | "video";

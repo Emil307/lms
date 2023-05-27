@@ -4,7 +4,6 @@ import {
     GetAdminStudentsFiltersResponse,
     UpdateUserRequest,
     CreateUserRequest,
-    UserCreateResponse,
     UserDetailResponse,
     UsersRequestParamsType,
     ChangeUserPasswordRequest,
@@ -14,8 +13,9 @@ import {
     $GetUsersAdminFiltersResponse,
     GetUsersAdminFiltersResponse,
     $UserDetailResponse,
-    $UserCreateResponse,
     $GetAdminStudentsFiltersResponse,
+    CreateUserResponse,
+    $CreateUserResponse,
 } from "./types";
 
 export class UsersApi extends BaseApi {
@@ -60,9 +60,9 @@ export class UsersApi extends BaseApi {
         return $UserDetailResponse.parse(result);
     }
 
-    async createUser(data: CreateUserRequest): Promise<UserCreateResponse> {
+    async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
         const result = await this.instance.post("admin/users", data);
-        return $UserCreateResponse.parse(result);
+        return $CreateUserResponse.parse(result);
     }
 
     async updateUser({ id, ...data }: UpdateUserRequest & { id?: number }): Promise<UserDetailResponse> {
