@@ -2,10 +2,10 @@ import React from "react";
 import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
-import { UserCreate } from "@pages/admin/users";
+import { CreateUserPage } from "@pages/admin/users";
 
 const UserCreatePage: NextPageWithLayout = () => {
-    return <UserCreate />;
+    return <CreateUserPage />;
 };
 
 UserCreatePage.getLayout = function (page: ReactElement) {

@@ -8,7 +8,7 @@ import { TRouterQueries } from "@shared/types";
 import { getFullNameFromProfile } from "@shared/utils";
 import { getBreadCrumbsItems } from "./utils";
 
-const UserUpdatePage = () => {
+const UpdateUserPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
@@ -28,4 +28,4 @@ const UserUpdatePage = () => {
     );
 };
 
-export default UserUpdatePage;
+export default UpdateUserPage;

@@ -1,15 +1,17 @@
 import { Box, Text, Flex, Avatar } from "@mantine/core";
-import { FormikConfig } from "formik";
 import React from "react";
-import { useMantineTheme } from "@mantine/core";
-import { Edit3, Shield, User } from "react-feather";
-import axios from "axios";
+import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
-import { $CreateUserRequest, useAdminStudentsFilters, useCreateUser, CreateUserRequest } from "@entities/user";
+import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Radio } from "@shared/ui";
+import { CreateUserResponse, useAdminStudentsFilters, usersApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
+import { MutationKeys } from "@shared/constant";
+import { adaptCreateUserFormRequest, getInitialValuesForm } from "./utils";
+import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
+import { notificationLabels, notifications } from "./constants";
+import useStyles from "./CreateStudentForm.styles";
 
 export interface CreateStudentFormProps {
     onClose: () => void;
@@ -17,69 +19,43 @@ export interface CreateStudentFormProps {
 
 const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
     const router = useRouter();
-    const theme = useMantineTheme();
+    const { classes } = useStyles();
     const { data: options } = useAdminStudentsFilters();
     const defaultRole = String(options?.roles.at(0)?.id ?? 0);
 
-    const createUser = useCreateUser();
-
-    const config: FormikConfig<CreateUserRequest> = {
-        initialValues: {
-            email: "",
-            password: "",
-            passwordConfirmation: "",
-            firstName: "",
-            lastName: "",
-            patronymic: "",
-            description: "",
-            isActive: false,
-            roleId: defaultRole,
-            avatar: null,
-            additionalImage: null,
-        },
-        enableReinitialize: true,
-        validationSchema: $CreateUserRequest,
-        onSubmit: (values, { setFieldError }) => {
-            createUser.mutate(
-                { ...values, avatarId: values.avatar?.id },
-                {
-                    onSuccess: (response) => {
-                        createNotification({
-                            type: ToastType.SUCCESS,
-                            title: "Создание ученика",
-                            message: "Ученик добавлен",
-                        });
-                        router.push({ pathname: "/admin/students/[id]", query: { id: response.id.toString() } });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
-
-                            createNotification({
-                                type: ToastType.WARN,
-                                title: "Ошибка создания ученика",
-                            });
-                        }
-                    },
-                }
-            );
-        },
+    const createStudent = (values: CreateStudentValidationFormRequest) => {
+        return usersApi.createUser(adaptCreateUserFormRequest(values));
     };
 
-    //TODO: переписать на ManagedForm
+    const onSuccess = (response: CreateUserResponse) => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Создание ученика",
+            message: "Ученик успешно создан",
+        });
+        router.push({ pathname: "/admin/students/[id]", query: { id: response.id.toString() } });
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка создания ученика",
+        });
+    };
+
     return (
-        <Form config={config}>
-            {({ values, dirty }) => (
-                <>
+        <ManagedForm<CreateStudentValidationFormRequest, CreateUserResponse>
+            initialValues={getInitialValuesForm(defaultRole)}
+            validationSchema={$CreateStudentValidationFormRequest}
+            mutationKey={[MutationKeys.CREATE_USER]}
+            mutationFunction={createStudent}
+            onSuccess={onSuccess}
+            onError={onError}
+            onCancel={onClose}>
+            {({ values, dirty, onCancel }) => (
+                <Flex gap={32} direction="column">
                     <Flex gap={8} mt={24} align="center">
-                        <Text
-                            sx={{
-                                color: theme.colors.gray45[0],
-                            }}>
-                            Статус:
-                        </Text>
+                        <Text color="gray45">Статус:</Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset mt={32} label="Личные данные" icon={<User />}>
@@ -125,18 +101,29 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
                         </Box>
                     </Fieldset>
 
-                    {/* TODO: - нотификация в разработке на бэке, как появится -> добавить */}
-                    <Flex mt={32} gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <Box className={classes.notificationsContainer}>
+                            {notifications.map((name, index) => (
+                                <FControlPanel
+                                    name={`notifications[${name}]`}
+                                    key={index}
+                                    label={notificationLabels[name as keyof typeof notificationLabels]}
+                                    variant="secondary"
+                                />
+                            ))}
+                        </Box>
+                    </Fieldset>
+                    <Flex gap={8}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
                             Сохранить
                         </Button>
                     </Flex>
-                </>
+                </Flex>
             )}
-        </Form>
+        </ManagedForm>
     );
 };
 

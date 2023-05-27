@@ -1,6 +1,6 @@
 import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
-import { Shield, Trash, User as UserIcon } from "react-feather";
+import { Bell, Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
@@ -10,8 +10,10 @@ import { useDetailUser } from "@entities/user";
 import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
 import { useSession } from "@features/auth";
-import { useSettingUserStyles } from "./SettingUser.styles";
+import { List as NotificationList } from "@widgets/notifications";
+import { useUpdateAdminUserNotification } from "@entities/notification";
 import { fields } from "./constants";
+import { useSettingUserStyles } from "./SettingUser.styles";
 
 interface SettingUserProps {
     id: string;
@@ -22,6 +24,8 @@ const SettingUser = ({ id }: SettingUserProps) => {
     const { classes } = useSettingUserStyles();
     const { data } = useDetailUser(id);
     const { user: authUser } = useSession();
+    const { mutate: updateNotification } = useUpdateAdminUserNotification(id);
+
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > -1;
 
     const dataProfile = {
@@ -56,6 +60,10 @@ const SettingUser = ({ id }: SettingUserProps) => {
         });
 
     const openEditUserPage = () => router.push({ pathname: "/admin/users/[id]/edit", query: { id } });
+
+    const handleChangeNotification = (notification: string, isActive: boolean) => {
+        updateNotification({ notification, isActive });
+    };
 
     return (
         <Box>
@@ -105,7 +113,10 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     <Box className={classes.desc} mt={16}>
                         {data?.profile.description}
                     </Box>
-                    {/* TODO - уведомления еще не реализованы */}
+
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <NotificationList notifications={data?.notifications} variant="secondary" onChange={handleChangeNotification} />
+                    </Fieldset>
                 </Group>
                 <Box>
                     <ProfileInfo

@@ -8,59 +8,7 @@ import { breadCrumbsItems } from "./constants";
 
 //TODO: удалить после подключения api
 const mockData: GetFavoriteCoursesResponse = {
-    data: [
-        {
-            id: 1,
-            name: "Name",
-            description: "Description",
-            price: 1499,
-            discountPrice: 1000,
-            type: "interactive",
-            startingDate: new Date("2023-05-10"),
-            cover: null,
-            category: null,
-            discount: {
-                type: "currency",
-                amount: 499,
-                startingDate: new Date("2023-05-10"),
-                finishingDate: new Date("2023-05-10"),
-            },
-        },
-        {
-            id: 2,
-            name: "Name",
-            description: "Description",
-            price: 1499,
-            discountPrice: 1000,
-            type: "interactive",
-            startingDate: new Date("2023-05-10"),
-            cover: null,
-            category: null,
-            discount: {
-                type: "currency",
-                amount: 499,
-                startingDate: new Date("2023-05-10"),
-                finishingDate: new Date("2023-05-10"),
-            },
-        },
-        {
-            id: 3,
-            name: "Name",
-            description: "Description",
-            price: 1499,
-            discountPrice: 1000,
-            type: "interactive",
-            startingDate: new Date("2023-05-10"),
-            cover: null,
-            category: null,
-            discount: {
-                type: "currency",
-                amount: 499,
-                startingDate: new Date("2023-05-10"),
-                finishingDate: new Date("2023-05-10"),
-            },
-        },
-    ],
+    data: [],
 
     pagination: {
         count: 1,

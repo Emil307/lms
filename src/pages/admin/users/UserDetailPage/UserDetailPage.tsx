@@ -8,7 +8,7 @@ import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 import { tabsList } from "./constants";
 
-const UserDetail = () => {
+const UserDetailPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
     const { data, isLoading, isError } = useDetailUser(id);
@@ -41,4 +41,4 @@ const UserDetail = () => {
     );
 };
 
-export default UserDetail;
+export default UserDetailPage;

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
-import { $UploadedFile, $getPaginationResponseType, $profile, $role, TRequestFilterParams } from "@shared/types";
+import { $Role, $UploadedFile, $getPaginationResponseType, $profile, TRequestFilterParams } from "@shared/types";
+import { $UserNotifications } from "@entities/notification";
 
 export type TUser = z.infer<typeof $User>;
 
@@ -9,7 +10,7 @@ export type UsersFilters = z.infer<typeof $UsersFilters>;
 export type UsersRequestParamsType = TRequestFilterParams<UsersFilters>;
 export type UserDetailResponse = z.infer<typeof $UserDetailResponse>;
 export type GetUsersResponse = z.infer<typeof $GetUsersResponse>;
-export type UserCreateResponse = z.infer<typeof $UserCreateResponse>;
+export type CreateUserResponse = z.infer<typeof $CreateUserResponse>;
 export type GetUsersAdminFiltersResponse = z.infer<typeof $GetUsersAdminFiltersResponse>;
 export type GetAdminStudentsFiltersResponse = z.infer<typeof $GetAdminStudentsFiltersResponse>;
 export type UpdateUserRequest = z.infer<typeof $UpdateUserRequest>;
@@ -23,7 +24,8 @@ export const $User = z.object({
     isActive: z.boolean(),
     isStatic: z.boolean(),
     profile: $profile,
-    roles: z.array($role),
+    roles: z.array($Role),
+    notifications: $UserNotifications,
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
 });
@@ -36,26 +38,39 @@ export const $UserDetailResponse = $User.extend({
 
 export const $CreateUserRequest = z
     .object({
-        email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
-        password: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
-        passwordConfirmation: z.string({ required_error: "Это обязательное поле" }).regex(REGEXP_PASSWORD, "Неверный формат"),
-        firstName: z.string({ required_error: "Это обязательное поле" }),
-        lastName: z.string({ required_error: "Это обязательное поле" }),
+        email: z.string().email({ message: "Неверный формат" }),
+        password: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
+        passwordConfirmation: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
+        firstName: z.string(),
+        lastName: z.string(),
         patronymic: z.string().optional(),
         description: z.string().optional(),
         isActive: z.boolean(),
-        roleId: z.string(),
+        roleId: z.number(),
         avatar: $UploadedFile.nullable(),
         additionalImage: $UploadedFile.nullable(),
         avatarId: z.number().optional(),
         additionalImageId: z.number().optional(),
+        notifications: z
+            .object({
+                newHomework: z.boolean(),
+                supportMessage: z.boolean(),
+                invoiceForPayment: z.boolean(),
+            })
+            .or(
+                z.object({
+                    homeworkChecked: z.boolean(),
+                    groupAdded: z.boolean(),
+                    supportMessage: z.boolean(),
+                })
+            ),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
         message: "Пароли должны совпадать",
         path: ["passwordConfirmation"],
     });
 
-export const $UserCreateResponse = $User;
+export const $CreateUserResponse = $User;
 
 export const $UpdateUserRequest = z.object({
     email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
@@ -76,11 +91,11 @@ export const $UpdateActivityStatusUserRequest = z.object({
 });
 
 export const $GetUsersAdminFiltersResponse = z.object({
-    roles: z.array($role),
+    roles: z.array($Role),
 });
 
 export const $GetAdminStudentsFiltersResponse = z.object({
-    roles: z.array($role),
+    roles: z.array($Role),
 });
 
 export const $UsersFilters = z.object({

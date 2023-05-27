@@ -1,40 +1,42 @@
 import { Box, Text, Flex, Avatar } from "@mantine/core";
 import React from "react";
-import { useMantineTheme } from "@mantine/core";
-import { Edit3, Shield, User, UserCheck } from "react-feather";
+import { Bell, Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
-import { $CreateUserRequest, CreateUserRequest, useAdminUsersFilters, UserCreateResponse, usersApi } from "@entities/user";
+import { Button, FControlPanel, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
+import { CreateUserResponse, useAdminUsersFilters, usersApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
 import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
-import { getInitialValuesForm } from "./utils";
+import { adaptCreateUserFormRequest, getInitialValuesForm, getNotificationList } from "./utils";
+import { notificationLabels } from "./constants";
+import { $CreateUserValidationFormRequest, CreateUserValidationFormRequest } from "./types";
+import useStyles from "./CreateUserForm.styles";
 
-const CreateUserForm = () => {
+export interface CreateUserFormProps {
+    onClose: () => void;
+}
+
+const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
     const router = useRouter();
-    const theme = useMantineTheme();
+    const { classes } = useStyles();
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
 
-    const createUser = (values: CreateUserRequest) => {
-        return usersApi.createUser({ ...values, avatarId: values.avatar?.id, additionalImageId: values.additionalImage?.id });
+    const createUser = (values: CreateUserValidationFormRequest) => {
+        return usersApi.createUser(adaptCreateUserFormRequest(values));
     };
 
-    const onSuccess = (response: UserCreateResponse) => {
+    const onSuccess = (response: CreateUserResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Создание пользователя",
             message: "Пользователь успешно создан",
         });
         router.push({ pathname: "/admin/users/[id]", query: { id: String(response.id) } });
-    };
-
-    const onCancel = () => {
-        router.push("/admin/users");
     };
 
     const onError = () => {
@@ -45,22 +47,19 @@ const CreateUserForm = () => {
     };
 
     return (
-        <ManagedForm<CreateUserRequest, UserCreateResponse>
+        <ManagedForm<CreateUserValidationFormRequest, CreateUserResponse>
             initialValues={getInitialValuesForm(defaultRole)}
-            validationSchema={$CreateUserRequest}
+            validationSchema={$CreateUserValidationFormRequest}
             mutationKey={[MutationKeys.CREATE_USER]}
             mutationFunction={createUser}
             onSuccess={onSuccess}
-            onError={onError}>
-            {({ values, dirty }) => (
+            onError={onError}
+            hasConfirmModal
+            onCancel={onClose}>
+            {({ values, dirty, onCancel }) => (
                 <Flex gap={32} direction="column">
                     <Flex gap={8} mt={24} align="center">
-                        <Text
-                            sx={{
-                                color: theme.colors.gray45[0],
-                            }}>
-                            Статус:
-                        </Text>
+                        <Text color="gray45">Статус:</Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />}>
@@ -130,7 +129,18 @@ const CreateUserForm = () => {
                         </Fieldset>
                     )}
 
-                    {/* TODO: - нотификация в разработке на бэке, как появится -> добавить */}
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <Box className={classes.notificationsContainer}>
+                            {getNotificationList(values.roleId).map((notificationName, index) => (
+                                <FControlPanel
+                                    name={`notifications[${notificationName}]`}
+                                    key={index}
+                                    label={notificationLabels[notificationName as keyof typeof notificationLabels]}
+                                    variant="secondary"
+                                />
+                            ))}
+                        </Box>
+                    </Fieldset>
                     <Flex gap={8}>
                         <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
