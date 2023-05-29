@@ -14,7 +14,7 @@ const AuthForm = (_props: AuthFormProps) => {
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
-    const { mutate: authenticate, isLoading } = useAuthenticateMe();
+    const { mutate: authenticate, isLoading, isSuccess } = useAuthenticateMe();
 
     const config: FormikConfig<AuthData> = {
         initialValues: {
@@ -69,7 +69,7 @@ const AuthForm = (_props: AuthFormProps) => {
                         </Link>
                     </Group>
 
-                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
+                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading || isSuccess}>
                         Войти
                     </Button>
                 </Form>

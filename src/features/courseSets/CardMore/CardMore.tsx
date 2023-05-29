@@ -17,7 +17,7 @@ const MemoizedCardMore = memo(function CardMore({ countCardSet, ...props }: Card
     const handleClick = () => router.push("/course-sets");
 
     return (
-        <Box {...props} className={classes.root}>
+        <Box {...props} className={classes.root} onClick={handleClick}>
             <Title order={3} color="primary" lineClamp={2}>
                 {`+ еще ${countCardSet} ${getPluralString(countCardSet, "подборка", "подборки", "подборок")}`} <br /> на актуальные темы
             </Title>
@@ -25,7 +25,6 @@ const MemoizedCardMore = memo(function CardMore({ countCardSet, ...props }: Card
                 <Button
                     variant="text"
                     size="small"
-                    onClick={handleClick}
                     rightIcon={
                         <ThemeIcon className={classes.iconButtonLinkCourse}>
                             <ChevronRight />
