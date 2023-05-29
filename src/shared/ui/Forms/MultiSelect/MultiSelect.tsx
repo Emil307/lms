@@ -3,6 +3,8 @@ import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectPro
 import { AlertTriangle, CheckCircle, ChevronDown, Info, X } from "react-feather";
 import { z } from "zod";
 import { useMultiSelectStyles } from "./MultiSelectStyles";
+import { SelectItem } from "@shared/ui";
+import { MultiSelectValueItem } from "./components";
 
 export interface MultiSelectProps extends MMultiSelectProps {
     success?: string | boolean;
@@ -111,6 +113,8 @@ const MultiSelect = ({
             onChange={handlerOnChange}
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
+            itemComponent={props.itemComponent ?? SelectItem}
+            valueComponent={MultiSelectValueItem}
             rightSection={<RightSection />}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}

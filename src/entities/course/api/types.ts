@@ -88,6 +88,7 @@ export const $CourseType = z.literal("interactive").or(z.literal("autonomous"));
 const $AdminCourseCategory = z.object({
     id: z.number(),
     name: z.string(),
+    isActive: z.boolean(),
 });
 
 const $AdminCourseTag = z.object({
@@ -98,6 +99,7 @@ const $AdminCourseTag = z.object({
 const $AdminCourseTeacher = z.object({
     id: z.number(),
     email: z.string().optional(),
+    isActive: z.boolean(),
     profile: z
         .object({
             firstName: z.string(),
@@ -197,7 +199,7 @@ export const $AdminCoursesRequest = z.object({
             teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             createdAt: $getDateObjectType(z.literal("range")),
-            "category.id": z.string(),
+            "category.id": z.string().nullable(),
             "subcategory.id": z.string(),
             "discount.type": z.string(),
         })
