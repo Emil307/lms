@@ -16,7 +16,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
     const { classes } = useFormStyles();
     const theme = useMantineTheme();
 
-    const { mutate: signUp, isLoading } = useSignUp();
+    const { mutate: signUp, isLoading, isSuccess } = useSignUp();
 
     const config: FormikConfig<SignUpFormData> = {
         initialValues: {
@@ -102,7 +102,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                         label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
                         wrapperProps={{ sx: { marginBottom: 24 } }}
                     />
-                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
+                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading || isSuccess}>
                         Начать обучение
                     </Button>
                 </Form>

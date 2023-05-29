@@ -7,9 +7,8 @@ import { Course } from "@entities/course";
 import { CourseTeacherCarouselList, StudentReviews } from "@widgets/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { AccordionList as FaqAccordionList } from "@features/faq";
-import { Button } from "@shared/ui";
-
 import { List as CourseSetList } from "@features/courseSets";
+import { Button } from "@shared/ui";
 
 const MainPage = () => {
     const titleCourseSets = `Топовые подборки курсов ${new Date().getFullYear()}`;
