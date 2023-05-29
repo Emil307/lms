@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { DataGridResponse, TExtraFiltersProps, TFiltersProps, TFunctionParams } from "./types";
+import { DataGridResponse, TExtraFiltersProps, TFiltersProps, TFunctionParams, TSelectProps } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
 import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
 
@@ -18,7 +18,8 @@ export type TManagedDataGridProps<T extends Record<string, any>, F, E, R, K exte
     queryKey: string;
     queryCacheKeys?: Array<keyof R>;
     disableQueryParams?: boolean;
-} & TExtendedProps<T, F, E, K>;
+} & TExtendedProps<T, F, E, K> &
+    TSelectProps;
 
 /**
  * Компонент таблицы с фильтрами.
@@ -40,13 +41,14 @@ function ManagedDataGrid<
         queryCacheKeys = [],
         children,
         filter,
-        countName,
         extraFilterParams = {},
         disableQueryParams = false,
+        selectItems,
+        onChangeSelect,
         ...rest
     } = props;
 
-    const { rowSelection, setRowSelection } = useDataGridSelect(disableQueryParams);
+    const { rowSelection, setRowSelection } = useDataGridSelect({ disableQueryParams, selectItems, onChangeSelect });
 
     const { sorting, setSorting, sortParams } = useDataGridSort(disableQueryParams);
     const { setPagination, paginationParams, goToFirstPage } = useDataGridPagination(disableQueryParams);
@@ -85,6 +87,7 @@ function ManagedDataGrid<
             pagination={queryData?.pagination}
             enableFilters={false}
             enableColumnActions={false}
+            getRowId={(row) => row.id}
             manualPagination
             manualSorting>
             {children}

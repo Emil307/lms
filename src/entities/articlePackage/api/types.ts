@@ -24,8 +24,8 @@ export type UpdateAdminArticlePackageRequest = z.infer<typeof $UpdateAdminArticl
 export type GetAdminArticlesFromArticlePackageResponse = z.infer<typeof $GetAdminArticlesFromArticlePackageResponse>;
 export type GetArticlesFromArticlePackage = z.infer<typeof $GetArticlesFromArticlePackage>;
 export type DeleteAdminArticleFromPackageRequest = z.infer<typeof $DeleteAdminArticleFromPackageRequest>;
-export type UpdateActivityStatusArticlePackageRequest = z.infer<typeof $UpdateActivityStatusArticlePackageRequest>;
-export type UpdateActivityStatusArticlePackageResponse = z.infer<typeof $UpdateActivityStatusArticlePackageResponse>;
+export type UpdateArticlePackageActivityRequest = z.infer<typeof $UpdateArticlePackageActivityRequest>;
+export type UpdateArticlePackageActivityResponse = z.infer<typeof $UpdateArticlePackageActivityResponse>;
 export type GetArticlePackagesResponse = z.infer<typeof $GetArticlePackagesResponse>;
 export type GetArticlesFromArticlePackageRequest = z.infer<typeof $GetArticlesFromArticlePackageRequest>;
 
@@ -147,12 +147,12 @@ export const $DeleteAdminArticleFromPackageRequest = z.object({
     articleId: z.number(),
 });
 
-export const $UpdateActivityStatusArticlePackageRequest = z.object({
+export const $UpdateArticlePackageActivityRequest = z.object({
     id: z.string(),
     isActive: z.boolean(),
 });
 
-export const $UpdateActivityStatusArticlePackageResponse = z.object({
+export const $UpdateArticlePackageActivityResponse = z.object({
     isActive: z.boolean(),
 });
 

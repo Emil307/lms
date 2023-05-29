@@ -2,13 +2,13 @@ import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import { $UploadedFile, UploadedFile } from "@shared/types";
 import {
-    $getUploadedFileResourceResponse,
+    $GetUploadedFileResourceResponse,
+    $UploadedMaterialFileDetails,
     $getUploadedFilesResponse,
-    $uploadedMaterialFileDetails,
     GetMaterialsRequestParams,
     GetUploadedFileResourceResponse,
     GetUploadedFilesResponse,
-    UpdateActivityStatusUploadedFileRequest,
+    UpdateUploadedFileActivityRequest,
     UpdateUploadedFilesRequest,
     UploadFileRequest,
     UploadedMaterialFileDetails,
@@ -34,7 +34,7 @@ class StorageApi extends BaseApi {
     }
     async getUploadedFile(id: number): Promise<UploadedMaterialFileDetails> {
         const response = await this.instance.get(`storage/files/${id}`);
-        return $uploadedMaterialFileDetails.parse(response);
+        return $UploadedMaterialFileDetails.parse(response);
     }
     async getUploadedFiles({
         isActive,
@@ -57,9 +57,9 @@ class StorageApi extends BaseApi {
 
     async getUploadedFileResource(): Promise<GetUploadedFileResourceResponse> {
         const response = await this.instance.get("storage/files/resources");
-        return $getUploadedFileResourceResponse.parse(response);
+        return $GetUploadedFileResourceResponse.parse(response);
     }
-    async updateActivityStatusUploadedFile({ id, ...data }: UpdateActivityStatusUploadedFileRequest & { id: number }): Promise<boolean> {
+    async updateUploadedFileActivity({ id, ...data }: UpdateUploadedFileActivityRequest & { id: number }): Promise<boolean> {
         return this.instance.put(`/storage/files/${id}/activity-status`, data);
     }
     async deleteUploadedFile(id: string): Promise<null> {

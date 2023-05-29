@@ -20,7 +20,8 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminArticlePackageDetails, useAdminArticlePackageResource, useUpdateArticlePackage } from "@entities/articlePackage";
-import { adaptDataForEditArticlePackageForm, adaptUpdateArticlePackageFormRequest, getDiscountPrice } from "./utils";
+import { getDiscountPrice } from "@shared/utils";
+import { adaptDataForEditArticlePackageForm, adaptUpdateArticlePackageFormRequest } from "./utils";
 import { initialValues, radioGroupValues } from "./constants";
 import { $updateArticlePackageFormValidation, UpdateArticlePackageFormValidation } from "./types";
 import useStyles from "./EditArticlePackageForm.styles";

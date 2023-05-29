@@ -15,7 +15,7 @@ export type GetUsersAdminFiltersResponse = z.infer<typeof $GetUsersAdminFiltersR
 export type GetAdminStudentsFiltersResponse = z.infer<typeof $GetAdminStudentsFiltersResponse>;
 export type UpdateUserRequest = z.infer<typeof $UpdateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $CreateUserRequest>;
-export type UpdateActivityStatusUserRequest = z.infer<typeof $UpdateActivityStatusUserRequest>;
+export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityRequest>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
 
 export const $User = z.object({
@@ -85,7 +85,7 @@ export const $UpdateUserRequest = z.object({
     additionalImageId: z.number().optional(),
 });
 
-export const $UpdateActivityStatusUserRequest = z.object({
+export const $UpdateUserActivityRequest = z.object({
     id: z.string(),
     isActive: z.boolean(),
 });

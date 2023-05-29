@@ -2,7 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Checkbox, Switch } from "@shared/ui";
-import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
+import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
@@ -15,7 +15,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
     const { user: authUser } = useSession();
-    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(id);
+    const { mutate: updateActivityStatus } = useUpdateUserActivity(id);
 
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 

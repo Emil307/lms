@@ -22,7 +22,6 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     onClickCell?: (cell: MRT_Cell<T>) => void;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderActiveBadge?: (row: MRT_Cell<T>) => boolean;
-    getSelectedRows?: () => void;
 } & TExtendedProps<T>;
 
 function BaseTable<T extends Record<string, any>>({

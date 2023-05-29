@@ -1,9 +1,8 @@
 import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { useAdminArticlePackage } from "@entities/articlePackage";
+import { useAdminArticlePackage, useUpdateArticlePackageActivity } from "@entities/articlePackage";
 import { Switch } from "@shared/ui";
-import { useUpdateActivityArticlePackage } from "@entities/articlePackage/api/hooks/mutations/useUpdateActivityArticle";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps {
@@ -14,7 +13,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: articlePackageData } = useAdminArticlePackage(id);
 
-    const { mutate: updateActivityStatus } = useUpdateActivityArticlePackage(id);
+    const { mutate: updateActivityStatus } = useUpdateArticlePackageActivity(id);
 
     const labelActivitySwitch = articlePackageData?.isActive ? "Деактивировать" : "Активировать";
 

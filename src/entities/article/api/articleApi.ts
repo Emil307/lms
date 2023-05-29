@@ -9,7 +9,7 @@ import {
     $GetArticleCoursesResponse,
     $GetArticleFiltersResponse,
     $GetArticlesResponse,
-    $UpdateActivityStatusArticleResponse,
+    $UpdateArticleActivityResponse,
     AdminArticleDetails,
     ArticleCategoryFilters,
     CreateArticleRequest,
@@ -23,8 +23,8 @@ import {
     GetArticleCoursesResponse,
     GetArticleFiltersResponse,
     GetArticlesResponse,
-    UpdateActivityStatusArticleRequest,
-    UpdateActivityStatusArticleResponse,
+    UpdateArticleActivityRequest,
+    UpdateArticleActivityResponse,
     UpdateArticleRequest,
 } from "./types";
 
@@ -89,9 +89,9 @@ class ArticleApi extends BaseApi {
         await this.instance.delete(`admin/articles/${id}`);
     }
 
-    async updateActivityStatusArticle({ id, isActive }: UpdateActivityStatusArticleRequest): Promise<UpdateActivityStatusArticleResponse> {
+    async updateArticleActivity({ id, isActive }: UpdateArticleActivityRequest): Promise<UpdateArticleActivityResponse> {
         const response = await this.instance.put(`admin/articles/${id}/activity-status`, { isActive });
-        return $UpdateActivityStatusArticleResponse.parse(response);
+        return $UpdateArticleActivityResponse.parse(response);
     }
 
     //MATERIALS

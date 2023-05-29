@@ -1,18 +1,18 @@
 import { z } from "zod";
 import { $UploadedFile, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
 
-export type Author = z.infer<typeof $author>;
+export type Author = z.infer<typeof $Author>;
 
-export type AuthorsFilters = z.infer<typeof $authorsFilters>;
+export type AuthorsFilters = z.infer<typeof $AuthorsFilters>;
 
 export type GetAuthorsRequestParams = TRequestFilterParams<AuthorsFilters>;
 
-export type GetAuthorsResponse = z.infer<typeof $getAuthorsResponse>;
-export type CreateAuthorRequest = z.infer<typeof $createAuthorRequest>;
-export type UpdateAuthorRequest = z.infer<typeof $updateAuthorRequest>;
-export type UpdateActivityAuthorRequest = z.infer<typeof $updateActivityAuthorRequest>;
+export type GetAuthorsResponse = z.infer<typeof $GetAuthorsResponse>;
+export type CreateAuthorRequest = z.infer<typeof $CreateAuthorRequest>;
+export type UpdateAuthorRequest = z.infer<typeof $UpdateAuthorRequest>;
+export type UpdateAuthorActivityRequest = z.infer<typeof $UpdateAuthorActivityRequest>;
 
-export const $author = z.object({
+export const $Author = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
@@ -24,24 +24,24 @@ export const $author = z.object({
     avatar: z.string().optional(),
 });
 
-export const $getAuthorsResponse = $getPaginationResponseType($author);
+export const $GetAuthorsResponse = $getPaginationResponseType($Author);
 
-export const $createAuthorRequest = $author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
+export const $CreateAuthorRequest = $Author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
     avatarId: z.number().nullish(),
     avatar: $UploadedFile.nullable(),
 });
 
-export const $updateAuthorRequest = $author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
+export const $UpdateAuthorRequest = $Author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
     avatarId: z.number().nullish(),
     avatar: $UploadedFile.nullable(),
 });
 
-export const $updateActivityAuthorRequest = z.object({
+export const $UpdateAuthorActivityRequest = z.object({
     id: z.string(),
     status: z.boolean(),
 });
 
-export const $authorsFilters = z.object({
+export const $AuthorsFilters = z.object({
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
     query: z.string(),
 });

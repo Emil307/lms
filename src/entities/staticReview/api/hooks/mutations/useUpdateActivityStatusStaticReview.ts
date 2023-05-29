@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import {
     AdminStaticReview,
     GetAdminStaticReviewsResponse,
-    UpdateActivityStaticReviewResponse,
+    UpdateStaticReviewActivityResponse,
     staticReviewApi,
 } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -12,9 +12,9 @@ import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateActivityStatusStaticReview = (id: number) => {
-    return useMutation<UpdateActivityStaticReviewResponse, AxiosError<FormErrorResponse>, boolean>(
-        [MutationKeys.UPDATE_ACTIVITY_STATUS_STATIC_REVIEW, id],
-        (isActive: boolean) => staticReviewApi.updateActivityStatusStaticReview({ id, isActive }),
+    return useMutation<UpdateStaticReviewActivityResponse, AxiosError<FormErrorResponse>, boolean>(
+        [MutationKeys.UPDATE_STATIC_REVIEW_ACTIVITY, id],
+        (isActive: boolean) => staticReviewApi.updateStaticReviewActivity({ id, isActive }),
         {
             onMutate: async (updatedIsActiveStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEW, id] });

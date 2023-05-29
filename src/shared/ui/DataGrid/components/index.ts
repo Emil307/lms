@@ -4,3 +4,4 @@ export * from "./Pagination";
 export * from "./CountData";
 export * from "./MenuDataGrid";
 export * from "./MenuItemDataGrid";
+export * from "./SelectedRowsCount";

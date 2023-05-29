@@ -1,17 +1,17 @@
 import { z } from "zod";
 import { $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
-export type AdminStaticReview = z.infer<typeof $adminStaticReview>;
+export type AdminStaticReview = z.infer<typeof $AdminStaticReview>;
 
-export type GetAdminStaticReviewsResponse = z.infer<typeof $getAdminStaticReviewsResponse>;
-export type CreateAdminStaticReviewRequest = z.infer<typeof $createAdminStaticReviewRequest>;
-export type UpdateAdminStaticReviewRequest = z.infer<typeof $updateAdminStaticReviewRequest>;
-export type UpdateActivityStaticReviewRequest = z.infer<typeof $updateActivityStaticReviewRequest>;
-export type UpdateActivityStaticReviewResponse = z.infer<typeof $updateActivityStaticReviewResponse>;
+export type GetAdminStaticReviewsResponse = z.infer<typeof $GetAdminStaticReviewsResponse>;
+export type CreateAdminStaticReviewRequest = z.infer<typeof $CreateAdminStaticReviewRequest>;
+export type UpdateAdminStaticReviewRequest = z.infer<typeof $UpdateAdminStaticReviewRequest>;
+export type UpdateStaticReviewActivityRequest = z.infer<typeof $UpdateStaticReviewActivityRequest>;
+export type UpdateStaticReviewActivityResponse = z.infer<typeof $UpdateStaticReviewActivityResponse>;
 
 export type GetAdminStaticReviewsRequest = TDefaultRequestParams;
 
-export const $adminStaticReview = z.object({
+export const $AdminStaticReview = z.object({
     id: z.number(),
     authorAvatar: $UploadedFile.nullable(),
     authorIsActive: z.boolean(),
@@ -25,9 +25,9 @@ export const $adminStaticReview = z.object({
     video: $UploadedFile.nullable(), //TODO:
 });
 
-export const $getAdminStaticReviewsResponse = $getPaginationResponseType($adminStaticReview);
+export const $GetAdminStaticReviewsResponse = $getPaginationResponseType($AdminStaticReview);
 
-export const $createAdminStaticReviewRequest = z
+export const $CreateAdminStaticReviewRequest = z
     .object({
         isActive: z.boolean(),
         videoId: z.number().optional(),
@@ -72,13 +72,13 @@ export const $createAdminStaticReviewRequest = z
         }
     );
 
-export const $updateAdminStaticReviewRequest = $createAdminStaticReviewRequest;
+export const $UpdateAdminStaticReviewRequest = $CreateAdminStaticReviewRequest;
 
-export const $updateActivityStaticReviewRequest = z.object({
+export const $UpdateStaticReviewActivityRequest = z.object({
     id: z.number(),
     isActive: z.boolean(),
 });
 
-export const $updateActivityStaticReviewResponse = z.object({
+export const $UpdateStaticReviewActivityResponse = z.object({
     isActive: z.boolean(),
 });

@@ -20,10 +20,11 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { useAdminArticlePackageResource, useCreateArticlePackage } from "@entities/articlePackage";
+import { getDiscountPrice } from "@shared/utils";
 import { initialValues, radioGroupValues } from "./constants";
 import useStyles from "./CreateArticlePackageForm.styles";
 import { $createArticlePackageFormValidation, CreateArticlePackageFormValidation } from "./types";
-import { adaptCreateArticlePackageFormRequest, getDiscountPrice } from "./utils";
+import { adaptCreateArticlePackageFormRequest } from "./utils";
 
 export interface CreateArticlePackageFormProps {
     onClose: () => void;

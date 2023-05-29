@@ -18,26 +18,23 @@ const List = () => {
     const router = useRouter();
     const articlePackageResources = useAdminArticlePackageResource();
 
-    // TODO: Добавить редирект как добавиться детальная страница
     const openArticlePackageDetailPage = (id: number) =>
         router.push({ pathname: "/admin/settings/article-packages/[id]", query: { id: id.toString() } });
 
     const handlerClickCell = (cell: MRT_Cell<AdminArticlePackage>) => {
-        if (cell.column.id === "mrt-row-actions") return;
         openArticlePackageDetailPage(cell.row.original.id);
     };
 
     return (
         <Box>
             <ManagedDataGrid<AdminArticlePackage, AdminArticlePackagesFilters>
-                queryKey={QueryKeys.GET_AUTHORS}
+                queryKey={QueryKeys.GET_ADMIN_ARTICLE_PACKAGES}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(params)}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query", "categoryId", "createdAt"]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                //TODO: добавить как бекенд добавит статус
-                // renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderActiveBadge={(cell) => cell.row.original.isActive}
                 onClickCell={handlerClickCell}
                 columns={columns}
                 countName="Подборок"

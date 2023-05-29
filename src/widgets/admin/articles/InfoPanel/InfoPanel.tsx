@@ -2,7 +2,7 @@ import { Box, Flex, Title, Text, ThemeIcon, BoxProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { ThumbsDown, ThumbsUp } from "react-feather";
 import { Switch } from "@shared/ui";
-import { useAdminArticle, useUpdateActivityArticle } from "@entities/article";
+import { useAdminArticle, useUpdateArticleActivity } from "@entities/article";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
@@ -12,7 +12,7 @@ export interface InfoPanelProps extends BoxProps {
 const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: articleData } = useAdminArticle(id);
-    const { mutate: updateActivityStatus } = useUpdateActivityArticle(id);
+    const { mutate: updateActivityStatus } = useUpdateArticleActivity(id);
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 

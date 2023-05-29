@@ -2,16 +2,23 @@ import { useEffect, useState } from "react";
 import { MRT_RowSelectionState } from "mantine-react-table";
 import { useRouter } from "next/router";
 
-export const useDataGridSelect = (disableQueryParams: boolean) => {
+interface UseDataGridSelectProps {
+    disableQueryParams: boolean;
+    selectItems?: string[];
+    onChangeSelect?: (items: string[]) => void;
+}
+
+export const useDataGridSelect = ({ disableQueryParams, selectItems, onChangeSelect = () => undefined }: UseDataGridSelectProps) => {
     const router = useRouter();
     const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
 
     useEffect(() => {
-        if (disableQueryParams) {
-            return;
-        }
         setRowSelection(getInitialSelectParams());
     }, [router.isReady]);
+
+    useEffect(() => {
+        onChangeSelect(Object.keys(rowSelection));
+    }, [rowSelection]);
 
     useEffect(() => {
         if (!router.isReady || disableQueryParams) {
@@ -28,6 +35,9 @@ export const useDataGridSelect = (disableQueryParams: boolean) => {
     }, [rowSelection, router.isReady]);
 
     const getInitialSelectParams = () => {
+        if (disableQueryParams) {
+            return selectItems?.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue]: true }), {}) || {};
+        }
         const { select } = router.query;
 
         if (!select || Array.isArray(select)) {

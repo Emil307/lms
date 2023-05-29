@@ -1,12 +1,12 @@
 import { Flex, Spoiler as MSpoiler, SpoilerProps as SpoilerProps, Text, ThemeIcon } from "@mantine/core";
 import { useMemo } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { CoursePackageDetail } from "@entities/coursePackage";
+import { CoursePackageDetails } from "@entities/coursePackage";
 import useStyles from "./CourseList.styles";
 import { CourseItem } from "../CourseItem";
 
 export interface CourseListProps extends Omit<SpoilerProps, "children" | "maxHeight" | "hideLabel" | "showLabel"> {
-    data: CoursePackageDetail;
+    data: CoursePackageDetails;
 }
 
 const CourseListFromPackage = ({ data, ...props }: CourseListProps) => {

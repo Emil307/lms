@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Switch } from "@shared/ui";
 import { getFullNameFromProfile } from "@shared/utils";
-import { useDetailUser, useUpdateActivityStatusUser } from "@entities/user";
+import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -14,7 +14,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailUser(id);
 
-    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(id);
+    const { mutate: updateActivityStatus } = useUpdateUserActivity(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 

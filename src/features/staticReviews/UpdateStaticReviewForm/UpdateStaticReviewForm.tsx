@@ -6,7 +6,7 @@ import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedFor
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import {
-    $updateAdminStaticReviewRequest,
+    $UpdateAdminStaticReviewRequest,
     AdminStaticReview,
     UpdateAdminStaticReviewRequest,
     staticReviewApi,
@@ -53,7 +53,7 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
     return (
         <ManagedForm<UpdateAdminStaticReviewRequest, AdminStaticReview>
             initialValues={{ ...initialValues, ...adaptDataForUpdateReviewForm(data) }}
-            validationSchema={$updateAdminStaticReviewRequest}
+            validationSchema={$UpdateAdminStaticReviewRequest}
             mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, data?.id.toString()]}
             keysInvalidateQueries={[
                 { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] },

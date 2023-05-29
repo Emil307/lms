@@ -15,7 +15,6 @@ const List = () => {
     const openAuthorDetailPage = (id: number) => router.push({ pathname: "/admin/settings/authors/[id]", query: { id: String(id) } });
 
     const handlerClickCell = (cell: MRT_Cell<Author>) => {
-        if (cell.column.id === "mrt-row-actions") return;
         openAuthorDetailPage(cell.row.original.id);
     };
 

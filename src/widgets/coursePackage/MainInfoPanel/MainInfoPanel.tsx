@@ -5,12 +5,12 @@ import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { InvoicePaymentForm } from "@features/coursePackages";
-import { CoursePackageDetail } from "@entities/coursePackage";
+import { CoursePackageDetails } from "@entities/coursePackage";
 import { CourseList, DiscountInfo } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
-    data: CoursePackageDetail;
+    data: CoursePackageDetails;
 }
 
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {

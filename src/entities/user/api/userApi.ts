@@ -7,7 +7,6 @@ import {
     UserDetailResponse,
     UsersRequestParamsType,
     ChangeUserPasswordRequest,
-    UpdateActivityStatusUserRequest,
     $GetUsersResponse,
     GetUsersResponse,
     $GetUsersAdminFiltersResponse,
@@ -16,6 +15,7 @@ import {
     $GetAdminStudentsFiltersResponse,
     CreateUserResponse,
     $CreateUserResponse,
+    UpdateUserActivityRequest,
 } from "./types";
 
 export class UsersApi extends BaseApi {
@@ -50,7 +50,7 @@ export class UsersApi extends BaseApi {
         await this.instance.delete(`admin/users/${id}`);
     }
 
-    async updateActivityStatusUser({ id, isActive }: UpdateActivityStatusUserRequest): Promise<void> {
+    async updateUserActivity({ id, isActive }: UpdateUserActivityRequest): Promise<void> {
         //TODO: Добавить респонс как бекенд добавит { isActive: boolean }
         await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
     }

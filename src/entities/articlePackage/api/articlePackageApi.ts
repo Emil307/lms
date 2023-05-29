@@ -10,9 +10,6 @@ import {
     GetAdminArticlesFromArticlePackageRequestParams,
     GetAdminArticlesFromArticlePackageResponse,
     DeleteAdminArticleFromPackageRequest,
-    UpdateActivityStatusArticlePackageRequest,
-    UpdateActivityStatusArticlePackageResponse,
-    $UpdateActivityStatusArticlePackageResponse,
     $GetAdminArticlePackagesResponse,
     $GetAdminArticlePackagesResourceResponse,
     $AdminArticlePackageDetails,
@@ -22,6 +19,9 @@ import {
     GetArticlesFromArticlePackage,
     $GetArticlesFromArticlePackage,
     GetArticlesFromArticlePackageRequest,
+    $UpdateArticlePackageActivityResponse,
+    UpdateArticlePackageActivityResponse,
+    UpdateArticlePackageActivityRequest,
 } from "./types";
 
 class ArticlePackageApi extends BaseApi {
@@ -75,12 +75,12 @@ class ArticlePackageApi extends BaseApi {
         await this.instance.delete(`admin/article-packages/${id}`);
     }
 
-    async updateActivityStatusArticlePackage({
+    async updateArticlePackageActivity({
         id,
         isActive,
-    }: UpdateActivityStatusArticlePackageRequest): Promise<UpdateActivityStatusArticlePackageResponse> {
+    }: UpdateArticlePackageActivityRequest): Promise<UpdateArticlePackageActivityResponse> {
         const response = await this.instance.put(`admin/article-packages/${id}/activity-status`, { isActive });
-        return $UpdateActivityStatusArticlePackageResponse.parse(response);
+        return $UpdateArticlePackageActivityResponse.parse(response);
     }
 
     //ARTICLES FROM ARTICLE_PACKAGE

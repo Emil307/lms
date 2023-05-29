@@ -42,7 +42,7 @@ export const $DiscountType = z.literal("percentage").or(z.literal("currency"));
 
 export const $Discount = z.object({
     type: $DiscountType,
-    amount: z.number(),
+    amount: z.number().optional(),
     startingDate: z.coerce.date().nullable(),
     finishingDate: z.coerce.date().nullable(),
 });
