@@ -17,7 +17,7 @@ const MemoizedTeacherCard = memo(function Card({ data, ...props }: TeacherCardPr
             <MCard.Section className={classes.cardImageSection}>
                 <Box className={classes.imageWrapper}>
                     <Image
-                        src={data.profile.avatar.path}
+                        src={data.profile.avatar.absolutePath}
                         loader={({ src }) => `${src}`}
                         alt={data.profile.avatar.name}
                         fill

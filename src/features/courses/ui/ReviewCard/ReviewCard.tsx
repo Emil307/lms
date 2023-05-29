@@ -20,7 +20,7 @@ const MemoizedReviewCard = memo(function ReviewCard({ data, ...props }: ReviewCa
             <MCard.Section className={classes.section}>
                 <Group>
                     <Flex align="center" sx={{ gap: 16 }}>
-                        <Avatar src={data.avatar.path} alt="avatar" w={64} h={64} radius={50} />
+                        <Avatar src={data.avatar.absolutePath} alt="avatar" w={64} h={64} radius={50} />
                         <Flex direction="column" gap={4}>
                             <Title order={4} color="dark">
                                 Кремышева Виктория

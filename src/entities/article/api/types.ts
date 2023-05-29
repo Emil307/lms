@@ -3,7 +3,8 @@ import { $UploadedFile, $getPaginationResponseType, $pagination, TRequestFilterP
 
 export type Article = z.infer<typeof $Article>;
 export type ArticleCategory = z.infer<typeof $ArticleCategory>;
-export type ArticleFilter = z.infer<typeof $ArticleFilter>;
+export type AdminArticleCategory = z.infer<typeof $AdminArticleCategory>;
+export type AdminArticleTag = z.infer<typeof $AdminArticleTag>;
 export type ArticleCourse = z.infer<typeof $ArticleCourse>;
 
 export type AdminArticle = z.infer<typeof $AdminArticle>;
@@ -52,11 +53,12 @@ export const $ArticleCourse = z.object({
     articleCount: z.number(),
 });
 
-export const $ArticleFilter = z.object({
+export const $AdminArticleCategory = z.object({
     id: z.number(),
     name: z.string(),
-    slug: z.string(),
 });
+
+export const $AdminArticleTag = $AdminArticleCategory;
 
 export const $GetArticlesResponse = $getPaginationResponseType($Article);
 
@@ -72,8 +74,8 @@ export const $GetArticleCategoriesResponse = $getPaginationResponseType($Article
 export const $GetArticleCoursesResponse = $getPaginationResponseType($ArticleCourse);
 
 export const $GetArticleFiltersResponse = z.object({
-    categories: $getPaginationResponseType($ArticleFilter),
-    tags: $getPaginationResponseType($ArticleFilter),
+    subcategories: z.array($AdminArticleCategory),
+    tags: z.array($AdminArticleTag),
 });
 
 //TODO: Это ооочень примерно так как даже на текущий момент и моковских эндпоинтов нет

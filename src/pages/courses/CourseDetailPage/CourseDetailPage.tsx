@@ -12,12 +12,7 @@ import { getBreadCrumbsItems } from "./utils";
 const data: CourseDetailData = {
     name: "Оптимизация управления финансами",
     picture: {
-        data: {
-            name: "fileName.jpg",
-            path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-            type: "image/jpg",
-            size: 12311,
-        },
+        data: null,
     },
     dateStart: "2023-02-01T13:13:11.000000Z",
     dateEnd: "2023-02-05T13:13:11.000000Z",

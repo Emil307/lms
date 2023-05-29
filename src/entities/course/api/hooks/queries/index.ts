@@ -8,3 +8,4 @@ export * from "./useAdminCourse";
 export * from "./useCourses";
 export * from "./useCoursesInfinite";
 export * from "./useAdminCourses";
+export * from "./useCourseResources";

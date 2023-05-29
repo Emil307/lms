@@ -17,7 +17,7 @@ const ArticleCollectionPage = () => {
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry.isIntersecting && hasNextPage) {
+        if (entry?.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);

@@ -9,19 +9,26 @@ import {
     $DiscountType,
 } from "@shared/types";
 
-export type AdminCourse = z.infer<typeof $AdminCourse>;
-export type Course = z.infer<typeof $Course>;
-export type CourseBlock = z.infer<typeof $CourseBlock>;
-export type FileDocument = z.infer<typeof $FileDocument>;
-export type CourseDetailData = z.infer<typeof $CourseDetailData>;
-export type CourseProgram = z.infer<typeof $CourseProgram>;
-export type CourseTeacher = z.infer<typeof $CourseTeacher>;
-export type Review = z.infer<typeof $Review>;
+/**
+ *
+ * GENERAL TYPES
+ *
+ */
+export type CourseType = z.infer<typeof $CourseType>;
 
+/**
+ *
+ * ADMIN TYPES
+ *
+ */
+export type AdminCourse = z.infer<typeof $AdminCourse>;
+
+//FILTERS
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
 export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCoursesForCoursePackageFiltersForm>;
 export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
 
+//REQ/RESP
 export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
 export type GetAdminCoursesRequest = z.infer<typeof $GetAdminCoursesRequest>;
 export type GetAdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResourcesResponse>;
@@ -33,8 +40,32 @@ export type CreateCourseRequest = z.infer<typeof $CreateCourseRequest>;
 export type CreateCourseResponse = z.infer<typeof $CreateCourseResponse>;
 export type UpdateCourseRequest = z.infer<typeof $UpdateCourseRequest>;
 export type UpdateCourseResponse = z.infer<typeof $UpdateCourseResponse>;
+export type GetAdminCoursesWithoutCoursesFromCoursePackageRequest = z.infer<typeof $GetAdminCoursesWithoutCoursesFromCoursePackageRequest>;
 
-export type GetCoursesRequest = z.infer<typeof $GetCoursesFiltersRequest>;
+/**
+ *
+ * USER TYPES
+ *
+ */
+export type Course = z.infer<typeof $Course>;
+export type CourseBlock = z.infer<typeof $CourseBlock>;
+export type CourseDetailData = z.infer<typeof $CourseDetailData>;
+export type CourseProgram = z.infer<typeof $CourseProgram>;
+export type CourseTeacher = z.infer<typeof $CourseTeacher>;
+export type Review = z.infer<typeof $Review>;
+export type CourseCategory = z.infer<typeof $CourseCategory>;
+export type CourseSubCategory = z.infer<typeof $CourseSubCategory>;
+export type CourseTag = z.infer<typeof $CourseTag>;
+
+//FILTERS
+export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
+
+//REQ/RESP
+export type GetCoursesRequest = z.infer<typeof $GetCoursesRequest>;
+export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
+export type GetCourseResourcesResponse = z.infer<typeof $GetCourseResourcesResponse>;
+
+// MOCKS
 export type GetCourseProgramResponse = z.infer<typeof $GetCourseProgramResponse>;
 export type GetMyCoursesResponse = z.infer<typeof $GetMyCoursesResponse>;
 export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $GetCourseProgramModuleLessonsResponse>;
@@ -43,19 +74,16 @@ export type GetCourseTeachersResponse = z.infer<typeof $GetCourseTeachersRespons
 export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
 export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
-export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
-export type GetAdminCoursesWithoutCoursesFromCoursePackageRequest = z.infer<typeof $GetAdminCoursesWithoutCoursesFromCoursePackageRequest>;
 
-export type CourseType = z.infer<typeof $CourseType>;
-
-export const $FileDocument = z.object({
-    name: z.string(),
-    path: z.string(),
-    type: z.string(),
-    size: z.number(),
-});
+/**
+ * GENERAL ZOD
+ */
 
 export const $CourseType = z.literal("interactive").or(z.literal("autonomous"));
+
+/**
+ * ADMIN ZOD
+ */
 
 const $AdminCourseCategory = z.object({
     id: z.number(),
@@ -325,28 +353,71 @@ export const $CreateCourseRequest = z.object({
 
 export const $UpdateCourseFormValues = $CreateCourseFormValues;
 
-export const $CoursesFilters = z.object({
+export const $UpdateCourseRequest = $CreateCourseRequest.extend({
+    id: z.string(),
+});
+
+export const $UpdateCourseResponse = $AdminCourse;
+
+/**
+ * USER ZOD
+ */
+
+export const $GetCourseResourcesResponse = $GetAdminCourseResourcesResponse
+    .pick({
+        categories: true,
+        subcategories: true,
+        tags: true,
+    })
+    .extend({
+        prices: z.object({ lowest: z.number(), highest: z.number() }),
+    });
+
+export const $CoursesFiltersForm = z.object({
+    query: z.string(),
+    hasDiscount: z.boolean(),
+    tags: z.array(z.string()),
+    categoryId: z.string(),
+    subcategoryIds: z.array(z.string()),
+    isFavorite: z.boolean(),
+    collectionIds: z.string(),
+    packageIds: z.array(z.string()),
+    discountPrice: z.number(),
+});
+
+export const $CoursesRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
             hasDiscount: z.boolean(),
-            tags: $getMultiValueObjectType(z.string(), z.literal("or")),
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             "category.id": z.string(),
-            "subcategory.id": z.string(),
+            "subcategory.id": $getMultiValueObjectType(z.string(), z.literal("or")),
+            isFavorite: z.boolean(),
             collectionIds: z.string(),
             packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            discountPrice: z.string(),
+            //TODO: Добавить фильтр по price как бекенд добавит
         })
         .partial(),
 });
 
-export const $UpdateCourseRequest = $CreateCourseRequest.extend({
-    id: z.string(),
+export const $GetCoursesRequest = $getFiltersRequestType($CoursesRequest);
+
+export const $GetCoursesInfiniteRequest = $GetCoursesRequest.omit({ page: true, perPage: true });
+
+export const $CourseCategory = z.object({
+    id: z.number(),
+    name: z.string(),
 });
-export const $UpdateCourseResponse = $AdminCourse;
 
-export const $GetCoursesFiltersRequest = $getFiltersRequestType($CoursesFilters);
+export const $CourseSubCategory = $CourseCategory;
 
-export const $GetCoursesInfiniteRequest = $CoursesFilters;
+export const $CourseTag = $CourseCategory;
+
+// TODO:
+// MOCKS
+//
 
 export const $CourseProgram = z.object({
     id: z.number(),
@@ -373,7 +444,7 @@ export const $CourseTeacher = z.object({
         lastName: z.string(),
         patronymic: z.string(),
         description: z.string(),
-        avatar: $FileDocument,
+        avatar: $UploadedFile,
     }),
 });
 
@@ -382,7 +453,7 @@ export const $Review = z.object({
     firstName: z.string(),
     lastName: z.string(),
     patronymic: z.string(),
-    avatar: $FileDocument,
+    avatar: $UploadedFile,
     rating: z.number(),
     course: z.object({
         id: z.number(),
@@ -398,7 +469,7 @@ export const $Review = z.object({
 export const $CourseDetailData = z.object({
     name: z.string(),
     picture: z.object({
-        data: $FileDocument,
+        data: $UploadedFile.nullable(),
     }),
     dateStart: z.string().datetime().nullable(),
     dateEnd: z.string().datetime().nullable(),
@@ -441,7 +512,7 @@ export const $CourseDetailData = z.object({
                 lastName: z.string(),
                 patronymic: z.string(),
                 avatar: z.object({
-                    data: $FileDocument,
+                    data: $UploadedFile,
                 }),
                 description: z.string(),
             }),
@@ -467,11 +538,10 @@ export const $CourseDetailData = z.object({
 export const $Course = z.object({
     id: z.number(),
     name: z.string(),
-    description: z.string(),
+    description: z.string().nullable(),
     price: z.number(),
     discountPrice: z.number(),
     type: $CourseType,
-    startingDate: z.coerce.date(),
     isFavorite: z.boolean(),
     lessonsCount: z.number(),
     cover: $UploadedFile.nullable(),
@@ -479,9 +549,16 @@ export const $Course = z.object({
         .object({
             id: z.number(),
             name: z.string(),
+            isActive: z.boolean(),
         })
         .nullable(),
-
+    subcategory: z
+        .object({
+            id: z.number(),
+            name: z.string(),
+            isActive: z.boolean(),
+        })
+        .nullable(),
     discount: $Discount.nullable(),
 });
 

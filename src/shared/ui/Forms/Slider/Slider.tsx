@@ -35,7 +35,7 @@ const MemoizedSlider = memo(function Slider({ showTextInfo = false, ...props }: 
     );
 
     return (
-        <Box pt={40}>
+        <Box pt={30}>
             <MSlider {...props} classNames={classes} size={4} label={<ChevronRight />} />
             {showTextInfo && textInfo}
         </Box>

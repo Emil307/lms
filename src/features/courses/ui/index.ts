@@ -9,3 +9,4 @@ export * from "./TeacherCard";
 export * from "./List";
 export * from "./CreateCourseForm";
 export * from "./UpdateCourseForm";
+export * from "./Filters";
