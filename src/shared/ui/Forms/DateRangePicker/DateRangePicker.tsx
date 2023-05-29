@@ -6,10 +6,8 @@ import { z } from "zod";
 import IconCalendar from "public/icons/calendar2.svg";
 import { useInputStyles } from "@shared/styles";
 
-export interface DateRangePickerProps extends Omit<MDateRangePickerProps, "value" | "onChange"> {
+export interface DateRangePickerProps extends MDateRangePickerProps {
     success?: string | boolean;
-    value?: [Date | null, Date | null];
-    onChange?: (value: [Date | null, Date | null]) => void;
 }
 
 const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props }: DateRangePickerProps) {

@@ -5,7 +5,7 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminCategory, useUpdateActivityCategory } from "@entities/category";
+import { AdminCategory, useUpdateCategoryActivity } from "@entities/category";
 import { DeleteCategoryModal, EditCategoryForm } from "@features/categories";
 
 interface ListMenuProps {
@@ -15,7 +15,7 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useUpdateActivityCategory(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateCategoryActivity(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

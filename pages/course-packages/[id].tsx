@@ -1,8 +1,8 @@
 import React from "react";
 import { ReactElement } from "react";
+import { CoursePackageDetailPage } from "@pages/coursePackages";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { CoursePackageDetailPage } from "@pages/course-packages";
 
 const CoursePackageDetail: NextPageWithLayout = () => {
     return <CoursePackageDetailPage />;

@@ -19,6 +19,8 @@ export type CourseTeacher = z.infer<typeof $CourseTeacher>;
 export type Review = z.infer<typeof $Review>;
 
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
+export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCoursesForCoursePackageFiltersForm>;
+export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
 
 export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
 export type GetAdminCoursesRequest = z.infer<typeof $GetAdminCoursesRequest>;
@@ -42,6 +44,7 @@ export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>
 export type GetCoursesResponse = z.infer<typeof $GetCoursesResponse>;
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
 export type GetCoursesInfiniteRequest = z.infer<typeof $GetCoursesInfiniteRequest>;
+export type GetAdminCoursesWithoutCoursesFromCoursePackageRequest = z.infer<typeof $GetAdminCoursesWithoutCoursesFromCoursePackageRequest>;
 
 export type CourseType = z.infer<typeof $CourseType>;
 
@@ -149,15 +152,25 @@ export const $AdminCoursesFiltersForm = z.object({
     discountType: z.string(),
 });
 
+export const $AdminCoursesForCoursePackageFiltersForm = z.object({
+    query: z.string(),
+    tags: z.array(z.string()),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+});
+
 export const $AdminCoursesRequest = z.object({
     query: z.string().optional(),
+    paginate: z.boolean().optional(),
     filter: z
         .object({
             isActive: z.literal("1").or(z.literal("0")),
             tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             createdAt: $getDateObjectType(z.literal("range")),
             "category.id": z.string(),
+            "subcategory.id": z.string(),
             "discount.type": z.string(),
         })
         .partial(),
@@ -533,3 +546,20 @@ export const $GetCourseReviewsResponse = z.object({
 });
 
 export const $GetFavoriteCoursesResponse = $getPaginationResponseType($Course);
+
+export const $CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")),
+            tags: $getMultiValueObjectType(z.string(), z.literal("or")),
+            "category.id": z.string(),
+            "subcategory.id": z.string(),
+            packageIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetAdminCoursesWithoutCoursesFromCoursePackageRequest = $getFiltersRequestType(
+    $CoursesWithoutSelectedCoursesFromCoursePackageFilters
+);

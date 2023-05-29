@@ -26,3 +26,5 @@ export type TFilterTable<F> = {
 export type TFiltersProps<F, K> = F extends FormikValues ? { filter: TFilterTable<K> } : { filter?: never };
 
 export type TExtraFiltersProps<E> = E extends Record<string, any> ? { extraFilterParams: E } : { extraFilterParams?: never };
+
+export type TSelectProps = { selectItems?: string[]; onChangeSelect?: (selectedItems: string[]) => void };

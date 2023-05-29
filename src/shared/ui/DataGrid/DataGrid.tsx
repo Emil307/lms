@@ -1,8 +1,8 @@
-import { Box } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { TPagination } from "@shared/types";
-import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps } from "./components";
+import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount } from "./components";
 
 type TExtendedProps<T extends Record<string, any>, F extends FormikValues = FormikValues> = Omit<TBaseTableProps<T>, "key" | "pagination"> &
     TFilterProps<F>;
@@ -26,7 +26,10 @@ function DataGrid<T extends Record<string, any>, F extends FormikValues = Formik
             <Filter<F> formikConfig={formikConfig} formRef={formRef}>
                 {children}
             </Filter>
-            <CountData countName={countName} pagination={pagination} />
+            <Flex gap={16} justify="space-between">
+                <CountData countName={countName} pagination={pagination} />
+                {rest.initialState?.columnOrder?.includes("mrt-row-select") && <SelectedRowsCount />}
+            </Flex>
             <Box mt={24}>
                 <BaseTable<T>
                     {...rest}

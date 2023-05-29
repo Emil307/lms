@@ -9,14 +9,14 @@ import {
     CreateAdminCategoryRequest,
     UpdateAdminCategoryRequest,
     GetAdminSubCategoriesRequest,
-    UpdateActivityStatusCategoryRequest,
-    UpdateActivityStatusCategoryResponse,
-    $UpdateActivityStatusCategoryResponse,
     GetAdminSubCategoriesPaginateRequest,
     $GetAdminSubCategoriesPaginateResponse,
     $GetAdminSubCategoriesResponse,
     GetAdminSubCategoriesPaginateResponse,
     GetAdminSubCategoriesResponse,
+    UpdateCategoryActivityRequest,
+    UpdateCategoryActivityResponse,
+    $UpdateCategoryActivityResponse,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -59,12 +59,9 @@ class CategoryApi extends BaseApi {
         await this.instance.delete(`admin/categories/${id}`);
     }
 
-    async updateActivityStatusCategory({
-        id,
-        isActive,
-    }: UpdateActivityStatusCategoryRequest): Promise<UpdateActivityStatusCategoryResponse> {
+    async updateCategoryActivity({ id, isActive }: UpdateCategoryActivityRequest): Promise<UpdateCategoryActivityResponse> {
         const response = await this.instance.put(`admin/categories/${id}/activity-status`, { isActive });
-        return $UpdateActivityStatusCategoryResponse.parse(response);
+        return $UpdateCategoryActivityResponse.parse(response);
     }
 }
 

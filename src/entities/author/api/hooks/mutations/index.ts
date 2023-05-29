@@ -1,4 +1,4 @@
 export * from "./useDeleteAuthor";
 export * from "./useUpdateAuthor";
 export * from "./useCreateAuthor";
-export * from "./useUpdateActivityAuthor";
+export * from "./useUpdateAuthorActivity";

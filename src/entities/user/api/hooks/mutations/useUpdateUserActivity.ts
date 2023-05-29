@@ -6,8 +6,8 @@ import { TUser, GetUsersResponse, usersApi } from "@entities/user";
 import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification, getFullNameFromProfile } from "@shared/utils";
 
-export const useUpdateActivityStatusUser = (id: string): UseMutationResult<void, AxiosError<FormErrorResponse>, boolean> => {
-    return useMutation([MutationKeys.UPDATE_ACTIVITY_USER], (isActive) => usersApi.updateActivityStatusUser({ id, isActive }), {
+export const useUpdateUserActivity = (id: string): UseMutationResult<void, AxiosError<FormErrorResponse>, boolean> => {
+    return useMutation([MutationKeys.UPDATE_USER_ACTIVITY], (isActive) => usersApi.updateUserActivity({ id, isActive }), {
         onMutate: async (updatedStatus) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USER, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USERS] });

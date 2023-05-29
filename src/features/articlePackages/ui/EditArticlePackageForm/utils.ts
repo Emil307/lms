@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { AdminArticlePackageDetails, UpdateAdminArticlePackageRequest } from "@entities/articlePackage";
-import { TGetDiscountPrice, UpdateArticlePackageFormValidation } from "./types";
+import { UpdateArticlePackageFormValidation } from "./types";
 
 export const adaptDataForEditArticlePackageForm = (
     articlePackage?: AdminArticlePackageDetails
@@ -36,15 +36,4 @@ export const adaptUpdateArticlePackageFormRequest = (data: UpdateArticlePackageF
             },
         }),
     };
-};
-
-export const getDiscountPrice = ({ price, amountDiscount, type }: TGetDiscountPrice) => {
-    if (!price || !amountDiscount) {
-        return "";
-    }
-    if (type == "percentage") {
-        return `${Math.floor(price - price * (amountDiscount / 100)).toLocaleString("ru")} ₽`;
-    }
-
-    return `${(price - amountDiscount).toLocaleString("ru")} ₽`;
 };

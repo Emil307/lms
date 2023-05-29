@@ -3,14 +3,14 @@ import { memo, ReactNode } from "react";
 import { CoursePackage } from "@entities/coursePackage";
 import { getPluralString } from "@shared/utils";
 import { AmountInfo, DiscountInfo } from "./components";
-import useStyles from "./CoursePackageCard.styles";
+import useStyles from "./Card.styles";
 
-export interface CoursePackageCardProps extends Omit<MCardProps, "children"> {
+export interface CardProps extends Omit<MCardProps, "children"> {
     data: CoursePackage;
     children: ({ data }: { data: CoursePackage }) => ReactNode;
 }
 
-const MemoizedCoursePackageCard = memo(function CoursePackageCard({ data, children, ...props }: CoursePackageCardProps) {
+const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props }: CardProps) {
     const { classes } = useStyles();
 
     return (
@@ -38,4 +38,4 @@ const MemoizedCoursePackageCard = memo(function CoursePackageCard({ data, childr
     );
 });
 
-export default MemoizedCoursePackageCard;
+export default MemoizedCard;

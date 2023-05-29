@@ -3,7 +3,7 @@ import { MRT_Row } from "mantine-react-table";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useUpdateActivityStatusUser } from "@entities/user";
+import { TUser, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { getFullNameFromProfile } from "@shared/utils";
@@ -14,7 +14,7 @@ interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const theme = useMantineTheme();
-    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateUserActivity(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

@@ -28,8 +28,8 @@ export type GetAdminArticlesResourceResponse = z.infer<typeof $GetAdminArticlesR
 export type GetAdminArticleMaterialsRequest = TRequestFilterParams<AdminArticleMaterialsFilters>;
 export type GetAdminArticleMaterialsResponse = z.infer<typeof $GetAdminArticleMaterialsResponse>;
 export type DeleteAdminArticleMaterialRequest = z.infer<typeof $DeleteAdminArticleMaterialRequest>;
-export type UpdateActivityStatusArticleRequest = z.infer<typeof $UpdateActivityStatusArticleRequest>;
-export type UpdateActivityStatusArticleResponse = z.infer<typeof $UpdateActivityStatusArticleResponse>;
+export type UpdateArticleActivityRequest = z.infer<typeof $UpdateArticleActivityRequest>;
+export type UpdateArticleActivityResponse = z.infer<typeof $UpdateArticleActivityResponse>;
 
 export const $Article = z.object({
     id: z.number(),
@@ -196,11 +196,11 @@ export const $DeleteAdminArticleMaterialRequest = z.object({
     materialId: z.number(),
 });
 
-export const $UpdateActivityStatusArticleRequest = z.object({
+export const $UpdateArticleActivityRequest = z.object({
     id: z.string(),
     isActive: z.boolean(),
 });
 
-export const $UpdateActivityStatusArticleResponse = z.object({
+export const $UpdateArticleActivityResponse = z.object({
     isActive: z.boolean(),
 });

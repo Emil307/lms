@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useUpdateActivityStatusUser } from "@entities/user";
+import { TUser, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
@@ -20,7 +20,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
 
     const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
 
-    const { mutate: updateActivityStatus } = useUpdateActivityStatusUser(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateUserActivity(String(row.original.id));
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

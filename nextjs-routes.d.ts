@@ -38,6 +38,10 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/settings/authors">
     | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
+    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
+    | StaticRoute<"/admin/settings/course-packages/create">
+    | StaticRoute<"/admin/settings/course-packages">
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">

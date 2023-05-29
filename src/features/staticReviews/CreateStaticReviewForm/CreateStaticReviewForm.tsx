@@ -7,7 +7,7 @@ import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedFor
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import {
-    $createAdminStaticReviewRequest,
+    $CreateAdminStaticReviewRequest,
     AdminStaticReview,
     CreateAdminStaticReviewRequest,
     staticReviewApi,
@@ -52,7 +52,7 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
     return (
         <ManagedForm<CreateAdminStaticReviewRequest, AdminStaticReview>
             initialValues={initialValues}
-            validationSchema={$createAdminStaticReviewRequest}
+            validationSchema={$CreateAdminStaticReviewRequest}
             mutationKey={[MutationKeys.CREATE_STATIC_REVIEW]}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
             mutationFunction={createStaticReview}

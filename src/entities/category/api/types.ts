@@ -14,8 +14,8 @@ export type GetAdminSubCategoriesResponse = z.infer<typeof $GetAdminSubCategorie
 export type GetAdminCategoriesResponse = z.infer<typeof $GetAdminCategoriesResponse>;
 export type UpdateAdminCategoryRequest = z.infer<typeof $UpdateAdminCategoryRequest>;
 export type CreateAdminCategoryRequest = z.infer<typeof $CreateAdminCategoryRequest>;
-export type UpdateActivityStatusCategoryRequest = z.infer<typeof $UpdateActivityStatusCategoryRequest>;
-export type UpdateActivityStatusCategoryResponse = z.infer<typeof $UpdateActivityStatusCategoryResponse>;
+export type UpdateCategoryActivityRequest = z.infer<typeof $UpdateCategoryActivityRequest>;
+export type UpdateCategoryActivityResponse = z.infer<typeof $UpdateCategoryActivityResponse>;
 
 const $SubCategoriesExtraFilters = z.object({
     parentId: z.string(),
@@ -61,11 +61,11 @@ export const $CreateAdminCategoryRequest = z.object({
     parentId: z.number().optional(),
 });
 
-export const $UpdateActivityStatusCategoryRequest = z.object({
+export const $UpdateCategoryActivityRequest = z.object({
     id: z.string(),
     isActive: z.boolean(),
 });
 
-export const $UpdateActivityStatusCategoryResponse = z.object({
+export const $UpdateCategoryActivityResponse = z.object({
     isActive: z.boolean(),
 });

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
-import { CourseListFromPackage, CoursePackageCard } from "@features/coursePackages";
+import { CourseListFromPackage, Card as CoursePackageCard } from "@features/coursePackages";
 import useStyles from "./CarouselList.styles";
 import { adaptDataForUpdateAboutForm } from "./utils";
 

@@ -5,7 +5,7 @@ import { Download, Edit3, Trash } from "react-feather";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { UploadedMaterialFile, useUpdateActivityStatusUploadedFile } from "@entities/storage";
+import { UploadedMaterialFile, useUpdateUploadedFileActivity } from "@entities/storage";
 import { DeleteMaterialModal, EditMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 
 interface UsersListMenuProps {
@@ -13,7 +13,7 @@ interface UsersListMenuProps {
 }
 
 const ListMenu = ({ row }: UsersListMenuProps) => {
-    const { mutate: updateActivityStatus } = useUpdateActivityStatusUploadedFile(row.original.id);
+    const { mutate: updateActivityStatus } = useUpdateUploadedFileActivity(row.original.id);
 
     const handleCloseDeleteModal = () => closeModal("DELETE_MATERIAL");
     const handleCloseEditMaterialFormModal = () => closeModal("EDIT_MATERIAL");

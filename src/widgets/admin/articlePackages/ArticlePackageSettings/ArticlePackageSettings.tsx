@@ -25,7 +25,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
 
     const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE_PACKAGE");
 
-    const openModalDeleteGroup = () => {
+    const openModalDeletePackage = () => {
         openModal({
             modalId: "DELETE_ARTICLE_PACKAGE",
             title: "Удаление пакета",
@@ -54,7 +54,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
                         <Title order={2} color="dark">
                             Данные пакета базы знаний
                         </Title>
-                        <Button onClick={openModalDeleteGroup} variant="text" leftIcon={<Trash />}>
+                        <Button onClick={openModalDeletePackage} variant="text" leftIcon={<Trash />}>
                             Удалить пакет
                         </Button>
                     </Flex>

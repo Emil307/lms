@@ -29,6 +29,7 @@ import {
     $UpdateCourseResponse,
     GetAdminCourseResponse,
     $GetAdminCourseResponse,
+    GetAdminCoursesWithoutCoursesFromCoursePackageRequest,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -37,7 +38,9 @@ class CourseApi extends BaseApi {
         return $GetAdminCourseResourcesResponse.parse(response);
     }
 
-    async getAdminCourses(data: GetAdminCoursesRequest): Promise<GetAdminCoursesResponse> {
+    async getAdminCourses(
+        data: GetAdminCoursesRequest | GetAdminCoursesWithoutCoursesFromCoursePackageRequest
+    ): Promise<GetAdminCoursesResponse> {
         const response = await this.instance.post("admin/courses/list", data);
         return $GetAdminCoursesResponse.parse(response);
     }

@@ -5,18 +5,18 @@ import { queryClient } from "@app/providers";
 import {
     AdminArticlePackageDetails,
     GetAdminArticlePackagesResponse,
-    UpdateActivityStatusArticlePackageResponse,
+    UpdateArticlePackageActivityResponse,
     articlePackageApi,
 } from "@entities/articlePackage";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
-export const useUpdateActivityArticlePackage = (
+export const useUpdateArticlePackageActivity = (
     id: string
-): UseMutationResult<UpdateActivityStatusArticlePackageResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
+): UseMutationResult<UpdateArticlePackageActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
-        [MutationKeys.UPDATE_ACTIVITY_ARTICLE_PACKAGE, id],
-        (isActive: boolean) => articlePackageApi.updateActivityStatusArticlePackage({ id, isActive }),
+        [MutationKeys.UPDATE_ARTICLE_PACKAGE_ACTIVITY],
+        (isActive: boolean) => articlePackageApi.updateArticlePackageActivity({ id, isActive }),
         {
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id] });

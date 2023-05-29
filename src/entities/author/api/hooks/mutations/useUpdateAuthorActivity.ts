@@ -9,8 +9,8 @@ import { ToastType, createNotification } from "@shared/utils";
 export const useUpdateActivityAuthor = (id: string) => {
     //TODO: Поправить как обновят беки что при обвлении всегда возвращается модель
     return useMutation<{ status: boolean }, AxiosError<FormErrorResponse>, boolean, unknown>(
-        [MutationKeys.UPDATE_ACTIVITY_AUTHOR, id],
-        (status: boolean) => authorApi.updateActivityAuthor({ id, status }),
+        [MutationKeys.UPDATE_AUTHOR_ACTIVITY],
+        (status: boolean) => authorApi.updateAuthorActivity({ id, status }),
         {
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_AUTHOR, id] });

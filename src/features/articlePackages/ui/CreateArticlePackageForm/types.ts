@@ -75,9 +75,3 @@ export const $createArticlePackageFormValidation = z
             path: ["discount.amount"],
         }
     );
-
-export interface TGetDiscountPrice {
-    price?: number | null;
-    amountDiscount?: number | null;
-    type: "percentage" | "currency";
-}

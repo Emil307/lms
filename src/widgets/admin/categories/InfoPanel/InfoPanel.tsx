@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Folder } from "react-feather";
 import { Switch } from "@shared/ui";
-import { useAdminCategory, useUpdateActivityCategory } from "@entities/category";
+import { useAdminCategory, useUpdateCategoryActivity } from "@entities/category";
 import { getHumanDate } from "@shared/utils";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -14,7 +14,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useAdminCategory(id);
 
-    const { mutate: updateActivityStatus } = useUpdateActivityCategory(id);
+    const { mutate: updateActivityStatus } = useUpdateCategoryActivity(id);
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 

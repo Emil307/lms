@@ -1,16 +1,16 @@
-import { Flex, ThemeIcon, Text, ActionIcon } from "@mantine/core";
+import { Flex, ThemeIcon, Text, ActionIcon, FlexProps } from "@mantine/core";
 import { Info, X } from "react-feather";
 import useStyles from "./Prompt.styles";
 
-export interface PromptProps {
+export interface PromptProps extends FlexProps {
     content: string;
     onClose: () => void;
 }
 
-const Prompt = ({ content, onClose }: PromptProps) => {
+const Prompt = ({ content, onClose, ...props }: PromptProps) => {
     const { classes } = useStyles();
     return (
-        <Flex className={classes.root}>
+        <Flex {...props} className={classes.root}>
             <ThemeIcon className={classes.icon} variant="outline">
                 <Info width={32} height={32} />
             </ThemeIcon>

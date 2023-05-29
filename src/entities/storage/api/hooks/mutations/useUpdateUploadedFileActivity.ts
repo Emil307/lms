@@ -6,10 +6,10 @@ import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUpdateActivityStatusUploadedFile = (id: number) => {
+export const useUpdateUploadedFileActivity = (id: number) => {
     return useMutation<boolean, AxiosError<FormErrorResponse>, boolean>(
-        [MutationKeys.UPDATE_ACTIVITY_UPLOADED_FILE, id],
-        (status: boolean) => storageApi.updateActivityStatusUploadedFile({ id, status }),
+        [MutationKeys.UPDATE_UPLOADED_FILE_ACTIVITY, id],
+        (status: boolean) => storageApi.updateUploadedFileActivity({ id, status }),
         {
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILE, id] });

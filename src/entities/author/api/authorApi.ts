@@ -1,13 +1,13 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $author,
-    $getAuthorsResponse,
+    $Author,
+    $GetAuthorsResponse,
     Author,
     CreateAuthorRequest,
     GetAuthorsRequestParams,
     GetAuthorsResponse,
-    UpdateActivityAuthorRequest,
+    UpdateAuthorActivityRequest,
     UpdateAuthorRequest,
 } from "./types";
 
@@ -20,21 +20,21 @@ class AuthorApi extends BaseApi {
             },
         });
 
-        return $getAuthorsResponse.parse(response);
+        return $GetAuthorsResponse.parse(response);
     }
 
     async getAuthor(id: string): Promise<Author> {
         const response = await this.instance.get(`authors/${id}`);
-        return $author.parse(response);
+        return $Author.parse(response);
     }
 
     async createAuthor(data: CreateAuthorRequest): Promise<Author> {
         const response = await this.instance.post("authors", data);
-        return $author.parse(response);
+        return $Author.parse(response);
     }
     async updateAuthor(id: string, data: UpdateAuthorRequest): Promise<Author> {
         const response = await this.instance.put(`authors/${id}`, data);
-        return $author.parse(response);
+        return $Author.parse(response);
     }
 
     async deleteAuthor(id: string): Promise<void> {
@@ -42,7 +42,7 @@ class AuthorApi extends BaseApi {
     }
 
     //TODO: Поправить как обновят беки что при обвлении всегда возвращается модель
-    async updateActivityAuthor({ id, ...data }: UpdateActivityAuthorRequest): Promise<{ status: boolean }> {
+    async updateAuthorActivity({ id, ...data }: UpdateAuthorActivityRequest): Promise<{ status: boolean }> {
         await this.instance.put(`authors/${id}/activity-status`, data);
         return data;
     }

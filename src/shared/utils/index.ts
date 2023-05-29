@@ -13,3 +13,4 @@ export * from "./checkRoleOrder";
 export * from "./getSurnameWithInitials";
 export * from "./getLocaleString";
 export * from "./getDataFromSessionStorage";
+export * from "./getDiscountPrice";

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { Button, FFileButton, FInput, Form, FSwitch, FTextarea } from "@shared/ui";
 import AvatarIcon from "@public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { $createAuthorRequest, CreateAuthorRequest, useCreateAuthor } from "@entities/author";
+import { $CreateAuthorRequest, CreateAuthorRequest, useCreateAuthor } from "@entities/author";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { initialValues } from "./constants";
 
@@ -25,7 +25,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
     const config: FormikConfig<CreateAuthorRequest> = {
         initialValues,
         enableReinitialize: true,
-        validationSchema: $createAuthorRequest,
+        validationSchema: $CreateAuthorRequest,
         onSubmit: (values, { setFieldError }) => {
             createAuthor.mutate(
                 { ...values, avatarId: values.avatar?.id },

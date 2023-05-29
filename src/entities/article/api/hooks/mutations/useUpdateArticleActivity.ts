@@ -1,17 +1,17 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { AdminArticleDetails, GetAdminArticlesResponse, UpdateActivityStatusArticleResponse, articleApi } from "@entities/article";
+import { AdminArticleDetails, GetAdminArticlesResponse, UpdateArticleActivityResponse, articleApi } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
-export const useUpdateActivityArticle = (
+export const useUpdateArticleActivity = (
     id: string
-): UseMutationResult<UpdateActivityStatusArticleResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
+): UseMutationResult<UpdateArticleActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
-        [MutationKeys.UPDATE_ACTIVITY_ARTICLE, id],
-        (isActive: boolean) => articleApi.updateActivityStatusArticle({ id, isActive }),
+        [MutationKeys.UPDATE_ARTICLE_ACTIVITY, id],
+        (isActive: boolean) => articleApi.updateArticleActivity({ id, isActive }),
         {
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE, id] });

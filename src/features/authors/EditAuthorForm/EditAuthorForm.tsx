@@ -6,7 +6,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { Button, FFileButton, FInput, Form, FSwitch, FTextarea } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { $updateAuthorRequest, Author, UpdateAuthorRequest, useUpdateAuthor } from "@entities/author";
+import { $UpdateAuthorRequest, Author, UpdateAuthorRequest, useUpdateAuthor } from "@entities/author";
 import AvatarIcon from "@public/icons/avatar.svg";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import useStyles from "./EditAuthorForm.styles";
@@ -29,7 +29,7 @@ const EditAuthorForm = ({ data, onClose = () => undefined }: EditAuthorFormProps
             ...adaptDataForEditAuthorForm(data),
         },
         enableReinitialize: true,
-        validationSchema: $updateAuthorRequest,
+        validationSchema: $UpdateAuthorRequest,
         onSubmit: (values, { setFieldError }) => {
             updateAuthor.mutate(
                 { ...values, avatarId: values.avatar?.id },
