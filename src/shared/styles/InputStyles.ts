@@ -10,6 +10,7 @@ export const useInputStyles = createStyles(
             rightSection,
             size,
             statusSuccess,
+            isActive,
         }: {
             floating: boolean;
             icon?: ReactNode;
@@ -17,6 +18,7 @@ export const useInputStyles = createStyles(
             size?: MantineSize;
             clearable?: boolean;
             statusSuccess?: boolean;
+            isActive?: boolean;
         }
     ) => ({
         root: {
@@ -30,6 +32,21 @@ export const useInputStyles = createStyles(
         },
         wrapper: {
             marginBottom: 0,
+
+            ...(typeof isActive === "boolean"
+                ? {
+                      ":before": {
+                          content: "''",
+                          position: "absolute",
+                          bottom: 6,
+                          left: icon ? 51 : 18,
+                          width: 4,
+                          height: 10,
+                          borderRadius: 8,
+                          backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
+                      },
+                  }
+                : {}),
         },
         label: {
             position: "absolute",
@@ -56,6 +73,18 @@ export const useInputStyles = createStyles(
             fontSize: "14px",
             lineHeight: "16px",
 
+            withIcon: {
+                paddingLeft: 50,
+            },
+
+            "&.mantine-Select-input": {
+                paddingLeft: typeof isActive === "boolean" ? 26 : 18,
+            },
+
+            "&.mantine-Select-withIcon": {
+                paddingLeft: typeof isActive === "boolean" ? 58 : 50,
+            },
+
             ".mantine-TimeInput-controls": {
                 opacity: floating ? 1 : 0,
             },
@@ -76,9 +105,6 @@ export const useInputStyles = createStyles(
             "&[aria-invalid=true]": {
                 border: `1px solid ${theme.colors.warning[0]}`,
             },
-        },
-        withIcon: {
-            paddingLeft: "50px",
         },
         rightSection: {
             width: "50px",

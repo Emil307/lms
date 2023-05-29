@@ -1,11 +1,20 @@
 import React, { memo, useMemo, useRef, useState } from "react";
-import { Flex, Select as MSelect, SelectProps as MSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
+import {
+    Flex,
+    Select as MSelect,
+    SelectProps as MSelectProps,
+    SelectItem as ISelectItem,
+    Text,
+    ThemeIcon,
+    useMantineTheme,
+} from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, Search, X } from "react-feather";
 import { z } from "zod";
 import { useInputStyles } from "@shared/styles";
-import { SelectItem } from "./SelectItem";
+import { SelectItem } from "./components";
 
-export interface SelectProps extends MSelectProps {
+export interface SelectProps extends Omit<MSelectProps, "data"> {
+    data: ISelectItem[];
     success?: string | boolean;
 }
 
@@ -31,13 +40,13 @@ const MemoizedSelect = (props: SelectProps) => {
     const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
-
     const { classes } = useInputStyles(
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
             rightSection: true,
             icon: icon || searchable,
             size: size,
+            isActive: props.data.find((option) => option.value === props.value)?.isActive,
         },
         { name: "Select", classNames, styles, unstyled }
     );

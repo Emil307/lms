@@ -1,5 +1,5 @@
 import { Box, Flex } from "@mantine/core";
-import React from "react";
+import React, { useMemo } from "react";
 import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -10,6 +10,33 @@ import { adaptGetAdminCoursesRequest } from "./utils";
 
 const AdminList = () => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
+
+    const optionsForSelects = useMemo(() => {
+        const categories = prepareOptionsForSelect({
+            data: coursesFilters?.categories,
+            value: "id",
+            label: "name",
+            emptyOptionLabel: "Без категории",
+            isActive: "isActive"
+        });
+        const tags = prepareOptionsForSelect({
+            data: coursesFilters?.tags,
+            value: "id",
+            label: "name",
+        });
+        const teachers = prepareOptionsForSelect({
+            data: coursesFilters?.teachers,
+            value: "id",
+            label: (data) => `${data.profile?.lastName} ${data.profile?.firstName}`,
+        });
+        const discountTypes = prepareOptionsForSelect({
+            data: coursesFilters?.discountTypes,
+            value: "type",
+            label: "name",
+        });
+
+        return { categories, tags, teachers, discountTypes };
+    }, [coursesFilters]);
 
     return (
         <Box mt={24}>
@@ -56,26 +83,16 @@ const AdminList = () => {
                             w={252}
                             name="category"
                             size="sm"
-                            data={prepareOptionsForSelect({ data: coursesFilters?.categories, value: "id", label: "name" })}
+                            data={optionsForSelects.categories}
                             clearable
                             label="Категория"
                             disabled={isLoadingFilters}
                         />
-                        <FMultiSelect
-                            w={252}
-                            name="tags"
-                            data={prepareOptionsForSelect({ data: coursesFilters?.tags, value: "id", label: "name" })}
-                            label="Теги"
-                            disabled={isLoadingFilters}
-                        />
+                        <FMultiSelect w={252} name="tags" data={optionsForSelects.tags} label="Теги" disabled={isLoadingFilters} />
                         <FMultiSelect
                             w={252}
                             name="teachers"
-                            data={prepareOptionsForSelect({
-                                data: coursesFilters?.teachers,
-                                value: "id",
-                                label: (data) => `${data.profile?.lastName} ${data.profile?.firstName}`,
-                            })}
+                            data={optionsForSelects.teachers}
                             label="Преподаватели"
                             disabled={isLoadingFilters}
                         />
@@ -86,7 +103,7 @@ const AdminList = () => {
                             w={252}
                             name="discountType"
                             size="sm"
-                            data={prepareOptionsForSelect({ data: coursesFilters?.discountTypes, value: "type", label: "name" })}
+                            data={optionsForSelects.discountTypes}
                             clearable
                             label="Скидка"
                             disabled={isLoadingFilters}

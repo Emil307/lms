@@ -10,7 +10,7 @@ export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCourses
         filter: {
             isActive: isActive === "" ? undefined : isActive,
             "discount.type": discountType,
-            "category.id": category,
+            "category.id": category === "null" ? null : category,
             tagIds: {
                 items: tags,
                 operator: "or",
