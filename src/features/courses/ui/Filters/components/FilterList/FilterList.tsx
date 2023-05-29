@@ -3,20 +3,20 @@ import { ChangeEvent, useRef, useState } from "react";
 import { useEventListener } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
-import { AdminArticleCategory, AdminArticleTag, ArticleCategoryFilters } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
+import { CourseSubCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
 import useStyles from "./FilterList.styles";
 
 export interface FilterListProps {
-    field: "tags" | "subCategories";
+    field: "tags" | "subcategoryIds";
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
-    filterData: AdminArticleCategory[] | AdminArticleTag[];
+    data?: CourseTag[] | CourseSubCategory[];
 }
 
-const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, filterData }: FilterListProps) => {
+const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
@@ -29,7 +29,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const showLabel = () => {
-        const hiddenCountCourse = filterData.length - 3;
+        const hiddenCountCourse = data ? data.length - 3 : 0;
         return (
             <Flex gap={8} onClick={handleChangeOpen}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
@@ -52,22 +52,31 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         </Flex>
     );
 
-    const renderItems = (form: FormikProps<ArticleCategoryFilters>) =>
-        filterData.map((item, index) => {
-            const isChecked = form.values[field]?.findIndex((value) => value === item.name + index) !== -1;
-            const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
-                if (newValue.target.checked) {
-                    const array = form.values[field];
-                    array?.push(item.name + index);
-                    return form.setFieldValue(field, array);
-                }
-                form.setFieldValue(
-                    field,
-                    form.values[field]?.filter((value) => value !== item.name + index)
-                );
-            };
-            return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name + index} />;
-        });
+    const renderItems = (form: FormikProps<CoursesFiltersForm>) =>
+        data
+            ?.filter((item) => item.name.includes(searchValue))
+            .map((item) => {
+                const isChecked = !![...form.values[field]].find((value) => value === item.id.toString());
+
+                const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
+                    if (newValue.target.checked) {
+                        const array = [...form.values[field]];
+
+                        array.push(String(item.id));
+                        return form.setFieldValue(field, array);
+                    }
+
+                    form.setFieldValue(
+                        field,
+                        [...form.values[field]].filter((value) => value === item.id.toString())
+                    );
+                };
+                return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;
+            });
+
+    if (!data?.length) {
+        return null;
+    }
 
     return (
         <FieldArray name={field}>

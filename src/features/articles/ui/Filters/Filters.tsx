@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
 import { $ArticleCategoryFilters, ArticleCategoryFilters, useArticleFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
-import { FilterBySubCategories, FilterByTags } from "./components";
+import { FilterList } from "./components";
 
 export interface FiltersProps extends FlexProps {}
 
@@ -32,8 +32,24 @@ const Filters = (props: FiltersProps) => {
                     return (
                         <Flex direction="column" gap={32} miw={264}>
                             <FSearch name="search" placeholder="Область, тематика" />
-                            {filtersData?.categories && <FilterBySubCategories initialFilterData={filtersData.categories} />}
-                            {filtersData?.tags && <FilterByTags initialFilterData={filtersData.tags} />}
+                            {filtersData?.subcategories && (
+                                <FilterList
+                                    field="subCategories"
+                                    filterName="Категории"
+                                    searchPlaceholder="Найти категории"
+                                    labelsPluralString={["категория", "категории", "категорий"]}
+                                    filterData={filtersData.subcategories}
+                                />
+                            )}
+                            {filtersData?.tags && (
+                                <FilterList
+                                    field="tags"
+                                    filterName="Теги"
+                                    searchPlaceholder="Найти теги"
+                                    labelsPluralString={["тег", "тега", "тегов"]}
+                                    filterData={filtersData.tags}
+                                />
+                            )}
                             <Group sx={{ justifyContent: "center", gap: 8 }}>
                                 <Button type="submit" variant="white" leftIcon={<IconFilter />}>
                                     Подобрать

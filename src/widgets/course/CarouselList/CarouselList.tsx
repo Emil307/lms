@@ -4,6 +4,7 @@ import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { Course, useCoursesInfinite } from "@entities/course";
 import { Card } from "@features/courses";
+import { adaptGetCoursesInfiniteRequest } from "./utils";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     packageId: string;
@@ -14,7 +15,8 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
         data: coursePackages,
         hasNextPage,
         fetchNextPage,
-    } = useCoursesInfinite({ filter: { packageIds: { items: [packageId], operator: "or" } } });
+    } = useCoursesInfinite(adaptGetCoursesInfiniteRequest({ packageIds: [packageId] }));
+
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {

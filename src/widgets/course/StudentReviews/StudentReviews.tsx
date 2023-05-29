@@ -15,77 +15,7 @@ const data: GetCourseReviewsResponse = {
     averageRating: 4.8,
     reviewCount: 12,
     reviews: {
-        data: [
-            {
-                id: 1,
-                firstName: "name of reviewer",
-                lastName: "lastName of reviewer",
-                patronymic: "patronymic of reviewer",
-                avatar: {
-                    name: "fileName.jpg",
-                    path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                    type: "image/jpg",
-                    size: 12311,
-                },
-                rating: 3,
-                course: {
-                    id: 123,
-                    name: "courseName",
-                    slug: "courseSlug",
-                    isPurchased: false,
-                    isFavorite: true,
-                },
-                createdAt: "2023-02-01T13:13:11.000000Z",
-                content:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            },
-            {
-                id: 2,
-                firstName: "name of reviewer",
-                lastName: "lastName of reviewer",
-                patronymic: "patronymic of reviewer",
-                avatar: {
-                    name: "fileName.jpg",
-                    path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                    type: "image/jpg",
-                    size: 12311,
-                },
-                rating: 1,
-                course: {
-                    id: 123,
-                    name: "courseName",
-                    slug: "courseSlug",
-                    isPurchased: true,
-                    isFavorite: false,
-                },
-                createdAt: "2023-02-01T13:13:11.000000Z",
-                content:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            },
-            {
-                id: 3,
-                firstName: "name of reviewer",
-                lastName: "lastName of reviewer",
-                patronymic: "patronymic of reviewer",
-                avatar: {
-                    name: "fileName.jpg",
-                    path: "https://blog.ecotone.tech/content/images/size/w2000/2022/01/iStock-868962070--1-.jpg",
-                    type: "image/jpg",
-                    size: 12311,
-                },
-                rating: 3,
-                course: {
-                    id: 123,
-                    name: "courseName",
-                    slug: "courseSlug",
-                    isPurchased: false,
-                    isFavorite: false,
-                },
-                createdAt: "2023-02-01T13:13:11.000000Z",
-                content:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            },
-        ],
+        data: [],
 
         pagination: {
             count: 1,

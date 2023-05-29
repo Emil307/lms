@@ -30,12 +30,19 @@ import {
     GetAdminCourseResponse,
     $GetAdminCourseResponse,
     GetAdminCoursesWithoutCoursesFromCoursePackageRequest,
+    $GetCourseResourcesResponse,
+    GetCourseResourcesResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
     async getAdminCourseResources(): Promise<GetAdminCourseResourcesResponse> {
         const response = await this.instance.get("admin/courses/resources");
         return $GetAdminCourseResourcesResponse.parse(response);
+    }
+
+    async getCourseResources(): Promise<GetCourseResourcesResponse> {
+        const response = await this.instance.get("courses/resources");
+        return $GetCourseResourcesResponse.parse(response);
     }
 
     async getAdminCourses(

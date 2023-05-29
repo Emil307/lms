@@ -26,7 +26,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseSetId, withPagination = fal
             return 0;
         }
 
-        return courseSetsData.pagination.total - 1;
+        return courseSetsData.pagination.total - (perPage || 0);
     };
 
     const renderCardMore = () => {

@@ -48,6 +48,11 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                             {data.category.name}
                         </Badge>
                     )}
+                    {data.subcategory && (
+                        <Badge variant="outline" className={classes.category}>
+                            {data.subcategory.name}
+                        </Badge>
+                    )}
                 </Group>
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody}>

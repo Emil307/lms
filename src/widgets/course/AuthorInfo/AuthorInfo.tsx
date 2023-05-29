@@ -20,7 +20,7 @@ const MemoizedAuthorInfo = memo(function AuthorInfo({ data, ...props }: AuthorIn
                 </Text>
             </Flex>
             <Flex align="center" sx={{ flex: 2, gap: 24 }}>
-                <Avatar src={data.picture.data.path} alt="avatar" w={84} h={84} mih={84} miw={84} radius={50} />
+                <Avatar src={data.picture.data?.absolutePath} alt="avatar" w={84} h={84} mih={84} miw={84} radius={50} />
                 <Flex direction="column" gap={4}>
                     <Text className={classes.authorName}>Кремышева Виктория</Text>
                     <Text className={classes.authorDescription}>

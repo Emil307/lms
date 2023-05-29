@@ -137,16 +137,18 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                 </Group>
                 <Group>
                     <Box className={classes.imageWrapper}>
-                        <Image
-                            src={data.picture.data.path}
-                            loader={({ src }) => `${src}`}
-                            alt={data.picture.data.name}
-                            fill
-                            sizes="100vw"
-                            style={{
-                                objectFit: "cover",
-                            }}
-                        />
+                        {data.picture.data && (
+                            <Image
+                                src={data.picture.data.absolutePath}
+                                loader={({ src }) => `${src}`}
+                                alt={data.picture.data.name}
+                                fill
+                                sizes="100vw"
+                                style={{
+                                    objectFit: "cover",
+                                }}
+                            />
+                        )}
                     </Box>
                 </Group>
             </Flex>
