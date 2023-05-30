@@ -39,7 +39,7 @@ export const useInputStyles = createStyles(
                           content: "''",
                           position: "absolute",
                           bottom: 6,
-                          left: icon ? 51 : 18,
+                          left: icon ? 51 : 19,
                           width: 4,
                           height: 10,
                           borderRadius: 8,
@@ -73,16 +73,12 @@ export const useInputStyles = createStyles(
             fontSize: "14px",
             lineHeight: "16px",
 
-            withIcon: {
-                paddingLeft: 50,
-            },
-
             "&.mantine-Select-input": {
-                paddingLeft: typeof isActive === "boolean" ? 26 : 18,
+                paddingLeft: typeof isActive === "boolean" ? 27 : 18,
             },
 
             "&.mantine-Select-withIcon": {
-                paddingLeft: typeof isActive === "boolean" ? 58 : 50,
+                paddingLeft: typeof isActive === "boolean" ? 59 : 50,
             },
 
             ".mantine-TimeInput-controls": {
@@ -105,6 +101,9 @@ export const useInputStyles = createStyles(
             "&[aria-invalid=true]": {
                 border: `1px solid ${theme.colors.warning[0]}`,
             },
+        },
+        withIcon: {
+            paddingLeft: 50,
         },
         rightSection: {
             width: "50px",
