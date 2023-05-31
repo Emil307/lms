@@ -27,7 +27,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
 
 export default function ManagedForm<F extends FormikValues, R>({
     mutationKey,
-    keysInvalidateQueries,
+    keysInvalidateQueries = [],
     mutationFunction,
     onSuccess,
     onChange = () => undefined,
@@ -73,7 +73,9 @@ export default function ManagedForm<F extends FormikValues, R>({
     const handleSubmit = (values: F, { setFieldError, ...formikHelpers }: FormikHelpers<F>) => {
         mutate(values, {
             onSuccess: (response) => {
-                keysInvalidateQueries?.map((params) => queryClient.invalidateQueries(params));
+                keysInvalidateQueries.forEach(({ queryKey, filters, options }) => {
+                    queryClient.invalidateQueries(queryKey, { refetchType: "all", ...filters }, options);
+                });
                 onSuccess(response, formikHelpers);
             },
             onError: (error) => {
