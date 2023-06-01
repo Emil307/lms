@@ -47,7 +47,7 @@ export const $Discount = z.object({
     finishingDate: z.coerce.date().nullable(),
 });
 
-export const $multiValueOperator = z.literal("or").or(z.literal("and")).or(z.literal("not"));
+export const $multiValueOperator = z.literal("or").or(z.literal("and")).or(z.literal("not")).or(z.literal("lte"));
 export const $dateOperator = z.literal("range").or(z.literal("between"));
 
 export type TMultiValueOperator = z.infer<typeof $multiValueOperator>;
