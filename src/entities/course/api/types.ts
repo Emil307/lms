@@ -398,8 +398,7 @@ export const $CoursesRequest = z.object({
             isFavorite: z.boolean(),
             collectionIds: z.string(),
             packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
-            discountPrice: z.string(),
-            //TODO: Добавить фильтр по price как бекенд добавит
+            discountPrice: $getMultiValueObjectType(z.string(), z.literal("lte")),
         })
         .partial(),
 });
