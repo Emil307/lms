@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Heart } from "react-feather";
 import { CourseDetailData } from "@entities/course";
 import { Button, Rating } from "@shared/ui";
-import { getDiscountedAmount, getLocalizationDate, getPluralString } from "@shared/utils";
+import { getDiscountPrice, getLocalizationDate, getPluralString } from "@shared/utils";
 
 import IconCalendar from "public/icons/calendar.svg";
 import IconUsers from "public/icons/users.svg";
@@ -30,11 +30,13 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
         if (data.isDiscount && data.discount.data.value) {
             return (
                 <Group sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${getDiscountedAmount(
-                        data.price,
-                        data.discount.data.value,
-                        data.discount.data.type
-                    ).toLocaleString("ru")} ₽`}</Text>
+                    <Text className={classes.price}>
+                        {getDiscountPrice({
+                            price: data.price,
+                            amountDiscount: data.discount.data.value,
+                            type: data.discount.data.type,
+                        })}
+                    </Text>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
                 </Group>
             );

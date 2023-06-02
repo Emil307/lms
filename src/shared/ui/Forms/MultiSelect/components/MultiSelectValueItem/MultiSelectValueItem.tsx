@@ -1,6 +1,6 @@
 import { Flex, Box, Text, MultiSelectValueProps, CloseButton } from "@mantine/core";
 import React from "react";
-import { useMultiSelectValueItemStyles } from "./MultiSelectValueItemStyles";
+import { useMultiSelectValueItemStyles } from "./MultiSelectValueItem.styles";
 
 interface MultiSelectValueItemProps extends MultiSelectValueProps {
     isActive?: boolean;
@@ -24,4 +24,3 @@ const MultiSelectValueItem = (props: MultiSelectValueItemProps) => {
 MultiSelectValueItem.displayName = "SelectItem";
 
 export default MultiSelectValueItem;
-

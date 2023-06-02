@@ -10,7 +10,7 @@ import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "
 import { $UpdateUserRequest, UpdateUserRequest, useAdminStudentsFilters, UserDetailResponse, useUpdateUser } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getFullNameFromProfile } from "@shared/utils";
+import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
 import { getInitialValuesForm } from "./constants";
 import { adaptDataForUpdateForm } from "./utils";
@@ -39,7 +39,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
             size: 408,
             children: (
                 <ChangeUserPasswordForm
-                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullNameFromProfile(data?.profile) }}
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullName({ data: data?.profile }) }}
                     onClose={handleCloseChangePasswordModal}
                 />
             ),

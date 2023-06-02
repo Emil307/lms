@@ -11,6 +11,13 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         backgroundColor: variant === "whiteBg" ? theme.colors.white[0] : theme.colors.light[0],
         boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.08)}` : "none",
     },
+    imageWrapper: {
+        position: "relative",
+        borderRadius: 16,
+    },
+    image: {
+        borderRadius: "inherit",
+    },
     content: {
         flexDirection: "column",
         alignItems: "flex-start",

@@ -5,12 +5,12 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
-import { getFullNameFromProfile } from "@shared/utils";
+import { getFullName } from "@shared/utils";
 import { useSettingUserStyles } from "./StudentSettings.styles";
 import { fields } from "./constants";
+import { InfoCard } from "@components/InfoCard";
 
 interface StudentSettingsProps {
     id: string;
@@ -22,7 +22,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
     const { data } = useDetailUser(id);
 
     const dataProfile = {
-        fio: getFullNameFromProfile(data?.profile),
+        fio: getFullName({ data: data?.profile }),
         roleName: data?.roles[0].displayName ?? "",
         email: data?.email ?? "",
     };
@@ -32,7 +32,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
             modalId: `${id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: <UserDeleteModal redirectUrl="/admin/students" id={id} fio={getFullNameFromProfile(data?.profile)} />,
+            children: <UserDeleteModal redirectUrl="/admin/students" id={id} fio={getFullName({ data: data?.profile })} />,
         });
     };
 
@@ -85,8 +85,10 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                     {/* TODO: - уведомления еще не реализованы */}
                 </Group>
                 <Box>
-                    <ProfileInfo
-                        avatarSrc={data?.profile.avatar?.absolutePath ?? ""}
+                    <InfoCard
+                        avatar={{
+                            src: data?.profile.avatar?.absolutePath,
+                        }}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

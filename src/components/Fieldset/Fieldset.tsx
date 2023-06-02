@@ -26,12 +26,17 @@ const MemoizedFieldset = memo(function Fieldset({
 
     const renderRows = useMemo(() => {
         if (Array.isArray(children)) {
-            return children.map((child, index) => (
-                <Fragment key={index}>
-                    {child}
-                    {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
-                </Fragment>
-            ));
+            return children.map((child, index) => {
+                if (!child) {
+                    return;
+                }
+                return (
+                    <Fragment key={index}>
+                        {child}
+                        {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
+                    </Fragment>
+                );
+            });
         }
 
         return children;

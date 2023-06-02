@@ -4,7 +4,6 @@ import { Bell, Settings, Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { BreadCrumbs, Button, DisplayField } from "@shared/ui";
-import { ProfileInfo } from "@components/ProfileInfo";
 import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
@@ -12,6 +11,7 @@ import { List as NotificationList } from "@widgets/notifications";
 import { useUpdateUserNotification } from "@entities/notification";
 import { breadCrumbsItems, fields } from "./constants";
 import useStyles from "./ProfilePage.styles";
+import InfoCard from "../../../components/InfoCard/InfoCard";
 
 const ProfilePage = () => {
     const router = useRouter();
@@ -69,9 +69,11 @@ const ProfilePage = () => {
                     </Fieldset>
                 </Flex>
                 <Box>
-                    <ProfileInfo<User>
+                    <InfoCard<User>
                         variant="grayBg"
-                        avatarSrc={userData?.profile.avatar?.absolutePath}
+                        avatar={{
+                            src: userData?.profile.avatar?.absolutePath,
+                        }}
                         fields={fields}
                         values={userData}
                         actionSlot={

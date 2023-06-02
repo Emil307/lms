@@ -2,10 +2,12 @@ import dayjs from "dayjs";
 import { CreateCourseFormValues, CreateCourseRequest } from "@entities/course";
 
 export const adaptCreateCourseRequest = (data: CreateCourseFormValues): CreateCourseRequest => {
-    const { discount, isInteractive, cover, authorIds, teacherIds, ...rest } = data;
+    const { category, subCategory, discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
     return {
         ...rest,
         coverId: cover?.id ?? null,
+        categoryId: Number(category) || undefined,
+        subcategoryId: Number(subCategory) || undefined,
         type: isInteractive ? "interactive" : "autonomous",
         teacherIds: rest.hasTeachers ? teacherIds : [],
         authorIds: rest.hasAuthors ? authorIds : [],

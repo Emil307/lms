@@ -5,11 +5,11 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { ProfileInfo } from "@components/ProfileInfo";
 import { useAuthor } from "@entities/author";
 import { DeleteAuthorModal } from "@features/authors";
 import { fields } from "./constants";
 import useStyles from "./AuthorSettings.styles";
+import { InfoCard } from "@components/InfoCard";
 
 interface AuthorSettingsProps {
     id: string;
@@ -66,8 +66,10 @@ const AuthorSettings = ({ id }: AuthorSettingsProps) => {
                     </Fieldset>
                 </Flex>
                 <Box>
-                    <ProfileInfo
-                        avatarSrc={data?.avatar ?? ""}
+                    <InfoCard
+                        avatar={{
+                            src: data?.avatar,
+                        }}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

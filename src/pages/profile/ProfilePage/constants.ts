@@ -1,4 +1,4 @@
-import { ProfileInfoDisplayFields } from "@components/ProfileInfo";
+import { TInfoCardDisplayFields } from "@components/InfoCard";
 import { User } from "@entities/auth";
 import { TBreadCrumbItem } from "@shared/ui";
 
@@ -8,7 +8,7 @@ export const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Настройки профиля", href: { pathname: "/profile" } },
 ];
 
-export const fields: ProfileInfoDisplayFields<User> = [
+export const fields: TInfoCardDisplayFields<User> = [
     {
         name: "profile.firstName",
         label: "ФИО",

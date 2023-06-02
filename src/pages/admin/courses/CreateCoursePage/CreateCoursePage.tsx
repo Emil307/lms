@@ -5,7 +5,7 @@ import { BreadCrumbs } from "@shared/ui";
 import { CreateCourseForm } from "@features/courses/ui";
 import { breadCrumbsItems } from "./constants";
 
-const CourseCreatePage = () => {
+const CreateCoursePage = () => {
     const router = useRouter();
 
     const onSuccess = (courseId: number) => {
@@ -27,4 +27,4 @@ const CourseCreatePage = () => {
     );
 };
 
-export default CourseCreatePage;
+export default CreateCoursePage;

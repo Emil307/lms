@@ -17,7 +17,7 @@ const AdminList = () => {
             value: "id",
             label: "name",
             emptyOptionLabel: "Без категории",
-            isActive: "isActive"
+            isActive: "isActive",
         });
         const tags = prepareOptionsForSelect({
             data: coursesFilters?.tags,

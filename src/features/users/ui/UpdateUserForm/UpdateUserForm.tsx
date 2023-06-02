@@ -10,7 +10,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, checkRoleOrder, createNotification, getFullNameFromProfile } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification, getFullName } from "@shared/utils";
 import { useMe } from "@entities/auth";
 import { getInitialValuesForm } from "./constants";
 import { adaptDataForUpdateForm } from "./utils";
@@ -40,7 +40,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             size: 408,
             children: (
                 <ChangeUserPasswordForm
-                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullNameFromProfile(data?.profile) }}
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullName({data: data?.profile}) }}
                     onClose={handleCloseChangePasswordModal}
                 />
             ),
