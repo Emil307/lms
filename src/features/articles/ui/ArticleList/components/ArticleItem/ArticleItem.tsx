@@ -2,12 +2,12 @@ import { Flex, FlexProps, ThemeIcon, Text, Group, Title, ActionIcon } from "@man
 import { memo } from "react";
 import { FileText, Heart, Lock, ThumbsDown, ThumbsUp } from "react-feather";
 import { useRouter } from "next/router";
-import { Article } from "@entities/article";
+import { ArticleFromList } from "@entities/article";
 import { Button } from "@shared/ui";
 import useStyles from "./ArticleItem.styles";
 
 export interface ArticleItemProps extends FlexProps {
-    data: Article;
+    data: ArticleFromList;
 }
 
 const MemoizedArticleItem = memo(function ArticleItem({ data, ...props }: ArticleItemProps) {
@@ -28,16 +28,15 @@ const MemoizedArticleItem = memo(function ArticleItem({ data, ...props }: Articl
                     <Title order={4} color="dark">
                         {data.name}
                     </Title>
-                    {/* TODO: Добавить название категории */}
-                    <Text className={classes.categoryName}>categoryName</Text>
+                    <Text className={classes.categoryName}>{data.category.name}</Text>
                 </Flex>
             </Group>
             <Flex gap={8}>
                 <Button className={classes.reactionButton} variant="text" leftIcon={<ThumbsUp />} disabled={!data.isAvailable}>
-                    {data.likes}
+                    {data.likesCount}
                 </Button>
                 <Button className={classes.reactionButton} variant="text" leftIcon={<ThumbsDown />} disabled={!data.isAvailable}>
-                    {data.dislikes}
+                    {data.dislikesCount}
                 </Button>
                 {data.isAvailable && (
                     <ActionIcon className={classes.favoriteActionIcon} onClick={handleFavorite}>

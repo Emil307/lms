@@ -1,16 +1,16 @@
 import { Flex, FlexProps, Group, Text, ThemeIcon, Title } from "@mantine/core";
 import { FileText, ThumbsDown, ThumbsUp } from "react-feather";
 import { Button } from "@shared/ui";
-import { GetArticleDetailResponse } from "@entities/article";
+import { GetArticleResponse } from "@entities/article";
 import { FavoriteButton } from "@features/articles";
 import { Pagination, TagList } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
 export interface MainInfoPanelProps extends Omit<FlexProps, "children"> {
-    articleData: GetArticleDetailResponse;
+    data: GetArticleResponse;
 }
 
-const MainInfoPanel = ({ articleData: { data }, ...props }: MainInfoPanelProps) => {
+const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const { classes } = useStyles();
 
     return (
@@ -24,7 +24,7 @@ const MainInfoPanel = ({ articleData: { data }, ...props }: MainInfoPanelProps) 
                         <Title order={1} color="dark">
                             {data.name}
                         </Title>
-                        <Text className={classes.categoryName}>{data.category}</Text>
+                        <Text className={classes.categoryName}>{data.category.name}</Text>
                     </Flex>
                 </Group>
                 <Flex gap={8}>
@@ -37,7 +37,7 @@ const MainInfoPanel = ({ articleData: { data }, ...props }: MainInfoPanelProps) 
                     <FavoriteButton isFavorite={data.isFavorite} />
                 </Flex>
             </Group>
-            <TagList data={data.tags.data} />
+            <TagList data={data.tags} />
             <Pagination />
         </Flex>
     );

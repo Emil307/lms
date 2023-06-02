@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
-import { List as ArticleList } from "@features/articles";
+import { AdminList as AdminArticleList } from "@features/articles";
 
 const ArticlesPage = () => {
     const router = useRouter();
@@ -20,7 +20,7 @@ const ArticlesPage = () => {
                     Создать статью
                 </Button>
             </Flex>
-            <ArticleList />
+            <AdminArticleList />
         </Box>
     );
 };

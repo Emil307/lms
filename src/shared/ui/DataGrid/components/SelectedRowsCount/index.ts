@@ -1,3 +1,3 @@
-import SelectedRowsCount from "./SelectedRowsCount";
+import SelectedRowsCount, { type SelectedRowsCountProps } from "./SelectedRowsCount";
 
-export { SelectedRowsCount };
+export { SelectedRowsCount, SelectedRowsCountProps };

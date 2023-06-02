@@ -4,12 +4,12 @@ import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { ArticlesPage } from "@pages/articles";
 
-const ArticleCollection: NextPageWithLayout = () => {
+const Articles: NextPageWithLayout = () => {
     return <ArticlesPage />;
 };
 
-ArticleCollection.getLayout = function (page: ReactElement) {
+Articles.getLayout = function (page: ReactElement) {
     return <UserLayout>{page} </UserLayout>;
 };
 
-export default ArticleCollection;
+export default Articles;

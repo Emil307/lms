@@ -2,12 +2,12 @@ import { Flex, FlexProps, ThemeIcon, Text, Title, ActionIcon } from "@mantine/co
 import { memo } from "react";
 import { IconArrowNarrowRight, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { ArticleCategory } from "@entities/article";
+import { ArticleCategoryFromList } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import useStyles from "./ArticleCategoryItem.styles";
 
 export interface ArticleCategoryItemProps extends FlexProps {
-    data: ArticleCategory;
+    data: ArticleCategoryFromList;
 }
 
 const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ...props }: ArticleCategoryItemProps) {

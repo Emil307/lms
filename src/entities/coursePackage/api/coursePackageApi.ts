@@ -8,7 +8,7 @@ import {
     $GetCoursePackagesResponse,
     $UpdateCoursePackageActivityResponse,
     AdminCoursePackageDetails,
-    AttachCourseFromCoursePackageRequest,
+    AttachCourseToCoursePackageRequest,
     CoursePackageDetails,
     CreateCoursePackageRequest,
     DeleteCourseFromCoursePackageRequest,
@@ -68,7 +68,7 @@ class CoursePackageApi extends BaseApi {
     }
 
     //COURSES FROM COURSE_PACKAGE
-    async attachCoursesFromCoursePackage({ coursePackageId, ...data }: AttachCourseFromCoursePackageRequest): Promise<void> {
+    async attachCoursesToCoursePackage({ coursePackageId, ...data }: AttachCourseToCoursePackageRequest): Promise<void> {
         await this.instance.post(`admin/course-packages/${coursePackageId}/courses`, data);
     }
 

@@ -1,58 +1,94 @@
 import { z } from "zod";
-import { $UploadedFile, $getPaginationResponseType, $pagination, TRequestFilterParams } from "@shared/types";
+import {
+    $LastUpdated,
+    $UploadedFile,
+    $getFiltersRequestType,
+    $getMultiValueObjectType,
+    $getPaginationResponseType,
+    TRequestFilterParams,
+} from "@shared/types";
 
-export type Article = z.infer<typeof $Article>;
-export type ArticleCategory = z.infer<typeof $ArticleCategory>;
+/**
+ *
+ * GENERAL TYPES
+ *
+ */
+
+export type UserRating = z.infer<typeof $UserRating>;
+
+/**
+ *
+ * ADMIN TYPES
+ *
+ */
+export type AdminArticle = z.infer<typeof $AdminArticle>;
+export type AdminArticleFromList = z.infer<typeof $AdminArticleFromList>;
+export type GetAdminArticleResponse = z.infer<typeof $GetAdminArticleResponse>;
 export type AdminArticleCategory = z.infer<typeof $AdminArticleCategory>;
 export type AdminArticleTag = z.infer<typeof $AdminArticleTag>;
-export type ArticleCourse = z.infer<typeof $ArticleCourse>;
-
-export type AdminArticle = z.infer<typeof $AdminArticle>;
-export type AdminArticleDetails = z.infer<typeof $AdminArticleDetails>;
-export type ResourceOption = z.infer<typeof $ResourceOption>;
+export type AdminArticleCourse = z.infer<typeof $AdminArticleCourse>;
 export type AdminArticleMaterial = z.infer<typeof $AdminArticleMaterial>;
 
-export type AdminArticlesFilters = z.infer<typeof $AdminArticlesFilters>;
+//FILTERS
+export type AdminArticlesFiltersForm = z.infer<typeof $AdminArticlesFiltersForm>;
 export type AdminArticleMaterialsFilters = z.infer<typeof $AdminArticleMaterialsFilters>;
+export type AdminArticleFromArticlePackageFiltersForm = z.infer<typeof $AdminArticleFromArticlePackageFiltersForm>;
+export type AdminArticleFromArticlePackageExtraFilters = z.infer<typeof $AdminArticleFromArticlePackageExtraFilters>;
 
-export type ArticleCategoryFilters = z.infer<typeof $ArticleCategoryFilters>;
-export type GetArticlesResponse = z.infer<typeof $GetArticlesResponse>;
-export type GetArticleCategoriesResponse = z.infer<typeof $GetArticleCategoriesResponse>;
-export type GetArticleFiltersResponse = z.infer<typeof $GetArticleFiltersResponse>;
-export type GetArticleCoursesResponse = z.infer<typeof $GetArticleCoursesResponse>;
-export type GetArticleDetailResponse = z.infer<typeof $GetArticleDetailResponse>;
+//REQ/RESP
 export type CreateArticleRequest = z.infer<typeof $CreateArticleRequest>;
+export type CreateArticleResponse = z.infer<typeof $CreateArticleResponse>;
 export type UpdateArticleRequest = z.infer<typeof $UpdateArticleRequest>;
+export type UpdateArticleResponse = z.infer<typeof $UpdateArticleResponse>;
 export type GetAdminArticlesResponse = z.infer<typeof $GetAdminArticlesResponse>;
-export type GetAdminArticlesRequest = TRequestFilterParams<AdminArticlesFilters>;
+export type GetAdminArticlesRequest = z.infer<typeof $GetAdminArticlesRequest>;
 export type GetAdminArticlesResourceResponse = z.infer<typeof $GetAdminArticlesResourceResponse>;
 export type GetAdminArticleMaterialsRequest = TRequestFilterParams<AdminArticleMaterialsFilters>;
 export type GetAdminArticleMaterialsResponse = z.infer<typeof $GetAdminArticleMaterialsResponse>;
 export type DeleteAdminArticleMaterialRequest = z.infer<typeof $DeleteAdminArticleMaterialRequest>;
 export type UpdateArticleActivityRequest = z.infer<typeof $UpdateArticleActivityRequest>;
 export type UpdateArticleActivityResponse = z.infer<typeof $UpdateArticleActivityResponse>;
+export type GetAdminArticlesNoIncludedArticlePackageRequest = z.infer<typeof $GetAdminArticlesNoIncludedArticlePackageRequest>;
 
-export const $Article = z.object({
-    id: z.number(),
-    name: z.string(),
-    likes: z.number(),
-    dislikes: z.number(),
-    isAvailable: z.boolean(),
-    isFavorite: z.boolean(),
-});
+/**
+ *
+ * USER TYPES
+ *
+ */
 
-export const $ArticleCategory = z.object({
-    id: z.number(),
-    name: z.string(),
-    articlesCount: z.number(),
-});
+export type Article = z.infer<typeof $Article>;
+export type ArticleFromList = z.infer<typeof $ArticleFromList>;
+export type ArticleCourse = z.infer<typeof $ArticleCourse>;
+export type ArticleCategory = z.infer<typeof $ArticleCategory>;
+export type ArticleTag = z.infer<typeof $ArticleTag>;
+export type ArticleCategoryFromList = z.infer<typeof $ArticleCategoryFromList>;
 
-export const $ArticleCourse = z.object({
-    id: z.number(),
-    name: z.string(),
-    articleCount: z.number(),
-});
+//FILTERS
+export type ArticleFiltersForm = z.infer<typeof $ArticleFiltersForm>;
+export type ArticleCategoryFilters = z.infer<typeof $ArticleCategoryFilters>;
 
+//REQ/RESP
+export type GetArticleResponse = z.infer<typeof $GetArticleResponse>;
+export type GetArticlesRequest = z.infer<typeof $GetArticlesRequest>;
+export type GetArticlesResponse = z.infer<typeof $GetArticlesResponse>;
+export type GetArticleCategoriesResponse = z.infer<typeof $GetArticleCategoriesResponse>;
+export type GetArticleFiltersResponse = z.infer<typeof $GetArticleFiltersResponse>;
+export type GetArticleCoursesResponse = z.infer<typeof $GetArticleCoursesResponse>;
+export type GetAdminArticleFiltersResponse = z.infer<typeof $GetAdminArticleFiltersResponse>;
+export type GetAdminArticleResourcesCreateResponse = z.infer<typeof $GetAdminArticleResourcesCreateResponse>;
+
+/**
+ *
+ * GENERAL ZOD
+ *
+ */
+export const $UserRating = z.literal("like").or(z.literal("dislike"));
+
+/**
+ *
+ * ADMIN ZOD
+ *
+ */
 export const $AdminArticleCategory = z.object({
     id: z.number(),
     name: z.string(),
@@ -60,62 +96,7 @@ export const $AdminArticleCategory = z.object({
 
 export const $AdminArticleTag = $AdminArticleCategory;
 
-export const $GetArticlesResponse = $getPaginationResponseType($Article);
-
-export const $ArticleCategoryFilters = z.object({
-    search: z.string().optional(),
-    page: z.string().optional(),
-    subCategories: z.array(z.string()).optional(),
-    tags: z.array(z.string()).optional(),
-});
-
-export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategory);
-
-export const $GetArticleCoursesResponse = $getPaginationResponseType($ArticleCourse);
-
-export const $GetArticleFiltersResponse = z.object({
-    subcategories: z.array($AdminArticleCategory),
-    tags: z.array($AdminArticleTag),
-});
-
-//TODO: Это ооочень примерно так как даже на текущий момент и моковских эндпоинтов нет
-export const $GetArticleDetailResponse = z.object({
-    data: z.object({
-        id: z.number(),
-        name: z.string(),
-        content: z.string(),
-        category: z.string(),
-        subcategory: z.string(),
-        likesCount: z.number(),
-        dislikesCount: z.number(),
-        isFavorite: z.boolean(),
-        videos: z.object({
-            data: z.array($UploadedFile),
-        }),
-        documents: z.object({
-            data: z.array($UploadedFile),
-        }),
-        tags: z.object({
-            data: z.array(z.object({ id: z.number(), name: z.string(), slug: z.string() })),
-        }),
-    }),
-    meta: z.object({
-        pagination: $pagination,
-    }),
-});
-
-//
-//
-//TODO: Это то что уже с микроча
-//
-
-export const $AdminArticlesFilters = z.object({
-    query: z.string(),
-    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
-    categoryId: z.string(),
-    subcategoryId: z.string(),
-    courseId: z.string(),
-});
+export const $AdminArticleCourse = $AdminArticleCategory;
 
 export const $AdminArticleMaterialsFilters = z.object({
     articleId: z.string(),
@@ -124,29 +105,31 @@ export const $AdminArticleMaterialsFilters = z.object({
 export const $AdminArticle = z.object({
     id: z.number(),
     name: z.string(),
-    category: z.object({ name: z.string() }),
-    subcategory: z.object({ name: z.string() }),
-    courses: z.array(z.string()),
-    isActive: z.boolean(),
-});
-
-export const $AdminArticleDetails = z.object({
-    id: z.number(),
-    name: z.string(),
     content: z.string(),
-    category: z.object({ id: z.number(), name: z.string() }),
-    subcategory: z.object({ id: z.number(), name: z.string() }),
     isActive: z.boolean(),
+    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date(),
     likesCount: z.number(),
     dislikesCount: z.number(),
-    createdAt: z.coerce.date(),
-    tags: z.array(
-        z.object({
-            id: z.number(),
-            name: z.string(),
-        })
-    ),
+    category: $AdminArticleCategory,
+    subcategories: $AdminArticleCategory.array(),
+    tags: $AdminArticleTag.array(),
+    lastUpdated: $LastUpdated.nullable(),
 });
+
+export const $AdminArticleFromList = $AdminArticle
+    .pick({
+        id: true,
+        name: true,
+        isActive: true,
+        category: true,
+        subcategories: true,
+    })
+    .extend({
+        courses: $AdminArticleCourse.array(),
+    });
+
+export const $GetAdminArticleResponse = $AdminArticle;
 
 export const $AdminArticleMaterial = z.object({
     id: z.number(),
@@ -165,30 +148,25 @@ export const $CreateArticleRequest = z.object({
         .refine((value) => value !== null, {
             message: "Выберите категорию",
         }),
-    subcategoryId: z.coerce
-        .number()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите подкатегорию",
-        }),
-
+    subcategories: z.coerce.number().array().min(1, "Выберите подкатегорию"),
     tags: z.array(z.coerce.number()).optional(),
 });
 
-export const $UpdateArticleRequest = $CreateArticleRequest;
+export const $CreateArticleResponse = $AdminArticle;
 
-export const $GetAdminArticlesResponse = $getPaginationResponseType($AdminArticle);
-
-export const $ResourceOption = z.object({
-    id: z.number(),
-    name: z.string(),
+export const $UpdateArticleRequest = $CreateArticleRequest.extend({
+    id: z.string(),
 });
 
+export const $UpdateArticleResponse = $AdminArticle;
+
+export const $GetAdminArticlesResponse = $getPaginationResponseType($AdminArticleFromList);
+
 export const $GetAdminArticlesResourceResponse = z.object({
-    categories: $getPaginationResponseType($ResourceOption),
-    subcategories: $getPaginationResponseType($ResourceOption),
-    courses: $getPaginationResponseType($ResourceOption),
-    tags: $getPaginationResponseType($ResourceOption),
+    categories: $getPaginationResponseType($AdminArticleCategory),
+    subcategories: $getPaginationResponseType($AdminArticleCategory),
+    courses: $getPaginationResponseType($AdminArticleCourse),
+    tags: $getPaginationResponseType($AdminArticleTag),
 });
 
 export const $GetAdminArticleMaterialsResponse = $getPaginationResponseType($AdminArticleMaterial);
@@ -205,4 +183,151 @@ export const $UpdateArticleActivityRequest = z.object({
 
 export const $UpdateArticleActivityResponse = z.object({
     isActive: z.boolean(),
+});
+
+export const $AdminArticlesFiltersForm = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+    courseIds: z.string(),
+});
+
+export const $AdminArticlesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")),
+            "category.id": z.string(),
+            "subcategory.id": z.string(),
+            courseIds: z.string(),
+            articlePackageIds: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetAdminArticlesRequest = $getFiltersRequestType($AdminArticlesRequest);
+
+export const $GetAdminArticleFiltersResponse = z.object({
+    categories: z.array($AdminArticleCategory),
+    subcategories: z.array($AdminArticleCategory),
+    tags: z.array($AdminArticleTag),
+    courses: z.array($AdminArticleCourse),
+});
+
+export const $GetAdminArticleResourcesCreateResponse = $GetAdminArticleFiltersResponse;
+
+export const $AdminArticleFromArticlePackageFiltersForm = z.object({
+    query: z.string(),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+});
+
+export const $AdminArticleFromArticlePackageExtraFilters = z.object({
+    articlePackageIds: z.string(),
+});
+
+export const $AdminArticlesNoIncludedArticlePackageRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")),
+            "category.id": z.string(),
+            "subcategory.id": z.string(),
+            courseIds: z.string(),
+            articlePackageIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetAdminArticlesNoIncludedArticlePackageRequest = $getFiltersRequestType($AdminArticlesNoIncludedArticlePackageRequest);
+
+/**
+ *
+ * USER ZOD
+ *
+ */
+
+export const $ArticleCategory = $AdminArticleCategory;
+export const $ArticleTag = $AdminArticleTag;
+
+export const $Article = z.object({
+    id: z.number(),
+    name: z.string(),
+    content: z.string(),
+    isAvailable: z.boolean(),
+    isFavorite: z.boolean(),
+    userRating: $UserRating.nullable(),
+    likesCount: z.number(),
+    dislikesCount: z.number(),
+    files: $UploadedFile.array(),
+    category: $ArticleCategory,
+    subcategories: $ArticleCategory.array(),
+    tags: $ArticleTag.array(),
+});
+
+export const $ArticleFromList = $Article.pick({
+    id: true,
+    name: true,
+    isAvailable: true,
+    isFavorite: true,
+    userRating: true,
+    likesCount: true,
+    dislikesCount: true,
+    category: true,
+});
+
+export const $ArticleFiltersForm = z.object({
+    categoryId: z.number(),
+    articlePackageIds: z.number(),
+});
+
+export const $ArticlesRequest = z.object({
+    filter: z
+        .object({
+            "category.id": z.number(),
+            articlePackageIds: z.number(),
+        })
+        .partial(),
+});
+
+export const $GetArticleResponse = $Article;
+
+export const $GetArticlesRequest = $getFiltersRequestType($ArticlesRequest);
+
+export const $GetArticlesResponse = $getPaginationResponseType($ArticleFromList);
+
+export const $ArticleCategoryFromList = $ArticleCategory.extend({
+    articlesCount: z.number(),
+});
+
+export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategoryFromList);
+
+export const $ArticleCourse = z.object({
+    id: z.number(),
+    name: z.string(),
+    articleCount: z.number(),
+});
+
+export const $ArticleCategoryFilters = z.object({
+    search: z.string().optional(),
+    page: z.string().optional(),
+    subcategories: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+});
+
+export const $ArticleCategoryFiltersForm = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
+    categoryId: z.string(),
+    createdAtFrom: z.coerce.date().nullable(),
+    createdAtTo: z.coerce.date().nullable(),
+    discountFinishingDate: z.coerce.date().nullable(),
+});
+
+export const $GetArticleCoursesResponse = $getPaginationResponseType($ArticleCourse);
+
+export const $GetArticleFiltersResponse = z.object({
+    subcategories: z.array($AdminArticleCategory),
+    tags: z.array($AdminArticleTag),
 });

@@ -9,7 +9,7 @@ import { Button, Checkbox, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
 
 export interface FilterListProps {
-    field: "tags" | "subCategories";
+    field: "tags" | "subcategories";
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];

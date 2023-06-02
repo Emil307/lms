@@ -1,5 +1,5 @@
-import { AdminCourse, UpdateCourseFormValues, UpdateCourseRequest } from "@entities/course";
 import dayjs from "dayjs";
+import { AdminCourse, UpdateCourseFormValues, UpdateCourseRequest } from "@entities/course";
 import { initialValues } from "./constants";
 
 export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFormValues => {

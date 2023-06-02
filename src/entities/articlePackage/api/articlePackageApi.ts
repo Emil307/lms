@@ -2,43 +2,32 @@ import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
     GetAdminArticlePackagesResponse,
-    GetAdminArticlePackagesRequestParams,
-    GetAdminArticlePackagesResourceResponse,
-    AdminArticlePackageDetails,
-    CreateAdminArticlePackageRequest,
-    UpdateAdminArticlePackageRequest,
-    GetAdminArticlesFromArticlePackageRequestParams,
-    GetAdminArticlesFromArticlePackageResponse,
-    DeleteAdminArticleFromPackageRequest,
     $GetAdminArticlePackagesResponse,
-    $GetAdminArticlePackagesResourceResponse,
-    $AdminArticlePackageDetails,
-    $GetAdminArticlesFromArticlePackageResponse,
     GetArticlePackagesResponse,
     $GetArticlePackagesResponse,
-    GetArticlesFromArticlePackage,
-    $GetArticlesFromArticlePackage,
-    GetArticlesFromArticlePackageRequest,
     $UpdateArticlePackageActivityResponse,
     UpdateArticlePackageActivityResponse,
     UpdateArticlePackageActivityRequest,
+    GetAdminArticlePackageFiltersResponse,
+    $GetAdminArticlePackageFiltersResponse,
+    CreateArticlePackageResponse,
+    GetAdminArticlePackageResponse,
+    $GetAdminArticlePackageResponse,
+    $CreateArticlePackageResponse,
+    UpdateArticlePackageResponse,
+    $UpdateArticlePackageResponse,
+    GetAdminArticlePackageResourcesCreateResponse,
+    $GetAdminArticlePackageResourcesCreateResponse,
+    GetAdminArticlePackagesRequest,
+    CreateArticlePackageRequest,
+    UpdateArticlePackageRequest,
+    DeleteArticleFromPackageRequest,
+    AttachArticleToPackageRequest,
 } from "./types";
 
 class ArticlePackageApi extends BaseApi {
-    async getAdminArticlePackages({
-        isActive,
-        categoryId,
-        createdAt,
-        ...params
-    }: GetAdminArticlePackagesRequestParams): Promise<GetAdminArticlePackagesResponse> {
-        const response = await this.instance.post("admin/article-packages/list", {
-            ...params,
-            filter: {
-                isActive,
-                categoryId,
-                createdAt,
-            },
-        });
+    async getAdminArticlePackages(params: GetAdminArticlePackagesRequest): Promise<GetAdminArticlePackagesResponse> {
+        const response = await this.instance.post("admin/article-packages/list", params);
         return $GetAdminArticlePackagesResponse.parse(response);
     }
 
@@ -49,26 +38,28 @@ class ArticlePackageApi extends BaseApi {
         return $GetArticlePackagesResponse.parse(response);
     }
 
-    async getAdminArticlePackageResource(): Promise<GetAdminArticlePackagesResourceResponse> {
-        const response = await this.instance.get("admin/article-packages/resource");
-        return $GetAdminArticlePackagesResourceResponse.parse(response);
+    async getAdminArticlePackageFilters(): Promise<GetAdminArticlePackageFiltersResponse> {
+        const response = await this.instance.get("admin/article-packages/filters");
+        return $GetAdminArticlePackageFiltersResponse.parse(response);
     }
 
-    async getAdminArticlePackage(id?: string): Promise<AdminArticlePackageDetails> {
+    async getAdminArticlePackageResourcesCreate(): Promise<GetAdminArticlePackageResourcesCreateResponse> {
+        const response = await this.instance.get("admin/article-packages/create");
+        return $GetAdminArticlePackageResourcesCreateResponse.parse(response);
+    }
+
+    async getAdminArticlePackage(id?: string): Promise<GetAdminArticlePackageResponse> {
         const response = await this.instance.get(`admin/article-packages/${id}`);
-        return $AdminArticlePackageDetails.parse(response);
+        return $GetAdminArticlePackageResponse.parse(response);
     }
 
-    async createAdminArticlePackage(data: CreateAdminArticlePackageRequest): Promise<AdminArticlePackageDetails> {
+    async createArticlePackage(data: CreateArticlePackageRequest): Promise<CreateArticlePackageResponse> {
         const response = await this.instance.post("admin/article-packages", data);
-        return $AdminArticlePackageDetails.parse(response);
+        return $CreateArticlePackageResponse.parse(response);
     }
-    async updateAdminArticlePackage({
-        id,
-        ...data
-    }: UpdateAdminArticlePackageRequest & { id: string }): Promise<AdminArticlePackageDetails> {
+    async updateArticlePackage({ id, ...data }: UpdateArticlePackageRequest): Promise<UpdateArticlePackageResponse> {
         const response = await this.instance.put(`admin/article-packages/${id}`, data);
-        return $AdminArticlePackageDetails.parse(response);
+        return $UpdateArticlePackageResponse.parse(response);
     }
 
     async deleteArticlePackage(id: string): Promise<void> {
@@ -83,32 +74,13 @@ class ArticlePackageApi extends BaseApi {
         return $UpdateArticlePackageActivityResponse.parse(response);
     }
 
-    //ARTICLES FROM ARTICLE_PACKAGE
-    async getAdminArticlesFromArticlePackage({
-        articlePackageId,
-        ...data
-    }: GetAdminArticlesFromArticlePackageRequestParams): Promise<GetAdminArticlesFromArticlePackageResponse> {
-        const response = await this.instance.post(`admin/article-packages/${articlePackageId}/articles/list`, data);
-        return $GetAdminArticlesFromArticlePackageResponse.parse(response);
+    //ARTICLES <--> ARTICLE_PACKAGE
+
+    async attachArticleToArticlePackage({ articlePackageId, ...data }: AttachArticleToPackageRequest): Promise<void> {
+        await this.instance.post(`admin/article-packages/${articlePackageId}/articles`, data);
     }
 
-    async getArticlesFromArticlePackage({
-        articlePackageId,
-        categoryId,
-        ...params
-    }: GetArticlesFromArticlePackageRequest): Promise<GetArticlesFromArticlePackage> {
-        const response = await this.instance.post(`article-packages/${articlePackageId}/articles/list`, {
-            ...params,
-            filter: {
-                "category.id": categoryId,
-                //TODO: Убрать как беки по умолчанию будут подставлять эти 2 поля
-                articlePackageIds: articlePackageId,
-            },
-        });
-        return $GetArticlesFromArticlePackage.parse(response);
-    }
-
-    async deleteArticleFromArticlePackage({ articleId, articlePackageId }: DeleteAdminArticleFromPackageRequest): Promise<void> {
+    async deleteArticleFromArticlePackage({ articleId, articlePackageId }: DeleteArticleFromPackageRequest): Promise<void> {
         await this.instance.delete(`admin/article-packages/${articlePackageId}/articles/${articleId}`);
     }
 }

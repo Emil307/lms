@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { AdminArticlePackageDetails, GetAdminArticlePackagesResponse, articlePackageApi } from "@entities/articlePackage";
+import { GetAdminArticlePackageResponse, GetAdminArticlePackagesResponse, articlePackageApi } from "@entities/articlePackage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
@@ -12,7 +12,10 @@ export const useDeleteArticlePackage = (id: string) => {
         () => articlePackageApi.deleteArticlePackage(id),
         {
             onSuccess: () => {
-                const articlePackageData = queryClient.getQueryData<AdminArticlePackageDetails>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id]);
+                const articlePackageData = queryClient.getQueryData<GetAdminArticlePackageResponse>([
+                    QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                    id,
+                ]);
                 const articlePackageFromList = queryClient
                     .getQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES])[0]?.[1]
                     ?.data.find((articlePackage) => articlePackage.id.toString() === id);

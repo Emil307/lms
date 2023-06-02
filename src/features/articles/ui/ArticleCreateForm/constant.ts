@@ -5,6 +5,6 @@ export const initialValues: CreateArticleRequest = {
     content: "",
     isActive: false,
     categoryId: null,
-    subcategoryId: null,
+    subcategories: [],
     tags: [],
 };

@@ -3,15 +3,12 @@ import { Paperclip } from "react-feather";
 import { useMemo } from "react";
 import { FileItem } from "@shared/ui";
 import { getFileSize } from "@shared/utils";
-import { UploadedFile } from "@shared/types";
+import { GetArticleResponse } from "@entities/article";
 import useStyles from "./AttachedFiles.styles";
 import { VideoItem } from "../VideoItem";
 
 export interface AttachedFilesProps {
-    data: {
-        documents: { data: UploadedFile[] };
-        videos: { data: UploadedFile[] };
-    };
+    data: Pick<GetArticleResponse, "files">;
 }
 
 const AttachedFiles = ({ data }: AttachedFilesProps) => {
@@ -19,9 +16,10 @@ const AttachedFiles = ({ data }: AttachedFilesProps) => {
 
     const downloadFile = () => undefined;
 
+    //TODO: Править списки файлов
     const renderVideos = useMemo(
         () =>
-            data.videos.data.map((doc) => (
+            data.files.map((doc) => (
                 <VideoItem
                     key={doc.id}
                     fileId={doc.id}
@@ -36,7 +34,7 @@ const AttachedFiles = ({ data }: AttachedFilesProps) => {
 
     const renderDocuments = useMemo(
         () =>
-            data.documents.data.map((doc) => (
+            data.files.map((doc) => (
                 <FileItem
                     key={doc.id}
                     fileId={doc.id}

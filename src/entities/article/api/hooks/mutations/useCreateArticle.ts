@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { AdminArticleDetails, CreateArticleRequest, articleApi } from "@entities/article";
+import { CreateArticleRequest, CreateArticleResponse, articleApi } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useCreateArticle = () => {
-    return useMutation<AdminArticleDetails, AxiosError<FormErrorResponse>, CreateArticleRequest>(
+    return useMutation<CreateArticleResponse, AxiosError<FormErrorResponse>, CreateArticleRequest>(
         [MutationKeys.CREATE_ARTICLE],
         (data) => articleApi.createArticle(data),
         {

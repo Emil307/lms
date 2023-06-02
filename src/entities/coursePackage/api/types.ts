@@ -31,7 +31,7 @@ export type UpdateCoursePackageActivityResponse = z.infer<typeof $UpdateCoursePa
 export type CreateCoursePackageRequest = z.infer<typeof $CreateCoursePackageRequest>;
 export type UpdateCoursePackageRequest = z.infer<typeof $UpdateCoursePackageRequest>;
 export type DeleteCourseFromCoursePackageRequest = z.infer<typeof $DeleteCourseFromCoursePackageRequest>;
-export type AttachCourseFromCoursePackageRequest = z.infer<typeof $AttachCourseFromCoursePackageRequest>;
+export type AttachCourseToCoursePackageRequest = z.infer<typeof $AttachCourseToCoursePackageRequest>;
 
 export const $CourseFromCoursePackage = $Course
     .omit({
@@ -169,9 +169,9 @@ export const $AdminCourseFromCoursePackageFilters = z.object({
     coursePackageId: z.string(),
 });
 
-export const $AttachCourseFromCoursePackageRequest = z.object({
+export const $AttachCourseToCoursePackageRequest = z.object({
     coursePackageId: z.string(),
     ids: z.string().array(),
 });
 
-export const $DeleteCourseFromCoursePackageRequest = $AttachCourseFromCoursePackageRequest;
+export const $DeleteCourseFromCoursePackageRequest = $AttachCourseToCoursePackageRequest;

@@ -5,7 +5,7 @@ import axios from "axios";
 import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
 import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, Form, prepareOptionsForSelect } from "@shared/ui";
-import { AdminArticleDetails, useAdminArticleResource, useUpdateArticle } from "@entities/article";
+import { GetAdminArticleResponse, useAdminArticleResourcesCreate, useUpdateArticle } from "@entities/article";
 import { Fieldset } from "@components/Fieldset";
 import { initialValues } from "./constants";
 import { adaptEditFormRequest, adaptEditFormValues } from "./utils";
@@ -13,14 +13,14 @@ import useStyles from "./ArticleEditForm.styles";
 import { $updateArticleFormValidation, UpdateArticleFormValidation } from "./types";
 
 export interface ArticleEditFormProps {
-    data?: AdminArticleDetails;
+    data?: GetAdminArticleResponse;
     onClose: () => void;
 }
 
 const ArticleEditForm = ({ data, onClose }: ArticleEditFormProps) => {
     const { classes } = useStyles();
     const updateArticle = useUpdateArticle(String(data?.id));
-    const articleResources = useAdminArticleResource();
+    const articleResources = useAdminArticleResourcesCreate();
 
     const handleCancel = () => {
         onClose();
@@ -98,7 +98,7 @@ const ArticleEditForm = ({ data, onClose }: ArticleEditFormProps) => {
                                     name="categoryId"
                                     size="sm"
                                     data={prepareOptionsForSelect({
-                                        data: articleResources.data?.categories.data,
+                                        data: articleResources.data?.categories,
                                         value: "id",
                                         label: "name",
                                     })}
@@ -110,7 +110,7 @@ const ArticleEditForm = ({ data, onClose }: ArticleEditFormProps) => {
                                     name="subcategoryId"
                                     size="sm"
                                     data={prepareOptionsForSelect({
-                                        data: articleResources.data?.subcategories.data,
+                                        data: articleResources.data?.subcategories,
                                         value: "id",
                                         label: "name",
                                     })}
@@ -121,7 +121,7 @@ const ArticleEditForm = ({ data, onClose }: ArticleEditFormProps) => {
                                 <FMultiSelect
                                     name="tags"
                                     size="sm"
-                                    data={prepareOptionsForSelect({ data: articleResources.data?.tags.data, value: "id", label: "name" })}
+                                    data={prepareOptionsForSelect({ data: articleResources.data?.tags, value: "id", label: "name" })}
                                     clearable
                                     label="Теги статьи"
                                     disabled={articleResources.isLoading}

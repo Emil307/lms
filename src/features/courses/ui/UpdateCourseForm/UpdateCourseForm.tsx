@@ -1,5 +1,17 @@
 import { Box, Flex, Grid, Text, Title } from "@mantine/core";
 import React, { useMemo, useState } from "react";
+import { IconClipboardText, IconAlignLeft } from "@tabler/icons-react";
+import { FormikProps } from "formik";
+import {
+    $UpdateCourseFormValues,
+    AdminCourse,
+    courseApi,
+    UpdateCourseFormValues,
+    UpdateCourseResponse,
+    useAdminCourseResources,
+} from "@entities/course";
+import { Fieldset } from "@components/Fieldset";
+import { MutationKeys, QueryKeys } from "@shared/constant";
 import {
     Button,
     FCheckbox,
@@ -16,21 +28,9 @@ import {
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
-import { radioGroupValues } from "./constants";
-import {
-    $UpdateCourseFormValues,
-    AdminCourse,
-    courseApi,
-    UpdateCourseFormValues,
-    UpdateCourseResponse,
-    useAdminCourseResources,
-} from "@entities/course";
-import { IconClipboardText, IconAlignLeft } from "@tabler/icons-react";
-import { Fieldset } from "@components/Fieldset";
-import { FormikProps } from "formik";
 import { createNotification, getDiscountedAmount, ToastType } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
+import { radioGroupValues } from "./constants";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
 
 export interface UpdateCourseFormProps {

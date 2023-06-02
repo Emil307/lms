@@ -4,11 +4,11 @@ import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button } from "@shared/ui";
 import { InvoicePaymentForm } from "@features/coursePackages";
-import { ArticlePackage } from "@entities/articlePackage";
+import { ArticlePackageFromList } from "@entities/articlePackage";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
-    data: ArticlePackage;
+    data: ArticlePackageFromList;
 }
 
 const Footer = ({ data }: FooterProps) => {

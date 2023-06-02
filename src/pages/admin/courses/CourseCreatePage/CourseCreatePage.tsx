@@ -1,9 +1,9 @@
 import { Box, Title } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs } from "@shared/ui";
-import { breadCrumbsItems } from "./constants";
-import { CreateCourseForm } from "@features/courses/ui";
 import { useRouter } from "next/router";
+import { BreadCrumbs } from "@shared/ui";
+import { CreateCourseForm } from "@features/courses/ui";
+import { breadCrumbsItems } from "./constants";
 
 const CourseCreatePage = () => {
     const router = useRouter();

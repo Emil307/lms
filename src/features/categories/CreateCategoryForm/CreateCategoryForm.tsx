@@ -2,9 +2,9 @@ import { Flex } from "@mantine/core";
 import React from "react";
 import { Button, FInput, ManagedForm } from "@shared/ui";
 import { $CreateAdminCategoryRequest, AdminCategory, categoryApi, CreateAdminCategoryRequest } from "@entities/category";
-import { initialValues } from "./constants";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
+import { initialValues } from "./constants";
 
 export interface CreateCategoryFormProps {
     parentId?: number;

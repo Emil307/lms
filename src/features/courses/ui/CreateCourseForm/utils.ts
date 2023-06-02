@@ -1,5 +1,5 @@
-import { CreateCourseFormValues, CreateCourseRequest } from "@entities/course";
 import dayjs from "dayjs";
+import { CreateCourseFormValues, CreateCourseRequest } from "@entities/course";
 
 export const adaptCreateCourseRequest = (data: CreateCourseFormValues): CreateCourseRequest => {
     const { discount, isInteractive, cover, authorIds, teacherIds, ...rest } = data;

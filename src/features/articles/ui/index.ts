@@ -3,7 +3,7 @@ export * from "./Filters";
 export * from "./ArticleList";
 export * from "./ArticleCourseList";
 export * from "./FavoriteButton";
-export * from "./List";
+export * from "./AdminList";
 export * from "./DeleteArticleModal";
 export * from "./ArticleCreateForm";
 export * from "./ArticleEditForm";

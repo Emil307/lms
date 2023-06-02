@@ -1,12 +1,12 @@
 import { Card as MCard, CardProps as MCardProps, Text } from "@mantine/core";
 import { memo, ReactNode } from "react";
-import { ArticlePackage } from "@entities/articlePackage";
+import { ArticlePackageFromList } from "@entities/articlePackage";
 import { Footer, Header } from "./components";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
-    data: ArticlePackage;
-    children: ({ data }: { data: ArticlePackage }) => ReactNode;
+    data: ArticlePackageFromList;
+    children: ({ data }: { data: ArticlePackageFromList }) => ReactNode;
 }
 
 const MemoizedCard = memo(function Card({ data, children, ...props }: CardProps) {

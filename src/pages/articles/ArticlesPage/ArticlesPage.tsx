@@ -5,13 +5,13 @@ import { useRouter } from "next/router";
 import { useIntersection } from "@mantine/hooks";
 import { BreadCrumbs, Tabs } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
-import { Filters } from "@features/articles";
+import { ArticleCategoryList, Filters } from "@features/articles";
 import { Card as ArticlePackageCard } from "@features/articlePackages";
-import { ArticlePackage, useArticlePackages } from "@entities/articlePackage";
+import { ArticlePackageFromList, useArticlePackages } from "@entities/articlePackage";
 import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { breadCrumbsItems, tabsList } from "./constants";
 
-const ArticleCollectionPage = () => {
+const ArticlesPage = () => {
     const router = useRouter();
     const { data: articlePackages, hasNextPage, fetchNextPage } = useArticlePackages();
     const { ref: lastElemRef, entry } = useIntersection();
@@ -52,13 +52,12 @@ const ArticleCollectionPage = () => {
             <Flex gap={32}>
                 <Filters w={264} miw="max-content" />
                 <Flex direction="column" gap={64} w="calc(100% - 296px)">
-                    {/* TODO: Обновить zod-схемы */}
-                    <Box>{/* <ArticleCategoryList /> */}</Box>
+                    <ArticleCategoryList />
 
                     {articlePackages?.data && (
                         <Flex direction="column" gap={32}>
                             <Title order={2}>Пакетные предложения</Title>
-                            <Carousel<ArticlePackage> data={articlePackages.data} lastElemRef={lastElemRef} slideSize="100%">
+                            <Carousel<ArticlePackageFromList> data={articlePackages.data} lastElemRef={lastElemRef} slideSize="100%">
                                 {(props) => (
                                     <ArticlePackageCard {...props} mih={340} w="100%">
                                         {(props) => <CategoryListFromPackage {...props} />}
@@ -73,4 +72,4 @@ const ArticleCollectionPage = () => {
     );
 };
 
-export default ArticleCollectionPage;
+export default ArticlesPage;

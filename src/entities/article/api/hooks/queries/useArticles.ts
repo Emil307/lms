@@ -1,8 +1,9 @@
 import { QueryKeys } from "@shared/constant";
-import { Article, articleApi } from "@entities/article";
+import { ArticleFromList, GetArticlesRequest, articleApi } from "@entities/article";
 import { useInfiniteRequest } from "@shared/utils";
 
-export const useArticles = () => {
-    //TODO: добавить pageParam когда будем править схемы
-    return useInfiniteRequest<Article>([QueryKeys.GET_ARTICLES], () => articleApi.getArticles());
+export const useArticles = (data: Omit<GetArticlesRequest, "page">) => {
+    return useInfiniteRequest<ArticleFromList>([QueryKeys.GET_ARTICLES, data], ({ pageParam = 1 }) =>
+        articleApi.getArticles({ ...data, page: pageParam })
+    );
 };

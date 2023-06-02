@@ -2,11 +2,11 @@ import { Box, Flex, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { ReactNode, useCallback } from "react";
 import { DisplayField } from "@shared/ui";
-import { AdminArticlePackageDetails } from "@entities/articlePackage";
+import { GetAdminArticlePackageResponse } from "@entities/articlePackage";
 import useStyles from "./PackageInfo.styles";
 
 export interface PackageInfoProps {
-    data?: AdminArticlePackageDetails;
+    data?: GetAdminArticlePackageResponse;
     children?: ReactNode;
 }
 
