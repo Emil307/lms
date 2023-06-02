@@ -22,7 +22,7 @@ export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCourses
             ...(createdAtFrom &&
                 createdAtTo && {
                     createdAt: {
-                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
+                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
                         operator: "range",
                     },
                 }),

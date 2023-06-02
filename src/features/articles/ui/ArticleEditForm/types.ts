@@ -12,12 +12,6 @@ export const $updateArticleFormValidation = z.object({
         .refine((value) => value !== null, {
             message: "Выберите категорию",
         }),
-    subcategoryId: z
-        .string()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите подкатегорию",
-        }),
-
+    subcategories: z.array(z.string()).min(1, "Выберите подкатегорию"),
     tags: z.array(z.string()).optional(),
 });

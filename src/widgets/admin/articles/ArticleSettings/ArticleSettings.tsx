@@ -33,6 +33,7 @@ const ArticleSettings = ({ id }: ArticleSettingsProps) => {
     };
 
     const tagsNames = articleData?.tags.map((tag) => tag.name).join(", ");
+    const subcategoriesNames = articleData?.subcategories.map((tag) => tag.name).join(", ");
 
     return (
         <Box>
@@ -56,8 +57,7 @@ const ArticleSettings = ({ id }: ArticleSettingsProps) => {
                     <Fieldset label="Настройки" icon={<Edit3 />}>
                         <DisplayField label="Название статьи" value={articleData?.name} />
                         <DisplayField label="Категория" value={articleData?.category.name} />
-                        {/*TODO: Подкатегории должны быть массивом, поправить как бекенд это исправит*/}
-                        <DisplayField label="Подкатегория" value={articleData?.subcategory.name} />
+                        <DisplayField label="Подкатегория" value={subcategoriesNames} />
                         <DisplayField label="Теги" value={tagsNames} />
                     </Fieldset>
                     <Fieldset label="Контент статьи" icon={<IconFileText />}>

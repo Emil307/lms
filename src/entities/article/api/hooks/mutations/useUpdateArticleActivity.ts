@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { AdminArticleDetails, GetAdminArticlesResponse, UpdateArticleActivityResponse, articleApi } from "@entities/article";
+import { GetAdminArticleResponse, GetAdminArticlesResponse, UpdateArticleActivityResponse, articleApi } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
@@ -17,10 +17,10 @@ export const useUpdateArticleActivity = (
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE, id] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLES] });
 
-                const previousArticleData = queryClient.getQueryData<AdminArticleDetails>([QueryKeys.GET_ADMIN_ARTICLE, id]);
+                const previousArticleData = queryClient.getQueryData<GetAdminArticleResponse>([QueryKeys.GET_ADMIN_ARTICLE, id]);
                 const previousArticlesData = queryClient.getQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_ARTICLES]);
 
-                queryClient.setQueryData<AdminArticleDetails>(
+                queryClient.setQueryData<GetAdminArticleResponse>(
                     [QueryKeys.GET_ADMIN_ARTICLE, id],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
@@ -57,7 +57,7 @@ export const useUpdateArticleActivity = (
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLES]);
             },
             onSuccess: () => {
-                const articleData = queryClient.getQueryData<AdminArticleDetails>([QueryKeys.GET_ADMIN_ARTICLE, id]);
+                const articleData = queryClient.getQueryData<GetAdminArticleResponse>([QueryKeys.GET_ADMIN_ARTICLE, id]);
                 const articleFromList = queryClient
                     .getQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_ARTICLES])?.[0]?.[1]
                     ?.data.find((article) => article.id.toString() === id);

@@ -28,7 +28,7 @@ function DataGrid<T extends Record<string, any>, F extends FormikValues = Formik
             </Filter>
             <Flex gap={16} justify="space-between">
                 <CountData countName={countName} pagination={pagination} />
-                {rest.initialState?.columnOrder?.includes("mrt-row-select") && <SelectedRowsCount />}
+                {rest.initialState?.columnOrder?.includes("mrt-row-select") && <SelectedRowsCount rowSelection={rest.rowSelection} />}
             </Flex>
             <Box mt={24}>
                 <BaseTable<T>

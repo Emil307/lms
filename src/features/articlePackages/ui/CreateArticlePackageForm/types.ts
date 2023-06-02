@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { $DiscountType } from "@shared/types";
 
-export type CreateArticlePackageFormValidation = z.infer<typeof $createArticlePackageFormValidation>;
+export type CreateArticlePackageFormValidation = z.infer<typeof $CreateArticlePackageFormValidation>;
 
-export const $createArticlePackageFormValidation = z
+export const $CreateArticlePackageFormValidation = z
     .object({
         name: z.string({ required_error: "Введите наименование" }),
         categories: z.string().array().min(1, "Выберите категории"),
@@ -17,40 +18,38 @@ export const $createArticlePackageFormValidation = z
             }),
         description: z.string({ required_error: "Введите описание" }),
         isActive: z.boolean(),
-        discount: z
-            .object({
-                discountIsActive: z.boolean(),
-                type: z.literal("percentage").or(z.literal("currency")),
-                amount: z.number().positive("Число должно быть положительным").int("Число должно быть целым").nullable().optional(),
-                startingDate: z.string({ required_error: "Выберите период" }).datetime({ offset: true }).optional(),
-                finishingDate: z.string().datetime({ offset: true }).optional(),
-            })
-
-            .refine(
-                (data) => {
-                    if (!data.discountIsActive) {
-                        return true;
-                    }
-                    return data.amount !== null;
-                },
-                {
-                    message: "Введите размер скидки",
-                    path: ["amount"],
-                }
-            )
-            .refine(
-                (data) => {
-                    if (!data.discountIsActive) {
-                        return true;
-                    }
-                    return !!data.startingDate;
-                },
-                {
-                    message: "Укажите период действия",
-                    path: ["startingDate"],
-                }
-            ),
+        hasDiscount: z.boolean(),
+        discount: z.object({
+            type: $DiscountType,
+            amount: z.number().positive("Число должно быть положительным").int("Число должно быть целым").nullable().optional(),
+            startingDate: z.coerce.date({ required_error: "Выберите период" }).nullable(),
+            finishingDate: z.coerce.date().nullable(),
+        }),
     })
+    .refine(
+        (data) => {
+            if (!data.hasDiscount) {
+                return true;
+            }
+            return data.discount.amount !== null;
+        },
+        {
+            message: "Введите размер скидки",
+            path: ["discount.amount"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.hasDiscount) {
+                return true;
+            }
+            return !!data.discount.startingDate;
+        },
+        {
+            message: "Укажите период действия",
+            path: ["discount.startingDate"],
+        }
+    )
     .refine(
         (data) => {
             if (!data.price || !data.discount.amount || data.discount.type === "percentage") {

@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
-import { List as ArticlePackagesList } from "@features/articlePackages";
+import { AdminList as ArticlePackageAdminList } from "@features/articlePackages";
 
 const ArticlePackagesPage = () => {
     const router = useRouter();
@@ -19,7 +19,7 @@ const ArticlePackagesPage = () => {
                     Создать пакет
                 </Button>
             </Flex>
-            <ArticlePackagesList />
+            <ArticlePackageAdminList />
         </Box>
     );
 };

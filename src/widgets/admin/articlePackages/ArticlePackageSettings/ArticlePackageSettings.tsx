@@ -23,7 +23,10 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
 
     const handleOpenEditPage = () => router.push({ pathname: "/admin/settings/article-packages/[id]/edit", query: { id } });
 
-    const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE_PACKAGE");
+    const handleCloseDeleteModal = () => {
+        closeModal("DELETE_ARTICLE_PACKAGE");
+        router.push("/admin/settings/article-packages");
+    };
 
     const openModalDeletePackage = () => {
         openModal({
@@ -65,8 +68,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
                         <DisplayField label="Полная стоимость пакета" value={`${articlePackageData?.fullPrice.toLocaleString("ru")} ₽`} />
                     </Fieldset>
                     <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                        {/* //TODO: как бекенд отдаст дескрипшен */}
-                        <Text className={classes.description}>articlePackageData</Text>
+                        <Text className={classes.description}>{articlePackageData?.description}</Text>
                     </Fieldset>
                     {articlePackageData?.discount && (
                         <Fieldset label="Параметры скидки" icon={<IconPercentage />}>

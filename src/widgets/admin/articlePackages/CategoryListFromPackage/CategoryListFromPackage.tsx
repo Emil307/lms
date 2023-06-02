@@ -3,13 +3,13 @@ import { useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { useEventListener } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
-import { ArticlePackage } from "@entities/articlePackage";
+import { ArticlePackageFromList } from "@entities/articlePackage";
 import { ArticleListFromCategory } from "@features/articlePackages";
 import { CategoryItem } from "./components";
 import useStyles from "./CategoryListFromPackage.styles";
 
 export interface CategoryListFromPackageProps extends Omit<SpoilerProps, "children" | "maxHeight" | "hideLabel" | "showLabel"> {
-    data: ArticlePackage;
+    data: ArticlePackageFromList;
 }
 
 const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProps) => {

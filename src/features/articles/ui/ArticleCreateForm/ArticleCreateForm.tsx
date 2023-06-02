@@ -7,13 +7,13 @@ import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { Button, FInput, FMultiSelect, Form, FSelect, FSwitch, FTextEditor, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { $CreateArticleRequest, CreateArticleRequest, useAdminArticleResource, useCreateArticle } from "@entities/article";
+import { $CreateArticleRequest, CreateArticleRequest, useAdminArticleResourcesCreate, useCreateArticle } from "@entities/article";
 import { initialValues } from "./constant";
 
 const ArticleCreateForm = () => {
     const router = useRouter();
 
-    const articleResources = useAdminArticleResource();
+    const articleResources = useAdminArticleResourcesCreate();
     const createArticle = useCreateArticle();
 
     const handleCancel = () => {
@@ -64,7 +64,7 @@ const ArticleCreateForm = () => {
                                     name="categoryId"
                                     size="sm"
                                     data={prepareOptionsForSelect({
-                                        data: articleResources.data?.categories.data,
+                                        data: articleResources.data?.categories,
                                         value: "id",
                                         label: "name",
                                     })}
@@ -72,11 +72,12 @@ const ArticleCreateForm = () => {
                                     label="Выберите категорию"
                                     disabled={articleResources.isLoading}
                                 />
-                                <FSelect
-                                    name="subcategoryId"
+
+                                <FMultiSelect
+                                    name="subcategories"
                                     size="sm"
                                     data={prepareOptionsForSelect({
-                                        data: articleResources.data?.subcategories.data,
+                                        data: articleResources.data?.subcategories,
                                         value: "id",
                                         label: "name",
                                     })}
@@ -87,7 +88,7 @@ const ArticleCreateForm = () => {
                                 <FMultiSelect
                                     name="tags"
                                     size="sm"
-                                    data={prepareOptionsForSelect({ data: articleResources.data?.tags.data, value: "id", label: "name" })}
+                                    data={prepareOptionsForSelect({ data: articleResources.data?.tags, value: "id", label: "name" })}
                                     clearable
                                     label="Теги статьи"
                                     disabled={articleResources.isLoading}

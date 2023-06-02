@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { ArticlePackageDetailPage } from "@pages/admin/settings";
+import { ArticlePackageDetailsPage } from "@pages/admin/settings";
 
-const ArticlePackageDetail: NextPageWithLayout = () => {
+const ArticlePackageDetails: NextPageWithLayout = () => {
     return (
-        <AdminPage title="Настройки пакета">
-            <ArticlePackageDetailPage />
+        <AdminPage title="Страница пакета статей">
+            <ArticlePackageDetailsPage />
         </AdminPage>
     );
 };
 
-ArticlePackageDetail.getLayout = function (page: ReactElement) {
+ArticlePackageDetails.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default ArticlePackageDetail;
+export default ArticlePackageDetails;

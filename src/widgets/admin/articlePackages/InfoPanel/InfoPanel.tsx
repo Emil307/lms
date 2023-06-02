@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { useAdminArticlePackage, useUpdateArticlePackageActivity } from "@entities/articlePackage";
-import { Switch } from "@shared/ui";
+import { LastUpdatedInfo, Switch } from "@shared/ui";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps {
@@ -35,10 +35,10 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 />
             </Flex>
             <Box className={classes.infoItem}>
-                Создание:
+                Создание:{" "}
                 <span>{articlePackageData?.createdAt ? dayjs(articlePackageData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
             </Box>
-            {/* TODO: Логирование добавить как появится на бекенде */}
+            <LastUpdatedInfo data={articlePackageData?.lastUpdated} />
         </Flex>
     );
 };

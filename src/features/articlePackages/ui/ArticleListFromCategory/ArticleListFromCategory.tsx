@@ -3,25 +3,31 @@ import { useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { List } from "@components/List";
 import { Button } from "@shared/ui";
-import { ArticleFromArticlePackage, useArticlesFromArticlePackage } from "@entities/articlePackage";
+import { ArticleFromList, useArticles } from "@entities/article";
 import { ArticleItem } from "./components";
 import useStyles from "./ArticleListFromCategory.styles";
+import { adaptGetArticlesRequest } from "./utils";
+import { initialValues } from "./constants";
 
 export interface ArticleListFromCategoryProps extends FlexProps {
-    articlePackageId: number;
-    categoryId: number;
+    articlePackageId?: number;
+    categoryId?: number;
     onClose: () => void;
 }
 
 const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...props }: ArticleListFromCategoryProps) => {
     const { classes } = useStyles();
 
-    const { data: articlesData, hasNextPage, fetchNextPage } = useArticlesFromArticlePackage({ categoryId, articlePackageId });
+    const {
+        data: articlesData,
+        hasNextPage,
+        fetchNextPage,
+    } = useArticles(adaptGetArticlesRequest({ ...initialValues, categoryId, articlePackageIds: articlePackageId }));
 
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
@@ -36,7 +42,7 @@ const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...pro
                         type="auto"
                         offsetScrollbars
                         scrollbarSize={4}>
-                        <List<ArticleFromArticlePackage>
+                        <List<ArticleFromList>
                             data={articlesData?.data}
                             m={0}
                             colProps={{ p: 0, py: 2, pr: 12 }}

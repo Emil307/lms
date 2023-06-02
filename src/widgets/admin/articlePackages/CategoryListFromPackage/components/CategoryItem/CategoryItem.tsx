@@ -1,13 +1,13 @@
 import { ActionIcon, Divider, Flex, Text } from "@mantine/core";
 import { memo } from "react";
 import { Info } from "react-feather";
-import { ArticleCategory } from "@entities/article";
+import { ArticleCategoryFromList } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import { Tooltip } from "@shared/ui";
 import useStyles from "./CategoryItem.styles";
 
 export interface CategoryItemProps {
-    data: ArticleCategory;
+    data: ArticleCategoryFromList;
     onClick: (categoryId: number) => void;
 }
 

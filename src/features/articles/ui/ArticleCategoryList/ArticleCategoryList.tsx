@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 import { List } from "@components/List";
-import { ArticleCategory, useArticleCategories } from "@entities/article";
+import { ArticleCategoryFromList, useArticleCategories } from "@entities/article";
 import { Button } from "@shared/ui";
 import { ArticleCategoryItem } from "./components";
 import useStyles from "./ArticleCategoryList.styles";
@@ -16,7 +16,7 @@ const ArticleCategoryList = (_props: ArticleCategoryListProps) => {
 
     return (
         <Flex direction="column" gap={32}>
-            <List<ArticleCategory>
+            <List<ArticleCategoryFromList>
                 data={articleCategoriesData?.data}
                 m={0}
                 colProps={{ p: 0, py: 4 }}

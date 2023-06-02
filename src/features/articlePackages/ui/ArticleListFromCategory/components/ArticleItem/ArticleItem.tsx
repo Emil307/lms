@@ -1,11 +1,11 @@
 import { Flex, FlexProps, ThemeIcon, Text } from "@mantine/core";
 import { memo } from "react";
 import { FileText } from "react-feather";
-import { ArticleFromArticlePackage } from "@entities/articlePackage";
+import { ArticleFromList } from "@entities/article";
 import useStyles from "./ArticleItem.styles";
 
 export interface ArticleItemProps extends FlexProps {
-    data: ArticleFromArticlePackage;
+    data: ArticleFromList;
 }
 
 const MemoizedArticleItem = memo(function ArticleItem({ data, ...props }: ArticleItemProps) {

@@ -1,12 +1,9 @@
 import { Badge, Group } from "@mantine/core";
+import { ArticleTag } from "@entities/article";
 import useStyles from "./TagList.styles";
 
 export interface TagListProps {
-    data: {
-        id: number;
-        name: string;
-        slug: string;
-    }[];
+    data: ArticleTag[];
 }
 
 const TagList = ({ data }: TagListProps) => {

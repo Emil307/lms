@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
-import { CreateAdminArticlePackageRequest } from "@entities/articlePackage";
+import { CreateArticlePackageRequest } from "@entities/articlePackage";
 import { CreateArticlePackageFormValidation } from "./types";
 
-export const adaptCreateArticlePackageFormRequest = (data: CreateArticlePackageFormValidation): CreateAdminArticlePackageRequest => {
-    const { discountIsActive, ...discount } = data.discount;
+export const adaptCreateArticlePackageRequest = (data: CreateArticlePackageFormValidation): CreateArticlePackageRequest => {
     return {
         name: data.name,
         description: data.description,
@@ -11,13 +10,14 @@ export const adaptCreateArticlePackageFormRequest = (data: CreateArticlePackageF
         categories: data.categories.map((categoryId) => Number(categoryId)),
         tags: data.tags.map((tagId) => Number(tagId)),
         isActive: data.isActive,
+        hasDiscount: data.hasDiscount,
 
-        ...(discountIsActive && {
+        ...(data.hasDiscount && {
             discount: {
-                ...discount,
-                amount: discount.amount || null,
-                startingDate: dayjs(discount.startingDate).format("YYYY.MM.DD"),
-                finishingDate: dayjs(discount.finishingDate).format("YYYY.MM.DD"),
+                ...data.discount,
+                amount: data.discount.amount || null,
+                startingDate: dayjs(data.discount.startingDate).format("YYYY-MM-DD"),
+                finishingDate: dayjs(data.discount.finishingDate).format("YYYY-MM-DD"),
             },
         }),
     };

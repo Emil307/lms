@@ -1,11 +1,11 @@
 import { Card as MCard, Badge, Group, Flex, Title, Box, Text } from "@mantine/core";
 import { getHumanDate } from "@shared/utils";
 import IconBooks from "@public/icons/books.svg";
-import { ArticlePackage } from "@entities/articlePackage";
+import { ArticlePackageFromList } from "@entities/articlePackage";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps {
-    data: Pick<ArticlePackage, "name" | "description" | "discount">;
+    data: Pick<ArticlePackageFromList, "name" | "description" | "discount">;
 }
 
 const Header = ({ data: { discount, name, description } }: HeaderProps) => {

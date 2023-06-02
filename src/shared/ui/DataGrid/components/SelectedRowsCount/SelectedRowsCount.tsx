@@ -1,12 +1,12 @@
 import { Box } from "@mantine/core";
-import { useRouter } from "next/router";
 import React from "react";
-import { TRouterSelectQueries } from "./types";
+import { RowSelectionState } from "@tanstack/table-core";
 
-export default function SelectedRowsCount() {
-    const router = useRouter();
-    const { select } = router.query as TRouterSelectQueries;
+export interface SelectedRowsCountProps {
+    rowSelection?: RowSelectionState;
+}
 
+export default function SelectedRowsCount({ rowSelection }: SelectedRowsCountProps) {
     return (
         <Box
             sx={(theme) => ({
@@ -17,7 +17,7 @@ export default function SelectedRowsCount() {
                 },
             })}
             mt={32}>
-            Выбрано: <span>{select?.split(",").length || 0}</span>
+            Выбрано: <span>{rowSelection ? Object.keys(rowSelection).length : 0}</span>
         </Box>
     );
 }

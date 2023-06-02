@@ -15,7 +15,7 @@ const Filters = (props: FiltersProps) => {
             search: "",
             page: "1",
             tags: [],
-            subCategories: [],
+            subcategories: [],
         },
         validationSchema: $ArticleCategoryFilters,
         onSubmit: (_values) => {
@@ -34,7 +34,7 @@ const Filters = (props: FiltersProps) => {
                             <FSearch name="search" placeholder="Область, тематика" />
                             {filtersData?.subcategories && (
                                 <FilterList
-                                    field="subCategories"
+                                    field="subcategories"
                                     filterName="Категории"
                                     searchPlaceholder="Найти категории"
                                     labelsPluralString={["категория", "категории", "категорий"]}

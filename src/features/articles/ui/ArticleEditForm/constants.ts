@@ -5,6 +5,6 @@ export const initialValues: UpdateArticleFormValidation = {
     content: "",
     isActive: false,
     categoryId: null,
-    subcategoryId: null,
+    subcategories: [],
     tags: [],
 };

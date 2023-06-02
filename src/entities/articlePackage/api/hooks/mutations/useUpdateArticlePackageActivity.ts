@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import {
-    AdminArticlePackageDetails,
+    GetAdminArticlePackageResponse,
     GetAdminArticlePackagesResponse,
     UpdateArticlePackageActivityResponse,
     articlePackageApi,
@@ -22,7 +22,7 @@ export const useUpdateArticlePackageActivity = (
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] });
 
-                const previousArticlePackageData = queryClient.getQueryData<AdminArticlePackageDetails>([
+                const previousArticlePackageData = queryClient.getQueryData<GetAdminArticlePackageResponse>([
                     QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
                     id,
                 ]);
@@ -30,7 +30,7 @@ export const useUpdateArticlePackageActivity = (
                     QueryKeys.GET_ADMIN_ARTICLE_PACKAGES,
                 ]);
 
-                queryClient.setQueryData<AdminArticlePackageDetails>(
+                queryClient.setQueryData<GetAdminArticlePackageResponse>(
                     [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
@@ -67,7 +67,10 @@ export const useUpdateArticlePackageActivity = (
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES]);
             },
             onSuccess: () => {
-                const articlePackageData = queryClient.getQueryData<AdminArticlePackageDetails>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id]);
+                const articlePackageData = queryClient.getQueryData<GetAdminArticlePackageResponse>([
+                    QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                    id,
+                ]);
                 const articlePackageFromList = queryClient
                     .getQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES])?.[0]?.[1]
                     ?.data.find((articlePackage) => articlePackage.id.toString() === id);

@@ -5,8 +5,8 @@ import axios from "axios";
 import { closeModal, openModal } from "@mantine/modals";
 import { ConfirmActionModal } from "@shared/ui/ConfirmActionModal";
 import { queryClient } from "@app/providers";
-import Form, { FormProps } from "./Form";
 import { DetectorFormUpdate } from "@shared/ui/Forms/Form/components";
+import Form, { FormProps } from "./Form";
 
 type ExtendedProps<F extends FormikValues = FormikValues> = Omit<FormProps<F>, "config">;
 

@@ -7,12 +7,12 @@ export const initialValues: CreateArticlePackageFormValidation = {
     price: null,
     categories: [],
     tags: [],
+    hasDiscount: false,
     discount: {
         type: "percentage",
-        discountIsActive: false,
         amount: null,
-        startingDate: "",
-        finishingDate: "",
+        startingDate: null,
+        finishingDate: null,
     },
 };
 

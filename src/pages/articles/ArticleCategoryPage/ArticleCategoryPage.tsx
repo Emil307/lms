@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Button, Tabs } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
 import { ArticleList, Filters } from "@features/articles";
-import { ArticlePackage, useArticlePackages } from "@entities/articlePackage";
+import { ArticlePackageFromList, useArticlePackages } from "@entities/articlePackage";
 import { Card as ArticlePackageCard } from "@features/articlePackages";
 import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { tabsList } from "./constants";
@@ -58,7 +58,7 @@ const ArticleCategoryPage = () => {
                     {articlePackages?.data && (
                         <Flex direction="column" gap={32}>
                             <Title order={2}>Пакетные предложения</Title>
-                            <Carousel<ArticlePackage> data={articlePackages.data} slideSize="100%">
+                            <Carousel<ArticlePackageFromList> data={articlePackages.data} slideSize="100%">
                                 {(props) => (
                                     <ArticlePackageCard {...props} mih={340} w="100%">
                                         {(props) => <CategoryListFromPackage {...props} />}
