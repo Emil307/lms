@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import {CourseEditPage} from "@pages/admin/courses";
+import {UpdateCoursePage} from "@pages/admin/courses";
 
-const CourseEdit: NextPageWithLayout = () => {
+const UpdateCourse: NextPageWithLayout = () => {
     return (
         <AdminPage title="Редактирование курса">
-            <CourseEditPage />
+            <UpdateCoursePage />
         </AdminPage>
     );
 };
 
-CourseEdit.getLayout = function (page: ReactElement) {
+UpdateCourse.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default CourseEdit;
+export default UpdateCourse;

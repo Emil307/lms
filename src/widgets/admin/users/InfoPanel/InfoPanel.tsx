@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Checkbox, Switch } from "@shared/ui";
 import { useDetailUser, useUpdateUserActivity } from "@entities/user";
-import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
+import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -25,7 +25,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <Box>
-            <Title mt={8}>{getFullNameFromProfile(data?.profile)}</Title>
+            <Title mt={8}>{getFullName({ data: data?.profile })}</Title>
             <Flex mt={24} gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>

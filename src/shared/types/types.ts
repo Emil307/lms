@@ -3,6 +3,7 @@ import { $profile } from "./profile";
 
 export interface TRouterQueries {
     id: string;
+    tab?: string;
 }
 
 export interface FormErrorResponse {
@@ -42,9 +43,9 @@ export const $DiscountType = z.literal("percentage").or(z.literal("currency"));
 
 export const $Discount = z.object({
     type: $DiscountType,
-    amount: z.number().optional(),
-    startingDate: z.coerce.date().nullable(),
-    finishingDate: z.coerce.date().nullable(),
+    amount: z.number(),
+    startingDate: z.coerce.date(),
+    finishingDate: z.coerce.date(),
 });
 
 export const $multiValueOperator = z.literal("or").or(z.literal("and")).or(z.literal("not")).or(z.literal("lte"));

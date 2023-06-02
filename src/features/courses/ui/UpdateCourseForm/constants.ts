@@ -11,7 +11,7 @@ export const initialValues: UpdateCourseFormValues = {
     category: "",
     subCategory: "",
     description: "",
-    price: "0",
+    price: 0,
     isInteractive: false,
     isActive: false,
     isDemonstrative: false,
@@ -24,7 +24,7 @@ export const initialValues: UpdateCourseFormValues = {
     hasDiscount: false,
     discount: {
         type: "percentage",
-        amount: "",
+        amount: 0,
         startingDate: null,
         finishingDate: null,
     },

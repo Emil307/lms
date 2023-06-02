@@ -1,6 +1,6 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { TUser, UsersFilters } from "@entities/user/api/types";
-import { getFullNameFromProfile } from "@shared/utils";
+import { getFullName } from "@shared/utils";
 
 export const columns: MRT_ColumnDef<TUser>["columns"] = [
     {
@@ -11,7 +11,7 @@ export const columns: MRT_ColumnDef<TUser>["columns"] = [
         header: "ФИО",
         accessorKey: "profile",
         id: "fullName",
-        Cell: ({ cell }) => <>{getFullNameFromProfile(cell.row.original.profile)}</>,
+        Cell: ({ cell }) => <>{getFullName({ data: cell.row.original.profile })}</>,
     },
     {
         header: "Роль",

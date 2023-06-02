@@ -6,7 +6,7 @@ import { openModal } from "@mantine/modals";
 import { TUser, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
-import { getFullNameFromProfile } from "@shared/utils";
+import { getFullName } from "@shared/utils";
 
 interface ListMenuProps {
     row: MRT_Row<TUser>;
@@ -58,7 +58,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), getFullNameFromProfile(row.original.profile))}>
+            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), getFullName({ data: row.original.profile }))}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

@@ -4,7 +4,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { TUser, GetUsersResponse, usersApi } from "@entities/user";
 import { FormErrorResponse } from "@shared/types";
-import { ToastType, createNotification, getFullNameFromProfile } from "@shared/utils";
+import { ToastType, createNotification, getFullName } from "@shared/utils";
 
 export const useUpdateUserActivity = (id: string): UseMutationResult<void, AxiosError<FormErrorResponse>, boolean> => {
     return useMutation([MutationKeys.UPDATE_USER_ACTIVITY], (isActive) => usersApi.updateUserActivity({ id, isActive }), {
@@ -79,7 +79,7 @@ export const useUpdateUserActivity = (id: string): UseMutationResult<void, Axios
 
             const statusMessage =
                 userData?.isActive || userFromList?.isActive || studentFromList?.isActive ? "активирован" : "деактивирован";
-            const fio = getFullNameFromProfile(userData?.profile || userFromList?.profile || studentFromList?.profile);
+            const fio = getFullName({ data: userData?.profile || userFromList?.profile || studentFromList?.profile });
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",

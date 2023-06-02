@@ -14,6 +14,7 @@ export default createStyles((theme) => ({
         borderRadius: 8,
         borderColor: theme.colors.grayLight[0],
         backgroundColor: theme.colors.grayLight[0],
+        cursor: "pointer",
 
         "& + svg": {
             position: "absolute",
@@ -64,6 +65,7 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         color: theme.colors.dark[0],
         lineHeight: "16px",
+        cursor: "pointer",
     },
     error: {
         gap: 4,

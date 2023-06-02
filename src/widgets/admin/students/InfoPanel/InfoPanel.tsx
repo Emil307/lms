@@ -2,7 +2,7 @@ import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Switch } from "@shared/ui";
-import { getFullNameFromProfile } from "@shared/utils";
+import { getFullName } from "@shared/utils";
 import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -22,7 +22,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <Box>
-            <Title mt={8}>{getFullNameFromProfile(data?.profile)}</Title>
+            <Title mt={8}>{getFullName({ data: data?.profile })}</Title>
             <Flex mt={24} gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>

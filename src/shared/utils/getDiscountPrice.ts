@@ -1,14 +1,16 @@
+import { Discount } from "@shared/types";
+
 export interface GetDiscountPriceProps {
     price?: number | null;
     amountDiscount?: number | null;
-    type: "percentage" | "currency";
+    type?: Discount["type"];
 }
 
 export const getDiscountPrice = ({ price, amountDiscount, type }: GetDiscountPriceProps) => {
-    if (!price || !amountDiscount) {
+    if (!price || !amountDiscount || !type) {
         return "";
     }
-    if (type == "percentage") {
+    if (type === "percentage") {
         return `${Math.floor(price - price * (amountDiscount / 100)).toLocaleString("ru")} ₽`;
     }
 

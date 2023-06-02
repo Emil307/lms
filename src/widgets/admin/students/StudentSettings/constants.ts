@@ -1,4 +1,4 @@
-import { ProfileInfoDisplayFields } from "@components/ProfileInfo";
+import { TInfoCardDisplayFields } from "@components/InfoCard";
 
 interface ProfileUser {
     fio: string;
@@ -6,7 +6,7 @@ interface ProfileUser {
     email: string;
 }
 
-export const fields: ProfileInfoDisplayFields<ProfileUser> = [
+export const fields: TInfoCardDisplayFields<ProfileUser> = [
     { name: "fio", label: "Фио" },
     { name: "roleName", label: "Роль" },
     { name: "email", label: "Email" },

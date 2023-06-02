@@ -21,8 +21,8 @@ export const prepareOptionsForSelect = <T extends Record<string, any>>({
         const optionData = {
             value: String(item[value]),
             label: typeof label === "function" ? label(item) : String(item[label]),
-            ...(isActive ? { isActive: !!item[isActive]} : {})
-        }
+            ...(isActive ? { isActive: !!item[isActive] } : {}),
+        };
         options.push(optionData);
     });
 

@@ -41,6 +41,12 @@ export type CreateCourseResponse = z.infer<typeof $CreateCourseResponse>;
 export type UpdateCourseRequest = z.infer<typeof $UpdateCourseRequest>;
 export type UpdateCourseResponse = z.infer<typeof $UpdateCourseResponse>;
 export type GetAdminCoursesWithoutCoursesFromCoursePackageRequest = z.infer<typeof $GetAdminCoursesWithoutCoursesFromCoursePackageRequest>;
+export type UpdateCourseActivityRequest = z.infer<typeof $UpdateCourseActivityRequest>;
+export type UpdateCourseActivityResponse = z.infer<typeof $UpdateCourseActivityResponse>;
+export type UpdateCourseTypeRequest = z.infer<typeof $UpdateCourseTypeRequest>;
+export type UpdateCourseTypeResponse = z.infer<typeof $UpdateCourseTypeResponse>;
+export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopularityRequest>;
+export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
 
 /**
  *
@@ -221,13 +227,10 @@ export const $CreateCourseFormValues = z
         teacherIds: z.array(z.string()),
         name: z.string({ required_error: "Введите название" }),
         description: z.string().optional(),
-        price: z.string({ required_error: "Введите стоимость" }).refine(
-            (value) => {
-                const price = Number(value);
-                return Number.isInteger(price) && price >= 0;
-            },
-            { message: "Стоимость должна быть целым неотрицательным числом" }
-        ),
+        price: z
+            .number({ required_error: "Введите стоимость" })
+            .int("Число должно быть целым")
+            .nonnegative("Число должно не может быть отрицательным"),
         isInteractive: z.boolean(),
         isActive: z.boolean(),
         isDemonstrative: z.boolean(),
@@ -235,42 +238,29 @@ export const $CreateCourseFormValues = z
         hasDiscount: z.boolean(),
         discount: z.object({
             type: $DiscountType,
-            amount: z.string().optional(),
+            amount: z.number(),
             startingDate: z.date().nullable(),
             finishingDate: z.date().nullable(),
         }),
     })
     .refine(
         (data) => {
-            if (!data.category) {
-                return true;
-            }
-            return !!data.subCategory;
-        },
-        {
-            message: "Выберите подкатегорию",
-            path: ["subCategory"],
-        }
-    )
-    .refine(
-        (data) => {
             if (!data.hasDiscount) {
                 return true;
             }
-            const amount = Number(data.discount.amount);
-            return Number.isInteger(amount) && amount > 0;
+            return Number.isInteger(data.discount.amount) && data.discount.amount > 0;
         },
         {
-            message: "Размер скидки должен быть целым числом и больше 0",
+            message: "Размер скидки должен быть целым пложительный числом",
             path: ["discount.amount"],
         }
     )
     .refine(
         (data) => {
-            if ((!data.hasDiscount && !data.discount.amount) || data.discount.type === "currency") {
+            if (!data.hasDiscount || data.discount.type === "currency") {
                 return true;
             }
-            return 100 >= Number(data.discount.amount);
+            return 100 >= data.discount.amount;
         },
         {
             message: "Размер скидки не может быть больше 100%",
@@ -279,10 +269,10 @@ export const $CreateCourseFormValues = z
     )
     .refine(
         (data) => {
-            if (!data.hasDiscount || !data.price || !data.discount.amount || data.discount.type === "percentage") {
+            if (!data.hasDiscount || data.discount.type === "percentage") {
                 return true;
             }
-            return Number(data.price) >= Number(data.discount.amount);
+            return data.price >= data.discount.amount;
         },
         {
             message: "Размер скидки не может быть больше стоимости",
@@ -328,8 +318,8 @@ export const $CreateCourseFormValues = z
 
 export const $CreateCourseRequest = z.object({
     coverId: z.number().nullable(),
-    category: z.string().optional(),
-    subCategory: z.string().optional(),
+    categoryId: z.number().optional(),
+    subcategoryId: z.number().optional(),
     tagIds: z.array(z.string()),
     hasAuthors: z.boolean(),
     authorIds: z.array(z.string()),
@@ -337,7 +327,7 @@ export const $CreateCourseRequest = z.object({
     teacherIds: z.array(z.string()),
     name: z.string(),
     description: z.string().optional(),
-    price: z.string(),
+    price: z.number(),
     type: $CourseType,
     isActive: z.boolean(),
     isDemonstrative: z.boolean(),
@@ -346,7 +336,7 @@ export const $CreateCourseRequest = z.object({
     discount: z
         .object({
             type: $DiscountType,
-            amount: z.string().optional(),
+            amount: z.number(),
             startingDate: z.string(),
             finishingDate: z.string(),
         })
@@ -360,6 +350,30 @@ export const $UpdateCourseRequest = $CreateCourseRequest.extend({
 });
 
 export const $UpdateCourseResponse = $AdminCourse;
+
+export const $UpdateCourseActivityRequest = z.object({
+    id: z.string(),
+    isActive: z.boolean(),
+});
+export const $UpdateCourseActivityResponse = $UpdateCourseActivityRequest.pick({
+    isActive: true,
+});
+
+export const $UpdateCourseTypeRequest = z.object({
+    id: z.string(),
+    type: $CourseType,
+});
+export const $UpdateCourseTypeResponse = $UpdateCourseTypeRequest.pick({
+    type: true,
+});
+
+export const $UpdateCoursePopularityRequest = z.object({
+    id: z.string(),
+    isPopular: z.boolean(),
+});
+export const $UpdateCoursePopularityResponse = $UpdateCoursePopularityRequest.pick({
+    isPopular: true,
+});
 
 /**
  * USER ZOD

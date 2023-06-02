@@ -5,15 +5,15 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { ProfileInfo } from "@components/ProfileInfo";
 import { useDetailUser } from "@entities/user";
 import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
-import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
+import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { List as NotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { fields } from "./constants";
 import { useSettingUserStyles } from "./SettingUser.styles";
+import { InfoCard } from "@components/InfoCard";
 
 interface SettingUserProps {
     id: string;
@@ -29,7 +29,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > -1;
 
     const dataProfile = {
-        fio: getFullNameFromProfile(data?.profile),
+        fio: getFullName({ data: data?.profile }),
         roleName: data?.roles[0].displayName ?? "",
         email: data?.email ?? "",
     };
@@ -39,7 +39,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
             modalId: `${id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: <UserDeleteModal redirectUrl="/admin/users" id={id} fio={getFullNameFromProfile(data?.profile)} />,
+            children: <UserDeleteModal redirectUrl="/admin/users" id={id} fio={getFullName({ data: data?.profile })} />,
         });
     };
 
@@ -119,8 +119,10 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     </Fieldset>
                 </Group>
                 <Box>
-                    <ProfileInfo
-                        avatarSrc={data?.profile.avatar?.absolutePath ?? ""}
+                    <InfoCard
+                        avatar={{
+                            src: data?.profile.avatar?.absolutePath,
+                        }}
                         values={dataProfile}
                         variant="whiteBg"
                         fields={fields}

@@ -6,6 +6,7 @@ export default createStyles((theme, { variant }: { variant: "compact" | "default
         justifyContent: "space-between",
         alignItems: variant === "default" ? "center" : "flex-start",
         rowGap: 0,
+        columnGap: 16,
         width: "100%",
     },
     label: {

@@ -11,7 +11,6 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         teachers,
         authors,
         tags,
-        price,
         description,
         createdAt,
         updatedAt,
@@ -28,17 +27,18 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         teacherIds: teachers.map((teacher) => teacher.id.toString()),
         authorIds: authors.map((author) => author.id.toString()),
         tagIds: tags.map((tag) => tag.id.toString()),
-        price: price.toString(),
-        discount: discount ? { ...discount, amount: discount.amount?.toString() } : initialValues.discount,
+        discount: discount || initialValues.discount,
     };
 };
 
 export const adaptUpdateCourseRequest = (id: string, data: UpdateCourseFormValues): UpdateCourseRequest => {
-    const { discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
+    const { category, subCategory, discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
     return {
         id,
         ...rest,
         coverId: cover?.id ?? null,
+        categoryId: Number(category) || undefined,
+        subcategoryId: Number(subCategory) || undefined,
         type: isInteractive ? "interactive" : "autonomous",
         teacherIds: rest.hasTeachers ? teacherIds : [],
         authorIds: rest.hasAuthors ? authorIds : [],

@@ -7,7 +7,7 @@ import { openModal } from "@mantine/modals";
 import { TUser, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
-import { checkRoleOrder, getFullNameFromProfile } from "@shared/utils";
+import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 
 export interface UsersListMenuProps {
@@ -31,7 +31,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
             modalId: `${row.original.id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: <UserDeleteModal id={String(row.original.id)} fio={getFullNameFromProfile(row.original.profile)} />,
+            children: <UserDeleteModal id={String(row.original.id)} fio={getFullName({ data: row.original.profile })} />,
         });
     };
 

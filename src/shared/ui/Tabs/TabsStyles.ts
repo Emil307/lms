@@ -1,6 +1,10 @@
 import { createStyles } from "@mantine/core";
 
-export const useTabsStyles = createStyles((theme) => ({
+interface IUseTabsStylesProps {
+    count: number;
+}
+
+export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps) => ({
     tabsList: {
         borderBottom: "none",
         backgroundColor: theme.colors.grayLight[0],
@@ -9,7 +13,7 @@ export const useTabsStyles = createStyles((theme) => ({
         width: "100%",
         borderRadius: 8,
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+        gridTemplateColumns: `repeat(${count}, 1fr)`,
     },
     tab: {
         width: "100%",

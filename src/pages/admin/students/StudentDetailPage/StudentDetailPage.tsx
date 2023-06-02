@@ -5,7 +5,7 @@ import { BreadCrumbs, Tabs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
-import { getFullNameFromProfile } from "@shared/utils";
+import { getFullName } from "@shared/utils";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 
@@ -14,7 +14,7 @@ const StudentDetailPage = () => {
     const { id } = router.query as TRouterQueries;
     const { data: userData, isLoading, isError } = useDetailUser(id);
 
-    const userName = getFullNameFromProfile(userData?.profile);
+    const userName = getFullName({ data: userData?.profile });
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {

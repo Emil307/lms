@@ -5,6 +5,7 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
         minWidth: 48,
         backgroundColor: variant === "secondary" ? theme.colors.gray20[0] : theme.colors.dark[0],
         border: "none",
+        cursor: "pointer",
     },
     thumb: {
         height: 16,
@@ -60,5 +61,6 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
         fontWeight: 500,
         lineHeight: "16px",
         color: theme.colors.dark[0],
+        cursor: "pointer",
     },
 }));

@@ -7,7 +7,7 @@ import { useAdminCourse } from "@entities/course";
 import { UpdateCourseForm } from "@features/courses";
 import { getBreadCrumbsItems } from "./utils";
 
-const CourseEditPage = () => {
+const UpdateCoursePage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
@@ -39,4 +39,4 @@ const CourseEditPage = () => {
     );
 };
 
-export default CourseEditPage;
+export default UpdateCoursePage;

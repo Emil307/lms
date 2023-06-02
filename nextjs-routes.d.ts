@@ -12,73 +12,74 @@ declare module "nextjs-routes" {
 
   export type Route =
     | StaticRoute<"/about">
+    | StaticRoute<"/admin/articles/create">
+    | StaticRoute<"/admin/articles">
     | DynamicRoute<"/admin/articles/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/articles/[id]", { "id": string }>
     | DynamicRoute<"/admin/articles/[id]/materials", { "id": string }>
-    | StaticRoute<"/admin/articles/create">
-    | StaticRoute<"/admin/articles">
-    | DynamicRoute<"/admin/courses/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/courses/[id]", { "id": string }>
     | StaticRoute<"/admin/courses/create">
     | StaticRoute<"/admin/courses">
+    | DynamicRoute<"/admin/courses/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/courses/[id]", { "id": string }>
+    | StaticRoute<"/admin/groups/create">
+    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/groups/[id]/composition", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/schedule", { "id": string }>
-    | StaticRoute<"/admin/groups/create">
-    | StaticRoute<"/admin/groups">
-    | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/article-packages/create">
     | StaticRoute<"/admin/settings/article-packages">
-    | DynamicRoute<"/admin/settings/authors/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/authors/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/article-packages/[id]/articles", { "id": string }>
+    | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/authors/create">
     | StaticRoute<"/admin/settings/authors">
-    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/authors/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/authors/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
-    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-packages/create">
     | StaticRoute<"/admin/settings/course-packages">
+    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">
-    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/reviews/create">
     | StaticRoute<"/admin/settings/main-page/reviews">
+    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
     | StaticRoute<"/admin/static-pages/about">
     | StaticRoute<"/admin/static-pages/contacts">
     | StaticRoute<"/admin/static-pages/faq">
     | StaticRoute<"/admin/static-pages/user-agreement">
-    | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/students/create">
     | StaticRoute<"/admin/students">
-    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/users/[id]", { "id": string }>
+    | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
+    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/api/hello">
-    | DynamicRoute<"/articles/[categoryId]", { "categoryId": string }>
-    | DynamicRoute<"/articles/favorite/[articleId]", { "articleId": string }>
     | StaticRoute<"/articles/favorite">
+    | DynamicRoute<"/articles/favorite/[articleId]", { "articleId": string }>
     | StaticRoute<"/articles">
-    | DynamicRoute<"/articles/my-courses/[courseId]", { "courseId": string }>
     | StaticRoute<"/articles/my-courses">
+    | DynamicRoute<"/articles/my-courses/[courseId]", { "courseId": string }>
+    | DynamicRoute<"/articles/[categoryId]", { "categoryId": string }>
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">
     | StaticRoute<"/auth/sign-up">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
-    | DynamicRoute<"/course-sets/[id]", { "id": string }>
     | StaticRoute<"/course-sets">
-    | DynamicRoute<"/courses/[id]", { "id": string }>
+    | DynamicRoute<"/course-sets/[id]", { "id": string }>
     | StaticRoute<"/courses/favorite">
     | StaticRoute<"/courses">
+    | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/faq">
     | StaticRoute<"/">
     | StaticRoute<"/logout">

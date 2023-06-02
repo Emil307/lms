@@ -1,17 +1,5 @@
 import { Box, Flex, Grid, Text, Title } from "@mantine/core";
 import React, { useMemo, useState } from "react";
-import { IconClipboardText, IconAlignLeft } from "@tabler/icons-react";
-import { FormikProps } from "formik";
-import {
-    $UpdateCourseFormValues,
-    AdminCourse,
-    courseApi,
-    UpdateCourseFormValues,
-    UpdateCourseResponse,
-    useAdminCourseResources,
-} from "@entities/course";
-import { Fieldset } from "@components/Fieldset";
-import { MutationKeys, QueryKeys } from "@shared/constant";
 import {
     Button,
     FCheckbox,
@@ -28,9 +16,21 @@ import {
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
-import { createNotification, getDiscountedAmount, ToastType } from "@shared/utils";
-import { useAdminSubCategories } from "@entities/category";
+import { MutationKeys, QueryKeys } from "@shared/constant";
 import { radioGroupValues } from "./constants";
+import {
+    $UpdateCourseFormValues,
+    AdminCourse,
+    courseApi,
+    UpdateCourseFormValues,
+    UpdateCourseResponse,
+    useAdminCourseResources,
+} from "@entities/course";
+import { IconClipboardText, IconAlignLeft } from "@tabler/icons-react";
+import { Fieldset } from "@components/Fieldset";
+import { FormikProps } from "formik";
+import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
+import { useAdminSubCategories } from "@entities/category";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
 
 export interface UpdateCourseFormProps {
@@ -66,11 +66,13 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
             data: coursesResources?.categories,
             value: "id",
             label: "name",
+            isActive: "isActive",
         });
         const subCategories = prepareOptionsForSelect({
             data: subCategoriesResource,
             value: "id",
             label: "name",
+            isActive: "isActive",
         });
         const tags = prepareOptionsForSelect({
             data: coursesResources?.tags,
@@ -165,7 +167,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                 />
                                 <Grid grow gutter={21} align="center">
                                     <Grid.Col span={1}>
-                                        <FInput size="sm" name="price" label="Стоимость курса (₽)" w={252} />
+                                        <FInput name="price" label="Стоимость курса (₽)" type="number" size="sm" w={252} />
                                     </Grid.Col>
                                     <Grid.Col span={1}>
                                         <FSwitch
@@ -195,7 +197,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                     })}
                                 </FRadioGroup>
                                 <Flex gap={8} w="100%" mt={8}>
-                                    <FInput name="discount.amount" label="Размер скидки" size="sm" maw={252} w="100%" />
+                                    <FInput name="discount.amount" label="Размер скидки" type="number" size="sm" maw={252} w="100%" />
                                     <FDateRangePicker
                                         name="discount.startingDate"
                                         nameTo="discount.finishingDate"
@@ -206,11 +208,11 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                     />
                                     <Input
                                         label="Стоимость со скидкой (₽)"
-                                        value={getDiscountedAmount(
-                                            Number(values.price),
-                                            Number(values.discount.amount),
-                                            values.discount.type
-                                        )}
+                                        value={getDiscountPrice({
+                                            price: Number(values.price),
+                                            amountDiscount: Number(values.discount.amount),
+                                            type: values.discount.type,
+                                        })}
                                         size="sm"
                                         disabled
                                         maw={252}
@@ -222,13 +224,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                             <Fieldset
                                 label="Преподаватели курса"
                                 icon={<IconAlignLeft />}
-                                extraElement={
-                                    <FSwitch
-                                        name="hasTeachers"
-                                        variant="secondary"
-                                        disabled={isLoadingResources || !optionsForSelects.teacherIds.length}
-                                    />
-                                }
+                                extraElement={<FSwitch name="hasTeachers" variant="secondary" disabled={isLoadingResources} />}
                                 isOpen={values.hasTeachers}
                                 maw={772}
                                 legendProps={{ mb: values.hasTeachers ? 24 : 0 }}>
@@ -246,13 +242,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                             <Fieldset
                                 label="Авторы курса"
                                 icon={<IconAlignLeft />}
-                                extraElement={
-                                    <FSwitch
-                                        name="hasAuthors"
-                                        variant="secondary"
-                                        disabled={isLoadingResources || !optionsForSelects.authorIds.length}
-                                    />
-                                }
+                                extraElement={<FSwitch name="hasAuthors" variant="secondary" disabled={isLoadingResources} />}
                                 isOpen={values.hasAuthors}
                                 maw={772}
                                 legendProps={{ mb: values.hasAuthors ? 24 : 0 }}>

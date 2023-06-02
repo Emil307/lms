@@ -32,6 +32,15 @@ import {
     GetAdminCoursesWithoutCoursesFromCoursePackageRequest,
     $GetCourseResourcesResponse,
     GetCourseResourcesResponse,
+    UpdateCourseActivityRequest,
+    UpdateCourseActivityResponse,
+    $UpdateCourseActivityResponse,
+    UpdateCourseTypeRequest,
+    UpdateCourseTypeResponse,
+    $UpdateCourseTypeResponse,
+    UpdateCoursePopularityRequest,
+    UpdateCoursePopularityResponse,
+    $UpdateCoursePopularityResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -65,6 +74,25 @@ class CourseApi extends BaseApi {
     async updateCourse({ id, ...data }: UpdateCourseRequest): Promise<UpdateCourseResponse> {
         const response = await this.instance.put(`admin/courses/${id}`, data);
         return $UpdateCourseResponse.parse(response);
+    }
+
+    async updateCourseActivity({ id, isActive }: UpdateCourseActivityRequest): Promise<UpdateCourseActivityResponse> {
+        const response = await this.instance.put(`admin/courses/${id}/activity-status`, { isActive });
+        return $UpdateCourseActivityResponse.parse(response);
+    }
+
+    async updateCourseType({ id, type }: UpdateCourseTypeRequest): Promise<UpdateCourseTypeResponse> {
+        const response = await this.instance.put(`admin/courses/${id}/type`, { type });
+        return $UpdateCourseTypeResponse.parse(response);
+    }
+
+    async updateCoursePopularity({ id, isPopular }: UpdateCoursePopularityRequest): Promise<UpdateCoursePopularityResponse> {
+        const response = await this.instance.put(`admin/courses/${id}/popularity-status`, { isPopular });
+        return $UpdateCoursePopularityResponse.parse(response);
+    }
+
+    async deleteCourse(id: string): Promise<void> {
+        await this.instance.delete(`admin/courses/${id}`);
     }
 
     async getCourses(data: GetCoursesRequest | GetCoursesInfiniteRequest): Promise<GetCoursesResponse> {

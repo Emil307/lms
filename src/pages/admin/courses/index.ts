@@ -1,3 +1,4 @@
+export * from "./CourseDetailPage";
 export * from "./CousreListPage";
-export * from "./CourseCreatePage";
-export * from "./CourseEditPage";
+export * from "./CreateCoursePage";
+export * from "./UpdateCoursePage";

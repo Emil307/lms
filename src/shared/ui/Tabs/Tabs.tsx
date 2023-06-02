@@ -15,7 +15,7 @@ export interface TabsProps extends Omit<MTabsProps, "children"> {
 }
 
 const Tabs = ({ tabs, ...props }: TabsProps) => {
-    const { classes } = useTabsStyles();
+    const { classes } = useTabsStyles({ count: tabs.length });
     const tabsList = tabs.map((item) => {
         const { id, label, value, withIndicator } = item;
         return (

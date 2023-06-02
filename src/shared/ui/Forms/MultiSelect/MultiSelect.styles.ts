@@ -1,4 +1,4 @@
-import {createStyles} from "@mantine/core";
+import { createStyles } from "@mantine/core";
 
 export const useMultiSelectStyles = createStyles((theme, { isValue, statusSuccess }: { isValue: boolean; statusSuccess?: boolean }) => ({
     root: {

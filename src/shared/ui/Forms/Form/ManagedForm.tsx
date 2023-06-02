@@ -15,7 +15,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     keysInvalidateQueries?: { queryKey?: QueryKey; filters?: InvalidateQueryFilters<unknown>; options?: InvalidateOptions }[];
     mutationFunction: (params: F) => Promise<R>;
     onChange?: (formikProps: FormikProps<F>) => void;
-    onSuccess: (response: R, formikHelpers: Omit<FormikHelpers<F>, "setFieldError">) => void;
+    onSuccess: (response: R, formikHelpers: FormikHelpers<F>) => void;
     onError?: (error: unknown) => void;
     onCancel?: () => void;
     initialValues: FormikConfig<F>["initialValues"];
@@ -70,18 +70,18 @@ export default function ManagedForm<F extends FormikValues, R>({
         });
     };
 
-    const handleSubmit = (values: F, { setFieldError, ...formikHelpers }: FormikHelpers<F>) => {
+    const handleSubmit = (values: F, formikHelpers: FormikHelpers<F>) => {
         mutate(values, {
             onSuccess: (response) => {
                 keysInvalidateQueries.forEach(({ queryKey, filters, options }) => {
-                    queryClient.invalidateQueries(queryKey, { refetchType: "all", ...filters }, options);
+                    queryClient.invalidateQueries(queryKey, filters, options);
                 });
                 onSuccess(response, formikHelpers);
             },
             onError: (error) => {
                 if (axios.isAxiosError(error)) {
                     for (const errorField in error.response?.data.errors) {
-                        setFieldError(errorField, error.response?.data.errors[errorField][0]);
+                        formikHelpers.setFieldError(errorField, error.response?.data.errors[errorField][0]);
                     }
                 }
                 onError(error);
