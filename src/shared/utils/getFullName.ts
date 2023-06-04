@@ -15,7 +15,7 @@ export const getFullName = ({ data, startWithLastName, hidePatronymic }: TParams
     if (!data) {
         return "";
     }
-    const { firstName, lastName, patronymic} = data;
+    const { firstName, lastName, patronymic } = data;
     if (startWithLastName) {
         fullName.push(lastName);
         fullName.push(firstName);

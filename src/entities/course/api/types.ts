@@ -47,6 +47,8 @@ export type UpdateCourseTypeRequest = z.infer<typeof $UpdateCourseTypeRequest>;
 export type UpdateCourseTypeResponse = z.infer<typeof $UpdateCourseTypeResponse>;
 export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopularityRequest>;
 export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
+export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublicationRequest>;
+export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
 
 /**
  *
@@ -373,6 +375,14 @@ export const $UpdateCoursePopularityRequest = z.object({
 });
 export const $UpdateCoursePopularityResponse = $UpdateCoursePopularityRequest.pick({
     isPopular: true,
+});
+
+export const $UpdateCoursePublicationRequest = z.object({
+    id: z.string(),
+    isFulfillment: z.boolean(),
+});
+export const $UpdateCoursePublicationResponse = $UpdateCoursePublicationRequest.pick({
+    isFulfillment: true,
 });
 
 /**

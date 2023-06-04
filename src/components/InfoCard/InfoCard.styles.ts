@@ -4,6 +4,8 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
     root: {
         display: "flex",
         flexDirection: "column",
+        maxWidth: 334,
+        width: "100%",
         gap: 24,
         padding: 32,
         paddingTop: 24,

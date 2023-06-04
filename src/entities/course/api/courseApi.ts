@@ -41,6 +41,9 @@ import {
     UpdateCoursePopularityRequest,
     UpdateCoursePopularityResponse,
     $UpdateCoursePopularityResponse,
+    UpdateCoursePublicationRequest,
+    UpdateCoursePublicationResponse,
+    $UpdateCoursePublicationResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -89,6 +92,11 @@ class CourseApi extends BaseApi {
     async updateCoursePopularity({ id, isPopular }: UpdateCoursePopularityRequest): Promise<UpdateCoursePopularityResponse> {
         const response = await this.instance.put(`admin/courses/${id}/popularity-status`, { isPopular });
         return $UpdateCoursePopularityResponse.parse(response);
+    }
+
+    async updateCoursePublication({ id, isFulfillment }: UpdateCoursePublicationRequest): Promise<UpdateCoursePublicationResponse> {
+        const response = await this.instance.put(`admin/courses/${id}/fulfillment-status`, { isFulfillment });
+        return $UpdateCoursePublicationResponse.parse(response);
     }
 
     async deleteCourse(id: string): Promise<void> {

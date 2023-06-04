@@ -1,6 +1,7 @@
-import { Box, useMantineTheme } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { TPagination } from "@shared/types";
+import { useCountDataStyles } from "./CountData.styles";
 
 export type TCountDataProps = {
     countName?: string;
@@ -8,22 +9,14 @@ export type TCountDataProps = {
 };
 
 export default function CountData({ countName, pagination }: TCountDataProps) {
-    const theme = useMantineTheme();
+    const { classes } = useCountDataStyles();
 
     if (!countName || !pagination) {
         return <></>;
     }
 
     return (
-        <Box
-            sx={{
-                color: theme.colors.gray45[0],
-                lineHeight: "16px",
-                span: {
-                    color: theme.colors.dark[0],
-                },
-            }}
-            mt={32}>
+        <Box className={classes.wrapper}>
             {countName}: <span>{pagination.count}</span> из <span>{pagination.total}</span>
         </Box>
     );

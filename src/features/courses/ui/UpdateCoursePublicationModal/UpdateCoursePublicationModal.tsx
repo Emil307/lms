@@ -2,23 +2,31 @@ import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
-import { useDeleteCourse } from "@entities/course";
-import useStyles from "./DeleteCourseModal.styles";
+import { useUpdateCoursePublication } from "@entities/course";
+import useStyles from "./UpdateCoursePublicationModal.styles";
+import { createNotification, ToastType } from "@shared/utils";
 
-export interface DeleteCourseModalProps {
+export interface UpdateCoursePublicationModalProps {
     id: string;
     name: string;
+    coverSrc?: string;
     onCancel: () => void;
     onSuccess: () => void;
 }
 
-const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalProps) => {
+const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel }: UpdateCoursePublicationModalProps) => {
     const { classes } = useStyles();
-    const { mutate: deleteCourse, isLoading } = useDeleteCourse(id);
+    const { mutate: publishCourse, isLoading } = useUpdateCoursePublication(id);
 
     const handleSubmit = () => {
-        deleteCourse(null, {
+        publishCourse(true, {
             onSuccess: () => {
+                createNotification({
+                    type: ToastType.IMAGE,
+                    srcImage: coverSrc,
+                    title: "Курс опубликован",
+                    message: name,
+                });
                 onSuccess();
             },
         });
@@ -34,8 +42,8 @@ const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalP
                 </Flex>
                 <Box className={classes.textWrapper}>
                     <Text>
-                        Вы действительно хотите удалить учебный курс,
-                        <Text className={classes.textData}>{` «ID: ${id} ${name}»?`}</Text>
+                        Вы действительно хотите опубликовать курс
+                        <Text className={classes.textData}>{`«${name}»?`}</Text>
                     </Text>
                 </Box>
             </Flex>
@@ -44,11 +52,11 @@ const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalP
                     Отмена
                 </Button>
                 <Button size="large" variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
-                    Удалить
+                    Продолжить
                 </Button>
             </Flex>
         </Flex>
     );
 };
 
-export default DeleteCourseModal;
+export default UpdateCoursePublicationModal;

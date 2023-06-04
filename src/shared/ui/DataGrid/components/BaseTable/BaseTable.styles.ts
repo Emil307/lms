@@ -1,6 +1,10 @@
 import { createStyles, CSSObject, MantineTheme } from "@mantine/core";
 
-export const useBaseTableStyles = createStyles((theme) => ({
+interface BaseTableStylesProps {
+    hasActionButton?: boolean;
+}
+
+export const useBaseTableStyles = createStyles((theme, { hasActionButton = false }: BaseTableStylesProps) => ({
     selectCheckbox: {
         input: {
             backgroundColor: theme.colors.grayLight[0],
@@ -9,29 +13,10 @@ export const useBaseTableStyles = createStyles((theme) => ({
             cursor: "pointer",
         },
     },
-    tableBodyCell: {
-        border: "none !important",
-        fontSize: "14px !important",
-        lineHeight: "16px !important",
-        borderBottom: `2px solid ${theme.colors.light[0]} !important`,
-        zIndex: 99,
-        ":first-of-type": {
-            position: "relative",
-            ":before": {
-                content: "''",
-                position: "absolute",
-                backgroundColor: theme.colors.light[0],
-                width: 4,
-                borderRadius: "0 8px 8px 0",
-                height: "100%",
-                top: 1,
-                bottom: 1,
-                left: 0,
-            },
-        },
-        ":last-of-type": {
-            pointerEvents: "none",
-        },
+    tableBodyCellValue: {
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: "hidden",
     },
     tableBodyRow: {
         cursor: "pointer",
@@ -48,14 +33,26 @@ export const useBaseTableStyles = createStyles((theme) => ({
         marginLeft: "8px !important",
     },
     tableHeadCell: {
+        padding: "19px 16px !important",
         borderBottom: "none !important",
         ".mantine-TableHeadCell-Content-Wrapper": {
+            fontSize: "14px",
+            fontWeight: 500,
+            lineHeight: "16px",
             whiteSpace: "nowrap",
         },
-
         button: {
             marginLeft: "8px !important",
         },
+        ...(hasActionButton
+            ? {
+                  ":last-of-type": {
+                      "> div": {
+                          display: "none",
+                      },
+                  },
+              }
+            : {}),
     },
     tableHeadRow: {
         backgroundColor: `${theme.colors.light[0]} !important`,
@@ -92,7 +89,8 @@ export const getStylesForCell = createStyles((theme, { renderActive, isActive }:
         border: "none !important",
         fontSize: "14px !important",
         lineHeight: "16px !important",
-        borderBottom: `2px solid ${theme.colors.light[0]} !important`,
+        borderBottom: `1px solid ${theme.colors.light[0]} !important`,
+        padding: "10px 16px !important",
         zIndex: 99,
         ":first-of-type": renderCellBadge({ renderActive, theme, isActive }),
         ":last-of-type": {

@@ -31,7 +31,7 @@ const List = () => {
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 onClickCell={handlerClickCell}
                 columns={columns}
-                countName="Тегов"
+                countName="Категорий"
                 initialState={{
                     columnOrder,
                 }}
