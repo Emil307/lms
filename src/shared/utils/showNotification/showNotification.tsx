@@ -54,15 +54,7 @@ export const createNotification = ({ type, srcImage, message = "", isMinimized =
                 return <AlertCircle />;
             default:
                 return srcImage ? (
-                    <Image
-                        src={srcImage}
-                        alt="image"
-                        fill
-                        style={{
-                            maxWidth: "100%",
-                            height: "auto",
-                        }}
-                    />
+                    <Image src={srcImage} loader={({ src }) => `${src}`} alt="image" width={64} height={64} />
                 ) : (
                     <ImageIcon />
                 );

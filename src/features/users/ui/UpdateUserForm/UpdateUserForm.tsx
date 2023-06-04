@@ -40,7 +40,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             size: 408,
             children: (
                 <ChangeUserPasswordForm
-                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullName({data: data?.profile}) }}
+                    userData={{ id: data?.id, roleId: data?.roles[0].id, fio: getFullName({ data: data?.profile }) }}
                     onClose={handleCloseChangePasswordModal}
                 />
             ),

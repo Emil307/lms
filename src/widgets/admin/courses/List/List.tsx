@@ -7,9 +7,17 @@ import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
 import { radioGroupValues, filterInitialValues, columns } from "./constant";
 import { adaptGetAdminCoursesRequest } from "./utils";
+import { ListMenu } from "./components";
+import { MRT_Cell } from "mantine-react-table";
+import { useRouter } from "next/router";
 
-const AdminList = () => {
+const List = () => {
+    const router = useRouter();
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
+
+    const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) => {
+        router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });
+    };
 
     const optionsForSelects = useMemo(() => {
         const categories = prepareOptionsForSelect({
@@ -17,7 +25,6 @@ const AdminList = () => {
             value: "id",
             label: "name",
             emptyOptionLabel: "Без категории",
-            isActive: "isActive",
         });
         const tags = prepareOptionsForSelect({
             data: coursesFilters?.tags,
@@ -59,9 +66,11 @@ const AdminList = () => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
+                onClickCell={handleClickCell}
+                renderRowActions={({ row }) => <ListMenu row={row} />}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
-                countName="Пользователей"
+                countName="Курсов"
                 initialState={{
                     columnOrder: [
                         "id",
@@ -125,4 +134,4 @@ const AdminList = () => {
     );
 };
 
-export default AdminList;
+export default List;

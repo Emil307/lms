@@ -1,6 +1,6 @@
-import { MantineReactTable, MantineReactTableProps, MRT_Cell } from "mantine-react-table";
+import { MantineReactTable, MantineReactTableProps, MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
-import React from "react";
+import React, { ReactNode, useMemo } from "react";
 import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import { RowSelectionState, SortingState } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
@@ -37,7 +37,7 @@ function BaseTable<T extends Record<string, any>>({
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();
-    const { classes } = useBaseTableStyles();
+    const { classes } = useBaseTableStyles({ hasActionButton: rest?.initialState?.columnOrder?.includes("mrt-row-actions") });
     const columns = rest.columns || prepareColumns(data);
     const rowCount = pagination?.count;
     const totalPage = pagination?.totalPages || 0;
@@ -52,11 +52,28 @@ function BaseTable<T extends Record<string, any>>({
         onClickCell && onClickCell(cell);
     };
 
+    const wrappedColumn = useMemo(() => {
+        return columns.map(({ Cell, ...column }) => ({
+            ...column,
+            Cell: (props: {
+                cell: MRT_Cell<T>;
+                renderedCellValue: React.ReactNode;
+                column: MRT_Column<T>;
+                row: MRT_Row<T>;
+                table: MRT_TableInstance<T>;
+            }) => (
+                <div className={classes.tableBodyCellValue} style={{ width: column.size ? column.size - 32 : "100%" }}>
+                    {Cell ? Cell(props) : (props.cell.getValue() as ReactNode)}
+                </div>
+            ),
+        }));
+    }, [columns]);
+
     return (
         <MantineReactTable<T>
             {...rest}
             data={data}
-            columns={columns}
+            columns={wrappedColumn}
             rowCount={rowCount}
             pageCount={totalPage}
             renderBottomToolbar={({ table }) => {

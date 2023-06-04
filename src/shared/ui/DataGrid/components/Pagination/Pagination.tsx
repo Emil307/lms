@@ -43,7 +43,7 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
             )}
             <NativeSelect
                 className={classes.perPageSelect}
-                label="На странице"
+                label="На странице:"
                 data={perPageOptions}
                 value={pageSize.toString()}
                 onChange={handleChangePerPage}

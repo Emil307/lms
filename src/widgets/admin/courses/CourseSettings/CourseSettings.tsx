@@ -1,6 +1,6 @@
 import { Flex, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
 import { Button, DisplayField } from "@shared/ui";
-import { Trash, User as UserIcon } from "react-feather";
+import {  } from "react-feather";
 import { Fieldset } from "@components/Fieldset";
 import { InfoCard } from "@components/InfoCard";
 import React from "react";
@@ -10,7 +10,11 @@ import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { getFullName } from "@shared/utils";
 import { closeModal, openModal } from "@mantine/modals";
-import { DeleteCourseModal } from "@features/courses";
+import { DeleteCourseModal, UpdateCoursePublicationModal } from "@features/courses";
+import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon, Trash as TrashIcon } from "react-feather";
+import FileMarkIcon from "public/icons/file-mark.svg";
+import FileLeftIcon from "public/icons/file-left.svg";
+import UserLeftIcon from "public/icons/user-left.svg";
 
 interface CourseSettingsProps {
     data: AdminCourse;
@@ -20,11 +24,12 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
     const router = useRouter();
     const theme = useMantineTheme();
 
-    const goToUpdateCoursePage = () => {
+    const handleGoToUpdateCoursePage = () => {
         router.push({ pathname: "/admin/courses/[id]/edit", query: { id: String(data.id) } });
     };
 
     const closeDeleteCourseModal = () => closeModal("DELETE_COURSE");
+    const closeUpdateCoursePublicationModal = () => closeModal("UPDATE_COURSE_PUBLICATION");
 
     const handleCancelDeleteCourse = () => closeDeleteCourseModal();
 
@@ -33,7 +38,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         router.push("/admin/courses");
     };
 
-    const openDeleteModal = () => {
+    const handleOpenDeleteModal = () => {
         openModal({
             modalId: "DELETE_COURSE",
             title: "Удаление курса",
@@ -49,24 +54,41 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         });
     };
 
+    const handleOpenCoursePublicationModal = () => {
+        openModal({
+            modalId: "UPDATE_COURSE_PUBLICATION",
+            title: "Опубликовать курс",
+            centered: true,
+            children: (
+                <UpdateCoursePublicationModal
+                    id={String(data.id)}
+                    name={data.name}
+                    coverSrc={data.cover?.absolutePath}
+                    onCancel={closeUpdateCoursePublicationModal}
+                    onSuccess={closeUpdateCoursePublicationModal}
+                />
+            ),
+        });
+    };
+
     return (
         <Flex gap={56} mt={32} align="start">
             <Flex direction="column" gap={32} w="100%">
                 <Flex gap={48} align="center">
                     <Title order={2}>Настройки курса</Title>
                     <Button
-                        onClick={openDeleteModal}
+                        onClick={handleOpenDeleteModal}
                         variant="text"
                         leftIcon={
                             <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                <Trash />
+                                <TrashIcon />
                             </ThemeIcon>
                         }>
                         Удалить курс
                     </Button>
                 </Flex>
 
-                <Fieldset label="Общая информация" icon={<UserIcon />}>
+                <Fieldset label="Общая информация" icon={<FileLeftIcon />}>
                     <DisplayField label="Наименование" value={data.name} />
                     {data.category && <DisplayField label="Категория" value={data.category.name} />}
                     {data.tags.length > 0 && <DisplayField label="Теги" value={data.tags.map((tag) => tag.name).join(", ")} />}
@@ -74,7 +96,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 </Fieldset>
 
                 {data.description && (
-                    <Fieldset label="Описание курса" icon={<UserIcon />}>
+                    <Fieldset label="Описание курса" icon={<AlignLeftIcon />}>
                         <Text size={16} lh={"24px"} color={theme.colors.neutral_gray[0]}>
                             {data.description}
                         </Text>
@@ -82,7 +104,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 )}
 
                 {data.hasDiscount && data.discount && (
-                    <Fieldset label="Скидка на курс" icon={<UserIcon />}>
+                    <Fieldset label="Скидка на курс" icon={<PercentIcon />}>
                         <DisplayField label="Тип скидки" value={data.discount.type === "percentage" ? "%" : "₽"} />
                         <DisplayField label="Размер скидки" value={String(data.discount.amount)} />
                         <DisplayField label="Стоимость со скидкой" value={`${data.discountPrice.toLocaleString("ru")} ₽`} />
@@ -96,7 +118,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 )}
 
                 {data.hasTeachers && data.teachers.length > 0 && (
-                    <Fieldset label="Преподаватели курса" icon={<UserIcon />}>
+                    <Fieldset label="Преподаватели курса" icon={<UsersIcon />}>
                         <DisplayField
                             label="ФИО"
                             value={data.teachers
@@ -107,7 +129,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 )}
 
                 {data.hasAuthors && data.authors.length > 0 && (
-                    <Fieldset label="Авторы курса" icon={<UserIcon />}>
+                    <Fieldset label="Авторы курса" icon={<UserLeftIcon />}>
                         <DisplayField
                             label="ФИО"
                             value={data.authors
@@ -129,9 +151,16 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 hideFieldIfEmpty
                 values={data}
                 actionSlot={
-                    <Button variant="secondary" onClick={goToUpdateCoursePage}>
-                        Редактировать данные
-                    </Button>
+                    <>
+                        <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
+                            Редактировать данные
+                        </Button>
+                        {!data.isFulfillment && (
+                            <Button variant="border" leftIcon={<FileMarkIcon />} onClick={handleOpenCoursePublicationModal}>
+                                Опубликовать курс
+                            </Button>
+                        )}
+                    </>
                 }
             />
         </Flex>

@@ -26,12 +26,14 @@ import {
     UpdateCourseResponse,
     useAdminCourseResources,
 } from "@entities/course";
-import { IconClipboardText, IconAlignLeft } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
 import { FormikProps } from "formik";
 import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
+import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
+import FileLeftIcon from "public/icons/file-left.svg";
+import UserLeftIcon from "public/icons/user-left.svg";
 
 export interface UpdateCourseFormProps {
     data: AdminCourse;
@@ -136,7 +138,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                             <Title order={2}>Настройки курса</Title>
                             <FFileInput name="cover" title="Изменить фото" type="image" withDeleteButton h={308} w="100%" maw={512} />
 
-                            <Fieldset label="Общая информация" icon={<IconClipboardText />} maw={512} showDivider={false}>
+                            <Fieldset label="Общая информация" icon={<FileLeftIcon />} maw={512} showDivider={false}>
                                 <FInput size="sm" name="name" label="Название курса" w="100%" />
                                 <FSelect
                                     name="category"
@@ -180,13 +182,13 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                 </Grid>
                             </Fieldset>
 
-                            <Fieldset label="Описание курса" icon={<IconAlignLeft />} maw={772} showDivider={false}>
+                            <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={772} showDivider={false}>
                                 <FTextarea name="description" placeholder="Описание курса" w="100%" />
                             </Fieldset>
 
                             <Fieldset
                                 label="Скидка на курс"
-                                icon={<IconAlignLeft />}
+                                icon={<PercentIcon />}
                                 showDivider={false}
                                 extraElement={<FSwitch name="hasDiscount" variant="secondary" disabled={!Number(values.price)} />}
                                 isOpen={values.hasDiscount && !!values.price}
@@ -223,7 +225,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
 
                             <Fieldset
                                 label="Преподаватели курса"
-                                icon={<IconAlignLeft />}
+                                icon={<UsersIcon />}
                                 extraElement={<FSwitch name="hasTeachers" variant="secondary" disabled={isLoadingResources} />}
                                 isOpen={values.hasTeachers}
                                 maw={772}
@@ -241,7 +243,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
 
                             <Fieldset
                                 label="Авторы курса"
-                                icon={<IconAlignLeft />}
+                                icon={<UserLeftIcon />}
                                 extraElement={<FSwitch name="hasAuthors" variant="secondary" disabled={isLoadingResources} />}
                                 isOpen={values.hasAuthors}
                                 maw={772}

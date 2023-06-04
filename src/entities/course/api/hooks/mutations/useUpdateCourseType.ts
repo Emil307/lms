@@ -25,7 +25,7 @@ export const useUpdateCourseType = (id: string): UseMutationResult<UpdateCourseT
             }
             createNotification({
                 type: ToastType.WARN,
-                title: "Ошибка изменения статуса",
+                title: "Ошибка изменения интерактивности",
             });
         },
         onSuccess: ({ type }, _, context) => {

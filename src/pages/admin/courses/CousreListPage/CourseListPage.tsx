@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
-import { AdminList as AdminCourseList } from "@features/courses/ui";
+import { CourseList } from "@widgets/admin/courses";
 
 const CourseListPage = () => {
     const router = useRouter();
@@ -17,7 +17,7 @@ const CourseListPage = () => {
                     Создать курс
                 </Button>
             </Flex>
-            <AdminCourseList />
+            <CourseList />
         </Box>
     );
 };

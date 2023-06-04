@@ -2,6 +2,9 @@ import { createStyles } from "@mantine/core";
 
 export const usePaginationStyles = createStyles((theme) => ({
     elementsCount: {
+        fontWeight: 500,
+        fontSize: 14,
+        lineHeight: "16px",
         span: {
             color: theme.colors.gray45[0],
         },
@@ -23,10 +26,15 @@ export const usePaginationStyles = createStyles((theme) => ({
         label: {
             fontSize: 14,
             lineHeight: "16px",
+            fontWeight: 500,
             color: theme.colors.gray45[0],
         },
         select: {
             border: "none",
+            paddingLeft: 0,
+            fontWeight: 500,
+            fontSize: 14,
+            lineHeight: "16px",
         },
         "@media (min-width: 720px)": {
             display: "flex",
