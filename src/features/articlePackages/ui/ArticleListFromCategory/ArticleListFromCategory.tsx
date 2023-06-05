@@ -11,7 +11,7 @@ import { initialValues } from "./constants";
 
 export interface ArticleListFromCategoryProps extends FlexProps {
     articlePackageId?: number;
-    categoryId?: number;
+    categoryId?: number | null;
     onClose: () => void;
 }
 
@@ -22,12 +22,18 @@ const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...pro
         data: articlesData,
         hasNextPage,
         fetchNextPage,
-    } = useArticles(adaptGetArticlesRequest({ ...initialValues, categoryId, articlePackageIds: articlePackageId }));
+    } = useArticles(
+        adaptGetArticlesRequest({
+            ...initialValues,
+            categoryId: categoryId ? String(categoryId) : null,
+            articlePackageIds: String(articlePackageId),
+        })
+    );
 
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry.isIntersecting && hasNextPage) {
+        if (entry?.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);

@@ -17,6 +17,8 @@ import {
     UpdateCategoryActivityRequest,
     UpdateCategoryActivityResponse,
     $UpdateCategoryActivityResponse,
+    GetCategoryResponse,
+    $GetCategoryResponse,
 } from "./types";
 
 class CategoryApi extends BaseApi {
@@ -62,6 +64,11 @@ class CategoryApi extends BaseApi {
     async updateCategoryActivity({ id, isActive }: UpdateCategoryActivityRequest): Promise<UpdateCategoryActivityResponse> {
         const response = await this.instance.put(`admin/categories/${id}/activity-status`, { isActive });
         return $UpdateCategoryActivityResponse.parse(response);
+    }
+
+    async getCategory(id?: string): Promise<GetCategoryResponse> {
+        const response = await this.instance.get(`categories/${id}`);
+        return $GetCategoryResponse.parse(response);
     }
 }
 

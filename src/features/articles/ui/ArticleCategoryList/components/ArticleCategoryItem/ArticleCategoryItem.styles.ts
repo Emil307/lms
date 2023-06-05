@@ -7,6 +7,11 @@ export default createStyles((theme) => ({
         gap: 16,
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
+        cursor: "pointer",
+
+        ":hover": {
+            boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
+        },
     },
     countArticles: {
         fontWeight: 500,
@@ -14,9 +19,10 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.gray45[0],
     },
-    actionIcon: {
+    arrowIcon: {
         height: 40,
         width: 56,
         color: theme.colors.dark[0],
+        backgroundColor: "transparent",
     },
 }));

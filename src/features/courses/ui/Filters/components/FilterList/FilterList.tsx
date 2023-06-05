@@ -7,6 +7,7 @@ import { getPluralString } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
 import { CourseSubCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
 import useStyles from "./FilterList.styles";
+import { MAX_HEIGHT_FILTER_CONTENT } from "./constants";
 
 export interface FilterListProps {
     field: "tags" | "subcategoryIds";
@@ -20,7 +21,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const spoilerRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const { classes } = useStyles({ isOpen });
+    const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > MAX_HEIGHT_FILTER_CONTENT });
 
     const spoilerControlRef = useEventListener("click", () => {
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
@@ -29,7 +30,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const showLabel = () => {
-        const hiddenCountCourse = data ? data.length - 3 : 0;
+        const hiddenCountCourse = data ? data.length - 5 : 0;
         return (
             <Flex gap={8} onClick={handleChangeOpen}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
@@ -52,27 +53,32 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         </Flex>
     );
 
-    const renderItems = (form: FormikProps<CoursesFiltersForm>) =>
-        data
-            ?.filter((item) => item.name.includes(searchValue))
-            .map((item) => {
-                const isChecked = !![...form.values[field]].find((value) => value === item.id.toString());
+    const renderItems = (form: FormikProps<CoursesFiltersForm>) => {
+        const foundItems = data?.filter((item) => item.name.includes(searchValue));
 
-                const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
-                    if (newValue.target.checked) {
-                        const array = [...form.values[field]];
+        if (!foundItems?.length && searchValue) {
+            return <Text className={classes.notFound}>{`По запросу "${searchValue}" ничего не найдено`}</Text>;
+        }
 
-                        array.push(String(item.id));
-                        return form.setFieldValue(field, array);
-                    }
+        return foundItems?.map((item) => {
+            const isChecked = !![...form.values[field]].find((value) => value === item.id.toString());
 
-                    form.setFieldValue(
-                        field,
-                        [...form.values[field]].filter((value) => value === item.id.toString())
-                    );
-                };
-                return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;
-            });
+            const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
+                if (newValue.target.checked) {
+                    const array = [...form.values[field]];
+
+                    array.push(String(item.id));
+                    return form.setFieldValue(field, array);
+                }
+
+                form.setFieldValue(
+                    field,
+                    [...form.values[field]].filter((value) => value === item.id.toString())
+                );
+            };
+            return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;
+        });
+    };
 
     if (!data?.length) {
         return null;
@@ -88,7 +94,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                 return (
                     <Box>
                         <Text className={classes.filterName}>{filterName}</Text>
-                        <Flex direction="column" gap={16} sx={{ position: "relative" }}>
+                        <Flex className={classes.filterContainer}>
                             {isOpen && (
                                 <>
                                     <Search
@@ -105,7 +111,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                                 ref={spoilerRef}
                                 classNames={classes}
                                 controlRef={spoilerControlRef}
-                                maxHeight={152}
+                                maxHeight={MAX_HEIGHT_FILTER_CONTENT}
                                 showLabel={showLabel()}
                                 hideLabel={hideLabel}>
                                 <Flex direction="column" gap={8}>

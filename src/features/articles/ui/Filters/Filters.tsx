@@ -1,55 +1,52 @@
-import { ActionIcon, Flex, FlexProps, Group } from "@mantine/core";
+import { ActionIcon, Box, BoxProps, Flex, Group } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
-import { $ArticleCategoryFilters, ArticleCategoryFilters, useArticleFilters } from "@entities/article";
+import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticleFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
 import { FilterList } from "./components";
+import { initialValues } from "./contants";
 
-export interface FiltersProps extends FlexProps {}
+export interface FiltersProps extends BoxProps {
+    data?: ArticleAndArticleCategoryFiltersForm;
+    onSubmitFilters: (values: ArticleAndArticleCategoryFiltersForm) => void;
+}
 
-const Filters = (props: FiltersProps) => {
-    const { data: filtersData, isLoading } = useArticleFilters();
+const Filters = ({ data, onSubmitFilters, ...props }: FiltersProps) => {
+    const articleFilters = useArticleFilters();
 
-    const config: FormikConfig<ArticleCategoryFilters> = {
-        initialValues: {
-            search: "",
-            page: "1",
-            tags: [],
-            subcategories: [],
-        },
-        validationSchema: $ArticleCategoryFilters,
-        onSubmit: (_values) => {
-            return;
-        },
+    const config: FormikConfig<ArticleAndArticleCategoryFiltersForm> = {
+        initialValues: { ...initialValues, ...data },
+        validationSchema: $ArticleAndArticleCategoryFiltersForm.partial(),
+        enableReinitialize: true,
+        onSubmit: onSubmitFilters,
     };
 
     return (
-        <Flex {...props}>
-            <Form config={config} isLoading={isLoading}>
-                {({ dirty, resetForm }) => {
-                    const handleResetForm = () => resetForm();
+        <Box {...props}>
+            <Form config={config} isLoading={articleFilters.isLoading} disableOverlay={false}>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: initialValues });
+                        handleSubmit();
+                    };
 
                     return (
                         <Flex direction="column" gap={32} miw={264}>
-                            <FSearch name="search" placeholder="Область, тематика" />
-                            {filtersData?.subcategories && (
-                                <FilterList
-                                    field="subcategories"
-                                    filterName="Категории"
-                                    searchPlaceholder="Найти категории"
-                                    labelsPluralString={["категория", "категории", "категорий"]}
-                                    filterData={filtersData.subcategories}
-                                />
-                            )}
-                            {filtersData?.tags && (
-                                <FilterList
-                                    field="tags"
-                                    filterName="Теги"
-                                    searchPlaceholder="Найти теги"
-                                    labelsPluralString={["тег", "тега", "тегов"]}
-                                    filterData={filtersData.tags}
-                                />
-                            )}
+                            <FSearch name="query" placeholder="Область, тематика" />
+                            <FilterList
+                                field="subcategoryIds"
+                                filterName="Тематика"
+                                searchPlaceholder="Найти тематики"
+                                labelsPluralString={["тематика", "тематики", "тематик"]}
+                                data={articleFilters.data?.subcategories}
+                            />
+                            <FilterList
+                                field="tags"
+                                filterName="Теги"
+                                searchPlaceholder="Найти теги"
+                                labelsPluralString={["тег", "тега", "тегов"]}
+                                data={articleFilters.data?.tags}
+                            />
                             <Group sx={{ justifyContent: "center", gap: 8 }}>
                                 <Button type="submit" variant="white" leftIcon={<IconFilter />}>
                                     Подобрать
@@ -64,7 +61,7 @@ const Filters = (props: FiltersProps) => {
                     );
                 }}
             </Form>
-        </Flex>
+        </Box>
     );
 };
 

@@ -7,3 +7,5 @@ export * from "./useAdminArticle";
 export * from "./useAdminArticles";
 export * from "./useArticle";
 export * from "./useAdminArticleFilters";
+export * from "./useFavoriteArticles";
+export * from "./useFavoriteArticle";

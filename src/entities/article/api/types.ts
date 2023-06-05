@@ -15,6 +15,7 @@ import {
  */
 
 export type UserRating = z.infer<typeof $UserRating>;
+export type ArticleMeta = z.infer<typeof $ArticleMeta>;
 
 /**
  *
@@ -65,17 +66,27 @@ export type ArticleCategoryFromList = z.infer<typeof $ArticleCategoryFromList>;
 
 //FILTERS
 export type ArticleFiltersForm = z.infer<typeof $ArticleFiltersForm>;
-export type ArticleCategoryFilters = z.infer<typeof $ArticleCategoryFilters>;
+export type ArticleAndArticleCategoryFiltersForm = z.infer<typeof $ArticleAndArticleCategoryFiltersForm>;
 
 //REQ/RESP
 export type GetArticleResponse = z.infer<typeof $GetArticleResponse>;
 export type GetArticlesRequest = z.infer<typeof $GetArticlesRequest>;
 export type GetArticlesResponse = z.infer<typeof $GetArticlesResponse>;
+export type GetFavoriteArticlesRequest = z.infer<typeof $GetFavoriteArticlesRequest>;
+export type GetFavoriteArticlesResponse = z.infer<typeof $GetFavoriteArticlesResponse>;
+export type GetArticleCategoriesRequest = z.infer<typeof $GetArticleCategoriesRequest>;
 export type GetArticleCategoriesResponse = z.infer<typeof $GetArticleCategoriesResponse>;
 export type GetArticleFiltersResponse = z.infer<typeof $GetArticleFiltersResponse>;
 export type GetArticleCoursesResponse = z.infer<typeof $GetArticleCoursesResponse>;
 export type GetAdminArticleFiltersResponse = z.infer<typeof $GetAdminArticleFiltersResponse>;
 export type GetAdminArticleResourcesCreateResponse = z.infer<typeof $GetAdminArticleResourcesCreateResponse>;
+export type UpdateArticleRatingRequest = z.infer<typeof $UpdateArticleRatingRequest>;
+export type UpdateArticleRatingResponse = z.infer<typeof $UpdateArticleRatingResponse>;
+export type DeleteArticleRatingRequest = z.infer<typeof $DeleteArticleRatingRequest>;
+export type DeleteArticleRatingResponse = z.infer<typeof $DeleteArticleRatingResponse>;
+export type UpdateArticleFavoriteRequest = z.infer<typeof $UpdateArticleFavoriteRequest>;
+export type UpdateArticleFavoriteResponse = z.infer<typeof $UpdateArticleFavoriteResponse>;
+export type GetFavoriteArticleResponse = z.infer<typeof $GetFavoriteArticleResponse>;
 
 /**
  *
@@ -83,6 +94,10 @@ export type GetAdminArticleResourcesCreateResponse = z.infer<typeof $GetAdminArt
  *
  */
 export const $UserRating = z.literal("like").or(z.literal("dislike"));
+export const $ArticleMeta = z.object({
+    prev: z.number().nullable(),
+    next: z.number().nullable(),
+});
 
 /**
  *
@@ -261,7 +276,7 @@ export const $Article = z.object({
     likesCount: z.number(),
     dislikesCount: z.number(),
     files: $UploadedFile.array(),
-    category: $ArticleCategory,
+    category: $ArticleCategory.merge(z.object({ id: z.number().nullable() })).nullable(),
     subcategories: $ArticleCategory.array(),
     tags: $ArticleTag.array(),
 });
@@ -278,30 +293,67 @@ export const $ArticleFromList = $Article.pick({
 });
 
 export const $ArticleFiltersForm = z.object({
-    categoryId: z.number(),
-    articlePackageIds: z.number(),
+    categoryId: z.string().nullable(),
+    articlePackageIds: z.string(),
 });
 
 export const $ArticlesRequest = z.object({
+    query: z.string().optional(),
     filter: z
         .object({
-            "category.id": z.number(),
-            articlePackageIds: z.number(),
+            "category.id": z.string().nullable(),
+            articlePackageIds: z.string(),
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            subcategoryIds: $getMultiValueObjectType(z.string(), z.literal("or")),
         })
         .partial(),
 });
 
+export const $GetArticlesRequest = $getFiltersRequestType($ArticlesRequest);
+
 export const $GetArticleResponse = $Article;
 
-export const $GetArticlesRequest = $getFiltersRequestType($ArticlesRequest);
+export const $FavoriteArticlesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            subcategoryIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+        })
+        .partial(),
+});
+
+export const $GetFavoriteArticlesRequest = $getFiltersRequestType($FavoriteArticlesRequest);
 
 export const $GetArticlesResponse = $getPaginationResponseType($ArticleFromList);
 
-export const $ArticleCategoryFromList = $ArticleCategory.extend({
+export const $GetFavoriteArticlesResponse = $getPaginationResponseType($ArticleFromList);
+
+export const $ArticleCategoryFromList = $ArticleCategory.pick({ name: true }).extend({
+    id: z.number().nullable(),
     articlesCount: z.number(),
 });
 
 export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategoryFromList);
+
+export const $ArticleAndArticleCategoryFiltersForm = z.object({
+    query: z.string(),
+    tags: z.array(z.string()),
+    subcategoryIds: z.array(z.string()),
+    categoryId: z.string().optional(),
+});
+
+export const $ArticleCategoriesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            subcategoryIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+        })
+        .partial(),
+});
+
+export const $GetArticleCategoriesRequest = $getFiltersRequestType($ArticleCategoriesRequest);
 
 export const $ArticleCourse = z.object({
     id: z.number(),
@@ -309,25 +361,44 @@ export const $ArticleCourse = z.object({
     articleCount: z.number(),
 });
 
-export const $ArticleCategoryFilters = z.object({
-    search: z.string().optional(),
-    page: z.string().optional(),
-    subcategories: z.array(z.string()).optional(),
-    tags: z.array(z.string()).optional(),
-});
-
-export const $ArticleCategoryFiltersForm = z.object({
-    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
-    query: z.string(),
-    categoryId: z.string(),
-    createdAtFrom: z.coerce.date().nullable(),
-    createdAtTo: z.coerce.date().nullable(),
-    discountFinishingDate: z.coerce.date().nullable(),
-});
-
 export const $GetArticleCoursesResponse = $getPaginationResponseType($ArticleCourse);
 
 export const $GetArticleFiltersResponse = z.object({
     subcategories: z.array($AdminArticleCategory),
     tags: z.array($AdminArticleTag),
+});
+
+export const $UpdateArticleRatingRequest = z.object({
+    id: z.string(),
+    status: $UserRating,
+});
+
+export const $UpdateArticleRatingResponse = z.object({
+    status: $UserRating,
+});
+
+export const $DeleteArticleRatingRequest = z.object({
+    id: z.string(),
+});
+
+export const $DeleteArticleRatingResponse = z.null();
+
+export const $UpdateArticleFavoriteRequest = z.object({
+    id: z.string(),
+    isFavorite: z.boolean(),
+});
+
+export const $UpdateArticleFavoriteResponse = z.object({
+    isFavorite: z.boolean(),
+});
+
+export const $GetFavoriteArticleResponse = z.object({
+    //TODO: убрать мердж как бек исправит https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/124
+    data: $Article.merge(
+        z.object({
+            likesCount: z.number().nullable(),
+            dislikesCount: z.number().nullable(),
+        })
+    ),
+    meta: $ArticleMeta,
 });

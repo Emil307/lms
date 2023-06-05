@@ -199,7 +199,7 @@ export const $DeleteArticleFromPackageRequest = z.object({
  *
  */
 export const $ArticlePackageCategory = z.object({
-    id: z.number(),
+    id: z.number().nullable(),
     name: z.string(),
     articlesCount: z.number(),
 });

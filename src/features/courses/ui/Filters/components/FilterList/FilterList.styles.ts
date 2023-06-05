@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
+interface CreateStylesProps {
+    isOpen: boolean;
+    hasSpoiler: boolean;
+}
+
+export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) => ({
     root: {},
     content: {
         overflow: isOpen ? "auto" : "hidden",
@@ -28,10 +33,17 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
         lineHeight: "16px",
         color: theme.colors.dark[0],
     },
+    filterContainer: {
+        flexDirection: "column",
+        position: "relative",
+        gap: 16,
+    },
     resetButton: {
-        position: "absolute",
+        position: hasSpoiler ? "absolute" : "static",
+        alignSelf: "flex-end",
         bottom: 0,
         right: 0,
+        fontWeight: 500,
         fontSize: 14,
         lineHeight: "24px",
         textDecoration: "underline",
@@ -39,5 +51,12 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
         "&:hover": {
             textDecoration: "none",
         },
+    },
+    notFound: {
+        paddingBottom: 16,
+        fontWeight: 500,
+        fontSize: 14,
+        lineHeight: "16px",
+        color: theme.colors.gray45[0],
     },
 }));

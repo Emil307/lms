@@ -1,7 +1,7 @@
 import { ActionIcon, Box, Flex, FlexProps, Group, Text } from "@mantine/core";
-import { FormikConfig, FormikProps } from "formik";
+import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode } from "react";
 import { useRouter } from "next/router";
 import { Button, FSearch, FSlider, FSwitch, Form } from "@shared/ui";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
@@ -14,21 +14,14 @@ export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
 }
 
 const Filters = ({ children, title, ...props }: FiltersProps) => {
-    const formRef = useRef<FormikProps<CoursesFiltersForm>>(null);
     const courseResources = useCourseResources();
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 
-    useEffect(() => {
-        if (!router.isReady || !formRef.current) {
-            return;
-        }
-        formRef.current.setValues({ ...getInitialValues(courseResources.data?.prices.highest), ...adaptCourseFiltersForm(queryParams) });
-    }, [router.isReady, formRef.current]);
-
     const config: FormikConfig<CoursesFiltersForm> = {
         initialValues: { ...getInitialValues(courseResources.data?.prices.highest), ...adaptCourseFiltersForm(queryParams) },
         validationSchema: $CoursesFiltersForm.partial(),
+        enableReinitialize: true,
         onSubmit: (values) => {
             router.push(
                 {
@@ -45,7 +38,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
 
     return (
         <Box {...props}>
-            <Form config={config} disableOverlay={false} customRef={formRef}>
+            <Form config={config} disableOverlay={false}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: getInitialValues(courseResources.data?.prices.highest) });
