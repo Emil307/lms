@@ -25,7 +25,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
 
     const handleCloseModal = () => closeModal("CATEGORY_ARTICLE_LIST");
 
-    const handleClickItem = (categoryId: number) =>
+    const handleClickItem = (categoryId: number | null) =>
         openModal({
             styles: { modal: { position: "relative" } },
             modalId: "CATEGORY_ARTICLE_LIST",

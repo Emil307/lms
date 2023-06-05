@@ -3,24 +3,25 @@ import { ChangeEvent, useRef, useState } from "react";
 import { useEventListener } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
-import { AdminArticleCategory, AdminArticleTag, ArticleCategoryFilters } from "@entities/article";
+import { AdminArticleCategory, AdminArticleTag, ArticleAndArticleCategoryFiltersForm } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
+import { MAX_HEIGHT_FILTER_CONTENT } from "./constants";
 
 export interface FilterListProps {
-    field: "tags" | "subcategories";
+    field: "tags" | "subcategoryIds";
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
-    filterData: AdminArticleCategory[] | AdminArticleTag[];
+    data?: AdminArticleCategory[] | AdminArticleTag[];
 }
 
-const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, filterData }: FilterListProps) => {
+const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const { classes } = useStyles({ isOpen });
+    const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > MAX_HEIGHT_FILTER_CONTENT });
 
     const spoilerControlRef = useEventListener("click", () => {
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
@@ -29,7 +30,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const showLabel = () => {
-        const hiddenCountCourse = filterData.length - 3;
+        const hiddenCountCourse = data ? data.length - 5 : 0;
         return (
             <Flex gap={8} onClick={handleChangeOpen}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
@@ -52,22 +53,36 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         </Flex>
     );
 
-    const renderItems = (form: FormikProps<ArticleCategoryFilters>) =>
-        filterData.map((item, index) => {
-            const isChecked = form.values[field]?.findIndex((value) => value === item.name + index) !== -1;
+    const renderItems = (form: FormikProps<ArticleAndArticleCategoryFiltersForm>) => {
+        const foundItems = data?.filter((item) => item.name.includes(searchValue));
+
+        if (!foundItems?.length && searchValue) {
+            return <Text className={classes.notFound}>{`По запросу "${searchValue}" ничего не найдено`}</Text>;
+        }
+
+        return foundItems?.map((item) => {
+            const isChecked = !![...form.values[field]].find((value) => value === item.id.toString());
+
             const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
                 if (newValue.target.checked) {
-                    const array = form.values[field];
-                    array?.push(item.name + index);
+                    const array = [...form.values[field]];
+
+                    array.push(String(item.id));
                     return form.setFieldValue(field, array);
                 }
+
                 form.setFieldValue(
                     field,
-                    form.values[field]?.filter((value) => value !== item.name + index)
+                    [...form.values[field]].filter((value) => value === item.id.toString())
                 );
             };
-            return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name + index} />;
+            return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;
         });
+    };
+
+    if (!data?.length) {
+        return null;
+    }
 
     return (
         <FieldArray name={field}>
@@ -79,7 +94,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                 return (
                     <Box>
                         <Text className={classes.filterName}>{filterName}</Text>
-                        <Flex direction="column" gap={16} sx={{ position: "relative" }}>
+                        <Flex className={classes.filterContainer}>
                             {isOpen && (
                                 <>
                                     <Search
@@ -96,7 +111,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                                 ref={spoilerRef}
                                 classNames={classes}
                                 controlRef={spoilerControlRef}
-                                maxHeight={152}
+                                maxHeight={MAX_HEIGHT_FILTER_CONTENT}
                                 showLabel={showLabel()}
                                 hideLabel={hideLabel}>
                                 <Flex direction="column" gap={8}>

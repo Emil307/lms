@@ -16,7 +16,8 @@ const MemoizedArticleCourseItem = memo(function ArticleCourseItem({ data, ...pro
     const { classes } = useStyles();
     const router = useRouter();
 
-    const handleOpenCourse = () => router.push({ pathname: "/articles/my-courses/[courseId]", query: { courseId: String(data.id) } });
+    //TODO: возможно в скором этот компонент вообще удалим
+    const handleOpenCourse = () => router.push({ pathname: "/articles", query: { courseId: String(data.id) } });
 
     return (
         <Flex {...props} className={classes.root}>

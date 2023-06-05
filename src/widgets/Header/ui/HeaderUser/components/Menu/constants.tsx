@@ -6,7 +6,7 @@ export const dropdownMenuItems: { id: number; icon: ReactNode; label: string; hr
     { id: 1, icon: <Settings />, label: "Настройки профиля", href: { pathname: "/profile" } },
     //TODO: поменять урл
     { id: 2, icon: <Zap />, label: "Активные курсы", href: { pathname: "/courses", query: { isActive: "1" } } },
-    { id: 3, icon: <Heart />, label: "Избранные статьи", href: { pathname: "/articles/favorite" } },
+    { id: 3, icon: <Heart />, label: "Избранные статьи", href: { pathname: "/articles", query: { tab: "favorite" } } },
     //TODO: поменять урл
     { id: 4, icon: <LogOut />, label: "Выйти", href: { pathname: "/" } },
 ];

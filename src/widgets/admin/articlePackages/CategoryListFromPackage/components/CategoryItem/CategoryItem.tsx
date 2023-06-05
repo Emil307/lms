@@ -8,7 +8,7 @@ import useStyles from "./CategoryItem.styles";
 
 export interface CategoryItemProps {
     data: ArticleCategoryFromList;
-    onClick: (categoryId: number) => void;
+    onClick: (categoryId: number | null) => void;
 }
 
 const MemoizedCategoryItem = memo(function CategoryItem({ data, onClick }: CategoryItemProps) {

@@ -1,4 +1,4 @@
-import { Flex, FlexProps, ThemeIcon, Text, Title, ActionIcon } from "@mantine/core";
+import { Flex, FlexProps, ThemeIcon, Text, Title } from "@mantine/core";
 import { memo } from "react";
 import { IconArrowNarrowRight, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
@@ -14,10 +14,10 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
     const { classes } = useStyles();
     const router = useRouter();
 
-    const handleOpenCategory = () => router.push({ pathname: "/articles/[categoryId]", query: { categoryId: String(data.id) } });
+    const handleOpenCategory = () => router.push({ pathname: "/articles", query: { ...router.query, categoryId: String(data.id) } });
 
     return (
-        <Flex {...props} className={classes.root}>
+        <Flex {...props} className={classes.root} onClick={handleOpenCategory}>
             <ThemeIcon color="secondary" sx={{ height: 48, width: 48, borderRadius: 56 }}>
                 <IconBook2 />
             </ThemeIcon>
@@ -32,9 +32,9 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
                     "статей"
                 )}`}</Text>
             </Flex>
-            <ActionIcon className={classes.actionIcon} onClick={handleOpenCategory}>
+            <ThemeIcon className={classes.arrowIcon}>
                 <IconArrowNarrowRight />
-            </ActionIcon>
+            </ThemeIcon>
         </Flex>
     );
 });

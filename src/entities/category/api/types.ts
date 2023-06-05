@@ -17,6 +17,16 @@ export type CreateAdminCategoryRequest = z.infer<typeof $CreateAdminCategoryRequ
 export type UpdateCategoryActivityRequest = z.infer<typeof $UpdateCategoryActivityRequest>;
 export type UpdateCategoryActivityResponse = z.infer<typeof $UpdateCategoryActivityResponse>;
 
+/**
+ *
+ * USER TYPES
+ *
+ */
+export type Category = z.infer<typeof $Category>;
+
+//REQ/RESP
+export type GetCategoryResponse = z.infer<typeof $GetCategoryResponse>;
+
 const $SubCategoriesExtraFilters = z.object({
     parentId: z.string(),
 });
@@ -69,3 +79,20 @@ export const $UpdateCategoryActivityRequest = z.object({
 export const $UpdateCategoryActivityResponse = z.object({
     isActive: z.boolean(),
 });
+
+export const $Category = z.object({
+    id: z.number(),
+    name: z.string(),
+    parent: z
+        .object({
+            id: z.number(),
+            name: z.string(),
+            isActive: z.boolean(),
+            parentId: z.number().nullable(),
+            createdAt: z.coerce.date(),
+            updatedAt: z.coerce.date(),
+        })
+        .nullable(),
+});
+
+export const $GetCategoryResponse = $Category;

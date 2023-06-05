@@ -2,8 +2,8 @@ import React, { memo, useMemo, useState } from "react";
 import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, X } from "react-feather";
 import { z } from "zod";
-import { useMultiSelectStyles } from "./MultiSelect.styles";
 import { SelectItem } from "@shared/ui";
+import { useMultiSelectStyles } from "./MultiSelect.styles";
 import { MultiSelectValueItem } from "./components";
 
 export interface MultiSelectProps extends MMultiSelectProps {

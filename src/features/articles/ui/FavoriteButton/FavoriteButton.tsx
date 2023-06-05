@@ -1,28 +1,42 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { Heart } from "react-feather";
 import { Button } from "@shared/ui";
+import { ArticleFromList, GetArticleResponse, useUpdateArticleFavorite } from "@entities/article";
 import useStyles from "./FavoriteButton.styles";
 
 export interface FavoriteButtonProps {
-    isFavorite: boolean;
+    data: ArticleFromList | GetArticleResponse;
+    variant?: "compact" | "default";
 }
 
-const FavoriteButton = ({ isFavorite }: FavoriteButtonProps) => {
-    const { classes } = useStyles({ isFavorite });
-    const isTablet = useMediaQuery("(max-width: 1440px)");
-    //TODO: вернуться когда будет эндпоинт API для этого
-    const handleFavorite = () => undefined;
+const FavoriteButton = ({ data, variant = "default" }: FavoriteButtonProps) => {
+    const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    if (isTablet) {
+    const updateFavorite = useUpdateArticleFavorite(String(data.id));
+
+    const handleChangeFavorite = () => {
+        updateFavorite.mutate(!data.isFavorite);
+    };
+
+    if (!data.isAvailable) {
+        return null;
+    }
+
+    if (variant === "compact") {
         return (
-            <ActionIcon className={classes.favoriteActionIcon} onClick={handleFavorite}>
+            <ActionIcon className={classes.favoriteActionIcon} onClick={handleChangeFavorite}>
                 <Heart />
             </ActionIcon>
         );
     }
     return (
-        <Button variant="white" leftIcon={<Heart />} size="small" onClick={handleFavorite} className={classes.favoriteActionButton}>
+        <Button
+            variant="white"
+            leftIcon={<Heart />}
+            size="small"
+            disabled
+            onClick={handleChangeFavorite}
+            className={classes.favoriteActionButton}>
             Избранное
         </Button>
     );
