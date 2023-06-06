@@ -1,5 +1,6 @@
 import { InfiniteQueryObserverResult, QueryFunction, QueryKey, useInfiniteQuery, UseInfiniteQueryOptions } from "@tanstack/react-query";
 import { TPaginationResponse } from "../utils";
+import { useMemo } from "react";
 
 type TData<T> = {
     data: TPaginationResponse<T[]> | undefined;
@@ -34,14 +35,16 @@ export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T
         ...options,
     };
 
-    const { data, ...rest } = useInfiniteQuery<TQueryFnData>(queryKey, queryFn, fullOptions);
+    const { data: infiniteData, ...rest } = useInfiniteQuery<TQueryFnData>(queryKey, queryFn, fullOptions);
 
-    let result: TData<T>["data"];
-    if (data) {
-        const onlyData = data.pages.map((page) => page.data);
+    const data = useMemo(() => {
+        if (!infiniteData) {
+            return;
+        }
+        const onlyData = infiniteData.pages.map((page) => page.data);
         const cleanData = onlyData.flat();
+        return { data: cleanData, pagination: infiniteData.pages[infiniteData.pages.length - 1].pagination };
+    }, [infiniteData]);
 
-        result = { data: cleanData, pagination: data.pages[data.pages.length - 1].pagination };
-    }
-    return { data: result, ...rest };
+    return { data, ...rest };
 }

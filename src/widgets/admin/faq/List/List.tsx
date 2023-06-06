@@ -1,14 +1,15 @@
 import { Box, BoxProps } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { PlusCircle, Trash } from "react-feather";
+import { Monitor, PlusCircle, Trash } from "react-feather";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, DndCard } from "@shared/ui";
 import { AdminFaqItem, useAdminFaq, useUpdateFaqOrder } from "@entities/staticPage";
 import { CreateFaqForm, DeleteFaqModal, UpdateFaqForm } from "@features/faq";
 import useStyles from "./List.styles";
-import { Card } from "./components";
+import { ListMenu } from "./components";
 
 export interface ListProps extends BoxProps {}
 
@@ -65,7 +66,7 @@ const List = (props: ListProps) => {
 
     return (
         <Box {...props} className={classes.root}>
-            <DndContext onDragEnd={handleDragEnd}>
+            <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
                 <SortableContext items={faqItems}>
                     {faqItems.map((item) => {
                         if (currentUpdateItemId === item.id) {
@@ -78,7 +79,17 @@ const List = (props: ListProps) => {
                                 />
                             );
                         }
-                        return <Card key={item.id} data={item} openUpdateForm={handleOpenUpdateForm} />;
+                        return (
+                            <DndCard
+                                id={item.id}
+                                title={item.question}
+                                text={item.answer}
+                                listMenu={<ListMenu data={item} openUpdateForm={handleOpenUpdateForm} />}
+                                isActive={item.isActive}
+                                rightIcon={item.isStatic && <Monitor />}
+                                key={item.id}
+                            />
+                        );
                     })}
                 </SortableContext>
             </DndContext>

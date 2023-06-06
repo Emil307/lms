@@ -1,6 +1,6 @@
 import { Flex, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
 import { Button, DisplayField } from "@shared/ui";
-import {  } from "react-feather";
+import {} from "react-feather";
 import { Fieldset } from "@components/Fieldset";
 import { InfoCard } from "@components/InfoCard";
 import React from "react";
