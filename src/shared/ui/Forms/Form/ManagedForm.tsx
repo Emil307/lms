@@ -22,7 +22,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     validationSchema?: FormikConfig<F>["validationSchema"];
     validateOnChange?: boolean;
     hasConfirmModal?: boolean;
-    children: React.ReactNode | ((props: FormikProps<F> & { onCancel: () => void }) => React.ReactNode);
+    children: React.ReactNode | ((props: FormikProps<F> & { onCancel: () => void; isLoading: boolean }) => React.ReactNode);
 }
 
 export default function ManagedForm<F extends FormikValues, R>({
@@ -93,6 +93,7 @@ export default function ManagedForm<F extends FormikValues, R>({
         if (typeof children === "function") {
             return children({
                 ...formikProps,
+                isLoading,
                 onCancel: () => handleCancel(formikProps.dirty),
             });
         }

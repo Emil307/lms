@@ -98,7 +98,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
     const onSuccessUpdate = () => {
         createNotification({
             type: ToastType.SUCCESS,
-            title: "Изменение Курса",
+            title: "Редактирование Курса",
             message: "Курс успешно изменен",
         });
         onSuccess();

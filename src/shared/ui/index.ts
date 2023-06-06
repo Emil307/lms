@@ -10,3 +10,4 @@ export * from "./Map";
 export * from "./ConfirmActionModal";
 export * from "./EmptyData";
 export * from "./LastUpdatedInfo";
+export * from "./DndCard";

@@ -1,5 +1,5 @@
 import { Box, Loader, Text } from "@mantine/core";
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
@@ -7,6 +7,7 @@ import { CourseInfoPanel, CourseSettings } from "@widgets/admin/courses";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 import { useAdminCourse } from "@entities/course";
+import { ModuleList } from "@widgets/admin/courseModules";
 
 const CourseDetailPage = () => {
     const router = useRouter();
@@ -17,15 +18,13 @@ const CourseDetailPage = () => {
         router.push({ pathname: "/admin/courses/[id]", query: { id, tab: value } });
     };
 
-    useEffect(() => {
+    const currentTab = useMemo(() => {
         if (!router.isReady) {
-            return;
+            return "";
         }
         const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
-        if (!currentTab) {
-            handleChangeTab(tabsList[0].value);
-        }
-    }, [router.isReady]);
+        return currentTab?.value || tabsList[0].value;
+    }, [router.isReady, tab]);
 
     if (!router.isReady || isLoading) {
         return <Loader />;
@@ -41,7 +40,7 @@ const CourseDetailPage = () => {
             case "settings":
                 return <CourseSettings data={courseData} />;
             case "modulesAndLessons":
-                return null;
+                return <ModuleList courseId={id} />;
             case "groups":
                 return null;
             case "statistics":
@@ -49,7 +48,7 @@ const CourseDetailPage = () => {
             case "reviews":
                 return null;
             default:
-                return null;
+                return <CourseSettings data={courseData} />;
         }
     };
 
@@ -57,7 +56,7 @@ const CourseDetailPage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name, courseId: courseData.id })} mb={8} />
             <CourseInfoPanel id={id} />
-            <Tabs value={tab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} my={32} />
+            <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} my={32} />
             {renderComponent()}
         </Box>
     );
