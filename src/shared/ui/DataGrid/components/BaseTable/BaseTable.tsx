@@ -5,17 +5,16 @@ import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import { RowSelectionState, SortingState } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
-import { prepareColumns } from "../../utils";
+import {prepareColumns, useCurrentPaginationData} from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
-    Pick<TPaginationProps<T>, "perPageOptions">;
+    Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
 
 export type TBaseTableProps<T extends Record<string, any>> = {
     data?: T[];
     columns?: MantineReactTableProps<T>["columns"];
     pagination?: TPagination;
-    perPageOptions?: string[];
     isLoading: boolean;
     sorting?: SortingState;
     rowSelection?: RowSelectionState;
@@ -29,7 +28,7 @@ function BaseTable<T extends Record<string, any>>({
     onClickCell,
     stylesForCell,
     pagination,
-    perPageOptions,
+    perPageOptions = ["5", "10", "15"],
     isLoading,
     sorting,
     rowSelection,
@@ -39,8 +38,9 @@ function BaseTable<T extends Record<string, any>>({
     const theme = useMantineTheme();
     const { classes } = useBaseTableStyles({ hasActionButton: rest?.initialState?.columnOrder?.includes("mrt-row-actions") });
     const columns = rest.columns || prepareColumns(data);
-    const rowCount = pagination?.count;
-    const totalPage = pagination?.totalPages || 0;
+    const paginationData = useCurrentPaginationData(pagination);
+    const rowCount = paginationData?.count;
+    const totalPage = paginationData?.totalPages || 0;
 
     const handleClickCell = (cell: MRT_Cell<T>) => {
         if (cell.column.id === "mrt-row-actions") {
@@ -77,14 +77,14 @@ function BaseTable<T extends Record<string, any>>({
             rowCount={rowCount}
             pageCount={totalPage}
             renderBottomToolbar={({ table }) => {
-                return <Pagination<T> table={table} data={pagination} perPageOptions={perPageOptions} />;
+                return <Pagination<T> table={table} data={paginationData} perPageOptions={perPageOptions} />;
             }}
             state={{
                 isLoading,
                 sorting,
                 pagination: {
-                    pageIndex: pagination?.currentPage || 0,
-                    pageSize: pagination?.perPage || 10,
+                    pageIndex: paginationData?.currentPage || 0,
+                    pageSize: paginationData?.perPage || Number(perPageOptions[1]),
                 },
                 rowSelection,
             }}
@@ -107,6 +107,9 @@ function BaseTable<T extends Record<string, any>>({
             }}
             mantineTableContainerProps={{
                 className: classes.tableContainer,
+            }}
+            mantineSkeletonProps={{
+                className: classes.skeleton
             }}
             mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
             mantineTableBodyCellProps={({ cell }) => {

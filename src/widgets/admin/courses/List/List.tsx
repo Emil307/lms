@@ -85,7 +85,7 @@ const List = () => {
                         "mrt-row-actions",
                     ],
                 }}>
-                <Box mb={24}>
+                <Box>
                     <Flex columnGap={8} rowGap={0}>
                         <FSearch w={512} size="sm" name="query" placeholder="Поиск" />
                         <FSelect
