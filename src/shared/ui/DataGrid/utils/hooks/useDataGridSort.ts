@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { MRT_SortingState } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { TDefaultSortQueryParams } from "@shared/ui/DataGrid/types";
+import {TDefaultSortQueryParams} from "@shared/ui/DataGrid/types";
 import { TSortParams } from "@shared/types";
 
-export const useDataGridSort = (disableQueryParams: boolean) => {
+type TParams = {
+    disableQueryParams: boolean;
+    goToFirstPage: () => void;
+};
+
+export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) => {
     const router = useRouter();
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
 
@@ -24,7 +29,7 @@ export const useDataGridSort = (disableQueryParams: boolean) => {
         router.push(
             {
                 pathname: router.pathname,
-                query: createNewSortParams(),
+                query: {...createNewSortParams(), page: "1"},
             },
             undefined,
             { shallow: true }
@@ -39,6 +44,7 @@ export const useDataGridSort = (disableQueryParams: boolean) => {
             return undefined;
         }
         if (disableQueryParams) {
+            goToFirstPage();
             return { sort: { [sorting[0].id]: sorting[0].desc ? "desc" : "asc" } };
         }
         return { sort: { [sortField]: sortOrder } };
