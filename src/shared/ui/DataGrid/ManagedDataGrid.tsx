@@ -50,8 +50,8 @@ function ManagedDataGrid<
 
     const { rowSelection, setRowSelection } = useDataGridSelect({ disableQueryParams, selectItems, onChangeSelect });
 
-    const { sorting, setSorting, sortParams } = useDataGridSort(disableQueryParams);
     const { setPagination, paginationParams, goToFirstPage } = useDataGridPagination(disableQueryParams);
+    const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams, goToFirstPage });
     const filters = useDataGridFilters<K>({ filter, disableQueryParams, goToFirstPage });
 
     const paramsForRequest = {

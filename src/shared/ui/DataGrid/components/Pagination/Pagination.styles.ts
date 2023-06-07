@@ -1,6 +1,12 @@
 import { createStyles } from "@mantine/core";
 
 export const usePaginationStyles = createStyles((theme) => ({
+    root: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 24,
+        paddingTop: 24,
+    },
     elementsCount: {
         fontWeight: 500,
         fontSize: 14,

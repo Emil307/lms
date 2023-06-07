@@ -5,7 +5,7 @@ import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
 import { RowSelectionState, SortingState } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
-import {prepareColumns, useCurrentPaginationData} from "../../utils";
+import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &

@@ -2,7 +2,7 @@ import { Box } from "@mantine/core";
 import React from "react";
 import { TPagination } from "@shared/types";
 import { useCountDataStyles } from "./CountData.styles";
-import {useCurrentPaginationData} from "../../utils";
+import { useCurrentPaginationData } from "../../utils";
 
 export type TCountDataProps = {
     countName?: string;

@@ -59,8 +59,8 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
     },
     skeleton: {
         maxWidth: 100,
-        height: 30
-    }
+        height: 30,
+    },
 }));
 
 type TGetStylesForCellProps = {
