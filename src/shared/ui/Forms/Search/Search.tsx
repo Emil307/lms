@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { TextInput as MInput, TextInputProps as MTextInputProps } from "@mantine/core";
 import { Search as SearchIcon, X } from "react-feather";
 import { defaultTheme } from "@app/providers/Theme/theme";
-import { useSearchStyles } from "./searchStyles";
+import { useSearchStyles } from "./Search.styles";
 
 export interface SearchProps extends MTextInputProps {
     styleVariant?: "default" | "course";
