@@ -57,6 +57,10 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
     tableHeadRow: {
         backgroundColor: `${theme.colors.light[0]} !important`,
     },
+    skeleton: {
+        maxWidth: 100,
+        height: 30
+    }
 }));
 
 type TGetStylesForCellProps = {

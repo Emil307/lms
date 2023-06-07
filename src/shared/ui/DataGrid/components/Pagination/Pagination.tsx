@@ -8,11 +8,11 @@ import { useTablePagination } from "../../utils";
 export type TPaginationProps<T extends Record<string, any>> = {
     table: MRT_TableInstance<T>;
     data?: TPagination;
-    perPageOptions?: string[];
+    perPageOptions: [string, string, ...string[]];
 };
 
 export default function Pagination<T extends Record<string, any>>(props: TPaginationProps<T>) {
-    const { table, data, perPageOptions = ["5", "10", "15"] } = props;
+    const { table, data, perPageOptions } = props;
     const { getPageCount } = table;
     const { firstElemIndex, lastElemIndex, pageIndex, pageSize, handleChangePage, handleChangePerPage } = useTablePagination<T>({
         table,
@@ -21,7 +21,7 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
 
     const { classes } = usePaginationStyles();
 
-    if (!data) {
+    if (!data || !data.total) {
         return null;
     }
 
