@@ -26,7 +26,7 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
     }
 
     return (
-        <Flex justify="space-between" align="center" gap="lg" py="xs" px="sm">
+        <Flex className={classes.root}>
             <Box>
                 <Text className={classes.elementsCount}>
                     {`${firstElemIndex}-${lastElemIndex}`} <span>из</span> {data.total}

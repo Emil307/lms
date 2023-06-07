@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {TPagination} from "@shared/types";
+import { useEffect, useState } from "react";
+import { TPagination } from "@shared/types";
 
 export const useCurrentPaginationData = (pagination?: TPagination) => {
     const [paginationData, setPaginationData] = useState<TPagination>();
@@ -8,7 +8,7 @@ export const useCurrentPaginationData = (pagination?: TPagination) => {
         if (pagination) {
             setPaginationData(pagination);
         }
-    }, [pagination])
+    }, [pagination]);
 
-    return paginationData
-}
+    return paginationData;
+};
