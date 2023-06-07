@@ -109,7 +109,7 @@ function BaseTable<T extends Record<string, any>>({
                 className: classes.tableContainer,
             }}
             mantineSkeletonProps={{
-                className: classes.skeleton
+                className: classes.skeleton,
             }}
             mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
             mantineTableBodyCellProps={({ cell }) => {
