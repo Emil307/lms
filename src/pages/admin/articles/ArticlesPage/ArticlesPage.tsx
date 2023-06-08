@@ -20,7 +20,7 @@ const ArticlesPage = () => {
                     Создать статью
                 </Button>
             </Flex>
-            <AdminArticleList />
+            <AdminArticleList mt={24} />
         </Box>
     );
 };

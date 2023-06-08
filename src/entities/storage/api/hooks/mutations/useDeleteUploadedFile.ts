@@ -1,18 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { GetUploadedFilesResponse, UploadedMaterialFileDetails, storageApi } from "@entities/storage";
+import { DeleteUploadedFileResponse, GetAdminUploadedFileResponse, GetUploadedFilesResponse, storageApi } from "@entities/storage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useDeleteUploadedFile = (id: string) => {
-    return useMutation<null, AxiosError<FormErrorResponse>, null>(
+    return useMutation<DeleteUploadedFileResponse, AxiosError<FormErrorResponse>, null>(
         [MutationKeys.DELETE_UPLOADED_FILE, id],
-        () => storageApi.deleteUploadedFile(id),
+        () => storageApi.deleteUploadedFile({ id }),
         {
             onSuccess: () => {
-                const materialData = queryClient.getQueryData<UploadedMaterialFileDetails>([QueryKeys.GET_UPLOADED_FILE, id]);
+                const materialData = queryClient.getQueryData<GetAdminUploadedFileResponse>([QueryKeys.GET_ADMIN_UPLOADED_FILE, id]);
                 const materialFromList = queryClient
                     .getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES])[0]?.[1]
                     ?.data.find((material) => material.id.toString() === id);

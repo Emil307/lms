@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 import { Tooltip } from "@shared/ui";
 import { AdminArticleFromList, AdminArticlesFiltersForm } from "@entities/article";
 
-export const columnOrder = ["id", "name", "category", "subcategory", "courses", "isActive", "mrt-row-actions"];
+export const columnOrder = ["id", "name", "category.name", "subcategories", "courses", "isActive", "mrt-row-actions"];
 
 export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
     {
@@ -17,15 +17,15 @@ export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
 
     {
         header: "Категория",
-        accessorKey: "category",
-        accessorFn: (row) => row.category.name,
+        accessorKey: "category.name",
+        accessorFn: (row) => row.category?.name || "",
     },
     {
         header: "Подкатегория",
         accessorKey: "subcategories",
         enableSorting: false,
         accessorFn: (row) => {
-            const courseNames = row.subcategories.join(", ");
+            const courseNames = row.subcategories.map(({ name }) => name).join(", ");
             return (
                 <Tooltip label={courseNames}>
                     <Text lineClamp={1}>{courseNames}</Text>

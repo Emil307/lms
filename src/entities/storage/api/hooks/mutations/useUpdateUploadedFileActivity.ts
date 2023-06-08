@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { GetUploadedFilesResponse, UploadedMaterialFileDetails, storageApi } from "@entities/storage";
+import { GetAdminUploadedFileResponse, GetUploadedFilesResponse, storageApi } from "@entities/storage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
@@ -12,14 +12,14 @@ export const useUpdateUploadedFileActivity = (id: number) => {
         (status: boolean) => storageApi.updateUploadedFileActivity({ id, status }),
         {
             onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILE, id] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_UPLOADED_FILE, id] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_UPLOADED_FILES] });
 
-                const previousFileData = queryClient.getQueryData<UploadedMaterialFileDetails>([QueryKeys.GET_UPLOADED_FILE, id]);
+                const previousFileData = queryClient.getQueryData<GetAdminUploadedFileResponse>([QueryKeys.GET_ADMIN_UPLOADED_FILE, id]);
                 const previousFilesData = queryClient.getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES]);
 
-                queryClient.setQueryData<UploadedMaterialFileDetails>(
-                    [QueryKeys.GET_UPLOADED_FILE, id],
+                queryClient.setQueryData<GetAdminUploadedFileResponse>(
+                    [QueryKeys.GET_ADMIN_UPLOADED_FILE, id],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
 
@@ -38,7 +38,7 @@ export const useUpdateUploadedFileActivity = (id: number) => {
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && context !== null && "previousFileData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_UPLOADED_FILE, id], context.previousFileData);
+                    queryClient.setQueryData([QueryKeys.GET_ADMIN_UPLOADED_FILE, id], context.previousFileData);
                 }
                 if (typeof context === "object" && context !== null && "previousFilesData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_UPLOADED_FILES], context.previousFilesData);
@@ -53,7 +53,7 @@ export const useUpdateUploadedFileActivity = (id: number) => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
             },
             onSuccess: () => {
-                const materialData = queryClient.getQueryData<UploadedMaterialFileDetails>([QueryKeys.GET_UPLOADED_FILE, id]);
+                const materialData = queryClient.getQueryData<GetAdminUploadedFileResponse>([QueryKeys.GET_ADMIN_UPLOADED_FILE, id]);
                 const materialFromList = queryClient
                     .getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES])?.[0]?.[1]
                     ?.data.find((material) => material.id === id);

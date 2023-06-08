@@ -27,6 +27,7 @@ export type AdminCourse = z.infer<typeof $AdminCourse>;
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
 export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCoursesForCoursePackageFiltersForm>;
 export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
+export type AdminCoursesNoIncludedArticleFiltersForm = z.infer<typeof $AdminCoursesNoIncludedArticleFiltersForm>;
 
 //REQ/RESP
 export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
@@ -49,6 +50,7 @@ export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopulari
 export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
 export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublicationRequest>;
 export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
+export type GetAdminCoursesNoIncludedArticleRequest = z.infer<typeof $GetAdminCoursesNoIncludedArticleRequest>;
 
 /**
  *
@@ -67,6 +69,7 @@ export type CourseTag = z.infer<typeof $CourseTag>;
 
 //FILTERS
 export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
+export type AdminArticleCoursesExtraFilters = z.infer<typeof $AdminArticleCoursesExtraFilters>;
 
 //REQ/RESP
 export type GetCoursesRequest = z.infer<typeof $GetCoursesRequest>;
@@ -172,6 +175,7 @@ export const $AdminCourseFromList = $AdminCourse.pick({
     isActive: true,
     createdAt: true,
     category: true,
+    subcategory: true,
     tags: true,
     teachers: true,
     discount: true,
@@ -384,6 +388,33 @@ export const $UpdateCoursePublicationRequest = z.object({
 export const $UpdateCoursePublicationResponse = $UpdateCoursePublicationRequest.pick({
     isFulfillment: true,
 });
+
+export const $AdminArticleCoursesExtraFilters = z.object({
+    articleId: z.string(),
+});
+
+export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({
+    query: z.string(),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+    tagIds: z.string().array(),
+});
+
+export const $AdminCoursesNoIncludedArticleRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            "category.id": z.string(),
+            "subcategory.id": z.string(),
+            createdAt: $getDateObjectType(z.literal("range")),
+            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            //TODO: как бек добавит фильтрацию по статье not
+            // articleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetAdminCoursesNoIncludedArticleRequest = $getFiltersRequestType($AdminCoursesNoIncludedArticleRequest);
 
 /**
  * USER ZOD

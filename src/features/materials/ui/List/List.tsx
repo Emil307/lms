@@ -1,13 +1,14 @@
 import { Box, Flex } from "@mantine/core";
-import { FDatePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio } from "@shared/ui";
+import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { MaterialsFilters, UploadedMaterialFile, storageApi, useUploadedFileResource } from "@entities/storage";
+import { UploadedFileFromList, UploadedFilesFiltersForm, storageApi, useUploadedFileResources } from "@entities/storage";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
+import { adaptGetMaterialFilesRequest } from "./utils";
 
 const List = () => {
-    const materialResources = useUploadedFileResource();
+    const materialResources = useUploadedFileResources();
 
     const categoriesOptions = materialResources.data?.categories.map((item) => ({
         value: String(item.id),
@@ -20,10 +21,10 @@ const List = () => {
     }));
 
     return (
-        <ManagedDataGrid<UploadedMaterialFile, MaterialsFilters>
+        <ManagedDataGrid<UploadedFileFromList, UploadedFilesFiltersForm>
             queryKey={QueryKeys.GET_UPLOADED_FILES}
-            queryFunction={(params) => storageApi.getUploadedFiles(params)}
-            queryCacheKeys={["page", "perPage", "sort", "query", "type", "isActive", "createdAt", "categoryIds"]}
+            queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialFilesRequest(params))}
+            queryCacheKeys={["page", "perPage", "sort", "query", "type", "isActive", "createdAtFrom", "createdAtTo", "categoryIds"]}
             filter={{
                 initialValues: filterInitialValues,
             }}
@@ -54,7 +55,7 @@ const List = () => {
                             label="Тип файла"
                             disabled={materialResources.isLoading}
                         />
-                        <FDatePicker name="createdAt" label="Дата создания" size="sm" dateStringFormat="YYYY-MM-DD" />
+                        <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" clearable maw={210} />
                     </Flex>
                     <Box mt={16}>
                         <FRadioGroup name="isActive" defaultValue="">

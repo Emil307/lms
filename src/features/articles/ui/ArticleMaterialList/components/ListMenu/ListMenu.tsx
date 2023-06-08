@@ -3,12 +3,13 @@ import { MRT_Row } from "mantine-react-table";
 import React from "react";
 import { Download, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
-import { AdminArticleMaterial } from "@entities/article";
 import { DeleteArticleMaterialModal } from "@features/articles";
+import { UploadedFileFromList } from "@entities/storage";
 
 interface ListMenuProps {
-    row: MRT_Row<AdminArticleMaterial>;
+    row: MRT_Row<UploadedFileFromList>;
     articleId: string;
 }
 
@@ -31,8 +32,7 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
         });
     };
 
-    //TODO: Добавить, как только бекенд добавит у себя absoluteUrl чтобы скачать
-    const handleDownloadFile = () => undefined;
+    const handleDownloadFile = () => saveAs(row.original.absolutePath, row.original.name);
 
     return (
         <MenuDataGrid>

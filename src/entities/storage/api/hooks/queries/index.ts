@@ -1,2 +1,2 @@
-export * from "./useUploadedFile";
-export * from "./useUploadedFileResource";
+export * from "./useAdminUploadedFile";
+export * from "./useUploadedFileResources";

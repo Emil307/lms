@@ -1,20 +1,19 @@
 import { Flex, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
-import { Button, DisplayField } from "@shared/ui";
-import {} from "react-feather";
-import { Fieldset } from "@components/Fieldset";
-import { InfoCard } from "@components/InfoCard";
 import React from "react";
-import { AdminCourse } from "@entities/course";
-import { getInfoCardFields } from "./utils";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { getFullName } from "@shared/utils";
 import { closeModal, openModal } from "@mantine/modals";
-import { DeleteCourseModal, UpdateCoursePublicationModal } from "@features/courses";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon, Trash as TrashIcon } from "react-feather";
+import { Button, DisplayField } from "@shared/ui";
+import { DeleteCourseModal, UpdateCoursePublicationModal } from "@features/courses";
+import { getFullName } from "@shared/utils";
+import { AdminCourse } from "@entities/course";
+import { InfoCard } from "@components/InfoCard";
+import { Fieldset } from "@components/Fieldset";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
+import { getInfoCardFields } from "./utils";
 
 interface CourseSettingsProps {
     data: AdminCourse;
@@ -97,7 +96,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
 
                 {data.description && (
                     <Fieldset label="Описание курса" icon={<AlignLeftIcon />}>
-                        <Text size={16} lh={"24px"} color={theme.colors.neutral_gray[0]}>
+                        <Text size={16} lh="24px" color={theme.colors.neutral_gray[0]}>
                             {data.description}
                         </Text>
                     </Fieldset>

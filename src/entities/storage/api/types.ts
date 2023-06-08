@@ -1,31 +1,53 @@
 import { z } from "zod";
-import { $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import {
+    $UploadedFile,
+    $getDateObjectType,
+    $getFiltersRequestType,
+    $getMultiValueObjectType,
+    $getPaginationResponseType,
+} from "@shared/types";
 
-export type UploadFileType = "avatar" | "image" | "video" | "document";
-export type UploadedMaterialFileDetails = z.infer<typeof $UploadedMaterialFileDetails>;
-export type UploadedMaterialFile = z.infer<typeof $UploadedMaterialFile>;
-export type MaterialCategory = z.infer<typeof $MaterialCategory>;
-export type ResourceOption = z.infer<typeof $ResourceOption>;
-export type ResourceFileTypeOption = z.infer<typeof $ResourceFileTypeOption>;
+export type FileType = z.infer<typeof $FileType>;
+export type UploadedFileResourceCategory = z.infer<typeof $UploadedFileResourceCategory>;
+export type FileForUpdate = z.infer<typeof $FileForUpdate>;
+export type MaterialType = z.infer<typeof $MaterialType>;
+export type AdminUploadedFile = z.infer<typeof $AdminUploadedFile>;
+export type UploadedFileFromList = z.infer<typeof $UploadedFileFromList>;
 
-export type MaterialsFilters = z.infer<typeof $MaterialsFilters>;
+//FILTERS
+export type UploadedFilesFiltersForm = z.infer<typeof $UploadedFilesFiltersForm>;
+export type AdminMaterialsNoIncludedArticleFiltersForm = z.infer<typeof $AdminMaterialsNoIncludedArticleFiltersForm>;
+export type AdminArticleMaterialsExtraFilters = z.infer<typeof $AdminArticleMaterialsExtraFilters>;
 
-export type GetMaterialsRequestParams = TRequestFilterParams<MaterialsFilters>;
-
+//REQ/RES
+export type GetAdminUploadedFileResponse = z.infer<typeof $GetAdminUploadedFileResponse>;
 export type UploadFileRequest = z.infer<typeof $UploadFileRequest>;
-export type GetUploadedFilesResponse = z.infer<typeof $getUploadedFilesResponse>;
-export type GetUploadedFileResourceResponse = z.infer<typeof $GetUploadedFileResourceResponse>;
+export type UploadFileResponse = z.infer<typeof $UploadFileResponse>;
+export type GetUploadedFilesRequest = z.infer<typeof $GetUploadedFilesRequest>;
+export type GetUploadedFilesResponse = z.infer<typeof $GetUploadedFilesResponse>;
+export type GetUploadedFileResourcesResponse = z.infer<typeof $GetUploadedFileResourcesResponse>;
 export type UpdateUploadedFileActivityRequest = z.infer<typeof $UpdateUploadedFileActivityRequest>;
 export type UpdateUploadedFilesRequest = z.infer<typeof $UpdateUploadedFilesRequest>;
+export type GetAdminMaterialsNoIncludedArticleRequest = z.infer<typeof $GetAdminMaterialsNoIncludedArticleRequest>;
+export type DeleteUploadedFileRequest = z.infer<typeof $DeleteUploadedFileRequest>;
+export type DeleteUploadedFileResponse = z.infer<typeof $DeleteUploadedFileResponse>;
 
-export const $UploadFileRequest = z.object({
-    file: z.any(),
-    name: z.string().optional(),
-    visibility: z.string().optional(),
-    educational: z.boolean().optional(),
+export const $FileType = z.literal("avatar").or(z.literal("image")).or(z.literal("video")).or(z.literal("document"));
+export const $MaterialType = z.literal("document").or(z.literal("video"));
+
+export const $UploadedFileType = z.object({
+    name: z.string(),
+    type: z.string(),
 });
 
-export const $MaterialCategory = z.object({
+export const $UploadedFileResourceCategory = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
+export const $FileForUpdate = $UploadedFileResourceCategory;
+
+export const $AdminUploadedFileCategory = z.object({
     id: z.number(),
     name: z.string(),
     isActive: z.boolean(),
@@ -34,46 +56,40 @@ export const $MaterialCategory = z.object({
     updatedAt: z.coerce.date(),
 });
 
-export const $UploadedMaterialFileDetails = z.object({
+export const $AdminUploadedFile = z.object({
     id: z.number(),
     name: z.string(),
     extension: z.string(),
-    size: z.number(),
+    //TODO: ждем как бек добавит обратно это поле
+    // size: z.number(),
     absolutePath: z.string(),
     type: z.object({
-        value: z.literal("video").or(z.literal("document")),
+        value: $FileType,
         name: z.string(),
     }),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
-    categories: $MaterialCategory.pick({ name: true }).array(),
+    categories: $AdminUploadedFileCategory.array(),
+}); //.partial({ type: true, isActive: true, createdAt: true,});
+
+export const $GetAdminUploadedFileResponse = $AdminUploadedFile;
+
+export const $UploadFileRequest = z.object({
+    file: z.any(),
+    name: z.string().optional(),
+    visibility: z.string().optional(),
+    educational: z.boolean().optional(),
 });
 
-export const $UploadedMaterialFile = $UploadedMaterialFileDetails.omit({ size: true });
+export const $UploadedFileFromList = $AdminUploadedFile.merge(
+    z.object({
+        categories: z.object({ name: z.string() }).array(),
+    })
+);
 
-export const $MaterialsFilters = z.object({
-    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
-    query: z.string(),
-    categoryIds: z.string(),
-    type: z.string(),
-    createdAt: z.string(),
-});
-
-export const $ResourceOption = z.object({
-    id: z.number(),
-    name: z.string(),
-});
-
-export const $ResourceFileTypeOption = z.object({
-    name: z.string(),
-    type: z.string(),
-});
-
-export const $getUploadedFilesResponse = $getPaginationResponseType($UploadedMaterialFile);
-
-export const $GetUploadedFileResourceResponse = z.object({
-    categories: $ResourceOption.array(),
-    types: $ResourceFileTypeOption.array(),
+export const $GetUploadedFileResourcesResponse = z.object({
+    categories: $UploadedFileResourceCategory.array(),
+    types: $UploadedFileType.array(),
 });
 
 export const $UpdateUploadedFileActivityRequest = z.object({
@@ -81,6 +97,66 @@ export const $UpdateUploadedFileActivityRequest = z.object({
 });
 
 export const $UpdateUploadedFilesRequest = z.object({
-    files: $ResourceOption.array(),
+    files: $FileForUpdate.array(),
     categoryIds: z.number().array(),
 });
+
+export const $GetUploadedFilesResponse = $getPaginationResponseType($UploadedFileFromList);
+
+export const $UploadedFilesFiltersForm = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
+    categoryIds: z.string(),
+    type: z.string(),
+    createdAtFrom: z.coerce.date().nullable(),
+    createdAtTo: z.coerce.date().nullable(),
+});
+
+export const $UploadedFilesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")),
+            categoryIds: z.string(),
+            type: z.string(),
+            createdAt: $getDateObjectType(z.literal("range")),
+            articleIds: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetUploadedFilesRequest = $getFiltersRequestType($UploadedFilesRequest);
+
+export const $AdminArticleMaterialsExtraFilters = z.object({
+    articleId: z.string(),
+});
+
+export const $AdminMaterialsNoIncludedArticleFiltersForm = z.object({
+    query: z.string(),
+    categoryIds: z.string(),
+    type: z.string(),
+    createdAtFrom: z.coerce.date().nullable(),
+    createdAtTo: z.coerce.date().nullable(),
+});
+
+export const $AdminMaterialsNoIncludedArticleRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            categoryIds: z.string(),
+            "type.type": z.string(),
+            createdAt: $getDateObjectType(z.literal("range")),
+            articleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetAdminMaterialsNoIncludedArticleRequest = $getFiltersRequestType($AdminMaterialsNoIncludedArticleRequest);
+
+export const $UploadFileResponse = $UploadedFile;
+
+export const $DeleteUploadedFileRequest = z.object({
+    id: z.string(),
+});
+
+export const $DeleteUploadedFileResponse = z.null();

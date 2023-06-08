@@ -1,4 +1,4 @@
-import { Box, Group } from "@mantine/core";
+import { Box, BoxProps, Group } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
@@ -10,7 +10,9 @@ import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./c
 import { ListMenu } from "./components";
 import { adaptGetAdminArticlesRequest } from "./utils";
 
-const AdminList = () => {
+export interface AdminListProps extends BoxProps {}
+
+const AdminList = (props: AdminListProps) => {
     const router = useRouter();
     const articleResources = useAdminArticleFilters();
 
@@ -19,7 +21,7 @@ const AdminList = () => {
     };
 
     return (
-        <Box mt={24}>
+        <Box {...props}>
             <ManagedDataGrid<AdminArticleFromList, AdminArticlesFiltersForm>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
@@ -46,7 +48,7 @@ const AdminList = () => {
                             data={prepareOptionsForSelect({ data: articleResources.data?.courses, value: "id", label: "name" })}
                             clearable
                             label="Курс"
-                            disabled={articleResources.isLoading}
+                            disabled={articleResources.isLoading || !articleResources.data?.courses.length}
                             w="100%"
                             maw={252}
                         />
@@ -56,7 +58,7 @@ const AdminList = () => {
                             data={prepareOptionsForSelect({ data: articleResources.data?.categories, value: "id", label: "name" })}
                             clearable
                             label="Категория"
-                            disabled={articleResources.isLoading}
+                            disabled={articleResources.isLoading || !articleResources.data?.categories.length}
                             w="100%"
                             maw={252}
                         />
@@ -66,7 +68,7 @@ const AdminList = () => {
                             data={prepareOptionsForSelect({ data: articleResources.data?.subcategories, value: "id", label: "name" })}
                             clearable
                             label="Подкатегория"
-                            disabled={articleResources.isLoading}
+                            disabled={articleResources.isLoading || !articleResources.data?.subcategories.length}
                             w="100%"
                             maw={252}
                         />
