@@ -1,6 +1,5 @@
-import Search, { SearchProps } from "./Search";
-import FSearch, { FSearchProps } from "./FSearch";
+import Search, { type SearchProps } from "./Search";
+import FSearch, { type FSearchProps } from "./FSearch";
+import ManagedSearch from "./ManagedSearch";
 
-export { Search, FSearch };
-
-export type { SearchProps, FSearchProps };
+export { Search, FSearch, ManagedSearch, SearchProps, FSearchProps };
