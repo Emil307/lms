@@ -11,9 +11,9 @@ import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { List as NotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
+import { InfoCard } from "@components/InfoCard";
 import { fields } from "./constants";
 import { useSettingUserStyles } from "./SettingUser.styles";
-import { InfoCard } from "@components/InfoCard";
 
 interface SettingUserProps {
     id: string;

@@ -1,10 +1,9 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { AdminArticleMaterial } from "@entities/article";
-import { getFileSize } from "@shared/utils";
+import { UploadedFileFromList } from "@entities/storage";
 
 export const columnOrder = ["id", "name", "size", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminArticleMaterial>["columns"] = [
+export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
@@ -13,10 +12,10 @@ export const columns: MRT_ColumnDef<AdminArticleMaterial>["columns"] = [
         header: "Название",
         accessorKey: "name",
     },
-
-    {
-        header: "Объем",
-        accessorKey: "size",
-        accessorFn: (row) => getFileSize(row.size),
-    },
+    //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/132
+    // {
+    //     header: "Объем",
+    //     accessorKey: "size",
+    //     accessorFn: (row) => getFileSize(row.size),
+    // },
 ];

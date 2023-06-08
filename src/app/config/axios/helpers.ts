@@ -41,8 +41,10 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
  */
 export const whenCoursesRoute: TAxiosRunWhen = (config) => {
     return (
-        !!config.url?.includes("authors") ||
-        !!config.url?.includes("courses") ||
+        !!config.url?.startsWith("authors") ||
+        !!config.url?.startsWith("admin/authors") ||
+        !!config.url?.startsWith("courses") ||
+        !!config.url?.startsWith("admin/courses") ||
         !!config.url?.includes("course-collections") ||
         !!config.url?.includes("course-packages")
     );
@@ -54,7 +56,7 @@ export const whenCoursesRoute: TAxiosRunWhen = (config) => {
  * @returns true если запрос из микроча ARTICLES
  */
 export const whenArticlesRoute: TAxiosRunWhen = (config) => {
-    return !!config.url?.includes("articles") || !!config.url?.includes("admin/articles") || !!config.url?.includes("article-packages");
+    return !!config.url?.startsWith("articles") || !!config.url?.startsWith("admin/articles") || !!config.url?.includes("article-packages");
 };
 
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);

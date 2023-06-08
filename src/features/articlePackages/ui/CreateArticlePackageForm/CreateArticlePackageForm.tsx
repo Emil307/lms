@@ -65,7 +65,8 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                 mutationFunction={createArticlePackage}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal>
+                hasConfirmModal
+                onCancel={onClose}>
                 {({ dirty, values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({

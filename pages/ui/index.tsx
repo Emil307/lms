@@ -162,7 +162,7 @@ export const UIDemo = () => {
         { title: "Курсы", href: { pathname: "/ui" } },
     ];
 
-    const [date, setDate] = useState<Date | string | null>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const [rangeDate, setRangeDate] = useState<[string | null, string | null]>([null, null]);
 
     const config: FormikConfig<Values> = {

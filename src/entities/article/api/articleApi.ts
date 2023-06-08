@@ -1,10 +1,13 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    $AttachCoursesToArticleResponse,
+    $AttachMaterialFilesToArticleResponse,
     $CreateArticleResponse,
     $DeleteArticleRatingResponse,
+    $DeleteAdminArticleMaterialResponse,
+    $DeleteArticleCourseResponse,
     $GetAdminArticleFiltersResponse,
-    $GetAdminArticleMaterialsResponse,
     $GetAdminArticleResourcesCreateResponse,
     $GetAdminArticleResponse,
     $GetAdminArticlesResponse,
@@ -19,14 +22,19 @@ import {
     $UpdateArticleFavoriteResponse,
     $UpdateArticleRatingResponse,
     $UpdateArticleResponse,
+    AttachCoursesToArticleRequest,
+    AttachCoursesToArticleResponse,
+    AttachMaterialFilesToArticleRequest,
+    AttachMaterialFilesToArticleResponse,
     CreateArticleRequest,
     CreateArticleResponse,
     DeleteAdminArticleMaterialRequest,
     DeleteArticleRatingRequest,
     DeleteArticleRatingResponse,
+    DeleteAdminArticleMaterialResponse,
+    DeleteArticleCourseRequest,
+    DeleteArticleCourseResponse,
     GetAdminArticleFiltersResponse,
-    GetAdminArticleMaterialsRequest,
-    GetAdminArticleMaterialsResponse,
     GetAdminArticleResourcesCreateResponse,
     GetAdminArticleResponse,
     GetAdminArticlesNoIncludedArticlePackageRequest,
@@ -145,15 +153,30 @@ class ArticleApi extends BaseApi {
         return $GetFavoriteArticleResponse.parse(response);
     }
 
-    //MATERIALS
+    //ARTICLES <---> MATERIALS
 
-    async getAdminArticleMaterials({ articleId, ...params }: GetAdminArticleMaterialsRequest): Promise<GetAdminArticleMaterialsResponse> {
-        const response = await this.instance.get(`admin/articles/${articleId}/materials`, { params });
-        return $GetAdminArticleMaterialsResponse.parse(response);
+    async attachMaterialFilesToArticle({
+        articleId,
+        ...data
+    }: AttachMaterialFilesToArticleRequest): Promise<AttachMaterialFilesToArticleResponse> {
+        const response = await this.instance.post(`admin/articles/${articleId}/materials`, data);
+        return $AttachMaterialFilesToArticleResponse.parse(response);
     }
 
-    async deleteArticleMaterial({ articleId, materialId }: DeleteAdminArticleMaterialRequest): Promise<void> {
-        await this.instance.delete(`admin/articles/${articleId}/materials/${materialId}`);
+    async deleteArticleMaterial({ articleId, materialId }: DeleteAdminArticleMaterialRequest): Promise<DeleteAdminArticleMaterialResponse> {
+        const response = await this.instance.delete(`admin/articles/${articleId}/materials/${materialId}`);
+        return $DeleteAdminArticleMaterialResponse.parse(response);
+    }
+
+    //ARTICLES <---> COURSES
+    async attachCoursesToArticle({ articleId, ...data }: AttachCoursesToArticleRequest): Promise<AttachCoursesToArticleResponse> {
+        const response = await this.instance.post(`admin/articles/${articleId}/courses`, data);
+        return $AttachCoursesToArticleResponse.parse(response);
+    }
+
+    async deleteArticleCourse({ articleId, courseId }: DeleteArticleCourseRequest): Promise<DeleteArticleCourseResponse> {
+        const response = await this.instance.delete(`admin/articles/${articleId}/courses/${courseId}`);
+        return $DeleteArticleCourseResponse.parse(response);
     }
 }
 

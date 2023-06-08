@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { CourseInfoPanel, CourseSettings } from "@widgets/admin/courses";
-import { tabsList } from "./constants";
-import { getBreadCrumbsItems } from "./utils";
 import { useAdminCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
+import { tabsList } from "./constants";
+import { getBreadCrumbsItems } from "./utils";
 
 const CourseDetailPage = () => {
     const router = useRouter();

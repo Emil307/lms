@@ -1,7 +1,7 @@
 import { Box, Flex, Title, Text, ThemeIcon, BoxProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { ThumbsDown, ThumbsUp } from "react-feather";
-import { Switch } from "@shared/ui";
+import { LastUpdatedInfo, Switch } from "@shared/ui";
 import { useAdminArticle, useUpdateArticleActivity } from "@entities/article";
 import useStyles from "./InfoPanel.styles";
 
@@ -54,10 +54,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         </Flex>
                     </Flex>
                 </Flex>
-                {/* TODO: Добавить информацию lastUpdated как добавиться компонент LastUpdated */}
-                {/* <Box className={classes.infoItem}>
-                    Изменение: 
-                </Box> */}
+                <LastUpdatedInfo data={articleData?.lastUpdated} />
             </Flex>
         </Box>
     );

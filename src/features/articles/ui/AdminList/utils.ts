@@ -9,7 +9,7 @@ export const adaptGetAdminArticlesRequest = (params: TFunctionParams<AdminArticl
         filter: {
             isActive: isActive === "" ? undefined : isActive,
             "category.id": categoryId,
-            "subcategory.id": subcategoryId,
+            subcategoryIds: subcategoryId,
             courseIds,
         },
     };

@@ -13,7 +13,7 @@ export const useUpdateUploadedFiles = (fileId?: number) => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
-                queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILE, fileId || {}]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_UPLOADED_FILE, fileId || {}]);
 
                 createNotification({
                     type: ToastType.SUCCESS,

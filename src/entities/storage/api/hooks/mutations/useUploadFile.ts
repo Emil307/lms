@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { storageApi, UploadFileRequest, UploadFileType } from "@entities/storage";
-import { FormErrorResponse, UploadedFile } from "@shared/types";
+import { FileType, storageApi, UploadFileRequest, UploadFileResponse } from "@entities/storage";
+import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useUploadFile = () => {
-    return useMutation<UploadedFile, AxiosError<FormErrorResponse>, UploadFileRequest & { type: UploadFileType }>(
+    return useMutation<UploadFileResponse, AxiosError<FormErrorResponse>, UploadFileRequest & { type: FileType }>(
         [MutationKeys.UPLOAD_FILE],
         ({ type, ...data }) => {
             switch (type) {

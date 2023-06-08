@@ -1,5 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import React, { useMemo } from "react";
+import { MRT_Cell } from "mantine-react-table";
+import { useRouter } from "next/router";
 import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -8,8 +10,6 @@ import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourse
 import { radioGroupValues, filterInitialValues, columns } from "./constant";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import { ListMenu } from "./components";
-import { MRT_Cell } from "mantine-react-table";
-import { useRouter } from "next/router";
 
 const List = () => {
     const router = useRouter();

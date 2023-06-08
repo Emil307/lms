@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { Button, DndCard } from "@shared/ui";
 import { PlusCircle as PlusCircleIcon, Folder as FolderIcon } from "react-feather";
-import useStyles from "./List.styles";
-import { CourseModule, useCourseModules } from "@entities/courseModule";
-import { ListMenu } from "./components";
 import { closeModal, openModal } from "@mantine/modals";
-import { CreateCourseModuleModal } from "@features/courseModules";
 import { useIntersection } from "@mantine/hooks";
+import { Button, DndCard } from "@shared/ui";
+import { CourseModule, useCourseModules } from "@entities/courseModule";
+import { CreateCourseModuleModal } from "@features/courseModules";
+import { ListMenu } from "./components";
 import { initialValues } from "./constants";
+import useStyles from "./List.styles";
 
 interface ModuleListProps {
     courseId: string;

@@ -5,11 +5,11 @@ import { Download, Edit3, Trash } from "react-feather";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { UploadedMaterialFile, useUpdateUploadedFileActivity } from "@entities/storage";
-import { DeleteMaterialModal, EditMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
+import { UploadedFileFromList, useUpdateUploadedFileActivity } from "@entities/storage";
+import { DeleteMaterialModal, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 
 interface UsersListMenuProps {
-    row: MRT_Row<UploadedMaterialFile>;
+    row: MRT_Row<UploadedFileFromList>;
 }
 
 const ListMenu = ({ row }: UsersListMenuProps) => {
@@ -34,13 +34,16 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
     };
 
     const openModalEditFile = () => {
+        if (row.original.type.value === "image" || row.original.type.value === "avatar") {
+            return;
+        }
         openModal({
             modalId: "EDIT_MATERIAL",
             title: "Редактирование материала",
             centered: true,
             size: 456,
             children: (
-                <EditMaterialsForm
+                <UpdateMaterialsForm
                     data={[{ ...row.original }]}
                     hasCategories={!!row.original.categories.length}
                     type={row.original.type.value}

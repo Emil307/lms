@@ -1,18 +1,31 @@
 import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
+import { closeModal, openModal } from "@mantine/modals";
 import { Button, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { AdminArticleMaterial, AdminArticleMaterialsFilters, articleApi } from "@entities/article";
+import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
+import { AddMaterialsToArticleModal } from "@features/articles";
 import { columns, columnOrder } from "./constants";
 import { ListMenu } from "./components";
+import { adaptGetArticleMaterialFilesRequest } from "./utils";
 
 export interface ArticleMaterialListProps extends BoxProps {
     articleId: string;
 }
 
 const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) => {
-    //TODO: Когда будут полностью готовы ресурсы и прочее для материалов
-    const openModalCreateMaterial = () => undefined;
+    const handleCloseAddMaterialsToArticleModal = () => closeModal("ADD_MATERIAL_TO_ARTICLE");
+
+    const openAddMaterialsToArticleModal = () => {
+        openModal({
+            modalId: "ADD_MATERIAL_TO_ARTICLE",
+            title: "Добавить материалы",
+            centered: true,
+            children: <AddMaterialsToArticleModal articleId={articleId} onClose={handleCloseAddMaterialsToArticleModal} />,
+            size: 912,
+            mah: 912,
+        });
+    };
 
     return (
         <Box {...props}>
@@ -20,13 +33,13 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
                 <Title order={2} color="dark">
                     Материалы
                 </Title>
-                <Button variant="text" onClick={openModalCreateMaterial} leftIcon={<PlusCircle />}>
+                <Button variant="text" onClick={openAddMaterialsToArticleModal} leftIcon={<PlusCircle />}>
                     Добавить материалы
                 </Button>
             </Flex>
-            <ManagedDataGrid<AdminArticleMaterial, unknown, AdminArticleMaterialsFilters>
+            <ManagedDataGrid<UploadedFileFromList, unknown, AdminArticleMaterialsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_MATERIALS}
-                queryFunction={(params) => articleApi.getAdminArticleMaterials(params)}
+                queryFunction={(params) => storageApi.getUploadedFiles(adaptGetArticleMaterialFilesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}
                 renderActiveBadge={(cell) => cell.row.original.isActive}

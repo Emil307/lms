@@ -1,13 +1,13 @@
 import { ButtonProps } from "@mantine/core";
 import { Button, FileButton as MFileButton, FileButtonProps as MFileButtonProps } from "@mantine/core";
 import { memo, ReactNode, useCallback } from "react";
-import { UploadFileType, useUploadFile } from "@entities/storage";
+import { FileType, useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
 import useButtonStyles from "./FileButton.styles";
 
 export interface FileButtonProps extends Omit<MFileButtonProps, "children" | "onChange"> {
     label: ReactNode;
-    type?: UploadFileType;
+    type?: FileType;
     buttonProps?: Omit<ButtonProps, "OnChange">;
     onChange: (file: UploadedFile | null) => void;
 }

@@ -1,12 +1,5 @@
 import { z } from "zod";
-import {
-    $LastUpdated,
-    $UploadedFile,
-    $getFiltersRequestType,
-    $getMultiValueObjectType,
-    $getPaginationResponseType,
-    TRequestFilterParams,
-} from "@shared/types";
+import { $LastUpdated, $UploadedFile, $getFiltersRequestType, $getMultiValueObjectType, $getPaginationResponseType } from "@shared/types";
 
 /**
  *
@@ -28,11 +21,9 @@ export type GetAdminArticleResponse = z.infer<typeof $GetAdminArticleResponse>;
 export type AdminArticleCategory = z.infer<typeof $AdminArticleCategory>;
 export type AdminArticleTag = z.infer<typeof $AdminArticleTag>;
 export type AdminArticleCourse = z.infer<typeof $AdminArticleCourse>;
-export type AdminArticleMaterial = z.infer<typeof $AdminArticleMaterial>;
 
 //FILTERS
 export type AdminArticlesFiltersForm = z.infer<typeof $AdminArticlesFiltersForm>;
-export type AdminArticleMaterialsFilters = z.infer<typeof $AdminArticleMaterialsFilters>;
 export type AdminArticleFromArticlePackageFiltersForm = z.infer<typeof $AdminArticleFromArticlePackageFiltersForm>;
 export type AdminArticleFromArticlePackageExtraFilters = z.infer<typeof $AdminArticleFromArticlePackageExtraFilters>;
 
@@ -43,13 +34,18 @@ export type UpdateArticleRequest = z.infer<typeof $UpdateArticleRequest>;
 export type UpdateArticleResponse = z.infer<typeof $UpdateArticleResponse>;
 export type GetAdminArticlesResponse = z.infer<typeof $GetAdminArticlesResponse>;
 export type GetAdminArticlesRequest = z.infer<typeof $GetAdminArticlesRequest>;
-export type GetAdminArticlesResourceResponse = z.infer<typeof $GetAdminArticlesResourceResponse>;
-export type GetAdminArticleMaterialsRequest = TRequestFilterParams<AdminArticleMaterialsFilters>;
-export type GetAdminArticleMaterialsResponse = z.infer<typeof $GetAdminArticleMaterialsResponse>;
+export type GetAdminArticlesResourcesResponse = z.infer<typeof $GetAdminArticlesResourcesResponse>;
 export type DeleteAdminArticleMaterialRequest = z.infer<typeof $DeleteAdminArticleMaterialRequest>;
+export type DeleteAdminArticleMaterialResponse = z.infer<typeof $DeleteAdminArticleMaterialResponse>;
 export type UpdateArticleActivityRequest = z.infer<typeof $UpdateArticleActivityRequest>;
 export type UpdateArticleActivityResponse = z.infer<typeof $UpdateArticleActivityResponse>;
 export type GetAdminArticlesNoIncludedArticlePackageRequest = z.infer<typeof $GetAdminArticlesNoIncludedArticlePackageRequest>;
+export type AttachMaterialFilesToArticleRequest = z.infer<typeof $AttachMaterialFilesToArticleRequest>;
+export type AttachMaterialFilesToArticleResponse = z.infer<typeof $AttachMaterialFilesToArticleResponse>;
+export type AttachCoursesToArticleRequest = z.infer<typeof $AttachCoursesToArticleRequest>;
+export type AttachCoursesToArticleResponse = z.infer<typeof $AttachCoursesToArticleResponse>;
+export type DeleteArticleCourseRequest = z.infer<typeof $DeleteArticleCourseRequest>;
+export type DeleteArticleCourseResponse = z.infer<typeof $DeleteArticleCourseResponse>;
 
 /**
  *
@@ -113,10 +109,6 @@ export const $AdminArticleTag = $AdminArticleCategory;
 
 export const $AdminArticleCourse = $AdminArticleCategory;
 
-export const $AdminArticleMaterialsFilters = z.object({
-    articleId: z.string(),
-});
-
 export const $AdminArticle = z.object({
     id: z.number(),
     name: z.string(),
@@ -126,7 +118,7 @@ export const $AdminArticle = z.object({
     createdAt: z.coerce.date(),
     likesCount: z.number(),
     dislikesCount: z.number(),
-    category: $AdminArticleCategory,
+    category: $AdminArticleCategory.nullable(),
     subcategories: $AdminArticleCategory.array(),
     tags: $AdminArticleTag.array(),
     lastUpdated: $LastUpdated.nullable(),
@@ -146,13 +138,6 @@ export const $AdminArticleFromList = $AdminArticle
 
 export const $GetAdminArticleResponse = $AdminArticle;
 
-export const $AdminArticleMaterial = z.object({
-    id: z.number(),
-    name: z.string(),
-    size: z.number(),
-    isActive: z.boolean(),
-});
-
 export const $CreateArticleRequest = z.object({
     name: z.string({ required_error: "Введите название" }),
     content: z.string({ required_error: "Введите контент" }),
@@ -163,8 +148,8 @@ export const $CreateArticleRequest = z.object({
         .refine((value) => value !== null, {
             message: "Выберите категорию",
         }),
-    subcategories: z.coerce.number().array().min(1, "Выберите подкатегорию"),
-    tags: z.array(z.coerce.number()).optional(),
+    subcategories: z.string().array().min(1, "Выберите подкатегорию"),
+    tags: z.array(z.string()).optional(),
 });
 
 export const $CreateArticleResponse = $AdminArticle;
@@ -177,19 +162,19 @@ export const $UpdateArticleResponse = $AdminArticle;
 
 export const $GetAdminArticlesResponse = $getPaginationResponseType($AdminArticleFromList);
 
-export const $GetAdminArticlesResourceResponse = z.object({
+export const $GetAdminArticlesResourcesResponse = z.object({
     categories: $getPaginationResponseType($AdminArticleCategory),
     subcategories: $getPaginationResponseType($AdminArticleCategory),
     courses: $getPaginationResponseType($AdminArticleCourse),
     tags: $getPaginationResponseType($AdminArticleTag),
 });
 
-export const $GetAdminArticleMaterialsResponse = $getPaginationResponseType($AdminArticleMaterial);
-
 export const $DeleteAdminArticleMaterialRequest = z.object({
     articleId: z.string(),
     materialId: z.number(),
 });
+
+export const $DeleteAdminArticleMaterialResponse = z.null();
 
 export const $UpdateArticleActivityRequest = z.object({
     id: z.string(),
@@ -214,7 +199,7 @@ export const $AdminArticlesRequest = z.object({
         .object({
             isActive: z.literal("1").or(z.literal("0")),
             "category.id": z.string(),
-            "subcategory.id": z.string(),
+            subcategoryIds: z.string(),
             courseIds: z.string(),
             articlePackageIds: z.string(),
         })
@@ -241,7 +226,6 @@ export const $AdminArticleFromArticlePackageFiltersForm = z.object({
 export const $AdminArticleFromArticlePackageExtraFilters = z.object({
     articlePackageIds: z.string(),
 });
-
 export const $AdminArticlesNoIncludedArticlePackageRequest = z.object({
     query: z.string().optional(),
     filter: z
@@ -256,6 +240,27 @@ export const $AdminArticlesNoIncludedArticlePackageRequest = z.object({
 });
 
 export const $GetAdminArticlesNoIncludedArticlePackageRequest = $getFiltersRequestType($AdminArticlesNoIncludedArticlePackageRequest);
+
+export const $AttachMaterialFilesToArticleRequest = z.object({
+    articleId: z.string(),
+    fileIds: z.string().array(),
+});
+
+export const $AttachMaterialFilesToArticleResponse = z.null();
+
+export const $AttachCoursesToArticleRequest = z.object({
+    articleId: z.string(),
+    courseIds: z.string().array(),
+});
+
+export const $AttachCoursesToArticleResponse = z.null();
+
+export const $DeleteArticleCourseRequest = z.object({
+    articleId: z.string(),
+    courseId: z.number(),
+});
+
+export const $DeleteArticleCourseResponse = z.null();
 
 /**
  *

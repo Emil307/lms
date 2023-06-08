@@ -1,12 +1,12 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { MaterialsFilters, UploadedMaterialFile } from "@entities/storage";
+import { UploadedFileFromList, UploadedFilesFiltersForm } from "@entities/storage";
 import { Tooltip } from "@shared/ui";
 
 export const columnOrder = ["id", "name", "categories", "type.name", "createdAt", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<UploadedMaterialFile>["columns"] = [
+export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
@@ -45,4 +45,11 @@ export const radioGroupValues = [
     { id: "3", label: "Не активен", value: "0" },
 ];
 
-export const filterInitialValues: MaterialsFilters = { query: "", createdAt: "", categoryIds: "", isActive: "", type: "" };
+export const filterInitialValues: UploadedFilesFiltersForm = {
+    query: "",
+    createdAtFrom: null,
+    createdAtTo: null,
+    categoryIds: "",
+    isActive: "",
+    type: "",
+};
