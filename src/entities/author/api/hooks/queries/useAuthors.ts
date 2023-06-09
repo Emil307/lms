@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@shared/constant";
-import { authorApi, GetAuthorsRequestParams } from "@entities/author";
+import {authorApi, GetAdminAuthorsRequest} from "@entities/author";
 
-export const useAuthors = (params: GetAuthorsRequestParams) => {
-    return useQuery([QueryKeys.GET_AUTHORS, params], () => authorApi.getAuthors(params), {
+export const useAuthors = (params: GetAdminAuthorsRequest) => {
+    return useQuery([QueryKeys.GET_ADMIN_AUTHORS, params], () => authorApi.getAdminAuthors(params), {
         keepPreviousData: true,
         refetchOnMount: true,
     });
