@@ -1,8 +1,8 @@
 import { Box, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
-import { Switch } from "@shared/ui";
-import { getHumanDate } from "@shared/utils";
-import { useAuthor, useUpdateActivityAuthor } from "@entities/author";
+import dayjs from "dayjs";
+import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { useAdminAuthor, useUpdateAuthorActivity } from "@entities/author";
 import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -11,27 +11,14 @@ interface InfoPanelProps {
 
 const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
-    const { data } = useAuthor(id);
+    const { data } = useAdminAuthor({ id });
 
-    const { mutate: updateActivityStatus } = useUpdateActivityAuthor(id);
+    const { mutate: updateActivityStatus } = useUpdateAuthorActivity({ id });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const createdAtDate = getHumanDate(new Date(data?.createdAt ?? ""), {
-        day: "2-digit",
-        month: "long",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-
-    const updatedAtDate = getHumanDate(new Date(data?.updatedAt ?? ""), {
-        day: "2-digit",
-        month: "long",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
         <Flex gap={32} align="center">
@@ -49,12 +36,9 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 />
             </Flex>
             <Box className={classes.infoItem}>
-                Создание: <span>{createdAtDate}</span>
+                Создание: <span>{dayjs(data?.createdAt).format("DD.MM.YYYY hh:mm")}</span>
             </Box>
-            <Box className={classes.infoItem}>
-                {/* TODO - информации о последних изменениях на бэке пока нет (кто именно изменил автора) */}
-                Изменение: <span>{updatedAtDate}</span>
-            </Box>
+            <LastUpdatedInfo data={data?.lastUpdated} />
         </Flex>
     );
 };

@@ -108,8 +108,8 @@ export enum QueryKeys {
     GET_ADVANTAGE = "GET_ADVANTAGE",
 
     // AUTHORS
-    GET_AUTHORS = "GET_AUTHORS",
-    GET_AUTHOR = "GET_AUTHOR",
+    GET_ADMIN_AUTHORS = "GET_ADMIN_AUTHORS",
+    GET_ADMIN_AUTHOR = "GET_ADMIN_AUTHOR",
 }
 
 export enum MutationKeys {

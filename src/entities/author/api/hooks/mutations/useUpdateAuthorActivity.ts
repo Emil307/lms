@@ -1,39 +1,42 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { Author, GetAuthorsResponse, authorApi } from "@entities/author";
+import {
+    GetAdminAuthorResponse,
+    GetAdminAuthorsResponse,
+    UpdateAuthorActivityRequest,
+    UpdateAuthorActivityResponse,
+    authorApi,
+} from "@entities/author";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUpdateActivityAuthor = (id: string) => {
-    //TODO: Поправить как обновят беки что при обвлении всегда возвращается модель
-    return useMutation<{ status: boolean }, AxiosError<FormErrorResponse>, boolean, unknown>(
+export const useUpdateAuthorActivity = ({ id }: Omit<UpdateAuthorActivityRequest, "isActive">) => {
+    return useMutation<UpdateAuthorActivityResponse, AxiosError<FormErrorResponse>, Omit<UpdateAuthorActivityRequest, "id">, unknown>(
         [MutationKeys.UPDATE_AUTHOR_ACTIVITY],
-        (status: boolean) => authorApi.updateAuthorActivity({ id, status }),
+        (data) => authorApi.updateAuthorActivity({ ...data, id }),
         {
-            onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_AUTHOR, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_AUTHORS] });
+            onMutate: async ({ isActive }) => {
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHOR, id] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHORS] });
 
-                const previousAuthorData = queryClient.getQueryData<Author>([QueryKeys.GET_AUTHOR, id]);
-                const previousAuthorsData = queryClient.getQueriesData<GetAuthorsResponse>([QueryKeys.GET_AUTHORS]);
+                const previousAuthorData = queryClient.getQueryData<GetAdminAuthorResponse>([QueryKeys.GET_ADMIN_AUTHOR, id]);
+                const previousAuthorsData = queryClient.getQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS]);
 
-                queryClient.setQueryData<Author>(
-                    [QueryKeys.GET_AUTHOR, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                queryClient.setQueryData<GetAdminAuthorResponse>(
+                    [QueryKeys.GET_ADMIN_AUTHOR, id],
+                    (previousData) => previousData && { ...previousData, isActive }
                 );
 
-                queryClient.setQueriesData<GetAuthorsResponse>([QueryKeys.GET_AUTHORS], (previousData) => {
+                queryClient.setQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS], (previousData) => {
                     if (!previousData) {
                         return undefined;
                     }
 
                     return {
                         ...previousData,
-                        data: previousData.data.map((author) =>
-                            String(author.id) === id ? { ...author, isActive: updatedStatus } : author
-                        ),
+                        data: previousData.data.map((author) => (String(author.id) === id ? { ...author, isActive } : author)),
                     };
                 });
 
@@ -41,10 +44,10 @@ export const useUpdateActivityAuthor = (id: string) => {
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && context !== null && "previousAuthorData" in context) {
-                    queryClient.setQueryData<Author>([QueryKeys.GET_AUTHOR, id], context.previousAuthorData as Author);
+                    queryClient.setQueryData([QueryKeys.GET_ADMIN_AUTHOR, id], context.previousAuthorData);
                 }
                 if (typeof context === "object" && context !== null && "previousAuthorsData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_AUTHORS], context.previousAuthorsData);
+                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_AUTHORS], context.previousAuthorsData);
                 }
 
                 createNotification({
@@ -53,13 +56,12 @@ export const useUpdateActivityAuthor = (id: string) => {
                 });
             },
             onSettled() {
-                queryClient.invalidateQueries([QueryKeys.GET_AUTHOR, id]);
-                queryClient.invalidateQueries([QueryKeys.GET_AUTHORS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_AUTHORS]);
             },
             onSuccess: () => {
-                const authorData = queryClient.getQueryData<Author>([QueryKeys.GET_AUTHOR, id]);
+                const authorData = queryClient.getQueryData<GetAdminAuthorResponse>([QueryKeys.GET_ADMIN_AUTHOR, id]);
                 const authorFromList = queryClient
-                    .getQueriesData<GetAuthorsResponse>([QueryKeys.GET_AUTHORS])?.[0]?.[1]
+                    .getQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS])?.[0]?.[1]
                     ?.data.find((author) => author.id.toString() === id);
 
                 const statusMessage = authorData?.isActive || authorFromList?.isActive ? "активирован" : "деактивирован";

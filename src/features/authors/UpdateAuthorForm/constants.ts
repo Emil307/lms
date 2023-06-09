@@ -1,6 +1,6 @@
-import { CreateAuthorFormValidation } from "./types";
+import { UpdateAuthorFormValidation } from "./types";
 
-export const initialValues: CreateAuthorFormValidation = {
+export const initialValues: UpdateAuthorFormValidation = {
     firstName: "",
     lastName: "",
     patronymic: "",

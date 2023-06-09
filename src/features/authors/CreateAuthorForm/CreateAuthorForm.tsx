@@ -1,16 +1,17 @@
 import { Box, Text, Flex, Avatar } from "@mantine/core";
-import { FormikConfig } from "formik";
 import React from "react";
-import { useMantineTheme } from "@mantine/core";
 import { Edit3, User } from "react-feather";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, Form, FSwitch, FTextarea } from "@shared/ui";
+import { Button, FFileButton, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
 import AvatarIcon from "@public/icons/avatar.svg";
-import { Fieldset } from "@components/Fieldset";
-import { $CreateAuthorRequest, CreateAuthorRequest, useCreateAuthor } from "@entities/author";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
+import { Fieldset } from "@components/Fieldset";
+import { CreateAuthorResponse, authorApi } from "@entities/author";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
+import { $CreateAuthorFormValidation, CreateAuthorFormValidation } from "./types";
+import { adaptCreateAuthorRequest } from "./utils";
 
 export interface CreateAuthorFormProps {
     onClose: () => void;
@@ -18,43 +19,42 @@ export interface CreateAuthorFormProps {
 
 const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
     const router = useRouter();
-    const theme = useMantineTheme();
 
-    const createAuthor = useCreateAuthor();
-
-    const config: FormikConfig<CreateAuthorRequest> = {
-        initialValues,
-        enableReinitialize: true,
-        validationSchema: $CreateAuthorRequest,
-        onSubmit: (values, { setFieldError }) => {
-            createAuthor.mutate(
-                { ...values, avatarId: values.avatar?.id },
-                {
-                    onSuccess: (response) => {
-                        router.push({ pathname: "/admin/settings/authors/[id]", query: { id: String(response.id) } });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
-                        }
-                    },
-                }
-            );
-        },
+    const createAuthor = (values: CreateAuthorFormValidation) => {
+        return authorApi.createAuthor(adaptCreateAuthorRequest(values));
     };
+
+    const onSuccess = (response: CreateAuthorResponse) => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Создание автора",
+            message: "Автор успешно создан",
+        });
+        router.push({ pathname: "/admin/settings/authors/[id]", query: { id: String(response.id) } });
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка создания автора",
+        });
+    };
+
     return (
-        <Form config={config}>
-            {({ values, dirty }) => (
+        <ManagedForm<CreateAuthorFormValidation, CreateAuthorResponse>
+            initialValues={initialValues}
+            validationSchema={$CreateAuthorFormValidation}
+            mutationKey={[MutationKeys.CREATE_AUTHOR]}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_AUTHORS] }]}
+            mutationFunction={createAuthor}
+            onSuccess={onSuccess}
+            onError={onError}
+            hasConfirmModal
+            onCancel={onClose}>
+            {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={8} align="center">
-                        <Text
-                            sx={{
-                                color: theme.colors.gray45[0],
-                            }}>
-                            Статус:
-                        </Text>
+                        <Text color="gray45">Статус:</Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />}>
@@ -69,7 +69,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                                     styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
                                     <AvatarIcon />
                                 </Avatar>
-                                <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                             </Flex>
                             <Flex mt={24} gap={8}>
                                 <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
@@ -80,7 +80,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                     </Fieldset>
                     <Fieldset label="Об авторе" icon={<UserDescriptionIcon />}>
                         <FTextarea
-                            name="about"
+                            name="description"
                             description="до 230 символов"
                             w="100%"
                             maw={772}
@@ -92,7 +92,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                         />
                     </Fieldset>
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
@@ -101,7 +101,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                     </Flex>
                 </Flex>
             )}
-        </Form>
+        </ManagedForm>
     );
 };
 

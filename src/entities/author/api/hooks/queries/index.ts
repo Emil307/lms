@@ -1,2 +1,2 @@
 export * from "./useAuthors";
-export * from "./useAuthor";
+export * from "./useAdminAuthor";
