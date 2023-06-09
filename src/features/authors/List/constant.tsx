@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminAuthorFromList, AdminAuthorsFiltersForm } from "@entities/author";
 
-export const columnOrder = ["id", "lastName", "createdAt", "mrt-row-actions"];
+export const columnOrder = ["id", "fullName", "createdAt", "mrt-row-actions"];
 
 export const columns: MRT_ColumnDef<AdminAuthorFromList>["columns"] = [
     {
@@ -12,6 +12,7 @@ export const columns: MRT_ColumnDef<AdminAuthorFromList>["columns"] = [
     },
     {
         header: "ФИО",
+        id: "fullName",
         accessorKey: "lastName",
         accessorFn: (row) => {
             const fullName = [row.lastName, row.firstName, row.patronymic].join(" ");

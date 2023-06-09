@@ -54,7 +54,7 @@ export const $AdminAuthorsRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
-            isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+            isActive: z.boolean(),
         })
         .partial(),
 });
