@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { AuthorEditPage } from "@pages/admin/settings";
+import { UpdateAuthorPage } from "@pages/admin/settings";
 
-const AuthorEdit: NextPageWithLayout = () => {
+const UpdateAuthor: NextPageWithLayout = () => {
     return (
         <AdminPage title="Редактирование автора">
-            <AuthorEditPage />
+            <UpdateAuthorPage />
         </AdminPage>
     );
 };
 
-AuthorEdit.getLayout = function (page: ReactElement) {
+UpdateAuthor.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default AuthorEdit;
+export default UpdateAuthor;

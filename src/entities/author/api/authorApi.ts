@@ -1,50 +1,54 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $Author,
-    $GetAuthorsResponse,
-    Author,
+    $CreateAuthorResponse,
+    $DeleteAuthorResponse,
+    $GetAdminAuthorResponse,
+    $GetAdminAuthorsResponse,
+    $UpdateAuthorActivityResponse,
+    $UpdateAuthorResponse,
     CreateAuthorRequest,
-    GetAuthorsRequestParams,
-    GetAuthorsResponse,
+    CreateAuthorResponse,
+    DeleteAuthorRequest,
+    DeleteAuthorResponse,
+    GetAdminAuthorRequest,
+    GetAdminAuthorResponse,
+    GetAdminAuthorsRequest,
+    GetAdminAuthorsResponse,
     UpdateAuthorActivityRequest,
+    UpdateAuthorActivityResponse,
     UpdateAuthorRequest,
+    UpdateAuthorResponse,
 } from "./types";
 
 class AuthorApi extends BaseApi {
-    async getAuthors({ isActive, ...params }: GetAuthorsRequestParams): Promise<GetAuthorsResponse> {
-        const response = await this.instance.post("authors/list", {
-            ...params,
-            filter: {
-                isActive,
-            },
-        });
-
-        return $GetAuthorsResponse.parse(response);
+    async getAdminAuthors(params: GetAdminAuthorsRequest): Promise<GetAdminAuthorsResponse> {
+        const response = await this.instance.post("admin/authors/list", params);
+        return $GetAdminAuthorsResponse.parse(response);
     }
 
-    async getAuthor(id: string): Promise<Author> {
-        const response = await this.instance.get(`authors/${id}`);
-        return $Author.parse(response);
+    async getAdminAuthor({ id }: GetAdminAuthorRequest): Promise<GetAdminAuthorResponse> {
+        const response = await this.instance.get(`admin/authors/${id}`);
+        return $GetAdminAuthorResponse.parse(response);
     }
 
-    async createAuthor(data: CreateAuthorRequest): Promise<Author> {
-        const response = await this.instance.post("authors", data);
-        return $Author.parse(response);
+    async createAuthor(data: CreateAuthorRequest): Promise<CreateAuthorResponse> {
+        const response = await this.instance.post("admin/authors", data);
+        return $CreateAuthorResponse.parse(response);
     }
-    async updateAuthor(id: string, data: UpdateAuthorRequest): Promise<Author> {
-        const response = await this.instance.put(`authors/${id}`, data);
-        return $Author.parse(response);
-    }
-
-    async deleteAuthor(id: string): Promise<void> {
-        await this.instance.delete(`authors/${id}`);
+    async updateAuthor({ id, ...data }: UpdateAuthorRequest): Promise<UpdateAuthorResponse> {
+        const response = await this.instance.put(`admin/authors/${id}`, data);
+        return $UpdateAuthorResponse.parse(response);
     }
 
-    //TODO: Поправить как обновят беки что при обвлении всегда возвращается модель
-    async updateAuthorActivity({ id, ...data }: UpdateAuthorActivityRequest): Promise<{ status: boolean }> {
-        await this.instance.put(`authors/${id}/activity-status`, data);
-        return data;
+    async deleteAuthor({ id }: DeleteAuthorRequest): Promise<DeleteAuthorResponse> {
+        const response = await this.instance.delete(`admin/authors/${id}`);
+        return $DeleteAuthorResponse.parse(response);
+    }
+
+    async updateAuthorActivity({ id, ...data }: UpdateAuthorActivityRequest): Promise<UpdateAuthorActivityResponse> {
+        const response = await this.instance.put(`admin/authors/${id}/activity-status`, data);
+        return $UpdateAuthorActivityResponse.parse(response);
     }
 }
 

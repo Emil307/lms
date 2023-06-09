@@ -2,20 +2,17 @@ import { Box, Loader, Text, Title } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
-import { useAuthor } from "@entities/author";
+import { useAdminAuthor } from "@entities/author";
 import { AuthorSettings, InfoPanel } from "@widgets/admin/authors";
+import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 
-interface TRouterQueries {
-    id: string;
-}
-
-const AuthorDetailPage = () => {
+const AuthorDetailsPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
-    const { data: authorData, isLoading, isError } = useAuthor(id);
+    const { data: authorData, isLoading, isError } = useAdminAuthor({ id });
 
-    const authorName = `${authorData?.lastName} ${authorData?.firstName}`;
+    const authorName = [authorData?.lastName, authorData?.firstName, authorData?.patronymic].join(" ");
 
     if (!router.isReady || isLoading) {
         return <Loader />;
@@ -37,4 +34,4 @@ const AuthorDetailPage = () => {
     );
 };
 
-export default AuthorDetailPage;
+export default AuthorDetailsPage;

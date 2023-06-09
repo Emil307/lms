@@ -65,9 +65,10 @@ export const useInputStyles = createStyles(
         },
         input: {
             height: size === "sm" ? 48 : 56,
-            paddingTop: size === "sm" ? "24px" : "28px",
-            paddingLeft: "18px",
+            paddingTop: size === "sm" ? 24 : 28,
+            paddingLeft: 18,
             paddingRight: rightSection ? 50 : 18,
+            paddingBottom: 8,
             border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : `1px solid ${theme.colors.gray20[0]}`,
             borderRadius: "8px",
             fontSize: "14px",

@@ -14,7 +14,7 @@ export interface DeleteAuthorModalProps {
 const DeleteAuthorModal = ({ id, fullName, onClose }: DeleteAuthorModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteAuthor = useDeleteAuthor(id);
+    const deleteAuthor = useDeleteAuthor({ id });
 
     const handleSubmit = () => {
         deleteAuthor.mutate(null, {

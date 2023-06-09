@@ -1,4 +1,4 @@
-export * from "./AuthorCreatePage";
-export * from "./AuthorDetailPage";
-export * from "./AuthorEditPage";
+export * from "./CreateAuthorPage";
+export * from "./AuthorDetailsPage";
+export * from "./UpdateAuthorPage";
 export * from "./AuthorsPage";

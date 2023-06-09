@@ -1,47 +1,100 @@
 import { z } from "zod";
-import { $UploadedFile, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $LastUpdated, $UploadedFile, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 
-export type Author = z.infer<typeof $Author>;
+export type AdminAuthor = z.infer<typeof $AdminAuthor>;
+export type AdminAuthorFromList = z.infer<typeof $AdminAuthorFromList>;
 
-export type AuthorsFilters = z.infer<typeof $AuthorsFilters>;
+//FILTERS
+export type AdminAuthorsFiltersForm = z.infer<typeof $AdminAuthorsFiltersForm>;
 
-export type GetAuthorsRequestParams = TRequestFilterParams<AuthorsFilters>;
-
-export type GetAuthorsResponse = z.infer<typeof $GetAuthorsResponse>;
+//REQ/RESP
+export type GetAdminAuthorsRequest = z.infer<typeof $GetAdminAuthorsRequest>;
+export type GetAdminAuthorsResponse = z.infer<typeof $GetAdminAuthorsResponse>;
+export type GetAdminAuthorRequest = z.infer<typeof $GetAdminAuthorRequest>;
+export type GetAdminAuthorResponse = z.infer<typeof $GetAdminAuthorResponse>;
 export type CreateAuthorRequest = z.infer<typeof $CreateAuthorRequest>;
+export type CreateAuthorResponse = z.infer<typeof $CreateAuthorResponse>;
 export type UpdateAuthorRequest = z.infer<typeof $UpdateAuthorRequest>;
+export type UpdateAuthorResponse = z.infer<typeof $UpdateAuthorResponse>;
 export type UpdateAuthorActivityRequest = z.infer<typeof $UpdateAuthorActivityRequest>;
+export type UpdateAuthorActivityResponse = z.infer<typeof $UpdateAuthorActivityResponse>;
+export type DeleteAuthorRequest = z.infer<typeof $DeleteAuthorRequest>;
+export type DeleteAuthorResponse = z.infer<typeof $DeleteAuthorResponse>;
 
-export const $Author = z.object({
+export const $AdminAuthor = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
     patronymic: z.string().nullish(),
-    about: z.string().nullish(),
+    description: z.string().nullish(),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
-    avatar: z.string().optional(),
-});
-
-export const $GetAuthorsResponse = $getPaginationResponseType($Author);
-
-export const $CreateAuthorRequest = $Author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
-    avatarId: z.number().nullish(),
     avatar: $UploadedFile.nullable(),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
-export const $UpdateAuthorRequest = $Author.omit({ id: true, createdAt: true, updatedAt: true, avatar: true }).extend({
-    avatarId: z.number().nullish(),
-    avatar: $UploadedFile.nullable(),
+export const $AdminAuthorFromList = $AdminAuthor.pick({
+    id: true,
+    firstName: true,
+    lastName: true,
+    patronymic: true,
+    isActive: true,
+    createdAt: true,
 });
+
+export const $GetAdminAuthorsResponse = $getPaginationResponseType($AdminAuthorFromList);
+
+export const $AdminAuthorsFiltersForm = z.object({
+    query: z.string(),
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+});
+
+export const $AdminAuthorsRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+        })
+        .partial(),
+});
+
+export const $GetAdminAuthorsRequest = $getFiltersRequestType($AdminAuthorsRequest);
+
+export const $GetAdminAuthorRequest = z.object({
+    id: z.string(),
+});
+
+export const $GetAdminAuthorResponse = $AdminAuthor;
+
+export const $CreateAuthorRequest = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string().nullish(),
+    description: z.string().nullish(),
+    isActive: z.boolean(),
+    avatarId: z.number().nullable(),
+});
+
+export const $CreateAuthorResponse = $AdminAuthor;
+
+export const $UpdateAuthorRequest = $CreateAuthorRequest.extend({
+    id: z.string(),
+});
+
+export const $UpdateAuthorResponse = $AdminAuthor;
 
 export const $UpdateAuthorActivityRequest = z.object({
     id: z.string(),
-    status: z.boolean(),
+    isActive: z.boolean(),
 });
 
-export const $AuthorsFilters = z.object({
-    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
-    query: z.string(),
+export const $UpdateAuthorActivityResponse = z.object({
+    isActive: z.boolean(),
 });
+
+export const $DeleteAuthorRequest = z.object({
+    id: z.string(),
+});
+
+export const $DeleteAuthorResponse = z.null();

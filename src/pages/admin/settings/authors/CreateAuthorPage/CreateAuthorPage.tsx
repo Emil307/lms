@@ -5,7 +5,7 @@ import { BreadCrumbs } from "@shared/ui";
 import { CreateAuthorForm } from "@features/authors";
 import { breadCrumbsItems } from "./constants";
 
-const AuthorCreatePage = () => {
+const CreateAuthorPage = () => {
     const router = useRouter();
 
     const onCloseCreateForm = () => router.push({ pathname: "/admin/settings/authors" });
@@ -21,4 +21,4 @@ const AuthorCreatePage = () => {
     );
 };
 
-export default AuthorCreatePage;
+export default CreateAuthorPage;
