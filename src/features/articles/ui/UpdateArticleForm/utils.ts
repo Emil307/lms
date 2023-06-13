@@ -4,7 +4,7 @@ import { UpdateArticleFormValidation } from "./types";
 export const adaptUpdateArticleFormValues = (data?: GetAdminArticleResponse): Partial<UpdateArticleFormValidation> => {
     return {
         ...data,
-        categoryId: data?.category?.id.toString(),
+        categoryId: data?.category?.id?.toString() || null,
         subcategories: data?.subcategories.map(({ id }) => id.toString()),
         tags: data?.tags.map(({ id }) => id.toString()),
     };

@@ -11,6 +11,7 @@ export default createStyles((theme) => ({
     },
     section: {
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         margin: "0px !important",
         gap: 16,

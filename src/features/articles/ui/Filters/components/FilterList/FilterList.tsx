@@ -61,7 +61,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         }
 
         return foundItems?.map((item) => {
-            const isChecked = !![...form.values[field]].find((value) => value === item.id.toString());
+            const isChecked = !![...form.values[field]].find((value) => value === item.id?.toString());
 
             const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
                 if (newValue.target.checked) {
@@ -73,7 +73,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
 
                 form.setFieldValue(
                     field,
-                    [...form.values[field]].filter((value) => value === item.id.toString())
+                    [...form.values[field]].filter((value) => value === item.id?.toString())
                 );
             };
             return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;

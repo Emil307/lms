@@ -19,6 +19,7 @@ export type AdminArticlePackageCategory = z.infer<typeof $AdminArticlePackageCat
 export type AdminArticlePackageTag = z.infer<typeof $AdminArticlePackageTag>;
 export type AdminArticlePackage = z.infer<typeof $AdminArticlePackage>;
 export type AdminArticlePackageFromList = z.infer<typeof $AdminArticlePackageFromList>;
+export type AdminArticleFromArticlePackage = z.infer<typeof $AdminArticleFromArticlePackage>;
 
 //FILTERS
 export type AdminArticlePackagesFiltersForm = z.infer<typeof $AdminArticlePackagesFiltersForm>;
@@ -216,3 +217,38 @@ export const $ArticlePackageFromList = z.object({
 });
 
 export const $GetArticlePackagesResponse = $getPaginationResponseType($ArticlePackageFromList);
+
+export const $ArticleFromArticlePackage = z.object({
+    id: z.number(),
+    name: z.string(),
+    content: z.string(),
+    isActive: z.boolean(),
+    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date(),
+    category: z.object({ id: z.number(), name: z.string() }),
+});
+
+export const $AdminArticleFromArticlePackage = $ArticleFromArticlePackage.extend({
+    courses: z.object({ id: z.number(), name: z.string() }).array(),
+    category: z.object({ id: z.number(), name: z.string() }),
+    subcategory: z.object({ id: z.number(), name: z.string() }),
+});
+
+export const $GetArticlesFromArticlePackage = $getPaginationResponseType($ArticleFromArticlePackage);
+
+export const $GetAdminArticlesFromArticlePackageResponse = $getPaginationResponseType($AdminArticleFromArticlePackage);
+
+export const $AdminArticlesFromArticlePackageFilters = z.object({
+    articlePackageId: z.string(),
+});
+
+export const $DeleteAdminArticleFromPackageRequest = z.object({
+    articlePackageId: z.string(),
+    articleId: z.number(),
+});
+
+export const $GetArticlesFromArticlePackageRequest = z.object({
+    articlePackageId: z.number(),
+    categoryId: z.number(),
+    page: z.number(),
+});
