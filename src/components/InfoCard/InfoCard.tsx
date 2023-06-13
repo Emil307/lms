@@ -1,11 +1,11 @@
 import { Avatar, AvatarProps, Box, Group } from "@mantine/core";
 import { memo, ReactNode, useCallback } from "react";
 import { get } from "lodash";
+import Image from "next/image";
 import { DisplayField } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import useStyles from "./InfoCard.styles";
 import { TInfoCardDisplayFields, TInfoCardImageProps } from "./types";
-import Image from "next/image";
 
 export type TInfoCardProps<T> = {
     fields: TInfoCardDisplayFields<T>;

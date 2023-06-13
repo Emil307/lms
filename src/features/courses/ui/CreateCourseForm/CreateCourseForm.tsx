@@ -1,5 +1,7 @@
 import { Box, Flex, Grid, Text, Title } from "@mantine/core";
 import React, { useMemo, useState } from "react";
+import { FormikProps } from "formik";
+import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
 import {
     Button,
     FCheckbox,
@@ -17,7 +19,6 @@ import {
     Radio,
 } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { initialValues, radioGroupValues } from "./constants";
 import {
     $CreateCourseFormValues,
     courseApi,
@@ -26,13 +27,12 @@ import {
     useAdminCourseResources,
 } from "@entities/course";
 import { Fieldset } from "@components/Fieldset";
-import { FormikProps } from "formik";
 import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
-import { adaptCreateCourseRequest } from "./utils";
-import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
+import { adaptCreateCourseRequest } from "./utils";
+import { initialValues, radioGroupValues } from "./constants";
 
 export interface CreateCourseFormProps {
     onSuccess: (newCourseId: number) => void;

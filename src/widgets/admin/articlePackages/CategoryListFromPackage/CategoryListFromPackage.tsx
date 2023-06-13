@@ -19,9 +19,10 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
     const { classes } = useStyles({ isOpen });
 
     const spoilerControlRef = useEventListener("click", () => {
-        setIsOpen((prev) => !prev);
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const handleCloseModal = () => closeModal("CATEGORY_ARTICLE_LIST");
 
@@ -36,7 +37,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
         });
 
     const showLabel = (
-        <Flex align="center" gap={8}>
+        <Flex align="center" gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Показать еще</Text>
             <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
                 <ChevronDown />
@@ -45,7 +46,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
     );
 
     const hideLabel = (
-        <Flex align="center" gap={8}>
+        <Flex align="center" gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Свернуть</Text>
             <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
                 <ChevronUp />
