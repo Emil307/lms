@@ -7,9 +7,7 @@ export const adaptGetAdminAuthorsRequest = (params: TFunctionParams<AdminAuthors
     return {
         ...rest,
         filter: {
-            ...(isActive?.length && {
-                isActive: !!isActive,
-            }),
+            isActive
         },
     };
 };
