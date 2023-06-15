@@ -69,42 +69,52 @@ const SignUpForm = (_props: SignUpFormProps) => {
                     </Link>
                 </Text>
                 <Form config={config} disableOverlay>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 8,
-                            marginBottom: 16,
-                        }}>
-                        <Flex gap={8}>
-                            <FInput name="firstName" label="Ваше имя" icon={<User color={theme.colors.gray45[0]} />} />
-                            <FInput name="lastName" label="Ваша фамилия" icon={<User color={theme.colors.gray45[0]} />} />
-                        </Flex>
+                    {({ values }) => (
+                        <>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 8,
+                                    marginBottom: 16,
+                                }}>
+                                <Flex gap={8}>
+                                    <FInput name="firstName" label="Ваше имя" icon={<User color={theme.colors.gray45[0]} />} />
+                                    <FInput name="lastName" label="Ваша фамилия" icon={<User color={theme.colors.gray45[0]} />} />
+                                </Flex>
 
-                        <FInput name="email" label="Введите email" icon={<AtSign color={theme.colors.gray45[0]} />} />
-                        <FInput
-                            name="passwords.password"
-                            label="Придумайте пароль"
-                            type="password"
-                            icon={<Shield color={theme.colors.gray45[0]} />}
-                            description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
-                        />
-                        <FInput
-                            name="passwords.passwordConfirmation"
-                            label="Повторите пароль"
-                            type="password"
-                            icon={<Shield color={theme.colors.gray45[0]} />}
-                            success="Пароли совпадают"
-                        />
-                    </Box>
-                    <FCheckbox
-                        name="agreementWithConditionsAndTerms"
-                        label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
-                        wrapperProps={{ sx: { marginBottom: 24 } }}
-                    />
-                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading || isSuccess}>
-                        Начать обучение
-                    </Button>
+                                <FInput name="email" label="Введите email" icon={<AtSign color={theme.colors.gray45[0]} />} />
+                                <FInput
+                                    name="passwords.password"
+                                    label="Придумайте пароль"
+                                    type="password"
+                                    icon={<Shield color={theme.colors.gray45[0]} />}
+                                    description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
+                                />
+                                <FInput
+                                    name="passwords.passwordConfirmation"
+                                    label="Повторите пароль"
+                                    type="password"
+                                    icon={<Shield color={theme.colors.gray45[0]} />}
+                                    success="Пароли совпадают"
+                                />
+                            </Box>
+                            <FCheckbox
+                                name="agreementWithConditionsAndTerms"
+                                label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
+                                wrapperProps={{ sx: { marginBottom: 24 } }}
+                            />
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                size="large"
+                                w="100%"
+                                loading={isLoading || isSuccess}
+                                disabled={!values.agreementWithConditionsAndTerms}>
+                                Начать обучение
+                            </Button>
+                        </>
+                    )}
                 </Form>
             </Box>
         </Box>
