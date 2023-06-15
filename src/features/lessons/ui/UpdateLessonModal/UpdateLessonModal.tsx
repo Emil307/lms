@@ -4,13 +4,7 @@ import React from "react";
 import { Button, FControlPanel, FInput, FTextarea, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import {
-    $UpdateLessonFormValues,
-    AdminLessonFromList,
-    lessonApi,
-    UpdateLessonFormValues,
-    UpdateLessonResponse,
-} from "@entities/lesson";
+import { $UpdateLessonFormValues, AdminLessonFromList, lessonApi, UpdateLessonFormValues, UpdateLessonResponse } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
 import { getInitialValues } from "./utils";
 import useStyles from "./UpdateLessonModal.styles";
