@@ -33,8 +33,12 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
         marginLeft: "8px !important",
     },
     tableHeadCell: {
-        padding: "19px 16px !important",
+        padding: "16px !important",
         borderBottom: "none !important",
+        ".mantine-TableHeadCell-Content": {
+            height: 24,
+            alignItems: "center",
+        },
         ".mantine-TableHeadCell-Content-Wrapper": {
             fontSize: "14px",
             fontWeight: 500,

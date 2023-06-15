@@ -2,7 +2,7 @@ import { MantineReactTable, MantineReactTableProps, MRT_Cell, MRT_Column, MRT_Ro
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
 import React, { ReactNode, useMemo } from "react";
 import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
-import { RowSelectionState, SortingState } from "@tanstack/table-core";
+import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
@@ -31,6 +31,7 @@ function BaseTable<T extends Record<string, any>>({
     perPageOptions = ["5", "10", "15"],
     isLoading,
     sorting,
+    onSortingChange,
     rowSelection,
     renderActiveBadge,
     ...rest
@@ -50,6 +51,12 @@ function BaseTable<T extends Record<string, any>>({
             return;
         }
         onClickCell && onClickCell(cell);
+    };
+
+    const handleSortingChange = (updater: Updater<ColumnSort[]>) => {
+        if (paginationData?.total && paginationData.total > 1) {
+            onSortingChange && onSortingChange(updater);
+        }
     };
 
     const wrappedColumn = useMemo(() => {
@@ -88,6 +95,7 @@ function BaseTable<T extends Record<string, any>>({
                 },
                 rowSelection,
             }}
+            onSortingChange={handleSortingChange}
             enableSelectAll
             enableRowSelection
             enableDensityToggle={false}

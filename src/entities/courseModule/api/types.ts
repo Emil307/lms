@@ -5,6 +5,8 @@ export type CourseModule = z.infer<typeof $CourseModule>;
 
 export type GetCourseModulesRequest = z.infer<typeof $GetCourseModulesRequest>;
 export type GetCourseModulesResponse = z.infer<typeof $GetCourseModulesResponse>;
+export type GetCourseModuleRequest = z.infer<typeof $GetCourseModuleRequest>;
+export type GetCourseModuleResponse = z.infer<typeof $GetCourseModuleResponse>;
 export type CreateCourseModuleRequest = z.infer<typeof $CreateCourseModuleRequest>;
 export type CreateCourseModuleResponse = z.infer<typeof $CreateCourseModuleResponse>;
 export type CreateCourseModuleFormValues = z.infer<typeof $CreateCourseModuleFormValues>;
@@ -13,7 +15,9 @@ export type UpdateCourseModuleResponse = z.infer<typeof $UpdateCourseModuleRespo
 export type UpdateCourseModuleFormValues = z.infer<typeof $UpdateCourseModuleFormValues>;
 export type UpdateCourseModuleActivityRequest = z.infer<typeof $UpdateCourseModuleActivityRequest>;
 export type UpdateCourseModuleActivityResponse = z.infer<typeof $UpdateCourseModuleActivityResponse>;
-export type DeleteCourseModuleRequest = z.infer<typeof $DeleteCourseModuleRequest>;
+export type DeleteCourseModuleRequest = z.infer<typeof DeleteCourseModuleRequest>;
+export type AttachLessonFromCourseModuleRequest = z.infer<typeof $AttachLessonToCourseModuleRequest>;
+export type DetachLessonFromCourseModuleRequest = z.infer<typeof $DetachLessonFromCourseModuleRequest>;
 
 export const $CourseModule = z.object({
     id: z.number(),
@@ -30,6 +34,13 @@ export const $GetCourseModulesRequest = $getFiltersRequestType(
 );
 
 export const $GetCourseModulesResponse = $getPaginationResponseType($CourseModule);
+
+export const $GetCourseModuleRequest = z.object({
+    courseId: z.string(),
+    moduleId: z.string(),
+});
+
+export const $GetCourseModuleResponse = $CourseModule;
 
 export const $CreateCourseModuleFormValues = z.object({
     name: z.string({ required_error: "Введите название" }),
@@ -64,7 +75,19 @@ export const $UpdateCourseModuleActivityResponse = $UpdateCourseModuleActivityRe
     isActive: true,
 });
 
-export const $DeleteCourseModuleRequest = z.object({
+export const DeleteCourseModuleRequest = z.object({
     courseId: z.string(),
     moduleId: z.string(),
+});
+
+export const $AttachLessonToCourseModuleRequest = z.object({
+    courseId: z.string(),
+    moduleId: z.string(),
+    ids: z.array(z.string()),
+});
+
+export const $DetachLessonFromCourseModuleRequest = z.object({
+    courseId: z.string(),
+    moduleId: z.string(),
+    ids: z.array(z.string()),
 });

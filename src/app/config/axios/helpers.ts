@@ -46,7 +46,8 @@ export const whenCoursesRoute: TAxiosRunWhen = (config) => {
         !!config.url?.startsWith("courses") ||
         !!config.url?.startsWith("admin/courses") ||
         !!config.url?.includes("course-collections") ||
-        !!config.url?.includes("course-packages")
+        !!config.url?.includes("course-packages") ||
+        !!config.url?.startsWith("admin/lessons")
     );
 };
 

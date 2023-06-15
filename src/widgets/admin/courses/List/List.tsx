@@ -7,7 +7,7 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
-import { radioGroupValues, filterInitialValues, columns } from "./constant";
+import { radioGroupValues, filterInitialValues, columns } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import { ListMenu } from "./components";
 

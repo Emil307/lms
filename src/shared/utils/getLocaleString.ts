@@ -3,10 +3,7 @@ type TParams = {
     type?: "percentage" | "currency";
 };
 
-export const getLocaleString = ({ number, type = "currency" }: TParams) => {
-    if (!number) {
-        return "";
-    }
+export const getLocaleString = ({ number = 0, type = "currency" }: TParams) => {
     const sign = type === "currency" ? "₽" : "%";
 
     return `${number.toLocaleString()} ${sign}`;

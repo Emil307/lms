@@ -16,13 +16,4 @@ export default createStyles((theme) => ({
         lineHeight: "24px",
         color: theme.colors.neutral_gray,
     },
-    buttonAddModule: {
-        alignSelf: "center",
-        width: "100%",
-        maxWidth: 249,
-        height: 56,
-    },
-    blockMore: {
-        visibility: "hidden",
-    },
 }));

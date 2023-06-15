@@ -4,10 +4,10 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification, TPaginationResponse } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { GetAdminCourseResponse } from "@entities/course";
 import {
     CourseModule,
     courseModuleApi,
+    GetCourseModuleResponse,
     UpdateCourseModuleActivityRequest,
     UpdateCourseModuleActivityResponse,
 } from "@entities/courseModule";
@@ -28,7 +28,7 @@ export const useUpdateCourseModuleActivity = ({
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSE_MODULE, courseId, moduleId] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSE_MODULES, courseId] });
 
-                const previousCourseModuleData = queryClient.getQueryData<GetAdminCourseResponse>([
+                const previousCourseModuleData = queryClient.getQueryData<GetCourseModuleResponse>([
                     QueryKeys.GET_COURSE_MODULE,
                     courseId,
                     moduleId,
@@ -38,7 +38,7 @@ export const useUpdateCourseModuleActivity = ({
                     courseId,
                 ]);
 
-                queryClient.setQueryData<GetAdminCourseResponse>(
+                queryClient.setQueryData<GetCourseModuleResponse>(
                     [QueryKeys.GET_COURSE_MODULE, courseId, moduleId],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );

@@ -16,7 +16,8 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     },
     {
         header: "Категория",
-        accessorKey: "category.name",
+        accessorKey: "category",
+        id: "category.name",
         Cell: ({ cell }) => <>{cell.row.original.category?.name}</>,
         size: 170,
     },
@@ -46,25 +47,26 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
         accessorKey: "teachers",
         Cell: ({ cell }) => <>{cell.row.original.teachers.map((teacher) => getSurnameWithInitials(teacher.profile)).join(", ")}</>,
         enableSorting: false,
-        size: 170,
+        size: 160,
     },
     {
         header: "Стоимость",
         accessorKey: "price",
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.price })}</>,
-        size: 160,
+        size: 150,
     },
     {
         header: "Скидка",
-        accessorKey: "discount.amount",
+        accessorKey: "discount",
+        id: "discount.amount",
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.discount?.amount, type: cell.row.original.discount?.type })}</>,
-        size: 160,
+        size: 150,
     },
     {
         header: "Стоимость со скидкой",
         accessorKey: "discountPrice",
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.discountPrice })}</>,
-        size: 208,
+        size: 200,
     },
 ];
 
