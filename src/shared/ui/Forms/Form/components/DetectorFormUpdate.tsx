@@ -12,5 +12,5 @@ export default function DetectorFormUpdate({ onChange }: DetectorFormUpdateProps
         onChange();
     }, [values]);
 
-    return <></>;
+    return null;
 }

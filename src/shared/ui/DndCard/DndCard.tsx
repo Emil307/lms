@@ -11,7 +11,7 @@ export interface DndCardProps {
     id: number;
     title: string;
     text: string;
-    listMenu: ReactNode;
+    listMenu?: ReactNode;
     isActive: boolean;
     onOpen?: () => void;
     leftIcon?: ReactNode;

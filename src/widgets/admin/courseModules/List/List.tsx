@@ -12,16 +12,17 @@ import { CreateCourseModuleModal } from "@features/courseModules";
 import { ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
+import { useRouter } from "next/router";
 
 interface ModuleListProps {
     courseId: string;
 }
 
 const List = ({ courseId }: ModuleListProps) => {
+    const router = useRouter();
     const { classes } = useStyles();
-    const [modules, setModules] = useState<CourseModule[] | undefined>();
-
     const { data: modulesData, hasNextPage, fetchNextPage, isError } = useCourseModules({ ...initialValues, courseId });
+    const [modules, setModules] = useState<CourseModule[] | undefined>(modulesData?.data);
 
     const { ref: lastElementRef, entry } = useIntersection();
 
@@ -37,8 +38,8 @@ const List = ({ courseId }: ModuleListProps) => {
         }
     }, [entry, hasNextPage]);
 
-    const handleGoCourseModulePage = () => {
-        //TODO: Добавить редирект на деталку модуля курса
+    const handleGoCourseModulePage = (moduleId: number) => {
+        router.push({ pathname: "/admin/courses/[id]/module/[moduleId]", query: { id: courseId, moduleId: String(moduleId) } });
     };
 
     //TODO: Добавить смену порядка модулей, когда будет готов эндпоинт на бэке
@@ -92,7 +93,7 @@ const List = ({ courseId }: ModuleListProps) => {
                                 title={module.name}
                                 text={module.description}
                                 listMenu={<ListMenu data={module} courseId={courseId} moduleNumber={index + 1} />}
-                                onOpen={handleGoCourseModulePage}
+                                onOpen={() => handleGoCourseModulePage(module.id)}
                                 isActive={module.isActive}
                                 leftIcon={<FolderIcon />}
                                 elementRef={lastElementRef}
