@@ -30,7 +30,11 @@ export const $User = z.object({
     updatedAt: z.coerce.date(),
 });
 
-export const $GetUsersResponse = $getPaginationResponseType($User);
+export const $UserFromList = $User.omit({
+    notifications: true
+});
+
+export const $GetUsersResponse = $getPaginationResponseType($UserFromList);
 
 export const $UserDetailResponse = $User.extend({
     lastLoginAt: z.coerce.date().nullable(),
