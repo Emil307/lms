@@ -1,7 +1,8 @@
-import { Accordion, AccordionProps as MAccordionProps, Loader } from "@mantine/core";
+import { Accordion, AccordionProps as MAccordionProps } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
+import { Loader } from "@shared/ui";
 
 export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {}
 
@@ -29,7 +30,7 @@ const AccordionList = (props: AccordionListProps) => {
 
     return (
         <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
-            {isLoading && <Loader sx={{ display: "flex", marginInline: "auto" }} />}
+            {isLoading && <Loader />}
             {renderFaq}
         </Accordion>
     );

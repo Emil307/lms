@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Flex, Loader, Text, Title } from "@mantine/core";
+import { Box, Flex, Text, Title } from "@mantine/core";
 import { useAdminFaq } from "@entities/staticPage";
 import { List as FaqList } from "@widgets/admin/faq";
-import { LastUpdatedInfo } from "@shared/ui";
+import { LastUpdatedInfo, Loader } from "@shared/ui";
 
 const FaqPage = () => {
     const { data: faqData, isLoading, isError } = useAdminFaq();

@@ -1,7 +1,7 @@
-import { Box, Loader } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Loader } from "@shared/ui";
 import { useAdminCategory } from "@entities/category";
 import { InfoPanel } from "@widgets/admin/categories";
 import { SubCategoryList } from "@features/categories";

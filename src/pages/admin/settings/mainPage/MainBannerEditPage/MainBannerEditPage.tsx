@@ -1,7 +1,7 @@
-import { Box, Flex, Loader, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, LastUpdatedInfo } from "@shared/ui";
+import { BreadCrumbs, LastUpdatedInfo, Loader } from "@shared/ui";
 import { useMainBanner } from "@entities/staticPage";
 import { MainBannerEditForm } from "@features/mainBanner";
 import { getBreadCrumbsItems } from "./utils";

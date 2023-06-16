@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { TQueryParams } from "./types";
 import { getBreadCrumbsItems } from "./utils";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Loader } from "@shared/ui";
 import React from "react";
 import { useAdminCourse } from "@entities/course";
-import { Box, Loader, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import { CourseModuleInfoPanel } from "@widgets/admin/courseModules";
 import { useCourseModule } from "@entities/courseModule";
 import { ModuleLessonsList } from "@widgets/admin/lessons";

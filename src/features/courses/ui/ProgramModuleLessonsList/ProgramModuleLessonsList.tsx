@@ -1,7 +1,7 @@
-import { List as MList, ListProps as MListProps, Loader, Text } from "@mantine/core";
+import { List as MList, ListProps as MListProps, Text } from "@mantine/core";
 import { useCourseProgramModuleLessons } from "@entities/course";
-
 import useStyles from "./ProgramModuleLessonsList.styles";
+import { Loader } from "@shared/ui";
 
 export interface ProgramModuleLessonsListProps extends Omit<MListProps, "children"> {
     courseId: number;
@@ -14,7 +14,7 @@ const ProgramModuleLessonsList = ({ courseId, programId, ...props }: ProgramModu
     const { data: dataLessons, isLoading } = useCourseProgramModuleLessons({ courseId, programId });
 
     if (isLoading) {
-        return <Loader w="100%" />;
+        return <Loader />;
     }
 
     return (

@@ -1,8 +1,8 @@
-import { Box, Flex, Loader, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { useContacts } from "@entities/staticPage";
 import { UpdateContactsForm } from "@features/contacts";
-import { LastUpdatedInfo } from "@shared/ui";
+import { LastUpdatedInfo, Loader } from "@shared/ui";
 
 const ContactsPage = () => {
     const { data, isLoading } = useContacts();

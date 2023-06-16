@@ -1,7 +1,7 @@
-import { Flex, Text, Loader, Title } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Switch } from "@shared/ui";
+import { Loader, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
 import useStyles from "./InfoPanel.styles";

@@ -1,4 +1,4 @@
-import { Flex, Loader, Text, ThemeIcon, Title } from "@mantine/core";
+import { Flex, Text, ThemeIcon, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
@@ -6,7 +6,7 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
-import { Button, DndCard } from "@shared/ui";
+import { Button, DndCard, Loader } from "@shared/ui";
 import useStyles from "./ModuleLessonsList.styles";
 import { AdminLessonFromList, useAdminModuleLessons } from "@entities/lesson";
 import { ListMenu } from "./components";

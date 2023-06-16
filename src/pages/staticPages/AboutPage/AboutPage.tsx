@@ -1,6 +1,6 @@
-import { Box, Title, Text, Flex, Loader } from "@mantine/core";
+import { Box, Title, Text, Flex } from "@mantine/core";
 import React, { useMemo } from "react";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Loader } from "@shared/ui";
 import { useAbout } from "@entities/staticPage";
 import { AboutCard } from "@features/about";
 import { breadCrumbsItems } from "./contants";

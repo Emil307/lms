@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Flex, Loader, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { usePublicOffer } from "@entities/staticPage";
-import { LastUpdatedInfo } from "@shared/ui";
+import { LastUpdatedInfo, Loader } from "@shared/ui";
 import { UpdatePublicOfferForm } from "@features/publicOffer";
 
 const UserAgreementPage = () => {

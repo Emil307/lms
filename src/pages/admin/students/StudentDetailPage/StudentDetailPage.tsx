@@ -1,7 +1,7 @@
-import { Box, Loader, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Tabs } from "@shared/ui";
+import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { useDetailUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";

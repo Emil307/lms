@@ -1,8 +1,9 @@
 import React, { memo, ReactNode, useMemo } from "react";
-import { Box, Button, Loader, Text } from "@mantine/core";
+import { Box, Button, Text } from "@mantine/core";
 import { FileText, Slash } from "react-feather";
 import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
+import { Loader } from "@shared/ui";
 
 export type FileStatus = "done" | "loading" | "error";
 
