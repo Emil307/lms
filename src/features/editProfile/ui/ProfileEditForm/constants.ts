@@ -1,6 +1,6 @@
-import { UpdateMeRequest } from "@entities/auth";
+import { UpdateMeForm } from "@entities/auth";
 
-export const initialValues: UpdateMeRequest = {
+export const initialValues: UpdateMeForm = {
     firstName: "",
     lastName: "",
     patronymic: "",

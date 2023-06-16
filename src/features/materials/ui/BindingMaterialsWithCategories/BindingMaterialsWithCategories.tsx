@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { FormikConfig } from "formik";
-import { Box, Flex, Loader } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
-import { Button, Checkbox, FCheckboxGroup, Form } from "@shared/ui";
+import { Button, Checkbox, FCheckboxGroup, Form, Loader } from "@shared/ui";
 import { useAdminCategories } from "@entities/category";
 import { getDataFromSessionStorage } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";

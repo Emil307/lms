@@ -1,8 +1,8 @@
-import { Box, Flex, Loader, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { useAbout } from "@entities/staticPage";
 import { UpdateAboutForm } from "@features/about";
-import { LastUpdatedInfo } from "@shared/ui";
+import { LastUpdatedInfo, Loader } from "@shared/ui";
 
 const AboutPage = () => {
     const { data, isLoading } = useAbout();

@@ -1,7 +1,7 @@
-import { Flex, FlexProps, Loader } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import { List } from "@components/List";
 import { ArticleAndArticleCategoryFiltersForm, ArticleCategoryFromList, useArticleCategories } from "@entities/article";
-import { Button, EmptyData } from "@shared/ui";
+import { Button, EmptyData, Loader } from "@shared/ui";
 import { ArticleCategoryItem } from "./components";
 import { adaptGetArticleCategoriesRequest } from "./utils";
 import { initialParams } from "./constants";

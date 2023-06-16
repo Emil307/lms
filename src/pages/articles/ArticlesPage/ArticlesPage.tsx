@@ -1,7 +1,7 @@
-import { Box, Title, ThemeIcon, Flex, Loader, Text } from "@mantine/core";
+import { Box, Title, ThemeIcon, Flex, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Tabs } from "@shared/ui";
+import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { ArticleCategoryList, Filters } from "@features/articles";
 import { CarouselList as ArticlePackageCarouselList } from "@widgets/articlePackages";
 import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";

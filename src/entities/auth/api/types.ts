@@ -47,12 +47,13 @@ export const $UpdateMeForm = z.object({
     role: z.string(),
 });
 
-export const $UpdateMeRequest = $UpdateMeForm.omit({
-    avatar: true
-}).extend({
-    avatarId: z.number().optional()
-});
-
+export const $UpdateMeRequest = $UpdateMeForm
+    .omit({
+        avatar: true,
+    })
+    .extend({
+        avatarId: z.number().optional(),
+    });
 
 export const $UpdateMeResponse = $User.omit({ roles: true, notifications: true });
 

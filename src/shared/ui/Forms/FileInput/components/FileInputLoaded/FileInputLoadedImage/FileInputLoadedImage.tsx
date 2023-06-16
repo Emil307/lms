@@ -1,8 +1,8 @@
 import NextImage from "next/image";
 import React, { useEffect } from "react";
-import { Box, Button, Loader, ThemeIcon } from "@mantine/core";
+import { Box, Button, ThemeIcon } from "@mantine/core";
 import { Image as ImageIcon } from "react-feather";
-import { isFile } from "@shared/ui";
+import { isFile, Loader } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
 import useStyles from "./FileInputLoadedImage.styles";

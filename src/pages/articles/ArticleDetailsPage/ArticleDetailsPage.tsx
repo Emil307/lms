@@ -1,9 +1,10 @@
-import { Flex, Loader, Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { ContentPanel } from "@widgets/articles";
 import { useArticle } from "@entities/article";
 import { TRouterQueries } from "@shared/types";
+import { Loader } from "@shared/ui";
 
 const ArticleDetailsPage = () => {
     const router = useRouter();

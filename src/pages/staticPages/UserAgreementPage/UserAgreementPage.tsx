@@ -1,6 +1,6 @@
-import { Box, Title, Text, Loader } from "@mantine/core";
+import { Box, Title, Text } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Loader } from "@shared/ui";
 import { usePublicOffer } from "@entities/staticPage";
 import { breadCrumbsItems } from "./constants";
 import useStyles from "./UserAgreementPage.styles";

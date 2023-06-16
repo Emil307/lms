@@ -1,11 +1,12 @@
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDebouncedValue, useIntersection } from "@mantine/hooks";
-import { Box, Popover, ScrollArea, Text, Loader } from "@mantine/core";
+import { Box, Popover, ScrollArea, Text } from "@mantine/core";
 import { TPaginationResponse, useInfiniteRequest } from "@shared/utils";
 import { TExtraFiltersProps, TFunctionParams } from "./types";
 import Search, { SearchProps } from "./Search";
 import useStyles from "./ManagedSearch.styles";
+import { Loader } from "@shared/ui";
 
 export type TManagedSearchProps<T extends Record<string, any> & { id: unknown }, E, R> = {
     queryFunction: (params: R) => Promise<TPaginationResponse<T[]>>;
@@ -97,7 +98,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
 
     const renderNothingFound = () => {
         if (isLoading || isFetching || isRefetching) {
-            return <Loader w="100%" />;
+            return <Loader />;
         }
 
         return <Text className={classes.nothingFound}>Совпадений не найдено</Text>;
@@ -115,7 +116,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
                 offsetScrollbars
                 scrollbarSize={4}>
                 {renderItems()}
-                {(isLoading || isFetching || isRefetching) && <Loader w="100%" />}
+                {(isLoading || isFetching || isRefetching) && <Loader />}
             </ScrollArea.Autosize>
         );
     };

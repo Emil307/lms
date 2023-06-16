@@ -415,7 +415,7 @@ export const defaultTheme: MantineThemeOverride = {
   },
 
 
-     Input: {            
+     Input: {
             styles: (theme, floating = true) => ({
                 root: {
                     position: 'relative',

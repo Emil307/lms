@@ -11,3 +11,4 @@ export * from "./ConfirmActionModal";
 export * from "./EmptyData";
 export * from "./LastUpdatedInfo";
 export * from "./DndCard";
+export * from "./Loader";

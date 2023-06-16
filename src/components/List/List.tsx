@@ -1,7 +1,8 @@
-import { ColProps as MColProps, GridProps as MGridProps, Grid, Loader, Flex } from "@mantine/core";
+import { ColProps as MColProps, GridProps as MGridProps, Grid, Flex } from "@mantine/core";
 import { ReactNode, Ref } from "react";
 import { TPagination } from "@shared/types";
 import { Pagination } from "./components";
+import { Loader } from "@shared/ui";
 
 export interface ListProps<T> extends Omit<MGridProps, "children"> {
     data?: T[];
