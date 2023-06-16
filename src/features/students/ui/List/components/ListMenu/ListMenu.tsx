@@ -3,13 +3,13 @@ import { MRT_Row } from "mantine-react-table";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useUpdateUserActivity } from "@entities/user";
+import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { getFullName } from "@shared/utils";
 
 interface ListMenuProps {
-    row: MRT_Row<TUser>;
+    row: MRT_Row<UserFromList>;
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {
