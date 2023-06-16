@@ -7,6 +7,7 @@ export const useSidebarStyles = createStyles((theme, { isActive, inner }: { isAc
         "&:hover": {
             color: theme.colors.dark[0],
         },
+        paddingRight: 24,
     },
     indicator: {
         width: "10px",

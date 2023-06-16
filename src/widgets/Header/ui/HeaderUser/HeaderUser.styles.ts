@@ -1,9 +1,14 @@
 import { createStyles } from "@mantine/core";
+import { HEADER_HEIGHT } from "@shared/constant";
 
 export default createStyles((theme) => ({
     root: {
         backgroundColor: theme.colors.white[0],
-        position: "static",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        maxHeight: HEADER_HEIGHT,
+        zIndex: 200,
     },
     inner: {
         justifyContent: "space-between",

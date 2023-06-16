@@ -1,24 +1,14 @@
 import React from "react";
 import { Box, Navbar as MNavbar } from "@mantine/core";
-import { Logo } from "@components/Logo";
 import { Sidebar } from "./Sidebar";
+import useStyles from "./NavbarAdmin.styles";
 
 const NavbarAdmin = () => {
-    return (
-        <MNavbar
-            width={{ base: 280 }}
-            pl={0}
-            height="auto"
-            p={16}
-            sx={() => ({
-                backgroundColor: "inherit",
-                border: "none",
-            })}>
-            <Box pl={24}>
-                <Logo />
-            </Box>
+    const { classes } = useStyles();
 
-            <Box mt={48}>
+    return (
+        <MNavbar className={classes.root}>
+            <Box className={classes.sidebarWrapper}>
                 <Sidebar />
             </Box>
         </MNavbar>
