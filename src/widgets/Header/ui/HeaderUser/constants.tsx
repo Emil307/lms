@@ -23,6 +23,6 @@ export const menuLinks: { label: string; href: Route; icon: ReactNode; isCheckRo
         label: "Поддержка",
         href: { pathname: "/" },
         icon: <IconMessageDots />,
-        isCheckRoute: "/",
+        isCheckRoute: "/support",
     },
 ];
