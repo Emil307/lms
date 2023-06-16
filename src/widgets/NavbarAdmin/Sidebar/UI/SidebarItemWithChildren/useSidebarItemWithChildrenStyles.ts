@@ -18,6 +18,7 @@ export const useSidebarItemWithChildrenStyles = createStyles((theme, { isActive 
         "&:not(:first-of-type)": {
             backgroundColor: "inherit",
         },
+        paddingRight: 24,
     },
     content: {
         padding: 0,

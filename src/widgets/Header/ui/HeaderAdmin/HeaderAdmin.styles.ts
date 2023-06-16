@@ -1,13 +1,22 @@
 import { createStyles } from "@mantine/core";
+import { HEADER_HEIGHT } from "@shared/constant";
 
 export default createStyles((theme) => ({
     root: {
-        position: "static",
-        marginLeft: 280,
-        padding: "32px 0px 32px 0px",
+        display: "flex",
+        gap: 24,
+        position: "sticky",
+        top: 0,
+        left: 0,
+        maxHeight: HEADER_HEIGHT,
+        padding: "16px 0 16px 24px",
         border: "none",
-        backgroundColor: "inherit",
-        height: 104,
+        backgroundColor: theme.colors.light[0],
+        zIndex: 200,
+    },
+    logoWrapper: {
+        minWidth: 232,
+        height: 72,
     },
     avatarDefaultIconWrapper: {
         width: "auto",

@@ -1,11 +1,12 @@
 import React from "react";
-import { ActionIcon, Avatar, Flex, Header as MHeader, Text, ThemeIcon } from "@mantine/core";
+import { Box, ActionIcon, Avatar, Flex, Header as MHeader, Text, ThemeIcon } from "@mantine/core";
 import { LogOut, Settings } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { useSession } from "@features/auth";
 import useStyles from "./HeaderAdmin.styles";
+import { Logo } from "@components/Logo";
 
 const HeaderAdmin = () => {
     const router = useRouter();
@@ -16,8 +17,11 @@ const HeaderAdmin = () => {
     const handleRedirectLogout = () => router.push("/logout");
 
     return (
-        <MHeader classNames={classes} height="auto" fixed={false}>
-            <Flex justify="space-between">
+        <MHeader classNames={classes} height="auto">
+            <Box className={classes.logoWrapper}>
+                <Logo />
+            </Box>
+            <Flex align="center" justify="space-between" w="100%">
                 <Button variant="text">Notification</Button>
 
                 <Flex align="center" gap={32}>

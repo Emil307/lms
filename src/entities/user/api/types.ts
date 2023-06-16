@@ -31,7 +31,7 @@ export const $User = z.object({
 });
 
 export const $UserFromList = $User.omit({
-    notifications: true
+    notifications: true,
 });
 
 export const $GetUsersResponse = $getPaginationResponseType($UserFromList);
