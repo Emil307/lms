@@ -15,7 +15,6 @@ export default createStyles((theme) => ({
         maxWidth: 1320,
         minHeight: 96,
         marginInline: "auto",
-        paddingInline: 16,
     },
     logoLink: {
         color: theme.colors.dark[0],

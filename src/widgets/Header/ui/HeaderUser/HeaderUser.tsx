@@ -21,8 +21,16 @@ const HeaderUser = () => {
         <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex className={classes.inner}>
                 <Flex align="center" gap={89}>
-                    <Flex align="center">
-                        <ActionIcon className={classes.actionIcon} onClick={handleRedirectHomePage}>
+                    <Flex gap={24} align="center">
+                        <ActionIcon
+                            className={classes.actionIcon}
+                            sx={(theme) => ({
+                                backgroundColor: router.pathname === "/"
+                                    ? theme.colors.grayLight[0]
+                                    : "transparent",
+                            })}
+                            onClick={handleRedirectHomePage}
+                        >
                             <Home />
                         </ActionIcon>
                         <Link href="/" className={classes.logoLink}>
@@ -39,7 +47,7 @@ const HeaderUser = () => {
                                 sx={(theme) => ({
                                     borderRadius: 160,
                                     padding: "8px 16px",
-                                    backgroundColor: router.pathname.includes(menuItem.isCheckRoute)
+                                    backgroundColor: router.pathname.startsWith(menuItem.isCheckRoute)
                                         ? theme.colors.grayLight[0]
                                         : "transparent",
                                 })}
