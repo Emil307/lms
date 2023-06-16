@@ -10,6 +10,7 @@ export interface ChangePasswordRequest {
 
 export type User = z.infer<typeof $User>;
 
+export type UpdateMeForm = z.infer<typeof $UpdateMeForm>;
 export type UpdateMeRequest = z.infer<typeof $UpdateMeRequest>;
 export type UpdateMeResponse = z.infer<typeof $UpdateMeResponse>;
 export type SignUpRequest = z.infer<typeof $SignUpRequest>;
@@ -37,7 +38,7 @@ export const $ResetPasswordRequest = z.object({
     email: z.string(),
 });
 
-export const $UpdateMeRequest = z.object({
+export const $UpdateMeForm = z.object({
     firstName: z.string({ required_error: "Введите имя" }),
     lastName: z.string({ required_error: "Введите фамилию" }),
     patronymic: z.string().optional(),
@@ -45,6 +46,13 @@ export const $UpdateMeRequest = z.object({
     avatar: $UploadedFile.nullable().optional(),
     role: z.string(),
 });
+
+export const $UpdateMeRequest = $UpdateMeForm.omit({
+    avatar: true
+}).extend({
+    avatarId: z.number().optional()
+});
+
 
 export const $UpdateMeResponse = $User.omit({ roles: true, notifications: true });
 

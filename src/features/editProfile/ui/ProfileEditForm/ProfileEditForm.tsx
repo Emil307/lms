@@ -4,7 +4,13 @@ import { useRouter } from "next/router";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Button, FFileButton, FInput, ManagedForm } from "@shared/ui";
 import { adaptDataForProfileEditForm } from "@features/editProfile";
-import { $UpdateMeRequest, User, UpdateMeRequest, UpdateMeResponse, authApi } from "@entities/auth";
+import {
+    User,
+    UpdateMeResponse,
+    authApi,
+    UpdateMeForm,
+    $UpdateMeForm
+} from "@entities/auth";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
@@ -23,8 +29,8 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
 
     const adaptData = adaptDataForProfileEditForm(data);
 
-    const updateMe = (values: UpdateMeRequest) => {
-        return authApi.updateMe(values);
+    const updateMe = ({ avatar, ...data }: UpdateMeForm) => {
+        return authApi.updateMe({...data, avatarId: avatar?.id});
     };
 
     const handleCloseForm = () => {
@@ -47,9 +53,9 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
     };
 
     return (
-        <ManagedForm<UpdateMeRequest, UpdateMeResponse>
+        <ManagedForm<UpdateMeForm, UpdateMeResponse>
             initialValues={{ ...initialValues, ...adaptData }}
-            validationSchema={$UpdateMeRequest}
+            validationSchema={$UpdateMeForm}
             mutationKey={[MutationKeys.UPDATE_ME]}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ME] }]}
             mutationFunction={updateMe}
