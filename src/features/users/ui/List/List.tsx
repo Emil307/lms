@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { FSearch, FSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { TUser, UsersFilters } from "@entities/user/api/types";
+import { UserFromList, UsersFilters } from "@entities/user/api/types";
 import { useAdminUsersFilters, usersApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { ManagedDataGrid } from "@shared/ui";
@@ -28,7 +28,7 @@ const UserList = () => {
         router.push({ pathname: "/admin/users/[id]", query: { id: String(id) } });
     };
 
-    const handlerClickCell = (cell: MRT_Cell<TUser>) => {
+    const handlerClickCell = (cell: MRT_Cell<UserFromList>) => {
         pushOnUserDetail(cell.row.original.id);
     };
 
@@ -46,7 +46,7 @@ const UserList = () => {
             </Flex>
 
             <Box mt={24}>
-                <ManagedDataGrid<TUser, UsersFilters>
+                <ManagedDataGrid<UserFromList, UsersFilters>
                     queryKey={QueryKeys.GET_USERS}
                     queryFunction={(params) => usersApi.getAdminUsers(params)}
                     queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
@@ -63,7 +63,7 @@ const UserList = () => {
                     }}
                     renderRowActions={({ row }) => <UsersListMenu row={row} />}>
                     {({ dirty, resetForm }) => (
-                        <Box mb={24}>
+                        <Box>
                             <Flex columnGap={8} rowGap={0}>
                                 <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
                                 <FSelect

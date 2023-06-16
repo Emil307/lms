@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { TUser, useUpdateUserActivity } from "@entities/user";
+import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 
 export interface UsersListMenuProps {
-    row: MRT_Row<TUser>;
+    row: MRT_Row<UserFromList>;
 }
 
 const UsersListMenu = ({ row }: UsersListMenuProps) => {
