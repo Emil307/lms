@@ -1,12 +1,12 @@
 import { Title, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
+import { Folder as FolderIcon } from "react-feather";
 import { Button, FInput, FTextarea, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { initialValues } from "./constants";
-import { Folder as FolderIcon } from "react-feather";
 import { $CreateCourseModuleFormValues, courseModuleApi } from "@entities/courseModule";
 import { CreateCourseModuleFormValues, CreateCourseModuleResponse } from "@entities/courseModule";
+import { initialValues } from "./constants";
 
 export interface CreateCourseModuleModalProps {
     courseId: string;

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { $UploadedFile } from "./uploadedFile";
 
-export const $profile = z.object({
+export const $Profile = z.object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
@@ -11,4 +11,4 @@ export const $profile = z.object({
     additionalImage: $UploadedFile.nullable().optional(),
 });
 
-export type TProfile = z.infer<typeof $profile>;
+export type TProfile = z.infer<typeof $Profile>;

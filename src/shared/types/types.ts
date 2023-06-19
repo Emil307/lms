@@ -1,5 +1,5 @@
 import { z, ZodRawShape, ZodTypeAny } from "zod";
-import { $profile } from "./profile";
+import { $Profile } from "./profile";
 
 export interface TRouterQueries {
     id: string;
@@ -73,7 +73,7 @@ export const $LastUpdated = z.object({
         .object({
             id: z.number(),
             email: z.string(),
-            profile: $profile.omit({ avatar: true, additionalImage: true }),
+            profile: $Profile.omit({ avatar: true, additionalImage: true }),
         })
         .nullable(),
 });

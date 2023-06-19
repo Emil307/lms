@@ -2,10 +2,10 @@ import React, { memo, PropsWithChildren, ReactNode, Ref, useState, MouseEvent } 
 import { CSS } from "@dnd-kit/utilities";
 import { ActionIcon, Box, Collapse, Flex, Text, ThemeIcon, Title } from "@mantine/core";
 import { useSortable } from "@dnd-kit/sortable";
-import IconDragDots from "public/icons/dragDots.svg";
-import useStyles from "./DndCard.styles";
-import { Button } from "@shared/ui";
 import { Eye as EyeIcon } from "react-feather";
+import IconDragDots from "public/icons/dragDots.svg";
+import { Button } from "@shared/ui";
+import useStyles from "./DndCard.styles";
 
 export interface DndCardProps {
     id: number;
