@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useUpdateCoursePublication } from "@entities/course";
-import useStyles from "./UpdateCoursePublicationModal.styles";
 import { createNotification, ToastType } from "@shared/utils";
+import useStyles from "./UpdateCoursePublicationModal.styles";
 
 export interface UpdateCoursePublicationModalProps {
     id: string;

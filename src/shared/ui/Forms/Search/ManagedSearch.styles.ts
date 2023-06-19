@@ -9,4 +9,9 @@ export default createStyles((theme) => ({
         color: theme.colors.gray45[0],
         textAlign: "center",
     },
+    dropdownContainer: {
+        backgroundColor: theme.colors.white[0],
+        boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+        borderRadius: 8,
+    },
 }));

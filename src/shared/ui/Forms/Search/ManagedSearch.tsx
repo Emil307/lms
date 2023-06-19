@@ -1,12 +1,12 @@
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDebouncedValue, useIntersection } from "@mantine/hooks";
-import { Box, Popover, ScrollArea, Text } from "@mantine/core";
+import { Box, BoxProps, Popover, ScrollArea, Text } from "@mantine/core";
 import { TPaginationResponse, useInfiniteRequest } from "@shared/utils";
+import { Loader } from "@shared/ui";
 import { TExtraFiltersProps, TFunctionParams } from "./types";
 import Search, { SearchProps } from "./Search";
 import useStyles from "./ManagedSearch.styles";
-import { Loader } from "@shared/ui";
 
 export type TManagedSearchProps<T extends Record<string, any> & { id: unknown }, E, R> = {
     queryFunction: (params: R) => Promise<TPaginationResponse<T[]>>;
@@ -14,6 +14,8 @@ export type TManagedSearchProps<T extends Record<string, any> & { id: unknown },
     queryCacheKeys?: Array<keyof R>;
     debounceValue?: number;
     searchInputProps: SearchProps;
+    wrapperContainerProps: Omit<BoxProps, "children">;
+    onChangeSearchDebouncedValue?: (value: string) => void;
     itemComponent: ({
         data,
         onClick,
@@ -46,6 +48,8 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
         itemComponent,
         onSelect,
         searchInputProps,
+        wrapperContainerProps,
+        onChangeSearchDebouncedValue = () => undefined,
     } = props;
     const [query, setQuery] = useState("");
     const [selectedItemId, setSelectedItemId] = useState<unknown | null>(null);
@@ -57,6 +61,10 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
             fetchNextPage();
         }
     }, [entry]);
+
+    useEffect(() => {
+        onChangeSearchDebouncedValue(searchDebouncedValue);
+    }, [searchDebouncedValue]);
 
     const paramsForRequest = {
         query: searchDebouncedValue,
@@ -122,14 +130,18 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
     };
 
     return (
-        <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
-            <Popover.Target>
-                <Box onFocusCapture={() => setPopoverOpened(true)} onBlurCapture={() => setPopoverOpened(false)}>
-                    <Search {...searchInputProps} styleVariant="course" value={query} setValue={setQuery} />
-                </Box>
-            </Popover.Target>
-            <Popover.Dropdown p={8}>{renderContent()}</Popover.Dropdown>
-        </Popover>
+        <Box {...wrapperContainerProps}>
+            <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
+                <Popover.Target>
+                    <Box onFocusCapture={() => setPopoverOpened(true)} onBlurCapture={() => setPopoverOpened(false)}>
+                        <Search {...searchInputProps} styleVariant="default" value={query} setValue={setQuery} />
+                    </Box>
+                </Popover.Target>
+                <Popover.Dropdown className={classes.dropdownContainer} p={8}>
+                    {renderContent()}
+                </Popover.Dropdown>
+            </Popover>
+        </Box>
     );
 }
 

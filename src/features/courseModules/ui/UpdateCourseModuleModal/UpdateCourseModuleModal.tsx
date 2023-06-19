@@ -1,9 +1,9 @@
 import { Title, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
+import { Folder as FolderIcon } from "react-feather";
 import { Button, FInput, FTextarea, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { Folder as FolderIcon } from "react-feather";
 import { CourseModule, courseModuleApi, UpdateCourseModuleFormValues, UpdateCourseModuleResponse } from "@entities/courseModule";
 import { $UpdateCourseModuleFormValues } from "@entities/courseModule";
 import { getInitialValues } from "./utils";

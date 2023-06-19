@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $UploadedFile, $profile, $Role } from "@shared/types";
+import { $UploadedFile, $Profile, $Role } from "@shared/types";
 import { $UserNotifications } from "@entities/notification";
 
 export interface ChangePasswordRequest {
@@ -22,7 +22,7 @@ export type RecoveryPasswordRequest = z.infer<typeof $RecoveryPasswordRequest>;
 export const $User = z.object({
     id: z.number(),
     email: z.string(),
-    profile: $profile,
+    profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
 });

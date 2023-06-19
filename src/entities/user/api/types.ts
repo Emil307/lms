@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
-import { $Role, $UploadedFile, $getPaginationResponseType, $profile, TRequestFilterParams } from "@shared/types";
+import { $Role, $UploadedFile, $getPaginationResponseType, $Profile, TRequestFilterParams } from "@shared/types";
 import { $UserNotifications } from "@entities/notification";
 
 export type TUser = z.infer<typeof $User>;
@@ -20,11 +20,11 @@ export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityReques
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
 
 export const $User = z.object({
-    email: z.string(),
     id: z.number(),
+    email: z.string(),
     isActive: z.boolean(),
     isStatic: z.boolean(),
-    profile: $profile,
+    profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
     createdAt: z.coerce.date(),
