@@ -11,12 +11,12 @@ export const useAdminLayoutStyles = createStyles(() => ({
         flex: "0 0 auto",
     },
     body: {
+        display: "grid",
+        gridTemplateColumns: "280px calc(100% - 280px)",
         height: "100%",
-        flex: "1 0 auto",
     },
     main: {
-        maxWidth: "100%",
-        minHeight: "100%",
+        width: "unset"
     },
     footer: {
         flex: "0 0 auto",
