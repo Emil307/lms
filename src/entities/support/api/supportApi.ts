@@ -5,6 +5,7 @@ import {
     $CreateSupportMessageResponse,
     $GetAdminSupportConversationResponse,
     $GetAdminSupportMessagesResponse,
+    $GetSupportMessagesResponse,
     CreateAdminSupportMessageRequest,
     CreateAdminSupportMessageResponse,
     CreateSupportMessageRequest,
@@ -13,9 +14,12 @@ import {
     GetAdminSupportConversationsRequest,
     GetAdminSupportMessagesRequest,
     GetAdminSupportMessagesResponse,
+    GetSupportMessagesRequest,
+    GetSupportMessagesResponse,
 } from "./types";
 
 class SupportApi extends BaseApi {
+    //ADMIN
     async getAdminSupportConversations(params: GetAdminSupportConversationsRequest): Promise<GetAdminSupportConversationResponse> {
         const response = await this.instance.post("admin/support/list", params);
         return $GetAdminSupportConversationResponse.parse(response);
@@ -35,9 +39,13 @@ class SupportApi extends BaseApi {
     }
 
     //USER
+    async getSupportMessages(data: GetSupportMessagesRequest): Promise<GetSupportMessagesResponse> {
+        const response = await this.instance.post(`support/list`, data);
+        return $GetSupportMessagesResponse.parse(response);
+    }
 
     async createSupportMessage(data: CreateSupportMessageRequest): Promise<CreateSupportMessageResponse> {
-        const response = await this.instance.post(`admin/support`, data);
+        const response = await this.instance.post(`support`, data);
         return $CreateSupportMessageResponse.parse(response);
     }
 }

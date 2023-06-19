@@ -83,6 +83,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/my-courses">
     | StaticRoute<"/profile/edit">
     | StaticRoute<"/profile">
+    | StaticRoute<"/support">
     | StaticRoute<"/ui">
     | StaticRoute<"/user-agreement">;
 

@@ -5,21 +5,19 @@ import { FormikHelpers } from "formik";
 import { FTextarea, ManagedForm } from "@shared/ui";
 import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { CreateAdminSupportMessageResponse, supportApi } from "@entities/support";
+import { CreateSupportMessageResponse, supportApi } from "@entities/support";
 import { initialValues } from "./constants";
-import { $CreateAdminMessageFormValidation, CreateAdminMessageFormValidation } from "./types";
-import useStyles from "./CreateAdminMessageForm.styles";
+import useStyles from "./CreateMessageForm.styles";
+import { $CreateMessageFormValidation, CreateMessageFormValidation } from "./types";
 
-export interface CreateAdminMessageFormProps extends BoxProps {
-    conversationId?: number;
-}
+export interface CreateMessageFormProps extends BoxProps {}
 
-const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessageFormProps) => {
+const CreateMessageForm = (props: CreateMessageFormProps) => {
     const { classes } = useStyles();
 
     const onSuccess = (
-        _response: CreateAdminSupportMessageResponse,
-        { resetForm }: Omit<FormikHelpers<CreateAdminMessageFormValidation>, "setFieldError">
+        _response: CreateSupportMessageResponse,
+        { resetForm }: Omit<FormikHelpers<CreateMessageFormValidation>, "setFieldError">
     ) => {
         resetForm();
         createNotification({
@@ -35,18 +33,14 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
         });
     };
 
-    if (!conversationId) {
-        return null;
-    }
-
     return (
         <Box {...props}>
-            <ManagedForm<CreateAdminMessageFormValidation, CreateAdminSupportMessageResponse>
+            <ManagedForm<CreateMessageFormValidation, CreateSupportMessageResponse>
                 initialValues={initialValues}
-                validationSchema={$CreateAdminMessageFormValidation.partial()}
-                mutationKey={[MutationKeys.CREATE_ADMIN_SUPPORT_MESSAGE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] }]}
-                mutationFunction={(values) => supportApi.createAdminSupportMessage({ ...values, conversationId })}
+                validationSchema={$CreateMessageFormValidation.partial()}
+                mutationKey={[MutationKeys.CREATE_SUPPORT_MESSAGE]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_SUPPORT_MESSAGES] }]}
+                mutationFunction={(values) => supportApi.createSupportMessage(values)}
                 onSuccess={onSuccess}
                 onError={onError}
                 hasConfirmModal>
@@ -65,4 +59,4 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
     );
 };
 
-export default CreateAdminMessageForm;
+export default CreateMessageForm;

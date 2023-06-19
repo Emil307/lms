@@ -34,7 +34,6 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                     <Text className={classes.userFullName} lineClamp={1}>
                         {getFullName({ data: data.user.profile })}
                     </Text>
-                    {/* //TODO: беку нужно добавить роль */}
                     <Text className={classes.createdAtLastMessage}>{getFormatCreatedAt(data.createdAt)}</Text>
                 </Flex>
             </Flex>
