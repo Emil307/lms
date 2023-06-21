@@ -37,16 +37,34 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
 /**
  *
  * @param config AxiosConfigObject
- * @returns true если запрос из микроча COURSES
+ * @returns true если запрос из микросервиса AUTH
  */
-export const whenCoursesRoute: TAxiosRunWhen = (config) => {
+export const whenAuthMicroserviceRoute: TAxiosRunWhen = (config) => {
     return (
-        !!config.url?.startsWith("authors") ||
+        !!config.url?.startsWith("authentication") ||
+        !!config.url?.startsWith("authorization") ||
+        !!config.url?.startsWith("me") ||
+        !!config.url?.includes("notifications")
+    );
+};
+
+/**
+ *
+ * @param config AxiosConfigObject
+ * @returns true если запрос из микросервиса COURSES
+ */
+export const whenCoursesMicroserviceRoute: TAxiosRunWhen = (config) => {
+    return (
         !!config.url?.startsWith("admin/authors") ||
-        !!config.url?.startsWith("courses") ||
+        !!config.url?.startsWith("authors") ||
         !!config.url?.startsWith("admin/courses") ||
-        !!config.url?.includes("course-collections") ||
-        !!config.url?.includes("course-packages") ||
+        !!config.url?.startsWith("courses") ||
+        !!config.url?.startsWith("admin/course-packages") ||
+        !!config.url?.startsWith("course-packages") ||
+        !!config.url?.startsWith("admin/course-collections") ||
+        !!config.url?.startsWith("course-collections") ||
+        !!config.url?.startsWith("admin/groups") ||
+        !!config.url?.startsWith("groups") ||
         !!config.url?.startsWith("admin/lessons")
     );
 };
@@ -54,10 +72,15 @@ export const whenCoursesRoute: TAxiosRunWhen = (config) => {
 /**
  *
  * @param config AxiosConfigObject
- * @returns true если запрос из микроча ARTICLES
+ * @returns true если запрос из микросервиса ARTICLES
  */
-export const whenArticlesRoute: TAxiosRunWhen = (config) => {
-    return !!config.url?.startsWith("articles") || !!config.url?.startsWith("admin/articles") || !!config.url?.includes("article-packages");
+export const whenArticlesMicroserviceRoute: TAxiosRunWhen = (config) => {
+    return (
+        !!config.url?.startsWith("admin/articles") ||
+        !!config.url?.startsWith("articles") ||
+        !!config.url?.startsWith("admin/article-packages") ||
+        !!config.url?.includes("article-packages")
+    );
 };
 
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);

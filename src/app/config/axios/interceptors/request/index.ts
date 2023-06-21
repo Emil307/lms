@@ -14,12 +14,17 @@ export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     return config;
 };
 
-export const coursesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+export const authMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+    config.baseURL = process.env.NEXT_PUBLIC_API_URL_AUTH;
+    return config;
+};
+
+export const coursesMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.baseURL = process.env.NEXT_PUBLIC_API_URL_COURSES;
     return config;
 };
 
-export const articlesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+export const articlesMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.baseURL = process.env.NEXT_PUBLIC_API_URL_ARTICLES;
     return config;
 };
