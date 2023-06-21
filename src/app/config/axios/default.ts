@@ -3,15 +3,22 @@ import {
     defaultHeaders,
     errorLogger,
     handleAxiosError,
-    whenArticlesRoute,
-    whenCoursesRoute,
+    whenArticlesMicroserviceRoute,
+    whenAuthMicroserviceRoute,
+    whenCoursesMicroserviceRoute,
     whenUsingUploadToStorageRoute,
 } from "./helpers";
-import { articlesInterceptor, coursesInterceptor, storageInterceptor, tokenInterceptor } from "./interceptors/request";
+import {
+    articlesMicroserviceInterceptor,
+    authMicroserviceInterceptor,
+    coursesMicroserviceInterceptor,
+    storageInterceptor,
+    tokenInterceptor,
+} from "./interceptors/request";
 import { responderInterceptor } from "./interceptors/response";
 
 export const axios = Axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL_CORE,
     headers: defaultHeaders,
     responseType: "json",
 });
@@ -27,13 +34,18 @@ axios.interceptors.request.use(tokenInterceptor, errorLogger, { runWhen: () => t
 axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenUsingUploadToStorageRoute });
 
 /**
- *  Меняй baseUrl, если работаешь с микрачом COURSES.
+ *  Меняй baseUrl, если работаешь с микросервисом AUTH.
  */
-axios.interceptors.request.use(coursesInterceptor, errorLogger, { runWhen: whenCoursesRoute });
+axios.interceptors.request.use(authMicroserviceInterceptor, errorLogger, { runWhen: whenAuthMicroserviceRoute });
 
 /**
- *  Меняй baseUrl, если работаешь с микрачом ARTICLES.
+ *  Меняй baseUrl, если работаешь с микросервисом COURSES.
  */
-axios.interceptors.request.use(articlesInterceptor, errorLogger, { runWhen: whenArticlesRoute });
+axios.interceptors.request.use(coursesMicroserviceInterceptor, errorLogger, { runWhen: whenCoursesMicroserviceRoute });
+
+/**
+ *  Меняй baseUrl, если работаешь с микросервисом ARTICLES.
+ */
+axios.interceptors.request.use(articlesMicroserviceInterceptor, errorLogger, { runWhen: whenArticlesMicroserviceRoute });
 
 axios.interceptors.response.use(responderInterceptor, handleAxiosError);

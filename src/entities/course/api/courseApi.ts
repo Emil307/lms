@@ -126,7 +126,7 @@ class CourseApi extends BaseApi {
         const response = await this.instance.get(`/courses/${courseId}/program/${programId}`);
         return $GetCourseProgramModuleLessonsResponse.parse(response);
     }
-
+    //TODO: getCourseTeachers deprecated
     async getCourseTeachers(): Promise<GetCourseTeachersResponse> {
         const response = await this.instance.get(`teachers`);
         return $GetCourseTeachersResponse.parse(response);
