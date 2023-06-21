@@ -19,9 +19,8 @@ export const menuLinks: { label: string; href: Route; icon: ReactNode; isCheckRo
         isCheckRoute: "/articles",
     },
     {
-        //TODO: сменить урл как добавится страница поддержки
         label: "Поддержка",
-        href: { pathname: "/" },
+        href: { pathname: "/support" },
         icon: <IconMessageDots />,
         isCheckRoute: "/support",
     },

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AdminSupportConversationFromList, supportApi } from "@entities/support";
 import { QueryKeys } from "@shared/constant";
 import { ManagedSearch } from "@shared/ui";
-import { ChatList, CreateAdminMessageForm, MessageList } from "@features/support";
+import { AdminMessageList, ChatList, CreateAdminMessageForm } from "@features/support";
 import { getFullName } from "@shared/utils";
 import { SearchItemComponent } from "./components";
 import useStyles from "./MessagesPage.styles";
@@ -69,13 +69,13 @@ const MessagesPage = () => {
                             <Title order={3} color="dark" lineClamp={1}>
                                 {getFullName({ data: selectedConversation.profile })}
                             </Title>
-                            TODO: заменить как бек добавит это поле
+                            {/* TODO: заменить как бек добавит это поле */}
                             <Text className={classes.chatHeaderRoleName}>Ученик</Text>
                         </Flex>
                     )}
-                    <MessageList conversation={selectedConversation} maxHeightContainer={450}>
+                    <AdminMessageList conversation={selectedConversation} maxHeightContainer={450}>
                         <CreateAdminMessageForm conversationId={selectedConversation?.supportConversation.id} pt={32} />
-                    </MessageList>
+                    </AdminMessageList>
                 </Box>
             </Flex>
         </Box>
