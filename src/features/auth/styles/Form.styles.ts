@@ -39,6 +39,7 @@ export const useFormStyles = createStyles((theme) => ({
         fontSize: 14,
         lineHeight: "16px",
         color: theme.colors.primary[0],
+        textDecoration: "initial",
     },
     logoLink: {
         color: theme.colors.dark[0],
