@@ -8,7 +8,7 @@ import { tabsList } from "./constants";
 
 const StaticReviewsPage = () => {
     const router = useRouter();
-    const [showPrompt, setShowPrompt] = useState(true);
+    const [openedPrompt, setOpenedPrompt] = useState(true);
 
     const redirectCreateReview = () => router.push({ pathname: "/admin/settings/main-page/reviews/create" });
 
@@ -26,7 +26,7 @@ const StaticReviewsPage = () => {
         }
     };
 
-    const handleClosePrompt = () => setShowPrompt(false);
+    const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
         <Flex direction="column" gap={32}>
@@ -34,7 +34,11 @@ const StaticReviewsPage = () => {
                 Титульная страница
             </Title>
             <Tabs value={tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} />
-            {showPrompt && <Prompt content="Отзывы из данного раздела отображаются на главной странице." onClose={handleClosePrompt} />}
+            <Prompt
+                isOpened={openedPrompt}
+                content="Отзывы из данного раздела отображаются на главной странице."
+                onClose={handleClosePrompt}
+            />
             <Box>
                 <Flex gap={48} align="center">
                     <Title order={2} color="dark">

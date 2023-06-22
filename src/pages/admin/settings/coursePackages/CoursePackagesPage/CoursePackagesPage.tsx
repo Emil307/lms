@@ -7,11 +7,11 @@ import { List as CoursePackagesList } from "@features/coursePackages";
 
 const CoursePackagesPage = () => {
     const router = useRouter();
-    const [showPrompt, setShowPrompt] = useState(true);
+    const [openedPrompt, setOpenedPrompt] = useState(true);
 
     const openCreateCoursePackageForm = () => router.push("/admin/settings/course-packages/create");
 
-    const handleClosePrompt = () => setShowPrompt(false);
+    const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
         <Box>
@@ -23,9 +23,12 @@ const CoursePackagesPage = () => {
                     Создать пакет
                 </Button>
             </Flex>
-            {showPrompt && (
-                <Prompt content="Скидка на отдельный курс устанавливается в разделе Курсы." onClose={handleClosePrompt} mb={24} />
-            )}
+            <Prompt
+                isOpened={openedPrompt}
+                content="Скидка на отдельный курс устанавливается в разделе Курсы."
+                onClose={handleClosePrompt}
+                mb={24}
+            />
             <CoursePackagesList />
         </Box>
     );

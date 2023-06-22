@@ -7,7 +7,6 @@ import {
     GetCourseProgramModuleLessonsResponse,
     GetCourseProgramResponse,
     GetMyCoursesResponse,
-    GetCourseReviewsResponse,
     GetCourseTeachersResponse,
     GetAdminCourseResourcesResponse,
     $GetAdminCourseResourcesResponse,
@@ -16,7 +15,6 @@ import {
     $GetCourseProgramResponse,
     $GetCourseProgramModuleLessonsResponse,
     $GetCourseTeachersResponse,
-    $GetCourseReviewsResponse,
     GetCoursesResponse,
     $GetCoursesResponse,
     GetCoursesRequest,
@@ -130,11 +128,6 @@ class CourseApi extends BaseApi {
     async getCourseTeachers(): Promise<GetCourseTeachersResponse> {
         const response = await this.instance.get(`teachers`);
         return $GetCourseTeachersResponse.parse(response);
-    }
-
-    async getCourseReviews(courseId: number): Promise<GetCourseReviewsResponse> {
-        const response = await this.instance.get(`courses/${courseId}/reviews`);
-        return $GetCourseReviewsResponse.parse(response);
     }
 }
 

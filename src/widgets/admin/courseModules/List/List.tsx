@@ -6,13 +6,13 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon, Folder as FolderIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { Button, DndCard, Loader } from "@shared/ui";
 import { CourseModule, useCourseModules } from "@entities/courseModule";
 import { CreateCourseModuleModal } from "@features/courseModules";
 import { ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
-import { useRouter } from "next/router";
 
 interface ModuleListProps {
     courseId: string;

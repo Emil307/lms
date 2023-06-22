@@ -6,9 +6,9 @@ import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $CreateLessonFormValues, CreateLessonFormValues, CreateLessonResponse, lessonApi } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
-import useStyles from "./CreateLessonModal.styles";
-import { initialValues } from "./constants";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
+import { initialValues } from "./constants";
+import useStyles from "./CreateLessonModal.styles";
 
 export interface CreateLessonModalProps {
     courseId?: string;

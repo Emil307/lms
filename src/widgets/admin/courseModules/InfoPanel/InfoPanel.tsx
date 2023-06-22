@@ -2,8 +2,8 @@ import { Box, Flex, Text, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Loader, Switch } from "@shared/ui";
-import useStyles from "./InfoPanel.styles";
 import { useCourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
+import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
     courseId: string;

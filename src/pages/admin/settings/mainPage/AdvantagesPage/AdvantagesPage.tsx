@@ -9,7 +9,7 @@ import { tabsList } from "./constants";
 
 const AdvantagesPage = () => {
     const router = useRouter();
-    const [showPrompt, setShowPrompt] = useState(true);
+    const [openedPrompt, setOpenedPrompt] = useState(true);
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
@@ -36,7 +36,7 @@ const AdvantagesPage = () => {
         });
     };
 
-    const handleClosePrompt = () => setShowPrompt(false);
+    const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
         <Flex direction="column" gap={32}>
@@ -44,12 +44,11 @@ const AdvantagesPage = () => {
                 Титульная страница
             </Title>
             <Tabs value={tabsList[2].value} tabs={tabsList} onTabChange={handleChangeTab} />
-            {showPrompt && (
-                <Prompt
-                    content="Данные из этого раздела используются для главного баннера на титульной странице."
-                    onClose={handleClosePrompt}
-                />
-            )}
+            <Prompt
+                isOpened={openedPrompt}
+                content="Данные из этого раздела используются для главного баннера на титульной странице."
+                onClose={handleClosePrompt}
+            />
             <Box>
                 <Flex gap={48} align="center">
                     <Title order={2} color="dark">
