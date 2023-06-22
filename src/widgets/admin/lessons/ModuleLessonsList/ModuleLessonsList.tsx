@@ -7,11 +7,11 @@ import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
 import { Button, DndCard, Loader } from "@shared/ui";
-import useStyles from "./ModuleLessonsList.styles";
 import { AdminLessonFromList, useAdminModuleLessons } from "@entities/lesson";
+import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
 import { ListMenu } from "./components";
 import { getInitialValues } from "./utils";
-import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
+import useStyles from "./ModuleLessonsList.styles";
 
 interface ModuleLessonsListProps {
     courseId: string;

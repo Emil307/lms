@@ -91,6 +91,13 @@ export default function Sidebar() {
                 />
                 <SidebarItem
                     inner={true}
+                    label="Отзывы"
+                    icon={<User color={theme.colors.primary[9]} />}
+                    href="/admin/settings/course-reviews"
+                    isActive={router.pathname.includes("/admin/settings/course-reviews")}
+                />
+                <SidebarItem
+                    inner={true}
                     label="Титульная страница"
                     icon={<User color={theme.colors.primary[9]} />}
                     href="/admin/settings/main-page/reviews"

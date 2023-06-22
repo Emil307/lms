@@ -1,7 +1,7 @@
 import { List as MList, ListProps as MListProps, Text } from "@mantine/core";
 import { useCourseProgramModuleLessons } from "@entities/course";
-import useStyles from "./ProgramModuleLessonsList.styles";
 import { Loader } from "@shared/ui";
+import useStyles from "./ProgramModuleLessonsList.styles";
 
 export interface ProgramModuleLessonsListProps extends Omit<MListProps, "children"> {
     courseId: number;

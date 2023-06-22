@@ -43,10 +43,10 @@ import {
     ControlPanel,
     FControlPanel,
 } from "@shared/ui";
-import { ReviewForm } from "@features/review";
 import { createNotification, ToastType } from "@shared/utils";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 import { UploadedFile } from "@shared/types";
+import { CreateCourseReviewForm } from "@features/courseReviews";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -371,7 +371,7 @@ export const UIDemo = () => {
                                             centered: true,
                                             size: 408,
                                             children: (
-                                                <ReviewForm
+                                                <CreateCourseReviewForm
                                                     data={{
                                                         name: "Оптимизация управления финансами",
                                                         rating: 4.8,

@@ -42,6 +42,8 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-packages/create">
     | StaticRoute<"/admin/settings/course-packages">
+    | DynamicRoute<"/admin/settings/course-reviews/[id]", { "id": string }>
+    | StaticRoute<"/admin/settings/course-reviews">
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">

@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { useSession } from "@features/auth";
-import useStyles from "./HeaderAdmin.styles";
 import { Logo } from "@components/Logo";
+import useStyles from "./HeaderAdmin.styles";
 
 const HeaderAdmin = () => {
     const router = useRouter();

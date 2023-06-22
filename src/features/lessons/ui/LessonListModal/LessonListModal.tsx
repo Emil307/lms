@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { Button, FDateRangePicker, FSearch, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { columns, filterInitialValues } from "./constants";
-import useStyles from "./LessonListModal.styles";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { AdminLessonFromList, AdminSelectLessonsExtraFilters, AdminSelectLessonsFilters, lessonApi } from "@entities/lesson";
 import { adaptGetAdminLessonsRequest } from "@features/lessons/ui/LessonListModal/utils";
+import { columns, filterInitialValues } from "./constants";
+import useStyles from "./LessonListModal.styles";
 
 export interface LessonListModalProps {
     courseId: string;

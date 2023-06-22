@@ -2,11 +2,11 @@ import { Badge, Box, Divider, Flex, Group, Text, Title } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { useMemo } from "react";
 import { Button, Form, FRating, FTextarea, Rating } from "@shared/ui";
-import { $sendReviewRequest, SendReviewRequest } from "@features/review";
 import { getPluralString } from "@shared/utils";
-import useStyles from "./ReviewForm.styles";
+import useStyles from "./CreateCourseReviewForm.styles";
+import { $sendReviewRequest, SendReviewRequest } from "./types";
 
-export interface ReviewFormProps {
+export interface CreateCourseReviewFormProps {
     data: {
         name: string;
         rating: number;
@@ -20,7 +20,7 @@ export interface ReviewFormProps {
     onClose: () => void;
 }
 
-const ReviewForm = ({ data, onClose }: ReviewFormProps) => {
+const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) => {
     const { classes } = useStyles();
     const config: FormikConfig<SendReviewRequest> = {
         initialValues: {
@@ -43,6 +43,7 @@ const ReviewForm = ({ data, onClose }: ReviewFormProps) => {
         [data.categories]
     );
 
+    //TODO: Заменить на ManagedForm
     return (
         <Box>
             <Group mb={8}>
@@ -98,4 +99,4 @@ const ReviewForm = ({ data, onClose }: ReviewFormProps) => {
     );
 };
 
-export default ReviewForm;
+export default CreateCourseReviewForm;

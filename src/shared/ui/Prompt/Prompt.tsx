@@ -3,12 +3,18 @@ import { Info, X } from "react-feather";
 import useStyles from "./Prompt.styles";
 
 export interface PromptProps extends FlexProps {
+    isOpened: boolean;
     content: string;
     onClose: () => void;
 }
 
-const Prompt = ({ content, onClose, ...props }: PromptProps) => {
+const Prompt = ({ isOpened, content, onClose, ...props }: PromptProps) => {
     const { classes } = useStyles();
+
+    if (!isOpened) {
+        return null;
+    }
+
     return (
         <Flex {...props} className={classes.root}>
             <ThemeIcon className={classes.icon} variant="outline">
