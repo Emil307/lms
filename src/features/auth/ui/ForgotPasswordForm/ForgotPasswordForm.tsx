@@ -47,7 +47,7 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
                 <Text className={classes.headingTitle}>Забыли пароль?</Text>
                 <Text className={classes.headingDescription}>
                     Вспомнили пароль?
-                    <Link href="/" className={classes.signUpLink}>
+                    <Link href="/auth" className={classes.signUpLink}>
                         Войдите
                     </Link>
                 </Text>
