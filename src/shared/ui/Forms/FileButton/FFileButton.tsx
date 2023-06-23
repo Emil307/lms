@@ -9,12 +9,14 @@ export interface FFileButtonProps extends Omit<FileButtonProps, "name" | "onChan
 }
 
 export default function FFileButton({ name, onChange = () => undefined, ...props }: FFileButtonProps) {
-    const [_field, _meta, helpers] = useField(name);
+    const [_field, meta, helpers] = useField(name);
+
+    const error = (meta.touched && meta.error) || undefined;
 
     const handleChange = useCallback((payload: UploadedFile | null) => {
         onChange(payload);
         helpers.setValue(payload);
     }, []);
 
-    return <FileButton {...props} onChange={handleChange} />;
+    return <FileButton {...props} onChange={handleChange} error={error} />;
 }

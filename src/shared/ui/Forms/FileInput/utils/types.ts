@@ -18,6 +18,7 @@ export type LoadedFile = {
     data: File | UploadedFile;
     error?: string;
 };
+export type AvatarFileFormat = "jpg" | "png" | "jpeg";
 
 export type FileFormat =
     | "jpg"

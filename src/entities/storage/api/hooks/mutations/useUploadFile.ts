@@ -25,10 +25,11 @@ export const useUploadFile = () => {
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
             },
-            onError: () => {
+            onError: (error) => {
                 createNotification({
                     type: ToastType.WARN,
                     title: "Ошибка загрузки файла",
+                    message: error.response?.data.message || error.message,
                 });
             },
         }
