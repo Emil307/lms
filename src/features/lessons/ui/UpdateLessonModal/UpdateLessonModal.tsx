@@ -12,7 +12,7 @@ import useStyles from "./UpdateLessonModal.styles";
 export interface UpdateLessonModalProps {
     data: AdminLessonFromList;
     onClose: () => void;
-    lessonNumber: number;
+    lessonNumber?: number;
 }
 
 const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalProps) => {
@@ -47,6 +47,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
                 { queryKey: [QueryKeys.GET_ADMIN_MODULE_LESSONS] },
                 { queryKey: [QueryKeys.GET_ADMIN_LESSONS] },
                 { queryKey: [QueryKeys.GET_ADMIN_LESSON] },
+                { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] },
             ]}
             mutationFunction={updateLesson}
             onSuccess={onSuccess}
@@ -58,7 +59,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <AlignLeftIcon />
                         </ThemeIcon>
-                        <Title order={4}>Урок {lessonNumber}</Title>
+                        <Title order={4}>{lessonNumber ? `Урок ${lessonNumber}` : "Данные урока"}</Title>
                     </Flex>
                     <Flex gap={8} direction="column">
                         <FInput name="name" label="Название урока" />

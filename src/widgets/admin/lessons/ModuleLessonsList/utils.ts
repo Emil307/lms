@@ -1,6 +1,6 @@
-import { GetAdminLessonsRequest } from "@entities/lesson";
+import { GetAdminLessonsFromModuleRequest } from "@entities/lesson";
 
-export const getInitialValues = (moduleId: string): GetAdminLessonsRequest => ({
+export const getInitialValues = (moduleId: string): GetAdminLessonsFromModuleRequest => ({
     page: 1,
     perPage: 15,
     filter: {

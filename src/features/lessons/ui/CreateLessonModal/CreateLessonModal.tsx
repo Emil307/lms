@@ -33,16 +33,17 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", lessonNumber, onClose
             title: "Создание урока",
             message: "Урок успешно создан",
         });
-        if (courseId && moduleId) {
-            attachLessonToModule([String(response.id)], {
-                onSuccess: () => {
-                    onClose();
-                },
-                onError: () => {
-                    setSubmitting(false);
-                },
-            });
+        if (!courseId || !moduleId) {
+            return onClose();
         }
+        attachLessonToModule([String(response.id)], {
+            onSuccess: () => {
+                onClose();
+            },
+            onError: () => {
+                setSubmitting(false);
+            },
+        });
     };
 
     const onError = () => {
@@ -58,7 +59,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", lessonNumber, onClose
             initialValues={initialValues}
             validationSchema={$CreateLessonFormValues}
             mutationKey={[MutationKeys.CREATE_LESSON]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSONS] }]}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSONS] }, { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] }]}
             mutationFunction={createLesson}
             onSuccess={onSuccessCreate}
             onError={onError}

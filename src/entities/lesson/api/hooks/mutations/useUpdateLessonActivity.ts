@@ -4,7 +4,13 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification, TPaginationResponse } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { AdminLessonFromList, lessonApi, UpdateLessonActivityRequest, UpdateLessonActivityResponse } from "@entities/lesson";
+import {
+    AdminLessonFromList,
+    GetAdminLessonResponse,
+    lessonApi,
+    UpdateLessonActivityRequest,
+    UpdateLessonActivityResponse,
+} from "@entities/lesson";
 
 export const useUpdateLessonActivity = ({
     id,
@@ -20,22 +26,18 @@ export const useUpdateLessonActivity = ({
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_LESSONS] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId] });
 
-            //TODO: Добавить получение данных из кэша для списка всех уроков + деталки урока
+            //TODO: Добавить получение данных из кэша для списка всех уроков
 
-            // const previousCourseModuleData = queryClient.getQueryData<GetCourseModuleResponse>([
-            //     QueryKeys.GET_COURSE_MODULE,
-            //     courseId,
-            //     moduleId,
-            // ]);
+            const previousLessonData = queryClient.getQueryData<GetAdminLessonResponse>([QueryKeys.GET_ADMIN_LESSON, id]);
             const previousModuleLessonsData = queryClient.getQueryData<InfiniteData<TPaginationResponse<AdminLessonFromList[]>>>([
                 QueryKeys.GET_ADMIN_MODULE_LESSONS,
                 moduleId,
             ]);
 
-            // queryClient.setQueryData<GetCourseModuleResponse>(
-            //     [QueryKeys.GET_COURSE_MODULE, courseId, moduleId],
-            //     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
-            // );
+            queryClient.setQueryData<GetAdminLessonResponse>(
+                [QueryKeys.GET_ADMIN_LESSON, id],
+                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+            );
             queryClient.setQueriesData<InfiniteData<TPaginationResponse<AdminLessonFromList[]>>>(
                 [QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId],
                 (previousData) => {
@@ -52,14 +54,17 @@ export const useUpdateLessonActivity = ({
                 }
             );
 
-            return { previousModuleLessonsData };
+            return { previousLessonData, previousModuleLessonsData };
         },
         onError: (err, _, context) => {
-            //TODO: Добавить установку кэша для списка всех уроков + деталки урока
+            //TODO: Добавить установку кэша для списка всех уроков
 
             // if (context?.previousCourseModuleData) {
             //     queryClient.setQueryData([QueryKeys.GET_COURSE_MODULE, courseId, moduleId], context.previousCourseModuleData);
             // }
+            if (context?.previousLessonData) {
+                queryClient.setQueryData([QueryKeys.GET_ADMIN_LESSON, id], context.previousLessonData);
+            }
             if (context?.previousModuleLessonsData) {
                 queryClient.setQueryData([QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId], context.previousModuleLessonsData);
             }
@@ -69,10 +74,10 @@ export const useUpdateLessonActivity = ({
             });
         },
         onSuccess: ({ isActive }, _, context) => {
-            //TODO: Добавить получение данных из прошлого кэша для списка всех уроков + деталки урока
+            //TODO: Добавить получение данных из прошлого кэша для списка всех уроков
 
-            // const courseModule = context?.previousCourseModuleData;
-            const moduleLessons = context?.previousModuleLessonsData?.pages
+            const lesson = context?.previousLessonData;
+            const moduleLesson = context?.previousModuleLessonsData?.pages
                 .find((page) => page.data.find((lesson) => String(lesson.id) === id))
                 ?.data.find((lesson) => String(lesson.id) === id);
             const statusMessage = isActive ? "активирован" : "деактивирован";
@@ -80,11 +85,15 @@ export const useUpdateLessonActivity = ({
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",
-                message: `Урок "${moduleLessons?.name}" ${statusMessage}.`,
+                message: `Урок "${moduleLesson?.name || lesson?.name}" ${statusMessage}.`,
             });
+
+            //TODO: Добавил инвалидэйт деталки урока из-за нужды обновлять LastUpdated
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON, id]);
 
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_MODULE_LESSONS]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT]);
         },
     });
 };

@@ -1,5 +1,5 @@
+import { AdminSelectLessonsExtraFilters, AdminSelectLessonsFilters, GetAdminLessonsRequest } from "@entities/lesson";
 import dayjs from "dayjs";
-import { AdminSelectLessonsExtraFilters, AdminSelectLessonsFilters, GetAdminSelectLessonsRequest } from "@entities/lesson";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
 export const adaptGetAdminLessonsRequest = ({
@@ -7,7 +7,7 @@ export const adaptGetAdminLessonsRequest = ({
     createdAtTo,
     moduleIds,
     ...rest
-}: TFunctionParams<AdminSelectLessonsFilters, AdminSelectLessonsExtraFilters>): GetAdminSelectLessonsRequest => {
+}: TFunctionParams<AdminSelectLessonsFilters, AdminSelectLessonsExtraFilters>): GetAdminLessonsRequest => {
     return {
         ...rest,
         filter: {

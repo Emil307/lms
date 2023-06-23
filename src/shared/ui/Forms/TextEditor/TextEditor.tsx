@@ -13,6 +13,7 @@ export interface TextEditorProps extends Omit<RichTextEditorProps, "editor" | "c
     error?: ReactNode;
     description?: string;
     success?: string | boolean;
+    readonly?: boolean;
 }
 
 const MemoizedTextEditor = memo(function TextEditor({
@@ -20,11 +21,12 @@ const MemoizedTextEditor = memo(function TextEditor({
     error,
     description,
     success,
+    readonly = false,
     setValue = () => undefined,
     ...props
 }: TextEditorProps) {
     const statusSuccess = !!value && !error && !!success;
-    const { classes } = useStyles({ isError: !!error, statusSuccess });
+    const { classes } = useStyles({ isError: !!error, statusSuccess, readonly });
 
     const editor = useEditor({
         extensions,
