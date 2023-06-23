@@ -3,18 +3,22 @@ import { CSSObject, MantineTheme, createStyles } from "@mantine/core";
 interface TCreateStylesParams {
     isError: boolean;
     statusSuccess: boolean;
+    readonly: boolean;
 }
 
 interface TGetStylesByStatus extends TCreateStylesParams {
     theme: MantineTheme;
 }
 
-export default createStyles((theme, { isError, statusSuccess }: TCreateStylesParams) => ({
+export default createStyles((theme, { isError, statusSuccess, readonly }: TCreateStylesParams) => ({
     root: {
         display: "flex",
         flexDirection: "column",
         borderRadius: 8,
         ...getStylesByStatus({ theme, isError, statusSuccess }),
+        ...(readonly && {
+            pointerEvents: "none",
+        }),
     },
     toolbar: {
         borderTopRightRadius: 8,
@@ -23,7 +27,7 @@ export default createStyles((theme, { isError, statusSuccess }: TCreateStylesPar
     typographyStylesProvider: {
         flex: 1,
         marginBottom: 4,
-        overflow: "hidden",
+        overflow: "auto",
         fontWeight: 500,
         color: theme.colors.dark[0],
         lineHeight: "16px",
@@ -80,7 +84,7 @@ export default createStyles((theme, { isError, statusSuccess }: TCreateStylesPar
     },
 }));
 
-const getStylesByStatus = ({ theme, isError, statusSuccess }: TGetStylesByStatus): CSSObject => {
+const getStylesByStatus = ({ theme, isError, statusSuccess }: Omit<TGetStylesByStatus, "readonly">): CSSObject => {
     if (isError) {
         return {
             border: `1px solid ${theme.colors.warning[0]}`,

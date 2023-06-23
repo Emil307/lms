@@ -28,6 +28,7 @@ export const defaultTheme: MantineThemeOverride = {
         gray45: addMantineColor("rgba(0, 4, 41, 0.45)"),
         gray20: addMantineColor("rgba(0, 4, 41, 0.2)"),
         grayLight: addMantineColor("#EDEDF0"),
+        neutralLight: addMantineColor("#F6F6F6"),
         light: addMantineColor("#F7F7F7"),
         white: addMantineColor("#FFFFFF"),
         white56: addMantineColor("rgba(255, 255, 255, 0.56)"),

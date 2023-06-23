@@ -25,12 +25,9 @@ const HeaderUser = () => {
                         <ActionIcon
                             className={classes.actionIcon}
                             sx={(theme) => ({
-                                backgroundColor: router.pathname === "/"
-                                    ? theme.colors.grayLight[0]
-                                    : "transparent",
+                                backgroundColor: router.pathname === "/" ? theme.colors.grayLight[0] : "transparent",
                             })}
-                            onClick={handleRedirectHomePage}
-                        >
+                            onClick={handleRedirectHomePage}>
                             <Home />
                         </ActionIcon>
                         <Link href="/" className={classes.logoLink}>

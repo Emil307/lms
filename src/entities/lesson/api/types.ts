@@ -9,14 +9,17 @@ import {
 } from "@shared/types";
 
 export type AdminLesson = z.infer<typeof $AdminLesson>;
+export type AdminLessonFromList = z.infer<typeof $AdminLessonFromList>;
 
+export type AdminLessonsFilters = z.infer<typeof $AdminLessonsFilters>;
 export type AdminSelectLessonsFilters = z.infer<typeof $AdminSelectLessonsFilters>;
 export type AdminSelectLessonsExtraFilters = z.infer<typeof $AdminSelectLessonsExtraFilters>;
 
-export type AdminLessonFromList = z.infer<typeof $AdminLessonFromList>;
 export type GetAdminLessonsRequest = z.infer<typeof $GetAdminLessonsRequest>;
 export type GetAdminLessonsResponse = z.infer<typeof $GetAdminLessonsResponse>;
-export type GetAdminSelectLessonsRequest = z.infer<typeof $GetAdminSelectLessonsRequest>;
+export type GetAdminLessonsFromModuleRequest = z.infer<typeof $GetAdminLessonsFromModuleRequest>;
+export type GetAdminLessonResponse = z.infer<typeof $GetAdminLessonResponse>;
+
 export type CreateLessonFormValues = z.infer<typeof $CreateLessonFormValues>;
 export type CreateLessonRequest = z.infer<typeof $CreateLessonRequest>;
 export type CreateLessonResponse = z.infer<typeof $CreateLessonResponse>;
@@ -40,6 +43,8 @@ export const $AdminLesson = z.object({
     lastUpdated: $LastUpdated,
 });
 
+export const $GetAdminLessonResponse = $AdminLesson;
+
 export const $AdminLessonFromList = $AdminLesson.omit({
     content: true,
     videos: true,
@@ -53,13 +58,33 @@ export const $AdminLessonsRequest = z.object({
         .object({
             isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
             createdAt: $getDateObjectType(z.literal("range")),
-            moduleIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            moduleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
         })
         .partial(),
 });
 
 export const $GetAdminLessonsRequest = $getFiltersRequestType($AdminLessonsRequest);
 export const $GetAdminLessonsResponse = $getPaginationResponseType($AdminLessonFromList);
+
+export const $AdminLessonsFilters = z.object({
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    query: z.string(),
+    createdAtFrom: z.coerce.date().nullable(),
+    createdAtTo: z.coerce.date().nullable(),
+});
+
+export const $AdminLessonsFromModuleRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+            createdAt: $getDateObjectType(z.literal("range")),
+            moduleIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+        })
+        .partial(),
+});
+
+export const $GetAdminLessonsFromModuleRequest = $getFiltersRequestType($AdminLessonsFromModuleRequest);
 
 export const $CreateLessonFormValues = z.object({
     name: z.string({ required_error: "Введите название" }),
@@ -87,23 +112,9 @@ export const $UpdateLessonActivityResponse = $UpdateLessonActivityRequest.pick({
     isActive: true,
 });
 
-export const $AdminSelectLessonsFilters = z.object({
-    query: z.string(),
-    createdAtFrom: z.coerce.date().nullable(),
-    createdAtTo: z.coerce.date().nullable(),
+export const $AdminSelectLessonsFilters = $AdminLessonsFilters.omit({
+    isActive: true,
 });
-
-export const $AdminSelectLessonsRequest = z.object({
-    query: z.string().optional(),
-    filter: z
-        .object({
-            createdAt: $getDateObjectType(z.literal("range")),
-            moduleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
-        })
-        .partial(),
-});
-export const $GetAdminSelectLessonsRequest = $getFiltersRequestType($AdminSelectLessonsRequest);
-
 export const $AdminSelectLessonsExtraFilters = z.object({
     moduleIds: z.array(z.string()),
 });

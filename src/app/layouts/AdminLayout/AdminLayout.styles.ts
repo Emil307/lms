@@ -16,7 +16,8 @@ export const useAdminLayoutStyles = createStyles(() => ({
         height: "100%",
     },
     main: {
-        width: "unset"
+        width: "unset",
+        minHeight: "auto",
     },
     footer: {
         flex: "0 0 auto",
