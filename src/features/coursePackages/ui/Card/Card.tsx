@@ -20,9 +20,7 @@ const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props 
                 <Title order={3} color="dark">
                     {data.name}
                 </Title>
-                <Text className={classes.description} lineClamp={2}>
-                    {data.description}
-                </Text>
+                <Text className={classes.description} lineClamp={2} dangerouslySetInnerHTML={{ __html: data.description }} />
             </MCard.Section>
             <MCard.Section className={classes.section} sx={{ flex: 1, height: 160 }}>
                 <Text className={classes.countCourses}>{`${data.courses.length} ${getPluralString(

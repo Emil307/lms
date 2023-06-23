@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
-import { $Role, $UploadedFile, $getPaginationResponseType, $Profile, TRequestFilterParams } from "@shared/types";
+import { $Role, $UploadedFile, $getPaginationResponseType, $Profile, TRequestFilterParams, $getFiltersRequestType } from "@shared/types";
 import { $UserNotifications } from "@entities/notification";
 
 export type TUser = z.infer<typeof $User>;
@@ -18,6 +18,16 @@ export type UpdateUserRequest = z.infer<typeof $UpdateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $CreateUserRequest>;
 export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityRequest>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
+
+//static users
+export type StaticUser = z.infer<typeof $StaticUser>;
+export type StaticUserFromList = z.infer<typeof $StaticUserFromList>;
+//filters
+export type StaticUsersExtraFilters = z.infer<typeof $StaticUsersExtraFilters>;
+
+//req/resp
+export type GetStaticUsersRequest = z.infer<typeof $GetStaticUsersRequest>;
+export type GetStaticUsersResponse = z.infer<typeof $GetStaticUsersResponse>;
 
 export const $User = z.object({
     id: z.number(),
@@ -115,3 +125,34 @@ export const $ChangeUserPasswordRequest = z.object({
     password: z.string(),
     passwordConfirmation: z.string(),
 });
+
+//static users
+
+export const $StaticUser = $User
+    .pick({
+        id: true,
+        email: true,
+        profile: true,
+    })
+    .extend({
+        courseCount: z.number(),
+    });
+
+export const $StaticUserFromList = $StaticUser;
+
+export const $StaticUsersExtraFilters = z.object({
+    roleName: z.string(),
+});
+
+export const $StaticUsersRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            roleName: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetStaticUsersRequest = $getFiltersRequestType($StaticUsersRequest);
+
+export const $GetStaticUsersResponse = $getPaginationResponseType($StaticUserFromList);

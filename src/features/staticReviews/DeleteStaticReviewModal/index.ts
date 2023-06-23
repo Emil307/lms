@@ -1,3 +1,3 @@
-import DeleteStaticReviewModal from "./DeleteStaticReviewModal";
+import DeleteStaticReviewModal, { type DeleteStaticReviewModalProps } from "./DeleteStaticReviewModal";
 
-export { DeleteStaticReviewModal };
+export { DeleteStaticReviewModal, DeleteStaticReviewModalProps };

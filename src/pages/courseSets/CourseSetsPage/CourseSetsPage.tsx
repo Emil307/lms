@@ -15,7 +15,7 @@ const CourseSetsPage = () => {
                     {title}
                 </Title>
             </Box>
-            <CourseSetList withPagination />
+            <CourseSetList withPagination colProps={{ sm: 6, xs: 12 }} />
         </Box>
     );
 };

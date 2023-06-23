@@ -5,7 +5,7 @@ import { FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { UserFromList, UsersFilters } from "@entities/user/api/types";
-import { useAdminStudentsFilters, usersApi } from "@entities/user";
+import { useAdminStudentsFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { StudentsListMenu } from "./components/ListMenu";
 import { columns, radioGroupValues, filterInitialValues } from "./constant";
@@ -29,7 +29,7 @@ const List = () => {
         <Box mt={24}>
             <ManagedDataGrid<UserFromList, UsersFilters>
                 queryKey={QueryKeys.GET_STUDENTS}
-                queryFunction={(params) => usersApi.getAdminUsers(params)}
+                queryFunction={(params) => userApi.getAdminUsers(params)}
                 queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                 filter={{
                     initialValues: filterInitialValues,

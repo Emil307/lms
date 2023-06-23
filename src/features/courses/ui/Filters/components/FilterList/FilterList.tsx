@@ -5,7 +5,7 @@ import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
 import { getPluralString } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
-import { CourseSubCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
+import { CourseCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
 import useStyles from "./FilterList.styles";
 import { MAX_HEIGHT_FILTER_CONTENT } from "./constants";
 
@@ -14,7 +14,7 @@ export interface FilterListProps {
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
-    data?: CourseTag[] | CourseSubCategory[];
+    data?: CourseTag[] | CourseCategory[];
 }
 
 const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {

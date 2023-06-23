@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import dayjs from "dayjs";
 import { Button, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
-import { $UpdateUserRequest, UpdateUserRequest, useAdminUsersFilters, UserDetailResponse, usersApi } from "@entities/user";
+import { $UpdateUserRequest, UpdateUserRequest, useAdminUsersFilters, UserDetailResponse, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
@@ -48,7 +48,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     };
 
     const updateUser = (values: UpdateUserRequest) => {
-        return usersApi.updateUser({ ...values, avatarId: values.avatar?.id, additionalImageId: values.additionalImage?.id, id: data?.id });
+        return userApi.updateUser({ ...values, avatarId: values.avatar?.id, additionalImageId: values.additionalImage?.id, id: data?.id });
     };
 
     const onSuccess = (response: UserDetailResponse) => {

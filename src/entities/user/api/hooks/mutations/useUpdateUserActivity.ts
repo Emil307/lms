@@ -2,12 +2,12 @@ import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
-import { TUser, GetUsersResponse, usersApi } from "@entities/user";
+import { TUser, GetUsersResponse, userApi } from "@entities/user";
 import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification, getFullName } from "@shared/utils";
 
 export const useUpdateUserActivity = (id: string): UseMutationResult<void, AxiosError<FormErrorResponse>, boolean> => {
-    return useMutation([MutationKeys.UPDATE_USER_ACTIVITY], (isActive) => usersApi.updateUserActivity({ id, isActive }), {
+    return useMutation([MutationKeys.UPDATE_USER_ACTIVITY], (isActive) => userApi.updateUserActivity({ id, isActive }), {
         onMutate: async (updatedStatus) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USER, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USERS] });

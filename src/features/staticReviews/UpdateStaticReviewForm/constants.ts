@@ -1,6 +1,6 @@
-import { UpdateAdminStaticReviewRequest } from "@entities/staticReview";
+import { UpdateAdminStaticReviewFormValidation } from "./types";
 
-export const initialValues: UpdateAdminStaticReviewRequest = {
+export const initialValues: UpdateAdminStaticReviewFormValidation = {
     isActive: false,
     content: "",
     firstName: "",

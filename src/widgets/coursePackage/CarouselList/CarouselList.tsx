@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Title, Text, TitleProps } from "@mantine/core";
+import { Box, BoxProps, Flex, Title, Text, TitleProps, Skeleton } from "@mantine/core";
 import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
@@ -12,16 +12,18 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
     titleProps?: TitleProps;
     description?: string;
     exceptionCoursePackageId?: string;
+    visible?: boolean;
 }
 
-const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, ...props }: CarouselListProps) => {
+const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, visible, ...props }: CarouselListProps) => {
     const { classes } = useStyles();
 
     const {
         data: coursePackages,
         hasNextPage,
         fetchNextPage,
-    } = useCoursePackages(adaptDataForUpdateAboutForm({ exceptionCoursePackageId }));
+        isLoading,
+    } = useCoursePackages(adaptDataForUpdateAboutForm({ exceptionCoursePackageId }), visible);
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
@@ -30,21 +32,29 @@ const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId
         }
     }, [entry]);
 
+    if (!coursePackages?.data.length) {
+        return null;
+    }
+
     return (
         <Box {...props} className={classes.root}>
             <Flex direction="column" gap={8} mb={32}>
-                <Title order={2} color="dark" {...titleProps}>
-                    {title}
-                </Title>
+                <Skeleton visible={isLoading} mih={40} radius={24}>
+                    <Title order={2} color="dark" {...titleProps}>
+                        {title}
+                    </Title>
+                </Skeleton>
                 {description && <Text className={classes.headingDescription}>{description}</Text>}
             </Flex>
-            <Carousel<CoursePackage> data={coursePackages?.data} lastElemRef={lastElemRef} slideSize={648}>
-                {(props) => (
-                    <CoursePackageCard {...props} h={420} w={648}>
-                        {(props) => <CourseListFromPackage {...props} />}
-                    </CoursePackageCard>
-                )}
-            </Carousel>
+            <Skeleton visible={isLoading} mih={420} radius={16}>
+                <Carousel<CoursePackage> data={coursePackages?.data} lastElemRef={lastElemRef} slideSize={648}>
+                    {(props) => (
+                        <CoursePackageCard {...props} h={420} w={648}>
+                            {(props) => <CourseListFromPackage {...props} />}
+                        </CoursePackageCard>
+                    )}
+                </Carousel>
+            </Skeleton>
         </Box>
     );
 };

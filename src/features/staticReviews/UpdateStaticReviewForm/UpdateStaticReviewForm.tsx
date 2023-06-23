@@ -8,14 +8,15 @@ import { Fieldset } from "@components/Fieldset";
 import {
     $UpdateAdminStaticReviewRequest,
     AdminStaticReview,
-    UpdateAdminStaticReviewRequest,
+    UpdateAdminStaticReviewResponse,
     staticReviewApi,
 } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import useStyles from "./UpdateStaticReviewForm.styles";
-import { adaptDataForUpdateReviewForm } from "./utils";
+import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
+import { UpdateAdminStaticReviewFormValidation } from "./types";
 
 export interface UpdateStaticReviewFormProps {
     data?: AdminStaticReview;
@@ -25,14 +26,8 @@ export interface UpdateStaticReviewFormProps {
 const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) => {
     const { classes } = useStyles();
 
-    const updateStaticReview = (values: UpdateAdminStaticReviewRequest) => {
-        return staticReviewApi.updateAdminStaticReview({
-            ...values,
-            authorAvatarId: values.avatar?.id,
-            previewId: values.preview?.id,
-            videoId: values.video?.id,
-            id: data?.id,
-        });
+    const updateStaticReview = (values: UpdateAdminStaticReviewFormValidation) => {
+        return staticReviewApi.updateAdminStaticReview({ ...adaptUpdateStaticReviewRequest(values), id: String(data?.id) });
     };
 
     const onSuccess = () => {
@@ -51,7 +46,7 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
     };
 
     return (
-        <ManagedForm<UpdateAdminStaticReviewRequest, AdminStaticReview>
+        <ManagedForm<UpdateAdminStaticReviewFormValidation, UpdateAdminStaticReviewResponse>
             initialValues={{ ...initialValues, ...adaptDataForUpdateReviewForm(data) }}
             validationSchema={$UpdateAdminStaticReviewRequest}
             mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, data?.id.toString()]}

@@ -3,7 +3,7 @@ import React from "react";
 import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Radio } from "@shared/ui";
-import { CreateUserResponse, useAdminStudentsFilters, usersApi } from "@entities/user";
+import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
@@ -24,7 +24,7 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
     const defaultRole = String(options?.roles.at(0)?.id ?? 0);
 
     const createStudent = (values: CreateStudentValidationFormRequest) => {
-        return usersApi.createUser(adaptCreateUserFormRequest(values));
+        return userApi.createUser(adaptCreateUserFormRequest(values));
     };
 
     const onSuccess = (response: CreateUserResponse) => {

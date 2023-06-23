@@ -1,5 +1,6 @@
-import { Box, BoxProps } from "@mantine/core";
+import { Box, BoxProps, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useRouter } from "next/router";
+import { ReactNode } from "react";
 import { List as ListComponent, ListProps as TListProps } from "@components/List";
 import { Course, useCourses } from "@entities/course";
 import { EmptyData } from "@shared/ui";
@@ -8,11 +9,28 @@ import { adaptGetCoursesRequest } from "./utils";
 import { TRouterQueries } from "./types";
 import { Card } from "../Card";
 
-export interface ListProps extends BoxProps, Pick<TListProps<Course>, "colProps"> {
+export interface ListProps extends BoxProps, Pick<TListProps<Course>, "colProps" | "withPagination"> {
     collectionIds?: string;
+    perPage?: number;
+    headerSlot?: ReactNode;
+    footerSlot?: ReactNode;
+    skeletonListProps?: SkeletonProps;
+    wrapperProps?: FlexProps;
+    visible?: boolean;
 }
 
-const List = ({ collectionIds, colProps = { md: 4, sm: 6 }, ...props }: ListProps) => {
+const List = ({
+    collectionIds,
+    headerSlot,
+    footerSlot,
+    colProps = { md: 4, sm: 6 },
+    perPage = 6,
+    withPagination = false,
+    skeletonListProps,
+    wrapperProps,
+    visible,
+    ...props
+}: ListProps) => {
     const router = useRouter();
     const params = router.query as TRouterQueries;
 
@@ -20,27 +38,43 @@ const List = ({ collectionIds, colProps = { md: 4, sm: 6 }, ...props }: ListProp
         data: courseSetsData,
         isFetching,
         isLoading,
-    } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, collectionIds }));
+    } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, perPage, collectionIds }), visible);
 
     const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 
-    if (!isLoading && !courseSetsData?.data.length) {
-        return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
-    }
+    const renderContent = () => {
+        if (!isLoading && !courseSetsData?.data.length && !!Object.values(params).find((param) => !!param)) {
+            return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
+        }
+
+        return (
+            <Box {...props} w="100%">
+                <ListComponent<Course>
+                    data={courseSetsData?.data}
+                    renderItem={(props) => <Card {...props} />}
+                    colProps={colProps}
+                    withPagination={withPagination}
+                    pagination={courseSetsData?.pagination}
+                    declensionWordCountItems={["курс", "курса", "курсов"]}
+                    isLoading={isFetching}
+                    onClick={handleClickCard}
+                />
+            </Box>
+        );
+    };
 
     return (
-        <Box {...props} w="100%">
-            <ListComponent<Course>
-                data={courseSetsData?.data}
-                renderItem={(props) => <Card {...props} />}
-                colProps={colProps}
-                withPagination
-                pagination={courseSetsData?.pagination}
-                declensionWordCountItems={["курс", "курса", "курсов"]}
-                isLoading={isFetching}
-                onClick={handleClickCard}
-            />
-        </Box>
+        <Flex {...wrapperProps}>
+            <Skeleton visible={isLoading} radius={16}>
+                {headerSlot}
+            </Skeleton>
+            <Skeleton visible={isLoading} {...skeletonListProps}>
+                {renderContent()}
+            </Skeleton>
+            <Skeleton visible={isLoading} radius={16}>
+                {footerSlot}
+            </Skeleton>
+        </Flex>
     );
 };
 
