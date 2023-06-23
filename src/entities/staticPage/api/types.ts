@@ -2,6 +2,18 @@ import { z } from "zod";
 import { $LastUpdated, $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 
+/**
+ *
+ * ADMIN TYPES
+ *
+ */
+
+/**
+ *
+ * USER TYPES
+ *
+ */
+
 export type FaqItem = z.infer<typeof $FaqItem>;
 export type AdminFaqItem = z.infer<typeof $AdminFaqItem>;
 export type Advantage = z.infer<typeof $Advantage>;
@@ -28,6 +40,18 @@ export type UpdateFaqActivityStatusRequest = z.infer<typeof $UpdateFaqActivitySt
 export type UpdateFaqActivityStatusResponse = z.infer<typeof $UpdateFaqActivityStatusResponse>;
 
 export type GetAdvantagesRequest = TDefaultRequestParams;
+
+/**
+ *
+ * ADMIN ZOD
+ *
+ */
+
+/**
+ *
+ * USER ZOD
+ *
+ */
 
 export const $Advantage = z.object({
     id: z.number(),

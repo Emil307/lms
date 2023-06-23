@@ -1,7 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
 import { Button, FInput, ManagedForm } from "@shared/ui";
-import { usersApi } from "@entities/user";
+import { userApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
 import { useSession } from "@features/auth";
@@ -20,7 +20,7 @@ export interface ChangeUserPasswordFormProps {
 const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormProps) => {
     const { user } = useSession();
     const changeUserPassword = ({ isOldPassword, ...values }: Omit<ChangePasswordFormValidationSchema, "id">) => {
-        return usersApi.updateUserPassword({ id: userData.id, ...values });
+        return userApi.updateUserPassword({ id: userData.id, ...values });
     };
 
     const onSuccess = () => {

@@ -1,3 +1,3 @@
-import UpdateStaticReviewForm from "./UpdateStaticReviewForm";
+import UpdateStaticReviewForm, { type UpdateStaticReviewFormProps } from "./UpdateStaticReviewForm";
 
-export { UpdateStaticReviewForm };
+export { UpdateStaticReviewForm, UpdateStaticReviewFormProps };

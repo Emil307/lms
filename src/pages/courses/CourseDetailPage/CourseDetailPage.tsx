@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs } from "@shared/ui";
-import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, CourseTeacherList } from "@widgets/course";
+import { AuthorInfo, MainInfoPanel, ProgramTrainingList, StudentReviews, TeacherList as CourseTeacherList } from "@widgets/course";
 import { CourseDetailData } from "@entities/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";

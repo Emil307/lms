@@ -13,7 +13,7 @@ const UpdateStaticReviewPage = () => {
 
     const handleCloseForm = () => router.push("/admin/settings/main-page/reviews");
 
-    const { data } = useAdminStaticReview(id);
+    const { data } = useAdminStaticReview({ id });
 
     const fullName = `${data?.firstName} ${data?.lastName}`;
 

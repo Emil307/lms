@@ -43,13 +43,13 @@ const CourseSetDetailPage = () => {
                         {data?.name}
                     </Title>
                 </Flex>
-                <CoursesList collectionIds={id} />
+                <CoursesList collectionIds={id} withPagination />
             </Flex>
             <Flex direction="column" gap={32} mt={64}>
                 <Title order={2} color="dark">
                     Другие актуальные подборки
                 </Title>
-                <CourseSetList perPage={1} hasCardMore exceptionCourseSetId={id} />
+                <CourseSetList perPage={1} hasCardMore exceptionCourseSetId={id} colProps={{ sm: 6, xs: 12 }} />
             </Flex>
         </Flex>
     );

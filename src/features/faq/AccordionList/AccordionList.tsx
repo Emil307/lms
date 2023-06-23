@@ -1,14 +1,18 @@
-import { Accordion, AccordionProps as MAccordionProps } from "@mantine/core";
+import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton, SkeletonProps, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
-import { Loader } from "@shared/ui";
 
-export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {}
+export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {
+    title?: string;
+    visible?: boolean;
+    skeletonListProps?: SkeletonProps;
+    wrapperProps?: FlexProps;
+}
 
-const AccordionList = (props: AccordionListProps) => {
+const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...props }: AccordionListProps) => {
     const [selected, setSelected] = useState<string[]>([]);
-    const { data: faqData, isLoading } = useFaq();
+    const { data: faqData, isLoading } = useFaq(visible);
 
     const getChevron = (isOpen: boolean) => {
         if (isOpen) {
@@ -28,11 +32,25 @@ const AccordionList = (props: AccordionListProps) => {
         [faqData, selected]
     );
 
+    if (!faqData?.length) {
+        return null;
+    }
+
     return (
-        <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
-            {isLoading && <Loader />}
-            {renderFaq}
-        </Accordion>
+        <Flex direction="column" {...wrapperProps}>
+            {title && (
+                <Skeleton visible={isLoading} mih={40} radius={24}>
+                    <Title order={1} color="dark">
+                        {title}
+                    </Title>
+                </Skeleton>
+            )}
+            <Skeleton visible={isLoading} {...skeletonListProps}>
+                <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
+                    {renderFaq}
+                </Accordion>
+            </Skeleton>
+        </Flex>
     );
 };
 

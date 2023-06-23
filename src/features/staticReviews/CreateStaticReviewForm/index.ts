@@ -1,3 +1,3 @@
-import CreateStaticReviewForm from "./CreateStaticReviewForm";
+import CreateStaticReviewForm, { type CreateStaticReviewFormProps } from "./CreateStaticReviewForm";
 
-export { CreateStaticReviewForm };
+export { CreateStaticReviewForm, CreateStaticReviewFormProps };

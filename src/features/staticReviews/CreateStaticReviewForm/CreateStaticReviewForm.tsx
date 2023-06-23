@@ -6,16 +6,13 @@ import { IconClipboardText } from "@tabler/icons-react";
 import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import {
-    $CreateAdminStaticReviewRequest,
-    AdminStaticReview,
-    CreateAdminStaticReviewRequest,
-    staticReviewApi,
-} from "@entities/staticReview";
+import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import useStyles from "./CreateStaticReviewForm.styles";
+import { $CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewFormValidation } from "./types";
+import { adaptCreateStaticReviewRequest } from "./utils";
 
 export interface CreateStaticReviewFormProps {
     onClose: () => void;
@@ -24,13 +21,8 @@ export interface CreateStaticReviewFormProps {
 const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
     const { classes } = useStyles();
 
-    const createStaticReview = (values: CreateAdminStaticReviewRequest) => {
-        return staticReviewApi.createStaticReview({
-            ...values,
-            authorAvatarId: values.avatar?.id,
-            previewId: values.preview?.id,
-            videoId: values.video?.id,
-        });
+    const createStaticReview = (values: CreateAdminStaticReviewFormValidation) => {
+        return staticReviewApi.createStaticReview(adaptCreateStaticReviewRequest(values));
     };
 
     const onSuccess = () => {
@@ -50,9 +42,9 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
     };
 
     return (
-        <ManagedForm<CreateAdminStaticReviewRequest, AdminStaticReview>
+        <ManagedForm<CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewResponse>
             initialValues={initialValues}
-            validationSchema={$CreateAdminStaticReviewRequest}
+            validationSchema={$CreateAdminStaticReviewFormValidation}
             mutationKey={[MutationKeys.CREATE_STATIC_REVIEW]}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
             mutationFunction={createStaticReview}
@@ -63,12 +55,7 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
             {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex gap={8} mt={24} align="center">
-                        <Text
-                            sx={(theme) => ({
-                                color: theme.colors.gray45[0],
-                            })}>
-                            Статус:
-                        </Text>
+                        <Text color="gray45">Статус:</Text>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <FFileInput

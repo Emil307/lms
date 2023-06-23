@@ -16,20 +16,12 @@ import {
     CreateUserResponse,
     $CreateUserResponse,
     UpdateUserActivityRequest,
+    GetStaticUsersRequest,
+    GetStaticUsersResponse,
+    $GetStaticUsersResponse,
 } from "./types";
 
-export class UsersApi extends BaseApi {
-    async getUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
-        const result = await this.instance.post("admin/users/list", {
-            ...params,
-            filter: {
-                roleName,
-                isActive,
-            },
-        });
-        return $GetUsersResponse.parse(result);
-    }
-
+export class UserApi extends BaseApi {
     async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
         const result = await this.instance.post("admin/users/administrators/list", {
             ...params,
@@ -74,6 +66,13 @@ export class UsersApi extends BaseApi {
         await this.instance.put(`admin/users/${id}/change-password`, data);
     }
 
+    //teachers
+
+    async getStaticUsers(data: GetStaticUsersRequest): Promise<GetStaticUsersResponse> {
+        const response = await this.instance.post("static-users/list", data);
+        return $GetStaticUsersResponse.parse(response);
+    }
+
     //students
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
         const result = await this.instance.get("admin/users/students/filters");
@@ -81,4 +80,4 @@ export class UsersApi extends BaseApi {
     }
 }
 
-export const usersApi = new UsersApi(axios);
+export const userApi = new UserApi(axios);

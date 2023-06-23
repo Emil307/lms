@@ -64,7 +64,6 @@ export type CourseProgram = z.infer<typeof $CourseProgram>;
 export type CourseTeacher = z.infer<typeof $CourseTeacher>;
 export type Review = z.infer<typeof $Review>;
 export type CourseCategory = z.infer<typeof $CourseCategory>;
-export type CourseSubCategory = z.infer<typeof $CourseSubCategory>;
 export type CourseTag = z.infer<typeof $CourseTag>;
 
 //FILTERS
@@ -420,15 +419,19 @@ export const $GetAdminCoursesNoIncludedArticleRequest = $getFiltersRequestType($
  * USER ZOD
  */
 
-export const $GetCourseResourcesResponse = $GetAdminCourseResourcesResponse
-    .pick({
-        categories: true,
-        subcategories: true,
-        tags: true,
-    })
-    .extend({
-        prices: z.object({ lowest: z.number(), highest: z.number() }),
-    });
+export const $CourseCategory = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
+export const $CourseTag = $CourseCategory;
+
+export const $GetCourseResourcesResponse = z.object({
+    categories: z.array($CourseCategory),
+    subcategories: z.array($CourseCategory),
+    tags: z.array($CourseTag),
+    prices: z.object({ lowest: z.number(), highest: z.number() }),
+});
 
 export const $CoursesFiltersForm = z.object({
     query: z.string(),
@@ -461,15 +464,6 @@ export const $CoursesRequest = z.object({
 export const $GetCoursesRequest = $getFiltersRequestType($CoursesRequest);
 
 export const $GetCoursesInfiniteRequest = $GetCoursesRequest.omit({ page: true, perPage: true });
-
-export const $CourseCategory = z.object({
-    id: z.number(),
-    name: z.string(),
-});
-
-export const $CourseSubCategory = $CourseCategory;
-
-export const $CourseTag = $CourseCategory;
 
 // TODO:
 // MOCKS
@@ -605,7 +599,7 @@ export const $Course = z.object({
         .object({
             id: z.number(),
             name: z.string(),
-            isActive: z.boolean(),
+            // isActive: z.boolean(),
         })
         .nullable(),
     subcategory: z

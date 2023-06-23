@@ -6,7 +6,7 @@ import { FSearch, FSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { UserFromList, UsersFilters } from "@entities/user/api/types";
-import { useAdminUsersFilters, usersApi } from "@entities/user";
+import { useAdminUsersFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { ManagedDataGrid } from "@shared/ui";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
@@ -48,7 +48,7 @@ const UserList = () => {
             <Box mt={24}>
                 <ManagedDataGrid<UserFromList, UsersFilters>
                     queryKey={QueryKeys.GET_USERS}
-                    queryFunction={(params) => usersApi.getAdminUsers(params)}
+                    queryFunction={(params) => userApi.getAdminUsers(params)}
                     queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                     filter={{
                         initialValues: filterInitialValues,

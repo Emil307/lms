@@ -3,7 +3,7 @@ import React from "react";
 import { Bell, Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, FControlPanel, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
-import { CreateUserResponse, useAdminUsersFilters, usersApi } from "@entities/user";
+import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
@@ -27,7 +27,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
 
     const createUser = (values: CreateUserValidationFormRequest) => {
-        return usersApi.createUser(adaptCreateUserFormRequest(values));
+        return userApi.createUser(adaptCreateUserFormRequest(values));
     };
 
     const onSuccess = (response: CreateUserResponse) => {

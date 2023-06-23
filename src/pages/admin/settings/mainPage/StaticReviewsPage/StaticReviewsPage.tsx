@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Prompt, Tabs } from "@shared/ui";
-import { List as StaticReviewList } from "@features/staticReviews";
+import { AdminList as AdminStaticReviewList } from "@features/staticReviews";
 import { tabsList } from "./constants";
 
 const StaticReviewsPage = () => {
@@ -48,7 +48,7 @@ const StaticReviewsPage = () => {
                         Добавить отзыв
                     </Button>
                 </Flex>
-                <StaticReviewList />
+                <AdminStaticReviewList />
             </Box>
         </Flex>
     );

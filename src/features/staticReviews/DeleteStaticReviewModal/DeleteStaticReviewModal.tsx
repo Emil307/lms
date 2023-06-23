@@ -5,7 +5,7 @@ import { Button } from "@shared/ui";
 import { useDeleteStaticReview } from "@entities/staticReview";
 import useStyles from "./DeleteStaticReviewModal.styles";
 
-interface DeleteStaticReviewModalProps {
+export interface DeleteStaticReviewModalProps {
     id: string;
     name: string;
     onClose: () => void;
@@ -14,7 +14,7 @@ interface DeleteStaticReviewModalProps {
 const DeleteStaticReviewModal = ({ id, name, onClose }: DeleteStaticReviewModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteStaticReview = useDeleteStaticReview(id);
+    const deleteStaticReview = useDeleteStaticReview({ id });
 
     const handleSubmit = () => {
         deleteStaticReview.mutate(null, {
