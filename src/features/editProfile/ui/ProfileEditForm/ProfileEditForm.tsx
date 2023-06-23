@@ -61,7 +61,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
                 <Flex direction="column" gap={32}>
                     <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>
                         <Flex direction="column" gap={24}>
-                            <Group sx={{ gap: 24 }}>
+                            <Flex gap={24}>
                                 <Avatar
                                     className={classes.avatarIcon}
                                     src={values.avatar?.absolutePath}
@@ -78,7 +78,7 @@ const ProfileEditForm = ({ data, isLoading, onEditPassword }: ProfileEditFormPro
                                     </Flex>
                                     <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 </Flex>
-                            </Group>
+                            </Flex>
                             <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" gap={8}>
                                 <FInput name="firstName" label="Имя" size="sm" miw={252} withAsterisk />
                                 <FInput name="lastName" label="Фамилия" size="sm" miw={252} withAsterisk />
