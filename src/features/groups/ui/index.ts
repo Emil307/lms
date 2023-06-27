@@ -1,4 +1,4 @@
-export * from "./GroupSchedule";
+export * from "./GroupScheduleList";
 export * from "./AdminList";
 export * from "./StudentList";
 export * from "./CreateAdminGroupForm";
@@ -6,5 +6,5 @@ export * from "./UpdateAdminGroupForm";
 export * from "./DeleteGroupModal";
 export * from "./CreateScheduleForm";
 export * from "./DeleteScheduleModal";
-export * from "./EditScheduleForm";
+export * from "./UpdateScheduleForm";
 export * from "./DeleteStudentFromGroupModal";

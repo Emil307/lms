@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export type UpdateScheduleFormValidation = z.infer<typeof $updateScheduleFormValidation>;
+export type UpdateScheduleFormValidation = z.infer<typeof $UpdateScheduleFormValidation>;
 
-export const $updateScheduleFormValidation = z.object({
+export const $UpdateScheduleFormValidation = z.object({
     scheduleDate: z.coerce
         .date()
         .nullable()

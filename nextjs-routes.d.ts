@@ -21,21 +21,15 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]", { "id": string; "moduleId": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]", { "id": string; "moduleId": string; "lessonId": string }>
-    | StaticRoute<"/admin/groups/create">
-    | StaticRoute<"/admin/groups">
-    | DynamicRoute<"/admin/groups/[id]/composition", { "id": string }>
-    | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/groups/[id]", { "id": string }>
-    | DynamicRoute<"/admin/groups/[id]/schedule", { "id": string }>
-    | StaticRoute<"/admin/lessons">
-    | DynamicRoute<"/admin/lessons/[lessonId]/edit", { "lessonId": string }>
-    | DynamicRoute<"/admin/lessons/[lessonId]", { "lessonId": string }>
     | StaticRoute<"/admin/courses/create">
     | StaticRoute<"/admin/courses">
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | StaticRoute<"/admin/groups/create">
     | StaticRoute<"/admin/groups">
+    | DynamicRoute<"/admin/lessons/[lessonId]/edit", { "lessonId": string }>
+    | DynamicRoute<"/admin/lessons/[lessonId]", { "lessonId": string }>
+    | StaticRoute<"/admin/lessons">
     | StaticRoute<"/admin/messages">
     | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>

@@ -5,47 +5,47 @@ import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
-import { ScheduleLine } from "@entities/group";
-import { DeleteScheduleModal, EditScheduleForm } from "@features/groups";
+import { DeleteScheduleModal, UpdateScheduleForm } from "@features/groups";
+import { AdminGroupScheduleFromList } from "@entities/group";
+import { TRouterQueries } from "@shared/types";
 
 interface ListMenuProps {
-    row: MRT_Row<ScheduleLine>;
+    row: MRT_Row<AdminGroupScheduleFromList>;
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
+    const { id: groupId } = router.query as TRouterQueries;
 
     const handleCloseDeleteScheduleModal = () => closeModal("DELETE_SCHEDULE");
-    const handleCloseEditScheduleModal = () => closeModal("EDIT_SCHEDULE");
+    const handleCloseUpdateScheduleModal = () => closeModal("UPDATE_SCHEDULE");
 
-    const openModalDeleteSchedule = () => {
+    const openDeleteScheduleModal = () => {
         openModal({
             modalId: "DELETE_SCHEDULE",
             title: "Удаление занятия",
             centered: true,
-            children: (
-                <DeleteScheduleModal groupId={String(router.query.id)} data={row.original} onClose={handleCloseDeleteScheduleModal} />
-            ),
+            children: <DeleteScheduleModal groupId={groupId} data={row.original} onClose={handleCloseDeleteScheduleModal} />,
         });
     };
 
-    const openModalEditSchedule = () => {
+    const openUpdateScheduleModal = () => {
         openModal({
-            modalId: "EDIT_SCHEDULE",
+            modalId: "UPDATE_SCHEDULE",
             title: "Редактирование",
             centered: true,
-            children: <EditScheduleForm groupId={String(router.query.id)} data={row.original} onClose={handleCloseEditScheduleModal} />,
+            children: <UpdateScheduleForm groupId={groupId} data={row.original} onClose={handleCloseUpdateScheduleModal} />,
         });
     };
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={openModalEditSchedule}>
+            <MenuItemDataGrid onClick={openUpdateScheduleModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalDeleteSchedule}>
+            <MenuItemDataGrid onClick={openDeleteScheduleModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

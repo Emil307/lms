@@ -1,3 +1,3 @@
-import DeleteScheduleModal from "./DeleteScheduleModal";
+import DeleteScheduleModal, { type DeleteScheduleModalProps } from "./DeleteScheduleModal";
 
-export { DeleteScheduleModal };
+export { DeleteScheduleModal, DeleteScheduleModalProps };

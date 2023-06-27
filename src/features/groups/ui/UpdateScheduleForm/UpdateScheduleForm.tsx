@@ -1,55 +1,53 @@
-import { Box, Flex, Group } from "@mantine/core";
-import { FieldArray, FormikConfig } from "formik";
-import axios from "axios";
+import { Box, BoxProps, Flex, Group } from "@mantine/core";
+import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
-import { Button, FDatePicker, Form, FTimeInput } from "@shared/ui";
-import { ScheduleLine, useUpdateScheduleFromGroup } from "@entities/group";
-import { $updateScheduleFormValidation, UpdateScheduleFormValidation } from "./types";
-import { adaptUpdateScheduleFormRequest } from "./utils";
+import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
+import { AdminGroupScheduleFromList, UpdateAdminGroupScheduleResponse, groupApi } from "@entities/group";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
+import { $UpdateScheduleFormValidation, UpdateScheduleFormValidation } from "./types";
+import { adaptUpdateGroupScheduleRequest, adaptUpdateScheduleForm } from "./utils";
+import { initialValues } from "./constants";
 
-export interface EditScheduleFormProps {
-    groupId?: string;
-    data: ScheduleLine;
+export interface UpdateScheduleFormProps extends BoxProps {
+    groupId: string;
+    data: AdminGroupScheduleFromList;
     onClose: () => void;
 }
 
-const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => {
-    const { mutate: updateSchedule } = useUpdateScheduleFromGroup(groupId);
+const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateScheduleFormProps) => {
+    const updateGroupSchedule = (values: UpdateScheduleFormValidation) => {
+        return groupApi.updateAdminGroupSchedule({ ...adaptUpdateGroupScheduleRequest(values), groupId, scheduleId: data.id });
+    };
 
-    const config: FormikConfig<UpdateScheduleFormValidation> = {
-        initialValues: {
-            scheduleDate: data.date,
-            scheduleTimings: data.timings.data,
-        },
-        validationSchema: $updateScheduleFormValidation,
-        onSubmit: async (values, { setFieldError }) => {
-            updateSchedule(adaptUpdateScheduleFormRequest({ ...values, scheduleId: data.id }), {
-                onSuccess: () => {
-                    onClose();
-                },
-                onError: (error) => {
-                    if (axios.isAxiosError(error)) {
-                        for (const errorField in error.response?.data.errors) {
-                            setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                        }
-                    }
-                },
-            });
-        },
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Изменения сохранены",
+        });
+        onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления занятия",
+        });
     };
 
     return (
-        <Box>
-            <Form config={config} disableOverlay>
+        <Box {...props}>
+            <ManagedForm<UpdateScheduleFormValidation, UpdateAdminGroupScheduleResponse>
+                initialValues={{ ...initialValues, ...adaptUpdateScheduleForm(data) }}
+                validationSchema={$UpdateScheduleFormValidation}
+                mutationKey={[MutationKeys.UPDATE_ADMIN_GROUP_SCHEDULE]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
+                mutationFunction={updateGroupSchedule}
+                onSuccess={onSuccess}
+                onError={onError}>
                 {({ values }) => (
                     <>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 16,
-                                marginBottom: 24,
-                            }}>
+                        <Flex direction="column" gap={24} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
                             <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
@@ -74,6 +72,7 @@ const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => 
                                                             <FTimeInput name={`scheduleTimings.${index}.from`} label="Начало" w={90} />
                                                             <FTimeInput name={`scheduleTimings.${index}.to`} label="Конец" w={90} />
                                                         </Flex>
+
                                                         <Button
                                                             variant="text"
                                                             size="small"
@@ -88,7 +87,7 @@ const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => 
                                     );
                                 }}
                             </FieldArray>
-                        </Box>
+                        </Flex>
                         <Group sx={{ flexWrap: "nowrap" }}>
                             <Button type="button" variant="border" fullWidth onClick={onClose}>
                                 Отмена
@@ -99,9 +98,9 @@ const EditScheduleForm = ({ groupId, data, onClose }: EditScheduleFormProps) => 
                         </Group>
                     </>
                 )}
-            </Form>
+            </ManagedForm>
         </Box>
     );
 };
 
-export default EditScheduleForm;
+export default UpdateScheduleForm;
