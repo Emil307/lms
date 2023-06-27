@@ -680,7 +680,7 @@ export const $CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.object({
     query: z.string().optional(),
     filter: z
         .object({
-            isActive: z.literal("1").or(z.literal("0")),
+            isActive: z.boolean(),
             tags: $getMultiValueObjectType(z.string(), z.literal("or")),
             "category.id": z.string(),
             "subcategory.id": z.string(),

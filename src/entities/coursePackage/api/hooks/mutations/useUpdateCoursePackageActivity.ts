@@ -65,6 +65,7 @@ export const useUpdateCoursePackageActivity = (
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_PACKAGES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_PACKAGE, id]);
             },
             onSuccess: (updatedStatus) => {
                 const coursePackageData = queryClient.getQueryData<AdminCoursePackageDetails>([QueryKeys.GET_ADMIN_COURSE_PACKAGE, id]);

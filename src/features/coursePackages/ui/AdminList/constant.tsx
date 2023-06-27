@@ -3,7 +3,8 @@ import { Flex, Text } from "@mantine/core";
 import { getHumanDate } from "@shared/utils";
 import { Tooltip } from "@shared/ui";
 import { AdminCoursePackage, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
-import useStyles from "./List.styles";
+import useStyles from "./AdminList.styles";
+import dayjs from "dayjs";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -17,7 +18,8 @@ export const filterInitialValues: AdminCoursePackagesFiltersForm = {
     createdAtFrom: null,
     createdAtTo: null,
     courseIds: "",
-    discountFinishingDate: null,
+    discountFinishingDateFrom: null,
+    discountFinishingDateTo: null,
 };
 
 export const columnOrder = [
@@ -72,18 +74,14 @@ export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
             return (
                 <Flex direction="column">
                     {row.original.discount?.startingDate && (
-                        <Text className={classes.startingDate} lineClamp={1}>{`с ${getHumanDate(row.original.discount.startingDate, {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                        })}`}</Text>
+                        <Text className={classes.startingDate} lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
+                            "DD.MM.YYYY"
+                        )}`}</Text>
                     )}
                     {row.original.discount?.finishingDate && (
-                        <Text className={classes.finishingDate} lineClamp={1}>{`до ${getHumanDate(row.original.discount.finishingDate, {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                        })}`}</Text>
+                        <Text className={classes.finishingDate} lineClamp={1}>{`до ${dayjs(row.original.discount.finishingDate).format(
+                            "DD.MM.YYYY"
+                        )}`}</Text>
                     )}
                 </Flex>
             );

@@ -5,7 +5,7 @@ import { AdminCoursePackagesFiltersForm, GetAdminCoursePackagesRequest } from "@
 export const adaptGetAdminCoursePackagesRequest = (
     params: TFunctionParams<AdminCoursePackagesFiltersForm>
 ): GetAdminCoursePackagesRequest => {
-    const { createdAtFrom, createdAtTo, isActive, courseIds, discountFinishingDate, ...rest } = params;
+    const { createdAtFrom, createdAtTo, isActive, courseIds, discountFinishingDateFrom, discountFinishingDateTo, ...rest } = params;
 
     return {
         ...rest,
@@ -27,9 +27,16 @@ export const adaptGetAdminCoursePackagesRequest = (
                     },
                 }),
 
-            ...(discountFinishingDate && {
-                "discount.finishingDate": dayjs(discountFinishingDate).format("YYYY-MM-DD"),
-            }),
+            ...(discountFinishingDateFrom &&
+                discountFinishingDateTo && {
+                    "discount.finishingDate": {
+                        items: [
+                            dayjs(discountFinishingDateFrom).format("YYYY-MM-DD"),
+                            dayjs(discountFinishingDateTo).endOf("day").format(),
+                        ],
+                        operator: "range",
+                    },
+                }),
         },
     };
 };

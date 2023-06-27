@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Prompt } from "@shared/ui";
-import { List as CoursePackagesList } from "@features/coursePackages";
+import { AdminList as AdminCoursePackageList } from "@features/coursePackages";
 
 const CoursePackagesPage = () => {
     const router = useRouter();
@@ -29,7 +29,7 @@ const CoursePackagesPage = () => {
                 onClose={handleClosePrompt}
                 mb={24}
             />
-            <CoursePackagesList />
+            <AdminCoursePackageList />
         </Box>
     );
 };

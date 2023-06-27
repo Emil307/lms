@@ -3,6 +3,7 @@ import { MRT_Row } from "mantine-react-table";
 import React from "react";
 import { Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminCourseFromList } from "@entities/course";
 import { DeleteCourseFromCoursePackageModal } from "@features/coursePackages";
@@ -13,8 +14,9 @@ interface ListMenuProps {
 }
 
 const ListMenu = ({ row, coursePackageId }: ListMenuProps) => {
-    //TODO: Добавить редирект после того как будет готова детальная страница курса в админке
-    const handleOpenDetailPage = () => undefined;
+    const router = useRouter();
+
+    const handleOpenDetailsPage = () => router.push({ pathname: "/admin/courses/[id]", query: { id: String(row.original.id) } });
 
     const handleCloseDeleteModal = () => closeModal("DELETE_COURSE_FROM_PACKAGE");
 
@@ -36,7 +38,7 @@ const ListMenu = ({ row, coursePackageId }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8} onClick={handleOpenDetailPage}>
+            <MenuItemDataGrid mt={8} onClick={handleOpenDetailsPage}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Eye />
                 </ThemeIcon>
