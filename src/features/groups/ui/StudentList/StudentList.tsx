@@ -1,30 +1,24 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
-import { useRouter } from "next/router";
 import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { Group, groupApi, GroupsListFilters } from "@entities/group";
+import { AdminGroupParticipantFromList, AdminGroupParticipantsExtraFilters, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
-import { columnOrder, columns, filterInitialValues } from "./constant";
+import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
-import { adaptGetAdminGroupsRequest } from "./utils";
 
-const StudentList = () => {
-    const router = useRouter();
+export interface StudentListProps extends BoxProps {
+    groupId: string;
+}
 
-    const pushOnUserDetail = (id: number) => {
-        router.push({ pathname: "/admin/students/[id]", query: { id: String(id) } });
+const StudentList = ({ groupId, ...props }: StudentListProps) => {
+    const handleClickCell = (_cell: MRT_Cell<AdminGroupParticipantFromList>) => {
+        //TODO: редирект на страницу статистику ученика // или просто пользака
     };
-
-    const handlerClickCell = (cell: MRT_Cell<Group>) => {
-        pushOnUserDetail(cell.row.original.id);
-    };
-
-    //TODO: Таблица пока не настроена так как что касается учеников на стороне бекенда ничего нет
 
     return (
-        <Box mt={24}>
+        <Box {...props}>
             <Flex gap={48} align="center">
                 <Title order={2} color="dark">
                     Состав группы
@@ -39,19 +33,21 @@ const StudentList = () => {
                     Добавить ученика
                 </Button>
             </Flex>
-            {/* //TODO: Поменять эндпоинт на получение учеников в группе, как бекенд будет готов */}
-            <ManagedDataGrid<Group, GroupsListFilters>
-                queryKey={QueryKeys.GET_ADMIN_GROUPS}
-                queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
-                queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
-                onClickCell={handlerClickCell}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+            <ManagedDataGrid<AdminGroupParticipantFromList, unknown, AdminGroupParticipantsExtraFilters>
+                queryKey={QueryKeys.GET_ADMIN_GROUP_PARTICIPANTS}
+                queryFunction={(params) => groupApi.getAdminGroupParticipants(params)}
+                queryCacheKeys={["page", "perPage", "sort", "groupId"]}
+                onClickCell={handleClickCell}
+                //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/159
+                // renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
-                countName="Ученики"
+                countName="Учеников"
                 initialState={{
                     columnOrder,
                 }}
-                filter={{ initialValues: filterInitialValues }}
+                extraFilterParams={{
+                    groupId,
+                }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
             />
         </Box>

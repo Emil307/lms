@@ -1,3 +1,3 @@
-export * from "./useAdminGroups";
 export * from "./useAdminGroup";
+export * from "./useAdminGroupFilters";
 export * from "./useGroupSchedules";

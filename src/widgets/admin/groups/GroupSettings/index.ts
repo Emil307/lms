@@ -1,3 +1,3 @@
-import SettingGroup from "./GroupSettings";
+import GroupSettings, { type GroupSettingsProps } from "./GroupSettings";
 
-export { SettingGroup };
+export { GroupSettings, GroupSettingsProps };
