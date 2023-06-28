@@ -5,17 +5,27 @@ import { Tooltip } from "@shared/ui";
 import { AdminCourseReviewFiltersForm, AdminCourseReviewFromList } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";
 
-export const columnOrder = ["id", "fullName", "content", "group.name", "score", "createdAt", "publishedAt", "mrt-row-actions"];
+export const columnOrder = [
+    "id",
+    "group.course.name",
+    "fullName",
+    "content",
+    "group.name",
+    "score",
+    "createdAt",
+    "publishedAt",
+    "mrt-row-actions",
+];
 
 export const columns: MRT_ColumnDef<AdminCourseReviewFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
     },
-    // {
-    //     header: "Курс",
-    //     accessorKey: "group.course",
-    // },
+    {
+        header: "Курс",
+        accessorKey: "group.course.name",
+    },
     {
         header: "ФИО",
         accessorKey: "user.profile",
@@ -41,12 +51,6 @@ export const columns: MRT_ColumnDef<AdminCourseReviewFromList>["columns"] = [
         header: "Оценка",
         accessorKey: "score",
     },
-    //TODO: Нет средней оценки со стороны бека
-    // {
-    //     header: "Средняя оценка",
-    //     accessorKey: "",
-    // },
-
     {
         header: "Дата отзыва",
         accessorKey: "createdAt",
@@ -68,27 +72,27 @@ export const radioGroupValues = [
 export const scoreOptions = [
     {
         value: "0",
-        label: "0",
+        label: "0 звезд",
     },
     {
         value: "1",
-        label: "1",
+        label: "1 звезда",
     },
     {
         value: "2",
-        label: "2",
+        label: "2 звезды",
     },
     {
         value: "3",
-        label: "3",
+        label: "3 звезды",
     },
     {
         value: "4",
-        label: "4",
+        label: "4 звезды",
     },
     {
         value: "5",
-        label: "5",
+        label: "5 звезд",
     },
 ];
 

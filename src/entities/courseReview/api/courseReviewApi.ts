@@ -30,7 +30,7 @@ class CourseReviewApi extends BaseApi {
     }
 
     async getAdminCourseReviewsResources(): Promise<GetAdminCourseReviewResourcesResponse> {
-        const response = await this.instance.get("admin/course-collections/resources");
+        const response = await this.instance.get("admin/course-reviews/resources");
         return $GetAdminCourseReviewResourcesResponse.parse(response);
     }
 
