@@ -38,6 +38,7 @@ export type UpdateFaqRequest = z.infer<typeof $UpdateFaqRequest>;
 export type UpdateFaqOrderRequest = z.infer<typeof $UpdateFaqOrderRequest>;
 export type UpdateFaqActivityStatusRequest = z.infer<typeof $UpdateFaqActivityStatusRequest>;
 export type UpdateFaqActivityStatusResponse = z.infer<typeof $UpdateFaqActivityStatusResponse>;
+export type GetAdminAdvantagesResponse = z.infer<typeof $GetAdminAdvantagesResponse>;
 
 export type GetAdvantagesRequest = TDefaultRequestParams;
 
@@ -140,6 +141,14 @@ export const $GetMainBannerResponse = z.object({
 });
 
 export const $GetAdvantagesResponse = $getPaginationResponseType($Advantage);
+
+export const $GetAdminAdvantagesResponse = $getPaginationResponseType($Advantage).merge(
+    z.object({
+        meta: z.object({
+            lastUpdated: $LastUpdated.nullable(),
+        }),
+    })
+);
 
 export const $CreateAdvantageRequest = z.object({
     title: z.string({ required_error: "Введите заголовок" }),

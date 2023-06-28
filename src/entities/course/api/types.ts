@@ -7,6 +7,7 @@ import {
     $UploadedFile,
     $getPaginationResponseType,
     $DiscountType,
+    $LastUpdated,
 } from "@shared/types";
 
 /**
@@ -153,6 +154,7 @@ export const $AdminCourse = z.object({
     isPopular: z.boolean(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $CreateCourseResponse = $AdminCourse;

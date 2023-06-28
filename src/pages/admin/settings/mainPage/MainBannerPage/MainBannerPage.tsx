@@ -28,13 +28,11 @@ const MainBannerPage = () => {
     const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
-        <Flex direction="column" gap={32}>
-            <Flex direction="column" gap={24}>
-                <Title order={1} color="dark">
-                    Титульная страница
-                </Title>
-                <LastUpdatedInfo data={data?.lastUpdated} />
-            </Flex>
+        <Flex direction="column" gap={24}>
+            <Title order={1} color="dark">
+                Титульная страница
+            </Title>
+            <LastUpdatedInfo data={data?.lastUpdated} />
             <Tabs value={tabsList[1].value} tabs={tabsList} onTabChange={handleChangeTab} />
             <Prompt
                 isOpened={openedPrompt}

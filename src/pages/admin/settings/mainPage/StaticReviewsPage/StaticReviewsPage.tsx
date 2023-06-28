@@ -29,7 +29,7 @@ const StaticReviewsPage = () => {
     const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
-        <Flex direction="column" gap={32}>
+        <Flex direction="column" gap={24}>
             <Title order={1} color="dark">
                 Титульная страница
             </Title>
@@ -48,7 +48,7 @@ const StaticReviewsPage = () => {
                         Добавить отзыв
                     </Button>
                 </Flex>
-                <AdminStaticReviewList />
+                <AdminStaticReviewList mt={24} />
             </Box>
         </Flex>
     );

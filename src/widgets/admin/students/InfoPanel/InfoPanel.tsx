@@ -1,7 +1,7 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Switch } from "@shared/ui";
+import { LastUpdatedInfo, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
@@ -40,7 +40,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 <Box className={classes.infoItem}>
                     Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
-                {/* TODO - информации о последних изменениях на бэке пока нет */}
+                <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
         </Box>
     );

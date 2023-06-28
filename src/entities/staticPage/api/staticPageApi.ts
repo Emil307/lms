@@ -32,6 +32,8 @@ import {
     UpdateFaqOrderRequest,
     UpdateFaqRequest,
     UpdatePublicOfferRequest,
+    GetAdminAdvantagesResponse,
+    $GetAdminAdvantagesResponse,
 } from "./types";
 
 class StaticPageApi extends BaseApi {
@@ -73,9 +75,9 @@ class StaticPageApi extends BaseApi {
         const response = await this.instance.post("static-page/advantages/list", params);
         return $GetAdvantagesResponse.parse(response);
     }
-    async getAdminAdvantages(data: GetAdvantagesRequest): Promise<GetAdvantagesResponse> {
+    async getAdminAdvantages(data: GetAdvantagesRequest): Promise<GetAdminAdvantagesResponse> {
         const response = await this.instance.post("admin/static-page/advantages/list", data);
-        return $GetAdvantagesResponse.parse(response);
+        return $GetAdminAdvantagesResponse.parse(response);
     }
     async getAdvantage(id: string): Promise<Advantage> {
         const response = await this.instance.get(`static-page/advantages/${id}`);

@@ -1,6 +1,14 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
-import { $Role, $UploadedFile, $getPaginationResponseType, $Profile, TRequestFilterParams, $getFiltersRequestType } from "@shared/types";
+import {
+    $Role,
+    $UploadedFile,
+    $getPaginationResponseType,
+    $Profile,
+    TRequestFilterParams,
+    $getFiltersRequestType,
+    $LastUpdated,
+} from "@shared/types";
 import { $UserNotifications } from "@entities/notification";
 
 export type TUser = z.infer<typeof $User>;
@@ -49,6 +57,7 @@ export const $GetUsersResponse = $getPaginationResponseType($UserFromList);
 
 export const $UserDetailResponse = $User.extend({
     lastLoginAt: z.coerce.date().nullable(),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $CreateUserRequest = z
