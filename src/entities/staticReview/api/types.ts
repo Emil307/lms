@@ -52,6 +52,7 @@ export const $AdminStaticReview = z.object({
     lastName: z.string().nullish(),
     position: z.string().nullable(),
     isActive: z.boolean(),
+    createdAt: z.coerce.date(),
     preview: $UploadedFile.nullable(), //TODO:
     quote: z.string().nullable(),
     video: $UploadedFile.nullable(), //TODO:
@@ -66,6 +67,7 @@ export const $AdminStaticReviewFromList = $AdminStaticReview.pick({
     position: true,
     content: true,
     quote: true,
+    createdAt: true,
     isActive: true,
     video: true,
     authorAvatar: true,

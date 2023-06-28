@@ -17,14 +17,14 @@ export default createStyles((theme) => ({
         marginBottom: 16,
 
         svg: {
-            color: "gray45.0",
+            color: theme.colors.gray45[0],
         },
     },
     title: {
         fontWeight: 600,
         fontSize: 18,
         lineHeight: "24px",
-        color: "dark.0",
+        color: theme.colors.dark[0],
     },
     infoItem: {
         alignSelf: "center",
@@ -34,5 +34,11 @@ export default createStyles((theme) => ({
         span: {
             color: theme.colors.dark[0],
         },
+    },
+    userFullName: {
+        fontWeight: 600,
+        fontSize: 16,
+        lineHeight: "24px",
+        color: theme.colors.dark[0],
     },
 }));
