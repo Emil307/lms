@@ -23,7 +23,7 @@ const MemoizedAboutCard = memo(function AboutCard({ data, ...props }: AboutCardP
                         fill
                         sizes="100vw"
                         style={{
-                            objectFit: "cover",
+                            objectFit: "scale-down",
                         }}
                     />
                 </MCard.Section>
