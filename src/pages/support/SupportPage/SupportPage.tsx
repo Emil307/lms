@@ -7,7 +7,7 @@ import { CreateMessageForm, MessageList } from "@features/support";
 import { breadCrumbsItems } from "./constants";
 import useStyles from "./SupportPage.styles";
 
-const FAQPage = () => {
+const SupportPage = () => {
     const { classes } = useStyles();
     return (
         <Box className={classes.root}>
@@ -23,7 +23,7 @@ const FAQPage = () => {
                 </Flex>
             </Box>
             <Flex gap={24}>
-                <FaqAccordionList w="100%" maw={840} />
+                <FaqAccordionList wrapperProps={{ w: "100%", maw: 840 }} />
                 <Box className={classes.chatContainer}>
                     <Title order={3} color="dark" lineClamp={1} className={classes.chatHeader}>
                         Задать вопрос поддержке
@@ -37,4 +37,4 @@ const FAQPage = () => {
     );
 };
 
-export default FAQPage;
+export default SupportPage;

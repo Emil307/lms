@@ -126,6 +126,7 @@ export const $SupportMessage = z.object({
         id: true,
         email: true,
         profile: true,
+        roles: true,
     }),
 });
 

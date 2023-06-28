@@ -21,7 +21,7 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
 
     useEffect(() => {
         containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
-    }, [isLoading]);
+    }, [isLoading, isFetching]);
 
     useEffect(() => {
         if (!isLoading && entry && entry.isIntersecting && hasNextPage) {
@@ -40,13 +40,11 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
                 scrollbarSize={4}>
                 {(isFetching || isRefetching) && <Loader />}
                 <Flex className={classes.messageContainer}>
-                    {messagesData?.data.reverse().map((message, index) => {
-                        return (
-                            <Box key={message.id} ref={index === 0 ? lastElemRef : null}>
-                                <MessageItem data={message} w="fit-content" />
-                            </Box>
-                        );
-                    })}
+                    {messagesData?.data.reverse().map((message, index) => (
+                        <Box key={message.id} ref={index === 0 ? lastElemRef : null}>
+                            <MessageItem data={message} w="fit-content" />
+                        </Box>
+                    ))}
                 </Flex>
                 <Box ref={containerRef} />
             </ScrollArea.Autosize>
