@@ -1,23 +1,23 @@
 import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
-import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
+import { BoxProps } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { groupApi, GroupSchedulesFilters, ScheduleLine } from "@entities/group";
+import { AdminGroupParticipantsExtraFilters, AdminGroupScheduleFromList, groupApi } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
 import { QueryKeys } from "@shared/constant";
-import { TRouterQueries } from "@shared/types";
-import { columnOrder, columns, filterInitialValues } from "./constant";
+import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 
-const GroupSchedule = () => {
-    const router = useRouter();
-    const { id: groupId } = router.query as TRouterQueries;
+export interface GroupScheduleListProps extends BoxProps {
+    groupId: string;
+}
 
+const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
     const handleCloseCreateScheduleModal = () => closeModal("CREATE_SCHEDULE");
 
-    const openModalCreateSchedule = () => {
+    const openCreateScheduleModal = () => {
         openModal({
             modalId: "CREATE_SCHEDULE",
             title: "Добавление занятия",
@@ -27,14 +27,14 @@ const GroupSchedule = () => {
     };
 
     return (
-        <Box mt={24}>
+        <Box {...props}>
             <Flex gap={48} align="center">
                 <Title order={2} color="dark">
                     Расписание группы
                 </Title>
                 <Button
                     variant="text"
-                    onClick={openModalCreateSchedule}
+                    onClick={openCreateScheduleModal}
                     leftIcon={
                         <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
                             <PlusCircle />
@@ -44,20 +44,20 @@ const GroupSchedule = () => {
                 </Button>
             </Flex>
 
-            <ManagedDataGrid<ScheduleLine, GroupSchedulesFilters>
-                queryKey={QueryKeys.GET_GROUP_SCHEDULES}
-                queryFunction={(params) => groupApi.getGroupSchedules({ ...params, groupId })}
+            <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupParticipantsExtraFilters>
+                queryKey={QueryKeys.GET_ADMIN_GROUP_SCHEDULES}
+                queryFunction={(params) => groupApi.getAdminGroupSchedules(params)}
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}
                 columns={columns}
                 countName="Занятий"
                 initialState={{
                     columnOrder,
                 }}
-                filter={{ initialValues: filterInitialValues }}
+                extraFilterParams={{ groupId }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
             />
         </Box>
     );
 };
 
-export default GroupSchedule;
+export default GroupScheduleList;

@@ -3,20 +3,19 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import dayjs from "dayjs";
 import { Button } from "@shared/ui";
-import { ScheduleLine, useDeleteScheduleFromGroup } from "@entities/group";
-import { getHumanDate } from "@shared/utils";
+import { AdminGroupScheduleFromList, useAdminDeleteGroupSchedule } from "@entities/group";
 import useStyles from "./DeleteScheduleModal.styles";
 
-interface DeleteScheduleModalProps {
-    groupId?: string;
-    data: ScheduleLine;
+export interface DeleteScheduleModalProps {
+    groupId: string;
+    data: AdminGroupScheduleFromList;
     onClose: () => void;
 }
 
 const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteSchedule = useDeleteScheduleFromGroup({ groupId, scheduleId: data.id });
+    const deleteSchedule = useAdminDeleteGroupSchedule({ groupId, scheduleId: data.id });
 
     const handleSubmit = () => {
         deleteSchedule.mutate(null, {
@@ -26,9 +25,13 @@ const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProp
         });
     };
 
-    const timingsRow = data.timings.data
-        .map((time) => `${dayjs(time.from).format("HH:mm")} - ${dayjs(time.to).format("HH:mm")}`)
+    const timingsRow = data.timings
+        .map((timing) => `${dayjs(timing.from).format("HH:mm")} - ${dayjs(timing.to).format("HH:mm")}`)
         .join(", ");
+
+    const scheduleDateWithTimingsRow = timingsRow
+        ? [(dayjs(data.date).format("DD.MM.YYYY"), timingsRow)].join(", ")
+        : dayjs(data.date).format("DD.MM.YYYY");
 
     return (
         <Flex direction="column" gap={24}>
@@ -36,11 +39,7 @@ const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProp
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить занятие, «${getHumanDate(new Date(data.date), {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                })}, ${timingsRow}»?`}</Box>
+                <Box className={classes.text}>{`Вы действительно хотите удалить занятие, «${scheduleDateWithTimingsRow}»?`}</Box>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteSchedule.isLoading} w="100%">

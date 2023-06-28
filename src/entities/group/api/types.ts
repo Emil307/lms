@@ -1,12 +1,5 @@
 import { z } from "zod";
-import {
-    $getDateObjectType,
-    $getFiltersRequestType,
-    $getPaginationResponseType,
-    $LastUpdated,
-    $Profile,
-    TRequestFilterParams,
-} from "@shared/types";
+import { $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType, $LastUpdated, $Profile } from "@shared/types";
 import { $User } from "@entities/user";
 import { $AdminCourse } from "@entities/course";
 
@@ -29,11 +22,17 @@ export type AdminGroupParticipantStatus = z.infer<typeof $AdminGroupParticipantS
 export type AdminGroupParticipantLessonsStatistics = z.infer<typeof $AdminGroupParticipantLessonsStatistics>;
 export type AdminGroupParticipantTestsStatistics = z.infer<typeof $AdminGroupParticipantTestsStatistics>;
 export type AdminGroupParticipantHomeworksStatistics = z.infer<typeof $AdminGroupParticipantHomeworksStatistics>;
+//schedules
+export type AdminGroupSchedule = z.infer<typeof $AdminGroupSchedule>;
+export type AdminGroupScheduleTiming = z.infer<typeof $AdminGroupScheduleTiming>;
+export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromList>;
 
 //FILTERS
 export type AdminGroupsFiltersForm = z.infer<typeof $AdminGroupsFiltersForm>;
 //participants (students)
 export type AdminGroupParticipantsExtraFilters = z.infer<typeof $AdminGroupParticipantsExtraFilters>;
+//schedules
+export type AdminGroupSchedulesExtraFilters = z.infer<typeof $AdminGroupSchedulesExtraFilters>;
 
 //REQ/RESP
 export type GetAdminGroupsRequest = z.infer<typeof $GetAdminGroupsRequest>;
@@ -57,25 +56,21 @@ export type AttachParticipantsToGroupRequest = z.infer<typeof $AttachParticipant
 export type AttachParticipantsToGroupResponse = z.infer<typeof $AttachParticipantsToGroupResponse>;
 export type DeleteParticipantsFromGroupRequest = z.infer<typeof $DeleteParticipantsFromGroupRequest>;
 export type DeleteParticipantsFromGroupResponse = z.infer<typeof $DeleteParticipantsFromGroupResponse>;
+//schedules
+export type GetAdminGroupSchedulesRequest = z.infer<typeof $GetAdminGroupSchedulesRequest>;
+export type GetAdminGroupSchedulesResponse = z.infer<typeof $GetAdminGroupSchedulesResponse>;
+export type CreateAdminGroupScheduleRequest = z.infer<typeof $CreateAdminGroupScheduleRequest>;
+export type CreateAdminGroupScheduleResponse = z.infer<typeof $CreateAdminGroupScheduleResponse>;
+export type UpdateAdminGroupScheduleRequest = z.infer<typeof $UpdateAdminGroupScheduleRequest>;
+export type UpdateAdminGroupScheduleResponse = z.infer<typeof $UpdateAdminGroupScheduleResponse>;
+export type DeleteAdminGroupScheduleRequest = z.infer<typeof $DeleteAdminGroupScheduleRequest>;
+export type DeleteAdminGroupScheduleResponse = z.infer<typeof $DeleteAdminGroupScheduleResponse>;
 
 /**
  *
  * USER TYPES
  *
  */
-
-//MOCKS MOCKS
-export type Group = z.infer<typeof $Group>;
-export type ScheduleLine = z.infer<typeof $ScheduleLine>;
-
-// export type GroupsListFilters = z.infer<typeof $GroupListFilters>;
-export type GroupSchedulesFilters = z.infer<typeof $GroupSchedulesFilters>;
-
-export type GetGroupSchedulesRequest = TRequestFilterParams<GroupSchedulesFilters>;
-export type GetGroupSchedulesResponse = z.infer<typeof $GetGroupSchedulesResponse>;
-export type AddScheduleToGroupRequest = z.infer<typeof $AddScheduleToGroupRequest>;
-export type RemoveScheduleFromGroupRequest = z.infer<typeof $RemoveScheduleFromGroupRequest>;
-export type UpdateScheduleFromGroupRequest = z.infer<typeof $UpdateScheduleFromGroupRequest>;
 
 /**
  *
@@ -250,7 +245,6 @@ export const $DeleteAdminGroupResponse = z.null();
 
 //participants (students)
 
-//TODO: заменить на enum
 export const $AdminGroupParticipantStatus = z.literal("inProgress").or(z.literal("completed"));
 
 export const $AdminGroupParticipantLessonsStatistics = z.object({
@@ -303,130 +297,62 @@ export const $DeleteParticipantsFromGroupRequest = z.object({
 
 export const $DeleteParticipantsFromGroupResponse = z.null();
 
-/**
- *
- * USER ZOD
- *
- */
+//schedules
 
-//==============================
-// OLD OLD OLD MOCK MOCK
-//==============================
-
-export const $Group = z.object({
+export const $AdminGroupScheduleTiming = z.object({
     id: z.number(),
-    name: z.string(),
-    courseName: z.string(),
-    createdAt: z.coerce.date(),
-    students: z.number(),
-    education: z.object({
-        from: z.coerce.date(),
-        to: z.coerce.date(),
-    }),
-    teacherFullName: z.string(),
-    status: z.string().nullable(),
-    isActive: z.boolean(),
+    from: z.coerce.date(),
+    to: z.coerce.date(),
 });
 
-export const $ScheduleLine = z.object({
+export const $AdminGroupSchedule = z.object({
     id: z.number(),
     date: z.coerce.date(),
-    timings: z.object({
-        data: z.array(
-            z.object({
-                id: z.number().optional(),
-                from: z.coerce.date(),
-                to: z.coerce.date(),
-            })
-        ),
-    }),
+    timings: $AdminGroupScheduleTiming.array(),
 });
 
-export const $CreateGroupRequest = z.object({
-    name: z.string({ required_error: "Введите название" }),
-    courseName: z.string({ required_error: "Выберите курс" }).nullish(),
-    educationFrom: z.coerce
-        .date()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите даты",
-        }),
-    educationTo: z.coerce.date().nullable(),
+export const $AdminGroupScheduleFromList = $AdminGroupSchedule;
 
-    maxStudents: z
-        .number({ required_error: "Введите количество" })
-        .positive("Число должно быть положительным")
-        .int("Число должно быть целым")
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Введите количество",
-        }),
-    teacherId: z.number().nullish(),
-    isActive: z.boolean(),
-});
+export const $GetAdminGroupSchedulesResponse = $getPaginationResponseType($AdminGroupScheduleFromList);
 
-export const $UpdateGroupRequest = z.object({
-    id: z.string(),
-    name: z.string({ required_error: "Введите название" }),
-    courseName: z.string({ required_error: "Выберите курс" }).nullish(),
-    educationFrom: z.coerce
-        .date()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите даты",
-        }),
-    educationTo: z.coerce.date().nullable(),
-
-    maxStudents: z
-        .number({ required_error: "Введите количество" })
-        .positive("Число должно быть положительным")
-        .int("Число должно быть целым")
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Введите количество",
-        }),
-    teacherId: z.number().nullish(),
-    isActive: z.boolean(),
-});
-
-export const $GroupSchedulesFilters = z.object({
+export const $AdminGroupSchedulesExtraFilters = z.object({
     groupId: z.string(),
 });
 
-export const $GetGroupSchedulesResponse = $getPaginationResponseType($ScheduleLine);
+export const $AdminGroupSchedulesRequest = z.object({
+    groupId: z.string(),
+});
 
-export const $AddScheduleToGroupRequest = z.object({
-    scheduleDate: z.string(),
+export const $GetAdminGroupSchedulesRequest = $getFiltersRequestType($AdminGroupSchedulesRequest);
 
+export const $CreateAdminGroupScheduleRequest = z.object({
+    groupId: z.string(),
+    scheduleDate: z.string().datetime(),
     scheduleTimings: z.array(
         z
             .object({
-                from: z
-                    .string()
-                    .datetime({ offset: true })
-                    .nullable()
-                    .refine((value) => value !== null, {
-                        message: "Выберите время",
-                    }),
-                to: z.string().datetime({ offset: true }).nullable(),
+                from: z.string().datetime(),
+                to: z.string().datetime(),
             })
             .optional()
     ),
 });
 
-export const $RemoveScheduleFromGroupRequest = z.object({
-    groupId: z.string().optional(),
+export const $CreateAdminGroupScheduleResponse = z.null();
+
+export const $UpdateAdminGroupScheduleRequest = $CreateAdminGroupScheduleRequest.extend({ scheduleId: z.number() });
+
+export const $UpdateAdminGroupScheduleResponse = z.null();
+
+export const $DeleteAdminGroupScheduleRequest = z.object({
+    groupId: z.string(),
     scheduleId: z.number(),
 });
 
-export const $UpdateScheduleFromGroupRequest = z.object({
-    scheduleId: z.number(),
-    scheduleDate: z.string().datetime({ offset: true }),
-    scheduleTimings: z.array(
-        z.object({
-            id: z.number().optional(),
-            from: z.string().datetime({ offset: true }),
-            to: z.string().datetime({ offset: true }),
-        })
-    ),
-});
+export const $DeleteAdminGroupScheduleResponse = z.null();
+
+/**
+ *
+ * USER ZOD
+ *
+ */

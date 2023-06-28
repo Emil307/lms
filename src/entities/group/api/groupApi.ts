@@ -3,22 +3,28 @@ import { BaseApi } from "@shared/utils";
 import {
     $AttachParticipantsToGroupResponse,
     $CreateAdminGroupResponse,
+    $CreateAdminGroupScheduleResponse,
     $DeleteAdminGroupResponse,
+    $DeleteAdminGroupScheduleResponse,
     $DeleteParticipantsFromGroupResponse,
     $GetAdminGroupFiltersResponse,
     $GetAdminGroupParticipantsResponse,
     $GetAdminGroupResponse,
+    $GetAdminGroupSchedulesResponse,
     $GetAdminGroupsResponse,
-    $GetGroupSchedulesResponse,
     $UpdateAdminGroupResponse,
+    $UpdateAdminGroupScheduleResponse,
     $UpdateGroupActivityResponse,
-    AddScheduleToGroupRequest,
     AttachParticipantsToGroupRequest,
     AttachParticipantsToGroupResponse,
     CreateAdminGroupRequest,
     CreateAdminGroupResponse,
+    CreateAdminGroupScheduleRequest,
+    CreateAdminGroupScheduleResponse,
     DeleteAdminGroupRequest,
     DeleteAdminGroupResponse,
+    DeleteAdminGroupScheduleRequest,
+    DeleteAdminGroupScheduleResponse,
     DeleteParticipantsFromGroupRequest,
     DeleteParticipantsFromGroupResponse,
     GetAdminGroupFiltersRequest,
@@ -27,16 +33,16 @@ import {
     GetAdminGroupParticipantsResponse,
     GetAdminGroupRequest,
     GetAdminGroupResponse,
+    GetAdminGroupSchedulesRequest,
+    GetAdminGroupSchedulesResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
-    GetGroupSchedulesRequest,
-    GetGroupSchedulesResponse,
-    RemoveScheduleFromGroupRequest,
     UpdateAdminGroupRequest,
     UpdateAdminGroupResponse,
+    UpdateAdminGroupScheduleRequest,
+    UpdateAdminGroupScheduleResponse,
     UpdateGroupActivityRequest,
     UpdateGroupActivityResponse,
-    UpdateScheduleFromGroupRequest,
 } from "./types";
 
 class GroupApi extends BaseApi {
@@ -87,19 +93,26 @@ class GroupApi extends BaseApi {
         return $DeleteParticipantsFromGroupResponse.parse(response);
     }
 
-    // schedules
-    async getGroupSchedules({ groupId, ...params }: GetGroupSchedulesRequest): Promise<GetGroupSchedulesResponse> {
+    //schedules
+    async getAdminGroupSchedules({ groupId, ...params }: GetAdminGroupSchedulesRequest): Promise<GetAdminGroupSchedulesResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/schedules/list`, params);
-        return $GetGroupSchedulesResponse.parse(response);
+        return $GetAdminGroupSchedulesResponse.parse(response);
     }
-    addScheduleToGroup({ groupId, ...data }: AddScheduleToGroupRequest & { groupId?: string }): Promise<void> {
-        return this.instance.post(`admin/groups/${groupId}/add-schedule`, data);
+    async createAdminGroupSchedule({ groupId, ...data }: CreateAdminGroupScheduleRequest): Promise<CreateAdminGroupScheduleResponse> {
+        const response = await this.instance.post(`admin/groups/${groupId}/schedules`, data);
+        return $CreateAdminGroupScheduleResponse.parse(response);
     }
-    removeScheduleFromGroup({ groupId, ...data }: RemoveScheduleFromGroupRequest): Promise<void> {
-        return this.instance.delete(`admin/groups/${groupId}/remove-schedule`, { data });
+    async updateAdminGroupSchedule({
+        groupId,
+        scheduleId,
+        ...data
+    }: UpdateAdminGroupScheduleRequest): Promise<UpdateAdminGroupScheduleResponse> {
+        const response = await this.instance.put(`admin/groups/${groupId}/schedules/${scheduleId}`, data);
+        return $UpdateAdminGroupScheduleResponse.parse(response);
     }
-    updateScheduleFromGroup({ groupId, ...data }: UpdateScheduleFromGroupRequest & { groupId?: string }): Promise<void> {
-        return this.instance.put(`admin/groups/${groupId}/update-schedule`, data);
+    async deleteAdminGroupSchedule({ groupId, scheduleId }: DeleteAdminGroupScheduleRequest): Promise<DeleteAdminGroupScheduleResponse> {
+        const response = await this.instance.delete(`admin/groups/${groupId}/schedules/${scheduleId}`);
+        return $DeleteAdminGroupScheduleResponse.parse(response);
     }
 }
 

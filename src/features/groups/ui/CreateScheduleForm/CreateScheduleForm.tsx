@@ -1,54 +1,53 @@
-import { Box, Flex, Group } from "@mantine/core";
-import { FieldArray, FormikConfig } from "formik";
-import axios from "axios";
+import { Box, BoxProps, Flex, Group } from "@mantine/core";
+import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
-import { Button, FDatePicker, FTimeInput, Form } from "@shared/ui";
-import { useAddScheduleToGroup } from "@entities/group";
-import { $createScheduleFormValidation, CreateScheduleFormValidation } from "./types";
-import { adaptCreateScheduleFormRequest } from "./utils";
+import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
+import { CreateAdminGroupScheduleResponse, groupApi } from "@entities/group";
+import { MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification } from "@shared/utils";
+import { $CreateScheduleFormValidation, CreateScheduleFormValidation } from "./types";
+import { adaptCreateGroupScheduleRequest } from "./utils";
+import { initialValues } from "./constants";
 
-export interface CreateScheduleFormProps {
-    groupId?: string;
+export interface CreateScheduleFormProps extends BoxProps {
+    groupId: string;
     onClose: () => void;
 }
 
-const CreateScheduleForm = ({ groupId, onClose }: CreateScheduleFormProps) => {
-    const { mutate: addScheduleToGroup } = useAddScheduleToGroup(groupId);
+const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormProps) => {
+    const createGroupSchedule = (values: CreateScheduleFormValidation) => {
+        return groupApi.createAdminGroupSchedule({ ...adaptCreateGroupScheduleRequest(values), groupId });
+    };
 
-    const config: FormikConfig<CreateScheduleFormValidation> = {
-        initialValues: {
-            scheduleDate: null,
-            scheduleTimings: [],
-        },
-        validationSchema: $createScheduleFormValidation,
-        onSubmit: async (values, { setFieldError }) => {
-            addScheduleToGroup(adaptCreateScheduleFormRequest(values), {
-                onSuccess: () => {
-                    onClose();
-                },
-                onError: (error) => {
-                    if (axios.isAxiosError(error)) {
-                        for (const errorField in error.response?.data.errors) {
-                            setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                        }
-                    }
-                },
-            });
-        },
+    const onSuccess = () => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Добавление занятия",
+            message: "Занятия успешно добавлены в группу",
+        });
+        onClose();
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка добавления занятия",
+        });
     };
 
     return (
-        <Box>
-            <Form config={config} disableOverlay>
+        <Box {...props}>
+            <ManagedForm<CreateScheduleFormValidation, CreateAdminGroupScheduleResponse>
+                initialValues={initialValues}
+                validationSchema={$CreateScheduleFormValidation}
+                mutationKey={[MutationKeys.CREATE_ADMIN_GROUP_SCHEDULE]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
+                mutationFunction={createGroupSchedule}
+                onSuccess={onSuccess}
+                onError={onError}>
                 {({ values }) => (
                     <>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 16,
-                                marginBottom: 24,
-                            }}>
+                        <Flex direction="column" gap={24} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
                             <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
@@ -88,7 +87,7 @@ const CreateScheduleForm = ({ groupId, onClose }: CreateScheduleFormProps) => {
                                     );
                                 }}
                             </FieldArray>
-                        </Box>
+                        </Flex>
                         <Group sx={{ flexWrap: "nowrap" }}>
                             <Button type="button" variant="border" fullWidth onClick={onClose}>
                                 Отмена
@@ -99,7 +98,7 @@ const CreateScheduleForm = ({ groupId, onClose }: CreateScheduleFormProps) => {
                         </Group>
                     </>
                 )}
-            </Form>
+            </ManagedForm>
         </Box>
     );
 };
