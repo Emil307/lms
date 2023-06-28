@@ -1,7 +1,7 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Checkbox, Switch } from "@shared/ui";
+import { Checkbox, LastUpdatedInfo, Switch } from "@shared/ui";
 import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
@@ -30,7 +30,6 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>
                 </Box>
-                {/* TODO - нужен функционал от бэка */}
                 <Flex gap={8}>
                     Статус:
                     <Switch
@@ -42,11 +41,12 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         disabled={!isRoleOrder}
                     />
                 </Flex>
+                {/* TODO: - нужен функционал от бэка */}
                 <Checkbox label="Отображать на главной" />
                 <Box className={classes.infoItem}>
                     Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
-                {/* TODO: - информации о последних изменениях на бэке пока не будет */}
+                <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
         </Box>
     );

@@ -3,13 +3,16 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, Prompt, Tabs } from "@shared/ui";
-import { List as AdvantageList, CreateAdvantageForm } from "@features/advantages";
-import { tabsList } from "./constants";
+import { Button, LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
+import { AdminList as AdminAdvantageList, CreateAdvantageForm } from "@features/advantages";
+import { useAdminAdvantages } from "@entities/staticPage";
+import { initialParams, tabsList } from "./constants";
 
 const AdvantagesPage = () => {
     const router = useRouter();
     const [openedPrompt, setOpenedPrompt] = useState(true);
+
+    const { data: advantagesData } = useAdminAdvantages(initialParams);
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
@@ -39,10 +42,11 @@ const AdvantagesPage = () => {
     const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
-        <Flex direction="column" gap={32}>
+        <Flex direction="column" gap={24}>
             <Title order={1} color="dark">
                 Титульная страница
             </Title>
+            <LastUpdatedInfo data={advantagesData?.meta.lastUpdated} />
             <Tabs value={tabsList[2].value} tabs={tabsList} onTabChange={handleChangeTab} />
             <Prompt
                 isOpened={openedPrompt}
@@ -58,7 +62,7 @@ const AdvantagesPage = () => {
                         Добавить карточку
                     </Button>
                 </Flex>
-                <AdvantageList />
+                <AdminAdvantageList />
             </Box>
         </Flex>
     );

@@ -1,13 +1,15 @@
-import { Box } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
 import { AdminStaticReviewFromList, staticReviewApi } from "@entities/staticReview";
 import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 
-const AdminList = () => {
+export interface AdminListProps extends BoxProps {}
+
+const AdminList = (props: AdminListProps) => {
     return (
-        <Box mt={24}>
+        <Box {...props}>
             <ManagedDataGrid<AdminStaticReviewFromList>
                 queryKey={QueryKeys.GET_ADMIN_STATIC_REVIEWS}
                 queryFunction={(params) => staticReviewApi.getAdminStaticReviews(params)}

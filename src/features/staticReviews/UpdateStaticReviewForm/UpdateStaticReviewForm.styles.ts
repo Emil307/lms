@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((_theme) => ({
+export default createStyles((theme) => ({
     fieldset: {
         display: "flex",
         flexDirection: "column",
@@ -25,5 +25,14 @@ export default createStyles((_theme) => ({
         fontSize: 18,
         lineHeight: "24px",
         color: "dark.0",
+    },
+    infoItem: {
+        alignSelf: "center",
+        fontSize: 14,
+        lineHeight: "16px",
+        color: theme.colors.gray45[0],
+        span: {
+            color: theme.colors.dark[0],
+        },
     },
 }));

@@ -6,3 +6,4 @@ export * from "./useMainBanner";
 export * from "./useAdvantage";
 export * from "./useAdvantages";
 export * from "./useAdminFaq";
+export * from "./useAdminAdvantages";

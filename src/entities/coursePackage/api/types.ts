@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
     $Discount,
     $DiscountType,
+    $LastUpdated,
     $UploadedFile,
     $getDateObjectType,
     $getFiltersRequestType,
@@ -86,6 +87,7 @@ export const $AdminCoursePackageDetails = $AdminCoursePackage.omit({ coursesCoun
     updatedAt: z.coerce.date(),
     hasDiscount: z.boolean(),
     cover: $UploadedFile.nullable(),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $GetCoursePackagesResponse = $getPaginationResponseType($CoursePackage);

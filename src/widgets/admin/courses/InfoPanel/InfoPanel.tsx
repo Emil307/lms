@@ -1,7 +1,7 @@
 import { Flex, Text, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Loader, Switch } from "@shared/ui";
+import { LastUpdatedInfo, Loader, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
 import useStyles from "./InfoPanel.styles";
@@ -63,8 +63,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     <Text className={classes.label}>Отображать в популярных:</Text>
                     <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
                 </Flex>
-                {/* TODO: Добавить информацию updatedAt как добавиться компонент LastUpdated */}
-                {/*<LastUpdatedInfo data={courseData.lastUpdated} />*/}
+                <LastUpdatedInfo data={courseData.lastUpdated} />
             </Flex>
         </>
     );
