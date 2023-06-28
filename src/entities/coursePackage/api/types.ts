@@ -100,7 +100,8 @@ export const $AdminCoursePackagesFiltersForm = z.object({
     courseIds: z.string(),
     createdAtFrom: z.coerce.date().nullable(),
     createdAtTo: z.coerce.date().nullable(),
-    discountFinishingDate: z.coerce.date().nullable(),
+    discountFinishingDateFrom: z.coerce.date().nullable(),
+    discountFinishingDateTo: z.coerce.date().nullable(),
 });
 
 const $AdminCourse = z.object({
@@ -115,7 +116,7 @@ export const $AdminCoursePackagesRequest = z.object({
             isActive: z.literal("1").or(z.literal("0")),
             courseIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             createdAt: $getDateObjectType(z.literal("range")),
-            "discount.finishingDate": z.string(),
+            "discount.finishingDate": $getDateObjectType(z.literal("range")),
         })
         .partial(),
 });

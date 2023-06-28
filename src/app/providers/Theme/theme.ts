@@ -241,6 +241,9 @@ export const defaultTheme: MantineThemeOverride = {
         },
         Modal: {
             styles: (theme) => ({
+                inner: {
+                    height: "100vh",
+                },
                 title: {
                     fontWeight: 600,
                     fontSize: 20,

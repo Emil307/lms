@@ -2,6 +2,7 @@ import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -17,8 +18,9 @@ export interface CourseListProps {
 }
 
 const CourseList = ({ coursePackageId }: CourseListProps) => {
-    //TODO: Добавить редирект после того как будет готова детальная страница курса в админке
-    const handlerClickCell = (_cell: MRT_Cell<AdminCourseFromList>) => undefined;
+    const router = useRouter();
+    const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) =>
+        router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });
 
     const handleCloseAddCourseToPackageModal = () => closeModal("ADD_COURSE_TO_PACKAGE");
 
@@ -54,7 +56,7 @@ const CourseList = ({ coursePackageId }: CourseListProps) => {
                 queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_PACKAGE}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "coursePackageId"]}
-                onClickCell={handlerClickCell}
+                onClickCell={handleClickCell}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
                 columns={columns}
                 countName="курсов"

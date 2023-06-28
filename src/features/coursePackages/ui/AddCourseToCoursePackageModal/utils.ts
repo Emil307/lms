@@ -10,7 +10,7 @@ export const adaptGetAdminCoursesRequest = (
     return {
         ...rest,
         filter: {
-            isActive: "1",
+            isActive: true,
             "category.id": categoryId,
             "subcategory.id": subcategoryId,
             tags: {

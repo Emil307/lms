@@ -70,7 +70,11 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
                 }}
                 disableQueryParams
                 onChangeSelect={setSelected}>
-                {({ dirty: dirtyFilters }) => {
+                {({ dirty, resetForm, handleSubmit: handleSubmitFilters }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmitFilters();
+                    };
                     return (
                         <Box>
                             <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
@@ -89,7 +93,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
                                         })}
                                         clearable
                                         label="Категория"
-                                        disabled={courseResources.isLoading}
+                                        disabled={courseResources.isLoading || !courseResources.data?.categories.length}
                                         w="100%"
                                         maw={210}
                                     />
@@ -103,7 +107,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
                                         })}
                                         clearable
                                         label="Подкатегория"
-                                        disabled={courseResources.isLoading}
+                                        disabled={courseResources.isLoading || !courseResources.data?.subcategories.length}
                                         w="100%"
                                         maw={210}
                                     />
@@ -116,12 +120,19 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
                                             label: "name",
                                         })}
                                         label="Теги"
-                                        disabled={courseResources.isLoading}
+                                        disabled={courseResources.isLoading || !courseResources.data?.tags.length}
                                     />
                                 </Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirtyFilters}>
-                                    Найти
-                                </Button>
+                                <Group mt={16}>
+                                    <Button type="submit" w="100%" maw={164} disabled={!dirty}>
+                                        Найти
+                                    </Button>
+                                    {dirty && (
+                                        <Button variant="white" w="100%" maw={164} onClick={handleResetForm}>
+                                            Сбросить
+                                        </Button>
+                                    )}
+                                </Group>
                             </Collapse>
                         </Box>
                     );
