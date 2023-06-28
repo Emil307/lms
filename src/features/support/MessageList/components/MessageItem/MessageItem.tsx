@@ -1,13 +1,13 @@
 import { Avatar, Flex, FlexProps, ThemeIcon, Text } from "@mantine/core";
 import { memo } from "react";
-import { AdminSupportMessageFromList } from "@entities/support";
+import { SupportMessageFromList } from "@entities/support";
 import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
 import useStyles from "./MessageItem.styles";
 import { getFormatCreatedAt } from "./utils";
 
 export interface MessageItemProps extends Omit<FlexProps, "onClick"> {
-    data: AdminSupportMessageFromList;
+    data: SupportMessageFromList;
 }
 
 const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: MessageItemProps) {
@@ -31,10 +31,15 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                     </ThemeIcon>
                 </Avatar>
                 <Flex className={classes.userInfo}>
-                    <Text className={classes.userFullName} lineClamp={1}>
-                        {getFullName({ data: data.user.profile })}
-                    </Text>
-                    {/* //TODO: беку нужно добавить роль */}
+                    <Flex direction="column">
+                        <Text className={classes.userFullName} lineClamp={1}>
+                            {getFullName({ data: data.user.profile })}
+                        </Text>
+                        <Text className={classes.roleName} lineClamp={1}>
+                            {data.user.roles?.[0].displayName}
+                        </Text>
+                    </Flex>
+
                     <Text className={classes.createdAtLastMessage}>{getFormatCreatedAt(data.createdAt)}</Text>
                 </Flex>
             </Flex>

@@ -25,7 +25,7 @@ const $sortParams = z.object({
     sort: $sortRequest.optional(),
 });
 
-const $defaultRequestParams = $pageParams.merge($sortParams);
+const $DefaultRequestParams = $pageParams.merge($sortParams);
 
 export const $pagination = z.object({
     count: z.number(),
@@ -54,7 +54,7 @@ export const $dateOperator = z.literal("range").or(z.literal("between"));
 export type TMultiValueOperator = z.infer<typeof $multiValueOperator>;
 export type TDateOperator = z.infer<typeof $dateOperator>;
 export type TSortOrder = z.infer<typeof $sortOrder>;
-export type TDefaultRequestParams = z.infer<typeof $defaultRequestParams>;
+export type TDefaultRequestParams = z.infer<typeof $DefaultRequestParams>;
 export type TPageParams = z.infer<typeof $pageParams>;
 export type TSortParams = z.infer<typeof $sortParams>;
 export type TPagination = z.infer<typeof $pagination>;
@@ -79,7 +79,7 @@ export const $LastUpdated = z.object({
 });
 
 export function $getFiltersRequestType<T extends ZodRawShape>(data: z.ZodObject<T>) {
-    return data.merge($defaultRequestParams);
+    return data.merge($DefaultRequestParams);
 }
 
 export function $getMultiValueObjectType<T extends TMultiValueOperator = "or">(data: z.ZodString, operator: z.ZodLiteral<T>) {

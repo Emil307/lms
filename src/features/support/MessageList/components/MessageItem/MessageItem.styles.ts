@@ -26,9 +26,15 @@ export default createStyles((theme) => ({
     },
     userFullName: {
         fontWeight: 600,
-        fontSize: 16,
-        lineHeight: "24px",
+        fontSize: 14,
+        lineHeight: "16px",
         color: theme.colors.dark[0],
+    },
+    roleName: {
+        fontWeight: 500,
+        fontSize: 12,
+        lineHeight: "16px",
+        color: theme.colors.gray45[0],
     },
     createdAtLastMessage: {
         fontWeight: 500,

@@ -22,7 +22,8 @@ export default createStyles((theme) => ({
 
     chatContainer: {
         flex: 1,
-        minWidth: 456,
+        width: "100%",
+        maxWidth: 456,
         minHeight: 456,
         height: "min-content",
         borderRadius: 16,
