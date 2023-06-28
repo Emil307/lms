@@ -1,46 +1,90 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    $AttachParticipantsToGroupResponse,
+    $CreateAdminGroupResponse,
+    $DeleteAdminGroupResponse,
+    $DeleteParticipantsFromGroupResponse,
+    $GetAdminGroupFiltersResponse,
+    $GetAdminGroupParticipantsResponse,
     $GetAdminGroupResponse,
     $GetAdminGroupsResponse,
     $GetGroupSchedulesResponse,
+    $UpdateAdminGroupResponse,
+    $UpdateGroupActivityResponse,
     AddScheduleToGroupRequest,
-    CreateGroupRequest,
+    AttachParticipantsToGroupRequest,
+    AttachParticipantsToGroupResponse,
+    CreateAdminGroupRequest,
+    CreateAdminGroupResponse,
+    DeleteAdminGroupRequest,
+    DeleteAdminGroupResponse,
+    DeleteParticipantsFromGroupRequest,
+    DeleteParticipantsFromGroupResponse,
+    GetAdminGroupFiltersRequest,
+    GetAdminGroupFiltersResponse,
+    GetAdminGroupParticipantsRequest,
+    GetAdminGroupParticipantsResponse,
+    GetAdminGroupRequest,
     GetAdminGroupResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
     GetGroupSchedulesRequest,
     GetGroupSchedulesResponse,
     RemoveScheduleFromGroupRequest,
-    UpdateGroupRequest,
+    UpdateAdminGroupRequest,
+    UpdateAdminGroupResponse,
+    UpdateGroupActivityRequest,
+    UpdateGroupActivityResponse,
     UpdateScheduleFromGroupRequest,
 } from "./types";
 
 class GroupApi extends BaseApi {
+    //ADMIN
     async getAdminGroups(data: GetAdminGroupsRequest): Promise<GetAdminGroupsResponse> {
         const response = await this.instance.post("admin/groups/list", data);
         return $GetAdminGroupsResponse.parse(response);
     }
-    async getAdminGroup(courseId: string): Promise<GetAdminGroupResponse> {
-        const response = await this.instance.get(`admin/groups/${courseId}`);
+    async getAdminGroupFilters(params: GetAdminGroupFiltersRequest): Promise<GetAdminGroupFiltersResponse> {
+        const response = await this.instance.get("admin/groups/resources", { params });
+        return $GetAdminGroupFiltersResponse.parse(response);
+    }
+    async getAdminGroup({ id }: GetAdminGroupRequest): Promise<GetAdminGroupResponse> {
+        const response = await this.instance.get(`admin/groups/${id}`);
         return $GetAdminGroupResponse.parse(response);
     }
-    async createGroup(data: CreateGroupRequest): Promise<GetAdminGroupResponse> {
+    async createAdminGroup(data: CreateAdminGroupRequest): Promise<CreateAdminGroupResponse> {
         const response = await this.instance.post("admin/groups", data);
-        return $GetAdminGroupResponse.parse(response);
+        return $CreateAdminGroupResponse.parse(response);
     }
-    async updateGroup({ id, ...data }: UpdateGroupRequest): Promise<GetAdminGroupResponse> {
+    async updateAdminGroup({ id, ...data }: UpdateAdminGroupRequest): Promise<UpdateAdminGroupResponse> {
         const response = await this.instance.put(`admin/groups/${id}`, data);
-        return $GetAdminGroupResponse.parse(response);
+        return $UpdateAdminGroupResponse.parse(response);
     }
-    activateGroup(courseId: string): Promise<null> {
-        return this.instance.put(`admin/groups/${courseId}/activate`);
+    async deleteAdminGroup({ id }: DeleteAdminGroupRequest): Promise<DeleteAdminGroupResponse> {
+        const response = await this.instance.delete(`admin/groups/${id}`);
+        return $DeleteAdminGroupResponse.parse(response);
     }
-    deactivateGroup(courseId: string): Promise<null> {
-        return this.instance.put(`admin/groups/${courseId}/deactivate`);
+    async updateGroupActivity({ id, isActive }: UpdateGroupActivityRequest): Promise<UpdateGroupActivityResponse> {
+        const response = await this.instance.put(`admin/groups/${id}/activity-status`, { isActive });
+        return $UpdateGroupActivityResponse.parse(response);
     }
-    deleteGroup(courseId: string): Promise<null> {
-        return this.instance.delete(`admin/groups/${courseId}`);
+
+    //participants (students)
+    async getAdminGroupParticipants({ groupId, ...data }: GetAdminGroupParticipantsRequest): Promise<GetAdminGroupParticipantsResponse> {
+        const response = await this.instance.post(`admin/groups/${groupId}/students/list`, data);
+        return $GetAdminGroupParticipantsResponse.parse(response);
+    }
+    async attachParticipantsToGroup({ groupId, ...data }: AttachParticipantsToGroupRequest): Promise<AttachParticipantsToGroupResponse> {
+        const response = await this.instance.post(`admin/groups/${groupId}/students`, data);
+        return $AttachParticipantsToGroupResponse.parse(response);
+    }
+    async deleteParticipantsFromGroup({
+        groupId,
+        ...data
+    }: DeleteParticipantsFromGroupRequest): Promise<DeleteParticipantsFromGroupResponse> {
+        const response = await this.instance.delete(`admin/groups/${groupId}/students`, { data });
+        return $DeleteParticipantsFromGroupResponse.parse(response);
     }
 
     // schedules

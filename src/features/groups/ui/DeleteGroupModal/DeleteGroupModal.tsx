@@ -2,7 +2,7 @@ import { Box, Flex, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
-import { useDeleteGroup } from "@entities/group";
+import { useAdminDeleteGroup } from "@entities/group";
 import useStyles from "./DeleteGroupModal.styles";
 
 interface DeleteGroupModalProps {
@@ -14,7 +14,7 @@ interface DeleteGroupModalProps {
 const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteGroup = useDeleteGroup(id);
+    const deleteGroup = useAdminDeleteGroup({ id });
 
     const handleSubmit = () => {
         deleteGroup.mutate(null, {
@@ -30,7 +30,7 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить группу, «ID: ${id} ${name}»?`}</Box>
+                <Box className={classes.text}>{`Вы действительно хотите удалить группу, «${id}: ${name}»?`}</Box>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteGroup.isLoading} w="100%">

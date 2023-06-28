@@ -1,6 +1,11 @@
 import { MantineTheme, createStyles } from "@mantine/core";
+import { AdminGroupStatusType } from "@entities/group";
 
-export default createStyles((theme, { status }: { status?: string | null }) => ({
+interface CreateStylesProps {
+    statusType?: AdminGroupStatusType;
+}
+
+export default createStyles((theme, { statusType }: CreateStylesProps) => ({
     infoItem: {
         alignSelf: "center",
         fontSize: 14,
@@ -20,17 +25,19 @@ export default createStyles((theme, { status }: { status?: string | null }) => (
         fontSize: 12,
         lineHeight: "16px",
         textTransform: "inherit",
-        ...getColorsByStatus(theme, { status }),
+        ...getColorsByStatus(theme, { statusType }),
     },
 }));
 
-const getColorsByStatus = (theme: MantineTheme, { status }: { status?: string | null }) => {
-    switch (status) {
+const getColorsByStatus = (theme: MantineTheme, { statusType }: CreateStylesProps) => {
+    switch (statusType) {
+        case "inProgress":
+            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+
         case "notStarted":
             return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
-        case "done":
-            return { backgroundColor: theme.colors.secondary16[0], color: theme.colors.secondary[0] };
+
         default:
-            break;
+            return { backgroundColor: theme.colors.secondary16[0], color: theme.colors.secondary[0] };
     }
 };

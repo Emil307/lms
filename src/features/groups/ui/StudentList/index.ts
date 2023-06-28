@@ -1,3 +1,3 @@
-import StudentList from "./StudentList";
+import StudentList, { type StudentListProps } from "./StudentList";
 
-export { StudentList };
+export { StudentList, StudentListProps };

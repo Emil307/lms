@@ -2,19 +2,19 @@ import React from "react";
 import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
-import { GroupCreatePage } from "@pages/admin/groups";
+import { CreateGroupPage } from "@pages/admin/groups";
 import { AdminPage } from "@components/AdminPage";
 
-const GroupCreate: NextPageWithLayout = () => {
+const CreateGroup: NextPageWithLayout = () => {
     return (
         <AdminPage title="Создание группы">
-            <GroupCreatePage />
+            <CreateGroupPage />
         </AdminPage>
     );
 };
 
-GroupCreate.getLayout = function (page: ReactElement) {
+CreateGroup.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default GroupCreate;
+export default CreateGroup;

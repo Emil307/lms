@@ -1,48 +1,33 @@
 import { Badge, Box, Flex, Title, Text } from "@mantine/core";
-import React, { ChangeEvent, useCallback, useMemo } from "react";
+import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Switch } from "@shared/ui";
-import { useActivateGroup, useAdminGroup, useDeactivateGroup } from "@entities/group";
+import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
 import useStyles from "./InfoPanel.styles";
 
-interface InfoPanel {
+export interface InfoPanelProps {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanel) => {
-    const { data: groupData } = useAdminGroup(id);
-    const { mutate: activate } = useActivateGroup(id);
-    const { mutate: deactivate } = useDeactivateGroup(id);
-    const { classes } = useStyles({ status: groupData?.status });
+const InfoPanel = ({ id }: InfoPanelProps) => {
+    const { data: groupData } = useAdminGroup({ id });
+    const { classes } = useStyles({ statusType: groupData?.status.type });
+
+    const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id });
 
     const labelActivitySwitch = groupData?.isActive ? "Деактивировать" : "Активировать";
 
-    const renderStatus = useMemo(() => {
-        switch (groupData?.status) {
-            case "notStarted":
-                return "Новая";
-            case "done":
-                return "Завершена";
-            default:
-                break;
-        }
-    }, [groupData?.status]);
-
-    const handleChangeActiveStatus = useCallback((newValue: ChangeEvent<HTMLInputElement>) => {
-        if (newValue.target.checked) {
-            return activate();
-        }
-        return deactivate();
-    }, []);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
         <Box>
-            <Flex align="center" gap={16}>
+            <Flex gap={16} align="center" mb={24}>
                 <Title order={1} color="dark">
                     {groupData?.name}
                 </Title>
                 <Badge variant="outline" className={classes.status}>
-                    {renderStatus}
+                    {groupData?.status.name}
                 </Badge>
             </Flex>
             <Flex mt={24} gap={32} align="center">
@@ -52,7 +37,7 @@ const InfoPanel = ({ id }: InfoPanel) => {
                 <Flex gap={8}>
                     <Text className={classes.infoItem}>Статус:</Text>
                     <Switch
-                        checked={!!groupData?.isActive}
+                        checked={groupData?.isActive}
                         onChange={handleChangeActiveStatus}
                         variant="secondary"
                         label={labelActivitySwitch}
@@ -60,11 +45,13 @@ const InfoPanel = ({ id }: InfoPanel) => {
                     />
                 </Flex>
                 <Box className={classes.infoItem}>
-                    Учебный курс: <span>{groupData?.courseName || "-"}</span>
+                    Учебный курс: <span>{groupData?.course.name}</span>
                 </Box>
                 <Box className={classes.infoItem}>
                     Создание: <span>{groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
+                {/* TODO:  https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/156*/}
+                {/* <LastUpdatedInfo data={groupData?.lastUpdated} /> */}
             </Flex>
         </Box>
     );

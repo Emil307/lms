@@ -1,25 +1,28 @@
-import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
-import React, { useMemo } from "react";
+import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
+import React from "react";
 import { Trash, Flag, FolderPlus, Users } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField } from "@shared/ui";
-import { useAdminGroup } from "@entities/group";
-import { getHumanDate } from "@shared/utils";
+import { GetAdminGroupResponse, useAdminGroup } from "@entities/group";
+import { getFullName } from "@shared/utils";
 import { DeleteGroupModal } from "@features/groups";
+import { InfoCard } from "@components/InfoCard";
 import { useSettingUserStyles } from "./GroupSettings.styles";
+import { fields } from "./constants";
 
-export interface GroupSettingsProps {
+export interface GroupSettingsProps extends BoxProps {
     id: string;
 }
 
-const GroupSettings = ({ id }: GroupSettingsProps) => {
+const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
-    const { data: groupData } = useAdminGroup(id);
+    const { data: groupData } = useAdminGroup({ id });
 
-    const handleOpenEditGroup = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
+    const handleOpenUpdateGroupForm = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
 
     const handleCloseDeleteGroupModal = () => closeModal("DELETE_GROUP");
 
@@ -32,61 +35,56 @@ const GroupSettings = ({ id }: GroupSettingsProps) => {
         });
     };
 
-    const studyDates = useMemo(() => {
-        if (!groupData?.education.from || !groupData.education.to) {
+    const teacherFullName = getFullName({ data: groupData?.teacher?.profile });
+
+    const getEducationDates = () => {
+        if (!groupData?.educationStartDate || !groupData.educationFinishDate) {
             return "-";
         }
-        return `${getHumanDate(groupData.education.from, {
-            month: "long",
-            day: "2-digit",
-        })} - ${getHumanDate(groupData.education.from, {
-            month: "long",
-            day: "2-digit",
-            year: "numeric",
-        })}`;
-    }, [groupData?.education]);
+        return `${dayjs(groupData.educationStartDate).format("D MMMM")} - ${dayjs(groupData.educationStartDate).format("D MMMM YYYY")}`;
+    };
 
     return (
-        <Box>
-            <Box mt={32} className={classes.info}>
-                <Group sx={{ flexDirection: "column", alignItems: "flex-start" }}>
-                    <Flex gap={48} align="center">
-                        <Title order={2} color="dark">
-                            Данные группы
-                        </Title>
-                        <Button
-                            onClick={openModalDeleteGroup}
-                            variant="text"
-                            leftIcon={
-                                <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                    <Trash />
-                                </ThemeIcon>
-                            }>
-                            Удалить группу
-                        </Button>
-                    </Flex>
-                    <Fieldset mt={32} label="Направление обучения" icon={<Flag />}>
-                        <DisplayField label="Учебный курс" value={groupData?.courseName} />
-                    </Fieldset>
-                    <Fieldset mt={32} label="Данные группы" icon={<FolderPlus />}>
-                        <DisplayField label="Название группы" value={groupData?.name} />
-                        <DisplayField label="Даты обучения" value={studyDates} />
-                        <DisplayField label="Учеников в группе (max)" value={String(groupData?.students)} />
-                    </Fieldset>
-                    <Fieldset mt={32} label="Преподаватели группы" icon={<Users />}>
-                        <DisplayField label="ФИО" value={groupData?.teacherFullName} />
-                    </Fieldset>
-                </Group>
-                <Box>
-                    <Flex className={classes.groupInfo}>
-                        <DisplayField label="Учебный курс" value={groupData?.courseName} variant="compact" />
-                        <DisplayField label="Название группы" value={groupData?.courseName} variant="compact" />
-                        <DisplayField label="Максимальная численность" value={String(groupData?.students)} variant="compact" />
-                        <Button variant="secondary" mt={16} onClick={handleOpenEditGroup}>
+        <Box {...props} className={classes.root}>
+            <Flex direction="column" gap={32}>
+                <Flex gap={48} align="center">
+                    <Title order={2} color="dark">
+                        Данные группы
+                    </Title>
+                    <Button
+                        onClick={openModalDeleteGroup}
+                        variant="text"
+                        leftIcon={
+                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                                <Trash />
+                            </ThemeIcon>
+                        }>
+                        Удалить группу
+                    </Button>
+                </Flex>
+                <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }}>
+                    <DisplayField label="Учебный курс" value={groupData?.course.name} />
+                </Fieldset>
+                <Fieldset label="Данные группы" icon={<FolderPlus />} legendProps={{ mb: 24 }}>
+                    <DisplayField label="Название группы" value={groupData?.name} />
+                    <DisplayField label="Даты обучения" value={getEducationDates()} />
+                    <DisplayField label="Учеников в группе (max)" value={String(groupData?.maxStudentsCount)} />
+                </Fieldset>
+                <Fieldset label="Преподаватель группы" icon={<Users />} legendProps={{ mb: 24 }}>
+                    <DisplayField label="ФИО" value={teacherFullName} />
+                </Fieldset>
+            </Flex>
+            <Box>
+                <InfoCard<GetAdminGroupResponse>
+                    variant="whiteBg"
+                    fields={fields}
+                    values={groupData}
+                    actionSlot={
+                        <Button variant="secondary" onClick={handleOpenUpdateGroupForm}>
                             Редактировать данные
                         </Button>
-                    </Flex>
-                </Box>
+                    }
+                />
             </Box>
         </Box>
     );

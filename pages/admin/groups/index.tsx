@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { List as GroupList } from "@features/groups";
+import { AdminList as AdminGroupList } from "@features/groups";
 
-const AdminGroups: NextPageWithLayout = () => {
+const Groups: NextPageWithLayout = () => {
     return (
         <AdminPage title="Группы">
-            <GroupList />
+            <AdminGroupList />
         </AdminPage>
     );
 };
 
-AdminGroups.getLayout = function (page: ReactElement) {
+Groups.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default AdminGroups;
+export default Groups;
