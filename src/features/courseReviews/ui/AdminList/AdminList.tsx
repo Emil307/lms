@@ -42,33 +42,59 @@ const AdminList = (props: AdminListProps) => {
                     columnOrder,
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}>
-                <Box mb={24}>
-                    <Group sx={{ gap: 8 }}>
-                        <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
-                        <FSelect
-                            name="courseId"
-                            size="sm"
-                            data={prepareOptionsForSelect({ data: courseReviewsResources.data?.courses, value: "id", label: "name" })}
-                            clearable
-                            label="Курс"
-                            disabled={courseReviewsResources.isLoading || !courseReviewsResources.data?.courses.length}
-                            w="100%"
-                            maw={252}
-                        />
-                        <FSelect name="score" size="sm" data={scoreOptions} clearable label="Оценка" w="100%" maw={252} />
-                        <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата отзыва" size="sm" clearable maw={252} />
-                    </Group>
-                    <Box mt={16}>
-                        <FRadioGroup name="isPublished" defaultValue="">
-                            {radioGroupValues.map((item) => {
-                                return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                            })}
-                        </FRadioGroup>
-                    </Box>
-                    <Button mt={16} type="submit" w="100%" maw={164}>
-                        Найти
-                    </Button>
-                </Box>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+                    return (
+                        <Box mb={24}>
+                            <Group sx={{ gap: 8 }}>
+                                <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
+                                <FSelect
+                                    name="courseId"
+                                    size="sm"
+                                    data={prepareOptionsForSelect({
+                                        data: courseReviewsResources.data?.courses,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    clearable
+                                    label="Курс"
+                                    disabled={courseReviewsResources.isLoading || !courseReviewsResources.data?.courses.length}
+                                    w="100%"
+                                    maw={252}
+                                />
+                                <FSelect name="score" size="sm" data={scoreOptions} clearable label="Оценка" w="100%" maw={252} />
+                                <FDateRangePicker
+                                    name="createdAtFrom"
+                                    nameTo="createdAtTo"
+                                    label="Дата отзыва"
+                                    size="sm"
+                                    clearable
+                                    maw={252}
+                                />
+                            </Group>
+                            <Box mt={16}>
+                                <FRadioGroup name="isPublished" defaultValue="">
+                                    {radioGroupValues.map((item) => {
+                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                    })}
+                                </FRadioGroup>
+                            </Box>
+                            <Group>
+                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
+                                        Сбросить
+                                    </Button>
+                                )}
+                            </Group>
+                        </Box>
+                    );
+                }}
             </ManagedDataGrid>
         </Box>
     );

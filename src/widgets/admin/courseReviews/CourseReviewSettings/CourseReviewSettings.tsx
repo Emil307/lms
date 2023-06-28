@@ -3,16 +3,16 @@ import React from "react";
 import { AlignLeft, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { IconClipboardText } from "@tabler/icons-react";
-import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Rating } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
 import { useAdminCourseReview, useUpdateCourseReviewPublishingStatus } from "@entities/courseReview";
-import { getFullName } from "@shared/utils";
 import { DeleteCourseReviewModal } from "@features/courseReviews";
 import { fields } from "./constants";
 import useStyles from "./CourseReviewSettings.styles";
+import { CourseReviewCardInfoFields } from "./types";
+import { getDataInfoCard } from "./utils";
 
 export interface CourseReviewSettingsProps {
     id: string;
@@ -21,17 +21,13 @@ export interface CourseReviewSettingsProps {
 const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-    const { data } = useAdminCourseReview({ id });
+    const { data: courseReviewData } = useAdminCourseReview({ id });
     const { mutate: updatePublishingStatus } = useUpdateCourseReviewPublishingStatus({ id });
 
-    const dataCardInfo = {
-        fio: getFullName({ data: data?.user.profile }),
-        //TODO:
-        courseName: data?.group.course || "",
-        createdAt: dayjs(data?.createdAt).format("DD.MM.YYYY HH:mm") || "",
-    };
+    const labelPublishingSwitch = courseReviewData?.isPublished ? "Снять с публикации" : "Опубликовать";
+    const variantPublishButton = courseReviewData?.isPublished ? "border" : "secondary";
 
-    const labelPublishingSwitch = data?.isPublished ? "Снять с публикации" : "Опубликовать";
+    const dataInfoCard = getDataInfoCard(courseReviewData);
 
     const handleCloseDeleteModal = () => {
         closeModal("DELETE_COURSE_REVIEW");
@@ -43,11 +39,11 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
             modalId: "DELETE_COURSE_REVIEW",
             title: "Удаление отзыва",
             centered: true,
-            children: <DeleteCourseReviewModal id={id} fullName={dataCardInfo.fio} onClose={handleCloseDeleteModal} />,
+            children: <DeleteCourseReviewModal id={id} fullName={dataInfoCard.fio} onClose={handleCloseDeleteModal} />,
         });
     };
 
-    const handleChangePublishingStatus = () => updatePublishingStatus({ isPublished: !data?.isPublished });
+    const handleChangePublishingStatus = () => updatePublishingStatus({ isPublished: !courseReviewData?.isPublished });
 
     return (
         <Box>
@@ -67,17 +63,16 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
                         </Button>
                     </Flex>
                     <Fieldset label="Детали" icon={<IconClipboardText />}>
-                        <DisplayField label="ФИО" value={dataCardInfo.fio} />
-                        {/* //TODO: */}
-                        <DisplayField label="Курс" value={data?.group.course} />
-                        <DisplayField label="Группа ученика" value={data?.group.name} />
+                        <DisplayField label="ФИО" value={dataInfoCard.fio} />
+                        <DisplayField label="Курс" value={courseReviewData?.group.course.name} />
+                        <DisplayField label="Группа ученика" value={courseReviewData?.group.name} />
                         <DisplayField
                             label="Оценка ученика"
                             render={() => (
                                 <Flex gap={4}>
                                     <Flex align="center" gap={2}>
                                         <Rating defaultValue={1} count={1} readOnly size="small" />
-                                        <Text className={classes.ratingValue}>{data?.score}</Text>
+                                        <Text className={classes.ratingValue}>{courseReviewData?.score}</Text>
                                     </Flex>
                                     <Text className={classes.ratingMaxValue}>из 5</Text>
                                 </Flex>
@@ -86,20 +81,19 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
                     </Fieldset>
 
                     <Fieldset label="Содержание отзыва" icon={<AlignLeft />}>
-                        <Text className={classes.description}>{data?.content}</Text>
+                        <Text className={classes.description}>{courseReviewData?.content}</Text>
                     </Fieldset>
                 </Flex>
                 <Box>
-                    <InfoCard
-                        //TODO:
-                        // avatar={{
-                        //     src: data?.user.profile.avatar,
-                        // }}
-                        values={dataCardInfo}
+                    <InfoCard<CourseReviewCardInfoFields>
+                        avatar={{
+                            src: courseReviewData?.user.profile.avatar?.absolutePath,
+                        }}
+                        values={dataInfoCard}
                         variant="whiteBg"
                         fields={fields}
                         actionSlot={
-                            <Button variant="secondary" onClick={handleChangePublishingStatus}>
+                            <Button variant={variantPublishButton} onClick={handleChangePublishingStatus}>
                                 {labelPublishingSwitch}
                             </Button>
                         }

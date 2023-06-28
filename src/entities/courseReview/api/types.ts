@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { $Profile, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 import { $User } from "@entities/user";
+import { $AdminGroup } from "@entities/group";
 
 /**
  *
@@ -39,20 +40,17 @@ export type DeleteCourseReviewResponse = z.infer<typeof $DeleteCourseReviewRespo
  *
  */
 
-//TODO: Заменить на схему из групп
-export const $AdminCourseReviewGroup = z.object({
-    id: z.number(),
-    name: z.string(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
-    education: z.object({
-        from: z.coerce.date(),
-        to: z.coerce.date(),
-    }),
-    status: z.string(),
-    maxStudents: z.number(),
-    isActive: z.boolean(),
-    course: z.null(), //TODO:
+export const $AdminCourseReviewGroup = $AdminGroup.pick({
+    id: true,
+    name: true,
+    status: true,
+    educationStartDate: true,
+    educationFinishDate: true,
+    maxStudentsCount: true,
+    isActive: true,
+    createdAt: true,
+    updatedAt: true,
+    course: true,
 });
 
 export const $AdminCourseReviewCourse = z.object({
@@ -68,13 +66,32 @@ export const $AdminCourseReview = z.object({
     isPublished: z.boolean(),
     publishedAt: z.coerce.date().nullable(),
     createdAt: z.coerce.date(),
+    user: $User.pick({
+        id: true,
+        email: true,
+        isActive: true,
+        profile: true,
+    }),
+    group: $AdminGroup.pick({
+        id: true,
+        name: true,
+        status: true,
+        educationStartDate: true,
+        educationFinishDate: true,
+        maxStudentsCount: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+        course: true,
+    }),
+});
+
+export const $AdminCourseReviewFromList = $AdminCourseReview.omit({ user: true }).extend({
     user: $User
         .pick({
             id: true,
             email: true,
             isActive: true,
-            //TODO: как бек поправит схему
-            // profile: true,
         })
         .merge(
             z.object({
@@ -87,10 +104,7 @@ export const $AdminCourseReview = z.object({
                 }),
             })
         ),
-    group: $AdminCourseReviewGroup,
 });
-
-export const $AdminCourseReviewFromList = $AdminCourseReview;
 
 export const $GetAdminCourseReviewsResponse = $getPaginationResponseType($AdminCourseReviewFromList);
 
