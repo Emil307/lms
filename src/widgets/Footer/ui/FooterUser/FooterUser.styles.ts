@@ -40,4 +40,16 @@ export default createStyles((theme) => ({
             textDecoration: "underline",
         },
     },
+    link: {
+        alignItems: "center",
+        justifyContent: "center",
+        height: 56,
+        width: 56,
+        borderRadius: 8,
+        backgroundColor: theme.colors.primary[0],
+
+        ":hover": {
+            backgroundColor: theme.colors.primaryHover[0],
+        },
+    },
 }));

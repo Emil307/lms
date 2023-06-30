@@ -1,14 +1,15 @@
 import React from "react";
 import { Container, Flex, Footer as MFooter, Text } from "@mantine/core";
-import { Button } from "@shared/ui";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import { Logo } from "@components/Logo";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
+import { COMPANY_LINK } from "./constants";
 
 const FooterAdmin = () => {
     const { classes } = useFooterAdminStyles();
+
     return (
         <MFooter classNames={classes} height="auto">
             <Flex className={classes.inner} align="center" justify="space-between">
@@ -40,15 +41,24 @@ const FooterAdmin = () => {
                     </Flex>
                 </Flex>
                 <Flex gap={16}>
-                    <Button size="large" sx={{ padding: 16 }}>
-                        <IconVK />
-                    </Button>
-                    <Button size="large" sx={{ padding: 16 }}>
-                        <IconWhatsapp />
-                    </Button>
-                    <Button size="large" sx={{ padding: 16 }}>
-                        <IconTelegram />
-                    </Button>
+                    <a href={COMPANY_LINK.VK} target="_blank" rel="noreferrer">
+                        <Flex className={classes.link}>
+                            <IconVK />
+                        </Flex>
+                    </a>
+
+                    {/* //TODO: Добавить редирект на whatsapp */}
+                    <a target="_blank" rel="noreferrer">
+                        <Flex className={classes.link}>
+                            <IconWhatsapp />
+                        </Flex>
+                    </a>
+
+                    <a href={COMPANY_LINK.TELEGRAM} target="_blank" rel="noreferrer">
+                        <Flex className={classes.link}>
+                            <IconTelegram />
+                        </Flex>
+                    </a>
                 </Flex>
             </Flex>
             <Container h={48} mt={8} pt={16} pb={16} ta="center">
