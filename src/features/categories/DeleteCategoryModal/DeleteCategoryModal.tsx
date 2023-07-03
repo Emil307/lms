@@ -5,7 +5,7 @@ import { Button } from "@shared/ui";
 import { useDeleteCategory } from "@entities/category";
 import useStyles from "./DeleteCategoryModal.styles";
 
-interface DeleteCategoryModalProps {
+export interface DeleteCategoryModalProps {
     id: string;
     name: string;
     isSubcategory?: boolean;
@@ -15,7 +15,7 @@ interface DeleteCategoryModalProps {
 const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategoryModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteCategory = useDeleteCategory(id);
+    const deleteCategory = useDeleteCategory({ id });
 
     const handleSubmit = () => {
         deleteCategory.mutate(null, {

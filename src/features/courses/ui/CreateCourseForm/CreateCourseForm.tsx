@@ -32,7 +32,7 @@ import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptCreateCourseRequest } from "./utils";
-import { initialValues, radioGroupValues } from "./constants";
+import { initialParams, initialValues, radioGroupValues } from "./constants";
 
 export interface CreateCourseFormProps {
     onSuccess: (newCourseId: number) => void;
@@ -43,8 +43,8 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>();
     const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources();
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
+        ...initialParams,
         filter: { parentId: selectedCategory },
-        paginate: false,
     });
 
     const createCourse = (values: CreateCourseFormValues) => {

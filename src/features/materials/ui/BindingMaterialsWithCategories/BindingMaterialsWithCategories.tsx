@@ -7,7 +7,7 @@ import { useAdminCategories } from "@entities/category";
 import { getDataFromSessionStorage } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import useStyles from "./BindingMaterialsWithCategories.styles";
-import { INITIAL_CATEGORIES_FILTER } from "./constants";
+import { initialParams } from "./constants";
 import { $bindingMaterialsFormValidationSchema, BindingMaterialsFormValidationSchema } from "./types";
 
 export interface BindingMaterialsWithCategoriesProps {
@@ -25,7 +25,7 @@ const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategor
         hasNextPage,
         fetchNextPage,
     } = useAdminCategories({
-        ...INITIAL_CATEGORIES_FILTER,
+        ...initialParams,
     });
 
     const { ref: lastElemRef, entry } = useIntersection();

@@ -33,7 +33,7 @@ import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
-import { radioGroupValues } from "./constants";
+import { initialParams, radioGroupValues } from "./constants";
 
 export interface UpdateCourseFormProps {
     data: AdminCourse;
@@ -45,8 +45,8 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
     const [selectedCategory, setSelectedCategory] = useState<string>();
     const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources();
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
+        ...initialParams,
         filter: { parentId: selectedCategory },
-        paginate: false,
     });
 
     const updateCourse = (values: UpdateCourseFormValues) => {

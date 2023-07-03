@@ -3,18 +3,18 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { CategoryPage } from "@pages/admin/settings";
+import { CategoryDetailsPage } from "@pages/admin/settings";
 
-const CategoryAdmin: NextPageWithLayout = () => {
+const CategoryDetails: NextPageWithLayout = () => {
     return (
         <AdminPage title="Подкатегории">
-            <CategoryPage />
+            <CategoryDetailsPage />
         </AdminPage>
     );
 };
 
-CategoryAdmin.getLayout = function (page: ReactElement) {
+CategoryDetails.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default CategoryAdmin;
+export default CategoryDetails;

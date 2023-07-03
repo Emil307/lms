@@ -15,7 +15,7 @@ const ArticlesPage = () => {
     const queryParams = router.query as TRouterQueries;
     const { tab, categoryId } = queryParams;
 
-    const categoryData = useCategory(categoryId);
+    const categoryData = useCategory({ id: categoryId });
 
     const titleContent = getTitle({ tab, categoryId, categoryName: categoryData.data?.name });
 

@@ -1,21 +1,40 @@
 import { z } from "zod";
-import { $getFiltersRequestType, $getPaginationResponseType, TRequestFilterParams } from "@shared/types";
+import { $LastUpdated, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 
-export type AdminCategory = z.infer<typeof $AdminCategory>;
+/**
+ *
+ * ADMIN TYPES
+ *
+ */
 
-export type CategoriesFilters = z.infer<typeof $CategoriesFilters>;
-export type SubCategoriesFilters = z.infer<typeof $SubCategoriesExtraFilters>;
+// export type AdminCategory = z.infer<typeof $AdminCategory>;
+export type AdminCategoryFromList = z.infer<typeof $AdminCategoryFromList>;
+//subcategories
+export type AdminSubCategory = z.infer<typeof $AdminSubCategory>;
+export type AdminSubCategoryFromList = z.infer<typeof $AdminSubCategoryFromList>;
 
-export type GetAdminCategoriesRequest = TRequestFilterParams<CategoriesFilters & { isActive?: boolean }>;
-export type GetAdminSubCategoriesPaginateRequest = z.infer<typeof $GetAdminSubCategoriesPaginateRequest>;
-export type GetAdminSubCategoriesRequest = z.infer<typeof $GetAdminSubCategoriesRequest>;
-export type GetAdminSubCategoriesPaginateResponse = z.infer<typeof $GetAdminSubCategoriesPaginateResponse>;
-export type GetAdminSubCategoriesResponse = z.infer<typeof $GetAdminSubCategoriesResponse>;
+//FILTERS
+export type AdminCategoriesFiltersForm = z.infer<typeof $AdminCategoriesFiltersForm>;
+//subCategories
+export type AdminSubCategoriesExtraFilters = z.infer<typeof $AdminSubCategoriesExtraFilters>;
+
+//REQ/RESP
+export type GetAdminCategoriesRequest = z.infer<typeof $GetAdminCategoriesRequest>;
 export type GetAdminCategoriesResponse = z.infer<typeof $GetAdminCategoriesResponse>;
-export type UpdateAdminCategoryRequest = z.infer<typeof $UpdateAdminCategoryRequest>;
+export type GetAdminCategoryRequest = z.infer<typeof $GetAdminCategoryRequest>;
+export type GetAdminCategoryResponse = z.infer<typeof $GetAdminCategoryResponse>;
 export type CreateAdminCategoryRequest = z.infer<typeof $CreateAdminCategoryRequest>;
-export type UpdateCategoryActivityRequest = z.infer<typeof $UpdateCategoryActivityRequest>;
-export type UpdateCategoryActivityResponse = z.infer<typeof $UpdateCategoryActivityResponse>;
+export type CreateAdminCategoryResponse = z.infer<typeof $CreateAdminCategoryResponse>;
+export type UpdateAdminCategoryRequest = z.infer<typeof $UpdateAdminCategoryRequest>;
+export type UpdateAdminCategoryResponse = z.infer<typeof $UpdateAdminCategoryResponse>;
+export type DeleteAdminCategoryRequest = z.infer<typeof $DeleteAdminCategoryRequest>;
+export type DeleteAdminCategoryResponse = z.infer<typeof $DeleteAdminCategoryResponse>;
+export type UpdateAdminCategoryActivityRequest = z.infer<typeof $UpdateAdminCategoryActivityRequest>;
+export type UpdateAdminCategoryActivityResponse = z.infer<typeof $UpdateAdminCategoryActivityResponse>;
+//subcategories
+export type GetAdminSubCategoriesRequest = z.infer<typeof $GetAdminSubCategoriesRequest>;
+export type GetAdminSubCategoriesResponse = z.infer<typeof $GetAdminSubCategoriesResponse>;
+export type GetAdminSubCategoriesPaginateResponse = z.infer<typeof $GetAdminSubCategoriesPaginateResponse>;
 
 /**
  *
@@ -25,60 +44,147 @@ export type UpdateCategoryActivityResponse = z.infer<typeof $UpdateCategoryActiv
 export type Category = z.infer<typeof $Category>;
 
 //REQ/RESP
+export type GetCategoryRequest = z.infer<typeof $GetCategoryRequest>;
 export type GetCategoryResponse = z.infer<typeof $GetCategoryResponse>;
 
-const $SubCategoriesExtraFilters = z.object({
-    parentId: z.string(),
-});
-
-export const $CategoriesFilters = z.object({
-    query: z.string(),
-});
+/**
+ *
+ * ADMIN ZOD
+ *
+ */
 
 export const $AdminCategory = z.object({
     id: z.number(),
     name: z.string(),
-    subCategoriesCount: z.number().optional(),
+    isActive: z.boolean(),
+    parentId: z.number().nullable(),
     createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+    lastUpdated: $LastUpdated.nullable(),
+    subCategoriesCount: z.number(),
+});
+
+export const $AdminCategoryFromList = $AdminCategory.pick({
+    id: true,
+    name: true,
+    isActive: true,
+    createdAt: true,
+    subCategoriesCount: true,
+});
+
+export const $GetAdminCategoriesResponse = $getPaginationResponseType($AdminCategoryFromList);
+
+export const $AdminCategoriesFiltersForm = z.object({
+    query: z.string(),
+});
+
+export const $AdminCategoriesRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            //TODO: скорее всего этот фильтр уберем
+            hasParent: z.boolean(),
+            isActive: z.boolean(),
+        })
+        .partial(),
+});
+
+export const $GetAdminCategoriesRequest = $getFiltersRequestType($AdminCategoriesRequest);
+
+export const $GetAdminCategoryRequest = z.object({
+    id: z.string(),
+});
+
+export const $GetAdminCategoryResponse = $AdminCategory.pick({
+    id: true,
+    name: true,
+    isActive: true,
+    parentId: true,
+    createdAt: true,
+    updatedAt: true,
+    lastUpdated: true,
+});
+
+export const $CreateAdminCategoryRequest = z.object({
+    name: z.string(),
+    isActive: z.boolean().optional(),
+    parentId: z.number().nullable(),
+});
+
+export const $CreateAdminCategoryResponse = $AdminCategory.pick({
+    id: true,
+    name: true,
+    isActive: true,
+    parentId: true,
+    createdAt: true,
+    updatedAt: true,
+    subCategoriesCount: true,
+});
+
+export const $UpdateAdminCategoryRequest = $CreateAdminCategoryRequest.extend({
+    id: z.string(),
+});
+
+export const $UpdateAdminCategoryResponse = $AdminCategory.pick({
+    id: true,
+    name: true,
+    isActive: true,
+    parentId: true,
+    createdAt: true,
+    updatedAt: true,
+});
+
+export const $DeleteAdminCategoryRequest = z.object({
+    id: z.string(),
+});
+export const $DeleteAdminCategoryResponse = z.null();
+
+export const $UpdateAdminCategoryActivityRequest = z.object({
+    id: z.string(),
     isActive: z.boolean(),
 });
 
-export const $GetAdminCategoriesResponse = $getPaginationResponseType($AdminCategory);
-export const $GetAdminSubCategoriesPaginateResponse = $GetAdminCategoriesResponse;
+export const $UpdateAdminCategoryActivityResponse = z.object({
+    isActive: z.boolean(),
+});
 
-export const $AdminSubCategoriesFiltersRequest = z.object({
+//subcategories
+export const $AdminSubCategory = $AdminCategory.pick({
+    id: true,
+    name: true,
+    isActive: true,
+    createdAt: true,
+});
+
+export const $AdminSubCategoryFromList = $AdminSubCategory;
+
+export const $GetAdminSubCategoriesPaginateResponse = $getPaginationResponseType($AdminSubCategoryFromList);
+
+export const $GetAdminSubCategoriesResponse = $AdminSubCategoryFromList.array();
+
+export const $AdminSubCategoriesExtraFilters = z.object({
+    parentId: z.string(),
+});
+
+export const $AdminSubCategoriesRequest = z.object({
+    query: z.string().optional(),
+    paginate: z.boolean().optional(),
     filter: z
         .object({
             parentId: z.string(),
         })
         .partial(),
-    paginate: z.boolean(),
 });
 
-export const $GetAdminSubCategoriesRequest = $AdminSubCategoriesFiltersRequest;
-export const $GetAdminSubCategoriesResponse = z.array($AdminCategory);
+export const $GetAdminSubCategoriesRequest = $getFiltersRequestType($AdminSubCategoriesRequest);
 
-export const $GetAdminSubCategoriesPaginateRequest = $getFiltersRequestType($AdminSubCategoriesFiltersRequest);
+///OLD
 
-export const $UpdateAdminCategoryRequest = z.object({
-    name: z.string({ required_error: "Введите название" }),
-    parentId: z.number().optional(),
-});
-
-export const $CreateAdminCategoryRequest = z.object({
-    name: z.string({ required_error: "Введите название" }),
-    isActive: z.boolean().optional(),
-    parentId: z.number().optional(),
-});
-
-export const $UpdateCategoryActivityRequest = z.object({
-    id: z.string(),
-    isActive: z.boolean(),
-});
-
-export const $UpdateCategoryActivityResponse = z.object({
-    isActive: z.boolean(),
-});
+/**
+ *
+ * USER ZOD
+ *
+ */
 
 export const $Category = z.object({
     id: z.number(),
@@ -96,3 +202,7 @@ export const $Category = z.object({
 });
 
 export const $GetCategoryResponse = $Category;
+
+export const $GetCategoryRequest = z.object({
+    id: z.string().optional(),
+});

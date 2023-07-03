@@ -1,20 +1,21 @@
 import { Flex } from "@mantine/core";
 import React from "react";
 import { Button, FInput, ManagedForm } from "@shared/ui";
-import { $CreateAdminCategoryRequest, AdminCategory, categoryApi, CreateAdminCategoryRequest } from "@entities/category";
+import { categoryApi, CreateAdminCategoryResponse } from "@entities/category";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
 import { initialValues } from "./constants";
+import { $CreateAdminCategoryFormValidation, CreateAdminCategoryFormValidation } from "./types";
 
 export interface CreateCategoryFormProps {
-    parentId?: number;
-    isActive?: boolean;
+    parentId?: number | null;
+    isSubcategory?: boolean;
     onClose: () => void;
 }
 
-const CreateCategoryForm = ({ parentId, isActive = false, onClose }: CreateCategoryFormProps) => {
-    const createCategory = (values: CreateAdminCategoryRequest) => {
-        return categoryApi.createAdminCategory({ parentId, isActive, ...values });
+const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }: CreateCategoryFormProps) => {
+    const createCategory = (values: CreateAdminCategoryFormValidation) => {
+        return categoryApi.createAdminCategory({ ...values, parentId, isActive: isSubcategory });
     };
 
     const onSuccess = () => {
@@ -34,13 +35,16 @@ const CreateCategoryForm = ({ parentId, isActive = false, onClose }: CreateCateg
     };
 
     return (
-        <ManagedForm<CreateAdminCategoryRequest, AdminCategory>
+        <ManagedForm<CreateAdminCategoryFormValidation, CreateAdminCategoryResponse>
             mutationKey={[MutationKeys.CREATE_CATEGORY]}
             mutationFunction={createCategory}
             initialValues={initialValues}
-            validationSchema={$CreateAdminCategoryRequest}
+            validationSchema={$CreateAdminCategoryFormValidation}
             onSuccess={onSuccess}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] }, { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES] }]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] },
+                { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE] },
+            ]}
             onError={onError}
             disableOverlay>
             <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />

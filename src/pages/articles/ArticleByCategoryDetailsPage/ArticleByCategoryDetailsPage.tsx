@@ -11,7 +11,7 @@ import { TRouterQueries } from "./types";
 const ArticleByCategoryDetailsPage = () => {
     const router = useRouter();
     const { id, categoryId } = router.query as TRouterQueries;
-    const categoryData = useCategory(categoryId);
+    const categoryData = useCategory({ id: categoryId });
     const articleByCategory = useArticleByCategory({ id, categoryId });
 
     if (!router.isReady || articleByCategory.isLoading) {

@@ -1,4 +1,11 @@
+import { GetAdminSubCategoriesRequest } from "@entities/category";
 import { UpdateCourseFormValues } from "@entities/course";
+
+export const initialParams: Omit<GetAdminSubCategoriesRequest, "filter"> = {
+    page: 1,
+    perPage: 10,
+    paginate: false,
+};
 
 export const radioGroupValues = [
     { id: "1", label: "Тип скидки – “%”", value: "percentage" },

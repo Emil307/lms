@@ -1,25 +1,35 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { AdminCategory, GetAdminCategoriesResponse, UpdateCategoryActivityResponse, categoryApi } from "@entities/category";
+import {
+    GetAdminCategoriesResponse,
+    GetAdminCategoryResponse,
+    UpdateAdminCategoryActivityRequest,
+    UpdateAdminCategoryActivityResponse,
+    categoryApi,
+} from "@entities/category";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUpdateCategoryActivity = (
-    id: string
-): UseMutationResult<UpdateCategoryActivityResponse, AxiosError<FormErrorResponse>, boolean> => {
-    return useMutation([MutationKeys.UPDATE_CATEGORY_ACTIVITY], (status) => categoryApi.updateCategoryActivity({ id, isActive: status }), {
-        onMutate: async (updatedStatus) => {
+export const useAdminUpdateCategoryActivity = ({
+    id,
+}: Pick<UpdateAdminCategoryActivityRequest, "id">): UseMutationResult<
+    UpdateAdminCategoryActivityResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<UpdateAdminCategoryActivityRequest, "id">
+> => {
+    return useMutation([MutationKeys.UPDATE_CATEGORY_ACTIVITY, id], (data) => categoryApi.updateAdminCategoryActivity({ ...data, id }), {
+        onMutate: async ({ isActive }) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_CATEGORY, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] });
 
-            const previousCategoryData = queryClient.getQueryData<AdminCategory>([QueryKeys.GET_ADMIN_CATEGORY, id]);
+            const previousCategoryData = queryClient.getQueryData<GetAdminCategoryResponse>([QueryKeys.GET_ADMIN_CATEGORY, id]);
             const previousCategoriesData = queryClient.getQueriesData<GetAdminCategoriesResponse>([QueryKeys.GET_ADMIN_CATEGORIES]);
 
-            queryClient.setQueryData<AdminCategory>(
+            queryClient.setQueryData<GetAdminCategoryResponse>(
                 [QueryKeys.GET_ADMIN_CATEGORY, id],
-                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                (previousData) => previousData && { ...previousData, isActive }
             );
 
             queryClient.setQueriesData<GetAdminCategoriesResponse>([QueryKeys.GET_ADMIN_CATEGORIES], (previousData) => {
@@ -29,9 +39,7 @@ export const useUpdateCategoryActivity = (
 
                 return {
                     ...previousData,
-                    data: previousData.data.map((category) =>
-                        String(category.id) === id ? { ...category, isActive: updatedStatus } : category
-                    ),
+                    data: previousData.data.map((category) => (String(category.id) === id ? { ...category, isActive } : category)),
                 };
             });
 
@@ -52,9 +60,10 @@ export const useUpdateCategoryActivity = (
         },
         onSettled() {
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORY, id]);
         },
         onSuccess: () => {
-            const categoryData = queryClient.getQueryData<AdminCategory>([QueryKeys.GET_ADMIN_CATEGORY, id]);
+            const categoryData = queryClient.getQueryData<GetAdminCategoryResponse>([QueryKeys.GET_ADMIN_CATEGORY, id]);
             const categoryFromList = queryClient
                 .getQueriesData<GetAdminCategoriesResponse>([QueryKeys.GET_ADMIN_CATEGORIES])[0]?.[1]
                 ?.data.find((category) => category.id.toString() === id);

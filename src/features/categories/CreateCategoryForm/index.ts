@@ -1,3 +1,3 @@
-import CreateCategoryForm from "./CreateCategoryForm";
+import CreateCategoryForm, { type CreateCategoryFormProps } from "./CreateCategoryForm";
 
-export { CreateCategoryForm };
+export { CreateCategoryForm, CreateCategoryFormProps };
