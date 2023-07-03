@@ -17,6 +17,7 @@ import { initialValues } from "./constants";
 import useStyles from "./UpdateStaticReviewForm.styles";
 import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
 import { UpdateAdminStaticReviewFormValidation } from "./types";
+import dayjs from "dayjs";
 
 export interface UpdateStaticReviewFormProps {
     data?: AdminStaticReview;
@@ -71,10 +72,9 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
                                 <Text color="gray45">Статус:</Text>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
-                            {/* TODO: - информации о createdAt на бэке пока нет  */}
-                            {/* <Box className={classes.infoItem}>
+                            <Box className={classes.infoItem}>
                                 Создание: <span>{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                            </Box> */}
+                            </Box>
                             <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
                         <FFileInput
@@ -128,7 +128,10 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
                                             styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
                                             <AvatarIcon />
                                         </Avatar>
-                                        <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                        <Flex direction="column" gap={8}>
+                                            <Text className={classes.userFullName}>{`${data?.firstName} ${data?.lastName}`}</Text>
+                                            <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                        </Flex>
                                     </Flex>
                                     <Flex direction="column" gap={8}>
                                         <Flex gap={8}>
@@ -143,7 +146,7 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
                             )}
                         </Box>
 
-                        <Flex gap={8}>
+                        <Flex gap={8} mt={32}>
                             <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
                                 Отменить
                             </Button>
