@@ -59,9 +59,18 @@ export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFilt
  */
 
 //TODO: Дополнить как появятся новые типы сущностей
-export const $AdminTransactionEntityType = z.literal("course").or(z.literal("course package"));
-export const $AdminTransactionPaymentType = z.literal("online").or(z.literal("bill")).or(z.literal("cash"));
-export const $AdminTransactionStatus = z.literal("new").or(z.literal("cancelled")).or(z.literal("paid"));
+export const $AdminTransactionEntityType = z.object({
+    type: z.literal("course").or(z.literal("course package")),
+    name: z.string(),
+});
+export const $AdminTransactionPaymentType = z.object({
+    type: z.literal("online").or(z.literal("bill")).or(z.literal("cash")),
+    name: z.string(),
+});
+export const $AdminTransactionStatus = z.object({
+    status: z.literal("new").or(z.literal("cancelled")).or(z.literal("paid")),
+    name: z.string(),
+});
 
 export const $AdminTransactionEntity = z.object({
     id: z.number(),
@@ -76,27 +85,30 @@ export const $AdminTransaction = z.object({
     paymentType: $AdminTransactionPaymentType,
     amount: z.number(),
     status: $AdminTransactionStatus,
-    user: $User.pick({
-        id: true,
-        email: true,
-    }),
+    user: $User
+        .pick({
+            id: true,
+            email: true,
+        })
+        .extend({
+            profile: $Profile.pick({
+                id: true,
+                firstName: true,
+                lastName: true,
+                patronymic: true,
+                description: true,
+            }),
+        }),
 });
 
-export const $AdminTransactionFromList = $AdminTransaction.pick({
-    id: true,
-    entity: true,
-    createdAt: true,
-    paymentType: true,
-    amount: true,
-    status: true,
-});
+export const $AdminTransactionFromList = $AdminTransaction;
 
 export const $GetAdminTransactionsResponse = $getPaginationResponseType($AdminTransactionFromList);
 
 export const $GetAdminTransactionsFiltersResponse = z.object({
-    entityType: $AdminTransactionEntityType.array(),
-    paymentType: $AdminTransactionPaymentType.array(),
-    status: $AdminTransactionStatus.array(),
+    entityTypes: $AdminTransactionEntityType.array(),
+    paymentTypes: $AdminTransactionPaymentType.array(),
+    statuses: $AdminTransactionStatus.array(),
 });
 
 export const $AdminTransactionsFiltersForm = z.object({
@@ -187,6 +199,7 @@ export const $GetAdminTransactionCreateEntitiesRequest = $getFiltersRequestType(
  *
  */
 
+//TODO:
 export const $TransactionEntityType = $AdminTransactionEntityType;
 export const $TransactionPaymentType = $AdminTransactionPaymentType;
 export const $TransactionStatus = $AdminTransactionStatus;
@@ -233,7 +246,7 @@ export const $TransactionsRequest = z.object({
 export const $GetTransactionsRequest = $getFiltersRequestType($TransactionsRequest);
 
 export const $GetTransactionsFiltersResponse = z.object({
-    entityType: $TransactionEntityType.array(),
-    paymentType: $TransactionPaymentType.array(),
-    status: $TransactionStatus.array(),
+    entityTypes: $TransactionEntityType.array(),
+    paymentTypes: $TransactionPaymentType.array(),
+    statuses: $TransactionStatus.array(),
 });

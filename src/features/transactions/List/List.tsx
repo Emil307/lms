@@ -1,10 +1,10 @@
 import { Box, BoxProps, Group } from "@mantine/core";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
+import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { TransactionFromList, TransactionsFiltersForm, transactionApi, useTransactionFilters } from "@entities/transaction";
 import { columns, filterInitialValues, columnOrder } from "./constants";
-import { adaptGetTransactionsRequest, prepareStringOptionsForSelect } from "./utils";
+import { adaptGetTransactionsRequest } from "./utils";
 import useStyles from "./List.styles";
 
 export interface ListProps extends BoxProps {}
@@ -39,20 +39,28 @@ const List = (props: ListProps) => {
                                 <FSelect
                                     name="entityType"
                                     size="sm"
-                                    data={prepareStringOptionsForSelect({ data: transactionFilters.data?.entityType })}
+                                    data={prepareOptionsForSelect({
+                                        data: transactionFilters.data?.entityTypes,
+                                        value: "type",
+                                        label: "name",
+                                    })}
                                     clearable
                                     label="Сущность"
-                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.entityType.length}
+                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.entityTypes.length}
                                     w="100%"
                                     maw={206}
                                 />
                                 <FSelect
                                     name="paymentType"
                                     size="sm"
-                                    data={prepareStringOptionsForSelect({ data: transactionFilters.data?.paymentType })}
+                                    data={prepareOptionsForSelect({
+                                        data: transactionFilters.data?.paymentTypes,
+                                        value: "type",
+                                        label: "name",
+                                    })}
                                     clearable
                                     label="Вид оплаты"
-                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.paymentType.length}
+                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.paymentTypes.length}
                                     w="100%"
                                     maw={206}
                                 />
@@ -68,10 +76,14 @@ const List = (props: ListProps) => {
                                 <FSelect
                                     name="status"
                                     size="sm"
-                                    data={prepareStringOptionsForSelect({ data: transactionFilters.data?.status })}
+                                    data={prepareOptionsForSelect({
+                                        data: transactionFilters.data?.statuses,
+                                        value: "status",
+                                        label: "name",
+                                    })}
                                     clearable
                                     label="Статус"
-                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.status.length}
+                                    disabled={transactionFilters.isLoading || !transactionFilters.data?.statuses.length}
                                     w="100%"
                                     maw={206}
                                 />

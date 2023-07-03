@@ -9,7 +9,7 @@ export const columnOrder = ["entity.type", "entity.name", "createdAt", "paymentT
 export const columns: MRT_ColumnDef<TransactionFromList>["columns"] = [
     {
         header: "Вид сущности",
-        accessorKey: "entity.type",
+        accessorKey: "entity.type.name",
     },
     {
         header: "Название",
@@ -23,8 +23,7 @@ export const columns: MRT_ColumnDef<TransactionFromList>["columns"] = [
     {
         header: "Вид оплаты",
         accessorKey: "paymentType",
-        //TODO: Добавим как бек добавит displayNam'ы
-        // accessorFn: (row) => row.category?.name || "",
+        accessorFn: ({ paymentType }) => paymentType.name,
     },
     {
         header: "Стоимость",
@@ -38,9 +37,8 @@ export const columns: MRT_ColumnDef<TransactionFromList>["columns"] = [
         Cell: ({ row }) => {
             const { classes } = useStyles({ status: row.original.status });
             return (
-                //TODO: displayName как беки добавят
                 <Badge variant="outline" className={classes.status}>
-                    {row.original.status}
+                    {row.original.status.name}
                 </Badge>
             );
         },

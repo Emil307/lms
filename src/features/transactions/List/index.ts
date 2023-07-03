@@ -1,3 +1,3 @@
-import List from "./List";
+import List, { type ListProps } from "./List";
 
-export { List };
+export { List, ListProps };

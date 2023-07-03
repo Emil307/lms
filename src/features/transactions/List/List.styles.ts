@@ -28,7 +28,7 @@ export default createStyles((theme, { status }: CreateStylesProps) => ({
 }));
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesProps) => {
-    switch (status) {
+    switch (status?.status) {
         case "new":
             return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
 
