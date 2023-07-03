@@ -1,10 +1,10 @@
 import { Flex, FlexProps, Text } from "@mantine/core";
-import { GetArticleResponse } from "@entities/article";
+import { Article } from "@entities/article";
 import { MaterialFiles, Footer } from "./components";
 import useStyles from "./ContentPanel.styles";
 
 export interface ContentPanelProps extends Omit<FlexProps, "children"> {
-    data: GetArticleResponse;
+    data: Article;
 }
 
 const ContentPanel = ({ data, ...props }: ContentPanelProps) => {

@@ -3,7 +3,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import { useEventListener } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
-import { AdminArticleCategory, AdminArticleTag, ArticleAndArticleCategoryFiltersForm } from "@entities/article";
+import { ArticleAndArticleCategoryFiltersForm, ArticleCategory, ArticleTag } from "@entities/article";
 import { getPluralString } from "@shared/utils";
 import { Button, Checkbox, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
@@ -14,7 +14,7 @@ export interface FilterListProps {
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
-    data?: AdminArticleCategory[] | AdminArticleTag[];
+    data?: ArticleCategory[] | ArticleTag[];
 }
 
 const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
@@ -90,6 +90,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                 const handleReset = () => {
                     setSearchValue("");
                     form.setFieldValue(field, []);
+                    form.handleSubmit();
                 };
                 return (
                     <Box>

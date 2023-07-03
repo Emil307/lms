@@ -1,10 +1,10 @@
 import { Flex, FlexProps } from "@mantine/core";
 import { ThumbsDown, ThumbsUp } from "react-feather";
-import { ArticleFromList, UserRating, useUpdateArticleRating } from "@entities/article";
+import { Article, ArticleFromList, UserRating, useUpdateArticleRating } from "@entities/article";
 import { ReactionButton } from "./components";
 
 export interface RatingProps extends FlexProps {
-    data: ArticleFromList;
+    data: Article | ArticleFromList;
 }
 
 const Rating = ({ data, ...props }: RatingProps) => {

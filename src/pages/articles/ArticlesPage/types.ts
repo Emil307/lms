@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";
-import { GetCategoryResponse } from "@entities/category";
 
 export interface TRouterQueries {
     tab?: string;
@@ -22,7 +21,7 @@ export interface GetTitleProps extends TRouterQueries {
 }
 
 export interface TGetBreadCrumbsItemsProps {
-    category?: GetCategoryResponse;
+    categoryTitle?: string;
     tab?: string;
     filterParams?: ArticleAndArticleCategoryFiltersForm;
 }

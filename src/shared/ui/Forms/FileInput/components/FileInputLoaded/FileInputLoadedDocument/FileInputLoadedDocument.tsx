@@ -8,6 +8,7 @@ import { FileItem, FileItemProps } from "../../FileItem";
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
     type: "document";
     withDeleteButton?: boolean;
+    fileId: number;
     file: File | UploadedFile;
     error?: string;
     educational?: boolean;
@@ -65,5 +66,13 @@ export default function FileInputLoadedDocument({
         return <X cursor="pointer" onClick={() => onDelete(fileId)} />;
     }, [status, fileId]);
 
-    return <FileItem {...props} type={type} fileId={fileId} status={status} actionSlot={actionSlot} />;
+    return (
+        <FileItem
+            {...props}
+            type={type}
+            //TODO: добавить fileUrl для скачивания
+            status={status}
+            actionSlot={actionSlot}
+        />
+    );
 }

@@ -1,11 +1,11 @@
 import { Flex, Group, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { FavoriteButton, Rating } from "@features/articles";
-import { GetArticleResponse } from "@entities/article";
+import { Article } from "@entities/article";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
-    data: GetArticleResponse;
+    data: Article;
 }
 
 const Footer = ({ data }: FooterProps) => {

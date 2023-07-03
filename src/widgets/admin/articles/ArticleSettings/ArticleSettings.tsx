@@ -19,7 +19,7 @@ export interface ArticleSettingsProps extends BoxProps {
 const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const { data: articleData } = useAdminArticle(id);
+    const { data: articleData } = useAdminArticle({ id });
 
     const handleOpenUpdateArticle = () => router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(articleData?.id) } });
 

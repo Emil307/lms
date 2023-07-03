@@ -41,7 +41,7 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     onError?: () => void;
     onDeleteLoadedFile?: (id: number, remainFiles: (File | UploadedFile)[]) => void;
     onDeleteInitialFile?: (id: number) => void;
-    onDownloadInitialFile?: (id: number) => void;
+    onDownloadInitialFile?: (fileUrl: string, fileName: string) => void;
 }
 
 const MemoizedFileInput = memo(function FileInput({
@@ -220,7 +220,7 @@ const MemoizedFileInput = memo(function FileInput({
                 {initialFilesData.map((file) => (
                     <FileItem
                         key={file.fileId}
-                        fileId={file.fileId}
+                        fileUrl={file.fileUrl}
                         fileName={file.fileName || "Файл"}
                         fileSize={file.fileSize ? getFileSize(file.fileSize) : ""}
                         type="document"
@@ -231,6 +231,7 @@ const MemoizedFileInput = memo(function FileInput({
                     <FileInputLoaded
                         key={file.id}
                         fileId={file.id}
+                        //TODO: добавить сюда fileUrl для скачивания файла после его успешной загрузки
                         file={file.data}
                         fileName={file.data.name || "Файл"}
                         fileSize={file.data.size ? getFileSize(file.data.size) : ""}
