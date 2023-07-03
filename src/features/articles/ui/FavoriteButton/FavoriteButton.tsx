@@ -1,21 +1,21 @@
 import { ActionIcon } from "@mantine/core";
 import { Heart } from "react-feather";
 import { Button } from "@shared/ui";
-import { ArticleFromList, GetArticleResponse, useUpdateArticleFavorite } from "@entities/article";
+import { Article, ArticleFromList, useUpdateArticleFavoriteStatus } from "@entities/article";
 import useStyles from "./FavoriteButton.styles";
 
 export interface FavoriteButtonProps {
-    data: ArticleFromList | GetArticleResponse;
+    data: Article | ArticleFromList;
     variant?: "compact" | "default";
 }
 
 const FavoriteButton = ({ data, variant = "default" }: FavoriteButtonProps) => {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const updateFavorite = useUpdateArticleFavorite(String(data.id));
+    const updateFavorite = useUpdateArticleFavoriteStatus({ id: String(data.id) });
 
     const handleChangeFavorite = () => {
-        updateFavorite.mutate(!data.isFavorite);
+        updateFavorite.mutate({ isFavorite: !data.isFavorite });
     };
 
     if (!data.isAvailable) {
@@ -30,13 +30,7 @@ const FavoriteButton = ({ data, variant = "default" }: FavoriteButtonProps) => {
         );
     }
     return (
-        <Button
-            variant="white"
-            leftIcon={<Heart />}
-            size="small"
-            disabled
-            onClick={handleChangeFavorite}
-            className={classes.favoriteActionButton}>
+        <Button variant="white" leftIcon={<Heart />} size="small" onClick={handleChangeFavorite} className={classes.favoriteActionButton}>
             Избранное
         </Button>
     );

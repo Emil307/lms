@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@shared/constant";
-import { GetArticleResponse, articleApi } from "@entities/article";
+import { GetArticleRequest, GetArticleResponse, articleApi } from "@entities/article";
 
-export const useArticle = (id: string) => {
-    return useQuery<GetArticleResponse>([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle(id), { enabled: !!id });
+export const useArticle = ({ id }: GetArticleRequest) => {
+    return useQuery<GetArticleResponse>([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle({ id }), { enabled: !!id });
 };

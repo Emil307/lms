@@ -13,7 +13,7 @@ import { getBreadCrumbsItems } from "./utils";
 const ArticleDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
-    const { data: articleData, isLoading, isError } = useAdminArticle(id);
+    const { data: articleData, isLoading, isError } = useAdminArticle({ id });
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/articles/[id]", query: { id, tab: value } });

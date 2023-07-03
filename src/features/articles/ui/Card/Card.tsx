@@ -1,20 +1,19 @@
 import { Flex, FlexProps, ThemeIcon, Text, Group, Title } from "@mantine/core";
 import { ReactNode, memo } from "react";
 import { FileText, Lock } from "react-feather";
-import { useRouter } from "next/router";
 import { ArticleFromList } from "@entities/article";
 import useStyles from "./Card.styles";
 
-export interface CardProps extends FlexProps {
+export interface CardProps extends Omit<FlexProps, "onClick"> {
     data: ArticleFromList;
     actionSlot?: ReactNode;
+    onClick?: (article: ArticleFromList) => void;
 }
 
-const MemoizedCard = memo(function Card({ data, actionSlot, ...props }: CardProps) {
-    const router = useRouter();
+const MemoizedCard = memo(function Card({ data, actionSlot, onClick, ...props }: CardProps) {
     const { classes } = useStyles({ isAvailable: data.isAvailable, isFavorite: data.isFavorite });
 
-    const openArticle = () => router.push({ pathname: "/articles/[id]", query: { id: String(data.id) } });
+    const openArticle = () => onClick?.(data);
 
     return (
         <Flex {...props} className={classes.root} onClick={openArticle}>

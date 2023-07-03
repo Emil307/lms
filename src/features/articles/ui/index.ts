@@ -1,6 +1,5 @@
 export * from "./ArticleCategoryList";
 export * from "./Filters";
-export * from "./ArticleCourseList";
 export * from "./FavoriteButton";
 export * from "./AdminList";
 export * from "./DeleteArticleModal";

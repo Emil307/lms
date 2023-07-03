@@ -69,7 +69,10 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/users">
     | StaticRoute<"/api/hello">
     | DynamicRoute<"/articles/[id]", { "id": string }>
+    | DynamicRoute<"/articles/by-category/[categoryId]/article/[id]", { "categoryId": string; "id": string }>
+    | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
     | StaticRoute<"/articles">
+    | DynamicRoute<"/articles/my/[id]", { "id": string }>
     | StaticRoute<"/auth/forgot-password">
     | StaticRoute<"/auth">
     | StaticRoute<"/auth/recovery-password">

@@ -1,7 +1,6 @@
 export * from "./useArticleCategories";
-export * from "./useArticleFilters";
+export * from "./useArticlesFilters";
 export * from "./useArticles";
-export * from "./useArticleCourses";
 export * from "./useAdminArticleResourcesCreate";
 export * from "./useAdminArticle";
 export * from "./useAdminArticles";
@@ -9,3 +8,6 @@ export * from "./useArticle";
 export * from "./useAdminArticleFilters";
 export * from "./useFavoriteArticles";
 export * from "./useFavoriteArticle";
+export * from "./useArticleByCategory";
+export * from "./useMyArticle";
+export * from "./useMyArticles";

@@ -1,7 +1,7 @@
 import { ActionIcon, Box, BoxProps, Flex, Group } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
-import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticleFilters } from "@entities/article";
+import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticlesFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
 import { FilterList } from "./components";
 import { initialValues } from "./contants";
@@ -9,10 +9,11 @@ import { initialValues } from "./contants";
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;
     onSubmitFilters: (values: ArticleAndArticleCategoryFiltersForm) => void;
+    articleType?: "favorite" | "my-articles" | "by-category";
 }
 
-const Filters = ({ data, onSubmitFilters, ...props }: FiltersProps) => {
-    const articleFilters = useArticleFilters();
+const Filters = ({ data, onSubmitFilters, articleType, ...props }: FiltersProps) => {
+    const articleFilters = useArticlesFilters({ articleType });
 
     const config: FormikConfig<ArticleAndArticleCategoryFiltersForm> = {
         initialValues: { ...initialValues, ...data },

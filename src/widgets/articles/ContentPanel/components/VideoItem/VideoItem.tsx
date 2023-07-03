@@ -5,21 +5,21 @@ import { Button } from "@shared/ui";
 import useStyles from "./VideoItem.styles";
 
 export interface VideoItemProps {
-    fileId: number;
     fileName?: string;
     fileSize: string;
     fileUrl: string;
-    onDownloadFile?: (fileId: number) => void;
+    onDownloadFile?: (fileUrl: string, fileName: string) => void;
 }
 
 const MemoizedVideoItem = memo(function VideoItem({
-    fileId,
     fileName = "Файл",
     fileSize,
     fileUrl,
     onDownloadFile = () => undefined,
 }: VideoItemProps) {
     const { classes } = useStyles();
+
+    const handleDownloadFile = () => onDownloadFile(fileUrl, fileName);
 
     return (
         <Flex className={classes.root}>
@@ -39,7 +39,7 @@ const MemoizedVideoItem = memo(function VideoItem({
                     </Text>
                     {fileSize && <Text className={classes.fileSize}>{fileSize}</Text>}
                 </Flex>
-                <Button variant="text" className={classes.buttonDownload} onClick={() => onDownloadFile(fileId)}>
+                <Button variant="text" className={classes.buttonDownload} onClick={handleDownloadFile}>
                     Скачать
                 </Button>
             </Box>

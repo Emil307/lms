@@ -216,7 +216,7 @@ export const UIDemo = () => {
     const [content, setContent] = useState("");
     const handleCloseModal = () => closeModal("CHANGE_PASSWORD");
 
-    const handleDownloadFile = (_id: number) => undefined;
+    const handleDownloadFile = () => undefined;
 
     return (
         <>

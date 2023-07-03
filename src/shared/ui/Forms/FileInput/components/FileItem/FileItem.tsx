@@ -9,23 +9,25 @@ export type FileStatus = "done" | "loading" | "error";
 
 export interface FileItemProps {
     type: "document";
-    fileId: number;
     fileName?: string;
+    fileUrl?: string;
     fileSize: string;
     status?: FileStatus;
     actionSlot?: ReactNode;
-    onDownloadFile?: (fileId: number) => void;
+    onDownloadFile?: (fileUrl: string, fileName: string) => void;
 }
 
 const MemoizedFileItem = memo(function FileItem({
-    fileId,
     fileName = "Файл",
+    fileUrl,
     fileSize,
     status,
     actionSlot,
     onDownloadFile = () => undefined,
 }: FileItemProps) {
     const { classes } = useStyles({ status });
+
+    const handleDownloadFile = () => fileUrl && onDownloadFile(fileUrl, fileName);
 
     const renderIcon = useMemo(() => {
         switch (status) {
@@ -53,7 +55,7 @@ const MemoizedFileItem = memo(function FileItem({
                 return <Text className={classes.statusInfo}>Загрузка не удалась</Text>;
             default:
                 return (
-                    <Button className={classes.buttonDownload} onClick={() => onDownloadFile(fileId)}>
+                    <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
                         Скачать
                     </Button>
                 );

@@ -4,7 +4,11 @@ import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";
 import { GetTitleProps, PageTitle, TGetBreadCrumbsItemsProps, TRouterQueries } from "./types";
 import { initialBreadCrumbsItems, tabsList, titleList } from "./constants";
 
-export const getBreadCrumbsItems = ({ category, tab, filterParams }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => {
+export const getBreadCrumbsItems = ({
+    categoryTitle = "Без категории",
+    tab,
+    filterParams,
+}: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => {
     if (!tab || tab !== "all") {
         const tabInfo = tabsList.find((item) => item.value === tab);
 
@@ -17,11 +21,11 @@ export const getBreadCrumbsItems = ({ category, tab, filterParams }: TGetBreadCr
         ];
     }
 
-    if (category?.id) {
+    if (filterParams?.categoryId) {
         return [
             ...initialBreadCrumbsItems,
             {
-                title: category.name,
+                title: categoryTitle,
                 href: { pathname: "/articles", query: { ...filterParams, tab } },
             },
         ];
@@ -30,7 +34,7 @@ export const getBreadCrumbsItems = ({ category, tab, filterParams }: TGetBreadCr
     return initialBreadCrumbsItems;
 };
 
-export const getTitle = ({ categoryId, tab, categoryName = "" }: GetTitleProps): PageTitle => {
+export const getTitle = ({ categoryId, tab, categoryName = "Без категории" }: GetTitleProps): PageTitle => {
     if (categoryId) {
         return { ...titleList[0], label: categoryName };
     }

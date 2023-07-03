@@ -11,7 +11,7 @@ const UpdateArticlePage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
 
-    const { data: articleData, isLoading } = useAdminArticle(id);
+    const { data: articleData, isLoading } = useAdminArticle({ id });
 
     const handleCancel = () => {
         router.push("/admin/articles");
