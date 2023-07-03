@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $Profile, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
+import { $Profile, $Role, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 import { $User } from "@entities/user";
 
 /**
@@ -57,6 +57,7 @@ export const $AdminSupportConversation = z.object({
     isActive: z.boolean(),
     hasSupportMessage: z.boolean(),
     profile: $Profile.pick({ firstName: true, lastName: true, patronymic: true, avatar: true }),
+    roles: $Role.array(),
     lastSupportMessage: $LastSupportMessage,
     supportConversation: z.object({
         id: z.number(),
@@ -87,6 +88,7 @@ export const $AdminSupportMessage = z.object({
         id: true,
         email: true,
         profile: true,
+        roles: true,
     }),
 });
 

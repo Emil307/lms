@@ -63,20 +63,19 @@ const MessagesPage = () => {
                         onSelect={handleSelectConversationChatList}
                     />
                 </Box>
-                <Box sx={{ flex: 1 }}>
+                <Flex direction="column" sx={{ flex: 1 }}>
                     {selectedConversation && (
                         <Flex className={classes.chatHeader}>
                             <Title order={3} color="dark" lineClamp={1}>
                                 {getFullName({ data: selectedConversation.profile })}
                             </Title>
-                            {/* TODO: заменить как бек добавит это поле */}
-                            <Text className={classes.chatHeaderRoleName}>Ученик</Text>
+                            <Text className={classes.chatHeaderRoleName}>{selectedConversation.roles[0].displayName}</Text>
                         </Flex>
                     )}
                     <AdminMessageList conversation={selectedConversation} maxHeightContainer={450}>
                         <CreateAdminMessageForm conversationId={selectedConversation?.supportConversation.id} pt={32} />
                     </AdminMessageList>
-                </Box>
+                </Flex>
             </Flex>
         </Box>
     );
