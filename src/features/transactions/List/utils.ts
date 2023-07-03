@@ -21,7 +21,3 @@ export const adaptGetTransactionsRequest = (params: TFunctionParams<Transactions
         },
     };
 };
-
-export const prepareStringOptionsForSelect = ({ data = [] }: { data?: string[] }): { value: string; label: string }[] => {
-    return data?.map((item) => ({ value: item, label: item }));
-};
