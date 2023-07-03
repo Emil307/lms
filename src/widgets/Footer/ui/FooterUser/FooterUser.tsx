@@ -2,14 +2,15 @@ import React, { useMemo } from "react";
 import { Divider, Flex, Footer as MFooter, Group, Text } from "@mantine/core";
 import Link from "next/link";
 import { Route } from "nextjs-routes";
-import { Button } from "@shared/ui";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import { Logo } from "@components/Logo";
 import useStyles from "./FooterUser.styles";
+import { COMPANY_LINK } from "./constants";
 
 const popularSections: { label: string; href: Route }[] = [
+    //TODO: Заменить позднее на категории курсов
     {
         label: "Консалтинг",
         href: { pathname: "/" },
@@ -28,26 +29,27 @@ const popularSections: { label: string; href: Route }[] = [
     },
     {
         label: "Все курсы",
-        href: { pathname: "/" },
+        href: { pathname: "/courses" },
     },
 ];
 
 const pageSections: { label: string; href: Route }[] = [
     {
         label: "О проекте",
-        href: { pathname: "/" },
+        href: { pathname: "/about" },
     },
+    //TODO: Заменить позднее урл
     {
         label: "Консультация",
         href: { pathname: "/" },
     },
     {
         label: "Вопрос-ответ",
-        href: { pathname: "/" },
+        href: { pathname: "/faq" },
     },
     {
         label: "Контактные данные",
-        href: { pathname: "/" },
+        href: { pathname: "/contacts" },
     },
 ];
 
@@ -112,15 +114,24 @@ const FooterUser = () => {
                         </Flex>
                     </Flex>
                     <Flex gap={16}>
-                        <Button size="large" sx={{ padding: 16 }}>
-                            <IconVK />
-                        </Button>
-                        <Button size="large" sx={{ padding: 16 }}>
-                            <IconWhatsapp />
-                        </Button>
-                        <Button size="large" sx={{ padding: 16 }}>
-                            <IconTelegram />
-                        </Button>
+                        <a href={COMPANY_LINK.VK} target="_blank" rel="noreferrer">
+                            <Flex className={classes.link}>
+                                <IconVK />
+                            </Flex>
+                        </a>
+
+                        {/* //TODO: Добавить редирект на whatsapp */}
+                        <a target="_blank" rel="noreferrer">
+                            <Flex className={classes.link}>
+                                <IconWhatsapp />
+                            </Flex>
+                        </a>
+
+                        <a href={COMPANY_LINK.TELEGRAM} target="_blank" rel="noreferrer">
+                            <Flex className={classes.link}>
+                                <IconTelegram />
+                            </Flex>
+                        </a>
                     </Flex>
                 </Flex>
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
@@ -128,7 +139,7 @@ const FooterUser = () => {
                     <Text fw={500} fz="md" lh="lg">
                         © 2023, Галерея бизнеса
                     </Text>
-                    <Text fw={400} component="a" href="/">
+                    <Text fw={400} component="a" href="/user-agreement">
                         Пользовательское соглашение
                     </Text>
                 </Group>
