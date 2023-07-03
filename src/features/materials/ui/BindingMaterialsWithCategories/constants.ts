@@ -1,6 +1,8 @@
-export const INITIAL_CATEGORIES_FILTER = {
+export const initialParams = {
     page: 1,
     perPage: 15,
-    isActive: true,
     query: "",
+    filter: {
+        isActive: true,
+    },
 };

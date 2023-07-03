@@ -2,8 +2,8 @@ import { Flex, Text, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { LastUpdatedInfo, Loader, Switch } from "@shared/ui";
-import useStyles from "./InfoPanel.styles";
 import { useAdminLesson, useUpdateLessonActivity } from "@entities/lesson";
+import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
     id: string;

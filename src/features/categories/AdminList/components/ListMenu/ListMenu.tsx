@@ -5,29 +5,30 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminCategory, useUpdateCategoryActivity } from "@entities/category";
-import { DeleteCategoryModal, EditCategoryForm } from "@features/categories";
+import { AdminCategoryFromList, useAdminUpdateCategoryActivity } from "@entities/category";
+import { DeleteCategoryModal, UpdateCategoryForm } from "@features/categories";
 
 interface ListMenuProps {
-    row: MRT_Row<AdminCategory>;
+    row: MRT_Row<AdminCategoryFromList>;
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useUpdateCategoryActivity(String(row.original.id));
+    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id: String(row.original.id) });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const handleOpenCategoryDetail = () =>
         router.push({ pathname: "/admin/settings/categories/[id]", query: { id: String(row.original.id) } });
 
     const handleCloseDeleteCategoryModal = () => closeModal("DELETE_CATEGORY");
-    const handleCloseEditCategoryModal = () => closeModal("EDIT_CATEGORY");
+    const handleCloseUpdateCategoryModal = () => closeModal("UPDATE_CATEGORY");
 
-    const openModalDeleteCategory = () => {
+    const openDeleteCategoryModal = () => {
         openModal({
             modalId: "DELETE_CATEGORY",
             title: "Удаление категории",
@@ -38,12 +39,12 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
     };
 
-    const openModalEditCategory = () => {
+    const openUpdateCategoryModal = () => {
         openModal({
-            modalId: "EDIT_CATEGORY",
+            modalId: "UPDATE_CATEGORY",
             title: "Редактирование",
             centered: true,
-            children: <EditCategoryForm data={row.original} onClose={handleCloseEditCategoryModal} />,
+            children: <UpdateCategoryForm id={String(row.original.id)} onClose={handleCloseUpdateCategoryModal} />,
         });
     };
 
@@ -58,7 +59,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
                     onChange={handleChangeActiveStatus}
                 />
             </MenuItemDataGrid>
-
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={handleOpenCategoryDetail}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
@@ -66,13 +66,13 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalEditCategory}>
+            <MenuItemDataGrid onClick={openUpdateCategoryModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalDeleteCategory}>
+            <MenuItemDataGrid onClick={openDeleteCategoryModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

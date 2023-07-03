@@ -3,7 +3,7 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { List as CategoryList, CreateCategoryForm } from "@features/categories";
+import { AdminList as AdminCategoryList, CreateCategoryForm } from "@features/categories";
 
 const CategoriesPage = () => {
     const handleCloseCreateCategoryModal = () => closeModal("CREATE_CATEGORY");
@@ -27,7 +27,7 @@ const CategoriesPage = () => {
                     Создать категорию
                 </Button>
             </Flex>
-            <CategoryList />
+            <AdminCategoryList mt={24} />
         </Box>
     );
 };

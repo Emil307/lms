@@ -1,21 +1,21 @@
 import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
-import { useRouter } from "next/router";
+
 import { closeModal, openModal } from "@mantine/modals";
 import { ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { AdminCategory, categoryApi, SubCategoriesFilters, useAdminCategory } from "@entities/category";
+import { AdminSubCategoriesExtraFilters, AdminSubCategoryFromList, categoryApi, useAdminCategory } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
-import { TRouterQueries } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminSubCategoriesRequest } from "./utils";
 import { CreateCategoryForm } from "../CreateCategoryForm";
 
-const SubCategoryList = () => {
-    const router = useRouter();
-    const { id: parentId } = router.query as TRouterQueries;
+export interface AdminSubCategoryListProps {
+    parentId: string;
+}
 
+const AdminSubCategoryList = ({ parentId }: AdminSubCategoryListProps) => {
     const handleCloseCreateCategoryModal = () => closeModal("CREATE_SUBCATEGORY");
 
     const openModalCreateSubCategory = () => {
@@ -23,11 +23,11 @@ const SubCategoryList = () => {
             modalId: "CREATE_SUBCATEGORY",
             title: "Создание подкатегории",
             centered: true,
-            children: <CreateCategoryForm parentId={Number(parentId)} isActive onClose={handleCloseCreateCategoryModal} />,
+            children: <CreateCategoryForm parentId={Number(parentId)} isSubcategory onClose={handleCloseCreateCategoryModal} />,
         });
     };
 
-    const { data: parentData } = useAdminCategory(parentId);
+    const { data: categoryData } = useAdminCategory({ id: parentId });
 
     return (
         <Box mt={24}>
@@ -35,7 +35,7 @@ const SubCategoryList = () => {
                 <Title order={2} color="dark">
                     Список подкатегорий
                 </Title>
-                {parentData?.isActive && (
+                {categoryData?.isActive && (
                     <Button
                         variant="text"
                         onClick={openModalCreateSubCategory}
@@ -48,8 +48,8 @@ const SubCategoryList = () => {
                     </Button>
                 )}
             </Flex>
-            <ManagedDataGrid<AdminCategory, unknown, SubCategoriesFilters>
-                queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES}
+            <ManagedDataGrid<AdminSubCategoryFromList, unknown, AdminSubCategoriesExtraFilters>
+                queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE}
                 queryFunction={(params) => categoryApi.getAdminPaginateSubCategories(adaptGetAdminSubCategoriesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "parentId"]}
                 columns={columns}
@@ -64,4 +64,4 @@ const SubCategoryList = () => {
     );
 };
 
-export default SubCategoryList;
+export default AdminSubCategoryList;

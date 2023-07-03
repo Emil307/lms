@@ -3,22 +3,19 @@ import { MRT_Row } from "mantine-react-table";
 import React from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
-import { AdminCategory } from "@entities/category";
-import { DeleteCategoryModal, EditCategoryForm } from "@features/categories";
-import { TRouterQueries } from "@shared/types";
+import { AdminSubCategoryFromList } from "@entities/category";
+import { DeleteCategoryModal, UpdateCategoryForm } from "@features/categories";
 
 interface UsersListMenuProps {
-    row: MRT_Row<AdminCategory>;
+    row: MRT_Row<AdminSubCategoryFromList>;
 }
 
 const ListMenu = ({ row }: UsersListMenuProps) => {
-    const { id } = useRouter().query as TRouterQueries;
     const handleCloseDeleteCategoryModal = () => closeModal("DELETE_SUBCATEGORY");
-    const handleCloseEditCategoryModal = () => closeModal("EDIT_SUBCATEGORY");
+    const handleCloseUpdateCategoryModal = () => closeModal("UPDATE_SUBCATEGORY");
 
-    const openModalDeleteCategory = () => {
+    const openDeleteSubCategoryModal = () => {
         openModal({
             modalId: "DELETE_SUBCATEGORY",
             title: "Удаление подкатегории",
@@ -34,24 +31,24 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
         });
     };
 
-    const openModalEditCategory = () => {
+    const openUpdateCategoryModal = () => {
         openModal({
-            modalId: "EDIT_SUBCATEGORY",
+            modalId: "UPDATE_SUBCATEGORY",
             title: "Редактирование подкатегории",
             centered: true,
-            children: <EditCategoryForm parentId={Number(id)} data={row.original} onClose={handleCloseEditCategoryModal} />,
+            children: <UpdateCategoryForm id={String(row.original.id)} onClose={handleCloseUpdateCategoryModal} />,
         });
     };
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid onClick={openModalEditCategory}>
+            <MenuItemDataGrid onClick={openUpdateCategoryModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalDeleteCategory}>
+            <MenuItemDataGrid onClick={openDeleteSubCategoryModal}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

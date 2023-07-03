@@ -1,29 +1,33 @@
-import { Box } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader } from "@shared/ui";
 import { useAdminCategory } from "@entities/category";
 import { InfoPanel } from "@widgets/admin/categories";
-import { SubCategoryList } from "@features/categories";
+import { AdminSubCategoryList } from "@features/categories";
 import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 
-const CategoryPage = () => {
+const CategoryDetailsPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
-    const { data: categoryData, isLoading } = useAdminCategory(id);
+    const { data: categoryData, isLoading, isError } = useAdminCategory({ id });
 
     if (!router.isReady || isLoading) {
         return <Loader />;
     }
 
+    if (isError) {
+        return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ categoryName: categoryData?.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ categoryName: categoryData.name, id })} mb={8} />
             <InfoPanel id={id} />
-            <SubCategoryList />
+            <AdminSubCategoryList parentId={id} />
         </Box>
     );
 };
 
-export default CategoryPage;
+export default CategoryDetailsPage;

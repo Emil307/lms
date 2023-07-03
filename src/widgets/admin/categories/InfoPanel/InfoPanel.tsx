@@ -1,36 +1,29 @@
 import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Folder } from "react-feather";
-import { Switch } from "@shared/ui";
-import { useAdminCategory, useUpdateCategoryActivity } from "@entities/category";
-import { getHumanDate } from "@shared/utils";
+import dayjs from "dayjs";
+import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { useAdminCategory, useAdminUpdateCategoryActivity } from "@entities/category";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
-interface InfoPanelProps {
+export interface InfoPanelProps {
     id: string;
 }
 
 const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
-    const { data } = useAdminCategory(id);
+    const { data } = useAdminCategory({ id });
 
-    const { mutate: updateActivityStatus } = useUpdateCategoryActivity(id);
+    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
-
-    const createdAtDate = getHumanDate(new Date(data?.createdAt ?? ""), {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
         <Box>
-            <Title order={1} color="dark" sx={{ display: "flex", alignItems: "center", marginBottom: 32, gap: 16 }}>
+            <Title order={1} color="dark" sx={{ display: "flex", alignItems: "center", marginBottom: 24, gap: 16 }}>
                 <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
                     <Folder />
                 </ThemeIcon>
@@ -51,9 +44,9 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Box className={classes.infoItem}>
-                    Создание: <span>{createdAtDate}</span>
+                    Создание: <span>{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
                 </Box>
-                {/* TODO: - информации о последних изменениях на бэке пока нет */}
+                <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
         </Box>
     );
