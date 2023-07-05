@@ -10,7 +10,6 @@ export const useSearchStyles = createStyles((theme, { styleVariant }: { styleVar
             borderRadius: 8,
             lineHeight: 16,
             ":hover, :focus": {
-                cursor: "pointer",
                 backgroundColor: theme.colors.white[0],
                 border: `1px solid ${theme.colors.light[0]}`,
                 boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",

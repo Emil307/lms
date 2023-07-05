@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import React from "react";
 import { Trash, Flag, FolderPlus, Users } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -51,14 +51,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
                     <Title order={2} color="dark">
                         Данные группы
                     </Title>
-                    <Button
-                        onClick={openModalDeleteGroup}
-                        variant="text"
-                        leftIcon={
-                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                <Trash />
-                            </ThemeIcon>
-                        }>
+                    <Button onClick={openModalDeleteGroup} variant="text" leftIcon={<Trash />}>
                         Удалить группу
                     </Button>
                 </Flex>

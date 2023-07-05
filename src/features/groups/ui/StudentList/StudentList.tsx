@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { ManagedDataGrid } from "@shared/ui";
@@ -23,13 +23,7 @@ const StudentList = ({ groupId, ...props }: StudentListProps) => {
                 <Title order={2} color="dark">
                     Состав группы
                 </Title>
-                <Button
-                    variant="text"
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <PlusCircle />
-                        </ThemeIcon>
-                    }>
+                <Button variant="text" leftIcon={<PlusCircle />}>
                     Добавить ученика
                 </Button>
             </Flex>

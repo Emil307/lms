@@ -58,7 +58,7 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                             <Button
                                                 type="button"
                                                 variant="text"
-                                                leftIcon={<PlusCircle width={15} height={15} />}
+                                                leftIcon={<PlusCircle />}
                                                 onClick={handleAddInterval}
                                                 w="min-content"
                                                 size="small">
@@ -76,7 +76,7 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                                         <Button
                                                             variant="text"
                                                             size="small"
-                                                            leftIcon={<Trash width={17} height={17} />}
+                                                            leftIcon={<Trash />}
                                                             onClick={handleRemoveInterval}>
                                                             Удалить
                                                         </Button>

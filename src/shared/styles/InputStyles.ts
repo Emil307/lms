@@ -93,7 +93,6 @@ export const useInputStyles = createStyles(
             ":hover, :focus": {
                 boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
                 border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : "1px solid rgba(0,0,0,0.0)",
-                cursor: "pointer",
             },
             ":disabled": {
                 border: "1px solid rgba(0, 4, 41, 0.2)",

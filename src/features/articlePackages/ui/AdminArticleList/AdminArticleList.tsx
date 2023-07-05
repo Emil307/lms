@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
@@ -42,14 +42,7 @@ const AdminArticleList = ({ articlePackageId }: AdminArticleListProps) => {
                 <Title order={2} color="dark">
                     Список статей пакета
                 </Title>
-                <Button
-                    variant="text"
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <PlusCircle />
-                        </ThemeIcon>
-                    }
-                    onClick={openAddArticleToPackageModal}>
+                <Button variant="text" leftIcon={<PlusCircle />} onClick={openAddArticleToPackageModal}>
                     Добавить статью
                 </Button>
             </Flex>

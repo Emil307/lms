@@ -1,4 +1,4 @@
-import { Box, Flex, Text, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Text, Title } from "@mantine/core";
 import React from "react";
 import { Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -45,14 +45,7 @@ const AuthorSettings = ({ id }: AuthorSettingsProps) => {
                 <Flex direction="column" gap={32}>
                     <Flex gap={48} align="center">
                         <Title order={2}>Данные автора</Title>
-                        <Button
-                            onClick={openModalDeleteAuthor}
-                            variant="text"
-                            leftIcon={
-                                <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                    <Trash />
-                                </ThemeIcon>
-                            }>
+                        <Button onClick={openModalDeleteAuthor} variant="text" leftIcon={<Trash />}>
                             Удалить автора
                         </Button>
                     </Flex>

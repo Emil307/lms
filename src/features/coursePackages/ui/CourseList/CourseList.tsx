@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { closeModal, openModal } from "@mantine/modals";
@@ -41,14 +41,7 @@ const CourseList = ({ coursePackageId }: CourseListProps) => {
                 <Title order={2} color="dark">
                     Список курсов
                 </Title>
-                <Button
-                    variant="text"
-                    onClick={openAddCourseToPackageModal}
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <PlusCircle />
-                        </ThemeIcon>
-                    }>
+                <Button variant="text" onClick={openAddCourseToPackageModal} leftIcon={<PlusCircle />}>
                     Добавить курс
                 </Button>
             </Flex>

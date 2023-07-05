@@ -1,4 +1,4 @@
-import { Flex, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
+import { Flex, Text, Title, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
@@ -75,14 +75,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
             <Flex direction="column" gap={32} w="100%">
                 <Flex gap={48} align="center">
                     <Title order={2}>Настройки курса</Title>
-                    <Button
-                        onClick={handleOpenDeleteModal}
-                        variant="text"
-                        leftIcon={
-                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                <TrashIcon />
-                            </ThemeIcon>
-                        }>
+                    <Button onClick={handleOpenDeleteModal} variant="text" leftIcon={<TrashIcon />}>
                         Удалить курс
                     </Button>
                 </Flex>

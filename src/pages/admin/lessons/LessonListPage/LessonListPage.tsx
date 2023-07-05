@@ -1,9 +1,9 @@
 import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
+import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { LessonList } from "@widgets/admin/lessons";
-import { closeModal, openModal } from "@mantine/modals";
 import { CreateLessonModal } from "@features/lessons";
 
 const LessonListPage = () => {
