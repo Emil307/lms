@@ -55,6 +55,7 @@ export const useUpdateArticleActivity = (
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE, id]);
             },
             onSuccess: () => {
                 const articleData = queryClient.getQueryData<GetAdminArticleResponse>([QueryKeys.GET_ADMIN_ARTICLE, id]);
@@ -62,12 +63,12 @@ export const useUpdateArticleActivity = (
                     .getQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_ARTICLES])?.[0]?.[1]
                     ?.data.find((article) => article.id.toString() === id);
 
-                const statusMessage = articleData?.isActive || articleFromList?.isActive ? "активирован" : "деактивирован";
+                const statusMessage = articleData?.isActive || articleFromList?.isActive ? "активирована" : "деактивирована";
 
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Материал "${articleData?.name || articleFromList?.name}" ${statusMessage}.`,
+                    message: `Статья "${articleData?.name || articleFromList?.name}" ${statusMessage}.`,
                 });
             },
         }

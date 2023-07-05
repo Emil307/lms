@@ -1,10 +1,10 @@
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
-import { AdminCoursesForCoursePackageFiltersForm, GetAdminCoursesWithoutCoursesFromCoursePackageRequest } from "@entities/course";
+import { AdminCoursesForCoursePackageFiltersForm, GetAdminCoursesRequest } from "@entities/course";
 import { AdminCourseFromCoursePackageFilters } from "@entities/coursePackage";
 
 export const adaptGetAdminCoursesRequest = (
     params: TFunctionParams<AdminCoursesForCoursePackageFiltersForm, AdminCourseFromCoursePackageFilters>
-): GetAdminCoursesWithoutCoursesFromCoursePackageRequest => {
+): GetAdminCoursesRequest => {
     const { tags = [], categoryId, subcategoryId, coursePackageId, ...rest } = params;
 
     return {
@@ -13,7 +13,7 @@ export const adaptGetAdminCoursesRequest = (
             isActive: true,
             "category.id": categoryId,
             "subcategory.id": subcategoryId,
-            tags: {
+            tagIds: {
                 items: tags,
                 operator: "or",
             },

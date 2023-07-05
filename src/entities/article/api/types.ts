@@ -163,16 +163,11 @@ export const $GetAdminArticleRequest = z.object({
 export const $GetAdminArticleResponse = $AdminArticle;
 
 export const $CreateArticleRequest = z.object({
-    name: z.string({ required_error: "Введите название" }),
-    content: z.string({ required_error: "Введите контент" }),
+    name: z.string(),
+    content: z.string(),
     isActive: z.boolean(),
-    categoryId: z.coerce
-        .number()
-        .nullable()
-        .refine((value) => value !== null, {
-            message: "Выберите категорию",
-        }),
-    subcategories: z.string().array().min(1, "Выберите подкатегорию"),
+    categoryId: z.number(),
+    subcategories: z.string().array(),
     tags: z.array(z.string()).optional(),
 });
 

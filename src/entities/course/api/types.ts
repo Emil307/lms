@@ -42,7 +42,6 @@ export type CreateCourseRequest = z.infer<typeof $CreateCourseRequest>;
 export type CreateCourseResponse = z.infer<typeof $CreateCourseResponse>;
 export type UpdateCourseRequest = z.infer<typeof $UpdateCourseRequest>;
 export type UpdateCourseResponse = z.infer<typeof $UpdateCourseResponse>;
-export type GetAdminCoursesWithoutCoursesFromCoursePackageRequest = z.infer<typeof $GetAdminCoursesWithoutCoursesFromCoursePackageRequest>;
 export type UpdateCourseActivityRequest = z.infer<typeof $UpdateCourseActivityRequest>;
 export type UpdateCourseActivityResponse = z.infer<typeof $UpdateCourseActivityResponse>;
 export type UpdateCourseTypeRequest = z.infer<typeof $UpdateCourseTypeRequest>;
@@ -51,7 +50,6 @@ export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopulari
 export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
 export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublicationRequest>;
 export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
-export type GetAdminCoursesNoIncludedArticleRequest = z.infer<typeof $GetAdminCoursesNoIncludedArticleRequest>;
 
 /**
  *
@@ -207,14 +205,15 @@ export const $AdminCoursesRequest = z.object({
     paginate: z.boolean().optional(),
     filter: z
         .object({
-            isActive: z.literal("1").or(z.literal("0")),
+            isActive: z.boolean(),
             tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
-            packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            packageIds: $getMultiValueObjectType(z.string(), z.literal("or")).or($getMultiValueObjectType(z.string(), z.literal("not"))),
             createdAt: $getDateObjectType(z.literal("range")),
             "category.id": z.string().nullable(),
             "subcategory.id": z.string(),
             "discount.type": z.string(),
+            articleIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
         })
         .partial(),
 });
@@ -400,22 +399,6 @@ export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({
     subcategoryId: z.string(),
     tagIds: z.string().array(),
 });
-
-export const $AdminCoursesNoIncludedArticleRequest = z.object({
-    query: z.string().optional(),
-    filter: z
-        .object({
-            "category.id": z.string(),
-            "subcategory.id": z.string(),
-            createdAt: $getDateObjectType(z.literal("range")),
-            tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
-            //TODO: как бек добавит фильтрацию по статье not
-            // articleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
-        })
-        .partial(),
-});
-
-export const $GetAdminCoursesNoIncludedArticleRequest = $getFiltersRequestType($AdminCoursesNoIncludedArticleRequest);
 
 /**
  * USER ZOD
@@ -688,7 +671,3 @@ export const $CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.object({
         })
         .partial(),
 });
-
-export const $GetAdminCoursesWithoutCoursesFromCoursePackageRequest = $getFiltersRequestType(
-    $CoursesWithoutSelectedCoursesFromCoursePackageFilters
-);

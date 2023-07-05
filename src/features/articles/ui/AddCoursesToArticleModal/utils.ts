@@ -1,16 +1,10 @@
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
-import {
-    AdminArticleCoursesExtraFilters,
-    AdminCoursesNoIncludedArticleFiltersForm,
-    GetAdminCoursesNoIncludedArticleRequest,
-} from "@entities/course";
+import { AdminArticleCoursesExtraFilters, AdminCoursesNoIncludedArticleFiltersForm, GetAdminCoursesRequest } from "@entities/course";
 
 export const adaptGetAdminCoursesRequest = (
     params: TFunctionParams<AdminCoursesNoIncludedArticleFiltersForm, AdminArticleCoursesExtraFilters>
-): GetAdminCoursesNoIncludedArticleRequest => {
+): GetAdminCoursesRequest => {
     const { categoryId, subcategoryId, articleId, tagIds = [], ...rest } = params;
-
-    //TODO: заюзать articleId как бек добавить фильтрацию
 
     return {
         ...rest,
@@ -21,6 +15,10 @@ export const adaptGetAdminCoursesRequest = (
             tagIds: {
                 items: tagIds,
                 operator: "or",
+            },
+            articleIds: {
+                items: [articleId],
+                operator: "not",
             },
         },
     };

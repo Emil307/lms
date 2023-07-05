@@ -7,7 +7,7 @@ import { AddCoursesToArticleModal } from "@features/articles";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
 import { columns, columnOrder } from "./constants";
 import { ListMenu } from "./components";
-import { adaptGetArticleMaterialFilesRequest } from "./utils";
+import { adaptGetArticleCoursesRequest } from "./utils";
 
 export interface AdminArticleCourseListProps extends BoxProps {
     articleId: string;
@@ -39,7 +39,7 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminArticleCoursesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_COURSES}
-                queryFunction={(params) => courseApi.getAdminCourses(adaptGetArticleMaterialFilesRequest(params))}
+                queryFunction={(params) => courseApi.getAdminCourses(adaptGetArticleCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}
                 renderActiveBadge={(cell) => cell.row.original.isActive}
