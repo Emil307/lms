@@ -4,21 +4,20 @@ import { useRouter } from "next/router";
 import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { radioGroupValues, columns, filterInitialValues } from "./constants";
-import { ListMenu } from "./components";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
 import { adaptGetAdminLessonsRequest } from "@widgets/admin/lessons/List/utils";
+import { radioGroupValues, columns, filterInitialValues } from "./constants";
+import { ListMenu } from "./components";
 
 const List = () => {
     const router = useRouter();
 
-    const openLessonDetail = (id: number) => {
-        router.push({ pathname: "/admin/settings/categories/[id]", query: { id: String(id) } });
+    const openLessonDetails = (id: number) => {
+        router.push({ pathname: "/admin/lessons/[lessonId]", query: { lessonId: String(id) } });
     };
 
     const handlerClickCell = (cell: MRT_Cell<AdminLessonFromList>) => {
-        //TODO Редирект на деталку урока
-        openLessonDetail(cell.row.original.id);
+        openLessonDetails(cell.row.original.id);
     };
 
     return (
@@ -44,9 +43,9 @@ const List = () => {
                         <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" w="100%" maw={252} />
                     </Flex>
                     <FRadioGroup name="isActive" defaultValue="">
-                        {radioGroupValues.map((item) => {
-                            return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                        })}
+                        {radioGroupValues.map((item) => (
+                            <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                        ))}
                     </FRadioGroup>
                     <Button type="submit" w="100%" maw={164}>
                         Найти

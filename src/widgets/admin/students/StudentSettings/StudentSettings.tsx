@@ -1,4 +1,4 @@
-import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Group, Title } from "@mantine/core";
 import React from "react";
 import { Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -60,14 +60,7 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
                 <Group sx={{ flexDirection: "column", alignItems: "flex-start" }}>
                     <Flex gap={48} align="center">
                         <Title order={2}>Настройки пользователя</Title>
-                        <Button
-                            onClick={openModalDeleteUser}
-                            variant="text"
-                            leftIcon={
-                                <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                    <Trash />
-                                </ThemeIcon>
-                            }>
+                        <Button onClick={openModalDeleteUser} variant="text" leftIcon={<Trash />}>
                             Удалить пользователя
                         </Button>
                     </Flex>

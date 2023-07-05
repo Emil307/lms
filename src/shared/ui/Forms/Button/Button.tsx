@@ -1,6 +1,6 @@
 import { Button as MButton, ButtonProps as MButtonProps } from "@mantine/core";
 import { memo, MouseEvent } from "react";
-import { useButtonStyles } from "./ButtonStyles";
+import { useButtonStyles } from "./Button.styles";
 
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonVariant = "primary" | "secondary" | "border" | "white" | "text";

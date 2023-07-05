@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { BoxProps } from "@mantine/core";
@@ -32,14 +32,7 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
                 <Title order={2} color="dark">
                     Расписание группы
                 </Title>
-                <Button
-                    variant="text"
-                    onClick={openCreateScheduleModal}
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <PlusCircle />
-                        </ThemeIcon>
-                    }>
+                <Button variant="text" onClick={openCreateScheduleModal} leftIcon={<PlusCircle />}>
                     Добавить занятие
                 </Button>
             </Flex>

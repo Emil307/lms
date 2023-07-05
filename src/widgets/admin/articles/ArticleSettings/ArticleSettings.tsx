@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon, Title, Text, BoxProps } from "@mantine/core";
+import { Box, Flex, Title, Text, BoxProps } from "@mantine/core";
 import React from "react";
 import { Trash, Edit3 } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -47,14 +47,7 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
                     <Title order={2} color="dark">
                         Данные статьи
                     </Title>
-                    <Button
-                        onClick={openModalDeleteArticle}
-                        variant="text"
-                        leftIcon={
-                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                <Trash />
-                            </ThemeIcon>
-                        }>
+                    <Button onClick={openModalDeleteArticle} variant="text" leftIcon={<Trash />}>
                         Удалить
                     </Button>
                 </Flex>

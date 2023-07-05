@@ -1,4 +1,4 @@
-import { Flex, Box, Text, ThemeIcon, Title } from "@mantine/core";
+import { Flex, Box, Text, Title } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
@@ -6,10 +6,10 @@ import { Trash as TrashIcon } from "react-feather";
 import { Button, TextEditor } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import { DeleteLessonModal } from "@features/lessons";
-import useStyles from "./LessonSettings.styles";
 import { getPluralString } from "@shared/utils";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
+import useStyles from "./LessonSettings.styles";
 
 interface LessonSettingsProps {
     data: AdminLesson;
@@ -67,14 +67,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
         <Flex direction="column" gap={32} w="100%">
             <Flex gap={48} align="center">
                 <Title order={2}>Данные урока</Title>
-                <Button
-                    onClick={handleOpenDeleteLessonModal}
-                    variant="text"
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <TrashIcon />
-                        </ThemeIcon>
-                    }>
+                <Button onClick={handleOpenDeleteLessonModal} variant="text" leftIcon={<TrashIcon />}>
                     Удалить урок
                 </Button>
             </Flex>

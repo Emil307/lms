@@ -1,4 +1,4 @@
-import { Box, Flex, Group, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Group, Title } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -72,14 +72,7 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     <Flex gap={48} align="center">
                         <Title order={2}>Настройки пользователя</Title>
                         {isRoleOrder && (
-                            <Button
-                                onClick={openModalDeleteUser}
-                                variant="text"
-                                leftIcon={
-                                    <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                        <Trash />
-                                    </ThemeIcon>
-                                }>
+                            <Button onClick={openModalDeleteUser} variant="text" leftIcon={<Trash />}>
                                 Удалить пользователя
                             </Button>
                         )}

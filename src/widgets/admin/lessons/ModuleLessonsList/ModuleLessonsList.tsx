@@ -1,4 +1,4 @@
-import { Flex, Text, ThemeIcon, Title } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
@@ -152,14 +152,7 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex gap={48} align="center">
                 <Title order={2}>Уроки модуля</Title>
-                <Button
-                    onClick={handleOpenSelectLessonOptionModal}
-                    variant="text"
-                    leftIcon={
-                        <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                            <PlusCircleIcon />
-                        </ThemeIcon>
-                    }>
+                <Button onClick={handleOpenSelectLessonOptionModal} variant="text" leftIcon={<PlusCircleIcon />}>
                     Добавить урок
                 </Button>
             </Flex>

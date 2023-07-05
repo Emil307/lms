@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 
 import { closeModal, openModal } from "@mantine/modals";
@@ -36,14 +36,7 @@ const AdminSubCategoryList = ({ parentId }: AdminSubCategoryListProps) => {
                     Список подкатегорий
                 </Title>
                 {categoryData?.isActive && (
-                    <Button
-                        variant="text"
-                        onClick={openModalCreateSubCategory}
-                        leftIcon={
-                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
-                                <PlusCircle />
-                            </ThemeIcon>
-                        }>
+                    <Button variant="text" onClick={openModalCreateSubCategory} leftIcon={<PlusCircle />}>
                         Добавить подкатегорию
                     </Button>
                 )}
