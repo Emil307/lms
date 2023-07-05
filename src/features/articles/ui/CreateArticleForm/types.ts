@@ -7,6 +7,6 @@ export const $CreateArticleFormValidation = z.object({
     content: z.string({ required_error: "Введите контент" }),
     isActive: z.boolean(),
     categoryId: z.string({ required_error: "Выберите категорию" }),
-    subcategories: z.string().array().min(1, "Выберите подкатегорию"),
+    subcategories: z.string().array(),
     tags: z.array(z.string()).optional(),
 });

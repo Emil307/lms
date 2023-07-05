@@ -1,14 +1,16 @@
 import { Text, Flex, Box, BoxProps } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
+import { FormikProps } from "formik";
 import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constant";
+import { useAdminSubCategories } from "@entities/category";
+import { initialParams, initialValues } from "./constants";
 import { $CreateArticleFormValidation, CreateArticleFormValidation } from "./types";
 import { adaptCreateArticleRequest } from "./utils";
 
@@ -18,8 +20,14 @@ export interface CreateArticleFormProps extends BoxProps {
 
 const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const router = useRouter();
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
 
     const articleResources = useAdminArticleResourcesCreate();
+
+    const subCategoriesResources = useAdminSubCategories({
+        ...initialParams,
+        filter: { parentId: selectedCategoryId },
+    });
 
     const createArticle = (values: CreateArticleFormValidation) => {
         return articleApi.createArticle(adaptCreateArticleRequest(values));
@@ -41,9 +49,17 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
         });
     };
 
+    const onChangeFormValues = ({ setFieldValue, values }: FormikProps<CreateArticleFormValidation>) => {
+        if (selectedCategoryId !== values.categoryId) {
+            setFieldValue("subcategories", []);
+            setSelectedCategoryId(values.categoryId);
+        }
+    };
+
     return (
         <Box {...props}>
             <ManagedForm<CreateArticleFormValidation, CreateArticleResponse>
+                onChange={onChangeFormValues}
                 initialValues={initialValues}
                 validationSchema={$CreateArticleFormValidation}
                 mutationKey={[MutationKeys.CREATE_ARTICLE]}
@@ -82,13 +98,15 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                                         name="subcategories"
                                         size="sm"
                                         data={prepareOptionsForSelect({
-                                            data: articleResources.data?.subcategories,
+                                            data: subCategoriesResources.data,
                                             value: "id",
                                             label: "name",
                                         })}
                                         clearable
                                         label="Выберите подкатегории"
-                                        disabled={articleResources.isLoading}
+                                        disabled={
+                                            !values.categoryId || subCategoriesResources.isLoading || !subCategoriesResources.data?.length
+                                        }
                                     />
                                     <FMultiSelect
                                         name="tags"

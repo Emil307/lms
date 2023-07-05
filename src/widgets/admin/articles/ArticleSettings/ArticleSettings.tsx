@@ -75,7 +75,7 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
                     hideFieldIfEmpty
                     values={articleData}
                     actionSlot={
-                        <Button variant="secondary" mt={16} onClick={handleOpenUpdateArticle}>
+                        <Button variant="secondary" onClick={handleOpenUpdateArticle}>
                             Редактировать данные
                         </Button>
                     }

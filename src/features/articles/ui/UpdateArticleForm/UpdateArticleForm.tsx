@@ -1,8 +1,9 @@
 import { Box, Flex, Text, ThemeIcon, Title } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+import { FormikProps } from "formik";
 import {
     Button,
     FInput,
@@ -18,7 +19,8 @@ import { GetAdminArticleResponse, UpdateArticleResponse, articleApi, useAdminArt
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constants";
+import { useAdminSubCategories } from "@entities/category";
+import { initialParams, initialValues } from "./constants";
 import { adaptUpdateArticleFormValues, adaptUpdateArticleRequest } from "./utils";
 import useStyles from "./UpdateArticleForm.styles";
 import { $UpdateArticleFormValidation, UpdateArticleFormValidation } from "./types";
@@ -31,7 +33,13 @@ export interface UpdateArticleFormProps {
 const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id));
     const articleResources = useAdminArticleResourcesCreate();
+
+    const subCategoriesResources = useAdminSubCategories({
+        ...initialParams,
+        filter: { parentId: selectedCategoryId },
+    });
 
     const updateArticle = (values: UpdateArticleFormValidation) => {
         return articleApi.updateArticle({ ...adaptUpdateArticleRequest(values), id: String(data?.id) });
@@ -52,8 +60,16 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
         });
     };
 
+    const onChangeFormValues = ({ setFieldValue, values }: FormikProps<UpdateArticleFormValidation>) => {
+        if (selectedCategoryId !== values.categoryId) {
+            setFieldValue("subcategories", []);
+            setSelectedCategoryId(values.categoryId);
+        }
+    };
+
     return (
         <ManagedForm<UpdateArticleFormValidation, UpdateArticleResponse>
+            onChange={onChangeFormValues}
             initialValues={{
                 ...initialValues,
                 ...adaptUpdateArticleFormValues(data),
@@ -123,13 +139,15 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                                     name="subcategories"
                                     size="sm"
                                     data={prepareOptionsForSelect({
-                                        data: articleResources.data?.subcategories,
+                                        data: subCategoriesResources.data,
                                         value: "id",
                                         label: "name",
                                     })}
                                     clearable
                                     label="Выберите подкатегории"
-                                    disabled={articleResources.isLoading}
+                                    disabled={
+                                        !values.categoryId || subCategoriesResources.isLoading || !subCategoriesResources.data?.length
+                                    }
                                 />
                                 <FMultiSelect
                                     name="tags"
@@ -142,7 +160,9 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                             </Flex>
                         </Fieldset>
                         <Fieldset label="Контент статьи" icon={<IconFileText />} maw={1162}>
-                            <FTextEditor name="content" />
+                            <Box w="100%">
+                                <FTextEditor name="content" h={320} />
+                            </Box>
                         </Fieldset>
                         <Flex gap={8}>
                             <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>

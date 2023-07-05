@@ -24,6 +24,7 @@ const ArticleDetailsPage = () => {
             case "materials":
                 return <ArticleMaterialList articleId={id} mt={32} />;
             case "courses":
+                //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/176
                 return <AdminArticleCourseList articleId={id} mt={32} />;
             default:
                 return <ArticleSettings id={id} mt={32} />;

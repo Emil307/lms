@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { z } from "zod";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminCoursesFiltersForm, GetAdminCoursesRequest } from "@entities/course";
 
@@ -8,7 +9,9 @@ export const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCourses
     return {
         ...rest,
         filter: {
-            isActive: isActive === "" ? undefined : isActive,
+            ...(z.coerce.number().safeParse(isActive).success && {
+                isActive: isActive === "1",
+            }),
             "discount.type": discountType,
             "category.id": category === "null" ? null : category,
             tagIds: {

@@ -1,9 +1,10 @@
-import { AdminArticleMaterialsExtraFilters, GetUploadedFilesRequest } from "@entities/storage";
+import { GetAdminCoursesRequest } from "@entities/course";
+import { AdminArticleMaterialsExtraFilters } from "@entities/storage";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
-export const adaptGetArticleMaterialFilesRequest = (
+export const adaptGetArticleCoursesRequest = (
     params: TFunctionParams<unknown, AdminArticleMaterialsExtraFilters>
-): GetUploadedFilesRequest => {
+): GetAdminCoursesRequest => {
     const { articleId, ...rest } = params;
 
     return {

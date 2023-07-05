@@ -20,9 +20,12 @@ export const useDeleteArticleMaterial = (data: DeleteAdminArticleMaterialRequest
 
                 createNotification({
                     type: ToastType.SUCCESS,
-                    title: "Удаление файла",
-                    message: `Файла "${materialFromList?.name}" успешно удален`,
+                    title: "Удаление файла из материалов",
+                    message: `Файл "${materialFromList?.name}" успешно удален`,
                 });
+
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_MATERIALS]);
             },
             onError: () => {
                 createNotification({
