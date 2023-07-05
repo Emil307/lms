@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { useMantineTheme } from "@mantine/core";
 import { IconMessageDots } from "@tabler/icons";
+import { IconReceipt } from "@tabler/icons-react";
 import SidebarItem from "./UI/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./UI/SidebarItemWithChildren/SidebarItemWithChildren";
 
@@ -53,6 +54,13 @@ export default function Sidebar() {
                 isActive={router.pathname.includes("/admin/lessons")}
                 icon={<BookOpen color={theme.colors.primary[9]} />}
                 href="/admin/lessons"
+            />
+
+            <SidebarItem
+                label="Транзакции"
+                isActive={router.pathname.includes("/admin/transactions")}
+                icon={<IconReceipt color={theme.colors.primary[9]} />}
+                href="/admin/transactions"
             />
 
             <SidebarItem

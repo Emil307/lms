@@ -44,8 +44,8 @@ export const whenAuthMicroserviceRoute: TAxiosRunWhen = (config) => {
         !!config.url?.startsWith("authentication") ||
         !!config.url?.startsWith("authorization") ||
         (!!config.url?.startsWith("me") && !config.url.startsWith("me/articles")) ||
-        !!config.url?.includes("notifications") ||
-        !!config.url?.startsWith("admin/users")
+        !!config.url?.startsWith("admin/users") ||
+        !!config.url?.includes("notifications")
     );
 };
 

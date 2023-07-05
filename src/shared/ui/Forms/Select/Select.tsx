@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef, useState } from "react";
+import React, { Ref, memo, useCallback, useMemo, useRef, useState } from "react";
 import {
     Flex,
     Select as MSelect,
@@ -16,6 +16,8 @@ import { SelectItem } from "./components";
 export interface SelectProps extends Omit<MSelectProps, "data"> {
     data: ISelectItem[];
     success?: string | boolean;
+    variantSearhableSelect?: "searchable" | "default";
+    lastElementRef?: Ref<HTMLDivElement>;
 }
 
 const MemoizedSelect = (props: SelectProps) => {
@@ -23,6 +25,7 @@ const MemoizedSelect = (props: SelectProps) => {
         icon,
         size = "md",
         searchable,
+        variantSearhableSelect = "searchable",
         onChange = () => undefined,
         onFocus = () => undefined,
         onBlur = () => undefined,
@@ -32,6 +35,7 @@ const MemoizedSelect = (props: SelectProps) => {
         description,
         error,
         success = false,
+        lastElementRef,
     } = props;
 
     const ref = useRef<HTMLInputElement | null>(null);
@@ -44,7 +48,7 @@ const MemoizedSelect = (props: SelectProps) => {
         {
             floating: props.value?.toString().trim().length !== 0 || focused,
             rightSection: true,
-            icon: icon || searchable,
+            icon: icon || (variantSearhableSelect === "searchable" && searchable),
             size: size,
             isActive: props.data.find((option) => option.value === props.value)?.isActive,
         },
@@ -135,7 +139,7 @@ const MemoizedSelect = (props: SelectProps) => {
     }, [statusSuccess, success, description]);
 
     const renderIcon = () => {
-        if (searchable) {
+        if (variantSearhableSelect === "searchable" && searchable) {
             return (
                 <ThemeIcon color="primary" variant="outline" sx={{ border: "none" }}>
                     <Search />
@@ -144,6 +148,11 @@ const MemoizedSelect = (props: SelectProps) => {
         }
         return icon;
     };
+
+    const renderComponent = useCallback(
+        (props: any) => props.itemComponent ?? <SelectItem {...props} ref={lastElementRef} />,
+        [props.itemComponent, lastElementRef]
+    );
 
     return (
         <MSelect
@@ -154,7 +163,7 @@ const MemoizedSelect = (props: SelectProps) => {
             onBlur={onBlurHandler}
             icon={renderIcon()}
             classNames={classes}
-            itemComponent={props.itemComponent ?? SelectItem}
+            itemComponent={renderComponent}
             rightSection={<RightSection />}
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
