@@ -1,6 +1,6 @@
 import { axios } from "@app/config/axios";
-import { AuthData } from "@features/auth";
-import { BaseApi } from "@shared/utils";
+import { $AuthFormValidationSchema, AuthData } from "@features/auth";
+import { BaseApi, HTTPMethod } from "@shared/utils";
 import {
     ChangePasswordRequest,
     User,
@@ -22,6 +22,12 @@ class AuthApi extends BaseApi {
         const response = await this.instance.get("authentication/user");
         return $User.parse(response);
     }
+    authMe = this.createApiMethod({
+        method: HTTPMethod.GET,
+        path: `authentication/authenticate`,
+        requestSchema: $AuthFormValidationSchema,
+        responseSchema: $AuthenticateResponse
+    })
     async authenticateMe(data: AuthData): Promise<AuthenticateResponse> {
         const response = await this.instance.post("authentication/authenticate", data);
         return $AuthenticateResponse.parse(response);

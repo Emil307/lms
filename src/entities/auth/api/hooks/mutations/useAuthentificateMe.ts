@@ -14,7 +14,7 @@ export const useAuthenticateMe = () => {
     const router = useRouter();
     return useMutation<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthData>(
         [MutationKeys.AUTHENTICATE_ME],
-        (data: AuthData) => authApi.authenticateMe(data),
+        (data: AuthData) => authApi.authMe(data),
         {
             onSuccess: (response) => {
                 setCookie(ECookies.TOKEN, response.data.accessToken);
