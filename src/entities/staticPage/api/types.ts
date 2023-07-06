@@ -136,7 +136,7 @@ export const $GetMainBannerResponse = z.object({
     authorAbout: z.string(),
     authorShortQuote: z.string(),
     image: $UploadedFile,
-    authorImage: $UploadedFile,
+    authorImage: $UploadedFile.nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
 
@@ -160,48 +160,20 @@ export const $UpdateAdvantageRequest = z.object({
     description: z.string({ required_error: "Введите пояснение" }),
 });
 
-export const $UpdateMainBannerRequest = z
-    .object({
-        indexBannerFile: $UploadedFile.nullable().refine((value) => value !== null, {
-            message: "Выберите изображение",
-        }),
-        indexBannerAuthorAvatar: $UploadedFile.nullable(),
-        indexBannerImage: z.number().optional(),
-        indexBannerTitle: z.string({ required_error: "Введите заголовок" }),
-        indexBannerSubTitle: z.string({ required_error: "Введите подзаголовок" }),
-        indexBannerButtonText: z.string({ required_error: "Введите название кнопки" }),
-        indexBannerButtonLink: z.string({ required_error: "Укажите ссылку" }),
-        indexBannerAuthorActive: z.number().nullish(),
-        indexBannerAuthorImage: z.number().nullish(),
-        indexBannerAuthorFirstName: z.string().optional(),
-        indexBannerAuthorLastName: z.string().optional(),
-        indexBannerAuthorAbout: z.string().optional(),
-        indexBannerAuthorShortQuote: z.string().optional(),
-    })
-    .refine(
-        (data) => {
-            if (!data.indexBannerAuthorActive) {
-                return true;
-            }
-            return !!data.indexBannerAuthorFirstName;
-        },
-        {
-            message: "Введите имя",
-            path: ["indexBannerAuthorFirstName"],
-        }
-    )
-    .refine(
-        (data) => {
-            if (!data.indexBannerAuthorActive) {
-                return true;
-            }
-            return !!data.indexBannerAuthorLastName;
-        },
-        {
-            message: "Введите фамилию",
-            path: ["indexBannerAuthorLastName"],
-        }
-    );
+export const $UpdateMainBannerRequest = z.object({
+    indexBannerImage: z.number().optional(),
+    indexBannerTitle: z.string(),
+    indexBannerSubTitle: z.string(),
+    indexBannerButtonText: z.string(),
+    indexBannerButtonLink: z.string(),
+    indexBannerAuthorActive: z.boolean(),
+    indexBannerAuthorImage: z.number().nullish(),
+    indexBannerAuthorFirstName: z.string().optional(),
+    indexBannerAuthorLastName: z.string().optional(),
+    indexBannerAuthorAbout: z.string().optional(),
+    indexBannerAuthorShortQuote: z.string().optional(),
+});
+
 //TODO: refactoring !!!!!
 
 export const $UpdateAboutRequest = z.object({

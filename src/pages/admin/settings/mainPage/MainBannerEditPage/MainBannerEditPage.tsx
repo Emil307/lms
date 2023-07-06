@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, LastUpdatedInfo, Loader } from "@shared/ui";
 import { useMainBanner } from "@entities/staticPage";
-import { MainBannerEditForm } from "@features/mainBanner";
+import { UpdateMainBannerForm } from "@features/mainBanner";
 import { getBreadCrumbsItems } from "./utils";
 
 const MainBannerEditPage = () => {
@@ -24,7 +24,7 @@ const MainBannerEditPage = () => {
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
             {isLoading && <Loader />}
-            <MainBannerEditForm data={data} onClose={handleCloseEditForm} />
+            <UpdateMainBannerForm data={data} onClose={handleCloseEditForm} />
         </Box>
     );
 };

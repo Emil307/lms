@@ -1,1 +1,1 @@
-export * from "./MainBannerEditForm";
+export * from "./UpdateMainBannerForm";

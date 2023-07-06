@@ -47,7 +47,7 @@ const MainBanner = (props: MainBannerProps) => {
                         <Text className={classes.authorShortQuote}>{data?.authorShortQuote}</Text>
                         <Flex gap={8}>
                             <Avatar
-                                src={data?.authorImage.absolutePath}
+                                src={data?.authorImage?.absolutePath}
                                 alt="avatar"
                                 w={44}
                                 h={44}
