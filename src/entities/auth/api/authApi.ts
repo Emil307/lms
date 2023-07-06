@@ -23,7 +23,7 @@ class AuthApi extends BaseApi {
         return $User.parse(response);
     }
     authMe = this.createApiMethod({
-        method: HTTPMethod.GET,
+        method: HTTPMethod.POST,
         path: `authentication/authenticate`,
         requestSchema: $AuthFormValidationSchema,
         responseSchema: $AuthenticateResponse
