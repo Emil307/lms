@@ -25,7 +25,7 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminCourseResources();
+    const courseResources = useAdminCourseResources({ type: "select" });
     const attachCoursesToArticle = useAttachCoursesToArticle(articleId);
 
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);

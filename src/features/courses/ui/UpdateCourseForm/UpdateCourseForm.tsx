@@ -43,7 +43,7 @@ export interface UpdateCourseFormProps {
 
 const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>();
-    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources();
+    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: "manipulation" });
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategory },

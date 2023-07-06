@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $Profile, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
+import { $FilterType, $Profile, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 import { $User } from "@entities/user";
 import { $AdminGroup } from "@entities/group";
 
@@ -22,6 +22,7 @@ export type GetAdminCourseReviewsRequest = z.infer<typeof $GetAdminCourseReviews
 export type GetAdminCourseReviewsResponse = z.infer<typeof $GetAdminCourseReviewsResponse>;
 export type GetAdminCourseReviewRequest = z.infer<typeof $GetAdminCourseReviewRequest>;
 export type GetAdminCourseReviewResponse = z.infer<typeof $GetAdminCourseReviewResponse>;
+export type GetAdminCourseReviewResourcesRequest = z.infer<typeof $GetAdminCourseReviewResourcesRequest>;
 export type GetAdminCourseReviewResourcesResponse = z.infer<typeof $GetAdminCourseReviewResourcesResponse>;
 export type UpdateCourseReviewPublishingStatusRequest = z.infer<typeof $UpdateCourseReviewPublishingStatusRequest>;
 export type UpdateCourseReviewPublishingStatusResponse = z.infer<typeof $UpdateCourseReviewPublishingStatusResponse>;
@@ -136,6 +137,10 @@ export const $GetAdminCourseReviewRequest = z.object({
 });
 
 export const $GetAdminCourseReviewResponse = $AdminCourseReview;
+
+export const $GetAdminCourseReviewResourcesRequest = z.object({
+    type: $FilterType,
+});
 
 export const $GetAdminCourseReviewResourcesResponse = z.object({
     courses: $AdminCourseReviewCourse.array(),

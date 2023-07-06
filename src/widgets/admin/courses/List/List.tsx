@@ -13,7 +13,7 @@ import { ListMenu } from "./components";
 
 const List = () => {
     const router = useRouter();
-    const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources();
+    const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });

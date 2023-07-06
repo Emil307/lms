@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
     $Discount,
     $DiscountType,
+    $FilterType,
     $LastUpdated,
     $UploadedFile,
     $getDateObjectType,
@@ -26,6 +27,7 @@ export type GetCoursePackagesRequest = z.infer<typeof $GetCoursePackagesRequest>
 export type GetCoursePackagesResponse = z.infer<typeof $GetCoursePackagesResponse>;
 export type GetAdminCoursePackagesResponse = z.infer<typeof $GetAdminCoursePackagesResponse>;
 export type GetAdminCoursePackagesRequest = z.infer<typeof $GetAdminCoursePackagesRequest>;
+export type GetAdminCoursePackageResoursesRequest = z.infer<typeof $GetAdminCoursePackageResoursesRequest>;
 export type GetAdminCoursePackageResoursesResponse = z.infer<typeof $GetAdminCoursePackageResoursesResponse>;
 export type UpdateCoursePackageActivityRequest = z.infer<typeof $UpdateCoursePackageActivityRequest>;
 export type UpdateCoursePackageActivityResponse = z.infer<typeof $UpdateCoursePackageActivityResponse>;
@@ -122,6 +124,10 @@ export const $AdminCoursePackagesRequest = z.object({
 });
 
 export const $GetAdminCoursePackagesRequest = $getFiltersRequestType($AdminCoursePackagesRequest);
+
+export const $GetAdminCoursePackageResoursesRequest = z.object({
+    type: $FilterType,
+});
 
 export const $GetAdminCoursePackageResoursesResponse = z.object({
     courses: $AdminCourse.array(),

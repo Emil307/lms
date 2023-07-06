@@ -12,6 +12,7 @@ import {
     CoursePackageDetails,
     CreateCoursePackageRequest,
     DeleteCourseFromCoursePackageRequest,
+    GetAdminCoursePackageResoursesRequest,
     GetAdminCoursePackageResoursesResponse,
     GetAdminCoursePackagesRequest,
     GetAdminCoursePackagesResponse,
@@ -23,8 +24,8 @@ import {
 } from "./types";
 
 class CoursePackageApi extends BaseApi {
-    async getAdminCoursePackageResourses(): Promise<GetAdminCoursePackageResoursesResponse> {
-        const response = await this.instance.get("admin/course-packages/resources");
+    async getAdminCoursePackageResourses(params: GetAdminCoursePackageResoursesRequest): Promise<GetAdminCoursePackageResoursesResponse> {
+        const response = await this.instance.get("admin/course-packages/resources", { params });
         return $GetAdminCoursePackageResoursesResponse.parse(response);
     }
 
