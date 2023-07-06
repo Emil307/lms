@@ -1,4 +1,4 @@
-import { Montserrat, Manrope } from "next/font/google";
+import { Montserrat, Manrope, Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 // Font files can be colocated inside of `pages`
@@ -14,3 +14,5 @@ export const CentroSansPro = localFont({
 
 export const MontserratFont = Montserrat({ subsets: ["latin"] });
 export const ManropeFont = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+
+export const InterFont = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });

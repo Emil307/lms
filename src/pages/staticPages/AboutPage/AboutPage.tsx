@@ -1,13 +1,11 @@
-import { Box, Title, Text, Flex } from "@mantine/core";
+import { Box, Title, Flex } from "@mantine/core";
 import React, { useMemo } from "react";
-import { BreadCrumbs, Loader } from "@shared/ui";
+import { BreadCrumbs, ContentByTextEditor, Loader } from "@shared/ui";
 import { useAbout } from "@entities/staticPage";
 import { AboutCard } from "@features/about";
 import { breadCrumbsItems } from "./contants";
-import useStyles from "./AboutPage.styles";
 
 const AboutPage = () => {
-    const { classes } = useStyles();
     const { data: aboutData, isLoading } = useAbout();
 
     const renderContent = useMemo(() => {
@@ -16,13 +14,13 @@ const AboutPage = () => {
         return (
             <Flex direction="column" gap={64}>
                 <AboutCard data={aboutData} />
-                <Text className={classes.fullContent} dangerouslySetInnerHTML={{ __html: aboutData?.fullContent || "" }} />
+                <ContentByTextEditor data={aboutData?.fullContent} />
             </Flex>
         );
     }, [isLoading]);
 
     return (
-        <Box className={classes.root}>
+        <Flex direction="column" gap={32}>
             <Box>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
                 <Title order={1} color="dark">
@@ -30,7 +28,7 @@ const AboutPage = () => {
                 </Title>
             </Box>
             {renderContent}
-        </Box>
+        </Flex>
     );
 };
 

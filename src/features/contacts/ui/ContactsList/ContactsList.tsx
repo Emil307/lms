@@ -1,6 +1,6 @@
 import { Group, Text } from "@mantine/core";
 import React from "react";
-import { Loader, Map } from "@shared/ui";
+import { ContentByTextEditor, Loader, Map } from "@shared/ui";
 import { useContacts } from "@entities/staticPage";
 import useStyles from "./ContactsList.styles";
 import { mapState } from "./constants";
@@ -17,7 +17,7 @@ const ContactsList = () => {
                 {contactsData?.requisites && (
                     <>
                         <Text className={classes.requisitesTitle}>Реквизиты:</Text>
-                        <Text className={classes.requisites} dangerouslySetInnerHTML={{ __html: contactsData.requisites }} />
+                        <ContentByTextEditor data={contactsData.requisites} />
                     </>
                 )}
             </Group>

@@ -9,14 +9,4 @@ export default createStyles((theme) => ({
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
     },
-    content: {
-        fontWeight: 400,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-
-        p: {
-            margin: 0,
-        },
-    },
 }));
