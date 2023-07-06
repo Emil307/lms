@@ -224,6 +224,7 @@ export const UIDemo = () => {
             <Logo />
             <Tabs tabs={tabsList} />
             <Stack p={40} style={{ border: "1px solid black", borderRadius: 16, width: 500, margin: "0 auto", backgroundColor: "white" }}>
+                <TextEditor value={content} setValue={setContent} maw={900} />
                 <TimeRangeInput value={rangeDate} onChange={setRangeDate} label="allalalalal" clearable />
                 <ControlPanel variant="primary" label="Уведомлять о проверенных домашних заданиях" />
                 <MultiSelect data={dataMultiSelect} value={multiSelectValue} onChange={handlerSelectValue} label="multi" />
@@ -407,7 +408,6 @@ export const UIDemo = () => {
                     }}
                 </Form>
             </Stack>
-            <TextEditor value={content} setValue={setContent} maw={900} />
         </>
     );
 };

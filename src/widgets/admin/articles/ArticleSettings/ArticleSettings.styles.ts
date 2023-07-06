@@ -8,8 +8,4 @@ export default createStyles((theme) => ({
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
     },
-    description: {
-        color: theme.colors.dark[0],
-        lineHeight: "24px",
-    },
 }));

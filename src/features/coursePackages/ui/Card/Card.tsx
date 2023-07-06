@@ -2,6 +2,7 @@ import { Card as MCard, CardProps as MCardProps, Title, Text } from "@mantine/co
 import { memo, ReactNode } from "react";
 import { CoursePackage } from "@entities/coursePackage";
 import { getPluralString } from "@shared/utils";
+import { ContentByTextEditor } from "@shared/ui";
 import { AmountInfo, DiscountInfo } from "./components";
 import useStyles from "./Card.styles";
 
@@ -20,7 +21,7 @@ const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props 
                 <Title order={3} color="dark">
                     {data.name}
                 </Title>
-                <Text className={classes.description} lineClamp={2} dangerouslySetInnerHTML={{ __html: data.description }} />
+                <ContentByTextEditor className={classes.description} data={data.description} lineClamp={2} />
             </MCard.Section>
             <MCard.Section className={classes.section} sx={{ flex: 1, height: 160 }}>
                 <Text className={classes.countCourses}>{`${data.courses.length} ${getPluralString(

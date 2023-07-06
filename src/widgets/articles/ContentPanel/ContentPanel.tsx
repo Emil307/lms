@@ -1,5 +1,6 @@
-import { Flex, FlexProps, Text } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import { Article } from "@entities/article";
+import { ContentByTextEditor } from "@shared/ui";
 import { MaterialFiles, Footer } from "./components";
 import useStyles from "./ContentPanel.styles";
 
@@ -12,7 +13,7 @@ const ContentPanel = ({ data, ...props }: ContentPanelProps) => {
 
     return (
         <Flex {...props} className={classes.root}>
-            <Text className={classes.content} dangerouslySetInnerHTML={{ __html: data.content }} />
+            <ContentByTextEditor data={data.content} />
             <MaterialFiles data={data} />
             <Footer data={data} />
         </Flex>

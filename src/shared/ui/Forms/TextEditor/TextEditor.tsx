@@ -6,6 +6,7 @@ import { Box, Flex, Group, Text, ThemeIcon } from "@mantine/core";
 import { z } from "zod";
 import { extensions } from "./constants";
 import useStyles from "./TextEditor.styles";
+import { TableControls } from "./helpers";
 
 export interface TextEditorProps extends Omit<RichTextEditorProps, "editor" | "children"> {
     value?: string;
@@ -120,6 +121,21 @@ const MemoizedTextEditor = memo(function TextEditor({
                         <RichTextEditor.AlignCenter />
                         <RichTextEditor.AlignJustify />
                         <RichTextEditor.AlignRight />
+                    </RichTextEditor.ControlsGroup>
+
+                    <RichTextEditor.ControlsGroup>
+                        <TableControls.InsertTable />
+                        <TableControls.DeleteTable />
+                        <TableControls.AddColumnBefore />
+                        <TableControls.AddColumnAfter />
+                        <TableControls.DeleteColumn />
+                        <TableControls.AddRowBefore />
+                        <TableControls.AddRowAfter />
+                        <TableControls.DeleteRow />
+                        <TableControls.MergeCells />
+                        <TableControls.SplitCell />
+                        <TableControls.ToggleHeaderRow />
+                        <TableControls.ToggleHeaderColumn />
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
 

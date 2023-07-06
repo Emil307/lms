@@ -15,9 +15,6 @@ export default createStyles((theme) => ({
         gap: 16,
     },
     description: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
         color: theme.colors.gray45[0],
     },
     countCourses: {

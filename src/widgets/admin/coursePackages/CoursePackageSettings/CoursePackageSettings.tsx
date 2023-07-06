@@ -1,4 +1,4 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import React from "react";
 import { Trash, AlignLeft } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, ContentByTextEditor, DisplayField } from "@shared/ui";
 import { useAdminCoursePackage } from "@entities/coursePackage";
 import { DeleteCoursePackageModal } from "@features/coursePackages";
 import { PackageInfo } from "./components";
@@ -61,7 +61,7 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
                         <DisplayField label="Стоимость" value={`${coursePackageData?.price.toLocaleString("ru")} ₽`} />
                     </Fieldset>
                     <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                        <Text className={classes.description} dangerouslySetInnerHTML={{ __html: coursePackageData?.description || "" }} />
+                        <ContentByTextEditor data={coursePackageData?.description} />
                     </Fieldset>
                     {coursePackageData?.discount && (
                         <Fieldset label="Параметры скидки" icon={<IconPercentage />}>

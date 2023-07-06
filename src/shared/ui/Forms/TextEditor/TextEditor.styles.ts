@@ -1,4 +1,5 @@
 import { CSSObject, MantineTheme, createStyles } from "@mantine/core";
+import { textEditorContentStyles } from "@shared/styles";
 
 interface TCreateStylesParams {
     isError: boolean;
@@ -40,6 +41,8 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         ".ProseMirror": {
             height: "100%",
         },
+
+        ...textEditorContentStyles(theme),
     },
 
     controlsGroup: {

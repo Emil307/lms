@@ -1,11 +1,11 @@
-import { Box, Flex, Title, Text, BoxProps } from "@mantine/core";
+import { Box, Flex, Title, BoxProps } from "@mantine/core";
 import React from "react";
 import { Trash, Edit3 } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, ContentByTextEditor, DisplayField } from "@shared/ui";
 import { AdminArticle, useAdminArticle } from "@entities/article";
 import { DeleteArticleModal } from "@features/articles";
 import { InfoCard } from "@components/InfoCard";
@@ -58,7 +58,7 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
                     <DisplayField label="Теги" value={tagsNames} />
                 </Fieldset>
                 <Fieldset label="Контент статьи" icon={<IconFileText />}>
-                    <Text className={classes.description} dangerouslySetInnerHTML={{ __html: articleData?.content || "" }} />
+                    <ContentByTextEditor data={articleData?.content} />
                 </Fieldset>
             </Flex>
             <Box>
