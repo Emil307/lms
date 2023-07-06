@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType, $LastUpdated, $Profile } from "@shared/types";
+import { $FilterType, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType, $LastUpdated, $Profile } from "@shared/types";
 import { $User } from "@entities/user";
 import { $AdminCourse } from "@entities/course";
 
@@ -193,7 +193,7 @@ export const $AdminGroupsRequest = z.object({
 export const $GetAdminGroupsRequest = $getFiltersRequestType($AdminGroupsRequest);
 
 export const $GetAdminGroupFiltersRequest = z.object({
-    type: z.literal("fetch").or(z.literal("manipulation")),
+    type: $FilterType,
 });
 
 export const $GetAdminGroupFiltersResponse = z.object({

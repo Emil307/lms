@@ -14,7 +14,7 @@ import { adaptGetAdminGroupsRequest } from "./utils";
 const AdminList = () => {
     const router = useRouter();
 
-    const groupFilters = useAdminGroupFilters({ type: "fetch" });
+    const groupFilters = useAdminGroupFilters({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id: String(cell.row.original.id) } });

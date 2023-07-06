@@ -19,7 +19,7 @@ export interface AdminListProps extends BoxProps {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
-    const courseReviewsResources = useAdminCourseReviewsResources();
+    const courseReviewsResources = useAdminCourseReviewsResources({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseReviewFromList>) => {
         router.push({ pathname: "/admin/settings/course-reviews/[id]", query: { id: cell.row.original.id.toString() } });

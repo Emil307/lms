@@ -9,6 +9,7 @@ import {
     DeleteCourseReviewRequest,
     DeleteCourseReviewResponse,
     GetAdminCourseReviewRequest,
+    GetAdminCourseReviewResourcesRequest,
     GetAdminCourseReviewResourcesResponse,
     GetAdminCourseReviewResponse,
     GetAdminCourseReviewsRequest,
@@ -29,8 +30,8 @@ class CourseReviewApi extends BaseApi {
         return $GetAdminCourseReviewResponse.parse(response);
     }
 
-    async getAdminCourseReviewsResources(): Promise<GetAdminCourseReviewResourcesResponse> {
-        const response = await this.instance.get("admin/course-reviews/resources");
+    async getAdminCourseReviewsResources(params: GetAdminCourseReviewResourcesRequest): Promise<GetAdminCourseReviewResourcesResponse> {
+        const response = await this.instance.get("admin/course-reviews/resources", { params });
         return $GetAdminCourseReviewResourcesResponse.parse(response);
     }
 

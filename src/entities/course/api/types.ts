@@ -8,6 +8,7 @@ import {
     $getPaginationResponseType,
     $DiscountType,
     $LastUpdated,
+    $FilterType,
 } from "@shared/types";
 
 /**
@@ -33,6 +34,7 @@ export type AdminCoursesNoIncludedArticleFiltersForm = z.infer<typeof $AdminCour
 //REQ/RESP
 export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
 export type GetAdminCoursesRequest = z.infer<typeof $GetAdminCoursesRequest>;
+export type GetAdminCourseResourcesRequest = z.infer<typeof $GetAdminCourseResourcesRequest>;
 export type GetAdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResourcesResponse>;
 export type GetAdminCoursesResponse = z.infer<typeof $GetAdminCoursesResponse>;
 export type GetAdminCourseResponse = z.infer<typeof $GetAdminCourseResponse>;
@@ -156,6 +158,10 @@ export const $AdminCourse = z.object({
 });
 
 export const $CreateCourseResponse = $AdminCourse;
+
+export const $GetAdminCourseResourcesRequest = z.object({
+    type: $FilterType,
+});
 
 export const $GetAdminCourseResourcesResponse = z.object({
     categories: z.array($AdminCourseCategory),

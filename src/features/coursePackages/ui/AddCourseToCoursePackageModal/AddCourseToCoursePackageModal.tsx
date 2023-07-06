@@ -19,7 +19,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminCourseResources();
+    const courseResources = useAdminCourseResources({ type: "select" });
     const attachCoursesToPackage = useAttachCourseToCoursePackage(coursePackageId);
 
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);

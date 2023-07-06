@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@shared/constant";
-import { courseApi } from "@entities/course";
+import { GetAdminCourseResourcesRequest, GetAdminCourseResourcesResponse, courseApi } from "@entities/course";
 
-export const useAdminCourseResources = () => {
-    return useQuery([QueryKeys.GET_ADMIN_COURSE_RESOURCES], () => courseApi.getAdminCourseResources());
+export const useAdminCourseResources = (params: GetAdminCourseResourcesRequest) => {
+    return useQuery<GetAdminCourseResourcesResponse>([QueryKeys.GET_ADMIN_COURSE_RESOURCES, params], () =>
+        courseApi.getAdminCourseResources(params)
+    );
 };

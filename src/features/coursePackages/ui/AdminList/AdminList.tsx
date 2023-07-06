@@ -15,7 +15,7 @@ import { adaptGetAdminCoursePackagesRequest } from "./utils";
 
 const AdminList = () => {
     const router = useRouter();
-    const coursePackageResources = useAdminCoursePackageResourses();
+    const coursePackageResources = useAdminCoursePackageResourses({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCoursePackage>) => {
         router.push({ pathname: "/admin/settings/course-packages/[id]", query: { id: cell.row.original.id.toString() } });
