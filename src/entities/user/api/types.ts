@@ -8,8 +8,8 @@ import {
     TRequestFilterParams,
     $getFiltersRequestType,
     $LastUpdated,
+    $UserNotifications,
 } from "@shared/types";
-import { $UserNotifications } from "@entities/notification";
 
 export type TUser = z.infer<typeof $User>;
 export type UserFromList = z.infer<typeof $UserFromList>;

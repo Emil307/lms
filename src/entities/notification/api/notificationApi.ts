@@ -1,8 +1,15 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    $GetNewNotificationsResponse,
+    $GetNotificationsResponse,
+    $ReadAllNotificationsResponse,
     $UpdateAdminUserNotificationResponse,
     $UpdateUserNotificationResponse,
+    GetNewNotificationsResponse,
+    GetNotificationsRequest,
+    GetNotificationsResponse,
+    ReadAllNotificationsResponse,
     UpdateAdminUserNotificationRequest,
     UpdateAdminUserNotificationResponse,
     UpdateUserNotificationRequest,
@@ -10,17 +17,34 @@ import {
 } from "./types";
 
 class NotificationApi extends BaseApi {
-    async updateUserNotification(data: UpdateUserNotificationRequest): Promise<UpdateUserNotificationResponse> {
-        const response = await this.instance.put("notifications", data);
-        return $UpdateUserNotificationResponse.parse(response);
-    }
-
+    //ADMIN LAYER
     async updateAdminUserNotification({
         userId,
         ...data
     }: UpdateAdminUserNotificationRequest): Promise<UpdateAdminUserNotificationResponse> {
         const response = await this.instance.put(`admin/users/${userId}/notifications`, data);
         return $UpdateAdminUserNotificationResponse.parse(response);
+    }
+
+    //USER LAYER
+    async getNotifications(data: GetNotificationsRequest): Promise<GetNotificationsResponse> {
+        const response = await this.instance.post("notifications/list", data);
+        return $GetNotificationsResponse.parse(response);
+    }
+
+    async getNewNotifications(): Promise<GetNewNotificationsResponse> {
+        const response = await this.instance.get("notifications/new");
+        return $GetNewNotificationsResponse.parse(response);
+    }
+
+    async updateUserNotification(data: UpdateUserNotificationRequest): Promise<UpdateUserNotificationResponse> {
+        const response = await this.instance.put("notifications", data);
+        return $UpdateUserNotificationResponse.parse(response);
+    }
+
+    async readAllNotifications(): Promise<ReadAllNotificationsResponse> {
+        const response = await this.instance.post("notifications/read-all");
+        return $ReadAllNotificationsResponse.parse(response);
     }
 }
 

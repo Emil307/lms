@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { $UploadedFile, $Profile, $Role } from "@shared/types";
-import { $UserNotifications } from "@entities/notification";
+import { $UploadedFile, $Profile, $Role, $UserNotifications } from "@shared/types";
 
 export interface ChangePasswordRequest {
     oldPassword: string;

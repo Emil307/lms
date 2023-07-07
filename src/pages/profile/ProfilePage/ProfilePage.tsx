@@ -7,7 +7,7 @@ import { BreadCrumbs, Button, DisplayField } from "@shared/ui";
 import { User, useMe } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
-import { List as NotificationList } from "@widgets/notifications";
+import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateUserNotification } from "@entities/notification";
 import { breadCrumbsItems, fields } from "./constants";
 import useStyles from "./ProfilePage.styles";
@@ -65,7 +65,11 @@ const ProfilePage = () => {
                     </Fieldset>
 
                     <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                        <NotificationList notifications={userData?.notifications} variant="primary" onChange={handleChangeNotification} />
+                        <SettingsNotificationList
+                            notifications={userData?.notifications}
+                            variant="primary"
+                            onChange={handleChangeNotification}
+                        />
                     </Fieldset>
                 </Flex>
                 <Box>
