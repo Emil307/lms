@@ -28,6 +28,7 @@ export type AdminCourse = z.infer<typeof $AdminCourse>;
 //FILTERS
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
 export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCoursesForCoursePackageFiltersForm>;
+export type AdminCoursesForCourseCollectionFiltersForm = z.infer<typeof $AdminCoursesForCourseCollectionFiltersForm>;
 export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
 export type AdminCoursesNoIncludedArticleFiltersForm = z.infer<typeof $AdminCoursesNoIncludedArticleFiltersForm>;
 
@@ -206,6 +207,8 @@ export const $AdminCoursesForCoursePackageFiltersForm = z.object({
     subcategoryId: z.string(),
 });
 
+export const $AdminCoursesForCourseCollectionFiltersForm = $AdminCoursesForCoursePackageFiltersForm;
+
 export const $AdminCoursesRequest = z.object({
     query: z.string().optional(),
     paginate: z.boolean().optional(),
@@ -214,6 +217,7 @@ export const $AdminCoursesRequest = z.object({
             isActive: z.boolean(),
             tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             teacherIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            collectionIds: $getMultiValueObjectType(z.string(), z.literal("or")).or($getMultiValueObjectType(z.string(), z.literal("not"))),
             packageIds: $getMultiValueObjectType(z.string(), z.literal("or")).or($getMultiValueObjectType(z.string(), z.literal("not"))),
             createdAt: $getDateObjectType(z.literal("range")),
             "category.id": z.string().nullable(),

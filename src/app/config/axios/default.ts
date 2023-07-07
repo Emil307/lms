@@ -3,12 +3,14 @@ import {
     defaultHeaders,
     errorLogger,
     handleAxiosError,
+    whenApiRoutesRoute,
     whenArticlesMicroserviceRoute,
     whenAuthMicroserviceRoute,
     whenCoursesMicroserviceRoute,
     whenUsingUploadToStorageRoute,
 } from "./helpers";
 import {
+    apiRoutesInterceptor,
     articlesMicroserviceInterceptor,
     authMicroserviceInterceptor,
     coursesMicroserviceInterceptor,
@@ -32,6 +34,11 @@ axios.interceptors.request.use(tokenInterceptor, errorLogger, { runWhen: () => t
  *  Добавляй content-type = multipart/form-data, если загружает файл.
  */
 axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenUsingUploadToStorageRoute });
+
+/**
+ *  Меняй baseUrl, если работаешь с API Routes.
+ */
+axios.interceptors.request.use(apiRoutesInterceptor, errorLogger, { runWhen: whenApiRoutesRoute });
 
 /**
  *  Меняй baseUrl, если работаешь с микросервисом AUTH.

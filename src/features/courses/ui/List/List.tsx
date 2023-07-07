@@ -35,7 +35,7 @@ const List = ({
     const params = router.query as TRouterQueries;
 
     const {
-        data: courseSetsData,
+        data: coursesData,
         isFetching,
         isLoading,
     } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, perPage, collectionIds }), visible);
@@ -43,18 +43,18 @@ const List = ({
     const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 
     const renderContent = () => {
-        if (!isLoading && !courseSetsData?.data.length && !!Object.values(params).find((param) => !!param)) {
+        if (!isLoading && !coursesData?.data.length && !!Object.values(params).find((param) => !!param)) {
             return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
         }
 
         return (
             <Box {...props} w="100%">
                 <ListComponent<Course>
-                    data={courseSetsData?.data}
+                    data={coursesData?.data}
                     renderItem={(props) => <Card {...props} />}
                     colProps={colProps}
                     withPagination={withPagination}
-                    pagination={courseSetsData?.pagination}
+                    pagination={coursesData?.pagination}
                     declensionWordCountItems={["курс", "курса", "курсов"]}
                     isLoading={isFetching}
                     onClick={handleClickCard}

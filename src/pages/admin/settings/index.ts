@@ -6,3 +6,4 @@ export * from "./tags";
 export * from "./materials";
 export * from "./coursePackages";
 export * from "./courseReviews";
+export * from "./courseCollections";

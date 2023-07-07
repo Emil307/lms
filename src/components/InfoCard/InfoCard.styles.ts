@@ -15,10 +15,27 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
     },
     imageWrapper: {
         position: "relative",
+        marginBottom: 16,
         borderRadius: 16,
     },
     image: {
         borderRadius: "inherit",
+    },
+
+    iconWrapper: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 270,
+        height: 166,
+        marginBottom: 16,
+        borderRadius: 16,
+        backgroundColor: theme.colors.neutralLight[0],
+        color: theme.colors.primary[0],
+
+        svg: {
+            width: 86,
+            height: 86,
+        },
     },
     content: {
         flexDirection: "column",
