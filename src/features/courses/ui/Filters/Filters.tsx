@@ -14,7 +14,7 @@ export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
 }
 
 const Filters = ({ children, title, ...props }: FiltersProps) => {
-    const courseResources = useCourseResources();
+    const courseResources = useCourseResources({ type: "select" });
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 

@@ -14,13 +14,18 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         margin: "0px !important",
         gap: 16,
+
+        ".mantine-Spoiler-control": {
+            position: "absolute",
+            right: 0,
+            bottom: 0,
+            fontWeight: 600,
+            fontSize: 16,
+            lineHeight: "24px",
+            color: theme.colors.dark[0],
+        },
     },
-    createdAt: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
+
     rating: {
         alignItems: "center",
         alignSelf: "self-start",
@@ -37,12 +42,7 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.dark[0],
     },
-    courseNameHelperText: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
+
     courseName: {
         fontWeight: 500,
         fontSize: 14,

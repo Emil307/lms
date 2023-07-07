@@ -7,14 +7,12 @@ import {
     GetCourseProgramModuleLessonsResponse,
     GetCourseProgramResponse,
     GetMyCoursesResponse,
-    GetCourseTeachersResponse,
     GetAdminCourseResourcesResponse,
     $GetAdminCourseResourcesResponse,
     $GetAdminCoursesResponse,
     $GetMyCoursesResponse,
     $GetCourseProgramResponse,
     $GetCourseProgramModuleLessonsResponse,
-    $GetCourseTeachersResponse,
     GetCoursesResponse,
     $GetCoursesResponse,
     GetCoursesRequest,
@@ -42,6 +40,7 @@ import {
     UpdateCoursePublicationResponse,
     $UpdateCoursePublicationResponse,
     GetAdminCourseResourcesRequest,
+    GetCourseResourcesRequest,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -50,8 +49,8 @@ class CourseApi extends BaseApi {
         return $GetAdminCourseResourcesResponse.parse(response);
     }
 
-    async getCourseResources(): Promise<GetCourseResourcesResponse> {
-        const response = await this.instance.get("courses/resources");
+    async getCourseResources(params: GetCourseResourcesRequest): Promise<GetCourseResourcesResponse> {
+        const response = await this.instance.get("courses/resources", { params });
         return $GetCourseResourcesResponse.parse(response);
     }
 
@@ -120,11 +119,6 @@ class CourseApi extends BaseApi {
     }: GetCourseProgramModuleLessonsRequest): Promise<GetCourseProgramModuleLessonsResponse> {
         const response = await this.instance.get(`/courses/${courseId}/program/${programId}`);
         return $GetCourseProgramModuleLessonsResponse.parse(response);
-    }
-    //TODO: getCourseTeachers deprecated
-    async getCourseTeachers(): Promise<GetCourseTeachersResponse> {
-        const response = await this.instance.get(`teachers`);
-        return $GetCourseTeachersResponse.parse(response);
     }
 }
 

@@ -5,3 +5,4 @@ export * from "./AdvantagesBlock";
 export * from "./StaticReviewsBlock";
 export * from "./CoursePackagesBlock";
 export * from "./TeachersBlock";
+export * from "./CourseReviewsBlock";

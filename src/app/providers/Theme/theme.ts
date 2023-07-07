@@ -2,8 +2,10 @@
 import { MantineColor } from "@mantine/core";
 import { MantineThemeColors } from "@mantine/core";
 import { MantineThemeOverride } from "@mantine/core";
+import dayjs from "dayjs";
 import * as fonts from "./fonts";
 import "dayjs/locale/ru";
+dayjs.locale("ru");
 
 export const addMantineColor = (color: string): MantineThemeColors[MantineColor] => {
     return [color, color, color, color, color, color, color, color, color, color];

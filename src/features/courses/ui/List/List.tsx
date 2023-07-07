@@ -71,7 +71,7 @@ const List = ({
             <Skeleton visible={isLoading} {...skeletonListProps}>
                 {renderContent()}
             </Skeleton>
-            <Skeleton visible={isLoading} radius={16}>
+            <Skeleton visible={isLoading} radius={16} sx={{ display: "flex" }}>
                 {footerSlot}
             </Skeleton>
         </Flex>

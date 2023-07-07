@@ -12,6 +12,8 @@ import { DeleteGroupModal } from "@features/groups";
 import { InfoCard } from "@components/InfoCard";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
+import "dayjs/locale/ru";
+dayjs.locale("ru");
 
 export interface GroupSettingsProps extends BoxProps {
     id: string;

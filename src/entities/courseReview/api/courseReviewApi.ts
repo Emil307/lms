@@ -1,11 +1,15 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
+    $CreateCourseReviewResponse,
     $DeleteCourseReviewResponse,
     $GetAdminCourseReviewResourcesResponse,
     $GetAdminCourseReviewResponse,
     $GetAdminCourseReviewsResponse,
+    $GetCourseReviewsResponse,
     $UpdateCourseReviewPublishingStatusResponse,
+    CreateCourseReviewRequest,
+    CreateCourseReviewResponse,
     DeleteCourseReviewRequest,
     DeleteCourseReviewResponse,
     GetAdminCourseReviewRequest,
@@ -14,6 +18,8 @@ import {
     GetAdminCourseReviewResponse,
     GetAdminCourseReviewsRequest,
     GetAdminCourseReviewsResponse,
+    GetCourseReviewsRequest,
+    GetCourseReviewsResponse,
     UpdateCourseReviewPublishingStatusRequest,
     UpdateCourseReviewPublishingStatusResponse,
 } from "./types";
@@ -46,6 +52,16 @@ class CourseReviewApi extends BaseApi {
     }: UpdateCourseReviewPublishingStatusRequest): Promise<UpdateCourseReviewPublishingStatusResponse> {
         const response = await this.instance.put(`admin/course-reviews/${id}/publishing-status`, params);
         return $UpdateCourseReviewPublishingStatusResponse.parse(response);
+    }
+    //USER
+    async getCourseReviews(params: GetCourseReviewsRequest): Promise<GetCourseReviewsResponse> {
+        const response = await this.instance.post("course-reviews/list", params);
+        return $GetCourseReviewsResponse.parse(response);
+    }
+
+    async createCourseReview(data: CreateCourseReviewRequest): Promise<CreateCourseReviewResponse> {
+        const response = await this.instance.post("course-reviews", data);
+        return $CreateCourseReviewResponse.parse(response);
     }
 }
 
