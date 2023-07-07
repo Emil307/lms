@@ -50,7 +50,7 @@ const Footer = ({ data }: FooterProps) => {
                         data.articlesCount,
                         "статья",
                         "статьи",
-                        "статей"
+                        "статей",
                     )}`}</Text>
                 </Flex>
                 <> {renderAmount()}</>

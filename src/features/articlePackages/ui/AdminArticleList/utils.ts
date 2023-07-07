@@ -3,7 +3,7 @@ import { GetAdminArticlesRequest } from "@entities/article";
 import { AdminArticlesFromArticlePackageExtraFilters } from "@entities/articlePackage";
 
 export const adaptGetAdminArticlesRequest = (
-    params: TFunctionParams<unknown, AdminArticlesFromArticlePackageExtraFilters>
+    params: TFunctionParams<unknown, AdminArticlesFromArticlePackageExtraFilters>,
 ): GetAdminArticlesRequest => {
     const { articlePackageIds, ...rest } = params;
 

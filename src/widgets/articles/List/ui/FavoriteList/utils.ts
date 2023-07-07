@@ -2,7 +2,7 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { ArticleAndArticleCategoryFiltersForm, GetFavoriteArticlesRequest } from "@entities/article";
 
 export const adaptGetFavoriteArticlesRequest = (
-    params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>
+    params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>,
 ): GetFavoriteArticlesRequest => {
     const { tags = [], subcategoryIds = [], ...rest } = params;
 

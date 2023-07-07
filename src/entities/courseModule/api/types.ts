@@ -15,7 +15,9 @@ export type UpdateCourseModuleResponse = z.infer<typeof $UpdateCourseModuleRespo
 export type UpdateCourseModuleFormValues = z.infer<typeof $UpdateCourseModuleFormValues>;
 export type UpdateCourseModuleActivityRequest = z.infer<typeof $UpdateCourseModuleActivityRequest>;
 export type UpdateCourseModuleActivityResponse = z.infer<typeof $UpdateCourseModuleActivityResponse>;
-export type DeleteCourseModuleRequest = z.infer<typeof DeleteCourseModuleRequest>;
+export type DeleteCourseModuleRequest = z.infer<typeof $DeleteCourseModuleRequest>;
+export type UpdateCourseModuleOrderRequest = z.infer<typeof $UpdateCourseModuleOrderRequest>;
+export type UpdateCourseModuleOrderResponse = z.infer<typeof $UpdateCourseModuleOrderResponse>;
 export type AttachLessonFromCourseModuleRequest = z.infer<typeof $AttachLessonToCourseModuleRequest>;
 export type DetachLessonFromCourseModuleRequest = z.infer<typeof $DetachLessonFromCourseModuleRequest>;
 
@@ -30,7 +32,7 @@ export const $CourseModule = z.object({
 export const $GetCourseModulesRequest = $getFiltersRequestType(
     z.object({
         courseId: z.string(),
-    })
+    }),
 );
 
 export const $GetCourseModulesResponse = $getPaginationResponseType($CourseModule);
@@ -75,10 +77,18 @@ export const $UpdateCourseModuleActivityResponse = $UpdateCourseModuleActivityRe
     isActive: true,
 });
 
-export const DeleteCourseModuleRequest = z.object({
+export const $DeleteCourseModuleRequest = z.object({
     courseId: z.string(),
     moduleId: z.string(),
 });
+
+export const $UpdateCourseModuleOrderRequest = z.object({
+    courseId: z.string(),
+    moduleId: z.string(),
+    after: z.number(),
+});
+
+export const $UpdateCourseModuleOrderResponse = $CourseModule;
 
 export const $AttachLessonToCourseModuleRequest = z.object({
     courseId: z.string(),

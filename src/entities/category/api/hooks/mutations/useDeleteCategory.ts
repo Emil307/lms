@@ -39,6 +39,6 @@ export const useDeleteCategory = ({ id }: DeleteAdminCategoryRequest) => {
                     title: "Ошибка удаления категории",
                 });
             },
-        }
+        },
     );
 };

@@ -45,7 +45,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
         }
 
         return `${dayjs(articlePackageData.discount.startingDate).format("DD.MM.YYYY")} - ${dayjs(
-            articlePackageData.discount.finishingDate
+            articlePackageData.discount.finishingDate,
         ).format("DD.MM.YYYY")}`;
     };
 

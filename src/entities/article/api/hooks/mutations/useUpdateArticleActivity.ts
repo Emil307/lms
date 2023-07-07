@@ -7,7 +7,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
 export const useUpdateArticleActivity = (
-    id: string
+    id: string,
 ): UseMutationResult<UpdateArticleActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
         [MutationKeys.UPDATE_ARTICLE_ACTIVITY, id],
@@ -22,7 +22,7 @@ export const useUpdateArticleActivity = (
 
                 queryClient.setQueryData<GetAdminArticleResponse>(
                     [QueryKeys.GET_ADMIN_ARTICLE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
                 );
 
                 queryClient.setQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_ARTICLES], (previousData) => {
@@ -33,7 +33,7 @@ export const useUpdateArticleActivity = (
                     return {
                         ...previousData,
                         data: previousData.data.map((article) =>
-                            String(article.id) === id ? { ...article, isActive: updatedStatus } : article
+                            String(article.id) === id ? { ...article, isActive: updatedStatus } : article,
                         ),
                     };
                 });
@@ -71,6 +71,6 @@ export const useUpdateArticleActivity = (
                     message: `Статья "${articleData?.name || articleFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

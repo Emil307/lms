@@ -32,6 +32,6 @@ export const useDeleteCourseFromCoursePackage = (params: DeleteCourseFromCourseP
                     title: "Ошибка удаления курса из пакета",
                 });
             },
-        }
+        },
     );
 };

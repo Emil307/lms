@@ -3,7 +3,7 @@ import { AdminArticleMaterialsExtraFilters } from "@entities/storage";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
 export const adaptGetArticleCoursesRequest = (
-    params: TFunctionParams<unknown, AdminArticleMaterialsExtraFilters>
+    params: TFunctionParams<unknown, AdminArticleMaterialsExtraFilters>,
 ): GetAdminCoursesRequest => {
     const { articleId, ...rest } = params;
 

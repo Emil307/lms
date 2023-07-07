@@ -31,6 +31,6 @@ export const useDeleteUploadedFile = (id: string) => {
                     title: "Ошибка удаления материала",
                 });
             },
-        }
+        },
     );
 };

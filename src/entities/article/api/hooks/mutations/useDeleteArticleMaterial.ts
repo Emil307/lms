@@ -33,6 +33,6 @@ export const useDeleteArticleMaterial = (data: DeleteAdminArticleMaterialRequest
                     title: "Ошибка удаления файла",
                 });
             },
-        }
+        },
     );
 };

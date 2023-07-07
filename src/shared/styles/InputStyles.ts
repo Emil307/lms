@@ -19,7 +19,7 @@ export const useInputStyles = createStyles(
             clearable?: boolean;
             statusSuccess?: boolean;
             isActive?: boolean;
-        }
+        },
     ) => ({
         root: {
             position: "relative",
@@ -160,5 +160,5 @@ export const useInputStyles = createStyles(
                 },
             },
         },
-    })
+    }),
 );

@@ -34,6 +34,6 @@ export const useDeleteAuthor = ({ id }: DeleteAuthorRequest) => {
                     title: "Ошибка удаления автора",
                 });
             },
-        }
+        },
     );
 };

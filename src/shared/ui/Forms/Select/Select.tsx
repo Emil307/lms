@@ -52,7 +52,7 @@ const MemoizedSelect = (props: SelectProps) => {
             size: size,
             isActive: props.data.find((option) => option.value === props.value)?.isActive,
         },
-        { name: "Select", classNames, styles, unstyled }
+        { name: "Select", classNames, styles, unstyled },
     );
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -112,7 +112,7 @@ const MemoizedSelect = (props: SelectProps) => {
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -151,7 +151,7 @@ const MemoizedSelect = (props: SelectProps) => {
 
     const renderComponent = useCallback(
         (props: any) => props.itemComponent ?? <SelectItem {...props} ref={lastElementRef} />,
-        [props.itemComponent, lastElementRef]
+        [props.itemComponent, lastElementRef],
     );
 
     return (

@@ -4,6 +4,6 @@ import { GetAdminCoursePackageResoursesRequest, GetAdminCoursePackageResoursesRe
 
 export const useAdminCoursePackageResourses = (params: GetAdminCoursePackageResoursesRequest) => {
     return useQuery<GetAdminCoursePackageResoursesResponse>([QueryKeys.GET_ADMIN_COURSE_PACKAGE_RESOURCES, params], () =>
-        coursePackageApi.getAdminCoursePackageResourses(params)
+        coursePackageApi.getAdminCoursePackageResourses(params),
     );
 };

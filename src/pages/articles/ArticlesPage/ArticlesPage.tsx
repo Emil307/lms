@@ -39,7 +39,7 @@ const ArticlesPage = () => {
                 query: { ...router.query, page: "1", ...prepareQueryParams(values) },
             },
             undefined,
-            { shallow: true }
+            { shallow: true },
         );
     };
 

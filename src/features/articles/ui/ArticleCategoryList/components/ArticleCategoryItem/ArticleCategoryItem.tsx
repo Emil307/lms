@@ -29,7 +29,7 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
                     data.articlesCount,
                     "статья",
                     "статьи",
-                    "статей"
+                    "статей",
                 )}`}</Text>
             </Flex>
             <ThemeIcon className={classes.arrowIcon}>

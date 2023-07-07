@@ -35,6 +35,6 @@ export const useAttachLessonToCourseModule = ({
                     title: "Ошибка прикрепления урока(ов) к модулю",
                 });
             },
-        }
+        },
     );
 };

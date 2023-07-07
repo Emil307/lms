@@ -2,7 +2,7 @@ import { AdminArticleMaterialsExtraFilters, GetUploadedFilesRequest } from "@ent
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
 export const adaptGetArticleMaterialFilesRequest = (
-    params: TFunctionParams<unknown, AdminArticleMaterialsExtraFilters>
+    params: TFunctionParams<unknown, AdminArticleMaterialsExtraFilters>,
 ): GetUploadedFilesRequest => {
     const { articleId, ...rest } = params;
 

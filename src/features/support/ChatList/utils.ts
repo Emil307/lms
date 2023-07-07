@@ -2,7 +2,7 @@ import { AdminSupportConversationFiltersForm, GetAdminSupportConversationsReques
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
 export const adaptGetAdminSupportConversationsRequest = (
-    params: TFunctionParams<AdminSupportConversationFiltersForm> & { isSelectedConversationByManageSearch?: boolean }
+    params: TFunctionParams<AdminSupportConversationFiltersForm> & { isSelectedConversationByManageSearch?: boolean },
 ): GetAdminSupportConversationsRequest => {
     const { userId, isSelectedConversationByManageSearch = false, ...rest } = params;
 

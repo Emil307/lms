@@ -49,7 +49,7 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
                 <Box ref={containerRef} />
             </ScrollArea.Autosize>
         ),
-        [messagesData]
+        [messagesData],
     );
 
     if (isLoading) {

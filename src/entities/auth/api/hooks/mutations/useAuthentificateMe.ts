@@ -34,6 +34,6 @@ export const useAuthenticateMe = () => {
                     title: "Ошибка аутентификации",
                 });
             },
-        }
+        },
     );
 };

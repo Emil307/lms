@@ -6,6 +6,6 @@ export const useCoursePackages = (params: GetCoursePackagesRequest, enabled?: bo
     return useInfiniteRequest<CoursePackage>(
         [QueryKeys.GET_COURSE_PACKAGES, params],
         ({ pageParam = 1 }) => coursePackageApi.getCoursePackages({ ...params, page: pageParam }),
-        { enabled }
+        { enabled },
     );
 };

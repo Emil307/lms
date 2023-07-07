@@ -66,7 +66,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {

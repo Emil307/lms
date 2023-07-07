@@ -53,7 +53,7 @@ export default function FFileInputMultiple({
                 id: index + 1,
                 data: file,
             })),
-        [fieldLoaded.value]
+        [fieldLoaded.value],
     );
 
     const error = useMemo(() => (metaLoaded.touched && metaLoaded.error) || undefined, [metaLoaded.error, metaLoaded.touched]);

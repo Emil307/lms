@@ -269,7 +269,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Размер скидки должен быть целым пложительный числом",
             path: ["discount.amount"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -281,7 +281,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Размер скидки не может быть больше 100%",
             path: ["discount.amount"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -293,7 +293,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Размер скидки не может быть больше стоимости",
             path: ["discount.amount"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -305,7 +305,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Выберите период",
             path: ["discount.startingDate"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -317,7 +317,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Выберите преподавателей",
             path: ["teacherIds"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -329,7 +329,7 @@ export const $CreateCourseFormValues = z
         {
             message: "Выберите Авторов",
             path: ["authorIds"],
-        }
+        },
     );
 
 export const $CreateCourseRequest = z.object({
@@ -542,7 +542,7 @@ export const $CourseDetailData = z.object({
                     id: z.number(),
                     name: z.string(),
                     slug: z.string(),
-                })
+                }),
             )
             .length(2),
     }),

@@ -103,7 +103,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                         <DisplayField
                             label="Период действия"
                             value={`${dayjs(data.discount.startingDate).format("DD.MM.YYYY")}-${dayjs(data.discount.finishingDate).format(
-                                "DD.MM.YYYY"
+                                "DD.MM.YYYY",
                             )}`}
                         />
                     </Fieldset>

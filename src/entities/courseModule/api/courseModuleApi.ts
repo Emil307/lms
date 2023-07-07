@@ -18,6 +18,9 @@ import {
     DeleteCourseModuleRequest,
     $GetCourseModuleResponse,
     DetachLessonFromCourseModuleRequest,
+    UpdateCourseModuleOrderRequest,
+    UpdateCourseModuleOrderResponse,
+    $UpdateCourseModuleOrderResponse,
 } from "./types";
 
 class CourseModuleApi extends BaseApi {
@@ -52,6 +55,11 @@ class CourseModuleApi extends BaseApi {
 
     async deleteModule({ courseId, moduleId }: DeleteCourseModuleRequest): Promise<void> {
         await this.instance.delete(`admin/courses/${courseId}/modules/${moduleId}`);
+    }
+
+    async updateModuleOrder({ courseId, moduleId, ...data }: UpdateCourseModuleOrderRequest): Promise<UpdateCourseModuleOrderResponse> {
+        const response = await this.instance.put(`admin/courses/${courseId}/modules/${moduleId}/order`, data);
+        return $UpdateCourseModuleOrderResponse.parse(response);
     }
 
     async attachLessonToModule({ courseId, moduleId, ...params }: DetachLessonFromCourseModuleRequest): Promise<void> {

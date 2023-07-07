@@ -75,7 +75,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {

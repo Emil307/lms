@@ -80,7 +80,7 @@ const MultiSelect = ({
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {

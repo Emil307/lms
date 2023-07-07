@@ -8,6 +8,6 @@ export const useAdminSubCategories = (data: GetAdminSubCategoriesRequest) => {
         () => categoryApi.getAdminSubCategories(data),
         {
             enabled: !!data.filter.parentId,
-        }
+        },
     );
 };

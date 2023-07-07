@@ -90,7 +90,7 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
                 query: { ...router.query, page: "1", ...prepareQueryParams(values) },
             },
             undefined,
-            { shallow: true }
+            { shallow: true },
         );
     };
 

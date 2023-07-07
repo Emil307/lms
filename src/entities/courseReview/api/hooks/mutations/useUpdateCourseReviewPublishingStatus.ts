@@ -36,7 +36,7 @@ export const useUpdateCourseReviewPublishingStatus = ({ id }: Omit<UpdateCourseR
 
                 queryClient.setQueryData<GetAdminCourseReviewResponse>(
                     [QueryKeys.GET_ADMIN_COURSE_REVIEW, id],
-                    (previousData) => previousData && { ...previousData, isPublished }
+                    (previousData) => previousData && { ...previousData, isPublished },
                 );
 
                 queryClient.setQueriesData<GetAdminCourseReviewsResponse>([QueryKeys.GET_ADMIN_COURSE_REVIEWS], (previousData) => {
@@ -47,7 +47,7 @@ export const useUpdateCourseReviewPublishingStatus = ({ id }: Omit<UpdateCourseR
                     return {
                         ...previousData,
                         data: previousData.data.map((courseReview) =>
-                            String(courseReview.id) === id ? { ...courseReview, isPublished } : courseReview
+                            String(courseReview.id) === id ? { ...courseReview, isPublished } : courseReview,
                         ),
                     };
                 });
@@ -85,6 +85,6 @@ export const useUpdateCourseReviewPublishingStatus = ({ id }: Omit<UpdateCourseR
                     message: `Отзыв  ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

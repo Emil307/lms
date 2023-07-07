@@ -21,7 +21,7 @@ export const RadioGroup = ({ children, error, success, description, spacing = 16
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {

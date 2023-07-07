@@ -6,6 +6,6 @@ export const useStaticUsers = (data: Omit<GetStaticUsersRequest, "page">, enable
     return useInfiniteRequest<StaticUserFromList>(
         [QueryKeys.GET_STATIC_USERS, data],
         ({ pageParam = 1 }) => userApi.getStaticUsers({ ...data, page: pageParam }),
-        { enabled }
+        { enabled },
     );
 };

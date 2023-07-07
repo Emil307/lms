@@ -20,7 +20,7 @@ export const $changePasswordFormValidationSchema = z
         {
             message: "Введите пароль",
             path: ["oldPassword"],
-        }
+        },
     )
     .refine((value) => value.password === value.passwordConfirmation, {
         message: "Пароли не совпадают",

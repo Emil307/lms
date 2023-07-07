@@ -31,6 +31,6 @@ export const useDeleteCoursePackage = (id: string) => {
                     title: "Ошибка удаления пакета курсов",
                 });
             },
-        }
+        },
     );
 };

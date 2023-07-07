@@ -87,7 +87,7 @@ class ArticleApi extends BaseApi {
      *
      */
     async getAdminArticles(
-        params: GetAdminArticlesRequest | GetAdminArticlesNoIncludedArticlePackageRequest
+        params: GetAdminArticlesRequest | GetAdminArticlesNoIncludedArticlePackageRequest,
     ): Promise<GetAdminArticlesResponse> {
         const response = await this.instance.post("admin/articles/list", params);
         return $GetAdminArticlesResponse.parse(response);

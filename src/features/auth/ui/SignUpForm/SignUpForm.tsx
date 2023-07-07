@@ -44,7 +44,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                             }
                         }
                     },
-                }
+                },
             );
         },
     };

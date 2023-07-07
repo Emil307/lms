@@ -2,7 +2,7 @@ import { AdminSubCategoriesExtraFilters, GetAdminSubCategoriesRequest } from "@e
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
 export const adaptGetAdminSubCategoriesRequest = (
-    params: TFunctionParams<unknown, AdminSubCategoriesExtraFilters>
+    params: TFunctionParams<unknown, AdminSubCategoriesExtraFilters>,
 ): GetAdminSubCategoriesRequest => {
     const { parentId, ...rest } = params;
 

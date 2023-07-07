@@ -29,7 +29,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
                     <Accordion.Panel>{faqItem.answer}</Accordion.Panel>
                 </Accordion.Item>
             )),
-        [faqData, selected]
+        [faqData, selected],
     );
 
     if (!faqData?.length) {

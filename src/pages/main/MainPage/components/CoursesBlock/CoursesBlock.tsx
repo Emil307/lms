@@ -29,7 +29,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     </Text>
                 );
             }),
-        [courseResources]
+        [courseResources],
     );
 
     return (

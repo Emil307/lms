@@ -32,7 +32,7 @@ export const $UpdateMainBannerFormValidation = z
         {
             message: "Введите имя",
             path: ["indexBannerAuthorFirstName"],
-        }
+        },
     )
     .refine(
         (data) => {
@@ -44,5 +44,5 @@ export const $UpdateMainBannerFormValidation = z
         {
             message: "Введите фамилию",
             path: ["indexBannerAuthorLastName"],
-        }
+        },
     );

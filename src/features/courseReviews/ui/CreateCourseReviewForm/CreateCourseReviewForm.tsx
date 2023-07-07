@@ -40,7 +40,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                     {data.categories[0].name}
                 </Badge>
             )),
-        [data.categories]
+        [data.categories],
     );
 
     //TODO: Заменить на ManagedForm
@@ -61,7 +61,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                         data.reviewCount,
                         "отзыв",
                         "отзыва",
-                        "отзывов"
+                        "отзывов",
                     )}`}</Text>
                 </Flex>
             </Group>
@@ -78,7 +78,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                                     values.rating,
                                     "балл",
                                     "балла",
-                                    "баллов"
+                                    "баллов",
                                 )}`}</Text>
                                 <Text className={classes.selectedRatingMaxValue}>из 5</Text>
                             </Group>

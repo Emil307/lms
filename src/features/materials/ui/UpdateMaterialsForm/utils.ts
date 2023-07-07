@@ -28,7 +28,7 @@ export const adaptEditMaterialsInitialValues = (data: UploadedFile[]): Partial<U
 
 export const adaptEditMaterialsFormRequest = (
     data: UpdateMaterialsFormValidationSchema,
-    categoryIds?: string[]
+    categoryIds?: string[],
 ): UpdateUploadedFilesRequest => {
     const isBinding = data.isBinding && !!categoryIds?.length;
     return {

@@ -30,7 +30,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
                     hiddenCountCourse,
                     "курс",
                     "курса",
-                    "курсов"
+                    "курсов",
                 )}`}</Text>
                 <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
                     <ChevronRight />

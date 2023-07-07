@@ -25,6 +25,6 @@ export const useUpdateFaqOrder = () => {
                     title: "Ошибка обновления порядка карточек",
                 });
             },
-        }
+        },
     );
 };

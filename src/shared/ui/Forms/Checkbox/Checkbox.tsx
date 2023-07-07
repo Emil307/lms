@@ -20,7 +20,7 @@ const MemoizedCheckbox = memo(function Checkbox({ error, wrapperProps, ...props 
                     <Text>{error}</Text>
                 </Flex>
             ),
-        [error]
+        [error],
     );
 
     return (

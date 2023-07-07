@@ -30,7 +30,7 @@ export const useDataGridPagination = (disableQueryParams: boolean) => {
                 query: { ...router.query, perPage: `${pagination.pageSize}`, page: `${pagination.pageIndex}` },
             },
             undefined,
-            { shallow: true }
+            { shallow: true },
         );
     }, [pagination, router.isReady]);
 

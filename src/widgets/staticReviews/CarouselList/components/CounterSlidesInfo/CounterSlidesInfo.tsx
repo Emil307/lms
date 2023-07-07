@@ -9,7 +9,7 @@ export interface CounterSlidesInfoProps {
 
 const CounterSlidesInfo = forwardRef(function CounterSlidesInfo(
     { current, total }: CounterSlidesInfoProps,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
 ) {
     const { classes } = useStyles();
     return (

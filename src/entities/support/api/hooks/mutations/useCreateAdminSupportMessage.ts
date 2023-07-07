@@ -26,6 +26,6 @@ export const useCreateAdminSupportMessage = () => {
                     title: "Ошибка отправки сообщения",
                 });
             },
-        }
+        },
     );
 };

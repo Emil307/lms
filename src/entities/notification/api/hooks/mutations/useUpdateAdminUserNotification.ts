@@ -27,7 +27,7 @@ export const useUpdateAdminUserNotification = (userId: string) => {
                             ...previousData.notifications,
                             [updatedNotification.notification]: updatedNotification.isActive,
                         },
-                    }
+                    },
             );
 
             return { previousUserData };

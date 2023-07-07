@@ -31,7 +31,7 @@ const MemoizedSlider = memo(function Slider({ showTextInfo = false, ...props }: 
                 </Text>
             </Box>
         ),
-        [props.min, props.value]
+        [props.min, props.value],
     );
 
     return (

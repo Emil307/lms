@@ -30,6 +30,6 @@ export const useDeleteArticleCourse = (data: DeleteArticleCourseRequest) => {
                     title: "Ошибка удаления привязки курса",
                 });
             },
-        }
+        },
     );
 };

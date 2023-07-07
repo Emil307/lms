@@ -40,7 +40,7 @@ export const useUpdateCourseModuleActivity = ({
 
                 queryClient.setQueryData<GetCourseModuleResponse>(
                     [QueryKeys.GET_COURSE_MODULE, courseId, moduleId],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
                 );
                 queryClient.setQueriesData<InfiniteData<TPaginationResponse<CourseModule[]>>>(
                     [QueryKeys.GET_COURSE_MODULES, courseId],
@@ -53,11 +53,11 @@ export const useUpdateCourseModuleActivity = ({
                             pages: previousData.pages.map((page) => ({
                                 ...page,
                                 data: page.data.map((module) =>
-                                    String(module.id) === moduleId ? { ...module, isActive: updatedStatus } : module
+                                    String(module.id) === moduleId ? { ...module, isActive: updatedStatus } : module,
                                 ),
                             })),
                         };
-                    }
+                    },
                 );
 
                 return { previousCourseModuleData, previousCourseModulesData };
@@ -87,6 +87,6 @@ export const useUpdateCourseModuleActivity = ({
                     message: `Модуль "${courseModule?.name || courseModuleFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

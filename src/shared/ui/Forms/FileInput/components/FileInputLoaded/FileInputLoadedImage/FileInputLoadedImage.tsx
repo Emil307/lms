@@ -51,7 +51,7 @@ export default function FileInputLoadedImage({
                     onError: (error) => {
                         onError(error.response?.data.message);
                     },
-                }
+                },
             );
         }
     }, [file, error]);

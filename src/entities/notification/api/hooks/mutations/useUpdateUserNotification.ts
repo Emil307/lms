@@ -26,7 +26,7 @@ export const useUpdateUserNotification = () => {
                                 ...previousData.notifications,
                                 [updatedNotification.notification]: updatedNotification.isActive,
                             },
-                        }
+                        },
                 );
 
                 return { previousUserData };
@@ -50,6 +50,6 @@ export const useUpdateUserNotification = () => {
                     title: "Изменения сохранены",
                 });
             },
-        }
+        },
     );
 };

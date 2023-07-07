@@ -14,7 +14,7 @@ export const useUpdateCourseType = (id: string): UseMutationResult<UpdateCourseT
 
             queryClient.setQueryData<GetAdminCourseResponse>(
                 [QueryKeys.GET_ADMIN_COURSE, id],
-                (previousData) => previousData && { ...previousData, type: updatedType }
+                (previousData) => previousData && { ...previousData, type: updatedType },
             );
 
             return { previousCourseData };

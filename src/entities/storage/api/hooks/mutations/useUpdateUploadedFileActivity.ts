@@ -20,7 +20,7 @@ export const useUpdateUploadedFileActivity = (id: number) => {
 
                 queryClient.setQueryData<GetAdminUploadedFileResponse>(
                     [QueryKeys.GET_ADMIN_UPLOADED_FILE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
                 );
 
                 queryClient.setQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES], (previousData) => {
@@ -66,6 +66,6 @@ export const useUpdateUploadedFileActivity = (id: number) => {
                     message: `Материал "${materialData?.name || materialFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

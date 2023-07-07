@@ -26,8 +26,8 @@ class AuthApi extends BaseApi {
         method: HTTPMethod.POST,
         path: `authentication/authenticate`,
         requestSchema: $AuthFormValidationSchema,
-        responseSchema: $AuthenticateResponse
-    })
+        responseSchema: $AuthenticateResponse,
+    });
     async authenticateMe(data: AuthData): Promise<AuthenticateResponse> {
         const response = await this.instance.post("authentication/authenticate", data);
         return $AuthenticateResponse.parse(response);

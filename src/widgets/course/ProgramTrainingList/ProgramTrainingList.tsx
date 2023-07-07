@@ -86,7 +86,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                         data.homeworkCount,
                         "домашнее задание",
                         "домашнего задания",
-                        "домашних заданий"
+                        "домашних заданий",
                     )}, ${data.testCount} ${getPluralString(data.testCount, "тест", "теста", "тестов")}`,
                 },
                 {
@@ -98,7 +98,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                             getMonthDifference(data.dateStart, data.dateEnd),
                             "месяц",
                             "месяца",
-                            "месяцев"
+                            "месяцев",
                         )}`,
                 },
             ].map((item, index) => (
@@ -107,7 +107,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                     <Text className={classes.aboutCourseValue}>{item.value}</Text>
                 </Flex>
             )),
-        [data.moduleCount, data.lessonCount, data.homeworkCount, data.testCount, data.dateStart, data.dateEnd]
+        [data.moduleCount, data.lessonCount, data.homeworkCount, data.testCount, data.dateStart, data.dateEnd],
     );
 
     const renderModules = useMemo(
@@ -125,7 +125,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                                         programModule.lessonCount,
                                         "урок",
                                         "урока",
-                                        "уроков"
+                                        "уроков",
                                     )}`}</Text>
                                 </Flex>
                                 <Flex gap={6}>
@@ -134,7 +134,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                                         programModule.practiceCount,
                                         "практика",
                                         "практики",
-                                        "практик"
+                                        "практик",
                                     )}`}</Text>
                                 </Flex>
                             </Group>
@@ -143,7 +143,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                     </Accordion.Item>
                 );
             }),
-        [data, selected]
+        [data, selected],
     );
 
     return (

@@ -23,6 +23,6 @@ export const useRecoveryPassword = () => {
                     title: "Ошибка восстановления пароля",
                 });
             },
-        }
+        },
     );
 };
