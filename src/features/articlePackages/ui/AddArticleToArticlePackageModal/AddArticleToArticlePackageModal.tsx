@@ -25,7 +25,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminArticleFilters();
+    const articleResources = useAdminArticleFilters();
     const attachArticleToPackage = useAttachArticleToArticlePackage(articlePackageId);
 
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
@@ -89,13 +89,13 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                                         name="categoryId"
                                         size="sm"
                                         data={prepareOptionsForSelect({
-                                            data: courseResources.data?.categories,
+                                            data: articleResources.data?.categories,
                                             value: "id",
                                             label: "name",
                                         })}
                                         clearable
                                         label="Категория"
-                                        disabled={courseResources.isLoading}
+                                        disabled={articleResources.isLoading}
                                         w="100%"
                                         maw={210}
                                     />
@@ -103,13 +103,13 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                                         name="subcategoryId"
                                         size="sm"
                                         data={prepareOptionsForSelect({
-                                            data: courseResources.data?.subcategories,
+                                            data: articleResources.data?.subcategories,
                                             value: "id",
                                             label: "name",
                                         })}
                                         clearable
                                         label="Подкатегория"
-                                        disabled={courseResources.isLoading}
+                                        disabled={articleResources.isLoading}
                                         w="100%"
                                         maw={210}
                                     />

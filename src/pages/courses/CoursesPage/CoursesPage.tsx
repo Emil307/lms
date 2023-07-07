@@ -3,11 +3,11 @@ import React from "react";
 import { Folder } from "react-feather";
 import { BreadCrumbs } from "@shared/ui";
 import { List as CoursesList, Filters } from "@features/courses";
-import { List as CourseSetList } from "@features/courseSets";
+import { List as CourseCollectionList } from "@features/courseCollections";
 import { breadCrumbsItems } from "./constants";
 
 const CoursesPage = () => {
-    const titleCourseSets = `Топовые подборки курсов ${new Date().getFullYear()}`;
+    const titleCourseCollections = `Топовые подборки курсов ${new Date().getFullYear()}`;
 
     return (
         <Box>
@@ -25,9 +25,9 @@ const CoursesPage = () => {
                     <CoursesList colProps={{ sm: 6 }} withPagination />
                     <Flex direction="column" gap={32}>
                         <Title color="dark" order={2}>
-                            {titleCourseSets}
+                            {titleCourseCollections}
                         </Title>
-                        <CourseSetList perPage={3} hasCardMore colProps={{ sm: 6, xs: 12 }} />
+                        <CourseCollectionList perPage={3} hasCardMore colProps={{ sm: 6, xs: 12 }} />
                     </Flex>
                 </Flex>
             </Filters>

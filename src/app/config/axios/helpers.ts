@@ -37,6 +37,15 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
 /**
  *
  * @param config AxiosConfigObject
+ * @returns true если запрос из next api routes
+ */
+export const whenApiRoutesRoute: TAxiosRunWhen = (config) => {
+    return !!config.url?.includes("external-icons");
+};
+
+/**
+ *
+ * @param config AxiosConfigObject
  * @returns true если запрос из микросервиса AUTH
  */
 export const whenAuthMicroserviceRoute: TAxiosRunWhen = (config) => {

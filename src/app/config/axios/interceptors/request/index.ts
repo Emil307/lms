@@ -14,6 +14,11 @@ export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     return config;
 };
 
+export const apiRoutesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
+    config.baseURL = process.env.NEXT_PUBLIC_API_ROUTES_URL;
+    return config;
+};
+
 export const authMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     config.baseURL = process.env.NEXT_PUBLIC_API_URL_AUTH;
     return config;

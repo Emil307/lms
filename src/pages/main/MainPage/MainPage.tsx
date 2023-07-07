@@ -4,7 +4,7 @@ import { MainBanner } from "@widgets/mainBanner";
 import {
     AdvantagesBlock,
     CoursePackagesBlock,
-    CourseSetsBlock,
+    CourseCollectionsBlock,
     CoursesBlock,
     FaqBlock,
     StaticReviewsBlock,
@@ -16,7 +16,7 @@ const MainPage = () => {
         <Box>
             <MainBanner />
             <AdvantagesBlock mt={24} />
-            <CourseSetsBlock mt={64} />
+            <CourseCollectionsBlock mt={64} />
             <CoursesBlock mt={64} />
             <StaticReviewsBlock mt={64} />
             {/* //TODO: Нет эндпоинта для получения списка отзывов  */}

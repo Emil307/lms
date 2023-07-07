@@ -14,3 +14,4 @@ export * from "./getLocaleString";
 export * from "./getDataFromSessionStorage";
 export * from "./getDiscountPrice";
 export * from "./getDiscountValue";
+export * from "./getIcon";

@@ -13,14 +13,7 @@ export const filterInitialValues: AdminCoursesForCoursePackageFiltersForm = {
     tags: [],
 };
 
-export const columnOrder = [
-    "mrt-row-select",
-    "id",
-    "name",
-    "category",
-    //TODO: нужно чтобы бек добавил
-    // "subcategory"
-];
+export const columnOrder = ["mrt-row-select", "id", "name", "category.name", "subcategory.name"];
 
 export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
@@ -33,13 +26,10 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     },
     {
         header: "Категория курса",
-        accessorKey: "category",
-        accessorFn: (row) => row.category?.name || "",
+        accessorKey: "category.name",
     },
-    //TODO: нужно чтобы бек добавил
-    // {
-    //     header: "Подкатегория",
-    //     accessorKey: "subcategory",
-    //     accessorFn: (row) => row.subcategory?.name || "",
-    // },
+    {
+        header: "Подкатегория",
+        accessorKey: "subcategory.name",
+    },
 ];

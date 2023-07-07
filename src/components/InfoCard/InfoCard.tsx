@@ -1,9 +1,10 @@
-import { Avatar, AvatarProps, Box, Group } from "@mantine/core";
+import { Avatar, AvatarProps, Box, Flex, Group } from "@mantine/core";
 import { memo, ReactNode, useCallback } from "react";
 import { get } from "lodash";
 import Image from "next/image";
 import { DisplayField } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
+import { getIcon } from "@shared/utils";
 import useStyles from "./InfoCard.styles";
 import { TInfoCardDisplayFields, TInfoCardImageProps } from "./types";
 
@@ -13,11 +14,21 @@ export type TInfoCardProps<T> = {
     avatar?: AvatarProps;
     values?: T;
     image?: TInfoCardImageProps;
+    iconName?: string;
     actionSlot?: ReactNode;
     variant?: "whiteBg" | "grayBg";
 };
 
-function InfoCard<T>({ avatar, image, fields, hideFieldIfEmpty = false, values, actionSlot, variant = "whiteBg" }: TInfoCardProps<T>) {
+function InfoCard<T>({
+    avatar,
+    image,
+    iconName,
+    fields,
+    hideFieldIfEmpty = false,
+    values,
+    actionSlot,
+    variant = "whiteBg",
+}: TInfoCardProps<T>) {
     const { classes } = useStyles({ variant });
 
     const renderImage = useCallback(() => {
@@ -32,6 +43,16 @@ function InfoCard<T>({ avatar, image, fields, hideFieldIfEmpty = false, values, 
             </Box>
         );
     }, [image]);
+
+    const renderIcon = useCallback(() => {
+        if (!iconName) {
+            return null;
+        }
+
+        const icon = getIcon({ iconName });
+
+        return <Flex className={classes.iconWrapper}>{icon}</Flex>;
+    }, [iconName]);
 
     const renderAvatar = useCallback(() => {
         if (!avatar) {
@@ -73,6 +94,7 @@ function InfoCard<T>({ avatar, image, fields, hideFieldIfEmpty = false, values, 
     return (
         <Box className={classes.root}>
             <Group className={classes.content}>
+                {renderIcon()}
                 {renderImage()}
                 {renderAvatar()}
                 {renderFields()}

@@ -41,6 +41,10 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/settings/authors">
     | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
+    | DynamicRoute<"/admin/settings/course-collections/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-collections/[id]", { "id": string }>
+    | StaticRoute<"/admin/settings/course-collections/create">
+    | StaticRoute<"/admin/settings/course-collections">
     | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-packages/create">
@@ -71,7 +75,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
-    | StaticRoute<"/api/hello">
+    | StaticRoute<"/api/external-icons">
     | DynamicRoute<"/articles/[id]", { "id": string }>
     | DynamicRoute<"/articles/by-category/[categoryId]/article/[id]", { "categoryId": string; "id": string }>
     | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
@@ -82,9 +86,9 @@ declare module "nextjs-routes" {
     | StaticRoute<"/auth/recovery-password">
     | StaticRoute<"/auth/sign-up">
     | StaticRoute<"/contacts">
+    | DynamicRoute<"/course-collections/[id]", { "id": string }>
+    | StaticRoute<"/course-collections">
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
-    | DynamicRoute<"/course-sets/[id]", { "id": string }>
-    | StaticRoute<"/course-sets">
     | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/courses/favorite">
     | StaticRoute<"/courses">
