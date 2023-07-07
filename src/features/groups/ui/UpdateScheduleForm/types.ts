@@ -12,6 +12,7 @@ export const $UpdateScheduleFormValidation = z.object({
     scheduleTimings: z.array(
         z
             .object({
+                id: z.number().optional(),
                 from: z.coerce
                     .date()
                     .nullable()

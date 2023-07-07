@@ -340,7 +340,20 @@ export const $CreateAdminGroupScheduleRequest = z.object({
 
 export const $CreateAdminGroupScheduleResponse = z.null();
 
-export const $UpdateAdminGroupScheduleRequest = $CreateAdminGroupScheduleRequest.extend({ scheduleId: z.number() });
+export const $UpdateAdminGroupScheduleRequest = z.object({
+    groupId: z.string(),
+    scheduleDate: z.string().datetime(),
+    scheduleTimings: z.array(
+        z
+            .object({
+                id: z.number().optional(),
+                from: z.string().datetime(),
+                to: z.string().datetime(),
+            })
+            .optional()
+    ),
+    scheduleId: z.number(),
+});
 
 export const $UpdateAdminGroupScheduleResponse = z.null();
 
