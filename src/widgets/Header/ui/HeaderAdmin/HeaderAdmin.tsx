@@ -2,10 +2,10 @@ import React from "react";
 import { Box, ActionIcon, Avatar, Flex, Header as MHeader, Text, ThemeIcon } from "@mantine/core";
 import { LogOut, Settings } from "react-feather";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { useSession } from "@features/auth";
 import { Logo } from "@components/Logo";
+import { Menu as NotificationMenu } from "@widgets/notifications";
 import useStyles from "./HeaderAdmin.styles";
 
 const HeaderAdmin = () => {
@@ -22,7 +22,7 @@ const HeaderAdmin = () => {
                 <Logo />
             </Box>
             <Flex align="center" justify="space-between" w="100%">
-                <Button variant="text">Notification</Button>
+                <NotificationMenu position="bottom-start" />
 
                 <Flex align="center" gap={32}>
                     <Flex align="center" gap={16}>

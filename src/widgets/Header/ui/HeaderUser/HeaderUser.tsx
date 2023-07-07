@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { useSession } from "@features/auth";
+import { Menu as NotificationMenu } from "@widgets/notifications";
 import { menuLinks } from "./constants";
 import { Menu } from "./components";
 import useStyles from "./HeaderUser.styles";
@@ -56,7 +57,7 @@ const HeaderUser = () => {
                 </Flex>
 
                 <Flex align="center" gap={24}>
-                    {/* TODO: Добавить иконку с количеством уведомлений  */}
+                    <NotificationMenu position="bottom-end" />
                     <Menu user={user} />
                 </Flex>
             </Flex>

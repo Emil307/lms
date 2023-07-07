@@ -9,7 +9,7 @@ import { useDetailUser } from "@entities/user";
 import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
-import { List as NotificationList } from "@widgets/notifications";
+import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
 import { fields } from "./constants";
@@ -108,7 +108,11 @@ const SettingUser = ({ id }: SettingUserProps) => {
                     </Box>
 
                     <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                        <NotificationList notifications={data?.notifications} variant="secondary" onChange={handleChangeNotification} />
+                        <SettingsNotificationList
+                            notifications={data?.notifications}
+                            variant="secondary"
+                            onChange={handleChangeNotification}
+                        />
                     </Fieldset>
                 </Group>
                 <Box>

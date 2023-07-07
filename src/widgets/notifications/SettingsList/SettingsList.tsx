@@ -1,15 +1,15 @@
 import { Flex, FlexProps } from "@mantine/core";
-import { UserNotifications } from "@entities/notification";
+import { TUserNotifications } from "@shared/types";
 import { NotificationItem } from "./components";
-import useStyles from "./List.styles";
+import useStyles from "./SettingsList.styles";
 
-export interface ListProps extends Omit<FlexProps, "children" | "onChange"> {
-    notifications?: UserNotifications;
+export interface SettingsListProps extends Omit<FlexProps, "children" | "onChange"> {
+    notifications?: TUserNotifications;
     variant: "primary" | "secondary";
     onChange: (fieldName: string, value: boolean) => void;
 }
 
-const List = ({ notifications, variant, onChange, ...props }: ListProps) => {
+const SettingsList = ({ notifications, variant, onChange, ...props }: SettingsListProps) => {
     const { classes } = useStyles();
 
     if (!notifications) {
@@ -25,4 +25,4 @@ const List = ({ notifications, variant, onChange, ...props }: ListProps) => {
     );
 };
 
-export default List;
+export default SettingsList;
