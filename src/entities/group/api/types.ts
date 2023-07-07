@@ -350,7 +350,7 @@ export const $UpdateAdminGroupScheduleRequest = z.object({
                 from: z.string().datetime(),
                 to: z.string().datetime(),
             })
-            .optional()
+            .optional(),
     ),
     scheduleId: z.number(),
 });

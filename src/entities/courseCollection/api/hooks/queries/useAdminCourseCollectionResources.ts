@@ -8,6 +8,6 @@ import {
 
 export const useAdminCourseCollectionResources = (params: GetAdminCourseCollectionResourcesRequest) => {
     return useQuery<GetAdminCourseCollectionResourcesResponse>([QueryKeys.GET_ADMIN_COURSE_COLLECTION_RESOURCES, params], () =>
-        courseCollectionApi.getAdminCourseCollectionResources(params)
+        courseCollectionApi.getAdminCourseCollectionResources(params),
     );
 };

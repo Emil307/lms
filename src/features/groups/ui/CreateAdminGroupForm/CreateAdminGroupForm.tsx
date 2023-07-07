@@ -1,36 +1,34 @@
 import { Box, Text, Flex, Grid, BoxProps } from "@mantine/core";
 import React from "react";
 import { Flag, FolderPlus } from "react-feather";
-import { useRouter } from "next/router";
 import { Button, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { $CreateGroupFormValidation, CreateGroupFormValidation } from "./types";
-import { initialValues } from "./constant";
-import { adaptCreateAdminGroupRequest } from "./utils";
+import { adaptCreateAdminGroupRequest, adaptCreateAdminGroupForm } from "./utils";
 
 export interface CreateAdminGroupFormProps extends BoxProps {
-    onClose: () => void;
+    courseId?: string;
+    onSuccess: (group: CreateAdminGroupResponse) => void;
+    onCancel: () => void;
 }
 
-const CreateAdminGroupForm = ({ onClose, ...props }: CreateAdminGroupFormProps) => {
-    const router = useRouter();
-
+const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: CreateAdminGroupFormProps) => {
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
 
     const createGroup = (values: CreateGroupFormValidation) => {
         return groupApi.createAdminGroup(adaptCreateAdminGroupRequest(values));
     };
 
-    const onSuccess = (response: CreateAdminGroupResponse) => {
+    const onSuccessCreated = (response: CreateAdminGroupResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Создание группы",
             message: "Группа успешно создана",
         });
-        router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.id) } });
+        onSuccess(response);
     };
 
     const onError = () => {
@@ -43,15 +41,15 @@ const CreateAdminGroupForm = ({ onClose, ...props }: CreateAdminGroupFormProps) 
     return (
         <Box {...props}>
             <ManagedForm<CreateGroupFormValidation, CreateAdminGroupResponse>
-                initialValues={initialValues}
+                initialValues={adaptCreateAdminGroupForm(courseId)}
                 validationSchema={$CreateGroupFormValidation}
                 mutationKey={[MutationKeys.CREATE_ADMIN_GROUP]}
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUPS] }]}
                 mutationFunction={createGroup}
-                onSuccess={onSuccess}
+                onSuccess={onSuccessCreated}
                 onError={onError}
                 hasConfirmModal
-                onCancel={onClose}>
+                onCancel={onCancel}>
                 {({ values, dirty, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
@@ -71,7 +69,7 @@ const CreateAdminGroupForm = ({ onClose, ...props }: CreateAdminGroupFormProps) 
                                     })}
                                     clearable
                                     label="Выберите курс"
-                                    disabled={groupFilters.isLoading}
+                                    disabled={!!courseId || groupFilters.isLoading}
                                     w="100%"
                                 />
                             </Fieldset>

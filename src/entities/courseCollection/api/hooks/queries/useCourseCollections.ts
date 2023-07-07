@@ -8,6 +8,6 @@ export const useCourseCollections = (params: GetCourseCollectionsRequest, enable
         () => courseCollectionApi.getCourseCollections(params),
         {
             enabled,
-        }
+        },
     );
 };

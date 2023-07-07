@@ -3,7 +3,7 @@ import { AdminCoursesFromCourseCollectionExtraFilters } from "@entities/courseCo
 import { GetAdminCoursesRequest } from "@entities/course";
 
 export const adaptGetAdminCoursesRequest = (
-    params: TFunctionParams<unknown, AdminCoursesFromCourseCollectionExtraFilters>
+    params: TFunctionParams<unknown, AdminCoursesFromCourseCollectionExtraFilters>,
 ): GetAdminCoursesRequest => {
     const { collectionIds, ...rest } = params;
 

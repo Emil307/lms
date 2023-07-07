@@ -42,11 +42,7 @@ const AdminList = (props: AdminListProps) => {
                     columnOrder,
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
+                {({ dirty, resetForm }) => {
                     return (
                         <Box mb={24}>
                             <Group sx={{ gap: 8 }}>
@@ -83,11 +79,11 @@ const AdminList = (props: AdminListProps) => {
                                 </FRadioGroup>
                             </Box>
                             <Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                                <Button mt={16} type="submit" w="100%" maw={164}>
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
+                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={resetForm}>
                                         Сбросить
                                     </Button>
                                 )}

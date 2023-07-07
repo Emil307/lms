@@ -92,7 +92,11 @@ const MemoizedSelect = (props: SelectProps) => {
         }
         if (props.value && props.clearable) {
             return (
-                <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", pointerEvents: "initial" }} onClick={handlerClear}>
+                <ThemeIcon
+                    variant="outline"
+                    color="gray45"
+                    sx={{ border: "none", pointerEvents: props.disabled ? "none" : "initial" }}
+                    onClick={handlerClear}>
                     <X />
                 </ThemeIcon>
             );

@@ -1,7 +1,6 @@
 import { Box, Text, Flex, Grid, BoxProps } from "@mantine/core";
 import React from "react";
 import { Flag, FolderPlus } from "react-feather";
-import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Button, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
@@ -13,12 +12,13 @@ import { adaptUpdateAdminGroupForm, adaptUpdateAdminGroupRequest } from "./utils
 import useStyles from "./UpdateAdminGroupForm.styles";
 
 export interface UpdateAdminGroupFormProps extends BoxProps {
+    courseId?: string;
     data?: GetAdminGroupResponse;
-    onClose: () => void;
+    onSuccess: (group: UpdateAdminGroupResponse) => void;
+    onCancel: () => void;
 }
 
-const UpdateAdminGroupForm = ({ data, onClose, ...props }: UpdateAdminGroupFormProps) => {
-    const router = useRouter();
+const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }: UpdateAdminGroupFormProps) => {
     const { classes } = useStyles();
 
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
@@ -27,12 +27,12 @@ const UpdateAdminGroupForm = ({ data, onClose, ...props }: UpdateAdminGroupFormP
         return groupApi.updateAdminGroup({ ...adaptUpdateAdminGroupRequest(values), id: String(data?.id) });
     };
 
-    const onSuccess = (response: UpdateAdminGroupResponse) => {
+    const onSuccessUpdated = (response: UpdateAdminGroupResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Изменения сохранены",
         });
-        router.push({ pathname: "/admin/groups/[id]", query: { id: String(response.id) } });
+        onSuccess(response);
     };
 
     const onError = () => {
@@ -53,10 +53,10 @@ const UpdateAdminGroupForm = ({ data, onClose, ...props }: UpdateAdminGroupFormP
                     { queryKey: [QueryKeys.GET_ADMIN_GROUP, String(data?.id)] },
                 ]}
                 mutationFunction={updateGroup}
-                onSuccess={onSuccess}
+                onSuccess={onSuccessUpdated}
                 onError={onError}
                 hasConfirmModal
-                onCancel={onClose}>
+                onCancel={onCancel}>
                 {({ values, dirty, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
@@ -89,7 +89,7 @@ const UpdateAdminGroupForm = ({ data, onClose, ...props }: UpdateAdminGroupFormP
                                     })}
                                     clearable
                                     label="Выберите курс"
-                                    disabled={groupFilters.isLoading}
+                                    disabled={!!courseId || groupFilters.isLoading}
                                     w="100%"
                                 />
                             </Fieldset>
