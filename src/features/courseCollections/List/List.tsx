@@ -26,7 +26,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
         isFetching,
         isLoading,
     } = useCourseCollections(
-        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
+        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId }),
     );
 
     const getCountSets = () => {

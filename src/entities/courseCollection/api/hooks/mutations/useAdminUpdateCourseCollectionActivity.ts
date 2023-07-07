@@ -37,7 +37,7 @@ export const useAdminUpdateCourseCollectionActivity = ({
 
                 queryClient.setQueryData<GetAdminCourseCollectionResponse>(
                     [QueryKeys.GET_ADMIN_COURSE_COLLECTION, id],
-                    (previousData) => previousData && { ...previousData, isActive }
+                    (previousData) => previousData && { ...previousData, isActive },
                 );
 
                 queryClient.setQueriesData<GetAdminCourseCollectionsResponse>([QueryKeys.GET_ADMIN_COURSE_COLLECTIONS], (previousData) => {
@@ -48,7 +48,7 @@ export const useAdminUpdateCourseCollectionActivity = ({
                     return {
                         ...previousData,
                         data: previousData.data.map((courseCollection) =>
-                            String(courseCollection.id) === id ? { ...courseCollection, isActive } : courseCollection
+                            String(courseCollection.id) === id ? { ...courseCollection, isActive } : courseCollection,
                         ),
                     };
                 });
@@ -90,6 +90,6 @@ export const useAdminUpdateCourseCollectionActivity = ({
                     message: `Подборка курсов "${courseCollectionData?.name || courseCollectionFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

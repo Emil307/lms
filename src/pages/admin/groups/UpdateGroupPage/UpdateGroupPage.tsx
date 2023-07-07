@@ -2,21 +2,18 @@ import { Box, Title, Text, Flex, Badge } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader } from "@shared/ui";
-import { useAdminGroup } from "@entities/group";
+import { UpdateAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { UpdateAdminGroupForm } from "@features/groups";
 import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./UpdateGroupPage.styles";
+import { TRequestParams } from "./types";
 
 const UpdateGroupPage = () => {
     const router = useRouter();
-    const { id } = router.query as TRouterQueries;
+    const { id, courseId } = router.query as TRouterQueries & TRequestParams;
     const { data: groupData, isLoading, isError } = useAdminGroup({ id });
     const { classes } = useStyles({ statusType: groupData?.status.type });
-
-    const handleCancel = () => {
-        router.push("/admin/groups");
-    };
 
     if (!router.isReady || isLoading) {
         return <Loader />;
@@ -25,6 +22,20 @@ const UpdateGroupPage = () => {
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
+
+    const handleCancelForm = () => {
+        if (courseId) {
+            return router.push({ pathname: "/admin/courses/[id]", query: { id: String(groupData.course.id), tab: "groups" } });
+        }
+        router.push("/admin/groups");
+    };
+
+    const handleSuccessForm = (group: UpdateAdminGroupResponse) => {
+        if (courseId) {
+            return router.push({ pathname: "/admin/courses/[id]", query: { id: String(groupData.course.id), tab: "groups" } });
+        }
+        router.push({ pathname: "/admin/groups/[id]", query: { id: String(group.id) } });
+    };
 
     return (
         <Box>
@@ -38,7 +49,7 @@ const UpdateGroupPage = () => {
                     {groupData.status.name}
                 </Badge>
             </Flex>
-            <UpdateAdminGroupForm data={groupData} onClose={handleCancel} />
+            <UpdateAdminGroupForm data={groupData} courseId={courseId} onSuccess={handleSuccessForm} onCancel={handleCancelForm} />
         </Box>
     );
 };

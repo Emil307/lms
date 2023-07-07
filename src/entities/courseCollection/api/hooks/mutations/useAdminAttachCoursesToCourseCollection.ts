@@ -36,6 +36,6 @@ export const useAdminAttachCoursesToCourseCollection = ({
                     title: "Ошибка добавления курсов в подборку",
                 });
             },
-        }
+        },
     );
 };

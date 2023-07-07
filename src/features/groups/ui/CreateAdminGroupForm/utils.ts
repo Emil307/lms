@@ -15,3 +15,14 @@ export const adaptCreateAdminGroupRequest = (data: CreateGroupFormValidation): C
         educationFinishDate: dayjs(educationFinishDate).format("YYYY-MM-DD"),
     };
 };
+
+export const adaptCreateAdminGroupForm = (courseId?: string): CreateGroupFormValidation => {
+    return {
+        courseId: courseId || "",
+        name: "",
+        maxStudentsCount: null,
+        isActive: false,
+        educationStartDate: null,
+        educationFinishDate: null,
+    };
+};

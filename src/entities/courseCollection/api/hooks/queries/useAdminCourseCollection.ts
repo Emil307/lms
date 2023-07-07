@@ -8,6 +8,6 @@ export const useAdminCourseCollection = ({ id }: GetAdminCourseCollectionRequest
         () => courseCollectionApi.getAdminCourseCollection({ id }),
         {
             enabled: !!id,
-        }
+        },
     );
 };

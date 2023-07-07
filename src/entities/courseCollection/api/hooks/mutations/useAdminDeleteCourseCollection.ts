@@ -40,6 +40,6 @@ export const useAdminDeleteCourseCollection = ({ id }: DeleteAdminCourseCollecti
                     title: "Ошибка удаления подборки курсов",
                 });
             },
-        }
+        },
     );
 };
