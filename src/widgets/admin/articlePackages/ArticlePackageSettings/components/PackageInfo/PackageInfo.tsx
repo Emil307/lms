@@ -33,7 +33,7 @@ export const PackageInfo = ({ data, children }: PackageInfoProps) => {
                 ))}
             </Box>
         ),
-        [data?.categories]
+        [data?.categories],
     );
 
     return (

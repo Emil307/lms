@@ -28,7 +28,7 @@ const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props 
                     data.courses.length,
                     "курс",
                     "курса",
-                    "курсов"
+                    "курсов",
                 )} в пакете:`}</Text>
                 {children({ data })}
             </MCard.Section>

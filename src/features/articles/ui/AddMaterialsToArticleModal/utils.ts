@@ -7,7 +7,7 @@ import {
 } from "@entities/storage";
 
 export const adaptGetMaterialsRequest = (
-    params: TFunctionParams<AdminMaterialsNoIncludedArticleFiltersForm, AdminArticleMaterialsExtraFilters>
+    params: TFunctionParams<AdminMaterialsNoIncludedArticleFiltersForm, AdminArticleMaterialsExtraFilters>,
 ): GetAdminMaterialsNoIncludedArticleRequest => {
     const { categoryIds, type, createdAtFrom, createdAtTo, articleId, ...rest } = params;
 

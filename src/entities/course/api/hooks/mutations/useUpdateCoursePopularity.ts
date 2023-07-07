@@ -7,7 +7,7 @@ import { FormErrorResponse } from "@shared/types";
 import { courseApi, GetAdminCourseResponse, UpdateCoursePopularityResponse } from "@entities/course";
 
 export const useUpdateCoursePopularity = (
-    id: string
+    id: string,
 ): UseMutationResult<UpdateCoursePopularityResponse, AxiosError<FormErrorResponse>, boolean> => {
     return useMutation(
         [MutationKeys.UPDATE_COURSE_POPULARITY, id],
@@ -19,7 +19,7 @@ export const useUpdateCoursePopularity = (
 
                 queryClient.setQueryData<GetAdminCourseResponse>(
                     [QueryKeys.GET_ADMIN_COURSE, id],
-                    (previousData) => previousData && { ...previousData, isPopular: updatedPopularity }
+                    (previousData) => previousData && { ...previousData, isPopular: updatedPopularity },
                 );
 
                 return { previousCourseData };
@@ -43,6 +43,6 @@ export const useUpdateCoursePopularity = (
                     message: `Учебный курс "${course?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

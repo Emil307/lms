@@ -75,12 +75,12 @@ export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
                 <Flex direction="column">
                     {row.original.discount?.startingDate && (
                         <Text className={classes.startingDate} lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
-                            "DD.MM.YYYY"
+                            "DD.MM.YYYY",
                         )}`}</Text>
                     )}
                     {row.original.discount?.finishingDate && (
                         <Text className={classes.finishingDate} lineClamp={1}>{`до ${dayjs(row.original.discount.finishingDate).format(
-                            "DD.MM.YYYY"
+                            "DD.MM.YYYY",
                         )}`}</Text>
                     )}
                 </Flex>

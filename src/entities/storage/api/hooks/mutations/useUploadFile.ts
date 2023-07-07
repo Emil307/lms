@@ -32,6 +32,6 @@ export const useUploadFile = () => {
                     message: error.response?.data.message || error.message,
                 });
             },
-        }
+        },
     );
 };

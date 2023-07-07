@@ -29,7 +29,7 @@ export const useAdminUpdateCategoryActivity = ({
 
             queryClient.setQueryData<GetAdminCategoryResponse>(
                 [QueryKeys.GET_ADMIN_CATEGORY, id],
-                (previousData) => previousData && { ...previousData, isActive }
+                (previousData) => previousData && { ...previousData, isActive },
             );
 
             queryClient.setQueriesData<GetAdminCategoriesResponse>([QueryKeys.GET_ADMIN_CATEGORIES], (previousData) => {

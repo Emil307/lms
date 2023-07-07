@@ -30,6 +30,6 @@ export const useAttachMaterialFilesToArticle = (articleId: string) => {
                     title: "Ошибка добавления материалов к статье",
                 });
             },
-        }
+        },
     );
 };

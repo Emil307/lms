@@ -86,7 +86,7 @@ export const $CreateUserRequest = z
                     homeworkChecked: z.boolean(),
                     groupAdded: z.boolean(),
                     supportMessage: z.boolean(),
-                })
+                }),
             ),
     })
     .refine((data) => data.password === data.passwordConfirmation, {

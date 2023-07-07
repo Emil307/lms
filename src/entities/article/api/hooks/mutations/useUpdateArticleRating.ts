@@ -16,7 +16,7 @@ import { FormErrorResponse } from "@shared/types";
 type GetArticlesQueriesData = { pages: TPaginationResponse<ArticleFromList[]>[]; pageParams: Array<number | null> };
 
 export const useUpdateArticleRating = (
-    id: string
+    id: string,
 ): UseMutationResult<
     UpdateArticleRatingResponse | DeleteArticleRatingResponse,
     AxiosError<FormErrorResponse>,
@@ -40,7 +40,7 @@ export const useUpdateArticleRating = (
 
                 queryClient.setQueryData<GetArticleResponse>(
                     [QueryKeys.GET_ARTICLE, id],
-                    (previousData) => previousData && { ...previousData, userRating: updatedStatus }
+                    (previousData) => previousData && { ...previousData, userRating: updatedStatus },
                 );
                 queryClient.setQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES], (previousData) => {
                     if (!previousData) {
@@ -51,7 +51,7 @@ export const useUpdateArticleRating = (
                         ...previousData,
                         pages: previousData.pages.map((page) => {
                             const updatedDataPage = page.data.map((article) =>
-                                String(article.id) === id ? { ...article, userRating: updatedStatus } : article
+                                String(article.id) === id ? { ...article, userRating: updatedStatus } : article,
                             );
 
                             return {
@@ -85,6 +85,6 @@ export const useUpdateArticleRating = (
                     message: `Ваша реакция обновлена.`,
                 });
             },
-        }
+        },
     );
 };

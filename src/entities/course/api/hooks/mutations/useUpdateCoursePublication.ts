@@ -7,7 +7,7 @@ import { courseApi, GetAdminCourseResponse, UpdateCoursePublicationResponse } fr
 import { queryClient } from "@app/providers";
 
 export const useUpdateCoursePublication = (
-    id: string
+    id: string,
 ): UseMutationResult<UpdateCoursePublicationResponse, AxiosError<FormErrorResponse>, boolean> => {
     return useMutation(
         [MutationKeys.UPDATE_PUBLICATION_COURSE, id],
@@ -19,7 +19,7 @@ export const useUpdateCoursePublication = (
 
                 queryClient.setQueryData<GetAdminCourseResponse>(
                     [QueryKeys.GET_ADMIN_COURSE, id],
-                    (previousData) => previousData && { ...previousData, isFulfillment: updatedPublication }
+                    (previousData) => previousData && { ...previousData, isFulfillment: updatedPublication },
                 );
 
                 return { previousCourseData };
@@ -33,6 +33,6 @@ export const useUpdateCoursePublication = (
                     title: "Ошибка публикации",
                 });
             },
-        }
+        },
     );
 };

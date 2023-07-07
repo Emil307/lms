@@ -26,6 +26,6 @@ export const useDeleteCourseReview = ({ id }: DeleteCourseReviewRequest) => {
                     title: "Ошибка удаления отзыва",
                 });
             },
-        }
+        },
     );
 };

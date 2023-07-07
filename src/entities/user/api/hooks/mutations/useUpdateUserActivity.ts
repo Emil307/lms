@@ -19,7 +19,7 @@ export const useUpdateUserActivity = (id: string): UseMutationResult<void, Axios
 
             queryClient.setQueryData<TUser>(
                 [QueryKeys.GET_USER, id],
-                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                (previousData) => previousData && { ...previousData, isActive: updatedStatus },
             );
 
             queryClient.setQueriesData<GetUsersResponse>([QueryKeys.GET_USERS], (previousData) => {
@@ -41,7 +41,7 @@ export const useUpdateUserActivity = (id: string): UseMutationResult<void, Axios
                 return {
                     ...previousData,
                     data: previousData.data.map((student) =>
-                        String(student.id) === id ? { ...student, isActive: updatedStatus } : student
+                        String(student.id) === id ? { ...student, isActive: updatedStatus } : student,
                     ),
                 };
             });

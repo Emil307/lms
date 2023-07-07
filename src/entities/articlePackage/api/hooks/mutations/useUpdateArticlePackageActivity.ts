@@ -12,7 +12,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
 export const useUpdateArticlePackageActivity = (
-    id: string
+    id: string,
 ): UseMutationResult<UpdateArticlePackageActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
         [MutationKeys.UPDATE_ARTICLE_PACKAGE_ACTIVITY],
@@ -32,7 +32,7 @@ export const useUpdateArticlePackageActivity = (
 
                 queryClient.setQueryData<GetAdminArticlePackageResponse>(
                     [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
                 );
 
                 queryClient.setQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES], (previousData) => {
@@ -43,7 +43,7 @@ export const useUpdateArticlePackageActivity = (
                     return {
                         ...previousData,
                         data: previousData.data.map((articlePackage) =>
-                            String(articlePackage.id) === id ? { ...articlePackage, isActive: updatedStatus } : articlePackage
+                            String(articlePackage.id) === id ? { ...articlePackage, isActive: updatedStatus } : articlePackage,
                         ),
                     };
                 });
@@ -83,6 +83,6 @@ export const useUpdateArticlePackageActivity = (
                     message: `Пакет статей "${articlePackageData?.name || articlePackageFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

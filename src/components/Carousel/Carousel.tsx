@@ -18,7 +18,7 @@ function Carousel<T extends { id: unknown }>({ data = [], lastElemRef, children,
                     {children({ data: item })}
                 </MCarousel.Slide>
             )),
-        [data]
+        [data],
     );
 
     return (

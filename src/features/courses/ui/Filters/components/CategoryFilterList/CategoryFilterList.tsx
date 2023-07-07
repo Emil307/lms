@@ -28,7 +28,7 @@ const CategoryFilterList = ({ data, name, ...props }: CategoryFilterListProps) =
                 const isActive = field.value === category.id.toString();
                 return <CategoryItem key={category.id} data={category} isActive={isActive} onClick={handleSelectCategory} />;
             }),
-        [data, field.value]
+        [data, field.value],
     );
 
     if (!data?.length) {

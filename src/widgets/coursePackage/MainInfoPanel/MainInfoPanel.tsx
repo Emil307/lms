@@ -93,7 +93,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     data.coursesCount,
                     "курс",
                     "курса",
-                    "курсов"
+                    "курсов",
                 )} в пакете`}</Text>
                 <CourseList data={data} />
             </Flex>

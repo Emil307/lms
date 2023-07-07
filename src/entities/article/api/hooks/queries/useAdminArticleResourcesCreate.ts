@@ -4,6 +4,6 @@ import { articleApi, GetAdminArticleResourcesCreateResponse } from "@entities/ar
 
 export const useAdminArticleResourcesCreate = () => {
     return useQuery<GetAdminArticleResourcesCreateResponse>([QueryKeys.GET_ADMIN_ARTICLE_RESOURCES_CREATE], () =>
-        articleApi.getAdminArticleResourcesCreate()
+        articleApi.getAdminArticleResourcesCreate(),
     );
 };

@@ -41,7 +41,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -69,7 +69,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
 
     const getValues: TimeRangeInputValue = useMemo(
         () => [value?.[0] ? new Date(value[0]) : null, value?.[1] ? new Date(value[1]) : null],
-        [value]
+        [value],
     );
     const handleFocus = () => setFocused(true);
     const handleBlur = () => setFocused(false);

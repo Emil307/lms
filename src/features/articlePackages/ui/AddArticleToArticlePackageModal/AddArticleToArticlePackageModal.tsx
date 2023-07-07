@@ -54,7 +54,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                 onSuccess: () => {
                     onClose();
                 },
-            }
+            },
         );
     };
 

@@ -16,7 +16,7 @@ const ProgramInfo = ({ data: { lessons, practice } }: ProgramInfoProps) => {
                 practice.total,
                 "урок",
                 "урока",
-                "уроков"
+                "уроков",
             )}`}</Text>
         </Flex>
     );

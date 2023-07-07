@@ -48,7 +48,7 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
                     <Text>{error}</Text>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);

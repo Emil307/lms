@@ -19,7 +19,7 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
 
     const onSuccess = (
         _response: CreateAdminSupportMessageResponse,
-        { resetForm }: Omit<FormikHelpers<CreateAdminMessageFormValidation>, "setFieldError">
+        { resetForm }: Omit<FormikHelpers<CreateAdminMessageFormValidation>, "setFieldError">,
     ) => {
         resetForm();
         createNotification({

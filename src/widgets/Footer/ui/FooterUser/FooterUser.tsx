@@ -63,7 +63,7 @@ const FooterUser = () => {
                     {section.label}
                 </Link>
             )),
-        []
+        [],
     );
 
     const renderInfoSection = useMemo(
@@ -73,7 +73,7 @@ const FooterUser = () => {
                     {section.label}
                 </Link>
             )),
-        []
+        [],
     );
 
     return (

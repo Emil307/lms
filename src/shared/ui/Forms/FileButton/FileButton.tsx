@@ -56,7 +56,7 @@ const MemoizedFileButton = memo(function FileButton({
                 onError: (error) => {
                     setErrorLoadFile(error.response?.data.message || error.message);
                 },
-            }
+            },
         );
     }, []);
 

@@ -35,7 +35,7 @@ export const $UpdateScheduleFormValidation = z.object({
                 {
                     message: "Время должно быть больше начала",
                     path: ["to"],
-                }
-            )
+                },
+            ),
     ),
 });

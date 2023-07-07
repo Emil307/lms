@@ -36,7 +36,7 @@ export const useUpdateLessonActivity = ({
 
             queryClient.setQueryData<GetAdminLessonResponse>(
                 [QueryKeys.GET_ADMIN_LESSON, id],
-                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                (previousData) => previousData && { ...previousData, isActive: updatedStatus },
             );
             queryClient.setQueriesData<InfiniteData<TPaginationResponse<AdminLessonFromList[]>>>(
                 [QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId],
@@ -51,7 +51,7 @@ export const useUpdateLessonActivity = ({
                             data: page.data.map((lesson) => (String(lesson.id) === id ? { ...lesson, isActive: updatedStatus } : lesson)),
                         })),
                     };
-                }
+                },
             );
 
             return { previousLessonData, previousModuleLessonsData };

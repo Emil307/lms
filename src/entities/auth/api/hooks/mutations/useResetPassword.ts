@@ -27,6 +27,6 @@ export const useResetPassword = () => {
                     title: "Ошибка восстановления пароля",
                 });
             },
-        }
+        },
     );
 };

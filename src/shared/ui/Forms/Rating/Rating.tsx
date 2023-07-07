@@ -30,7 +30,7 @@ const MemoizedRating = memo(function Rating({
                     <Text>{error}</Text>
                 </Flex>
             ),
-        [error]
+        [error],
     );
 
     return (

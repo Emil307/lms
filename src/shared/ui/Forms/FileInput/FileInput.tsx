@@ -102,10 +102,10 @@ const MemoizedFileInput = memo(function FileInput({
 
             onDeleteLoadedFile(
                 fileId,
-                loadedFiles.map((file) => file.data)
+                loadedFiles.map((file) => file.data),
             );
         },
-        [loadedFiles, loadedFilesData]
+        [loadedFiles, loadedFilesData],
     );
 
     const getRemainFilesSize = useCallback(() => {
@@ -118,7 +118,7 @@ const MemoizedFileInput = memo(function FileInput({
     const handleRejectFiles = useCallback((files: FileRejection[]) => {
         handleLoadFile(
             files.map((file) => file.file),
-            "Слишком большой файл или неверный формат"
+            "Слишком большой файл или неверный формат",
         );
         handleErrorLoadFile("Слишком большой файл или неверный формат");
     }, []);
@@ -136,7 +136,7 @@ const MemoizedFileInput = memo(function FileInput({
 
             if (replaceLoadedFileId.current) {
                 setLoadedFiles((prevLoadedFiles) =>
-                    prevLoadedFiles.map((file) => (file.id === replaceLoadedFileId.current ? { ...adaptedFiles[0] } : file))
+                    prevLoadedFiles.map((file) => (file.id === replaceLoadedFileId.current ? { ...adaptedFiles[0] } : file)),
                 );
                 replaceLoadedFileId.current = null;
             } else {

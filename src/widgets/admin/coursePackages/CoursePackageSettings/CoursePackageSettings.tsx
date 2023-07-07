@@ -40,7 +40,7 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
         }
 
         return `${dayjs(coursePackageData.discount.startingDate).format("DD.MM.YYYY")} - ${dayjs(
-            coursePackageData.discount.finishingDate
+            coursePackageData.discount.finishingDate,
         ).format("DD.MM.YYYY")}`;
     };
 

@@ -27,7 +27,7 @@ const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...pro
             ...initialValues,
             categoryId: categoryId ? String(categoryId) : null,
             articlePackageIds: String(articlePackageId),
-        })
+        }),
     );
 
     const { ref: lastElemRef, entry } = useIntersection();

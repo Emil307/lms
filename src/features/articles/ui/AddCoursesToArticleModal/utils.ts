@@ -2,7 +2,7 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminArticleCoursesExtraFilters, AdminCoursesNoIncludedArticleFiltersForm, GetAdminCoursesRequest } from "@entities/course";
 
 export const adaptGetAdminCoursesRequest = (
-    params: TFunctionParams<AdminCoursesNoIncludedArticleFiltersForm, AdminArticleCoursesExtraFilters>
+    params: TFunctionParams<AdminCoursesNoIncludedArticleFiltersForm, AdminArticleCoursesExtraFilters>,
 ): GetAdminCoursesRequest => {
     const { categoryId, subcategoryId, articleId, tagIds = [], ...rest } = params;
 

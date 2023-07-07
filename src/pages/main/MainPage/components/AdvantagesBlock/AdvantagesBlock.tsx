@@ -23,7 +23,7 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
                     </Flex>
                 </Grid.Col>
             )),
-        [advantagesData]
+        [advantagesData],
     );
 
     if (!advantagesData?.data.length) {

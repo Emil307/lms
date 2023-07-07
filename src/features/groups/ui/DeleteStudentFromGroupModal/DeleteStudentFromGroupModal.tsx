@@ -24,7 +24,7 @@ const DeleteStudentFromGroupModal = ({ groupId = "", studentId, fullName, onClos
                 onSuccess: () => {
                     onClose();
                 },
-            }
+            },
         );
     };
 

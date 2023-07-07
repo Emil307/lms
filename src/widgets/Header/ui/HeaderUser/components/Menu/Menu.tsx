@@ -23,7 +23,7 @@ const Menu = ({ user }: MenuProps) => {
                     {item.label}
                 </MMenu.Item>
             )),
-        []
+        [],
     );
 
     return (

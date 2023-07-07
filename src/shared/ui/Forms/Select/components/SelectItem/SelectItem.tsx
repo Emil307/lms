@@ -18,7 +18,7 @@ const SelectItem = memo(
                 {selected && <Check className={classes.check} />}
             </Flex>
         );
-    })
+    }),
 );
 
 SelectItem.displayName = "SelectItem";

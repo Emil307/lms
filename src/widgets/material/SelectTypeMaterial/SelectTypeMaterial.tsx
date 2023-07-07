@@ -56,7 +56,7 @@ const SelectTypeMaterial = () => {
 
     const renderCards = useMemo(
         () => fileTypeCards.map((card) => <MaterialTypeCard key={card.id} data={card} onClick={handleSelectCard} />),
-        []
+        [],
     );
 
     return <Flex gap={24}>{renderCards}</Flex>;

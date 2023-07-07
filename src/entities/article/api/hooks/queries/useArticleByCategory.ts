@@ -8,6 +8,6 @@ export const useArticleByCategory = ({ id, categoryId }: GetArticleByCategoryReq
         () => articleApi.getArticleByCategory({ id, categoryId }),
         {
             enabled: !!id,
-        }
+        },
     );
 };

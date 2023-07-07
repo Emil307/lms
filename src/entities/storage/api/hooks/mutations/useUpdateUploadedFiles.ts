@@ -26,6 +26,6 @@ export const useUpdateUploadedFiles = (fileId?: number) => {
                     title: "Ошибка обновления файлов",
                 });
             },
-        }
+        },
     );
 };

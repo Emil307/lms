@@ -30,7 +30,7 @@ export const useDataGridSelect = ({ disableQueryParams, selectItems, onChangeSel
                 query: createNewSelectParams(),
             },
             undefined,
-            { shallow: true }
+            { shallow: true },
         );
     }, [rowSelection, router.isReady]);
 

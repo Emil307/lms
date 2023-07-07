@@ -147,7 +147,7 @@ export const $GetAdminAdvantagesResponse = $getPaginationResponseType($Advantage
         meta: z.object({
             lastUpdated: $LastUpdated.nullable(),
         }),
-    })
+    }),
 );
 
 export const $CreateAdvantageRequest = z.object({

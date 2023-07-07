@@ -29,7 +29,7 @@ export const useUpdateGroupActivity = ({
 
             queryClient.setQueryData<GetAdminGroupResponse>(
                 [QueryKeys.GET_ADMIN_GROUP, id],
-                (previousData) => previousData && { ...previousData, isActive }
+                (previousData) => previousData && { ...previousData, isActive },
             );
 
             queryClient.setQueriesData<GetAdminGroupsResponse>([QueryKeys.GET_ADMIN_GROUPS], (previousData) => {

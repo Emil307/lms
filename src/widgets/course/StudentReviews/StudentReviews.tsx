@@ -52,7 +52,7 @@ const StudentReviews = ({ titleProps, ...props }: StudentReviewsProps) => {
                             data.averageRating,
                             "отзыв",
                             "отзыва",
-                            "отзывов"
+                            "отзывов",
                         )}`}</Text>
                     </Flex>
                 </Group>

@@ -84,7 +84,7 @@ export const $UploadFileRequest = z.object({
 export const $UploadedFileFromList = $AdminUploadedFile.merge(
     z.object({
         categories: z.object({ name: z.string() }).array(),
-    })
+    }),
 );
 
 export const $GetUploadedFileResourcesResponse = z.object({

@@ -27,7 +27,7 @@ const MemoizedRingProgress = memo(function RingProgress({ value, label, size = "
                 )}
             </Box>
         ),
-        [value, size]
+        [value, size],
     );
     return (
         <MRingProgress

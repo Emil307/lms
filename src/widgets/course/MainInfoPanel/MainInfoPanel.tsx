@@ -88,7 +88,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                                 data.reviewCount,
                                 "отзыв",
                                 "отзыва",
-                                "отзывов"
+                                "отзывов",
                             )}`}</Text>
                         </Flex>
                     </Group>

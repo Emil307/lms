@@ -16,17 +16,17 @@ export enum HTTPMethod {
 }
 export type CreateApiMethodParams<Request, Response, PathParams = undefined, RequestOutput = Request, ResponseOutput = Response> =
     | {
-        method: HTTPMethod;
-        path: (params?: PathParams) => string;
-        requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
-        responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
-    }
+          method: HTTPMethod;
+          path: (params?: PathParams) => string;
+          requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
+          responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
+      }
     | {
-        method: HTTPMethod;
-        path: string;
-        requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
-        responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
-    };
+          method: HTTPMethod;
+          path: string;
+          requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
+          responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
+      };
 
 export abstract class BaseApi {
     constructor(protected instance: AxiosInstance) {}
@@ -36,7 +36,10 @@ export abstract class BaseApi {
         path,
         requestSchema,
         responseSchema,
-    }: CreateApiMethodParams<Request, Response, PathParams, RequestOutput, ResponseOutput>): (data: Request, params?: PathParams) => Promise<Response> {
+    }: CreateApiMethodParams<Request, Response, PathParams, RequestOutput, ResponseOutput>): (
+        data: Request,
+        params?: PathParams,
+    ) => Promise<Response> {
         return (requestData: Request, params?: PathParams) => {
             requestSchema.parse(requestData);
             const apiHandler = async () => {
@@ -45,7 +48,7 @@ export abstract class BaseApi {
                     method,
                     url,
                     [method === HTTPMethod.GET ? "params" : "data"]: requestData,
-                })
+                });
 
                 if (isProd) {
                     responseSchema.safeParseAsync(response.data).then((result) => {

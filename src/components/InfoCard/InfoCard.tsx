@@ -67,7 +67,7 @@ function InfoCard<T>({ avatar, image, fields, hideFieldIfEmpty = false, values, 
                 }
                 return <DisplayField key={index} {...field} value={getValue} variant="compact" />;
             }),
-        [fields, values]
+        [fields, values],
     );
 
     return (

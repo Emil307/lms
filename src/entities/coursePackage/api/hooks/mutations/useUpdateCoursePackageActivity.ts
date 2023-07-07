@@ -12,7 +12,7 @@ import {
 } from "@entities/coursePackage";
 
 export const useUpdateCoursePackageActivity = (
-    id: string
+    id: string,
 ): UseMutationResult<UpdateCoursePackageActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
         [MutationKeys.UPDATE_COURSE_PACKAGE_ACTIVITY, id],
@@ -32,7 +32,7 @@ export const useUpdateCoursePackageActivity = (
 
                 queryClient.setQueryData<AdminCoursePackageDetails>(
                     [QueryKeys.GET_ADMIN_COURSE_PACKAGE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
                 );
 
                 queryClient.setQueriesData<GetAdminCoursePackagesResponse>([QueryKeys.GET_ADMIN_COURSE_PACKAGES], (previousData) => {
@@ -43,7 +43,7 @@ export const useUpdateCoursePackageActivity = (
                     return {
                         ...previousData,
                         data: previousData.data.map((coursePackage) =>
-                            String(coursePackage.id) === id ? { ...coursePackage, isActive: updatedStatus } : coursePackage
+                            String(coursePackage.id) === id ? { ...coursePackage, isActive: updatedStatus } : coursePackage,
                         ),
                     };
                 });
@@ -81,6 +81,6 @@ export const useUpdateCoursePackageActivity = (
                     message: `Пакет статей "${coursePackageData?.name || coursePackageFromList?.name}" ${statusMessage}.`,
                 });
             },
-        }
+        },
     );
 };

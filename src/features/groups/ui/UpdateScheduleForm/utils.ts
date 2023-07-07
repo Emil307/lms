@@ -10,7 +10,7 @@ export const adaptUpdateScheduleForm = (data?: AdminGroupScheduleFromList): Part
 };
 
 export const adaptUpdateGroupScheduleRequest = (
-    data: UpdateScheduleFormValidation
+    data: UpdateScheduleFormValidation,
 ): Omit<UpdateAdminGroupScheduleRequest, "groupId" | "scheduleId"> => {
     const { scheduleDate, scheduleTimings = [] } = data;
     return {

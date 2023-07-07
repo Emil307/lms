@@ -8,6 +8,6 @@ export const useAdminUsers = (params: UsersRequestParamsType) => {
     return useQuery(
         [QueryKeys.GET_USERS, params.page, params.perPage, params.sort, params.query, params.roleName, params.isActive],
         () => userApi.getAdminUsers(params),
-        { keepPreviousData: true, enabled: router.isReady }
+        { keepPreviousData: true, enabled: router.isReady },
     );
 };

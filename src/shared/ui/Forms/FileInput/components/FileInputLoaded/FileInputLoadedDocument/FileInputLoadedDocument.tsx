@@ -43,7 +43,7 @@ export default function FileInputLoadedDocument({
                     onError: (error) => {
                         onError(error.response?.data.message);
                     },
-                }
+                },
             );
         }
     }, [file, error]);

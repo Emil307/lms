@@ -13,6 +13,7 @@ import { CreateCourseModuleModal } from "@features/courseModules";
 import { ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
+import { useUpdateCourseModuleOrder } from "@entities/courseModule/api/hooks/mutations/useUpdateCourseModuleOrder";
 
 interface ModuleListProps {
     courseId: string;
@@ -22,6 +23,9 @@ const List = ({ courseId }: ModuleListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: modulesData, hasNextPage, fetchNextPage, isError } = useCourseModules({ ...initialValues, courseId });
+
+    const updateModuleOrder = useUpdateCourseModuleOrder(courseId);
+
     const [modules, setModules] = useState<CourseModule[] | undefined>(modulesData?.data);
 
     const { ref: lastElementRef, entry } = useIntersection();
@@ -41,9 +45,6 @@ const List = ({ courseId }: ModuleListProps) => {
     const handleGoCourseModulePage = (moduleId: number) => {
         router.push({ pathname: "/admin/courses/[id]/module/[moduleId]", query: { id: courseId, moduleId: String(moduleId) } });
     };
-
-    //TODO: Добавить смену порядка модулей, когда будет готов эндпоинт на бэке
-    // const updateCourseModuleOrder = useUpdateCourseModuleOrder();
 
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
@@ -74,8 +75,7 @@ const List = ({ courseId }: ModuleListProps) => {
             const updatedArray = arrayMove(modules, oldIndex, newIndex);
 
             setModules(updatedArray);
-            //TODO: Добавить смену порядка модулей, когда будет готов эндпоинт на бэке
-            // updateCourseModuleOrder.mutate({ id: Number(active.id), after: newIndex ? updatedArray[newIndex - 1].id : 0 });
+            updateModuleOrder.mutate({ moduleId: String(active.id), after: newIndex ? updatedArray[newIndex - 1].id : 0 });
         }
     };
 

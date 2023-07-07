@@ -26,6 +26,6 @@ export const useAttachCourseToCoursePackage = (coursePackageId: string) => {
                     title: "Ошибка добавления курсов в пакет",
                 });
             },
-        }
+        },
     );
 };

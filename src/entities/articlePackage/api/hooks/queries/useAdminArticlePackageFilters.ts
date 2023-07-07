@@ -4,6 +4,6 @@ import { QueryKeys } from "@shared/constant";
 
 export const useAdminArticlePackageFilters = () => {
     return useQuery<GetAdminArticlePackageFiltersResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE_FILTERS], () =>
-        articlePackageApi.getAdminArticlePackageFilters()
+        articlePackageApi.getAdminArticlePackageFilters(),
     );
 };
