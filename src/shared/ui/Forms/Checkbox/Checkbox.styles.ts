@@ -2,6 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     inner: {
+        alignSelf: "self-start",
         width: 24,
         height: 24,
     },
@@ -61,8 +62,8 @@ export default createStyles((theme) => ({
     },
     label: {
         paddingLeft: 8,
-        fontSize: "14px",
         fontWeight: 500,
+        fontSize: "14px",
         color: theme.colors.dark[0],
         lineHeight: "16px",
         cursor: "pointer",
@@ -77,13 +78,9 @@ export default createStyles((theme) => ({
             color: theme.colors.warning[0],
         },
 
-        "> div": {
+        "> p": {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
         },
     },
 }));

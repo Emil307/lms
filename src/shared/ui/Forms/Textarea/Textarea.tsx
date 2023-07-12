@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
-import { Group, Textarea as MTextarea, TextareaProps as MTextareaProps, Text, useMantineTheme } from "@mantine/core";
+import { Flex, Textarea as MTextarea, TextareaProps as MTextareaProps, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
 import { z } from "zod";
+import { Paragraph } from "@shared/ui";
 import { useTextareaStyles } from "./Textarea.styles";
 
 export interface TextareaProps extends MTextareaProps {
@@ -10,12 +11,11 @@ export interface TextareaProps extends MTextareaProps {
 
 const Textarea = ({ success, error, description, ...props }: TextareaProps) => {
     const { classes } = useTextareaStyles();
-    const theme = useMantineTheme();
 
     const renderError = error && (
         <>
             <AlertTriangle />
-            <Text>{error}</Text>
+            <Paragraph variant="text-smaller">{error}</Paragraph>
         </>
     );
 
@@ -29,16 +29,20 @@ const Textarea = ({ success, error, description, ...props }: TextareaProps) => {
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );

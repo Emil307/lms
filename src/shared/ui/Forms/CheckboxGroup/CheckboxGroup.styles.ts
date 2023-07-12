@@ -17,13 +17,9 @@ export default createStyles((theme) => ({
             color: theme.colors.warning[0],
         },
 
-        "> div": {
+        "> p": {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
         },
     },
     description: {
@@ -32,7 +28,7 @@ export default createStyles((theme) => ({
 
         "> div": {
             display: "flex",
-            alignItems: "flex-start",
+            alignItems: "center",
             gap: 4,
             marginTop: 4,
 
@@ -41,13 +37,13 @@ export default createStyles((theme) => ({
                 height: "16px !important",
             },
 
-            "> div": {
+            "> div:first-type": {
+                alignSelf: "flex-start",
+            },
+
+            ".mantine-Text-root": {
                 width: "calc(100% - 20px)",
                 paddingTop: 2,
-                color: theme.colors.dark[0],
-                fontWeight: 400,
-                fontSize: 10,
-                lineHeight: "12px",
             },
         },
     },

@@ -1,34 +1,25 @@
-import { Box, Flex, Text, useMantineTheme } from "@mantine/core";
+import { Box, BoxProps, Flex, Grid, ThemeIcon } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Button, FCheckbox, FInput, Form, Heading } from "@shared/ui";
+import { Button, FCheckbox, FInput, Form, Heading, Paragraph } from "@shared/ui";
 import { Logo } from "@components/Logo";
-import { $SignUpFormValidationSchema, SignUpFormData, useFormStyles } from "@features/auth";
+import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
+import { initialValues } from "./constants";
 
-export interface SignUpFormProps {}
+export interface SignUpFormProps extends BoxProps {}
 
-const SignUpForm = (_props: SignUpFormProps) => {
+const SignUpForm = (props: SignUpFormProps) => {
     const router = useRouter();
     const { classes } = useFormStyles();
-    const theme = useMantineTheme();
 
     const { mutate: signUp, isLoading, isSuccess } = useSignUp();
 
-    const config: FormikConfig<SignUpFormData> = {
-        initialValues: {
-            lastName: "",
-            firstName: "",
-            email: "",
-            passwords: {
-                password: "",
-                passwordConfirmation: "",
-            },
-            agreementWithConditionsAndTerms: false,
-        },
+    const config: FormikConfig<SignUpFormValidationSchema> = {
+        initialValues,
         validationSchema: $SignUpFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             signUp(
@@ -51,54 +42,83 @@ const SignUpForm = (_props: SignUpFormProps) => {
     const handleClickBack = () => router.push("/auth");
 
     return (
-        <Box className={classes.root}>
+        <Box className={classes.root} {...props}>
             <Button variant="white" className={classes.buttonBack} onClick={handleClickBack}>
                 <ChevronLeft />
             </Button>
-            <Box className={classes.inner}>
+            <Flex className={classes.inner}>
                 <Link href="/" className={classes.logoLink}>
                     <Logo />
                 </Link>
-                <Heading order={3} className={classes.headingTitle}>
+                <Heading order={3} ta="center">
                     Создайте аккаунт <br /> и начните свое обучение
                 </Heading>
-                <Text className={classes.headingDescription}>
+                <Paragraph variant="text-small-m">
                     У вас уже есть профиль?
                     <Link href="/auth" className={classes.signUpLink}>
                         Войдите
                     </Link>
-                </Text>
+                </Paragraph>
                 <Form config={config} disableOverlay>
                     {({ values }) => (
                         <>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 8,
-                                    marginBottom: 16,
-                                }}>
-                                <Flex gap={8}>
-                                    <FInput name="firstName" label="Ваше имя" icon={<User color={theme.colors.gray45[0]} />} />
-                                    <FInput name="lastName" label="Ваша фамилия" icon={<User color={theme.colors.gray45[0]} />} />
-                                </Flex>
-
-                                <FInput name="email" label="Введите email" icon={<AtSign color={theme.colors.gray45[0]} />} />
+                            <Flex direction="column" gap={8} mb={16}>
+                                <Grid gutter={8}>
+                                    <Grid.Col xs={6}>
+                                        <FInput
+                                            name="firstName"
+                                            label="Ваше имя"
+                                            icon={
+                                                <ThemeIcon color="gray45">
+                                                    <User />
+                                                </ThemeIcon>
+                                            }
+                                        />
+                                    </Grid.Col>
+                                    <Grid.Col xs={6}>
+                                        <FInput
+                                            name="lastName"
+                                            label="Ваша фамилия"
+                                            icon={
+                                                <ThemeIcon color="gray45">
+                                                    <User />
+                                                </ThemeIcon>
+                                            }
+                                        />
+                                    </Grid.Col>
+                                </Grid>
+                                <FInput
+                                    name="email"
+                                    label="Введите email"
+                                    icon={
+                                        <ThemeIcon color="gray45">
+                                            <AtSign />
+                                        </ThemeIcon>
+                                    }
+                                />
                                 <FInput
                                     name="passwords.password"
                                     label="Придумайте пароль"
                                     type="password"
-                                    icon={<Shield color={theme.colors.gray45[0]} />}
+                                    icon={
+                                        <ThemeIcon color="gray45">
+                                            <Shield />
+                                        </ThemeIcon>
+                                    }
                                     description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
                                 />
                                 <FInput
                                     name="passwords.passwordConfirmation"
                                     label="Повторите пароль"
                                     type="password"
-                                    icon={<Shield color={theme.colors.gray45[0]} />}
+                                    icon={
+                                        <ThemeIcon color="gray45">
+                                            <Shield />
+                                        </ThemeIcon>
+                                    }
                                     success="Пароли совпадают"
                                 />
-                            </Box>
+                            </Flex>
                             <FCheckbox
                                 name="agreementWithConditionsAndTerms"
                                 label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
@@ -116,7 +136,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                         </>
                     )}
                 </Form>
-            </Box>
+            </Flex>
         </Box>
     );
 };

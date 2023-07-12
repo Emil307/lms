@@ -9,7 +9,7 @@ export const addMantineColor = (color: string): MantineThemeColors[MantineColor]
     return [color, color, color, color, color, color, color, color, color, color];
 };
 
-const { FuturaFont, MontserratFont, ManropeFont } = fonts;
+const { ManropeFont } = fonts;
 
 export const defaultTheme: MantineThemeOverride = {
     colorScheme: "light",
@@ -105,6 +105,20 @@ export const defaultTheme: MantineThemeOverride = {
         },
     }),
     components: {
+        ThemeIcon: {
+            defaultProps: {
+                variant: "outline",
+            },
+            styles: (theme) => ({
+                root: {
+                    width: "auto",
+                    height: "auto",
+                    minWidth: "auto",
+                    minHeight: "auto",
+                    border: "none",
+                },
+            }),
+        },
         Select: {
             styles: (theme) => ({
                 item: {
@@ -331,6 +345,14 @@ export const defaultTheme: MantineThemeOverride = {
                     },
                 },
             }),
+        },
+    },
+    other: {
+        pSmall: {
+            padding: "0 32px 40px",
+            fontWeight: 500,
+            fontSize: 16,
+            lineHeight: "24px",
         },
     },
 };

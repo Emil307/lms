@@ -1,7 +1,8 @@
 import React, { memo, useMemo } from "react";
-import { CheckboxGroupProps as MCheckboxGroupProps, Group, Text, useMantineTheme, Checkbox as MCheckbox } from "@mantine/core";
+import { CheckboxGroupProps as MCheckboxGroupProps, Checkbox as MCheckbox, Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
 import { z } from "zod";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./CheckboxGroup.styles";
 
 export interface CheckboxGroupProps extends MCheckboxGroupProps {
@@ -9,7 +10,6 @@ export interface CheckboxGroupProps extends MCheckboxGroupProps {
 }
 
 const MemoizedCheckboxGroup = memo(function CheckboxGroup({ children, error, success, description, ...props }: CheckboxGroupProps) {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
     const statusSuccess = useMemo(() => !!props.value?.length && !error && !!success, [props.value, error, success]);
 
@@ -17,7 +17,7 @@ const MemoizedCheckboxGroup = memo(function CheckboxGroup({ children, error, suc
         error && (
             <>
                 <AlertTriangle />
-                <Text>{error}</Text>
+                <Paragraph variant="text-smaller">{error}</Paragraph>
             </>
         );
 
@@ -29,16 +29,20 @@ const MemoizedCheckboxGroup = memo(function CheckboxGroup({ children, error, suc
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );

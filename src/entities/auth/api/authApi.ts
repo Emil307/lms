@@ -1,5 +1,5 @@
 import { axios } from "@app/config/axios";
-import { $AuthFormValidationSchema, AuthData } from "@features/auth";
+import { $AuthFormValidationSchema, AuthFormValidationSchema } from "@features/auth";
 import { BaseApi, HTTPMethod } from "@shared/utils";
 import {
     ChangePasswordRequest,
@@ -14,6 +14,12 @@ import {
     $AuthenticateResponse,
     $SignUpResponse,
     $UpdateMeResponse,
+    RecoveryPasswordResponse,
+    $RecoveryPasswordResponse,
+    ChangePasswordResponse,
+    $ChangePasswordResponse,
+    $ResetPasswordResponse,
+    ResetPasswordResponse,
 } from "./types";
 
 class AuthApi extends BaseApi {
@@ -29,7 +35,7 @@ class AuthApi extends BaseApi {
         requestSchema: $AuthFormValidationSchema,
         responseSchema: $AuthenticateResponse,
     });
-    async authenticateMe(data: AuthData): Promise<AuthenticateResponse> {
+    async authenticateMe(data: AuthFormValidationSchema): Promise<AuthenticateResponse> {
         const response = await this.instance.post("authentication/authenticate", data);
         return $AuthenticateResponse.parse(response);
     }
@@ -41,14 +47,17 @@ class AuthApi extends BaseApi {
         const response = await this.instance.put("me/update", data);
         return $UpdateMeResponse.parse(response);
     }
-    changePassword(payload: ChangePasswordRequest): Promise<void> {
-        return this.instance.put("me/change-password", payload);
+    async changePassword(payload: ChangePasswordRequest): Promise<ChangePasswordResponse> {
+        const response = await this.instance.put("me/change-password", payload);
+        return $ChangePasswordResponse.parse(response);
     }
-    recoveryPassword(data: RecoveryPasswordRequest): Promise<void> {
-        return this.instance.post("authentication/recovery/password/request", data);
+    async recoveryPassword(data: RecoveryPasswordRequest): Promise<RecoveryPasswordResponse> {
+        const response = await this.instance.post("authentication/recovery/password/request", data);
+        return $RecoveryPasswordResponse.parse(response);
     }
-    resetPassword(data: ResetPasswordRequest): Promise<void> {
-        return this.instance.post("authentication/recovery/password/reset", data);
+    async resetPassword(data: ResetPasswordRequest): Promise<ResetPasswordResponse> {
+        const response = await this.instance.post("authentication/recovery/password/reset", data);
+        return $ResetPasswordResponse.parse(response);
     }
 }
 

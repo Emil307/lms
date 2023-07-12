@@ -1,9 +1,10 @@
 import React, { memo, useMemo, useState } from "react";
 import { DatePicker as MDatePicker, DatePickerProps as MDatePickerProps } from "@mantine/dates";
 import { AlertTriangle, Calendar, CheckCircle, Info } from "react-feather";
-import { Group, ThemeIcon, Text, useMantineTheme } from "@mantine/core";
+import { ThemeIcon, Flex } from "@mantine/core";
 import { z } from "zod";
 import { useInputStyles } from "@shared/styles";
+import { Paragraph } from "@shared/ui";
 
 export interface DatePickerProps extends MDatePickerProps {
     success?: string | boolean;
@@ -20,7 +21,6 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         onDropdownClose = () => undefined,
         onDropdownOpen = () => undefined,
     } = props;
-    const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
 
     const onDropdownOpenHandler = () => {
@@ -46,7 +46,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
 
     const rightSection = (
-        <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+        <ThemeIcon color="gray45">
             <Calendar />
         </ThemeIcon>
     );
@@ -63,10 +63,10 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const renderDescription = useMemo(() => {
@@ -77,16 +77,20 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );

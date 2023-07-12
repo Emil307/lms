@@ -35,13 +35,9 @@ export default createStyles((theme) => ({
             color: theme.colors.warning[0],
         },
 
-        "> div": {
+        "> p": {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
         },
     },
 }));

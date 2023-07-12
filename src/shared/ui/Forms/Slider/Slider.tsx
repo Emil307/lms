@@ -1,6 +1,7 @@
-import { Box, Slider as MSlider, SliderProps as MSliderProps, Text } from "@mantine/core";
+import { Box, Slider as MSlider, SliderProps as MSliderProps } from "@mantine/core";
 import { memo, useMemo } from "react";
 import { ChevronRight } from "react-feather";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./Slider.styles";
 
 export interface SliderProps extends MSliderProps {
@@ -13,25 +14,19 @@ const MemoizedSlider = memo(function Slider({ showTextInfo = false, ...props }: 
     const textInfo = useMemo(
         () => (
             <Box display="flex" pt={9}>
-                <Text
+                <Paragraph
+                    variant="text-small-m"
                     sx={{
-                        fontWeight: 500,
                         whiteSpace: "pre-wrap",
-                        lineHeight: "16px",
                     }}>
                     {`от ${props.min} до `}
-                </Text>
-                <Text
-                    c="primary"
-                    sx={{
-                        fontWeight: 500,
-                        lineHeight: "16px",
-                    }}>
+                </Paragraph>
+                <Paragraph variant="text-small-m" color="primary">
                     {`${props.value} ₽`}
-                </Text>
+                </Paragraph>
             </Box>
         ),
-        [props.min, props.value],
+        [props.min, props.value]
     );
 
     return (

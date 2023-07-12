@@ -2,14 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import { MutationKeys } from "@shared/constant";
-import { authApi } from "@entities/auth";
+import { ResetPasswordResponse, authApi } from "@entities/auth";
 import { RecoveryPasswordFormData } from "@features/auth";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
 export const useResetPassword = () => {
     const router = useRouter();
-    return useMutation<void, AxiosError<FormErrorResponse>, RecoveryPasswordFormData>(
+    return useMutation<ResetPasswordResponse, AxiosError<FormErrorResponse>, RecoveryPasswordFormData>(
         [MutationKeys.CHANGE_PASSWORD],
         (data: RecoveryPasswordFormData) =>
             authApi.resetPassword({ ...data, email: String(router.query.email), token: String(router.query.token) }),
@@ -27,6 +27,6 @@ export const useResetPassword = () => {
                     title: "Ошибка восстановления пароля",
                 });
             },
-        },
+        }
     );
 };

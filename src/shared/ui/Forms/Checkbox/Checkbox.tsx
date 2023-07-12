@@ -1,6 +1,7 @@
-import { Box, BoxProps, Checkbox as MCheckbox, CheckboxProps as MCheckboxProps, Flex, Text } from "@mantine/core";
+import { Box, BoxProps, Checkbox as MCheckbox, CheckboxProps as MCheckboxProps, Flex } from "@mantine/core";
 import { memo, useCallback, useMemo } from "react";
 import { AlertTriangle, Check } from "react-feather";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./Checkbox.styles";
 
 export interface CheckboxProps extends MCheckboxProps {
@@ -17,10 +18,10 @@ const MemoizedCheckbox = memo(function Checkbox({ error, wrapperProps, ...props 
             error && (
                 <Flex className={classes.error}>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </Flex>
             ),
-        [error],
+        [error]
     );
 
     return (

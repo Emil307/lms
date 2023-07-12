@@ -22,13 +22,6 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         height: "100%",
     },
 
-    errorText: {
-        position: "absolute",
-        bottom: -20,
-        left: 0,
-        color: theme.colors.warning[0],
-    },
-
     wrapper: {
         display: "flex",
         flexDirection: "column",
@@ -54,23 +47,27 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         },
     },
     description: {
-        display: "flex",
         alignItems: "center",
         gap: 4,
         marginTop: 4,
 
+        "> p": {
+            paddingTop: 2,
+        },
+    },
+    error: {
+        gap: 4,
+        marginTop: 4,
+
         svg: {
-            color: theme.colors.primaryHover[0],
-            width: "16px !important",
-            height: "16px !important",
+            width: 16,
+            height: 16,
+            color: theme.colors.warning[0],
         },
 
-        "> div": {
+        "> p": {
+            width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
         },
     },
 }));

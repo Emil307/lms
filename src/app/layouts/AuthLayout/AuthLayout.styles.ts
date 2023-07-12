@@ -13,7 +13,6 @@ export default createStyles((theme) => ({
         },
     },
     content: {
-        display: "flex",
         alignItems: "center",
         maxWidth: 456,
         width: "100%",
@@ -22,48 +21,45 @@ export default createStyles((theme) => ({
     imageWrapper: {
         "&::after": {
             position: "absolute",
-            left: 0,
-            top: 0,
             width: "100%",
             height: "100%",
+            left: 0,
+            top: 0,
             content: '""',
             background: "linear-gradient(0deg, rgba(0, 4, 41, 0.2), rgba(0, 4, 41, 0.2))",
         },
     },
     footerPanel: {
-        display: "flex",
-        marginInline: "auto",
         position: "relative",
-        padding: "32px 0",
         justifyContent: "space-between",
+        flexWrap: "wrap",
         width: "100%",
         maxWidth: 1320,
+        marginInline: "auto",
+        padding: "32px 0",
+        gap: 16,
 
-        "@media (max-width: 630px)": {
+        [theme.fn.smallerThan("sm")]: {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
         },
-    },
-    footerTitle: {
-        fontSize: 14,
-        lineHeight: "16px",
-        fontWeight: 400,
-        color: theme.colors.white[0],
     },
     linksGroup: {
         columnGap: 32,
+        rowGap: 16,
 
-        "@media (max-width: 630px)": {
+        [theme.fn.smallerThan("sm")]: {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            gap: 16,
         },
     },
     link: {
+        fontWeight: 400,
         fontSize: 14,
         lineHeight: "16px",
-        fontWeight: 400,
         color: theme.colors.white[0],
     },
 }));

@@ -4,9 +4,9 @@ import Image from "next/image";
 import { Course } from "@entities/course";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
+import { Heading } from "@shared/ui";
 import useStyles from "./Card.styles";
 import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
-import { Heading } from "@shared/ui";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;

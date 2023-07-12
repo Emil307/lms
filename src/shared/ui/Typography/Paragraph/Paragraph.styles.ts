@@ -8,7 +8,6 @@ interface CreateStylesParams {
 export default createStyles((theme, { variant }: CreateStylesParams) => ({
     root: {
         margin: 0,
-        color: theme.colors.dark[0],
         ...getStylesByVariant({ variant }),
     },
 }));

@@ -1,22 +1,20 @@
 import { z } from "zod";
 import { $UploadedFile, $Profile, $Role, $UserNotifications } from "@shared/types";
 
-export interface ChangePasswordRequest {
-    oldPassword: string;
-    password: string;
-    passwordConfirmation: string;
-}
-
 export type User = z.infer<typeof $User>;
 
 export type UpdateMeForm = z.infer<typeof $UpdateMeForm>;
 export type UpdateMeRequest = z.infer<typeof $UpdateMeRequest>;
 export type UpdateMeResponse = z.infer<typeof $UpdateMeResponse>;
+export type ChangePasswordRequest = z.infer<typeof $ChangePasswordRequest>;
+export type ChangePasswordResponse = z.infer<typeof $ChangePasswordResponse>;
 export type SignUpRequest = z.infer<typeof $SignUpRequest>;
 export type SignUpResponse = z.infer<typeof $SignUpResponse>;
 export type AuthenticateResponse = z.infer<typeof $AuthenticateResponse>;
 export type ResetPasswordRequest = z.infer<typeof $ResetPasswordRequest>;
+export type ResetPasswordResponse = z.infer<typeof $ResetPasswordResponse>;
 export type RecoveryPasswordRequest = z.infer<typeof $RecoveryPasswordRequest>;
+export type RecoveryPasswordResponse = z.infer<typeof $RecoveryPasswordResponse>;
 
 export const $User = z.object({
     id: z.number(),
@@ -26,9 +24,19 @@ export const $User = z.object({
     notifications: $UserNotifications,
 });
 
+export const $ChangePasswordRequest = z.object({
+    oldPassword: z.string(),
+    password: z.string(),
+    passwordConfirmation: z.string(),
+});
+
+export const $ChangePasswordResponse = z.null();
+
 export const $RecoveryPasswordRequest = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
 });
+
+export const $RecoveryPasswordResponse = z.null();
 
 export const $ResetPasswordRequest = z.object({
     password: z.string(),
@@ -36,6 +44,8 @@ export const $ResetPasswordRequest = z.object({
     token: z.string(),
     email: z.string(),
 });
+
+export const $ResetPasswordResponse = z.null();
 
 export const $UpdateMeForm = z.object({
     firstName: z.string({ required_error: "Введите имя" }),
