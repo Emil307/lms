@@ -2,8 +2,9 @@ import React, { ReactNode, memo, useEffect } from "react";
 import { RichTextEditor, RichTextEditorProps } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
-import { Box, Flex, Group, Text, ThemeIcon } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { z } from "zod";
+import { Paragraph } from "@shared/ui";
 import { extensions } from "./constants";
 import useStyles from "./TextEditor.styles";
 import { TableControls } from "./helpers";
@@ -46,12 +47,15 @@ const MemoizedTextEditor = memo(function TextEditor({
     }, [value]);
 
     const renderError = error && (
-        <Group className={classes.error}>
-            <ThemeIcon variant="outline" color="warning" className={classes.wrapperIcon}>
+        <Flex className={classes.error}>
+            <ThemeIcon color="warning" className={classes.wrapperIcon}>
                 <AlertTriangle />
             </ThemeIcon>
-            <Text className={classes.helperText}>{error}</Text>
-        </Group>
+            <Paragraph variant="text-smaller" pt={2}>
+                {error}
+            </Paragraph>
+            pt={2}
+        </Flex>
     );
 
     const renderDescription = () => {
@@ -63,18 +67,22 @@ const MemoizedTextEditor = memo(function TextEditor({
             <Flex direction="column">
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex className={classes.description}>
-                        <ThemeIcon variant="outline" color="done" className={classes.wrapperIcon}>
+                        <ThemeIcon color="done" className={classes.wrapperIcon}>
                             <CheckCircle />
                         </ThemeIcon>
-                        <Text className={classes.helperText}>{success}</Text>
+                        <Paragraph variant="text-smaller" pt={2}>
+                            {success}
+                        </Paragraph>
                     </Flex>
                 )}
                 {description && (
                     <Flex className={classes.description}>
-                        <ThemeIcon variant="outline" color="primaryHover" className={classes.wrapperIcon}>
+                        <ThemeIcon color="primaryHover" className={classes.wrapperIcon}>
                             <Info />
                         </ThemeIcon>
-                        <Text className={classes.helperText}>{description}</Text>
+                        <Paragraph variant="text-smaller" pt={2}>
+                            {description}
+                        </Paragraph>
                     </Flex>
                 )}
             </Flex>

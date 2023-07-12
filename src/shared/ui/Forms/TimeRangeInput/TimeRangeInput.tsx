@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
 import { TimeRangeInput as MTimeRangeInput, TimeRangeInputProps as MTimeRangeInputProps } from "@mantine/dates";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
-import { Group, Text, useMantineTheme } from "@mantine/core";
+import { Flex, ThemeIcon } from "@mantine/core";
 import { z } from "zod";
 import dayjs from "dayjs";
 import { useInputStyles } from "@shared/styles";
+import { Paragraph } from "@shared/ui";
 
 export type TimeRangeInputValue = [Date | null, Date | null];
 
@@ -16,7 +17,6 @@ export interface TimeRangeInputProps extends Omit<MTimeRangeInputProps, "value" 
 
 const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }: TimeRangeInputProps) {
     const { description, error, success = false, size, onChange = () => undefined } = props;
-    const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
 
     const handleChange = useCallback((value: TimeRangeInputValue) => {
@@ -38,10 +38,10 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const renderDescription = useMemo(() => {
@@ -52,16 +52,20 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );
@@ -69,7 +73,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
 
     const getValues: TimeRangeInputValue = useMemo(
         () => [value?.[0] ? new Date(value[0]) : null, value?.[1] ? new Date(value[1]) : null],
-        [value],
+        [value]
     );
     const handleFocus = () => setFocused(true);
     const handleBlur = () => setFocused(false);

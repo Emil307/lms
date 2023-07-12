@@ -1,7 +1,7 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
 import { Button, FInput, ManagedForm } from "@shared/ui";
-import { authApi } from "@entities/auth";
+import { ChangePasswordResponse, authApi } from "@entities/auth";
 import { $ChangePasswordFormValidationSchema, ChangePasswordFormData } from "@features/auth";
 import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
@@ -34,7 +34,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
 
     return (
         <Box>
-            <ManagedForm<ChangePasswordFormData, void>
+            <ManagedForm<ChangePasswordFormData, ChangePasswordResponse>
                 initialValues={initialValues}
                 validationSchema={$ChangePasswordFormValidationSchema}
                 mutationKey={[MutationKeys.CHANGE_PASSWORD]}
@@ -47,7 +47,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         label="Введите старый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <Shield />
                             </ThemeIcon>
                         }
@@ -57,7 +57,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         label="Придумайте новый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <Shield />
                             </ThemeIcon>
                         }
@@ -69,7 +69,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         label="Повторите новый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <Shield />
                             </ThemeIcon>
                         }

@@ -1,4 +1,4 @@
-import { Box, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
@@ -7,21 +7,18 @@ import { Button, FInput, Form, Heading } from "@shared/ui";
 import { $RecoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { Logo } from "@components/Logo";
 import { useResetPassword } from "@entities/auth";
+import { initialValues } from "./constants";
 
 export interface RecoveryPasswordFormProps {}
 
 const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
     const router = useRouter();
     const { classes } = useFormStyles();
-    const theme = useMantineTheme();
 
     const { mutate: resetPassword, isLoading } = useResetPassword();
 
     const config: FormikConfig<RecoveryPasswordFormData> = {
-        initialValues: {
-            password: "",
-            passwordConfirmation: "",
-        },
+        initialValues,
         validationSchema: $RecoveryPasswordFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             resetPassword(values, {
@@ -38,41 +35,41 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
             <Button variant="white" className={classes.buttonBack} onClick={handleClickBack}>
                 <ChevronLeft />
             </Button>
-            <Box className={classes.inner}>
+            <Flex className={classes.inner}>
                 <Link href="/" className={classes.logoLink}>
                     <Logo />
                 </Link>
-                <Heading order={3} className={classes.headingTitle}>
-                    Восстановление пароля
-                </Heading>
+                <Heading order={3}>Восстановление пароля</Heading>
                 <Form config={config} disableOverlay>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 16,
-                            marginBottom: 24,
-                        }}>
+                    <Flex direction="column" gap={16} mb={24}>
                         <FInput
                             name="password"
                             label="Придумайте новый пароль"
                             type="password"
-                            icon={<Shield color={theme.colors.gray45[0]} />}
+                            icon={
+                                <ThemeIcon color="gray45">
+                                    <Shield />
+                                </ThemeIcon>
+                            }
                             description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
                         />
                         <FInput
                             name="passwordConfirmation"
                             label="Повторите новый пароль"
                             type="password"
-                            icon={<Shield color={theme.colors.gray45[0]} />}
+                            icon={
+                                <ThemeIcon color="gray45">
+                                    <Shield />
+                                </ThemeIcon>
+                            }
                             success="Пароли совпадают"
                         />
-                    </Box>
+                    </Flex>
                     <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
                         Сохранить
                     </Button>
                 </Form>
-            </Box>
+            </Flex>
         </Box>
     );
 };

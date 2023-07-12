@@ -1,4 +1,3 @@
-import SignUpForm from "./SignUpForm";
-import type { SignUpFormProps } from "./SignUpForm";
+import SignUpForm, { type SignUpFormProps } from "./SignUpForm";
 
 export { SignUpForm, SignUpFormProps };

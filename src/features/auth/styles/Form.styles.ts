@@ -10,7 +10,6 @@ export const useFormStyles = createStyles((theme) => ({
         backgroundColor: theme.colors.white[0],
     },
     inner: {
-        display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: 24,
@@ -20,15 +19,7 @@ export const useFormStyles = createStyles((theme) => ({
             padding: 0,
         },
     },
-    headingTitle: {
-        textAlign: "center",
-    },
-    headingDescription: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
+
     signUpLink: {
         marginLeft: 8,
         fontWeight: 600,
@@ -55,6 +46,10 @@ export const useFormStyles = createStyles((theme) => ({
         top: 40,
         padding: 0,
         borderRadius: "50%",
-        filter: " drop-shadow(0px 1px 2px rgba(0, 18, 110, 0.04)) drop-shadow(0px 0px 16px rgba(0, 18, 110, 0.04));",
+        filter: " drop-shadow(0px 1px 2px rgba(0, 18, 110, 0.04)) drop-shadow(0px 0px 16px rgba(0, 18, 110, 0.04))",
+
+        [theme.fn.smallerThan("xs")]: {
+            left: -7,
+        },
     },
 }));

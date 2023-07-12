@@ -19,7 +19,7 @@ export const useInputStyles = createStyles(
             clearable?: boolean;
             statusSuccess?: boolean;
             isActive?: boolean;
-        },
+        }
     ) => ({
         root: {
             position: "relative",
@@ -122,13 +122,9 @@ export const useInputStyles = createStyles(
                 color: theme.colors.warning[0],
             },
 
-            "> div": {
+            "> p": {
                 width: "calc(100% - 20px)",
                 paddingTop: 2,
-                color: theme.colors.dark[0],
-                fontWeight: 400,
-                fontSize: 10,
-                lineHeight: "12px",
             },
         },
         description: {
@@ -150,15 +146,11 @@ export const useInputStyles = createStyles(
                     alignSelf: "flex-start",
                 },
 
-                ".mantine-Text-root": {
+                "> p": {
                     width: "calc(100% - 20px)",
                     paddingTop: 2,
-                    color: theme.colors.dark[0],
-                    fontWeight: 400,
-                    fontSize: 10,
-                    lineHeight: "12px",
                 },
             },
         },
-    }),
+    })
 );

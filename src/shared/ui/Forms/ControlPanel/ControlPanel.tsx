@@ -1,6 +1,6 @@
-import { Box, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { ChangeEvent, memo, useCallback, useState } from "react";
-import { Switch, SwitchProps } from "@shared/ui";
+import { Paragraph, Switch, SwitchProps } from "@shared/ui";
 import useStyles from "./ControlPanel.styles";
 
 export interface ControlPanelProps extends Omit<SwitchProps, "label"> {
@@ -18,9 +18,9 @@ const MemoizedControlPanel = memo(function ControlPanel({ label, onChange = () =
 
     return (
         <Box className={classes.root}>
-            <Text className={classes.label} lineClamp={2}>
+            <Paragraph variant="text-small-m" className={classes.label} lineClamp={2}>
                 {label}
-            </Text>
+            </Paragraph>
             <Switch {...props} onChange={handleChangeSwitch} />
         </Box>
     );

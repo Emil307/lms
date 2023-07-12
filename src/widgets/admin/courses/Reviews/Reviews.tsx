@@ -2,6 +2,7 @@ import { Box, Flex, ThemeIcon, Collapse, Title } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -11,7 +12,6 @@ import { columns, radioGroupValues, filterInitialValues, columnOrder, scoreOptio
 import { ListMenu } from "./components";
 import { adaptGetAdminCourseReviewsRequest } from "./utils";
 import { AdminCourseReviewsExtraParams, AdminCourseReviewsFiltersForm } from "./types";
-import { useState } from "react";
 import useStyles from "./Reviews.styles";
 
 export interface ReviewsProps {

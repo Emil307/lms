@@ -1,16 +1,9 @@
 import React, { Ref, memo, useCallback, useMemo, useRef, useState } from "react";
-import {
-    Flex,
-    Select as MSelect,
-    SelectProps as MSelectProps,
-    SelectItem as ISelectItem,
-    Text,
-    ThemeIcon,
-    useMantineTheme,
-} from "@mantine/core";
+import { Flex, Select as MSelect, SelectProps as MSelectProps, SelectItem as ISelectItem, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, Search, X } from "react-feather";
 import { z } from "zod";
 import { useInputStyles } from "@shared/styles";
+import { Paragraph } from "@shared/ui";
 import { SelectItem } from "./components";
 
 export interface SelectProps extends Omit<MSelectProps, "data"> {
@@ -39,7 +32,6 @@ const MemoizedSelect = (props: SelectProps) => {
     } = props;
 
     const ref = useRef<HTMLInputElement | null>(null);
-    const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
     const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
 
@@ -52,7 +44,7 @@ const MemoizedSelect = (props: SelectProps) => {
             size: size,
             isActive: props.data.find((option) => option.value === props.value)?.isActive,
         },
-        { name: "Select", classNames, styles, unstyled },
+        { name: "Select", classNames, styles, unstyled }
     );
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -92,17 +84,13 @@ const MemoizedSelect = (props: SelectProps) => {
         }
         if (props.value && props.clearable) {
             return (
-                <ThemeIcon
-                    variant="outline"
-                    color="gray45"
-                    sx={{ border: "none", pointerEvents: props.disabled ? "none" : "initial" }}
-                    onClick={handlerClear}>
+                <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: props.disabled ? "none" : "initial" }} onClick={handlerClear}>
                     <X />
                 </ThemeIcon>
             );
         }
         return (
-            <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+            <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
                 <ChevronDown />
             </ThemeIcon>
         );
@@ -113,10 +101,10 @@ const MemoizedSelect = (props: SelectProps) => {
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const renderDescription = useMemo(() => {
@@ -128,14 +116,18 @@ const MemoizedSelect = (props: SelectProps) => {
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
                     </Flex>
                 )}
                 {description && (
                     <Flex gap={16}>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
                     </Flex>
                 )}
             </>
@@ -155,7 +147,7 @@ const MemoizedSelect = (props: SelectProps) => {
 
     const renderComponent = useCallback(
         (props: any) => props.itemComponent ?? <SelectItem {...props} ref={lastElementRef} />,
-        [props.itemComponent, lastElementRef],
+        [props.itemComponent, lastElementRef]
     );
 
     return (

@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
 
+export type AuthFormValidationSchema = z.infer<typeof $AuthFormValidationSchema>;
+export type SignUpFormValidationSchema = z.infer<typeof $SignUpFormValidationSchema>;
+export type RecoveryPasswordFormData = z.infer<typeof $RecoveryPasswordFormValidationSchema>;
+export type ChangePasswordFormData = z.infer<typeof $ChangePasswordFormValidationSchema>;
+
 export const $AuthFormValidationSchema = z.object({
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
     // TODO: вернуть как у всех тестовых учеток будут валидные пароли
@@ -47,8 +52,3 @@ export const $ChangePasswordFormValidationSchema = z.object({
             path: ["passwordConfirmation"],
         }),
 });
-
-export type AuthData = z.infer<typeof $AuthFormValidationSchema>;
-export type SignUpFormData = z.infer<typeof $SignUpFormValidationSchema>;
-export type RecoveryPasswordFormData = z.infer<typeof $RecoveryPasswordFormValidationSchema>;
-export type ChangePasswordFormData = z.infer<typeof $ChangePasswordFormValidationSchema>;

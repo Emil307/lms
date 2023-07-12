@@ -205,7 +205,7 @@ export const UIDemo = () => {
             },
             dateTime: null,
         },
-        // validationSchema: $loginValidationSchema,
+        validationSchema: $loginValidationSchema,
         onSubmit: (_values) => {
             return;
         },
@@ -323,6 +323,7 @@ export const UIDemo = () => {
                                     withDeleteButton
                                     // isModePreview={false}
                                     titleButtonFileDialog="IMAGE"
+                                    description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
                                 />
                                 <FDateRangePicker name="ranges.dateFrom" nameTo="ranges.dateTo" label="FDateRangePicker" />
 

@@ -5,16 +5,16 @@ import { Route } from "nextjs-routes";
 import { AxiosError } from "axios";
 import { MutationKeys } from "@shared/constant";
 import { AuthenticateResponse, authApi } from "@entities/auth";
-import { AuthData } from "@features/auth";
+import { AuthFormValidationSchema } from "@features/auth";
 import { ECookies } from "@app/config/axios/cookies";
 import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useAuthenticateMe = () => {
     const router = useRouter();
-    return useMutation<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthData>(
+    return useMutation<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthFormValidationSchema>(
         [MutationKeys.AUTHENTICATE_ME],
-        (data: AuthData) => authApi.authMe(data),
+        (data: AuthFormValidationSchema) => authApi.authMe(data),
         {
             onSuccess: (response) => {
                 setCookie(ECookies.TOKEN, response.data.accessToken);
@@ -34,6 +34,6 @@ export const useAuthenticateMe = () => {
                     title: "Ошибка аутентификации",
                 });
             },
-        },
+        }
     );
 };
