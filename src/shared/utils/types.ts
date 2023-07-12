@@ -14,19 +14,12 @@ export enum HTTPMethod {
     PUT = "PUT",
     DELETE = "DELETE",
 }
-export type CreateApiMethodParams<Request, Response, PathParams = undefined, RequestOutput = Request, ResponseOutput = Response> =
-    | {
-          method: HTTPMethod;
-          path: (params?: PathParams) => string;
-          requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
-          responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
-      }
-    | {
-          method: HTTPMethod;
-          path: string;
-          requestSchema: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
-          responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
-      };
+export type CreateApiMethodParams<Request, Response, PathParams = undefined, RequestOutput = Request, ResponseOutput = Response> = {
+    method: HTTPMethod;
+    path: string | ((params: PathParams) => string);
+    requestSchema?: z.ZodType<Request, z.ZodTypeDef, RequestOutput>;
+    responseSchema: z.ZodType<Response, z.ZodTypeDef, ResponseOutput>;
+};
 
 export abstract class BaseApi {
     constructor(protected instance: AxiosInstance) {}
@@ -37,11 +30,11 @@ export abstract class BaseApi {
         requestSchema,
         responseSchema,
     }: CreateApiMethodParams<Request, Response, PathParams, RequestOutput, ResponseOutput>): (
-        data: Request,
-        params?: PathParams,
+        data?: Request,
+        params?: PathParams
     ) => Promise<Response> {
-        return (requestData: Request, params?: PathParams) => {
-            requestSchema.parse(requestData);
+        return (requestData?: Request, params?: PathParams) => {
+            requestSchema?.parse(requestData);
             const apiHandler = async () => {
                 const url = typeof path === "string" ? path : path(params as PathParams);
                 const response: AxiosResponse["data"] = await this.instance({
