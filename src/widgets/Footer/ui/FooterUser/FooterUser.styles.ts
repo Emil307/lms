@@ -2,8 +2,9 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        paddingTop: 56,
         position: "inherit",
+        paddingTop: 56,
+        border: "none",
     },
     inner: {
         flexDirection: "column",
@@ -11,16 +12,38 @@ export default createStyles((theme) => ({
         paddingInline: 16,
         marginInline: "auto",
 
-        "@media (max-width: 1440px)": {
-            margin: "0",
+        [theme.fn.smallerThan("lg")]: {
+            margin: 0,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
         },
     },
     content: {
         marginBottom: 48,
         gap: 24,
 
-        "@media (max-width: 1440px)": {
+        [theme.fn.smallerThan("lg")]: {
             flexDirection: "column",
+        },
+    },
+    popularSectionContainer: {
+        flexDirection: "column",
+        minWidth: 392,
+        gap: 16,
+
+        [theme.fn.smallerThan("lg")]: {
+            minWidth: "auto",
+        },
+    },
+    infoSectionContainer: {
+        flexDirection: "column",
+        minWidth: 392,
+        gap: 16,
+
+        [theme.fn.smallerThan("lg")]: {
+            minWidth: "auto",
         },
     },
     titleSection: {

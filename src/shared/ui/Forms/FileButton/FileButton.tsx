@@ -1,10 +1,10 @@
-import { Box, ButtonProps, Flex, Text } from "@mantine/core";
+import { Box, ButtonProps, Flex } from "@mantine/core";
 import { Button, FileButton as MFileButton, FileButtonProps as MFileButtonProps } from "@mantine/core";
 import { memo, ReactNode, useCallback, useState } from "react";
 import { AlertTriangle } from "react-feather";
 import { FileType, useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
-import { AvatarFileFormat } from "@shared/ui";
+import { AvatarFileFormat, Paragraph } from "@shared/ui";
 import { getFileSize } from "@shared/utils";
 import { DEFAULT_MAX_FILE_SIZE, getCorrectFileFormats, isCorrectLoadedFileFormat } from "./constants";
 import useButtonStyles from "./FileButton.styles";
@@ -56,7 +56,7 @@ const MemoizedFileButton = memo(function FileButton({
                 onError: (error) => {
                     setErrorLoadFile(error.response?.data.message || error.message);
                 },
-            },
+            }
         );
     }, []);
 
@@ -65,7 +65,7 @@ const MemoizedFileButton = memo(function FileButton({
             return (
                 <Flex className={classes.error}>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </Flex>
             );
         }
@@ -73,7 +73,7 @@ const MemoizedFileButton = memo(function FileButton({
             return (
                 <Flex className={classes.error}>
                     <AlertTriangle />
-                    <Text>{errorLoadFile}</Text>
+                    <Paragraph variant="text-smaller">{errorLoadFile}</Paragraph>
                 </Flex>
             );
         }

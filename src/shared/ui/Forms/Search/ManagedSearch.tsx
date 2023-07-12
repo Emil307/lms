@@ -1,9 +1,9 @@
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDebouncedValue, useIntersection } from "@mantine/hooks";
-import { Box, BoxProps, Popover, ScrollArea, Text } from "@mantine/core";
+import { Box, BoxProps, Popover, ScrollArea } from "@mantine/core";
 import { TPaginationResponse, useInfiniteRequest } from "@shared/utils";
-import { Loader } from "@shared/ui";
+import { Loader, Paragraph } from "@shared/ui";
 import { TExtraFiltersProps, TFunctionParams } from "./types";
 import Search, { SearchProps } from "./Search";
 import useStyles from "./ManagedSearch.styles";
@@ -34,7 +34,7 @@ export type TManagedSearchProps<T extends Record<string, any> & { id: unknown },
  * @template E - Тип object для передачи дополнительных параметров для запроса
  */
 function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unknown, R = TFunctionParams<E>>(
-    props: TManagedSearchProps<T, E, R>,
+    props: TManagedSearchProps<T, E, R>
 ) {
     const router = useRouter();
     const { classes } = useStyles();
@@ -83,7 +83,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
         ({ pageParam = 1 }) => queryFunction({ ...paramsForRequest, page: pageParam }),
         {
             enabled: router.isReady,
-        },
+        }
     );
 
     const handleSelectItem = (item: T, newSearchValue: string) => {
@@ -109,7 +109,11 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
             return <Loader />;
         }
 
-        return <Text className={classes.nothingFound}>Совпадений не найдено</Text>;
+        return (
+            <Paragraph variant="text-caption" className={classes.nothingFound}>
+                Совпадений не найдено
+            </Paragraph>
+        );
     };
 
     const renderContent = () => {

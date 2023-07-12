@@ -105,6 +105,20 @@ export const defaultTheme: MantineThemeOverride = {
         },
     }),
     components: {
+        ThemeIcon: {
+            defaultProps: {
+                variant: "outline",
+            },
+            styles: (theme) => ({
+                root: {
+                    width: "auto",
+                    height: "auto",
+                    minWidth: "auto",
+                    minHeight: "auto",
+                    border: "none",
+                },
+            }),
+        },
         Select: {
             styles: (theme) => ({
                 item: {

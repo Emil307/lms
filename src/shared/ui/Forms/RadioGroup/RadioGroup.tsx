@@ -1,15 +1,15 @@
 import React, { useMemo } from "react";
-import { Group, Radio as MRadio, RadioGroupProps as MRadioGroupProps, Text, useMantineTheme } from "@mantine/core";
+import { Flex, Radio as MRadio, RadioGroupProps as MRadioGroupProps, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, CheckCircle, Info } from "react-feather";
 import { z } from "zod";
-import { useRadioGroupStyles } from "./FRadioGroupStyles";
+import { Paragraph } from "@shared/ui";
+import { useRadioGroupStyles } from "./RadioGroup.styles";
 
 export interface RadioGroupProps extends MRadioGroupProps {
     success?: string;
 }
 
 export const RadioGroup = ({ children, error, success, description, spacing = 16, ...props }: RadioGroupProps) => {
-    const theme = useMantineTheme();
     const { classes } = useRadioGroupStyles();
     const statusSuccess = useMemo(() => !!props.value?.length && !error && !!success, [props.value, error, success]);
 
@@ -18,10 +18,10 @@ export const RadioGroup = ({ children, error, success, description, spacing = 16
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const renderDescription = useMemo(() => {
@@ -32,16 +32,20 @@ export const RadioGroup = ({ children, error, success, description, spacing = 16
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );

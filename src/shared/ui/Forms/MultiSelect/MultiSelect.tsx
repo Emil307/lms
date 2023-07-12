@@ -1,8 +1,8 @@
 import React, { memo, useMemo, useState } from "react";
-import { Group, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
+import { Flex, MultiSelect as MMultiSelect, MultiSelectProps as MMultiSelectProps, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, CheckCircle, ChevronDown, Info, X } from "react-feather";
 import { z } from "zod";
-import { SelectItem } from "@shared/ui";
+import { Paragraph, SelectItem } from "@shared/ui";
 import { useMultiSelectStyles } from "./MultiSelect.styles";
 import { MultiSelectValueItem } from "./components";
 
@@ -19,7 +19,6 @@ const MultiSelect = ({
     onBlur = () => undefined,
     ...props
 }: MultiSelectProps) => {
-    const theme = useMantineTheme();
     const [focused, setFocused] = useState(false);
     const [openedDropdown, setOpenedDropdown] = useState(props.initiallyOpened);
 
@@ -37,13 +36,13 @@ const MultiSelect = ({
         }
         if (!!props.value && props.value.length > 0) {
             return (
-                <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", pointerEvents: "initial" }} onClick={handlerClear}>
+                <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: "initial" }} onClick={handlerClear}>
                     <X />
                 </ThemeIcon>
             );
         }
         return (
-            <ThemeIcon variant="outline" color="gray45" sx={{ border: "none", transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+            <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
                 <ChevronDown />
             </ThemeIcon>
         );
@@ -77,10 +76,10 @@ const MultiSelect = ({
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const renderDescription = useMemo(() => {
@@ -91,16 +90,20 @@ const MultiSelect = ({
         return (
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
-                    <Group>
-                        <CheckCircle color={theme.colors.done[0]} />
-                        <Text>{success}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="done">
+                            <CheckCircle />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
+                    </Flex>
                 )}
                 {description && (
-                    <Group>
-                        <Info color={theme.colors.primaryHover[0]} />
-                        <Text>{description}</Text>
-                    </Group>
+                    <Flex gap={16}>
+                        <ThemeIcon color="primaryHover">
+                            <Info />
+                        </ThemeIcon>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
+                    </Flex>
                 )}
             </>
         );

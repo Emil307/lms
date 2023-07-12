@@ -1,9 +1,9 @@
-import { Flex, Rating as MRating, RatingProps as MRatingProps, Text, ThemeIcon } from "@mantine/core";
+import { Flex, Rating as MRating, RatingProps as MRatingProps, ThemeIcon } from "@mantine/core";
 import { memo, ReactNode, useMemo } from "react";
 import { AlertTriangle } from "react-feather";
 import IconStarDefault from "public/icons/icon24px/rating/star-default.svg";
 import IconStarFull from "public/icons/icon24px/rating/star-full.svg";
-
+import { Paragraph } from "@shared/ui";
 import useStyles from "./Rating.styles";
 
 export interface RatingProps extends Omit<MRatingProps, "size" | "emptySymbol" | "fullSymbol"> {
@@ -27,10 +27,10 @@ const MemoizedRating = memo(function Rating({
             error && (
                 <Flex className={classes.error}>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </Flex>
             ),
-        [error],
+        [error]
     );
 
     return (
@@ -40,10 +40,9 @@ const MemoizedRating = memo(function Rating({
                 classNames={classes}
                 emptySymbol={
                     <ThemeIcon
-                        variant="outline"
                         color="secondary"
                         sx={(theme) => ({
-                            border: "none",
+                            width: 24,
                             path: {
                                 stroke: error ? theme.colors.warning[0] : theme.colors.gray45[0],
                             },
@@ -53,10 +52,9 @@ const MemoizedRating = memo(function Rating({
                 }
                 fullSymbol={
                     <ThemeIcon
-                        variant="outline"
                         color="secondary"
                         sx={(theme) => ({
-                            border: "none",
+                            width: 24,
                             path: {
                                 fill: theme.colors.secondary[0],
                                 stroke: theme.colors.secondary[0],

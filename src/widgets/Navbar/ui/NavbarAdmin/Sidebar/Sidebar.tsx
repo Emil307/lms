@@ -5,8 +5,8 @@ import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpe
 import { useMantineTheme } from "@mantine/core";
 import { IconMessageDots } from "@tabler/icons";
 import { IconReceipt } from "@tabler/icons-react";
-import SidebarItem from "./UI/SidebarItem/SidebarItem";
-import SidebarItemWithChildren from "./UI/SidebarItemWithChildren/SidebarItemWithChildren";
+import SidebarItem from "./ui/SidebarItem/SidebarItem";
+import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 
 export default function Sidebar() {
     const router = useRouter();

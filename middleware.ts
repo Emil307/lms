@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
     const token = req.cookies.get("TOKEN")?.value || "";
 
     const unathPaths = ["/auth", "/auth/forgot-password", "/auth/recovery-password", "/auth/sign-up"];
-    const publicPaths = ["/"];
+    const publicPaths = ["/", "/courses"];
     const disabledRedirectUrls = ["/logout"];
 
     if (publicPaths.includes(url.pathname)) {

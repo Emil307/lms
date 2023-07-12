@@ -12,9 +12,6 @@ export default createStyles((theme, { checked = false }: { checked?: boolean }) 
         borderRadius: 8,
     },
     label: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
         color: checked ? theme.colors.dark[0] : theme.colors.gray45[0],
     },
 }));

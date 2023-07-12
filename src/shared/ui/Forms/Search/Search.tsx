@@ -1,7 +1,6 @@
 import React, { memo } from "react";
-import { TextInput as MInput, TextInputProps as MTextInputProps } from "@mantine/core";
+import { TextInput as MInput, TextInputProps as MTextInputProps, ThemeIcon } from "@mantine/core";
 import { Search as SearchIcon, X } from "react-feather";
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { useSearchStyles } from "./Search.styles";
 
 export interface SearchProps extends MTextInputProps {
@@ -18,7 +17,13 @@ const Search = ({ setValue = () => undefined, onChange = () => undefined, value,
     };
 
     const RightSection = () => {
-        if (value) return <X size={16} color={defaultTheme.colors?.gray45?.[0]} onClick={() => setValue("")} />;
+        if (value)
+            return (
+                <ThemeIcon color="gray45" w={16} h={16} onClick={() => setValue("")}>
+                    <X />
+                </ThemeIcon>
+            );
+
         return null;
     };
 
@@ -26,7 +31,11 @@ const Search = ({ setValue = () => undefined, onChange = () => undefined, value,
         <MInput
             {...props}
             value={value}
-            icon={<SearchIcon size={16} color={defaultTheme.colors?.primary?.[0]} />}
+            icon={
+                <ThemeIcon color="primary" w={16} h={16}>
+                    <SearchIcon />
+                </ThemeIcon>
+            }
             classNames={classes}
             rightSection={<RightSection />}
             onChange={handlerChange}

@@ -3,20 +3,13 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {},
     avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
         svg: {
             transform: "scale(0.65)",
         },
     },
     chevronIconWrapper: {
-        minHeight: 16,
-        minWidth: 16,
         width: 16,
         height: 16,
-        border: "none",
         color: theme.colors.dark[0],
     },
     menuItem: {

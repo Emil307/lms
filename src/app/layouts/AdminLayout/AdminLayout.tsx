@@ -3,7 +3,7 @@ import { AppShell } from "@mantine/core";
 import React from "react";
 import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
-import { NavbarAdmin } from "@widgets/NavbarAdmin";
+import { NavbarAdmin } from "@widgets/Navbar";
 import { useAdminLayoutStyles } from "./AdminLayout.styles";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {

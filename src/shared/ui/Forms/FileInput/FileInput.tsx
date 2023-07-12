@@ -1,10 +1,11 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Box, BoxProps, Group, Text } from "@mantine/core";
-import { Info } from "react-feather";
+import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import _ from "lodash";
+import { AlertTriangle, Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
+import { Paragraph } from "@shared/ui";
 import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
@@ -102,10 +103,10 @@ const MemoizedFileInput = memo(function FileInput({
 
             onDeleteLoadedFile(
                 fileId,
-                loadedFiles.map((file) => file.data),
+                loadedFiles.map((file) => file.data)
             );
         },
-        [loadedFiles, loadedFilesData],
+        [loadedFiles, loadedFilesData]
     );
 
     const getRemainFilesSize = useCallback(() => {
@@ -118,7 +119,7 @@ const MemoizedFileInput = memo(function FileInput({
     const handleRejectFiles = useCallback((files: FileRejection[]) => {
         handleLoadFile(
             files.map((file) => file.file),
-            "Слишком большой файл или неверный формат",
+            "Слишком большой файл или неверный формат"
         );
         handleErrorLoadFile("Слишком большой файл или неверный формат");
     }, []);
@@ -136,7 +137,7 @@ const MemoizedFileInput = memo(function FileInput({
 
             if (replaceLoadedFileId.current) {
                 setLoadedFiles((prevLoadedFiles) =>
-                    prevLoadedFiles.map((file) => (file.id === replaceLoadedFileId.current ? { ...adaptedFiles[0] } : file)),
+                    prevLoadedFiles.map((file) => (file.id === replaceLoadedFileId.current ? { ...adaptedFiles[0] } : file))
                 );
                 replaceLoadedFileId.current = null;
             } else {
@@ -255,33 +256,38 @@ const MemoizedFileInput = memo(function FileInput({
         }
 
         return (
-            <Group className={classes.description}>
-                <Info />
-                <Text>{description}</Text>
-            </Group>
+            <Flex className={classes.description}>
+                <ThemeIcon h={16} w={16} color="primaryHover">
+                    <Info />
+                </ThemeIcon>
+                <Paragraph variant="text-smaller">{description}</Paragraph>
+            </Flex>
         );
     };
 
     const errorMessage = useMemo(() => {
         if (props.error && !isErrorLoadFile) {
             return (
-                <Text className={classes.errorText} lineClamp={1}>
-                    {props.error}
-                </Text>
+                <Flex className={classes.error}>
+                    <AlertTriangle />
+                    <Paragraph variant="text-smaller">{props.error}</Paragraph>
+                </Flex>
             );
         }
         if (isErrorLoadFile && !multiple) {
             return (
-                <Text className={classes.errorText} lineClamp={1}>
-                    Слишком большой файл или неверный формат
-                </Text>
+                <Flex className={classes.error}>
+                    <AlertTriangle />
+                    <Paragraph variant="text-smaller">Слишком большой файл или неверный формат</Paragraph>
+                </Flex>
             );
         }
         if (isErrorLoadFile && multiple) {
             return (
-                <Text className={classes.errorText} lineClamp={1}>
-                    Превышен максимальный объем файлов или загружен неверный формат
-                </Text>
+                <Flex className={classes.error}>
+                    <AlertTriangle />
+                    <Paragraph variant="text-smaller">Превышен максимальный объем файлов или загружен неверный формат</Paragraph>
+                </Flex>
             );
         }
     }, [props.error, isErrorLoadFile, multiple]);
@@ -301,8 +307,8 @@ const MemoizedFileInput = memo(function FileInput({
                     multiple={!replaceLoadedFileId.current && multiple}
                     activateOnClick={false}>
                     {contentInsideDropzone}
-                    {errorMessage}
                 </Dropzone>
+                {errorMessage}
                 {renderDescription()}
             </Box>
             {contentOutsideDropzone}

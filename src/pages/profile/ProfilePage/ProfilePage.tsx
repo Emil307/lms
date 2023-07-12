@@ -9,9 +9,9 @@ import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateUserNotification } from "@entities/notification";
+import { InfoCard } from "@components/InfoCard";
 import { breadCrumbsItems, fields } from "./constants";
 import useStyles from "./ProfilePage.styles";
-import InfoCard from "../../../components/InfoCard/InfoCard";
 
 const ProfilePage = () => {
     const router = useRouter();
@@ -43,14 +43,14 @@ const ProfilePage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Flex gap={16} align="center" mb={32}>
-                <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
-                    <Settings width={32} height={32} />
+            <Flex gap={12} align="center" mb={32}>
+                <ThemeIcon className={classes.titleIcon}>
+                    <Settings />
                 </ThemeIcon>
                 <Heading>Настройки профиля</Heading>
             </Flex>
-            <Box className={classes.content}>
-                <Flex direction="column" gap={24}>
+            <Flex className={classes.content}>
+                <Flex direction="column" gap={24} sx={{ flex: 1 }}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
@@ -90,7 +90,7 @@ const ProfilePage = () => {
                         }
                     />
                 </Box>
-            </Box>
+            </Flex>
         </Box>
     );
 };

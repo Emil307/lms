@@ -41,7 +41,6 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         ".ProseMirror": {
             height: "100%",
         },
-
         ...textEditorContentStyles(theme),
     },
 
@@ -71,19 +70,8 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         gap: 4,
     },
     wrapperIcon: {
-        minWidth: "auto",
-        minHeight: "auto",
         width: 16,
         height: 16,
-        border: "none",
-    },
-    helperText: {
-        width: "calc(100% - 20px)",
-        paddingTop: 2,
-        color: theme.colors.dark[0],
-        fontWeight: 400,
-        fontSize: 10,
-        lineHeight: "12px",
     },
 }));
 

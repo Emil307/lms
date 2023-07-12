@@ -1,9 +1,10 @@
-import { TextInput as MInput, Text, ThemeIcon, Flex } from "@mantine/core";
+import { TextInput as MInput, ThemeIcon, Flex } from "@mantine/core";
 import { memo, ReactNode, useCallback, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle, Eye, EyeOff, Info } from "react-feather";
 import { z } from "zod";
 import { usePassword } from "@shared/utils";
 import { useInputStyles } from "@shared/styles";
+import { Paragraph } from "@shared/ui/Typography";
 
 export interface InputProps extends React.ComponentProps<typeof MInput> {
     success?: string | boolean;
@@ -29,11 +30,11 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
         if (rightSection) return rightSection;
         if (isPasswordField)
             return isPasswordVisible ? (
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none", pointerEvents: "initial" }} onClick={toggleVisibility}>
+                <ThemeIcon color="gray45" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <Eye />
                 </ThemeIcon>
             ) : (
-                <ThemeIcon color="gray45" variant="outline" sx={{ border: "none", pointerEvents: "initial" }} onClick={toggleVisibility}>
+                <ThemeIcon color="gray45" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <EyeOff />
                 </ThemeIcon>
             );
@@ -45,10 +46,10 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
             error && (
                 <>
                     <AlertTriangle />
-                    <Text>{error}</Text>
+                    <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error],
+        [error]
     );
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
@@ -62,18 +63,18 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon variant="outline" color="done" sx={{ border: "none" }}>
+                        <ThemeIcon color="done">
                             <CheckCircle />
                         </ThemeIcon>
-                        <Text>{success}</Text>
+                        <Paragraph variant="text-smaller">{success}</Paragraph>
                     </Flex>
                 )}
                 {description && (
                     <Flex gap={16}>
-                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                        <ThemeIcon color="primaryHover">
                             <Info />
                         </ThemeIcon>
-                        <Text>{description}</Text>
+                        <Paragraph variant="text-smaller">{description}</Paragraph>
                     </Flex>
                 )}
             </>

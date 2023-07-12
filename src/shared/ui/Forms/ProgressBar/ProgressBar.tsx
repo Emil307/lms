@@ -1,5 +1,6 @@
-import { Box, Progress as MProgress, ProgressProps as MProgressProps, Text } from "@mantine/core";
+import { Box, Progress as MProgress, ProgressProps as MProgressProps } from "@mantine/core";
 import { memo, useMemo } from "react";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./ProgressBar.styles";
 
 export interface ProgressBarProps extends MProgressProps {
@@ -21,15 +22,7 @@ const MemoizedProgressBar = memo(function ProgressBar({
     return (
         <Box className={classes.wrapper}>
             <MProgress {...props} value={valueProgress} classNames={classes} />
-            {!hiddenLabel && (
-                <Text
-                    sx={(theme) => ({
-                        fontWeight: 600,
-                        fontSize: 16,
-                        lineHeight: "24px",
-                        color: theme.colors.dark[0],
-                    })}>{`${value}/${maxValue} ${label}`}</Text>
-            )}
+            {!hiddenLabel && <Paragraph variant="small-semi">{`${value}/${maxValue} ${label}`}</Paragraph>}
         </Box>
     );
 });
