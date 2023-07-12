@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { usePublicOffer } from "@entities/staticPage";
-import { LastUpdatedInfo, Loader } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader } from "@shared/ui";
 import { UpdatePublicOfferForm } from "@features/publicOffer";
 
 const UserAgreementPage = () => {
@@ -14,9 +14,7 @@ const UserAgreementPage = () => {
     return (
         <Box>
             <Flex direction="column" gap={24}>
-                <Title order={1} color="dark">
-                    Публичная оферта
-                </Title>
+                <Heading>Публичная оферта</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
             <UpdatePublicOfferForm mt={24} />

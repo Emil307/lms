@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, Shield } from "react-feather";
 import axios from "axios";
-import { Button, Checkbox, FInput, Form } from "@shared/ui";
+import { Button, Checkbox, FInput, Form, Heading } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { $AuthFormValidationSchema, AuthData, useFormStyles } from "@features/auth";
 import { useAuthenticateMe } from "@entities/auth";
@@ -41,9 +41,9 @@ const AuthForm = (_props: AuthFormProps) => {
                     <Logo />
                 </Link>
 
-                <Text className={classes.headingTitle}>
+                <Heading order={3} className={classes.headingTitle}>
                     Войдите в свой профиль, <br /> чтобы начать учиться
-                </Text>
+                </Heading>
                 <Text className={classes.headingDescription}>
                     Новый пользователь?
                     <Link href="/auth/sign-up" className={classes.signUpLink}>

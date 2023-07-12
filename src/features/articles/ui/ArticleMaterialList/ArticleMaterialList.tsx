@@ -1,7 +1,7 @@
-import { Box, BoxProps, Flex, Title } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, ManagedDataGrid } from "@shared/ui";
+import { Button, Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
 import { AddMaterialsToArticleModal } from "@features/articles";
@@ -30,9 +30,7 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
     return (
         <Box {...props}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Материалы
-                </Title>
+                <Heading order={2}>Материалы</Heading>
                 <Button variant="text" onClick={openAddMaterialsToArticleModal} leftIcon={<PlusCircle />}>
                     Добавить материалы
                 </Button>

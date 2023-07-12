@@ -1,7 +1,7 @@
-import { Title, Flex, ThemeIcon } from "@mantine/core";
+import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { Folder as FolderIcon } from "react-feather";
-import { Button, FInput, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
 import { $CreateCourseModuleFormValues, courseModuleApi } from "@entities/courseModule";
@@ -51,7 +51,7 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <FolderIcon />
                         </ThemeIcon>
-                        <Title order={4}>Модуль {moduleNumber}</Title>
+                        <Heading order={4}>Модуль {moduleNumber}</Heading>
                     </Flex>
                     <Flex gap={8} direction="column">
                         <FInput name="name" label="Наименование" />

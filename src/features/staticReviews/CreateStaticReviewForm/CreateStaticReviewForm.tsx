@@ -3,7 +3,7 @@ import { Box, Text, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
@@ -94,7 +94,7 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
                     <Box component="fieldset" className={classes.fieldset} maw={512}>
                         <Box component="legend" className={classes.legend}>
                             <User />
-                            <Text className={classes.title}>Карточка автора</Text>
+                            <Heading order={4}>Карточка автора</Heading>
                             <FSwitch variant="secondary" name="authorIsActive" />
                         </Box>
                         {values.authorIsActive && (

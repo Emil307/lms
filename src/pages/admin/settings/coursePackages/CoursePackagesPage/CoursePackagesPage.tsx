@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, Prompt } from "@shared/ui";
+import { Button, Heading, Prompt } from "@shared/ui";
 import { AdminList as AdminCoursePackageList } from "@features/coursePackages";
 
 const CoursePackagesPage = () => {
@@ -16,9 +16,7 @@ const CoursePackagesPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between" mb={24}>
-                <Title order={1} color="dark">
-                    Пакеты курсов
-                </Title>
+                <Heading>Пакеты курсов</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={openCreateCoursePackageForm}>
                     Создать пакет
                 </Button>

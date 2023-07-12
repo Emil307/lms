@@ -6,6 +6,7 @@ import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import useStyles from "./Card.styles";
 import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
+import { Heading } from "@shared/ui";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;
@@ -57,9 +58,9 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody}>
                 <Box className={classes.headingContent}>
-                    <Text className={classes.title} lineClamp={2}>
+                    <Heading order={4} className={classes.title} lineClamp={2}>
                         {data.name}
-                    </Text>
+                    </Heading>
                     <StartDateBlock />
                 </Box>
                 <Group sx={{ justifyContent: "space-between" }}>

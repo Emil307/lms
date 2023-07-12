@@ -1,8 +1,8 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { List as MaterialList } from "@features/materials";
 import { SelectTypeMaterial } from "@widgets/material";
 import useStyles from "./MaterialsPage.styles";
@@ -15,9 +15,7 @@ const MaterialsPage = () => {
             modalId: "CREATE_MATERIAL",
             title: (
                 <Flex direction="column" gap={8}>
-                    <Title order={3} color="dark">
-                        Создать материал
-                    </Title>
+                    <Heading order={3}>Создать материал</Heading>
                     <Text className={classes.descriptionModal}>Выберите тип отображения контента</Text>
                 </Flex>
             ),
@@ -30,9 +28,7 @@ const MaterialsPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between" mb={24}>
-                <Title order={1} color="dark">
-                    Справочник материалов
-                </Title>
+                <Heading>Справочник материалов</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={openModalCreateMaterial}>
                     Создать материал
                 </Button>

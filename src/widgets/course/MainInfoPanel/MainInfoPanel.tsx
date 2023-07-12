@@ -1,9 +1,9 @@
-import { ActionIcon, Badge, Box, BoxProps, Divider, Flex, Group, Text, ThemeIcon, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, BoxProps, Divider, Flex, Group, Text, ThemeIcon } from "@mantine/core";
 import { memo, useMemo } from "react";
 import Image from "next/image";
 import { Heart } from "react-feather";
 import { CourseDetailData } from "@entities/course";
-import { Button, Rating } from "@shared/ui";
+import { Button, Heading, Rating } from "@shared/ui";
 import { getDiscountPrice, getLocalizationDate, getPluralString } from "@shared/utils";
 
 import IconCalendar from "public/icons/calendar.svg";
@@ -88,13 +88,11 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                                 data.reviewCount,
                                 "отзыв",
                                 "отзыва",
-                                "отзывов",
+                                "отзывов"
                             )}`}</Text>
                         </Flex>
                     </Group>
-                    <Title order={1} color="dark">
-                        {data.name}
-                    </Title>
+                    <Heading>{data.name}</Heading>
                     <Group>
                         <Flex align="center" gap={6}>
                             <ThemeIcon

@@ -1,10 +1,10 @@
-import { Box, Flex, Text, Title } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { Shield, Trash, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { useAdminAuthor } from "@entities/author";
 import { DeleteAuthorModal } from "@features/authors";
 import { InfoCard } from "@components/InfoCard";
@@ -44,7 +44,7 @@ const AuthorSettings = ({ id }: AuthorSettingsProps) => {
             <Box mt={32} className={classes.info}>
                 <Flex direction="column" gap={32}>
                     <Flex gap={48} align="center">
-                        <Title order={2}>Данные автора</Title>
+                        <Heading order={2}>Данные автора</Heading>
                         <Button onClick={openModalDeleteAuthor} variant="text" leftIcon={<Trash />}>
                             Удалить автора
                         </Button>

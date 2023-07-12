@@ -1,5 +1,4 @@
 import { CSSObject, MantineTheme, NotificationStylesNames } from "@mantine/core";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 import { ToastType } from "./constants";
 
 const getColorsByType = (theme: MantineTheme, type: ToastType) => {
@@ -36,7 +35,6 @@ const getStyles =
         },
         title: {
             marginBottom: 0,
-            fontFamily: ManropeFont.style.fontFamily,
             fontWeight: 600,
             fontSize: 16,
             lineHeight: "24px",
@@ -48,7 +46,6 @@ const getStyles =
             }),
         },
         description: {
-            fontFamily: ManropeFont.style.fontFamily,
             fontWeight: 500,
             fontSize: 12,
             lineHeight: "16px",

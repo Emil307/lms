@@ -2,7 +2,7 @@ import { Box, ThemeIcon, Text, BoxProps as MBoxProps } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { AtSign, PhoneCall, User } from "react-feather";
 import Link from "next/link";
-import { Button, FCheckbox, FInput, Form } from "@shared/ui";
+import { Button, FCheckbox, FInput, Form, Heading } from "@shared/ui";
 import { $ContactUsRequest, ContactUsRequest } from "@entities/staticPage";
 import useStyles from "./ContactUsForm.styles";
 
@@ -27,7 +27,7 @@ const ContactUsForm = (props: ContactUsFormProps) => {
     return (
         <Box {...props} className={classes.root}>
             <Box className={classes.heading}>
-                <Text className={classes.headingTitle}>Свяжитесь с нами</Text>
+                <Heading order={2}>Свяжитесь с нами</Heading>
                 <Text className={classes.headingDescription}>Закажите бесплатную консультацию, просто заполнив форму.</Text>
             </Box>
 

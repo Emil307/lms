@@ -10,12 +10,6 @@ export default createStyles((theme) => ({
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
     },
-    title: {
-        fontWeight: 600,
-        fontSize: 18,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
     requisitesContainer: {
         flexDirection: "column",
         flexWrap: "nowrap",

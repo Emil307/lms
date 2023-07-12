@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { LessonList } from "@widgets/admin/lessons";
 import { CreateLessonModal } from "@features/lessons";
 
@@ -21,7 +21,7 @@ const LessonListPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title>Уроки</Title>
+                <Heading>Уроки</Heading>
                 <Button variant="secondary" size="large" onClick={handleOpenCreateLessonModal} leftIcon={<PlusCircle />}>
                     Создать урок
                 </Button>

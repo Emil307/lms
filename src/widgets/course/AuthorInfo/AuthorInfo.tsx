@@ -1,6 +1,7 @@
-import { Flex, Title, Text, Avatar, BoxProps } from "@mantine/core";
+import { Flex, Text, Avatar, BoxProps } from "@mantine/core";
 import { memo } from "react";
 import { CourseDetailData } from "@entities/course";
+import { Heading } from "@shared/ui";
 import useStyles from "./AuthorInfo.styles";
 
 export interface AuthorInfoProps extends Omit<BoxProps, "children"> {
@@ -12,9 +13,7 @@ const MemoizedAuthorInfo = memo(function AuthorInfo({ data, ...props }: AuthorIn
     return (
         <Flex {...props} className={classes.root}>
             <Flex direction="column" justify="center" sx={{ flex: 1, gap: 8 }}>
-                <Title order={2} color="dark">
-                    Автор курса
-                </Title>
+                <Heading order={2}>Автор курса</Heading>
                 <Text className={classes.slogan} lineClamp={2}>
                     Только профессионалы в своем деле.
                 </Text>

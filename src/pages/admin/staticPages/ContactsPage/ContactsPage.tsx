@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { useContacts } from "@entities/staticPage";
 import { UpdateContactsForm } from "@features/contacts";
-import { LastUpdatedInfo, Loader } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader } from "@shared/ui";
 
 const ContactsPage = () => {
     const { data, isLoading } = useContacts();
@@ -14,9 +14,7 @@ const ContactsPage = () => {
     return (
         <Box>
             <Flex direction="column" gap={24}>
-                <Title order={1} color="dark">
-                    Контакты
-                </Title>
+                <Heading>Контакты</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
             <UpdateContactsForm mt={24} />

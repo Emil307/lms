@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+export default createStyles((_theme) => ({
     root: {
         position: "absolute",
         alignItems: "center",
@@ -8,11 +8,5 @@ export default createStyles((theme) => ({
         width: "fit-content",
         left: 120,
         bottom: 48,
-    },
-    text: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.white[0],
     },
 }));

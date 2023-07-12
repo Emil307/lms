@@ -1,7 +1,7 @@
-import { Box, Text, Title } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useAdminCourse } from "@entities/course";
 import { UpdateCourseForm } from "@features/courses";
@@ -31,9 +31,7 @@ const UpdateCoursePage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ courseId: courseData.id, courseName: courseData.name })} mb={8} />
-            <Title order={1} color="dark">
-                {courseData.name}
-            </Title>
+            <Heading>{courseData.name}</Heading>
             <UpdateCourseForm data={courseData} onSuccess={onSuccess} onCancel={onCancel} />
         </Box>
     );

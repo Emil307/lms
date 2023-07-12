@@ -1,7 +1,7 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { CreateTransactionForm } from "@features/transactions";
 import { breadCrumbsItems } from "./constants";
 
@@ -13,9 +13,7 @@ const CreateTransactionPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Title order={1} color="dark" mb={32}>
-                Создание транзакции
-            </Title>
+            <Heading mb={32}>Создание транзакции</Heading>
             <CreateTransactionForm onClose={handleCloseCreateForm} maw={512} />
         </Box>
     );

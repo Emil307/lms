@@ -1,7 +1,8 @@
-import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton, SkeletonProps, Title } from "@mantine/core";
+import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
+import { Heading } from "@shared/ui";
 
 export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {
     title?: string;
@@ -29,7 +30,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
                     <Accordion.Panel>{faqItem.answer}</Accordion.Panel>
                 </Accordion.Item>
             )),
-        [faqData, selected],
+        [faqData, selected]
     );
 
     if (!faqData?.length) {
@@ -40,9 +41,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
         <Flex direction="column" {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Title order={1} color="dark">
-                        {title}
-                    </Title>
+                    <Heading>{title}</Heading>
                 </Skeleton>
             )}
             <Skeleton visible={isLoading} {...skeletonListProps}>

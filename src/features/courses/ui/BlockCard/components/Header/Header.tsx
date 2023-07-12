@@ -1,9 +1,10 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Flex, ThemeIcon, Title, Text } from "@mantine/core";
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Flex, ThemeIcon, Text } from "@mantine/core";
 import { memo, useMemo } from "react";
 import Image from "next/image";
 import { CourseBlock } from "@entities/course";
 import IconCalendar from "public/icons/calendar.svg";
 import { getHumanDate } from "@shared/utils";
+import { Heading } from "@shared/ui";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps extends Omit<MCardProps, "children"> {
@@ -42,9 +43,9 @@ const MemoizedHeader = memo(function Footer({ data, ...props }: HeaderProps) {
                 <Badge variant="outline" className={classes.status}>
                     {renderStatus}
                 </Badge>
-                <Title order={4} color="dark" lineClamp={2}>
+                <Heading order={4} lineClamp={2}>
                     {data.name}
-                </Title>
+                </Heading>
                 <Flex align="center" sx={{ gap: 8 }}>
                     <ThemeIcon color="secondary16" w={32} h={32} sx={{ borderRadius: 56 }}>
                         <IconCalendar />

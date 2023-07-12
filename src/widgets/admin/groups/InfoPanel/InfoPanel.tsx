@@ -1,7 +1,7 @@
-import { Badge, Box, Flex, Title, Text } from "@mantine/core";
+import { Badge, Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Switch } from "@shared/ui";
+import { Heading, Switch } from "@shared/ui";
 import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
 import useStyles from "./InfoPanel.styles";
 
@@ -23,9 +23,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     return (
         <Box>
             <Flex gap={16} align="center" mb={24}>
-                <Title order={1} color="dark">
-                    {groupData?.name}
-                </Title>
+                <Heading>{groupData?.name}</Heading>
                 <Badge variant="outline" className={classes.status}>
                     {groupData?.status.name}
                 </Badge>

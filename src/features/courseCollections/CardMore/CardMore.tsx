@@ -1,8 +1,8 @@
-import { Box, BoxProps, Title, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
 import { ChevronRight } from "react-feather";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import useStyles from "./CardMore.styles";
 
@@ -18,9 +18,9 @@ const MemoizedCardMore = memo(function CardMore({ countCardSet, ...props }: Card
 
     return (
         <Box {...props} className={classes.root} onClick={handleClick}>
-            <Title order={3} color="primary" lineClamp={2}>
+            <Heading order={3} color="primary" lineClamp={2}>
                 {`+ еще ${countCardSet} ${getPluralString(countCardSet, "подборка", "подборки", "подборок")}`} <br /> на актуальные темы
-            </Title>
+            </Heading>
             <Box>
                 <Button
                     variant="text"

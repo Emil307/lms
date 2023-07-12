@@ -1,10 +1,10 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex, Text } from "@mantine/core";
+import dayjs from "dayjs";
 import { getHumanDate } from "@shared/utils";
 import { Tooltip } from "@shared/ui";
 import { AdminCoursePackage, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
 import useStyles from "./AdminList.styles";
-import dayjs from "dayjs";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -75,12 +75,12 @@ export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
                 <Flex direction="column">
                     {row.original.discount?.startingDate && (
                         <Text className={classes.startingDate} lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
-                            "DD.MM.YYYY",
+                            "DD.MM.YYYY"
                         )}`}</Text>
                     )}
                     {row.original.discount?.finishingDate && (
                         <Text className={classes.finishingDate} lineClamp={1}>{`до ${dayjs(row.original.discount.finishingDate).format(
-                            "DD.MM.YYYY",
+                            "DD.MM.YYYY"
                         )}`}</Text>
                     )}
                 </Flex>

@@ -1,7 +1,8 @@
-import { Flex, FlexProps, ThemeIcon, Text, Group, Title } from "@mantine/core";
+import { Flex, FlexProps, ThemeIcon, Text, Group } from "@mantine/core";
 import { ReactNode, memo } from "react";
 import { FileText, Lock } from "react-feather";
 import { ArticleFromList } from "@entities/article";
+import { Heading } from "@shared/ui";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<FlexProps, "onClick"> {
@@ -22,9 +23,7 @@ const MemoizedCard = memo(function Card({ data, actionSlot, onClick, ...props }:
                     {data.isAvailable ? <FileText width={24} height={24} /> : <Lock width={24} height={24} />}
                 </ThemeIcon>
                 <Flex direction="column" gap={2}>
-                    <Title order={4} color="dark">
-                        {data.name}
-                    </Title>
+                    <Heading order={4}>{data.name}</Heading>
                     <Text className={classes.categoryName}>{data.category?.name}</Text>
                 </Flex>
             </Group>

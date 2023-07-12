@@ -1,10 +1,10 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { IconAlignLeft, IconClipboardText } from "@tabler/icons-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { useMainBanner } from "@entities/staticPage";
 import useStyles from "./Details.styles";
 
@@ -19,7 +19,7 @@ const Details = () => {
         <Box>
             <Box className={classes.info}>
                 <Flex direction="column">
-                    <Title order={2}>Данные для главного баннера</Title>
+                    <Heading order={2}>Данные для главного баннера</Heading>
 
                     <Fieldset mt={32} label="Детали" icon={<IconClipboardText />}>
                         <DisplayField label="Заголовок баннера" value={data?.title} />

@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex, Group, Text, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, Group, Text } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { InvoicePaymentForm } from "@features/coursePackages";
 import { CoursePackageDetails } from "@entities/coursePackage";
@@ -32,12 +32,12 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
         if (data.hasDiscount && data.discountPrice) {
             return (
                 <Flex align="center" gap={6}>
-                    <Text className={classes.price}>{`${data.discountPrice} ₽`}</Text>
+                    <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price} ₽`}</Text>
                 </Flex>
             );
         }
-        return <Text className={classes.price}>{`${data.price} ₽`}</Text>;
+        return <Heading order={3} className={classes.price}>{`${data.price} ₽`}</Heading>;
     };
 
     return (
@@ -53,9 +53,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     }}>
                     <Flex direction="column" gap={16}>
                         <DiscountInfo data={{ discount: data.discount, hasDiscount: data.hasDiscount }} />
-                        <Title order={1} color="dark" lineClamp={2}>
-                            {data.name}
-                        </Title>
+                        <Heading lineClamp={2}>{data.name}</Heading>
                         <Text className={classes.description} lineClamp={2}>
                             {data.description}
                         </Text>
@@ -93,7 +91,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     data.coursesCount,
                     "курс",
                     "курса",
-                    "курсов",
+                    "курсов"
                 )} в пакете`}</Text>
                 <CourseList data={data} />
             </Flex>

@@ -20,10 +20,4 @@ export default createStyles((_theme) => ({
             color: "gray45.0",
         },
     },
-    title: {
-        fontWeight: 600,
-        fontSize: 18,
-        lineHeight: "24px",
-        color: "dark.0",
-    },
 }));

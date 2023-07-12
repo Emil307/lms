@@ -1,10 +1,10 @@
 import React, { memo, PropsWithChildren, ReactNode, Ref, useState, MouseEvent } from "react";
 import { CSS } from "@dnd-kit/utilities";
-import { ActionIcon, Box, Collapse, Flex, Text, ThemeIcon, Title } from "@mantine/core";
+import { ActionIcon, Box, Collapse, Flex, Text, ThemeIcon } from "@mantine/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { Eye as EyeIcon } from "react-feather";
 import IconDragDots from "public/icons/dragDots.svg";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import useStyles from "./DndCard.styles";
 
 export interface DndCardProps {
@@ -59,9 +59,9 @@ const DndCard = ({
                             {leftIcon}
                         </ThemeIcon>
                     )}
-                    <Title className={classes.title} order={3}>
+                    <Heading className={classes.title} order={3}>
                         {title}
-                    </Title>
+                    </Heading>
                 </Flex>
                 <Flex align="center" gap={16}>
                     {onOpen && (

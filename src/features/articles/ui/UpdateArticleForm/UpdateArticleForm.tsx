@@ -1,4 +1,4 @@
-import { Box, Flex, Text, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, Text, ThemeIcon } from "@mantine/core";
 import React, { useState } from "react";
 import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
@@ -11,6 +11,7 @@ import {
     FSelect,
     FSwitch,
     FTextEditor,
+    Heading,
     LastUpdatedInfo,
     ManagedForm,
     prepareOptionsForSelect,
@@ -116,9 +117,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                             </Flex>
                             <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
-                        <Title order={2} color="dark">
-                            Данные статьи
-                        </Title>
+                        <Heading order={2}>Данные статьи</Heading>
 
                         <Fieldset label="Настройки" icon={<Edit3 />} maw={512}>
                             <Flex direction="column" gap={8} w="100%">

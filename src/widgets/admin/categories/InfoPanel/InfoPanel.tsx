@@ -1,8 +1,8 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Folder } from "react-feather";
 import dayjs from "dayjs";
-import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Switch } from "@shared/ui";
 import { useAdminCategory, useAdminUpdateCategoryActivity } from "@entities/category";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -23,12 +23,12 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <Box>
-            <Title order={1} color="dark" sx={{ display: "flex", alignItems: "center", marginBottom: 24, gap: 16 }}>
+            <Heading sx={{ display: "flex", alignItems: "center", marginBottom: 24, gap: 16 }}>
                 <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
                     <Folder />
                 </ThemeIcon>
                 {data?.name}
-            </Title>
+            </Heading>
             <Flex gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>

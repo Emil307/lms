@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { useAbout } from "@entities/staticPage";
 import { UpdateAboutForm } from "@features/about";
-import { LastUpdatedInfo, Loader } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader } from "@shared/ui";
 
 const AboutPage = () => {
     const { data, isLoading } = useAbout();
@@ -14,9 +14,7 @@ const AboutPage = () => {
     return (
         <Box>
             <Flex direction="column" gap={24}>
-                <Title order={1} color="dark">
-                    О проекте
-                </Title>
+                <Heading>О проекте</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
             <UpdateAboutForm mt={32} />

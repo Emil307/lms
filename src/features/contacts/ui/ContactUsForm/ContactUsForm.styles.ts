@@ -11,12 +11,6 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         gap: 8,
     },
-    headingTitle: {
-        fontWeight: 600,
-        fontSize: 26,
-        lineHeight: "32px",
-        color: theme.colors.dark[0],
-    },
     headingDescription: {
         fontWeight: 500,
         fontSize: 16,

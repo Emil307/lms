@@ -1,6 +1,6 @@
-import { Flex, Title } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import { StaticReviewFromList } from "@entities/staticReview";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps {
@@ -12,9 +12,9 @@ const Header = ({ data: { content } }: HeaderProps) => {
 
     return (
         <Flex className={classes.root}>
-            <Title order={1} color="white" lineClamp={3}>
+            <Heading color="white" lineClamp={3}>
                 {content}
-            </Title>
+            </Heading>
             {/* //TODO: смотреть отзыв с модалкой */}
             <Button variant="white" size="large" w="min-content">
                 Смотреть отзыв

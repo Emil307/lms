@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FSearch, FSelect } from "@shared/ui";
+import { FSearch, FSelect, Heading } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { UserFromList, UsersFilters } from "@entities/user/api/types";
@@ -39,7 +39,7 @@ const UserList = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title>Пользователи</Title>
+                <Heading>Пользователи</Heading>
                 <Button onClick={pushOnCreateUser} variant="secondary" size="large" leftIcon={<PlusCircle />}>
                     Создать пользователя
                 </Button>

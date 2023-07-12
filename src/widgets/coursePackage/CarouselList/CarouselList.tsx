@@ -1,11 +1,12 @@
-import { Box, BoxProps, Flex, Title, Text, TitleProps, Skeleton } from "@mantine/core";
+import { Box, BoxProps, Flex, Text, TitleProps, Skeleton } from "@mantine/core";
 import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
 import { CourseListFromPackage, Card as CoursePackageCard } from "@features/coursePackages";
-import useStyles from "./CarouselList.styles";
+import { Heading } from "@shared/ui";
 import { adaptDataForUpdateAboutForm } from "./utils";
+import useStyles from "./CarouselList.styles";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     title: string;
@@ -27,7 +28,7 @@ const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
@@ -40,14 +41,14 @@ const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId
         <Box {...props} className={classes.root}>
             <Flex direction="column" gap={8} mb={32}>
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Title order={2} color="dark" {...titleProps}>
+                    <Heading order={2} {...titleProps}>
                         {title}
-                    </Title>
+                    </Heading>
                 </Skeleton>
                 {description && <Text className={classes.headingDescription}>{description}</Text>}
             </Flex>
             <Skeleton visible={isLoading} mih={420} radius={16}>
-                <Carousel<CoursePackage> data={coursePackages?.data} lastElemRef={lastElemRef} slideSize={648}>
+                <Carousel<CoursePackage> data={coursePackages.data} lastElemRef={lastElemRef} slideSize={648}>
                     {(props) => (
                         <CoursePackageCard {...props} h={420} w={648}>
                             {(props) => <CourseListFromPackage {...props} />}

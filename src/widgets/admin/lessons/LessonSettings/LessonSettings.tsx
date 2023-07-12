@@ -1,9 +1,9 @@
-import { Flex, Box, Text, Title } from "@mantine/core";
+import { Flex, Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash as TrashIcon } from "react-feather";
-import { Button, TextEditor } from "@shared/ui";
+import { Button, Heading, TextEditor } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import { DeleteLessonModal } from "@features/lessons";
 import { getPluralString } from "@shared/utils";
@@ -66,7 +66,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
     return (
         <Flex direction="column" gap={32} w="100%">
             <Flex gap={48} align="center">
-                <Title order={2}>Данные урока</Title>
+                <Heading order={2}>Данные урока</Heading>
                 <Button onClick={handleOpenDeleteLessonModal} variant="text" leftIcon={<TrashIcon />}>
                     Удалить урок
                 </Button>
@@ -74,7 +74,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
             <Flex gap={16} direction="column">
                 <Box className={classes.card}>
                     {moduleName && <Text className={classes.moduleName}>{moduleName}</Text>}
-                    <Title order={3}>{data.name}</Title>
+                    <Heading order={3}>{data.name}</Heading>
                     <Text className={classes.lessonDescription}>{data.description}</Text>
                     <Flex gap={24}>
                         <Flex className={classes.label} gap={6}>
@@ -91,24 +91,24 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
                 <Box className={classes.card}>
                     {data.videos.length === 0 && (
                         <>
-                            <Title order={3}>Видеоуроки</Title>
+                            <Heading order={3}>Видеоуроки</Heading>
                             <Text className={classes.videoEmptyDescription}>Нет загруженных видеоуроков.</Text>
                         </>
                     )}
                     {data.videos.length > 0 && (
-                        <Title order={3}>{getPluralString(data.videos.length, "видеоурок", "видеоурока", "видеоуроков")}</Title>
+                        <Heading order={3}>{getPluralString(data.videos.length, "видеоурок", "видеоурока", "видеоуроков")}</Heading>
                     )}
                 </Box>
 
                 <Box className={classes.card}>
                     {!data.content && (
-                        <Title className={classes.emptyContentTitle} order={3}>
+                        <Heading className={classes.emptyContentTitle} order={3}>
                             Содержание урока
-                        </Title>
+                        </Heading>
                     )}
                     {data.content && (
                         <>
-                            <Title order={3}>Содержание урока</Title>
+                            <Heading order={3}>Содержание урока</Heading>
                             <TextEditor value={data.content} mt={24} mah={560} />
                         </>
                     )}

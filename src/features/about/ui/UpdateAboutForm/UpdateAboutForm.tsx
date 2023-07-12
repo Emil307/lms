@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlignLeft, Clipboard } from "react-feather";
 import { FormikHelpers } from "formik";
-import { Button, FFileInput, FInput, FTextEditor, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FFileInput, FInput, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { GetAboutResponse, staticPageApi, useAbout } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $UpdateAboutValidation, UpdateAboutValidation } from "./types";
@@ -39,9 +39,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                             <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
                                 <Clipboard />
                             </ThemeIcon>
-                            <Title order={4} color="dark">
-                                Заголовок и описание
-                            </Title>
+                            <Heading order={4}>Заголовок и описание</Heading>
                         </Flex>
                         <FInput mt={24} label="Заголовок" size="sm" name="aboutPageTitle" maw={772} />
                         <FTextarea name="aboutPageShortContent" mt={8} autosize maw={772} />
@@ -49,9 +47,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                             <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
                                 <AlignLeft />
                             </ThemeIcon>
-                            <Title order={4} color="dark">
-                                Общая информация
-                            </Title>
+                            <Heading order={4}>Общая информация</Heading>
                         </Flex>
                         <FTextEditor mt={24} name="aboutPageFullContent" maw={1162} h={320} />
                         <Flex gap={8} mt={32}>

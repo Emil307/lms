@@ -1,10 +1,10 @@
-import { Box, Flex, FlexProps, Text, Title } from "@mantine/core";
+import { Box, Flex, FlexProps, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { Folder } from "react-feather";
 import { useRouter } from "next/router";
 import { useIntersection } from "@mantine/hooks";
 import { List as CoursesList } from "@features/courses";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import useStyles from "./CoursesBlock.styles";
 
@@ -29,7 +29,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     </Text>
                 );
             }),
-        [courseResources],
+        [courseResources]
     );
 
     return (
@@ -39,9 +39,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                 perPage={6}
                 headerSlot={
                     <>
-                        <Title order={1} color="dark" mb={32}>
-                            Популярные курсы
-                        </Title>
+                        <Heading mb={32}>Популярные курсы</Heading>
                         <Flex gap={8} wrap="wrap">
                             {renderCategories}
                         </Flex>

@@ -1,7 +1,7 @@
-import { Box, Loader, Text, Title } from "@mantine/core";
+import { Box, Loader, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useAdminCourseReview } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";
@@ -26,9 +26,7 @@ const CourseReviewDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ authorName, id })} mb={8} />
-            <Title order={1} color="dark" mb={24}>
-                {authorName}
-            </Title>
+            <Heading mb={24}>{authorName}</Heading>
             <InfoPanel id={id} />
             <CourseReviewSettings id={id} />
         </Box>

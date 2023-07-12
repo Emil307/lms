@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon } from "@mantine/core";
+import { Flex, Text, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
@@ -31,7 +31,7 @@ const DeleteFaqModal = ({ id, question = "", onClose }: DeleteFaqModalProps) => 
                         <AlertTriangle />
                     </ThemeIcon>
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить вопрос, «${question}»?`}</Box>
+                <Text className={classes.text}>{`Вы действительно хотите удалить вопрос, «${question}»?`}</Text>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteFaq.isLoading} w="100%">

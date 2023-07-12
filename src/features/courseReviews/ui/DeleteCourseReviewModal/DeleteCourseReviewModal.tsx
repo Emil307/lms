@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, useMantineTheme } from "@mantine/core";
+import { Flex, Stack, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
@@ -30,7 +30,7 @@ const DeleteCourseReviewModal = ({ id, fullName, onClose }: DeleteCourseReviewMo
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить отзыв, «${id}: ${fullName}»?`}</Box>
+                <Text className={classes.text}>{`Вы действительно хотите удалить отзыв, «${id}: ${fullName}»?`}</Text>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteCourseReview.isLoading} w="100%">

@@ -75,10 +75,6 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     },
     title: {
         ref: getRef("title"),
-        fontWeight: 600,
-        fontSize: 18,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
     },
     startDate: {
         fontWeight: 500,
@@ -91,19 +87,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
         lineHeight: "16px",
         color: theme.colors.dark[0],
     },
-    price: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    priceWithoutDiscount: {
-        fontWeight: 400,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
-        textDecoration: "line-through",
-    },
+
     favoriteActionIcon: {
         height: 40,
         width: 56,

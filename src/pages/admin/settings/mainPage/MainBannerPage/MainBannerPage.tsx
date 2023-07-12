@@ -1,7 +1,7 @@
-import { Flex, Title } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
 import { MainBannerDetails } from "@widgets/admin/mainBanner";
 import { useMainBanner } from "@entities/staticPage";
 import { tabsList } from "./constants";
@@ -29,9 +29,7 @@ const MainBannerPage = () => {
 
     return (
         <Flex direction="column" gap={24}>
-            <Title order={1} color="dark">
-                Титульная страница
-            </Title>
+            <Heading>Титульная страница</Heading>
             <LastUpdatedInfo data={data?.lastUpdated} />
             <Tabs value={tabsList[1].value} tabs={tabsList} onTabChange={handleChangeTab} />
             <Prompt

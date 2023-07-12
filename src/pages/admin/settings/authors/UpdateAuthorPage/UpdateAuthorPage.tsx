@@ -1,7 +1,7 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { useAdminAuthor } from "@entities/author";
 import { UpdateAuthorForm } from "@features/authors";
 import { TRouterQueries } from "@shared/types";
@@ -23,9 +23,7 @@ const UpdateAuthorPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ fullName, id })} mb={8} />
-            <Title order={1} color="dark">
-                {fullName}
-            </Title>
+            <Heading>{fullName}</Heading>
             <UpdateAuthorForm data={authorData} onClose={handleCloseForm} />
         </Box>
     );

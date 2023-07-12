@@ -20,9 +20,6 @@ export default createStyles((theme, { hasDiscount }: CreateStylesParamsProps) =>
         backgroundColor: theme.colors.light[0],
     },
     price: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
         color: hasDiscount ? theme.colors.doneDark[0] : theme.colors.dark[0],
         background: hasDiscount ? theme.colors.done16[0] : "transparent",
 

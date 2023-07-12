@@ -1,8 +1,9 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text, Title } from "@mantine/core";
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
 import { getPluralString } from "@shared/utils";
 import { CourseTeacher } from "@entities/course";
+import { Heading } from "@shared/ui";
 import useStyles from "./TeacherCard.styles";
 
 export interface TeacherCardProps extends Omit<MCardProps, "children"> {
@@ -34,9 +35,9 @@ const MemoizedTeacherCard = memo(function Card({ data, ...props }: TeacherCardPr
                 </Group>
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody}>
-                <Title order={3} color="dark" lineClamp={2}>
+                <Heading order={3} lineClamp={2}>
                     {`${data.profile.firstName} ${data.profile.lastName}`}
-                </Title>
+                </Heading>
                 <Text className={classes.userDescription} lineClamp={5}>
                     {data.profile.description}
                 </Text>

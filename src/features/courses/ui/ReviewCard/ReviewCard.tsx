@@ -1,9 +1,9 @@
-import { ActionIcon, Avatar, Card as MCard, CardProps as MCardProps, Flex, Group, Text, Title } from "@mantine/core";
+import { ActionIcon, Avatar, Card as MCard, CardProps as MCardProps, Flex, Group, Text } from "@mantine/core";
 import { memo } from "react";
 import { ChevronRight } from "react-feather";
 import { Review } from "@entities/course";
 import { getLocalizationDate } from "@shared/utils";
-import { Rating } from "@shared/ui";
+import { Heading, Rating } from "@shared/ui";
 import useStyles from "./ReviewCard.styles";
 
 export interface ReviewCardProps extends Omit<MCardProps, "children"> {
@@ -22,9 +22,7 @@ const MemoizedReviewCard = memo(function ReviewCard({ data, ...props }: ReviewCa
                     <Flex align="center" sx={{ gap: 16 }}>
                         <Avatar src={data.avatar.absolutePath} alt="avatar" w={64} h={64} radius={50} />
                         <Flex direction="column" gap={4}>
-                            <Title order={4} color="dark">
-                                Кремышева Виктория
-                            </Title>
+                            <Heading order={4}>Кремышева Виктория</Heading>
                             <Text className={classes.createdAt}>{getLocalizationDate(data.createdAt, true)}</Text>
                         </Flex>
                     </Flex>

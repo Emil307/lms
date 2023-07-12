@@ -1,7 +1,7 @@
-import { Box, Flex, Title, Text, ThemeIcon, BoxProps } from "@mantine/core";
+import { Box, Flex, Text, ThemeIcon, BoxProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { ThumbsDown, ThumbsUp } from "react-feather";
-import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Switch } from "@shared/ui";
 import { useAdminArticle, useUpdateArticleActivity } from "@entities/article";
 import useStyles from "./InfoPanel.styles";
 
@@ -20,9 +20,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
     return (
         <Box {...props}>
-            <Title order={1} color="dark">
-                {articleData?.name}
-            </Title>
+            <Heading>{articleData?.name}</Heading>
             <Flex mt={24} gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{articleData?.id}</span>

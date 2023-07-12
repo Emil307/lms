@@ -1,7 +1,8 @@
-import { Card as MCard, Badge, Group, Flex, Title, Box, Text } from "@mantine/core";
+import { Card as MCard, Badge, Group, Flex, Box, Text } from "@mantine/core";
 import { getHumanDate } from "@shared/utils";
 import IconBooks from "@public/icons/books.svg";
 import { ArticlePackageFromList } from "@entities/articlePackage";
+import { Heading } from "@shared/ui";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps {
@@ -51,9 +52,7 @@ const Header = ({ data: { discount, name, description } }: HeaderProps) => {
             <Flex direction="column" gap={16}>
                 {discountInfo()}
                 <Flex direction="column" gap={8}>
-                    <Title order={3} color="dark">
-                        {name}
-                    </Title>
+                    <Heading order={3}>{name}</Heading>
                     <Text className={classes.description} lineClamp={1}>
                         {description}
                     </Text>

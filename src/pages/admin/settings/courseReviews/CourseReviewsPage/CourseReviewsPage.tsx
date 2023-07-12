@@ -1,13 +1,12 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { AdminList as AdminCourseReviewList } from "@features/courseReviews";
+import { Heading } from "@shared/ui";
 
 const CourseReviewsPage = () => {
     return (
         <Box>
-            <Title order={1} color="dark" mb={24}>
-                Отзывы
-            </Title>
+            <Heading mb={24}>Отзывы</Heading>
             <AdminCourseReviewList />
         </Box>
     );

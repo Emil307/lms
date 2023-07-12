@@ -1,11 +1,11 @@
-import { Box, Flex, Text, Title } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { AlignLeft, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { IconClipboardText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Rating } from "@shared/ui";
+import { Button, DisplayField, Heading, Rating } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
 import { useAdminCourseReview, useUpdateCourseReviewPublishingStatus } from "@entities/courseReview";
 import { DeleteCourseReviewModal } from "@features/courseReviews";
@@ -50,7 +50,7 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
             <Box mt={32} className={classes.info}>
                 <Flex direction="column" gap={32}>
                     <Flex gap={48} align="center">
-                        <Title order={2}>Данные отзыва</Title>
+                        <Heading order={2}>Данные отзыва</Heading>
                         <Button onClick={openModalDeleteCourseReview} variant="text" leftIcon={<Trash />}>
                             Удалить отзыв
                         </Button>

@@ -1,7 +1,8 @@
-import { Flex, FlexProps, Group, Text, ThemeIcon, Title } from "@mantine/core";
+import { Flex, FlexProps, Group, Text, ThemeIcon } from "@mantine/core";
 import { FileText } from "react-feather";
 import { Article } from "@entities/article";
 import { FavoriteButton, Rating } from "@features/articles";
+import { Heading } from "@shared/ui";
 import { TagList } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
@@ -20,9 +21,7 @@ const MainInfoPanel = ({ articleData, ...props }: MainInfoPanelProps) => {
                         <FileText width={26} height={26} />
                     </ThemeIcon>
                     <Flex direction="column" gap={4}>
-                        <Title order={1} color="dark">
-                            {articleData.name}
-                        </Title>
+                        <Heading>{articleData.name}</Heading>
                         <Text className={classes.categoryName}>{articleData.category?.name}</Text>
                     </Flex>
                 </Flex>

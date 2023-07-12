@@ -1,6 +1,6 @@
 import { Card as MCard, Text, Flex } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { CoursePackage } from "@entities/coursePackage";
 import useStyles from "./AmountInfo.styles";
 
@@ -18,7 +18,7 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
         if (data.discount) {
             return (
                 <Flex align="center" sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Text>
+                    <Heading order={3} className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>
                     <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );

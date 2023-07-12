@@ -1,14 +1,11 @@
-import { Box, Title, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { useAdminArticlePackage } from "@entities/articlePackage";
 import { UpdateArticlePackageForm } from "@features/articlePackages";
+import { TRouterQueries } from "@shared/types";
 import { getBreadCrumbsItems } from "./utils";
-
-interface TRouterQueries {
-    id: string;
-}
 
 const UpdateArticlePackagePage = () => {
     const router = useRouter();
@@ -29,9 +26,7 @@ const UpdateArticlePackagePage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ packageName: articlePackageData.name, id })} mb={8} />
-            <Title order={1} color="dark" mb={24}>
-                {articlePackageData.name}
-            </Title>
+            <Heading mb={24}>{articlePackageData.name}</Heading>
             <UpdateArticlePackageForm data={articlePackageData} onClose={handleCancel} />
         </Box>
     );

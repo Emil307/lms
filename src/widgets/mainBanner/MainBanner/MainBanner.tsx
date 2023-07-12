@@ -2,7 +2,7 @@ import { Avatar, Box, BoxProps, Flex, Skeleton, Text, ThemeIcon } from "@mantine
 import Image from "next/image";
 import { useMainBanner } from "@entities/staticPage";
 import AvatarIcon from "@public/icons/avatar.svg";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import useStyles from "./MainBanner.styles";
 
 export interface MainBannerProps extends BoxProps {}
@@ -37,7 +37,9 @@ const MainBanner = (props: MainBannerProps) => {
                     <Flex className={classes.headerContent}>
                         <Flex direction="column" gap={24}>
                             <Text className={classes.title}>{data?.title}</Text>
-                            <Text className={classes.subtitle}>{data?.subTitle}</Text>
+                            <Heading order={3} color="white">
+                                {data?.subTitle}
+                            </Heading>
                         </Flex>
                         <Button size="large" w="min-content" h={72} onClick={handleOpenButtonLink}>
                             {data?.buttonText}

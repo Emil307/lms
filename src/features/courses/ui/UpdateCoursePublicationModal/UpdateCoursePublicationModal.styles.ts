@@ -8,15 +8,6 @@ export default createStyles((theme) => ({
         minWidth: 48,
         height: 48,
     },
-    notificationWrapper: {
-        gap: 8,
-        alignItems: "center",
-    },
-    notificationTitle: {
-        fontWeight: 600,
-        fontSize: "16px",
-        lineHeight: "24px",
-    },
     textWrapper: {
         fontSize: 16,
         lineHeight: "24px",

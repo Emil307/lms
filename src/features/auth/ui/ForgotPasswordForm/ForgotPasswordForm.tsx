@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AtSign, ChevronLeft } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Button, FInput, Form } from "@shared/ui";
+import { Button, FInput, Form, Heading } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, useRecoveryPassword } from "@entities/auth";
@@ -44,7 +44,9 @@ const ForgotPasswordForm = (_props: ForgotPasswordFormProps) => {
                 <Link href="/" className={classes.logoLink}>
                     <Logo />
                 </Link>
-                <Text className={classes.headingTitle}>Забыли пароль?</Text>
+                <Heading order={3} className={classes.headingTitle}>
+                    Забыли пароль?
+                </Heading>
                 <Text className={classes.headingDescription}>
                     Вспомнили пароль?
                     <Link href="/auth" className={classes.signUpLink}>

@@ -1,7 +1,8 @@
-import { Box, BoxProps, Flex, Title, Text, Group } from "@mantine/core";
+import { Box, BoxProps, Flex, Text, Group } from "@mantine/core";
 import { useMemo } from "react";
 import { CourseTeacher } from "@entities/course";
 import { TeacherCard as CourseTeacherCard } from "@features/courses";
+import { Heading } from "@shared/ui";
 import useStyles from "./TeacherList.styles";
 
 export interface TeacherListProps extends Omit<BoxProps, "children"> {}
@@ -16,9 +17,7 @@ const TeacherList = (props: TeacherListProps) => {
     return (
         <Box {...props}>
             <Flex direction="column" gap={8} mb={32}>
-                <Title order={2} color="dark">
-                    Наставники помогают найти ответы
-                </Title>
+                <Heading order={2}>Наставники помогают найти ответы</Heading>
                 <Text className={classes.headingDescription}>
                     Опытные руководители разбирают случаи из вашей рабочей практики и дают обратную связь.
                 </Text>

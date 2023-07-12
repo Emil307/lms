@@ -1,9 +1,10 @@
-import { Flex, FlexProps, Skeleton, Title } from "@mantine/core";
+import { Flex, FlexProps, Skeleton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { Card as StaticReviewCard } from "@features/staticReviews";
 import { StaticReviewFromList, useStaticReviews } from "@entities/staticReview";
+import { Heading } from "@shared/ui";
 import { CONTROLS_INITIAL_SIZE, initialParams } from "./constants";
 import useStyles from "./CarouselList.styles";
 import { CounterSlidesInfo } from "./components";
@@ -32,7 +33,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
@@ -47,9 +48,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
         <Flex ref={rootRef} className={classes.wrapper} {...props}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Title order={1} color="dark">
-                        {title}
-                    </Title>
+                    <Heading>{title}</Heading>
                 </Skeleton>
             )}
             <Skeleton visible={isLoading} mih={340}>

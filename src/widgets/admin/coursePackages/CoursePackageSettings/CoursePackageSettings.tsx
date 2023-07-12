@@ -1,4 +1,4 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { Trash, AlignLeft } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, ContentByTextEditor, DisplayField } from "@shared/ui";
+import { Button, ContentByTextEditor, DisplayField, Heading } from "@shared/ui";
 import { useAdminCoursePackage } from "@entities/coursePackage";
 import { DeleteCoursePackageModal } from "@features/coursePackages";
 import { PackageInfo } from "./components";
@@ -40,7 +40,7 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
         }
 
         return `${dayjs(coursePackageData.discount.startingDate).format("DD.MM.YYYY")} - ${dayjs(
-            coursePackageData.discount.finishingDate,
+            coursePackageData.discount.finishingDate
         ).format("DD.MM.YYYY")}`;
     };
 
@@ -49,9 +49,7 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
             <Box mt={32} className={classes.info}>
                 <Flex direction="column" gap={32} w="100%">
                     <Flex gap={48} align="center">
-                        <Title order={2} color="dark">
-                            Данные пакета курсов
-                        </Title>
+                        <Heading order={2}>Данные пакета курсов</Heading>
                         <Button onClick={openModalDeleteCoursePackage} variant="text" leftIcon={<Trash />}>
                             Удалить пакет
                         </Button>

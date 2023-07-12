@@ -1,7 +1,8 @@
-import { Badge, Box, BoxProps, Flex, Title } from "@mantine/core";
+import { Badge, Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import dayjs from "dayjs";
 import { useAdminTransaction } from "@entities/transaction";
+import { Heading } from "@shared/ui";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
@@ -15,9 +16,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     return (
         <Box {...props}>
             <Flex gap={16} align="center">
-                <Title order={1} color="dark">
-                    {transactionData?.entity.name}
-                </Title>
+                <Heading>{transactionData?.entity.name}</Heading>
                 <Badge variant="outline" className={classes.status}>
                     {transactionData?.status.name}
                 </Badge>

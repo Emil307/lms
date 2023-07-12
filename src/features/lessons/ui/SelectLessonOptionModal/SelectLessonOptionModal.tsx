@@ -1,5 +1,5 @@
-import { Flex, ThemeIcon, Title } from "@mantine/core";
-import { Button } from "@shared/ui";
+import { Flex, ThemeIcon } from "@mantine/core";
+import { Button, Heading } from "@shared/ui";
 import FoldersIcon from "public/icons/folders.svg";
 import BookIcon from "public/icons/book.svg";
 import useStyles from "./SelectLessonOptionModal.styles";
@@ -16,9 +16,7 @@ const SelectLessonOptionModal = ({ onCreate, onSelect }: SelectLessonOptionModal
         <Flex className={classes.root}>
             <Flex className={classes.card}>
                 <Flex className={classes.cardContent}>
-                    <Title order={2} color="dark">
-                        Выбрать из базы
-                    </Title>
+                    <Heading order={2}>Выбрать из базы</Heading>
                     <Button variant="secondary" onClick={onSelect}>
                         Выбрать
                     </Button>
@@ -29,9 +27,7 @@ const SelectLessonOptionModal = ({ onCreate, onSelect }: SelectLessonOptionModal
             </Flex>
             <Flex className={classes.card}>
                 <Flex className={classes.cardContent}>
-                    <Title order={2} color="dark">
-                        Создать новый
-                    </Title>
+                    <Heading order={2}>Создать новый</Heading>
                     <Button variant="secondary" onClick={onCreate}>
                         Выбрать
                     </Button>

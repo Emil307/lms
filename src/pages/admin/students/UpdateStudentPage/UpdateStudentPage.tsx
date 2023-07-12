@@ -1,7 +1,7 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs, Heading, TBreadCrumbItem } from "@shared/ui";
 import { UpdateStudentForm } from "@features/students";
 import { useDetailUser } from "@entities/user";
 import { getFullName } from "@shared/utils";
@@ -26,9 +26,7 @@ const UpdateStudentPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Title order={1} color="dark" mb={24}>
-                {userName}
-            </Title>
+            <Heading mb={24}>{userName}</Heading>
             <UpdateStudentForm data={userData} onClose={handleCloseForm} />
         </Box>
     );

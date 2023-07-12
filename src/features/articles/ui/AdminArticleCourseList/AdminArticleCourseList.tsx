@@ -1,7 +1,7 @@
-import { Box, BoxProps, Flex, Title } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, ManagedDataGrid } from "@shared/ui";
+import { Button, Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AddCoursesToArticleModal } from "@features/articles";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
@@ -30,9 +30,7 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
     return (
         <Box {...props}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Привязка к курсу
-                </Title>
+                <Heading order={2}>Привязка к курсу</Heading>
                 <Button variant="text" onClick={openAddCoursesToArticleModal} leftIcon={<PlusCircle />}>
                     Добавить привязку
                 </Button>

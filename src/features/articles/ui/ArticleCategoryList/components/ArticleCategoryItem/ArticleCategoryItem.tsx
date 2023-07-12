@@ -1,9 +1,10 @@
-import { Flex, FlexProps, ThemeIcon, Text, Title } from "@mantine/core";
+import { Flex, FlexProps, ThemeIcon, Text } from "@mantine/core";
 import { memo } from "react";
 import { IconArrowNarrowRight, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { ArticleCategoryFromList } from "@entities/article";
 import { getPluralString } from "@shared/utils";
+import { Heading } from "@shared/ui";
 import useStyles from "./ArticleCategoryItem.styles";
 
 export interface ArticleCategoryItemProps extends FlexProps {
@@ -22,14 +23,14 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
                 <IconBook2 />
             </ThemeIcon>
             <Flex direction="column" gap={2} sx={{ flex: 1 }}>
-                <Title order={3} color="dark" lineClamp={1}>
+                <Heading order={3} lineClamp={1}>
                     {data.name}
-                </Title>
+                </Heading>
                 <Text className={classes.countArticles}>{`${data.articlesCount} ${getPluralString(
                     data.articlesCount,
                     "статья",
                     "статьи",
-                    "статей",
+                    "статей"
                 )}`}</Text>
             </Flex>
             <ThemeIcon className={classes.arrowIcon}>

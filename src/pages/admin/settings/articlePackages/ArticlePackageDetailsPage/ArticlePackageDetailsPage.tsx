@@ -1,7 +1,7 @@
-import { Box, Text, Title } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader, Tabs } from "@shared/ui";
 import { useAdminArticlePackage } from "@entities/articlePackage";
 import { ArticlePackageSettings, InfoPanel } from "@widgets/admin/articlePackages";
 import { AdminArticleList } from "@features/articlePackages";
@@ -39,7 +39,7 @@ const ArticlePackageDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ packageName: articlePackageData.name, id })} mb={8} />
-            <Title color="dark">{articlePackageData.name}</Title>
+            <Heading>{articlePackageData.name}</Heading>
             <InfoPanel id={id} />
             <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
             {renderContent()}

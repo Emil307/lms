@@ -1,11 +1,11 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { CreateAdminGroupForm } from "@features/groups";
+import { CreateAdminGroupResponse } from "@entities/group";
 import { breadCrumbsItems } from "./constants";
 import { TRequestParams } from "./types";
-import { CreateAdminGroupResponse } from "@entities/group";
 
 const CreateGroupPage = () => {
     const router = useRouter();
@@ -28,9 +28,7 @@ const CreateGroupPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Title order={1} color="dark" mb={24}>
-                Создание группы
-            </Title>
+            <Heading mb={24}>Создание группы</Heading>
             <CreateAdminGroupForm courseId={courseId} onSuccess={handleSuccessForm} onCancel={handleCancelForm} maw={512} />
         </Box>
     );

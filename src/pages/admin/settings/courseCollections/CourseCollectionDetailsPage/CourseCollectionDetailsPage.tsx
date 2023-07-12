@@ -1,7 +1,7 @@
-import { Box, Text, Title } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader, Tabs } from "@shared/ui";
 import { AdminCourseFromCollectionList, CourseCollectionSettings, InfoPanel } from "@widgets/admin/courseCollections";
 import { useAdminCourseCollection } from "@entities/courseCollection";
 import { tabsList } from "./constants";
@@ -38,9 +38,7 @@ const CourseCollectionDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name, id })} mb={8} />
-            <Title color="dark" order={1}>
-                {courseCollectionData.name}
-            </Title>
+            <Heading>{courseCollectionData.name}</Heading>
             <InfoPanel id={id} />
             <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
             {renderContent()}

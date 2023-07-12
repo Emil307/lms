@@ -1,6 +1,7 @@
-import { Flex, GridProps, Grid, Text, Title, Skeleton } from "@mantine/core";
+import { Flex, GridProps, Grid, Text, Skeleton } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useAdvantages } from "@entities/staticPage";
+import { Heading } from "@shared/ui";
 import { initialParams } from "./constants";
 import useStyles from "./AdvantagesBlock.styles";
 
@@ -16,14 +17,12 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
             advantagesData?.data.map((advantage) => (
                 <Grid.Col key={advantage.id} sm={3} span={6}>
                     <Flex className={classes.advantageItem}>
-                        <Title order={1} color="dark">
-                            {advantage.title}
-                        </Title>
+                        <Heading>{advantage.title}</Heading>
                         <Text className={classes.advantageDescription}>{advantage.description}</Text>
                     </Flex>
                 </Grid.Col>
             )),
-        [advantagesData],
+        [advantagesData]
     );
 
     if (!advantagesData?.data.length) {
