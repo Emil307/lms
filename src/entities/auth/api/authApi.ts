@@ -3,7 +3,6 @@ import { $AuthFormValidationSchema, AuthData } from "@features/auth";
 import { BaseApi, HTTPMethod } from "@shared/utils";
 import {
     ChangePasswordRequest,
-    User,
     UpdateMeRequest,
     UpdateMeResponse,
     SignUpRequest,
@@ -18,10 +17,12 @@ import {
 } from "./types";
 
 class AuthApi extends BaseApi {
-    async getMe(): Promise<User> {
-        const response = await this.instance.get("authentication/user");
-        return $User.parse(response);
-    }
+    getMe = this.createApiMethod({
+        method: HTTPMethod.GET,
+        path: "authentication/user",
+        responseSchema: $User,
+    });
+
     authMe = this.createApiMethod({
         method: HTTPMethod.POST,
         path: `authentication/authenticate`,
