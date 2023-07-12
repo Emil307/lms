@@ -1,3 +1,3 @@
-import HeaderUser from "./HeaderUser";
+import HeaderUser, { type HeaderUserProps } from "./HeaderUser";
 
-export { HeaderUser };
+export { HeaderUser, HeaderUserProps };

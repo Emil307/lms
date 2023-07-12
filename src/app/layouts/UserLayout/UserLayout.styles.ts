@@ -15,8 +15,16 @@ export default createStyles(() => ({
     },
     main: {
         minHeight: "100%",
+        padding: 0,
     },
     footer: {
         flex: "0 0 auto",
+    },
+    wrapperContent: {
+        maxWidth: 1352,
+        marginInline: "auto",
+        paddingInline: 16,
+        paddingTop: 32,
+        paddingBottom: 96,
     },
 }));

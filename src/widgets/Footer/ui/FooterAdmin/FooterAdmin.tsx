@@ -4,8 +4,8 @@ import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import { Logo } from "@components/Logo";
+import { COMPANY_LINKS } from "@shared/constant";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
-import { COMPANY_LINK } from "./constants";
 
 const FooterAdmin = () => {
     const { classes } = useFooterAdminStyles();
@@ -41,7 +41,7 @@ const FooterAdmin = () => {
                     </Flex>
                 </Flex>
                 <Flex gap={16}>
-                    <a href={COMPANY_LINK.VK} target="_blank" rel="noreferrer">
+                    <a href={COMPANY_LINKS.VK} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconVK />
                         </Flex>
@@ -54,7 +54,7 @@ const FooterAdmin = () => {
                         </Flex>
                     </a>
 
-                    <a href={COMPANY_LINK.TELEGRAM} target="_blank" rel="noreferrer">
+                    <a href={COMPANY_LINKS.TELEGRAM} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconTelegram />
                         </Flex>
