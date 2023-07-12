@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 
 import { closeModal, openModal } from "@mantine/modals";
-import { ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminSubCategoriesExtraFilters, AdminSubCategoryFromList, categoryApi, useAdminCategory } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
@@ -32,9 +32,7 @@ const AdminSubCategoryList = ({ parentId }: AdminSubCategoryListProps) => {
     return (
         <Box mt={24}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Список подкатегорий
-                </Title>
+                <Heading order={2}>Список подкатегорий</Heading>
                 {categoryData?.isActive && (
                     <Button variant="text" onClick={openModalCreateSubCategory} leftIcon={<PlusCircle />}>
                         Добавить подкатегорию

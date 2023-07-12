@@ -1,9 +1,9 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
-import { ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
@@ -44,9 +44,7 @@ const AdminCourseFromCollectionList = ({ courseCollectionId }: AdminCourseFromCo
     return (
         <Box mt={24}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Список курсов
-                </Title>
+                <Heading order={2}>Список курсов</Heading>
                 <Button variant="text" leftIcon={<PlusCircle />} onClick={openAddCoursesToCourseCollectionModal}>
                     Добавить курс
                 </Button>

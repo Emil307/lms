@@ -1,6 +1,6 @@
-import { Box, Title, Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs, ContentByTextEditor, Loader } from "@shared/ui";
+import { BreadCrumbs, ContentByTextEditor, Heading, Loader } from "@shared/ui";
 import { usePublicOffer } from "@entities/staticPage";
 import { breadCrumbsItems } from "./constants";
 
@@ -17,9 +17,7 @@ const UserAgreementPage = () => {
         <Flex direction="column" gap={32}>
             <Box>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Title order={1} color="dark">
-                    Пользовательское соглашение
-                </Title>
+                <Heading>Пользовательское соглашение</Heading>
             </Box>
             {renderContent()}
         </Flex>

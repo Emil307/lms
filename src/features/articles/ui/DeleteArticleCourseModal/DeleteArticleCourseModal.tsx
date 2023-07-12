@@ -1,4 +1,4 @@
-import { Box, Flex, useMantineTheme } from "@mantine/core";
+import { Flex, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
@@ -31,7 +31,7 @@ const DeleteArticleCourseModal = ({ id, articleId, name = "", onClose }: DeleteA
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить привязанный курс к статье, «${id}: ${name}»?`}</Box>
+                <Text className={classes.text}>{`Вы действительно хотите удалить привязанный курс к статье, «${id}: ${name}»?`}</Text>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteArticleCourse.isLoading} w="100%">

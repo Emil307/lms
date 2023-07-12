@@ -1,12 +1,11 @@
-import { Box, BoxProps, Flex, Group, Title, Text, Accordion } from "@mantine/core";
+import { Box, BoxProps, Flex, Group, Text, Accordion } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { GetCourseProgramResponse } from "@entities/course";
 import { getMonthDifference, getPluralString } from "@shared/utils";
 import { ProgramModuleLessonsList } from "@features/courses";
-
 import IconStarFour from "public/icons/starFour.svg";
-
+import { Heading } from "@shared/ui";
 import useStyles from "./ProgramTrainingList.styles";
 
 export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {}
@@ -86,7 +85,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                         data.homeworkCount,
                         "домашнее задание",
                         "домашнего задания",
-                        "домашних заданий",
+                        "домашних заданий"
                     )}, ${data.testCount} ${getPluralString(data.testCount, "тест", "теста", "тестов")}`,
                 },
                 {
@@ -98,7 +97,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                             getMonthDifference(data.dateStart, data.dateEnd),
                             "месяц",
                             "месяца",
-                            "месяцев",
+                            "месяцев"
                         )}`,
                 },
             ].map((item, index) => (
@@ -107,7 +106,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                     <Text className={classes.aboutCourseValue}>{item.value}</Text>
                 </Flex>
             )),
-        [data.moduleCount, data.lessonCount, data.homeworkCount, data.testCount, data.dateStart, data.dateEnd],
+        [data.moduleCount, data.lessonCount, data.homeworkCount, data.testCount, data.dateStart, data.dateEnd]
     );
 
     const renderModules = useMemo(
@@ -125,7 +124,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                                         programModule.lessonCount,
                                         "урок",
                                         "урока",
-                                        "уроков",
+                                        "уроков"
                                     )}`}</Text>
                                 </Flex>
                                 <Flex gap={6}>
@@ -134,7 +133,7 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                                         programModule.practiceCount,
                                         "практика",
                                         "практики",
-                                        "практик",
+                                        "практик"
                                     )}`}</Text>
                                 </Flex>
                             </Group>
@@ -143,18 +142,18 @@ const ProgramTrainingList = (props: ProgramTrainingListProps) => {
                     </Accordion.Item>
                 );
             }),
-        [data, selected],
+        [data, selected]
     );
 
     return (
         <Box {...props} className={classes.root}>
-            <Title order={2} color="dark" mb={32}>
+            <Heading order={2} mb={32}>
                 Программа обучения
-            </Title>
+            </Heading>
             <Group className={classes.containerAboutCourse}>
-                <Title order={3} color="dark" w={136}>
+                <Heading order={3} w={136}>
                     О курсе
-                </Title>
+                </Heading>
                 {renderAboutCourse}
             </Group>
             <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>

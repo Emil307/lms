@@ -1,11 +1,11 @@
-import { Box, BoxProps, Flex, Title } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import { Trash, Flag, FolderPlus, Users } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { GetAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { DeleteGroupModal } from "@features/groups";
@@ -48,9 +48,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
         <Box {...props} className={classes.root}>
             <Flex direction="column" gap={32}>
                 <Flex gap={48} align="center">
-                    <Title order={2} color="dark">
-                        Данные группы
-                    </Title>
+                    <Heading order={2}>Данные группы</Heading>
                     <Button onClick={openModalDeleteGroup} variant="text" leftIcon={<Trash />}>
                         Удалить группу
                     </Button>

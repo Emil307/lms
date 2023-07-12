@@ -3,7 +3,19 @@ import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { Button, FDateRangePicker, FFileInput, FInput, FRadioGroup, FSwitch, FTextEditor, Input, ManagedForm, Radio } from "@shared/ui";
+import {
+    Button,
+    FDateRangePicker,
+    FFileInput,
+    FInput,
+    FRadioGroup,
+    FSwitch,
+    FTextEditor,
+    Heading,
+    Input,
+    ManagedForm,
+    Radio,
+} from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
@@ -95,7 +107,7 @@ const UpdateCoursePackageForm = ({ data, onClose }: UpdateCoursePackageFormProps
                         <Box component="fieldset" className={classes.fieldset}>
                             <Box component="legend" className={classes.legend}>
                                 <IconPercentage />
-                                <Text className={classes.title}>Параметры скидки</Text>
+                                <Heading order={4}>Параметры скидки</Heading>
                                 <FSwitch variant="secondary" name="hasDiscount" />
                             </Box>
                             {values.hasDiscount && (

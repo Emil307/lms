@@ -1,9 +1,9 @@
-import { Flex, Group, Title } from "@mantine/core";
+import { Flex, Group } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import * as TablerIcons from "@tabler/icons";
 import * as FeatherIcons from "react-feather";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { TRouterQueries } from "@shared/types";
 import { List as CoursesList } from "@features/courses";
@@ -39,16 +39,12 @@ const CourseCollectionDetailsPage = () => {
                         })}>
                         {getIcon()}
                     </Group>
-                    <Title order={1} color="dark">
-                        {data?.name}
-                    </Title>
+                    <Heading>{data?.name}</Heading>
                 </Flex>
                 <CoursesList collectionIds={id} withPagination />
             </Flex>
             <Flex direction="column" gap={32} mt={64}>
-                <Title order={2} color="dark">
-                    Другие актуальные подборки
-                </Title>
+                <Heading order={2}>Другие актуальные подборки</Heading>
                 <CourseCollectionList perPage={1} hasCardMore exceptionCourseCollectionId={id} colProps={{ sm: 6, xs: 12 }} />
             </Flex>
         </Flex>

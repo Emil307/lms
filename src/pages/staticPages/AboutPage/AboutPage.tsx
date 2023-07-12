@@ -1,6 +1,6 @@
-import { Box, Title, Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useMemo } from "react";
-import { BreadCrumbs, ContentByTextEditor, Loader } from "@shared/ui";
+import { BreadCrumbs, ContentByTextEditor, Heading, Loader } from "@shared/ui";
 import { useAbout } from "@entities/staticPage";
 import { AboutCard } from "@features/about";
 import { breadCrumbsItems } from "./contants";
@@ -23,9 +23,7 @@ const AboutPage = () => {
         <Flex direction="column" gap={32}>
             <Box>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Title order={1} color="dark">
-                    О проекте
-                </Title>
+                <Heading>О проекте</Heading>
             </Box>
             {renderContent}
         </Flex>

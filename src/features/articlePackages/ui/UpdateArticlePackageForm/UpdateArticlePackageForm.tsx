@@ -10,6 +10,7 @@ import {
     FRadioGroup,
     FSwitch,
     FTextarea,
+    Heading,
     Input,
     ManagedForm,
     prepareOptionsForSelect,
@@ -128,7 +129,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                             <Box component="fieldset" className={classes.fieldset} maw={772}>
                                 <Box component="legend" className={classes.legend}>
                                     <IconPercentage />
-                                    <Text className={classes.title}>Параметры скидки</Text>
+                                    <Heading order={4}>Параметры скидки</Heading>
                                     <FSwitch variant="secondary" name="hasDiscount" />
                                 </Box>
                                 {values.hasDiscount && (

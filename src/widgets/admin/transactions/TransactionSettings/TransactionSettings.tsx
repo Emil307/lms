@@ -1,11 +1,11 @@
-import { Box, Flex, ThemeIcon, Title, BoxProps } from "@mantine/core";
+import { Box, Flex, ThemeIcon, BoxProps } from "@mantine/core";
 import React from "react";
 import { Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { IconClipboard, IconUserCircle } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
 import { DeleteTransactionModal } from "@features/transactions";
 import { AdminTransaction, useAdminTransaction } from "@entities/transaction";
@@ -45,9 +45,7 @@ const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
         <Box {...props} className={classes.root}>
             <Flex direction="column" gap={32}>
                 <Flex gap={48} align="center">
-                    <Title order={2} color="dark">
-                        Транзакция
-                    </Title>
+                    <Heading order={2}>Транзакция</Heading>
                     <Button
                         onClick={openDeleteModal}
                         variant="text"

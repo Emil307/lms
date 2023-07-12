@@ -1,8 +1,8 @@
-import { Box, Flex, LoadingOverlay, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, LoadingOverlay, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { Settings } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { ProfileEditForm } from "@features/editProfile";
 import { useMe } from "@entities/auth";
 import { ChangePasswordForm } from "@features/auth";
@@ -33,9 +33,7 @@ const UpdateProfilePage = () => {
                 <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                     <Settings width={32} height={32} />
                 </ThemeIcon>
-                <Title order={1} color="dark">
-                    Настройки профиля
-                </Title>
+                <Heading>Настройки профиля</Heading>
             </Flex>
 
             <Box

@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminCategoryList, CreateCategoryForm } from "@features/categories";
 
 const CategoriesPage = () => {
@@ -20,9 +20,7 @@ const CategoriesPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title order={1} color="dark">
-                    Категории курсов
-                </Title>
+                <Heading>Категории курсов</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={openModalCreateCategory}>
                     Создать категорию
                 </Button>

@@ -49,7 +49,7 @@ export const defaultTheme: MantineThemeOverride = {
     },
     defaultRadius: "sm",
     breakpoints: {
-        xs: 375,
+        xs: 576,
         sm: 744,
         md: 1024,
         lg: 1440,
@@ -72,6 +72,7 @@ export const defaultTheme: MantineThemeOverride = {
                 lineHeight: "40px",
                 fontWeight: 600,
             },
+
             h2: {
                 fontSize: 26,
                 lineHeight: "32px",

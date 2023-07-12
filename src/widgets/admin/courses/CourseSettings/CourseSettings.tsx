@@ -1,10 +1,10 @@
-import { Flex, Text, Title, useMantineTheme } from "@mantine/core";
+import { Flex, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon, Trash as TrashIcon } from "react-feather";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { DeleteCourseModal, UpdateCoursePublicationModal } from "@features/courses";
 import { getFullName } from "@shared/utils";
 import { AdminCourse } from "@entities/course";
@@ -74,7 +74,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         <Flex gap={56} mt={32} align="start">
             <Flex direction="column" gap={32} w="100%">
                 <Flex gap={48} align="center">
-                    <Title order={2}>Настройки курса</Title>
+                    <Heading order={2}>Настройки курса</Heading>
                     <Button onClick={handleOpenDeleteModal} variant="text" leftIcon={<TrashIcon />}>
                         Удалить курс
                     </Button>
@@ -103,7 +103,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                         <DisplayField
                             label="Период действия"
                             value={`${dayjs(data.discount.startingDate).format("DD.MM.YYYY")}-${dayjs(data.discount.finishingDate).format(
-                                "DD.MM.YYYY",
+                                "DD.MM.YYYY"
                             )}`}
                         />
                     </Fieldset>

@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Text, Title } from "@mantine/core";
+import { Box, Flex, Grid, Text } from "@mantine/core";
 import React, { useMemo, useState } from "react";
 import { FormikProps } from "formik";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
@@ -13,6 +13,7 @@ import {
     FSelect,
     FSwitch,
     FTextarea,
+    Heading,
     Input,
     ManagedForm,
     prepareOptionsForSelect,
@@ -133,7 +134,7 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                 </Flex>
                             </Flex>
 
-                            <Title order={2}>Настройки курса</Title>
+                            <Heading order={2}>Настройки курса</Heading>
                             <FFileInput name="cover" title="Изменить фото" type="image" withDeleteButton h={308} w="100%" maw={512} />
 
                             <Fieldset label="Общая информация" icon={<FileLeftIcon />} maw={512} showDivider={false}>

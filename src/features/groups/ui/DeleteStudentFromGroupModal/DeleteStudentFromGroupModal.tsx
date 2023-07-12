@@ -1,4 +1,4 @@
-import { Box, Flex, useMantineTheme } from "@mantine/core";
+import { Flex, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
@@ -24,7 +24,7 @@ const DeleteStudentFromGroupModal = ({ groupId = "", studentId, fullName, onClos
                 onSuccess: () => {
                     onClose();
                 },
-            },
+            }
         );
     };
 
@@ -34,7 +34,7 @@ const DeleteStudentFromGroupModal = ({ groupId = "", studentId, fullName, onClos
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
-                <Box className={classes.text}>{`Вы действительно хотите удалить пользователя, «${studentId}: ${fullName}»?`}</Box>
+                <Text className={classes.text}>{`Вы действительно хотите удалить пользователя, «${studentId}: ${fullName}»?`}</Text>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteSchedule.isLoading} w="100%">

@@ -1,7 +1,7 @@
-import { Box, BoxProps, Flex, Group, Title, Text, TitleProps } from "@mantine/core";
+import { Box, BoxProps, Flex, Group, Text, TitleProps } from "@mantine/core";
 import { Edit } from "react-feather";
 import { GetCourseReviewsResponse, Review } from "@entities/course";
-import { Button, Rating } from "@shared/ui";
+import { Button, Heading, Rating } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { Carousel } from "@components/Carousel";
 import { ReviewCard } from "@features/courses";
@@ -37,22 +37,24 @@ const StudentReviews = ({ titleProps, ...props }: StudentReviewsProps) => {
         <Box {...props} className={classes.root}>
             <Group sx={{ justifyContent: "space-between", marginBottom: 32 }}>
                 <Group sx={{ columnGap: 24 }}>
-                    <Title order={2} {...titleProps}>
+                    <Heading order={2} {...titleProps}>
                         Отзывы студентов
-                    </Title>
+                    </Heading>
                     <Flex align="flex-end" gap={16}>
                         <Flex gap={4}>
                             <Flex align="center" gap={2}>
                                 <Rating defaultValue={1} count={1} readOnly size="small" />
-                                <Text className={classes.ratingValue}>{data.averageRating}</Text>
+                                <Heading order={2}>{data.averageRating}</Heading>
                             </Flex>
-                            <Text className={classes.ratingMaxValue}>из 5</Text>
+                            <Heading order={2} color="gray45">
+                                из 5
+                            </Heading>
                         </Flex>
                         <Text className={classes.reviewInfo}>{`${data.reviewCount} ${getPluralString(
                             data.averageRating,
                             "отзыв",
                             "отзыва",
-                            "отзывов",
+                            "отзывов"
                         )}`}</Text>
                     </Flex>
                 </Group>

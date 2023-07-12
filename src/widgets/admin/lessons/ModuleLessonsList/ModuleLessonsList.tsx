@@ -1,4 +1,4 @@
-import { Flex, Text, Title } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
@@ -6,7 +6,7 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
-import { Button, DndCard, Loader } from "@shared/ui";
+import { Button, DndCard, Heading, Loader } from "@shared/ui";
 import { AdminLessonFromList, useAdminModuleLessons } from "@entities/lesson";
 import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
 import { ListMenu } from "./components";
@@ -62,7 +62,7 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             modalId: "SELECT_LESSON_OPTION",
             title: (
                 <Flex className={classes.lessonOptionHeader}>
-                    <Title order={3}>Добавить урок</Title>
+                    <Heading order={3}>Добавить урок</Heading>
                     <Text className={classes.lessonOptionDescription}>Выберите способ добавления урока</Text>
                 </Flex>
             ),
@@ -151,7 +151,7 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
     return (
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex gap={48} align="center">
-                <Title order={2}>Уроки модуля</Title>
+                <Heading order={2}>Уроки модуля</Heading>
                 <Button onClick={handleOpenSelectLessonOptionModal} variant="text" leftIcon={<PlusCircleIcon />}>
                     Добавить урок
                 </Button>

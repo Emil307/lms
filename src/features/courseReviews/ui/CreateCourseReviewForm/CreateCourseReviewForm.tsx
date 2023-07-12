@@ -1,7 +1,7 @@
-import { Badge, Box, Divider, Flex, Group, Text, Title } from "@mantine/core";
+import { Badge, Box, Divider, Flex, Group, Text } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { useMemo } from "react";
-import { Button, Form, FRating, FTextarea, Rating } from "@shared/ui";
+import { Button, Form, FRating, FTextarea, Heading, Rating } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import useStyles from "./CreateCourseReviewForm.styles";
 import { $sendReviewRequest, SendReviewRequest } from "./types";
@@ -40,7 +40,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                     {data.categories[0].name}
                 </Badge>
             )),
-        [data.categories],
+        [data.categories]
     );
 
     //TODO: Заменить на ManagedForm
@@ -61,13 +61,13 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                         data.reviewCount,
                         "отзыв",
                         "отзыва",
-                        "отзывов",
+                        "отзывов"
                     )}`}</Text>
                 </Flex>
             </Group>
-            <Title order={4} color="dark" mb={24}>
+            <Heading order={4} mb={24}>
                 {data.name}
-            </Title>
+            </Heading>
             <Form config={config} disableOverlay>
                 {({ values }) => (
                     <Flex direction="column" gap={24}>
@@ -78,7 +78,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                                     values.rating,
                                     "балл",
                                     "балла",
-                                    "баллов",
+                                    "баллов"
                                 )}`}</Text>
                                 <Text className={classes.selectedRatingMaxValue}>из 5</Text>
                             </Group>

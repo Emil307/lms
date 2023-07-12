@@ -3,7 +3,7 @@ import React from "react";
 import { Edit3, User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
@@ -86,7 +86,7 @@ const UpdateMainBannerForm = ({ data, onClose }: UpdateMainBannerFormProps) => {
                         <Box component="fieldset" className={classes.fieldset} maw={512}>
                             <Box component="legend" className={classes.legend}>
                                 <User />
-                                <Text className={classes.title}>Карточка автора</Text>
+                                <Heading order={4}>Карточка автора</Heading>
                                 <FSwitch variant="secondary" name="indexBannerAuthorActive" />
                             </Box>
                             {values.indexBannerAuthorActive && (

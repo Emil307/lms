@@ -1,7 +1,7 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { CreateCoursePackageForm } from "@features/coursePackages";
 import { breadCrumbsItems } from "./constants";
 
@@ -13,9 +13,7 @@ const CreateCoursePackagePage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Title order={1} color="dark">
-                Создать пакет
-            </Title>
+            <Heading>Создать пакет</Heading>
             <CreateCoursePackageForm onClose={handleCloseForm} />
         </Box>
     );

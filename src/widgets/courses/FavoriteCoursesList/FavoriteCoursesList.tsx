@@ -1,8 +1,9 @@
-import { Group, Title, Text, Flex } from "@mantine/core";
+import { Group, Text, Flex } from "@mantine/core";
 import { List } from "@components/List";
 import { Course, GetFavoriteCoursesResponse } from "@entities/course";
 import { Card as CourseCard } from "@features/courses";
 import IconEmptyBox from "public/icons/emptyBox.svg";
+import { Heading } from "@shared/ui";
 import useStyles from "./FavoriteCoursesList.styles";
 
 export interface FavoriteCoursesListProps {
@@ -16,7 +17,7 @@ const FavoriteCoursesList = ({ data }: FavoriteCoursesListProps) => {
             <Group sx={{ gap: 24 }}>
                 <IconEmptyBox />
                 <Flex direction="column" gap={8} maw={472}>
-                    <Title order={3}>К сожалению, у вас нет избранных курсов. Попробуем исправить это?</Title>
+                    <Heading order={3}>К сожалению, у вас нет избранных курсов. Попробуем исправить это?</Heading>
                     <Text className={classes.description}>
                         Чтобы добавить курс в раздел нажмите на кнопку “Избранное” в карточке курса.
                     </Text>

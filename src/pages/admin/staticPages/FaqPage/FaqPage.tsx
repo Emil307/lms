@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Flex, Text, Title } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import { useAdminFaq } from "@entities/staticPage";
 import { List as FaqList } from "@widgets/admin/faq";
-import { LastUpdatedInfo, Loader } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader } from "@shared/ui";
 
 const FaqPage = () => {
     const { data: faqData, isLoading, isError } = useAdminFaq();
@@ -18,9 +18,7 @@ const FaqPage = () => {
     return (
         <Box>
             <Flex direction="column" gap={24} mb={32}>
-                <Title order={1} color="dark">
-                    Вопрос-ответ
-                </Title>
+                <Heading>Вопрос-ответ</Heading>
                 <LastUpdatedInfo data={faqData.meta.lastUpdated} />
             </Flex>
 

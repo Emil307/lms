@@ -1,7 +1,7 @@
-import { Box, Title, Text, Flex, Badge } from "@mantine/core";
+import { Box, Text, Flex, Badge } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { UpdateAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { UpdateAdminGroupForm } from "@features/groups";
 import { TRouterQueries } from "@shared/types";
@@ -42,9 +42,7 @@ const UpdateGroupPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ groupName: groupData.name, id })} mb={8} />
 
             <Flex gap={16} align="center" mb={24}>
-                <Title order={1} color="dark">
-                    {groupData.name}
-                </Title>
+                <Heading>{groupData.name}</Heading>
                 <Badge variant="outline" className={classes.status}>
                     {groupData.status.name}
                 </Badge>

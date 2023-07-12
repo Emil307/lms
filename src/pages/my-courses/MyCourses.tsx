@@ -1,8 +1,8 @@
-import { Box, Title, ThemeIcon, Flex, Text } from "@mantine/core";
+import { Box, ThemeIcon, Flex, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Folder, Heart } from "react-feather";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Button, Tabs, TBreadCrumbItem } from "@shared/ui";
+import { BreadCrumbs, Button, Heading, Tabs, TBreadCrumbItem } from "@shared/ui";
 import { BlockCard as CourseBlockCard, SettedCard as CourseSettedCard } from "@features/courses";
 import { CourseBlock, GetMyCoursesResponse } from "@entities/course";
 import { List } from "@components/List";
@@ -160,12 +160,12 @@ const MyCoursesPage = () => {
                 <Flex justify="space-between">
                     <Box>
                         <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                        <Title order={1} color="dark" sx={{ display: "flex", gap: 12, alignItems: "center" }}>
+                        <Heading sx={{ display: "flex", gap: 12, alignItems: "center" }}>
                             <ThemeIcon color="primaryHover" variant="outline" sx={{ border: "none" }}>
                                 <Folder />
                             </ThemeIcon>
                             Мои курсы
-                        </Title>
+                        </Heading>
                     </Box>
                     <Button variant="border" leftIcon={<Heart />}>
                         Избранные курсы
@@ -185,9 +185,9 @@ const MyCoursesPage = () => {
             {currentValueTab === "all" && (
                 <Flex direction="column" gap={32}>
                     <Box>
-                        <Title order={2} color="dark" mb={8}>
+                        <Heading order={2} mb={8}>
                             Назначенные курсы
-                        </Title>
+                        </Heading>
                         <Text
                             sx={(theme) => ({
                                 fontWeight: 500,

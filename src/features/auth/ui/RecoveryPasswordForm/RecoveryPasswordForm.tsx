@@ -1,9 +1,9 @@
-import { Box, Text, useMantineTheme } from "@mantine/core";
+import { Box, useMantineTheme } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { ChevronLeft, Shield } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Button, FInput, Form } from "@shared/ui";
+import { Button, FInput, Form, Heading } from "@shared/ui";
 import { $RecoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { Logo } from "@components/Logo";
 import { useResetPassword } from "@entities/auth";
@@ -42,7 +42,9 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
                 <Link href="/" className={classes.logoLink}>
                     <Logo />
                 </Link>
-                <Text className={classes.headingTitle}>Восстановление пароля</Text>
+                <Heading order={3} className={classes.headingTitle}>
+                    Восстановление пароля
+                </Heading>
                 <Form config={config} disableOverlay>
                     <Box
                         sx={{

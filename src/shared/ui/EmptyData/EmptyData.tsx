@@ -2,6 +2,7 @@ import { memo, ReactNode } from "react";
 import { Box, Flex, Text } from "@mantine/core";
 import MagnifyingGlass from "public/icons/magnifyingGlass.svg";
 import useStyles from "./EmptyData.styles";
+import { Heading } from "../Typography";
 
 export interface EmptyDataProps {
     icon?: ReactNode;
@@ -21,7 +22,7 @@ const EmptyData = (props: EmptyDataProps) => {
         <Flex gap={24} align="center">
             <Box className={classes.iconContainer}>{icon}</Box>
             <Flex gap={8} direction="column">
-                <Text className={classes.title}>{title}</Text>
+                <Heading order={3}>{title}</Heading>
                 <Text className={classes.description}>{description}</Text>
             </Flex>
         </Flex>

@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, Prompt, Tabs } from "@shared/ui";
+import { Button, Heading, Prompt, Tabs } from "@shared/ui";
 import { AdminList as AdminStaticReviewList } from "@features/staticReviews";
 import { tabsList } from "./constants";
 
@@ -30,9 +30,7 @@ const StaticReviewsPage = () => {
 
     return (
         <Flex direction="column" gap={24}>
-            <Title order={1} color="dark">
-                Титульная страница
-            </Title>
+            <Heading>Титульная страница</Heading>
             <Tabs value={tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} />
             <Prompt
                 isOpened={openedPrompt}
@@ -41,9 +39,7 @@ const StaticReviewsPage = () => {
             />
             <Box>
                 <Flex gap={48} align="center">
-                    <Title order={2} color="dark">
-                        Отзывы для титульной страницы
-                    </Title>
+                    <Heading order={2}>Отзывы для титульной страницы</Heading>
                     <Button variant="text" leftIcon={<PlusCircle />} onClick={redirectCreateReview}>
                         Добавить отзыв
                     </Button>

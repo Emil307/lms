@@ -1,6 +1,6 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { ContactsList } from "@features/contacts";
 import { breadCrumbsItems } from "./constants";
 import useStyles from "./ContactsPage.styles";
@@ -12,9 +12,7 @@ const ContactsPage = () => {
         <Box className={classes.container}>
             <Box>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Title order={1} color="dark">
-                    Контакты
-                </Title>
+                <Heading>Контакты</Heading>
             </Box>
             <ContactsList />
         </Box>

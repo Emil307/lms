@@ -1,5 +1,4 @@
 import { createStyles } from "@mantine/core";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 import { FileStatus } from "./FileItem";
 
 export default createStyles((theme, { status }: { status?: FileStatus }, getRef) => ({
@@ -28,14 +27,12 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         color: status === "error" ? theme.colors.warning[0] : theme.colors.secondary[0],
     },
     statusInfo: {
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
     extension: {
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
@@ -53,14 +50,12 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
     },
     fileName: {
         // minWidth: 140,
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "18px",
         color: theme.colors.dark[0],
     },
     fileSize: {
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
@@ -71,7 +66,6 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         height: 24,
         paddingLeft: 0,
         backgroundColor: "transparent",
-        fontFamily: ManropeFont.style.fontFamily,
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",

@@ -1,7 +1,7 @@
-import { Flex, Text, Title } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { LastUpdatedInfo, Loader, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader, Switch } from "@shared/ui";
 import { useAdminLesson, useUpdateLessonActivity } from "@entities/lesson";
 import useStyles from "./InfoPanel.styles";
 
@@ -28,9 +28,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <>
-            <Title order={1} color="dark">
-                {lessonData.name}
-            </Title>
+            <Heading>{lessonData.name}</Heading>
             <Flex mt={24} gap={32} align="center">
                 <Flex className={classes.item}>
                     <span className={classes.label}>ID:</span> <span>{lessonData.id}</span>

@@ -1,7 +1,7 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Checkbox, LastUpdatedInfo, Switch } from "@shared/ui";
+import { Checkbox, Heading, LastUpdatedInfo, Switch } from "@shared/ui";
 import { useDetailUser, useUpdateUserActivity } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
@@ -25,7 +25,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <Box>
-            <Title mt={8}>{getFullName({ data: data?.profile })}</Title>
+            <Heading mt={8}>{getFullName({ data: data?.profile })}</Heading>
             <Flex mt={24} gap={32} align="center">
                 <Box className={classes.infoItem}>
                     ID: <span>{data?.id}</span>

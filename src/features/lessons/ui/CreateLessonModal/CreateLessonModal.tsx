@@ -1,7 +1,7 @@
-import { Flex, ThemeIcon, Title, Text } from "@mantine/core";
+import { Flex, ThemeIcon, Text } from "@mantine/core";
 import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React, { useState } from "react";
-import { Button, FControlPanel, FInput, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $CreateLessonFormValues, CreateLessonFormValues, CreateLessonResponse, lessonApi } from "@entities/lesson";
@@ -70,7 +70,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", lessonNumber, onClose
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <AlignLeftIcon />
                         </ThemeIcon>
-                        <Title order={4}>{lessonNumber ? `Урок ${lessonNumber}` : "Данные урока"}</Title>
+                        <Heading order={4}>{lessonNumber ? `Урок ${lessonNumber}` : "Данные урока"}</Heading>
                     </Flex>
                     <Flex gap={8} direction="column">
                         <FInput name="name" label="Название урока" />
@@ -81,7 +81,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", lessonNumber, onClose
                             <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                                 <FileMarkIcon className={classes.icon} />
                             </ThemeIcon>
-                            <Title order={4}>Практические задания</Title>
+                            <Heading order={4}>Практические задания</Heading>
                         </Flex>
                         <Text className={classes.description}>Активируйте необходимые модули проверки прохождения урока.</Text>
                     </Flex>

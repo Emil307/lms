@@ -1,9 +1,9 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
+import { Button, Heading, LastUpdatedInfo, Prompt, Tabs } from "@shared/ui";
 import { AdminList as AdminAdvantageList, CreateAdvantageForm } from "@features/advantages";
 import { useAdminAdvantages } from "@entities/staticPage";
 import { initialParams, tabsList } from "./constants";
@@ -43,9 +43,7 @@ const AdvantagesPage = () => {
 
     return (
         <Flex direction="column" gap={24}>
-            <Title order={1} color="dark">
-                Титульная страница
-            </Title>
+            <Heading>Титульная страница</Heading>
             <LastUpdatedInfo data={advantagesData?.meta.lastUpdated} />
             <Tabs value={tabsList[2].value} tabs={tabsList} onTabChange={handleChangeTab} />
             <Prompt
@@ -55,9 +53,7 @@ const AdvantagesPage = () => {
             />
             <Box>
                 <Flex gap={48} align="center">
-                    <Title order={2} color="dark">
-                        Карточки преимуществ
-                    </Title>
+                    <Heading order={2}>Карточки преимуществ</Heading>
                     <Button variant="text" leftIcon={<PlusCircle />} onClick={openCreateAdvantageModal}>
                         Добавить карточку
                     </Button>

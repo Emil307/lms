@@ -1,7 +1,8 @@
-import { Box, Flex, FlexProps, Skeleton, SkeletonProps, Title } from "@mantine/core";
+import { Box, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useRouter } from "next/router";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
 import { List as ListComponent, ListProps as TListProps } from "@components/List";
+import { Heading } from "@shared/ui";
 import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import { Card } from "../Card";
 import { CardMore } from "../CardMore";
@@ -52,9 +53,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
         <Flex {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Title order={1} color="dark">
-                        {title}
-                    </Title>
+                    <Heading>{title}</Heading>
                 </Skeleton>
             )}
 

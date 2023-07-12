@@ -1,10 +1,10 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { Trash, AlignLeft, Type } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { GetAdminCourseCollectionResponse, useAdminCourseCollection } from "@entities/courseCollection";
 import { InfoCard } from "@components/InfoCard";
 import { DeleteCourseCollectionModal } from "@features/courseCollections";
@@ -41,9 +41,7 @@ const CourseCollectionSettings = ({ id }: CourseCollectionSettingsProps) => {
         <Box mt={32} className={classes.info}>
             <Flex direction="column" gap={32} w="100%">
                 <Flex gap={48} align="center">
-                    <Title order={2} color="dark">
-                        Данные подборки
-                    </Title>
+                    <Heading order={2}>Данные подборки</Heading>
                     <Button onClick={openDeleteModal} variant="text" leftIcon={<Trash />}>
                         Удалить подборку
                     </Button>

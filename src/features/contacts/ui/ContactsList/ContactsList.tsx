@@ -1,6 +1,6 @@
 import { Group, Text } from "@mantine/core";
 import React from "react";
-import { ContentByTextEditor, Loader, Map } from "@shared/ui";
+import { ContentByTextEditor, Heading, Loader, Map } from "@shared/ui";
 import { useContacts } from "@entities/staticPage";
 import useStyles from "./ContactsList.styles";
 import { mapState } from "./constants";
@@ -12,7 +12,7 @@ const ContactsList = () => {
     return (
         <Group className={classes.container}>
             {isFetching && <Loader size="lg" />}
-            <Text className={classes.title}>{contactsData?.title}</Text>
+            <Heading order={4}>{contactsData?.title}</Heading>
             <Group className={classes.requisitesContainer}>
                 {contactsData?.requisites && (
                     <>

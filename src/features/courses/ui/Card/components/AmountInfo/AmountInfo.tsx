@@ -1,5 +1,6 @@
 import { Group, Text } from "@mantine/core";
 import { Course } from "@entities/course";
+import { Heading } from "@shared/ui";
 import useStyles from "./AmountInfo.styles";
 
 export interface AmountInfoProps {
@@ -12,7 +13,7 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
     if (data.discount) {
         return (
             <Group sx={{ gap: 6 }}>
-                <Text className={classes.price}>{`${data.discountPrice} ₽`}</Text>
+                <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
                 <Text className={classes.priceWithoutDiscount}>{`${data.price} ₽`}</Text>
             </Group>
         );

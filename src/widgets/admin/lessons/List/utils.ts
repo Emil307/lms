@@ -1,6 +1,6 @@
+import dayjs from "dayjs";
 import { AdminLessonsFilters, GetAdminLessonsRequest } from "@entities/lesson";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
-import dayjs from "dayjs";
 
 export const adaptGetAdminLessonsRequest = ({
     isActive,

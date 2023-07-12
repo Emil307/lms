@@ -1,7 +1,7 @@
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { UpdateStaticReviewForm } from "@features/staticReviews";
 import { useAdminStaticReview } from "@entities/staticReview";
 import { TRouterQueries } from "@shared/types";
@@ -20,9 +20,7 @@ const UpdateStaticReviewPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ fullName, id })} mb={8} />
-            <Title order={1} color="dark">
-                {fullName}
-            </Title>
+            <Heading>{fullName}</Heading>
             <UpdateStaticReviewForm data={data} onClose={handleCloseForm} />
         </Box>
     );

@@ -1,8 +1,8 @@
-import { Box, Flex, Group, Title } from "@mantine/core";
+import { Box, Flex, Group } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
+import { FDateRangePicker, FSearch, FSelect, Heading, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminGroupFromList, AdminGroupsFiltersForm, groupApi, useAdminGroupFilters } from "@entities/group";
@@ -25,9 +25,7 @@ const AdminList = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title order={1} color="dark">
-                    Группы
-                </Title>
+                <Heading>Группы</Heading>
                 <Button onClick={openCreateForm} variant="secondary" size="large" leftIcon={<PlusCircle />}>
                     Создать группу
                 </Button>

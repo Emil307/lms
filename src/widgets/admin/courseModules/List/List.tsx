@@ -1,4 +1,4 @@
-import { Flex, Text, Title } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
@@ -7,13 +7,13 @@ import { PlusCircle as PlusCircleIcon, Folder as FolderIcon } from "react-feathe
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import { Button, DndCard, Loader } from "@shared/ui";
+import { Button, DndCard, Heading, Loader } from "@shared/ui";
 import { CourseModule, useCourseModules } from "@entities/courseModule";
 import { CreateCourseModuleModal } from "@features/courseModules";
+import { useUpdateCourseModuleOrder } from "@entities/courseModule";
 import { ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
-import { useUpdateCourseModuleOrder } from "@entities/courseModule/api/hooks/mutations/useUpdateCourseModuleOrder";
 
 interface ModuleListProps {
     courseId: string;
@@ -109,7 +109,7 @@ const List = ({ courseId }: ModuleListProps) => {
     return (
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex gap={48} align="center">
-                <Title order={2}>Модули курса</Title>
+                <Heading order={2}>Модули курса</Heading>
                 <Button onClick={handleOpenCreateModuleModal} variant="text" leftIcon={<PlusCircleIcon />}>
                     Добавить модуль
                 </Button>

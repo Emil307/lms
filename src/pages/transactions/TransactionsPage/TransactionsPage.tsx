@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { IconReceipt } from "@tabler/icons-react";
-import { BreadCrumbs } from "@shared/ui";
+import { BreadCrumbs, Heading } from "@shared/ui";
 import { List as TransactionList } from "@features/transactions";
 import { breadCrumbsItems } from "./constants";
 
@@ -13,9 +13,7 @@ const TransactionsPage = () => {
                 <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none", width: 32, height: 32 }}>
                     <IconReceipt width={32} height={32} />
                 </ThemeIcon>
-                <Title order={1} color="dark">
-                    Мои покупки
-                </Title>
+                <Heading>Мои покупки</Heading>
             </Flex>
             <TransactionList />
         </Box>

@@ -45,12 +45,6 @@ export default createStyles((theme) => ({
         lineHeight: "62px",
         color: theme.colors.white[0],
     },
-    subtitle: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.white[0],
-    },
 
     authorContent: {
         position: "absolute",

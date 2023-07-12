@@ -13,3 +13,4 @@ export * from "./LastUpdatedInfo";
 export * from "./DndCard";
 export * from "./Loader";
 export * from "./ContentByTextEditor";
+export * from "./Typography";

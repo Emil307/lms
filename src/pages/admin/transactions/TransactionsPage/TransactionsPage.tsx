@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminTransactionList } from "@features/transactions";
 
 const TransactionsPage = () => {
@@ -13,9 +13,7 @@ const TransactionsPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title order={1} color="dark">
-                    Транзакции
-                </Title>
+                <Heading>Транзакции</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={handleOpenCreateForm}>
                     Создать транзакцию
                 </Button>

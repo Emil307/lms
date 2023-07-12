@@ -21,10 +21,6 @@ export const useFormStyles = createStyles((theme) => ({
         },
     },
     headingTitle: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
         textAlign: "center",
     },
     headingDescription: {

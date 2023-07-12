@@ -1,7 +1,7 @@
-import { Box, Title, ThemeIcon, Flex, Text } from "@mantine/core";
+import { Box, ThemeIcon, Flex, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
+import { BreadCrumbs, Tabs, Loader, Heading } from "@shared/ui";
 import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";
 import { useCategory } from "@entities/category";
 import { initialFilterValues, tabsList } from "./constants";
@@ -39,7 +39,7 @@ const ArticlesPage = () => {
                 query: { ...router.query, page: "1", ...prepareQueryParams(values) },
             },
             undefined,
-            { shallow: true },
+            { shallow: true }
         );
     };
 
@@ -78,12 +78,12 @@ const ArticlesPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ categoryTitle: categoryData.data?.name, tab, filterParams })} mb={8} />
-            <Title order={1} color="dark" sx={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 32 }}>
+            <Heading sx={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 32 }}>
                 <ThemeIcon color="primaryHover" variant="outline" sx={{ border: "none", height: 36, width: 36 }}>
                     {titleContent.icon}
                 </ThemeIcon>
                 {titleContent.label}
-            </Title>
+            </Heading>
             <Flex direction="column" gap={32}>
                 <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} />
                 {renderContent()}

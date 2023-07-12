@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { CreateTagForm, List as TagList } from "@features/tags";
 
 const TagsPage = () => {
@@ -20,9 +20,7 @@ const TagsPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title order={1} color="dark">
-                    Теги
-                </Title>
+                <Heading>Теги</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={openModalDeleteTag}>
                     Создать тег
                 </Button>

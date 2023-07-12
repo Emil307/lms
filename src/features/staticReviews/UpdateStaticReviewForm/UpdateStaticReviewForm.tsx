@@ -2,7 +2,8 @@ import { Box, Text, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm } from "@shared/ui";
+import dayjs from "dayjs";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, LastUpdatedInfo, ManagedForm } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import {
@@ -14,10 +15,9 @@ import {
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
-import useStyles from "./UpdateStaticReviewForm.styles";
 import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
 import { UpdateAdminStaticReviewFormValidation } from "./types";
-import dayjs from "dayjs";
+import useStyles from "./UpdateStaticReviewForm.styles";
 
 export interface UpdateStaticReviewFormProps {
     data?: AdminStaticReview;
@@ -113,7 +113,7 @@ const UpdateStaticReviewForm = ({ data, onClose }: UpdateStaticReviewFormProps) 
                         <Box component="fieldset" className={classes.fieldset} maw={512}>
                             <Box component="legend" className={classes.legend}>
                                 <User />
-                                <Text className={classes.title}>Карточка автора</Text>
+                                <Heading order={4}>Карточка автора</Heading>
                                 <FSwitch variant="secondary" name="authorIsActive" />
                             </Box>
                             {values.authorIsActive && (

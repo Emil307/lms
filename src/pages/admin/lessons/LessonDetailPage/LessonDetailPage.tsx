@@ -2,14 +2,14 @@ import { Box, Flex, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
-import { TLessonInfoCard, TQueryParams } from "./types";
 import { useAdminCourse } from "@entities/course";
-import { fields, tabsList } from "./constants";
-import { getBreadCrumbsItems } from "./utils";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
 import { LessonInfoPanel, LessonSettings } from "@widgets/admin/lessons";
 import { InfoCard } from "@components/InfoCard";
+import { getBreadCrumbsItems } from "./utils";
+import { fields, tabsList } from "./constants";
+import { TLessonInfoCard, TQueryParams } from "./types";
 
 const LessonDetailPage = () => {
     const router = useRouter();

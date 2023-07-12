@@ -2,7 +2,7 @@ import { Card as MCard, Text, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { InvoicePaymentForm } from "@features/coursePackages";
 import { ArticlePackageFromList } from "@entities/articlePackage";
 import useStyles from "./Footer.styles";
@@ -33,7 +33,7 @@ const Footer = ({ data }: FooterProps) => {
         if (discount?.amount) {
             return (
                 <Flex align="center" sx={{ gap: 6 }}>
-                    <Text className={classes.price}>{`${discount.amount.toLocaleString("ru")} ₽`}</Text>
+                    <Heading order={3} className={classes.price}>{`${discount.amount.toLocaleString("ru")} ₽`}</Heading>
                     <Text className={classes.priceWithoutDiscount}>{`${fullPrice.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );
@@ -50,7 +50,7 @@ const Footer = ({ data }: FooterProps) => {
                         data.articlesCount,
                         "статья",
                         "статьи",
-                        "статей",
+                        "статей"
                     )}`}</Text>
                 </Flex>
                 <> {renderAmount()}</>

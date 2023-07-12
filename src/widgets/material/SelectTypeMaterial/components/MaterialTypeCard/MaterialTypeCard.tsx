@@ -1,6 +1,6 @@
-import { Flex, FlexProps, ThemeIcon, Title } from "@mantine/core";
+import { Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { FileTypeCard } from "@features/materials";
 import useStyles from "./MaterialTypeCard.styles";
 
@@ -17,9 +17,9 @@ const MemoizedMaterialTypeCard = memo(function MaterialTypeCard({ data, onClick,
     return (
         <Flex {...props} className={classes.root}>
             <Flex className={classes.heading}>
-                <Title order={2} color="dark" sx={{ flex: 1 }}>
+                <Heading order={2} sx={{ flex: 1 }}>
                     {data.title}
-                </Title>
+                </Heading>
                 <ThemeIcon variant="outline" className={classes.wrapperIcon}>
                     {data.icon}
                 </ThemeIcon>

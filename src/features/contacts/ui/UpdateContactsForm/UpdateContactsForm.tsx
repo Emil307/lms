@@ -1,9 +1,9 @@
 import React from "react";
 import { FormikHelpers } from "formik";
 import { AlignLeft, Clipboard } from "react-feather";
-import { Box, BoxProps, Flex, ThemeIcon, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { $UpdateContactsRequest, GetContactsResponse, UpdateContactsRequest, staticPageApi, useContacts } from "@entities/staticPage";
-import { Button, FTextEditor, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
@@ -37,9 +37,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
                                 <Clipboard />
                             </ThemeIcon>
-                            <Title order={4} color="dark">
-                                Заголовок
-                            </Title>
+                            <Heading order={4}>Заголовок</Heading>
                         </Flex>
                         <FTextarea
                             name="contactPageTitle"
@@ -57,9 +55,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
                                 <AlignLeft />
                             </ThemeIcon>
-                            <Title order={4} color="dark">
-                                Реквизиты
-                            </Title>
+                            <Heading order={4}>Реквизиты</Heading>
                         </Flex>
                         <FTextEditor mt={24} name="contactPageRequisites" maw={1162} h={320} />
                         <Flex gap={8} mt={32}>

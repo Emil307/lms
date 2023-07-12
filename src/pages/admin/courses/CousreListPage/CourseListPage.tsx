@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { CourseList } from "@widgets/admin/courses";
 
 const CourseListPage = () => {
@@ -12,7 +12,7 @@ const CourseListPage = () => {
     return (
         <Box>
             <Flex align="center" justify="space-between">
-                <Title>Курсы</Title>
+                <Heading>Курсы</Heading>
                 <Button variant="secondary" size="large" onClick={openCreateCourseForm} leftIcon={<PlusCircle />}>
                     Создать курс
                 </Button>

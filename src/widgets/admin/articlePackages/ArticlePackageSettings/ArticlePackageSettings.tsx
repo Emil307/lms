@@ -1,4 +1,4 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { Trash, AlignLeft } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField } from "@shared/ui";
+import { Button, DisplayField, Heading } from "@shared/ui";
 import { useAdminArticlePackage } from "@entities/articlePackage";
 import { DeleteArticlePackageModal } from "@features/articlePackages";
 import { PackageInfo } from "./components";
@@ -45,7 +45,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
         }
 
         return `${dayjs(articlePackageData.discount.startingDate).format("DD.MM.YYYY")} - ${dayjs(
-            articlePackageData.discount.finishingDate,
+            articlePackageData.discount.finishingDate
         ).format("DD.MM.YYYY")}`;
     };
 
@@ -54,9 +54,7 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
             <Box mt={32} className={classes.info}>
                 <Flex direction="column" gap={32} w="100%">
                     <Flex gap={48} align="center">
-                        <Title order={2} color="dark">
-                            Данные пакета базы знаний
-                        </Title>
+                        <Heading order={2}>Данные пакета базы знаний</Heading>
                         <Button onClick={openModalDeletePackage} variant="text" leftIcon={<Trash />}>
                             Удалить пакет
                         </Button>

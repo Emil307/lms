@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Button, FCheckbox, FInput, Form } from "@shared/ui";
+import { Button, FCheckbox, FInput, Form, Heading } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { $SignUpFormValidationSchema, SignUpFormData, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
@@ -44,7 +44,7 @@ const SignUpForm = (_props: SignUpFormProps) => {
                             }
                         }
                     },
-                },
+                }
             );
         },
     };
@@ -59,9 +59,9 @@ const SignUpForm = (_props: SignUpFormProps) => {
                 <Link href="/" className={classes.logoLink}>
                     <Logo />
                 </Link>
-                <Text className={classes.headingTitle}>
+                <Heading order={3} className={classes.headingTitle}>
                     Создайте аккаунт <br /> и начните свое обучение
-                </Text>
+                </Heading>
                 <Text className={classes.headingDescription}>
                     У вас уже есть профиль?
                     <Link href="/auth" className={classes.signUpLink}>

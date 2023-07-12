@@ -2,8 +2,8 @@ import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
-import useStyles from "./DeleteLessonModal.styles";
 import { useDeleteLesson } from "@entities/lesson";
+import useStyles from "./DeleteLessonModal.styles";
 
 export interface DeleteLessonModalProps {
     id: string;

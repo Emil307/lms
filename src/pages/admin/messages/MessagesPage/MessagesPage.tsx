@@ -1,8 +1,8 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React, { useState } from "react";
 import { AdminSupportConversationFromList, supportApi } from "@entities/support";
 import { QueryKeys } from "@shared/constant";
-import { ManagedSearch } from "@shared/ui";
+import { Heading, ManagedSearch } from "@shared/ui";
 import { AdminMessageList, ChatList, CreateAdminMessageForm } from "@features/support";
 import { getFullName } from "@shared/utils";
 import { SearchItemComponent } from "./components";
@@ -27,9 +27,7 @@ const MessagesPage = () => {
 
     return (
         <Box>
-            <Title order={1} color="dark" mb={40}>
-                Сообщения
-            </Title>
+            <Heading mb={40}>Сообщения</Heading>
             <Flex
                 sx={(theme) => ({
                     borderRadius: 16,
@@ -66,9 +64,9 @@ const MessagesPage = () => {
                 <Flex direction="column" sx={{ flex: 1 }}>
                     {selectedConversation && (
                         <Flex className={classes.chatHeader}>
-                            <Title order={3} color="dark" lineClamp={1}>
+                            <Heading order={3} lineClamp={1}>
                                 {getFullName({ data: selectedConversation.profile })}
-                            </Title>
+                            </Heading>
                             <Text className={classes.chatHeaderRoleName}>{selectedConversation.roles[0].displayName}</Text>
                         </Flex>
                     )}

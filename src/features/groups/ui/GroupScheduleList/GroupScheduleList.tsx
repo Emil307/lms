@@ -1,8 +1,8 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { BoxProps } from "@mantine/core";
-import { ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminGroupParticipantsExtraFilters, AdminGroupScheduleFromList, groupApi } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
@@ -29,9 +29,7 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
     return (
         <Box {...props}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Расписание группы
-                </Title>
+                <Heading order={2}>Расписание группы</Heading>
                 <Button variant="text" onClick={openCreateScheduleModal} leftIcon={<PlusCircle />}>
                     Добавить занятие
                 </Button>

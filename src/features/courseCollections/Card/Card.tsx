@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex, Title, Text, Group, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex, Text, Group, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
 import { ChevronRight } from "react-feather";
 import { useRouter } from "next/router";
-import { Button } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { getIcon, getPluralString } from "@shared/utils";
 import { CourseCollectionFromList } from "@entities/courseCollection";
 import useStyles from "./Card.styles";
@@ -21,9 +21,9 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
         <Box {...props} className={classes.root}>
             <Group className={classes.content}>
                 <Flex direction="column" gap={16} sx={{ flex: 1 }}>
-                    <Title order={3} color="dark" lineClamp={2}>
+                    <Heading order={3} lineClamp={2}>
                         {data.name}
-                    </Title>
+                    </Heading>
                     <Text className={classes.description} lineClamp={4}>
                         {data.description}
                     </Text>

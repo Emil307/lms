@@ -1,7 +1,7 @@
-import { Box, BoxProps, Flex, Title } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
-import { ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminGroupParticipantFromList, AdminGroupParticipantsExtraFilters, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
@@ -20,9 +20,7 @@ const StudentList = ({ groupId, ...props }: StudentListProps) => {
     return (
         <Box {...props}>
             <Flex gap={48} align="center">
-                <Title order={2} color="dark">
-                    Состав группы
-                </Title>
+                <Heading order={2}>Состав группы</Heading>
                 <Button variant="text" leftIcon={<PlusCircle />}>
                     Добавить ученика
                 </Button>

@@ -1,8 +1,9 @@
-import { Box, Card as MCard, CardProps as MCardProps, Flex, ThemeIcon, Title, Text } from "@mantine/core";
+import { Box, Card as MCard, CardProps as MCardProps, Flex, ThemeIcon, Text } from "@mantine/core";
 import Image from "next/image";
 import { CourseBlock } from "@entities/course";
 import IconCalendar from "public/icons/calendar.svg";
 import { getHumanDate } from "@shared/utils";
+import { Heading } from "@shared/ui";
 import useStyles from "./Header.styles";
 
 export interface HeaderProps extends Omit<MCardProps, "children"> {
@@ -28,9 +29,9 @@ const Header = ({ data, ...props }: HeaderProps) => {
     return (
         <MCard.Section {...props} className={classes.root}>
             <Flex direction="column" gap={8} sx={{ flex: 1, minHeight: 96 }}>
-                <Title order={4} color="dark" lineClamp={2}>
+                <Heading order={4} lineClamp={2}>
                     {data.name}
-                </Title>
+                </Heading>
                 <Flex align="center" sx={{ gap: 8 }}>
                     <ThemeIcon color="secondary16" w={32} h={32} sx={{ borderRadius: 56 }}>
                         <IconCalendar />
