@@ -4,6 +4,6 @@ import { QueryKeys } from "@shared/constant";
 
 export const useAdminTransactionCreateResources = () => {
     return useQuery<GetAdminTransactionsCreateResourcesResponse>([QueryKeys.GET_ADMIN_TRANSACTION_CREATE_RESOURCES], () =>
-        transactionApi.getAdminTransactionsCreateResources(),
+        transactionApi.getAdminTransactionsCreateResources()
     );
 };

@@ -15,7 +15,7 @@ interface DeleteMaterialModalProps {
 const DeleteMaterialModal = ({ id, name, onClose }: DeleteMaterialModalProps) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    const deleteMaterial = useDeleteUploadedFile(id);
+    const deleteMaterial = useDeleteUploadedFile(id, name);
 
     const handleSubmit = () => {
         deleteMaterial.mutate(null, {

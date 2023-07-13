@@ -38,7 +38,7 @@ export const useUpdateArticleFavoriteStatus = ({
 
             queryClient.setQueryData<GetArticleResponse>(
                 [QueryKeys.GET_ARTICLE, id],
-                (previousData) => previousData && { ...previousData, isFavorite },
+                (previousData) => previousData && { ...previousData, isFavorite }
             );
             queryClient.setQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES], (previousData) => {
                 if (!previousData) {
@@ -49,7 +49,7 @@ export const useUpdateArticleFavoriteStatus = ({
                     ...previousData,
                     pages: previousData.pages.map((page) => {
                         const updatedDataPage = page.data.map((article) =>
-                            String(article.id) === id ? { ...article, isFavorite } : article,
+                            String(article.id) === id ? { ...article, isFavorite } : article
                         );
 
                         return {
@@ -69,7 +69,7 @@ export const useUpdateArticleFavoriteStatus = ({
                             ...previousData.data,
                             isFavorite,
                         },
-                    },
+                    }
             );
             queryClient.setQueriesData<GetArticlesQueriesData>([QueryKeys.GET_FAVORITE_ARTICLES], (previousData) => {
                 if (!previousData) {
@@ -80,7 +80,7 @@ export const useUpdateArticleFavoriteStatus = ({
                     ...previousData,
                     pages: previousData.pages.map((page) => {
                         const updatedDataPage = page.data.map((article) =>
-                            String(article.id) === id ? { ...article, isFavorite } : article,
+                            String(article.id) === id ? { ...article, isFavorite } : article
                         );
 
                         return {

@@ -34,7 +34,7 @@ const ChatList = ({
             ...initialParams,
             userId: selectedConversation?.id,
             isSelectedConversationByManageSearch,
-        }),
+        })
     );
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -70,7 +70,7 @@ const ChatList = ({
                     </Box>
                 );
             }),
-        [supportConversationsData, selectedConversation],
+        [supportConversationsData, selectedConversation]
     );
 
     return (

@@ -31,11 +31,11 @@ function Form<T extends FormikValues = FormikValues>({
         (values, helpers) => {
             Promise.resolve(config.onSubmit(values, helpers)).finally(() => helpers.setSubmitting(false));
         },
-        [config.onSubmit],
+        [config.onSubmit]
     );
     const validationSchema = useMemo(
         () => (config.validationSchema ? toFormikValidationSchema(config.validationSchema) : null),
-        [config.validationSchema],
+        [config.validationSchema]
     );
 
     return (

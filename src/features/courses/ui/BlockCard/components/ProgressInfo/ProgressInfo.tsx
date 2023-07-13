@@ -23,13 +23,13 @@ const MemoizedProgressInfo = memo(function Footer({ data }: ProgressInfoProps) {
                         lessons.total,
                         "урок",
                         "урока",
-                        "уроков",
+                        "уроков"
                     )}`}</Text>
                     <Text className={classes.practiceCount}>{`${practice.passed}/${practice.total} ${getPluralString(
                         practice.total,
                         "практика",
                         "практики",
-                        "практик",
+                        "практик"
                     )}`}</Text>
                 </Flex>
                 <ProgressBar value={progressValue} maxValue={maxValue} hiddenLabel h={8} />
@@ -44,7 +44,7 @@ const MemoizedProgressInfo = memo(function Footer({ data }: ProgressInfoProps) {
                 practice.total,
                 "урок",
                 "урока",
-                "уроков",
+                "уроков"
             )}`}</Text>
         </Flex>
     );

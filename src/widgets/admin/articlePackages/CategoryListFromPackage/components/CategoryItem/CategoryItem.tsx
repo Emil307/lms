@@ -31,7 +31,7 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data, onClick }: Categ
                 data.articlesCount,
                 "статья",
                 "статьи",
-                "статей",
+                "статей"
             )} `}</Text>
         </Flex>
     );

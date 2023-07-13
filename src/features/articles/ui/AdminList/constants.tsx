@@ -1,6 +1,4 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Text } from "@mantine/core";
-import { Tooltip } from "@shared/ui";
 import { AdminArticleFromList, AdminArticlesFiltersForm } from "@entities/article";
 
 export const columnOrder = ["id", "name", "category.name", "subcategories", "courses", "isActive", "mrt-row-actions"];
@@ -24,28 +22,14 @@ export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
         header: "Подкатегория",
         accessorKey: "subcategories",
         enableSorting: false,
-        accessorFn: (row) => {
-            const courseNames = row.subcategories.map(({ name }) => name).join(", ");
-            return (
-                <Tooltip label={courseNames}>
-                    <Text lineClamp={1}>{courseNames}</Text>
-                </Tooltip>
-            );
-        },
+        accessorFn: (row) => row.subcategories.map(({ name }) => name).join(", "),
     },
 
     {
         header: "Учебный курс",
         accessorKey: "courses",
         enableSorting: false,
-        accessorFn: (row) => {
-            const courseNames = row.courses.join(", ");
-            return (
-                <Tooltip label={courseNames}>
-                    <Text lineClamp={1}>{courseNames}</Text>
-                </Tooltip>
-            );
-        },
+        accessorFn: (row) => row.courses.join(", "),
     },
     {
         header: "Статус",

@@ -8,7 +8,7 @@ import { UpdateCourseModuleOrderRequest, UpdateCourseModuleOrderResponse } from 
 import { courseModuleApi } from "../../courseModuleApi";
 
 export const useUpdateCourseModuleOrder = (
-    courseId: string,
+    courseId: string
 ): UseMutationResult<UpdateCourseModuleOrderResponse, AxiosError<FormErrorResponse>, Omit<UpdateCourseModuleOrderRequest, "courseId">> => {
     return useMutation(
         [MutationKeys.UPDATE_COURSE_MODULE_ORDER, courseId],
@@ -29,6 +29,6 @@ export const useUpdateCourseModuleOrder = (
             onSettled: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_COURSE_MODULES, courseId]);
             },
-        },
+        }
     );
 };

@@ -2,7 +2,6 @@ import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { getHumanDate } from "@shared/utils";
-import { Tooltip } from "@shared/ui";
 import { AdminCoursePackage, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
 import useStyles from "./AdminList.styles";
 
@@ -41,11 +40,6 @@ export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
     {
         header: "Название пакета",
         accessorKey: "name",
-        Cell: ({ cell }) => (
-            <Tooltip label={cell.getValue() as string}>
-                <Text lineClamp={1}>{cell.getValue() as string}</Text>
-            </Tooltip>
-        ),
     },
     {
         header: "Курсы, шт",

@@ -2,14 +2,14 @@ import { Box, Flex, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
+import { TLessonInfoCard, TQueryParams } from "./types";
 import { useAdminCourse } from "@entities/course";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
-import { LessonInfoPanel, LessonSettings } from "@widgets/admin/lessons";
-import { InfoCard } from "@components/InfoCard";
-import { getBreadCrumbsItems } from "./utils";
+import { LessonInfoPanel, LessonSettings, LessonMaterials } from "@widgets/admin/lessons";
 import { fields, tabsList } from "./constants";
-import { TLessonInfoCard, TQueryParams } from "./types";
+import { getBreadCrumbsItems } from "./utils";
+import { InfoCard } from "@components/InfoCard";
 
 const LessonDetailPage = () => {
     const router = useRouter();
@@ -58,9 +58,8 @@ const LessonDetailPage = () => {
         switch (tab) {
             case "settings":
                 return <LessonSettings data={lessonData} moduleName={moduleData?.name} />;
-            //TODO Добавить в будущем
             case "materials":
-                return null;
+                return <LessonMaterials lessonId={lessonId} lessonName={lessonData.name} />;
             case "test":
                 return null;
             case "homework":
@@ -86,7 +85,7 @@ const LessonDetailPage = () => {
             <LessonInfoPanel id={lessonId} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} my={32} />
             <Flex gap={56} align="start">
-                {renderComponent()}
+                <Box w="100%">{renderComponent()}</Box>
                 <InfoCard<TLessonInfoCard>
                     variant="whiteBg"
                     fields={fields}

@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
 import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
+import { MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
+import React from "react";
 
 export type DataGridResponse<T> = z.infer<ReturnType<typeof $getPaginationResponseType>> & { data: T[] };
 
@@ -28,3 +30,11 @@ export type TFiltersProps<F, K> = F extends FormikValues ? { filter: TFilterTabl
 export type TExtraFiltersProps<E> = E extends Record<string, any> ? { extraFilterParams: E } : { extraFilterParams?: never };
 
 export type TSelectProps = { selectItems?: string[]; onChangeSelect?: (selectedItems: string[]) => void };
+
+export type TCellProps<T extends Record<string, any>> = {
+    cell: MRT_Cell<T>;
+    renderedCellValue: React.ReactNode;
+    column: MRT_Column<T>;
+    row: MRT_Row<T>;
+    table: MRT_TableInstance<T>;
+};

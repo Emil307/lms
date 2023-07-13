@@ -1,12 +1,11 @@
 import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
-import _ from "lodash";
 import { AlertTriangle, Info } from "react-feather";
 import { getFileSize } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
 import { Paragraph } from "@shared/ui";
-import { FileInputDefault, FileInputLoaded, FileItem } from "./components";
+import { FileInputDefault, FileInputLoaded } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
     DEFAULT_IMAGE_MAX_WIDTH,
@@ -14,7 +13,6 @@ import {
     FileFormat,
     FileRejection,
     getCorrectFileFormatsForInput,
-    InitialFile,
     isFile,
     LoadedFile,
 } from "./utils";
@@ -33,16 +31,13 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     withDeleteButton?: boolean;
     hideChangeButton?: boolean;
     error?: string;
-    initialFilesData?: InitialFile[];
-    loadedFilesData?: LoadedFile[];
+    loadedFilesData?: UploadedFile[];
     titleButtonFileDialog?: string;
     containerFilesProps?: BoxProps;
     educational?: boolean;
-    onLoad: (file: UploadedFile) => void;
+    onUploaded: (file: UploadedFile, oldUploadedFileId?: number) => void;
     onError?: () => void;
-    onDeleteLoadedFile?: (id: number, remainFiles: (File | UploadedFile)[]) => void;
-    onDeleteInitialFile?: (id: number) => void;
-    onDownloadInitialFile?: (fileUrl: string, fileName: string) => void;
+    onDeleteLoadedFile?: (file: UploadedFile) => void;
 }
 
 const MemoizedFileInput = memo(function FileInput({
@@ -58,33 +53,26 @@ const MemoizedFileInput = memo(function FileInput({
     maxFileSize = DEFAULT_MAX_FILE_SIZE,
     imageMaxWidth = DEFAULT_IMAGE_MAX_WIDTH,
     imageMaxHeight = DEFAULT_IMAGE_MAX_HEIGHT,
-    initialFilesData = [],
     loadedFilesData = [],
     titleButtonFileDialog,
     containerFilesProps,
-    onLoad,
+    onUploaded,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
-    onDeleteInitialFile = () => undefined,
-    onDownloadInitialFile = () => undefined,
     ...props
 }: FileInputProps) {
     const openRef = useRef<() => void>(null);
-    const loadedFilesCount = useRef(0);
+    const loadedFilesCount = useRef(loadedFilesData.length);
     const replaceLoadedFileId = useRef<number | null>(null);
     const [isErrorLoadFile, setIsErrorLoadFile] = useState(false);
-    const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData);
-
-    useEffect(() => {
-        setLoadedFiles(loadedFilesData);
-    }, [loadedFilesData]);
+    const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData?.map((file, index) => ({ id: index + 1, data: file })));
 
     const { classes } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
 
     //Это для сброса значений FileInput'a в форме
     useEffect(() => {
-        if (!multiple && !_.isEqual(loadedFiles, loadedFilesData)) {
-            setLoadedFiles(loadedFilesData);
+        if (!multiple && !loadedFilesData.length) {
+            setLoadedFiles([]);
         }
     }, [loadedFilesData]);
 
@@ -99,22 +87,21 @@ const MemoizedFileInput = memo(function FileInput({
     const handleDeleteLoadedFile = useCallback(
         (fileId: number) => {
             setIsErrorLoadFile(false);
-            setLoadedFiles((prevLoadedFiles) => prevLoadedFiles.filter(({ id }) => id !== fileId));
+            const fileForDeleting = loadedFiles.find((file) => file.id === fileId);
+            setLoadedFiles((state) => state.filter((file) => file.id !== fileId));
 
-            onDeleteLoadedFile(
-                fileId,
-                loadedFiles.map((file) => file.data)
-            );
+            if (fileForDeleting && !isFile(fileForDeleting.data)) {
+                onDeleteLoadedFile(fileForDeleting.data);
+            }
         },
-        [loadedFiles, loadedFilesData]
+        [loadedFiles]
     );
 
     const getRemainFilesSize = useCallback(() => {
         let overallSize = 0;
-        initialFilesData.forEach((file) => (overallSize += file.fileSize));
         loadedFiles.forEach((file) => (overallSize += file.data.size));
         return maxFileSize - overallSize;
-    }, [initialFilesData, loadedFiles, maxFileSize]);
+    }, [loadedFiles, maxFileSize]);
 
     const handleRejectFiles = useCallback((files: FileRejection[]) => {
         handleLoadFile(
@@ -129,8 +116,26 @@ const MemoizedFileInput = memo(function FileInput({
         onError();
     };
 
+    const handleUploadedFile = (fileId: number, uploadedFile: UploadedFile) => {
+        setLoadedFiles((state) =>
+            state.map((file) => {
+                if (file.id === fileId) {
+                    return { ...file, data: uploadedFile };
+                }
+                return file;
+            })
+        );
+        onUploaded(uploadedFile);
+    };
+
     const handleLoadFile = async (files: FileWithPath[], rejected?: string) => {
         setIsErrorLoadFile(false);
+
+        //Если это редактирование загруженного файла, то находим старый файл и прокидываем наверх как удаленный
+        const fileForDeleting = loadedFiles.find((file) => file.id === replaceLoadedFileId.current);
+        if (fileForDeleting && !isFile(fileForDeleting.data)) {
+            onDeleteLoadedFile(fileForDeleting.data);
+        }
 
         if (multiple) {
             const adaptedFiles = files.map((file) => ({ id: ++loadedFilesCount.current, data: file, error: rejected }));
@@ -176,25 +181,7 @@ const MemoizedFileInput = memo(function FileInput({
                     withDeleteButton={withDeleteButton}
                     onOpenFileDialog={handleOnOpenFileDialog}
                     onDelete={handleDeleteLoadedFile}
-                    onUpdateFile={onLoad}
-                    onError={handleErrorLoadFile}
-                />
-            );
-        }
-        if (!multiple && type !== "document" && initialFilesData[0]?.fileId && !loadedFiles[0]?.error) {
-            return (
-                <FileInputLoaded
-                    fileId={initialFilesData[0].fileId}
-                    file={initialFilesData[0].data}
-                    fileUrl={initialFilesData[0].fileUrl}
-                    type={type}
-                    imageMaxWidth={imageMaxWidth}
-                    imageMaxHeight={imageMaxHeight}
-                    withDeleteButton={withDeleteButton}
-                    educational={educational}
-                    onOpenFileDialog={handleOnOpenFileDialog}
-                    onDelete={onDeleteInitialFile}
-                    onUpdateFile={onLoad}
+                    onUpdateFile={handleUploadedFile}
                     onError={handleErrorLoadFile}
                 />
             );
@@ -210,7 +197,7 @@ const MemoizedFileInput = memo(function FileInput({
                 description={descriptionInside}
             />
         );
-    }, [loadedFiles, initialFilesData, multiple, type]);
+    }, [loadedFiles, multiple, type]);
 
     const contentOutsideDropzone = useMemo(() => {
         if (!multiple && type === "image") {
@@ -218,16 +205,6 @@ const MemoizedFileInput = memo(function FileInput({
         }
         return (
             <Box {...containerFilesProps} className={classes.containerFiles}>
-                {initialFilesData.map((file) => (
-                    <FileItem
-                        key={file.fileId}
-                        fileUrl={file.fileUrl}
-                        fileName={file.fileName || "Файл"}
-                        fileSize={file.fileSize ? getFileSize(file.fileSize) : ""}
-                        type="document"
-                        onDownloadFile={onDownloadInitialFile}
-                    />
-                ))}
                 {loadedFiles.map((file) => (
                     <FileInputLoaded
                         key={file.id}
@@ -241,14 +218,14 @@ const MemoizedFileInput = memo(function FileInput({
                         educational={educational}
                         onEdit={handleReplaceLoadedFile}
                         onDelete={handleDeleteLoadedFile}
-                        onUpdateFile={onLoad}
+                        onUpdateFile={handleUploadedFile}
                         error={file.error}
                         onError={handleErrorLoadFile}
                     />
                 ))}
             </Box>
         );
-    }, [initialFilesData, loadedFiles]);
+    }, [loadedFiles]);
 
     const renderDescription = () => {
         if (!description) {

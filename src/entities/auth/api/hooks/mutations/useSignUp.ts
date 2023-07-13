@@ -32,6 +32,6 @@ export const useSignUp = () => {
                     title: "Ошибка регистрации",
                 });
             },
-        },
+        }
     );
 };

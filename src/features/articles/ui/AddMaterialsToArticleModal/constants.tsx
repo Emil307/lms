@@ -1,7 +1,5 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { Tooltip } from "@shared/ui";
 import { AdminMaterialsNoIncludedArticleFiltersForm, UploadedFileFromList } from "@entities/storage";
 import { AttachMaterialsToArticleFormValidation } from "./types";
 
@@ -32,14 +30,7 @@ export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
         header: "Категория",
         accessorKey: "categories",
         enableSorting: false,
-        Cell: ({ row }) => {
-            const listCategoryNames = row.original.categories.map(({ name }) => name).join(", ");
-            return (
-                <Tooltip label={listCategoryNames}>
-                    <Text lineClamp={1}>{listCategoryNames}</Text>
-                </Tooltip>
-            );
-        },
+        Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
     },
     {
         header: "Тип файла",

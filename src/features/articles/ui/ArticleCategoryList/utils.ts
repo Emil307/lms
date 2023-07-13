@@ -2,7 +2,7 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { ArticleAndArticleCategoryFiltersForm, GetArticleCategoriesRequest } from "@entities/article";
 
 export const adaptGetArticleCategoriesRequest = (
-    params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>,
+    params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>
 ): GetArticleCategoriesRequest => {
     const { tags = [], subcategoryIds = [], ...rest } = params;
 

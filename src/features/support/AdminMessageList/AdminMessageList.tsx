@@ -49,7 +49,7 @@ const AdminMessageList = ({ conversation, variant, maxHeightContainer, children,
                     </Box>
                 );
             }),
-        [messagesData],
+        [messagesData]
     );
 
     if (!conversation) {

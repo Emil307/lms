@@ -88,7 +88,7 @@ function InfoCard<T>({
                 }
                 return <DisplayField key={index} {...field} value={getValue} variant="compact" />;
             }),
-        [fields, values],
+        [fields, values]
     );
 
     return (

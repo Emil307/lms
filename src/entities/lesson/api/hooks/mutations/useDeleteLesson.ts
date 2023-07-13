@@ -12,7 +12,7 @@ export const useDeleteLesson = (id: string): UseMutationResult<void, AxiosError<
             const lesson = queryClient.getQueryData<GetAdminLessonResponse>([QueryKeys.GET_ADMIN_LESSON, id]);
             const lessonFromList = queryClient
                 .getQueriesData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS])[0]?.[1]
-                ?.data.find((course) => course.id.toString() === id);
+                ?.data.find((lesson) => lesson.id.toString() === id);
 
             createNotification({
                 type: ToastType.INFO,

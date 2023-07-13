@@ -38,6 +38,6 @@ export const useAdminDeleteGroup = ({ id }: DeleteAdminGroupRequest) => {
                     title: "Ошибка удаления группы",
                 });
             },
-        },
+        }
     );
 };

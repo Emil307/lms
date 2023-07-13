@@ -1,12 +1,14 @@
-import { MantineReactTable, MantineReactTableProps, MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
+import { MantineReactTable, MantineReactTableProps, MRT_Cell } from "mantine-react-table";
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
 import React, { ReactNode, useMemo } from "react";
-import { CSSObject, MantineTheme, useMantineTheme } from "@mantine/core";
+import { CSSObject, MantineTheme, useMantineTheme, Text } from "@mantine/core";
 import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
+import { TCellProps } from "../../types";
+import { Tooltip } from "@shared/ui";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
@@ -59,20 +61,32 @@ function BaseTable<T extends Record<string, any>>({
         }
     };
 
-    const wrappedColumn = useMemo(() => {
+    const wrappedColumns = useMemo(() => {
+        const getCellValue = (props: TCellProps<T>, Cell?: (arg0: TCellProps<T>) => any): ReactNode => {
+            return Cell ? Cell(props) : (props.cell.getValue() as ReactNode);
+        };
+
+        const renderContent = (columnId: string, cellValue: ReactNode) => {
+            if (columnId === "id") {
+                return cellValue;
+            }
+            return (
+                <Tooltip label={cellValue}>
+                    <Text className={classes.tableBodyCellValue}>{cellValue}</Text>
+                </Tooltip>
+            );
+        };
+
         return columns.map(({ Cell, ...column }) => ({
             ...column,
-            Cell: (props: {
-                cell: MRT_Cell<T>;
-                renderedCellValue: React.ReactNode;
-                column: MRT_Column<T>;
-                row: MRT_Row<T>;
-                table: MRT_TableInstance<T>;
-            }) => (
-                <div className={classes.tableBodyCellValue} style={{ width: column.size ? column.size - 32 : "100%" }}>
-                    {Cell ? Cell(props) : (props.cell.getValue() as ReactNode)}
-                </div>
-            ),
+            Cell: (props: TCellProps<T>) => {
+                const cellValue = getCellValue(props, Cell);
+                return (
+                    <div className={classes.tableBodyCellValueWrapper} style={{ width: column.size ? column.size - 32 : "100%" }}>
+                        {renderContent(props.column.id, cellValue)}
+                    </div>
+                );
+            },
         }));
     }, [columns]);
 
@@ -80,7 +94,7 @@ function BaseTable<T extends Record<string, any>>({
         <MantineReactTable<T>
             {...rest}
             data={data}
-            columns={wrappedColumn}
+            columns={wrappedColumns}
             rowCount={rowCount}
             pageCount={totalPage}
             renderBottomToolbar={({ table }) => {
@@ -122,9 +136,13 @@ function BaseTable<T extends Record<string, any>>({
             mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
             mantineTableBodyCellProps={({ cell }) => {
                 const isActiveCell = renderActiveBadge ? renderActiveBadge(cell) : false;
-                const cellClassName = getStylesForCell({ renderActive: !!renderActiveBadge, isActive: isActiveCell }).classes.tableBodyCell;
+                const { classes } = getStylesForCell({
+                    renderActive: !!renderActiveBadge,
+                    isActive: isActiveCell,
+                    columnId: cell.column.id,
+                });
                 return {
-                    className: cellClassName,
+                    className: classes.tableBodyCell,
                     onClick: () => {
                         handleClickCell(cell);
                     },

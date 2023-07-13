@@ -25,9 +25,7 @@ type TData<T> = {
 export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T[]> = TPaginationResponse<T[]>>(
     queryKey: QueryKey,
     queryFn: QueryFunction<TQueryFnData, QueryKey>,
-    options?:
-        | Omit<UseInfiniteQueryOptions<TQueryFnData, unknown, TQueryFnData, TQueryFnData, QueryKey>, "queryKey" | "queryFn">
-        | undefined,
+    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, unknown, TQueryFnData, TQueryFnData, QueryKey>, "queryKey" | "queryFn"> | undefined
 ): Omit<InfiniteQueryObserverResult<TQueryFnData>, "data"> & TData<T> {
     const fullOptions: typeof options = {
         getNextPageParam: (lastPage, pages) => {

@@ -10,7 +10,12 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.light[0],
     },
     heading: {
+        width: "100%",
         gap: 16,
+    },
+    title: {
+        flex: 1,
+        maxWidth: 130,
     },
     wrapperIcon: {
         width: 64,

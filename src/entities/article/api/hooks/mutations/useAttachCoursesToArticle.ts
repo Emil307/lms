@@ -26,6 +26,6 @@ export const useAttachCoursesToArticle = (articleId: string) => {
                     title: "Ошибка привязки курсов к статье",
                 });
             },
-        },
+        }
     );
 };

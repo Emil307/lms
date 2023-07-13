@@ -54,7 +54,7 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                 onSuccess: () => {
                     onClose();
                 },
-            },
+            }
         );
     };
 

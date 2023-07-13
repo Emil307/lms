@@ -35,7 +35,7 @@ export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) 
                 query: { ...createNewSortParams(), page: "1" },
             },
             undefined,
-            { shallow: true },
+            { shallow: true }
         );
     }, [sorting, router.isReady]);
 

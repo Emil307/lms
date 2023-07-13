@@ -30,7 +30,7 @@ export const $UpdateAdminStaticReviewFormValidation = z
         {
             message: "Введите имя",
             path: ["firstName"],
-        },
+        }
     )
     .refine(
         (data) => {
@@ -42,5 +42,5 @@ export const $UpdateAdminStaticReviewFormValidation = z
         {
             message: "Введите фамилию",
             path: ["lastName"],
-        },
+        }
     );

@@ -1,7 +1,5 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { Tooltip } from "@shared/ui";
 import { AdminCourseReviewFiltersForm, AdminCourseReviewFromList } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";
 
@@ -35,13 +33,6 @@ export const columns: MRT_ColumnDef<AdminCourseReviewFromList>["columns"] = [
     {
         header: "Отзыв",
         accessorKey: "content",
-        Cell: ({ row }) => {
-            return (
-                <Tooltip label={row.original.content}>
-                    <Text lineClamp={1}>{row.original.content}</Text>
-                </Tooltip>
-            );
-        },
     },
     {
         header: "Группа",

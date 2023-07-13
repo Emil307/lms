@@ -29,6 +29,9 @@ export type UpdateLessonResponse = z.infer<typeof $UpdateLessonResponse>;
 export type UpdateLessonActivityRequest = z.infer<typeof $UpdateLessonActivityRequest>;
 export type UpdateLessonActivityResponse = z.infer<typeof $UpdateLessonActivityResponse>;
 
+export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
+export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
+
 export const $AdminLesson = z.object({
     id: z.number(),
     name: z.string(),
@@ -117,4 +120,14 @@ export const $AdminSelectLessonsFilters = $AdminLessonsFilters.omit({
 });
 export const $AdminSelectLessonsExtraFilters = z.object({
     moduleIds: z.array(z.string()),
+});
+
+export const $AttachMaterialsToLessonRequest = z.object({
+    lessonId: z.string(),
+    ids: z.array(z.string()),
+});
+
+export const $DetachMaterialsFromLessonRequest = z.object({
+    lessonId: z.string(),
+    ids: z.array(z.string()),
 });

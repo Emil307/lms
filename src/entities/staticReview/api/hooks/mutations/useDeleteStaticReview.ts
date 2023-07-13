@@ -38,6 +38,6 @@ export const useDeleteStaticReview = ({ id }: DeleteStaticReviewRequest) => {
                     title: "Ошибка удаления отзыва",
                 });
             },
-        },
+        }
     );
 };

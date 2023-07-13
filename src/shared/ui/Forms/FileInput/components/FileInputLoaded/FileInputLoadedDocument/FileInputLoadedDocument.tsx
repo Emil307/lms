@@ -14,7 +14,7 @@ export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "statu
     educational?: boolean;
     onDelete?: (fileId: number) => void;
     onEdit?: (fileId: number) => void;
-    onUpdateFile: (data: UploadedFile) => void;
+    onUpdateFile: (fileId: number, data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
@@ -38,12 +38,12 @@ export default function FileInputLoadedDocument({
                 { file, type, educational },
                 {
                     onSuccess: (resp) => {
-                        onUpdateFile(resp);
+                        onUpdateFile(fileId, resp);
                     },
                     onError: (error) => {
                         onError(error.response?.data.message);
                     },
-                },
+                }
             );
         }
     }, [file, error]);

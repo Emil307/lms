@@ -17,7 +17,7 @@ const CreateMessageForm = (props: CreateMessageFormProps) => {
 
     const onSuccess = (
         _response: CreateSupportMessageResponse,
-        { resetForm }: Omit<FormikHelpers<CreateMessageFormValidation>, "setFieldError">,
+        { resetForm }: Omit<FormikHelpers<CreateMessageFormValidation>, "setFieldError">
     ) => {
         resetForm();
         createNotification({

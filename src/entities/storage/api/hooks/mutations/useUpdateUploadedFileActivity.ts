@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { GetAdminUploadedFileResponse, GetUploadedFilesResponse, storageApi } from "@entities/storage";
+import { GetAdminUploadedFileResponse, GetUploadedFilesResponse, storageApi, UpdateUploadedFileActivityResponse } from "@entities/storage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUpdateUploadedFileActivity = (id: number) => {
-    return useMutation<boolean, AxiosError<FormErrorResponse>, boolean>(
+export const useUpdateUploadedFileActivity = (id: number, name: string) => {
+    return useMutation<UpdateUploadedFileActivityResponse, AxiosError<FormErrorResponse>, boolean>(
         [MutationKeys.UPDATE_UPLOADED_FILE_ACTIVITY, id],
-        (status: boolean) => storageApi.updateUploadedFileActivity({ id, status }),
+        (isActive: boolean) => storageApi.updateUploadedFileActivity({ id, isActive }),
         {
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_UPLOADED_FILE, id] });
@@ -20,7 +20,7 @@ export const useUpdateUploadedFileActivity = (id: number) => {
 
                 queryClient.setQueryData<GetAdminUploadedFileResponse>(
                     [QueryKeys.GET_ADMIN_UPLOADED_FILE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus },
+                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
 
                 queryClient.setQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES], (previousData) => {
@@ -49,23 +49,17 @@ export const useUpdateUploadedFileActivity = (id: number) => {
                     title: "Ошибка изменения статуса",
                 });
             },
-            onSettled() {
+            onSuccess: ({ isActive }) => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
-            },
-            onSuccess: () => {
-                const materialData = queryClient.getQueryData<GetAdminUploadedFileResponse>([QueryKeys.GET_ADMIN_UPLOADED_FILE, id]);
-                const materialFromList = queryClient
-                    .getQueriesData<GetUploadedFilesResponse>([QueryKeys.GET_UPLOADED_FILES])?.[0]?.[1]
-                    ?.data.find((material) => material.id === id);
 
-                const statusMessage = materialData?.isActive || materialFromList?.isActive ? "активирован" : "деактивирован";
+                const statusMessage = isActive ? "активирован" : "деактивирован";
 
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Материал "${materialData?.name || materialFromList?.name}" ${statusMessage}.`,
+                    message: `Материал "${name}" ${statusMessage}.`,
                 });
             },
-        },
+        }
     );
 };

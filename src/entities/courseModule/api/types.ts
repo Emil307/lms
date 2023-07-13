@@ -32,7 +32,7 @@ export const $CourseModule = z.object({
 export const $GetCourseModulesRequest = $getFiltersRequestType(
     z.object({
         courseId: z.string(),
-    }),
+    })
 );
 
 export const $GetCourseModulesResponse = $getPaginationResponseType($CourseModule);

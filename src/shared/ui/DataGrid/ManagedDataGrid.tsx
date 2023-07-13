@@ -32,7 +32,7 @@ function ManagedDataGrid<
     F = unknown,
     E = unknown,
     R = TFunctionParams<F, E>,
-    K extends FormikValues = F extends FormikValues ? F : FormikValues,
+    K extends FormikValues = F extends FormikValues ? F : FormikValues
 >(props: TManagedDataGridProps<T, F, E, R, K>) {
     const router = useRouter();
     const {

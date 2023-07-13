@@ -13,13 +13,32 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
             cursor: "pointer",
         },
     },
+    tableBodyCellValueWrapper: {
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        padding: "4px 0",
+    },
     tableBodyCellValue: {
+        display: "inline",
         whiteSpace: "nowrap",
         textOverflow: "ellipsis",
         overflow: "hidden",
+        lineHeight: "16px",
     },
     tableBodyRow: {
         cursor: "pointer",
+        ".mantine-ActionIcon-root": {
+            width: 24,
+            height: 24,
+            minWidth: 24,
+            minHeight: 24,
+            ":hover": {
+                backgroundColor: theme.colors.primary8[0],
+                svg: {
+                    color: theme.colors.primary[0],
+                },
+            },
+        },
     },
     tableContainer: {
         borderRadius: 8,
@@ -63,16 +82,21 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
     },
     skeleton: {
         maxWidth: 100,
-        height: 30,
+        height: 24,
     },
 }));
 
 type TGetStylesForCellProps = {
     isActive: boolean;
     renderActive: boolean;
+    columnId: string;
 };
 
-const renderCellBadge = ({ renderActive, theme, isActive }: TGetStylesForCellProps & { theme: MantineTheme }): CSSObject => {
+const renderCellBadge = ({
+    renderActive,
+    theme,
+    isActive,
+}: Omit<TGetStylesForCellProps, "columnId"> & { theme: MantineTheme }): CSSObject => {
     if (!renderActive) {
         return {};
     }
@@ -92,17 +116,19 @@ const renderCellBadge = ({ renderActive, theme, isActive }: TGetStylesForCellPro
     };
 };
 
-export const getStylesForCell = createStyles((theme, { renderActive, isActive }: TGetStylesForCellProps) => ({
+export const getStylesForCell = createStyles((theme, { renderActive, isActive, columnId }: TGetStylesForCellProps) => ({
     tableBodyCell: {
         border: "none !important",
         fontSize: "14px !important",
         lineHeight: "16px !important",
         borderBottom: `1px solid ${theme.colors.light[0]} !important`,
-        padding: "10px 16px !important",
+        padding: "12px 16px !important",
         zIndex: 99,
         ":first-of-type": renderCellBadge({ renderActive, theme, isActive }),
-        ":last-of-type": {
-            pointerEvents: "none",
-        },
+        ...(columnId === "mrt-row-actions" && {
+            ":last-of-type": {
+                pointerEvents: "none",
+            },
+        }),
     },
 }));

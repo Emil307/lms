@@ -26,6 +26,6 @@ export const useAdminDeleteGroupSchedule = (data: DeleteAdminGroupScheduleReques
                     title: "Ошибка удаления занятия из расписания",
                 });
             },
-        },
+        }
     );
 };

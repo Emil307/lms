@@ -37,6 +37,6 @@ export const useDeleteTransaction = ({ id }: DeleteAdminTransactionRequest) => {
                     title: "Ошибка удаления транзакции",
                 });
             },
-        },
+        }
     );
 };

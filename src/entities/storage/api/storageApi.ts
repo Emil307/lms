@@ -6,14 +6,17 @@ import {
     $GetAdminUploadedFileResponse,
     $GetUploadedFileResourcesResponse,
     $GetUploadedFilesResponse,
+    $UpdateUploadedFileActivityResponse,
     DeleteUploadedFileRequest,
     DeleteUploadedFileResponse,
     GetAdminMaterialsNoIncludedArticleRequest,
+    GetAdminMaterialsNoIncludedLessonRequest,
     GetAdminUploadedFileResponse,
     GetUploadedFileResourcesResponse,
     GetUploadedFilesRequest,
     GetUploadedFilesResponse,
     UpdateUploadedFileActivityRequest,
+    UpdateUploadedFileActivityResponse,
     UpdateUploadedFilesRequest,
     UploadFileRequest,
     UploadFileResponse,
@@ -41,7 +44,9 @@ class StorageApi extends BaseApi {
         const response = await this.instance.get(`storage/files/${id}`);
         return $GetAdminUploadedFileResponse.parse(response);
     }
-    async getUploadedFiles(params: GetUploadedFilesRequest | GetAdminMaterialsNoIncludedArticleRequest): Promise<GetUploadedFilesResponse> {
+    async getUploadedFiles(
+        params: GetUploadedFilesRequest | GetAdminMaterialsNoIncludedArticleRequest | GetAdminMaterialsNoIncludedLessonRequest
+    ): Promise<GetUploadedFilesResponse> {
         const response = await this.instance.post("storage/files/list", params);
         return $GetUploadedFilesResponse.parse(response);
     }
@@ -50,8 +55,9 @@ class StorageApi extends BaseApi {
         const response = await this.instance.get("storage/files/resources");
         return $GetUploadedFileResourcesResponse.parse(response);
     }
-    async updateUploadedFileActivity({ id, ...data }: UpdateUploadedFileActivityRequest & { id: number }): Promise<boolean> {
-        return this.instance.put(`/storage/files/${id}/activity-status`, data);
+    async updateUploadedFileActivity({ id, ...data }: UpdateUploadedFileActivityRequest): Promise<UpdateUploadedFileActivityResponse> {
+        const response = await this.instance.put(`/storage/files/${id}/activity-status`, data);
+        return $UpdateUploadedFileActivityResponse.parse(response);
     }
     async deleteUploadedFile({ id }: DeleteUploadedFileRequest): Promise<DeleteUploadedFileResponse> {
         const response = await this.instance.delete(`storage/files/${id}`);

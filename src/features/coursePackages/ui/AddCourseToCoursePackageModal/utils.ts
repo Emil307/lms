@@ -3,7 +3,7 @@ import { AdminCoursesForCoursePackageFiltersForm, GetAdminCoursesRequest } from 
 import { AdminCourseFromCoursePackageFilters } from "@entities/coursePackage";
 
 export const adaptGetAdminCoursesRequest = (
-    params: TFunctionParams<AdminCoursesForCoursePackageFiltersForm, AdminCourseFromCoursePackageFilters>,
+    params: TFunctionParams<AdminCoursesForCoursePackageFiltersForm, AdminCourseFromCoursePackageFilters>
 ): GetAdminCoursesRequest => {
     const { tags = [], categoryId, subcategoryId, coursePackageId, ...rest } = params;
 

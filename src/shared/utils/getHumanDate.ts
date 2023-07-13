@@ -23,7 +23,7 @@ export const getHumanDate = (
         year?: ShortDateFormats;
         hour?: ShortDateFormats;
         minute?: ShortDateFormats;
-    },
+    }
 ): string => {
     if (!date) return "";
     return date.toLocaleDateString(
@@ -34,6 +34,6 @@ export const getHumanDate = (
             year: "numeric",
             hour: "numeric",
             minute: "numeric",
-        },
+        }
     );
 };

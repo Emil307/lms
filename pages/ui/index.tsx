@@ -92,8 +92,7 @@ type Values = {
     avatarImage: UploadedFile | null;
     date: Date | null;
     logo: File | UploadedFile | null;
-    doc: File[] | UploadedFile[];
-    attachments: File[] | UploadedFile[];
+    attachments: UploadedFile[];
     ranges: {
         dateFrom: Date | null;
         dateTo: Date | null;
@@ -188,7 +187,6 @@ export const UIDemo = () => {
                 absolutePath:
                     "https://api-bucket.addamant-work.ru/business-galery-public/images/Z4HsGLrX4oQL3ezwIPUyR8rmV5pdeXAgs7guTN6O.jpg",
             },
-            doc: [],
             attachments: [
                 {
                     id: 115,
@@ -215,8 +213,6 @@ export const UIDemo = () => {
     //     '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
     const [content, setContent] = useState("");
     const handleCloseModal = () => closeModal("CHANGE_PASSWORD");
-
-    const handleDownloadFile = () => undefined;
 
     return (
         <>
@@ -348,11 +344,9 @@ export const UIDemo = () => {
                                 /> */}
                                 <FFileInputMultiple
                                     type="document"
-                                    nameForInitialFiles="attachments"
-                                    nameForLoadedFiles="doc"
+                                    name="attachments"
                                     title="Загрузить документы с ПК"
                                     fileFormats={["pdf", "jpeg", "jpg", "png"]}
-                                    onDownloadInitialFile={handleDownloadFile}
                                 />
 
                                 <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">
