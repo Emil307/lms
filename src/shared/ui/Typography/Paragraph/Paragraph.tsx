@@ -6,11 +6,11 @@ export interface ParagraphProps extends Omit<TextProps, "variant"> {
     variant: ParagraphVariant;
 }
 
-const Paragraph = ({ children, variant, color = "dark", ...props }: ParagraphProps) => {
-    const { classes } = useStyles({ variant });
+const Paragraph = ({ children, variant, className, color = "dark", ...props }: ParagraphProps) => {
+    const { classes, cx } = useStyles({ variant });
 
     return (
-        <Text component="p" className={classes.root} color={color} {...props}>
+        <Text component="p" className={cx(classes.root, className)} color={color} {...props}>
             {children}
         </Text>
     );

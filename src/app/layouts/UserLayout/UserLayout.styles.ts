@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles(() => ({
+export default createStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -26,5 +26,9 @@ export default createStyles(() => ({
         paddingInline: 16,
         paddingTop: 32,
         paddingBottom: 96,
+
+        [theme.fn.smallerThan("md")]: {
+            paddingTop: 24,
+        },
     },
 }));

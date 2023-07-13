@@ -15,6 +15,10 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
 
         "+ p": {
             marginTop: 24,
+
+            [theme.fn.smallerThan("md")]: {
+                marginTop: 16,
+            },
         },
 
         "+ *:not(p, ul)": {
@@ -28,6 +32,12 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontWeight: 500,
         fontSize: 26,
         lineHeight: "32px",
+
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 24,
+            lineHeight: "26px",
+            marginBottom: 24,
+        },
     },
 
     h2: {
@@ -36,6 +46,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontWeight: 500,
         fontSize: 20,
         lineHeight: "24px",
+
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 18,
+            lineHeight: "24px",
+        },
     },
 
     h3: {
@@ -44,6 +59,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontWeight: 500,
         fontSize: 18,
         lineHeight: "24px",
+
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 16,
+            lineHeight: "20px",
+        },
     },
 
     h4: {
@@ -61,13 +81,20 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         borderLeft: `4px solid ${theme.colors.secondary[0]}`,
         backgroundColor: theme.colors.primary16[0],
 
+        [theme.fn.smallerThan("md")]: {
+            padding: "24px 32px",
+            marginLeft: 8,
+        },
+
         h3: {
             marginBottom: 0,
-            fontWeight: 500,
-            fontSize: 18,
 
             "+ *": {
                 marginTop: 24,
+
+                [theme.fn.smallerThan("md")]: {
+                    marginTop: 16,
+                },
             },
         },
 
