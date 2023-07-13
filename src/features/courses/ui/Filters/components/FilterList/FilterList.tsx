@@ -35,7 +35,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
             <Flex gap={8} onClick={handleChangeOpen}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
                     hiddenCountCourse,
-                    ...labelsPluralString,
+                    ...labelsPluralString
                 )}`}</Text>
                 <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
                     <ChevronDown />
@@ -73,7 +73,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
 
                 form.setFieldValue(
                     field,
-                    [...form.values[field]].filter((value) => value === item.id.toString()),
+                    [...form.values[field]].filter((value) => value === item.id.toString())
                 );
             };
             return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;

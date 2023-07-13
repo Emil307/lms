@@ -25,6 +25,6 @@ export const useUpdateFaq = (id: number) => {
                     title: "Ошибка обновления карточки вопрос-ответ",
                 });
             },
-        },
+        }
     );
 };

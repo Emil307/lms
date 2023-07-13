@@ -48,7 +48,7 @@ const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose }: AddC
                 onSuccess: () => {
                     onClose();
                 },
-            },
+            }
         );
     };
 

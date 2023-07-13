@@ -27,7 +27,7 @@ export const useUpdateStaticReviewActivityStatus = ({ id }: Pick<UpdateStaticRev
 
             queryClient.setQueryData<AdminStaticReview>(
                 [QueryKeys.GET_ADMIN_STATIC_REVIEW, id],
-                (previousData) => previousData && { ...previousData, isActive },
+                (previousData) => previousData && { ...previousData, isActive }
             );
 
             queryClient.setQueriesData<GetAdminStaticReviewsResponse>([QueryKeys.GET_ADMIN_STATIC_REVIEWS], (previousData) => {

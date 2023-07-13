@@ -103,7 +103,7 @@ export const $AdminCourseReviewFromList = $AdminCourseReview.omit({ user: true }
                     patronymic: true,
                     description: true,
                 }),
-            }),
+            })
         ),
 });
 

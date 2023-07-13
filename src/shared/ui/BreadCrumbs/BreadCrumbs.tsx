@@ -22,7 +22,7 @@ const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items, ...props }: TBrea
                 })}
             />
         ),
-        [],
+        []
     );
 
     return (

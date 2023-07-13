@@ -20,7 +20,7 @@ export const useListPagination = ({ data }: UseListPaginationProps) => {
                 query: { ...router.query, page: selectedPage.toString() },
             },
             undefined,
-            { shallow: true },
+            { shallow: true }
         );
     };
 

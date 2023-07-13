@@ -1,8 +1,7 @@
-import { Avatar, Text } from "@mantine/core";
+import { Avatar } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Camera } from "react-feather";
 import { AdminStaticReviewFromList } from "@entities/staticReview";
-import { Tooltip } from "@shared/ui";
 
 export const columnOrder = ["authorAvatar.absolutePath", "lastName", "position", "video.name", "quote", "mrt-row-actions"];
 
@@ -63,12 +62,5 @@ export const columns: MRT_ColumnDef<AdminStaticReviewFromList>["columns"] = [
     {
         header: "Краткий отзыв",
         accessorKey: "quote",
-        Cell: ({ row }) => (
-            <>
-                <Tooltip label={row.original.quote}>
-                    <Text lineClamp={1}>{row.original.quote}</Text>
-                </Tooltip>
-            </>
-        ),
     },
 ];

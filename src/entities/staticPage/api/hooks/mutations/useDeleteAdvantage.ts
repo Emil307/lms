@@ -38,6 +38,6 @@ export const useDeleteAdvantage = (id: string) => {
                     title: "Ошибка удаления карточки преимущества",
                 });
             },
-        },
+        }
     );
 };

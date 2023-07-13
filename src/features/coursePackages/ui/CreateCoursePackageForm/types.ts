@@ -35,7 +35,7 @@ export const $CreateCoursePackageFormValidation = z
         {
             message: "Введите размер скидки",
             path: ["discount.amount"],
-        },
+        }
     )
     .refine(
         (data) => {
@@ -47,7 +47,7 @@ export const $CreateCoursePackageFormValidation = z
         {
             message: "Укажите период действия",
             path: ["discount.startingDate"],
-        },
+        }
     )
     .refine(
         (data) => {
@@ -59,7 +59,7 @@ export const $CreateCoursePackageFormValidation = z
         {
             message: "Размер скидки не может быть меньше стоимости",
             path: ["discount.amount"],
-        },
+        }
     )
     .refine(
         (data) => {
@@ -71,5 +71,5 @@ export const $CreateCoursePackageFormValidation = z
         {
             message: "Размер скидки не может быть больше 100%",
             path: ["discount.amount"],
-        },
+        }
     );

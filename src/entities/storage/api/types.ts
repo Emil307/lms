@@ -18,6 +18,8 @@ export type UploadedFileFromList = z.infer<typeof $UploadedFileFromList>;
 export type UploadedFilesFiltersForm = z.infer<typeof $UploadedFilesFiltersForm>;
 export type AdminMaterialsNoIncludedArticleFiltersForm = z.infer<typeof $AdminMaterialsNoIncludedArticleFiltersForm>;
 export type AdminArticleMaterialsExtraFilters = z.infer<typeof $AdminArticleMaterialsExtraFilters>;
+export type AdminMaterialsNoIncludedLessonFiltersForm = z.infer<typeof $AdminMaterialsNoIncludedLessonFiltersForm>;
+export type AdminMaterialsNoIncludedLessonExtraFilters = z.infer<typeof $AdminMaterialsNoIncludedLessonExtraFilters>;
 
 //REQ/RES
 export type GetAdminUploadedFileResponse = z.infer<typeof $GetAdminUploadedFileResponse>;
@@ -27,8 +29,10 @@ export type GetUploadedFilesRequest = z.infer<typeof $GetUploadedFilesRequest>;
 export type GetUploadedFilesResponse = z.infer<typeof $GetUploadedFilesResponse>;
 export type GetUploadedFileResourcesResponse = z.infer<typeof $GetUploadedFileResourcesResponse>;
 export type UpdateUploadedFileActivityRequest = z.infer<typeof $UpdateUploadedFileActivityRequest>;
+export type UpdateUploadedFileActivityResponse = z.infer<typeof $UpdateUploadedFileActivityResponse>;
 export type UpdateUploadedFilesRequest = z.infer<typeof $UpdateUploadedFilesRequest>;
 export type GetAdminMaterialsNoIncludedArticleRequest = z.infer<typeof $GetAdminMaterialsNoIncludedArticleRequest>;
+export type GetAdminMaterialsNoIncludedLessonRequest = z.infer<typeof $GetAdminMaterialsNoIncludedLessonRequest>;
 export type DeleteUploadedFileRequest = z.infer<typeof $DeleteUploadedFileRequest>;
 export type DeleteUploadedFileResponse = z.infer<typeof $DeleteUploadedFileResponse>;
 
@@ -60,8 +64,7 @@ export const $AdminUploadedFile = z.object({
     id: z.number(),
     name: z.string(),
     extension: z.string(),
-    //TODO: ждем как бек добавит обратно это поле
-    // size: z.number(),
+    size: z.number(),
     absolutePath: z.string(),
     type: z.object({
         value: $FileType,
@@ -84,7 +87,7 @@ export const $UploadFileRequest = z.object({
 export const $UploadedFileFromList = $AdminUploadedFile.merge(
     z.object({
         categories: z.object({ name: z.string() }).array(),
-    }),
+    })
 );
 
 export const $GetUploadedFileResourcesResponse = z.object({
@@ -93,7 +96,12 @@ export const $GetUploadedFileResourcesResponse = z.object({
 });
 
 export const $UpdateUploadedFileActivityRequest = z.object({
-    status: z.boolean(),
+    id: z.number(),
+    isActive: z.boolean(),
+});
+
+export const $UpdateUploadedFileActivityResponse = z.object({
+    isActive: z.boolean(),
 });
 
 export const $UpdateUploadedFilesRequest = z.object({
@@ -121,6 +129,7 @@ export const $UploadedFilesRequest = z.object({
             type: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             articleIds: z.string(),
+            lessonIds: z.string(),
         })
         .partial(),
 });
@@ -152,6 +161,32 @@ export const $AdminMaterialsNoIncludedArticleRequest = z.object({
 });
 
 export const $GetAdminMaterialsNoIncludedArticleRequest = $getFiltersRequestType($AdminMaterialsNoIncludedArticleRequest);
+
+export const $AdminMaterialsNoIncludedLessonExtraFilters = z.object({
+    lessonId: z.string(),
+});
+
+export const $AdminMaterialsNoIncludedLessonFiltersForm = z.object({
+    query: z.string(),
+    categoryIds: z.string(),
+    type: z.string(),
+    createdAtFrom: z.coerce.date().nullable(),
+    createdAtTo: z.coerce.date().nullable(),
+});
+
+export const $AdminMaterialsNoIncludedLessonRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            categoryIds: z.string(),
+            "type.type": z.string(),
+            createdAt: $getDateObjectType(z.literal("range")),
+            lessonIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+        })
+        .partial(),
+});
+
+export const $GetAdminMaterialsNoIncludedLessonRequest = $getFiltersRequestType($AdminMaterialsNoIncludedLessonRequest);
 
 export const $UploadFileResponse = $UploadedFile;
 

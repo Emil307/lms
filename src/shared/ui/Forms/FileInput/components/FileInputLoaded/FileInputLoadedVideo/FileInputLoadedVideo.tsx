@@ -18,7 +18,7 @@ export interface FileInputLoadedVideoProps {
     educational?: boolean;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
-    onUpdateFile: (data: UploadedFile) => void;
+    onUpdateFile: (fileId: number, data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
@@ -45,12 +45,12 @@ export default function FileInputLoadedVideo({
                 { file, type, educational },
                 {
                     onSuccess: (resp) => {
-                        onUpdateFile(resp);
+                        onUpdateFile(fileId, resp);
                     },
                     onError: (error) => {
                         onError(error.response?.data.message);
                     },
-                },
+                }
             );
         }
     }, [file, error]);

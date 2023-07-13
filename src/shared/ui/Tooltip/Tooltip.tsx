@@ -1,17 +1,15 @@
-import { Tooltip as MTooltip, TooltipProps as MTooltipProps, Text } from "@mantine/core";
-import { memo, useMemo } from "react";
+import { Tooltip as MTooltip, TooltipProps as MTooltipProps } from "@mantine/core";
+import { memo } from "react";
 import useStyles from "./Tooltip.styles";
 
-export interface TooltipProps extends MTooltipProps {
-    lineClamp?: number;
-}
-
-const MemoizedTooltip = memo(function Tooltip({ label, lineClamp = 3, ...props }: TooltipProps) {
+const MemoizedTooltip = memo(function Tooltip({ children, ...props }: MTooltipProps) {
     const { classes } = useStyles();
 
-    const labelBlock = useMemo(() => <Text lineClamp={lineClamp}>{label}</Text>, [label]);
-
-    return <MTooltip {...props} classNames={classes} multiline withArrow label={labelBlock} />;
+    return (
+        <MTooltip classNames={classes} multiline withArrow {...props}>
+            {children}
+        </MTooltip>
+    );
 });
 
 export default MemoizedTooltip;

@@ -8,6 +8,6 @@ export const useCourseCollection = ({ id }: GetCourseCollectionRequest) => {
         () => courseCollectionApi.getCourseCollection({ id }),
         {
             enabled: !!id,
-        },
+        }
     );
 };

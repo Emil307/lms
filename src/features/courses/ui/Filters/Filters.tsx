@@ -29,7 +29,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                     query: { ...router.query, page: "1", ...prepareQueryParams(values) },
                 },
                 undefined,
-                { shallow: true },
+                { shallow: true }
             );
 
             return;

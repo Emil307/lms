@@ -69,7 +69,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                             });
                         }
                     },
-                },
+                }
             );
         },
     };

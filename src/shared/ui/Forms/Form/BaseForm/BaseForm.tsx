@@ -23,7 +23,7 @@ export default function BaseForm({ children, radius, className, styles, unstyled
         // First argument of useStyles is styles params
         undefined,
         // Second argument is responsible for styles api integration
-        { name: "BaseForm", classNames, styles, unstyled },
+        { name: "BaseForm", classNames, styles, unstyled }
     );
 
     return (

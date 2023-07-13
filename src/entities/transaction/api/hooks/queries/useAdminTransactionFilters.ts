@@ -4,6 +4,6 @@ import { GetAdminTransactionsFiltersResponse, transactionApi } from "@entities/t
 
 export const useAdminTransactionFilters = () => {
     return useQuery<GetAdminTransactionsFiltersResponse>([QueryKeys.GET_ADMIN_TRANSACTIONS_FILTERS], () =>
-        transactionApi.getAdminTransactionsFilters(),
+        transactionApi.getAdminTransactionsFilters()
     );
 };

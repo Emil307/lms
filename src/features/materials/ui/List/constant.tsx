@@ -1,8 +1,6 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { UploadedFileFromList, UploadedFilesFiltersForm } from "@entities/storage";
-import { Tooltip } from "@shared/ui";
 
 export const columnOrder = ["id", "name", "categories", "type.name", "createdAt", "mrt-row-actions"];
 
@@ -19,14 +17,8 @@ export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
         header: "Категория",
         accessorKey: "categories",
         enableSorting: false,
-        Cell: ({ row }) => {
-            const listCategoryNames = row.original.categories.map(({ name }) => name).join(", ");
-            return (
-                <Tooltip label={listCategoryNames}>
-                    <Text lineClamp={1}>{listCategoryNames}</Text>
-                </Tooltip>
-            );
-        },
+        Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
+        size: 339,
     },
     {
         header: "Тип файла",

@@ -18,7 +18,7 @@ export interface FileInputLoadedImageProps {
     error?: string;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
-    onUpdateFile: (data: UploadedFile) => void;
+    onUpdateFile: (fileId: number, data: UploadedFile) => void;
     onError: (errorMessage?: string) => void;
 }
 
@@ -46,12 +46,12 @@ export default function FileInputLoadedImage({
                 { file, type },
                 {
                     onSuccess: (resp) => {
-                        onUpdateFile(resp);
+                        onUpdateFile(fileId, resp);
                     },
                     onError: (error) => {
                         onError(error.response?.data.message);
                     },
-                },
+                }
             );
         }
     }, [file, error]);

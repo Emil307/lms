@@ -54,7 +54,7 @@ const AddMaterialsToArticleModal = ({ articleId, onClose }: AddMaterialsToArticl
                 onSuccess: () => {
                     onClose();
                 },
-            },
+            }
         );
     };
 

@@ -49,6 +49,6 @@ export const useDetachLessonFromCourseModule = ({
                     title: "Ошибка удаления урока из модуля",
                 });
             },
-        },
+        }
     );
 };

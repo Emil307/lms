@@ -21,6 +21,6 @@ export const useAdminTransactionCreateEntities = ({ entityType, ...data }: Omit<
         },
         {
             enabled: !!entityType,
-        },
+        }
     );
 };

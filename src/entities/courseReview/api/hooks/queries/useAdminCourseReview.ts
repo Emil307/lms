@@ -8,6 +8,6 @@ export const useAdminCourseReview = ({ id }: GetAdminCourseReviewRequest) => {
         () => courseReviewApi.getAdminCourseReview({ id }),
         {
             enabled: !!id,
-        },
+        }
     );
 };

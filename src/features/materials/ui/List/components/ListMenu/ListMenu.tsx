@@ -13,7 +13,7 @@ interface UsersListMenuProps {
 }
 
 const ListMenu = ({ row }: UsersListMenuProps) => {
-    const { mutate: updateActivityStatus } = useUpdateUploadedFileActivity(row.original.id);
+    const { mutate: updateActivityStatus } = useUpdateUploadedFileActivity(row.original.id, row.original.name);
 
     const handleCloseDeleteModal = () => closeModal("DELETE_MATERIAL");
     const handleCloseEditMaterialFormModal = () => closeModal("EDIT_MATERIAL");

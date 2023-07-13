@@ -56,7 +56,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
 
     const renderCategories = useMemo(
         () => data.categories.map((category) => <CategoryItem key={category.id} data={category} onClick={handleClickItem} />),
-        [data.categories],
+        [data.categories]
     );
 
     return (

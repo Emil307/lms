@@ -6,6 +6,7 @@ import {
     $GetAdminLessonsResponse,
     $UpdateLessonActivityResponse,
     $UpdateLessonResponse,
+    AttachMaterialsToLessonRequest,
     CreateLessonRequest,
     CreateLessonResponse,
     GetAdminLessonResponse,
@@ -16,6 +17,7 @@ import {
     UpdateLessonActivityResponse,
     UpdateLessonRequest,
     UpdateLessonResponse,
+    DetachMaterialsFromLessonRequest,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -46,6 +48,14 @@ class LessonApi extends BaseApi {
 
     async deleteLesson(id: string): Promise<void> {
         await this.instance.delete(`admin/lessons/${id}`);
+    }
+
+    async attachMaterialsToLesson({ lessonId, ...data }: AttachMaterialsToLessonRequest): Promise<void> {
+        await this.instance.post(`admin/lessons/${lessonId}/files`, data);
+    }
+
+    async detachMaterialsFromLesson({ lessonId, ...data }: DetachMaterialsFromLessonRequest): Promise<void> {
+        await this.instance.delete(`admin/lessons/${lessonId}/files`, { params: data });
     }
 }
 

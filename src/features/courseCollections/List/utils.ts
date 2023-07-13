@@ -7,7 +7,7 @@ export const getInitialParams = (perPage?: number) => ({
 });
 
 export const adaptGetCourseCollectionsRequest = (
-    params: TFunctionParams<unknown, CourseCollectionsExtraFilters>,
+    params: TFunctionParams<unknown, CourseCollectionsExtraFilters>
 ): GetCourseCollectionsRequest => {
     const { id, ...rest } = params;
 

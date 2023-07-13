@@ -30,7 +30,7 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
             <Box h={472} mb={16}>
                 <FFileInputMultiple
                     type={data.type}
-                    nameForLoadedFiles="materials"
+                    name="materials"
                     educational
                     fileFormats={data.fileFormats}
                     w="100%"

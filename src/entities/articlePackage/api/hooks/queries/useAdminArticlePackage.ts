@@ -8,6 +8,6 @@ export const useAdminArticlePackage = (id?: string) => {
         () => articlePackageApi.getAdminArticlePackage(id),
         {
             enabled: !!id,
-        },
+        }
     );
 };

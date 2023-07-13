@@ -34,7 +34,7 @@ const List = ({ perPage, title, onSelect, selectedIconId, skeletonListProps, ...
                     </Box>
                 );
             }),
-        [externalIconsData, selectedIconId],
+        [externalIconsData, selectedIconId]
     );
 
     return (

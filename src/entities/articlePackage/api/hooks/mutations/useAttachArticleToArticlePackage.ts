@@ -26,6 +26,6 @@ export const useAttachArticleToArticlePackage = (articlePackageId: string) => {
                     title: "Ошибка добавления статей в пакет",
                 });
             },
-        },
+        }
     );
 };

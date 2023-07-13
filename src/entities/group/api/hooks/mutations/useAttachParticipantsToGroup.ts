@@ -26,6 +26,6 @@ export const useAttachParticipantsToGroup = ({ groupId }: Pick<AttachParticipant
                     title: "Ошибка добавления учеников в группу",
                 });
             },
-        },
+        }
     );
 };

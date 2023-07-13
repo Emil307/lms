@@ -26,6 +26,6 @@ export const useUpdateTag = (tagId: string) => {
                     title: "Ошибка обновления тега",
                 });
             },
-        },
+        }
     );
 };

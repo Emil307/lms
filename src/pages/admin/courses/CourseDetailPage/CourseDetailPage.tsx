@@ -6,8 +6,8 @@ import { TRouterQueries } from "@shared/types";
 import { CourseInfoPanel, CourseSettings, CourseReviews } from "@widgets/admin/courses";
 import { useAdminCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
-import { getBreadCrumbsItems, getTabList } from "./utils";
 import { CourseGroups } from "@widgets/admin/courses/Groups";
+import { getBreadCrumbsItems, getTabList } from "./utils";
 
 const CourseDetailPage = () => {
     const router = useRouter();

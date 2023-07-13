@@ -4,7 +4,7 @@ import { GetAdminCourseReviewsRequest } from "@entities/courseReview";
 import { AdminCourseReviewsExtraParams, AdminCourseReviewsFiltersForm } from "./types";
 
 export const adaptGetAdminCourseReviewsRequest = (
-    params: TFunctionParams<AdminCourseReviewsFiltersForm, AdminCourseReviewsExtraParams>,
+    params: TFunctionParams<AdminCourseReviewsFiltersForm, AdminCourseReviewsExtraParams>
 ): GetAdminCourseReviewsRequest => {
     const { isPublished, courseId, score, createdAtFrom, createdAtTo, ...rest } = params;
 

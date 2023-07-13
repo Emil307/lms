@@ -34,6 +34,6 @@ export const useDeleteArticlePackage = (id: string) => {
                     title: "Ошибка удаления пакета статей",
                 });
             },
-        },
+        }
     );
 };

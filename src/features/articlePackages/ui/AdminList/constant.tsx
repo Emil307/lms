@@ -2,7 +2,6 @@ import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex, Text } from "@mantine/core";
 import { getHumanDate } from "@shared/utils";
 import { AdminArticlePackageFromList, AdminArticlePackagesFiltersForm } from "@entities/articlePackage";
-import { Tooltip } from "@shared/ui";
 import useStyles from "./AdminList.styles";
 
 export const radioGroupValues = [
@@ -39,24 +38,12 @@ export const columns: MRT_ColumnDef<AdminArticlePackageFromList>["columns"] = [
     {
         header: "Название пакета",
         accessorKey: "name",
-        Cell: ({ cell }) => (
-            <Tooltip label={cell.getValue() as string}>
-                <Text lineClamp={1}>{cell.getValue() as string}</Text>
-            </Tooltip>
-        ),
     },
     {
         header: "Категории",
         accessorKey: "categories",
         enableSorting: false,
-        Cell: ({ row }) => {
-            const listCategoryNames = row.original.categories.map(({ name }) => name).join(", ");
-            return (
-                <Tooltip label={listCategoryNames}>
-                    <Text lineClamp={1}>{listCategoryNames}</Text>
-                </Tooltip>
-            );
-        },
+        Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
     },
     {
         header: "Полная стоимость",

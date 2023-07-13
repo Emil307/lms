@@ -17,7 +17,7 @@ export interface UpdateMaterialsFormProps {
     hasCategories?: boolean;
     type: MaterialType;
     onClose: () => void;
-    onSubmit: () => void;
+    onSubmit: (fileIds: string[]) => void;
 }
 
 const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: UpdateMaterialsFormProps) => {
@@ -51,7 +51,7 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: U
         onSubmit: async (values) => {
             updateMaterials.mutate(adaptEditMaterialsFormRequest(values, sessionStorageData?.categoryIds), {
                 onSuccess: () => {
-                    onSubmit();
+                    onSubmit(values.files.map((file) => String(file.id)));
                 },
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {
@@ -98,7 +98,7 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: U
                                 disabled={updateMaterials.isLoading}>
                                 Назад
                             </Button>
-                            <Button type="submit" size="large" variant="secondary" w="100%" disabled={updateMaterials.isLoading}>
+                            <Button type="submit" size="large" variant="secondary" w="100%" loading={updateMaterials.isLoading}>
                                 Сохранить
                             </Button>
                         </Flex>

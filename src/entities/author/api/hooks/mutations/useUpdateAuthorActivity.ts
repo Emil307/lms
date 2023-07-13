@@ -26,7 +26,7 @@ export const useUpdateAuthorActivity = ({ id }: Omit<UpdateAuthorActivityRequest
 
                 queryClient.setQueryData<GetAdminAuthorResponse>(
                     [QueryKeys.GET_ADMIN_AUTHOR, id],
-                    (previousData) => previousData && { ...previousData, isActive },
+                    (previousData) => previousData && { ...previousData, isActive }
                 );
 
                 queryClient.setQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS], (previousData) => {
@@ -75,6 +75,6 @@ export const useUpdateAuthorActivity = ({ id }: Omit<UpdateAuthorActivityRequest
                     message: `Пользователь "${fioByAuthorData || fioByAuthorFromList}" ${statusMessage}.`,
                 });
             },
-        },
+        }
     );
 };

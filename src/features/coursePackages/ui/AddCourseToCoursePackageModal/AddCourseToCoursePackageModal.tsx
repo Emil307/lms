@@ -48,7 +48,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
                 onSuccess: () => {
                     onClose();
                 },
-            },
+            }
         );
     };
 

@@ -31,6 +31,6 @@ export const useDeleteArticleFromArticlePackage = (params: DeleteArticleFromPack
                     title: "Ошибка удаления статьи из пакета",
                 });
             },
-        },
+        }
     );
 };

@@ -49,7 +49,7 @@ class CourseCollectionApi extends BaseApi {
     }
 
     async getAdminCourseCollectionResources(
-        params: GetAdminCourseCollectionResourcesRequest,
+        params: GetAdminCourseCollectionResourcesRequest
     ): Promise<GetAdminCourseCollectionResourcesResponse> {
         const response = await this.instance.get("admin/course-collections/resources", { params });
         return $GetAdminCourseCollectionResourcesResponse.parse(response);

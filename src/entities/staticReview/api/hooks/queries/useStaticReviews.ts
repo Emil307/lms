@@ -8,6 +8,6 @@ export const useStaticReviews = (params: Omit<GetStaticReviewsRequest, "page">, 
         ({ pageParam = 1 }) => staticReviewApi.getStaticReviews({ ...params, page: pageParam }),
         {
             enabled,
-        },
+        }
     );
 };

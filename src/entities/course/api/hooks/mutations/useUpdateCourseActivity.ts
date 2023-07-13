@@ -7,7 +7,7 @@ import { FormErrorResponse } from "@shared/types";
 import { courseApi, GetAdminCourseResponse, GetAdminCoursesResponse, UpdateCourseActivityResponse } from "@entities/course";
 
 export const useUpdateCourseActivity = (
-    id: string,
+    id: string
 ): UseMutationResult<UpdateCourseActivityResponse, AxiosError<FormErrorResponse>, boolean> => {
     return useMutation([MutationKeys.UPDATE_COURSE_ACTIVITY, id], (isActive: boolean) => courseApi.updateCourseActivity({ id, isActive }), {
         onMutate: async (updatedStatus) => {
@@ -19,7 +19,7 @@ export const useUpdateCourseActivity = (
 
             queryClient.setQueryData<GetAdminCourseResponse>(
                 [QueryKeys.GET_ADMIN_COURSE, id],
-                (previousData) => previousData && { ...previousData, isActive: updatedStatus },
+                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
             );
 
             queryClient.setQueriesData<GetAdminCoursesResponse>([QueryKeys.GET_ADMIN_COURSES], (previousData) => {

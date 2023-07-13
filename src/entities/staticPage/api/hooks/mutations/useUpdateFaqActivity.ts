@@ -7,7 +7,7 @@ import { FormErrorResponse } from "@shared/types";
 import { GetAdminFaqResponse, UpdateFaqActivityStatusResponse, staticPageApi } from "@entities/staticPage";
 
 export const useUpdateFaqActivity = (
-    id: number,
+    id: number
 ): UseMutationResult<UpdateFaqActivityStatusResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
     return useMutation(
         [MutationKeys.UPDATE_FAQ_ACTIVITY, id],
@@ -57,6 +57,6 @@ export const useUpdateFaqActivity = (
                     message: `Материал "${faqFromList?.question}" ${statusMessage}.`,
                 });
             },
-        },
+        }
     );
 };

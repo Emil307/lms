@@ -10,7 +10,7 @@ export const getLocalizationDate = (dateString: string, withTime?: boolean) => {
             ` ${new Date(dateString).toLocaleString("ru-RU", {
                 hour: "numeric",
                 minute: "numeric",
-            })}`,
+            })}`
         );
     }
 

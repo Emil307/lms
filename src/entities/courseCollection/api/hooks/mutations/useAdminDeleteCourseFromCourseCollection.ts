@@ -36,6 +36,6 @@ export const useAdminDeleteCourseFromCourseCollection = (params: DeleteAdminCour
                     title: "Ошибка удаления курса из подборки",
                 });
             },
-        },
+        }
     );
 };
