@@ -19,7 +19,7 @@ const EmptyData = (props: EmptyDataProps) => {
     const { classes } = useStyles();
 
     return (
-        <Flex gap={24} align="center">
+        <Flex className={classes.root}>
             <Box className={classes.iconContainer}>{icon}</Box>
             <Flex gap={8} direction="column">
                 <Heading order={3}>{title}</Heading>

@@ -1,5 +1,6 @@
-import { Text, Box, BoxProps } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import { CourseCategory } from "@entities/course";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./CategoryItem.styles";
 
 export interface CategoryItemProps extends BoxProps {
@@ -15,9 +16,9 @@ const CategoryItem = ({ data, isActive, onClick, ...props }: CategoryItemProps) 
 
     return (
         <Box {...props} className={classes.root} onClick={handleClick}>
-            <Text className={classes.content} lineClamp={1}>
+            <Paragraph variant="text-small-semi" className={classes.content}>
                 {data.name}
-            </Text>
+            </Paragraph>
         </Box>
     );
 };

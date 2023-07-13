@@ -20,19 +20,7 @@ export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) =
     control: {
         marginTop: 16,
     },
-    spoilerLabelText: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    filterName: {
-        marginBottom: 16,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
+
     filterContainer: {
         flexDirection: "column",
         position: "relative",
@@ -51,12 +39,5 @@ export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) =
         "&:hover": {
             textDecoration: "none",
         },
-    },
-    notFound: {
-        paddingBottom: 16,
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
 }));

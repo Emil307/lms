@@ -9,17 +9,20 @@ import { categoryAll } from "./constants";
 export interface CategoryFilterListProps extends FlexProps {
     name: string;
     data?: CourseCategory[];
+    onSubmit?: () => void;
 }
 
-const CategoryFilterList = ({ data, name, ...props }: CategoryFilterListProps) => {
+const CategoryFilterList = ({ data, name, onSubmit, ...props }: CategoryFilterListProps) => {
     const { classes } = useStyles();
     const [field, _meta, helpers] = useField(name);
 
     const handleSelectCategory = (id: number) => {
         if (!id) {
-            return helpers.setValue("");
+            helpers.setValue("");
+            return onSubmit?.();
         }
         helpers.setValue(String(id));
+        onSubmit?.();
     };
 
     const renderItems = useMemo(

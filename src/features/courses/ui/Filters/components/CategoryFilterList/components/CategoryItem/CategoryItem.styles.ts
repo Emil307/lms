@@ -14,9 +14,10 @@ export default createStyles((theme, { isActive }: CreateStylesProps) => ({
         cursor: "pointer",
     },
     content: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
         color: isActive ? theme.colors.white[0] : theme.colors.dark[0],
+
+        [theme.fn.smallerThan("md")]: {
+            whiteSpace: "nowrap",
+        },
     },
 }));
