@@ -1,26 +1,32 @@
-import { Box, Flex } from "@mantine/core";
+import { Box, MediaQuery, Text } from "@mantine/core";
 import React from "react";
 import { BreadCrumbs, ContentByTextEditor, Heading, Loader } from "@shared/ui";
 import { usePublicOffer } from "@entities/staticPage";
 import { breadCrumbsItems } from "./constants";
 
 const UserAgreementPage = () => {
-    const { data: publicOfferData, isLoading } = usePublicOffer();
+    const { data: publicOfferData, isLoading, isError } = usePublicOffer();
 
     const renderContent = () => {
-        if (isLoading) return <Loader size="lg" sx={{ alignSelf: "center" }} />;
+        if (isLoading) {
+            return <Loader size="lg" sx={{ alignSelf: "center" }} />;
+        }
 
-        return <ContentByTextEditor data={publicOfferData?.content} />;
+        if (isError) {
+            return <Text>Произошла ошибка, попробуйте позднее</Text>;
+        }
+
+        return <ContentByTextEditor data={publicOfferData.content} />;
     };
 
     return (
-        <Flex direction="column" gap={32}>
-            <Box>
+        <Box>
+            <MediaQuery smallerThan="md" styles={{ display: "none" }}>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Heading>Пользовательское соглашение</Heading>
-            </Box>
+            </MediaQuery>
+            <Heading mb={32}>Пользовательское соглашение</Heading>
             {renderContent()}
-        </Flex>
+        </Box>
     );
 };
 

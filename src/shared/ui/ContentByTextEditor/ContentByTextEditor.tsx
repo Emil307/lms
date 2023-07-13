@@ -5,9 +5,9 @@ export interface ContentByTextEditorProps extends TextProps {
     data?: string;
 }
 
-const ContentByTextEditor = ({ data = "", ...props }: ContentByTextEditorProps) => {
-    const { classes } = useStyles();
-    return <Text className={classes.root} dangerouslySetInnerHTML={{ __html: data }} {...props} />;
+const ContentByTextEditor = ({ data = "", className, ...props }: ContentByTextEditorProps) => {
+    const { classes, cx } = useStyles();
+    return <Text className={cx(classes.root, className)} dangerouslySetInnerHTML={{ __html: data }} {...props} />;
 };
 
 export default ContentByTextEditor;

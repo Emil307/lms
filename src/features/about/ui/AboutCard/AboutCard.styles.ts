@@ -4,12 +4,13 @@ export default createStyles((theme) => ({
     root: {
         flexDirection: "column",
         width: "100%",
-        padding: "32px !important",
+        padding: 32,
         gap: 48,
         borderRadius: 16,
+        backgroundColor: theme.colors.white[0],
 
-        ".mantine-Card-cardSection": {
-            margin: 0,
+        [theme.fn.smallerThan("md")]: {
+            padding: 24,
         },
     },
     imageSection: {
@@ -20,17 +21,38 @@ export default createStyles((theme) => ({
         marginTop: "0 !important",
         borderRadius: 16,
     },
-    contentSection: {
-        display: "flex",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        marginBottom: "0 !important",
+    bannerImage: {
+        objectFit: "contain",
+
+        [theme.fn.smallerThan("md")]: {
+            objectFit: "cover",
+        },
     },
+    contentSection: {
+        justifyContent: "space-between",
+        gap: 32,
+
+        [theme.fn.smallerThan("md")]: {
+            flexDirection: "column",
+        },
+    },
+    headingContentSection: {
+        flexDirection: "column",
+        maxWidth: 410,
+        gap: 48,
+
+        [theme.fn.smallerThan("md")]: {
+            maxWidth: "none",
+            gap: 24,
+        },
+    },
+
     shortContent: {
+        width: "100%",
         maxWidth: 604,
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
+
+        [theme.fn.smallerThan("md")]: {
+            maxWidth: "none",
+        },
     },
 }));

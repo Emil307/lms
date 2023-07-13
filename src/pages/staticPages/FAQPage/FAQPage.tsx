@@ -1,18 +1,16 @@
-import { Box } from "@mantine/core";
+import { Box, MediaQuery } from "@mantine/core";
 import React from "react";
 import { BreadCrumbs, Heading } from "@shared/ui";
 import { AccordionList as FaqAccordionList } from "@features/faq";
 import { breadCrumbsItems } from "./constants";
-import useStyles from "./FAQPage.styles";
 
 const FAQPage = () => {
-    const { classes } = useStyles();
     return (
-        <Box className={classes.root}>
-            <Box>
+        <Box>
+            <MediaQuery smallerThan="md" styles={{ display: "none" }}>
                 <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Heading>Вопрос-ответ</Heading>
-            </Box>
+            </MediaQuery>
+            <Heading mb={32}>Вопрос-ответ</Heading>
             <FaqAccordionList />
         </Box>
     );

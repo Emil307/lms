@@ -1,4 +1,4 @@
-import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton, SkeletonProps } from "@mantine/core";
+import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
@@ -13,7 +13,7 @@ export interface AccordionListProps extends Omit<MAccordionProps, "children" | "
 
 const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...props }: AccordionListProps) => {
     const [selected, setSelected] = useState<string[]>([]);
-    const { data: faqData, isLoading } = useFaq(visible);
+    const { data: faqData, isLoading, isError } = useFaq(visible);
 
     const getChevron = (isOpen: boolean) => {
         if (isOpen) {
@@ -33,6 +33,10 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
         [faqData, selected]
     );
 
+    if (isError) {
+        return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
     if (!faqData?.length) {
         return null;
     }
@@ -41,7 +45,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
         <Flex direction="column" {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Heading>{title}</Heading>
+                    <Heading order={3}>{title}</Heading>
                 </Skeleton>
             )}
             <Skeleton visible={isLoading} {...skeletonListProps}>

@@ -304,19 +304,37 @@ export const defaultTheme: MantineThemeOverride = {
                 },
                 control: {
                     padding: 32,
+
+                    [theme.fn.smallerThan("md")]: {
+                        paddingInline: 24,
+                    },
+                },
+                chevron: {
+                    alignSelf: "self-start",
                 },
                 label: {
                     fontWeight: 600,
                     fontSize: 20,
                     lineHeight: "24px",
                     color: theme.colors.dark[0],
+
+                    [theme.fn.smallerThan("md")]: {
+                        fontSize: 18,
+                        lineHeight: "24px",
+                    },
                 },
                 content: {
-                    padding: "0 32px 40px",
+                    paddingInline: 32,
+                    paddingTop: 8,
+                    paddingBottom: 40,
                     fontWeight: 500,
                     fontSize: 16,
                     lineHeight: "24px",
                     color: theme.colors.gray45[0],
+
+                    [theme.fn.smallerThan("md")]: {
+                        paddingInline: 24,
+                    },
                 },
             }),
         },
@@ -356,87 +374,3 @@ export const defaultTheme: MantineThemeOverride = {
         },
     },
 };
-/**root: {
-    position: 'relative',
-  },
-
-  label: {
-    position: 'absolute',
-    zIndex: 2,
-    top: 7,
-    left: theme.spacing.sm,
-    pointerEvents: 'none',
-    color: floating
-      ? theme.colorScheme === 'dark'
-        ? theme.white
-        : theme.black
-      : theme.colorScheme === 'dark'
-      ? theme.colors.dark[3]
-      : theme.colors.gray[5],
-    transition: 'transform 150ms ease, color 150ms ease, font-size 150ms ease',
-    transform: floating ? `translate(-${theme.spacing.sm}px, -28px)` : 'none',
-    fontSize: floating ? theme.fontSizes.xs : theme.fontSizes.sm,
-    fontWeight: floating ? 500 : 400,
-  },
-
-  required: {
-    transition: 'opacity 150ms ease',
-    opacity: floating ? 1 : 0,
-  },
-
-  input: {
-    '&::placeholder': {
-      transition: 'color 150ms ease',
-      color: !floating ? 'transparent' : undefined,
-    },
-  },
-
-
-     Input: {
-            styles: (theme, floating = true) => ({
-                root: {
-                    position: 'relative',
-                },
-                label: {
-                    position: 'absolute',
-                    zIndex: 2,
-                    top: 7,
-                    left: theme.spacing.sm,
-                    pointerEvents: 'none',
-                    color: floating
-                        ? theme.colorScheme === 'dark'
-                            ? theme.white
-                            : theme.black
-                        : theme.colorScheme === 'dark'
-                            ? theme.colors.dark[3]
-                            : theme.colors.gray[5],
-                    transition: 'transform 150ms ease, color 150ms ease, font-size 150ms ease',
-                    transform: floating ? `translate(-${theme.spacing.sm}px, -28px)` : 'none',
-                    fontSize: floating ? theme.fontSizes.xs : theme.fontSizes.sm,
-                    fontWeight: floating ? 500 : 400,
-                },
-                input: {
-                    borderRadius: theme.defaultRadius,
-                    '&::placeholder': {
-                        transition: 'color 150ms ease',
-                        color: !floating ? 'transparent' : undefined,
-                    }
-
-                },
-                required: {
-                    transition: 'opacity 150ms ease',
-                    opacity: floating ? 1 : 0,
-                },
-
-
-
-            })
-        },
-        InputWrapper: {
-            styles: (theme) => ({
-                error: {
-                    color: theme.colors.black
-                },
-            }),
-        },
-})); */
