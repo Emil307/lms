@@ -1,4 +1,4 @@
-import { Box, Flex, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
 import { Button, FInput, ManagedForm } from "@shared/ui";
 import { ChangePasswordResponse, authApi } from "@entities/auth";
@@ -7,11 +7,11 @@ import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 
-export interface ChangePasswordFormProps {
+export interface ChangePasswordFormProps extends BoxProps {
     onClose: () => void;
 }
 
-const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
+const ChangePasswordForm = ({ onClose, ...props }: ChangePasswordFormProps) => {
     const changePassword = (values: ChangePasswordFormData) => {
         return authApi.changePassword({ oldPassword: values.oldPassword, ...values.newPasswords });
     };
@@ -33,7 +33,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <ManagedForm<ChangePasswordFormData, ChangePasswordResponse>
                 initialValues={initialValues}
                 validationSchema={$ChangePasswordFormValidationSchema}

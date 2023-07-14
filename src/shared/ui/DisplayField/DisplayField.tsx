@@ -1,6 +1,7 @@
-import { Flex, Text } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import { memo, ReactNode, useMemo } from "react";
 import useStyles from "./DisplayField.styles";
+import { Paragraph } from "../Typography";
 
 export interface DisplayFieldProps {
     variant?: "compact" | "default"; //label над значением или на одном уровне
@@ -23,12 +24,31 @@ const MemoizedDisplayField = memo(function DisplayField({
         if (render) {
             return render(value || defaultValue);
         }
-        return <Text className={classes.value}>{value || defaultValue}</Text>;
+        return (
+            <Paragraph variant="small-semi" ta="end">
+                {value || defaultValue}
+            </Paragraph>
+        );
     }, [render, value, defaultValue]);
+
+    const renderLabel = () => {
+        if (variant === "compact") {
+            return (
+                <Paragraph variant="text-caption" color="gray45" align="start">
+                    {label}
+                </Paragraph>
+            );
+        }
+        return (
+            <Paragraph variant="small-m" color="gray45" align="start">
+                {label}
+            </Paragraph>
+        );
+    };
 
     return (
         <Flex className={classes.root}>
-            <Text className={classes.label}>{label}</Text>
+            {renderLabel()}
             {renderValue}
         </Flex>
     );

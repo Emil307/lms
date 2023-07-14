@@ -6,7 +6,6 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { order = 1 }: CreateStylesParams) => ({
     root: {
-        color: theme.colors.dark[0],
         ...getStylesByOrder(theme, { order }),
     },
 }));

@@ -1,6 +1,6 @@
 import { User, UpdateMeForm } from "@entities/auth";
 
-export const adaptDataForProfileEditForm = (user?: User): Partial<UpdateMeForm> => {
+export const adaptDataForUpdateProfileForm = (user?: User): Partial<UpdateMeForm> => {
     return {
         firstName: user?.profile.firstName,
         lastName: user?.profile.lastName,

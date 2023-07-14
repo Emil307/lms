@@ -50,7 +50,7 @@ const ProfilePage = () => {
                 <Heading>Настройки профиля</Heading>
             </Flex>
             <Flex className={classes.content}>
-                <Flex direction="column" gap={24} sx={{ flex: 1 }}>
+                <Flex className={classes.settingsInfo}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />

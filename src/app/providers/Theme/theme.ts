@@ -258,18 +258,26 @@ export const defaultTheme: MantineThemeOverride = {
             styles: (theme) => ({
                 inner: {
                     height: "100vh",
+
+                    [theme.fn.smallerThan("xs")]: {
+                        alignItems: "self-end",
+                        padding: 0,
+                    },
                 },
-                title: {
-                    fontWeight: 600,
-                    fontSize: 20,
-                    lineHeight: "24px",
-                },
+
                 modal: {
-                    minWidth: 456,
                     padding: "32px 24px 24px !important",
                     borderRadius: 16,
                     background: theme.colors.white[0],
                     boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+
+                    [theme.fn.smallerThan("xs")]: {
+                        minWidth: "100%",
+                        padding: "24px 16px 56px !important",
+                        marginBottom: 0,
+                        borderBottomLeftRadius: 0,
+                        borderBottomRightRadius: 0,
+                    },
                 },
                 close: {
                     svg: {
@@ -278,11 +286,20 @@ export const defaultTheme: MantineThemeOverride = {
                 },
                 header: {
                     alignItems: "flex-start",
+                    marginRight: 0,
                     marginBottom: 24,
+                },
+
+                title: {
                     fontWeight: 600,
                     fontSize: 20,
                     lineHeight: "24px",
                     color: theme.colors.dark[0],
+
+                    [theme.fn.smallerThan("md")]: {
+                        fontSize: 18,
+                        lineHeight: "24px",
+                    },
                 },
             }),
         },

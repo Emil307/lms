@@ -12,6 +12,10 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         borderRadius: 16,
         backgroundColor: variant === "whiteBg" ? theme.colors.white[0] : theme.colors.light[0],
         boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.08)}` : "none",
+
+        [theme.fn.smallerThan("md")]: {
+            padding: 24,
+        },
     },
     imageWrapper: {
         position: "relative",

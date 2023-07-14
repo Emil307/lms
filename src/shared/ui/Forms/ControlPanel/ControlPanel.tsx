@@ -18,7 +18,7 @@ const MemoizedControlPanel = memo(function ControlPanel({ label, onChange = () =
 
     return (
         <Box className={classes.root}>
-            <Paragraph variant="text-small-m" className={classes.label} lineClamp={2}>
+            <Paragraph variant="text-small-m" className={classes.label}>
                 {label}
             </Paragraph>
             <Switch {...props} onChange={handleChangeSwitch} />
