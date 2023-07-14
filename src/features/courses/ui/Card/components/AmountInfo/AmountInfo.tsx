@@ -1,4 +1,4 @@
-import { Group, Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import { Course } from "@entities/course";
 import { Heading } from "@shared/ui";
 import useStyles from "./AmountInfo.styles";
@@ -12,13 +12,13 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
 
     if (data.discount) {
         return (
-            <Group sx={{ gap: 6 }}>
+            <Flex align="center" gap={6}>
                 <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
                 <Text className={classes.priceWithoutDiscount}>{`${data.price} ₽`}</Text>
-            </Group>
+            </Flex>
         );
     }
-    return <Text className={classes.price}>{`${data.price} ₽`}</Text>;
+    return <Heading order={3} className={classes.price}>{`${data.price} ₽`}</Heading>;
 };
 
 export default AmountInfo;

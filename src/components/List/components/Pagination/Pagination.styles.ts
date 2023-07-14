@@ -1,6 +1,18 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    root: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap-reverse",
+        width: "100%",
+        gap: 32,
+        marginTop: 32,
+
+        [theme.fn.smallerThan("xs")]: {
+            marginTop: 24,
+        },
+    },
     item: {
         width: 48,
         height: 48,
@@ -37,12 +49,6 @@ export default createStyles((theme) => ({
         },
     },
     perPageInfo: {
-        paddingBlock: 16,
-        fontWeight: 500,
-        color: theme.colors.gray45[0],
-        fontSize: 14,
-        lineHeight: "16px",
-
         span: {
             color: theme.colors.dark[0],
         },

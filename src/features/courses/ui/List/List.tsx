@@ -64,7 +64,7 @@ const List = ({
     };
 
     return (
-        <Flex {...wrapperProps}>
+        <Flex direction="column" {...wrapperProps}>
             <Skeleton visible={isLoading} radius={16}>
                 {headerSlot}
             </Skeleton>

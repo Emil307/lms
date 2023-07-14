@@ -30,6 +30,8 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
         adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
     );
 
+    const handleClickCard = (id: unknown) => router.push({ pathname: "/course-collections/[id]", query: { id: String(id) } });
+
     const getCountSets = () => {
         if (!courseCollectionsData?.pagination.total) {
             return 0;
@@ -42,7 +44,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
         if (!hasCardMore || !courseCollectionsData?.pagination.total || courseCollectionsData.pagination.total < 2) {
             return;
         }
-        return <CardMore countCardSet={getCountSets()} h={256} />;
+        return <CardMore countCardSet={getCountSets()} h="100%" mih={256} />;
     };
 
     if (!courseCollectionsData?.data.length) {
@@ -56,7 +58,6 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
                     <Heading>{title}</Heading>
                 </Skeleton>
             )}
-
             <Box>
                 <Skeleton visible={isLoading} {...skeletonListProps}>
                     <ListComponent<CourseCollectionFromList>
@@ -67,6 +68,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
                         declensionWordCountItems={["подборка", "подборки", "подборок"]}
                         isLoading={isFetching || isLoading}
                         cardMore={renderCardMore()}
+                        onClick={handleClickCard}
                     />
                 </Skeleton>
             </Box>

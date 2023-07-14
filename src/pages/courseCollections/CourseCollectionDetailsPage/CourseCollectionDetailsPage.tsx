@@ -1,13 +1,12 @@
-import { Flex, Group } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import * as TablerIcons from "@tabler/icons";
-import * as FeatherIcons from "react-feather";
 import { BreadCrumbs, Heading } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { TRouterQueries } from "@shared/types";
 import { List as CoursesList } from "@features/courses";
 import { useCourseCollection } from "@entities/courseCollection";
+import { getIcon } from "@shared/utils";
 import { getBreadCrumbsItems } from "./utils";
 
 const CourseCollectionDetailsPage = () => {
@@ -16,29 +15,14 @@ const CourseCollectionDetailsPage = () => {
 
     const { data } = useCourseCollection({ id });
 
-    const getIcon = () => {
-        const IconTabler = data && data.iconName in TablerIcons ? TablerIcons[data.iconName as keyof typeof TablerIcons] : null;
-
-        if (IconTabler) {
-            return <IconTabler width={32} height={32} strokeWidth={1} />;
-        }
-
-        const IconFeater =
-            data && data.iconName in FeatherIcons ? FeatherIcons[data.iconName as keyof typeof FeatherIcons] : FeatherIcons.Image;
-        return <IconFeater width={32} height={32} strokeWidth={1} />;
-    };
-
     return (
         <Flex direction="column">
             <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name, id })} mb={8} />
             <Flex direction="column" gap={32}>
                 <Flex gap={12}>
-                    <Group
-                        sx={(theme) => ({
-                            color: theme.colors.secondary[0],
-                        })}>
-                        {getIcon()}
-                    </Group>
+                    <Flex sx={(theme) => ({ svg: { color: theme.colors.primary[0] } })}>
+                        {getIcon({ iconName: data?.iconName, color: "primary", size: 32, strokeWidth: 1.5 })}
+                    </Flex>
                     <Heading>{data?.name}</Heading>
                 </Flex>
                 <CoursesList collectionIds={id} withPagination />

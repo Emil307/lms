@@ -8,11 +8,9 @@ const CourseCollectionsPage = () => {
     const title = `Топовые подборки курсов ${new Date().getFullYear()}`;
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 32 }}>
-            <Box>
-                <BreadCrumbs items={getBreadCrumbsItems({ title })} mb={8} />
-                <Heading>{title}</Heading>
-            </Box>
+        <Box>
+            <BreadCrumbs items={getBreadCrumbsItems({ title })} mb={8} />
+            <Heading mb={32}>{title}</Heading>
             <CourseCollectionList withPagination colProps={{ sm: 6, xs: 12 }} />
         </Box>
     );

@@ -1,10 +1,10 @@
-import { Box, Flex, FlexProps, Text } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React, { useMemo } from "react";
 import { Folder } from "react-feather";
 import { useRouter } from "next/router";
 import { useIntersection } from "@mantine/hooks";
 import { List as CoursesList } from "@features/courses";
-import { Button, Heading } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import useStyles from "./CoursesBlock.styles";
 
@@ -19,31 +19,35 @@ const CoursesBlock = (props: CoursesBlockProps) => {
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
-    const renderCategories = useMemo(
-        () =>
-            courseResources.data?.categories.map((category) => {
-                const handleClick = () => router.push({ pathname: "/courses", query: { categoryId: category.id.toString() } });
-                return (
-                    <Text key={category.id} className={classes.category} onClick={handleClick}>
-                        {category.name}
-                    </Text>
-                );
-            }),
-        [courseResources]
-    );
+    const renderCategories = useMemo(() => {
+        if (!courseResources.data?.categories.length) {
+            return null;
+        }
+
+        return (
+            <Flex className={classes.wrapperCategoryList}>
+                {courseResources.data.categories.map((category) => {
+                    const handleClick = () => router.push({ pathname: "/courses", query: { categoryId: category.id.toString() } });
+                    return (
+                        <Paragraph variant="text-small-semi" key={category.id} className={classes.category} onClick={handleClick}>
+                            {category.name}
+                        </Paragraph>
+                    );
+                })}
+            </Flex>
+        );
+    }, [courseResources]);
 
     return (
         <Box ref={rootBlockRef}>
             <CoursesList
-                colProps={{ lg: 4, md: 4, sm: 6 }}
+                colProps={{ lg: 4, md: 4, xs: 6 }}
                 perPage={6}
                 headerSlot={
-                    <>
-                        <Heading mb={32}>Популярные курсы</Heading>
-                        <Flex gap={8} wrap="wrap">
-                            {renderCategories}
-                        </Flex>
-                    </>
+                    <Flex direction="column" gap={32}>
+                        <Heading>Популярные курсы</Heading>
+                        {renderCategories}
+                    </Flex>
                 }
                 footerSlot={
                     <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>

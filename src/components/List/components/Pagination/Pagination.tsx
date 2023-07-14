@@ -1,6 +1,7 @@
-import { Flex, Pagination as MPagination, Text } from "@mantine/core";
+import { Flex, Pagination as MPagination } from "@mantine/core";
 import { TPagination } from "@shared/types";
 import { getPluralString } from "@shared/utils";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./Pagination.styles";
 import { useListPagination } from "../../utils";
 
@@ -25,7 +26,7 @@ const Pagination = ({ data, declensionWordCountItems, onPaginationChange = () =>
     }
 
     return (
-        <Flex justify="space-between" align="center" wrap="wrap" w="100%" mt={32}>
+        <Flex className={classes.root}>
             <MPagination
                 total={data.totalPages}
                 hidden={data.totalPages < 2}
@@ -35,10 +36,10 @@ const Pagination = ({ data, declensionWordCountItems, onPaginationChange = () =>
             />
 
             {declensionWordCountItems && (
-                <Text className={classes.perPageInfo}>
+                <Paragraph variant="text-small-m" color="gray45" className={classes.perPageInfo}>
                     Всего: <span>{`${lastElemIndex} ${getPluralString(lastElemIndex, ...declensionWordCountItems)}`}</span> из
                     <span>{` ${data.total}`}</span>
-                </Text>
+                </Paragraph>
             )}
         </Flex>
     );

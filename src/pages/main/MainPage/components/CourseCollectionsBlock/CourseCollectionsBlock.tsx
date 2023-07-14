@@ -15,7 +15,7 @@ const CourseCollectionsBlock = (props: CourseCollectionsBlockProps) => {
             <CourseSetList
                 hasCardMore
                 perPage={2}
-                colProps={{ sm: 4, xs: 12 }}
+                colProps={{ xs: 6, md: 4 }}
                 title={titleCourseSets}
                 skeletonListProps={{
                     mih: 258,

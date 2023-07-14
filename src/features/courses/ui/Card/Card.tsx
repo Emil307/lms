@@ -1,23 +1,24 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text, Flex } from "@mantine/core";
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
 import { Course } from "@entities/course";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
-import { Heading } from "@shared/ui";
-import useStyles from "./Card.styles";
+import { Heading, Paragraph } from "@shared/ui";
 import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
+import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: Course;
+    onClick?: (id: unknown) => void;
 }
 
-const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
+const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) {
     const { classes } = useStyles({
         isFavorite: data.isFavorite,
     });
 
-    const handleClickCard = () => undefined;
+    const handleClickCard = () => onClick?.(data.id);
 
     const discountValue = data.discount && `${data.discount.amount} ${data.discount.type === "percentage" ? "%" : "₽"}`;
 
@@ -65,10 +66,15 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                 </Box>
                 <Group sx={{ justifyContent: "space-between" }}>
                     <Flex direction="column">
-                        <Group sx={{ gap: 6 }}>
+                        <Flex gap={6}>
                             <IconStarFour />
-                            <Text>{`${data.lessonsCount} ${getPluralString(data.lessonsCount, "урок", "урока", "уроков")}`}</Text>
-                        </Group>
+                            <Paragraph variant="text-small-m">{`${data.lessonsCount} ${getPluralString(
+                                data.lessonsCount,
+                                "урок",
+                                "урока",
+                                "уроков"
+                            )}`}</Paragraph>
+                        </Flex>
                         <AmountInfo data={data} />
                     </Flex>
                     <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />
