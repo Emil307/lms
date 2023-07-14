@@ -12,8 +12,6 @@ export default createStyles((theme) => ({
     iconButtonLinkCourse: {
         height: 18,
         width: 18,
-        minHeight: 18,
-        minWidth: 18,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary16[0],
         color: theme.colors.dark[0],

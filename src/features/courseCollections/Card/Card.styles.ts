@@ -4,10 +4,12 @@ export default createStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-between",
         padding: "32px 24px",
         gap: 32,
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
+        height: "100%"
     },
     content: {
         alignItems: "flex-end",
@@ -15,12 +17,6 @@ export default createStyles((theme) => ({
         flexWrap: "wrap-reverse",
         minHeight: 136,
         gap: 32,
-    },
-    description: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
     iconWrapper: {
         alignItems: "center",
@@ -35,8 +31,6 @@ export default createStyles((theme) => ({
     iconButtonLinkCourse: {
         height: 18,
         width: 18,
-        minHeight: 18,
-        minWidth: 18,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary16[0],
         color: theme.colors.dark[0],

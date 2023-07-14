@@ -4,6 +4,7 @@ import useStyles from "./Paragraph.styles";
 
 export interface ParagraphProps extends Omit<TextProps, "variant"> {
     variant: ParagraphVariant;
+    onClick?: () => void;
 }
 
 const Paragraph = ({ children, variant, className, color = "dark", ...props }: ParagraphProps) => {

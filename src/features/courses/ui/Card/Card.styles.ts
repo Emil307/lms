@@ -68,10 +68,6 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
         flexDirection: "column",
         height: 88,
         gap: 8,
-
-        "@media (max-width: 1440px)": {
-            height: 112,
-        },
     },
     title: {
         ref: getRef("title"),
