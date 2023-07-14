@@ -45,4 +45,16 @@ export const $UpdateMainBannerFormValidation = z
             message: "Введите фамилию",
             path: ["indexBannerAuthorLastName"],
         }
+    )
+    .refine(
+        (data) => {
+            if (!data.indexBannerAuthorActive) {
+                return true;
+            }
+            return !!data.indexBannerAuthorAvatar;
+        },
+        {
+            message: "Выберите аватарку",
+            path: ["indexBannerAuthorAvatar"],
+        }
     );

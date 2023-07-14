@@ -10,11 +10,12 @@ export interface AccordionListProps extends Omit<MAccordionProps, "children" | "
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
     titleProps?: HeadingProps;
+    isStatic?: boolean;
 }
 
-const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleProps, ...props }: AccordionListProps) => {
+const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleProps, isStatic, ...props }: AccordionListProps) => {
     const [selected, setSelected] = useState<string[]>([]);
-    const { data: faqData, isLoading, isError } = useFaq(visible);
+    const { data: faqData, isLoading, isError } = useFaq({ paginate: false, filter: { isStatic } }, visible);
 
     const getChevron = (isOpen: boolean) => {
         if (isOpen) {
@@ -45,7 +46,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleP
     return (
         <Flex direction="column" {...wrapperProps}>
             {title && (
-                <Skeleton visible={isLoading} mih={40} radius={24}>
+                <Skeleton visible={isLoading} radius={24}>
                     <Heading order={3} {...titleProps}>
                         {title}
                     </Heading>

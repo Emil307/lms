@@ -34,6 +34,7 @@ import {
     UpdatePublicOfferRequest,
     GetAdminAdvantagesResponse,
     $GetAdminAdvantagesResponse,
+    GetFaqRequest,
 } from "./types";
 
 class StaticPageApi extends BaseApi {
@@ -110,10 +111,8 @@ class StaticPageApi extends BaseApi {
     }
 
     //FAQ
-    async getFaq(): Promise<GetFaqResponse> {
-        const response = await this.instance.post("static-page/faq/list", {
-            paginate: false,
-        });
+    async getFaq(params: GetFaqRequest): Promise<GetFaqResponse> {
+        const response = await this.instance.post("static-page/faq/list", params);
         return $GetFaqResponse.parse(response);
     }
 

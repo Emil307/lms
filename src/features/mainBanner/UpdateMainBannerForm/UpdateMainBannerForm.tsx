@@ -11,8 +11,8 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForEditForm } from "./utils";
-import useStyles from "./UpdateMainBannerForm.styles";
 import { $UpdateMainBannerFormValidation, UpdateMainBannerFormValidation } from "./types";
+import useStyles from "./UpdateMainBannerForm.styles";
 
 export interface UpdateMainBannerFormProps {
     data?: GetMainBannerResponse;

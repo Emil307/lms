@@ -10,10 +10,10 @@ export const adaptDataForEditForm = (data?: GetMainBannerResponse): Partial<Upda
         indexBannerButtonText: data?.buttonText,
         indexBannerButtonLink: data?.buttonLink,
         indexBannerAuthorActive: !!data?.authorActive,
-        indexBannerAuthorFirstName: data?.authorFirstName,
-        indexBannerAuthorLastName: data?.authorLastName,
-        indexBannerAuthorAbout: data?.authorAbout,
-        indexBannerAuthorShortQuote: data?.authorShortQuote,
+        indexBannerAuthorFirstName: data?.authorFirstName || "",
+        indexBannerAuthorLastName: data?.authorLastName || "",
+        indexBannerAuthorAbout: data?.authorAbout || "",
+        indexBannerAuthorShortQuote: data?.authorShortQuote || "",
     };
 };
 

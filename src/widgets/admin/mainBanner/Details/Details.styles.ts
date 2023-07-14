@@ -24,5 +24,6 @@ export default createStyles((theme) => ({
         width: 270,
         height: 166,
         borderRadius: 16,
+        backgroundColor: theme.colors.grayLight[0],
     },
 }));

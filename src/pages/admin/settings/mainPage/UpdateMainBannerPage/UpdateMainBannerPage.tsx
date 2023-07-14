@@ -6,7 +6,7 @@ import { useMainBanner } from "@entities/staticPage";
 import { UpdateMainBannerForm } from "@features/mainBanner";
 import { getBreadCrumbsItems } from "./utils";
 
-const MainBannerEditPage = () => {
+const UpdateMainBannerPage = () => {
     const router = useRouter();
     const { data, isLoading } = useMainBanner();
 
@@ -27,4 +27,4 @@ const MainBannerEditPage = () => {
     );
 };
 
-export default MainBannerEditPage;
+export default UpdateMainBannerPage;

@@ -3,4 +3,4 @@ export * from "./UpdateStaticReviewPage";
 export * from "./StaticReviewsPage";
 export * from "./AdvantagesPage";
 export * from "./MainBannerPage";
-export * from "./MainBannerEditPage";
+export * from "./UpdateMainBannerPage";
