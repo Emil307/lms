@@ -18,29 +18,7 @@ export default createStyles((theme) => ({
     },
 
     content: {
-        flexWrap: "wrap-reverse",
-        padding: 32,
-        gap: 56,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
-
-        [theme.fn.smallerThan("md")]: {
-            padding: 24,
-        },
-
-        [theme.fn.smallerThan("sm")]: {
-            flexDirection: "column-reverse",
-        },
-    },
-
-    settingsInfo: {
-        flexDirection: "column",
-        minWidth: 400,
-        flex: 1,
-        gap: 24,
-
-        [theme.fn.smallerThan("sm")]: {
-            minWidth: "auto",
-        },
     },
 }));

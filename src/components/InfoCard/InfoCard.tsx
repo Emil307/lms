@@ -38,7 +38,15 @@ function InfoCard<T>({
         const { children, src, ...props } = image;
         return (
             <Box className={classes.imageWrapper}>
-                <Image className={classes.image} src={src} width={270} height={166} loader={({ src }) => `${src}`} {...props} />
+                <Image
+                    className={classes.image}
+                    src={src}
+                    width={270}
+                    height={166}
+                    loader={({ src }) => `${src}`}
+                    {...props}
+                    alt="infoCardImage"
+                />
                 {children}
             </Box>
         );
@@ -93,12 +101,12 @@ function InfoCard<T>({
 
     return (
         <Box className={classes.root}>
-            <Group className={classes.content}>
+            <Flex className={classes.content}>
                 {renderIcon()}
                 {renderImage()}
                 {renderAvatar()}
                 {renderFields()}
-            </Group>
+            </Flex>
             {renderActions()}
         </Box>
     );

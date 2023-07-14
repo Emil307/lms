@@ -1,3 +1,3 @@
-import ConfirmActionModal from "./ConfirmActionModal";
+import ConfirmActionModal, { type ConfirmActionModalProps } from "./ConfirmActionModal";
 
-export { ConfirmActionModal };
+export { ConfirmActionModal, ConfirmActionModalProps };

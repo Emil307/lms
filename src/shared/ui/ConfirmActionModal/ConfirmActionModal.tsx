@@ -1,7 +1,8 @@
-import { Text, Flex, ThemeIcon, Group } from "@mantine/core";
+import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
+import useStyles from "./ConfirmActionModal.styles";
 
 export interface ConfirmActionModalProps {
     onSubmit: () => void;
@@ -9,27 +10,16 @@ export interface ConfirmActionModalProps {
 }
 
 const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
+    const { classes } = useStyles();
+
     return (
         <>
-            <Group sx={{ flexWrap: "nowrap" }} pb={32}>
-                <ThemeIcon
-                    sx={(theme) => ({
-                        minWidth: 48,
-                        background: theme.colors.secondary16[0],
-                        svg: {
-                            color: theme.colors.secondary[0],
-                        },
-                    })}
-                    color="secondary"
-                    radius={50}
-                    w={48}
-                    h={48}>
+            <Flex gap={16} pb={32}>
+                <ThemeIcon className={classes.wrapperAlertIcon} radius={50}>
                     <AlertTriangle />
                 </ThemeIcon>
-                <Text sx={(theme) => ({ fontWeight: 500, fontSize: 16, lineHeight: "24px", color: theme.colors.dark[0] })}>
-                    Вы хотите сохранить изменения перед закрытием?
-                </Text>
-            </Group>
+                <Paragraph variant="small-m">Вы хотите сохранить изменения перед закрытием?</Paragraph>
+            </Flex>
             <Flex gap={8}>
                 <Button variant="border" fullWidth onClick={onClose} w="100%">
                     Закрыть

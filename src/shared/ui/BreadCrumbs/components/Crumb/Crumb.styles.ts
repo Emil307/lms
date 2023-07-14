@@ -5,6 +5,7 @@ export default createStyles((theme, { isActiveCrumb }: { isActiveCrumb: boolean 
         fontWeight: 500,
         color: isActiveCrumb ? theme.colors.dark[0] : theme.colors.gray45[0],
         textDecoration: "none",
+        whiteSpace: "nowrap",
 
         "&:hover": {
             textDecoration: "underline",
