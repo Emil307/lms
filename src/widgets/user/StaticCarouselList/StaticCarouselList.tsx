@@ -37,7 +37,7 @@ const StaticCarouselList = ({ title = "Наставники помогают н�
     return (
         <Flex {...props} direction="column" gap={32}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
-                <Heading order={2}>{title}</Heading>
+                <Heading>{title}</Heading>
             </Skeleton>
             <Skeleton visible={isLoading} mih={420} radius={24}>
                 <Carousel<StaticUserFromList> data={staticUsers.data} lastElemRef={lastElemRef} slideSize={424}>

@@ -9,6 +9,7 @@ import {
     FaqBlock,
     StaticReviewsBlock,
     TeachersBlock,
+    CourseReviewsBlock,
 } from "./components";
 
 const MainPage = () => {
@@ -19,8 +20,7 @@ const MainPage = () => {
             <CourseCollectionsBlock mt={64} />
             <CoursesBlock mt={64} />
             <StaticReviewsBlock mt={64} />
-            {/* //TODO: Нет эндпоинта для получения списка отзывов  */}
-            {/* <StudentReviews titleProps={{ order: 1 }} /> */}
+            <CourseReviewsBlock mt={64} />
             <CoursePackagesBlock mt={64} />
             <TeachersBlock mt={64} />
             <FaqBlock mt={64} />

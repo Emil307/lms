@@ -60,7 +60,7 @@ class StaticReviewApi extends BaseApi {
 
     //USER
     async getStaticReviews(data: GetStaticReviewsRequest): Promise<GetStaticReviewsResponse> {
-        const response = await this.instance.post("admin/static-reviews/list", data);
+        const response = await this.instance.post("static-reviews/list", data);
         return $GetStaticReviewsResponse.parse(response);
     }
 

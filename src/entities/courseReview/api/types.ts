@@ -2,6 +2,7 @@ import { z } from "zod";
 import { $FilterType, $Profile, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 import { $User } from "@entities/user";
 import { $AdminGroup } from "@entities/group";
+import { $CourseType } from "@entities/course";
 
 /**
  *
@@ -34,6 +35,14 @@ export type DeleteCourseReviewResponse = z.infer<typeof $DeleteCourseReviewRespo
  * USER TYPES
  *
  */
+export type CourseReview = z.infer<typeof $CourseReview>;
+export type CourseReviewFromList = z.infer<typeof $CourseReviewFromList>;
+
+//REQ/RESP
+export type GetCourseReviewsRequest = z.infer<typeof $GetCourseReviewsRequest>;
+export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
+export type CreateCourseReviewRequest = z.infer<typeof $CreateCourseReviewRequest>;
+export type CreateCourseReviewResponse = z.infer<typeof $CreateCourseReviewResponse>;
 
 /**
  *
@@ -167,3 +176,52 @@ export const $DeleteCourseReviewResponse = z.null();
  * USER ZOD
  *
  */
+
+//TODO: Заменить на схему из курсов, когда беки обновят курсы
+export const $CourseReviewCourse = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string().nullable(),
+    price: z.number(),
+    discountPrice: z.number(),
+    type: $CourseType,
+});
+
+export const $CourseReview = $AdminCourseReview
+    .pick({
+        id: true,
+        content: true,
+        score: true,
+        createdAt: true,
+    })
+    .extend({
+        user: $User.pick({
+            id: true,
+            email: true,
+            profile: true,
+        }),
+        course: $CourseReviewCourse.nullable(),
+    });
+
+export const $CourseReviewFromList = $CourseReview;
+
+export const $GetCourseReviewsResponse = $getPaginationResponseType($CourseReviewFromList);
+
+export const $CourseReviewsRequest = z.object({});
+
+export const $GetCourseReviewsRequest = $getFiltersRequestType($CourseReviewsRequest);
+
+export const $CreateCourseReviewRequest = z.object({
+    courseGroupId: z.string(),
+    score: z.number(),
+    content: z.string(),
+});
+
+export const $CreateCourseReviewResponse = $CourseReview.pick({
+    id: true,
+    content: true,
+    score: true,
+    isPublished: true,
+    publishedAt: true,
+    createdAt: true,
+});

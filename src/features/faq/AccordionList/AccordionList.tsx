@@ -2,16 +2,17 @@ import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
-import { Heading } from "@shared/ui";
+import { Heading, HeadingProps } from "@shared/ui";
 
 export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {
     title?: string;
     visible?: boolean;
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
+    titleProps?: HeadingProps;
 }
 
-const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...props }: AccordionListProps) => {
+const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleProps, ...props }: AccordionListProps) => {
     const [selected, setSelected] = useState<string[]>([]);
     const { data: faqData, isLoading, isError } = useFaq(visible);
 
@@ -45,7 +46,9 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, ...pro
         <Flex direction="column" {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Heading order={3}>{title}</Heading>
+                    <Heading order={3} {...titleProps}>
+                        {title}
+                    </Heading>
                 </Skeleton>
             )}
             <Skeleton visible={isLoading} {...skeletonListProps}>

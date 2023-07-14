@@ -1,7 +1,6 @@
 export * from "./useMyCourses";
 export * from "./useCourseProgram";
 export * from "./useCourseProgramModuleLessons";
-export * from "./useCourseTeachers";
 export * from "./useAdminCourseResources";
 export * from "./useAdminCourse";
 export * from "./useCourses";

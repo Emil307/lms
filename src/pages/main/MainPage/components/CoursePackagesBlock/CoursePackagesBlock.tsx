@@ -10,12 +10,7 @@ export const CoursePackagesBlock = (props: CoursePackagesBlockProps) => {
 
     return (
         <Box ref={rootBlockRef}>
-            <CoursePackageCarouselList
-                title="Пакетные предложения"
-                titleProps={{ order: 1 }}
-                visible={!!entry?.isIntersecting}
-                {...props}
-            />
+            <CoursePackageCarouselList title="Пакетные предложения" visible={!!entry?.isIntersecting} {...props} />
         </Box>
     );
 };

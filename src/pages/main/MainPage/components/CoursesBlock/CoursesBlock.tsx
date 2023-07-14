@@ -15,7 +15,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
     const { classes } = useStyles();
     const { ref: rootBlockRef, entry } = useIntersection();
 
-    const courseResources = useCourseResources(!!(entry && entry.isIntersecting));
+    const courseResources = useCourseResources({ type: "select" }, !!(entry && entry.isIntersecting));
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
