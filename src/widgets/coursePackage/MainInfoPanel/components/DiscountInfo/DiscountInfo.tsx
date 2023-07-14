@@ -1,39 +1,26 @@
 import { Badge, Flex } from "@mantine/core";
-import { memo } from "react";
-import { getHumanDate } from "@shared/utils";
+import dayjs from "dayjs";
 import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
 export interface DiscountInfoProps {
-    data: {
-        hasDiscount: boolean;
-        discount?: Discount | null;
-    };
+    discount?: Discount | null;
 }
 
-const MemoizedDiscountInfo = memo(function DiscountInfo({ data }: DiscountInfoProps) {
+const DiscountInfo = ({ discount }: DiscountInfoProps) => {
     const { classes } = useStyles();
-    if (!data.hasDiscount || !data.discount) {
+    if (!discount) {
         return null;
     }
 
-    const discountValue = `${data.discount.amount} ${data.discount.type === "percentage" ? "%" : "₽"}`;
+    const discountValue = `${discount.amount} ${discount.type === "percentage" ? "%" : "₽"}`;
 
     return (
         <Flex gap={8}>
-            <Badge variant="outline" className={classes.discount}>
-                {discountValue}
-            </Badge>
-            {data.discount.finishingDate && (
-                <Badge variant="outline" className={classes.discountEndDate}>
-                    {`Доступно до ${getHumanDate(data.discount.finishingDate, {
-                        month: "long",
-                        day: "2-digit",
-                    })}`}
-                </Badge>
-            )}
+            <Badge className={classes.discount}>{discountValue}</Badge>
+            <Badge className={classes.discountEndDate}>{`Доступно до ${dayjs(discount.finishingDate).format("D MMMM ")}`}</Badge>
         </Flex>
     );
-});
+};
 
-export default MemoizedDiscountInfo;
+export default DiscountInfo;

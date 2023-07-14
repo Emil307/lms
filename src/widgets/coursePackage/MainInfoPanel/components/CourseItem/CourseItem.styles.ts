@@ -1,21 +1,11 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    name: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
     price: {
         minWidth: 70,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
         textAlign: "end",
     },
-    iconLink: {
+    iconChevronRightWrapper: {
         height: 18,
         width: 18,
         minHeight: 18,

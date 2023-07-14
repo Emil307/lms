@@ -27,8 +27,12 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
 
     return (
         <Box {...props}>
-            <Carousel<Course> data={coursePackages?.data} lastElemRef={lastElemRef} slideSize={424}>
-                {(props) => <Card {...props} w={424} />}
+            <Carousel<Course>
+                data={coursePackages?.data}
+                lastElemRef={lastElemRef}
+                slideSize={448}
+                breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
+                {(props) => <Card {...props} w="100%" />}
             </Carousel>
         </Box>
     );
