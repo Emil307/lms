@@ -43,10 +43,11 @@ const CreateMessageForm = (props: CreateMessageFormProps) => {
                 mutationFunction={(values) => supportApi.createSupportMessage(values)}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal>
+                hasConfirmModal
+                disableOverlay>
                 {({ dirty }) => {
                     return (
-                        <Flex direction="column" gap={32} sx={{ position: "relative" }}>
+                        <Flex direction="column" gap={32} pos="relative">
                             <FTextarea name="message" placeholder="Введите сообщение" className={classes.messageBlock} variant="filled" />
                             <ActionIcon className={classes.sendIcon} type="submit" disabled={!dirty}>
                                 <IconSend />

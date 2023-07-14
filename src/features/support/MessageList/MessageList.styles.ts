@@ -4,7 +4,7 @@ interface CreateStylesProps {
     variant?: "default" | "reverse";
 }
 
-export default createStyles((theme, { variant = "default" }: CreateStylesProps) => ({
+export default createStyles((_theme, { variant = "default" }: CreateStylesProps) => ({
     root: {
         flexDirection: variant === "default" ? "column" : "column-reverse",
         height: "100%",

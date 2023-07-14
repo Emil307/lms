@@ -1,5 +1,6 @@
-import { Flex, ThemeIcon, Text } from "@mantine/core";
+import { Flex, ThemeIcon } from "@mantine/core";
 import IconMessageDots from "public/icons/messageDots.svg";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./EmptyBlock.styles";
 
 const EmptyBlock = () => {
@@ -7,10 +8,12 @@ const EmptyBlock = () => {
 
     return (
         <Flex className={classes.root}>
-            <ThemeIcon variant="outline" className={classes.icon}>
+            <ThemeIcon className={classes.icon}>
                 <IconMessageDots />
             </ThemeIcon>
-            <Text className={classes.description}>Нет активного диалога</Text>
+            <Paragraph variant="text-small-m" color="gray45">
+                Нет активного диалога
+            </Paragraph>
         </Flex>
     );
 };

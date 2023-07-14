@@ -10,23 +10,22 @@ import useStyles from "./SupportPage.styles";
 const SupportPage = () => {
     const { classes } = useStyles();
     return (
-        <Box className={classes.root}>
-            <Box>
-                <BreadCrumbs items={breadCrumbsItems} mb={8} />
-                <Flex gap={12} align="center">
-                    <ThemeIcon color="primaryHover" variant="outline" className={classes.iconMessageDots}>
-                        <IconMessageDots />
-                    </ThemeIcon>
-                    <Heading>Поддержка</Heading>
-                </Flex>
-            </Box>
-            <Flex gap={24}>
-                <FaqAccordionList wrapperProps={{ w: "100%", maw: 840 }} />
+        <Box>
+            <BreadCrumbs items={breadCrumbsItems} mb={8} />
+            <Flex gap={12} align="center" mb={32}>
+                <ThemeIcon className={classes.iconMessageDotsWrapper}>
+                    <IconMessageDots />
+                </ThemeIcon>
+                <Heading>Поддержка</Heading>
+            </Flex>
+
+            <Flex className={classes.contentContainer}>
+                <FaqAccordionList wrapperProps={{ className: classes.faqContainer }} />
                 <Box className={classes.chatContainer}>
                     <Heading order={3} lineClamp={1} className={classes.chatHeader}>
                         Задать вопрос поддержке
                     </Heading>
-                    <MessageList maxHeightContainer={314} h={456}>
+                    <MessageList maxHeightContainer={336} h={478}>
                         <CreateMessageForm pt={24} />
                     </MessageList>
                 </Box>
