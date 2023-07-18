@@ -11,10 +11,6 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.white[0],
     },
     avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
         svg: {
             transform: "scale(0.4)",
         },
@@ -24,29 +20,8 @@ export default createStyles((theme) => ({
         justifyContent: "space-between",
         gap: 6,
     },
-    userFullName: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
-    roleName: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
     createdAtLastMessage: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
         color: theme.colors.gray45[0],
         whiteSpace: "nowrap",
-    },
-    messageContent: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
     },
 }));
