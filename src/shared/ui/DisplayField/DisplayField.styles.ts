@@ -1,7 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 interface CreateStylesParams {
-    variant: "compact" | "default"
+    variant: "compact" | "default";
 }
 
 export default createStyles((theme, { variant }: CreateStylesParams) => ({
@@ -12,5 +12,5 @@ export default createStyles((theme, { variant }: CreateStylesParams) => ({
         rowGap: 0,
         columnGap: 16,
         width: "100%",
-    },   
+    },
 }));

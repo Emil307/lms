@@ -4,6 +4,8 @@ import {
     $CreateLessonResponse,
     $GetAdminLessonResponse,
     $GetAdminLessonsResponse,
+    $GetAdminTestResponse,
+    $UpdateAdminTestResponse,
     $UpdateLessonActivityResponse,
     $UpdateLessonResponse,
     AttachMaterialsToLessonRequest,
@@ -13,6 +15,9 @@ import {
     GetAdminLessonsFromModuleRequest,
     GetAdminLessonsRequest,
     GetAdminLessonsResponse,
+    GetAdminTestResponse,
+    UpdateAdminTestRequest,
+    UpdateAdminTestResponse,
     UpdateLessonActivityRequest,
     UpdateLessonActivityResponse,
     UpdateLessonRequest,
@@ -56,6 +61,16 @@ class LessonApi extends BaseApi {
 
     async detachMaterialsFromLesson({ lessonId, ...data }: DetachMaterialsFromLessonRequest): Promise<void> {
         await this.instance.delete(`admin/lessons/${lessonId}/files`, { params: data });
+    }
+
+    async getAdminTest(lessonId: string): Promise<GetAdminTestResponse> {
+        const response = await this.instance.get(`admin/lessons/${lessonId}/test`);
+        return $GetAdminTestResponse.parse(response);
+    }
+
+    async updateAdminTest({ lessonId, ...data }: UpdateAdminTestRequest): Promise<UpdateAdminTestResponse> {
+        const response = await this.instance.put(`admin/lessons/${lessonId}/test`, data);
+        return $UpdateAdminTestResponse.parse(response);
     }
 }
 

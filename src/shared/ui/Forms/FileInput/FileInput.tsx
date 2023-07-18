@@ -35,7 +35,7 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     titleButtonFileDialog?: string;
     containerFilesProps?: BoxProps;
     educational?: boolean;
-    onUploaded: (file: UploadedFile, oldUploadedFileId?: number) => void;
+    onUploaded?: (file: UploadedFile, oldUploadedFileId?: number) => void;
     onError?: () => void;
     onDeleteLoadedFile?: (file: UploadedFile) => void;
 }
@@ -56,7 +56,7 @@ const MemoizedFileInput = memo(function FileInput({
     loadedFilesData = [],
     titleButtonFileDialog,
     containerFilesProps,
-    onUploaded,
+    onUploaded = () => undefined,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
     ...props
