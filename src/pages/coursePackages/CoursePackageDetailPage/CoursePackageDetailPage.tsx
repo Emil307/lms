@@ -23,10 +23,10 @@ const CoursePackageDetailPage = () => {
     }
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 32 }}>
-            <BreadCrumbs items={getBreadCrumbsItems({ packageName: data.name, id })} />
-            <MainInfoPanel data={data} />
-            <CourseCarouselList packageId={id} mb={32} />
+        <Box>
+            <BreadCrumbs items={getBreadCrumbsItems({ name: data.name, id })} mb={32} />
+            <MainInfoPanel data={data} mb={32} />
+            <CourseCarouselList packageId={id} mb={64} />
             <CoursePackageCarouselList title="Другие пакетные предложения" exceptionCoursePackageId={id} />
         </Box>
     );

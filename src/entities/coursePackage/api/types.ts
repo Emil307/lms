@@ -56,13 +56,7 @@ export const $CoursePackage = z.object({
     courses: $CourseFromCoursePackage.array(),
 });
 
-export const $CoursePackageDetails = $CoursePackage.extend({
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
-    isActive: z.boolean(),
-    hasDiscount: z.boolean(),
-    coursesCount: z.number(),
-});
+export const $CoursePackageDetails = $CoursePackage;
 
 export const $AdminCoursePackage = z.object({
     id: z.number(),

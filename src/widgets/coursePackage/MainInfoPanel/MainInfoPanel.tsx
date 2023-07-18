@@ -1,20 +1,20 @@
-import { Box, BoxProps, Flex, Group, Text } from "@mantine/core";
+import { Box, Flex, FlexProps, Text } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, Heading } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { InvoicePaymentForm } from "@features/coursePackages";
 import { CoursePackageDetails } from "@entities/coursePackage";
 import { CourseList, DiscountInfo } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
-export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
+export interface MainInfoPanelProps extends Omit<FlexProps, "children"> {
     data: CoursePackageDetails;
 }
 
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {
-    const { classes } = useStyles({ hasDiscount: data.hasDiscount && !!data.discountPrice });
+    const { classes } = useStyles({ hasDiscount: !!data.discount });
 
     const handleCloseModal = () => closeModal("INVOICE_PAYMENT");
 
@@ -29,7 +29,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
     };
 
     const renderAmount = () => {
-        if (data.hasDiscount && data.discountPrice) {
+        if (data.discount) {
             return (
                 <Flex align="center" gap={6}>
                     <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
@@ -41,61 +41,53 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
     };
 
     return (
-        <Box {...props} className={classes.root}>
-            <Flex mb={32}>
-                <Group
-                    sx={{
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        justifyContent: "space-between",
-                        flexWrap: "nowrap",
-                        flex: 1,
-                    }}>
+        <Flex {...props} className={classes.root}>
+            <Flex className={classes.packageInfoWrapper}>
+                <Flex className={classes.packageInfo}>
                     <Flex direction="column" gap={16}>
-                        <DiscountInfo data={{ discount: data.discount, hasDiscount: data.hasDiscount }} />
-                        <Heading lineClamp={2}>{data.name}</Heading>
-                        <Text className={classes.description} lineClamp={2}>
+                        <DiscountInfo discount={data.discount} />
+                        <Heading>{data.name}</Heading>
+                        <Paragraph variant="small-m" color="gray45" fw={400}>
                             {data.description}
-                        </Text>
+                        </Paragraph>
                     </Flex>
 
-                    <Group sx={{ columnGap: 24, marginBottom: 16 }}>
+                    <Flex className={classes.containerPriceWithButton}>
                         <Button variant="secondary" onClick={handleGetAccessPackage}>
                             Получить доступ
                         </Button>
                         <Flex direction="column">
-                            <Text>Стоимость пакета</Text>
+                            <Paragraph variant="text-small-m">Стоимость пакета</Paragraph>
                             {renderAmount()}
                         </Flex>
-                    </Group>
-                </Group>
-                <Group>
-                    <Box className={classes.imageWrapper}>
-                        {data.cover && (
-                            <Image
-                                src={data.cover.absolutePath}
-                                loader={({ src }) => `${src}`}
-                                alt={data.cover.name}
-                                fill
-                                sizes="100vw"
-                                style={{
-                                    objectFit: "cover",
-                                }}
-                            />
-                        )}
-                    </Box>
-                </Group>
+                    </Flex>
+                </Flex>
+
+                <Box className={classes.imageWrapper}>
+                    {data.cover && (
+                        <Image
+                            src={data.cover.absolutePath}
+                            loader={({ src }) => `${src}`}
+                            alt={data.cover.name}
+                            fill
+                            sizes="100vw"
+                            style={{
+                                objectFit: "cover",
+                            }}
+                        />
+                    )}
+                </Box>
             </Flex>
             <Flex direction="column" gap={16}>
-                <Text className={classes.countCoursesInPackage}>{`${data.coursesCount} ${getPluralString(
-                    data.coursesCount,
+                <Paragraph variant="text-small-m" color="gray45">{`${data.courses.length} ${getPluralString(
+                    data.courses.length,
                     "курс",
                     "курса",
                     "курсов"
-                )} в пакете`}</Text>
+                )} в пакете`}</Paragraph>
                 <CourseList data={data} />
             </Flex>
-        </Box>
+        </Flex>
     );
 });
 

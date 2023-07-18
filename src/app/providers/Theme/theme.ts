@@ -121,6 +121,25 @@ export const defaultTheme: MantineThemeOverride = {
                 },
             }),
         },
+        Badge: {
+            defaultProps: {
+                variant: "outline",
+            },
+            styles: (theme) => ({
+                root: {
+                    height: "auto",
+                    padding: "6px 10px",
+                    borderRadius: 60,
+                    border: "none",
+                    backgroundColor: theme.colors.dark[0],
+                    fontWeight: 500,
+                    fontSize: 12,
+                    lineHeight: "16px",
+                    color: theme.colors.white[0],
+                    textTransform: "inherit",
+                },
+            }),
+        },
         Select: {
             styles: (theme) => ({
                 item: {
@@ -382,14 +401,6 @@ export const defaultTheme: MantineThemeOverride = {
                     },
                 },
             }),
-        },
-    },
-    other: {
-        pSmall: {
-            padding: "0 32px 40px",
-            fontWeight: 500,
-            fontSize: 16,
-            lineHeight: "24px",
         },
     },
 };
