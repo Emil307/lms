@@ -15,6 +15,14 @@ const Details = () => {
 
     const openBannerEditPage = () => router.push("/admin/settings/main-page/banner/edit");
 
+    const getFullName = () => {
+        if (!data?.authorFirstName && !data?.authorLastName) {
+            return "-";
+        }
+
+        return `${data.authorFirstName} ${data.authorLastName}`;
+    };
+
     return (
         <Box>
             <Box className={classes.info}>
@@ -28,7 +36,7 @@ const Details = () => {
                     </Fieldset>
 
                     <Fieldset mt={24} label="Содержание цитаты" icon={<IconAlignLeft />}>
-                        <DisplayField label="Автор" value={`${data?.authorFirstName} ${data?.authorLastName}`} />
+                        <DisplayField label="Автор" value={getFullName()} />
                         <DisplayField label="Об авторе" value={data?.authorAbout} />
                         <DisplayField label="Цитата" value={data?.authorShortQuote} />
                     </Fieldset>
@@ -36,16 +44,18 @@ const Details = () => {
                 <Box>
                     <Flex className={classes.bannerCardInfo}>
                         <Box className={classes.imageWrapper}>
-                            <Image
-                                src={data?.image.absolutePath || ""}
-                                loader={({ src }) => `${src}`}
-                                alt={data?.image.name || ""}
-                                fill
-                                sizes="100vw"
-                                style={{
-                                    objectFit: "cover",
-                                }}
-                            />
+                            {data?.image && (
+                                <Image
+                                    src={data.image.absolutePath}
+                                    loader={({ src }) => `${src}`}
+                                    alt={data.image.name}
+                                    fill
+                                    sizes="100vw"
+                                    style={{
+                                        objectFit: "cover",
+                                    }}
+                                />
+                            )}
                         </Box>
                         <Flex direction="column" gap={8}>
                             <DisplayField label="Заголовок баннера" value={data?.title} variant="compact" />

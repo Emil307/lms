@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $LastUpdated, $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
+import { $LastUpdated, $UploadedFile, $getFiltersRequestType, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 
 /**
@@ -18,6 +18,7 @@ export type FaqItem = z.infer<typeof $FaqItem>;
 export type AdminFaqItem = z.infer<typeof $AdminFaqItem>;
 export type Advantage = z.infer<typeof $Advantage>;
 
+export type GetFaqRequest = z.infer<typeof $GetFaqRequest>;
 export type GetFaqResponse = z.infer<typeof $GetFaqResponse>;
 export type GetAdminFaqResponse = z.infer<typeof $GetAdminFaqResponse>;
 export type GetContactsResponse = z.infer<typeof $GetContactsResponse>;
@@ -116,6 +117,17 @@ export const $AdminFaqItem = $FaqItem.extend({
     isStatic: z.boolean(),
 });
 
+export const $FaqRequest = z.object({
+    paginate: z.boolean(),
+    filter: z
+        .object({
+            isStatic: z.boolean(),
+        })
+        .partial(),
+});
+
+export const $GetFaqRequest = $getFiltersRequestType($FaqRequest).partial();
+
 export const $GetFaqResponse = $FaqItem.array();
 
 export const $GetAdminFaqResponse = z.object({
@@ -127,16 +139,16 @@ export const $GetAdminFaqResponse = z.object({
 
 export const $GetMainBannerResponse = z.object({
     title: z.string(),
+    image: $UploadedFile.nullable(),
     subTitle: z.string(),
     buttonText: z.string(),
     buttonLink: z.string(),
     authorActive: z.boolean(),
-    authorFirstName: z.string(),
-    authorLastName: z.string(),
-    authorAbout: z.string(),
-    authorShortQuote: z.string(),
-    image: $UploadedFile,
     authorImage: $UploadedFile.nullable(),
+    authorFirstName: z.string().nullable(),
+    authorLastName: z.string().nullable(),
+    authorAbout: z.string().nullable(),
+    authorShortQuote: z.string().nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
 

@@ -20,7 +20,7 @@ const MainBanner = (props: MainBannerProps) => {
                 <Skeleton visible={isLoading} h="100%" radius={16}>
                     <Box className={classes.imageWrapper}>
                         <Image
-                            src={data?.image.absolutePath || ""}
+                            src={data?.image?.absolutePath || ""}
                             alt="background"
                             loader={({ src }) => `${src}`}
                             fill

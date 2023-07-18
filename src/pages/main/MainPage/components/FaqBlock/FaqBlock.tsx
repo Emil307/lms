@@ -10,12 +10,7 @@ const FaqBlock = (props: FaqBlockProps) => {
 
     return (
         <Box ref={rootBlockRef}>
-            <FaqAccordionList
-                title="Вопрос-ответ"
-                wrapperProps={{ gap: 32, ...props }}
-                titleProps={{ order: 1 }}
-                visible={!!entry?.isIntersecting}
-            />
+            <FaqAccordionList title="Вопрос-ответ" wrapperProps={{ gap: 32, ...props }} visible={!!entry?.isIntersecting} isStatic />
         </Box>
     );
 };
