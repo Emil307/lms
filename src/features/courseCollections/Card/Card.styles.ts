@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
         gap: 32,
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
-        height: "100%"
+        height: "100%",
     },
     content: {
         alignItems: "flex-end",

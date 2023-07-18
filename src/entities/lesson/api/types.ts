@@ -10,6 +10,9 @@ import {
 
 export type AdminLesson = z.infer<typeof $AdminLesson>;
 export type AdminLessonFromList = z.infer<typeof $AdminLessonFromList>;
+export type AdminTest = z.infer<typeof $AdminTest>;
+export type AdminTestQuestion = z.infer<typeof $AdminTestQuestion>;
+export type AdminTestAnswer = z.infer<typeof $AdminTestAnswer>;
 
 export type AdminLessonsFilters = z.infer<typeof $AdminLessonsFilters>;
 export type AdminSelectLessonsFilters = z.infer<typeof $AdminSelectLessonsFilters>;
@@ -19,6 +22,9 @@ export type GetAdminLessonsRequest = z.infer<typeof $GetAdminLessonsRequest>;
 export type GetAdminLessonsResponse = z.infer<typeof $GetAdminLessonsResponse>;
 export type GetAdminLessonsFromModuleRequest = z.infer<typeof $GetAdminLessonsFromModuleRequest>;
 export type GetAdminLessonResponse = z.infer<typeof $GetAdminLessonResponse>;
+export type GetAdminTestResponse = z.infer<typeof $GetAdminTestResponse>;
+export type UpdateAdminTestRequest = z.infer<typeof $UpdateAdminTestRequest>;
+export type UpdateAdminTestResponse = z.infer<typeof $UpdateAdminTestResponse>;
 
 export type CreateLessonFormValues = z.infer<typeof $CreateLessonFormValues>;
 export type CreateLessonRequest = z.infer<typeof $CreateLessonRequest>;
@@ -131,3 +137,37 @@ export const $DetachMaterialsFromLessonRequest = z.object({
     lessonId: z.string(),
     ids: z.array(z.string()),
 });
+
+export const $AdminTestAnswer = z.object({
+    id: z.number(),
+    order: z.number(),
+    content: z.string(),
+    isCorrect: z.boolean(),
+});
+
+export const $AdminTestQuestion = z.object({
+    id: z.number(),
+    order: z.number(),
+    content: z.string(),
+    answers: z.array($AdminTestAnswer),
+});
+
+export const $AdminTest = z.object({
+    id: z.number(),
+    correctAnswersCount: z.number(),
+    tasks: z.array($AdminTestQuestion),
+});
+
+export const $GetAdminTestResponse = $AdminTest.nullable();
+
+export const $UpdateAdminTestRequest = z.object({
+    lessonId: z.string(),
+    correctAnswersCount: z.number(),
+    tasks: z.array(
+        $AdminTestQuestion.omit({
+            id: true,
+        })
+    ),
+});
+
+export const $UpdateAdminTestResponse = $AdminTest.nullable();

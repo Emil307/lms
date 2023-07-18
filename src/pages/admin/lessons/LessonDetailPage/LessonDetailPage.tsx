@@ -3,9 +3,9 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
 import { useAdminCourse } from "@entities/course";
+import { LessonInfoPanel, LessonSettings, LessonMaterials, Test } from "@widgets/admin/lessons";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
-import { LessonInfoPanel, LessonSettings, LessonMaterials } from "@widgets/admin/lessons";
 import { InfoCard } from "@components/InfoCard";
 import { fields, tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
@@ -54,6 +54,16 @@ const LessonDetailPage = () => {
         router.push({ pathname: "/admin/lessons/[lessonId]/edit", query: { lessonId } });
     };
 
+    const handleOpenUpdateLessonTestPage = () => {
+        if (courseData && moduleData) {
+            return router.push({
+                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/test",
+                query: { id, moduleId, lessonId },
+            });
+        }
+        router.push({ pathname: "/admin/lessons/[lessonId]/edit/test", query: { lessonId } });
+    };
+
     const renderComponent = () => {
         switch (tab) {
             case "settings":
@@ -61,7 +71,7 @@ const LessonDetailPage = () => {
             case "materials":
                 return <LessonMaterials lessonId={lessonId} lessonName={lessonData.name} />;
             case "test":
-                return null;
+                return <Test lessonId={lessonId} onUpdate={handleOpenUpdateLessonTestPage} />;
             case "homework":
                 return null;
             default:
@@ -85,7 +95,9 @@ const LessonDetailPage = () => {
             <LessonInfoPanel id={lessonId} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} my={32} />
             <Flex gap={56} align="start">
-                <Box w="100%">{renderComponent()}</Box>
+                <Box maw={1162} w="100%">
+                    {renderComponent()}
+                </Box>
                 <InfoCard<TLessonInfoCard>
                     variant="whiteBg"
                     fields={fields}
