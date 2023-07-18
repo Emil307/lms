@@ -4,41 +4,65 @@ import { HEADER_HEIGHT } from "@shared/constant";
 export default createStyles((theme) => ({
     root: {
         display: "flex",
-        gap: 24,
+        alignItems: "center",
         position: "sticky",
+        gap: 24,
         top: 0,
         left: 0,
         maxHeight: HEADER_HEIGHT,
-        padding: "16px 0 16px 24px",
+        padding: "16px 24px",
         border: "none",
         backgroundColor: theme.colors.light[0],
-        zIndex: 200,
+        zIndex: 201,
+
+        [theme.fn.smallerThan("md")]: {
+            maxHeight: 82,
+            paddingBlock: 12,
+            paddingInline: 16,
+        },
     },
-    logoWrapper: {
-        minWidth: 232,
-        height: 72,
+
+    logoLink: {
+        color: theme.colors.dark[0],
+        textDecoration: "none",
     },
+    logo: {
+        [theme.fn.smallerThan("md")]: {
+            transform: "scale(0.6)",
+        },
+    },
+
+    logoText: {
+        [theme.fn.smallerThan("md")]: {
+            display: "none",
+        },
+    },
+
+    wrapperRightMenu: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        gap: 32,
+
+        [theme.fn.smallerThan("sm")]: {
+            justifyContent: "flex-end",
+            gap: 12,
+        },
+    },
+
     avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
         svg: {
             transform: "scale(0.65)",
         },
     },
-    fullUserName: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
+    containerButtonLinks: {
+        gap: 8,
+
+        [theme.fn.smallerThan("sm")]: {
+            display: "none",
+        },
     },
-    roleName: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
+
     buttonIcon: {
         width: 56,
         height: 40,
@@ -54,6 +78,38 @@ export default createStyles((theme) => ({
         ":active": {
             color: theme.colors.dark[0],
             backgroundColor: theme.colors.grayLight[0],
+        },
+    },
+
+    burgerSidebarIcon: {
+        width: 40,
+        height: 40,
+        color: theme.colors.dark[0],
+
+        svg: {
+            width: 24,
+            height: 24,
+        },
+
+        [theme.fn.largerThan("sm")]: {
+            display: "none",
+        },
+    },
+
+    closeSidebarIcon: {
+        width: 40,
+        height: 40,
+        borderRadius: 60,
+        backgroundColor: theme.colors.primary8[0],
+        color: theme.colors.primary[0],
+
+        svg: {
+            width: 24,
+            height: 24,
+        },
+
+        [theme.fn.largerThan("sm")]: {
+            display: "none",
         },
     },
 }));

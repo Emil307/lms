@@ -1,19 +1,41 @@
 import { createStyles } from "@mantine/core";
-import { HEADER_HEIGHT } from "@shared/constant";
 
-export default createStyles(() => ({
+export default createStyles((theme) => ({
     root: {
         position: "static",
         backgroundColor: "inherit",
-        border: "none",
         width: 280,
-        flexShrink: 0,
-        paddingTop: 32,
+        marginBlock: 24,
+        paddingBlock: 8,
+        border: "none",
+        overflowY: "auto",
         zIndex: 1,
+
+        [theme.fn.smallerThan("lg")]: {
+            overflow: "hidden",
+            width: 72,
+            marginBlock: 0,
+            paddingBlock: 0,
+
+            zIndex: 200,
+        },
+
+        [theme.fn.smallerThan("sm")]: {
+            display: "none",
+        },
     },
-    sidebarWrapper: {
+    inner: {
         position: "sticky",
-        top: HEADER_HEIGHT,
         left: 0,
+
+        [theme.fn.smallerThan("lg")]: {
+            position: "static",
+            height: "100%",
+            top: 0,
+            paddingBlock: 32,
+            width: 280,
+            backgroundColor: theme.colors.light[0],
+            overflow: "hidden",
+        },
     },
 }));

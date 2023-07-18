@@ -4,8 +4,8 @@ import { ThemeIcon, Text, Flex, FlexProps, Box } from "@mantine/core";
 import { LinkProps } from "next/link";
 import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
-import useStyles from "./SidebarItem.styles";
-import { MinimizedModeSidebarContext } from "../../utils";
+import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
+import useStyles from "./SidebarItemStyles";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;
@@ -26,11 +26,12 @@ const SidebarItem = forwardRef(function SidebarItem(
 
     const { classes } = useStyles({ isActive, inner });
 
-    const { isMinimizedModeSidebar } = useContext(MinimizedModeSidebarContext);
+    const { setOpenedSidebar } = useContext(AdminSidebarMenuContext);
 
     const handlerPush = () => {
         if (!href) return;
         router.push(href);
+        setOpenedSidebar(false);
     };
 
     const renderIndicator = () => {
@@ -59,12 +60,12 @@ const SidebarItem = forwardRef(function SidebarItem(
             <Flex className={classes.inner}>
                 <Flex gap={16}>
                     {!inner && (
-                        <Tooltip label={label} position="right" arrowPosition="center" disabled={!isMinimizedModeSidebar}>
+                        <Tooltip label={label} position="right" arrowPosition="center">
                             <ThemeIcon className={classes.iconWrapper}>{icon}</ThemeIcon>
                         </Tooltip>
                     )}
 
-                    {!isMinimizedModeSidebar && <Text className={classes.text}>{label}</Text>}
+                    <Text className={classes.text}>{label}</Text>
                 </Flex>
             </Flex>
         </Flex>

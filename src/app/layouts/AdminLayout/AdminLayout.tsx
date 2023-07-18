@@ -1,18 +1,49 @@
 import { Box } from "@mantine/core";
 import { AppShell } from "@mantine/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useElementSize, useMediaQuery } from "@mantine/hooks";
 import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
-import { NavbarAdmin } from "@widgets/Navbar";
-import { useAdminLayoutStyles } from "./AdminLayout.styles";
+import { NavbarAdmin, NavbarAdminMobile } from "@widgets/Navbar";
+import useStyles from "./AdminLayout.styles";
+import { AdminSidebarMenuContext } from "./utils";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
-    const { classes } = useAdminLayoutStyles();
+    const { classes } = useStyles();
+    const [openedSidebar, setOpenedSidebar] = useState(false);
+
+    const { ref, height } = useElementSize();
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
+    //для того чтобы скрывать мобильный сайдбар при увеличении размера экрана более 744px
+    useEffect(() => {
+        if (!isMobile && openedSidebar) {
+            setOpenedSidebar(false);
+        }
+    }, [isMobile]);
+
+    const renderNavbar = () => {
+        if (openedSidebar) {
+            return <NavbarAdminMobile hidden={!openedSidebar} />;
+        }
+
+        return <NavbarAdmin mah={height + 16} />;
+    };
+
     return (
-        <AppShell padding={0} classNames={classes} layout="alt" navbar={<NavbarAdmin />} header={<HeaderAdmin />} footer={<FooterAdmin />}>
-            <Box sx={(theme) => ({ backgroundColor: theme.colors.white[0], borderRadius: theme.fn.radius("1.5rem") })} px={32} py={32}>
-                {children}
-            </Box>
-        </AppShell>
+        <AdminSidebarMenuContext.Provider value={{ openedSidebar, setOpenedSidebar }}>
+            <AppShell
+                padding={0}
+                classNames={classes}
+                layout="alt"
+                navbar={renderNavbar()}
+                header={<HeaderAdmin />}
+                footer={<FooterAdmin hidden={openedSidebar} />}>
+                <Box ref={ref} className={classes.wrapperContent}>
+                    {children}
+                </Box>
+            </AppShell>
+        </AdminSidebarMenuContext.Provider>
     );
 }

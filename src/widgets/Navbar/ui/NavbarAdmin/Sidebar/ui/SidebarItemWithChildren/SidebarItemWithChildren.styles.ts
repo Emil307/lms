@@ -1,10 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-interface TUseSidebarItemWithChildrenStylesProps {
+interface CreateStylesParams {
     isActive: boolean;
+    isMinimizedModeSidebar: boolean;
 }
 
-export const useSidebarItemWithChildrenStyles = createStyles((theme, { isActive }: TUseSidebarItemWithChildrenStylesProps) => ({
+export default createStyles((theme, { isActive, isMinimizedModeSidebar }: CreateStylesParams) => ({
     item: {
         border: "none",
 
@@ -18,12 +19,16 @@ export const useSidebarItemWithChildrenStyles = createStyles((theme, { isActive 
         "&:not(:first-of-type)": {
             backgroundColor: "inherit",
         },
-        paddingRight: 24,
+    },
+    control: {
+        paddingInline: "0 !important",
     },
     content: {
-        padding: 0,
+        padding: "0 !important",
     },
     chevron: {
+        marginBlock: "auto",
+        display: isMinimizedModeSidebar ? "none" : "flex",
         svg: {
             width: 16,
             height: 16,

@@ -1,4 +1,6 @@
 import { Collapse, Flex, ThemeIcon } from "@mantine/core";
+import React, { useMemo, useState } from "react";
+import { ChevronDown, ChevronUp } from "react-feather";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -9,12 +11,10 @@ import {
     AdminMaterialsNoIncludedLessonFiltersForm,
     AdminMaterialsNoIncludedLessonExtraFilters,
 } from "@entities/storage";
+import { useAttachMaterialsToLesson } from "@entities/lesson";
 import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetMaterialsNoIncludedLessonRequest } from "./utils";
-import React, { useMemo, useState } from "react";
-import { useAttachMaterialsToLesson } from "@entities/lesson";
 import useStyles from "./AddMaterialsToLessonModal.styles";
-import { ChevronDown, ChevronUp } from "react-feather";
 
 interface AddMaterialsToLessonModalProps {
     lessonId: string;

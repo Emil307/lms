@@ -3,9 +3,9 @@ import React from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { CreateMaterialsForm, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { UploadedFile } from "@shared/types";
+import FoldersIcon from "public/icons/folders.svg";
 import { fileTypeCards } from "./constants";
 import { MaterialTypeCard } from "./components";
-import FoldersIcon from "public/icons/folders.svg";
 
 interface SelectTypeMaterialProps {
     onSelectFromBase?: () => void;

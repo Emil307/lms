@@ -1,14 +1,17 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles(() => ({
+export default createStyles((theme) => ({
     root: {
-        position: "inherit",
+        position: "fixed",
         justifyContent: "space-between",
-        minHeight: "calc(100vh - 74px)",
+        height: "calc(100vh - 74px)",
         width: "100vw",
+        top: 74,
+        bottom: 0,
         paddingTop: 24,
         paddingBottom: 56,
         paddingInline: 16,
         border: "none",
+        backgroundColor: theme.colors.white[0],
     },
 }));

@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
-import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
 import { MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import React from "react";
+import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
 
 export type DataGridResponse<T> = z.infer<ReturnType<typeof $getPaginationResponseType>> & { data: T[] };
 
