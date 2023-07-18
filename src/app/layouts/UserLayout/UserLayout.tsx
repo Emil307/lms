@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 import { AppShell } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMediaQuery, useScrollLock } from "@mantine/hooks";
 import { FooterUser } from "@widgets/Footer";
 import { HeaderPublicUser, HeaderUser } from "@widgets/Header";
 import { useSession } from "@features/auth";
@@ -14,28 +14,29 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();
     const { user } = useSession();
 
+    const [_scrollLocked, setScrollLocked] = useScrollLock();
+
     const isMobile = useMediaQuery("(max-width: 744px)");
 
     useEffect(() => {
         if (!isMobile && openedSidebar) {
             setOpenedSidebar(false);
         }
-    }, [isMobile]);
+        setScrollLocked(isMobile && openedSidebar);
+    }, [isMobile, openedSidebar]);
 
     const renderHeader = user?.id ? <HeaderUser /> : <HeaderPublicUser />;
 
-    const renderContent = () => {
-        if (openedSidebar) {
-            return <NavbarUser hidden={!openedSidebar} isPublic={!user?.id} />;
-        }
-
-        return <Box className={classes.wrapperContent}>{children}</Box>;
-    };
-
     return (
         <SidebarMenuContext.Provider value={{ openedSidebar, setOpenedSidebar }}>
-            <AppShell padding={16} classNames={classes} layout="alt" header={renderHeader} footer={<FooterUser hidden={openedSidebar} />}>
-                {renderContent()}
+            <AppShell
+                padding={16}
+                classNames={classes}
+                layout="alt"
+                header={renderHeader}
+                navbar={<NavbarUser hidden={!openedSidebar} isPublic={!user?.id} />}
+                footer={<FooterUser hidden={openedSidebar} />}>
+                <Box className={classes.wrapperContent}>{children}</Box>
             </AppShell>
         </SidebarMenuContext.Provider>
     );

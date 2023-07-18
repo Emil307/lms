@@ -4,11 +4,11 @@ import React, { ReactNode, useMemo } from "react";
 import { CSSObject, MantineTheme, useMantineTheme, Text } from "@mantine/core";
 import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
+import { Tooltip } from "@shared/ui";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
 import { TCellProps } from "../../types";
-import { Tooltip } from "@shared/ui";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
@@ -39,7 +39,7 @@ function BaseTable<T extends Record<string, any>>({
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();
-    const { classes } = useBaseTableStyles({ hasActionButton: rest?.initialState?.columnOrder?.includes("mrt-row-actions") });
+    const { classes } = useBaseTableStyles({ hasActionButton: rest.initialState?.columnOrder?.includes("mrt-row-actions") });
     const columns = rest.columns || prepareColumns(data);
     const paginationData = useCurrentPaginationData(pagination);
     const rowCount = paginationData?.count;

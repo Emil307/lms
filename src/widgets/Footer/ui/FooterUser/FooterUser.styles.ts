@@ -12,6 +12,11 @@ export default createStyles((theme) => ({
         paddingInline: 16,
         marginInline: "auto",
 
+        a: {
+            textDecoration: "none",
+            color: theme.colors.dark[0],
+        },
+
         [theme.fn.smallerThan("lg")]: {
             margin: 0,
         },

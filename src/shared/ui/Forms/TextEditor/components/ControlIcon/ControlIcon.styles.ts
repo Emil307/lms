@@ -6,11 +6,6 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { variant = "localIcon" }: CreateStylesParams) => ({
     root: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
-
         ...getStylesByVariant(theme, { variant }),
     },
 }));

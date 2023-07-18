@@ -10,7 +10,7 @@ export interface ControlIconProps extends Omit<ThemeIconProps, "children" | "var
 const ControlIcon = ({ variant, icon, ...props }: ControlIconProps) => {
     const { classes } = useStyles({ variant });
     return (
-        <ThemeIcon variant="outline" className={classes.root} {...props}>
+        <ThemeIcon className={classes.root} {...props}>
             {icon}
         </ThemeIcon>
     );

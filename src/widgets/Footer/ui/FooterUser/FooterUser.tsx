@@ -6,8 +6,9 @@ import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import { Logo } from "@components/Logo";
 import { COMPANY_LINKS } from "@shared/constant";
-import useStyles from "./FooterUser.styles";
+import { Paragraph } from "@shared/ui";
 import { pageSections, popularSections } from "./constants";
+import useStyles from "./FooterUser.styles";
 
 export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> {}
 
@@ -44,21 +45,21 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                 <Flex className={classes.content}>
                     <Flex direction="column" gap={32} miw={264}>
                         <Logo />
-                        <Flex direction="column" maw={179}>
-                            <Text component="a" fw={500} fz={18} lh="24px" href="mailto:info@gb-business.ru">
-                                info@gb-business.ru
-                            </Text>
-                            <Text fw={500} fz={12} lh="16px" color="gray45">
+                        <Flex direction="column" gap={8}>
+                            <Paragraph variant="large">
+                                <a href="mailto:info@gb-business.ru">info@gb-business.ru</a>
+                            </Paragraph>
+                            <Paragraph variant="text-caption" color="gray45">
                                 Пишите, если есть вопросы
-                            </Text>
+                            </Paragraph>
                         </Flex>
-                        <Flex direction="column" maw={179}>
-                            <Text component="a" fw={500} fz={18} lh="24px" href="tel:8 (800) 234-94-04">
-                                8 (800) 234-94-04
-                            </Text>
-                            <Text size="md" fw={500} fz={12} color="gray45">
+                        <Flex direction="column" gap={8}>
+                            <Paragraph variant="large">
+                                <a href="tel:8 (800) 234-94-04">8 (800) 234-94-04</a>
+                            </Paragraph>
+                            <Paragraph variant="text-caption" color="gray45" maw={180}>
                                 Звоните, если нужна помощь. Звонок по России бесплатный.
-                            </Text>
+                            </Paragraph>
                         </Flex>
                     </Flex>
 
@@ -96,13 +97,9 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         </a>
                     </Flex>
                 </Flex>
-
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
-
                 <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Text fw={500} fz="md" lh="lg">
-                        © 2023, Галерея бизнеса
-                    </Text>
+                    <Paragraph variant="text-small-m">© 2023, Галерея бизнеса</Paragraph>
                     <Text fw={400} td="underline" component="a" href="/user-agreement">
                         Пользовательское соглашение
                     </Text>
