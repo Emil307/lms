@@ -1,11 +1,11 @@
-import { Flex, GridProps, Grid, Text, Skeleton } from "@mantine/core";
+import { Flex, Grid, Skeleton, BoxProps, Box } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useAdvantages } from "@entities/staticPage";
-import { Heading } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import { initialParams } from "./constants";
 import useStyles from "./AdvantagesBlock.styles";
 
-export interface AdvantagesBlockProps extends Omit<GridProps, "children"> {}
+export interface AdvantagesBlockProps extends Omit<BoxProps, "children"> {}
 
 const AdvantagesBlock = (props: AdvantagesBlockProps) => {
     const { classes } = useStyles();
@@ -18,7 +18,9 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
                 <Grid.Col key={advantage.id} sm={3} span={6}>
                     <Flex className={classes.advantageItem}>
                         <Heading>{advantage.title}</Heading>
-                        <Text className={classes.advantageDescription}>{advantage.description}</Text>
+                        <Paragraph variant="text-small-m" color="gray45" px={{ md: 30, sm: 0 }}>
+                            {advantage.description}
+                        </Paragraph>
                     </Flex>
                 </Grid.Col>
             )),
@@ -31,9 +33,11 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
 
     return (
         <Skeleton visible={isLoading} mih={160} radius={24}>
-            <Grid gutter={24} {...props}>
-                {renderAdvantages}
-            </Grid>
+            <Box {...props}>
+                <Grid gutter={8} gutterMd={24}>
+                    {renderAdvantages}
+                </Grid>
+            </Box>
         </Skeleton>
     );
 };

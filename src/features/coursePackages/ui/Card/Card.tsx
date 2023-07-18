@@ -1,8 +1,8 @@
-import { Card as MCard, CardProps as MCardProps, Text } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps } from "@mantine/core";
 import { memo, ReactNode } from "react";
 import { CoursePackage } from "@entities/coursePackage";
 import { getPluralString } from "@shared/utils";
-import { ContentByTextEditor, Heading } from "@shared/ui";
+import { ContentByTextEditor, Heading, Paragraph } from "@shared/ui";
 import { AmountInfo, DiscountInfo } from "./components";
 import useStyles from "./Card.styles";
 
@@ -19,15 +19,15 @@ const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props 
             <DiscountInfo discount={data.discount} />
             <MCard.Section className={classes.section} h={82}>
                 <Heading order={3}>{data.name}</Heading>
-                <ContentByTextEditor className={classes.description} data={data.description} lineClamp={2} />
+                <ContentByTextEditor color="gray45" data={data.description} lineClamp={2} />
             </MCard.Section>
             <MCard.Section className={classes.section} sx={{ flex: 1, height: 160 }}>
-                <Text className={classes.countCourses}>{`${data.courses.length} ${getPluralString(
+                <Paragraph variant="text-small-m" color="gray45">{`${data.courses.length} ${getPluralString(
                     data.courses.length,
                     "курс",
                     "курса",
                     "курсов"
-                )} в пакете:`}</Text>
+                )} в пакете:`}</Paragraph>
                 {children({ data })}
             </MCard.Section>
             <AmountInfo data={data} />

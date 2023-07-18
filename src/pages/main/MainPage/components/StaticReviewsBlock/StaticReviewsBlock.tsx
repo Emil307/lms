@@ -9,8 +9,8 @@ const StaticReviewsBlock = (props: StaticReviewsBlockProps) => {
     const { ref: rootBlockRef, entry } = useIntersection();
 
     return (
-        <Box ref={rootBlockRef}>
-            <StaticReviewsCarouselList visible={!!entry?.isIntersecting} {...props} />
+        <Box ref={rootBlockRef} {...props}>
+            <StaticReviewsCarouselList visible={!!entry?.isIntersecting} />
         </Box>
     );
 };

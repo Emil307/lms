@@ -49,11 +49,4 @@ export default createStyles((theme) => ({
         marginBottom: "0 !important",
         gap: 16,
     },
-
-    userDescription: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
 }));

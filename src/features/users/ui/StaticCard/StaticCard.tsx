@@ -1,9 +1,9 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Text } from "@mantine/core";
+import { Badge, Box, Card as MCard, CardProps as MCardProps, Group } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
 import { getFullName, getPluralString } from "@shared/utils";
 import { StaticUserFromList } from "@entities/user";
-import { Heading } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import useStyles from "./StaticCard.styles";
 
 export interface StaticCardProps extends Omit<MCardProps, "children"> {
@@ -16,7 +16,7 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
     const fullName = getFullName({ data: data.profile });
 
     return (
-        <MCard {...props} className={classes.root} maw={424}>
+        <MCard {...props} className={classes.root}>
             <MCard.Section className={classes.cardImageSection}>
                 <Box className={classes.imageWrapper}>
                     {data.profile.avatar && (
@@ -42,9 +42,9 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
                 <Heading order={3} lineClamp={2}>
                     {fullName}
                 </Heading>
-                <Text className={classes.userDescription} lineClamp={5}>
+                <Paragraph variant="text-small-m" color="gray45" lineClamp={5}>
                     {data.profile.description}
-                </Text>
+                </Paragraph>
             </MCard.Section>
         </MCard>
     );

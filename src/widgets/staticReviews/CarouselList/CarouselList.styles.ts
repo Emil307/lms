@@ -1,12 +1,19 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    wrapper: {
+        position: "relative",
+    },
     controls: {
-        top: "auto",
-        bottom: 48,
+        top: 504,
         left: 48,
         width: "fit-content",
         padding: 0,
+
+        [theme.fn.smallerThan("sm")]: {
+            top: 528,
+            left: 24,
+        },
     },
     control: {
         width: 56,
@@ -19,10 +26,5 @@ export default createStyles((theme) => ({
         ":hover": {
             color: theme.colors.secondary[0],
         },
-    },
-    wrapper: {
-        position: "relative",
-        flexDirection: "column",
-        gap: 32,
     },
 }));

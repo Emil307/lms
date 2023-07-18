@@ -3,9 +3,16 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         position: "relative",
+    },
+    inner: {
+        position: "relative",
         overflow: "hidden",
         height: 576,
         borderRadius: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            height: 442,
+        },
     },
 
     imageWrapper: {
@@ -34,9 +41,14 @@ export default createStyles((theme) => ({
     headerContent: {
         flexDirection: "column",
         maxWidth: 743,
-        gap: 56,
         marginLeft: 96,
         marginBlock: "auto",
+        gap: 56,
+
+        [theme.fn.smallerThan("sm")]: {
+            marginLeft: 24,
+            marginRight: 24,
+        },
     },
 
     title: {
@@ -44,48 +56,10 @@ export default createStyles((theme) => ({
         fontSize: 56,
         lineHeight: "62px",
         color: theme.colors.white[0],
-    },
 
-    authorContent: {
-        position: "absolute",
-        flexDirection: "column",
-        height: "min-content",
-        maxWidth: 255,
-        top: 348,
-        right: 110,
-        gap: 10,
-        padding: 16,
-        borderRadius: 16,
-        backgroundColor: theme.colors.white16[0],
-        backdropFilter: "blur(30px)",
-        transform: "rotate(3deg)",
-    },
-
-    authorShortQuote: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.white[0],
-    },
-    authorFullName: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.white[0],
-    },
-    authorAbout: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.white56[0],
-    },
-    avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
-        svg: {
-            transform: "scale(0.4)",
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 32,
+            lineHeight: "36px",
         },
     },
 }));
