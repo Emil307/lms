@@ -9,6 +9,15 @@ export default createStyles((theme, { hasDiscount }: CreateStylesParamsProps) =>
         display: "flex",
         margin: "0px !important",
         gap: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            columnGap: 12,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column-reverse",
+            paddingTop: 32,
+        },
     },
     price: {
         color: hasDiscount ? theme.colors.doneDark[0] : theme.colors.dark[0],
@@ -25,11 +34,5 @@ export default createStyles((theme, { hasDiscount }: CreateStylesParamsProps) =>
         lineHeight: "24px",
         color: theme.colors.gray45[0],
         textDecoration: "line-through",
-    },
-    amountDescription: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
     },
 }));

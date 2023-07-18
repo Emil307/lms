@@ -1,6 +1,6 @@
 import { Card as MCard, Text, Flex } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Button, Heading } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { CoursePackage } from "@entities/coursePackage";
 import useStyles from "./AmountInfo.styles";
 
@@ -23,14 +23,16 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
                 </Flex>
             );
         }
-        return <Text className={classes.price}>{`${data.price.toLocaleString("ru")} ₽`}</Text>;
+        return <Heading order={3} className={classes.price}>{`${data.price.toLocaleString("ru")} ₽`}</Heading>;
     };
 
     return (
         <MCard.Section className={classes.root}>
-            <Button onClick={handleClickCard}>Подробнее</Button>
+            <Button onClick={handleClickCard} w="fit-content">
+                Подробнее
+            </Button>
             <Flex direction="column" gap={data.discount ? 2 : 6}>
-                <Text className={classes.amountDescription}>Стоимость пакета</Text>
+                <Paragraph variant="text-small-m">Стоимость пакета</Paragraph>
                 {renderAmount()}
             </Flex>
         </MCard.Section>

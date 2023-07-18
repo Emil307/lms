@@ -1,12 +1,11 @@
-import { Box, BoxProps, Flex, Text, TitleProps, Skeleton } from "@mantine/core";
+import { Box, BoxProps, Flex, TitleProps, Skeleton } from "@mantine/core";
 import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
 import { CourseListFromPackage, Card as CoursePackageCard } from "@features/coursePackages";
-import { Heading } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import { adaptDataForUpdateAboutForm } from "./utils";
-import useStyles from "./CarouselList.styles";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     title: string;
@@ -17,8 +16,6 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
 }
 
 const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, visible, ...props }: CarouselListProps) => {
-    const { classes } = useStyles();
-
     const {
         data: coursePackages,
         hasNextPage,
@@ -38,17 +35,21 @@ const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId
     }
 
     return (
-        <Box {...props} className={classes.root}>
+        <Box {...props} w="100%">
             <Flex direction="column" gap={8} mb={32}>
                 <Skeleton visible={isLoading} mih={40} radius={24}>
                     <Heading {...titleProps}>{title}</Heading>
                 </Skeleton>
-                {description && <Text className={classes.headingDescription}>{description}</Text>}
+                {description && <Paragraph variant="small-m">{description}</Paragraph>}
             </Flex>
             <Skeleton visible={isLoading} mih={420} radius={16}>
-                <Carousel<CoursePackage> data={coursePackages.data} lastElemRef={lastElemRef} slideSize={648}>
+                <Carousel<CoursePackage>
+                    data={coursePackages.data}
+                    lastElemRef={lastElemRef}
+                    slideSize={648}
+                    breakpoints={[{ maxWidth: "sm", slideSize: "100%" }]}>
                     {(props) => (
-                        <CoursePackageCard {...props} h={420} w={648}>
+                        <CoursePackageCard {...props} mih={420} w="100%">
                             {(props) => <CourseListFromPackage {...props} />}
                         </CoursePackageCard>
                     )}

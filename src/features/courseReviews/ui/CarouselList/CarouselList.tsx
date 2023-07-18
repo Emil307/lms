@@ -32,12 +32,19 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
 
     return (
         <Box {...props} className={classes.root}>
-            <Skeleton visible={isLoading} mih={40} radius={24}>
-                {headerSlot}
-            </Skeleton>
+            {headerSlot && (
+                <Skeleton visible={isLoading} radius={24}>
+                    {headerSlot}
+                </Skeleton>
+            )}
+
             <Skeleton visible={isLoading} mih={410} radius={24}>
-                <Carousel<CourseReviewFromList> data={courseReviewsData.data} lastElemRef={lastElemRef} slideSize={424}>
-                    {(props) => <CourseReviewCard {...props} w={424} />}
+                <Carousel<CourseReviewFromList>
+                    data={courseReviewsData.data}
+                    lastElemRef={lastElemRef}
+                    slideSize={448}
+                    breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
+                    {(props) => <CourseReviewCard {...props} w="100%" />}
                 </Carousel>
             </Skeleton>
         </Box>

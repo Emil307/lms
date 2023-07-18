@@ -1,5 +1,5 @@
 import { Card as MCard, Badge } from "@mantine/core";
-import { getHumanDate } from "@shared/utils";
+import dayjs from "dayjs";
 import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
@@ -22,11 +22,7 @@ const DiscountInfo = ({ discount }: DiscountInfoProps) => {
             </Badge>
             {discount.finishingDate && (
                 <Badge variant="outline" className={classes.discountEndDate}>
-                    {`Доступно до ${getHumanDate(discount.finishingDate, {
-                        month: "long",
-                        day: "2-digit",
-                        year: "numeric",
-                    })}`}
+                    {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}
                 </Badge>
             )}
         </MCard.Section>

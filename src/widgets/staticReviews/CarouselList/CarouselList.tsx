@@ -1,4 +1,4 @@
-import { Flex, FlexProps, Skeleton } from "@mantine/core";
+import { Box, BoxProps, Skeleton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
@@ -9,7 +9,7 @@ import { CONTROLS_INITIAL_SIZE, initialParams } from "./constants";
 import useStyles from "./CarouselList.styles";
 import { CounterSlidesInfo } from "./components";
 
-export interface CarouselListProps extends Omit<FlexProps, "children"> {
+export interface CarouselListProps extends Omit<BoxProps, "children"> {
     title?: string;
     visible?: boolean;
 }
@@ -45,9 +45,9 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
     }
 
     return (
-        <Flex ref={rootRef} className={classes.wrapper} {...props}>
+        <Box ref={rootRef} className={classes.wrapper} {...props}>
             {title && (
-                <Skeleton visible={isLoading} mih={40} radius={24}>
+                <Skeleton visible={isLoading} mih={40} radius={24} mb={32}>
                     <Heading>{title}</Heading>
                 </Skeleton>
             )}
@@ -64,7 +64,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
                 </Carousel>
                 <CounterSlidesInfo ref={counterSlidesRef} current={currentSlideIndex} total={staticReviews.pagination.total} />
             </Skeleton>
-        </Flex>
+        </Box>
     );
 };
 

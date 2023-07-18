@@ -36,23 +36,14 @@ export type UpdateCoursePackageRequest = z.infer<typeof $UpdateCoursePackageRequ
 export type DeleteCourseFromCoursePackageRequest = z.infer<typeof $DeleteCourseFromCoursePackageRequest>;
 export type AttachCourseToCoursePackageRequest = z.infer<typeof $AttachCourseToCoursePackageRequest>;
 
-export const $CourseFromCoursePackage = $Course
-    .omit({
-        cover: true,
-        category: true,
-        discount: true,
-    })
-    .extend({
-        isActive: z.boolean(),
-        isDemonstrative: z.boolean(),
-        isFulfillment: z.boolean(),
-        hasDiscount: z.boolean(),
-        hasAuthors: z.boolean(),
-        hasTeachers: z.boolean(),
-        finishingDate: z.coerce.date(),
-        createdAt: z.coerce.date(),
-        updatedAt: z.coerce.date(),
-    });
+export const $CourseFromCoursePackage = $Course.pick({
+    id: true,
+    name: true,
+    description: true,
+    price: true,
+    discountPrice: true,
+    type: true,
+});
 
 export const $CoursePackage = z.object({
     id: z.number(),

@@ -9,10 +9,6 @@ export default createStyles((theme) => ({
     },
     price: {
         minWidth: 70,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
         textAlign: "end",
     },
     iconLink: {

@@ -40,8 +40,12 @@ const StaticCarouselList = ({ title = "Наставники помогают н�
                 <Heading>{title}</Heading>
             </Skeleton>
             <Skeleton visible={isLoading} mih={420} radius={24}>
-                <Carousel<StaticUserFromList> data={staticUsers.data} lastElemRef={lastElemRef} slideSize={424}>
-                    {(props) => <StaticUserCard {...props} mah={420} w={424} />}
+                <Carousel<StaticUserFromList>
+                    data={staticUsers.data}
+                    lastElemRef={lastElemRef}
+                    slideSize={448}
+                    breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
+                    {(props) => <StaticUserCard {...props} w="100%" />}
                 </Carousel>
             </Skeleton>
         </Flex>

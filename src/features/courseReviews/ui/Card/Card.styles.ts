@@ -35,6 +35,10 @@ export default createStyles((theme) => ({
         borderRadius: 60,
         gap: 4,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("xs")]: {
+            marginLeft: 0,
+        },
     },
     ratingValue: {
         fontWeight: 600,

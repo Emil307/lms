@@ -32,7 +32,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
                     "курса",
                     "курсов"
                 )}`}</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+                <ThemeIcon color="dark">
                     <ChevronRight />
                 </ThemeIcon>
             </Flex>
@@ -42,7 +42,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
     const hideLabel = (
         <Flex gap={8}>
             <Text className={classes.spoilerLabelText}>Свернуть</Text>
-            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+            <ThemeIcon color="dark">
                 <ChevronUp />
             </ThemeIcon>
         </Flex>

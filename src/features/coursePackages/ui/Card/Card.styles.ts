@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+export default createStyles((_theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -13,14 +13,5 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         margin: "0px !important",
         gap: 16,
-    },
-    description: {
-        color: theme.colors.gray45[0],
-    },
-    countCourses: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
 }));
