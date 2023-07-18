@@ -1,13 +1,13 @@
-import { Box, Divider, Flex, Spoiler as MSpoiler, Text, ThemeIcon } from "@mantine/core";
+import { Box, Divider, Flex, Spoiler as MSpoiler } from "@mantine/core";
 import { ChangeEvent, useRef, useState } from "react";
 import { useEventListener } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray, FormikProps } from "formik";
 import { getPluralString } from "@shared/utils";
-import { Button, Checkbox, Search } from "@shared/ui";
+import { Button, Checkbox, Paragraph, Search } from "@shared/ui";
 import { CourseCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
-import useStyles from "./FilterList.styles";
 import { MAX_HEIGHT_FILTER_CONTENT } from "./constants";
+import useStyles from "./FilterList.styles";
 
 export interface FilterListProps {
     field: "tags" | "subcategoryIds";
@@ -32,32 +32,23 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const showLabel = () => {
         const hiddenCountCourse = data ? data.length - 5 : 0;
         return (
-            <Flex gap={8} onClick={handleChangeOpen}>
-                <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
-                    hiddenCountCourse,
-                    ...labelsPluralString
-                )}`}</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
-                    <ChevronDown />
-                </ThemeIcon>
-            </Flex>
+            <Button variant="text" rightIcon={<ChevronDown />} size="small" onClick={handleChangeOpen}>
+                {`Еще ${hiddenCountCourse} ${getPluralString(hiddenCountCourse, ...labelsPluralString)}`}
+            </Button>
         );
     };
 
     const hideLabel = (
-        <Flex gap={8} onClick={handleChangeOpen}>
-            <Text className={classes.spoilerLabelText}>Свернуть</Text>
-            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
-                <ChevronUp />
-            </ThemeIcon>
-        </Flex>
+        <Button variant="text" rightIcon={<ChevronUp />} size="small" onClick={handleChangeOpen}>
+            Свернуть
+        </Button>
     );
 
     const renderItems = (form: FormikProps<CoursesFiltersForm>) => {
         const foundItems = data?.filter((item) => item.name.includes(searchValue));
 
         if (!foundItems?.length && searchValue) {
-            return <Text className={classes.notFound}>{`По запросу "${searchValue}" ничего не найдено`}</Text>;
+            return <Paragraph variant="text-small-m" color="gray45" pb={16}>{`По запросу "${searchValue}" ничего не найдено`}</Paragraph>;
         }
 
         return foundItems?.map((item) => {
@@ -93,7 +84,9 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                 };
                 return (
                     <Box>
-                        <Text className={classes.filterName}>{filterName}</Text>
+                        <Paragraph variant="text-small-semi" mb={16}>
+                            {filterName}
+                        </Paragraph>
                         <Flex className={classes.filterContainer}>
                             {isOpen && (
                                 <>

@@ -42,3 +42,18 @@ export const adaptCourseFiltersForm = (queryParams: TRouterQueries): Partial<Cou
         hasDiscount: hasDiscount === "true",
     };
 };
+
+export const getCountAppliedQueries = (data: TRouterQueries, initialValues: CoursesFiltersForm): number => {
+    return Object.entries(data).reduce((acc, currentParam) => {
+        if (
+            currentParam[0] === "page" ||
+            currentParam[0] === "categoryId" ||
+            initialValues[currentParam[0] as keyof TRouterQueries].toString() === currentParam[1]
+        ) {
+            return acc;
+        }
+
+        const count = Array.isArray(currentParam[1]) ? currentParam[1].length : 1;
+        return acc + count;
+    }, 0);
+};
