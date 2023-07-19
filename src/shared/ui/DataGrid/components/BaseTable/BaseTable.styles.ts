@@ -81,7 +81,7 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
         backgroundColor: `${theme.colors.light[0]} !important`,
     },
     skeleton: {
-        maxWidth: 100,
+        maxWidth: 48,
         height: 24,
     },
 }));

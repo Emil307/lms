@@ -7,15 +7,21 @@ import { FormErrorResponse } from "@shared/types";
 import {
     AdminLessonFromList,
     GetAdminLessonResponse,
+    GetAdminLessonsResponse,
     lessonApi,
     UpdateLessonActivityRequest,
     UpdateLessonActivityResponse,
 } from "@entities/lesson";
 
+interface ExtraProps {
+    lessonName?: string;
+}
+
 export const useUpdateLessonActivity = ({
     id,
     moduleId,
-}: Omit<UpdateLessonActivityRequest, "isActive">): UseMutationResult<
+    lessonName,
+}: Omit<UpdateLessonActivityRequest, "isActive"> & ExtraProps): UseMutationResult<
     UpdateLessonActivityResponse,
     AxiosError<FormErrorResponse>,
     boolean
@@ -33,6 +39,7 @@ export const useUpdateLessonActivity = ({
                 QueryKeys.GET_ADMIN_MODULE_LESSONS,
                 moduleId,
             ]);
+            const previousLessonListData = queryClient.getQueryData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS]);
 
             queryClient.setQueryData<GetAdminLessonResponse>(
                 [QueryKeys.GET_ADMIN_LESSON, id],
@@ -53,15 +60,22 @@ export const useUpdateLessonActivity = ({
                     };
                 }
             );
+            queryClient.setQueriesData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS], (previousData) => {
+                if (!previousData) {
+                    return undefined;
+                }
+                return {
+                    ...previousData,
+                    data: previousData.data.map((lesson) => (String(lesson.id) === id ? { ...lesson, isActive: updatedStatus } : lesson)),
+                };
+            });
 
-            return { previousLessonData, previousModuleLessonsData };
+            return { previousLessonData, previousModuleLessonsData, previousLessonListData };
         },
         onError: (err, _, context) => {
-            //TODO: Добавить установку кэша для списка всех уроков
-
-            // if (context?.previousCourseModuleData) {
-            //     queryClient.setQueryData([QueryKeys.GET_COURSE_MODULE, courseId, moduleId], context.previousCourseModuleData);
-            // }
+            if (context?.previousLessonListData) {
+                queryClient.setQueryData([QueryKeys.GET_ADMIN_LESSONS], context.previousLessonListData);
+            }
             if (context?.previousLessonData) {
                 queryClient.setQueryData([QueryKeys.GET_ADMIN_LESSON, id], context.previousLessonData);
             }
@@ -73,19 +87,13 @@ export const useUpdateLessonActivity = ({
                 title: "Ошибка изменения статуса",
             });
         },
-        onSuccess: ({ isActive }, _, context) => {
-            //TODO: Добавить получение данных из прошлого кэша для списка всех уроков
-
-            const lesson = context?.previousLessonData;
-            const moduleLesson = context?.previousModuleLessonsData?.pages
-                .find((page) => page.data.find((lesson) => String(lesson.id) === id))
-                ?.data.find((lesson) => String(lesson.id) === id);
+        onSuccess: ({ isActive }) => {
             const statusMessage = isActive ? "активирован" : "деактивирован";
 
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",
-                message: `Урок "${moduleLesson?.name || lesson?.name}" ${statusMessage}.`,
+                message: `Урок "${lessonName}" ${statusMessage}.`,
             });
 
             //TODO: Добавил инвалидэйт деталки урока из-за нужды обновлять LastUpdated

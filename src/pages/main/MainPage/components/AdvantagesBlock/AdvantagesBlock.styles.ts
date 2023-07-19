@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
         textAlign: "center",
 
         [theme.fn.smallerThan("sm")]: {
-            paddingBlock: 16
+            paddingBlock: 16,
         },
     },
 }));

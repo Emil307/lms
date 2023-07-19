@@ -15,3 +15,4 @@ export * from "./Loader";
 export * from "./ContentByTextEditor";
 export * from "./Typography";
 export * from "./CollapsedFiltersBlock";
+export * from "./VideoItem";

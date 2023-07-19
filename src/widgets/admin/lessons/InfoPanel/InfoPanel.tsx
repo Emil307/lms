@@ -12,7 +12,7 @@ interface InfoPanelProps {
 const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: lessonData, isLoading, isError } = useAdminLesson(id);
-    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id });
+    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id, lessonName: lessonData?.name });
 
     if (isLoading) {
         return <Loader />;

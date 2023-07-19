@@ -17,17 +17,16 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         flexDirection: "column",
         borderRadius: 8,
         ...getStylesByStatus({ theme, isError, statusSuccess }),
-        ...(readonly && {
-            pointerEvents: "none",
-        }),
     },
     toolbar: {
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
+        ...(readonly && {
+            pointerEvents: "none",
+        }),
     },
     typographyStylesProvider: {
         flex: 1,
-        marginBottom: 4,
         overflow: "auto",
         fontWeight: 500,
         color: theme.colors.dark[0],
@@ -37,6 +36,10 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         height: "100%",
         overflow: "auto",
         borderRadius: 8,
+
+        ...(readonly && {
+            pointerEvents: "none",
+        }),
 
         ".ProseMirror": {
             height: "100%",
