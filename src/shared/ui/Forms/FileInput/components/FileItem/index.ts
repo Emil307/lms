@@ -1,4 +1,4 @@
 import FileItem from "./FileItem";
-import type { FileItemProps, FileStatus } from "./FileItem";
+import type { FileItemProps } from "./FileItem";
 
-export { FileItem, FileItemProps, FileStatus };
+export { FileItem, FileItemProps };

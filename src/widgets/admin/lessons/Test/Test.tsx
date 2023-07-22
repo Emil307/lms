@@ -18,7 +18,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
 
     const { classes } = useStyles();
 
-    if (isFetching) {
+    if (!isFetching) {
         return <Loader />;
     }
 

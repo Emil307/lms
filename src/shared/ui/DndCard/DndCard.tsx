@@ -1,10 +1,10 @@
 import React, { memo, PropsWithChildren, ReactNode, Ref, useState, MouseEvent } from "react";
 import { CSS } from "@dnd-kit/utilities";
-import { ActionIcon, Box, Collapse, Flex, Text, ThemeIcon } from "@mantine/core";
+import { ActionIcon, Box, Collapse, Flex, ThemeIcon } from "@mantine/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { Eye as EyeIcon } from "react-feather";
 import IconDragDots from "public/icons/dragDots.svg";
-import { Button, Heading } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import useStyles from "./DndCard.styles";
 
 export interface DndCardProps {
@@ -84,7 +84,9 @@ const DndCard = ({
             </Flex>
             <Collapse in={expanded}>
                 <Flex gap={24} direction="column">
-                    <Text className={classes.textContent}>{text}</Text>
+                    <Paragraph variant="small-m" color="gray45" className={classes.textContent}>
+                        {text}
+                    </Paragraph>
                     {children}
                 </Flex>
             </Collapse>

@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { FileStatus } from "./FileItem";
+import { FileStatus } from "@shared/types";
 
 export default createStyles((theme, { status }: { status?: FileStatus }, getRef) => ({
     root: {

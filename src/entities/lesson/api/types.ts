@@ -32,8 +32,13 @@ export type CreateLessonResponse = z.infer<typeof $CreateLessonResponse>;
 export type UpdateLessonFormValues = z.infer<typeof $UpdateLessonFormValues>;
 export type UpdateLessonRequest = z.infer<typeof $UpdateLessonRequest>;
 export type UpdateLessonResponse = z.infer<typeof $UpdateLessonResponse>;
+export type UpdateLessonContentFormValues = z.infer<typeof $UpdateLessonContentFormValues>;
+export type UpdateLessonContentRequest = z.infer<typeof $UpdateLessonContentRequest>;
+export type UpdateLessonContentResponse = z.infer<typeof $UpdateLessonContentResponse>;
 export type UpdateLessonActivityRequest = z.infer<typeof $UpdateLessonActivityRequest>;
 export type UpdateLessonActivityResponse = z.infer<typeof $UpdateLessonActivityResponse>;
+export type UpdateLessonOrderRequest = z.infer<typeof $UpdateLessonOrderRequest>;
+export type UpdateLessonOrderResponse = z.infer<typeof $UpdateLessonOrderResponse>;
 
 export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
 export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
@@ -112,6 +117,21 @@ export const $UpdateLessonRequest = $CreateLessonRequest.extend({
 });
 export const $UpdateLessonResponse = $AdminLesson;
 
+export const $UpdateLessonContentFormValues = z.object({
+    hasContent: z.boolean(),
+    content: z.string(),
+    videos: z.array($UploadedFile),
+});
+
+export const $UpdateLessonContentRequest = z.object({
+    id: z.string(),
+    content: z.string(),
+    videoFileIds: z.array(z.number()),
+});
+export const $UpdateLessonContentResponse = $AdminLesson.omit({
+    lastUpdated: true,
+});
+
 export const $UpdateLessonActivityRequest = z.object({
     id: z.string(),
     moduleId: z.string().optional(),
@@ -127,6 +147,14 @@ export const $AdminSelectLessonsFilters = $AdminLessonsFilters.omit({
 export const $AdminSelectLessonsExtraFilters = z.object({
     moduleIds: z.array(z.string()),
 });
+
+export const $UpdateLessonOrderRequest = z.object({
+    lessonId: z.string(),
+    moduleId: z.string(),
+    after: z.number(),
+});
+
+export const $UpdateLessonOrderResponse = $AdminLessonFromList;
 
 export const $AttachMaterialsToLessonRequest = z.object({
     lessonId: z.string(),

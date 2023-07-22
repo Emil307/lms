@@ -4,8 +4,7 @@ import { FileText, Slash } from "react-feather";
 import { Loader } from "@shared/ui";
 import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
-
-export type FileStatus = "done" | "loading" | "error";
+import { FileStatus } from "@shared/types";
 
 export interface FileItemProps {
     type: "document";

@@ -20,9 +20,8 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         gap: 8,
     },
-    lessonOptionDescription: {
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
+    icon: {
+        minWidth: 24,
+        minHeight: 24,
     },
 }));

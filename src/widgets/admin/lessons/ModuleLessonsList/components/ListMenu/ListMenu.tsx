@@ -17,7 +17,7 @@ export interface ListMenuProps {
 
 const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMenuProps) => {
     const lessonId = String(data.id);
-    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id: lessonId, moduleId });
+    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id: lessonId, moduleId, lessonName: data.name });
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 

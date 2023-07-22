@@ -17,7 +17,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
     const lessonId = String(row.original.id);
 
-    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id: lessonId });
+    const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id: lessonId, lessonName: row.original.name });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

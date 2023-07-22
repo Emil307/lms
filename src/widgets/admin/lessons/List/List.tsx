@@ -34,7 +34,7 @@ const List = () => {
                 columns={columns}
                 countName="Уроков"
                 initialState={{
-                    columnOrder: ["id", "name", "description", "createdAt", "isActive"],
+                    columnOrder: ["id", "name", "description", "createdAt", "isActive", "mrt-row-actions"],
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}>
                 <Flex gap={16} direction="column">

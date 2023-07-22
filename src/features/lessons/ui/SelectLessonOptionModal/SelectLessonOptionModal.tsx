@@ -21,7 +21,7 @@ const SelectLessonOptionModal = ({ onCreate, onSelect }: SelectLessonOptionModal
                         Выбрать
                     </Button>
                 </Flex>
-                <ThemeIcon className={classes.wrapperIcon} variant="outline">
+                <ThemeIcon className={classes.wrapperIcon}>
                     <FoldersIcon />
                 </ThemeIcon>
             </Flex>
@@ -32,7 +32,7 @@ const SelectLessonOptionModal = ({ onCreate, onSelect }: SelectLessonOptionModal
                         Выбрать
                     </Button>
                 </Flex>
-                <ThemeIcon className={classes.wrapperIcon} variant="outline">
+                <ThemeIcon className={classes.wrapperIcon}>
                     <BookIcon />
                 </ThemeIcon>
             </Flex>

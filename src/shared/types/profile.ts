@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $UploadedFile } from "./uploadedFile";
+import { $UploadedFile } from "./file";
 
 export const $Profile = z.object({
     id: z.number(),

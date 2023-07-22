@@ -6,12 +6,15 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
-import { Button, DndCard, Heading, Loader } from "@shared/ui";
-import { AdminLessonFromList, useAdminModuleLessons } from "@entities/lesson";
+import { Button, DndCard, Heading, Loader, Paragraph } from "@shared/ui";
+import { AdminLessonFromList, useAdminModuleLessons, useUpdateLessonOrder } from "@entities/lesson";
 import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
 import { ListMenu } from "./components";
 import { getInitialValues } from "./utils";
 import useStyles from "./ModuleLessonsList.styles";
+import PositivelyIcon from "@public/icons/positively.svg";
+import FalsyIcon from "@public/icons/falsy.svg";
+import { useRouter } from "next/router";
 
 interface ModuleLessonsListProps {
     courseId: string;
@@ -20,8 +23,12 @@ interface ModuleLessonsListProps {
 }
 
 const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsListProps) => {
+    const router = useRouter();
     const { classes } = useStyles();
     const { data: lessonsData, hasNextPage, fetchNextPage, isError } = useAdminModuleLessons(getInitialValues(moduleId));
+
+    const { mutate: updateLessonOrder } = useUpdateLessonOrder({ moduleId });
+
     const [lessons, setLessons] = useState<AdminLessonFromList[] | undefined>(lessonsData?.data);
 
     const { ref: lastElementRef, entry } = useIntersection();
@@ -38,13 +45,12 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
         }
     }, [entry, hasNextPage]);
 
-    const handleGoAdminLessonPage = () => {
-        //TODO: Сделать переход на деталку урока в админке
-        // router.push({ pathname: "/admin/courses/[id]/module/[moduleId]", query: { id: courseId, moduleId: String(moduleId) } })
+    const handleGoAdminLessonPage = (lessonId: number) => {
+        router.push({
+            pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]",
+            query: { id: courseId, moduleId: String(moduleId), lessonId: String(lessonId) },
+        });
     };
-
-    //TODO: Добавить смену порядка уроков, когда будет готов эндпоинт на бэке
-    // const updateLessonOrder = useUpdateLessonOrder();
 
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
@@ -63,7 +69,9 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             title: (
                 <Flex className={classes.lessonOptionHeader}>
                     <Heading order={3}>Добавить урок</Heading>
-                    <Text className={classes.lessonOptionDescription}>Выберите способ добавления урока</Text>
+                    <Paragraph variant="small-m" color="gray45">
+                        Выберите способ добавления урока
+                    </Paragraph>
                 </Flex>
             ),
             centered: true,
@@ -107,11 +115,26 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             const oldIndex = lessons.findIndex(({ id }) => id === active.id);
             const newIndex = lessons.findIndex(({ id }) => id === over?.id);
             const updatedArray = arrayMove(lessons, oldIndex, newIndex);
-
             setLessons(updatedArray);
-            //TODO: Добавить смену порядка модулей, когда будет готов эндпоинт на бэке
-            // updateCourseModuleOrder.mutate({ id: Number(active.id), after: newIndex ? updatedArray[newIndex - 1].id : 0 });
+            updateLessonOrder({ lessonId: String(active.id), after: newIndex ? updatedArray[newIndex - 1].id : 0 });
         }
+    };
+
+    const renderLabelValue = (isTrue: boolean) => {
+        if (isTrue) {
+            return (
+                <>
+                    <Paragraph variant="small-m">Да</Paragraph>
+                    <PositivelyIcon className={classes.icon} />
+                </>
+            );
+        }
+        return (
+            <>
+                <Paragraph variant="small-m">Нет</Paragraph>
+                <FalsyIcon className={classes.icon} />
+            </>
+        );
     };
 
     const renderContent = () => {
@@ -136,11 +159,21 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
                                         lessonNumber={index + 1}
                                     />
                                 }
-                                onOpen={handleGoAdminLessonPage}
+                                onOpen={() => handleGoAdminLessonPage(lesson.id)}
                                 isActive={lesson.isActive}
                                 elementRef={lastElementRef}
-                                key={lesson.id}
-                            />
+                                key={lesson.id}>
+                                <Flex gap={24}>
+                                    <Flex gap={6}>
+                                        <Paragraph variant="small-semi">Проверочный тест:</Paragraph>
+                                        {renderLabelValue(lesson.hasTest)}
+                                    </Flex>
+                                    <Flex gap={6}>
+                                        <Paragraph variant="small-semi">Домашнее задание:</Paragraph>
+                                        {renderLabelValue(lesson.hasHomework)}
+                                    </Flex>
+                                </Flex>
+                            </DndCard>
                         );
                     })}
                 </SortableContext>

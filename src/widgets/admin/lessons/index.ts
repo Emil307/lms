@@ -5,4 +5,5 @@ export * from "./LessonSettings";
 export * from "./Materials";
 export * from "./Test";
 export * from "./UpdateTest";
+export * from "./UpdateLesson";
 export { LessonInfoPanel };

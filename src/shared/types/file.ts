@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type FileStatus = "done" | "loading" | "error";
+
 export type UploadedFile = z.infer<typeof $UploadedFile>;
 
 export const $UploadedFile = z.object({

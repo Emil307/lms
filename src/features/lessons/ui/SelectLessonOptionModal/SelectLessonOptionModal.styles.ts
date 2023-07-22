@@ -20,6 +20,7 @@ export default createStyles((theme) => ({
     wrapperIcon: {
         display: "flex",
         alignItems: "center",
+        alignSelf: "self-start",
         justifyContent: "center",
         minWidth: 64,
         minHeight: 64,

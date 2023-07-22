@@ -29,7 +29,7 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("sm")]: {
             display: "block",
             maxWidth: "calc(100vw - 48px)",
-            marginInline: "auto"
+            marginInline: "auto",
         },
     },
     main: {

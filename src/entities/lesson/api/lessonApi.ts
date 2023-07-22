@@ -23,6 +23,12 @@ import {
     UpdateLessonRequest,
     UpdateLessonResponse,
     DetachMaterialsFromLessonRequest,
+    UpdateLessonOrderRequest,
+    UpdateLessonOrderResponse,
+    $UpdateLessonOrderResponse,
+    $UpdateLessonContentResponse,
+    UpdateLessonContentResponse,
+    UpdateLessonContentRequest,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -46,6 +52,11 @@ class LessonApi extends BaseApi {
         return $UpdateLessonResponse.parse(response);
     }
 
+    async updateLessonContent({ id, ...data }: UpdateLessonContentRequest): Promise<UpdateLessonContentResponse> {
+        const response = await this.instance.put(`admin/lessons/${id}/content`, data);
+        return $UpdateLessonContentResponse.parse(response);
+    }
+
     async updateLessonActivity({ id, isActive }: UpdateLessonActivityRequest): Promise<UpdateLessonActivityResponse> {
         const response = await this.instance.put(`admin/lessons/${id}/activity-status`, { isActive });
         return $UpdateLessonActivityResponse.parse(response);
@@ -53,6 +64,11 @@ class LessonApi extends BaseApi {
 
     async deleteLesson(id: string): Promise<void> {
         await this.instance.delete(`admin/lessons/${id}`);
+    }
+
+    async updateLessonOrder({ lessonId, ...data }: UpdateLessonOrderRequest): Promise<UpdateLessonOrderResponse> {
+        const response = await this.instance.put(`admin/lessons/${lessonId}/order`, data);
+        return $UpdateLessonOrderResponse.parse(response);
     }
 
     async attachMaterialsToLesson({ lessonId, ...data }: AttachMaterialsToLessonRequest): Promise<void> {
