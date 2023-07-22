@@ -31,9 +31,9 @@ export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
 ];
 
 export const radioGroupValues = [
-    { id: "1", label: "Активен", value: "1" },
-    { id: "2", label: "Не активен", value: "0" },
-    { id: "3", label: "Все", value: "" },
+    { id: "1", label: "Все", value: "" },
+    { id: "2", label: "Активен", value: "1" },
+    { id: "3", label: "Не активен", value: "0" },
 ];
 
 export const filterInitialValues: UsersFilters = { isActive: "", query: "", roleName: "" };

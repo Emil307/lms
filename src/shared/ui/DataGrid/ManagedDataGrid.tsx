@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { DataGridResponse, TExtraFiltersProps, TFiltersProps, TFunctionParams, TSelectProps } from "./types";
+import { DataGridResponse, TCollapsedFiltersBlockProps, TExtraFiltersProps, TFiltersProps, TFunctionParams, TSelectProps } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
 import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
 
@@ -11,7 +11,8 @@ type TExtendedProps<T extends Record<string, any>, F, E, K extends FormikValues>
     "data" | "pagination" | "formikConfig" | "isLoading"
 > &
     TFiltersProps<F, K> &
-    TExtraFiltersProps<E>;
+    TExtraFiltersProps<E> &
+    TCollapsedFiltersBlockProps<F>;
 
 export type TManagedDataGridProps<T extends Record<string, any>, F, E, R, K extends FormikValues> = {
     queryFunction: (params: R) => Promise<DataGridResponse<T>>;
@@ -25,7 +26,7 @@ export type TManagedDataGridProps<T extends Record<string, any>, F, E, R, K exte
  * Компонент таблицы с фильтрами.
  * @template T - Тип возвращаемого массива данных.
  * @template F - Тип фильтра Formik.
- * @template Е - Тип object дял передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
+ * @template Е - Тип object для передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
  */
 function ManagedDataGrid<
     T extends Record<string, any>,
@@ -45,6 +46,7 @@ function ManagedDataGrid<
         disableQueryParams = false,
         selectItems,
         onChangeSelect,
+        collapsedFiltersBlockProps,
         ...rest
     } = props;
 
@@ -72,6 +74,12 @@ function ManagedDataGrid<
         enabled: router.isReady,
     });
 
+    const collapsed = {
+        ...collapsedFiltersBlockProps,
+        queryParams: filters?.filterParams,
+        initialValues: filter?.initialValues,
+    };
+
     return (
         <DataGrid<T, K>
             {...rest}
@@ -89,7 +97,8 @@ function ManagedDataGrid<
             enableColumnActions={false}
             getRowId={(row) => row.id}
             manualPagination
-            manualSorting>
+            manualSorting
+            collapsedFiltersBlockProps={collapsed}>
             {children}
         </DataGrid>
     );

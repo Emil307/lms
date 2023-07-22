@@ -19,11 +19,12 @@ function DataGrid<T extends Record<string, any>, F extends FormikValues = Formik
     formRef,
     countName,
     children,
+    collapsedFiltersBlockProps,
     ...rest
 }: TDataGridProps<T, F>) {
     return (
         <>
-            <Filter<F> formikConfig={formikConfig} formRef={formRef}>
+            <Filter<F> formikConfig={formikConfig} formRef={formRef} collapsedFiltersBlockProps={collapsedFiltersBlockProps}>
                 {children}
             </Filter>
             <Flex gap={16} justify="space-between">

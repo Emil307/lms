@@ -2,6 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { FSearch, FSelect, Heading } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -12,10 +13,16 @@ import { ManagedDataGrid } from "@shared/ui";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { UsersListMenu } from "./components";
+import useStyles from "./List.styles";
 
 const UserList = () => {
     const router = useRouter();
+    const { classes } = useStyles();
     const userFilters = useAdminUsersFilters();
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const rolesSelectOption = userFilters.data?.roles.map((item) => {
         return {
@@ -24,12 +31,8 @@ const UserList = () => {
         };
     });
 
-    const pushOnUserDetail = (id: number) => {
-        router.push({ pathname: "/admin/users/[id]", query: { id: String(id) } });
-    };
-
     const handlerClickCell = (cell: MRT_Cell<UserFromList>) => {
-        pushOnUserDetail(cell.row.original.id);
+        router.push({ pathname: "/admin/users/[id]", query: { id: String(cell.row.original.id) } });
     };
 
     const pushOnCreateUser = () => {
@@ -38,9 +41,9 @@ const UserList = () => {
 
     return (
         <Box>
-            <Flex align="center" justify="space-between">
+            <Flex align="center" justify="space-between" gap={16} wrap="wrap">
                 <Heading>Пользователи</Heading>
-                <Button onClick={pushOnCreateUser} variant="secondary" size="large" leftIcon={<PlusCircle />}>
+                <Button onClick={pushOnCreateUser} variant="secondary" size={isTablet ? "medium" : "large"} leftIcon={<PlusCircle />}>
                     Создать пользователя
                 </Button>
             </Flex>
@@ -61,39 +64,47 @@ const UserList = () => {
                     initialState={{
                         columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
                     }}
-                    renderRowActions={({ row }) => <UsersListMenu row={row} />}>
-                    {({ dirty, resetForm }) => (
-                        <Box>
-                            <Flex columnGap={8} rowGap={0}>
-                                <FSearch w={380} size="sm" name="query" placeholder="Поиск" />
-                                <FSelect
-                                    name="roleName"
-                                    size="sm"
-                                    data={rolesSelectOption ?? []}
-                                    clearable
-                                    label="Роль"
-                                    disabled={userFilters.isLoading}
-                                />
-                            </Flex>
-                            <Box mt={16}>
-                                <FRadioGroup name="isActive" defaultValue="">
-                                    {radioGroupValues.map((item) => {
-                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                    })}
+                    renderRowActions={({ row }) => <UsersListMenu row={row} />}
+                    collapsedFiltersBlockProps={{
+                        isCollapsed: isMobile,
+                    }}>
+                    {({ dirty, resetForm, handleSubmit }) => {
+                        const handleResetForm = () => {
+                            resetForm({ values: filterInitialValues });
+                            handleSubmit();
+                        };
+
+                        return (
+                            <Flex className={classes.filterWrapper}>
+                                <Flex className={classes.filterSearchAndRoleSelectContainer}>
+                                    <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
+                                    <FSelect
+                                        name="roleName"
+                                        size="sm"
+                                        data={rolesSelectOption ?? []}
+                                        clearable
+                                        label="Роль"
+                                        disabled={userFilters.isLoading}
+                                    />
+                                </Flex>
+                                <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                    {radioGroupValues.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                    ))}
                                 </FRadioGroup>
-                            </Box>
-                            <Flex gap={16} mt={16}>
-                                <Button w={164} type="submit">
-                                    Найти
-                                </Button>
-                                {dirty && (
-                                    <Button type="button" variant="white" onClick={resetForm} w={164}>
-                                        Cбросить
+                                <Flex gap={16}>
+                                    <Button w={164} type="submit">
+                                        Найти
                                     </Button>
-                                )}
+                                    {dirty && (
+                                        <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                            Cбросить
+                                        </Button>
+                                    )}
+                                </Flex>
                             </Flex>
-                        </Box>
-                    )}
+                        );
+                    }}
                 </ManagedDataGrid>
             </Box>
         </Box>

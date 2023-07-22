@@ -14,3 +14,4 @@ export * from "./DndCard";
 export * from "./Loader";
 export * from "./ContentByTextEditor";
 export * from "./Typography";
+export * from "./CollapsedFiltersBlock";
