@@ -122,16 +122,16 @@ export const defaultTheme: MantineThemeOverride = {
             }),
         },
         Badge: {
-            defaultProps: {
+            defaultProps: (theme) => ({
                 variant: "outline",
-            },
+                color: "dark",
+            }),
             styles: (theme) => ({
                 root: {
                     height: "auto",
                     padding: "6px 10px",
                     borderRadius: 60,
                     border: "none",
-                    backgroundColor: theme.colors.dark[0],
                     fontWeight: 500,
                     fontSize: 12,
                     lineHeight: "16px",

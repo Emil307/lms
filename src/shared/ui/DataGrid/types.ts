@@ -3,6 +3,7 @@ import { FormikConfig, FormikValues } from "formik";
 import { MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import React from "react";
 import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
+import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
 
 export type DataGridResponse<T> = z.infer<ReturnType<typeof $getPaginationResponseType>> & { data: T[] };
 
@@ -30,6 +31,10 @@ export type TFiltersProps<F, K> = F extends FormikValues ? { filter: TFilterTabl
 export type TExtraFiltersProps<E> = E extends Record<string, any> ? { extraFilterParams: E } : { extraFilterParams?: never };
 
 export type TSelectProps = { selectItems?: string[]; onChangeSelect?: (selectedItems: string[]) => void };
+
+export type TCollapsedFiltersBlockProps<F> = {
+    collapsedFiltersBlockProps?: Omit<CollapsedFiltersBlockProps<F>, "queryParams" | "initialValues" | "children">;
+};
 
 export type TCellProps<T extends Record<string, any>> = {
     cell: MRT_Cell<T>;
