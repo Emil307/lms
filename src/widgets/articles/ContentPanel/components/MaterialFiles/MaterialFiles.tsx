@@ -46,7 +46,7 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
                         key={doc.id}
                         fileUrl={doc.absolutePath}
                         fileName={doc.name}
-                        fileSize={doc.size ? getFileSize(doc.size) : ""}
+                        fileSize={doc.size}
                         type="document"
                         onDownloadFile={handleDownloadFile}
                     />

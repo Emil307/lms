@@ -29,6 +29,11 @@ import {
     $UpdateLessonContentResponse,
     UpdateLessonContentResponse,
     UpdateLessonContentRequest,
+    GetAdminHomeworkResponse,
+    $GetAdminHomeworkResponse,
+    UpdateAdminHomeworkRequest,
+    UpdateAdminHomeworkResponse,
+    $UpdateAdminHomeworkResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -87,6 +92,16 @@ class LessonApi extends BaseApi {
     async updateAdminTest({ lessonId, ...data }: UpdateAdminTestRequest): Promise<UpdateAdminTestResponse> {
         const response = await this.instance.put(`admin/lessons/${lessonId}/test`, data);
         return $UpdateAdminTestResponse.parse(response);
+    }
+
+    async getAdminHomework(id: string): Promise<GetAdminHomeworkResponse> {
+        const response = await this.instance.get(`admin/lessons/${id}/homework`);
+        return $GetAdminHomeworkResponse.parse(response);
+    }
+
+    async updateAdminHomework({ id, ...data }: UpdateAdminHomeworkRequest): Promise<UpdateAdminHomeworkResponse> {
+        const response = await this.instance.put(`admin/lessons/${id}/homework`, data);
+        return $UpdateAdminHomeworkResponse.parse(response);
     }
 }
 

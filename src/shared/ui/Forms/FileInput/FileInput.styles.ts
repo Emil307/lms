@@ -17,6 +17,9 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         },
     },
     inner: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         pointerEvents: "all",
         width: "100%",
         height: "100%",

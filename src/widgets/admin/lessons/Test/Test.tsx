@@ -18,7 +18,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
 
     const { classes } = useStyles();
 
-    if (!isFetching) {
+    if (isFetching) {
         return <Loader />;
     }
 
@@ -82,9 +82,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
 
     return (
         <Flex direction="column" gap={32} w="100%">
-            <Flex gap={48} align="center">
-                <Title order={2}>Проверочный тест</Title>
-            </Flex>
+            <Title order={2}>Проверочный тест</Title>
             {renderTopCard()}
             {test && test.tasks.length > 0 && (
                 <Flex gap={16} direction="column">

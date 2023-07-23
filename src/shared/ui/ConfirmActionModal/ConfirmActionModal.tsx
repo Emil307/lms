@@ -14,17 +14,17 @@ const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
 
     return (
         <>
-            <Flex gap={16} pb={32}>
+            <Flex gap={16} pb={56}>
                 <ThemeIcon className={classes.wrapperAlertIcon} radius={50}>
                     <AlertTriangle />
                 </ThemeIcon>
                 <Paragraph variant="small-m">Вы хотите сохранить изменения перед закрытием?</Paragraph>
             </Flex>
             <Flex gap={8}>
-                <Button variant="border" fullWidth onClick={onClose} w="100%">
+                <Button variant="border" size="large" fullWidth onClick={onClose} w="100%">
                     Закрыть
                 </Button>
-                <Button variant="secondary" fullWidth onClick={onSubmit} w="100%">
+                <Button variant="secondary" size="large" fullWidth onClick={onSubmit} w="100%">
                     Сохранить
                 </Button>
             </Flex>

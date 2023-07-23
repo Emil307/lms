@@ -21,6 +21,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/courses/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/courses/[id]", { "id": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]", { "id": string; "moduleId": string }>
+    | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/homework", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/test", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]", { "id": string; "moduleId": string; "lessonId": string }>
@@ -29,6 +30,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | StaticRoute<"/admin/lessons">
+    | DynamicRoute<"/admin/lessons/[lessonId]/edit/homework", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]/edit", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]/edit/test", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]", { "lessonId": string }>
