@@ -1,5 +1,18 @@
 import { UpdateTestFormValues } from "./types";
-import { UpdateAdminTestRequest } from "@entities/lesson";
+import { AdminTest, UpdateAdminTestRequest } from "@entities/lesson";
+
+export const getInitialValues = (test: AdminTest | null): UpdateTestFormValues => {
+    if (!test) {
+        return {
+            correctAnswersCount: 0,
+            tasks: [],
+        };
+    }
+    return {
+        correctAnswersCount: test.correctAnswersCount,
+        tasks: test.tasks,
+    };
+};
 
 export const adaptUpdateTestRequest = (data: UpdateTestFormValues, lessonId: string): UpdateAdminTestRequest => {
     const { correctAnswersCount, tasks } = data;

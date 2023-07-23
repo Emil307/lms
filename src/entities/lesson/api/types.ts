@@ -13,6 +13,8 @@ export type AdminLessonFromList = z.infer<typeof $AdminLessonFromList>;
 export type AdminTest = z.infer<typeof $AdminTest>;
 export type AdminTestQuestion = z.infer<typeof $AdminTestQuestion>;
 export type AdminTestAnswer = z.infer<typeof $AdminTestAnswer>;
+export type AdminHomework = z.infer<typeof $AdminHomework>;
+export type HomeworkRequiredType = z.infer<typeof $HomeworkRequiredType>;
 
 export type AdminLessonsFilters = z.infer<typeof $AdminLessonsFilters>;
 export type AdminSelectLessonsFilters = z.infer<typeof $AdminSelectLessonsFilters>;
@@ -22,9 +24,6 @@ export type GetAdminLessonsRequest = z.infer<typeof $GetAdminLessonsRequest>;
 export type GetAdminLessonsResponse = z.infer<typeof $GetAdminLessonsResponse>;
 export type GetAdminLessonsFromModuleRequest = z.infer<typeof $GetAdminLessonsFromModuleRequest>;
 export type GetAdminLessonResponse = z.infer<typeof $GetAdminLessonResponse>;
-export type GetAdminTestResponse = z.infer<typeof $GetAdminTestResponse>;
-export type UpdateAdminTestRequest = z.infer<typeof $UpdateAdminTestRequest>;
-export type UpdateAdminTestResponse = z.infer<typeof $UpdateAdminTestResponse>;
 
 export type CreateLessonFormValues = z.infer<typeof $CreateLessonFormValues>;
 export type CreateLessonRequest = z.infer<typeof $CreateLessonRequest>;
@@ -39,6 +38,15 @@ export type UpdateLessonActivityRequest = z.infer<typeof $UpdateLessonActivityRe
 export type UpdateLessonActivityResponse = z.infer<typeof $UpdateLessonActivityResponse>;
 export type UpdateLessonOrderRequest = z.infer<typeof $UpdateLessonOrderRequest>;
 export type UpdateLessonOrderResponse = z.infer<typeof $UpdateLessonOrderResponse>;
+
+export type GetAdminTestResponse = z.infer<typeof $GetAdminTestResponse>;
+export type UpdateAdminTestRequest = z.infer<typeof $UpdateAdminTestRequest>;
+export type UpdateAdminTestResponse = z.infer<typeof $UpdateAdminTestResponse>;
+
+export type GetAdminHomeworkResponse = z.infer<typeof $GetAdminHomeworkResponse>;
+export type UpdateAdminHomeworkFormValues = z.infer<typeof $UpdateAdminHomeworkFormValues>;
+export type UpdateAdminHomeworkRequest = z.infer<typeof $UpdateAdminHomeworkRequest>;
+export type UpdateAdminHomeworkResponse = z.infer<typeof $UpdateAdminHomeworkResponse>;
 
 export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
 export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
@@ -199,3 +207,27 @@ export const $UpdateAdminTestRequest = z.object({
 });
 
 export const $UpdateAdminTestResponse = $AdminTest.nullable();
+
+export const $HomeworkRequiredType = z.literal("required").or(z.literal("not_required"));
+
+export const $AdminHomework = z.object({
+    id: z.number(),
+    content: z.string(),
+    requiredType: $HomeworkRequiredType,
+    files: z.array($UploadedFile),
+});
+
+export const $GetAdminHomeworkResponse = $AdminHomework.nullable();
+
+export const $UpdateAdminHomeworkFormValues = $AdminHomework.omit({
+    id: true,
+});
+
+export const $UpdateAdminHomeworkRequest = z.object({
+    id: z.string(),
+    content: z.string(),
+    requiredType: $HomeworkRequiredType,
+    fileIds: z.array(z.number()),
+});
+
+export const $UpdateAdminHomeworkResponse = $AdminHomework;

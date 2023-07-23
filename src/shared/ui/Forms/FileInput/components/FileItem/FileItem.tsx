@@ -1,16 +1,17 @@
 import React, { memo, ReactNode, useMemo } from "react";
-import { Box, Button, Text } from "@mantine/core";
+import { Box, Button, Text, Flex } from "@mantine/core";
 import { FileText, Slash } from "react-feather";
-import { Loader } from "@shared/ui";
+import { Loader, Paragraph } from "@shared/ui";
 import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
 import { FileStatus } from "@shared/types";
+import { getFileSize } from "@shared/utils";
 
 export interface FileItemProps {
     type: "document";
     fileName?: string;
     fileUrl?: string;
-    fileSize: string;
+    fileSize: number;
     status?: FileStatus;
     actionSlot?: ReactNode;
     onDownloadFile?: (fileUrl: string, fileName: string) => void;
@@ -65,12 +66,16 @@ const MemoizedFileItem = memo(function FileItem({
         <Box className={classes.root}>
             <Box className={classes.icon}>{renderIcon}</Box>
             <Box className={classes.content}>
-                <Box className={classes.fileInfo}>
-                    <Text className={classes.fileName} lineClamp={1}>
+                <Flex gap={2} align="center">
+                    <Paragraph variant="text-small-semi" color="dark" lineClamp={1}>
                         {fileName}
-                    </Text>
-                    {fileSize && <Text className={classes.fileSize}>{fileSize}</Text>}
-                </Box>
+                    </Paragraph>
+                    {fileSize && (
+                        <Paragraph variant="text-small-m" color="gray45">
+                            {getFileSize(fileSize)}
+                        </Paragraph>
+                    )}
+                </Flex>
                 {renderAdditionalContent}
             </Box>
             <Box className={classes.actions}>{actionSlot}</Box>

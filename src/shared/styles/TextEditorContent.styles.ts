@@ -5,6 +5,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
     "*": {
         fontFamily: InterFont.style.fontFamily,
         color: theme.colors.dark[0],
+        wordBreak: "break-all",
     },
 
     p: {
@@ -21,7 +22,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             },
         },
 
-        "+ *:not(p, ul)": {
+        "+ *:not(p, ul, a)": {
             marginTop: 48,
         },
     },
@@ -128,6 +129,12 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 border: `2px solid ${theme.colors.secondary[0]}`,
             },
         },
+    },
+
+    img: {
+        maxWidth: "100%",
+        maxHeight: "100%",
+        objectFit: "contain",
     },
 
     table: {

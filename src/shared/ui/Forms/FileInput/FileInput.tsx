@@ -2,7 +2,6 @@ import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, Info } from "react-feather";
-import { getFileSize } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
 import { Paragraph } from "@shared/ui";
 import { FileInputDefault, FileInputLoaded } from "./components";
@@ -212,7 +211,7 @@ const MemoizedFileInput = memo(function FileInput({
                         //TODO: добавить сюда fileUrl для скачивания файла после его успешной загрузки
                         file={file.data}
                         fileName={file.data.name || "Файл"}
-                        fileSize={file.data.size ? getFileSize(file.data.size) : ""}
+                        fileSize={file.data.size}
                         type="document"
                         withDeleteButton={withDeleteButton}
                         educational={educational}

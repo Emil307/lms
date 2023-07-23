@@ -1,4 +1,4 @@
-import { MIME_TYPES } from "@shared/ui";
+import { MIME_TYPES } from "../FileInput";
 import { VideoFormat } from "./types";
 
 export const DEFAULT_VIDEO_MAX_SIZE = 26214400;

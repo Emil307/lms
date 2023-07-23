@@ -10,6 +10,7 @@ import { InfoCard } from "@components/InfoCard";
 import { fields, tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 import { TLessonInfoCard, TQueryParams } from "./types";
+import Homework from "../../../../widgets/admin/lessons/Homework/Homework";
 
 const LessonDetailPage = () => {
     const router = useRouter();
@@ -64,6 +65,16 @@ const LessonDetailPage = () => {
         router.push({ pathname: "/admin/lessons/[lessonId]/edit/test", query: { lessonId } });
     };
 
+    const handleOpenUpdateLessonHomeworkPage = () => {
+        if (courseData && moduleData) {
+            return router.push({
+                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/homework",
+                query: { id, moduleId, lessonId },
+            });
+        }
+        router.push({ pathname: "/admin/lessons/[lessonId]/edit/homework", query: { lessonId } });
+    };
+
     const renderComponent = () => {
         switch (tab) {
             case "settings":
@@ -73,7 +84,7 @@ const LessonDetailPage = () => {
             case "test":
                 return <Test lessonId={lessonId} onUpdate={handleOpenUpdateLessonTestPage} />;
             case "homework":
-                return null;
+                return <Homework lessonId={lessonId} onUpdate={handleOpenUpdateLessonHomeworkPage} />;
             default:
                 return <LessonSettings data={lessonData} moduleName={moduleData?.name} />;
         }

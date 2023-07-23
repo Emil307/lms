@@ -43,24 +43,6 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         flexDirection: "column",
         width: "100%",
     },
-    fileInfo: {
-        display: "flex",
-        width: "100%",
-        gap: 2,
-    },
-    fileName: {
-        // minWidth: 140,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "18px",
-        color: theme.colors.dark[0],
-    },
-    fileSize: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-    },
     buttonDownload: {
         width: "fit-content",
         height: 24,

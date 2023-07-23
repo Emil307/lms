@@ -65,7 +65,7 @@ export default function ManagedForm<F extends FormikValues, R>({
             modalId: "CONFIRM_ACTION",
             title: "Предупреждение",
             centered: true,
-            size: 408,
+            size: 456,
             children: <ConfirmActionModal onSubmit={handleCloseWithSave} onClose={handleCloseWithoutSave} />,
         });
     };

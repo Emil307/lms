@@ -5,11 +5,10 @@ import useStyles from "./UpdateTest.styles";
 import { AdminTest, lessonApi, UpdateAdminTestResponse } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { QuestionList } from "./components";
-import { getInitialValues } from "./constants";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { adaptUpdateTestRequest } from "@widgets/admin/lessons/UpdateTest/utils";
+import { adaptUpdateTestRequest, getInitialValues } from "./utils";
 
 interface UpdateTestProps {
     lessonId: string;

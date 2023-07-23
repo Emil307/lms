@@ -19,14 +19,19 @@ const withSVGR = (nextConfig) => {
 };
 
 const nextConfig = {
-    reactStrictMode: false,
+    reactStrictMode: true,
     experimental: {
         esmExternals: false,
     },
     swcMinify: true,
     images: {
-        loader: "custom",
-    },
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "**",
+            },
+        ],
+    }
 };
 
 module.exports = withRoutes(withSVGR(nextConfig));
