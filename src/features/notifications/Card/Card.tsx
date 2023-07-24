@@ -2,10 +2,10 @@ import { Flex, FlexProps, Text, Indicator } from "@mantine/core";
 import { memo } from "react";
 import { getFullName } from "@shared/utils";
 import { NotificationFromList } from "@entities/notification";
-import { Roles } from "@entities/role";
 import useStyles from "./Card.styles";
 import { getFormatCreatedAt, getNameTypeNotification } from "./utils";
 import { NotificationIcon } from "./components";
+import { Roles } from "@app/routes";
 
 export interface CardProps extends FlexProps {
     data: NotificationFromList;

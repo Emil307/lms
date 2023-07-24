@@ -6,6 +6,8 @@ import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
 import useStyles from "./SidebarItem.styles";
 import { MinimizedModeSidebarContext } from "../../utils";
+import { useSession } from "@features/auth";
+import { isMenuItemDenied } from "@widgets/Navbar/utils";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;
@@ -13,16 +15,16 @@ export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     isActive?: boolean;
     href?: LinkProps["href"];
     inner?: boolean;
-    roles?: string[];
+    roles?: number[];
     isOpenInnerContent?: boolean;
 }
 
 const SidebarItem = forwardRef(function SidebarItem(
-    { icon, label, isActive = false, href, inner = false, roles, isOpenInnerContent = true, ...props }: SidebarItemProps,
+    { icon, label, isActive = false, href, inner = false, roles = [], isOpenInnerContent = true, ...props }: SidebarItemProps,
     ref: ForwardedRef<HTMLDivElement>
 ) {
+    const { user } = useSession();
     const router = useRouter();
-    const role = "USER";
 
     const { classes } = useStyles({ isActive, inner });
 
@@ -49,7 +51,7 @@ const SidebarItem = forwardRef(function SidebarItem(
         return <Box className={classes.inducatorCloseInnerContent} />;
     };
 
-    if (roles && !roles.includes(role)) {
+    if (isMenuItemDenied(roles, user?.roles[0].id)) {
         return null;
     }
 

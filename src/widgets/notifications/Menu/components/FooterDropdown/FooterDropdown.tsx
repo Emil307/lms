@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { useReadAllNotifications } from "@entities/notification";
 import { useSession } from "@features/auth";
-import { Roles } from "@entities/role";
 import useStyles from "./FooterDropdown.styles";
+import { Roles } from "@app/routes";
 
 export interface FooterDropdownProps extends Omit<FlexProps, "children"> {
     hasNewNotifications?: boolean;

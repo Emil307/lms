@@ -8,6 +8,7 @@ import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
 import { MinimizedModeSidebarContext } from "./utils";
+import { Roles } from "@app/routes";
 
 export default function Sidebar() {
     const router = useRouter();
@@ -45,8 +46,10 @@ export default function Sidebar() {
         <MinimizedModeSidebarContext.Provider value={{ isMinimizedModeSidebar, setIsMinimizedModeSidebar }}>
             <Box className={classes.root} ref={sidebarRef}>
                 <Box className={classes.inner}>
+                    {/*TODO: Убрать при релизе*/}
                     <SidebarItem label="UI" isActive={router.pathname.includes("/ui")} icon={<Book />} href="/ui" />
                     <SidebarItem
+                        roles={[Roles.administrator, Roles.manager]}
                         label="Пользователи"
                         isActive={router.pathname.includes("/admin/users")}
                         icon={<User />}
@@ -65,6 +68,7 @@ export default function Sidebar() {
                         href="/admin/groups"
                     />
                     <SidebarItem
+                        roles={[Roles.administrator, Roles.manager]}
                         label="База знаний"
                         isActive={router.pathname.includes("/admin/articles")}
                         icon={<Briefcase />}
@@ -77,6 +81,7 @@ export default function Sidebar() {
                         href="/admin/courses"
                     />
                     <SidebarItem
+                        roles={[Roles.administrator, Roles.manager]}
                         label="Уроки"
                         isActive={router.pathname.includes("/admin/lessons")}
                         icon={<BookOpen />}
@@ -84,12 +89,14 @@ export default function Sidebar() {
                     />
                     {/* //TODO: Аналитика */}
                     <SidebarItem
+                        roles={[Roles.administrator, Roles.manager]}
                         label="Транзакции"
                         isActive={router.pathname.includes("/admin/transactions")}
                         icon={<IconReceipt />}
                         href="/admin/transactions"
                     />
                     <SidebarItem
+                        roles={[Roles.administrator, Roles.manager]}
                         label="Сообщения"
                         isActive={router.pathname.includes("/admin/messages")}
                         icon={<IconMessageDots />}
@@ -97,7 +104,7 @@ export default function Sidebar() {
                     />
 
                     <SidebarItemWithChildren
-                        roles={["ADMIN"]}
+                        roles={[Roles.administrator, Roles.manager]}
                         label="Страницы"
                         isActive={router.pathname.includes("/admin/static-pages")}
                         icon={<Layout />}
@@ -131,7 +138,7 @@ export default function Sidebar() {
                         />
                     </SidebarItemWithChildren>
                     <SidebarItemWithChildren
-                        roles={["ADMIN"]}
+                        roles={[Roles.administrator]}
                         label="Настройки"
                         isActive={router.pathname.includes("/admin/settings")}
                         icon={<Settings />}

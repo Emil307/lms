@@ -112,20 +112,19 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
         return Promise.reject(error);
     }
     const statusCode = error.response?.status;
+
     const isAccessError = statusCode === 403 || statusCode === 404;
     const isUnknownError = statusCode === 500;
     const isAuthError = statusCode === 401;
-    const requestMethod = error.config?.method;
+
     if (isUnknownError) {
         return Promise.reject(error);
     }
-    if (isAccessError && requestMethod === "get") {
+    if (isAccessError) {
         Router.replace("/404");
         return Promise.reject(error);
     }
-    if (isAccessError && requestMethod !== "get") {
-        return Promise.reject(error);
-    }
+    //TODO: Возможно стоит отказаться от условия в силу изменений на бэке
     if (isAuthError && (window.location.pathname.split("/")[1] === "auth" || window.location.pathname === "/")) {
         return Promise.reject(error);
     }
