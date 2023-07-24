@@ -49,16 +49,12 @@ const DndCard = ({
 
     return (
         <Box ref={setNodeRef} style={style} className={classes.root} onClick={toggleOpenedContent}>
-            <Flex align="center" justify="space-between" ref={elementRef}>
+            <Flex align="center" justify="space-between" gap={16} ref={elementRef}>
                 <Flex align="center" gap={16}>
                     <ActionIcon className={classes.actionIcon} {...attributes} {...listeners}>
                         <IconDragDots />
                     </ActionIcon>
-                    {leftIcon && (
-                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
-                            {leftIcon}
-                        </ThemeIcon>
-                    )}
+                    {leftIcon && <ThemeIcon color="primaryHover">{leftIcon}</ThemeIcon>}
                     <Heading className={classes.title} order={3}>
                         {title}
                     </Heading>
@@ -69,11 +65,7 @@ const DndCard = ({
                             Открыть
                         </Button>
                     )}
-                    {rightIcon && (
-                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
-                            {rightIcon}
-                        </ThemeIcon>
-                    )}
+                    {rightIcon && <ThemeIcon color="primaryHover">{rightIcon}</ThemeIcon>}
                     <Box
                         onClick={(event) => {
                             event.stopPropagation();

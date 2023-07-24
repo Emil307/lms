@@ -17,7 +17,7 @@ const UserAgreementPage = () => {
                 <Heading>Публичная оферта</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
-            <UpdatePublicOfferForm mt={24} />
+            <UpdatePublicOfferForm mt={24} mb={8} />
         </Box>
     );
 };

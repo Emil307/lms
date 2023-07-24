@@ -17,7 +17,7 @@ const AboutPage = () => {
                 <Heading>О проекте</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
-            <UpdateAboutForm mt={32} />
+            <UpdateAboutForm mt={32} mb={8} />
         </Box>
     );
 };

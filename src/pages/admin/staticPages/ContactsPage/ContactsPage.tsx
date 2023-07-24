@@ -17,7 +17,7 @@ const ContactsPage = () => {
                 <Heading>Контакты</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
-            <UpdateContactsForm mt={24} />
+            <UpdateContactsForm mt={24} mb={8} />
         </Box>
     );
 };

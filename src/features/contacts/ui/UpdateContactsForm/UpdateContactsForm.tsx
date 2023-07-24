@@ -7,10 +7,12 @@ import { Button, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
+import useStyles from "./UpdateContactsForm.styles";
 
 export interface UpdateContactsFormProps extends BoxProps {}
 
 const UpdateContactsForm = (props: UpdateContactsFormProps) => {
+    const { classes } = useStyles();
     const { data } = useContacts();
 
     const updateContactsPage = (values: UpdateContactsRequest) => {
@@ -34,7 +36,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                 {({ dirty, onCancel }) => (
                     <>
                         <Flex gap={16} align="center">
-                            <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <Clipboard />
                             </ThemeIcon>
                             <Heading order={4}>Заголовок</Heading>
@@ -52,17 +54,17 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             }}
                         />
                         <Flex gap={16} align="center" mt={32}>
-                            <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <AlignLeft />
                             </ThemeIcon>
                             <Heading order={4}>Реквизиты</Heading>
                         </Flex>
-                        <FTextEditor mt={24} name="contactPageRequisites" maw={1162} h={320} />
-                        <Flex gap={8} mt={32}>
-                            <Button variant="border" size="large" onClick={onCancel} disabled={!dirty} w="100%" maw={252}>
+                        <FTextEditor mt={24} name="contactPageRequisites" className={classes.textEditorRequisites} />
+                        <Flex className={classes.actionsContainer}>
+                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
                                 Отменить
                             </Button>
-                            <Button variant="secondary" type="submit" size="large" disabled={!dirty} w="100%" maw={252}>
+                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

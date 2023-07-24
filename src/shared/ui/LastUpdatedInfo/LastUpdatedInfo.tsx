@@ -1,8 +1,10 @@
-import { Flex, Text } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { LastUpdated } from "@shared/types";
+import { getFullName } from "@shared/utils";
 import useStyles from "./LastUpdatedInfo.styles";
+import { Paragraph } from "../Typography";
 
 export interface LastUpdatedInfoProps {
     data?: LastUpdated | null;
@@ -10,12 +12,16 @@ export interface LastUpdatedInfoProps {
 
 const LastUpdatedInfo = ({ data }: LastUpdatedInfoProps) => {
     const { classes } = useStyles();
-    const fio = [data?.user?.profile.firstName, data?.user?.profile.lastName].join(" ");
+    const fio = getFullName({ data: data?.user?.profile, hidePatronymic: true });
 
     return (
         <Flex className={classes.root}>
-            <Text>Изменение:</Text>
-            <Text className={classes.date}>{data?.date ? dayjs(data.date).format("DD.MM.YYYY HH:mm") : "-"}</Text>
+            <Paragraph variant="text-small-m" color="gray45">
+                Изменение:
+            </Paragraph>
+            <Paragraph variant="text-small-m" className={classes.date}>
+                {data?.date ? dayjs(data.date).format("DD.MM.YYYY HH:mm") : "-"}
+            </Paragraph>
             <Link className={classes.userInfo} href={{ pathname: "/admin/users/[id]", query: { id: String(data?.user?.id) } }}>
                 {fio}
             </Link>

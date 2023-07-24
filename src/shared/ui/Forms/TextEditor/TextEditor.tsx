@@ -134,6 +134,14 @@ const MemoizedTextEditor = memo(function TextEditor({
                     <RichTextEditor.ControlsGroup>
                         <TableControls.InsertTable />
                         <TableControls.DeleteTable />
+                    </RichTextEditor.ControlsGroup>
+
+                    <RichTextEditor.ControlsGroup>
+                        <TableControls.ToggleHeaderRow />
+                        <TableControls.ToggleHeaderColumn />
+                    </RichTextEditor.ControlsGroup>
+
+                    <RichTextEditor.ControlsGroup>
                         <TableControls.AddColumnBefore />
                         <TableControls.AddColumnAfter />
                         <TableControls.DeleteColumn />
@@ -142,8 +150,6 @@ const MemoizedTextEditor = memo(function TextEditor({
                         <TableControls.DeleteRow />
                         <TableControls.MergeCells />
                         <TableControls.SplitCell />
-                        <TableControls.ToggleHeaderRow />
-                        <TableControls.ToggleHeaderColumn />
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
 

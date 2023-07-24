@@ -3,14 +3,13 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
 import { useAdminCourse } from "@entities/course";
-import { LessonInfoPanel, LessonSettings, LessonMaterials, Test } from "@widgets/admin/lessons";
+import { LessonInfoPanel, LessonSettings, LessonMaterials, Test, Homework } from "@widgets/admin/lessons";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
 import { InfoCard } from "@components/InfoCard";
 import { fields, tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 import { TLessonInfoCard, TQueryParams } from "./types";
-import Homework from "../../../../widgets/admin/lessons/Homework/Homework";
 
 const LessonDetailPage = () => {
     const router = useRouter();
