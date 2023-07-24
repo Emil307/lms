@@ -13,10 +13,12 @@ import { Button, FTextEditor, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues } from "./constants";
 import { adaptDataForUpdatePublicOfferForm } from "./utils";
+import useStyles from "./UpdatePublicOfferForm.styles";
 
 export interface UpdatePublicOfferFormProps extends BoxProps {}
 
 const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
+    const { classes } = useStyles();
     const { data } = usePublicOffer();
 
     const updatePublicOffer = (values: UpdatePublicOfferRequest) => {
@@ -40,19 +42,19 @@ const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
                 {({ dirty, onCancel }) => (
                     <>
                         <Flex gap={16} align="center">
-                            <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <AlignLeft />
                             </ThemeIcon>
                             <Heading order={4} color="dark">
                                 Текстовая информация
                             </Heading>
                         </Flex>
-                        <FTextEditor mt={24} name="publicOfferContent" maw={1162} h={320} />
-                        <Flex gap={8} mt={32}>
-                            <Button variant="border" size="large" onClick={onCancel} disabled={!dirty} w="100%" maw={252}>
+                        <FTextEditor mt={24} name="publicOfferContent" className={classes.textEditorContent} />
+                        <Flex className={classes.actionsContainer}>
+                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
                                 Отменить
                             </Button>
-                            <Button variant="secondary" type="submit" size="large" disabled={!dirty} w="100%" maw={252}>
+                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

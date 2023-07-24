@@ -18,6 +18,10 @@ export default createStyles((theme, { isActive, expanded }: CreateStylesProps) =
                 ? "0px 16px 32px rgba(2, 6, 46, 0.08)"
                 : "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
         }),
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: 16,
+        },
     },
     title: {
         color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
@@ -29,6 +33,10 @@ export default createStyles((theme, { isActive, expanded }: CreateStylesProps) =
     },
     textContent: {
         marginTop: 32,
+
+        [theme.fn.smallerThan("sm")]: {
+            marginTop: 16,
+        },
     },
     hidden: {
         display: "none",

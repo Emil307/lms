@@ -28,7 +28,8 @@ export default createStyles((theme) => ({
 
         [theme.fn.smallerThan("sm")]: {
             display: "block",
-            maxWidth: "calc(100vw - 48px)",
+            width: "100%",
+            maxWidth: "calc(100vw - 36px)",
             marginInline: "auto",
         },
     },
@@ -41,7 +42,11 @@ export default createStyles((theme) => ({
     },
     wrapperContent: {
         padding: 32,
+        borderRadius: 24,
         backgroundColor: theme.colors.white[0],
-        borderRadius: theme.fn.radius("1.5rem"),
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: 24,
+        },
     },
 }));

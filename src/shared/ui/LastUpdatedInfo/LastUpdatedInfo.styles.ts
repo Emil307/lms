@@ -4,15 +4,19 @@ export default createStyles((theme) => ({
     root: {
         alignItems: "center",
         gap: 8,
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        //TODO: Это не точно!, нужно смотреть как будет реализовано у других сущностей
+        width: "100%",
+        overflowX: "auto",
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
     },
     date: {
-        color: theme.colors.dark[0],
+        whiteSpace: "nowrap",
     },
     userInfo: {
         color: theme.colors.primary[0],
+        whiteSpace: "nowrap",
     },
 }));

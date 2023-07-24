@@ -1,17 +1,17 @@
-import { Box, BoxProps } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Monitor, PlusCircle, Trash } from "react-feather";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, DndCard } from "@shared/ui";
+import { Button, DndCard, Paragraph } from "@shared/ui";
 import { AdminFaqItem, useAdminFaq, useUpdateFaqOrder } from "@entities/staticPage";
 import { CreateFaqForm, DeleteFaqModal, UpdateFaqForm } from "@features/faq";
 import useStyles from "./List.styles";
 import { ListMenu } from "./components";
 
-export interface ListProps extends BoxProps {}
+export interface ListProps extends Omit<FlexProps, "children"> {}
 
 const List = (props: ListProps) => {
     const { classes } = useStyles();
@@ -65,7 +65,12 @@ const List = (props: ListProps) => {
     };
 
     return (
-        <Box {...props} className={classes.root}>
+        <Flex {...props} className={classes.root}>
+            {!faqItems.length && (
+                <Paragraph variant="large" color="gray45" ta="center">
+                    Нет добавленных вопросов.
+                </Paragraph>
+            )}
             <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
                 <SortableContext items={faqItems}>
                     {faqItems.map((item) => {
@@ -97,7 +102,7 @@ const List = (props: ListProps) => {
             <Button className={classes.buttonAddQuestion} leftIcon={<PlusCircle />} variant="white" onClick={handleOpenCreateForm}>
                 Добавить вопрос
             </Button>
-        </Box>
+        </Flex>
     );
 };
 

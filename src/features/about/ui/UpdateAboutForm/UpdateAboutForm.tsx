@@ -8,10 +8,12 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $UpdateAboutValidation, UpdateAboutValidation } from "./types";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateAboutForm } from "./utils";
+import useStyles from "./UpdateAboutForm.styles";
 
 export interface UpdateAboutFormProps extends BoxProps {}
 
 const UpdateAboutForm = (props: UpdateAboutFormProps) => {
+    const { classes } = useStyles();
     const { data } = useAbout();
 
     const updateAboutPage = (values: UpdateAboutValidation) => {
@@ -34,9 +36,15 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                 hasConfirmModal>
                 {({ dirty, onCancel }) => (
                     <>
-                        <FFileInput title="Загрузите файлы" name="image" type="image" withDeleteButton w="100%" maw={1256} h={420} />
+                        <FFileInput
+                            title="Загрузите файлы"
+                            name="image"
+                            type="image"
+                            withDeleteButton
+                            className={classes.imageFileUploader}
+                        />
                         <Flex gap={16} align="center" mt={24}>
-                            <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <Clipboard />
                             </ThemeIcon>
                             <Heading order={4}>Заголовок и описание</Heading>
@@ -44,17 +52,17 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                         <FInput mt={24} label="Заголовок" size="sm" name="aboutPageTitle" maw={772} />
                         <FTextarea name="aboutPageShortContent" mt={8} autosize maw={772} />
                         <Flex gap={16} align="center" mt={32}>
-                            <ThemeIcon size={24} color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <AlignLeft />
                             </ThemeIcon>
                             <Heading order={4}>Общая информация</Heading>
                         </Flex>
-                        <FTextEditor mt={24} name="aboutPageFullContent" maw={1162} h={320} />
-                        <Flex gap={8} mt={32}>
-                            <Button variant="border" size="large" onClick={onCancel} disabled={!dirty} w="100%" maw={252}>
+                        <FTextEditor name="aboutPageFullContent" className={classes.textEditorFullContent} />
+                        <Flex className={classes.actionsContainer}>
+                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
                                 Отменить
                             </Button>
-                            <Button variant="secondary" type="submit" size="large" disabled={!dirty} w="100%" maw={252}>
+                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

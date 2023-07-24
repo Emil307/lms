@@ -1,6 +1,6 @@
-import { Box, BoxProps, Flex, Text } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
-import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { $CreateFaqRequest, AdminFaqItem, CreateFaqRequest, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues } from "./constants";
@@ -41,15 +41,17 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
-                            <Flex align="center" gap={32} mb={24}>
+                            <Flex align="center" wrap="wrap" columnGap={32} rowGap={16} mb={24}>
                                 <Flex gap={8} align="center">
-                                    <Text color="gray45">Статус:</Text>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Статус:
+                                    </Paragraph>
                                     <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                                 </Flex>
                                 <FCheckbox name="isStatic" label="Отображать на главной" />
                             </Flex>
                             <FInput size="sm" name="question" label="Вопрос" />
-                            <FTextarea name="answer" mt={8} placeholder="Ответ на вопрос" />
+                            <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
                             <Flex gap={8} mt={24}>
                                 <Button variant="border" onClick={onCancel}>
                                     Отменить

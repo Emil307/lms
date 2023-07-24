@@ -1,6 +1,6 @@
-import { Box, BoxProps, Flex, Text } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ReactNode } from "react";
-import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { $UpdateFaqRequest, AdminFaqItem, UpdateFaqRequest, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues } from "./constants";
@@ -38,10 +38,12 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
-                            <Flex justify="space-between" mb={24}>
-                                <Flex align="center" gap={32}>
-                                    <Flex gap={8} align="center">
-                                        <Text color="gray45">Статус:</Text>
+                            <Flex justify="space-between" wrap="wrap" columnGap={32} rowGap={24} mb={24}>
+                                <Flex align="center" wrap="wrap" columnGap={32} rowGap={16}>
+                                    <Flex align="center" gap={8}>
+                                        <Paragraph variant="text-small-m" color="gray45">
+                                            Статус:
+                                        </Paragraph>
                                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                                     </Flex>
                                     <FCheckbox name="isStatic" label="Отображать на главной" />
@@ -49,7 +51,7 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                                 {actionSlot}
                             </Flex>
                             <FInput size="sm" name="question" label="Вопрос" />
-                            <FTextarea name="answer" mt={8} placeholder="Ответ на вопрос" />
+                            <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
                             <Flex gap={8} mt={24}>
                                 <Button variant="border" onClick={onCancel}>
                                     Отменить
