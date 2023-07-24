@@ -11,6 +11,7 @@ const Logout = () => {
         if (!router.isReady) return;
         deleteCookie(ECookies.TOKEN);
         deleteCookie(ECookies.TOKEN_TYPE);
+        deleteCookie(ECookies.USER_ROLE);
         queryClient.clear();
         localStorage.clear();
         sessionStorage.clear();

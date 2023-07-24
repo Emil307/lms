@@ -5,31 +5,48 @@ import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpe
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
+import { Roles } from "@app/routes";
 
 export default function SidebarMenu() {
     const router = useRouter();
     return (
         <Box sx={{ paddingRight: 24, position: "relative" }}>
+            {/*TODO: Убрать при релизе*/}
             <SidebarItem label="UI" isActive={router.pathname.includes("/ui")} icon={<Book />} href="/ui" />
-            <SidebarItem label="Пользователи" isActive={router.pathname.includes("/admin/users")} icon={<User />} href="/admin/users" />
+            <SidebarItem
+                roles={[Roles.administrator, Roles.manager]}
+                label="Пользователи"
+                isActive={router.pathname.includes("/admin/users")}
+                icon={<User />}
+                href="/admin/users"
+            />
             <SidebarItem label="Ученики" isActive={router.pathname.includes("/admin/students")} icon={<Users />} href="/admin/students" />
             <SidebarItem label="Группы" isActive={router.pathname.includes("/admin/groups")} icon={<Folder />} href="/admin/groups" />
             <SidebarItem
+                roles={[Roles.administrator, Roles.manager]}
                 label="База знаний"
                 isActive={router.pathname.includes("/admin/articles")}
                 icon={<Briefcase />}
                 href="/admin/articles"
             />
             <SidebarItem label="Курсы" isActive={router.pathname.includes("/admin/courses")} icon={<Layers />} href="/admin/courses" />
-            <SidebarItem label="Уроки" isActive={router.pathname.includes("/admin/lessons")} icon={<BookOpen />} href="/admin/lessons" />
+            <SidebarItem
+                roles={[Roles.administrator, Roles.manager]}
+                label="Уроки"
+                isActive={router.pathname.includes("/admin/lessons")}
+                icon={<BookOpen />}
+                href="/admin/lessons"
+            />
             {/* //TODO: Аналитика */}
             <SidebarItem
+                roles={[Roles.administrator, Roles.manager]}
                 label="Транзакции"
                 isActive={router.pathname.includes("/admin/transactions")}
                 icon={<IconReceipt />}
                 href="/admin/transactions"
             />
             <SidebarItem
+                roles={[Roles.administrator, Roles.manager]}
                 label="Сообщения"
                 isActive={router.pathname.includes("/admin/messages")}
                 icon={<IconMessageDots />}
@@ -37,7 +54,7 @@ export default function SidebarMenu() {
             />
 
             <SidebarItemWithChildren
-                roles={["ADMIN"]}
+                roles={[Roles.administrator, Roles.manager]}
                 label="Страницы"
                 isActive={router.pathname.includes("/admin/static-pages")}
                 icon={<Layout />}>
@@ -68,7 +85,7 @@ export default function SidebarMenu() {
                 />
             </SidebarItemWithChildren>
             <SidebarItemWithChildren
-                roles={["ADMIN"]}
+                roles={[Roles.administrator]}
                 label="Настройки"
                 isActive={router.pathname.includes("/admin/settings")}
                 icon={<Settings />}>

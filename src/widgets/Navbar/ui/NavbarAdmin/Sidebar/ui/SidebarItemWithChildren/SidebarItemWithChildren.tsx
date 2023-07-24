@@ -4,6 +4,8 @@ import { Minus, Plus } from "react-feather";
 import useStyles from "./SidebarItemWithChildren.styles";
 import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
 import { MinimizedModeSidebarContext } from "../../utils";
+import { useSession } from "@features/auth";
+import { isMenuItemDenied } from "@widgets/Navbar/utils";
 
 interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;
@@ -22,11 +24,11 @@ export default function SidebarItemWithChildren({
     itemId,
     setIsOpenSidebarItem,
 }: SidebarItemWithChildrenProps) {
+    const { user } = useSession();
     const lastElementRef = useRef<HTMLDivElement>(null);
 
     const { isMinimizedModeSidebar } = useContext(MinimizedModeSidebarContext);
 
-    const role = "ADMIN";
     const handlerOpen = () => setIsOpenSidebarItem(itemId);
 
     const { classes } = useStyles({ isActive, isMinimizedModeSidebar });
@@ -39,8 +41,7 @@ export default function SidebarItemWithChildren({
         }
     }, [isOpen]);
 
-    //TODO: Это условие пока убрано, вернемся позднее
-    if (!roles.includes(role)) {
+    if (isMenuItemDenied(roles, user?.roles[0].id)) {
         return null;
     }
 

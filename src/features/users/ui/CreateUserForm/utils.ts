@@ -1,6 +1,6 @@
 import { CreateUserRequest } from "@entities/user";
-import { Roles } from "@entities/role";
 import { CreateUserValidationFormRequest } from "./types";
+import { Roles } from "@app/routes";
 
 export const getInitialValuesForm = (userRole: string): CreateUserValidationFormRequest => {
     return {

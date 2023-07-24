@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         position: "sticky",
-        gap: 24,
+        gap: 53,
         top: 0,
         left: 0,
         maxHeight: HEADER_HEIGHT,
@@ -17,6 +17,7 @@ export default createStyles((theme) => ({
 
         [theme.fn.smallerThan("md")]: {
             maxHeight: 82,
+            gap: 16,
             paddingBlock: 12,
             paddingInline: 16,
         },

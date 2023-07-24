@@ -19,6 +19,7 @@ export const useAuthenticateMe = () => {
             onSuccess: (response) => {
                 setCookie(ECookies.TOKEN, response.data.accessToken);
                 setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
+                setCookie(ECookies.USER_ROLE, response.meta.user.roles[0].id);
                 if (router.query.redirect) {
                     const redirectUrl = router.query.redirect as unknown as Route;
                     router.push(redirectUrl);

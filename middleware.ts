@@ -1,41 +1,52 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import {ECookies} from "@app/config/axios/cookies";
+import {authPaths, publicPaths, authPath, logoutPath, isAccessAllowed, isPathIncluded} from "@app/routes";
 
 export function middleware(req: NextRequest) {
     const url = req.nextUrl;
 
-    const token = req.cookies.get("TOKEN")?.value || "";
-
-    const unathPaths = ["/auth", "/auth/forgot-password", "/auth/recovery-password", "/auth/sign-up"];
-    const publicPaths = ["/", "/courses", "/about", "/faq", "/contacts", "/user-agreement"];
-    const disabledRedirectUrls = ["/logout"];
-
-    if (publicPaths.includes(url.pathname)) {
+    if (url.pathname === logoutPath) {
         return NextResponse.next();
     }
 
-    if (token && unathPaths.includes(url.pathname)) {
-        url.pathname = "/";
+    {/*TODO: Убрать при релизе*/}
+    if (url.pathname === "/ui") {
+        return NextResponse.next();
+    }
+
+    const token = req.cookies.get(ECookies.TOKEN)?.value;
+    const userRole = Number(req.cookies.get(ECookies.USER_ROLE)?.value);
+
+    const isUserAuth = token && userRole;
+    const isAuthPage = isPathIncluded(authPaths, url.pathname);
+    const isPublicPage = isPathIncluded(publicPaths, url.pathname);
+
+    const authUserTryToAuthPage = isAuthPage && isUserAuth;
+    const notAuthUserTryToNotPrivatePage = (isAuthPage || isPublicPage) && !isUserAuth;
+    const notAuthUserTryToPrivatePage = !isAuthPage && !isPublicPage && !isUserAuth;
+
+    if (authUserTryToAuthPage) {
+        return NextResponse.redirect(url.origin);
+    }
+
+    if (notAuthUserTryToNotPrivatePage) {
+        return NextResponse.next();
+    }
+
+    if (notAuthUserTryToPrivatePage) {
+        url.search = `redirect=${url.pathname}`;
+        url.pathname = authPath;
         return NextResponse.redirect(url);
     }
 
-    if (token) {
+    const userHasAccessToPage = isAccessAllowed(userRole, url.pathname);
+
+    if (userHasAccessToPage) {
         return NextResponse.next();
     }
 
-    if (!token && unathPaths.includes(url.pathname)) {
-        return NextResponse.next();
-    }
-
-    if (disabledRedirectUrls.includes(req.nextUrl.pathname)) {
-        url.pathname = "/auth";
-        return NextResponse.redirect(url);
-    }
-
-    url.search = `redirect=${req.nextUrl.pathname}`;
-    url.pathname = "/auth";
-
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url.origin);
 }
 
 export const config = {

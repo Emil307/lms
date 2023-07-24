@@ -4,17 +4,19 @@ import { Minus, Plus } from "react-feather";
 import { useToggle } from "@mantine/hooks";
 import useStyles from "./SidebarItemWithChildren.styles";
 import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
+import { useSession } from "@features/auth";
+import { isMenuItemDenied } from "@widgets/Navbar/utils";
 
 interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;
 }
 
 export default function SidebarItemWithChildren({ children, icon, isActive = false, label, roles = [] }: SidebarItemWithChildrenProps) {
+    const { user } = useSession();
     const [isOpen, setIsOpen] = useToggle();
 
     const lastElementRef = useRef<HTMLDivElement>(null);
 
-    const role = "ADMIN";
     const handlerOpen = () => {
         setIsOpen();
     };
@@ -29,10 +31,10 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
         }
     }, [isOpen]);
 
-    //TODO: Это условие пока убрано, вернемся позднее
-    if (!roles.includes(role)) {
+    if (isMenuItemDenied(roles, user?.roles[0].id)) {
         return null;
     }
+
     return (
         <Accordion classNames={classes} chevron={isOpen ? <Minus /> : <Plus />}>
             <Accordion.Item value={label} sx={{ backgroundColor: "transparent", "&[data-active]": { boxShadow: "none" } }}>
