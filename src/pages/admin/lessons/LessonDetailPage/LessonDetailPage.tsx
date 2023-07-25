@@ -7,8 +7,8 @@ import { LessonInfoPanel, LessonSettings, LessonMaterials, Test, Homework } from
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
 import { InfoCard } from "@components/InfoCard";
-import { fields, tabsList } from "./constants";
-import { getBreadCrumbsItems } from "./utils";
+import { fields } from "./constants";
+import { getBreadCrumbsItems, getTabList } from "./utils";
 import { TLessonInfoCard, TQueryParams } from "./types";
 
 const LessonDetailPage = () => {
@@ -21,20 +21,22 @@ const LessonDetailPage = () => {
     const handleChangeTab = (value: string) => {
         if (courseData && moduleData) {
             return router.push({
-                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]",
+                pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]",
                 query: { id, moduleId, lessonId, tab: value },
             });
         }
         router.push({ pathname: "/admin/lessons/[lessonId]", query: { lessonId, tab: value } });
     };
 
+    const tabList = getTabList({ hasTest: lessonData?.hasTest, hasHomework: lessonData?.hasHomework });
+
     const currentTab = useMemo(() => {
         if (!router.isReady) {
             return "";
         }
-        const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
-        return currentTab?.value || tabsList[0].value;
-    }, [router.isReady, tab]);
+        const currentTab = tabList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabList[0].value;
+    }, [router.isReady, tab, tabList]);
 
     if (isErrorCourse || isErrorModule || isErrorLesson) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
@@ -47,7 +49,7 @@ const LessonDetailPage = () => {
     const handleOpenUpdateLessonPage = () => {
         if (courseData && moduleData) {
             return router.push({
-                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit",
+                pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]/edit",
                 query: { id, moduleId, lessonId },
             });
         }
@@ -57,7 +59,7 @@ const LessonDetailPage = () => {
     const handleOpenUpdateLessonTestPage = () => {
         if (courseData && moduleData) {
             return router.push({
-                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/test",
+                pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]/edit/test",
                 query: { id, moduleId, lessonId },
             });
         }
@@ -67,7 +69,7 @@ const LessonDetailPage = () => {
     const handleOpenUpdateLessonHomeworkPage = () => {
         if (courseData && moduleData) {
             return router.push({
-                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]/edit/homework",
+                pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]/edit/homework",
                 query: { id, moduleId, lessonId },
             });
         }
@@ -75,7 +77,7 @@ const LessonDetailPage = () => {
     };
 
     const renderComponent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "settings":
                 return <LessonSettings data={lessonData} moduleName={moduleData?.name} />;
             case "materials":
@@ -103,7 +105,7 @@ const LessonDetailPage = () => {
                 mb={8}
             />
             <LessonInfoPanel id={lessonId} />
-            <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} my={32} />
+            <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} my={32} />
             <Flex gap={56} align="start">
                 <Box maw={1162} w="100%">
                     {renderComponent()}

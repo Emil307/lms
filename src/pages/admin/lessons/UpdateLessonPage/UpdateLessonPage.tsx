@@ -27,7 +27,7 @@ const UpdateLessonPage = () => {
     const onCloseUpdateForm = () => {
         if (courseData && moduleData) {
             return router.push({
-                pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]",
+                pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]",
                 query: { id, moduleId, lessonId },
             });
         }

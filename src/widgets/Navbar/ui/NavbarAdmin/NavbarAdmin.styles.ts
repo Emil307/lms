@@ -9,6 +9,7 @@ export default createStyles((theme) => ({
         paddingBlock: 8,
         border: "none",
         overflowY: "auto",
+        minHeight: "calc(100% - 32px)",
         zIndex: 1,
 
         [theme.fn.smallerThan("lg")]: {

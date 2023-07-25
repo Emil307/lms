@@ -3,6 +3,7 @@ import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { ECookies } from "@app/config/axios/cookies";
 import { queryClient } from "@app/providers";
+import {authPath} from "@app/routes";
 
 const Logout = () => {
     const router = useRouter();
@@ -12,11 +13,16 @@ const Logout = () => {
         deleteCookie(ECookies.TOKEN);
         deleteCookie(ECookies.TOKEN_TYPE);
         deleteCookie(ECookies.USER_ROLE);
-        queryClient.clear();
         localStorage.clear();
         sessionStorage.clear();
 
-        router.push("/auth");
+        // куки удаляются дольше, нежели очистка кэшей React Query, поэтому обернут в SetTimeout,
+        // дабы избежать лишнего запроса на получение данных пользователя при логауте
+        setTimeout(() => {
+            queryClient.clear();
+        })
+
+        router.push({ pathname: authPath, query: router.query});
     }, [router.isReady]);
 
     return null;

@@ -1,6 +1,7 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
 import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
+import { logoutPath } from "@app/routes";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
     Accept: "application/json",
@@ -129,7 +130,7 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
         return Promise.reject(error);
     }
     if (isAuthError) {
-        window.location.href = "/logout";
+        Router.replace(logoutPath);
         return Promise.reject(error);
     }
     return Promise.reject(error);

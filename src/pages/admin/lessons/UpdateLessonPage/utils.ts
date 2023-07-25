@@ -26,10 +26,10 @@ export const getBreadCrumbsItems = ({
     return [
         { title: "Курсы", href: { pathname: "/admin/courses" } },
         { title: courseName, href: { pathname: "/admin/courses/[id]", query: { id: courseId } } },
-        { title: moduleName, href: { pathname: "/admin/courses/[id]/module/[moduleId]", query: { id: courseId, moduleId } } },
+        { title: moduleName, href: { pathname: "/admin/courses/[id]/modules/[moduleId]", query: { id: courseId, moduleId } } },
         {
             title: lessonName,
-            href: { pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]", query: { id: courseId, moduleId, lessonId } },
+            href: { pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]", query: { id: courseId, moduleId, lessonId } },
         },
     ];
 };

@@ -60,7 +60,7 @@ const HeaderUser = ({ ...props }: HeaderUserProps) => {
                                 sx={(theme) => ({
                                     borderRadius: 160,
                                     padding: "8px 16px",
-                                    backgroundColor: router.pathname.startsWith(menuItem.isCheckRoute)
+                                    backgroundColor: router.pathname.startsWith(menuItem.href.pathname)
                                         ? theme.colors.grayLight[0]
                                         : "transparent",
                                 })}

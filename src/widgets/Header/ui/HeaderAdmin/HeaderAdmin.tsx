@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ActionIcon, Avatar, Flex, Header as MHeader, ThemeIcon, MediaQuery } from "@mantine/core";
+import { ActionIcon, Avatar, Flex, Header as MHeader, ThemeIcon, MediaQuery, Skeleton } from "@mantine/core";
 import { AlignLeft, LogOut, Settings, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { Menu as NotificationMenu } from "@widgets/notifications";
 import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import useStyles from "./HeaderAdmin.styles";
+import { logoutPath } from "@app/routes";
 
 const HeaderAdmin = () => {
     const router = useRouter();
@@ -20,8 +21,8 @@ const HeaderAdmin = () => {
 
     const isTablet = useMediaQuery("(max-width: 744px)");
 
-    const handleRedirectProfilePage = () => router.push({ pathname: "/admin/users/[id]", query: { id: String(user?.id) } });
-    const handleRedirectLogout = () => router.push("/logout");
+    const handleRedirectProfilePage = () => router.push("/profile");
+    const handleRedirectLogout = () => router.push(logoutPath);
 
     const handleChangeOpenedSidebar = () => setOpenedSidebar(!openedSidebar);
 
@@ -41,6 +42,38 @@ const HeaderAdmin = () => {
         );
     };
 
+    const renderUserInfo = () => {
+        if (!user) {
+            return <Skeleton visible={true} w={50} h={50} radius={20} />;
+        }
+
+        return (
+            <Flex align="center" gap={16}>
+                <Avatar
+                    src={user.profile.avatar?.absolutePath}
+                    alt="avatar"
+                    w={50}
+                    h={50}
+                    radius={160}
+                    styles={(theme) => ({
+                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
+                    })}>
+                    <ThemeIcon className={classes.avatarDefaultIconWrapper}>
+                        <AvatarIcon />
+                    </ThemeIcon>
+                </Avatar>
+                <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                    <Flex direction="column">
+                        <Paragraph variant="small-m">{`${user.profile.firstName} ${user.profile.lastName}`}</Paragraph>
+                        <Paragraph variant="text-caption" color="gray45">
+                            {user.roles[0].displayName}
+                        </Paragraph>
+                    </Flex>
+                </MediaQuery>
+            </Flex>
+        );
+    };
+
     return (
         <MHeader classNames={classes} height="auto">
             <Link href="/" className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
@@ -55,29 +88,7 @@ const HeaderAdmin = () => {
                 <NotificationMenu position={isTablet ? "bottom-end" : "bottom-start"} />
 
                 <Flex align="center" gap={32}>
-                    <Flex align="center" gap={16}>
-                        <Avatar
-                            src={user?.profile.avatar?.absolutePath}
-                            alt="avatar"
-                            w={50}
-                            h={50}
-                            radius={160}
-                            styles={(theme) => ({
-                                placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                            })}>
-                            <ThemeIcon className={classes.avatarDefaultIconWrapper}>
-                                <AvatarIcon />
-                            </ThemeIcon>
-                        </Avatar>
-                        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-                            <Flex direction="column">
-                                <Paragraph variant="small-m">{`${user?.profile.firstName} ${user?.profile.lastName}`}</Paragraph>
-                                <Paragraph variant="text-caption" color="gray45">
-                                    {user?.roles[0].displayName}
-                                </Paragraph>
-                            </Flex>
-                        </MediaQuery>
-                    </Flex>
+                    {renderUserInfo()}
 
                     <Flex className={classes.containerButtonLinks}>
                         <ActionIcon className={classes.buttonIcon} onClick={handleRedirectProfilePage}>
