@@ -1,5 +1,5 @@
-import { managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
 import { Roles } from "./roles";
+import { managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
 
 export const isCorrectPath = (regex: string, newUrlPath: string) => new RegExp(`^${regex}`).test(newUrlPath);
 

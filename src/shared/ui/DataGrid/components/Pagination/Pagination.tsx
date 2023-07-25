@@ -1,6 +1,7 @@
 import React from "react";
 import { MRT_TableInstance } from "mantine-react-table";
-import { Pagination as MPagination, Flex, NativeSelect, Box, Text } from "@mantine/core";
+import { Pagination as MPagination, Flex, NativeSelect, Box, Text, ThemeIcon } from "@mantine/core";
+import { ChevronDown } from "react-feather";
 import { TPagination } from "@shared/types";
 import { usePaginationStyles } from "./Pagination.styles";
 import { useTablePagination } from "../../utils";
@@ -47,6 +48,11 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
                 data={perPageOptions}
                 value={pageSize.toString()}
                 onChange={handleChangePerPage}
+                rightSection={
+                    <ThemeIcon color="gray45" w={16} h={16}>
+                        <ChevronDown />
+                    </ThemeIcon>
+                }
             />
         </Flex>
     );

@@ -1,37 +1,45 @@
-import { Box, Flex } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Checkbox, Heading, LastUpdatedInfo, Switch } from "@shared/ui";
-import { useDetailUser, useUpdateUserActivity } from "@entities/user";
+import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
+import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
-export interface InfoPanelProps {
+export interface InfoPanelProps extends BoxProps {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
-    const { data } = useDetailUser(id);
+    const { data } = useDetailsUser(id);
     const { user: authUser } = useSession();
-    const { mutate: updateActivityStatus } = useUpdateUserActivity(id);
+
+    const fio = getFullName({ data: data?.profile });
+    const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio });
 
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
-        <Box>
-            <Heading mt={8}>{getFullName({ data: data?.profile })}</Heading>
-            <Flex mt={24} gap={32} align="center">
-                <Box className={classes.infoItem}>
-                    ID: <span>{data?.id}</span>
-                </Box>
+        <Box {...props}>
+            <Heading mb={24}>{fio}</Heading>
+            <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>
-                    Статус:
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                </Flex>
+                <Flex align="center" gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         variant="secondary"
                         label={labelActivitySwitch}
@@ -43,9 +51,14 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 </Flex>
                 {/* TODO: - нужен функционал от бэка */}
                 <Checkbox label="Отображать на главной" />
-                <Box className={classes.infoItem}>
-                    Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                </Box>
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Последний вход:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">
+                        {data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}
+                    </Paragraph>
+                </Flex>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
         </Box>

@@ -1,8 +1,8 @@
-import { useUploadFile } from "@entities/storage";
 import { ActionIcon } from "@mantine/core";
 import React, { useEffect, useMemo } from "react";
-import { isFile, VideoItem } from "@shared/ui";
 import { Edit3 as EditIcon, Trash2 as TrashIcon } from "react-feather";
+import { isFile, VideoItem } from "@shared/ui";
+import { useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
 import useStyles from "./VideoLoaded.styles";
 

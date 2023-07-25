@@ -1,8 +1,8 @@
-import useStyles from "./DeleteQuestionModal.styles";
 import { Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
 import React from "react";
+import { Button, Paragraph } from "@shared/ui";
+import useStyles from "./DeleteQuestionModal.styles";
 
 interface DeleteQuestionModalProps {
     questionName: string;

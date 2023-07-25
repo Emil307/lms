@@ -1,5 +1,5 @@
-import { MIME_TYPES } from "../FileInput";
 import { VideoFormat } from "./types";
+import { MIME_TYPES } from "../FileInput";
 
 export const DEFAULT_VIDEO_MAX_SIZE = 26214400;
 

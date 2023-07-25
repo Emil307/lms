@@ -1,4 +1,4 @@
-import { Box, ThemeIcon, useMantineTheme } from "@mantine/core";
+import { Divider, ThemeIcon } from "@mantine/core";
 import { MRT_Row } from "mantine-react-table";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
@@ -13,12 +13,13 @@ interface ListMenuProps {
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {
-    const theme = useMantineTheme();
-    const { mutate: updateActivityStatus } = useUpdateUserActivity(String(row.original.id));
+    const userFullName = getFullName({ data: row.original.profile });
+    const { mutate: updateActivityStatus } = useUpdateUserActivity({ id: String(row.original.id), fio: userFullName });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const openModalDeleteUser = (id: string, fio: string) => {
         openModal({
@@ -40,12 +41,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                     onChange={handleChangeActiveStatus}
                 />
             </MenuItemDataGrid>
-            <Box
-                sx={{
-                    height: 1,
-                    backgroundColor: theme.colors.light[0],
-                    margin: "0 12px",
-                }}></Box>
+            <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Eye />
@@ -58,7 +54,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), getFullName({ data: row.original.profile }))}>
+            <MenuItemDataGrid onClick={() => openModalDeleteUser(String(row.original.id), userFullName)}>
                 <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
                     <Trash />
                 </ThemeIcon>

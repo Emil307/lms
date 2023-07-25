@@ -1,16 +1,16 @@
 import { ActionIcon, Flex, useMantineTheme } from "@mantine/core";
-import IconDragDots from "@public/icons/dragDots.svg";
-import { FInput } from "@shared/ui";
 import React, { memo } from "react";
-import useStyles from "../../UpdateTest.styles";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { TestAnswer } from "./types";
-import { getAnswerLetter } from "./utils";
-import MarkCheckCircleBoldIcon from "@public/icons/mark-check-circle-bold.svg";
 import { X as CloseIcon } from "react-feather";
 import { FastField, FormikHelpers } from "formik";
 import { FastFieldProps } from "formik/dist/FastField";
+import MarkCheckCircleBoldIcon from "@public/icons/mark-check-circle-bold.svg";
+import { FInput } from "@shared/ui";
+import IconDragDots from "@public/icons/dragDots.svg";
+import { getAnswerLetter } from "./utils";
+import { TestAnswer } from "./types";
+import useStyles from "../../UpdateTest.styles";
 import { UpdateTestFormValues } from "../../types";
 
 interface AnswerProps {

@@ -17,7 +17,16 @@ const Menu = (props: MenuProps) => {
     const handleCloseMenu = () => setOpened(false);
 
     return (
-        <MMenu {...props} width={407} opened={opened} onChange={setOpened}>
+        <MMenu
+            {...props}
+            width="100%"
+            styles={{
+                dropdown: {
+                    maxWidth: 407,
+                },
+            }}
+            opened={opened}
+            onChange={setOpened}>
             <MMenu.Target>
                 <Box className={classes.rootTarget}>
                     <Indicator className={classes.indicator} color="done" disabled={!newNotificationsData?.hasNew}>

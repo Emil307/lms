@@ -5,7 +5,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
-import { useDetailUser } from "@entities/user";
+import { useDetailsUser } from "@entities/user";
 import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
 import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
@@ -19,7 +19,7 @@ interface StudentSettingsProps {
 const StudentSettings = ({ id }: StudentSettingsProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
-    const { data } = useDetailUser(id);
+    const { data } = useDetailsUser(id);
 
     const dataProfile = {
         fio: getFullName({ data: data?.profile }),

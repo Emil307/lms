@@ -21,9 +21,10 @@ const MemoizedFieldset = memo(function Fieldset({
     extraElement,
     children,
     legendProps,
+    className,
     ...props
 }: FieldsetProps) {
-    const { classes } = useStyles({ isOpen });
+    const { classes, cx } = useStyles({ isOpen });
 
     const renderRows = useMemo(() => {
         if (Array.isArray(children)) {
@@ -44,7 +45,7 @@ const MemoizedFieldset = memo(function Fieldset({
     }, [children]);
 
     return (
-        <Box {...props} component="fieldset" className={classes.fieldset}>
+        <Box {...props} component="fieldset" className={cx(classes.fieldset, className)}>
             <Box {...legendProps} component="legend" className={classes.legend}>
                 {icon}
                 <Heading order={4}>{label}</Heading>

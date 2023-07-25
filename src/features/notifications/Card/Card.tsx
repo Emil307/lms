@@ -1,11 +1,12 @@
-import { Flex, FlexProps, Text, Indicator } from "@mantine/core";
+import { Flex, FlexProps, Indicator } from "@mantine/core";
 import { memo } from "react";
 import { getFullName } from "@shared/utils";
 import { NotificationFromList } from "@entities/notification";
+import { Paragraph } from "@shared/ui";
+import { Roles } from "@app/routes";
 import useStyles from "./Card.styles";
 import { getFormatCreatedAt, getNameTypeNotification } from "./utils";
 import { NotificationIcon } from "./components";
-import { Roles } from "@app/routes";
 
 export interface CardProps extends FlexProps {
     data: NotificationFromList;
@@ -17,19 +18,19 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
     const renderSenderInfo = () => {
         if (data.type === "supportMessage" && data.sender.roles[0].id === Roles.administrator) {
             return (
-                <Text className={classes.senderFullName} lineClamp={1}>
+                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
                     Администрация
-                </Text>
+                </Paragraph>
             );
         }
         return (
             <Flex gap={8}>
-                <Text className={classes.senderFullName} lineClamp={1}>
+                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
                     {getFullName({ data: data.sender.profile })}
-                </Text>
-                <Text className={classes.roleName} lineClamp={1}>
+                </Paragraph>
+                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
                     {data.sender.roles[0].displayName}
-                </Text>
+                </Paragraph>
             </Flex>
         );
     };
@@ -41,8 +42,10 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                     <NotificationIcon data={data} />
                     <Flex direction="column" sx={{ flex: 1 }}>
                         <Flex justify="space-between">
-                            <Text className={classes.notificationType}>{getNameTypeNotification(data.type)}</Text>
-                            <Text className={classes.createdAtNotification}>{getFormatCreatedAt(data.createdAt)}</Text>
+                            <Paragraph variant="text-small-m">{getNameTypeNotification(data.type)}</Paragraph>
+                            <Paragraph variant="text-caption" className={classes.createdAtNotification}>
+                                {getFormatCreatedAt(data.createdAt)}
+                            </Paragraph>
                         </Flex>
                         {renderSenderInfo()}
                     </Flex>

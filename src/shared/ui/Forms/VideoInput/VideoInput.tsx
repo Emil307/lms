@@ -1,10 +1,10 @@
 import { Box, Flex, Text } from "@mantine/core";
-import { UploadedFile } from "@shared/types";
-import useStyles from "./VideoInput.styles";
-import { getPluralString } from "@shared/utils";
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Button, Heading, isFile, LoadedFile, Paragraph, VideoLoaded } from "@shared/ui";
 import { Plus as PlusIcon } from "react-feather";
+import { UploadedFile } from "@shared/types";
+import { getPluralString } from "@shared/utils";
+import { Button, Heading, isFile, LoadedFile, Paragraph, VideoLoaded } from "@shared/ui";
+import useStyles from "./VideoInput.styles";
 import { isCorrectVideoFormat } from "./utils";
 import { DEFAULT_VIDEO_MAX_SIZE, VIDEO_FORMATS } from "./constants";
 

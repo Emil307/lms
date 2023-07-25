@@ -19,19 +19,21 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     const { user } = useSession();
 
     const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
+    const userFullname = getFullName({ data: row.original.profile });
 
-    const { mutate: updateActivityStatus } = useUpdateUserActivity(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateUserActivity({ id: String(row.original.id), fio: userFullname });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const openModalDeleteUser = () => {
         openModal({
             modalId: `${row.original.id}`,
             title: "Удаление пользователя",
             centered: true,
-            children: <UserDeleteModal id={String(row.original.id)} fio={getFullName({ data: row.original.profile })} />,
+            children: <UserDeleteModal id={String(row.original.id)} fio={userFullname} />,
         });
     };
 

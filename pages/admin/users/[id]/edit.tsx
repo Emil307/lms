@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { UpdateUserPage } from "@pages/admin/users";
 
-const EditUser: NextPageWithLayout = () => {
+const UpdateUser: NextPageWithLayout = () => {
     return (
         <AdminPage title="Редактирование пользователя">
             <UpdateUserPage />
@@ -13,8 +13,8 @@ const EditUser: NextPageWithLayout = () => {
     );
 };
 
-EditUser.getLayout = function (page: ReactElement) {
+UpdateUser.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default EditUser;
+export default UpdateUser;

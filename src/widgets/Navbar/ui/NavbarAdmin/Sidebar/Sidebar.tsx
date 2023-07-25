@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { useClickOutside, useMediaQuery } from "@mantine/hooks";
+import { Roles } from "@app/routes";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
 import { MinimizedModeSidebarContext } from "./utils";
-import { Roles } from "@app/routes";
 
 export default function Sidebar() {
     const router = useRouter();

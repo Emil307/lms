@@ -5,9 +5,9 @@ import { LinkProps } from "next/link";
 import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
-import useStyles from "./SidebarItemStyles";
 import { useSession } from "@features/auth";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
+import useStyles from "./SidebarItemStyles";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;

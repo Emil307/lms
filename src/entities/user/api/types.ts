@@ -25,6 +25,7 @@ export type GetAdminStudentsFiltersResponse = z.infer<typeof $GetAdminStudentsFi
 export type UpdateUserRequest = z.infer<typeof $UpdateUserRequest>;
 export type CreateUserRequest = z.infer<typeof $CreateUserRequest>;
 export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityRequest>;
+export type UpdateUserActivityResponse = z.infer<typeof $UpdateUserActivityResponse>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
 
 //static users
@@ -111,6 +112,10 @@ export const $UpdateUserRequest = z.object({
 
 export const $UpdateUserActivityRequest = z.object({
     id: z.string(),
+    isActive: z.boolean(),
+});
+
+export const $UpdateUserActivityResponse = z.object({
     isActive: z.boolean(),
 });
 

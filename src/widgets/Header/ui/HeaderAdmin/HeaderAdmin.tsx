@@ -3,6 +3,7 @@ import { ActionIcon, Avatar, Flex, Header as MHeader, ThemeIcon, MediaQuery } fr
 import { AlignLeft, LogOut, Settings, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useMediaQuery } from "@mantine/hooks";
 import AvatarIcon from "public/icons/avatar.svg";
 import { useSession } from "@features/auth";
 import { Logo } from "@components/Logo";
@@ -16,6 +17,8 @@ const HeaderAdmin = () => {
     const { classes } = useStyles();
     const { user } = useSession();
     const { openedSidebar, setOpenedSidebar } = useContext(AdminSidebarMenuContext);
+
+    const isTablet = useMediaQuery("(max-width: 744px)");
 
     const handleRedirectProfilePage = () => router.push({ pathname: "/admin/users/[id]", query: { id: String(user?.id) } });
     const handleRedirectLogout = () => router.push("/logout");
@@ -49,7 +52,7 @@ const HeaderAdmin = () => {
                 />
             </Link>
             <Flex className={classes.wrapperRightMenu}>
-                <NotificationMenu position="bottom-start" />
+                <NotificationMenu position={isTablet ? "bottom-end" : "bottom-start"} />
 
                 <Flex align="center" gap={32}>
                     <Flex align="center" gap={16}>

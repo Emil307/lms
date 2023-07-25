@@ -1,16 +1,16 @@
-import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
-import useStyles from "./UpdateLesson.styles";
 import { closeModal, openModal } from "@mantine/modals";
+import { Box, Collapse, Flex } from "@mantine/core";
+import { Edit3 as EditIcon } from "react-feather";
+import React from "react";
 import { UpdateLessonModal } from "@features/lessons";
 import { Button, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
-import { Box, Collapse, Flex } from "@mantine/core";
-import { Edit3 as EditIcon } from "react-feather";
-import React from "react";
+import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptDataForUpdateLessonContentRequest, getInitialValues } from "@widgets/admin/lessons/UpdateLesson/utils";
 import { createNotification, ToastType } from "@shared/utils";
+import useStyles from "./UpdateLesson.styles";
 
 interface UpdateLessonProps {
     data: AdminLesson;
