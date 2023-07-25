@@ -1,7 +1,8 @@
-import { Box, Flex, FlexProps, Loader, ScrollArea, Text } from "@mantine/core";
+import { Box, Flex, FlexProps, Loader, ScrollArea } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useMemo } from "react";
 import { AdminSupportConversationFromList, useAdminSupportConversations } from "@entities/support";
+import { Paragraph } from "@shared/ui";
 import { ChatItem } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./ChatList.styles";
@@ -54,8 +55,12 @@ const ChatList = ({
 
         return (
             <Box px={8}>
-                <Text className={classes.nothingFoundTitle}>Список диалогов пуст</Text>
-                <Text className={classes.nothingFoundDescription}>Воспользуйтесь поиском для добавления диалога</Text>
+                <Paragraph variant="small-m" color="dark">
+                    Список диалогов пуст
+                </Paragraph>
+                <Paragraph variant="text-caption" color="gray45">
+                    Воспользуйтесь поиском для добавления диалога
+                </Paragraph>
             </Box>
         );
     };
@@ -75,7 +80,7 @@ const ChatList = ({
 
     return (
         <Flex className={classes.root} {...props}>
-            <ScrollArea.Autosize maxHeight={maxHeightContainer} style={{ paddingRight: 8 }} type="auto" offsetScrollbars scrollbarSize={4}>
+            <ScrollArea.Autosize maxHeight={maxHeightContainer} style={{ paddingRight: 4 }} type="auto" scrollbarSize={4}>
                 {renderNothingFound()}
                 {renderItems}
                 {(isLoading || isFetching || isRefetching) && <Loader w="100%" />}

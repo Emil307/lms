@@ -6,14 +6,13 @@ export default createStyles((theme) => ({
         paddingTop: 24,
         paddingBottom: 32,
         gap: 32,
+
+        [theme.fn.smallerThan("md")]: {
+            paddingTop: 8,
+            paddingBottom: 16,
+        },
     },
     divider: {
         flex: 1,
-    },
-    dateInfo: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
 }));

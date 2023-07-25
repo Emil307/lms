@@ -1,8 +1,9 @@
-import { Avatar, Flex, FlexProps, ThemeIcon, Text, Indicator } from "@mantine/core";
+import { Avatar, Flex, FlexProps, ThemeIcon, Indicator } from "@mantine/core";
 import { memo } from "react";
 import { AdminSupportConversationFromList } from "@entities/support";
 import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./ChatItem.styles";
 import { getFormatCreatedAt } from "./utils";
 
@@ -31,21 +32,23 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
                         styles={(theme) => ({
                             placeholder: { backgroundColor: theme.colors.grayLight[0] },
                         })}>
-                        <ThemeIcon variant="outline" className={classes.avatarDefaultIconWrapper}>
+                        <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>
                     </Avatar>
                     <Flex className={classes.userInfo}>
-                        <Text className={classes.userFullName} lineClamp={1}>
+                        <Paragraph variant="text-small-m" className={classes.userFullName} lineClamp={1}>
                             {getFullName({ data: data.profile })}
-                        </Text>
-                        <Text className={classes.createdAtLastMessage}>{getFormatCreatedAt(data.lastSupportMessage.createdAt)}</Text>
+                        </Paragraph>
+                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
+                            {getFormatCreatedAt(data.lastSupportMessage.createdAt)}
+                        </Paragraph>
                     </Flex>
                 </Flex>
 
-                <Text className={classes.lastMesssageContent} lineClamp={1}>
+                <Paragraph variant="text-caption" className={classes.lastMesssageContent} lineClamp={1}>
                     {data.lastSupportMessage.message}
-                </Text>
+                </Paragraph>
             </Flex>
         </Indicator>
     );

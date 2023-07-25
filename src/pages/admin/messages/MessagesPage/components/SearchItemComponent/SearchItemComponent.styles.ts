@@ -18,12 +18,8 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
         },
     },
     avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
         svg: {
-            transform: "scale(0.65)",
+            transform: "scale(0.4)",
         },
     },
 }));

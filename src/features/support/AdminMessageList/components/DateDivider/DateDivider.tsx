@@ -1,4 +1,5 @@
-import { Flex, Text, Divider } from "@mantine/core";
+import { Flex, Divider } from "@mantine/core";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./DateDivider.styles";
 import { getFormatCreatedAt } from "./utils";
 
@@ -12,7 +13,9 @@ const DateDivider = ({ date }: DateDividerProps) => {
     return (
         <Flex className={classes.root}>
             <Divider className={classes.divider} size={1} color="grayLight" />
-            <Text className={classes.dateInfo}>{getFormatCreatedAt(date)}</Text>
+            <Paragraph variant="text-small-m" color="gray45">
+                {getFormatCreatedAt(date)}
+            </Paragraph>
             <Divider className={classes.divider} size={1} color="grayLight" />
         </Flex>
     );
