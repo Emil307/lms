@@ -27,7 +27,7 @@ const SearchItemComponent = ({ data, isSelected, onClick = () => undefined }: Se
                 miw={32}
                 radius={160}
                 styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                <ThemeIcon variant="outline" className={classes.avatarDefaultIconWrapper}>
+                <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                     <AvatarIcon />
                 </ThemeIcon>
             </Avatar>

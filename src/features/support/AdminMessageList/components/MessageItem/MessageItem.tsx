@@ -1,8 +1,9 @@
-import { Avatar, Flex, FlexProps, ThemeIcon, Text } from "@mantine/core";
+import { Avatar, Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
 import { AdminSupportMessageFromList } from "@entities/support";
 import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./MessageItem.styles";
 import { getFormatCreatedAt } from "./utils";
 
@@ -26,19 +27,20 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                     styles={(theme) => ({
                         placeholder: { backgroundColor: theme.colors.grayLight[0] },
                     })}>
-                    <ThemeIcon variant="outline" className={classes.avatarDefaultIconWrapper}>
+                    <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>
                 </Avatar>
                 <Flex className={classes.userInfo}>
-                    <Text className={classes.userFullName} lineClamp={1}>
+                    <Paragraph variant="small-semi" lineClamp={1}>
                         {getFullName({ data: data.user.profile })}
-                    </Text>
-                    <Text className={classes.createdAtLastMessage}>{getFormatCreatedAt(data.createdAt)}</Text>
+                    </Paragraph>
+                    <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
+                        {getFormatCreatedAt(data.createdAt)}
+                    </Paragraph>
                 </Flex>
             </Flex>
-
-            <Text className={classes.messageContent}>{data.message}</Text>
+            <Paragraph variant="text-small-m">{data.message}</Paragraph>
         </Flex>
     );
 });

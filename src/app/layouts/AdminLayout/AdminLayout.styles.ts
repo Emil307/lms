@@ -20,6 +20,7 @@ export default createStyles((theme) => ({
         display: "grid",
         gridTemplateColumns: "280px calc(100% - 280px)",
         height: "100%",
+        width: "100%",
         maxWidth: "calc(100vw - 24px)",
 
         [theme.fn.smallerThan("lg")]: {

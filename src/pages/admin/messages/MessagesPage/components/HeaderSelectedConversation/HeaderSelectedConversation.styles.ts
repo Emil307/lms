@@ -3,11 +3,14 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         flexDirection: "column",
-        padding: 16,
-        gap: 4,
+        paddingBlock: 24,
+        paddingInline: 32,
+        gap: 8,
+        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
 
         [theme.fn.smallerThan("md")]: {
-            paddingBlock: 24,
+            flexDirection: "row",
+            alignItems: "center",
             paddingInline: 0,
         },
     },
