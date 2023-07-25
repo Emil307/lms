@@ -1,6 +1,3 @@
-import { useAdminLessonHomework } from "@entities/lesson";
-import useStyles from "./Homework.styles";
-import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { Flex, Text, ThemeIcon, Title, Box } from "@mantine/core";
 import React from "react";
 import {
@@ -9,6 +6,9 @@ import {
     Edit3 as EditIcon,
     PlusCircle as PlusCircleIcon,
 } from "react-feather";
+import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
+import { useAdminLessonHomework } from "@entities/lesson";
+import useStyles from "./Homework.styles";
 
 interface HomeworkProps {
     lessonId: string;

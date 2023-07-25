@@ -4,8 +4,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
-import { UpdateLessonOrderRequest, UpdateLessonOrderResponse } from "../../types";
-import { lessonApi } from "@entities/lesson";
+import { UpdateLessonOrderRequest, UpdateLessonOrderResponse, lessonApi } from "@entities/lesson";
 
 export const useUpdateLessonOrder = ({
     moduleId,

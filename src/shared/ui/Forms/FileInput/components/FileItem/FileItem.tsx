@@ -2,10 +2,10 @@ import React, { memo, ReactNode, useMemo } from "react";
 import { Box, Button, Text, Flex } from "@mantine/core";
 import { FileText, Slash } from "react-feather";
 import { Loader, Paragraph } from "@shared/ui";
-import useStyles from "./FileItem.styles";
-import { getFileExtension } from "../../utils";
 import { FileStatus } from "@shared/types";
 import { getFileSize } from "@shared/utils";
+import useStyles from "./FileItem.styles";
+import { getFileExtension } from "../../utils";
 
 export interface FileItemProps {
     type: "document";

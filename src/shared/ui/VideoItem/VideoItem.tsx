@@ -1,10 +1,10 @@
 import React, { CSSProperties, ReactNode, useMemo } from "react";
-import { isFile, Button, Paragraph, Loader } from "@shared/ui";
 import { Flex, Text, ThemeIcon, Box } from "@mantine/core";
-import { FileStatus, UploadedFile } from "@shared/types";
-import useStyles from "./VideoItem.styles";
 import { saveAs } from "file-saver";
+import { isFile, Button, Paragraph, Loader } from "@shared/ui";
+import { FileStatus, UploadedFile } from "@shared/types";
 import { getFileSize } from "@shared/utils";
+import useStyles from "./VideoItem.styles";
 
 export interface VideoItemProps extends CSSProperties {
     file: File | UploadedFile;

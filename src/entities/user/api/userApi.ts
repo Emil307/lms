@@ -19,6 +19,8 @@ import {
     GetStaticUsersRequest,
     GetStaticUsersResponse,
     $GetStaticUsersResponse,
+    UpdateUserActivityResponse,
+    $UpdateUserActivityResponse,
 } from "./types";
 
 export class UserApi extends BaseApi {
@@ -42,9 +44,9 @@ export class UserApi extends BaseApi {
         await this.instance.delete(`admin/users/${id}`);
     }
 
-    async updateUserActivity({ id, isActive }: UpdateUserActivityRequest): Promise<void> {
-        //TODO: Добавить респонс как бекенд добавит { isActive: boolean }
-        await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
+    async updateUserActivity({ id, isActive }: UpdateUserActivityRequest): Promise<UpdateUserActivityResponse> {
+        const response = await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
+        return $UpdateUserActivityResponse.parse(response);
     }
 
     async showUser(id: string): Promise<UserDetailResponse> {

@@ -3,11 +3,11 @@ import { Flex } from "@mantine/core";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { Question } from "../Question";
-import { AdminTestQuestion } from "@entities/lesson";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
-import { Button } from "@shared/ui";
 import { FieldArray, setNestedObjectValues, useFormikContext } from "formik";
+import { AdminTestQuestion } from "@entities/lesson";
+import { Button } from "@shared/ui";
+import { Question } from "../Question";
 import { UpdateTestFormValues } from "../../types";
 
 const QuestionList = () => {
@@ -51,8 +51,8 @@ const QuestionList = () => {
     const handleDragEnd = (event: DragEndEvent) => {
         const getNewIndex = (oldIndex: number, direction: string | null) => {
             const { active, over } = event;
-            if (over?.id && active.id !== over?.id) {
-                return values.tasks.findIndex(({ id }) => id === over?.id);
+            if (over?.id && active.id !== over.id) {
+                return values.tasks.findIndex(({ id }) => id === over.id);
             }
             switch (direction) {
                 case "up":

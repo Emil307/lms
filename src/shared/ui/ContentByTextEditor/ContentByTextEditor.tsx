@@ -1,9 +1,9 @@
 import { ActionIcon, Box, TextProps } from "@mantine/core";
-import useStyles from "./ContentByTextEditor.styles";
 import parse, { Element } from "html-react-parser";
-import { Fancybox } from "@shared/ui";
 import React from "react";
 import { ZoomIn as ZoomInIcon } from "react-feather";
+import { Fancybox } from "@shared/ui";
+import useStyles from "./ContentByTextEditor.styles";
 
 export interface ContentByTextEditorProps extends TextProps {
     data?: string;
@@ -26,7 +26,7 @@ const ContentByTextEditor = ({ data = "", className, ...props }: ContentByTextEd
                 }}>
                 {parse(data, {
                     transform: (reactNode, domNode, index) => {
-                        if (typeof reactNode !== "string" && reactNode?.type === "img") {
+                        if (typeof reactNode !== "string" && reactNode.type === "img") {
                             const image = domNode as Element;
                             return (
                                 <a data-fancybox="gallery" className={classes.imageWrapper} href={image.attribs.src} key={index}>

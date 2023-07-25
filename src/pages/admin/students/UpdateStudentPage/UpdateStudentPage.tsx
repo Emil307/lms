@@ -3,14 +3,14 @@ import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Heading, TBreadCrumbItem } from "@shared/ui";
 import { UpdateStudentForm } from "@features/students";
-import { useDetailUser } from "@entities/user";
+import { useDetailsUser } from "@entities/user";
 import { getFullName } from "@shared/utils";
 
 const UpdateStudentPage = () => {
     const router = useRouter();
     const { id } = router.query as { id: string };
 
-    const { data: userData } = useDetailUser(id);
+    const { data: userData } = useDetailsUser(id);
 
     const userName = getFullName({ data: userData?.profile });
 

@@ -2,10 +2,10 @@ import React, { ReactNode, useEffect, useRef } from "react";
 import { Accordion, Box } from "@mantine/core";
 import { Minus, Plus } from "react-feather";
 import { useToggle } from "@mantine/hooks";
-import useStyles from "./SidebarItemWithChildren.styles";
-import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
 import { useSession } from "@features/auth";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
+import useStyles from "./SidebarItemWithChildren.styles";
+import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
 
 interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;

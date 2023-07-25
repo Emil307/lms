@@ -3,9 +3,9 @@ import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
+import { Roles } from "@app/routes";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
-import { Roles } from "@app/routes";
 
 export default function SidebarMenu() {
     const router = useRouter();

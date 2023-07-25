@@ -13,7 +13,7 @@ const CreateUserPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Heading>Создание пользователя</Heading>
+            <Heading mb={24}>Создание пользователя</Heading>
             <CreateUserForm onClose={handleCloseForm} />
         </Box>
     );

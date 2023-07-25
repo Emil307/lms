@@ -6,15 +6,15 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { Button, DndCard, Heading, Loader, Paragraph } from "@shared/ui";
 import { AdminLessonFromList, useAdminModuleLessons, useUpdateLessonOrder } from "@entities/lesson";
 import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
+import PositivelyIcon from "@public/icons/positively.svg";
+import FalsyIcon from "@public/icons/falsy.svg";
 import { ListMenu } from "./components";
 import { getInitialValues } from "./utils";
 import useStyles from "./ModuleLessonsList.styles";
-import PositivelyIcon from "@public/icons/positively.svg";
-import FalsyIcon from "@public/icons/falsy.svg";
-import { useRouter } from "next/router";
 
 interface ModuleLessonsListProps {
     courseId: string;

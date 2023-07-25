@@ -1,2 +1,2 @@
-export * from "./SettingUser";
+export * from "./UserSettings";
 export * from "./InfoPanel";

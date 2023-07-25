@@ -2,7 +2,7 @@ import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
-import { useDetailUser } from "@entities/user";
+import { useDetailsUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
 import { getFullName } from "@shared/utils";
@@ -12,7 +12,7 @@ import { getBreadCrumbsItems } from "./utils";
 const StudentDetailPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
-    const { data: userData, isLoading, isError } = useDetailUser(id);
+    const { data: userData, isLoading, isError } = useDetailsUser(id);
 
     const userName = getFullName({ data: userData?.profile });
 

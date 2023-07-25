@@ -1,14 +1,28 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
+import { Box, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FControlPanel, FFileButton, FFileInput, FInput, FRadioGroup, FSwitch, FTextarea, ManagedForm, Radio } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import {
+    Button,
+    FControlPanel,
+    FFileButton,
+    FFileInput,
+    FInput,
+    FRadioGroup,
+    FSwitch,
+    FTextarea,
+    ManagedForm,
+    Paragraph,
+    Radio,
+} from "@shared/ui";
 import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
 import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
+import { Roles } from "@app/routes";
 import { adaptCreateUserFormRequest, getInitialValuesForm, getNotificationList } from "./utils";
 import { notificationLabels } from "./constants";
 import { $CreateUserValidationFormRequest, CreateUserValidationFormRequest } from "./types";
@@ -23,6 +37,9 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
     const { classes } = useStyles();
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
 
@@ -57,56 +74,62 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
             hasConfirmModal
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
-                <Flex gap={32} direction="column">
-                    <Flex gap={8} mt={24} align="center">
-                        <Text color="gray45">Статус:</Text>
+                <Flex direction="column" gap={32}>
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
-                    <Fieldset label="Личные данные" icon={<User />}>
-                        <Box>
-                            <Flex gap={24} mt={8}>
-                                <Avatar
-                                    src={values.avatar?.absolutePath}
-                                    alt="avatar"
-                                    w={84}
-                                    h={84}
-                                    radius={50}
-                                    styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                                    <AvatarIcon />
-                                </Avatar>
-                                <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                            </Flex>
-                            <Flex mt={24} gap={8}>
-                                <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
-                                <FInput name="lastName" label="Фамилия" size="sm" w={252} withAsterisk />
-                                <FInput name="patronymic" label="Отчество" size="sm" w={252} />
-                            </Flex>
-                        </Box>
+                    <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
+                        <Flex align="center" gap={16} mb={16}>
+                            <Avatar
+                                src={values.avatar?.absolutePath}
+                                alt="avatar"
+                                className={classes.avatarWrapper}
+                                radius={50}
+                                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                                <AvatarIcon />
+                            </Avatar>
+                            <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                        </Flex>
+                        <Flex gap={8} wrap="wrap">
+                            <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />
+                        </Flex>
                     </Fieldset>
                     <Fieldset label="Системные данные" icon={<Shield />}>
-                        <Box>
-                            <FRadioGroup name="roleId">
-                                {filteredRoles?.map((item) => {
-                                    return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
-                                })}
+                        <Flex direction="column" gap={16}>
+                            <FRadioGroup name="roleId" className={classes.filterRadioGroup}>
+                                {filteredRoles?.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
+                                ))}
                             </FRadioGroup>
-                            <Flex mt={16} gap={8}>
-                                <FInput name="email" label="Email" size="sm" w={252} withAsterisk />
-                                <FInput name="password" type="password" label="Пароль" size="sm" w={252} withAsterisk />
+                            <Flex gap={8} wrap="wrap">
+                                <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                                <FInput
+                                    name="password"
+                                    type="password"
+                                    label="Пароль"
+                                    size="sm"
+                                    miw={{ base: "100%", xs: 252 }}
+                                    withAsterisk
+                                />
                                 <FInput
                                     name="passwordConfirmation"
                                     type="password"
                                     label="Повторите пароль"
                                     size="sm"
-                                    w={252}
+                                    miw={{ base: "100%", xs: 252 }}
                                     withAsterisk
                                 />
                             </Flex>
-                        </Box>
+                        </Flex>
                     </Fieldset>
-                    {options?.roles.find((item) => item.name === "teacher")?.id === Number(values.roleId) && (
-                        <Fieldset label="О преподавателе" icon={<UserCheck />} showDivider={false}>
-                            <Flex mt={8} direction="column" gap={24}>
+                    {Roles.teacher === Number(values.roleId) && (
+                        <Fieldset label="О преподавателе" icon={<UserCheck />} legendProps={{ mb: 24 }} showDivider={false}>
+                            <Flex direction="column" gap={24} w="100%">
                                 <FFileInput
                                     name="additionalImage"
                                     title="Загрузите файл"
@@ -114,8 +137,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                                     description="Рекомендуемый размер изображения: 376х220 px, до 1Mb"
                                     maxFileSize={1024 * 1024 * 8}
                                     withDeleteButton
-                                    w={376}
-                                    h={220}
+                                    className={classes.additionalImageFileInput}
                                 />
                                 <FTextarea
                                     name="description"
@@ -123,13 +145,13 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                                     autosize
                                     placeholder="Достижения и регалии"
                                     description="до 190 символов"
-                                    w={600}
+                                    className={classes.descriptionTextarea}
                                 />
                             </Flex>
                         </Fieldset>
                     )}
 
-                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />} legendProps={{ mb: 24 }}>
                         <Box className={classes.notificationsContainer}>
                             {getNotificationList(values.roleId).map((notificationName, index) => (
                                 <FControlPanel
@@ -141,11 +163,11 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                             ))}
                         </Box>
                     </Fieldset>
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                    <Flex className={classes.actions}>
+                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                             Отменить
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                        <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                             Сохранить
                         </Button>
                     </Flex>

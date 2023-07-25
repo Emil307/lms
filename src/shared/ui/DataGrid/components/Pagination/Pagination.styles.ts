@@ -28,7 +28,11 @@ export const usePaginationStyles = createStyles((theme) => ({
         },
     },
     perPageSelect: {
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
         cursor: "pointer",
+
         label: {
             fontSize: 14,
             lineHeight: "16px",
@@ -37,16 +41,17 @@ export const usePaginationStyles = createStyles((theme) => ({
         },
         select: {
             border: "none",
+            paddingRight: 20,
             paddingLeft: 0,
             fontWeight: 500,
             fontSize: 14,
             lineHeight: "16px",
         },
-        "@media (min-width: 720px)": {
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
+
+        ".mantine-NativeSelect-rightSection": {
+            width: 16,
         },
+
         "& .mantine-Select-input": {
             width: "90px",
         },

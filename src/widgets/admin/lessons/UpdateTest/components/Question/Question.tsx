@@ -1,22 +1,22 @@
 import { Flex, ActionIcon, useMantineTheme, Box } from "@mantine/core";
-import { Button, Heading, FInput, Paragraph } from "@shared/ui";
 import { AlertTriangle, PlusCircle as PlusCircleIcon, Trash } from "react-feather";
 import React, { useRef, useState, memo, useMemo } from "react";
-import useStyles from "../../UpdateTest.styles";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
-import { TestAnswer } from "../Answer/types";
 import { CSS } from "@dnd-kit/utilities";
-import { Answer } from "../Answer";
 import { ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from "react-feather";
-import { AdminTestAnswer, AdminTestQuestion } from "@entities/lesson";
 import { FastField, FieldArray, FormikErrors, FormikHelpers } from "formik";
-import { UpdateTestFormValues } from "../../types";
 import { FastFieldProps } from "formik/dist/FastField";
 import { closeModal, openModal } from "@mantine/modals";
-import { DeleteQuestionModal } from "../DeleteQuestionModal";
+import { AdminTestAnswer, AdminTestQuestion } from "@entities/lesson";
+import { Button, Heading, FInput, Paragraph } from "@shared/ui";
 import { createNotification, ToastType } from "@shared/utils";
+import { UpdateTestFormValues } from "../../types";
+import { Answer } from "../Answer";
+import { TestAnswer } from "../Answer/types";
+import useStyles from "../../UpdateTest.styles";
+import { DeleteQuestionModal } from "../DeleteQuestionModal";
 
 interface QuestionProps {
     name: string;

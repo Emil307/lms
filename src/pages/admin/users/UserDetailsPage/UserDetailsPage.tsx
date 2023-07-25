@@ -2,16 +2,17 @@ import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
-import { InfoPanel, SettingUser } from "@widgets/admin/users";
-import { useDetailUser } from "@entities/user";
+import { InfoPanel, UserSettings } from "@widgets/admin/users";
+import { useDetailsUser } from "@entities/user";
 import { TRouterQueries } from "@shared/types";
+import { Roles } from "@app/routes";
 import { getBreadCrumbsItems } from "./utils";
 import { tabsList } from "./constants";
 
-const UserDetailPage = () => {
+const UserDetailsPage = () => {
     const router = useRouter();
     const { id } = router.query as TRouterQueries;
-    const { data, isLoading, isError } = useDetailUser(id);
+    const { data, isLoading, isError } = useDetailsUser(id);
 
     const handleChangeTab = (value: string | null) => {
         switch (value) {
@@ -35,10 +36,10 @@ const UserDetailPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ data })} />
             <InfoPanel id={id} />
             {/* TODO: - переключение виджетов по табам, когда будет апи и сверстано все остальное */}
-            <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} />
-            <SettingUser id={id} />
+            {Roles.teacher === data.roles[0].id && <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} />}
+            <UserSettings id={id} mt={32} />
         </Box>
     );
 };
 
-export default UserDetailPage;
+export default UserDetailsPage;

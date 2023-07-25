@@ -1,5 +1,5 @@
-import { UpdateTestFormValues } from "./types";
 import { AdminTest, UpdateAdminTestRequest } from "@entities/lesson";
+import { UpdateTestFormValues } from "./types";
 
 export const getInitialValues = (test: AdminTest | null): UpdateTestFormValues => {
     if (!test) {

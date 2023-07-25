@@ -1,11 +1,11 @@
 import { Flex, Title, Text, ThemeIcon } from "@mantine/core";
-import { Button, Heading, Loader, Paragraph } from "@shared/ui";
 import { PlusCircle as PlusCircleIcon, Edit3 as EditIcon, HelpCircle as HelpCircleIcon } from "react-feather";
 import React from "react";
-import useStyles from "./Test.styles";
+import { Button, Heading, Loader, Paragraph } from "@shared/ui";
 import { useAdminLessonTest } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { getPluralString } from "@shared/utils";
+import useStyles from "./Test.styles";
 import { getAnswerLetter } from "./utils";
 
 export interface TestProps {

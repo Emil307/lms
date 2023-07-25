@@ -1,20 +1,20 @@
 import React from "react";
 import { ReactElement } from "react";
-import { UserDetailPage } from "@pages/admin/users";
+import { UserDetailsPage } from "@pages/admin/users";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 
-const AdminUsers: NextPageWithLayout = () => {
+const UserDetails: NextPageWithLayout = () => {
     return (
         <AdminPage title="Настройки пользователя">
-            <UserDetailPage />
+            <UserDetailsPage />
         </AdminPage>
     );
 };
 
-AdminUsers.getLayout = function (page: ReactElement) {
+UserDetails.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default AdminUsers;
+export default UserDetails;

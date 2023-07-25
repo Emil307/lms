@@ -1,7 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
-import { Button, FFileInputMultiple, FSelect, FTextEditor, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import React from "react";
-import useStyles from "./UpdateHomework.styles";
+import { AlertCircle as AlertCircleIcon, AlertTriangle as AlertTriangleIcon } from "react-feather";
+import { Button, FFileInputMultiple, FSelect, FTextEditor, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import {
     AdminHomework,
     HomeworkRequiredType,
@@ -11,9 +11,9 @@ import {
 } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
-import { AlertCircle as AlertCircleIcon, AlertTriangle as AlertTriangleIcon } from "react-feather";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
+import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
+import useStyles from "./UpdateHomework.styles";
 
 interface UpdateHomeworkProps {
     lessonId: string;

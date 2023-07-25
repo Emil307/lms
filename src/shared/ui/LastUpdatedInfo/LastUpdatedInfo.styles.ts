@@ -12,9 +12,11 @@ export default createStyles((theme) => ({
             display: "none",
         },
     },
+
     date: {
         whiteSpace: "nowrap",
     },
+
     userInfo: {
         color: theme.colors.primary[0],
         whiteSpace: "nowrap",

@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
-import { TQueryParams } from "./types";
+import { Text, Box, Flex } from "@mantine/core";
+import React from "react";
 import { useAdminCourse } from "@entities/course";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson";
-import { Text, Box, Flex } from "@mantine/core";
 import { BreadCrumbs, Heading, Loader } from "@shared/ui";
-import React from "react";
-import { getBreadCrumbsItems } from "./utils";
 import { UpdateLesson } from "@widgets/admin/lessons";
+import { getBreadCrumbsItems } from "./utils";
+import { TQueryParams } from "./types";
 
 const UpdateLessonPage = () => {
     const router = useRouter();

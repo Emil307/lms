@@ -4,10 +4,10 @@ import { ThemeIcon, Text, Flex, FlexProps, Box } from "@mantine/core";
 import { LinkProps } from "next/link";
 import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
-import useStyles from "./SidebarItem.styles";
-import { MinimizedModeSidebarContext } from "../../utils";
 import { useSession } from "@features/auth";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
+import useStyles from "./SidebarItem.styles";
+import { MinimizedModeSidebarContext } from "../../utils";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;
