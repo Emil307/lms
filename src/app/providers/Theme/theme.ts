@@ -97,6 +97,10 @@ export const defaultTheme: MantineThemeOverride = {
         },
     },
     globalStyles: (theme) => ({
+        body: {
+            overflowX: "hidden",
+            marginRight: "calc(-1 * (100vw - 100%)) !important",
+        },
         "::-webkit-scrollbar": {
             backgroundColor: "transparent",
             width: 4,

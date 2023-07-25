@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
     inner: {
         alignItems: "center",
         justifyContent: "space-between",
-        maxWidth: 1320,
+        maxWidth: 1352,
         minHeight: 96,
         marginInline: "auto",
         paddingInline: 16,
@@ -50,13 +50,16 @@ export default createStyles((theme) => ({
             display: "none",
         },
     },
+    buttonLink: {
+        borderRadius: 160,
+        padding: "8px 16px",
+    },
     actionIcon: {
         height: 40,
         width: 56,
         color: theme.colors.dark[0],
         borderRadius: 160,
     },
-
     wrapperRightMenu: {
         alignItems: "center",
         gap: 56,

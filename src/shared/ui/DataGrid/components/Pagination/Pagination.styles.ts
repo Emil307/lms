@@ -46,9 +46,11 @@ export const usePaginationStyles = createStyles((theme) => ({
             fontWeight: 500,
             fontSize: 14,
             lineHeight: "16px",
+            cursor: "pointer",
         },
 
         ".mantine-NativeSelect-rightSection": {
+            pointerEvents: "none",
             width: 16,
         },
 

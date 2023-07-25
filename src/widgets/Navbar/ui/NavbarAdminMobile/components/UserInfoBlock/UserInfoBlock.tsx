@@ -7,6 +7,7 @@ import { Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import useStyles from "./UserInfoBlock.styles";
+import { logoutPath } from "@app/routes";
 
 export interface UserInfoBlockProps extends FlexProps {}
 
@@ -22,7 +23,7 @@ const UserInfoBlock = (props: UserInfoBlockProps) => {
         setOpenedSidebar(false);
     };
     const handleRedirectLogout = () => {
-        router.push("/logout");
+        router.push(logoutPath);
         setOpenedSidebar(false);
     };
 

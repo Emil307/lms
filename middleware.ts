@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {ECookies} from "@app/config/axios/cookies";
-import {authPaths, publicPaths, authPath, logoutPath, isAccessAllowed, isPathIncluded} from "@app/routes";
+import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded} from "@app/routes";
 
 export function middleware(req: NextRequest) {
     const url = req.nextUrl;
@@ -36,7 +36,7 @@ export function middleware(req: NextRequest) {
 
     if (notAuthUserTryToPrivatePage) {
         url.search = `redirect=${url.pathname}`;
-        url.pathname = authPath;
+        url.pathname = logoutPath;
         return NextResponse.redirect(url);
     }
 

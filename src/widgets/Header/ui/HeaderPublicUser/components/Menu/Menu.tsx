@@ -9,7 +9,7 @@ import { dropdownMenuItems } from "./constants";
 import useStyles from "./Menu.styles";
 
 export interface MenuProps {
-    user?: User;
+    user: User;
 }
 
 const Menu = ({ user }: MenuProps) => {
@@ -40,7 +40,7 @@ const Menu = ({ user }: MenuProps) => {
             <MMenu.Target>
                 <Flex align="center" gap={8} className={classes.root}>
                     <Avatar
-                        src={user?.profile.avatar?.absolutePath}
+                        src={user.profile.avatar?.absolutePath}
                         alt="avatar"
                         w={50}
                         h={50}

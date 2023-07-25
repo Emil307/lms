@@ -43,7 +43,7 @@ const List = ({ courseId }: ModuleListProps) => {
     }, [entry, hasNextPage]);
 
     const handleGoCourseModulePage = (moduleId: number) => {
-        router.push({ pathname: "/admin/courses/[id]/module/[moduleId]", query: { id: courseId, moduleId: String(moduleId) } });
+        router.push({ pathname: "/admin/courses/[id]/modules/[moduleId]", query: { id: courseId, moduleId: String(moduleId) } });
     };
 
     if (isError) {

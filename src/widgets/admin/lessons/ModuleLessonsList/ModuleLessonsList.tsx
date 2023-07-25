@@ -47,7 +47,7 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
 
     const handleGoAdminLessonPage = (lessonId: number) => {
         router.push({
-            pathname: "/admin/courses/[id]/module/[moduleId]/lesson/[lessonId]",
+            pathname: "/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]",
             query: { id: courseId, moduleId: String(moduleId), lessonId: String(lessonId) },
         });
     };

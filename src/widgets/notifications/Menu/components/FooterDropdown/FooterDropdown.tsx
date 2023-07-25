@@ -3,19 +3,17 @@ import { Settings } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { useReadAllNotifications } from "@entities/notification";
-import { useSession } from "@features/auth";
-import { Roles } from "@app/routes";
 import useStyles from "./FooterDropdown.styles";
 
 export interface FooterDropdownProps extends Omit<FlexProps, "children"> {
     hasNewNotifications?: boolean;
+    onClose: () => void;
 }
 
-const FooterDropdown = ({ hasNewNotifications, ...props }: FooterDropdownProps) => {
+const FooterDropdown = ({ hasNewNotifications, onClose, ...props }: FooterDropdownProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const { user } = useSession();
     const readAllNotifications = useReadAllNotifications();
 
     const handleReadAllNotifications = () => {
@@ -23,11 +21,8 @@ const FooterDropdown = ({ hasNewNotifications, ...props }: FooterDropdownProps) 
     };
 
     const handleOpenSettingsNotifications = () => {
-        if (user?.roles[0].id == Roles.administrator) {
-            return router.push({ pathname: "/admin/users/[id]", query: { id: String(user.id) } });
-        }
-
-        return router.push("/profile");
+        router.push("/profile");
+        onClose();
     };
 
     return (
