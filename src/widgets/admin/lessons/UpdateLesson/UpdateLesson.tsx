@@ -109,7 +109,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                 mutationKey={[MutationKeys.UPDATE_LESSON_CONTENT]}
                 mutationFunction={handleUpdateLessonContent}
                 keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_MODULE_LESSONS] },
+                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE] },
                     { queryKey: [QueryKeys.GET_ADMIN_LESSONS] },
                     { queryKey: [QueryKeys.GET_ADMIN_LESSON] },
                     { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] },

@@ -14,7 +14,7 @@ export interface DeleteCourseModuleModalProps {
 
 const DeleteCourseModuleModal = ({ courseId, moduleId, moduleName, onClose }: DeleteCourseModuleModalProps) => {
     const { classes } = useStyles();
-    const { mutate: deleteCourseModule, isLoading } = useDeleteCourseModule({ courseId, moduleId });
+    const { mutate: deleteCourseModule, isLoading } = useDeleteCourseModule({ courseId, moduleId, moduleName });
 
     const handleSubmit = () => {
         deleteCourseModule(null, {

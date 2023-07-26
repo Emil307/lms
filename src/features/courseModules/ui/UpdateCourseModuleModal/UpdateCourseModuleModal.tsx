@@ -4,13 +4,18 @@ import { Folder as FolderIcon } from "react-feather";
 import { Button, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { CourseModule, courseModuleApi, UpdateCourseModuleFormValues, UpdateCourseModuleResponse } from "@entities/courseModule";
+import {
+    courseModuleApi,
+    CourseModuleWithoutLessons,
+    UpdateCourseModuleFormValues,
+    UpdateCourseModuleResponse,
+} from "@entities/courseModule";
 import { $UpdateCourseModuleFormValues } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
 
 export interface UpdateCourseModuleModalProps {
     courseId: string;
-    module: CourseModule;
+    module: CourseModuleWithoutLessons;
     moduleNumber: number;
     onClose: () => void;
 }
@@ -46,8 +51,8 @@ const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: Up
             validationSchema={$UpdateCourseModuleFormValues}
             onSuccess={onSuccess}
             keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_COURSE_MODULES, courseId] },
-                { queryKey: [QueryKeys.GET_COURSE_MODULE, courseId, moduleId] },
+                { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId] },
+                { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId] },
             ]}
             onError={onError}
             disableOverlay>

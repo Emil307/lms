@@ -8,9 +8,10 @@ import { $UpdateLessonFormValues, AdminLessonFromList, lessonApi, UpdateLessonFo
 import { createNotification, ToastType } from "@shared/utils";
 import { getInitialValues } from "./utils";
 import useStyles from "./UpdateLessonModal.styles";
+import { CourseModuleLesson } from "@entities/courseModule";
 
 export interface UpdateLessonModalProps {
-    data: AdminLessonFromList;
+    data: AdminLessonFromList | CourseModuleLesson;
     onClose: () => void;
     lessonNumber?: number;
 }
@@ -44,7 +45,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
             validationSchema={$UpdateLessonFormValues}
             mutationKey={[MutationKeys.UPDATE_LESSON]}
             keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_MODULE_LESSONS] },
+                { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE] },
                 { queryKey: [QueryKeys.GET_ADMIN_LESSONS] },
                 { queryKey: [QueryKeys.GET_ADMIN_LESSON] },
                 { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] },

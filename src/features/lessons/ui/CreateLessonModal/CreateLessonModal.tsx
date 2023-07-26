@@ -13,14 +13,15 @@ import useStyles from "./CreateLessonModal.styles";
 export interface CreateLessonModalProps {
     courseId?: string;
     moduleId?: string;
+    moduleName?: string;
     lessonNumber?: number;
     onClose: () => void;
 }
 
-const CreateLessonModal = ({ courseId = "", moduleId = "", lessonNumber, onClose }: CreateLessonModalProps) => {
+const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", lessonNumber, onClose }: CreateLessonModalProps) => {
     const { classes } = useStyles();
     const [isSubmitting, setSubmitting] = useState(false);
-    const { mutate: attachLessonToModule } = useAttachLessonToCourseModule({ courseId, moduleId });
+    const { mutate: attachLessonToModule } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 
     const createLesson = (values: CreateLessonFormValues) => {
         setSubmitting(true);

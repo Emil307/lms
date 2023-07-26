@@ -3,18 +3,18 @@ import React, { ChangeEvent } from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { CourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
+import { CourseModuleWithoutLessons, useUpdateCourseModuleActivity } from "@entities/courseModule";
 import { DeleteCourseModuleModal, UpdateCourseModuleModal } from "@features/courseModules";
 
 export interface ListMenuProps {
     courseId: string;
     moduleNumber: number;
-    data: CourseModule;
+    data: CourseModuleWithoutLessons;
 }
 
 const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
     const moduleId = String(data.id);
-    const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId });
+    const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId, moduleName: data.name });
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 

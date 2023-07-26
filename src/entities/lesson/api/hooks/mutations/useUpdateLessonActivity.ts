@@ -1,17 +1,17 @@
-import { UseMutationResult, useMutation, InfiniteData } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
-import { ToastType, createNotification, TPaginationResponse } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import {
-    AdminLessonFromList,
     GetAdminLessonResponse,
     GetAdminLessonsResponse,
     lessonApi,
     UpdateLessonActivityRequest,
     UpdateLessonActivityResponse,
 } from "@entities/lesson";
+import { GetCourseModuleResponse } from "@entities/courseModule";
 
 interface ExtraProps {
     lessonName?: string;
@@ -30,35 +30,27 @@ export const useUpdateLessonActivity = ({
         onMutate: async (updatedStatus) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_LESSON, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_LESSONS] });
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId] });
 
             //TODO: Добавить получение данных из кэша для списка всех уроков
 
             const previousLessonData = queryClient.getQueryData<GetAdminLessonResponse>([QueryKeys.GET_ADMIN_LESSON, id]);
-            const previousModuleLessonsData = queryClient.getQueryData<InfiniteData<TPaginationResponse<AdminLessonFromList[]>>>([
-                QueryKeys.GET_ADMIN_MODULE_LESSONS,
-                moduleId,
-            ]);
+            const previousModuleData = queryClient.getQueryData<GetCourseModuleResponse>([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId]);
             const previousLessonListData = queryClient.getQueryData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS]);
 
             queryClient.setQueryData<GetAdminLessonResponse>(
                 [QueryKeys.GET_ADMIN_LESSON, id],
                 (previousData) => previousData && { ...previousData, isActive: updatedStatus }
             );
-            queryClient.setQueriesData<InfiniteData<TPaginationResponse<AdminLessonFromList[]>>>(
-                [QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId],
-                (previousData) => {
-                    if (!previousData) {
-                        return undefined;
-                    }
-                    return {
+            queryClient.setQueryData<GetCourseModuleResponse>(
+                [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId],
+                (previousData) =>
+                    previousData && {
                         ...previousData,
-                        pages: previousData.pages.map((page) => ({
-                            ...page,
-                            data: page.data.map((lesson) => (String(lesson.id) === id ? { ...lesson, isActive: updatedStatus } : lesson)),
-                        })),
-                    };
-                }
+                        lessons: previousData.lessons.map((lesson) =>
+                            String(lesson.id) === id ? { ...lesson, isActive: updatedStatus } : lesson
+                        ),
+                    }
             );
             queryClient.setQueriesData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS], (previousData) => {
                 if (!previousData) {
@@ -70,7 +62,7 @@ export const useUpdateLessonActivity = ({
                 };
             });
 
-            return { previousLessonData, previousModuleLessonsData, previousLessonListData };
+            return { previousLessonData, previousModuleData, previousLessonListData };
         },
         onError: (err, _, context) => {
             if (context?.previousLessonListData) {
@@ -79,8 +71,8 @@ export const useUpdateLessonActivity = ({
             if (context?.previousLessonData) {
                 queryClient.setQueryData([QueryKeys.GET_ADMIN_LESSON, id], context.previousLessonData);
             }
-            if (context?.previousModuleLessonsData) {
-                queryClient.setQueryData([QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId], context.previousModuleLessonsData);
+            if (context?.previousModuleData) {
+                queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], context.previousModuleData);
             }
             createNotification({
                 type: ToastType.WARN,
@@ -100,7 +92,7 @@ export const useUpdateLessonActivity = ({
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON, id]);
 
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_MODULE_LESSONS]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT]);
         },
     });

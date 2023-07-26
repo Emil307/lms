@@ -22,5 +22,4 @@ export default createStyles((theme) => ({
             fill: theme.colors.secondary[0],
         },
     },
- 
 }));
