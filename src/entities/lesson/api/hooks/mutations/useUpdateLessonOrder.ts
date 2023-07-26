@@ -27,7 +27,7 @@ export const useUpdateLessonOrder = ({
             });
         },
         onSettled: () => {
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_MODULE_LESSONS, moduleId]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId]);
         },
     });
 };

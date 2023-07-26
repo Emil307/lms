@@ -12,15 +12,16 @@ import useStyles from "./LessonListModal.styles";
 export interface LessonListModalProps {
     courseId: string;
     moduleId: string;
+    moduleName: string;
     onClose: () => void;
 }
 
-const LessonListModal = ({ courseId, moduleId, onClose }: LessonListModalProps) => {
+const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonListModalProps) => {
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const { mutate: attachLessonsToModule, isLoading } = useAttachLessonToCourseModule({ courseId, moduleId });
+    const { mutate: attachLessonsToModule, isLoading } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
 

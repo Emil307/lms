@@ -1,6 +1,6 @@
-import { CourseModule, UpdateCourseModuleFormValues } from "@entities/courseModule";
+import { CourseModuleWithoutLessons, UpdateCourseModuleFormValues } from "@entities/courseModule";
 
-export const getInitialValues = ({ name, description }: CourseModule): UpdateCourseModuleFormValues => ({
+export const getInitialValues = ({ name, description }: CourseModuleWithoutLessons): UpdateCourseModuleFormValues => ({
     name,
     description,
 });

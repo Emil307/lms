@@ -21,7 +21,7 @@ export const useDeleteLesson = (id: string): UseMutationResult<void, AxiosError<
             });
 
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_MODULE_LESSONS]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT]);
         },
         onError: () => {

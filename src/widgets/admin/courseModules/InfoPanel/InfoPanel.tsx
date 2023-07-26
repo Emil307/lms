@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@mantine/core";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, memo } from "react";
 import dayjs from "dayjs";
 import { Heading, Loader, Switch } from "@shared/ui";
 import { useCourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
@@ -8,12 +8,13 @@ import useStyles from "./InfoPanel.styles";
 interface InfoPanelProps {
     courseId: string;
     moduleId: string;
+    moduleName: string;
 }
 
-const InfoPanel = ({ courseId, moduleId }: InfoPanelProps) => {
+const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: moduleData, isLoading, isError } = useCourseModule({ courseId, moduleId });
-    const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId });
+    const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId, moduleName });
 
     if (isLoading) {
         return <Loader />;
@@ -55,4 +56,4 @@ const InfoPanel = ({ courseId, moduleId }: InfoPanelProps) => {
     );
 };
 
-export default InfoPanel;
+export default memo(InfoPanel);

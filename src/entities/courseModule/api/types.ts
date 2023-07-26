@@ -2,6 +2,8 @@ import { z } from "zod";
 import { $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 
 export type CourseModule = z.infer<typeof $CourseModule>;
+export type CourseModuleWithoutLessons = z.infer<typeof $CourseModuleWithoutLessons>;
+export type CourseModuleLesson = z.infer<typeof $CourseModuleLesson>;
 
 export type GetCourseModulesRequest = z.infer<typeof $GetCourseModulesRequest>;
 export type GetCourseModulesResponse = z.infer<typeof $GetCourseModulesResponse>;
@@ -21,12 +23,26 @@ export type UpdateCourseModuleOrderResponse = z.infer<typeof $UpdateCourseModule
 export type AttachLessonFromCourseModuleRequest = z.infer<typeof $AttachLessonToCourseModuleRequest>;
 export type DetachLessonFromCourseModuleRequest = z.infer<typeof $DetachLessonFromCourseModuleRequest>;
 
+export const $CourseModuleLesson = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    hasTest: z.boolean(),
+    hasHomework: z.boolean(),
+    isActive: z.boolean(),
+});
+
 export const $CourseModule = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string(),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
+    lessons: z.array($CourseModuleLesson),
+});
+
+export const $CourseModuleWithoutLessons = $CourseModule.omit({
+    lessons: true,
 });
 
 export const $GetCourseModulesRequest = $getFiltersRequestType(
@@ -35,7 +51,7 @@ export const $GetCourseModulesRequest = $getFiltersRequestType(
     })
 );
 
-export const $GetCourseModulesResponse = $getPaginationResponseType($CourseModule);
+export const $GetCourseModulesResponse = $getPaginationResponseType($CourseModuleWithoutLessons);
 
 export const $GetCourseModuleRequest = z.object({
     courseId: z.string(),

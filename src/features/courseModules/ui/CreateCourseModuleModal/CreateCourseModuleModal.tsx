@@ -42,7 +42,7 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
             initialValues={initialValues}
             validationSchema={$CreateCourseModuleFormValues}
             onSuccess={onSuccess}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_COURSE_MODULES, courseId] }]}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId] }]}
             onError={onError}
             disableOverlay>
             {({ isLoading }) => (

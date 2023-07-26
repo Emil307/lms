@@ -3,16 +3,17 @@ import React, { ChangeEvent } from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminLessonFromList, useUpdateLessonActivity } from "@entities/lesson";
+import { useUpdateLessonActivity } from "@entities/lesson";
 import { DetachLessonFromCourseModuleModal } from "@features/courseModules";
 import { UpdateLessonModal } from "@features/lessons";
+import { CourseModuleLesson } from "@entities/courseModule";
 
 export interface ListMenuProps {
     courseId: string;
     moduleId: string;
     moduleName: string;
     lessonNumber: number;
-    data: AdminLessonFromList;
+    data: CourseModuleLesson;
 }
 
 const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMenuProps) => {

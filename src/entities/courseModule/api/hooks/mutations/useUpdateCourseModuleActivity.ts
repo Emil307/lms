@@ -5,45 +5,44 @@ import { queryClient } from "@app/providers";
 import { ToastType, createNotification, TPaginationResponse } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import {
-    CourseModule,
     courseModuleApi,
+    CourseModuleWithoutLessons,
     GetCourseModuleResponse,
     UpdateCourseModuleActivityRequest,
     UpdateCourseModuleActivityResponse,
 } from "@entities/courseModule";
 
+interface Props extends Omit<UpdateCourseModuleActivityRequest, "isActive"> {
+    moduleName: string;
+}
+
 export const useUpdateCourseModuleActivity = ({
     courseId,
     moduleId,
-}: Omit<UpdateCourseModuleActivityRequest, "isActive">): UseMutationResult<
-    UpdateCourseModuleActivityResponse,
-    AxiosError<FormErrorResponse>,
-    boolean
-> => {
+    moduleName,
+}: Props): UseMutationResult<UpdateCourseModuleActivityResponse, AxiosError<FormErrorResponse>, boolean> => {
     return useMutation(
         [MutationKeys.UPDATE_COURSE_MODULE_ACTIVITY, courseId, moduleId],
         (isActive: boolean) => courseModuleApi.updateModuleActivity({ courseId, moduleId, isActive }),
         {
             onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSE_MODULE, courseId, moduleId] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSE_MODULES, courseId] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId] });
 
                 const previousCourseModuleData = queryClient.getQueryData<GetCourseModuleResponse>([
-                    QueryKeys.GET_COURSE_MODULE,
-                    courseId,
+                    QueryKeys.GET_ADMIN_COURSE_MODULE,
                     moduleId,
                 ]);
-                const previousCourseModulesData = queryClient.getQueryData<InfiniteData<TPaginationResponse<CourseModule[]>>>([
-                    QueryKeys.GET_COURSE_MODULES,
-                    courseId,
-                ]);
+                const previousCourseModulesData = queryClient.getQueryData<InfiniteData<TPaginationResponse<CourseModuleWithoutLessons[]>>>(
+                    [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId]
+                );
 
                 queryClient.setQueryData<GetCourseModuleResponse>(
-                    [QueryKeys.GET_COURSE_MODULE, courseId, moduleId],
+                    [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
-                queryClient.setQueriesData<InfiniteData<TPaginationResponse<CourseModule[]>>>(
-                    [QueryKeys.GET_COURSE_MODULES, courseId],
+                queryClient.setQueriesData<InfiniteData<TPaginationResponse<CourseModuleWithoutLessons[]>>>(
+                    [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId],
                     (previousData) => {
                         if (!previousData) {
                             return undefined;
@@ -64,27 +63,23 @@ export const useUpdateCourseModuleActivity = ({
             },
             onError: (err, _, context) => {
                 if (context?.previousCourseModuleData) {
-                    queryClient.setQueryData([QueryKeys.GET_COURSE_MODULE, courseId, moduleId], context.previousCourseModuleData);
+                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], context.previousCourseModuleData);
                 }
                 if (context?.previousCourseModulesData) {
-                    queryClient.setQueryData([QueryKeys.GET_COURSE_MODULES, courseId], context.previousCourseModulesData);
+                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_MODULES, courseId], context.previousCourseModulesData);
                 }
                 createNotification({
                     type: ToastType.WARN,
                     title: "Ошибка изменения статуса",
                 });
             },
-            onSuccess: ({ isActive }, _, context) => {
-                const courseModule = context?.previousCourseModuleData;
-                const courseModuleFromList = context?.previousCourseModulesData?.pages
-                    .find((page) => page.data.find((module) => String(module.id) === moduleId))
-                    ?.data.find((module) => String(module.id) === moduleId);
+            onSuccess: ({ isActive }) => {
                 const statusMessage = isActive ? "активирован" : "деактивирован";
 
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Модуль "${courseModule?.name || courseModuleFromList?.name}" ${statusMessage}.`,
+                    message: `Модуль "${moduleName}" ${statusMessage}.`,
                 });
             },
         }

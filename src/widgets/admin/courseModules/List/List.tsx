@@ -8,7 +8,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { Button, DndCard, Heading, Loader } from "@shared/ui";
-import { CourseModule, useCourseModules } from "@entities/courseModule";
+import { CourseModuleWithoutLessons, useCourseModules } from "@entities/courseModule";
 import { CreateCourseModuleModal } from "@features/courseModules";
 import { useUpdateCourseModuleOrder } from "@entities/courseModule";
 import { ListMenu } from "./components";
@@ -26,7 +26,7 @@ const List = ({ courseId }: ModuleListProps) => {
 
     const updateModuleOrder = useUpdateCourseModuleOrder(courseId);
 
-    const [modules, setModules] = useState<CourseModule[] | undefined>(modulesData?.data);
+    const [modules, setModules] = useState<CourseModuleWithoutLessons[] | undefined>(modulesData?.data);
 
     const { ref: lastElementRef, entry } = useIntersection();
 

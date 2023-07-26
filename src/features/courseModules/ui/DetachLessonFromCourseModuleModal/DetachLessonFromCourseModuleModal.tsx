@@ -23,7 +23,13 @@ const DetachLessonFromCourseModuleModal = ({
     onClose,
 }: DetachLessonFromCourseModuleModalProps) => {
     const { classes } = useStyles();
-    const { mutate: detachLessonFromModule, isLoading } = useDetachLessonFromCourseModule({ courseId, moduleId, lessonId });
+    const { mutate: detachLessonFromModule, isLoading } = useDetachLessonFromCourseModule({
+        courseId,
+        moduleId,
+        lessonId,
+        lessonName,
+        moduleName,
+    });
 
     const handleSubmit = () => {
         detachLessonFromModule(null, {

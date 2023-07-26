@@ -35,8 +35,8 @@ const CourseModuleDetailPage = () => {
                 })}
                 mb={8}
             />
-            <CourseModuleInfoPanel courseId={courseId} moduleId={moduleId} />
-            <ModuleLessonsList courseId={courseId} moduleId={moduleId} moduleName={moduleData.name} />
+            <CourseModuleInfoPanel courseId={courseId} moduleId={moduleId} moduleName={moduleData.name} />
+            <ModuleLessonsList module={moduleData} courseId={courseId} />
         </Box>
     );
 };

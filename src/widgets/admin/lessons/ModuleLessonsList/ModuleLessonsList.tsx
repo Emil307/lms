@@ -5,45 +5,34 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import { Button, DndCard, Heading, Loader, Paragraph } from "@shared/ui";
-import { AdminLessonFromList, useAdminModuleLessons, useUpdateLessonOrder } from "@entities/lesson";
+import { Button, DndCard, Heading, Paragraph } from "@shared/ui";
+import { useUpdateLessonOrder } from "@entities/lesson";
 import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
 import { ListMenu } from "./components";
-import { getInitialValues } from "./utils";
 import useStyles from "./ModuleLessonsList.styles";
+import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
 
 interface ModuleLessonsListProps {
     courseId: string;
-    moduleId: string;
-    moduleName: string;
+    module: CourseModule;
 }
 
-const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsListProps) => {
+const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const { data: lessonsData, hasNextPage, fetchNextPage, isError } = useAdminModuleLessons(getInitialValues(moduleId));
+
+    const moduleId = String(module.id);
 
     const { mutate: updateLessonOrder } = useUpdateLessonOrder({ moduleId });
 
-    const [lessons, setLessons] = useState<AdminLessonFromList[] | undefined>(lessonsData?.data);
-
-    const { ref: lastElementRef, entry } = useIntersection();
+    const [lessons, setLessons] = useState<CourseModuleLesson[]>(module.lessons);
 
     useEffect(() => {
-        if (lessonsData?.data) {
-            setLessons(lessonsData.data);
-        }
-    }, [lessonsData?.data]);
-
-    useEffect(() => {
-        if (entry && entry.isIntersecting && hasNextPage) {
-            fetchNextPage();
-        }
-    }, [entry, hasNextPage]);
+        setLessons(module.lessons);
+    }, [module.lessons]);
 
     const handleGoAdminLessonPage = (lessonId: number) => {
         router.push({
@@ -51,14 +40,6 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             query: { id: courseId, moduleId: String(moduleId), lessonId: String(lessonId) },
         });
     };
-
-    if (isError) {
-        return <Text>Произошла ошибка, попробуйте позднее</Text>;
-    }
-
-    if (!lessons) {
-        return <Loader />;
-    }
 
     const handleCloseLessonListModal = () => closeModal("LESSON_LIST");
     const handleCloseCreateLessonModal = () => closeModal("CREATE_LESSON");
@@ -81,7 +62,6 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
     };
 
     const handleOpenCreateLessonModal = () => {
-        const lessonNumber = lessonsData ? lessonsData.pagination.total + 1 : 1;
         openModal({
             modalId: "CREATE_LESSON",
             title: "Создание урока",
@@ -89,8 +69,9 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             children: (
                 <CreateLessonModal
                     courseId={courseId}
-                    lessonNumber={lessonNumber}
+                    lessonNumber={module.lessons.length + 1}
                     moduleId={moduleId}
+                    moduleName={module.name}
                     onClose={handleCloseCreateLessonModal}
                 />
             ),
@@ -104,7 +85,9 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
             centered: true,
             size: 912,
             mah: 912,
-            children: <LessonListModal courseId={courseId} moduleId={moduleId} onClose={handleCloseLessonListModal} />,
+            children: (
+                <LessonListModal courseId={courseId} moduleId={moduleId} moduleName={module.name} onClose={handleCloseLessonListModal} />
+            ),
         });
     };
 
@@ -155,13 +138,12 @@ const ModuleLessonsList = ({ courseId, moduleId, moduleName }: ModuleLessonsList
                                         data={lesson}
                                         courseId={courseId}
                                         moduleId={moduleId}
-                                        moduleName={moduleName}
+                                        moduleName={module.name}
                                         lessonNumber={index + 1}
                                     />
                                 }
                                 onOpen={() => handleGoAdminLessonPage(lesson.id)}
                                 isActive={lesson.isActive}
-                                elementRef={lastElementRef}
                                 key={lesson.id}>
                                 <Flex gap={24}>
                                     <Flex gap={6}>
