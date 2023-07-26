@@ -14,17 +14,18 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontSize: 16,
         lineHeight: "24px",
 
-        "+ p": {
-            marginTop: 24,
-
-            [theme.fn.smallerThan("md")]: {
-                marginTop: 16,
-            },
-        },
-
-        "+ *:not(p, ul, a)": {
-            marginTop: 48,
-        },
+        //TODO: перепроверить отступы
+        // "+ p": {
+        //     marginTop: 24,
+        //
+        //     [theme.fn.smallerThan("md")]: {
+        //         marginTop: 16,
+        //     },
+        // },
+        //
+        // "+ *:not(p, ul, a, img, .tableWrapper)": {
+        //     marginTop: 48,
+        // },
     },
 
     h1: {

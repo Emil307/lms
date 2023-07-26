@@ -40,7 +40,6 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
                 classNames={classes}
                 layout="alt"
                 header={renderHeader()}
-                // navbar={<NavbarUser hidden={!openedSidebar} isPublic={!user?.id} />}
                 navbar={<NavbarUser hidden={!openedSidebar} />}
                 footer={<FooterUser hidden={openedSidebar} />}>
                 <Box className={classes.wrapperContent}>{children}</Box>

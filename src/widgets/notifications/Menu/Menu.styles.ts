@@ -11,6 +11,10 @@ export default createStyles((theme, { isOpened }: CreateStylesProps) => ({
         borderRadius: 160,
         backgroundColor: isOpened ? theme.colors.grayLight[0] : theme.colors.white[0],
         cursor: "pointer",
+
+        ":hover": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
     },
 
     indicator: {

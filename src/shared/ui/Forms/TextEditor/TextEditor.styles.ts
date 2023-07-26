@@ -41,6 +41,10 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
             pointerEvents: "none",
         }),
 
+        ".column-resize-handle": {
+            display: "none",
+        },
+
         ".ProseMirror": {
             height: "100%",
         },
