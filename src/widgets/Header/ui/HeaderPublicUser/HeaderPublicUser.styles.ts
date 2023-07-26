@@ -59,6 +59,10 @@ export default createStyles((theme) => ({
         width: 56,
         color: theme.colors.dark[0],
         borderRadius: 160,
+
+        ":hover": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
     },
     wrapperRightMenu: {
         alignItems: "center",

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ActionIcon, Flex, Header as MHeader, MediaQuery, Skeleton, useMantineTheme } from "@mantine/core";
-import { AlignLeft, Search, X } from "react-feather";
+import { AlignLeft, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button } from "@shared/ui";
@@ -55,7 +55,7 @@ const HeaderPublicUser = () => {
 
     const renderRightBlock = () => {
         if (!initialRenderComplete || isFetchingUser) {
-            return <Skeleton visible={true} w={74} h={50} radius={26} />;
+            return <Skeleton w={74} h={50} radius={26} />;
         }
 
         if (user) {
@@ -112,23 +112,11 @@ const HeaderPublicUser = () => {
 
                 <Flex className={classes.wrapperRightMenu}>
                     <Flex gap={{ md: 12, sm: 0 }}>
-                        {extraMenuLinks.map((extraMenuItem, index) => (
-                            <ActionIcon
-                                className={classes.actionIcon}
-                                sx={{
-                                    backgroundColor:
-                                        router.pathname === extraMenuItem.href.pathname ? theme.colors.grayLight[0] : "transparent",
-                                }}
-                                onClick={() => router.push(extraMenuItem.href)}
-                                key={index}>
-                                {extraMenuItem.icon}
+                        {extraMenuLinks.map((extraMenuLink, index) => (
+                            <ActionIcon className={classes.actionIcon} onClick={() => router.push(extraMenuLink.href)} key={index}>
+                                {extraMenuLink.icon}
                             </ActionIcon>
                         ))}
-
-                        {/*TODO: Уточнить куда ведет ссылка*/}
-                        <ActionIcon className={classes.actionIcon}>
-                            <Search />
-                        </ActionIcon>
                     </Flex>
 
                     <Flex align="center" gap={8}>

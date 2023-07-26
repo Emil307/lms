@@ -29,7 +29,6 @@ const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) 
                     {data.cover && (
                         <Image
                             src={data.cover.absolutePath}
-                            loader={({ src }) => `${src}`}
                             alt={data.cover.name}
                             fill
                             sizes="100vw"
