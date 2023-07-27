@@ -74,7 +74,7 @@ export const $CreateCourseModuleRequest = $CreateCourseModuleFormValues
         courseId: z.string(),
     });
 
-export const $CreateCourseModuleResponse = $CourseModule;
+export const $CreateCourseModuleResponse = $CourseModuleWithoutLessons;
 
 export const $UpdateCourseModuleFormValues = $CreateCourseModuleFormValues;
 
@@ -82,7 +82,7 @@ export const $UpdateCourseModuleRequest = $CreateCourseModuleRequest.extend({
     moduleId: z.string(),
 });
 
-export const $UpdateCourseModuleResponse = $CourseModule;
+export const $UpdateCourseModuleResponse = $CourseModuleWithoutLessons;
 
 export const $UpdateCourseModuleActivityRequest = z.object({
     courseId: z.string(),

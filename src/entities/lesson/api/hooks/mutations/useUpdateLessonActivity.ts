@@ -89,7 +89,7 @@ export const useUpdateLessonActivity = ({
             });
 
             //TODO: Добавил инвалидэйт деталки урока из-за нужды обновлять LastUpdated
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON, id]);
+            // queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON, id]);
 
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE]);
