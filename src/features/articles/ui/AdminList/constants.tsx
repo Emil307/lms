@@ -29,7 +29,7 @@ export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
         header: "Учебный курс",
         accessorKey: "courses",
         enableSorting: false,
-        accessorFn: (row) => row.courses.join(", "),
+        accessorFn: (row) => row.courses.map(({ name }) => name).join(", "),
     },
     {
         header: "Статус",

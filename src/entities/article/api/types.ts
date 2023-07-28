@@ -153,7 +153,7 @@ export const $AdminArticleFromList = $AdminArticle
         subcategories: true,
     })
     .extend({
-        courses: $AdminArticleCourse.array(),
+        courses: $AdminArticleCourse.pick({ name: true }).array(),
     });
 
 export const $GetAdminArticleRequest = z.object({
