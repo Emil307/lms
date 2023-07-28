@@ -22,6 +22,7 @@ const getStylesByVariant = (theme: MantineTheme, { variant = "localIcon" }: Crea
 
     return {
         svg: {
+            color: theme.colors.gray45[0],
             strokeWidth: 1.3,
         },
     };

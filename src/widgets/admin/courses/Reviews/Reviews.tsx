@@ -1,9 +1,9 @@
-import { Box, Flex, ThemeIcon, Collapse, Title } from "@mantine/core";
+import { Box, Flex, ThemeIcon, Collapse } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
+import { FDateRangePicker, FSearch, FSelect, Heading, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -66,7 +66,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
             {({ dirty, resetForm }) => {
                 return (
                     <Box>
-                        <Title>Отзывы</Title>
+                        <Heading order={2}>Отзывы</Heading>
                         <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()} mt={32}>
                             {labelToggleButton}
                         </Button>

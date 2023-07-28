@@ -204,24 +204,27 @@ const MemoizedFileInput = memo(function FileInput({
         }
         return (
             <Box {...containerFilesProps} className={cx(classes.containerFiles, containerFilesProps?.className)}>
-                {loadedFiles.map((file) => (
-                    <FileInputLoaded
-                        key={file.id}
-                        fileId={file.id}
-                        //TODO: добавить сюда fileUrl для скачивания файла после его успешной загрузки
-                        file={file.data}
-                        fileName={file.data.name || "Файл"}
-                        fileSize={file.data.size}
-                        type="document"
-                        withDeleteButton={withDeleteButton}
-                        educational={educational}
-                        onEdit={handleReplaceLoadedFile}
-                        onDelete={handleDeleteLoadedFile}
-                        onUpdateFile={handleUploadedFile}
-                        error={file.error}
-                        onError={handleErrorLoadFile}
-                    />
-                ))}
+                {loadedFiles.map((file) => {
+                    const fileUrl = isFile(file.data) ? URL.createObjectURL(file.data) : file.data.absolutePath;
+                    return (
+                        <FileInputLoaded
+                            key={file.id}
+                            fileId={file.id}
+                            file={file.data}
+                            fileUrl={fileUrl}
+                            fileName={file.data.name || "Файл"}
+                            fileSize={file.data.size}
+                            type="document"
+                            withDeleteButton={withDeleteButton}
+                            educational={educational}
+                            onEdit={handleReplaceLoadedFile}
+                            onDelete={handleDeleteLoadedFile}
+                            onUpdateFile={handleUploadedFile}
+                            error={file.error}
+                            onError={handleErrorLoadFile}
+                        />
+                    );
+                })}
             </Box>
         );
     }, [loadedFiles]);

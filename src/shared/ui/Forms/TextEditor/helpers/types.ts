@@ -1,4 +1,5 @@
-export enum TableOperationType {
+export enum OperationType {
+    INSERT_IMAGE = "INSERT_IMAGE",
     INSERT_TABLE = "INSERT_TABLE",
     DELETE_TABLE = "DELETE_TABLE",
     ADD_COLUMN_BEFORE = "ADD_COLUMN_BEFORE",

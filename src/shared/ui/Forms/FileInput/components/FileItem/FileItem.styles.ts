@@ -36,8 +36,6 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         color: theme.colors.gray45[0],
     },
     content: {
-        display: "flex",
-        flexDirection: "column",
         width: "100%",
     },
     buttonDownload: {

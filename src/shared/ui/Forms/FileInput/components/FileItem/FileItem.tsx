@@ -6,6 +6,7 @@ import { FileStatus } from "@shared/types";
 import { getFileSize } from "@shared/utils";
 import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
+import { saveAs } from "file-saver";
 
 export interface FileItemProps {
     type: "document";
@@ -14,20 +15,16 @@ export interface FileItemProps {
     fileSize: number;
     status?: FileStatus;
     actionSlot?: ReactNode;
-    onDownloadFile?: (fileUrl: string, fileName: string) => void;
 }
 
-const MemoizedFileItem = memo(function FileItem({
-    fileName = "Файл",
-    fileUrl,
-    fileSize,
-    status,
-    actionSlot,
-    onDownloadFile = () => undefined,
-}: FileItemProps) {
+const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl, fileSize, status, actionSlot }: FileItemProps) {
     const { classes } = useStyles({ status });
 
-    const handleDownloadFile = () => fileUrl && onDownloadFile(fileUrl, fileName);
+    const handleDownloadFile = () => {
+        if (fileUrl) {
+            saveAs(fileUrl, fileName);
+        }
+    };
 
     const renderIcon = useMemo(() => {
         switch (status) {
@@ -55,9 +52,14 @@ const MemoizedFileItem = memo(function FileItem({
                 );
             case "done":
                 return (
-                    <Paragraph variant="text-small-m" className={classes.statusInfo}>
-                        Готово
-                    </Paragraph>
+                    <Flex gap={8}>
+                        <Paragraph variant="text-small-m" className={classes.statusInfo}>
+                            Готово
+                        </Paragraph>
+                        <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
+                            Скачать
+                        </Button>
+                    </Flex>
                 );
             case "error":
                 return (
@@ -77,7 +79,7 @@ const MemoizedFileItem = memo(function FileItem({
     return (
         <Box className={classes.root}>
             <Box className={classes.icon}>{renderIcon}</Box>
-            <Box className={classes.content}>
+            <Flex gap={2} direction="column" className={classes.content}>
                 <Flex gap={2} align="center">
                     <Paragraph variant="text-small-semi" color="dark" lineClamp={1}>
                         {fileName}
@@ -89,8 +91,8 @@ const MemoizedFileItem = memo(function FileItem({
                     )}
                 </Flex>
                 {renderAdditionalContent}
-            </Box>
-            <Flex>{actionSlot}</Flex>
+            </Flex>
+            <Box>{actionSlot}</Box>
         </Box>
     );
 });

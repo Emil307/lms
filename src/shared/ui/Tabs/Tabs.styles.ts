@@ -27,12 +27,15 @@ export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps
         color: theme.colors.gray45[0],
         borderRadius: 8,
         ":hover, &[data-active]": {
-            border: "none",
+            borderColor: theme.colors.grayLight[0],
             backgroundColor: theme.colors.white[0],
 
             p: {
                 color: theme.colors.dark[0],
             },
+        },
+        "&[data-active]:hover": {
+            borderColor: theme.colors.grayLight[0],
         },
     },
     tabLabel: {

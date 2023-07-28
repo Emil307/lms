@@ -4,6 +4,7 @@ import { isFile } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
 import { FileItem, FileItemProps } from "../../FileItem";
+import { Flex } from "@mantine/core";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
     type: "document";
@@ -57,22 +58,14 @@ export default function FileInputLoadedDocument({
     const actionSlot = useMemo(() => {
         if (status === "done")
             return (
-                <>
+                <Flex gap={8}>
                     <Trash cursor="pointer" onClick={() => onDelete(fileId)} />
                     <Edit3 cursor="pointer" onClick={() => onEdit(fileId)} />
-                </>
+                </Flex>
             );
 
         return <X cursor="pointer" onClick={() => onDelete(fileId)} />;
     }, [status, fileId]);
 
-    return (
-        <FileItem
-            {...props}
-            type={type}
-            //TODO: добавить fileUrl для скачивания
-            status={status}
-            actionSlot={actionSlot}
-        />
-    );
+    return <FileItem {...props} type={type} status={status} actionSlot={actionSlot} />;
 }
