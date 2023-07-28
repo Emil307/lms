@@ -1,28 +1,27 @@
-import { Box, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
-
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { Button } from "@shared/ui";
 import { AdminSubCategoriesExtraFilters, AdminSubCategoryFromList, categoryApi, useAdminCategory } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
-import { ListMenu } from "./components";
+import { CreateSubCategoryButton, ListMenu } from "./components";
 import { adaptGetAdminSubCategoriesRequest } from "./utils";
+import useStyles from "./AdminSubCategoryList.styles";
 import { CreateCategoryForm } from "../CreateCategoryForm";
 
-export interface AdminSubCategoryListProps {
+export interface AdminSubCategoryListProps extends BoxProps {
     parentId: string;
 }
 
-const AdminSubCategoryList = ({ parentId }: AdminSubCategoryListProps) => {
+const AdminSubCategoryList = ({ parentId, ...props }: AdminSubCategoryListProps) => {
+    const { classes } = useStyles();
+
     const handleCloseCreateCategoryModal = () => closeModal("CREATE_SUBCATEGORY");
 
     const openModalCreateSubCategory = () => {
         openModal({
             modalId: "CREATE_SUBCATEGORY",
             title: "Создание подкатегории",
-            centered: true,
             children: <CreateCategoryForm parentId={Number(parentId)} isSubcategory onClose={handleCloseCreateCategoryModal} />,
         });
     };
@@ -30,14 +29,10 @@ const AdminSubCategoryList = ({ parentId }: AdminSubCategoryListProps) => {
     const { data: categoryData } = useAdminCategory({ id: parentId });
 
     return (
-        <Box mt={24}>
-            <Flex gap={48} align="center">
+        <Box {...props}>
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Список подкатегорий</Heading>
-                {categoryData?.isActive && (
-                    <Button variant="text" onClick={openModalCreateSubCategory} leftIcon={<PlusCircle />}>
-                        Добавить подкатегорию
-                    </Button>
-                )}
+                <CreateSubCategoryButton onClick={openModalCreateSubCategory} isActiveCategory={categoryData?.isActive} />
             </Flex>
             <ManagedDataGrid<AdminSubCategoryFromList, unknown, AdminSubCategoriesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE}

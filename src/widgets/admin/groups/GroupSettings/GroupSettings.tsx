@@ -32,7 +32,6 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
         openModal({
             modalId: "DELETE_GROUP",
             title: "Удаление группы",
-            centered: true,
             children: <DeleteGroupModal id={id} name={groupData?.name} onClose={handleCloseDeleteGroupModal} />,
         });
     };

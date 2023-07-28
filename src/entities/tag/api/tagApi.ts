@@ -1,39 +1,51 @@
 import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
-    $adminTag,
-    $getAdminTagsResponse,
-    AdminTag,
+    $CreateAdminTagResponse,
+    $DeleteAdminTagResponse,
+    $GetAdminTagResponse,
+    $GetAdminTagsResponse,
+    $UpdateAdminTagResponse,
     CreateAdminTagRequest,
+    CreateAdminTagResponse,
+    DeleteAdminTagRequest,
+    DeleteAdminTagResponse,
+    GetAdminTagRequest,
+    GetAdminTagResponse,
     GetAdminTagsRequest,
     GetAdminTagsResponse,
     UpdateAdminTagRequest,
+    UpdateAdminTagResponse,
 } from "./types";
 
 class TagApi extends BaseApi {
-    async getAdminTags(params: GetAdminTagsRequest): Promise<GetAdminTagsResponse> {
-        const response = await this.instance.post("admin/tags/list", {}, { params });
-        return $getAdminTagsResponse.parse(response);
+    //ADMIN
+    async getAdminTags(data: GetAdminTagsRequest): Promise<GetAdminTagsResponse> {
+        const response = await this.instance.post("admin/tags/list", data);
+        return $GetAdminTagsResponse.parse(response);
     }
 
-    async getAdminTag(id: string): Promise<AdminTag> {
+    async getAdminTag({ id }: GetAdminTagRequest): Promise<GetAdminTagResponse> {
         const response = await this.instance.get(`admin/tags/${id}`);
-        return $adminTag.parse(response);
+        return $GetAdminTagResponse.parse(response);
     }
 
-    async createAdminTag(data: CreateAdminTagRequest): Promise<AdminTag> {
+    async createAdminTag(data: CreateAdminTagRequest): Promise<CreateAdminTagResponse> {
         const response = await this.instance.post(`admin/tags`, data);
-        return $adminTag.parse(response);
+        return $CreateAdminTagResponse.parse(response);
     }
 
-    async updateAdminTag(id: string, data: UpdateAdminTagRequest): Promise<AdminTag> {
+    async updateAdminTag({ id, ...data }: UpdateAdminTagRequest): Promise<UpdateAdminTagResponse> {
         const response = await this.instance.put(`admin/tags/${id}`, data);
-        return $adminTag.parse(response);
+        return $UpdateAdminTagResponse.parse(response);
     }
 
-    deleteTag(tagId: string): Promise<null> {
-        return this.instance.delete(`admin/tags/${tagId}`);
+    async deleteAdminTag({ id }: DeleteAdminTagRequest): Promise<DeleteAdminTagResponse> {
+        const response = await this.instance.delete(`admin/tags/${id}`);
+        return $DeleteAdminTagResponse.parse(response);
     }
+
+    //USER
 }
 
 export const tagApi = new TagApi(axios);

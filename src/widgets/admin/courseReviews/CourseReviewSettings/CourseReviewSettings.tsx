@@ -38,7 +38,6 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
         openModal({
             modalId: "DELETE_COURSE_REVIEW",
             title: "Удаление отзыва",
-            centered: true,
             children: <DeleteCourseReviewModal id={id} fullName={dataInfoCard.fio} onClose={handleCloseDeleteModal} />,
         });
     };

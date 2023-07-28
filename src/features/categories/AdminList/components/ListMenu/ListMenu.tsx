@@ -32,7 +32,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_CATEGORY",
             title: "Удаление категории",
-            centered: true,
             children: (
                 <DeleteCategoryModal id={String(row.original.id)} name={row.original.name} onClose={handleCloseDeleteCategoryModal} />
             ),
@@ -43,7 +42,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_CATEGORY",
             title: "Редактирование",
-            centered: true,
             children: <UpdateCategoryForm id={String(row.original.id)} onClose={handleCloseUpdateCategoryModal} />,
         });
     };
@@ -61,19 +59,19 @@ const ListMenu = ({ row }: ListMenuProps) => {
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={handleOpenCategoryDetail}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openUpdateCategoryModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteCategoryModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

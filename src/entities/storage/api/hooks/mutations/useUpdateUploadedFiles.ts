@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { UpdateUploadedFilesRequest, storageApi } from "@entities/storage";
+import { UpdateUploadedFilesRequest, UpdateUploadedFilesResponse, storageApi } from "@entities/storage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
 export const useUpdateUploadedFiles = (fileId?: number) => {
-    return useMutation<void, AxiosError<FormErrorResponse>, UpdateUploadedFilesRequest>(
+    return useMutation<UpdateUploadedFilesResponse, AxiosError<FormErrorResponse>, UpdateUploadedFilesRequest>(
         [MutationKeys.UPDATE_UPLOADED_FILES],
         (data) => storageApi.updateUploadedFiles(data),
         {

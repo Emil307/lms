@@ -25,7 +25,6 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_STUDENT_FROM_GROUP",
             title: "Удаление пользователя",
-            centered: true,
             children: (
                 <DeleteStudentFromGroupModal
                     groupId={groupId}

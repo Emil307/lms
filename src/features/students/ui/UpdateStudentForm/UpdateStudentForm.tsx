@@ -35,7 +35,6 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
         openModal({
             modalId: "CHANGE_PASSWORD",
             title: "Изменение пароля",
-            centered: true,
             size: 408,
             children: (
                 <ChangeUserPasswordForm

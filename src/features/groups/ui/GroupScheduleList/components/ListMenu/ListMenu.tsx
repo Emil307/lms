@@ -24,7 +24,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_SCHEDULE",
             title: "Удаление занятия",
-            centered: true,
             children: <DeleteScheduleModal groupId={groupId} data={row.original} onClose={handleCloseDeleteScheduleModal} />,
         });
     };
@@ -33,7 +32,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_SCHEDULE",
             title: "Редактирование",
-            centered: true,
             children: <UpdateScheduleForm groupId={groupId} data={row.original} onClose={handleCloseUpdateScheduleModal} />,
         });
     };

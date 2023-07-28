@@ -66,7 +66,7 @@ const MemoizedFileInput = memo(function FileInput({
     const [isErrorLoadFile, setIsErrorLoadFile] = useState(false);
     const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData?.map((file, index) => ({ id: index + 1, data: file })));
 
-    const { classes } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
+    const { classes, cx } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
 
     //Это для сброса значений FileInput'a в форме
     useEffect(() => {
@@ -203,7 +203,7 @@ const MemoizedFileInput = memo(function FileInput({
             return null;
         }
         return (
-            <Box {...containerFilesProps} className={classes.containerFiles}>
+            <Box {...containerFilesProps} className={cx(classes.containerFiles, containerFilesProps?.className)}>
                 {loadedFiles.map((file) => (
                     <FileInputLoaded
                         key={file.id}

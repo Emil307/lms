@@ -31,7 +31,6 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
         openModal({
             modalId: `${id}`,
             title: "Удаление пользователя",
-            centered: true,
             children: <UserDeleteModal redirectUrl="/admin/students" id={id} fio={getFullName({ data: data?.profile })} />,
         });
     };
@@ -44,7 +43,6 @@ const StudentSettings = ({ id }: StudentSettingsProps) => {
         openModal({
             modalId: "CHANGE_PASSWORD",
             title: "Изменение пароля",
-            centered: true,
             size: 408,
             children: (
                 <ChangeUserPasswordForm

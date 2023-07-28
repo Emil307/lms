@@ -16,6 +16,7 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("md")]: {
             flexDirection: "row",
             width: "100%",
+            gap: 24,
             overflowX: "auto",
         },
     },

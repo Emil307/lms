@@ -19,7 +19,6 @@ const DeleteUserButton = ({ data, hidden = false }: DeleteUserButtonProps) => {
         openModal({
             modalId: `${data?.id}`,
             title: "Удаление пользователя",
-            centered: true,
             children: <UserDeleteModal redirectUrl="/admin/users" id={String(data?.id)} fio={getFullName({ data: data?.profile })} />,
         });
     };

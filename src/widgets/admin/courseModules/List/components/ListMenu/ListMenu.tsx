@@ -25,7 +25,6 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_COURSE_MODULE",
             title: "Редактирование модуля",
-            centered: true,
             children: (
                 <UpdateCourseModuleModal
                     courseId={courseId}
@@ -41,7 +40,6 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_COURSE_MODULE",
             title: "Удаление модуля",
-            centered: true,
             children: (
                 <DeleteCourseModuleModal
                     courseId={courseId}

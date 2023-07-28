@@ -1,25 +1,10 @@
 import { createStyles } from "@mantine/core";
-import { ManropeFont } from "@app/providers/Theme/fonts";
 
-export default createStyles((theme) => ({
+export default createStyles((_theme) => ({
     wrapper: {
-        display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        padding: 24,
         gap: 8,
-    },
-    title: {
-        fontFamily: ManropeFont.style.fontFamily,
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
-    description: {
-        fontFamily: ManropeFont.style.fontFamily,
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
 }));

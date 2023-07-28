@@ -26,7 +26,6 @@ const ListMenu = ({ data, openUpdateForm }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_QUESTION",
             title: "Удаление вопроса",
-            centered: true,
             children: <DeleteFaqModal id={data.id} question={data.question} onClose={handleCloseDeleteModal} />,
         });
     };

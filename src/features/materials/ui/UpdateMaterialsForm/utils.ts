@@ -2,7 +2,7 @@ import { REGEXP_FILE_EXTENSION } from "@shared/constant";
 import { UpdateUploadedFilesRequest } from "@entities/storage";
 import { CreateMaterialsDataForm } from "@features/materials";
 import { UploadedFile } from "@shared/types";
-import { MaterialFile, UpdateMaterialsFormValidationSchema } from "./types";
+import { MaterialFile, UpdateMaterialsFormValidation } from "./types";
 
 interface TGetInitialValues {
     sessionStorageData: CreateMaterialsDataForm | null;
@@ -14,20 +14,20 @@ export const getInitialValues = ({
     sessionStorageData,
     data,
     hasCategories = false,
-}: TGetInitialValues): UpdateMaterialsFormValidationSchema => ({
+}: TGetInitialValues): UpdateMaterialsFormValidation => ({
     files: data,
     isBinding: hasCategories,
     ...sessionStorageData,
 });
 
-export const adaptEditMaterialsInitialValues = (data: UploadedFile[]): Partial<UpdateMaterialsFormValidationSchema> => {
+export const adaptUpdateMaterialsInitialValues = (data: UploadedFile[]): Partial<UpdateMaterialsFormValidation> => {
     return {
         files: data.map((file) => ({ id: file.id, name: file.name.replace(REGEXP_FILE_EXTENSION, ""), extension: file.extension })),
     };
 };
 
-export const adaptEditMaterialsFormRequest = (
-    data: UpdateMaterialsFormValidationSchema,
+export const adaptUpdateMaterialsFormRequest = (
+    data: UpdateMaterialsFormValidation,
     categoryIds?: string[]
 ): UpdateUploadedFilesRequest => {
     const isBinding = data.isBinding && !!categoryIds?.length;

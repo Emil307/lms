@@ -2,23 +2,28 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, Heading } from "@shared/ui";
-import { List as AuthorList } from "@features/authors";
+import { AdminList as AdminAuthorList } from "@features/authors";
+import useStyles from "./AuthorsPage.styles";
 
 const AuthorsPage = () => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const openCreateAuthorForm = () => router.push({ pathname: "/admin/settings/authors/create" });
 
     return (
         <Box>
-            <Flex align="center" justify="space-between" mb={24}>
+            <Flex className={classes.headingContainer}>
                 <Heading>Авторы курсов</Heading>
-                <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={openCreateAuthorForm}>
+                <Button variant="secondary" size={isTablet ? "medium" : "large"} leftIcon={<PlusCircle />} onClick={openCreateAuthorForm}>
                     Создать автора
                 </Button>
             </Flex>
-            <AuthorList />
+            <AdminAuthorList />
         </Box>
     );
 };

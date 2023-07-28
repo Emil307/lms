@@ -29,7 +29,6 @@ const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMe
         openModal({
             modalId: "UPDATE_LESSON",
             title: "Редактирование урока",
-            centered: true,
             children: <UpdateLessonModal data={data} lessonNumber={lessonNumber} onClose={handleCloseUpdateLessonModal} />,
         });
     };
@@ -38,7 +37,6 @@ const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMe
         openModal({
             modalId: "DELETE_LESSON_FROM_MODULE",
             title: "Удаление урока",
-            centered: true,
             children: (
                 <DetachLessonFromCourseModuleModal
                     courseId={courseId}

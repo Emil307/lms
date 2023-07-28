@@ -29,7 +29,6 @@ const AdminArticleList = ({ articlePackageId }: AdminArticleListProps) => {
         openModal({
             modalId: "ADD_ARTICLE_TO_ARTICLE_PACKAGE",
             title: "Добавить статью",
-            centered: true,
             children: <AddArticleToArticlePackageModal articlePackageId={articlePackageId} onClose={handleCloseAddArticleToPackageModal} />,
             size: 912,
             mah: 912,

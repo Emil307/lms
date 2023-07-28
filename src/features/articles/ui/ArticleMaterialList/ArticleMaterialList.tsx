@@ -20,7 +20,6 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
         openModal({
             modalId: "ADD_MATERIAL_TO_ARTICLE",
             title: "Добавить материалы",
-            centered: true,
             children: <AddMaterialsToArticleModal articleId={articleId} onClose={handleCloseAddMaterialsToArticleModal} />,
             size: 912,
             mah: 912,

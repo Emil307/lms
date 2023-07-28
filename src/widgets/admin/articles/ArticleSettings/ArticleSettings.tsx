@@ -32,7 +32,6 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
         openModal({
             modalId: "DELETE_ARTICLE",
             title: "Удаление статьи",
-            centered: true,
             children: <DeleteArticleModal id={id} name={articleData?.name} onClose={handleCloseDeleteModal} />,
         });
     };

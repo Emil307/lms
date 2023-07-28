@@ -26,7 +26,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_COURSE_PACKAGE",
             title: "Удаление пакета",
-            centered: true,
             children: <DeleteCoursePackageModal id={String(row.original.id)} name={row.original.name} onClose={handleCloseDeleteModal} />,
         });
     };

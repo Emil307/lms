@@ -36,7 +36,6 @@ const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
         openModal({
             modalId: "DELETE_TRANSACTION",
             title: "Удаление транзакции",
-            centered: true,
             children: <DeleteTransactionModal id={id} name={transactionData?.entity.type.name} onClose={handleCloseDeleteModal} />,
         });
     };

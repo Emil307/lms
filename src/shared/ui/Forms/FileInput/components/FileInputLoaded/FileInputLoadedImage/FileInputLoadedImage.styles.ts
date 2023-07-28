@@ -90,6 +90,5 @@ export default createStyles((theme, _params, getRef) => ({
         background: theme.colors.gray45[0],
         opacity: 1,
         borderRadius: 16,
-        border: "none",
     },
 }));

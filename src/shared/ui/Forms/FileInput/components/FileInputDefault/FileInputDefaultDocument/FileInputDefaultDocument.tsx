@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { Box, Button, Text } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
+import { Paragraph } from "@shared/ui/Typography";
 import useStyles from "./FileInputDefaultDocument.styles";
 
 export interface FileInputDefaultDocumentProps {
@@ -20,9 +21,11 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
 }: FileInputDefaultDocumentProps) {
     const { classes } = useStyles();
     return (
-        <Box className={classes.wrapper}>
-            <Text className={classes.title}>{title}</Text>
-            <Text className={classes.description}>или</Text>
+        <Flex className={classes.wrapper}>
+            <Paragraph variant="text-small-m">{title}</Paragraph>
+            <Paragraph variant="text-caption" color="gray45">
+                или
+            </Paragraph>
             <Button
                 mb={6}
                 sx={(theme) => ({
@@ -53,11 +56,11 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                 </Button>
             )}
             {description && (
-                <Text lineClamp={2} className={classes.description}>
+                <Paragraph variant="text-caption" color="gray45" lineClamp={2} ta="center">
                     {description}
-                </Text>
+                </Paragraph>
             )}
-        </Box>
+        </Flex>
     );
 });
 

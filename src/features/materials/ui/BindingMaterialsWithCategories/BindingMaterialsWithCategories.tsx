@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { FormikConfig } from "formik";
 import { Box, Flex } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
+import { useIntersection, useMediaQuery } from "@mantine/hooks";
 import { Button, Checkbox, FCheckboxGroup, Form, Loader } from "@shared/ui";
 import { useAdminCategories } from "@entities/category";
 import { getDataFromSessionStorage } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import useStyles from "./BindingMaterialsWithCategories.styles";
 import { initialParams } from "./constants";
-import { $bindingMaterialsFormValidationSchema, BindingMaterialsFormValidationSchema } from "./types";
+import { $BindingMaterialsFormValidation, BindingMaterialsFormValidation } from "./types";
 
 export interface BindingMaterialsWithCategoriesProps {
     onClose: () => void;
@@ -16,6 +16,8 @@ export interface BindingMaterialsWithCategoriesProps {
 
 const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategoriesProps) => {
     const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 
@@ -31,14 +33,14 @@ const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategor
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry && entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
 
-    const config: FormikConfig<BindingMaterialsFormValidationSchema> = {
+    const config: FormikConfig<BindingMaterialsFormValidation> = {
         initialValues: { categoryIds: sessionStorageData?.categoryIds || [] },
-        validationSchema: $bindingMaterialsFormValidationSchema,
+        validationSchema: $BindingMaterialsFormValidation,
         onSubmit: async (values) => {
             sessionStorage.setItem(MATERIALS_LOCAL_STORAGE_KEY, JSON.stringify({ ...sessionStorageData, ...values }));
             onClose();
@@ -47,7 +49,7 @@ const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategor
 
     return (
         <Form config={config} disableOverlay>
-            <Box h={472} mb={16} sx={{ overflow: "auto" }}>
+            <Box className={classes.checkboxGroupWrapper}>
                 <FCheckboxGroup name="categoryIds">
                     <Flex direction="column" w="100%" gap={8}>
                         {categoriesData?.data.map((item) => (
@@ -60,10 +62,10 @@ const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategor
                 </FCheckboxGroup>
             </Box>
             <Flex gap={8}>
-                <Button type="button" size="large" variant="border" onClick={onClose} w="100%">
+                <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="100%">
                     Отмена
                 </Button>
-                <Button type="submit" size="large" variant="secondary" w="100%">
+                <Button type="submit" size={isMobile ? "medium" : "large"} variant="secondary" w="100%">
                     Сохранить
                 </Button>
             </Flex>

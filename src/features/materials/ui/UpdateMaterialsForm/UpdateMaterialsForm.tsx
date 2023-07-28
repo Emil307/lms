@@ -1,14 +1,15 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, ScrollArea, Text } from "@mantine/core";
 import React from "react";
 import { FieldArray, FormikConfig } from "formik";
 import { ChevronLeft, FileText, PlayCircle } from "react-feather";
 import axios from "axios";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, Form, getFileExtension } from "@shared/ui";
 import { ToastType, createNotification, getDataFromSessionStorage } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { MaterialType, useUpdateUploadedFiles } from "@entities/storage";
-import { $updateMaterialsFormValidationSchema, MaterialFile, UpdateMaterialsFormValidationSchema } from "./types";
-import { adaptEditMaterialsFormRequest, getInitialValues } from "./utils";
+import { $UpdateMaterialsFormValidation, MaterialFile, UpdateMaterialsFormValidation } from "./types";
+import { adaptUpdateMaterialsFormRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateMaterialsForm.styles";
 import { ControlPanel } from "./components";
 
@@ -18,10 +19,13 @@ export interface UpdateMaterialsFormProps {
     type: MaterialType;
     onClose: () => void;
     onSubmit: (fileIds: string[]) => void;
+    multiple?: boolean;
 }
 
-const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: UpdateMaterialsFormProps) => {
+const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onClose, onSubmit }: UpdateMaterialsFormProps) => {
     const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 
@@ -45,11 +49,11 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: U
         );
     };
 
-    const config: FormikConfig<UpdateMaterialsFormValidationSchema> = {
+    const config: FormikConfig<UpdateMaterialsFormValidation> = {
         initialValues: getInitialValues({ sessionStorageData, data, hasCategories }),
-        validationSchema: $updateMaterialsFormValidationSchema,
+        validationSchema: $UpdateMaterialsFormValidation,
         onSubmit: async (values) => {
-            updateMaterials.mutate(adaptEditMaterialsFormRequest(values, sessionStorageData?.categoryIds), {
+            updateMaterials.mutate(adaptUpdateMaterialsFormRequest(values, sessionStorageData?.categoryIds), {
                 onSuccess: () => {
                     onSubmit(values.files.map((file) => String(file.id)));
                 },
@@ -69,13 +73,18 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: U
     };
     return (
         <Form config={config} disableOverlay>
-            {({ values }) => {
-                return (
-                    <>
-                        <Box h={472} mb={16}>
-                            <ControlPanel mb={24} />
-                            <FieldArray name="files">
-                                {() => (
+            {({ values }) => (
+                <Flex direction="column" gap={16}>
+                    <Flex className={classes.contentContainer}>
+                        <ControlPanel />
+                        <FieldArray name="files">
+                            {() => (
+                                <ScrollArea.Autosize
+                                    maxHeight={isMobile ? 456 : 368}
+                                    style={{ height: "100%", width: "100%" }}
+                                    type="auto"
+                                    offsetScrollbars
+                                    scrollbarSize={4}>
                                     <Flex direction="column" gap={16}>
                                         {values.files.map((file, index) => (
                                             <Flex key={index} gap={16}>
@@ -84,27 +93,32 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, onClose, onSubmit }: U
                                             </Flex>
                                         ))}
                                     </Flex>
-                                )}
-                            </FieldArray>
-                        </Box>
-                        <Flex gap={8}>
-                            <Button
-                                type="button"
-                                size="large"
-                                variant="border"
-                                onClick={onClose}
-                                w="100%"
-                                leftIcon={<ChevronLeft />}
-                                disabled={updateMaterials.isLoading}>
-                                Назад
-                            </Button>
-                            <Button type="submit" size="large" variant="secondary" w="100%" loading={updateMaterials.isLoading}>
-                                Сохранить
-                            </Button>
-                        </Flex>
-                    </>
-                );
-            }}
+                                </ScrollArea.Autosize>
+                            )}
+                        </FieldArray>
+                    </Flex>
+                    <Flex gap={8}>
+                        <Button
+                            type="button"
+                            size={isMobile ? "medium" : "large"}
+                            variant="border"
+                            onClick={onClose}
+                            w="100%"
+                            leftIcon={multiple ? <ChevronLeft /> : null}
+                            disabled={updateMaterials.isLoading}>
+                            {multiple ? "Назад" : "Отмена"}
+                        </Button>
+                        <Button
+                            type="submit"
+                            size={isMobile ? "medium" : "large"}
+                            variant="secondary"
+                            w="100%"
+                            loading={updateMaterials.isLoading}>
+                            Сохранить
+                        </Button>
+                    </Flex>
+                </Flex>
+            )}
         </Form>
     );
 };

@@ -1,3 +1,3 @@
-import AuthorSettings from "./AuthorSettings";
+import AuthorSettings, { type AuthorSettingsProps } from "./AuthorSettings";
 
-export { AuthorSettings };
+export { AuthorSettings, AuthorSettingsProps };

@@ -48,11 +48,23 @@ const MemoizedFileItem = memo(function FileItem({
     const renderAdditionalContent = useMemo(() => {
         switch (status) {
             case "loading":
-                return <Text className={classes.statusInfo}>Загружается</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.statusInfo}>
+                        Загружается
+                    </Paragraph>
+                );
             case "done":
-                return <Text className={classes.statusInfo}>Готово</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.statusInfo}>
+                        Готово
+                    </Paragraph>
+                );
             case "error":
-                return <Text className={classes.statusInfo}>Загрузка не удалась</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.statusInfo}>
+                        Загрузка не удалась
+                    </Paragraph>
+                );
             default:
                 return (
                     <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
@@ -78,7 +90,7 @@ const MemoizedFileItem = memo(function FileItem({
                 </Flex>
                 {renderAdditionalContent}
             </Box>
-            <Box className={classes.actions}>{actionSlot}</Box>
+            <Flex>{actionSlot}</Flex>
         </Box>
     );
 });

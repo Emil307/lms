@@ -27,7 +27,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_ARTICLE",
             title: "Удаление статьи",
-            centered: true,
             children: <DeleteArticleModal id={String(row.original.id)} name={row.original.name} onClose={handleCloseDeleteModal} />,
         });
     };

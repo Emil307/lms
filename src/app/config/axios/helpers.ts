@@ -1,7 +1,7 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
-import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 import { logoutPath } from "@app/routes";
+import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
     Accept: "application/json",

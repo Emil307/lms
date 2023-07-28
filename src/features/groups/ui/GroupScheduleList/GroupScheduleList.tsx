@@ -21,7 +21,6 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
         openModal({
             modalId: "CREATE_SCHEDULE",
             title: "Добавление занятия",
-            centered: true,
             children: <CreateScheduleForm groupId={groupId} onClose={handleCloseCreateScheduleModal} />,
         });
     };

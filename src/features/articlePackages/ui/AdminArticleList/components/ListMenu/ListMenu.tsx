@@ -23,7 +23,6 @@ const ListMenu = ({ row, articlePackageId }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_ARTICLE_FROM_PACKAGE",
             title: "Удаление статьи",
-            centered: true,
             children: (
                 <DeleteArticleFromArticlePackageModal
                     id={row.original.id}

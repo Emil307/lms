@@ -56,16 +56,22 @@ const UpdateCategoryForm = ({ id, onClose }: UpdateCategoryFormProps) => {
                 { queryKey: [QueryKeys.GET_ADMIN_CATEGORY, id] },
             ]}
             onError={onError}
-            disableOverlay>
-            <FInput name="name" label={categoryData.parentId ? "Название подкатегории" : "Название"} />
-            <Flex mt={32} gap={8}>
-                <Button variant="border" size="large" onClick={onClose} w="100%">
-                    Отмена
-                </Button>
-                <Button type="submit" variant="secondary" size="large" w="100%">
-                    Сохранить
-                </Button>
-            </Flex>
+            disableOverlay
+            hasConfirmModal
+            onCancel={onClose}>
+            {({ onCancel }) => (
+                <Flex direction="column" gap={{ base: 24, xs: 32 }}>
+                    <FInput name="name" label={categoryData.parentId ? "Название подкатегории" : "Название"} />
+                    <Flex gap={8}>
+                        <Button variant="border" size="large" onClick={onCancel} w="100%">
+                            Отмена
+                        </Button>
+                        <Button type="submit" variant="secondary" size="large" w="100%">
+                            Сохранить
+                        </Button>
+                    </Flex>
+                </Flex>
+            )}
         </ManagedForm>
     );
 };

@@ -55,7 +55,6 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
                     </Paragraph>
                 </Flex>
             ),
-            centered: true,
             size: 912,
             children: <SelectLessonOptionModal onCreate={handleOpenCreateLessonModal} onSelect={handleOpenSelectLessonsModal} />,
         });
@@ -65,7 +64,6 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
         openModal({
             modalId: "CREATE_LESSON",
             title: "Создание урока",
-            centered: true,
             children: (
                 <CreateLessonModal
                     courseId={courseId}
@@ -82,7 +80,6 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
         openModal({
             modalId: "LESSON_LIST",
             title: "Выбрать из базы уроков",
-            centered: true,
             size: 912,
             mah: 912,
             children: (

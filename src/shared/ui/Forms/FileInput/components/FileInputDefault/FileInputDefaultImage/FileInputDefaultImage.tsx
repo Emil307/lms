@@ -25,14 +25,14 @@ const MemoizedFileInputDefaultImage = memo(function FileInputDefaultImage({
         }
         if (type === "image") {
             return (
-                <ThemeIcon variant="outline" className={classes.defaultIconBackground}>
+                <ThemeIcon className={classes.defaultIconBackground}>
                     <ImageIcon />
                 </ThemeIcon>
             );
         }
 
         return (
-            <ThemeIcon variant="outline" className={classes.defaultIconBackground}>
+            <ThemeIcon className={classes.defaultIconBackground}>
                 <PlayCircle />
             </ThemeIcon>
         );

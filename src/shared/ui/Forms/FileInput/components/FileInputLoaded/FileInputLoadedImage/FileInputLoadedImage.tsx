@@ -59,7 +59,7 @@ export default function FileInputLoadedImage({
     return (
         <Box className={classes.root}>
             {isLoading && (
-                <ThemeIcon className={classes.loader} variant="outline">
+                <ThemeIcon className={classes.loader}>
                     <Loader />
                 </ThemeIcon>
             )}

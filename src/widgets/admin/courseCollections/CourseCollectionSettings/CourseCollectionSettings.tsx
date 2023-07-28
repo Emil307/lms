@@ -1,21 +1,20 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React from "react";
-import { Trash, AlignLeft, Type } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft, Type } from "react-feather";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Heading } from "@shared/ui";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { GetAdminCourseCollectionResponse, useAdminCourseCollection } from "@entities/courseCollection";
 import { InfoCard } from "@components/InfoCard";
-import { DeleteCourseCollectionModal } from "@features/courseCollections";
 import { fields } from "./constants";
 import useStyles from "./CourseCollectionSettings.styles";
+import { DeleteCourseCollectionButton } from "./components";
 
-export interface CourseCollectionSettingsProps {
+export interface CourseCollectionSettingsProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const CourseCollectionSettings = ({ id }: CourseCollectionSettingsProps) => {
+const CourseCollectionSettings = ({ id, ...props }: CourseCollectionSettingsProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: courseCollectionData } = useAdminCourseCollection({ id });
@@ -23,35 +22,21 @@ const CourseCollectionSettings = ({ id }: CourseCollectionSettingsProps) => {
     const handleOpenUpdateCourseCollectionPage = () =>
         router.push({ pathname: "/admin/settings/course-collections/[id]/edit", query: { id } });
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_COURSE_COLLECTION");
-        router.push("/admin/settings/course-collections");
-    };
-
-    const openDeleteModal = () => {
-        openModal({
-            modalId: "DELETE_COURSE_COLLECTION",
-            title: "Удаление подборки",
-            centered: true,
-            children: <DeleteCourseCollectionModal id={id} name={courseCollectionData?.name} onClose={handleCloseDeleteModal} />,
-        });
-    };
-
     return (
-        <Box mt={32} className={classes.info}>
-            <Flex direction="column" gap={32} w="100%">
-                <Flex gap={48} align="center">
-                    <Heading order={2}>Данные подборки</Heading>
-                    <Button onClick={openDeleteModal} variant="text" leftIcon={<Trash />}>
-                        Удалить подборку
-                    </Button>
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
+                    <Heading order={2}>Данные автора</Heading>
+                    <DeleteCourseCollectionButton data={courseCollectionData} />
                 </Flex>
-                <Fieldset label="Заголовок" icon={<Type />}>
-                    <DisplayField label="Название" value={courseCollectionData?.name} />
-                </Fieldset>
-                <Fieldset label="Краткое описание" icon={<AlignLeft />}>
-                    <Text className={classes.description}>{courseCollectionData?.description}</Text>
-                </Fieldset>
+                <Flex direction="column" gap={{ base: 24, md: 32 }}>
+                    <Fieldset label="Заголовок" icon={<Type />}>
+                        <DisplayField label="Название" value={courseCollectionData?.name} />
+                    </Fieldset>
+                    <Fieldset label="Краткое описание" icon={<AlignLeft />}>
+                        <Paragraph variant="small-m">{courseCollectionData?.description}</Paragraph>
+                    </Fieldset>
+                </Flex>
             </Flex>
             <Box>
                 <InfoCard<GetAdminCourseCollectionResponse>
@@ -67,7 +52,7 @@ const CourseCollectionSettings = ({ id }: CourseCollectionSettingsProps) => {
                     }
                 />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

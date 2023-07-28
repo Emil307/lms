@@ -32,7 +32,6 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
         openModal({
             modalId: `${row.original.id}`,
             title: "Удаление пользователя",
-            centered: true,
             children: <UserDeleteModal id={String(row.original.id)} fio={userFullname} />,
         });
     };
@@ -44,7 +43,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
         return (
             <MenuDataGrid>
                 <MenuItemDataGrid mt={8} onClick={pushOnUserDetail}>
-                    <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                    <ThemeIcon w={16} h={16} color="primary">
                         <Eye />
                     </ThemeIcon>
                     Открыть
@@ -65,19 +64,19 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={pushOnUserDetail}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={pushOnUserEdit}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openModalDeleteUser}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

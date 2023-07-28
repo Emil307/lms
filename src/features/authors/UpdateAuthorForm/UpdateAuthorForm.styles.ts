@@ -1,36 +1,67 @@
-import { createStyles, MantineTheme } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    infoItem: {
-        alignSelf: "center",
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
+    infoPanel: {
+        alignItems: "center",
+        gap: 32,
+        marginTop: 24,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            flexDirection: "row",
+            width: "100%",
+            gap: 24,
+            overflowX: "auto",
         },
     },
-    status: {
-        width: "min-content",
-        height: 28,
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 32,
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        textTransform: "inherit",
-        ...getColorsByStatus(theme, { status }),
+
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+    },
+
+    additionalImageFileInput: {
+        width: 378,
+        height: 222,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+            maxWidth: 297,
+            height: 173,
+            minHeight: "auto",
+        },
+    },
+
+    descriptionTextarea: {
+        width: "100%",
+        maxWidth: 772,
+        textarea: {
+            minHeight: 190,
+        },
+    },
+
+    actions: {
+        gap: 8,
+
+        button: {
+            width: "100%",
+            maxWidth: 252,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+
+            button: {
+                maxWidth: "none",
+            },
+        },
     },
 }));
-
-const getColorsByStatus = (theme: MantineTheme, { status }: { status?: string }) => {
-    switch (status) {
-        case "notStarted":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
-        case "done":
-            return { backgroundColor: theme.colors.secondary16[0], color: theme.colors.secondary[0] };
-        default:
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
-    }
-};

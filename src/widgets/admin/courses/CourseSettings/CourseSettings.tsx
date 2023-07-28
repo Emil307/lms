@@ -41,7 +41,6 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         openModal({
             modalId: "DELETE_COURSE",
             title: "Удаление курса",
-            centered: true,
             children: (
                 <DeleteCourseModal
                     id={String(data.id)}
@@ -57,7 +56,6 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         openModal({
             modalId: "UPDATE_COURSE_PUBLICATION",
             title: "Опубликовать курс",
-            centered: true,
             children: (
                 <UpdateCoursePublicationModal
                     id={String(data.id)}

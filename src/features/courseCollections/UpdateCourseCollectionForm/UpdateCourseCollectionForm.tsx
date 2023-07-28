@@ -1,19 +1,21 @@
-import { Box, Text, Flex, BoxProps, ThemeIcon } from "@mantine/core";
+import { Box, Flex, BoxProps, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle, AlignLeft, Type } from "react-feather";
 import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
-import { Button, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import dayjs from "dayjs";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getIcon } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { GetAdminCourseCollectionResponse, UpdateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
 import { initialValues } from "./constants";
-import useStyles from "./UpdateCourseCollectionForm.styles";
 import { adaptUpdateCourseCollectionForm } from "./utils";
 import { $UpdateCourseCollectionFormValidation, UpdateCourseCollectionFormValidation } from "./types";
+import useStyles from "./UpdateCourseCollectionForm.styles";
 
 export interface UpdateCourseCollectionFormProps extends BoxProps {
     data?: GetAdminCourseCollectionResponse;
@@ -23,6 +25,7 @@ export interface UpdateCourseCollectionFormProps extends BoxProps {
 const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const updateCourseCollection = (values: UpdateCourseCollectionFormValidation) => {
         return courseCollectionApi.updateAdminCourseCollection({ ...values, id: String(data?.id) });
@@ -47,7 +50,7 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
         error && (
             <Flex className={classes.wrapperIconError}>
                 <AlertTriangle />
-                <Text>{error}</Text>
+                <Paragraph variant="text-smaller">{error}</Paragraph>
             </Flex>
         );
 
@@ -81,7 +84,6 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                         openModal({
                             modalId: "SELECT_ICON",
                             title: "Изображение подборки",
-                            centered: true,
                             children: (
                                 <SelectIconModal
                                     initialSelectedIcon={values.iconName}
@@ -95,16 +97,34 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
 
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={8} align="center">
-                                <Text color="gray45">Статус:</Text>
-                                <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
+                            <Flex className={classes.infoPanel}>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        ID:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                                </Flex>
+                                <Flex align="center" gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Статус:
+                                    </Paragraph>
+                                    <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
+                                </Flex>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Создание:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">
+                                        {data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                                    </Paragraph>
+                                </Flex>
+                                <LastUpdatedInfo data={data?.lastUpdated} />
                             </Flex>
-
                             <Box>
                                 <Flex className={classes.wrapperIcon} onClick={openSelectIconModal}>
                                     {icon}
                                     <Box className={classes.imageBack}>
-                                        <ThemeIcon variant="outline" className={classes.control}>
+                                        <ThemeIcon className={classes.control}>
                                             <ImageIcon />
                                         </ThemeIcon>
                                     </Box>
@@ -119,22 +139,16 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                                 <FTextarea
                                     name="description"
                                     placeholder="Введите текст"
-                                    w="100%"
                                     description="до 120 символов"
-                                    maw={772}
-                                    sx={{
-                                        textarea: {
-                                            minHeight: 190,
-                                        },
-                                    }}
+                                    className={classes.descriptionTextarea}
                                 />
                             </Fieldset>
 
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

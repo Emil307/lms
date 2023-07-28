@@ -23,7 +23,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_STATIC_REVIEW",
             title: "Удаление отзыва",
-            centered: true,
             children: (
                 <DeleteStaticReviewModal
                     id={String(row.original.id)}

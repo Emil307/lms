@@ -8,10 +8,11 @@ import { Paragraph } from "../Typography";
 
 export interface LastUpdatedInfoProps {
     data?: LastUpdated | null;
+    scrollable?: boolean;
 }
 
-const LastUpdatedInfo = ({ data }: LastUpdatedInfoProps) => {
-    const { classes } = useStyles();
+const LastUpdatedInfo = ({ data, scrollable = false }: LastUpdatedInfoProps) => {
+    const { classes } = useStyles({ scrollable });
     const fio = getFullName({ data: data?.user?.profile, hidePatronymic: true });
 
     return (

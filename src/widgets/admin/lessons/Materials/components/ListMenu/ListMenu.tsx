@@ -21,7 +21,6 @@ const ListMenu = ({ row, lessonId, lessonName }: LessonMaterialsListMenuProps) =
         openModal({
             modalId: "DETACH_MATERIAL_FROM_LESSON",
             title: "Удаление материала",
-            centered: true,
             children: (
                 <DeleteMaterialFromLessonModal
                     materialId={String(row.original.id)}

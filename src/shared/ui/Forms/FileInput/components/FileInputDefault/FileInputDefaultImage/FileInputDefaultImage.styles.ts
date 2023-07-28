@@ -85,7 +85,6 @@ export default createStyles((theme, _params, getRef) => ({
         gap: 14,
     },
     defaultIconBackground: {
-        border: "none",
         transform: "scale(5.2)",
         color: theme.colors.gray20[0],
 

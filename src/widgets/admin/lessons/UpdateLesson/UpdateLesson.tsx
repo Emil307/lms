@@ -30,7 +30,6 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
         openModal({
             modalId: "UPDATE_LESSON",
             title: "Редактирование урока",
-            centered: true,
             children: <UpdateLessonModal data={data} onClose={handleCloseUpdateLessonModal} />,
         });
     };

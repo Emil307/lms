@@ -31,6 +31,7 @@ export type GetUploadedFileResourcesResponse = z.infer<typeof $GetUploadedFileRe
 export type UpdateUploadedFileActivityRequest = z.infer<typeof $UpdateUploadedFileActivityRequest>;
 export type UpdateUploadedFileActivityResponse = z.infer<typeof $UpdateUploadedFileActivityResponse>;
 export type UpdateUploadedFilesRequest = z.infer<typeof $UpdateUploadedFilesRequest>;
+export type UpdateUploadedFilesResponse = z.infer<typeof $UpdateUploadedFilesResponse>;
 export type GetAdminMaterialsNoIncludedArticleRequest = z.infer<typeof $GetAdminMaterialsNoIncludedArticleRequest>;
 export type GetAdminMaterialsNoIncludedLessonRequest = z.infer<typeof $GetAdminMaterialsNoIncludedLessonRequest>;
 export type DeleteUploadedFileRequest = z.infer<typeof $DeleteUploadedFileRequest>;
@@ -108,6 +109,7 @@ export const $UpdateUploadedFilesRequest = z.object({
     files: $FileForUpdate.array(),
     categoryIds: z.number().array(),
 });
+export const $UpdateUploadedFilesResponse = z.null();
 
 export const $GetUploadedFilesResponse = $getPaginationResponseType($UploadedFileFromList);
 
@@ -124,9 +126,9 @@ export const $UploadedFilesRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
-            isActive: z.literal("1").or(z.literal("0")),
+            isActive: z.boolean(),
             categoryIds: z.string(),
-            type: z.string(),
+            "type.type": z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             articleIds: z.string(),
             lessonIds: z.string(),

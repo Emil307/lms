@@ -28,7 +28,6 @@ const CourseList = ({ coursePackageId }: CourseListProps) => {
         openModal({
             modalId: "ADD_COURSE_TO_PACKAGE",
             title: "Добавить курс",
-            centered: true,
             children: <AddCourseToCoursePackageModal coursePackageId={coursePackageId} onClose={handleCloseAddCourseToPackageModal} />,
             size: 912,
             mah: 912,

@@ -26,7 +26,6 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
         position: "absolute",
         top: 8,
         left: 8,
-        border: "none",
         borderRadius: 24,
         backgroundColor: theme.colors.done[0],
         color: theme.colors.white[0],

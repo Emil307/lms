@@ -25,13 +25,11 @@ export default createStyles((theme) => ({
         },
     },
     filterRadioGroup: {
-        [theme.fn.smallerThan("xs")]: {
+        [theme.fn.smallerThan("sm")]: {
             ".mantine-Group-root": {
                 alignItems: "flex-start",
                 flexDirection: "column",
             },
-
-            // width: "100%",
         },
     },
 }));

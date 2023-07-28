@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export type BindingMaterialsFormValidationSchema = z.infer<typeof $bindingMaterialsFormValidationSchema>;
+export type BindingMaterialsFormValidation = z.infer<typeof $BindingMaterialsFormValidation>;
 
-export const $bindingMaterialsFormValidationSchema = z.object({
+export const $BindingMaterialsFormValidation = z.object({
     categoryIds: z.string().array().min(1, "Выберите категории"),
 });

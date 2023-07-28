@@ -30,7 +30,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_COURSE_REVIEW",
             title: "Удаление отзыва",
-            centered: true,
             children: (
                 <DeleteCourseReviewModal
                     id={String(row.original.id)}

@@ -15,7 +15,7 @@ const AboutPage = () => {
         <Box>
             <Flex direction="column" gap={24}>
                 <Heading>О проекте</Heading>
-                <LastUpdatedInfo data={data?.lastUpdated} />
+                <LastUpdatedInfo data={data?.lastUpdated} scrollable />
             </Flex>
             <UpdateAboutForm mt={32} mb={8} />
         </Box>

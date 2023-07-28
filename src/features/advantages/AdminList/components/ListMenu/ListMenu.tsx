@@ -19,7 +19,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_ADVANTAGE",
             title: "Удаление преимущества",
-            centered: true,
             children: (
                 <DeleteAdvantageModal id={String(row.original.id)} name={row.original.title} onClose={handleCloseDeleteAdvantageModal} />
             ),
@@ -30,7 +29,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_ADVANTAGE",
             title: "Редактирование",
-            centered: true,
             children: <UpdateAdvantageForm data={row.original} onClose={handleCloseEditAdvantageModal} />,
         });
     };

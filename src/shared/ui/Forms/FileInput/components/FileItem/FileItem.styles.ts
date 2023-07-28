@@ -27,9 +27,6 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         color: status === "error" ? theme.colors.warning[0] : theme.colors.secondary[0],
     },
     statusInfo: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
     extension: {
@@ -56,8 +53,5 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         "&:hover": {
             backgroundColor: "transparent",
         },
-    },
-    actions: {
-        display: "flex",
     },
 }));

@@ -25,7 +25,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: `${id}`,
             title: "Удаление пользователя",
-            centered: true,
             children: <UserDeleteModal id={id} fio={fio} />,
         });
     };

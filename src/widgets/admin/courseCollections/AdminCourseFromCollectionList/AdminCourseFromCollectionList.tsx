@@ -1,24 +1,24 @@
-import { Box, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { AdminCoursesFromCourseCollectionExtraFilters } from "@entities/courseCollection";
 import { AddCoursesToCourseCollectionModal } from "@features/courseCollections";
 import { columnOrder, columns } from "./constant";
-import { ListMenu } from "./components";
+import { AddCoursesToCollectionButton, ListMenu } from "./components";
 import { adaptGetAdminCoursesRequest } from "./utils";
+import useStyles from "./AdminCourseFromCollectionList.styles";
 
-export interface AdminCourseFromCollectionListProps {
+export interface AdminCourseFromCollectionListProps extends BoxProps {
     courseCollectionId: string;
 }
 
-const AdminCourseFromCollectionList = ({ courseCollectionId }: AdminCourseFromCollectionListProps) => {
+const AdminCourseFromCollectionList = ({ courseCollectionId, ...props }: AdminCourseFromCollectionListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) =>
         router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });
@@ -29,7 +29,6 @@ const AdminCourseFromCollectionList = ({ courseCollectionId }: AdminCourseFromCo
         openModal({
             modalId: "ADD_COURSES_TO_COURSE_COLLECTION",
             title: "Добавить курс",
-            centered: true,
             children: (
                 <AddCoursesToCourseCollectionModal
                     courseCollectionId={courseCollectionId}
@@ -37,17 +36,15 @@ const AdminCourseFromCollectionList = ({ courseCollectionId }: AdminCourseFromCo
                 />
             ),
             size: 912,
-            mah: 912,
+            className: classes.addCoursesToCourseCollectionModalWrapper,
         });
     };
 
     return (
-        <Box mt={24}>
-            <Flex gap={48} align="center">
+        <Box {...props}>
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Список курсов</Heading>
-                <Button variant="text" leftIcon={<PlusCircle />} onClick={openAddCoursesToCourseCollectionModal}>
-                    Добавить курс
-                </Button>
+                <AddCoursesToCollectionButton onClick={openAddCoursesToCourseCollectionModal} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminCoursesFromCourseCollectionExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_COLLECTION}
