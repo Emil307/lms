@@ -15,7 +15,9 @@ import { TipTapCustomImage } from "./lib";
 export const extensions = [
     StarterKit,
     Underline,
-    Link,
+    Link.extend({
+        inclusive: false,
+    }),
     Superscript,
     SubScript,
     Highlight,

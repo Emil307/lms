@@ -11,6 +11,7 @@ interface TGetStylesByStatus extends TCreateStylesParams {
     theme: MantineTheme;
 }
 
+// @ts-ignore
 export default createStyles((theme, { isError, statusSuccess, readonly }: TCreateStylesParams) => ({
     root: {
         display: "flex",
@@ -42,11 +43,24 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         }),
 
         ".column-resize-handle": {
-            display: "none",
+            position: "absolute",
+            right: -1,
+            top: 0,
+            bottom: -2,
+            width: 2,
+            backgroundColor: theme.colors.gray45[0],
+            pointerEvents: "none",
+        },
+
+        ".resize-cursor": {
+            cursor: "ew-resize",
+            /* @ts-ignore */
+            cursor: "col-resize",
         },
 
         ".ProseMirror": {
             height: "100%",
+            paddingBottom: 16,
         },
         ...textEditorContentStyles(theme),
     },

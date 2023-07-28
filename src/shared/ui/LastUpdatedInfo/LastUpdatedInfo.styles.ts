@@ -10,7 +10,6 @@ export default createStyles((theme, { scrollable }: CreateStylesParams) => ({
         gap: 8,
 
         ...(scrollable && {
-            //TODO: Это не точно!, нужно смотреть как будет реализовано у других сущностей
             width: "100%",
             overflowX: "auto",
 

@@ -1,7 +1,7 @@
 import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Heading, LastUpdatedInfo, Loader, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminLesson, useUpdateLessonActivity } from "@entities/lesson";
 import useStyles from "./InfoPanel.styles";
 
@@ -31,10 +31,17 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
             <Heading>{lessonData.name}</Heading>
             <Flex mt={24} gap={32} align="center">
                 <Flex className={classes.item}>
-                    <span className={classes.label}>ID:</span> <span>{lessonData.id}</span>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {lessonData.id}
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Статус:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         checked={lessonData.isActive}
                         onChange={handleChangeActiveStatus}
@@ -44,8 +51,12 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Создание:</Text>
-                    <Text>{dayjs(lessonData.createdAt).format("DD.MM.YYYY HH:mm")}</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Создание:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {dayjs(lessonData.createdAt).format("DD.MM.YYYY HH:mm")}
+                    </Paragraph>
                 </Flex>
                 <LastUpdatedInfo data={lessonData.lastUpdated} />
             </Flex>

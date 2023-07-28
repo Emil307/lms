@@ -5,7 +5,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
     "*": {
         fontFamily: InterFont.style.fontFamily,
         color: theme.colors.dark[0],
-        wordBreak: "break-all",
+        wordBreak: "break-word",
     },
 
     p: {

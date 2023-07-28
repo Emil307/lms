@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Paragraph } from "@shared/ui";
 import { extensions } from "./constants";
 import useStyles from "./TextEditor.styles";
-import { TableControls } from "./helpers";
+import { MediaControls, TableControls } from "./helpers";
 
 export interface TextEditorProps extends Omit<RichTextEditorProps, "editor" | "children"> {
     value?: string;
@@ -130,6 +130,8 @@ const MemoizedTextEditor = memo(function TextEditor({
                         <RichTextEditor.AlignJustify />
                         <RichTextEditor.AlignRight />
                     </RichTextEditor.ControlsGroup>
+
+                    <MediaControls.Image />
 
                     <RichTextEditor.ControlsGroup>
                         <TableControls.InsertTable />

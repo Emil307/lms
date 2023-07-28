@@ -1,7 +1,6 @@
 import { Flex, Group, ThemeIcon } from "@mantine/core";
 import { Paperclip } from "react-feather";
 import { useMemo } from "react";
-import { saveAs } from "file-saver";
 import { FileItem, Heading } from "@shared/ui";
 import { getFileSize } from "@shared/utils";
 import { Article } from "@entities/article";
@@ -15,12 +14,10 @@ export interface MaterialFilesProps {
 const MaterialFiles = ({ data }: MaterialFilesProps) => {
     const { classes } = useStyles();
 
-    const handleDownloadFile = (fileUrl: string, fileName: string) => saveAs(fileUrl, fileName);
-
     const renderVideos = useMemo(() => {
         if (!data.videos.length) return null;
 
-        //TODO: Должен быть еще видеоплеер
+        //TODO: Поменять на VideoItem из shared
         return (
             <Group>
                 {data.videos.map((doc) => (
@@ -29,7 +26,6 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
                         fileName={doc.name}
                         fileSize={doc.size ? getFileSize(doc.size) : ""}
                         fileUrl={doc.absolutePath}
-                        onDownloadFile={handleDownloadFile}
                     />
                 ))}
             </Group>
@@ -42,14 +38,7 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
         return (
             <Flex direction="column" gap={16}>
                 {data.documents.map((doc) => (
-                    <FileItem
-                        key={doc.id}
-                        fileUrl={doc.absolutePath}
-                        fileName={doc.name}
-                        fileSize={doc.size}
-                        type="document"
-                        onDownloadFile={handleDownloadFile}
-                    />
+                    <FileItem key={doc.id} fileUrl={doc.absolutePath} fileName={doc.name} fileSize={doc.size} type="document" />
                 ))}
             </Flex>
         );
