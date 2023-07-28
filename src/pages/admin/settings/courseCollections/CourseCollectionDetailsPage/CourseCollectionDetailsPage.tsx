@@ -21,10 +21,10 @@ const CourseCollectionDetailsPage = () => {
 
     const renderContent = () => {
         if (tab === "courses") {
-            return <AdminCourseFromCollectionList courseCollectionId={id} />;
+            return <AdminCourseFromCollectionList courseCollectionId={id} mt={32} />;
         }
 
-        return <CourseCollectionSettings id={id} />;
+        return <CourseCollectionSettings id={id} mt={32} />;
     };
 
     if (!router.isReady || isLoading) {
@@ -38,9 +38,9 @@ const CourseCollectionDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name, id })} mb={8} />
-            <Heading>{courseCollectionData.name}</Heading>
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
+            <Heading mb={32}>{courseCollectionData.name}</Heading>
+            <InfoPanel id={id} mb={32} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
             {renderContent()}
         </Box>
     );

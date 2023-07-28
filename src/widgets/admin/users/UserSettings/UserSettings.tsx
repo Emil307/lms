@@ -42,7 +42,6 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
         openModal({
             modalId: "CHANGE_PASSWORD",
             title: "Изменение пароля",
-            centered: true,
             size: 408,
             children: (
                 <ChangeUserPasswordForm
@@ -61,7 +60,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
     return (
         <Flex className={classes.info} {...props}>
             <Flex className={classes.settingsInfo}>
-                <Flex align="center" gap={{ base: 16, sm: 48 }}>
+                <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
                     <DeleteUserButton data={data} hidden={!isRoleOrder} />
                 </Flex>

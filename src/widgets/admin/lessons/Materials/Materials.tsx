@@ -30,7 +30,6 @@ const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
         openModal({
             modalId: "SELECT_MATERIALS_TYPE",
             title: "Добавить материалы",
-            centered: true,
             children: (
                 <SelectTypeMaterial onSuccessLoadFiles={handleSuccessLoadFiles} onSelectFromBase={handleOpenAddMaterialsToLessonModal} />
             ),
@@ -42,7 +41,6 @@ const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
         openModal({
             modalId: "ADD_MATERIALS_TO_LESSON",
             title: "Выбрать из базы материалов",
-            centered: true,
             children: <AddMaterialsToLessonModal lessonId={lessonId} onClose={handleCloseAddMaterialsToLessonModal} />,
             size: 912,
         });

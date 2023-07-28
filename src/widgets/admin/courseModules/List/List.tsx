@@ -61,7 +61,6 @@ const List = ({ courseId }: ModuleListProps) => {
         openModal({
             modalId: "CREATE_COURSE_MODULE",
             title: "Создание модуля",
-            centered: true,
             children: <CreateCourseModuleModal courseId={courseId} moduleNumber={moduleNumber} onClose={handleCloseCreateModuleModal} />,
         });
     };

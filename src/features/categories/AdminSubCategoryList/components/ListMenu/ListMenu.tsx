@@ -19,7 +19,6 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
         openModal({
             modalId: "DELETE_SUBCATEGORY",
             title: "Удаление подкатегории",
-            centered: true,
             children: (
                 <DeleteCategoryModal
                     isSubcategory
@@ -35,7 +34,6 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
         openModal({
             modalId: "UPDATE_SUBCATEGORY",
             title: "Редактирование подкатегории",
-            centered: true,
             children: <UpdateCategoryForm id={String(row.original.id)} onClose={handleCloseUpdateCategoryModal} />,
         });
     };
@@ -43,13 +41,13 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={openUpdateCategoryModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteSubCategoryModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

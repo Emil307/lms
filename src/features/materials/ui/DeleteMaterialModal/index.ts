@@ -1,3 +1,3 @@
-import DeleteMaterialModal from "./DeleteMaterialModal";
+import DeleteMaterialModal, { type DeleteMaterialModalProps } from "./DeleteMaterialModal";
 
-export { DeleteMaterialModal };
+export { DeleteMaterialModal, DeleteMaterialModalProps };

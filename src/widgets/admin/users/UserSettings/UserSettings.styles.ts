@@ -21,6 +21,16 @@ export const useSettingUserStyles = createStyles((theme) => ({
         },
     },
 
+    headingSettingsInfo: {
+        alignItems: "center",
+        gap: 48,
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+            gap: 16,
+        },
+    },
+
     settingsNotification: {
         padding: 4,
         borderRadius: 12,

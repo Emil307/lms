@@ -21,7 +21,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_TRANSACTION",
             title: "Удаление транзакции",
-            centered: true,
             children: (
                 <DeleteTransactionModal
                     id={String(row.original.id)}

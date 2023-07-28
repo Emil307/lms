@@ -104,7 +104,6 @@ const Question = ({
         openModal({
             modalId: "DELETE_QUESTION_FROM_TEST",
             title: "Удаление вопроса",
-            centered: true,
             children: (
                 <DeleteQuestionModal
                     questionName={questionName}
@@ -112,7 +111,6 @@ const Question = ({
                     onCancel={handleCloseDeleteQuestionModal}
                 />
             ),
-            size: 456,
         });
     };
 

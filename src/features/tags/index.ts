@@ -1,4 +1,4 @@
-export * from "./List";
+export * from "./AdminList";
 export * from "./DeleteTagModal";
 export * from "./CreateTagForm";
-export * from "./EditTagForm";
+export * from "./UpdateTagForm";

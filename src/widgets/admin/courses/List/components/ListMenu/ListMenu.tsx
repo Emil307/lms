@@ -37,7 +37,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_COURSE",
             title: "Удаление курса",
-            centered: true,
             children: (
                 <DeleteCourseModal
                     id={courseId}

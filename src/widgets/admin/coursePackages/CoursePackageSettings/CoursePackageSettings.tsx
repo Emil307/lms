@@ -29,7 +29,6 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
         openModal({
             modalId: "DELETE_COURSE_PACKAGE",
             title: "Удаление пакета",
-            centered: true,
             children: <DeleteCoursePackageModal id={id} name={coursePackageData?.name} onClose={handleCloseDeleteModal} />,
         });
     };

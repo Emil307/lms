@@ -2,13 +2,13 @@ import { Box } from "@mantine/core";
 import { AppShell } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useMediaQuery, useScrollLock } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { FooterUser } from "@widgets/Footer";
 import { HeaderPublicUser, HeaderUser } from "@widgets/Header";
 import { NavbarUser } from "@widgets/Navbar";
+import { isPathIncluded, publicPaths } from "@app/routes";
 import useStyles from "./UserLayout.styles";
 import { SidebarMenuContext } from "./utils";
-import { isPathIncluded, publicPaths } from "@app/routes";
-import { useRouter } from "next/router";
 
 export default function UserLayout({ children }: React.PropsWithChildren) {
     const [openedSidebar, setOpenedSidebar] = useState(false);

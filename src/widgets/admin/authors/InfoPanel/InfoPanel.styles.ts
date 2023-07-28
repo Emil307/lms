@@ -1,12 +1,22 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    infoItem: {
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
+    infoPanelListInfo: {
+        alignItems: "center",
+        width: "100%",
+        overflowX: "auto",
+        gap: 32,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
         },
     },
 }));

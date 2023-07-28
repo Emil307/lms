@@ -1,8 +1,9 @@
 import React from "react";
 import { MRT_TableInstance } from "mantine-react-table";
-import { Pagination as MPagination, Flex, NativeSelect, Box, Text, ThemeIcon } from "@mantine/core";
+import { Pagination as MPagination, NativeSelect, Box, ThemeIcon } from "@mantine/core";
 import { ChevronDown } from "react-feather";
 import { TPagination } from "@shared/types";
+import { Paragraph } from "@shared/ui/Typography";
 import { usePaginationStyles } from "./Pagination.styles";
 import { useTablePagination } from "../../utils";
 
@@ -27,11 +28,15 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
     }
 
     return (
-        <Flex className={classes.root}>
-            <Box>
-                <Text className={classes.elementsCount}>
-                    {`${firstElemIndex}-${lastElemIndex}`} <span>из</span> {data.total}
-                </Text>
+        <Box className={classes.root}>
+            <Box className={classes.elementsCount}>
+                <Paragraph variant="text-small-m" component="span">{`${firstElemIndex}-${lastElemIndex}`}</Paragraph>
+                <Paragraph variant="text-small-m" color="gray45">
+                    {" из "}
+                </Paragraph>
+                <Paragraph variant="text-small-m" component="span">
+                    {data.total}
+                </Paragraph>
             </Box>
             {data.totalPages > 1 && (
                 <MPagination
@@ -54,6 +59,6 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
                     </ThemeIcon>
                 }
             />
-        </Flex>
+        </Box>
     );
 }

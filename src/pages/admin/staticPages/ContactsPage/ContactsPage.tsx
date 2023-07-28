@@ -15,7 +15,7 @@ const ContactsPage = () => {
         <Box>
             <Flex direction="column" gap={24}>
                 <Heading>Контакты</Heading>
-                <LastUpdatedInfo data={data?.lastUpdated} />
+                <LastUpdatedInfo data={data?.lastUpdated} scrollable />
             </Flex>
             <UpdateContactsForm mt={24} mb={8} />
         </Box>

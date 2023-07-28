@@ -1,15 +1,15 @@
 import { z } from "zod";
 
-export type MaterialFile = z.infer<typeof $materialFile>;
-export type UpdateMaterialsFormValidationSchema = z.infer<typeof $updateMaterialsFormValidationSchema>;
+export type UpdateMaterialsFormValidation = z.infer<typeof $UpdateMaterialsFormValidation>;
+export type MaterialFile = z.infer<typeof $MaterialFile>;
 
-export const $materialFile = z.object({
+export const $MaterialFile = z.object({
     id: z.number(),
     name: z.string(),
     extension: z.string(),
 });
 
-export const $updateMaterialsFormValidationSchema = z.object({
-    files: $materialFile.array(),
+export const $UpdateMaterialsFormValidation = z.object({
+    files: $MaterialFile.array(),
     isBinding: z.boolean(),
 });

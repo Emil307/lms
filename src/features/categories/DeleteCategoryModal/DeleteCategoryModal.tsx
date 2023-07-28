@@ -1,7 +1,8 @@
-import { Box, Flex, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCategory } from "@entities/category";
 import useStyles from "./DeleteCategoryModal.styles";
 
@@ -13,9 +14,10 @@ export interface DeleteCategoryModalProps {
 }
 
 const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategoryModalProps) => {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
     const deleteCategory = useDeleteCategory({ id });
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const handleSubmit = () => {
         deleteCategory.mutate(null, {
@@ -25,23 +27,32 @@ const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategor
         });
     };
 
-    const contentText = isSubcategory
-        ? `Вы действительно хотите удалить подкатегорию, «${id}: ${name}»?`
-        : `Вы действительно хотите удалить категорию, «${id}: ${name}»?`;
+    const contentText = isSubcategory ? `Вы действительно хотите удалить подкатегорию, ` : `Вы действительно хотите удалить категорию, `;
 
     return (
         <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <AlertTriangle color={theme.colors.secondary[0]} />
-                </Flex>
-                <Box className={classes.text}>{contentText}</Box>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {contentText}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
+                </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteCategory.isLoading} w="100%">
+                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteCategory.isLoading} w="100%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteCategory.isLoading} w="100%">
+                <Button
+                    size={isMobile ? "medium" : "large"}
+                    variant="secondary"
+                    onClick={handleSubmit}
+                    loading={deleteCategory.isLoading}
+                    w="100%">
                     Удалить
                 </Button>
             </Flex>

@@ -280,7 +280,14 @@ export const defaultTheme: MantineThemeOverride = {
             }),
         },
         Modal: {
+            defaultProps: (theme) => ({
+                centered: true,
+                size: 456,
+            }),
             styles: (theme) => ({
+                root: {
+                    zIndex: 999,
+                },
                 inner: {
                     height: "100vh",
 

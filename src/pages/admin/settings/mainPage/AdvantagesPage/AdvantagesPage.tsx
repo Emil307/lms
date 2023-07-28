@@ -34,7 +34,6 @@ const AdvantagesPage = () => {
         openModal({
             modalId: "CREATE_ADVANTAGE",
             title: "Создание карточки",
-            centered: true,
             children: <CreateAdvantageForm onClose={handleCloseCreateAdvantageModal} />,
         });
     };

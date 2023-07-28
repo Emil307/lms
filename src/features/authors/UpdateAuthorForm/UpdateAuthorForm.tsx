@@ -1,9 +1,10 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
+import { Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, User } from "react-feather";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FFileButton, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminAuthor, UpdateAuthorResponse, authorApi } from "@entities/author";
 import AvatarIcon from "@public/icons/avatar.svg";
@@ -23,6 +24,10 @@ export interface UpdateAuthorFormProps {
 const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
+    const userFullName = [data?.lastName, data?.firstName, data?.patronymic].join(" ");
 
     const updateAuthor = (values: UpdateAuthorFormValidation) => {
         return authorApi.updateAuthor({ ...adaptUpdateAuthorRequest(values), id: String(data?.id) });
@@ -61,58 +66,60 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
                 const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
                 return (
                     <Flex direction="column" gap={32}>
-                        <Flex mt={24} gap={32} align="center">
-                            <Box className={classes.infoItem}>
-                                ID: <span>{data?.id}</span>
-                            </Box>
+                        <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
-                                <Text className={classes.infoItem}>Статус:</Text>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    ID:
+                                </Paragraph>
+                                <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                            </Flex>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
                                 <FSwitch name="isActive" variant="secondary" label={labelStatus} labelPosition="left" />
                             </Flex>
-                            <Box className={classes.infoItem}>
-                                Создание: <span>{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                            </Box>
+                            <Flex gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Создание:
+                                </Paragraph>
+                                <Paragraph variant="text-small-m">
+                                    {data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                                </Paragraph>
+                            </Flex>
                             <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
-                        <Fieldset label="Личные данные" icon={<User />}>
-                            <Box>
-                                <Flex gap={24}>
-                                    <Avatar
-                                        src={values.avatar?.absolutePath}
-                                        alt="avatar"
-                                        w={84}
-                                        h={84}
-                                        radius={50}
-                                        styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                                        <AvatarIcon />
-                                    </Avatar>
+                        <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
+                            <Flex align="center" gap={24} mb={24}>
+                                <Avatar
+                                    src={values.avatar?.absolutePath}
+                                    alt="avatar"
+                                    className={classes.avatarWrapper}
+                                    radius={50}
+                                    styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                                    <AvatarIcon />
+                                </Avatar>
+                                <Flex direction="column" gap={8}>
+                                    <Paragraph variant="small-semi" lineClamp={1}>
+                                        {userFullName}
+                                    </Paragraph>
                                     <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 </Flex>
-                                <Flex mt={24} gap={8}>
-                                    <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
-                                    <FInput name="lastName" label="Фамилия" size="sm" w={252} withAsterisk />
-                                    <FInput name="patronymic" label="Отчество" size="sm" w={252} />
-                                </Flex>
-                            </Box>
+                            </Flex>
+                            <Flex gap={8} wrap="wrap">
+                                <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                                <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                                <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />
+                            </Flex>
                         </Fieldset>
-                        <Fieldset label="Об авторе" icon={<UserDescriptionIcon />}>
-                            <FTextarea
-                                name="description"
-                                description="до 230 символов"
-                                w="100%"
-                                maw={772}
-                                sx={{
-                                    textarea: {
-                                        minHeight: 190,
-                                    },
-                                }}
-                            />
+                        <Fieldset label="Об авторе" icon={<UserDescriptionIcon />} legendProps={{ mb: 24 }}>
+                            <FTextarea name="description" description="до 230 символов" className={classes.descriptionTextarea} />
                         </Fieldset>
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                        <Flex className={classes.actions}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                 Отменить
                             </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

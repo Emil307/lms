@@ -32,7 +32,6 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
         openModal({
             modalId: "DELETE_ARTICLE_PACKAGE",
             title: "Удаление пакета",
-            centered: true,
             children: <DeleteArticlePackageModal id={id} name={articlePackageData?.name} onClose={handleCloseDeleteModal} />,
         });
     };

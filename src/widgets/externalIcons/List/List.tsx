@@ -39,7 +39,7 @@ const List = ({ perPage, title, onSelect, selectedIconId, skeletonListProps, ...
 
     return (
         <Skeleton visible={isLoading} {...skeletonListProps}>
-            <Flex {...props} wrap="wrap">
+            <Flex {...props} justify="space-between" wrap="wrap">
                 {renderItems}
             </Flex>
         </Skeleton>

@@ -25,7 +25,7 @@ const CategoryDetailsPage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ categoryName: categoryData.name, id })} mb={8} />
             <InfoPanel id={id} />
-            <AdminSubCategoryList parentId={id} />
+            <AdminSubCategoryList parentId={id} mt={24} />
         </Box>
     );
 };

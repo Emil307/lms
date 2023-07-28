@@ -2,20 +2,29 @@ import { createStyles } from "@mantine/core";
 
 export const usePaginationStyles = createStyles((theme) => ({
     root: {
+        display: "grid",
+        gridTemplateAreas: "'elementCount pagination perPageSelect'",
         justifyContent: "space-between",
         alignItems: "center",
         gap: 24,
         paddingTop: 24,
+
+        [theme.fn.smallerThan(820)]: {
+            gridTemplateAreas: `'elementCount perPageSelect'
+                                'pagination pagination'`,
+        },
     },
     elementsCount: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
+        gridArea: "elementCount",
+        display: "inline-flex",
+        whiteSpace: "pre",
+
         span: {
-            color: theme.colors.gray45[0],
+            whiteSpace: "nowrap",
         },
     },
     paginationButtons: {
+        gridArea: "pagination",
         button: {
             width: 48,
             height: 48,
@@ -28,6 +37,7 @@ export const usePaginationStyles = createStyles((theme) => ({
         },
     },
     perPageSelect: {
+        gridArea: "perPageSelect",
         display: "flex",
         alignItems: "center",
         gap: "4px",
@@ -38,6 +48,7 @@ export const usePaginationStyles = createStyles((theme) => ({
             lineHeight: "16px",
             fontWeight: 500,
             color: theme.colors.gray45[0],
+            whiteSpace: "nowrap",
         },
         select: {
             border: "none",

@@ -5,11 +5,13 @@ import { getCountAppliedFilters } from "./utils";
 import useStyles from "./CollapsedFiltersBlock.styles";
 
 export type CollapsedFiltersBlockProps<F> = Omit<FlexProps, "title" | "onSubmit" | "children"> & {
-    title?: ReactNode;
+    titleOpened?: ReactNode;
+    titleClosed?: ReactNode;
     queryParams?: Partial<F>;
     initialValues?: Required<F>;
     isCollapsed?: boolean;
-    children?: ReactNode; //| ((props: FormikProps<F>) => ReactNode);
+    leftIcon?: ReactNode;
+    children?: ReactNode;
 };
 
 /**
@@ -19,10 +21,12 @@ export type CollapsedFiltersBlockProps<F> = Omit<FlexProps, "title" | "onSubmit"
  */
 const CollapsedFiltersBlock = <F,>({
     children,
-    title,
+    titleOpened = "Фильтр",
+    titleClosed = "Фильтр",
     queryParams,
     isCollapsed,
     initialValues,
+    leftIcon,
     ...props
 }: CollapsedFiltersBlockProps<F>) => {
     const { classes } = useStyles();
@@ -40,8 +44,9 @@ const CollapsedFiltersBlock = <F,>({
                 <ToggleFilterButton
                     isOpened={openedFilters}
                     onClick={handleToggleVisibilityFilters}
-                    countAppliedFilters={getCountAppliedFilters(queryParams, initialValues)}>
-                    {title}
+                    countAppliedFilters={getCountAppliedFilters(queryParams, initialValues)}
+                    leftIcon={leftIcon}>
+                    {openedFilters ? titleClosed : titleOpened}
                 </ToggleFilterButton>
             )}
 

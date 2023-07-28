@@ -1,10 +1,11 @@
-import { Box, Text, Flex, BoxProps, ThemeIcon } from "@mantine/core";
+import { Box, Flex, BoxProps, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle, AlignLeft, Type } from "react-feather";
 import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
-import { Button, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getIcon } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -21,6 +22,7 @@ export interface CreateCourseCollectionFormProps extends BoxProps {
 const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const createCourseCollection = (values: CreateCourseCollectionFormValidation) => {
         return courseCollectionApi.createAdminCourseCollection(values);
@@ -46,7 +48,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
         error && (
             <Flex className={classes.wrapperIconError}>
                 <AlertTriangle />
-                <Text>{error}</Text>
+                <Paragraph variant="text-smaller">{error}</Paragraph>
             </Flex>
         );
 
@@ -77,7 +79,6 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                         openModal({
                             modalId: "SELECT_ICON",
                             title: "Изображение подборки",
-                            centered: true,
                             children: (
                                 <SelectIconModal
                                     initialSelectedIcon={values.iconName}
@@ -92,22 +93,22 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                     return (
                         <Flex direction="column" gap={32}>
                             <Flex gap={8} align="center">
-                                <Text color="gray45">Статус:</Text>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
-
                             <Box>
                                 <Flex className={classes.wrapperIcon} onClick={openSelectIconModal}>
                                     {icon}
                                     <Box className={classes.imageBack}>
-                                        <ThemeIcon variant="outline" className={classes.control}>
+                                        <ThemeIcon className={classes.control}>
                                             <ImageIcon />
                                         </ThemeIcon>
                                     </Box>
                                 </Flex>
                                 {renderIconError(errors.iconName)}
                             </Box>
-
                             <Fieldset label="Заголовок" icon={<Type />} maw={512} legendProps={{ mb: 24 }}>
                                 <FInput name="name" label="Название подборки" size="sm" w="100%" />
                             </Fieldset>
@@ -115,22 +116,15 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                                 <FTextarea
                                     name="description"
                                     placeholder="Введите текст"
-                                    w="100%"
                                     description="до 120 символов"
-                                    maw={772}
-                                    sx={{
-                                        textarea: {
-                                            minHeight: 190,
-                                        },
-                                    }}
+                                    className={classes.descriptionTextarea}
                                 />
                             </Fieldset>
-
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

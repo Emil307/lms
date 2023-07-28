@@ -13,7 +13,6 @@ const LessonListPage = () => {
         openModal({
             modalId: "CREATE_LESSON",
             title: "Создание урока",
-            centered: true,
             children: <CreateLessonModal onClose={handleCloseCreateLessonModal} />,
         });
     };

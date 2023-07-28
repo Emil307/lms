@@ -20,7 +20,7 @@ const MemoizedCard = memo(function Card({ data, isSelected = true, onClick, ...p
         <Flex {...props} className={classes.root} onClick={handleClick}>
             {getIcon({ iconName: data.name })}
             {isSelected && (
-                <ThemeIcon variant="outline" className={classes.wrapperCheckIcon}>
+                <ThemeIcon className={classes.wrapperCheckIcon}>
                     <IconCheck />
                 </ThemeIcon>
             )}

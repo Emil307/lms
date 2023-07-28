@@ -1,79 +1,61 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React from "react";
-import { Shield, Trash, User as UserIcon } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Heading } from "@shared/ui";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { useAdminAuthor } from "@entities/author";
-import { DeleteAuthorModal } from "@features/authors";
 import { InfoCard } from "@components/InfoCard";
 import { fields } from "./constants";
 import useStyles from "./AuthorSettings.styles";
 import { getAuthorInfoCardFields } from "./utils";
+import { DeleteAuthorButton } from "./components";
 
-interface AuthorSettingsProps {
+export interface AuthorSettingsProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const AuthorSettings = ({ id }: AuthorSettingsProps) => {
+const AuthorSettings = ({ id, ...props }: AuthorSettingsProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data } = useAdminAuthor({ id });
 
     const authorInfoCardFields = getAuthorInfoCardFields(data);
 
-    const handleCloseDeleteAuthorModal = () => {
-        closeModal("DELETE_AUTHOR");
-        router.push({ pathname: "/admin/settings/authors" });
-    };
-
-    const openModalDeleteAuthor = () => {
-        openModal({
-            modalId: "DELETE_AUTHOR",
-            title: "Удаление автора",
-            centered: true,
-            children: <DeleteAuthorModal id={id} fullName={authorInfoCardFields.fio} onClose={handleCloseDeleteAuthorModal} />,
-        });
-    };
-
     const openUserEditPage = () => router.push({ pathname: "/admin/settings/authors/[id]/edit", query: { id } });
 
     return (
-        <Box>
-            <Box mt={32} className={classes.info}>
-                <Flex direction="column" gap={32}>
-                    <Flex gap={48} align="center">
-                        <Heading order={2}>Данные автора</Heading>
-                        <Button onClick={openModalDeleteAuthor} variant="text" leftIcon={<Trash />}>
-                            Удалить автора
-                        </Button>
-                    </Flex>
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
+                    <Heading order={2}>Данные автора</Heading>
+                    <DeleteAuthorButton data={data} />
+                </Flex>
+                <Flex direction="column" gap={{ base: 24, md: 32 }}>
                     <Fieldset label="Личные данные" icon={<UserIcon />}>
                         <DisplayField label="ФИО" value={authorInfoCardFields.fio} />
                     </Fieldset>
-
                     <Fieldset label="Об авторе" icon={<Shield />}>
-                        <Text className={classes.description}>{data?.description}</Text>
+                        <Paragraph variant="small-m">{data?.description}</Paragraph>
                     </Fieldset>
                 </Flex>
-                <Box>
-                    <InfoCard
-                        avatar={{
-                            src: data?.avatar?.absolutePath,
-                        }}
-                        values={authorInfoCardFields}
-                        variant="whiteBg"
-                        fields={fields}
-                        actionSlot={
-                            <Button variant="secondary" onClick={openUserEditPage}>
-                                Редактировать данные
-                            </Button>
-                        }
-                    />
-                </Box>
+            </Flex>
+            <Box>
+                <InfoCard
+                    avatar={{
+                        src: data?.avatar?.absolutePath,
+                    }}
+                    values={authorInfoCardFields}
+                    variant="whiteBg"
+                    fields={fields}
+                    actionSlot={
+                        <Button variant="secondary" onClick={openUserEditPage}>
+                            Редактировать данные
+                        </Button>
+                    }
+                />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

@@ -7,6 +7,7 @@ import {
     $GetUploadedFileResourcesResponse,
     $GetUploadedFilesResponse,
     $UpdateUploadedFileActivityResponse,
+    $UpdateUploadedFilesResponse,
     DeleteUploadedFileRequest,
     DeleteUploadedFileResponse,
     GetAdminMaterialsNoIncludedArticleRequest,
@@ -18,6 +19,7 @@ import {
     UpdateUploadedFileActivityRequest,
     UpdateUploadedFileActivityResponse,
     UpdateUploadedFilesRequest,
+    UpdateUploadedFilesResponse,
     UploadFileRequest,
     UploadFileResponse,
 } from "./types";
@@ -63,9 +65,9 @@ class StorageApi extends BaseApi {
         const response = await this.instance.delete(`storage/files/${id}`);
         return $DeleteUploadedFileResponse.parse(response);
     }
-    //TODO: Убрать void  как бекенд изменить на получение значения
-    async updateUploadedFiles(data: UpdateUploadedFilesRequest): Promise<void> {
-        return this.instance.put("storage/files", data);
+    async updateUploadedFiles(data: UpdateUploadedFilesRequest): Promise<UpdateUploadedFilesResponse> {
+        const response = await this.instance.put("storage/files", data);
+        return $UpdateUploadedFilesResponse.parse(response);
     }
 }
 

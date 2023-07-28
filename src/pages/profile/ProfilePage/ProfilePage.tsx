@@ -27,7 +27,6 @@ const ProfilePage = () => {
         openModal({
             modalId: "CHANGE_PASSWORD",
             title: "Изменение пароля",
-            centered: true,
             size: 408,
             children: <ChangePasswordForm onClose={handleCloseChangePasswordModal} />,
         });

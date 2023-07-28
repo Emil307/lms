@@ -6,6 +6,7 @@ import { UploadedFile } from "@shared/types";
 import FoldersIcon from "public/icons/folders.svg";
 import { fileTypeCards } from "./constants";
 import { MaterialTypeCard } from "./components";
+import useStyles from "./SelectTypeMaterial.styles";
 
 interface SelectTypeMaterialProps {
     onSelectFromBase?: () => void;
@@ -13,6 +14,8 @@ interface SelectTypeMaterialProps {
 }
 
 const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectTypeMaterialProps) => {
+    const { classes } = useStyles();
+
     const handleCloseCreateMaterialsModal = () => {
         closeModal("CREATE_MATERIALS");
         handleClearStorage();
@@ -30,14 +33,13 @@ const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectType
         openModal({
             modalId: "EDIT_MATERIALS",
             title: "Шаг 2/2. Редактирование",
-            centered: true,
-            size: 456,
             children: (
                 <UpdateMaterialsForm
                     data={materials}
                     type={type}
                     onSubmit={handleSubmitEditMaterialsFormModal}
                     onClose={handleCloseEditMaterialsFormModal}
+                    multiple
                 />
             ),
         });
@@ -48,7 +50,6 @@ const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectType
         openModal({
             modalId: "CREATE_MATERIALS",
             title: `Шаг 1/2. ${fileTypeCards[id].title}`,
-            centered: true,
             children: (
                 <CreateMaterialsForm
                     data={fileTypeCards[id]}
@@ -56,13 +57,12 @@ const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectType
                     onClose={handleCloseCreateMaterialsModal}
                 />
             ),
-            size: 456,
             onClose: handleClearStorage,
         });
     };
 
     return (
-        <Flex gap={24}>
+        <Flex className={classes.root}>
             {onSelectFromBase && <MaterialTypeCard title="Выбрать из базы" icon={<FoldersIcon />} onClick={onSelectFromBase} />}
             {fileTypeCards.map((card) => (
                 <MaterialTypeCard key={card.id} title={card.title} icon={card.icon} onClick={() => handleSelectCard(card.id)} />

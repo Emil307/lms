@@ -364,7 +364,6 @@ export const UIDemo = () => {
                                         openModal({
                                             modalId: "CHANGE_PASSWORD",
                                             title: "Оставить отзыв",
-                                            centered: true,
                                             size: 408,
                                             children: (
                                                 <CreateCourseReviewForm

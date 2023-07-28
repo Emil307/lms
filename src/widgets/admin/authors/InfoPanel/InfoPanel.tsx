@@ -1,15 +1,15 @@
-import { Box, Flex } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminAuthor, useUpdateAuthorActivity } from "@entities/author";
 import useStyles from "./InfoPanel.styles";
 
-interface InfoPanelProps {
+interface InfoPanelProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data } = useAdminAuthor({ id });
 
@@ -21,12 +21,17 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
-        <Flex gap={32} align="center">
-            <Box className={classes.infoItem}>
-                ID: <span>{data?.id}</span>
-            </Box>
-            <Flex gap={8} align="center" className={classes.infoItem}>
-                Статус:
+        <Flex className={classes.infoPanelListInfo} {...props}>
+            <Flex gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    ID:
+                </Paragraph>
+                <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+            </Flex>
+            <Flex align="center" gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Статус:
+                </Paragraph>
                 <Switch
                     variant="secondary"
                     label={labelActivitySwitch}
@@ -35,9 +40,12 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     onChange={handleChangeActiveStatus}
                 />
             </Flex>
-            <Box className={classes.infoItem}>
-                Создание: <span>{dayjs(data?.createdAt).format("DD.MM.YYYY hh:mm")}</span>
-            </Box>
+            <Flex gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Создание:
+                </Paragraph>
+                <Paragraph variant="text-small-m">{dayjs(data?.createdAt).format("DD.MM.YYYY hh:mm")}</Paragraph>
+            </Flex>
             <LastUpdatedInfo data={data?.lastUpdated} />
         </Flex>
     );

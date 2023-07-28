@@ -8,7 +8,13 @@ export interface ToggleFilterButtonProps extends ButtonProps {
     countAppliedFilters: number;
 }
 
-const ToggleFilterButton = ({ isOpened = false, countAppliedFilters, children = "Фильтр", ...props }: ToggleFilterButtonProps) => {
+const ToggleFilterButton = ({
+    isOpened = false,
+    countAppliedFilters,
+    children,
+    leftIcon = <Filter />,
+    ...props
+}: ToggleFilterButtonProps) => {
     const { classes } = useStyles({ isOpened });
 
     const renderIconToggleButton = () => {
@@ -29,11 +35,7 @@ const ToggleFilterButton = ({ isOpened = false, countAppliedFilters, children = 
     return (
         <Button
             variant="text"
-            leftIcon={
-                <ThemeIcon className={classes.wrapperLeftIcon}>
-                    <Filter />
-                </ThemeIcon>
-            }
+            leftIcon={leftIcon && <ThemeIcon className={classes.wrapperLeftIcon}>{leftIcon}</ThemeIcon>}
             rightIcon={renderIconToggleButton()}
             {...props}>
             {children}

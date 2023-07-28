@@ -33,7 +33,6 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
         openModal({
             modalId: "DELETE_LESSON",
             title: "Удаление урока",
-            centered: true,
             children: (
                 <DeleteLessonModal
                     id={lessonId}

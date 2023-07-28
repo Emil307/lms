@@ -31,8 +31,6 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
             styles: { modal: { position: "relative" } },
             modalId: "CATEGORY_ARTICLE_LIST",
             title: data.name,
-            centered: true,
-            size: 456,
             children: <ArticleListFromCategory categoryId={categoryId} articlePackageId={data.id} onClose={handleCloseModal} />,
         });
 

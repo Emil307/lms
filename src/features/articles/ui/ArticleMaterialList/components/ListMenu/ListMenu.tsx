@@ -20,7 +20,6 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_ARTICLE_MATERIAL",
             title: "Удаление материала",
-            centered: true,
             children: (
                 <DeleteArticleMaterialModal
                     id={row.original.id}

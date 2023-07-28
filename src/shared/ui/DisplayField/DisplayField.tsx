@@ -34,13 +34,13 @@ const MemoizedDisplayField = memo(function DisplayField({
     const renderLabel = () => {
         if (variant === "compact") {
             return (
-                <Paragraph variant="text-caption" color="gray45" align="start">
+                <Paragraph variant="text-caption" className={classes.label}>
                     {label}
                 </Paragraph>
             );
         }
         return (
-            <Paragraph variant="small-m" color="gray45" align="start">
+            <Paragraph variant="small-m" className={classes.label}>
                 {label}
             </Paragraph>
         );

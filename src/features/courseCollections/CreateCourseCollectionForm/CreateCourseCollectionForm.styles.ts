@@ -61,7 +61,6 @@ export default createStyles((theme, _params, getRef) => ({
         alignItems: "center",
         width: 64,
         height: 64,
-        border: "none",
         color: theme.colors.white[0],
     },
     defaultIcon: {
@@ -81,13 +80,34 @@ export default createStyles((theme, _params, getRef) => ({
             color: theme.colors.warning[0],
         },
 
-        "> div": {
+        p: {
             width: "calc(100% - 20px)",
             paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
+        },
+    },
+
+    descriptionTextarea: {
+        width: "100%",
+        maxWidth: 772,
+        textarea: {
+            minHeight: 190,
+        },
+    },
+
+    actions: {
+        gap: 8,
+
+        button: {
+            width: "100%",
+            maxWidth: 252,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+
+            button: {
+                maxWidth: "none",
+            },
         },
     },
 }));

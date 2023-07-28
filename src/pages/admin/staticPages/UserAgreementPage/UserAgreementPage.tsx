@@ -15,7 +15,7 @@ const UserAgreementPage = () => {
         <Box>
             <Flex direction="column" gap={24}>
                 <Heading>Публичная оферта</Heading>
-                <LastUpdatedInfo data={data?.lastUpdated} />
+                <LastUpdatedInfo data={data?.lastUpdated} scrollable />
             </Flex>
             <UpdatePublicOfferForm mt={24} mb={8} />
         </Box>

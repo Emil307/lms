@@ -10,7 +10,7 @@ export default createStyles((theme) => ({
         left: 0,
         paddingInline: 16,
         borderBottom: "none",
-        zIndex: 200,
+        zIndex: 999,
     },
     inner: {
         justifyContent: "space-between",

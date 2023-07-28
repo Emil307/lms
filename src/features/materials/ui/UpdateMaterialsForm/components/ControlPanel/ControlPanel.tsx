@@ -6,14 +6,14 @@ import { FSwitch } from "@shared/ui";
 import { BindingMaterialsWithCategories, CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { getDataFromSessionStorage } from "@shared/utils";
 import useStyles from "./ControlPanel.styles";
-import { UpdateMaterialsFormValidationSchema } from "../../types";
+import { UpdateMaterialsFormValidation } from "../../types";
 
 export interface ControlPanelProps extends FlexProps {}
 
 const ControlPanel = (props: ControlPanelProps) => {
     const { classes } = useStyles();
 
-    const { values } = useFormikContext<UpdateMaterialsFormValidationSchema>();
+    const { values } = useFormikContext<UpdateMaterialsFormValidation>();
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 
     const handleCloseModal = () => closeModal("BINDING_CATEGORIES_WITH_MATERIALS");
@@ -23,8 +23,6 @@ const ControlPanel = (props: ControlPanelProps) => {
         openModal({
             modalId: "BINDING_CATEGORIES_WITH_MATERIALS",
             title: "Привязать материалы к категориям",
-            centered: true,
-            size: 456,
             children: <BindingMaterialsWithCategories onClose={handleCloseModal} />,
         });
     };

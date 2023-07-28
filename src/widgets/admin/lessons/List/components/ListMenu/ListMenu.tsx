@@ -34,7 +34,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_LESSON",
             title: "Удаление урока",
-            centered: true,
             children: (
                 <DeleteLessonModal
                     id={lessonId}
@@ -50,7 +49,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_LESSON",
             title: "Редактирование урока",
-            centered: true,
             children: <UpdateLessonModal data={row.original} onClose={handleCloseUpdateLessonModal} />,
         });
     };

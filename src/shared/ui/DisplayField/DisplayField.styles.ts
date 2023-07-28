@@ -13,4 +13,9 @@ export default createStyles((theme, { variant }: CreateStylesParams) => ({
         columnGap: 16,
         width: "100%",
     },
+    label: {
+        alignSelf: "flex-start",
+        color: theme.colors.gray45[0],
+        textAlign: "start",
+    },
 }));

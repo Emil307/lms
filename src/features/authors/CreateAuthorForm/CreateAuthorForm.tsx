@@ -1,8 +1,9 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
+import { Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, FSwitch, FTextarea, ManagedForm } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FFileButton, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "@public/icons/avatar.svg";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { Fieldset } from "@components/Fieldset";
@@ -12,6 +13,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { $CreateAuthorFormValidation, CreateAuthorFormValidation } from "./types";
 import { adaptCreateAuthorRequest } from "./utils";
+import useStyles from "./CreateAuthorForm.styles";
 
 export interface CreateAuthorFormProps {
     onClose: () => void;
@@ -19,6 +21,10 @@ export interface CreateAuthorFormProps {
 
 const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
     const router = useRouter();
+
+    const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const createAuthor = (values: CreateAuthorFormValidation) => {
         return authorApi.createAuthor(adaptCreateAuthorRequest(values));
@@ -53,49 +59,38 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
-                    <Flex gap={8} align="center">
-                        <Text color="gray45">Статус:</Text>
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
-                    <Fieldset label="Личные данные" icon={<User />}>
-                        <Box>
-                            <Flex gap={24}>
-                                <Avatar
-                                    src={values.avatar?.absolutePath}
-                                    alt="avatar"
-                                    w={84}
-                                    h={84}
-                                    radius={50}
-                                    styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                                    <AvatarIcon />
-                                </Avatar>
-                                <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                            </Flex>
-                            <Flex mt={24} gap={8}>
-                                <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
-                                <FInput name="lastName" label="Фамилия" size="sm" w={252} withAsterisk />
-                                <FInput name="patronymic" label="Отчество" size="sm" w={252} />
-                            </Flex>
-                        </Box>
+                    <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
+                        <Flex align="center" gap={24} mb={24}>
+                            <Avatar
+                                src={values.avatar?.absolutePath}
+                                alt="avatar"
+                                className={classes.avatarWrapper}
+                                radius={50}
+                                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                                <AvatarIcon />
+                            </Avatar>
+                            <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                        </Flex>
+                        <Flex gap={8} wrap="wrap">
+                            <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />
+                        </Flex>
                     </Fieldset>
-                    <Fieldset label="Об авторе" icon={<UserDescriptionIcon />}>
-                        <FTextarea
-                            name="description"
-                            description="до 230 символов"
-                            w="100%"
-                            maw={772}
-                            sx={{
-                                textarea: {
-                                    minHeight: 190,
-                                },
-                            }}
-                        />
+                    <Fieldset label="Об авторе" icon={<UserDescriptionIcon />} legendProps={{ mb: 24 }}>
+                        <FTextarea name="description" description="до 230 символов" className={classes.descriptionTextarea} />
                     </Fieldset>
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                    <Flex className={classes.actions}>
+                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                             Отменить
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                        <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                             Сохранить
                         </Button>
                     </Flex>

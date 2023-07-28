@@ -22,8 +22,6 @@ const Footer = ({ data }: FooterProps) => {
         openModal({
             modalId: "INVOICE_PAYMENT",
             title: "Счет на оплату",
-            centered: true,
-            size: 456,
             children: <InvoicePaymentForm onClose={handleCloseModal} />,
         });
 

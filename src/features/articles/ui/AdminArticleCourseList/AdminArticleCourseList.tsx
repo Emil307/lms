@@ -20,7 +20,6 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
         openModal({
             modalId: "ATTACH_COURSES_TO_ARTICLE",
             title: "Привязать к курсу",
-            centered: true,
             children: <AddCoursesToArticleModal articleId={articleId} onClose={handleCloseAddCoursesToArticleModal} />,
             size: 912,
             mah: 912,

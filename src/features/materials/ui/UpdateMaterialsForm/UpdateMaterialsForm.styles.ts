@@ -1,6 +1,15 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    contentContainer: {
+        flexDirection: "column",
+        height: 472,
+        gap: 24,
+
+        [theme.fn.smallerThan("xs")]: {
+            height: 560,
+        },
+    },
     icon: {
         display: "flex",
         flexDirection: "column",

@@ -2,7 +2,6 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        flexDirection: "column",
         width: "100%",
         padding: 24,
         gap: 16,
@@ -10,23 +9,36 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.light[0],
     },
     heading: {
+        flexDirection: "column",
         width: "100%",
-        gap: 16,
+        gap: 48,
+
+        [theme.fn.smallerThan("xs")]: {
+            gap: 24,
+        },
     },
-    title: {
-        flex: 1,
-        maxWidth: 130,
-    },
+
     wrapperIcon: {
         width: 64,
+        minWidth: 64,
         height: 64,
         borderRadius: 24,
-        border: "none",
         backgroundColor: theme.colors.white[0],
 
         svg: {
             width: 32,
             height: 32,
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            width: 56,
+            minWidth: 56,
+            height: 56,
+
+            svg: {
+                width: 24,
+                height: 24,
+            },
         },
     },
 }));

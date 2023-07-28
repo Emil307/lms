@@ -31,7 +31,6 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_GROUP",
             title: "Удаление группы",
-            centered: true,
             children: <DeleteGroupModal id={row.original.id.toString()} name={row.original.name} onClose={handleCloseDeleteModal} />,
         });
     };

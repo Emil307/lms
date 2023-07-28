@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export const useInfoPanelStyles = createStyles((_theme) => ({
+export const useInfoPanelStyles = createStyles((theme) => ({
     infoPanelListInfo: {
         flexDirection: "row",
         alignItems: "center",
@@ -14,6 +14,10 @@ export const useInfoPanelStyles = createStyles((_theme) => ({
 
         "::-webkit-scrollbar": {
             display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
         },
     },
 }));

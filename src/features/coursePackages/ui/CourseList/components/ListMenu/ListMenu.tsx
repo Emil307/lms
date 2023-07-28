@@ -24,7 +24,6 @@ const ListMenu = ({ row, coursePackageId }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_COURSE_FROM_PACKAGE",
             title: "Удаление курса",
-            centered: true,
             children: (
                 <DeleteCourseFromCoursePackageModal
                     id={row.original.id}

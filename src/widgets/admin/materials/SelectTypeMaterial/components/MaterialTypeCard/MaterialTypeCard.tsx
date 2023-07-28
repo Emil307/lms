@@ -15,16 +15,12 @@ const MemoizedMaterialTypeCard = memo(function MaterialTypeCard({ title, icon, o
     return (
         <Flex {...props} className={classes.root}>
             <Flex justify="space-between" className={classes.heading}>
-                <Heading order={2} className={classes.title}>
-                    {title}
-                </Heading>
-                <ThemeIcon variant="outline" className={classes.wrapperIcon}>
-                    {icon}
-                </ThemeIcon>
+                <Heading order={2}>{title}</Heading>
+                <Button variant="secondary" onClick={onClick} w="min-content">
+                    Выбрать
+                </Button>
             </Flex>
-            <Button variant="secondary" onClick={onClick} w="min-content">
-                Выбрать
-            </Button>
+            <ThemeIcon className={classes.wrapperIcon}>{icon}</ThemeIcon>
         </Flex>
     );
 });

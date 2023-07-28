@@ -52,7 +52,6 @@ const List = (props: ListProps) => {
             openModal({
                 modalId: "DELETE_QUESTION",
                 title: "Удаление вопроса",
-                centered: true,
                 children: <DeleteFaqModal id={data.id} question={data.question} onClose={handleCloseDeleteModal} />,
             });
         };

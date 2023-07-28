@@ -4,14 +4,15 @@ import useStyles from "./Paragraph.styles";
 
 export interface ParagraphProps extends Omit<TextProps, "variant"> {
     variant: ParagraphVariant;
+    component?: "p" | "span";
     onClick?: () => void;
 }
 
-const Paragraph = ({ children, variant, className, color = "dark", ...props }: ParagraphProps) => {
+const Paragraph = ({ children, variant, className, color = "dark", component = "p", ...props }: ParagraphProps) => {
     const { classes, cx } = useStyles({ variant });
 
     return (
-        <Text component="p" className={cx(classes.root, className)} color={color} {...props}>
+        <Text component={component} className={cx(classes.root, className)} color={color} {...props}>
             {children}
         </Text>
     );

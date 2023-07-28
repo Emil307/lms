@@ -36,7 +36,9 @@ const UserDetailsPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ data })} />
             <InfoPanel id={id} />
             {/* TODO: - переключение виджетов по табам, когда будет апи и сверстано все остальное */}
-            {Roles.teacher === data.roles[0].id && <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} />}
+            {Roles.teacher === data.roles[0].id && (
+                <Tabs tabs={tabsList} value={tabsList[0].value} onTabChange={handleChangeTab} mt={32} maw={1162} />
+            )}
             <UserSettings id={id} mt={32} />
         </Box>
     );
