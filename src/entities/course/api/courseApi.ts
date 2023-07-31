@@ -6,17 +6,14 @@ import {
     GetCourseProgramModuleLessonsRequest,
     GetCourseProgramModuleLessonsResponse,
     GetCourseProgramResponse,
-    GetMyCoursesResponse,
     GetAdminCourseResourcesResponse,
     $GetAdminCourseResourcesResponse,
     $GetAdminCoursesResponse,
-    $GetMyCoursesResponse,
     $GetCourseProgramResponse,
     $GetCourseProgramModuleLessonsResponse,
     GetCoursesResponse,
     $GetCoursesResponse,
     GetCoursesRequest,
-    GetCoursesInfiniteRequest,
     $CreateCourseResponse,
     CreateCourseRequest,
     UpdateCourseRequest,
@@ -41,17 +38,18 @@ import {
     $UpdateCoursePublicationResponse,
     GetAdminCourseResourcesRequest,
     GetCourseResourcesRequest,
+    GetCourseRequest,
+    GetCourseResponse,
+    $GetCourseResponse,
+    DeleteFavoriteCoursesResponse,
+    $DeleteFavoriteCoursesResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
+    //ADMIN
     async getAdminCourseResources(params: GetAdminCourseResourcesRequest): Promise<GetAdminCourseResourcesResponse> {
         const response = await this.instance.get("admin/courses/resources", { params });
         return $GetAdminCourseResourcesResponse.parse(response);
-    }
-
-    async getCourseResources(params: GetCourseResourcesRequest): Promise<GetCourseResourcesResponse> {
-        const response = await this.instance.get("courses/resources", { params });
-        return $GetCourseResourcesResponse.parse(response);
     }
 
     async getAdminCourses(data: GetAdminCoursesRequest): Promise<GetAdminCoursesResponse> {
@@ -98,14 +96,20 @@ class CourseApi extends BaseApi {
         await this.instance.delete(`admin/courses/${id}`);
     }
 
-    async getCourses(data: GetCoursesRequest | GetCoursesInfiniteRequest): Promise<GetCoursesResponse> {
+    //USER
+    async getCourseResources(params: GetCourseResourcesRequest): Promise<GetCourseResourcesResponse> {
+        const response = await this.instance.get("courses/resources", { params });
+        return $GetCourseResourcesResponse.parse(response);
+    }
+
+    async getCourses(data: GetCoursesRequest): Promise<GetCoursesResponse> {
         const response = await this.instance.post("courses/list", data);
         return $GetCoursesResponse.parse(response);
     }
 
-    async getMyCourses(): Promise<GetMyCoursesResponse> {
-        const response = await this.instance.get("courses/my");
-        return $GetMyCoursesResponse.parse(response);
+    async getCourse({ id }: GetCourseRequest): Promise<GetCourseResponse> {
+        const response = await this.instance.get(`courses/${id}`);
+        return $GetCourseResponse.parse(response);
     }
 
     async getCourseProgram(courseId: number): Promise<GetCourseProgramResponse> {
@@ -117,8 +121,13 @@ class CourseApi extends BaseApi {
         courseId,
         programId,
     }: GetCourseProgramModuleLessonsRequest): Promise<GetCourseProgramModuleLessonsResponse> {
-        const response = await this.instance.get(`/courses/${courseId}/program/${programId}`);
+        const response = await this.instance.get(`courses/${courseId}/program/${programId}`);
         return $GetCourseProgramModuleLessonsResponse.parse(response);
+    }
+
+    async deleteFavoriteCourses(): Promise<DeleteFavoriteCoursesResponse> {
+        const response = await this.instance.delete("courses/favorites");
+        return $DeleteFavoriteCoursesResponse.parse(response);
     }
 }
 

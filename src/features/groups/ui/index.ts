@@ -8,3 +8,5 @@ export * from "./CreateScheduleForm";
 export * from "./DeleteScheduleModal";
 export * from "./UpdateScheduleForm";
 export * from "./DeleteStudentFromGroupModal";
+export * from "./Card";
+export * from "./List";

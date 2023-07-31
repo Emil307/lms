@@ -3,7 +3,6 @@ import { Avatar, Box, Stack, Text, ThemeIcon } from "@mantine/core";
 import { Edit3, Target } from "react-feather";
 import { FormikConfig } from "formik";
 import { z } from "zod";
-import { closeModal, openModal } from "@mantine/modals";
 import { Logo } from "@components/Logo";
 import {
     BreadCrumbs,
@@ -46,7 +45,6 @@ import {
 import { createNotification, ToastType } from "@shared/utils";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
 import { UploadedFile } from "@shared/types";
-import { CreateCourseReviewForm } from "@features/courseReviews";
 
 const testDataSelect = [
     { value: "react", label: "React" },
@@ -212,7 +210,6 @@ export const UIDemo = () => {
     // const content =
     //     '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
     const [content, setContent] = useState("");
-    const handleCloseModal = () => closeModal("CHANGE_PASSWORD");
 
     return (
         <>
@@ -358,33 +355,6 @@ export const UIDemo = () => {
                                 <FTextEditor name="content" />
                                 <Button type="button" onClick={() => setFieldValue("step", ++values.step)}>
                                     Next
-                                </Button>
-                                <Button
-                                    onClick={() =>
-                                        openModal({
-                                            modalId: "CHANGE_PASSWORD",
-                                            title: "Оставить отзыв",
-                                            size: 408,
-                                            children: (
-                                                <CreateCourseReviewForm
-                                                    data={{
-                                                        name: "Оптимизация управления финансами",
-                                                        rating: 4.8,
-                                                        reviewCount: 4,
-                                                        categories: [
-                                                            {
-                                                                id: 12,
-                                                                name: "categoryName",
-                                                                slug: "categorySlug",
-                                                            },
-                                                        ],
-                                                    }}
-                                                    onClose={handleCloseModal}
-                                                />
-                                            ),
-                                        })
-                                    }>
-                                    Show Review Modal
                                 </Button>
                                 <Button
                                     type="button"

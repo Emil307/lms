@@ -1,10 +1,10 @@
 import { Flex, Text } from "@mantine/core";
-import { Course } from "@entities/course";
+import { CourseFromList } from "@entities/course";
 import { Heading } from "@shared/ui";
 import useStyles from "./AmountInfo.styles";
 
 export interface AmountInfoProps {
-    data: Pick<Course, "discountPrice" | "price" | "discount">;
+    data: Pick<CourseFromList, "discountPrice" | "price" | "discount">;
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {

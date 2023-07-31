@@ -18,7 +18,7 @@ export interface ListProps<T> extends Omit<MGridProps, "children"> {
     lastElemRef?: Ref<HTMLDivElement>;
 }
 
-function List<T extends { id: unknown }>({
+function List<T extends { id?: unknown; groupId?: unknown }>({
     data,
     colProps,
     withPagination,
@@ -41,7 +41,7 @@ function List<T extends { id: unknown }>({
             )}
             <Grid {...props} gutter={24}>
                 {data?.map((row) => (
-                    <Grid.Col {...colProps} key={`row-${row.id}`} ref={lastElemRef}>
+                    <Grid.Col {...colProps} key={`row-${row.id || row.groupId}`} ref={lastElemRef}>
                         {renderItem({ data: row, onClick })}
                     </Grid.Col>
                 ))}

@@ -1,5 +1,5 @@
 import { axios } from "@app/config/axios";
-import { BaseApi } from "@shared/utils";
+import { BaseApi, HTTPMethod } from "@shared/utils";
 import {
     $AttachParticipantsToGroupResponse,
     $CreateAdminGroupResponse,
@@ -12,6 +12,11 @@ import {
     $GetAdminGroupResponse,
     $GetAdminGroupSchedulesResponse,
     $GetAdminGroupsResponse,
+    $GetGroupRequest,
+    $GetGroupResponse,
+    $GetGroupsCountsResponse,
+    $GetGroupsRequest,
+    $GetGroupsResponse,
     $UpdateAdminGroupResponse,
     $UpdateAdminGroupScheduleResponse,
     $UpdateGroupActivityResponse,
@@ -37,6 +42,8 @@ import {
     GetAdminGroupSchedulesResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
+    GetGroupRequest,
+    GetGroupResponse,
     UpdateAdminGroupRequest,
     UpdateAdminGroupResponse,
     UpdateAdminGroupScheduleRequest,
@@ -114,6 +121,27 @@ class GroupApi extends BaseApi {
         const response = await this.instance.delete(`admin/groups/${groupId}/schedules/${scheduleId}`);
         return $DeleteAdminGroupScheduleResponse.parse(response);
     }
+
+    //USER
+    getGroups = this.createApiMethod({
+        method: HTTPMethod.POST,
+        path: `groups/list`,
+        requestSchema: $GetGroupsRequest,
+        responseSchema: $GetGroupsResponse,
+    });
+
+    getGroup = this.createApiMethod<GetGroupRequest, GetGroupResponse, GetGroupRequest>({
+        method: HTTPMethod.GET,
+        path: ({ id }) => `groups/${id}`,
+        requestSchema: $GetGroupRequest,
+        responseSchema: $GetGroupResponse,
+    });
+
+    getGroupsCounts = this.createApiMethod({
+        method: HTTPMethod.GET,
+        path: "groups/counts",
+        responseSchema: $GetGroupsCountsResponse,
+    });
 }
 
 export const groupApi = new GroupApi(axios);

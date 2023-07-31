@@ -1,7 +1,15 @@
 import { z } from "zod";
-import { $FilterType, $getDateObjectType, $getFiltersRequestType, $getPaginationResponseType, $LastUpdated, $Profile } from "@shared/types";
+import {
+    $FilterType,
+    $getDateObjectType,
+    $getFiltersRequestType,
+    $getPaginationResponseType,
+    $LastUpdated,
+    $Profile,
+    $UploadedFile,
+} from "@shared/types";
 import { $User } from "@entities/user";
-import { $AdminCourse } from "@entities/course";
+import { $AdminCourse, $CourseType } from "@entities/course";
 
 /**
  *
@@ -71,6 +79,21 @@ export type DeleteAdminGroupScheduleResponse = z.infer<typeof $DeleteAdminGroupS
  * USER TYPES
  *
  */
+export type Group = z.infer<typeof $Group>;
+export type GroupFromList = z.infer<typeof $GroupFromList>;
+export type GroupsCount = z.infer<typeof $GroupsCount>;
+export type GroupStatus = z.infer<typeof $GroupStatus>;
+export type GroupStatusName = z.infer<typeof $GroupStatusName>;
+export type GroupAuthor = z.infer<typeof $GroupAuthor>;
+export type GroupTag = z.infer<typeof $GroupTag>;
+export type GroupCategory = z.infer<typeof $GroupCategory>;
+
+//REQ/RESP
+export type GetGroupsRequest = z.infer<typeof $GetGroupsRequest>;
+export type GetGroupsResponse = z.infer<typeof $GetGroupsResponse>;
+export type GetGroupRequest = z.infer<typeof $GetGroupRequest>;
+export type GetGroupResponse = z.infer<typeof $GetGroupResponse>;
+export type GetGroupsCountsResponse = z.infer<typeof $GetGroupsCountsResponse>;
 
 /**
  *
@@ -369,3 +392,97 @@ export const $DeleteAdminGroupScheduleResponse = z.null();
  * USER ZOD
  *
  */
+
+export const $GroupStatusName = z
+    .literal("in_progress")
+    .or(z.literal("not_started"))
+    .or(z.literal("completed"))
+    .or(z.literal("archive"))
+    .or(z.literal("all"));
+
+export const $GroupTag = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
+export const $GroupCategory = $GroupTag;
+
+export const $GroupStatus = z.object({
+    name: $GroupStatusName,
+    displayName: z.string(),
+});
+
+//TODO: Заменить из апи авторов
+export const $GroupAuthor = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string().nullable(),
+    description: z.string().nullable(),
+    avatar: $UploadedFile.nullable(),
+});
+
+export const $GroupsCount = z.object({
+    name: z.string(),
+    displayName: z.string(),
+    count: z.number(),
+});
+
+export const $Group = z.object({
+    groupId: z.number(),
+    courseId: z.number(),
+    name: z.string(),
+    description: z.string().nullable(),
+    type: $CourseType,
+    availableTo: z.coerce.date().nullable(),
+    status: $GroupStatus,
+    nextLesson: z.number().nullable(),
+    prevLesson: z.number().nullable(),
+    lessonsCount: z.object({
+        total: z.number(),
+        passed: z.number(),
+    }),
+    practiceCount: z.object({
+        total: z.number(),
+        passed: z.number(),
+    }),
+    cover: $UploadedFile,
+    category: $GroupCategory.nullable(),
+    tags: $GroupTag.array(),
+    authors: $GroupAuthor.array(),
+    rating: z.object({
+        reviewsCount: z.number(),
+        averageRating: z.number(),
+    }),
+});
+
+export const $GroupFromList = $Group.pick({
+    groupId: true,
+    courseId: true,
+    name: true,
+    availableTo: true,
+    status: true,
+    prevLesson: true,
+    lessonsCount: true,
+    practiceCount: true,
+    cover: true,
+});
+
+export const $GetGroupsResponse = $getPaginationResponseType($GroupFromList);
+
+export const $GroupsRequest = z.object({
+    filter: z
+        .object({
+            status: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetGroupsRequest = $getFiltersRequestType($GroupsRequest);
+
+export const $GetGroupRequest = z.object({
+    id: z.string(),
+});
+
+export const $GetGroupResponse = $Group;
+
+export const $GetGroupsCountsResponse = $GroupsCount.array();

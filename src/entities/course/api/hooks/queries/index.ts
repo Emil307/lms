@@ -1,4 +1,3 @@
-export * from "./useMyCourses";
 export * from "./useCourseProgram";
 export * from "./useCourseProgramModuleLessons";
 export * from "./useAdminCourseResources";
@@ -7,3 +6,4 @@ export * from "./useCourses";
 export * from "./useCoursesInfinite";
 export * from "./useAdminCourses";
 export * from "./useCourseResources";
+export * from "./useCourse";

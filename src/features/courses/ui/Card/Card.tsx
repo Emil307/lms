@@ -1,7 +1,7 @@
 import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
-import { Course } from "@entities/course";
+import { CourseFromList } from "@entities/course";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Heading, Paragraph } from "@shared/ui";
@@ -9,7 +9,7 @@ import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
-    data: Course;
+    data: CourseFromList;
     onClick?: (id: unknown) => void;
 }
 
