@@ -2,10 +2,11 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
-import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
+import { useDetailsUser, useUpdateUserActivity, useUpdateUserStatic } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
+import { Roles } from "@app/routes";
 
 export interface InfoPanelProps extends BoxProps {
     id: string;
@@ -18,13 +19,14 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
     const fio = getFullName({ data: data?.profile });
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio });
+    const { mutate: updateStaticStatus } = useUpdateUserStatic({ id, fio });
 
     const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
-        updateActivityStatus({ isActive: newValue.target.checked });
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeStaticStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateStaticStatus(newValue.target.checked);
 
     return (
         <Box {...props}>
@@ -49,8 +51,9 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         disabled={!isRoleOrder}
                     />
                 </Flex>
-                {/* TODO: - нужен функционал от бэка */}
-                <Checkbox label="Отображать на главной" />
+                {Roles.teacher === data?.roles[0].id && (
+                    <Checkbox label="Отображать на главной" checked={data.isStatic} onChange={handleChangeStaticStatus} />
+                )}
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Последний вход:

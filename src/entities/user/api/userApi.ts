@@ -32,6 +32,9 @@ import {
     DeleteStudentCoursesRequest,
     DeleteStudentCoursesResponse,
     $DeleteStudentCoursesResponse,
+    UpdateUserStaticRequest,
+    UpdateUserStaticResponse,
+    $UpdateUserStaticResponse,
 } from "./types";
 
 export class UserApi extends BaseApi {
@@ -59,6 +62,12 @@ export class UserApi extends BaseApi {
         const response = await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
         return $UpdateUserActivityResponse.parse(response);
     }
+
+    async updateUserStatic({ id, isStatic }: UpdateUserStaticRequest): Promise<UpdateUserStaticResponse> {
+        const response = await this.instance.put(`admin/users/${id}/static-status`, { isStatic });
+        return $UpdateUserStaticResponse.parse(response);
+    }
+
     async showUser(id: string): Promise<UserDetailResponse> {
         const result = await this.instance.get(`admin/users/${id}`);
         return $UserDetailResponse.parse(result);
