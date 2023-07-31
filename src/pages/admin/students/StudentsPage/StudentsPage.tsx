@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { List as StudentList } from "@features/students";
+import { AdminList as AdminStudentList } from "@features/students";
 import { Button, Heading } from "@shared/ui";
 
 const StudentsPage = () => {
@@ -12,13 +12,13 @@ const StudentsPage = () => {
 
     return (
         <Box>
-            <Flex align="center" justify="space-between">
+            <Flex align="center" justify="space-between" mb={24}>
                 <Heading>Ученики</Heading>
                 <Button variant="secondary" size="large" leftIcon={<PlusCircle />} onClick={redirectCreateStudent}>
                     Создать ученика
                 </Button>
             </Flex>
-            <StudentList />
+            <AdminStudentList />
         </Box>
     );
 };

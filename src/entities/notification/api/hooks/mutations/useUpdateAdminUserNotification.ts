@@ -14,12 +14,12 @@ export const useUpdateAdminUserNotification = (userId: string) => {
         Omit<UpdateAdminUserNotificationRequest, "userId">
     >([MutationKeys.UPDATE_ADMIN_NOTIFICATION], (data) => notificationApi.updateAdminUserNotification({ ...data, userId }), {
         onMutate: async (updatedNotification) => {
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USER, userId] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_USER, userId] });
 
-            const previousUserData = queryClient.getQueryData<User>([QueryKeys.GET_USER, userId]);
+            const previousUserData = queryClient.getQueryData<User>([QueryKeys.GET_ADMIN_USER, userId]);
 
             queryClient.setQueryData<User>(
-                [QueryKeys.GET_USER, userId],
+                [QueryKeys.GET_ADMIN_USER, userId],
                 (previousData) =>
                     previousData && {
                         ...previousData,
@@ -34,7 +34,7 @@ export const useUpdateAdminUserNotification = (userId: string) => {
         },
         onError: (err, _, context) => {
             if (typeof context === "object" && context !== null && "previousUserData" in context) {
-                queryClient.setQueryData([QueryKeys.GET_USER, userId], context.previousUserData);
+                queryClient.setQueryData([QueryKeys.GET_ADMIN_USER, userId], context.previousUserData);
             }
 
             createNotification({
@@ -43,7 +43,7 @@ export const useUpdateAdminUserNotification = (userId: string) => {
             });
         },
         onSettled: () => {
-            queryClient.invalidateQueries([QueryKeys.GET_USER, userId]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_USER, userId]);
         },
         onSuccess: () => {
             createNotification({

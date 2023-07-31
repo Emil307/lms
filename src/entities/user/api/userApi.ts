@@ -2,7 +2,6 @@ import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils/types";
 import {
     GetAdminStudentsFiltersResponse,
-    UpdateUserRequest,
     CreateUserRequest,
     UserDetailResponse,
     UsersRequestParamsType,
@@ -19,8 +18,20 @@ import {
     GetStaticUsersRequest,
     GetStaticUsersResponse,
     $GetStaticUsersResponse,
+    UpdateAdminUserResponse,
+    $UpdateAdminUserResponse,
+    UpdateAdminUserRequest,
+    GetAdminStudentsRequest,
+    GetAdminStudentsResponse,
+    $GetAdminStudentsResponse,
     UpdateUserActivityResponse,
     $UpdateUserActivityResponse,
+    AttachCoursesToStudentRequest,
+    AttachCoursesToStudentResponse,
+    $AttachCoursesToStudentResponse,
+    DeleteStudentCoursesRequest,
+    DeleteStudentCoursesResponse,
+    $DeleteStudentCoursesResponse,
 } from "./types";
 
 export class UserApi extends BaseApi {
@@ -48,7 +59,6 @@ export class UserApi extends BaseApi {
         const response = await this.instance.put(`admin/users/${id}/activity-status`, { isActive });
         return $UpdateUserActivityResponse.parse(response);
     }
-
     async showUser(id: string): Promise<UserDetailResponse> {
         const result = await this.instance.get(`admin/users/${id}`);
         return $UserDetailResponse.parse(result);
@@ -59,9 +69,9 @@ export class UserApi extends BaseApi {
         return $CreateUserResponse.parse(result);
     }
 
-    async updateUser({ id, ...data }: UpdateUserRequest & { id?: number }): Promise<UserDetailResponse> {
+    async updateUser({ id, ...data }: UpdateAdminUserRequest): Promise<UpdateAdminUserResponse> {
         const result = await this.instance.put(`admin/users/${id}`, data);
-        return $UserDetailResponse.parse(result);
+        return $UpdateAdminUserResponse.parse(result);
     }
 
     async updateUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<void> {
@@ -69,16 +79,30 @@ export class UserApi extends BaseApi {
     }
 
     //teachers
-
     async getStaticUsers(data: GetStaticUsersRequest): Promise<GetStaticUsersResponse> {
         const response = await this.instance.post("static-users/list", data);
         return $GetStaticUsersResponse.parse(response);
     }
 
     //students
+    async getAdminStudents(params: GetAdminStudentsRequest): Promise<GetAdminStudentsResponse> {
+        const result = await this.instance.post("admin/users/students/list", params);
+        return $GetAdminStudentsResponse.parse(result);
+    }
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
         const result = await this.instance.get("admin/users/students/filters");
         return $GetAdminStudentsFiltersResponse.parse(result);
+    }
+
+    //students <---> COURSES ADMIN
+    async attachCoursesToStudent({ studentId, ...data }: AttachCoursesToStudentRequest): Promise<AttachCoursesToStudentResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/courses`, data);
+        return $AttachCoursesToStudentResponse.parse(response);
+    }
+
+    async deleteStudentCourses({ studentId, ...params }: DeleteStudentCoursesRequest): Promise<DeleteStudentCoursesResponse> {
+        const response = await this.instance.delete(`admin/users/${studentId}/courses`, { params });
+        return $DeleteStudentCoursesResponse.parse(response);
     }
 }
 

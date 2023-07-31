@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export const useSettingUserStyles = createStyles((theme) => ({
+export default createStyles((theme) => ({
     info: {
         display: "grid",
         gridTemplateColumns: "1fr 334px",

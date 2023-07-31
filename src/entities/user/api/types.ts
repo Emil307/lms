@@ -2,7 +2,6 @@ import { z } from "zod";
 import { REGEXP_PASSWORD } from "@shared/constant";
 import {
     $Role,
-    $UploadedFile,
     $getPaginationResponseType,
     $Profile,
     TRequestFilterParams,
@@ -22,11 +21,19 @@ export type GetUsersResponse = z.infer<typeof $GetUsersResponse>;
 export type CreateUserResponse = z.infer<typeof $CreateUserResponse>;
 export type GetUsersAdminFiltersResponse = z.infer<typeof $GetUsersAdminFiltersResponse>;
 export type GetAdminStudentsFiltersResponse = z.infer<typeof $GetAdminStudentsFiltersResponse>;
-export type UpdateUserRequest = z.infer<typeof $UpdateUserRequest>;
+export type UpdateAdminUserRequest = z.infer<typeof $UpdateAdminUserRequest>;
+export type UpdateAdminUserResponse = z.infer<typeof $UpdateAdminUserResponse>;
 export type CreateUserRequest = z.infer<typeof $CreateUserRequest>;
 export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityRequest>;
 export type UpdateUserActivityResponse = z.infer<typeof $UpdateUserActivityResponse>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
+
+//students
+export type AdminStudentsFiltersForm = z.infer<typeof $AdminStudentsFiltersForm>;
+
+//req/resp
+export type GetAdminStudentsRequest = z.infer<typeof $GetAdminStudentsRequest>;
+export type GetAdminStudentsResponse = z.infer<typeof $GetAdminStudentsResponse>;
 
 //static users
 export type StaticUser = z.infer<typeof $StaticUser>;
@@ -37,6 +44,12 @@ export type StaticUsersExtraFilters = z.infer<typeof $StaticUsersExtraFilters>;
 //req/resp
 export type GetStaticUsersRequest = z.infer<typeof $GetStaticUsersRequest>;
 export type GetStaticUsersResponse = z.infer<typeof $GetStaticUsersResponse>;
+
+//students <--> courses
+export type AttachCoursesToStudentRequest = z.infer<typeof $AttachCoursesToStudentRequest>;
+export type AttachCoursesToStudentResponse = z.infer<typeof $AttachCoursesToStudentResponse>;
+export type DeleteStudentCoursesRequest = z.infer<typeof $DeleteStudentCoursesRequest>;
+export type DeleteStudentCoursesResponse = z.infer<typeof $DeleteStudentCoursesResponse>;
 
 export const $User = z.object({
     id: z.number(),
@@ -61,54 +74,52 @@ export const $UserDetailResponse = $User.extend({
     lastUpdated: $LastUpdated.nullable(),
 });
 
-export const $CreateUserRequest = z
-    .object({
-        email: z.string().email({ message: "Неверный формат" }),
-        password: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
-        passwordConfirmation: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
-        firstName: z.string(),
-        lastName: z.string(),
-        patronymic: z.string().optional(),
-        description: z.string().optional(),
-        isActive: z.boolean(),
-        roleId: z.number(),
-        avatar: $UploadedFile.nullable(),
-        additionalImage: $UploadedFile.nullable(),
-        avatarId: z.number().optional(),
-        additionalImageId: z.number().optional(),
-        notifications: z
-            .object({
-                newHomework: z.boolean(),
+export const $CreateUserRequest = z.object({
+    email: z.string().email(),
+    password: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
+    passwordConfirmation: z.string().regex(REGEXP_PASSWORD, "Неверный формат"),
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string().optional(),
+    description: z.string().optional(),
+    isActive: z.boolean(),
+    roleId: z.number(),
+    // avatar: $UploadedFile.nullable(),
+    // additionalImage: $UploadedFile.nullable(),
+    avatarId: z.number().optional(),
+    additionalImageId: z.number().optional(),
+    notifications: z
+        .object({
+            newHomework: z.boolean(),
+            supportMessage: z.boolean(),
+            invoiceForPayment: z.boolean(),
+        })
+        .or(
+            z.object({
+                homeworkChecked: z.boolean(),
+                groupAdded: z.boolean(),
                 supportMessage: z.boolean(),
-                invoiceForPayment: z.boolean(),
             })
-            .or(
-                z.object({
-                    homeworkChecked: z.boolean(),
-                    groupAdded: z.boolean(),
-                    supportMessage: z.boolean(),
-                })
-            ),
-    })
-    .refine((data) => data.password === data.passwordConfirmation, {
-        message: "Пароли должны совпадать",
-        path: ["passwordConfirmation"],
-    });
+        ),
+});
 
 export const $CreateUserResponse = $User;
 
-export const $UpdateUserRequest = z.object({
-    email: z.string({ required_error: "Это обязательное поле" }).email({ message: "Неверный формат" }),
-    firstName: z.string({ required_error: "Это обязательное поле" }),
-    lastName: z.string({ required_error: "Это обязательное поле" }),
+export const $UpdateAdminUserRequest = z.object({
+    id: z.string(),
+    email: z.string().email(),
+    firstName: z.string(),
+    lastName: z.string(),
     patronymic: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.string(),
-    avatar: $UploadedFile.nullable(),
-    additionalImage: $UploadedFile.nullable(),
+    // avatar: $UploadedFile.nullable(),
+    // additionalImage: $UploadedFile.nullable(),
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),
 });
+
+export const $UpdateAdminUserResponse = $UserDetailResponse;
 
 export const $UpdateUserActivityRequest = z.object({
     id: z.string(),
@@ -170,3 +181,40 @@ export const $StaticUsersRequest = z.object({
 export const $GetStaticUsersRequest = $getFiltersRequestType($StaticUsersRequest);
 
 export const $GetStaticUsersResponse = $getPaginationResponseType($StaticUserFromList);
+
+//students
+
+export const $AdminStudentsFiltersForm = z.object({
+    query: z.string(),
+    isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
+    roleName: z.string(),
+});
+
+export const $AdminStudentsRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            isActive: z.boolean(),
+            roleName: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetAdminStudentsRequest = $getFiltersRequestType($AdminStudentsRequest);
+
+export const $GetAdminStudentsResponse = $GetUsersResponse;
+
+//students <--> courses
+export const $AttachCoursesToStudentRequest = z.object({
+    studentId: z.string(),
+    ids: z.string().array(),
+});
+
+export const $AttachCoursesToStudentResponse = z.null();
+
+export const $DeleteStudentCoursesRequest = z.object({
+    studentId: z.string(),
+    ids: z.number().array(),
+});
+
+export const $DeleteStudentCoursesResponse = z.null();

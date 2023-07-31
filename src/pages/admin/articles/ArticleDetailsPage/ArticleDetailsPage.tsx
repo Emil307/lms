@@ -18,6 +18,7 @@ const ArticleDetailsPage = () => {
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/articles/[id]", query: { id, tab: value } });
     };
+    //
 
     const renderContent = () => {
         switch (tab) {

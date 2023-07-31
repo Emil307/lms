@@ -13,7 +13,7 @@ const CreateStudentPage = () => {
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            <Heading>Создание ученика</Heading>
+            <Heading mb={24}>Создание ученика</Heading>
             <CreateStudentForm onClose={handleCloseForm} />
         </Box>
     );
