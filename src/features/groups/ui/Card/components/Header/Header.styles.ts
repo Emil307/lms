@@ -25,6 +25,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: 96,
         height: 96,
         borderRadius: 12,
+        backgroundColor: theme.colors.darkGray[0],
     },
     status: {
         width: "min-content",

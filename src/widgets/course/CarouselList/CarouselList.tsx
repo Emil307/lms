@@ -33,7 +33,7 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
                 lastElemRef={lastElemRef}
                 slideSize={448}
                 breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
-                {(props) => <Card {...props} w="100%" />}
+                {(props) => <Card {...props} buttonVariant="favorite" w="100%" />}
             </Carousel>
         </Box>
     );

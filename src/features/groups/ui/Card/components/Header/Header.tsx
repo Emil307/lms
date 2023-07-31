@@ -38,7 +38,6 @@ const MemoizedHeader = memo(function Header({ data, ...props }: HeaderProps) {
             <Box className={classes.imageWrapper}>
                 <Image
                     src={data.cover.absolutePath}
-                    loader={({ src }) => `${src}`}
                     alt={data.cover.name}
                     fill
                     sizes="100vw"

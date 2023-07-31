@@ -53,7 +53,7 @@ const List = ({
             <Box {...props} w="100%">
                 <ListComponent<CourseFromList>
                     data={coursesData?.data}
-                    renderItem={(props) => <Card {...props} />}
+                    renderItem={(props) => <Card {...props} buttonVariant="favorite" />}
                     colProps={colProps}
                     withPagination={withPagination}
                     pagination={coursesData?.pagination}
