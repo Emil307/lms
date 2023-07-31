@@ -8,6 +8,12 @@ import {
     $UploadedFile,
 } from "@shared/types";
 
+/***
+ *
+ * ADMIN TYPES
+ *
+ */
+
 export type AdminLesson = z.infer<typeof $AdminLesson>;
 export type AdminLessonFromList = z.infer<typeof $AdminLessonFromList>;
 export type AdminTest = z.infer<typeof $AdminTest>;
@@ -50,6 +56,33 @@ export type UpdateAdminHomeworkResponse = z.infer<typeof $UpdateAdminHomeworkRes
 
 export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
 export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
+
+/***
+ *
+ * USER TYPES
+ *
+ */
+export type Test = z.infer<typeof $Test>;
+export type TestTask = z.infer<typeof $TestTask>;
+export type TestTaskAnswer = z.infer<typeof $TestTaskAnswer>;
+export type TestStatusName = z.infer<typeof $TestStatusName>;
+export type TestPass = z.infer<typeof $TestPass>;
+export type TestPassAnswer = z.infer<typeof $TestPassAnswer>;
+export type TestPassTaskAnswer = z.infer<typeof $TestPassTaskAnswer>;
+
+//REQ/RESP
+export type GetTestRequest = z.infer<typeof $GetTestRequest>;
+export type GetTestResponse = z.infer<typeof $GetTestResponse>;
+export type GetTestPassRequest = z.infer<typeof $GetTestPassRequest>;
+export type GetTestPassResponse = z.infer<typeof $GetTestPassResponse>;
+export type UpdateTestPassRequest = z.infer<typeof $UpdateTestPassRequest>;
+export type UpdateTestPassResponse = z.infer<typeof $UpdateTestPassResponse>;
+
+/***
+ *
+ * ADMIN ZOD
+ *
+ */
 
 export const $AdminLesson = z.object({
     id: z.number(),
@@ -231,3 +264,83 @@ export const $UpdateAdminHomeworkRequest = z.object({
 });
 
 export const $UpdateAdminHomeworkResponse = $AdminHomework;
+
+/***
+ *
+ * USER ZOD
+ *
+ */
+
+export const $TestStatusName = z.literal("completed").or(z.literal("needs_edit")).or(z.literal("not_started"));
+
+export const $TestTaskAnswer = z.object({
+    id: z.number(),
+    order: z.number(),
+    content: z.string(),
+});
+
+export const $TestPassAnswer = $TestTaskAnswer.extend({
+    isCorrect: z.boolean(),
+    isSelected: z.boolean(),
+});
+
+export const $TestPassTaskAnswer = z.object({
+    id: z.number(),
+    //TODO: исправить на camelCase
+    test_pass_id: z.number(),
+    question: z.string(),
+    answer: $TestPassAnswer.array(),
+    result: z.boolean(),
+});
+
+export const $TestTask = z.object({
+    id: z.number(),
+    order: z.number(),
+    content: z.string(),
+    answers: $TestTaskAnswer.array(),
+    //TODO: исправить на camelCase
+    is_checkbox: z.boolean(),
+});
+
+export const $Test = z.object({
+    id: z.number(),
+    tasks: $TestTask.array(),
+});
+
+export const $TestPass = z.object({
+    id: z.number(),
+    correctAnswersCount: z.number(),
+    wrongAnswersCount: z.number(),
+    requiredAnswersCount: z.number(),
+    status: z.object({
+        name: $TestStatusName,
+        displayName: z.string(),
+    }),
+    answers: $TestPassTaskAnswer.array().optional(),
+});
+
+export const $GetTestRequest = z.object({
+    lessonId: z.string(),
+});
+
+export const $GetTestResponse = $Test;
+
+export const $GetTestPassRequest = z.object({
+    lessonId: z.string(),
+});
+
+export const $GetTestPassResponse = $TestPass;
+
+export const $UpdateTestPassRequest = z.object({
+    lessonId: z.string(),
+    courseId: z.string(),
+    answers: z
+        .object({
+            //TODO: исправить на camelCase
+            test_task_id: z.number(),
+            selections: z.number().array(),
+        })
+        .array(),
+});
+
+export const $UpdateTestPassResponse = $TestPass;

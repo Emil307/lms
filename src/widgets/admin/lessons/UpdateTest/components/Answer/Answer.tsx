@@ -8,7 +8,7 @@ import { FastFieldProps } from "formik/dist/FastField";
 import MarkCheckCircleBoldIcon from "@public/icons/mark-check-circle-bold.svg";
 import { FInput } from "@shared/ui";
 import IconDragDots from "@public/icons/dragDots.svg";
-import { getAnswerLetter } from "./utils";
+import { getAnswerLetterFromRussianAlphabet } from "@shared/utils";
 import { TestAnswer } from "./types";
 import useStyles from "../../UpdateTest.styles";
 import { UpdateTestFormValues } from "../../types";
@@ -45,7 +45,7 @@ const Answer = ({ name, answer, index, onDelete, setFieldValue }: AnswerProps) =
                     <IconDragDots />
                 </ActionIcon>
                 <Flex className={classes.letter} justify="center" align="center">
-                    {getAnswerLetter(index)}
+                    {getAnswerLetterFromRussianAlphabet(index)}
                 </Flex>
                 <ActionIcon className={classes.checkIconWrapper} onClick={handleChangeCorrectness} w={40} h={40}>
                     <MarkCheckCircleBoldIcon />
