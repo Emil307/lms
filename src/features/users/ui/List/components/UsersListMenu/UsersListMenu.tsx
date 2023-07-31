@@ -25,8 +25,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
-        updateActivityStatus({ isActive: newValue.target.checked });
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     const openModalDeleteUser = () => {
         openModal({

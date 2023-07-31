@@ -12,10 +12,10 @@ export const useUpdateUserActivity = ({
 }: Pick<UpdateUserActivityRequest, "id"> & { fio: string }): UseMutationResult<
     UpdateUserActivityResponse,
     AxiosError<FormErrorResponse>,
-    Omit<UpdateUserActivityRequest, "id">
+    boolean
 > => {
-    return useMutation([MutationKeys.UPDATE_USER_ACTIVITY, id], (data) => userApi.updateUserActivity({ ...data, id }), {
-        onMutate: async ({ isActive }) => {
+    return useMutation([MutationKeys.UPDATE_USER_ACTIVITY, id], (isActive) => userApi.updateUserActivity({ id, isActive }), {
+        onMutate: async (isActive) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_USER, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_USERS] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_STUDENTS] });

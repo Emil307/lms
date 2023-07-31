@@ -18,8 +18,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
-        updateActivityStatus({ isActive: newValue.target.checked });
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
         <Box>
