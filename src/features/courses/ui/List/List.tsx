@@ -2,17 +2,18 @@ import { Box, BoxProps, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantin
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { List as ListComponent, ListProps as TListProps } from "@components/List";
-import { Course, useCourses } from "@entities/course";
+import { CourseFromList, GetCoursesResponse, useCourses } from "@entities/course";
 import { EmptyData } from "@shared/ui";
 import { initialParams } from "./constants";
 import { adaptGetCoursesRequest } from "./utils";
 import { TRouterQueries } from "./types";
 import { Card } from "../Card";
 
-export interface ListProps extends BoxProps, Pick<TListProps<Course>, "colProps" | "withPagination"> {
+export interface ListProps extends BoxProps, Pick<TListProps<CourseFromList>, "colProps" | "withPagination"> {
     collectionIds?: string;
     perPage?: number;
-    headerSlot?: ReactNode;
+    isFavorite?: boolean;
+    headerSlot?: ReactNode | ((data?: GetCoursesResponse) => ReactNode);
     footerSlot?: ReactNode;
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
@@ -25,6 +26,7 @@ const List = ({
     footerSlot,
     colProps = { md: 4, sm: 6 },
     perPage = 6,
+    isFavorite,
     withPagination = false,
     skeletonListProps,
     wrapperProps,
@@ -38,7 +40,7 @@ const List = ({
         data: coursesData,
         isFetching,
         isLoading,
-    } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, perPage, collectionIds }), visible);
+    } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, perPage, isFavorite, collectionIds }), visible);
 
     const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 
@@ -49,7 +51,7 @@ const List = ({
 
         return (
             <Box {...props} w="100%">
-                <ListComponent<Course>
+                <ListComponent<CourseFromList>
                     data={coursesData?.data}
                     renderItem={(props) => <Card {...props} />}
                     colProps={colProps}
@@ -63,10 +65,14 @@ const List = ({
         );
     };
 
+    const renderHeader = () => {
+        return typeof headerSlot === "function" ? headerSlot(coursesData) : headerSlot;
+    };
+
     return (
         <Flex direction="column" {...wrapperProps}>
             <Skeleton visible={isLoading} radius={16}>
-                {headerSlot}
+                {renderHeader()}
             </Skeleton>
             <Skeleton visible={isLoading} {...skeletonListProps}>
                 {renderContent()}

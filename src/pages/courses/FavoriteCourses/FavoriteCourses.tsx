@@ -2,7 +2,6 @@ import { Box, ThemeIcon, Flex, Group } from "@mantine/core";
 import React from "react";
 import { Heart, Trash2 } from "react-feather";
 import { BreadCrumbs, Button, Heading } from "@shared/ui";
-import { FavoriteCoursesList } from "@widgets/courses";
 import { GetFavoriteCoursesResponse } from "@entities/course";
 import { breadCrumbsItems } from "./constants";
 
@@ -43,7 +42,8 @@ const FavoriteCoursesPage = () => {
                         </Button>
                     )}
                 </Group>
-                <FavoriteCoursesList data={mockData} />
+                {/* //TODO: Добавить как вернемся к задаче https://addamant.planfix.ru/task/94326 */}
+                {/* <FavoriteCoursesList data={mockData} /> */}
             </Flex>
         </Flex>
     );

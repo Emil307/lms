@@ -1,11 +1,11 @@
 import { Flex, Text, Avatar, BoxProps } from "@mantine/core";
 import { memo } from "react";
-import { CourseDetailData } from "@entities/course";
+import { GetCourseResponse } from "@entities/course";
 import { Heading } from "@shared/ui";
 import useStyles from "./AuthorInfo.styles";
 
 export interface AuthorInfoProps extends Omit<BoxProps, "children"> {
-    data: CourseDetailData;
+    data: GetCourseResponse;
 }
 
 const MemoizedAuthorInfo = memo(function AuthorInfo({ data, ...props }: AuthorInfoProps) {
@@ -19,7 +19,7 @@ const MemoizedAuthorInfo = memo(function AuthorInfo({ data, ...props }: AuthorIn
                 </Text>
             </Flex>
             <Flex align="center" sx={{ flex: 2, gap: 24 }}>
-                <Avatar src={data.picture.data?.absolutePath} alt="avatar" w={84} h={84} mih={84} miw={84} radius={50} />
+                <Avatar src={data.cover?.absolutePath} alt="avatar" w={84} h={84} mih={84} miw={84} radius={50} />
                 <Flex direction="column" gap={4}>
                     <Text className={classes.authorName}>Кремышева Виктория</Text>
                     <Text className={classes.authorDescription}>

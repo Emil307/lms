@@ -89,7 +89,7 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                     })}
                                     clearable
                                     label="Выберите курс"
-                                    disabled={!!courseId || groupFilters.isLoading}
+                                    disabled={true}
                                     w="100%"
                                 />
                             </Fieldset>

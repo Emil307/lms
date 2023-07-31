@@ -2,9 +2,10 @@ import { Box, BoxProps } from "@mantine/core";
 import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
-import { Course, useCoursesInfinite } from "@entities/course";
+import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { Card } from "@features/courses";
 import { adaptGetCoursesInfiniteRequest } from "./utils";
+import { initialParams } from "./constants";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     packageId: string;
@@ -15,19 +16,19 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
         data: coursePackages,
         hasNextPage,
         fetchNextPage,
-    } = useCoursesInfinite(adaptGetCoursesInfiniteRequest({ packageIds: [packageId] }));
+    } = useCoursesInfinite(adaptGetCoursesInfiniteRequest({ ...initialParams, packageIds: [packageId] }));
 
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry && entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
 
     return (
         <Box {...props}>
-            <Carousel<Course>
+            <Carousel<CourseFromList>
                 data={coursePackages?.data}
                 lastElemRef={lastElemRef}
                 slideSize={448}

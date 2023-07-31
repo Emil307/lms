@@ -1,4 +1,3 @@
-export * from "./BlockCard";
 export * from "./Card";
 export * from "./List";
 export * from "./ProgramModuleLessonsList";

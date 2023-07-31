@@ -1,7 +1,7 @@
 import { QueryKeys } from "@shared/constant";
-import { Course, GetCoursesInfiniteRequest, courseApi } from "@entities/course";
+import { CourseFromList, GetCoursesRequest, courseApi } from "@entities/course";
 import { useInfiniteRequest } from "@shared/utils";
 
-export const useCoursesInfinite = (data: GetCoursesInfiniteRequest) => {
-    return useInfiniteRequest<Course>([QueryKeys.GET_COURSES_INFINITE, data], () => courseApi.getCourses(data));
+export const useCoursesInfinite = (data: GetCoursesRequest) => {
+    return useInfiniteRequest<CourseFromList>([QueryKeys.GET_COURSES_INFINITE, data], () => courseApi.getCourses(data));
 };

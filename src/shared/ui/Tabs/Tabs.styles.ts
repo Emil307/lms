@@ -30,7 +30,7 @@ export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps
             borderColor: theme.colors.grayLight[0],
             backgroundColor: theme.colors.white[0],
 
-            p: {
+            ">p": {
                 color: theme.colors.dark[0],
             },
         },
@@ -42,6 +42,7 @@ export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps
         display: "flex",
         alignItems: "center",
         padding: "12px 27px",
+        gap: 4,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: "24px",

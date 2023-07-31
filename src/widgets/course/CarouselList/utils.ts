@@ -1,6 +1,7 @@
-import { CoursesFiltersForm, GetCoursesInfiniteRequest } from "@entities/course";
+import { CoursesFiltersForm, GetCoursesRequest } from "@entities/course";
+import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
-export const adaptGetCoursesInfiniteRequest = (params: Partial<CoursesFiltersForm>): GetCoursesInfiniteRequest => {
+export const adaptGetCoursesInfiniteRequest = (params: TFunctionParams<CoursesFiltersForm>): GetCoursesRequest => {
     const { tags = [], categoryId, hasDiscount, subcategoryIds = [], isFavorite, collectionIds, packageIds = [], ...rest } = params;
 
     return {

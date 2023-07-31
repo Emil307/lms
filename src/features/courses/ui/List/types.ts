@@ -5,7 +5,7 @@ export interface TRouterQueries {
     categoryId?: string;
     subcategoryIds?: string[];
     packageIds?: string[];
-    isFavorite?: string[];
+    isFavorite?: boolean;
     collectionIds?: string;
     discountPrice?: string;
 }
