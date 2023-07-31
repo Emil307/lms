@@ -50,7 +50,7 @@ const UserList = () => {
 
             <Box mt={24}>
                 <ManagedDataGrid<UserFromList, UsersFilters>
-                    queryKey={QueryKeys.GET_USERS}
+                    queryKey={QueryKeys.GET_ADMIN_USERS}
                     queryFunction={(params) => userApi.getAdminUsers(params)}
                     queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                     filter={{

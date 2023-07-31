@@ -18,7 +18,7 @@ import {
     Paragraph,
     Radio,
 } from "@shared/ui";
-import { $UpdateUserRequest, UpdateUserRequest, useAdminUsersFilters, UserDetailResponse, userApi } from "@entities/user";
+import { useAdminUsersFilters, UserDetailResponse, userApi, UpdateAdminUserResponse } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
@@ -27,8 +27,9 @@ import { ToastType, checkRoleOrder, createNotification, getFullName } from "@sha
 import { useMe } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { getInitialValuesForm } from "./constants";
-import { adaptDataForUpdateForm } from "./utils";
+import { adaptDataForUpdateForm, adaptUpdateUserRequest } from "./utils";
 import useStyles from "./UpdateUserForm.styles";
+import { $UpdateUserFormValidation, UpdateUserFormValidation } from "./types";
 
 export interface UpdateUserFormProps {
     data?: UserDetailResponse;
@@ -64,11 +65,11 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
         });
     };
 
-    const updateUser = (values: UpdateUserRequest) => {
-        return userApi.updateUser({ ...values, avatarId: values.avatar?.id, additionalImageId: values.additionalImage?.id, id: data?.id });
+    const updateUser = (values: UpdateUserFormValidation) => {
+        return userApi.updateUser({ ...adaptUpdateUserRequest(values), id: String(data?.id) });
     };
 
-    const onSuccess = (response: UserDetailResponse) => {
+    const onSuccess = (response: UpdateAdminUserResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Изменения сохранены",
@@ -84,12 +85,12 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     };
 
     return (
-        <ManagedForm<UpdateUserRequest, UserDetailResponse>
+        <ManagedForm<UpdateUserFormValidation, UpdateAdminUserResponse>
             initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataForUpdateForm(data) }}
-            validationSchema={$UpdateUserRequest}
+            validationSchema={$UpdateUserFormValidation}
             mutationKey={[MutationKeys.UPDATE_USER, data?.id]}
             mutationFunction={updateUser}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_USER, String(data?.id)] }]}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_USER, String(data?.id)] }]}
             hasConfirmModal
             onCancel={onClose}
             onSuccess={onSuccess}

@@ -1,20 +1,20 @@
 import { Box, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Heading, LastUpdatedInfo, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
-import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 interface InfoPanelProps {
     id: string;
 }
 
 const InfoPanel = ({ id }: InfoPanelProps) => {
-    const { classes } = useInfoPanelStyles();
     const { data } = useDetailsUser(id);
 
-    const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio: getFullName({ data: data?.profile }) });
+    const userFullname = getFullName({ data: data?.profile });
+
+    const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio: userFullname });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
@@ -23,13 +23,18 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     return (
         <Box>
-            <Heading mt={8}>{getFullName({ data: data?.profile })}</Heading>
+            <Heading mt={8}>{userFullname}</Heading>
             <Flex mt={24} gap={32} align="center">
-                <Box className={classes.infoItem}>
-                    ID: <span>{data?.id}</span>
-                </Box>
-                <Flex gap={8} align="center" className={classes.infoItem}>
-                    Статус:
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                </Flex>
+                <Flex align="center" gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         variant="secondary"
                         label={labelActivitySwitch}
@@ -38,9 +43,14 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         onChange={handleChangeActiveStatus}
                     />
                 </Flex>
-                <Box className={classes.infoItem}>
-                    Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                </Box>
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Последний вход:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">
+                        {data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}
+                    </Paragraph>
+                </Flex>
                 <LastUpdatedInfo data={data?.lastUpdated} />
             </Flex>
         </Box>

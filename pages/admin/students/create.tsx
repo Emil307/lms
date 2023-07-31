@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { CreateStudentPage } from "@pages/admin/students";
 import { AdminPage } from "@components/AdminPage";
 
-const StudentCreate: NextPageWithLayout = () => {
+const CreateStudent: NextPageWithLayout = () => {
     return (
         <AdminPage title="Создание ученика">
             <CreateStudentPage />
@@ -13,8 +13,8 @@ const StudentCreate: NextPageWithLayout = () => {
     );
 };
 
-StudentCreate.getLayout = function (page: ReactElement) {
+CreateStudent.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page} </AdminLayout>;
 };
 
-export default StudentCreate;
+export default CreateStudent;

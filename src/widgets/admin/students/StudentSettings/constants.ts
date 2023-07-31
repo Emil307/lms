@@ -7,7 +7,7 @@ interface ProfileUser {
 }
 
 export const fields: TInfoCardDisplayFields<ProfileUser> = [
-    { name: "fio", label: "Фио" },
+    { name: "fio", label: "ФИО" },
     { name: "roleName", label: "Роль" },
     { name: "email", label: "Email" },
 ];

@@ -1,8 +1,8 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
+import { Box, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Radio } from "@shared/ui";
+import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
@@ -54,13 +54,15 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
                 <Flex gap={32} direction="column">
-                    <Flex gap={8} mt={24} align="center">
-                        <Text color="gray45">Статус:</Text>
+                    <Flex gap={8} align="center">
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
-                    <Fieldset mt={32} label="Личные данные" icon={<User />}>
+                    <Fieldset label="Личные данные" icon={<User />}>
                         <Box>
-                            <Flex gap={24}>
+                            <Flex align="center" gap={24}>
                                 <Avatar
                                     src={values.avatar?.absolutePath}
                                     alt="avatar"
@@ -79,12 +81,12 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
                             </Flex>
                         </Box>
                     </Fieldset>
-                    <Fieldset mt={32} label="Системные данные" icon={<Shield />}>
+                    <Fieldset label="Системные данные" icon={<Shield />}>
                         <Box>
                             <FRadioGroup name="roleId">
-                                {options?.roles.map((item) => {
-                                    return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
-                                })}
+                                {options?.roles.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
+                                ))}
                             </FRadioGroup>
                             <Flex mt={24} gap={8}>
                                 <FInput name="email" label="Email" size="sm" w={252} withAsterisk />

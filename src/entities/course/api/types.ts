@@ -72,6 +72,7 @@ export type CourseTag = z.infer<typeof $CourseTag>;
 //FILTERS
 export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
 export type AdminArticleCoursesExtraFilters = z.infer<typeof $AdminArticleCoursesExtraFilters>;
+export type AdminStudentCoursesExtraFilters = z.infer<typeof $AdminStudentCoursesExtraFilters>;
 
 //REQ/RESP
 export type GetCoursesRequest = z.infer<typeof $GetCoursesRequest>;
@@ -228,6 +229,7 @@ export const $AdminCoursesRequest = z.object({
             "subcategory.id": z.string(),
             "discount.type": z.string(),
             articleIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
+            studentIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
         })
         .partial(),
 });
@@ -405,6 +407,10 @@ export const $UpdateCoursePublicationResponse = $UpdateCoursePublicationRequest.
 
 export const $AdminArticleCoursesExtraFilters = z.object({
     articleId: z.string(),
+});
+
+export const $AdminStudentCoursesExtraFilters = z.object({
+    studentId: z.string(),
 });
 
 export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({

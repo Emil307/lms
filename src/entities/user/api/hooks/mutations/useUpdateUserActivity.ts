@@ -16,17 +16,20 @@ export const useUpdateUserActivity = ({
 > => {
     return useMutation([MutationKeys.UPDATE_USER_ACTIVITY, id], (data) => userApi.updateUserActivity({ ...data, id }), {
         onMutate: async ({ isActive }) => {
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USER, id] });
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_USERS] });
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_STUDENTS] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_USER, id] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_USERS] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_STUDENTS] });
 
-            const previousUserData = queryClient.getQueryData<TUser>([QueryKeys.GET_USER, id]);
-            const previousUsersData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_USERS]);
-            const previousStudentsData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_STUDENTS]);
+            const previousUserData = queryClient.getQueryData<TUser>([QueryKeys.GET_ADMIN_USER, id]);
+            const previousUsersData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_USERS]);
+            const previousStudentsData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_STUDENTS]);
 
-            queryClient.setQueryData<TUser>([QueryKeys.GET_USER, id], (previousData) => previousData && { ...previousData, isActive });
+            queryClient.setQueryData<TUser>(
+                [QueryKeys.GET_ADMIN_USER, id],
+                (previousData) => previousData && { ...previousData, isActive }
+            );
 
-            queryClient.setQueriesData<GetUsersResponse>([QueryKeys.GET_USERS], (previousData) => {
+            queryClient.setQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_USERS], (previousData) => {
                 if (!previousData) {
                     return undefined;
                 }
@@ -37,7 +40,7 @@ export const useUpdateUserActivity = ({
                 };
             });
 
-            queryClient.setQueriesData<GetUsersResponse>([QueryKeys.GET_STUDENTS], (previousData) => {
+            queryClient.setQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_STUDENTS], (previousData) => {
                 if (!previousData) {
                     return undefined;
                 }
@@ -52,13 +55,13 @@ export const useUpdateUserActivity = ({
         },
         onError: (err, _, context) => {
             if (typeof context === "object" && "previousUserData" in context) {
-                queryClient.setQueryData([QueryKeys.GET_USER, id], context.previousUserData);
+                queryClient.setQueryData([QueryKeys.GET_ADMIN_USER, id], context.previousUserData);
             }
             if (typeof context === "object" && "previousUsersData" in context) {
-                queryClient.setQueriesData([QueryKeys.GET_USERS], context.previousUsersData);
+                queryClient.setQueriesData([QueryKeys.GET_ADMIN_USERS], context.previousUsersData);
             }
             if (typeof context === "object" && "previousStudentsData" in context) {
-                queryClient.setQueriesData([QueryKeys.GET_STUDENTS], context.previousStudentsData);
+                queryClient.setQueriesData([QueryKeys.GET_ADMIN_STUDENTS], context.previousStudentsData);
             }
 
             createNotification({
@@ -68,7 +71,7 @@ export const useUpdateUserActivity = ({
             });
         },
         onSettled: () => {
-            queryClient.invalidateQueries([QueryKeys.GET_USERS]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_USERS]);
         },
         onSuccess: ({ isActive }) => {
             const statusMessage = isActive ? "активирован" : "деактивирован";

@@ -1,20 +1,19 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
-import { FormikConfig } from "formik";
+import { Box, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, Shield, User } from "react-feather";
-import axios from "axios";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, FFileButton, FInput, Form, FRadioGroup, FSwitch, Radio } from "@shared/ui";
-import { $UpdateUserRequest, UpdateUserRequest, useAdminStudentsFilters, UserDetailResponse, useUpdateUser } from "@entities/user";
+import { Button, FFileButton, FInput, FRadioGroup, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
+import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
-import { adaptDataForUpdateForm } from "./utils";
-import useStyles from "./UpdateStudentForm.styles";
+import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
+import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
 
 export interface UpdateStudentFormProps {
     data?: UserDetailResponse;
@@ -22,10 +21,8 @@ export interface UpdateStudentFormProps {
 }
 
 const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
-    const { classes } = useStyles();
     const router = useRouter();
     const { data: options } = useAdminStudentsFilters();
-    const updateUser = useUpdateUser(data?.id);
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
@@ -45,44 +42,54 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
         });
     };
 
-    const config: FormikConfig<UpdateUserRequest> = {
-        initialValues: { ...getInitialValuesForm(currentRole), ...adaptDataForUpdateForm(data) },
-        enableReinitialize: true,
-        validationSchema: $UpdateUserRequest,
-        onSubmit: (values, { setFieldError }) => {
-            updateUser.mutate(
-                { ...values, avatarId: values.avatar?.id },
-                {
-                    onSuccess: (response) => {
-                        router.push({ pathname: "/admin/students/[id]", query: { id: String(response.id) } });
-                    },
-                    onError: (error) => {
-                        if (axios.isAxiosError(error)) {
-                            for (const errorField in error.response?.data.errors) {
-                                setFieldError(errorField, error.response?.data.errors[errorField][0]);
-                            }
-
-                            createNotification({
-                                type: ToastType.WARN,
-                                title: "Ошибка обновления ученика",
-                            });
-                        }
-                    },
-                }
-            );
-        },
+    const updateStudent = (values: UpdateStudentFormValidation) => {
+        return userApi.updateUser({ ...adaptUpdateStudentRequest(values), id: String(data?.id) });
     };
+
+    const onSuccess = (response: UserDetailResponse) => {
+        createNotification({
+            type: ToastType.SUCCESS,
+            title: "Изменения сохранены",
+        });
+        router.push({ pathname: "/admin/students/[id]", query: { id: response.id.toString() } });
+    };
+
+    const onError = () => {
+        createNotification({
+            type: ToastType.WARN,
+            title: "Ошибка обновления ученика",
+        });
+    };
+
     return (
         <Box>
-            <Form config={config}>
-                {({ values, dirty }) => (
+            <ManagedForm<UpdateStudentFormValidation, UpdateAdminUserResponse>
+                initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataUpdateStudentForm(data) }}
+                validationSchema={$UpdateStudentFormValidation}
+                mutationKey={[MutationKeys.UPDATE_USER, String(data?.id)]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_ADMIN_USER, String(data?.id)] },
+                    { queryKey: [QueryKeys.GET_ADMIN_STUDENTS] },
+                    { queryKey: [QueryKeys.GET_ADMIN_USERS] },
+                ]}
+                mutationFunction={updateStudent}
+                onSuccess={onSuccess}
+                onError={onError}
+                onCancel={onClose}
+                hasConfirmModal>
+                {({ values, dirty, onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Flex gap={32} align="center">
-                            <Box className={classes.infoItem}>
-                                ID: <span>{data?.id}</span>
-                            </Box>
                             <Flex gap={8}>
-                                <Text className={classes.infoItem}>Статус:</Text>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    ID:
+                                </Paragraph>
+                                <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                            </Flex>
+                            <Flex gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
                                 <FSwitch
                                     name="isActive"
                                     variant="secondary"
@@ -90,16 +97,20 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                                     labelPosition="left"
                                 />
                             </Flex>
-                            <Box className={classes.infoItem}>
-                                Последний вход: <span>{data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                            </Box>
-
-                            {/* TODO: Добавить последнее изменение когда будет сделано на беке */}
+                            <Flex gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Последний вход:
+                                </Paragraph>
+                                <Paragraph variant="text-small-m">
+                                    {data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}
+                                </Paragraph>
+                            </Flex>
+                            <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
 
                         <Fieldset label="Личные данные" icon={<User />}>
                             <>
-                                <Flex gap={24}>
+                                <Flex align="center" gap={24}>
                                     <Avatar
                                         src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
                                         alt="avatar"
@@ -119,27 +130,29 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                             </>
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />}>
-                            <Flex direction="column" gap={16}>
+                            <Flex direction="column" gap={16} w="100%">
                                 <FRadioGroup name="roleId">
-                                    {options?.roles.map((item) => {
-                                        return <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />;
-                                    })}
+                                    {options?.roles.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
+                                    ))}
                                 </FRadioGroup>
-                                <Button
-                                    type="button"
-                                    onClick={handleOpenChangePasswordModal}
-                                    variant="border"
-                                    size="large"
-                                    w="100%"
-                                    maw={252}>
-                                    Изменить пароль
-                                </Button>
+                                <Flex wrap="wrap" gap={8}>
+                                    <FInput name="email" label="Email" size="sm" w={252} disabled />
+                                    <Button
+                                        type="button"
+                                        variant="border"
+                                        size="medium"
+                                        w="100%"
+                                        maw={252}
+                                        onClick={handleOpenChangePasswordModal}>
+                                        Изменить пароль
+                                    </Button>
+                                </Flex>
                             </Flex>
                         </Fieldset>
 
-                        {/* TODO: - нотификация в разработке на бэке, как появится -> добавить */}
                         <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
+                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
                                 Отменить
                             </Button>
                             <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
@@ -148,7 +161,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                         </Flex>
                     </Flex>
                 )}
-            </Form>
+            </ManagedForm>
         </Box>
     );
 };
