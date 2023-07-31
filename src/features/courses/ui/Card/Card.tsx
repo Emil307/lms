@@ -2,25 +2,39 @@ import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from 
 import { memo } from "react";
 import Image from "next/image";
 import { CourseFromList } from "@entities/course";
-import { getPluralString } from "@shared/utils";
+import { getDiscountValue, getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
-import { Heading, Paragraph } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: CourseFromList;
-    onClick?: (id: unknown) => void;
+    onClick?: (courseId: number) => void;
+    buttonVariant?: "favorite" | "more";
 }
 
-const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) {
-    const { classes } = useStyles({
-        isFavorite: data.isFavorite,
-    });
+const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => undefined, ...props }: CardProps) {
+    const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const handleClickCard = () => onClick?.(data.id);
+    const handleClickCard = () => onClick(data.id);
 
-    const discountValue = data.discount && `${data.discount.amount} ${data.discount.type === "percentage" ? "%" : "₽"}`;
+    const discountValue = getDiscountValue({ amountDiscount: data.discount?.amount, type: data.discount?.type });
+
+    const renderButton = () => {
+        switch (buttonVariant) {
+            case "favorite":
+                return <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />;
+            case "more":
+                return (
+                    <Button variant="white" onClick={handleClickCard}>
+                        Подробнее
+                    </Button>
+                );
+            default:
+                return null;
+        }
+    };
 
     return (
         <MCard {...props} className={classes.root} onClick={handleClickCard}>
@@ -76,7 +90,7 @@ const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) 
                         </Flex>
                         <AmountInfo data={data} />
                     </Flex>
-                    <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />
+                    {renderButton()}
                 </Group>
             </MCard.Section>
         </MCard>

@@ -9,6 +9,7 @@ import { AuthFormValidationSchema } from "@features/auth";
 import { ECookies } from "@app/config/axios/cookies";
 import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification } from "@shared/utils";
+import { getStartPage } from "@app/routes";
 
 export const useAuthenticateMe = () => {
     const router = useRouter();
@@ -19,15 +20,16 @@ export const useAuthenticateMe = () => {
             onSuccess: (response) => {
                 setCookie(ECookies.TOKEN, response.data.accessToken);
                 setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
-                setCookie(ECookies.USER_ROLE, response.meta.user.roles[0].id);
+                const userRole = response.meta.user.roles[0].id;
+                setCookie(ECookies.USER_ROLE, userRole);
+
                 if (router.query.redirect) {
                     const redirectUrl = router.query.redirect as unknown as Route;
                     router.push(redirectUrl);
                     return;
                 }
 
-                //TODO: Это временно пока не будет главной для авторизованного пользователя
-                router.push("/profile");
+                router.push(getStartPage(userRole));
             },
             onError: () => {
                 createNotification({

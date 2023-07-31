@@ -23,7 +23,7 @@ const EmptyData = (props: EmptyDataProps) => {
             <Box className={classes.iconContainer}>{icon}</Box>
             <Flex gap={8} direction="column">
                 <Heading order={3}>{title}</Heading>
-                <Text className={classes.description}>{description}</Text>
+                {description && <Text className={classes.description}>{description}</Text>}
             </Flex>
         </Flex>
     );

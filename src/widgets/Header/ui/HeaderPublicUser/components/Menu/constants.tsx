@@ -5,8 +5,7 @@ import { logoutPath } from "@app/routes";
 import Bill from "public/icons/bill.svg";
 
 export const dropdownMenuItems: { id: number; icon: ReactNode; label: string; href: Route }[] = [
-    //TODO: поменять урл на личный кабинет
-    { id: 1, icon: <Home />, label: "Личный кабинет", href: { pathname: "/profile" } },
+    { id: 1, icon: <Home />, label: "Личный кабинет", href: { pathname: "/cabinet" } },
     { id: 2, icon: <Settings />, label: "Настройки профиля", href: { pathname: "/profile" } },
     //TODO: поменять урл
     { id: 3, icon: <Zap />, label: "Активные курсы", href: { pathname: "/courses", query: { isActive: "1" } } },

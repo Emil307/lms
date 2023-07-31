@@ -204,7 +204,8 @@ export const $CourseCollectionsRequest = z.object({
         .object({
             id: $getMultiValueObjectType(z.string(), z.literal("not")),
         })
-        .partial(),
+        .partial()
+        .optional(),
 });
 
 export const $GetCourseCollectionsRequest = $getFiltersRequestType($CourseCollectionsRequest);

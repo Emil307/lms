@@ -23,7 +23,7 @@ export const studentPaths = publicPaths.concat([
     "/my-courses",
     "/transactions",
     "/support",
-    //TODO: Личный кабинет
+    "/cabinet",
 ]);
 
 export const teacherPaths = studentPaths.concat([
