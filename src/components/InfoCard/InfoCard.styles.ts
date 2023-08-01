@@ -22,10 +22,27 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         marginBottom: 16,
         borderRadius: 16,
     },
+    imageBack: {
+        position: "relative",
+        width: 270,
+        height: 166,
+        backgroundColor: theme.colors.grayLight[0],
+        borderRadius: 16,
+
+        svg: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: 86,
+            height: 86,
+            transform: "translateX(-50%) translateY(-50%)",
+            color: theme.colors.gray20[0],
+        },
+    },
     image: {
         borderRadius: "inherit",
+        zIndex: 1,
     },
-
     iconWrapper: {
         alignItems: "center",
         justifyContent: "center",

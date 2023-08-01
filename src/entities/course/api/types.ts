@@ -121,7 +121,7 @@ const $AdminCourseTeacher = z.object({
         .object({
             firstName: z.string(),
             lastName: z.string(),
-            patronymic: z.string().optional(),
+            patronymic: z.string().optional().nullable(),
         })
         .optional(),
 });
@@ -135,6 +135,11 @@ const $AdminCourseAuthor = z.object({
 const $AdminCourseDiscountType = z.object({
     type: z.string(),
     name: z.string(),
+});
+
+const $AdminCourseRating = z.object({
+    averageRating: z.number(),
+    reviewsCount: z.number(),
 });
 
 export const $AdminCourse = z.object({
@@ -153,6 +158,7 @@ export const $AdminCourse = z.object({
     subcategory: $AdminCourseCategory.nullable(),
     hasAuthors: z.boolean(),
     authors: z.array($AdminCourseAuthor),
+    rating: $AdminCourseRating,
     hasDiscount: z.boolean(),
     discount: $Discount.nullable(),
     isDemonstrative: z.boolean(),
@@ -163,7 +169,9 @@ export const $AdminCourse = z.object({
     lastUpdated: $LastUpdated.nullable(),
 });
 
-export const $CreateCourseResponse = $AdminCourse;
+export const $CreateCourseResponse = $AdminCourse.omit({
+    rating: true,
+});
 
 export const $GetAdminCourseResourcesRequest = z.object({
     type: $FilterType,
@@ -371,7 +379,9 @@ export const $UpdateCourseRequest = $CreateCourseRequest.extend({
     id: z.string(),
 });
 
-export const $UpdateCourseResponse = $AdminCourse;
+export const $UpdateCourseResponse = $AdminCourse.omit({
+    rating: true,
+});
 
 export const $UpdateCourseActivityRequest = z.object({
     id: z.string(),

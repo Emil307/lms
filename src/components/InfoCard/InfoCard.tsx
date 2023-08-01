@@ -4,6 +4,7 @@ import { get } from "lodash";
 import Image from "next/image";
 import { DisplayField } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
+import { Image as ImageIcon } from "react-feather";
 import { getIcon } from "@shared/utils";
 import useStyles from "./InfoCard.styles";
 import { TInfoCardDisplayFields, TInfoCardImageProps } from "./types";
@@ -32,21 +33,16 @@ function InfoCard<T>({
     const { classes } = useStyles({ variant });
 
     const renderImage = useCallback(() => {
-        if (!image || !image.src) {
+        if (!image) {
             return null;
         }
         const { children, src, ...props } = image;
         return (
             <Box className={classes.imageWrapper}>
-                <Image
-                    className={classes.image}
-                    src={src}
-                    width={270}
-                    height={166}
-                    loader={({ src }) => `${src}`}
-                    {...props}
-                    alt="infoCardImage"
-                />
+                <Flex className={classes.imageBack}>
+                    <ImageIcon />
+                    {src && <Image className={classes.image} src={src} width={270} height={166} {...props} alt="infoCardImage" />}
+                </Flex>
                 {children}
             </Box>
         );
