@@ -1,11 +1,9 @@
 import { Flex, Group, ThemeIcon } from "@mantine/core";
 import { Paperclip } from "react-feather";
 import { useMemo } from "react";
-import { FileItem, Heading } from "@shared/ui";
-import { getFileSize } from "@shared/utils";
+import { FileItem, Heading, VideoItem } from "@shared/ui";
 import { Article } from "@entities/article";
 import useStyles from "./MaterialFiles.styles";
-import { VideoItem } from "../VideoItem";
 
 export interface MaterialFilesProps {
     data: Article;
@@ -17,16 +15,10 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
     const renderVideos = useMemo(() => {
         if (!data.videos.length) return null;
 
-        //TODO: Поменять на VideoItem из shared
         return (
             <Group>
                 {data.videos.map((doc) => (
-                    <VideoItem
-                        key={doc.id}
-                        fileName={doc.name}
-                        fileSize={doc.size ? getFileSize(doc.size) : ""}
-                        fileUrl={doc.absolutePath}
-                    />
+                    <VideoItem key={doc.id} file={doc} downloadButton />
                 ))}
             </Group>
         );

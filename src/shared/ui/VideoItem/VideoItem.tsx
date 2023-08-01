@@ -67,7 +67,7 @@ const VideoItem = ({
         <Flex gap={16} direction="column">
             <Box className={classes.videoWrapper}>
                 {isLoading && (
-                    <ThemeIcon className={classes.loader} variant="outline">
+                    <ThemeIcon className={classes.loader}>
                         <Loader />
                     </ThemeIcon>
                 )}

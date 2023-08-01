@@ -47,7 +47,6 @@ export default createStyles((theme, { status }: { status?: FileStatus }) => ({
         height: "100%",
         opacity: 1,
         borderRadius: 16,
-        border: "none",
         zIndex: 1,
     },
 }));
