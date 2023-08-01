@@ -1,4 +1,4 @@
-import { Flex, Text, useMantineTheme } from "@mantine/core";
+import { Flex, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
@@ -14,12 +14,15 @@ import FileMarkIcon from "public/icons/file-mark.svg";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { getInfoCardFields } from "./utils";
+import useStyles from "./CourseSettings.styles";
+import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
 
 interface CourseSettingsProps {
     data: AdminCourse;
 }
 
 const CourseSettings = ({ data }: CourseSettingsProps) => {
+    const { classes } = useStyles();
     const router = useRouter();
     const theme = useMantineTheme();
 
@@ -66,6 +69,30 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 />
             ),
         });
+    };
+
+    const renderRating = () => {
+        if (!data.rating.reviewsCount) {
+            return null;
+        }
+        return (
+            <Flex className={classes.ratingWrapper} gap={4} align="center">
+                <ThemeIcon
+                    sx={(theme) => ({
+                        width: 24,
+                        path: {
+                            fill: theme.colors.secondary[0],
+                            stroke: theme.colors.secondary[0],
+                        },
+                    })}>
+                    <IconStarFull />
+                </ThemeIcon>
+                <Text className={classes.rating}>
+                    <Text className={classes.currentRating}>{String(data.rating.averageRating).replace(".", ",")}</Text>
+                    <Text className={classes.maxRating}> из 5</Text>
+                </Text>
+            </Flex>
+        );
     };
 
     return (
@@ -132,10 +159,10 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
 
             <InfoCard<AdminCourse>
                 variant="whiteBg"
-                //TODO: Добавить вывод рейтинга курса, когда будет готово на бэке
                 image={{
                     src: data.cover?.absolutePath,
                     alt: "courseImage",
+                    children: renderRating(),
                 }}
                 fields={getInfoCardFields(data)}
                 hideFieldIfEmpty
