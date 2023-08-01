@@ -43,6 +43,12 @@ import {
     $UpdateTestPassResponse,
     UpdateTestPassRequest,
     UpdateTestPassResponse,
+    GetHomeworkRequest,
+    GetHomeworkResponse,
+    $GetHomeworkResponse,
+    UpdateHomeworkAnswerRequest,
+    UpdateHomeworkAnswerResponse,
+    $UpdateHomeworkAnswerResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -115,6 +121,8 @@ class LessonApi extends BaseApi {
     }
 
     //USER
+
+    //test
     async getTest({ lessonId }: GetTestRequest): Promise<GetTestResponse> {
         const response = await this.instance.get(`user/lessons/${lessonId}/test`);
         return $GetTestResponse.parse(response);
@@ -128,6 +136,17 @@ class LessonApi extends BaseApi {
     async updateTestPass({ lessonId, ...data }: UpdateTestPassRequest): Promise<UpdateTestPassResponse> {
         const response = await this.instance.put(`user/lessons/${lessonId}/test-pass`, data);
         return $UpdateTestPassResponse.parse(response);
+    }
+
+    //homework
+    async getHomework({ lessonId }: GetHomeworkRequest): Promise<GetHomeworkResponse> {
+        const response = await this.instance.get(`user/lessons/${lessonId}/homework`);
+        return $GetHomeworkResponse.parse(response);
+    }
+
+    async updateHomeworkAnswer({ lessonId, ...data }: UpdateHomeworkAnswerRequest): Promise<UpdateHomeworkAnswerResponse> {
+        const response = await this.instance.put(`user/lessons/${lessonId}/homework-answer`, data);
+        return $UpdateHomeworkAnswerResponse.parse(response);
     }
 }
 

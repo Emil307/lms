@@ -199,9 +199,10 @@ const MemoizedFileInput = memo(function FileInput({
     }, [loadedFiles, multiple, type]);
 
     const contentOutsideDropzone = useMemo(() => {
-        if (!multiple && type === "image") {
+        if ((!multiple && type === "image") || !loadedFiles.length) {
             return null;
         }
+
         return (
             <Box {...containerFilesProps} className={cx(classes.containerFiles, containerFilesProps?.className)}>
                 {loadedFiles.map((file) => {
