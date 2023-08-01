@@ -4,9 +4,8 @@ import React from "react";
 import { Button, Heading, Loader, Paragraph } from "@shared/ui";
 import { useAdminLessonTest } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
-import { getPluralString } from "@shared/utils";
+import { getAnswerLetterFromRussianAlphabet, getPluralString } from "@shared/utils";
 import useStyles from "./Test.styles";
-import { getAnswerLetter } from "./utils";
 
 export interface TestProps {
     lessonId: string;
@@ -98,7 +97,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                                 {task.answers.map((answer, answerIndex) => (
                                     <Flex className={classes.taskCard} gap={8} align="center" key={answer.id}>
                                         <Flex className={classes.letter} justify="center" align="center">
-                                            {getAnswerLetter(answerIndex + 1)}
+                                            {getAnswerLetterFromRussianAlphabet(answerIndex + 1)}
                                         </Flex>
                                         <Paragraph variant="text-small-m">{answer.content}</Paragraph>
                                     </Flex>

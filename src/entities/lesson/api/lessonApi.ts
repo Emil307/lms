@@ -34,9 +34,19 @@ import {
     UpdateAdminHomeworkRequest,
     UpdateAdminHomeworkResponse,
     $UpdateAdminHomeworkResponse,
+    GetTestResponse,
+    $GetTestResponse,
+    GetTestRequest,
+    GetTestPassRequest,
+    GetTestPassResponse,
+    $GetTestPassResponse,
+    $UpdateTestPassResponse,
+    UpdateTestPassRequest,
+    UpdateTestPassResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
+    //ADMIN
     async getAdminLessons(params: GetAdminLessonsFromModuleRequest | GetAdminLessonsRequest): Promise<GetAdminLessonsResponse> {
         const response = await this.instance.post("admin/lessons/list", params);
         return $GetAdminLessonsResponse.parse(response);
@@ -102,6 +112,22 @@ class LessonApi extends BaseApi {
     async updateAdminHomework({ id, ...data }: UpdateAdminHomeworkRequest): Promise<UpdateAdminHomeworkResponse> {
         const response = await this.instance.put(`admin/lessons/${id}/homework`, data);
         return $UpdateAdminHomeworkResponse.parse(response);
+    }
+
+    //USER
+    async getTest({ lessonId }: GetTestRequest): Promise<GetTestResponse> {
+        const response = await this.instance.get(`user/lessons/${lessonId}/test`);
+        return $GetTestResponse.parse(response);
+    }
+
+    async getTestPass({ lessonId }: GetTestPassRequest): Promise<GetTestPassResponse> {
+        const response = await this.instance.get(`user/lessons/${lessonId}/test-pass`);
+        return $GetTestPassResponse.parse(response);
+    }
+
+    async updateTestPass({ lessonId, ...data }: UpdateTestPassRequest): Promise<UpdateTestPassResponse> {
+        const response = await this.instance.put(`user/lessons/${lessonId}/test-pass`, data);
+        return $UpdateTestPassResponse.parse(response);
     }
 }
 

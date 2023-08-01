@@ -5,3 +5,4 @@ export * from "./LessonListModal";
 export * from "./DeleteLessonModal";
 export * from "./AddMaterialsToLessonModal";
 export * from "./DeleteMaterialFromLessonModal";
+export * from "./UpdateLessonTestPassForm";

@@ -16,3 +16,4 @@ export * from "./getDiscountPrice";
 export * from "./getDiscountValue";
 export * from "./getIcon";
 export * from "./getRandomArrayElement";
+export * from "./getAnswerLetterFromRussianAlphabet";
