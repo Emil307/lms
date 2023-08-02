@@ -122,9 +122,12 @@ export const getStylesForCell = createStyles((theme, { renderActive, isActive, c
         fontSize: "14px !important",
         lineHeight: "16px !important",
         borderBottom: `1px solid ${theme.colors.light[0]} !important`,
-        padding: "12px 16px !important",
+        padding: "0 16px !important",
         zIndex: 99,
-        ":first-of-type": renderCellBadge({ renderActive, theme, isActive }),
+        ":first-of-type": {
+            padding: "12px 16px !important",
+            ...renderCellBadge({ renderActive, theme, isActive }),
+        },
         ...(columnId === "mrt-row-actions" && {
             ":last-of-type": {
                 pointerEvents: "none",
