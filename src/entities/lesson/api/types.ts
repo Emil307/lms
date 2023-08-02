@@ -7,6 +7,7 @@ import {
     $LastUpdated,
     $UploadedFile,
 } from "@shared/types";
+import { $User } from "@entities/user";
 
 /***
  *
@@ -62,6 +63,7 @@ export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFr
  * USER TYPES
  *
  */
+//test
 export type Test = z.infer<typeof $Test>;
 export type TestTask = z.infer<typeof $TestTask>;
 export type TestTaskAnswer = z.infer<typeof $TestTaskAnswer>;
@@ -69,14 +71,24 @@ export type TestStatusName = z.infer<typeof $TestStatusName>;
 export type TestPass = z.infer<typeof $TestPass>;
 export type TestPassAnswer = z.infer<typeof $TestPassAnswer>;
 export type TestPassTaskAnswer = z.infer<typeof $TestPassTaskAnswer>;
+//homework
+export type Homework = z.infer<typeof $Homework>;
+export type HomeworkAnswer = z.infer<typeof $HomeworkAnswer>;
+export type HomeworkAnswerStatus = z.infer<typeof $HomeworkAnswerStatus>;
 
 //REQ/RESP
+//test
 export type GetTestRequest = z.infer<typeof $GetTestRequest>;
 export type GetTestResponse = z.infer<typeof $GetTestResponse>;
 export type GetTestPassRequest = z.infer<typeof $GetTestPassRequest>;
 export type GetTestPassResponse = z.infer<typeof $GetTestPassResponse>;
 export type UpdateTestPassRequest = z.infer<typeof $UpdateTestPassRequest>;
 export type UpdateTestPassResponse = z.infer<typeof $UpdateTestPassResponse>;
+//homework
+export type GetHomeworkRequest = z.infer<typeof $GetHomeworkRequest>;
+export type GetHomeworkResponse = z.infer<typeof $GetHomeworkResponse>;
+export type UpdateHomeworkAnswerRequest = z.infer<typeof $UpdateHomeworkAnswerRequest>;
+export type UpdateHomeworkAnswerResponse = z.infer<typeof $UpdateHomeworkAnswerResponse>;
 
 /***
  *
@@ -271,6 +283,7 @@ export const $UpdateAdminHomeworkResponse = $AdminHomework;
  *
  */
 
+//TEST
 export const $TestStatusName = z.literal("completed").or(z.literal("needs_edit")).or(z.literal("not_started"));
 
 export const $TestTaskAnswer = z.object({
@@ -344,3 +357,45 @@ export const $UpdateTestPassRequest = z.object({
 });
 
 export const $UpdateTestPassResponse = $TestPass;
+
+//HOMEWORK
+export const $HomeworkAnswerStatus = z.object({
+    name: z.string(),
+    displayName: z.string(),
+});
+
+export const $HomeworkAnswer = z.object({
+    id: z.number(),
+    answer: z.string(),
+    status: $HomeworkAnswerStatus,
+    updatedAt: z.coerce.date(),
+    files: $UploadedFile.array(),
+    student: $User.pick({
+        id: true,
+        email: true,
+        profile: true,
+    }),
+});
+
+export const $Homework = z.object({
+    id: z.number(),
+    content: z.string(),
+    requiredType: z.string(),
+    files: $UploadedFile.array(),
+    answers: $HomeworkAnswer.array(),
+});
+
+export const $GetHomeworkRequest = z.object({
+    lessonId: z.string(),
+});
+
+export const $GetHomeworkResponse = $Homework.nullable();
+
+export const $UpdateHomeworkAnswerRequest = z.object({
+    lessonId: z.string(),
+    groupId: z.number(),
+    answer: z.string(),
+    fileIds: z.number().array(),
+});
+
+export const $UpdateHomeworkAnswerResponse = $Homework;

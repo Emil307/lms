@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Tabs } from "@shared/ui";
-import { Test } from "@widgets/lessons";
+import { Homework, Test } from "@widgets/lessons";
 import { TRouterQueries } from "./types";
 import { tabsList } from "./constants";
 
@@ -22,8 +22,7 @@ const LessonDetailsPage = () => {
             case "test":
                 return <Test lessonId={lessonId} courseId={id} />;
             case "homework":
-                //TODO: Добавить содержимое вкладки - ДЗ
-                return null;
+                return <Homework lessonId={lessonId} />;
             default:
                 //TODO: Добавить содержимое вкладки - содержание
                 return null;
