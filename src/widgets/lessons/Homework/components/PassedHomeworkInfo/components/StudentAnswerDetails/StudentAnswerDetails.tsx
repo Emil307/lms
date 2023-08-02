@@ -50,7 +50,7 @@ const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: Stud
                 </Flex>
                 {renderDocuments()}
             </Box>
-            {data.status.name === "on_review" && (
+            {data.status.name === "onReview" && (
                 <ActionIcon className={classes.editActionIcon} onClick={openUpdateLessonHomeworkAnswerForm}>
                     <Edit3 size={18} />
                 </ActionIcon>

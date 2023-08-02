@@ -5,6 +5,7 @@ import {
     $getMultiValueObjectType,
     $getPaginationResponseType,
     $LastUpdated,
+    $Profile,
     $UploadedFile,
 } from "@shared/types";
 import { $User } from "@entities/user";
@@ -22,6 +23,7 @@ export type AdminTestQuestion = z.infer<typeof $AdminTestQuestion>;
 export type AdminTestAnswer = z.infer<typeof $AdminTestAnswer>;
 export type AdminHomework = z.infer<typeof $AdminHomework>;
 export type HomeworkRequiredType = z.infer<typeof $HomeworkRequiredType>;
+export type AdminHomeworkAnswer = z.infer<typeof $AdminHomeworkAnswer>;
 
 export type AdminLessonsFilters = z.infer<typeof $AdminLessonsFilters>;
 export type AdminSelectLessonsFilters = z.infer<typeof $AdminSelectLessonsFilters>;
@@ -55,6 +57,10 @@ export type UpdateAdminHomeworkFormValues = z.infer<typeof $UpdateAdminHomeworkF
 export type UpdateAdminHomeworkRequest = z.infer<typeof $UpdateAdminHomeworkRequest>;
 export type UpdateAdminHomeworkResponse = z.infer<typeof $UpdateAdminHomeworkResponse>;
 
+export type GetAdminHomeworkAnswerResponse = z.infer<typeof $GetAdminHomeworkAnswerResponse>;
+export type UpdateAdminHomeworkAnswerStatusRequest = z.infer<typeof $UpdateAdminHomeworkAnswerStatusRequest>;
+export type UpdateAdminHomeworkAnswerStatusResponse = z.infer<typeof $UpdateAdminHomeworkAnswerStatusResponse>;
+
 export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
 export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
 
@@ -74,6 +80,7 @@ export type TestPassTaskAnswer = z.infer<typeof $TestPassTaskAnswer>;
 //homework
 export type Homework = z.infer<typeof $Homework>;
 export type HomeworkAnswer = z.infer<typeof $HomeworkAnswer>;
+export type HomeworkAnswerStatusName = z.infer<typeof $HomeworkAnswerStatusName>;
 export type HomeworkAnswerStatus = z.infer<typeof $HomeworkAnswerStatus>;
 
 //REQ/RESP
@@ -359,9 +366,51 @@ export const $UpdateTestPassRequest = z.object({
 export const $UpdateTestPassResponse = $TestPass;
 
 //HOMEWORK
+export const $HomeworkAnswerStatusName = z.literal("onReview").or(z.literal("needsEdit")).or(z.literal("completed"));
+
 export const $HomeworkAnswerStatus = z.object({
-    name: z.string(),
+    name: $HomeworkAnswerStatusName,
     displayName: z.string(),
+});
+
+export const $AdminHomeworkAnswer = z.object({
+    id: z.number(),
+    answer: z.string(),
+    status: $HomeworkAnswerStatus,
+    updatedAt: z.coerce.date(),
+    //TODO: Вернуть, когда бэки будут отдавать
+    // files: $UploadedFile.array(),
+    student: z.object({
+        id: z.number(),
+        email: z.string(),
+        profile: $Profile.omit({
+            avatar: true,
+            additionalImage: true,
+        }),
+    }),
+    course: z.object({
+        name: z.string(),
+    }),
+    module: z
+        .object({
+            name: z.string(),
+        })
+        .nullable(),
+    homework: z.object({
+        id: z.number(),
+        content: z.string(),
+        requiredType: $HomeworkRequiredType,
+        lesson: $AdminLesson.omit({
+            lastUpdated: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+            videos: true,
+        }),
+    }),
+    group: z.object({
+        name: z.string(),
+    }),
 });
 
 export const $HomeworkAnswer = z.object({
@@ -399,3 +448,13 @@ export const $UpdateHomeworkAnswerRequest = z.object({
 });
 
 export const $UpdateHomeworkAnswerResponse = $Homework;
+
+export const $GetAdminHomeworkAnswerResponse = $AdminHomeworkAnswer;
+
+export const $UpdateAdminHomeworkAnswerStatusRequest = z.object({
+    id: z.string(),
+    status: $HomeworkAnswerStatusName,
+    content: z.string().nullable(),
+});
+
+export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer;

@@ -22,7 +22,7 @@ const Homework = ({ lessonId }: HomeworkProps) => {
     const { classes } = useStyles({ status: homeworkData?.answers[0]?.status.name, openedHomeworkDetails });
 
     useEffect(() => {
-        if ((homeworkData && !homeworkData.answers.length) || homeworkData?.answers[0].status.name === "needs_edit") {
+        if ((homeworkData && !homeworkData.answers.length) || homeworkData?.answers[0].status.name === "needsEdit") {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
             setOpenedHomeworkAnswerForm(true);

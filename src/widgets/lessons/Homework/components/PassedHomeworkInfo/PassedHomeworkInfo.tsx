@@ -19,7 +19,7 @@ const PassedHomeworkInfo = ({ data, lessonId, ...props }: PassedHomeworkInfoProp
     const handleOpenUpdateLessonHomeworkAnswerForm = () => setOpenedHomeworkAnswerForm(true);
     const handleCloseUpdateLessonHomeworkAnswerForm = () => setOpenedHomeworkAnswerForm(false);
 
-    if (!data?.answers.length || data.answers[0]?.status.name === "needs_edit") {
+    if (!data?.answers.length || data.answers[0]?.status.name === "needsEdit") {
         return null;
     }
 
