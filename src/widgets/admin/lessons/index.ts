@@ -8,4 +8,6 @@ export * from "./Homework";
 export * from "./UpdateTest";
 export * from "./UpdateLesson";
 export * from "./UpdateHomework";
+export * from "./HomeworkInfoPanel";
+export * from "./HomeworkTask";
 export { LessonInfoPanel };
