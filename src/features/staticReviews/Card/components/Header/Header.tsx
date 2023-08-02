@@ -2,7 +2,8 @@ import { Flex } from "@mantine/core";
 import { StaticReviewFromList } from "@entities/staticReview";
 import { Button, Heading } from "@shared/ui";
 import useStyles from "./Header.styles";
-import { openVideo } from "@shared/utils/openVideo";
+import { openVideo } from "@shared/utils";
+import { useRef } from "react";
 
 export interface HeaderProps {
     data: Pick<StaticReviewFromList, "content" | "video">;
@@ -10,13 +11,15 @@ export interface HeaderProps {
 
 const Header = ({ data }: HeaderProps) => {
     const { classes } = useStyles();
+    const ref = useRef<HTMLVideoElement | null>(null);
 
     const handleOpenVideo = () => {
-        openVideo(data.video.absolutePath);
+        openVideo(ref?.current);
     };
 
     return (
         <Flex className={classes.root}>
+            <video ref={ref} className={classes.video} src={data.video.absolutePath}></video>
             <Heading color="white" lineClamp={3}>
                 {data.content}
             </Heading>

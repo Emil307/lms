@@ -1,11 +1,16 @@
-export const openVideo = (src: string) => {
-    const videoElement = document.createElement("video");
-    videoElement.src = src;
-    videoElement.controls = true;
+export const openVideo = (videoElement: HTMLVideoElement | null) => {
+    if (videoElement && videoElement.requestFullscreen) {
+        videoElement.requestFullscreen().then(() => {
+            videoElement.setAttribute("style", "display: block");
+            videoElement.addEventListener("fullscreenchange", onExitFullScreen);
+        });
+    }
+};
 
-    videoElement.onload = () => {
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        }
-    };
+const onExitFullScreen = (event: Event) => {
+    const videoElement = event.target as HTMLVideoElement;
+    if (!document.fullscreenElement) {
+        videoElement.setAttribute("style", "display: none");
+        videoElement.removeEventListener("fullscreenchange", onExitFullScreen);
+    }
 };
