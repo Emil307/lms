@@ -8,7 +8,7 @@ import { Tooltip } from "@shared/ui";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
-import { TCellProps } from "../../types";
+import { TCellBadge, TCellProps } from "../../types";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
@@ -22,7 +22,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     rowSelection?: RowSelectionState;
     onClickCell?: (cell: MRT_Cell<T>) => void;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
-    renderActiveBadge?: (row: MRT_Cell<T>) => boolean;
+    renderBadge?: (row: MRT_Cell<T>) => TCellBadge[];
 } & TExtendedProps<T>;
 
 function BaseTable<T extends Record<string, any>>({
@@ -35,7 +35,7 @@ function BaseTable<T extends Record<string, any>>({
     sorting,
     onSortingChange,
     rowSelection,
-    renderActiveBadge,
+    renderBadge,
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();
@@ -67,7 +67,8 @@ function BaseTable<T extends Record<string, any>>({
         };
 
         const renderContent = (columnId: string, cellValue: ReactNode) => {
-            if (columnId === "id") {
+            //TODO: нужно починить тултип для первой колонки из-за badge
+            if (columnId === "id" || columnId === "student.profile.fullName") {
                 return cellValue;
             }
             return (
@@ -135,10 +136,9 @@ function BaseTable<T extends Record<string, any>>({
             }}
             mantineTableBodyRowProps={{ className: classes.tableBodyRow }}
             mantineTableBodyCellProps={({ cell }) => {
-                const isActiveCell = renderActiveBadge ? renderActiveBadge(cell) : false;
+                const cellBadges = renderBadge ? renderBadge(cell) : false;
                 const { classes } = getStylesForCell({
-                    renderActive: !!renderActiveBadge,
-                    isActive: isActiveCell,
+                    cellBadges,
                     columnId: cell.column.id,
                 });
                 return {

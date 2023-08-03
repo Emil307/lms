@@ -8,6 +8,7 @@ import { Roles } from "@app/routes";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
+import CloseBookIcon from "public/icons/closeBook.svg";
 import { MinimizedModeSidebarContext } from "./utils";
 
 export default function Sidebar() {
@@ -48,6 +49,12 @@ export default function Sidebar() {
                 <Box className={classes.inner}>
                     {/*TODO: Убрать при релизе*/}
                     <SidebarItem label="UI" isActive={router.pathname.includes("/ui")} icon={<Book />} href="/ui" />
+                    <SidebarItem
+                        label="Домашние задания"
+                        isActive={router.pathname.includes("/admin/homeworks")}
+                        icon={<CloseBookIcon />}
+                        href="/admin/homeworks"
+                    />
                     <SidebarItem
                         roles={[Roles.administrator, Roles.manager]}
                         label="Пользователи"

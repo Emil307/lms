@@ -67,7 +67,7 @@ const AddMaterialsToArticleModal = ({ articleId, onClose }: AddMaterialsToArticl
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Материалов"
                 extraFilterParams={{ articleId: articleId }}

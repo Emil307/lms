@@ -68,7 +68,7 @@ const List = () => {
                 }}
                 onClickCell={handleClickCell}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 initialState={{

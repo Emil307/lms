@@ -42,7 +42,7 @@ const Groups = ({ courseId }: GroupsProps) => {
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "courseId"]}
                 extraFilterParams={{ courseId }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 onClickCell={handleClickCell}
                 columns={columns}
                 countName="Групп"

@@ -34,7 +34,7 @@ const AddCoursesToStudentModal = ({ studentId, onClose }: AddCoursesToStudentMod
                 queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 extraFilterParams={{ studentId }}

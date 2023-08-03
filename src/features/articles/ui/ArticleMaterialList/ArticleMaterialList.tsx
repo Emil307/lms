@@ -39,7 +39,7 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetArticleMaterialFilesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Материалов"
                 initialState={{

@@ -1,4 +1,5 @@
 import { createStyles, CSSObject, MantineTheme } from "@mantine/core";
+import { TCellBadge } from "@shared/ui/DataGrid/types";
 
 interface BaseTableStylesProps {
     hasActionButton?: boolean;
@@ -87,17 +88,23 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
 }));
 
 type TGetStylesForCellProps = {
-    isActive: boolean;
-    renderActive: boolean;
+    cellBadges: TCellBadge[] | false;
     columnId: string;
 };
 
-const renderCellBadge = ({
-    renderActive,
-    theme,
-    isActive,
-}: Omit<TGetStylesForCellProps, "columnId"> & { theme: MantineTheme }): CSSObject => {
-    if (!renderActive) {
+const getBadgeColor = (theme: MantineTheme, cellBadges: TCellBadge[]) => {
+    const badgeInfo = cellBadges.find((item) => item.condition);
+    if (!badgeInfo) {
+        return theme.colors.light[0];
+    }
+    if (!badgeInfo.color) {
+        return theme.colors.done[0];
+    }
+    return theme.colors[badgeInfo.color] ? theme.colors[badgeInfo.color] : badgeInfo.color;
+};
+
+const renderCellBadge = ({ cellBadges, theme }: Omit<TGetStylesForCellProps, "columnId"> & { theme: MantineTheme }): CSSObject => {
+    if (!cellBadges) {
         return {};
     }
     return {
@@ -105,7 +112,7 @@ const renderCellBadge = ({
         ":before": {
             content: "''",
             position: "absolute",
-            backgroundColor: isActive ? theme.colors.done[0] : theme.colors.light[0],
+            backgroundColor: getBadgeColor(theme, cellBadges),
             width: 4,
             borderRadius: "0 8px 8px 0",
             height: "100%",
@@ -116,7 +123,7 @@ const renderCellBadge = ({
     };
 };
 
-export const getStylesForCell = createStyles((theme, { renderActive, isActive, columnId }: TGetStylesForCellProps) => ({
+export const getStylesForCell = createStyles((theme, { cellBadges, columnId }: TGetStylesForCellProps) => ({
     tableBodyCell: {
         border: "none !important",
         fontSize: "14px !important",
@@ -126,7 +133,7 @@ export const getStylesForCell = createStyles((theme, { renderActive, isActive, c
         zIndex: 99,
         ":first-of-type": {
             padding: "12px 16px !important",
-            ...renderCellBadge({ renderActive, theme, isActive }),
+            ...renderCellBadge({ cellBadges, theme }),
         },
         ...(columnId === "mrt-row-actions" && {
             ":last-of-type": {

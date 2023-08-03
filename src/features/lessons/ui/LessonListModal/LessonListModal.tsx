@@ -60,7 +60,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
                     initialValues: filterInitialValues,
                 }}
                 extraFilterParams={{ moduleIds: [moduleId] }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Уроков"
                 initialState={{

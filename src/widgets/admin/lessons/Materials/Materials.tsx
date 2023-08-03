@@ -61,7 +61,7 @@ const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialFilesRequest(params))}
                 queryCacheKeys={["lessonIds", "page", "perPage", "sort"]}
                 extraFilterParams={{ lessonIds: lessonId }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Материалов"
                 initialState={{

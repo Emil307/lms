@@ -31,7 +31,7 @@ const StudentList = ({ groupId, ...props }: StudentListProps) => {
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}
                 onClickCell={handleClickCell}
                 //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/159
-                // renderActiveBadge={(cell) => cell.row.original.isActive}
+                // renderBadge={(cell) => ([{ condition: cell.row.original.isActive}])}
                 columns={columns}
                 countName="Учеников"
                 initialState={{
