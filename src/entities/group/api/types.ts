@@ -87,6 +87,12 @@ export type GroupStatusName = z.infer<typeof $GroupStatusName>;
 export type GroupAuthor = z.infer<typeof $GroupAuthor>;
 export type GroupTag = z.infer<typeof $GroupTag>;
 export type GroupCategory = z.infer<typeof $GroupCategory>;
+//group module
+export type GroupModule = z.infer<typeof $GroupModule>;
+export type GroupModuleFromList = z.infer<typeof $GroupModuleFromList>;
+export type GroupModuleLesson = z.infer<typeof $GroupModuleLesson>;
+export type GroupModuleLessonStatus = z.infer<typeof $GroupModuleLessonStatus>;
+export type GroupModuleLessonStatusName = z.infer<typeof $GroupModuleLessonStatusName>;
 
 //REQ/RESP
 export type GetGroupsRequest = z.infer<typeof $GetGroupsRequest>;
@@ -94,6 +100,9 @@ export type GetGroupsResponse = z.infer<typeof $GetGroupsResponse>;
 export type GetGroupRequest = z.infer<typeof $GetGroupRequest>;
 export type GetGroupResponse = z.infer<typeof $GetGroupResponse>;
 export type GetGroupsCountsResponse = z.infer<typeof $GetGroupsCountsResponse>;
+//group module
+export type GetGroupModulesRequest = z.infer<typeof $GetGroupModulesRequest>;
+export type GetGroupModulesResponse = z.infer<typeof $GetGroupModulesResponse>;
 
 /**
  *
@@ -394,8 +403,8 @@ export const $DeleteAdminGroupScheduleResponse = z.null();
  */
 
 export const $GroupStatusName = z
-    .literal("in_progress")
-    .or(z.literal("not_started"))
+    .literal("inProgress")
+    .or(z.literal("notStarted"))
     .or(z.literal("completed"))
     .or(z.literal("archive"))
     .or(z.literal("all"));
@@ -486,3 +495,44 @@ export const $GetGroupRequest = z.object({
 export const $GetGroupResponse = $Group;
 
 export const $GetGroupsCountsResponse = $GroupsCount.array();
+
+//group modules
+
+export const $GroupModuleLessonStatusName = z
+    .literal("blocked")
+    .or(z.literal("inProgress"))
+    .or(z.literal("onReview"))
+    .or(z.literal("completed"));
+
+export const $GroupModuleLessonStatus = z.object({
+    name: $GroupModuleLessonStatusName,
+    displayName: z.string(),
+});
+
+export const $GroupModuleLesson = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    hasTest: z.boolean(),
+    hasHomework: z.boolean(),
+    lessonStatus: $GroupModuleLessonStatus,
+    videos: $UploadedFile.array(),
+    files: $UploadedFile.array(),
+});
+
+export const $GroupModule = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    lessons: $GroupModuleLesson.array(),
+});
+
+export const $GroupModuleFromList = $GroupModule;
+
+export const $GetGroupModulesResponse = $getPaginationResponseType($GroupModuleFromList);
+
+export const $GroupModulesRequest = z.object({
+    groupId: z.string(),
+});
+
+export const $GetGroupModulesRequest = $getFiltersRequestType($GroupModulesRequest);

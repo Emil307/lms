@@ -2,7 +2,7 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { ArticleAndArticleCategoryFiltersForm, GetArticlesRequest } from "@entities/article";
 
 export const adaptGetArticlesRequest = (params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>): GetArticlesRequest => {
-    const { tags = [], subcategoryIds = [], categoryId, ...rest } = params;
+    const { tags = [], subcategoryIds = [], categoryId, courseId, ...rest } = params;
 
     return {
         ...rest,
@@ -16,6 +16,9 @@ export const adaptGetArticlesRequest = (params: TFunctionParams<ArticleAndArticl
                 items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
                 operator: "or",
             },
+            ...(courseId && {
+                courseIds: courseId,
+            }),
         },
     };
 };

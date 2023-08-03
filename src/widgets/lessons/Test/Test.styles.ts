@@ -27,7 +27,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
-        case "needs_edit":
+        case "needsEdit":
             return { backgroundColor: theme.colors.warning16[0], color: theme.colors.warning[0] };
 
         case "completed":

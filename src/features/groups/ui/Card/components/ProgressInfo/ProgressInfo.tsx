@@ -21,7 +21,7 @@ const MemoizedProgressInfo = memo(function ProgressInfo({ data, ...props }: Prog
                 <Paragraph variant="text-small-m">{lessons}</Paragraph>
                 <Paragraph variant="text-small-m">{practice}</Paragraph>
             </Flex>
-            {status.name === "in_progress" && <ProgressBar value={progressValue} maxValue={maxValue} hiddenLabel h={8} />}
+            {status.name === "inProgress" && <ProgressBar value={progressValue} maxValue={maxValue} hiddenLabel h={8} />}
         </MCard.Section>
     );
 });

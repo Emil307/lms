@@ -1,27 +1,15 @@
-import { CoursesFiltersForm, GetCoursesRequest } from "@entities/course";
+import { ArticlePackagesFiltersForm, GetArticlePackagesRequest } from "@entities/articlePackage";
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
 
-export const adaptGetCoursesInfiniteRequest = (params: TFunctionParams<CoursesFiltersForm>): GetCoursesRequest => {
-    const { tags = [], categoryId, hasDiscount, subcategoryIds = [], isFavorite, collectionIds, packageIds = [], ...rest } = params;
+export const adaptGetArticlePackagesRequest = (params: TFunctionParams<ArticlePackagesFiltersForm>): GetArticlePackagesRequest => {
+    const { courseIds, ...rest } = params;
 
     return {
         ...rest,
         filter: {
-            hasDiscount: hasDiscount,
-            "category.id": categoryId,
-            "subcategory.id": {
-                items: subcategoryIds,
-                operator: "or",
-            },
-            collectionIds,
-            tagIds: {
-                items: tags,
-                operator: "or",
-            },
-            packageIds: {
-                items: packageIds,
-                operator: "or",
-            },
+            ...(courseIds && {
+                courseIds: String(courseIds),
+            }),
         },
     };
 };

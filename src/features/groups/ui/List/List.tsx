@@ -9,7 +9,7 @@ import { initialParams } from "./constants";
 import { adaptGetGroupsRequest } from "./utils";
 import { Card } from "../Card";
 
-export interface ListProps extends BoxProps, Pick<TListProps<GroupFromList>, "colProps" | "withPagination"> {
+export interface ListProps extends BoxProps, Pick<TListProps<GroupFromList>, "colProps" | "withPagination" | "onClick"> {
     perPage?: number;
     headerSlot?: ReactNode;
     footerSlot?: ReactNode;
@@ -27,6 +27,7 @@ const List = ({
     skeletonListProps,
     wrapperProps,
     visible,
+    onClick,
     ...props
 }: ListProps) => {
     const router = useRouter();
@@ -37,8 +38,6 @@ const List = ({
         isFetching,
         isLoading,
     } = useGroups(adaptGetGroupsRequest({ ...initialParams, ...params, perPage }), visible);
-
-    const handleClickCard = (id: unknown) => router.push({ pathname: "/courses/[id]", query: { id: String(id) } });
 
     const renderContent = () => {
         if (!isLoading && !coursesData?.data.length && !!Object.values(params).find((param) => !!param)) {
@@ -55,7 +54,7 @@ const List = ({
                     pagination={coursesData?.pagination}
                     declensionWordCountItems={["курс", "курса", "курсов"]}
                     isLoading={isFetching}
-                    onClick={handleClickCard}
+                    onClick={onClick}
                 />
             </Box>
         );

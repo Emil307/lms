@@ -5,4 +5,4 @@ export const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Мои курсы", href: { pathname: "/my-courses" } },
 ];
 
-export const tabOrder = ["all", "in_progress", "not_started", "completed", "archive"];
+export const tabOrder = ["all", "inProgress", "notStarted", "completed", "archive"];

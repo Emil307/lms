@@ -2,6 +2,7 @@ import { Card as MCard, CardProps as MCardProps } from "@mantine/core";
 import { memo } from "react";
 import { PlayCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import IconStarDefault from "public/icons/icon24px/rating/star-default.svg";
 import { Button } from "@shared/ui";
 import { GroupFromList } from "@entities/group";
@@ -12,6 +13,8 @@ export interface FooterProps extends Omit<MCardProps, "children"> {
 }
 
 const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
+    const router = useRouter();
+
     const handleCloseCreateReviewModal = () => closeModal("CREATE_COURSE_REVIEW");
 
     const handleOpenCreateReviewModal = () => {
@@ -24,9 +27,11 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
         });
     };
 
+    const handleOpenMyCourseDetailsPage = () => router.push({ pathname: "/my-courses/[id]", query: { id: String(data.groupId) } });
+
     const renderActionContent = () => {
         switch (data.status.name) {
-            case "in_progress":
+            case "inProgress":
                 //TODO: Добавить название урока как бек добавит
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />}>
@@ -34,8 +39,12 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
                     </Button>
                 );
 
-            case "not_started":
-                return <Button variant="primary">Начать обучение</Button>;
+            case "notStarted":
+                return (
+                    <Button variant="primary" onClick={handleOpenMyCourseDetailsPage}>
+                        Начать обучение
+                    </Button>
+                );
 
             default:
                 return (

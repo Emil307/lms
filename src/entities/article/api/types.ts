@@ -329,6 +329,7 @@ export const $ArticlesRequest = z.object({
             articlePackageIds: z.string(),
             tagIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             subcategoryIds: $getMultiValueObjectType(z.string(), z.literal("or")),
+            courseIds: z.string(),
         })
         .partial(),
 });
@@ -348,6 +349,7 @@ export const $ArticleAndArticleCategoryFiltersForm = z.object({
     tags: z.array(z.string()),
     subcategoryIds: z.array(z.string()),
     categoryId: z.string().optional(),
+    courseId: z.string().optional(),
 });
 
 export const $GetArticlesFiltersResponse = z.object({

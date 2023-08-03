@@ -1,8 +1,7 @@
 import { Badge, Divider, Flex, Group, Text } from "@mantine/core";
-import { Button, FRating, FTextarea, Heading, ManagedForm, Paragraph, Rating } from "@shared/ui";
+import { Button, FRating, FTextarea, Heading, Loader, ManagedForm, Paragraph, Rating } from "@shared/ui";
 import { ToastType, createNotification, getPluralString } from "@shared/utils";
-import { GroupFromList } from "@entities/group";
-import { useCourse } from "@entities/course";
+import { GroupFromList, useGroup } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateCourseReviewResponse, courseReviewApi } from "@entities/courseReview";
 import { initialValues } from "./constants";
@@ -17,7 +16,7 @@ export interface CreateCourseReviewFormProps {
 const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) => {
     const { classes } = useStyles();
 
-    const { data: courseData } = useCourse({ id: String(data.courseId) });
+    const { data: groupData, isLoading, isError } = useGroup({ id: String(data.groupId) });
 
     const createCourseReview = (values: CreateCourseReviewFormValidation) => {
         return courseReviewApi.createCourseReview({ ...values, courseGroupId: String(data.groupId) });
@@ -38,30 +37,36 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
         });
     };
 
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    if (isError) {
+        return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
     return (
         <Flex direction="column" gap={24}>
             <Group mb={8}>
-                <Badge className={classes.category}>{courseData?.category?.name}</Badge>
+                <Badge className={classes.category}>{groupData.category?.name}</Badge>
                 <Flex gap={8}>
                     <Flex gap={4}>
                         <Flex gap={2}>
                             <Rating defaultValue={1} count={1} readOnly size="small" />
-                            <Text className={classes.ratingValue}>{courseData?.rating.averageRating}</Text>
+                            <Text className={classes.ratingValue}>{groupData.rating.averageRating}</Text>
                         </Flex>
                         <Text className={classes.ratingMaxValue}>из 5</Text>
                     </Flex>
                     <Divider className={classes.dividerDot} orientation="vertical" size={4} />
-                    {courseData?.rating.reviewsCount && (
-                        <Text className={classes.reviewInfo}>{`${courseData.rating.reviewsCount} ${getPluralString(
-                            courseData.rating.reviewsCount,
-                            "отзыв",
-                            "отзыва",
-                            "отзывов"
-                        )}`}</Text>
-                    )}
+                    <Text className={classes.reviewInfo}>{`${groupData.rating.reviewsCount} ${getPluralString(
+                        groupData.rating.reviewsCount,
+                        "отзыв",
+                        "отзыва",
+                        "отзывов"
+                    )}`}</Text>
                 </Flex>
             </Group>
-            <Heading order={4}>{courseData?.name}</Heading>
+            <Heading order={4}>{groupData.name}</Heading>
             <ManagedForm<CreateCourseReviewFormValidation, CreateCourseReviewResponse>
                 initialValues={initialValues}
                 validationSchema={$CreateCourseReviewFormValidation}

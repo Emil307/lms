@@ -47,8 +47,11 @@ export type AttachArticleToPackageRequest = z.infer<typeof $AttachArticleToPacka
  */
 export type ArticlePackageCategory = z.infer<typeof $ArticlePackageCategory>;
 export type ArticlePackageFromList = z.infer<typeof $ArticlePackageFromList>;
+//FILTERS
+export type ArticlePackagesFiltersForm = z.infer<typeof $ArticlePackagesFiltersForm>;
 
 //REQ/RSP
+export type GetArticlePackagesRequest = z.infer<typeof $GetArticlePackagesRequest>;
 export type GetArticlePackagesResponse = z.infer<typeof $GetArticlePackagesResponse>;
 
 /**
@@ -215,6 +218,24 @@ export const $ArticlePackageFromList = z.object({
     discount: $Discount.nullable(),
     categories: $ArticlePackageCategory.array(),
 });
+
+export const $ArticlePackagesFiltersForm = z.object({
+    query: z.string(),
+    paginate: z.boolean(),
+    courseIds: z.number(),
+});
+
+export const $ArticlePackagesRequest = z.object({
+    query: z.string().optional(),
+    paginate: z.boolean().optional(),
+    filter: z
+        .object({
+            courseIds: z.string(),
+        })
+        .partial(),
+});
+
+export const $GetArticlePackagesRequest = $getFiltersRequestType($ArticlePackagesRequest);
 
 export const $GetArticlePackagesResponse = $getPaginationResponseType($ArticlePackageFromList);
 

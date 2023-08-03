@@ -6,23 +6,30 @@ import { ArticlePackageFromList, useArticlePackages } from "@entities/articlePac
 import { Card as ArticlePackageCard } from "@features/articlePackages";
 import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { Heading } from "@shared/ui";
+import { adaptGetArticlePackagesRequest } from "./utils";
+import { initialParams } from "./constants";
 
 export interface CarouselListProps extends Omit<FlexProps, "children"> {
     title?: string;
+    courseId?: number;
 }
 
-const CarouselList = ({ title = "Пакетные предложения", ...props }: CarouselListProps) => {
-    const { data: articlePackages, hasNextPage, fetchNextPage } = useArticlePackages();
+const CarouselList = ({ title = "Пакетные предложения", courseId, ...props }: CarouselListProps) => {
+    const {
+        data: articlePackages,
+        hasNextPage,
+        fetchNextPage,
+    } = useArticlePackages(adaptGetArticlePackagesRequest({ ...initialParams, courseIds: courseId }));
 
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry && entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);
 
-    if (!articlePackages?.data) {
+    if (!articlePackages?.data.length) {
         return null;
     }
 
