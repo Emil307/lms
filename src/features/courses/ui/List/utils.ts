@@ -20,6 +20,7 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
         filter: {
             collectionIds,
             ...(hasDiscount === "true" && { hasDiscount: true }),
+            ...(isFavorite && { isFavorite: true }),
             ...(categoryId && { "category.id": categoryId }),
 
             ...(discountPrice && {

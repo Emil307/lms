@@ -8,7 +8,10 @@ export const adaptGetGroupsRequest = (params: TFunctionParams<TRouterQueries>): 
     return {
         ...rest,
         filter: {
-            status: tab,
+            ...(tab &&
+                tab !== "all" && {
+                    status: tab,
+                }),
         },
     };
 };
