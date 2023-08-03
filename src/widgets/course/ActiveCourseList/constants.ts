@@ -8,13 +8,13 @@ export const initialParams = {
 export const initialParamsForNewCourses: GetGroupsRequest = {
     ...initialParams,
     filter: {
-        status: "not_started",
+        status: "notStarted",
     },
 };
 
 export const initialParamsForCoursesInProgress: GetGroupsRequest = {
     ...initialParams,
     filter: {
-        status: "in_progress",
+        status: "inProgress",
     },
 };
