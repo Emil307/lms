@@ -12,7 +12,7 @@ import {
     $GetAdminGroupResponse,
     $GetAdminGroupSchedulesResponse,
     $GetAdminGroupsResponse,
-    $GetGroupRequest,
+    $GetGroupModulesResponse,
     $GetGroupResponse,
     $GetGroupsCountsResponse,
     $GetGroupsRequest,
@@ -42,6 +42,8 @@ import {
     GetAdminGroupSchedulesResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
+    GetGroupModulesRequest,
+    GetGroupModulesResponse,
     GetGroupRequest,
     GetGroupResponse,
     UpdateAdminGroupRequest,
@@ -130,18 +132,21 @@ class GroupApi extends BaseApi {
         responseSchema: $GetGroupsResponse,
     });
 
-    getGroup = this.createApiMethod<GetGroupRequest, GetGroupResponse, GetGroupRequest>({
-        method: HTTPMethod.GET,
-        path: ({ id }) => `groups/${id}`,
-        requestSchema: $GetGroupRequest,
-        responseSchema: $GetGroupResponse,
-    });
+    async getGroup({ id }: GetGroupRequest): Promise<GetGroupResponse> {
+        const response = await this.instance.get(`groups/${id}`);
+        return $GetGroupResponse.parse(response);
+    }
 
     getGroupsCounts = this.createApiMethod({
         method: HTTPMethod.GET,
         path: "groups/counts",
         responseSchema: $GetGroupsCountsResponse,
     });
+
+    async getGroupModules({ groupId, ...params }: GetGroupModulesRequest): Promise<GetGroupModulesResponse> {
+        const response = await this.instance.get(`groups/${groupId}/structure`, { params });
+        return $GetGroupModulesResponse.parse(response);
+    }
 }
 
 export const groupApi = new GroupApi(axios);

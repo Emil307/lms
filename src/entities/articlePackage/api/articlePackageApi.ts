@@ -23,6 +23,7 @@ import {
     UpdateArticlePackageRequest,
     DeleteArticleFromPackageRequest,
     AttachArticleToPackageRequest,
+    GetArticlePackagesRequest,
 } from "./types";
 
 class ArticlePackageApi extends BaseApi {
@@ -31,10 +32,8 @@ class ArticlePackageApi extends BaseApi {
         return $GetAdminArticlePackagesResponse.parse(response);
     }
 
-    async getArticlePackages(page: number): Promise<GetArticlePackagesResponse> {
-        const response = await this.instance.post("article-packages/list", {
-            page,
-        });
+    async getArticlePackages(data: GetArticlePackagesRequest): Promise<GetArticlePackagesResponse> {
+        const response = await this.instance.post("article-packages/list", data);
         return $GetArticlePackagesResponse.parse(response);
     }
 

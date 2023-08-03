@@ -4,7 +4,7 @@ import { getPluralString } from "@shared/utils";
 export const getCountsInfo = (data: GroupFromList, status: GroupStatusName) => {
     const { practiceCount, lessonsCount } = data;
 
-    if (status === "in_progress") {
+    if (status === "inProgress") {
         return {
             lessons: `${lessonsCount.passed}/${lessonsCount.total} ${getPluralString(lessonsCount.total, "урок", "урока", "уроков")}`,
             practice: `${practiceCount.passed}/${practiceCount.total} ${getPluralString(

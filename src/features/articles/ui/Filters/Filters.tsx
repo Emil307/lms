@@ -9,11 +9,12 @@ import { initialValues } from "./contants";
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;
     onSubmitFilters: (values: ArticleAndArticleCategoryFiltersForm) => void;
-    articleType?: "favorite" | "my-articles" | "by-category";
+    articleType?: "favorite" | "my-articles" | "by-category" | "by-course";
+    courseId?: string;
 }
 
-const Filters = ({ data, onSubmitFilters, articleType, ...props }: FiltersProps) => {
-    const articleFilters = useArticlesFilters({ articleType });
+const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: FiltersProps) => {
+    const articleFilters = useArticlesFilters({ articleType, courseId });
 
     const config: FormikConfig<ArticleAndArticleCategoryFiltersForm> = {
         initialValues: { ...initialValues, ...data },

@@ -23,6 +23,8 @@ const MyCoursesPage = () => {
 
     const handleOpenFavoriteCourses = () => router.push("/my-courses/favorite");
 
+    const handleOpenMyCoursesDetails = (id: unknown) => router.push({ pathname: "/my-courses/[id]", query: { id: String(id) } });
+
     return (
         <Box>
             <Flex justify="space-between" gap={24} mb={32}>
@@ -40,7 +42,7 @@ const MyCoursesPage = () => {
                 </Button>
             </Flex>
             {!!tabsList.length && <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} mb={32} />}
-            <GroupList perPage={9} withPagination />
+            <GroupList perPage={9} withPagination onClick={handleOpenMyCoursesDetails} />
         </Box>
     );
 };

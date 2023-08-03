@@ -5,7 +5,7 @@ export const getInitialValues = (homework: AdminHomework | null): UpdateAdminHom
         return {
             content: "",
             files: [],
-            requiredType: "not_required",
+            requiredType: "notRequired",
         };
     }
     const { id, ...rest } = homework;

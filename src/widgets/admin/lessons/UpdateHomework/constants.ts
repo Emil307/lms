@@ -5,6 +5,6 @@ export const requiredTypeOptions = [
     },
     {
         label: "Не проверять",
-        value: "not_required",
+        value: "notRequired",
     },
 ];

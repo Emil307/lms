@@ -260,7 +260,7 @@ export const $UpdateAdminTestRequest = z.object({
 
 export const $UpdateAdminTestResponse = $AdminTest.nullable();
 
-export const $HomeworkRequiredType = z.literal("required").or(z.literal("not_required"));
+export const $HomeworkRequiredType = z.literal("required").or(z.literal("notRequired"));
 
 export const $AdminHomework = z.object({
     id: z.number(),
@@ -290,8 +290,7 @@ export const $UpdateAdminHomeworkResponse = $AdminHomework;
  *
  */
 
-//TEST
-export const $TestStatusName = z.literal("completed").or(z.literal("needs_edit")).or(z.literal("not_started"));
+export const $TestStatusName = z.literal("completed").or(z.literal("needsEdit")).or(z.literal("notStarted"));
 
 export const $TestTaskAnswer = z.object({
     id: z.number(),
