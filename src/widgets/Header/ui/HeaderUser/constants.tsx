@@ -1,6 +1,6 @@
 import { Route } from "nextjs-routes";
 import { ReactNode } from "react";
-import { Folder, Heart } from "react-feather";
+import { Folder } from "react-feather";
 
 import IconMessageDots from "public/icons/messageDots.svg";
 import IconArticleBook from "public/icons/articleBook.svg";
@@ -20,12 +20,5 @@ export const menuLinks: { label: string; href: Route; icon: ReactNode }[] = [
         label: "Поддержка",
         href: { pathname: "/support" },
         icon: <IconMessageDots />,
-    },
-];
-
-export const extraMenuLinks: { href: Route; icon: ReactNode }[] = [
-    {
-        href: { pathname: "/courses/favorite" },
-        icon: <Heart />,
     },
 ];

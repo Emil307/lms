@@ -43,3 +43,8 @@ export type TCellProps<T extends Record<string, any>> = {
     row: MRT_Row<T>;
     table: MRT_TableInstance<T>;
 };
+
+export type TCellBadge = {
+    condition: boolean;
+    color?: string;
+};

@@ -55,7 +55,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                 initialValues: filterInitialValues,
             }}
             extraFilterParams={{ courseId }}
-            renderActiveBadge={(cell) => cell.row.original.isPublished}
+            renderBadge={(cell) => [{ condition: cell.row.original.isPublished }]}
             onClickCell={handleClickCell}
             columns={columns}
             countName="Отзывов"

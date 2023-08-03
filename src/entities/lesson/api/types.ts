@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+    $FilterType,
     $getDateObjectType,
     $getFiltersRequestType,
     $getMultiValueObjectType,
@@ -24,6 +25,7 @@ export type AdminTestAnswer = z.infer<typeof $AdminTestAnswer>;
 export type AdminHomework = z.infer<typeof $AdminHomework>;
 export type HomeworkRequiredType = z.infer<typeof $HomeworkRequiredType>;
 export type AdminHomeworkAnswer = z.infer<typeof $AdminHomeworkAnswer>;
+export type AdminHomeworkAnswerFromList = z.infer<typeof $AdminHomeworkAnswerFromList>;
 
 export type AdminLessonsFilters = z.infer<typeof $AdminLessonsFilters>;
 export type AdminSelectLessonsFilters = z.infer<typeof $AdminSelectLessonsFilters>;
@@ -57,6 +59,11 @@ export type UpdateAdminHomeworkFormValues = z.infer<typeof $UpdateAdminHomeworkF
 export type UpdateAdminHomeworkRequest = z.infer<typeof $UpdateAdminHomeworkRequest>;
 export type UpdateAdminHomeworkResponse = z.infer<typeof $UpdateAdminHomeworkResponse>;
 
+export type GetAdminHomeworkAnswersResourcesRequest = z.infer<typeof $GetAdminHomeworkAnswersResourcesRequest>;
+export type GetAdminHomeworkAnswersResourcesResponse = z.infer<typeof $GetAdminHomeworkAnswersResourcesResponse>;
+export type GetAdminHomeworkAnswersRequest = z.infer<typeof $GetAdminHomeworkAnswersRequest>;
+export type GetAdminHomeworkAnswersResponse = z.infer<typeof $GetAdminHomeworkAnswersResponse>;
+export type AdminHomeworkAnswersRequest = z.infer<typeof $AdminHomeworkAnswersRequest>;
 export type GetAdminHomeworkAnswerResponse = z.infer<typeof $GetAdminHomeworkAnswerResponse>;
 export type UpdateAdminHomeworkAnswerStatusRequest = z.infer<typeof $UpdateAdminHomeworkAnswerStatusRequest>;
 export type UpdateAdminHomeworkAnswerStatusResponse = z.infer<typeof $UpdateAdminHomeworkAnswerStatusResponse>;
@@ -261,6 +268,12 @@ export const $UpdateAdminTestRequest = z.object({
 export const $UpdateAdminTestResponse = $AdminTest.nullable();
 
 export const $HomeworkRequiredType = z.literal("required").or(z.literal("notRequired"));
+export const $HomeworkAnswerStatusName = z.literal("onReview").or(z.literal("needsEdit")).or(z.literal("completed"));
+
+export const $HomeworkAnswerStatus = z.object({
+    name: $HomeworkAnswerStatusName,
+    displayName: z.string(),
+});
 
 export const $AdminHomework = z.object({
     id: z.number(),
@@ -283,6 +296,96 @@ export const $UpdateAdminHomeworkRequest = z.object({
 });
 
 export const $UpdateAdminHomeworkResponse = $AdminHomework;
+
+export const $AdminHomeworkAnswer = z.object({
+    id: z.number(),
+    answer: z.string(),
+    status: $HomeworkAnswerStatus,
+    updatedAt: z.coerce.date(),
+    //TODO: Вернуть, когда бэки будут отдавать
+    // files: $UploadedFile.array(),
+    student: z.object({
+        id: z.number(),
+        email: z.string(),
+        profile: $Profile.omit({
+            avatar: true,
+            additionalImage: true,
+        }),
+    }),
+    course: z.object({
+        name: z.string(),
+    }),
+    module: z
+        .object({
+            name: z.string(),
+        })
+        .nullable(),
+    homework: z.object({
+        id: z.number(),
+        content: z.string(),
+        requiredType: $HomeworkRequiredType,
+        lesson: $AdminLesson.omit({
+            lastUpdated: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+            videos: true,
+        }),
+    }),
+    group: z.object({
+        name: z.string(),
+    }),
+});
+
+export const $GetAdminHomeworkAnswerResponse = $AdminHomeworkAnswer;
+
+export const $GetAdminHomeworkAnswersResourcesRequest = z.object({
+    type: $FilterType,
+});
+
+export const $GetAdminHomeworkAnswersResourcesResponse = z.object({
+    courses: z.array(
+        z.object({
+            id: z.number(),
+            name: z.string(),
+        })
+    ),
+    students: z.array(
+        z.object({
+            id: z.number(),
+            profile: z.object({
+                firstName: z.string(),
+                lastName: z.string(),
+            }),
+        })
+    ),
+});
+
+export const $AdminHomeworkAnswersRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            "status.type": $HomeworkAnswerStatusName.or(z.literal("")),
+            updatedAt: $getDateObjectType(z.literal("range")),
+            "student.id": z.string(),
+            "course.id": z.string(),
+        })
+        .partial(),
+});
+
+export const $GetAdminHomeworkAnswersRequest = $getFiltersRequestType($AdminHomeworkAnswersRequest);
+//TODO: Omit files, когда бэки будут отдавать
+export const $AdminHomeworkAnswerFromList = $AdminHomeworkAnswer;
+
+export const $GetAdminHomeworkAnswersResponse = $getPaginationResponseType($AdminHomeworkAnswerFromList);
+
+export const $UpdateAdminHomeworkAnswerStatusRequest = z.object({
+    id: z.string(),
+    status: $HomeworkAnswerStatusName,
+    content: z.string().nullable(),
+});
+
+export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer;
 
 /***
  *
@@ -365,53 +468,6 @@ export const $UpdateTestPassRequest = z.object({
 export const $UpdateTestPassResponse = $TestPass;
 
 //HOMEWORK
-export const $HomeworkAnswerStatusName = z.literal("onReview").or(z.literal("needsEdit")).or(z.literal("completed"));
-
-export const $HomeworkAnswerStatus = z.object({
-    name: $HomeworkAnswerStatusName,
-    displayName: z.string(),
-});
-
-export const $AdminHomeworkAnswer = z.object({
-    id: z.number(),
-    answer: z.string(),
-    status: $HomeworkAnswerStatus,
-    updatedAt: z.coerce.date(),
-    //TODO: Вернуть, когда бэки будут отдавать
-    // files: $UploadedFile.array(),
-    student: z.object({
-        id: z.number(),
-        email: z.string(),
-        profile: $Profile.omit({
-            avatar: true,
-            additionalImage: true,
-        }),
-    }),
-    course: z.object({
-        name: z.string(),
-    }),
-    module: z
-        .object({
-            name: z.string(),
-        })
-        .nullable(),
-    homework: z.object({
-        id: z.number(),
-        content: z.string(),
-        requiredType: $HomeworkRequiredType,
-        lesson: $AdminLesson.omit({
-            lastUpdated: true,
-            isActive: true,
-            createdAt: true,
-            updatedAt: true,
-            videos: true,
-        }),
-    }),
-    group: z.object({
-        name: z.string(),
-    }),
-});
-
 export const $HomeworkAnswer = z.object({
     id: z.number(),
     answer: z.string(),
@@ -447,13 +503,3 @@ export const $UpdateHomeworkAnswerRequest = z.object({
 });
 
 export const $UpdateHomeworkAnswerResponse = $Homework;
-
-export const $GetAdminHomeworkAnswerResponse = $AdminHomeworkAnswer;
-
-export const $UpdateAdminHomeworkAnswerStatusRequest = z.object({
-    id: z.string(),
-    status: $HomeworkAnswerStatusName,
-    content: z.string().nullable(),
-});
-
-export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer;

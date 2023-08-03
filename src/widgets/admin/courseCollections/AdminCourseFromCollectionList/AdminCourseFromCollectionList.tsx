@@ -51,7 +51,7 @@ const AdminCourseFromCollectionList = ({ courseCollectionId, ...props }: AdminCo
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "collectionIds"]}
                 onClickCell={handleClickCell}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 initialState={{

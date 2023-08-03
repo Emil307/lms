@@ -57,7 +57,7 @@ const UserList = () => {
                         initialValues: filterInitialValues,
                         validationSchema: $validationSchema,
                     }}
-                    renderActiveBadge={(cell) => cell.row.original.isActive}
+                    renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                     onClickCell={handlerClickCell}
                     columns={columns}
                     countName="Пользователей"

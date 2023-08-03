@@ -40,7 +40,7 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetStudentCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 extraFilterParams={{ studentId }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 initialState={{

@@ -1,11 +1,12 @@
-import { Button, ContentByTextEditor, Heading, Paragraph } from "@shared/ui";
+import { Button, ContentByTextEditor, Heading, Loader, Paragraph } from "@shared/ui";
 import { Avatar, Flex, ThemeIcon, Box, Collapse } from "@mantine/core";
 import useStyles from "./HomeworkTask.styles";
-import { Folder, ChevronDown as ChevronDownIcon } from "react-feather";
-import { AdminHomeworkAnswer } from "@entities/lesson";
+import { ChevronDown as ChevronDownIcon } from "react-feather";
+import { AdminHomeworkAnswer, useUpdateLessonHomeworkAnswerStatus } from "@entities/lesson";
 import CompletedIcon from "public/icons/completed.svg";
 import ReworkIcon from "public/icons/rework.svg";
 import AvatarIcon from "@public/icons/avatar.svg";
+import FolderIcon from "public/icons/folder.svg";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { closeModal, openModal } from "@mantine/modals";
@@ -19,6 +20,11 @@ interface HomeworkTaskProps {
 const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
     const { classes } = useStyles();
     const [isOpenedHomework, setOpenedHomework] = useState(false);
+    const { mutate: updateAnswerStatus, isLoading } = useUpdateLessonHomeworkAnswerStatus({
+        id: String(homeworkAnswer.id),
+        status: "completed",
+        content: null,
+    });
 
     const handleToggleOpenedHomework = () => setOpenedHomework((prevState) => !prevState);
 
@@ -60,15 +66,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                         <Button variant="border" leftIcon={<ReworkIcon />} onClick={openUpdateHomeworkAnswerStatus}>
                             На доработку
                         </Button>
-                        <Button variant="border" leftIcon={<CompletedIcon />}>
-                            Выполнено
-                        </Button>
-                    </Flex>
-                );
-            case "needsEdit":
-                return (
-                    <Flex gap={8}>
-                        <Button variant="border" leftIcon={<CompletedIcon />}>
+                        <Button variant="border" leftIcon={<CompletedIcon />} onClick={() => updateAnswerStatus(null)}>
                             Выполнено
                         </Button>
                     </Flex>
@@ -80,17 +78,22 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
 
     return (
         <Flex gap={32} direction="column">
-            <Heading order={2}>Домашнее задание</Heading>
+            <Loader isLoading={isLoading} overlay />
+            <Flex gap={16}>
+                <Heading order={2}>Домашнее задание</Heading>
+                {homeworkAnswer.status.name === "completed" && (
+                    <Box className={classes.status}>
+                        <Paragraph variant="text-small-m">Выполнено</Paragraph>
+                    </Box>
+                )}
+            </Flex>
             <Flex gap={16} justify="space-between" align="flex-start">
-                <Flex gap={16}>
+                <Flex gap={16} align={homeworkAnswer.module?.name ? "start" : "center"}>
                     <ThemeIcon className={classes.icon} radius={56} w={48} h={48}>
-                        <Folder color="white" />
+                        <FolderIcon />
                     </ThemeIcon>
                     <Flex gap={2} direction="column">
-                        <Paragraph variant="text-caption">
-                            {homeworkAnswer.module?.name}
-                            Основы финансовой грамотности
-                        </Paragraph>
+                        <Paragraph variant="text-caption">{homeworkAnswer.module?.name}</Paragraph>
                         <Heading order={3}>{homeworkAnswer.homework.lesson.name}</Heading>
                     </Flex>
                 </Flex>

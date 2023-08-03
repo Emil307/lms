@@ -67,7 +67,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 extraFilterParams={{ articlePackageIds: articlePackageId }}

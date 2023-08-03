@@ -26,7 +26,7 @@ const TeacherGroupList = ({ id }: TeacherGroupListProps) => {
                 queryKey={QueryKeys.GET_TEACHER_GROUPS}
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetTeacherGroupsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "teacherId"]}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Групп"
                 extraFilterParams={{ teacherId: id }}

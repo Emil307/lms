@@ -45,7 +45,7 @@ const AdminList = () => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 onClickCell={handlerClickCell}
                 columns={columns}
                 countName="Подборок"

@@ -16,8 +16,8 @@ interface UpdateLessonHomeworkStatusAnswerModalProps {
 }
 
 const UpdateLessonHomeworkStatusAnswerModal = ({ homeworkAnswerId, onClose }: UpdateLessonHomeworkStatusAnswerModalProps) => {
-    const updateHomeworkAnswerStatus = (values: UpdateHomeworkAnswerStatusFormValues) => {
-        return lessonApi.updateAdminHomeworkAnswerStatus({ ...values, id: homeworkAnswerId, status: "needsEdit" });
+    const updateHomeworkAnswerStatus = ({ content }: UpdateHomeworkAnswerStatusFormValues) => {
+        return lessonApi.updateAdminHomeworkAnswerStatus({ id: homeworkAnswerId, status: "needsEdit", content: content || null });
     };
 
     const onSuccessCreate = () => {
@@ -41,8 +41,10 @@ const UpdateLessonHomeworkStatusAnswerModal = ({ homeworkAnswerId, onClose }: Up
             initialValues={initialValues}
             validationSchema={$UpdateHomeworkAnswerStatusFormValues}
             mutationKey={[MutationKeys.UPDATE_LESSON_HOMEWORK_ANSWER_STATUS, homeworkAnswerId]}
-            //TODO инвалидейт индекса домашек
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWER, homeworkAnswerId] }]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWER, homeworkAnswerId] },
+                { queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS] },
+            ]}
             mutationFunction={updateHomeworkAnswerStatus}
             onSuccess={onSuccessCreate}
             onError={onError}

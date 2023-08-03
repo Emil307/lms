@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ActionIcon, Flex, Header as MHeader, MediaQuery, Skeleton, useMantineTheme } from "@mantine/core";
-import { AlignLeft, X } from "react-feather";
+import { AlignLeft, Folder, Heart, Search, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
-import { extraMenuLinks, menuLinks } from "./constants";
 import useStyles from "./HeaderPublicUser.styles";
 import { IconBrandMessenger } from "@tabler/icons";
 import { Menu } from "./components";
@@ -89,19 +88,16 @@ const HeaderPublicUser = () => {
                         />
                     </Link>
                     <Flex className={classes.containerButtonLinks}>
-                        {menuLinks.map((menuItem, index) => (
-                            <Button
-                                className={classes.buttonLink}
-                                leftIcon={menuItem.icon}
-                                variant="white"
-                                sx={{
-                                    backgroundColor: router.pathname === menuItem.href.pathname ? theme.colors.grayLight[0] : "transparent",
-                                }}
-                                onClick={() => router.push(menuItem.href)}
-                                key={index}>
-                                {menuItem.label}
-                            </Button>
-                        ))}
+                        <Button
+                            className={classes.buttonLink}
+                            leftIcon={<Folder />}
+                            variant="white"
+                            sx={{
+                                backgroundColor: router.pathname === "/courses" ? theme.colors.grayLight[0] : "transparent",
+                            }}
+                            onClick={() => router.push("/courses")}>
+                            Все курсы
+                        </Button>
 
                         {/*TODO: Добавить вызов виджета битрикс24*/}
                         <Button className={classes.buttonLink} leftIcon={<IconBrandMessenger />} variant="white">
@@ -112,11 +108,19 @@ const HeaderPublicUser = () => {
 
                 <Flex className={classes.wrapperRightMenu}>
                     <Flex gap={{ md: 12, sm: 0 }}>
-                        {extraMenuLinks.map((extraMenuLink, index) => (
-                            <ActionIcon className={classes.actionIcon} onClick={() => router.push(extraMenuLink.href)} key={index}>
-                                {extraMenuLink.icon}
+                        {user && (
+                            <ActionIcon
+                                className={classes.actionIcon}
+                                sx={{
+                                    backgroundColor: router.pathname === "/courses/favorite" ? theme.colors.grayLight[0] : "transparent",
+                                }}
+                                onClick={() => router.push("/courses/favorite")}>
+                                <Heart />
                             </ActionIcon>
-                        ))}
+                        )}
+                        <ActionIcon className={classes.actionIcon} onClick={() => router.push("/courses")}>
+                            <Search />
+                        </ActionIcon>
                     </Flex>
 
                     <Flex align="center" gap={8}>

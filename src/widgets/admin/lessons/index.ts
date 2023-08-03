@@ -10,4 +10,5 @@ export * from "./UpdateLesson";
 export * from "./UpdateHomework";
 export * from "./HomeworkInfoPanel";
 export * from "./HomeworkTask";
+export * from "./HomeworkList";
 export { LessonInfoPanel };

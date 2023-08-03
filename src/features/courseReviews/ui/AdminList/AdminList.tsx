@@ -34,7 +34,7 @@ const AdminList = (props: AdminListProps) => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderActiveBadge={(cell) => cell.row.original.isPublished}
+                renderBadge={(cell) => [{ condition: cell.row.original.isPublished }]}
                 onClickCell={handleClickCell}
                 columns={columns}
                 countName="Отзывов"

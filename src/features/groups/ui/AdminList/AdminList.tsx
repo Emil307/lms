@@ -50,7 +50,7 @@ const AdminList = () => {
                     filter={{
                         initialValues: filterInitialValues,
                     }}
-                    renderActiveBadge={(cell) => cell.row.original.isActive}
+                    renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                     onClickCell={handleClickCell}
                     columns={columns}
                     countName="Групп"

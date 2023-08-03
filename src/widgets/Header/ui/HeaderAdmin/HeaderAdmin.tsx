@@ -11,7 +11,7 @@ import { Menu as NotificationMenu } from "@widgets/notifications";
 import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import useStyles from "./HeaderAdmin.styles";
-import { logoutPath } from "@app/routes";
+import { logoutPath, Roles } from "@app/routes";
 
 const HeaderAdmin = () => {
     const router = useRouter();
@@ -25,6 +25,13 @@ const HeaderAdmin = () => {
     const handleRedirectLogout = () => router.push(logoutPath);
 
     const handleChangeOpenedSidebar = () => setOpenedSidebar(!openedSidebar);
+
+    const getLogoClickHref = () => {
+        if (user?.roles[0].id === Roles.teacher) {
+            return "/admin/homeworks";
+        }
+        return "/admin/users";
+    };
 
     const renderSidebarBurger = () => {
         if (openedSidebar) {
@@ -76,7 +83,7 @@ const HeaderAdmin = () => {
 
     return (
         <MHeader classNames={classes} height="auto">
-            <Link href="/" className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
+            <Link href={getLogoClickHref()} className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
                 <Logo
                     className={classes.logo}
                     textProps={{

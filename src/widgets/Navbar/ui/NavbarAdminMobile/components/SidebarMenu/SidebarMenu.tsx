@@ -6,6 +6,7 @@ import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { Roles } from "@app/routes";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
+import CloseBookIcon from "@public/icons/closeBook.svg";
 
 export default function SidebarMenu() {
     const router = useRouter();
@@ -13,6 +14,12 @@ export default function SidebarMenu() {
         <Box sx={{ paddingRight: 24, position: "relative" }}>
             {/*TODO: Убрать при релизе*/}
             <SidebarItem label="UI" isActive={router.pathname.includes("/ui")} icon={<Book />} href="/ui" />
+            <SidebarItem
+                label="Домашние задания"
+                isActive={router.pathname.includes("/admin/homeworks")}
+                icon={<CloseBookIcon />}
+                href="/admin/homeworks"
+            />
             <SidebarItem
                 roles={[Roles.administrator, Roles.manager]}
                 label="Пользователи"

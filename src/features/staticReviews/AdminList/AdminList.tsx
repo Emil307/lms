@@ -14,7 +14,7 @@ const AdminList = (props: AdminListProps) => {
                 queryKey={QueryKeys.GET_ADMIN_STATIC_REVIEWS}
                 queryFunction={(params) => staticReviewApi.getAdminStaticReviews(params)}
                 queryCacheKeys={["page", "perPage", "sort"]}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Отзывов"
                 initialState={{

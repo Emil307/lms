@@ -26,7 +26,7 @@ const TeacherCourseList = ({ id }: TeacherCourseListProps) => {
                 queryKey={QueryKeys.GET_TEACHER_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetTeacherCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "teacherId"]}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Курсов"
                 extraFilterParams={{ teacherId: id }}

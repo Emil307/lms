@@ -48,7 +48,7 @@ const AdminArticleList = ({ articlePackageId }: AdminArticleListProps) => {
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articlePackageIds"]}
                 onClickCell={handleClickCell}
-                renderActiveBadge={(cell) => cell.row.original.isActive}
+                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="статей"
                 initialState={{
