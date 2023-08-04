@@ -1,12 +1,12 @@
-import useStyles from "./Card.styles";
-import { AdminGroupSchedule, AdminGroupSchedulesInfo } from "@entities/group";
 import { Flex, Box, ThemeIcon, Collapse } from "@mantine/core";
 import { ChevronDown as ChevronDownIcon } from "react-feather";
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import UsersIcon from "public/icons/users.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import dayjs from "dayjs";
+import { AdminGroupSchedule, AdminGroupSchedulesInfo } from "@entities/group";
 import SmallArrowIcon from "public/icons/smallArrow.svg";
+import useStyles from "./Card.styles";
 
 interface CardProps {
     data: AdminGroupSchedulesInfo;

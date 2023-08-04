@@ -1,4 +1,4 @@
 export const initialParams = {
     page: 1,
-    perPage: 3,
+    perPage: 9,
 };

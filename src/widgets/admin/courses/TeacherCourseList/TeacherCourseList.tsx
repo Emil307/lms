@@ -1,12 +1,12 @@
+import { Box } from "@mantine/core";
+import { MRT_Cell } from "mantine-react-table";
+import { useRouter } from "next/router";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { QueryKeys } from "@shared/constant";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { Box } from "@mantine/core";
 import { TeacherCourseListExtraParams } from "./types";
 import { adaptGetTeacherCoursesRequest } from "./utils";
 import { columns, columnOrder } from "./constants";
-import { MRT_Cell } from "mantine-react-table";
-import { useRouter } from "next/router";
 
 interface TeacherCourseListProps {
     id: string;

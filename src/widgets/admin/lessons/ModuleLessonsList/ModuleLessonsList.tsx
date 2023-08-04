@@ -11,9 +11,9 @@ import { useUpdateLessonOrder } from "@entities/lesson";
 import { CreateLessonModal, LessonListModal, SelectLessonOptionModal } from "@features/lessons";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
+import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
 import { ListMenu } from "./components";
 import useStyles from "./ModuleLessonsList.styles";
-import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
 
 interface ModuleLessonsListProps {
     courseId: string;

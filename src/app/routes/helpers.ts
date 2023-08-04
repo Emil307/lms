@@ -1,6 +1,6 @@
+import { Route } from "nextjs-routes";
 import { Roles } from "./roles";
 import { managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
-import { Route } from "nextjs-routes";
 
 export const isCorrectPath = (regex: string, newUrlPath: string) => new RegExp(`^${regex}`).test(newUrlPath);
 

@@ -1,16 +1,16 @@
-import { Button, ContentByTextEditor, Heading, Loader, Paragraph } from "@shared/ui";
 import { Avatar, Flex, ThemeIcon, Box, Collapse } from "@mantine/core";
-import useStyles from "./HomeworkTask.styles";
 import { ChevronDown as ChevronDownIcon } from "react-feather";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+import { closeModal, openModal } from "@mantine/modals";
 import { AdminHomeworkAnswer, useUpdateLessonHomeworkAnswerStatus } from "@entities/lesson";
 import CompletedIcon from "public/icons/completed.svg";
 import ReworkIcon from "public/icons/rework.svg";
 import AvatarIcon from "@public/icons/avatar.svg";
 import FolderIcon from "public/icons/folder.svg";
-import dayjs from "dayjs";
-import React, { useState } from "react";
-import { closeModal, openModal } from "@mantine/modals";
+import { Button, ContentByTextEditor, Heading, Loader, Paragraph } from "@shared/ui";
 import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
+import useStyles from "./HomeworkTask.styles";
 
 interface HomeworkTaskProps {
     homeworkAnswer: AdminHomeworkAnswer;
@@ -122,7 +122,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                     <Avatar
                         // TODO: Когда бэк вернет аватар студента
                         // src={homeworkAnswer.student.profile}
-                        src={""}
+                        src=""
                         alt="avatar"
                         w={32}
                         h={32}

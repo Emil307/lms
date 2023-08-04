@@ -1,8 +1,8 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
+import { Badge } from "@mantine/core";
 import { AdminGroupFromList } from "@entities/group";
 import useStyles from "./TeacherGroupList.styles";
-import { Badge } from "@mantine/core";
 
 export const columnOrder = ["id", "name", "createdAt", "category.name", "isActive"];
 

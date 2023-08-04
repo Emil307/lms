@@ -6,10 +6,10 @@ import { useSession } from "@features/auth";
 import { Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
-import useStyles from "./UserInfoBlock.styles";
 import { logoutPath } from "@app/routes";
+import useStyles from "./UserInfoBlock.styles";
 
-export interface UserInfoBlockProps extends FlexProps {}
+export interface UserInfoBlockProps extends FlexProps { }
 
 const UserInfoBlock = (props: UserInfoBlockProps) => {
     const router = useRouter();

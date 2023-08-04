@@ -6,9 +6,9 @@ import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $UpdateLessonFormValues, AdminLessonFromList, lessonApi, UpdateLessonFormValues, UpdateLessonResponse } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
+import { CourseModuleLesson } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
 import useStyles from "./UpdateLessonModal.styles";
-import { CourseModuleLesson } from "@entities/courseModule";
 
 export interface UpdateLessonModalProps {
     data: AdminLessonFromList | CourseModuleLesson;

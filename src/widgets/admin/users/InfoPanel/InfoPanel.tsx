@@ -5,8 +5,8 @@ import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/u
 import { useDetailsUser, useUpdateUserActivity, useUpdateUserStatic } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
-import { useInfoPanelStyles } from "./InfoPanel.styles";
 import { Roles } from "@app/routes";
+import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
     id: string;

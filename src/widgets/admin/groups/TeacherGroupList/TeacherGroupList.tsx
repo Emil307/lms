@@ -1,12 +1,12 @@
+import { Box } from "@mantine/core";
+import { MRT_Cell } from "mantine-react-table";
+import { useRouter } from "next/router";
 import { QueryKeys } from "@shared/constant";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { Box } from "@mantine/core";
+import { AdminGroupFromList, groupApi } from "@entities/group";
 import { TeacherGroupListExtraParams } from "./types";
 import { adaptGetTeacherGroupsRequest } from "./utils";
 import { columns, columnOrder } from "./constants";
-import { MRT_Cell } from "mantine-react-table";
-import { useRouter } from "next/router";
-import { AdminGroupFromList, groupApi } from "@entities/group";
 
 interface TeacherGroupListProps {
     id: string;

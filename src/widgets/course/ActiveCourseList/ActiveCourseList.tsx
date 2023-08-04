@@ -1,11 +1,11 @@
-import { initialParamsForCoursesInProgress, initialParamsForNewCourses } from "./constants";
-import { GroupFromList, useGroups } from "@entities/group";
 import { Flex, Skeleton } from "@mantine/core";
+import { useRouter } from "next/router";
 import { Button, EmptyData, Heading, Paragraph } from "@shared/ui";
 import { Card } from "@features/groups";
-import { useRouter } from "next/router";
+import { GroupFromList, useGroups } from "@entities/group";
 import { List as ListComponent } from "@components/List";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import { initialParamsForCoursesInProgress, initialParamsForNewCourses } from "./constants";
 
 const ActiveCourseList = () => {
     const router = useRouter();

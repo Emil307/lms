@@ -6,10 +6,10 @@ import { InfoPanel, UserSettings } from "@widgets/admin/users";
 import { useDetailsUser } from "@entities/user";
 import { TRouterQueries } from "@shared/types";
 import { Roles } from "@app/routes";
-import { getBreadCrumbsItems } from "./utils";
-import { tabsList } from "./constants";
 import { TeacherCourseList } from "@widgets/admin/courses";
 import { TeacherGroupList } from "@widgets/admin/groups";
+import { getBreadCrumbsItems } from "./utils";
+import { tabsList } from "./constants";
 
 const UserDetailsPage = () => {
     const router = useRouter();
