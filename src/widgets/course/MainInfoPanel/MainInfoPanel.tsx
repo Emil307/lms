@@ -1,40 +1,42 @@
 import { ActionIcon, Badge, Box, BoxProps, Divider, Flex, Group, Text, ThemeIcon } from "@mantine/core";
 import Image from "next/image";
 import { Heart } from "react-feather";
-import { GetCourseResponse } from "@entities/course";
+import dayjs from "dayjs";
+import IconCalendar from "public/icons/calendar.svg";
+import { CourseDetails, useUpdateCourseFavoriteStatus } from "@entities/course";
 import { Button, Heading, Paragraph, Rating } from "@shared/ui";
-import { getPluralString, isMyCourse } from "@shared/utils";
+import { getPluralString } from "@shared/utils";
 import IconUsers from "public/icons/users.svg";
 import IconStarFour from "public/icons/starFour.svg";
 import useStyles from "./MainInfoPanel.styles";
 import { AmountInfo, TagList } from "./components";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
-    data: GetCourseResponse;
+    data: CourseDetails;
 }
 
 const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    //TODO: Добавить как бкеенд добавит это https://addamant.planfix.ru/task/94326/?comment=8748025
-    // const renderStartDate = useMemo(() => {
-    //     if (data.dateStart) {
-    //         return <Text className={classes.contentText}>{`Старт: ${getLocalizationDate(data.dateStart)}`}</Text>;
-    //     }
-    //     return <Text className={classes.contentText}>Свободное прохождение</Text>;
-    // }, [data.dateStart]);
+    const updateCourseFavoriteStatus = useUpdateCourseFavoriteStatus({ id: String(data.id) });
 
-    //TODO: Добавить функционал добавления курса в избранное
-    const handleToggleFavorite = () => undefined;
+    const renderStartDate = () => {
+        if (data.type === "interactive") {
+            return (
+                <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(data.upcomingGroup?.educationStartDate).format(
+                    "D MMMM YYYY"
+                )}`}</Paragraph>
+            );
+        }
+        return <Paragraph variant="text-small-m">Свободное прохождение</Paragraph>;
+    };
 
-    if (isMyCourse(data)) {
-        return null;
-    }
+    const handleToggleFavorite = () => updateCourseFavoriteStatus.mutate({ isFavorite: !data.isFavorite });
 
     return (
         <Box {...props} className={classes.root}>
             <Flex gap={48} mb={32}>
-                <Flex direction="column" sx={{ flex: 1 }}>
+                <Flex gap={16} direction="column" sx={{ flex: 1 }}>
                     <Group>
                         <Flex gap={8}>
                             {data.discount && <Badge className={classes.discount}>{data.discount.amount} %</Badge>}
@@ -59,25 +61,27 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     </Group>
                     <Heading>{data.name}</Heading>
                     <Group>
-                        {/* //TODO: Вернуть как бек начнет возращать инфу о  начале старта курса (группы) */}
-                        {/* <Flex align="center" gap={6}>
-                           <ThemeIcon className={classes.icon}>
+                        <Flex align="center" gap={6}>
+                            <ThemeIcon className={classes.icon}>
                                 <IconCalendar />
                             </ThemeIcon>
-                            {renderStartDate}
-                        </Flex> */}
+                            {renderStartDate()}
+                        </Flex>
                         <Flex align="center" gap={6}>
                             <ThemeIcon className={classes.icon}>
                                 <IconUsers />
                             </ThemeIcon>
-                            {/* //TODO: Вернуть как бек начнет возращать инфу о  кол-ве оставшихся мест в группе */}
-                            {/* <Paragraph variant="text-small-m" >Мест осталось: {data.availableSeats}</Paragraph> */}
+                            <Paragraph variant="text-small-m">Мест осталось: {data.upcomingGroup?.freePlacesCount}</Paragraph>
                         </Flex>
                     </Group>
                     <Group sx={{ columnGap: 24, marginTop: 32 }}>
                         <Flex gap={8}>
+                            {/* //TODO: Добавил функционал покупки курса как бек это добавит */}
                             <Button variant="secondary">Купить курс</Button>
-                            <ActionIcon className={classes.favoriteActionIcon} onClick={handleToggleFavorite}>
+                            <ActionIcon
+                                className={classes.favoriteActionIcon}
+                                onClick={handleToggleFavorite}
+                                disabled={updateCourseFavoriteStatus.isLoading}>
                                 <Heart />
                             </ActionIcon>
                         </Flex>

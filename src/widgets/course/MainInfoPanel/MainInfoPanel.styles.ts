@@ -1,6 +1,10 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+interface CreateStylesParams {
+    isFavorite?: boolean;
+}
+
+export default createStyles((theme, { isFavorite }: CreateStylesParams) => ({
     root: {
         width: "100%",
         padding: 32,
@@ -61,13 +65,36 @@ export default createStyles((theme) => ({
         height: 48,
         width: 48,
         borderRadius: 8,
-        color: theme.colors.dark[0],
-        ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
-        },
+        backgroundColor: isFavorite ? theme.colors.grayLight[0] : "transparent",
+        color: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
 
         svg: {
             width: 20,
+            fill: isFavorite ? theme.colors.secondary[0] : "transparent",
+        },
+
+        ":hover": {
+            backgroundColor: theme.colors.grayLight[0],
+            svg: {
+                color: theme.colors.secondary[0],
+                fill: theme.colors.secondary[0],
+            },
+        },
+
+        ":active": {
+            backgroundColor: theme.colors.grayLight[0],
+            svg: {
+                color: theme.colors.dark[0],
+                fill: theme.colors.dark[0],
+            },
+        },
+        ":disabled": {
+            color: theme.colors.gray45[0],
+            backgroundColor: theme.colors.grayLight[0],
+            svg: {
+                color: theme.colors.gray45[0],
+                fill: theme.colors.gray45[0],
+            },
         },
     },
 }));

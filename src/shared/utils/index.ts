@@ -5,7 +5,6 @@ export * from "./getFileSize";
 export * from "./getPluralString";
 export * from "./useInfiniteRequest";
 export * from "./getLocalizationDate";
-export * from "./getMonthDifference";
 export * from "./showNotification";
 export * from "./getFullName";
 export * from "./checkRoleOrder";

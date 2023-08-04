@@ -38,6 +38,9 @@ import {
     $GetCourseResponse,
     DeleteFavoriteCoursesResponse,
     $DeleteFavoriteCoursesResponse,
+    UpdateCourseFavoriteStatusRequest,
+    UpdateCourseFavoriteStatusResponse,
+    $UpdateCourseFavoriteStatusResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -105,6 +108,11 @@ class CourseApi extends BaseApi {
     async getCourse({ id }: GetCourseRequest): Promise<GetCourseResponse> {
         const response = await this.instance.get(`courses/${id}`);
         return $GetCourseResponse.parse(response);
+    }
+
+    async updateCourseFavoriteStatus({ id, ...data }: UpdateCourseFavoriteStatusRequest): Promise<UpdateCourseFavoriteStatusResponse> {
+        const response = await this.instance.put(`courses/${id}/favorite-status`, data);
+        return $UpdateCourseFavoriteStatusResponse.parse(response);
     }
 
     async deleteFavoriteCourses(): Promise<DeleteFavoriteCoursesResponse> {
