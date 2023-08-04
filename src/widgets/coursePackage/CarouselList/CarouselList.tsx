@@ -5,7 +5,7 @@ import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
 import { CourseListFromPackage, Card as CoursePackageCard } from "@features/coursePackages";
 import { Heading, Paragraph } from "@shared/ui";
-import { adaptDataForUpdateAboutForm } from "./utils";
+import { adaptGetCoursePackagesRequest } from "./utils";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     title: string;
@@ -13,15 +13,16 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
     description?: string;
     exceptionCoursePackageId?: string;
     visible?: boolean;
+    courseId?: string;
 }
 
-const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, visible, ...props }: CarouselListProps) => {
+const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId, courseId, visible, ...props }: CarouselListProps) => {
     const {
         data: coursePackages,
         hasNextPage,
         fetchNextPage,
         isLoading,
-    } = useCoursePackages(adaptDataForUpdateAboutForm({ exceptionCoursePackageId }), visible);
+    } = useCoursePackages(adaptGetCoursePackagesRequest({ exceptionCoursePackageId, courseId }), visible);
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {

@@ -1,25 +1,22 @@
-import { BoxProps } from "@mantine/core";
-import { memo } from "react";
-//TODO: Вернуть как приступим к курсам ЛК (не моим курсам)
-// import Image from "next/image";
-// import { Heart } from "react-feather";
+import { ActionIcon, Badge, Box, BoxProps, Divider, Flex, Group, Text, ThemeIcon } from "@mantine/core";
+import Image from "next/image";
+import { Heart } from "react-feather";
 import { GetCourseResponse } from "@entities/course";
-// import { Button, Heading, Rating } from "@shared/ui";
-// import { getDiscountPrice, getLocalizationDate, getPluralString } from "@shared/utils";
-// import IconCalendar from "public/icons/calendar.svg";
-// import IconUsers from "public/icons/users.svg";
-// import IconStarFour from "public/icons/starFour.svg";
-// import useStyles from "./MainInfoPanel.styles";
+import { Button, Heading, Paragraph, Rating } from "@shared/ui";
+import { getPluralString, isMyCourse } from "@shared/utils";
+import IconUsers from "public/icons/users.svg";
+import IconStarFour from "public/icons/starFour.svg";
+import useStyles from "./MainInfoPanel.styles";
+import { AmountInfo, TagList } from "./components";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
     data: GetCourseResponse;
 }
 
-const MemoizedMainInfoPanel = memo(function MainInfoPanel(_props: MainInfoPanelProps) {
-    //TODO: Вернуть как приступим к курсам ЛК (не моим курсам)
-    return null;
-    // const { classes } = useStyles();
+const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
+    const { classes } = useStyles();
 
+    //TODO: Добавить как бкеенд добавит это https://addamant.planfix.ru/task/94326/?comment=8748025
     // const renderStartDate = useMemo(() => {
     //     if (data.dateStart) {
     //         return <Text className={classes.contentText}>{`Старт: ${getLocalizationDate(data.dateStart)}`}</Text>;
@@ -27,139 +24,92 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel(_props: MainInfoPanelP
     //     return <Text className={classes.contentText}>Свободное прохождение</Text>;
     // }, [data.dateStart]);
 
-    // const renderAmount = useMemo(() => {
-    //     if (data.isDiscount && data.discount.data.value) {
-    //         return (
-    //             <Group sx={{ gap: 6 }}>
-    //                 <Text className={classes.price}>
-    //                     {getDiscountPrice({
-    //                         price: data.price,
-    //                         amountDiscount: data.discount.data.value,
-    //                         type: data.discount.data.type,
-    //                     })}
-    //                 </Text>
-    //                 <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
-    //             </Group>
-    //         );
-    //     }
-    //     return <Text className={classes.price}>{`${data.price.toLocaleString("ru")} ₽`}</Text>;
-    // }, [data.price, data.isDiscount, data.discount.data]);
+    //TODO: Добавить функционал добавления курса в избранное
+    const handleToggleFavorite = () => undefined;
 
-    // const renderTags = useMemo(() => {
-    //     if (!data.tags.data.length) {
-    //         return null;
-    //     }
+    if (isMyCourse(data)) {
+        return null;
+    }
 
-    //     return (
-    //         <Group mt={16} sx={{ gap: 4 }}>
-    //             {data.tags.data.map((tag) => (
-    //                 <Badge key={tag.id} className={classes.tag}>
-    //                     #{tag.name}
-    //                 </Badge>
-    //             ))}
-    //         </Group>
-    //     );
-    // }, [data.tags]);
+    return (
+        <Box {...props} className={classes.root}>
+            <Flex gap={48} mb={32}>
+                <Flex direction="column" sx={{ flex: 1 }}>
+                    <Group>
+                        <Flex gap={8}>
+                            {data.discount && <Badge className={classes.discount}>{data.discount.amount} %</Badge>}
+                            <Badge className={classes.category}>{data.category?.name}</Badge>
+                        </Flex>
+                        <Flex gap={8}>
+                            <Flex gap={4}>
+                                <Flex gap={2}>
+                                    <Rating defaultValue={1} count={1} readOnly size="small" />
+                                    <Text className={classes.ratingValue}>{data.rating.averageRating}</Text>
+                                </Flex>
+                                <Text className={classes.ratingMaxValue}>из 5</Text>
+                            </Flex>
+                            <Divider className={classes.dividerDot} orientation="vertical" size={4} />
+                            <Text className={classes.reviewInfo}>{`${data.rating.reviewsCount} ${getPluralString(
+                                data.rating.reviewsCount,
+                                "отзыв",
+                                "отзыва",
+                                "отзывов"
+                            )}`}</Text>
+                        </Flex>
+                    </Group>
+                    <Heading>{data.name}</Heading>
+                    <Group>
+                        {/* //TODO: Вернуть как бек начнет возращать инфу о  начале старта курса (группы) */}
+                        {/* <Flex align="center" gap={6}>
+                           <ThemeIcon className={classes.icon}>
+                                <IconCalendar />
+                            </ThemeIcon>
+                            {renderStartDate}
+                        </Flex> */}
+                        <Flex align="center" gap={6}>
+                            <ThemeIcon className={classes.icon}>
+                                <IconUsers />
+                            </ThemeIcon>
+                            {/* //TODO: Вернуть как бек начнет возращать инфу о  кол-ве оставшихся мест в группе */}
+                            {/* <Paragraph variant="text-small-m" >Мест осталось: {data.availableSeats}</Paragraph> */}
+                        </Flex>
+                    </Group>
+                    <Group sx={{ columnGap: 24, marginTop: 32 }}>
+                        <Flex gap={8}>
+                            <Button variant="secondary">Купить курс</Button>
+                            <ActionIcon className={classes.favoriteActionIcon} onClick={handleToggleFavorite}>
+                                <Heart />
+                            </ActionIcon>
+                        </Flex>
+                        <Flex direction="column">
+                            <Flex gap={6}>
+                                <IconStarFour />
+                                <Paragraph variant="text-small-m">{`${data.lessonsCount} ${getPluralString(
+                                    data.lessonsCount,
+                                    "урок",
+                                    "урока",
+                                    "уроков"
+                                )}`}</Paragraph>
+                            </Flex>
+                            <AmountInfo data={data} />
+                        </Flex>
+                    </Group>
+                </Flex>
+                <Box className={classes.imageWrapper}>
+                    {data.cover && (
+                        <Image src={data.cover.absolutePath} loader={({ src }) => `${src}`} fill sizes="100vw" alt={data.cover.name} />
+                    )}
+                </Box>
+            </Flex>
+            <Flex direction="column" gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Описание курса
+                </Paragraph>
+                <Paragraph variant="small-m">{data.description}</Paragraph>
+            </Flex>
+            <TagList data={data.tags} mt={16} />
+        </Box>
+    );
+};
 
-    // return (
-    //     <Box {...props} className={classes.root}>
-    //         <Flex mb={32}>
-    //             <Group sx={{ flexDirection: "column", alignItems: "flex-start", flexWrap: "nowrap", flex: 1 }}>
-    //                 <Group>
-    //                     <Flex gap={8}>
-    //                         {data.isDiscount && (
-    //                             <Badge variant="outline" className={classes.discount}>
-    //                                 {data.discount.data.value} %
-    //                             </Badge>
-    //                         )}
-    //                         <Badge variant="outline" className={classes.category}>
-    //                             {data.categories.data[0].name}
-    //                         </Badge>
-    //                     </Flex>
-    //                     <Flex gap={8}>
-    //                         <Flex gap={4}>
-    //                             <Flex gap={2}>
-    //                                 <Rating defaultValue={1} count={1} readOnly size="small" />
-    //                                 <Text className={classes.ratingValue}>{data.rating}</Text>
-    //                             </Flex>
-    //                             <Text className={classes.ratingMaxValue}>из 5</Text>
-    //                         </Flex>
-    //                         <Divider className={classes.dividerDot} orientation="vertical" size={4} />
-    //                         <Text className={classes.reviewInfo}>{`${data.reviewCount} ${getPluralString(
-    //                             data.reviewCount,
-    //                             "отзыв",
-    //                             "отзыва",
-    //                             "отзывов"
-    //                         )}`}</Text>
-    //                     </Flex>
-    //                 </Group>
-    //                 <Heading>{data.name}</Heading>
-    //                 <Group>
-    //                     <Flex align="center" gap={6}>
-    //                         <ThemeIcon
-    //                             variant="outline"
-    //                             w={24}
-    //                             h={24}
-    //                             mih={24}
-    //                             miw={24}
-    //                             sx={(theme) => ({ border: "none", path: { fill: theme.colors.secondaryHover[0] } })}>
-    //                             <IconCalendar />
-    //                         </ThemeIcon>
-    //                         {renderStartDate}
-    //                     </Flex>
-    //                     <Flex align="center" gap={6}>
-    //                         <ThemeIcon
-    //                             variant="outline"
-    //                             w={24}
-    //                             h={24}
-    //                             mih={24}
-    //                             miw={24}
-    //                             sx={(theme) => ({ border: "none", path: { fill: theme.colors.secondaryHover[0] } })}>
-    //                             <IconUsers />
-    //                         </ThemeIcon>
-    //                         <Text className={classes.contentText}>Мест осталось: {data.availableSeats}</Text>
-    //                     </Flex>
-    //                 </Group>
-    //                 <Group sx={{ columnGap: 24, marginTop: 32 }}>
-    //                     <Flex gap={8}>
-    //                         <Button variant="secondary">Купить курс</Button>
-    //                         <ActionIcon className={classes.favoriteActionIcon}>
-    //                             <Heart />
-    //                         </ActionIcon>
-    //                     </Flex>
-    //                     <Flex direction="column">
-    //                         <Group sx={{ gap: 6 }}>
-    //                             <IconStarFour />
-    //                             <Text>{`${data.lessonCount} ${getPluralString(data.lessonCount, "урок", "урока", "уроков")}`}</Text>
-    //                         </Group>
-    //                         {renderAmount}
-    //                     </Flex>
-    //                 </Group>
-    //             </Group>
-    //             <Group>
-    //                 <Box className={classes.imageWrapper}>
-    //                     {data.picture.data && (
-    //                         <Image
-    //                             src={data.picture.data.absolutePath}
-    //                             loader={({ src }) => `${src}`}
-    //                             alt={data.picture.data.name}
-    //                             fill
-    //                             sizes="100vw"
-    //                             style={{
-    //                                 objectFit: "cover",
-    //                             }}
-    //                         />
-    //                     )}
-    //                 </Box>
-    //             </Group>
-    //         </Flex>
-    //         <Flex direction="column" gap={8}>
-    //             <Text className={classes.descriptionTitle}>Описание курса</Text>
-    //             <Text className={classes.contentText}>{data.description}</Text>
-    //         </Flex>
-    //         {renderTags}
-    //     </Box>
-    // );
-});
-
-export default MemoizedMainInfoPanel;
+export default MainInfoPanel;

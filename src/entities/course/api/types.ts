@@ -61,11 +61,13 @@ export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublic
  *
  */
 // export type Course = z.infer<typeof $Course>;
+export type MyCourse = z.infer<typeof $MyCourse>;
 export type CourseFromList = z.infer<typeof $CourseFromList>;
 export type CourseRating = z.infer<typeof $CourseRating>;
 export type CourseAuthor = z.infer<typeof $CourseAuthor>;
 export type CourseTeacher = z.infer<typeof $CourseTeacher>;
-
+export type CourseModule = z.infer<typeof $CourseModule>;
+export type CourseModuleLesson = z.infer<typeof $CourseModuleLesson>;
 export type CourseCategory = z.infer<typeof $CourseCategory>;
 export type CourseTag = z.infer<typeof $CourseTag>;
 
@@ -85,10 +87,6 @@ export type DeleteFavoriteCoursesResponse = z.infer<typeof $DeleteFavoriteCourse
 
 // MOCKS
 export type CourseBlock = z.infer<typeof $CourseBlock>;
-export type CourseProgram = z.infer<typeof $CourseProgram>;
-export type GetCourseProgramResponse = z.infer<typeof $GetCourseProgramResponse>;
-export type GetCourseProgramModuleLessonsResponse = z.infer<typeof $GetCourseProgramModuleLessonsResponse>;
-export type GetCourseProgramModuleLessonsRequest = z.infer<typeof $GetCourseProgramModuleLessonsRequest>;
 
 export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesResponse>;
 
@@ -461,6 +459,24 @@ export const $CourseTeacher = $User.pick({
     profile: true,
 });
 
+export const $CourseModuleLesson = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    content: z.string().nullable(),
+    hasTest: z.boolean(),
+    hasHomework: z.boolean(),
+});
+
+export const $CourseModule = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    lessonsCount: z.number(),
+    lessonHomeworksCount: z.number(),
+    lessons: $CourseModuleLesson.array(),
+});
+
 export const $Course = z.object({
     id: z.number(),
     name: z.string(),
@@ -471,6 +487,9 @@ export const $Course = z.object({
     isFavorite: z.boolean(),
     isOwn: z.boolean(),
     lessonsCount: z.number(),
+    modulesCount: z.number(),
+    lessonTestsCount: z.number(),
+    lessonHomeworksCount: z.number(),
     cover: $UploadedFile.nullable(),
     category: $CourseCategory.nullable(),
     subcategory: $CourseCategory.nullable(),
@@ -479,7 +498,73 @@ export const $Course = z.object({
     teachers: $CourseTeacher.array(),
     discount: $Discount.nullable(),
     rating: $CourseRating,
+    modules: $CourseModule.array(),
 });
+
+///MY COURSE
+export const $MyCourseStatusName = z
+    .literal("inProgress")
+    .or(z.literal("notStarted"))
+    .or(z.literal("completed"))
+    .or(z.literal("archive"))
+    .or(z.literal("all"));
+
+export const $MyCourseTag = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
+export const $MyCourseCategory = $MyCourseTag;
+
+export const $MyCourseStatus = z.object({
+    name: $MyCourseStatusName,
+    displayName: z.string(),
+});
+
+//TODO: Заменить из апи авторов
+export const $MyCourseAuthor = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string().nullable(),
+    description: z.string().nullable(),
+    avatar: $UploadedFile.nullable(),
+});
+
+export const $GroupsCount = z.object({
+    name: z.string(),
+    displayName: z.string(),
+    count: z.number(),
+});
+
+export const $MyCourse = z.object({
+    groupId: z.number(),
+    courseId: z.number(),
+    name: z.string(),
+    description: z.string().nullable(),
+    type: $CourseType,
+    availableTo: z.coerce.date().nullable(),
+    status: $MyCourseStatus,
+    nextLesson: z.number().nullable(),
+    prevLesson: z.number().nullable(),
+    lessonsCount: z.object({
+        total: z.number(),
+        passed: z.number(),
+    }),
+    practiceCount: z.object({
+        total: z.number(),
+        passed: z.number(),
+    }),
+    cover: $UploadedFile,
+    category: $MyCourseCategory.nullable(),
+    tags: $MyCourseTag.array(),
+    authors: $MyCourseAuthor.array(),
+    rating: z.object({
+        reviewsCount: z.number(),
+        averageRating: z.number(),
+    }),
+});
+
+//MY COURSE end
 
 export const $CourseFromList = $Course.pick({
     id: true,
@@ -529,8 +614,6 @@ export const $CoursesRequest = z.object({
 
 export const $GetCoursesRequest = $getFiltersRequestType($CoursesRequest);
 
-// export const $GetCoursesInfiniteRequest = $GetCoursesRequest.omit({ page: true, perPage: true });
-
 export const $GetCourseResourcesRequest = $GetAdminCourseResourcesRequest;
 
 export const $GetCourseResourcesResponse = z.object({
@@ -544,42 +627,35 @@ export const $GetCourseRequest = z.object({
     id: z.string(),
 });
 
-export const $GetCourseResponse = $Course.pick({
-    id: true,
-    name: true,
-    description: true,
-    price: true,
-    discountPrice: true,
-    type: true,
-    isFavorite: true,
-    lessonsCount: true,
-    cover: true,
-    category: true,
-    tags: true,
-    authors: true,
-    teachers: true,
-    discount: true,
-    rating: true,
-});
+export const $GetCourseResponse = $Course
+    .pick({
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        discountPrice: true,
+        type: true,
+        isFavorite: true,
+        lessonsCount: true,
+        modulesCount: true,
+        lessonTestsCount: true,
+        lessonHomeworksCount: true,
+        cover: true,
+        category: true,
+        tags: true,
+        authors: true,
+        teachers: true,
+        discount: true,
+        rating: true,
+        modules: true,
+    })
+    .or($MyCourse);
 
 export const $DeleteFavoriteCoursesResponse = z.null();
 
 // TODO:
 // MOCKS
 //
-
-export const $CourseProgram = z.object({
-    id: z.number(),
-    name: z.string(),
-    lessonCount: z.number(),
-    practiceCount: z.number(),
-});
-
-export const $CourseProgramModuleLesson = z.object({
-    name: z.string(),
-    hasHomework: z.boolean(),
-    hasTest: z.boolean(),
-});
 
 export const $CourseBlock = z.object({
     id: z.number(),
@@ -610,23 +686,6 @@ export const $CourseBlock = z.object({
             title: z.string(),
         })
         .nullable(),
-});
-
-export const $GetCourseProgramResponse = z.object({
-    moduleCount: z.number(),
-    lessonCount: z.number(),
-    homeworkCount: z.number(),
-    testCount: z.number(),
-    dateStart: z.string().datetime().nullable(),
-    dateEnd: z.string().datetime().nullable(),
-    modules: $getPaginationResponseType($CourseProgram),
-});
-
-export const $GetCourseProgramModuleLessonsResponse = $getPaginationResponseType($CourseProgramModuleLesson);
-
-export const $GetCourseProgramModuleLessonsRequest = z.object({
-    courseId: z.number(),
-    programId: z.number(),
 });
 
 export const $GetFavoriteCoursesResponse = $getPaginationResponseType($Course);

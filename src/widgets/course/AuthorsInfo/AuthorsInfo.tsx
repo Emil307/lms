@@ -1,12 +1,12 @@
 import { Flex, Avatar, BoxProps } from "@mantine/core";
 import { useMemo } from "react";
-import { GetGroupResponse } from "@entities/group";
 import { Heading, Paragraph } from "@shared/ui";
 import AvatarIcon from "@public/icons/avatar.svg";
+import { GetCourseResponse } from "@entities/course";
 import useStyles from "./AuthorsInfo.styles";
 
 export interface AuthorsInfoProps extends Omit<BoxProps, "children"> {
-    data: GetGroupResponse;
+    data: GetCourseResponse;
 }
 
 const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
@@ -20,7 +20,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
                 const fullName = [author.lastName, author.firstName, author.patronymic].join(" ");
                 return (
                     <Flex key={index} className={classes.authorCard}>
-                        <Avatar src={data.cover.absolutePath} className={classes.avatarWrapper} alt={data.cover.name} radius={50}>
+                        <Avatar src={data.cover?.absolutePath} className={classes.avatarWrapper} alt={data.cover?.name} radius={50}>
                             <AvatarIcon />
                         </Avatar>
                         <Flex direction="column" gap={4}>

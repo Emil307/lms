@@ -38,6 +38,9 @@ export type DeleteCourseReviewResponse = z.infer<typeof $DeleteCourseReviewRespo
 export type CourseReview = z.infer<typeof $CourseReview>;
 export type CourseReviewFromList = z.infer<typeof $CourseReviewFromList>;
 
+//FILTERS
+export type CourseReviewsFiltersForm = z.infer<typeof $CourseReviewsFiltersForm>;
+
 //REQ/RESP
 export type GetCourseReviewsRequest = z.infer<typeof $GetCourseReviewsRequest>;
 export type GetCourseReviewsResponse = z.infer<typeof $GetCourseReviewsResponse>;
@@ -207,7 +210,18 @@ export const $CourseReviewFromList = $CourseReview;
 
 export const $GetCourseReviewsResponse = $getPaginationResponseType($CourseReviewFromList);
 
-export const $CourseReviewsRequest = z.object({});
+export const $CourseReviewsFiltersForm = z.object({
+    courseId: z.string(),
+});
+
+export const $CourseReviewsRequest = z.object({
+    filter: z
+        .object({
+            "course.id": z.string(),
+        })
+        .partial()
+        .optional(),
+});
 
 export const $GetCourseReviewsRequest = $getFiltersRequestType($CourseReviewsRequest);
 
