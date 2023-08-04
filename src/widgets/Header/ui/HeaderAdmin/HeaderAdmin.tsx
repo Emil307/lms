@@ -10,8 +10,8 @@ import { Logo } from "@components/Logo";
 import { Menu as NotificationMenu } from "@widgets/notifications";
 import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
-import useStyles from "./HeaderAdmin.styles";
 import { logoutPath, Roles } from "@app/routes";
+import useStyles from "./HeaderAdmin.styles";
 
 const HeaderAdmin = () => {
     const router = useRouter();

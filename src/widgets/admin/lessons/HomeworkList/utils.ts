@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
+import { MRT_Cell } from "mantine-react-table";
 import { AdminHomeworkAnswerFromList, GetAdminHomeworkAnswersRequest } from "@entities/lesson";
 import { TCellBadge, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminHomeworkAnswersFilters } from "./types";
-import { MRT_Cell } from "mantine-react-table";
 
 export const adaptGetAdminHomeworkAnswersRequest = ({
     status,
@@ -19,11 +19,11 @@ export const adaptGetAdminHomeworkAnswersRequest = ({
         "student.id": studentId,
         ...(updatedAtFrom &&
             updatedAtTo && {
-                updatedAt: {
-                    items: [dayjs(updatedAtFrom).format("YYYY-MM-DD"), dayjs(updatedAtTo).endOf("day").format()],
-                    operator: "range",
-                },
-            }),
+            updatedAt: {
+                items: [dayjs(updatedAtFrom).format("YYYY-MM-DD"), dayjs(updatedAtTo).endOf("day").format()],
+                operator: "range",
+            },
+        }),
     },
 });
 

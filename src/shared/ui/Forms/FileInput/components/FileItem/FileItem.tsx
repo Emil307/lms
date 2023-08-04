@@ -1,12 +1,12 @@
 import React, { memo, ReactNode, useMemo } from "react";
 import { Box, Button, Text, Flex } from "@mantine/core";
 import { FileText, Slash } from "react-feather";
+import { saveAs } from "file-saver";
 import { Loader, Paragraph } from "@shared/ui";
 import { FileStatus } from "@shared/types";
 import { getFileSize } from "@shared/utils";
 import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
-import { saveAs } from "file-saver";
 
 export interface FileItemProps {
     type: "document";

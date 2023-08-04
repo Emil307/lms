@@ -1,6 +1,6 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { AdminCourseFromList } from "@entities/course";
 import dayjs from "dayjs";
+import { AdminCourseFromList } from "@entities/course";
 
 export const columnOrder = ["id", "name", "createdAt", "category.name", "isActive"];
 

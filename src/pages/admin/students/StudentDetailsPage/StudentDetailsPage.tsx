@@ -6,9 +6,9 @@ import { useDetailsUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
 import { getFullName } from "@shared/utils";
+import { AdminStudentCourseList } from "@features/students";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
-import { AdminStudentCourseList } from "@features/students";
 
 const StudentDetailsPage = () => {
     const router = useRouter();

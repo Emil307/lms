@@ -3,9 +3,9 @@ import { memo } from "react";
 import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
 import { Paragraph } from "@shared/ui";
+import { AdminHomeworkAnswerMessage } from "@entities/lesson";
 import useStyles from "./MessageItem.styles";
 import { getFormatCreatedAt } from "./utils";
-import { AdminHomeworkAnswerMessage } from "@entities/lesson";
 
 export interface MessageItemProps extends Omit<FlexProps, "onClick"> {
     data: AdminHomeworkAnswerMessage;

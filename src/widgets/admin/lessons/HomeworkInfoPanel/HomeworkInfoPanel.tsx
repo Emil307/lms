@@ -1,9 +1,9 @@
-import useStyles from "./HomeworkInfoPanel.styles";
-import { AdminHomeworkAnswer } from "@entities/lesson";
-import { Heading, Paragraph } from "@shared/ui";
 import { Flex, Box } from "@mantine/core";
 import React from "react";
 import dayjs from "dayjs";
+import { Heading, Paragraph } from "@shared/ui";
+import { AdminHomeworkAnswer } from "@entities/lesson";
+import useStyles from "./HomeworkInfoPanel.styles";
 
 interface HomeworkInfoPanelProps {
     homeworkAnswer: AdminHomeworkAnswer;

@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { Roles } from "@app/routes";
+import CloseBookIcon from "@public/icons/closeBook.svg";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
-import CloseBookIcon from "@public/icons/closeBook.svg";
 
 export default function SidebarMenu() {
     const router = useRouter();

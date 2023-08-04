@@ -5,10 +5,10 @@ import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpe
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { useClickOutside, useMediaQuery } from "@mantine/hooks";
 import { Roles } from "@app/routes";
+import CloseBookIcon from "public/icons/closeBook.svg";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
-import CloseBookIcon from "public/icons/closeBook.svg";
 import { MinimizedModeSidebarContext } from "./utils";
 
 export default function Sidebar() {

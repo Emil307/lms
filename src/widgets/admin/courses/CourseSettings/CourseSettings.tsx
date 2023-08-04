@@ -13,9 +13,9 @@ import { Fieldset } from "@components/Fieldset";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
+import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
 import { getInfoCardFields } from "./utils";
 import useStyles from "./CourseSettings.styles";
-import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
 
 interface CourseSettingsProps {
     data: AdminCourse;

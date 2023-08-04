@@ -3,13 +3,13 @@ import { ActionIcon, Flex, Header as MHeader, MediaQuery, Skeleton, useMantineTh
 import { AlignLeft, Folder, Heart, Search, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { IconBrandMessenger } from "@tabler/icons";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
-import useStyles from "./HeaderPublicUser.styles";
-import { IconBrandMessenger } from "@tabler/icons";
-import { Menu } from "./components";
 import { useSession } from "@features/auth";
+import useStyles from "./HeaderPublicUser.styles";
+import { Menu } from "./components";
 
 const HeaderPublicUser = () => {
     const router = useRouter();
