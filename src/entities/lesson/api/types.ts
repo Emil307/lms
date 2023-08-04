@@ -68,6 +68,13 @@ export type GetAdminHomeworkAnswerResponse = z.infer<typeof $GetAdminHomeworkAns
 export type UpdateAdminHomeworkAnswerStatusRequest = z.infer<typeof $UpdateAdminHomeworkAnswerStatusRequest>;
 export type UpdateAdminHomeworkAnswerStatusResponse = z.infer<typeof $UpdateAdminHomeworkAnswerStatusResponse>;
 
+export type AdminHomeworkAnswerMessage = z.infer<typeof $AdminHomeworkAnswerMessage>;
+export type AdminHomeworkAnswerMessagesRequest = z.infer<typeof $AdminHomeworkAnswerMessagesRequest>;
+export type GetAdminHomeworkAnswerMessagesRequest = z.infer<typeof $GetAdminHomeworkAnswerMessagesRequest>;
+export type GetAdminHomeworkAnswerMessagesResponse = z.infer<typeof $GetAdminHomeworkAnswerMessagesResponse>;
+export type CreateAdminHomeworkAnswerMessageRequest = z.infer<typeof $CreateAdminHomeworkAnswerMessageRequest>;
+export type CreateAdminHomeworkAnswerMessageResponse = z.infer<typeof $CreateAdminHomeworkAnswerMessageResponse>;
+
 export type AttachMaterialsToLessonRequest = z.infer<typeof $AttachMaterialsToLessonRequest>;
 export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFromLessonRequest>;
 
@@ -386,6 +393,34 @@ export const $UpdateAdminHomeworkAnswerStatusRequest = z.object({
 });
 
 export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer;
+
+export const $AdminHomeworkAnswerMessage = z.object({
+    id: z.number(),
+    content: z.string(),
+    createdAt: z.coerce.date(),
+    sender: z.object({
+        id: z.number(),
+        email: z.string(),
+        profile: $Profile.omit({
+            additionalImage: true,
+        }),
+    }),
+});
+
+export const $AdminHomeworkAnswerMessagesRequest = z.object({
+    homeworkAnswerId: z.string(),
+});
+
+export const $GetAdminHomeworkAnswerMessagesRequest = $getFiltersRequestType($AdminHomeworkAnswerMessagesRequest);
+
+export const $GetAdminHomeworkAnswerMessagesResponse = $getPaginationResponseType($AdminHomeworkAnswerMessage);
+
+export const $CreateAdminHomeworkAnswerMessageRequest = z.object({
+    homeworkAnswerId: z.string(),
+    content: z.string(),
+});
+
+export const $CreateAdminHomeworkAnswerMessageResponse = $AdminHomeworkAnswerMessage;
 
 /***
  *
