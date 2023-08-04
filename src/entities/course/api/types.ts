@@ -61,6 +61,7 @@ export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublic
  *
  */
 // export type Course = z.infer<typeof $Course>;
+export type CourseDetails = z.infer<typeof $CourseDetails>;
 export type MyCourse = z.infer<typeof $MyCourse>;
 export type CourseFromList = z.infer<typeof $CourseFromList>;
 export type CourseRating = z.infer<typeof $CourseRating>;
@@ -70,6 +71,7 @@ export type CourseModule = z.infer<typeof $CourseModule>;
 export type CourseModuleLesson = z.infer<typeof $CourseModuleLesson>;
 export type CourseCategory = z.infer<typeof $CourseCategory>;
 export type CourseTag = z.infer<typeof $CourseTag>;
+export type CourseUpcomingGroup = z.infer<typeof $CourseUpcomingGroup>;
 
 //FILTERS
 export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
@@ -84,6 +86,8 @@ export type GetCourseResponse = z.infer<typeof $GetCourseResponse>;
 export type GetCourseResourcesRequest = z.infer<typeof $GetCourseResourcesRequest>;
 export type GetCourseResourcesResponse = z.infer<typeof $GetCourseResourcesResponse>;
 export type DeleteFavoriteCoursesResponse = z.infer<typeof $DeleteFavoriteCoursesResponse>;
+export type UpdateCourseFavoriteStatusRequest = z.infer<typeof $UpdateCourseFavoriteStatusRequest>;
+export type UpdateCourseFavoriteStatusResponse = z.infer<typeof $UpdateCourseFavoriteStatusResponse>;
 
 // MOCKS
 export type CourseBlock = z.infer<typeof $CourseBlock>;
@@ -477,6 +481,16 @@ export const $CourseModule = z.object({
     lessons: $CourseModuleLesson.array(),
 });
 
+export const $CourseUpcomingGroup = z.object({
+    id: z.number(),
+    name: z.string(),
+    status: z.object({ type: z.string(), name: z.string() }),
+    educationStartDate: z.coerce.date(),
+    educationFinishDate: z.coerce.date(),
+    studentsCount: z.number(),
+    freePlacesCount: z.number(),
+});
+
 export const $Course = z.object({
     id: z.number(),
     name: z.string(),
@@ -499,6 +513,8 @@ export const $Course = z.object({
     discount: $Discount.nullable(),
     rating: $CourseRating,
     modules: $CourseModule.array(),
+    upcomingGroup: $CourseUpcomingGroup.nullable(),
+    duration: z.string().nullable(),
 });
 
 ///MY COURSE
@@ -580,6 +596,7 @@ export const $CourseFromList = $Course.pick({
     category: true,
     subcategory: true,
     discount: true,
+    upcomingGroup: true,
 });
 
 export const $GetCoursesResponse = $getPaginationResponseType($CourseFromList);
@@ -627,31 +644,42 @@ export const $GetCourseRequest = z.object({
     id: z.string(),
 });
 
-export const $GetCourseResponse = $Course
-    .pick({
-        id: true,
-        name: true,
-        description: true,
-        price: true,
-        discountPrice: true,
-        type: true,
-        isFavorite: true,
-        lessonsCount: true,
-        modulesCount: true,
-        lessonTestsCount: true,
-        lessonHomeworksCount: true,
-        cover: true,
-        category: true,
-        tags: true,
-        authors: true,
-        teachers: true,
-        discount: true,
-        rating: true,
-        modules: true,
-    })
-    .or($MyCourse);
+export const $CourseDetails = $Course.pick({
+    id: true,
+    name: true,
+    description: true,
+    price: true,
+    discountPrice: true,
+    type: true,
+    isFavorite: true,
+    lessonsCount: true,
+    modulesCount: true,
+    lessonTestsCount: true,
+    lessonHomeworksCount: true,
+    cover: true,
+    category: true,
+    tags: true,
+    authors: true,
+    teachers: true,
+    discount: true,
+    rating: true,
+    modules: true,
+    upcomingGroup: true,
+    duration: true,
+});
+
+export const $GetCourseResponse = $CourseDetails.or($MyCourse);
 
 export const $DeleteFavoriteCoursesResponse = z.null();
+
+export const $UpdateCourseFavoriteStatusRequest = z.object({
+    id: z.string(),
+    isFavorite: z.boolean(),
+});
+
+export const $UpdateCourseFavoriteStatusResponse = z.object({
+    isFavorite: z.boolean(),
+});
 
 // TODO:
 // MOCKS

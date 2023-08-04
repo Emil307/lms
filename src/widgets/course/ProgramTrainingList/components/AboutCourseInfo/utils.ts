@@ -1,12 +1,8 @@
-import { GetCourseResponse } from "@entities/course";
-import { getPluralString, isMyCourse } from "@shared/utils";
+import { CourseDetails } from "@entities/course";
+import { getPluralString } from "@shared/utils";
 
-export const getCourseInfoList = (data: GetCourseResponse) => {
-    if (isMyCourse(data)) {
-        return [];
-    }
-
-    return [
+export const getCourseInfoList = (data: CourseDetails) => {
+    const items = [
         {
             id: 1,
             label: "Состав",
@@ -24,19 +20,15 @@ export const getCourseInfoList = (data: GetCourseResponse) => {
                 "домашних заданий"
             )}, ${data.lessonTestsCount} ${getPluralString(data.lessonTestsCount, "тест", "теста", "тестов")}`,
         },
-        //TODO: добавить как бек добавит это поле
-        // {
-        //     id: 3,
-        //     label: "Продолжительность",
-        //     value:
-        //         data.dateStart &&
-        //         data.dateEnd &&
-        //         `${getMonthDifference(data.dateStart, data.dateEnd)} ${getPluralString(
-        //             getMonthDifference(data.dateStart, data.dateEnd),
-        //             "месяц",
-        //             "месяца",
-        //             "месяцев"
-        //         )}`,
-        // },
     ];
+
+    if (data.duration) {
+        items.push({
+            id: 3,
+            label: "Продолжительность",
+            value: data.duration,
+        });
+    }
+
+    return items;
 };

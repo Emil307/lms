@@ -1,19 +1,14 @@
 import { Flex, Text } from "@mantine/core";
-import { GetCourseResponse } from "@entities/course";
+import { CourseDetails } from "@entities/course";
 import { Heading } from "@shared/ui";
-import { isMyCourse } from "@shared/utils";
 import useStyles from "./AmountInfo.styles";
 
 export interface AmountInfoProps {
-    data: GetCourseResponse;
+    data: CourseDetails;
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
     const { classes } = useStyles();
-
-    if (isMyCourse(data)) {
-        return null;
-    }
 
     if (data.discount) {
         return (

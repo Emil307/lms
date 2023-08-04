@@ -1,11 +1,11 @@
 import { Flex, Group } from "@mantine/core";
 import { Heading, Paragraph } from "@shared/ui";
-import { GetCourseResponse } from "@entities/course";
+import { CourseDetails } from "@entities/course";
 import useStyles from "./AboutCourseInfo.styles";
 import { getCourseInfoList } from "./utils";
 
 export interface AboutCourseInfoProps {
-    data: GetCourseResponse;
+    data: CourseDetails;
 }
 
 const AboutCourseInfo = ({ data }: AboutCourseInfoProps) => {
