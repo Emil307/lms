@@ -1,0 +1,53 @@
+import { useRouter } from "next/router";
+import { initialParams } from "./constants";
+import { useIntersection } from "@mantine/hooks";
+import { useEffect } from "react";
+import { Flex, Skeleton } from "@mantine/core";
+import { Heading } from "@shared/ui";
+import { Carousel } from "@components/Carousel";
+import { Card } from "./components";
+import { AdminGroupSchedulesInfo, useAdminGroupsSchedules } from "@entities/group";
+
+const GroupsSchedulesList = () => {
+    const router = useRouter();
+
+    const { data: schedulesInfo, isFetching, isError, hasNextPage, fetchNextPage } = useAdminGroupsSchedules(initialParams);
+
+    const { ref: lastElemRef, entry } = useIntersection();
+
+    useEffect(() => {
+        if (entry && entry.isIntersecting && hasNextPage) {
+            fetchNextPage();
+        }
+    }, [entry]);
+
+    if (isFetching) {
+        return (
+            <>
+                <Skeleton maw={323} h={40} radius={8} />
+                <Skeleton w="100%" h={408} radius={16} />
+            </>
+        );
+    }
+
+    if (isError || !schedulesInfo?.data.length) {
+        return null;
+    }
+
+    const handleClickScheduleCard = (courseId: number) => router.push({ pathname: "/my-courses/[id]", query: { id: String(courseId) } });
+
+    return (
+        <Flex gap={32} direction="column">
+            <Heading order={1}>Расписание занятий</Heading>
+            <Carousel<AdminGroupSchedulesInfo>
+                data={schedulesInfo.data}
+                lastElemRef={lastElemRef}
+                slideSize={448}
+                breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
+                {(props) => <Card data={props.data} onClick={handleClickScheduleCard} />}
+            </Carousel>
+        </Flex>
+    );
+};
+
+export default GroupsSchedulesList;
