@@ -11,4 +11,5 @@ export * from "./UpdateHomework";
 export * from "./HomeworkInfoPanel";
 export * from "./HomeworkTask";
 export * from "./HomeworkList";
+export * from "./HomeworkChat";
 export { LessonInfoPanel };

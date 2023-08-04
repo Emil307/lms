@@ -6,7 +6,7 @@ import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { Box, Text } from "@mantine/core";
 import { tabList } from "./constants";
 import { useAdminLessonHomeworkAnswer } from "@entities/lesson";
-import { HomeworkInfoPanel, HomeworkTask } from "@widgets/admin/lessons";
+import { HomeworkChat, HomeworkInfoPanel, HomeworkTask } from "@widgets/admin/lessons";
 
 const HomeworkDetailPage = () => {
     const router = useRouter();
@@ -39,10 +39,15 @@ const HomeworkDetailPage = () => {
         switch (currentTab) {
             case "task":
                 return <HomeworkTask homeworkAnswer={homeworkAnswer} studentFio={studentFio} />;
-            case "dialog":
-                return null;
+            case "chat":
+                return (
+                    <HomeworkChat
+                        homeworkAnswerId={String(homeworkAnswer.id)}
+                        answerIsCompleted={homeworkAnswer?.status.name === "completed"}
+                    />
+                );
             default:
-                return null;
+                return <HomeworkTask homeworkAnswer={homeworkAnswer} studentFio={studentFio} />;
         }
     };
 
