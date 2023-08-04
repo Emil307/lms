@@ -108,6 +108,11 @@ const HeaderPublicUser = () => {
 
                 <Flex className={classes.wrapperRightMenu}>
                     <Flex gap={{ md: 12, sm: 0 }}>
+                        <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
+                            <ActionIcon className={classes.actionIcon} onClick={() => router.push("/courses")}>
+                                <Search />
+                            </ActionIcon>
+                        </MediaQuery>
                         {user && (
                             <ActionIcon
                                 className={classes.actionIcon}
@@ -118,9 +123,6 @@ const HeaderPublicUser = () => {
                                 <Heart />
                             </ActionIcon>
                         )}
-                        <ActionIcon className={classes.actionIcon} onClick={() => router.push("/courses")}>
-                            <Search />
-                        </ActionIcon>
                     </Flex>
 
                     <Flex align="center" gap={8}>

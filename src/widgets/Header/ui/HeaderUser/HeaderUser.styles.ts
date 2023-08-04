@@ -39,11 +39,7 @@ export default createStyles((theme) => ({
     },
 
     containerButtonLinks: {
-        gap: 12,
-
-        [theme.fn.smallerThan("md")]: {
-            gap: 4,
-        },
+        gap: 1,
 
         [theme.fn.smallerThan("sm")]: {
             display: "none",
@@ -57,6 +53,10 @@ export default createStyles((theme) => ({
     wrapperRightMenu: {
         alignItems: "center",
         gap: 24,
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 4,
+        },
 
         [theme.fn.smallerThan("sm")]: {
             gap: 12,

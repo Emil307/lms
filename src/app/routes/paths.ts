@@ -2,12 +2,14 @@ export const authPath = "/auth";
 
 export const logoutPath = "/logout";
 
+export const notFoundPath = "/404";
+
 export const authPaths = ["/auth"];
 
 export const publicPaths = [
     "/$",
     "/courses$",
-    "/courses/\\d+",
+    "/courses/(\\d+|\\[\\w+])$",
     "/course-collections",
     "/course-packages",
     "/about",
@@ -28,13 +30,13 @@ export const studentPaths = publicPaths.concat([
 
 export const teacherPaths = studentPaths.concat([
     "/admin/students$",
-    "/admin/students/\\d+",
+    "/admin/students/(\\d+|\\[\\w+])$",
     "/admin/groups$",
-    "/admin/groups/\\d+",
+    "/admin/groups/(\\d+|\\[\\w+])$",
     "/admin/courses$",
-    "/admin/courses/\\d+$",
-    "/admin/courses/\\d+/module/\\d+$",
-    "/admin/courses/\\d+/module/\\d+/lesson/\\d+$",
+    "/admin/courses/(\\d+|\\[\\w+])$",
+    "/admin/courses/(\\d+|\\[\\w+])/module/(\\d+|\\[\\w+])$",
+    "/admin/courses/(\\d+|\\[\\w+])/module/(\\d+|\\[\\w+])/lesson/(\\d+|\\[\\w+])$",
     "/admin/homeworks",
     //TODO: аналитика
 ]);
@@ -50,3 +52,5 @@ export const managerPaths = teacherPaths.concat([
     "/admin/transactions",
     "/admin/users",
 ]);
+
+export const allPaths = managerPaths.concat(authPaths).concat([logoutPath]);

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {ECookies} from "@app/config/axios/cookies";
-import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded} from "@app/routes";
+import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded, allPaths, notFoundPath} from "@app/routes";
 
 export function middleware(req: NextRequest) {
     const url = req.nextUrl;
@@ -10,9 +10,17 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    {/*TODO: Убрать при релизе*/}
+    //TODO: Убрать при релизе
     if (url.pathname === "/ui") {
         return NextResponse.next();
+    }
+
+    const isPageExist = isPathIncluded(allPaths, url.pathname);
+
+    if (!isPageExist) {
+        url.pathname = notFoundPath;
+        //TODO Поменять на redirect, если будет готова 404 страница
+        return NextResponse.rewrite(url);
     }
 
     const token = req.cookies.get(ECookies.TOKEN)?.value;

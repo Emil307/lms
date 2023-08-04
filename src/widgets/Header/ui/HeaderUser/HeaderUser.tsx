@@ -42,7 +42,7 @@ const HeaderUser = ({ ...props }: HeaderUserProps) => {
     return (
         <MHeader {...props} classNames={classes} height="auto" fixed={false}>
             <Flex className={classes.inner}>
-                <Flex align="center" gap={{ md: 89, sm: 16 }}>
+                <Flex align="center" gap={{ md: 89, sm: 8 }}>
                     <Link href="/cabinet" className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
                         <Logo
                             className={classes.logo}
