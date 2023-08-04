@@ -8,29 +8,11 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.white[0],
     },
     discount: {
-        height: "auto",
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 60,
-        backgroundColor: theme.colors.dark[0],
         boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.white[0],
-        textTransform: "inherit",
     },
     category: {
-        height: "auto",
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 60,
         backgroundColor: theme.colors.light[0],
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
         color: theme.colors.dark[0],
-        textTransform: "inherit",
     },
     ratingValue: {
         fontWeight: 600,
@@ -62,13 +44,19 @@ export default createStyles((theme) => ({
         width: 424,
         height: 260,
         borderRadius: 16,
+        backgroundColor: theme.colors.grayLight[0],
     },
-    contentText: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
+
+    icon: {
+        width: 24,
+        height: 24,
+        minHeight: 24,
+        minWidth: 24,
+        path: {
+            fill: theme.colors.secondaryHover[0],
+        },
     },
+
     favoriteActionIcon: {
         height: 48,
         width: 48,
@@ -81,29 +69,5 @@ export default createStyles((theme) => ({
         svg: {
             width: 20,
         },
-    },
-    price: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    priceWithoutDiscount: {
-        fontWeight: 400,
-        fontSize: 20,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
-        textDecoration: "line-through",
-    },
-    descriptionTitle: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
-    },
-    tag: {
-        backgroundColor: theme.colors.light[0],
-        color: theme.colors.gray45[0],
-        textTransform: "inherit",
     },
 }));

@@ -6,6 +6,7 @@ import { CourseReviewFromList, useCourseReviews } from "@entities/courseReview";
 import { Card as CourseReviewCard } from "@features/courseReviews";
 import useStyles from "./CarouselList.styles";
 import { initialParams } from "./constants";
+import { adaptGetCourseReviewsRequest } from "./utils";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     headerSlot?: ReactNode;
@@ -16,7 +17,12 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
 const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListProps) => {
     const { classes } = useStyles();
 
-    const { data: courseReviewsData, hasNextPage, fetchNextPage, isLoading } = useCourseReviews(initialParams, visible);
+    const {
+        data: courseReviewsData,
+        hasNextPage,
+        fetchNextPage,
+        isLoading,
+    } = useCourseReviews(adaptGetCourseReviewsRequest({ ...initialParams, courseId }), visible);
 
     const { ref: lastElemRef, entry } = useIntersection();
 

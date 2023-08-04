@@ -1,6 +1,10 @@
 import { CoursePackagesFiltersForm, GetCoursePackagesRequest } from "@entities/coursePackage";
 
-export const adaptDataForUpdateAboutForm = ({ exceptionCoursePackageId, ...rest }: CoursePackagesFiltersForm): GetCoursePackagesRequest => {
+export const adaptGetCoursePackagesRequest = ({
+    exceptionCoursePackageId,
+    courseId,
+    ...rest
+}: CoursePackagesFiltersForm): GetCoursePackagesRequest => {
     return {
         ...rest,
         filter: {
@@ -9,6 +13,9 @@ export const adaptDataForUpdateAboutForm = ({ exceptionCoursePackageId, ...rest 
                     items: [exceptionCoursePackageId],
                     operator: "not",
                 },
+            }),
+            ...(courseId && {
+                courseIds: courseId,
             }),
         },
     };

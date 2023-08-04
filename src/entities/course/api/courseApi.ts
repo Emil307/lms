@@ -3,14 +3,9 @@ import { BaseApi } from "@shared/utils";
 import {
     GetAdminCoursesRequest,
     GetAdminCoursesResponse,
-    GetCourseProgramModuleLessonsRequest,
-    GetCourseProgramModuleLessonsResponse,
-    GetCourseProgramResponse,
     GetAdminCourseResourcesResponse,
     $GetAdminCourseResourcesResponse,
     $GetAdminCoursesResponse,
-    $GetCourseProgramResponse,
-    $GetCourseProgramModuleLessonsResponse,
     GetCoursesResponse,
     $GetCoursesResponse,
     GetCoursesRequest,
@@ -110,19 +105,6 @@ class CourseApi extends BaseApi {
     async getCourse({ id }: GetCourseRequest): Promise<GetCourseResponse> {
         const response = await this.instance.get(`courses/${id}`);
         return $GetCourseResponse.parse(response);
-    }
-
-    async getCourseProgram(courseId: number): Promise<GetCourseProgramResponse> {
-        const response = await this.instance.get(`courses/${courseId}/program`);
-        return $GetCourseProgramResponse.parse(response);
-    }
-
-    async getCourseProgramModuleLessons({
-        courseId,
-        programId,
-    }: GetCourseProgramModuleLessonsRequest): Promise<GetCourseProgramModuleLessonsResponse> {
-        const response = await this.instance.get(`courses/${courseId}/program/${programId}`);
-        return $GetCourseProgramModuleLessonsResponse.parse(response);
     }
 
     async deleteFavoriteCourses(): Promise<DeleteFavoriteCoursesResponse> {

@@ -268,6 +268,7 @@ export const $UpdateAdminTestRequest = z.object({
 export const $UpdateAdminTestResponse = $AdminTest.nullable();
 
 export const $HomeworkRequiredType = z.literal("required").or(z.literal("notRequired"));
+
 export const $HomeworkAnswerStatusName = z.literal("onReview").or(z.literal("needsEdit")).or(z.literal("completed"));
 
 export const $HomeworkAnswerStatus = z.object({

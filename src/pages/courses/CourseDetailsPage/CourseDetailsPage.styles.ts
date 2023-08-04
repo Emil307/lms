@@ -2,7 +2,8 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        width: "100%",
+        flexDirection: "column",
+        gap: 32,
     },
     reviewInfo: {
         fontWeight: 600,

@@ -22,17 +22,4 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.dark[0],
     },
-
-    countLessons: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
-    countPractice: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
 }));

@@ -147,6 +147,7 @@ export const $CreateCoursePackageRequest = z.object({
 export const $CoursePackagesRequest = z.object({
     filter: z
         .object({
+            courseIds: z.string(),
             id: $getMultiValueObjectType(z.string(), z.literal("not")),
         })
         .partial(),
@@ -156,6 +157,7 @@ export const $GetCoursePackagesRequest = $getFiltersRequestType($CoursePackagesR
 
 export const $CoursePackagesFiltersForm = z.object({
     exceptionCoursePackageId: z.string().optional(),
+    courseId: z.string().optional(),
 });
 export const $UpdateCoursePackageRequest = $CreateCoursePackageRequest.extend({ id: z.string() });
 

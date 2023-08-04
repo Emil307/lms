@@ -1,3 +1,3 @@
-export * from "./CourseDetailPage";
+export * from "./CourseDetailsPage";
 export * from "./CoursesPage";
 export * from "./FavoriteCourses";

@@ -1,6 +1,5 @@
 export * from "./Card";
 export * from "./List";
-export * from "./ProgramModuleLessonsList";
 export * from "./SettedCard";
 export * from "./List";
 export * from "./CreateCourseForm";
