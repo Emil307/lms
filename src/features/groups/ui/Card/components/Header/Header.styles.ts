@@ -12,6 +12,10 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         flexWrap: "wrap-reverse",
         margin: "0 !important",
         gap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column-reverse",
+        },
     },
     contentWrapper: {
         flex: 1,
@@ -32,7 +36,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         ...getColorsByStatus(theme, { status }),
     },
     iconCalendarWrapper: {
-        width: 32,
+        minWidth: 32,
         height: 32,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary16,

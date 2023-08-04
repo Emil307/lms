@@ -10,6 +10,7 @@ import {
     $GetAdminGroupFiltersResponse,
     $GetAdminGroupParticipantsResponse,
     $GetAdminGroupResponse,
+    $GetAdminGroupSchedulesInfoResponse,
     $GetAdminGroupSchedulesResponse,
     $GetAdminGroupsResponse,
     $GetGroupModulesResponse,
@@ -38,6 +39,8 @@ import {
     GetAdminGroupParticipantsResponse,
     GetAdminGroupRequest,
     GetAdminGroupResponse,
+    GetAdminGroupSchedulesInfoRequest,
+    GetAdminGroupSchedulesInfoResponse,
     GetAdminGroupSchedulesRequest,
     GetAdminGroupSchedulesResponse,
     GetAdminGroupsRequest,
@@ -103,14 +106,21 @@ class GroupApi extends BaseApi {
     }
 
     //schedules
+    async getAdminGroupsSchedules(params: GetAdminGroupSchedulesInfoRequest): Promise<GetAdminGroupSchedulesInfoResponse> {
+        const response = await this.instance.post(`admin/groups/schedules/list`, params);
+        return $GetAdminGroupSchedulesInfoResponse.parse(response);
+    }
+
     async getAdminGroupSchedules({ groupId, ...params }: GetAdminGroupSchedulesRequest): Promise<GetAdminGroupSchedulesResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/schedules/list`, params);
         return $GetAdminGroupSchedulesResponse.parse(response);
     }
+
     async createAdminGroupSchedule({ groupId, ...data }: CreateAdminGroupScheduleRequest): Promise<CreateAdminGroupScheduleResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/schedules`, data);
         return $CreateAdminGroupScheduleResponse.parse(response);
     }
+
     async updateAdminGroupSchedule({
         groupId,
         scheduleId,
@@ -119,6 +129,7 @@ class GroupApi extends BaseApi {
         const response = await this.instance.put(`admin/groups/${groupId}/schedules/${scheduleId}`, data);
         return $UpdateAdminGroupScheduleResponse.parse(response);
     }
+
     async deleteAdminGroupSchedule({ groupId, scheduleId }: DeleteAdminGroupScheduleRequest): Promise<DeleteAdminGroupScheduleResponse> {
         const response = await this.instance.delete(`admin/groups/${groupId}/schedules/${scheduleId}`);
         return $DeleteAdminGroupScheduleResponse.parse(response);

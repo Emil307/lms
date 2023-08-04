@@ -31,6 +31,9 @@ export type AdminGroupParticipantLessonsStatistics = z.infer<typeof $AdminGroupP
 export type AdminGroupParticipantTestsStatistics = z.infer<typeof $AdminGroupParticipantTestsStatistics>;
 export type AdminGroupParticipantHomeworksStatistics = z.infer<typeof $AdminGroupParticipantHomeworksStatistics>;
 //schedules
+export type AdminGroupSchedulesInfo = z.infer<typeof $AdminGroupSchedulesInfo>;
+export type GetAdminGroupSchedulesInfoRequest = z.infer<typeof $GetAdminGroupSchedulesInfoRequest>;
+export type GetAdminGroupSchedulesInfoResponse = z.infer<typeof $GetAdminGroupSchedulesInfoResponse>;
 export type AdminGroupSchedule = z.infer<typeof $AdminGroupSchedule>;
 export type AdminGroupScheduleTiming = z.infer<typeof $AdminGroupScheduleTiming>;
 export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromList>;
@@ -342,6 +345,22 @@ export const $AdminGroupSchedule = z.object({
     date: z.coerce.date(),
     timings: $AdminGroupScheduleTiming.array(),
 });
+
+export const $AdminGroupSchedulesInfo = z.object({
+    id: z.number(),
+    name: z.string(),
+    educationStartDate: z.coerce.date(),
+    educationFinishDate: z.coerce.date(),
+    course: z.object({
+        id: z.number(),
+        name: z.string(),
+    }),
+    schedules: z.array($AdminGroupSchedule),
+});
+
+export const $GetAdminGroupSchedulesInfoRequest = $getFiltersRequestType(z.object({}));
+
+export const $GetAdminGroupSchedulesInfoResponse = $getPaginationResponseType($AdminGroupSchedulesInfo);
 
 export const $AdminGroupScheduleFromList = $AdminGroupSchedule;
 
