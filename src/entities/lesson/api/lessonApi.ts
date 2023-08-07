@@ -69,6 +69,12 @@ import {
     GetLessonRequest,
     GetLessonResponse,
     $GetLessonResponse,
+    GetHomeworkAnswerMessagesRequest,
+    GetHomeworkAnswerMessagesResponse,
+    $GetHomeworkAnswerMessagesResponse,
+    CreateHomeworkAnswerMessageRequest,
+    CreateHomeworkAnswerMessageResponse,
+    $CreateHomeworkAnswerMessageResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -212,6 +218,22 @@ class LessonApi extends BaseApi {
     async updateHomeworkAnswer({ lessonId, ...data }: UpdateHomeworkAnswerRequest): Promise<UpdateHomeworkAnswerResponse> {
         const response = await this.instance.put(`user/lessons/${lessonId}/homework-answer`, data);
         return $UpdateHomeworkAnswerResponse.parse(response);
+    }
+
+    async getHomeworkAnswerMessages({
+        homeworkAnswerId,
+        ...params
+    }: GetHomeworkAnswerMessagesRequest): Promise<GetHomeworkAnswerMessagesResponse> {
+        const response = await this.instance.get(`user/lessons/homeworks/answers/${homeworkAnswerId}/messages`, { params });
+        return $GetHomeworkAnswerMessagesResponse.parse(response);
+    }
+
+    async createHomeworkAnswerMessage({
+        homeworkAnswerId,
+        ...data
+    }: CreateHomeworkAnswerMessageRequest): Promise<CreateHomeworkAnswerMessageResponse> {
+        const response = await this.instance.post(`user/lessons/homeworks/answers/${homeworkAnswerId}/messages`, data);
+        return $CreateHomeworkAnswerMessageResponse.parse(response);
     }
 }
 

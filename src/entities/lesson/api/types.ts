@@ -98,6 +98,9 @@ export type Homework = z.infer<typeof $Homework>;
 export type HomeworkAnswer = z.infer<typeof $HomeworkAnswer>;
 export type HomeworkAnswerStatusName = z.infer<typeof $HomeworkAnswerStatusName>;
 export type HomeworkAnswerStatus = z.infer<typeof $HomeworkAnswerStatus>;
+//homework messages
+export type HomeworkAnswerMessage = z.infer<typeof $HomeworkAnswerMessage>;
+export type HomeworkAnswerMessageFromList = z.infer<typeof $HomeworkAnswerMessageFromList>;
 
 //REQ/RESP
 export type GetLessonRequest = z.infer<typeof $GetLessonRequest>;
@@ -114,6 +117,11 @@ export type GetHomeworkRequest = z.infer<typeof $GetHomeworkRequest>;
 export type GetHomeworkResponse = z.infer<typeof $GetHomeworkResponse>;
 export type UpdateHomeworkAnswerRequest = z.infer<typeof $UpdateHomeworkAnswerRequest>;
 export type UpdateHomeworkAnswerResponse = z.infer<typeof $UpdateHomeworkAnswerResponse>;
+//homework messages
+export type GetHomeworkAnswerMessagesRequest = z.infer<typeof $GetHomeworkAnswerMessagesRequest>;
+export type GetHomeworkAnswerMessagesResponse = z.infer<typeof $GetHomeworkAnswerMessagesResponse>;
+export type CreateHomeworkAnswerMessageRequest = z.infer<typeof $CreateHomeworkAnswerMessageRequest>;
+export type CreateHomeworkAnswerMessageResponse = z.infer<typeof $CreateHomeworkAnswerMessageResponse>;
 
 /***
  *
@@ -545,7 +553,6 @@ export const $UpdateHomeworkAnswerRequest = z.object({
 export const $UpdateHomeworkAnswerResponse = $Homework;
 
 //LESSON
-
 export const $Lesson = z.object({
     id: z.number(),
     name: z.string(),
@@ -564,3 +571,37 @@ export const $GetLessonRequest = z.object({
 });
 
 export const $GetLessonResponse = $Lesson;
+//HOMEWORK MESSAGE
+export const $HomeworkAnswerMessage = z.object({
+    id: z.number(),
+    content: z.string(),
+    createdAt: z.coerce.date(),
+    sender: $User.pick({
+        id: true,
+        email: true,
+        profile: true,
+        roles: true,
+    }),
+});
+export const $HomeworkAnswerMessageFromList = $HomeworkAnswerMessage;
+
+export const $GetHomeworkAnswerMessagesResponse = $getPaginationResponseType($HomeworkAnswerMessageFromList);
+
+export const $HomeworkAnswerMessagesRequest = z.object({
+    homeworkAnswerId: z.string(),
+});
+
+export const $GetHomeworkAnswerMessagesRequest = $getFiltersRequestType($HomeworkAnswerMessagesRequest);
+
+export const $CreateHomeworkAnswerMessageRequest = z.object({
+    homeworkAnswerId: z.string(),
+    content: z.string(),
+});
+
+export const $CreateHomeworkAnswerMessageResponse = $HomeworkAnswerMessage.omit({ sender: true }).extend({
+    sender: $User.pick({
+        id: true,
+        email: true,
+        profile: true,
+    }),
+});

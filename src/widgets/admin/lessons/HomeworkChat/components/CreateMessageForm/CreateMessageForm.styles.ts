@@ -16,7 +16,7 @@ export default createStyles((theme) => ({
     sendIcon: {
         position: "absolute",
         right: 30,
-        bottom: 30,
+        top: 30,
         color: theme.colors.dark[0],
 
         ":hover": {
