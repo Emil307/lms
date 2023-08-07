@@ -35,7 +35,7 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
     },
     content: {
         height: "100%",
-        overflow: "auto",
+        overflowY: "auto",
         borderRadius: 8,
 
         ...(readonly && {

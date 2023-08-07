@@ -19,11 +19,11 @@ export const adaptGetAdminHomeworkAnswersRequest = ({
         "student.id": studentId,
         ...(updatedAtFrom &&
             updatedAtTo && {
-            updatedAt: {
-                items: [dayjs(updatedAtFrom).format("YYYY-MM-DD"), dayjs(updatedAtTo).endOf("day").format()],
-                operator: "range",
-            },
-        }),
+                updatedAt: {
+                    items: [dayjs(updatedAtFrom).format("YYYY-MM-DD"), dayjs(updatedAtTo).endOf("day").format()],
+                    operator: "range",
+                },
+            }),
     },
 });
 
