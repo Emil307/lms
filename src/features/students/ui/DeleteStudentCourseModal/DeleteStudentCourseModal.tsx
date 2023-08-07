@@ -33,12 +33,12 @@ const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteS
                 </ThemeIcon>
                 <Flex direction="column" gap={8}>
                     <Heading order={4}>Внимание!</Heading>
+                    <Paragraph
+                        variant="small-semi"
+                        fw={
+                            500
+                        }>{`Ученик потеряет доступ к учебному курсу, статистика по курсу будет удалена. Вы уверены, что хотите удалить доступ к курсу, «${name}»?`}</Paragraph>
                 </Flex>
-                <Paragraph
-                    variant="small-semi"
-                    fw={
-                        500
-                    }>{`Ученик потеряет доступ к учебному курсу, статистика по курсу будет удалена. Вы уверены, что хотите удалить доступ к курсу, «${name}»?`}</Paragraph>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteStudentCourse.isLoading} w="100%">

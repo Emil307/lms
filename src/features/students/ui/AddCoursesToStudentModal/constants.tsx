@@ -1,9 +1,8 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminCourseFromList } from "@entities/course";
 
-export const columnOrder = ["mrt-row-select", "id", "name", "category.name", "subcategory.name"];
+export const columnOrder = ["mrt-row-select", "id", "name", "discountPrice"];
 
-//TODO: Обновить колонки после фиксов бека
 export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
         header: "ID",
@@ -14,11 +13,8 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
         accessorKey: "name",
     },
     {
-        header: "Категория курса",
-        accessorKey: "category.name",
-    },
-    {
-        header: "Подкатегория",
-        accessorKey: "subcategory.name",
+        header: "Стоимость",
+        accessorKey: "discountPrice",
+        accessorFn: ({ discountPrice }) => `${discountPrice.toLocaleString("ru")} ₽`,
     },
 ];

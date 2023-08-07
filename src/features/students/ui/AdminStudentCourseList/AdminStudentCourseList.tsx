@@ -36,7 +36,7 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
                 </Button>
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminStudentCoursesExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLE_COURSES}
+                queryKey={QueryKeys.GET_ADMIN_STUDENT_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetStudentCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 extraFilterParams={{ studentId }}
