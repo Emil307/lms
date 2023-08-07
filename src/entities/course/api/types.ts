@@ -169,6 +169,7 @@ export const $AdminCourse = z.object({
     isPopular: z.boolean(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
+    accessExpirationDate: z.coerce.date().nullable().optional(),
     lastUpdated: $LastUpdated.nullable(),
 });
 
@@ -196,6 +197,7 @@ export const $AdminCourseFromList = $AdminCourse.pick({
     discountPrice: true,
     isActive: true,
     createdAt: true,
+    accessExpirationDate: true,
     category: true,
     subcategory: true,
     tags: true,
@@ -240,7 +242,7 @@ export const $AdminCoursesRequest = z.object({
             "subcategory.id": z.string(),
             "discount.type": z.string(),
             articleIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
-            studentIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
+            studentIds: $getMultiValueObjectType(z.string(), z.literal("or")).or($getMultiValueObjectType(z.string(), z.literal("not"))),
         })
         .partial(),
 });
