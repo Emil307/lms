@@ -9,23 +9,25 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
     },
 
     p: {
-        marginBottom: 0,
+        margin: 0,
         fontWeight: 400,
         fontSize: 16,
         lineHeight: "24px",
+        minHeight: 24,
 
-        //TODO: перепроверить отступы
-        // "+ p": {
-        //     marginTop: 24,
-        //
-        //     [theme.fn.smallerThan("md")]: {
-        //         marginTop: 16,
-        //     },
-        // },
-        //
-        // "+ *:not(p, ul, a, img, .tableWrapper)": {
-        //     marginTop: 48,
-        // },
+        [theme.fn.smallerThan("md")]: {
+            minHeight: 16,
+        },
+    },
+
+    a: {
+        cursor: "pointer",
+        color: theme.colors.primary[0],
+        textDecoration: "none",
+
+        "&:hover": {
+            textDecoration: "underline",
+        },
     },
 
     h1: {
@@ -74,14 +76,28 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontWeight: 500,
         fontSize: 16,
         lineHeight: "22px",
+
+        [theme.fn.smallerThan("md")]: {
+            lineHeight: "18px",
+        },
     },
 
     blockquote: {
+        position: "relative",
         padding: "32px 48px",
-        margin: 0,
-        marginLeft: 24,
-        borderLeft: `4px solid ${theme.colors.secondary[0]}`,
+        margin: "0 0 48px 24px",
+        border: "none",
         backgroundColor: theme.colors.primary16[0],
+
+        "&:before": {
+            content: "''",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            height: "100%",
+            width: 4,
+            backgroundColor: theme.colors.secondary[0],
+        },
 
         [theme.fn.smallerThan("md")]: {
             padding: "24px 32px",
@@ -99,9 +115,24 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 },
             },
         },
+    },
 
-        "+ *": {
-            marginTop: 48,
+    ol: {
+        display: "flex",
+        flexDirection: "column",
+        marginTop: 8,
+        marginBottom: 8,
+        paddingLeft: 56,
+        paddingRight: 24,
+        gap: 8,
+
+        [theme.fn.smallerThan("md")]: {
+            paddingLeft: 40,
+            paddingRight: 8,
+        },
+
+        li: {
+            marginTop: 0,
         },
     },
 
@@ -114,6 +145,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         paddingRight: 24,
         gap: 8,
         listStyleType: "none",
+
+        [theme.fn.smallerThan("md")]: {
+            paddingLeft: 40,
+            paddingRight: 8,
+        },
 
         li: {
             marginTop: 0,
@@ -138,13 +174,26 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         objectFit: "contain",
     },
 
+    ".tableWrapper": {
+        overflowX: "auto",
+        overflowY: "hidden",
+
+        "::-webkit-scrollbar:horizontal": {
+            backgroundColor: "transparent",
+            width: 4,
+        },
+    },
+
     table: {
         borderCollapse: "collapse",
         margin: 0,
-        overflow: "hidden",
         tableLayout: "fixed",
-        width: "auto",
-        maxWidth: "100%",
+
+        tr: {
+            "&:last-of-type td": {
+                borderBottom: `1px solid ${theme.colors.gray20[0]}`,
+            },
+        },
 
         "td, th": {
             position: "relative",
@@ -153,6 +202,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             border: `1px solid ${theme.colors.gray20[0]}`,
             verticalAlign: "top",
 
+            p: {
+                fontSize: 14,
+                lineHeight: "16px",
+            },
+
             "> *": {
                 marginBottom: 0,
             },
@@ -160,8 +214,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
 
         th: {
             backgroundColor: theme.colors.grayLight[0],
-            fontWeight: "bold",
             textAlign: "left",
+
+            "> p": {
+                fontWeight: "bold",
+            },
         },
 
         ".selectedCell:after": {

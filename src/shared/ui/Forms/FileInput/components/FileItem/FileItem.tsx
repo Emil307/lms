@@ -52,7 +52,7 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
                 );
             case "done":
                 return (
-                    <Flex gap={8}>
+                    <Flex gap={8} align="center">
                         <Paragraph variant="text-small-m" className={classes.statusInfo}>
                             Готово
                         </Paragraph>
