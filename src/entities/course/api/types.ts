@@ -161,6 +161,7 @@ export const $AdminCourse = z.object({
     hasAuthors: z.boolean(),
     authors: z.array($AdminCourseAuthor),
     rating: $AdminCourseRating,
+    duration: z.string().nullable(),
     hasDiscount: z.boolean(),
     discount: $Discount.nullable(),
     isDemonstrative: z.boolean(),
@@ -263,6 +264,7 @@ export const $CreateCourseFormValues = z
             .number({ required_error: "Введите стоимость" })
             .int("Число должно быть целым")
             .nonnegative("Число должно не может быть отрицательным"),
+        duration: z.string().nullable().optional(),
         isInteractive: z.boolean(),
         isActive: z.boolean(),
         isDemonstrative: z.boolean(),

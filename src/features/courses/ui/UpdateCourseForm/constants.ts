@@ -18,6 +18,7 @@ export const initialValues: UpdateCourseFormValues = {
     category: "",
     subCategory: "",
     description: "",
+    duration: "",
     price: 0,
     isInteractive: false,
     isActive: false,

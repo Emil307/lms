@@ -181,6 +181,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                         />
                                     </Grid.Col>
                                 </Grid>
+                                <FInput size="sm" name="duration" label="Продолжительность курса" w="100%" />
                             </Fieldset>
 
                             <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={772} showDivider={false}>
