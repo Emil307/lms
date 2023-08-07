@@ -56,6 +56,10 @@ const List = ({
             return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
         }
 
+        if (!isLoading && !coursesData?.data.length && isFavorite) {
+            return <EmptyData title="У вас нет избранных курсов" description="Добавьте курсы в избранные на странице курсов или курса" />;
+        }
+
         return (
             <Box {...props} w="100%">
                 <ListComponent<CourseFromList>
