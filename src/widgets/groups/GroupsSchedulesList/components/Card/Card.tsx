@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import UsersIcon from "public/icons/users.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { AdminGroupSchedule, AdminGroupSchedulesInfo } from "@entities/group";
+import { GroupSchedule, GroupSchedulesInfo } from "@entities/group";
 import SmallArrowIcon from "public/icons/smallArrow.svg";
 import useStyles from "./Card.styles";
 
 interface CardProps {
-    data: AdminGroupSchedulesInfo;
+    data: GroupSchedulesInfo;
     onClick: (courseId: number) => void;
 }
 
@@ -25,7 +25,7 @@ const Card = ({ data, onClick }: CardProps) => {
     const firstSchedules = data.schedules.slice(0, 4);
     const restSchedules = data.schedules.slice(4);
 
-    const renderSchedule = (schedule: AdminGroupSchedule) => {
+    const renderSchedule = (schedule: GroupSchedule) => {
         return (
             <Flex className={classes.schedule} align="center">
                 <Paragraph className={classes.scheduleDate} variant="text-small-semi">

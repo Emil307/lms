@@ -1,9 +1,9 @@
 import { Flex } from "@mantine/core";
+import { useRef } from "react";
 import { StaticReviewFromList } from "@entities/staticReview";
 import { Button, Heading } from "@shared/ui";
-import useStyles from "./Header.styles";
 import { openVideo } from "@shared/utils";
-import { useRef } from "react";
+import useStyles from "./Header.styles";
 
 export interface HeaderProps {
     data: Pick<StaticReviewFromList, "content" | "video">;

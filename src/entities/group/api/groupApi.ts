@@ -10,7 +10,6 @@ import {
     $GetAdminGroupFiltersResponse,
     $GetAdminGroupParticipantsResponse,
     $GetAdminGroupResponse,
-    $GetAdminGroupSchedulesInfoResponse,
     $GetAdminGroupSchedulesResponse,
     $GetAdminGroupsResponse,
     $GetGroupModulesResponse,
@@ -18,6 +17,7 @@ import {
     $GetGroupsCountsResponse,
     $GetGroupsRequest,
     $GetGroupsResponse,
+    $GetGroupsSchedulesInfoResponse,
     $UpdateAdminGroupResponse,
     $UpdateAdminGroupScheduleResponse,
     $UpdateGroupActivityResponse,
@@ -39,8 +39,6 @@ import {
     GetAdminGroupParticipantsResponse,
     GetAdminGroupRequest,
     GetAdminGroupResponse,
-    GetAdminGroupSchedulesInfoRequest,
-    GetAdminGroupSchedulesInfoResponse,
     GetAdminGroupSchedulesRequest,
     GetAdminGroupSchedulesResponse,
     GetAdminGroupsRequest,
@@ -49,6 +47,8 @@ import {
     GetGroupModulesResponse,
     GetGroupRequest,
     GetGroupResponse,
+    GetGroupsSchedulesInfoRequest,
+    GetGroupsSchedulesInfoResponse,
     UpdateAdminGroupRequest,
     UpdateAdminGroupResponse,
     UpdateAdminGroupScheduleRequest,
@@ -106,11 +106,6 @@ class GroupApi extends BaseApi {
     }
 
     //schedules
-    async getAdminGroupsSchedules(params: GetAdminGroupSchedulesInfoRequest): Promise<GetAdminGroupSchedulesInfoResponse> {
-        const response = await this.instance.post(`admin/groups/schedules/list`, params);
-        return $GetAdminGroupSchedulesInfoResponse.parse(response);
-    }
-
     async getAdminGroupSchedules({ groupId, ...params }: GetAdminGroupSchedulesRequest): Promise<GetAdminGroupSchedulesResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/schedules/list`, params);
         return $GetAdminGroupSchedulesResponse.parse(response);
@@ -157,6 +152,11 @@ class GroupApi extends BaseApi {
     async getGroupModules({ groupId, ...params }: GetGroupModulesRequest): Promise<GetGroupModulesResponse> {
         const response = await this.instance.get(`groups/${groupId}/structure`, { params });
         return $GetGroupModulesResponse.parse(response);
+    }
+
+    async getGroupsSchedules(params: GetGroupsSchedulesInfoRequest): Promise<GetGroupsSchedulesInfoResponse> {
+        const response = await this.instance.post(`groups/schedules/list`, params);
+        return $GetGroupsSchedulesInfoResponse.parse(response);
     }
 }
 

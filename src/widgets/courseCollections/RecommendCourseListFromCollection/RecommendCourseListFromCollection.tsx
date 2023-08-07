@@ -1,14 +1,14 @@
 import { Flex, Skeleton } from "@mantine/core";
+import { useIntersection } from "@mantine/hooks";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
-import { initialParams } from "./constants";
 import { useCourseCollections } from "@entities/courseCollection";
-import { useIntersection } from "@mantine/hooks";
-import { useEffect } from "react";
+import { initialParams } from "./constants";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
-import { useRouter } from "next/router";
 
 const RecommendCourseListFromCollection = () => {
     const router = useRouter();

@@ -1,17 +1,17 @@
 import { useRouter } from "next/router";
-import { initialParams } from "./constants";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { Flex, Skeleton } from "@mantine/core";
 import { Heading } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
+import { GroupSchedulesInfo, useGroupsSchedules } from "@entities/group";
 import { Card } from "./components";
-import { AdminGroupSchedulesInfo, useAdminGroupsSchedules } from "@entities/group";
+import { initialParams } from "./constants";
 
 const GroupsSchedulesList = () => {
     const router = useRouter();
 
-    const { data: schedulesInfo, isFetching, isError, hasNextPage, fetchNextPage } = useAdminGroupsSchedules(initialParams);
+    const { data: schedulesInfo, isFetching, isError, hasNextPage, fetchNextPage } = useGroupsSchedules(initialParams);
 
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -39,7 +39,7 @@ const GroupsSchedulesList = () => {
     return (
         <Flex gap={32} direction="column">
             <Heading order={1}>Расписание занятий</Heading>
-            <Carousel<AdminGroupSchedulesInfo>
+            <Carousel<GroupSchedulesInfo>
                 data={schedulesInfo.data}
                 lastElemRef={lastElemRef}
                 slideSize={448}

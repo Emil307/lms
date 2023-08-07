@@ -1,10 +1,10 @@
 import { Box, Flex, ScrollArea } from "@mantine/core";
 import React, { useEffect, useMemo, useRef } from "react";
-import { initialParams } from "./constants";
 import { useIntersection } from "@mantine/hooks";
-import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
 import { Heading, Loader } from "@shared/ui";
 import { useAdminLessonHomeworkAnswerMessages } from "@entities/lesson";
+import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
+import { initialParams } from "./constants";
 import useStyles from "./HomeworkChat.styles";
 
 export interface MessageListProps {
