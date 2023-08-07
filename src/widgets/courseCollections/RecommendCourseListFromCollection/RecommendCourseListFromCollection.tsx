@@ -7,13 +7,13 @@ import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { useCourseCollections } from "@entities/courseCollection";
-import { initialParams } from "./constants";
+import {initialParamsForCollection, initialParamsForCourses} from "./constants";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
 
 const RecommendCourseListFromCollection = () => {
     const router = useRouter();
-    //TODO Добавить в запрос random: true, когда поправит бэк
-    const { data: courseCollectionData, isFetching: isFetchingCollection } = useCourseCollections({ perPage: 1, page: 1 });
+
+    const { data: courseCollectionData, isFetching: isFetchingCollection } = useCourseCollections(initialParamsForCollection);
 
     const courseCollection = courseCollectionData?.data[0];
 
@@ -23,7 +23,7 @@ const RecommendCourseListFromCollection = () => {
         hasNextPage,
         fetchNextPage,
     } = useCoursesInfinite(
-        adaptGetCoursesFromCollectionRequest({ ...initialParams, collectionIds: String(courseCollection?.id) }),
+        adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(courseCollection?.id) }),
         !!courseCollection
     );
 
@@ -52,7 +52,6 @@ const RecommendCourseListFromCollection = () => {
 
     const handleClickCourseCard = (courseId: number) => router.push({ pathname: "/courses/[id]", query: { id: String(courseId) } });
 
-    //TODO Убрать, когда поправит бэк в запросе random: true
     const collection = courseCollectionData.data[0];
 
     return (
