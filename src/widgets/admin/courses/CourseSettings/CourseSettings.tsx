@@ -72,7 +72,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
     };
 
     const renderRating = () => {
-        if (!data.rating.reviewsCount) {
+        if (!data.rating || !data.rating.reviewsCount) {
             return null;
         }
         return (

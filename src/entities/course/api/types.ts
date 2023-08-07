@@ -160,7 +160,7 @@ export const $AdminCourse = z.object({
     subcategory: $AdminCourseCategory.nullable(),
     hasAuthors: z.boolean(),
     authors: z.array($AdminCourseAuthor),
-    rating: $AdminCourseRating,
+    rating: $AdminCourseRating.nullable(),
     duration: z.string().nullable(),
     hasDiscount: z.boolean(),
     discount: $Discount.nullable(),
