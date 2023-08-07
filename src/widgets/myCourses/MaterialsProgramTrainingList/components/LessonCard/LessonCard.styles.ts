@@ -1,8 +1,8 @@
 import { createStyles } from "@mantine/core";
-import { GroupModuleLessonStatusName } from "@entities/group";
+import { LessonStatusName } from "@entities/group";
 
 interface CreateStylesParams {
-    status: GroupModuleLessonStatusName;
+    status: LessonStatusName;
 }
 
 export default createStyles((theme, { status }: CreateStylesParams) => ({

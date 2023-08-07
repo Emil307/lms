@@ -10,6 +10,7 @@ import {
     $UploadedFile,
 } from "@shared/types";
 import { $User } from "@entities/user";
+import { $LessonStatus } from "@entities/group";
 
 /***
  *
@@ -83,6 +84,7 @@ export type DetachMaterialsFromLessonRequest = z.infer<typeof $DetachMaterialsFr
  * USER TYPES
  *
  */
+export type Lesson = z.infer<typeof $Lesson>;
 //test
 export type Test = z.infer<typeof $Test>;
 export type TestTask = z.infer<typeof $TestTask>;
@@ -98,6 +100,8 @@ export type HomeworkAnswerStatusName = z.infer<typeof $HomeworkAnswerStatusName>
 export type HomeworkAnswerStatus = z.infer<typeof $HomeworkAnswerStatus>;
 
 //REQ/RESP
+export type GetLessonRequest = z.infer<typeof $GetLessonRequest>;
+export type GetLessonResponse = z.infer<typeof $GetLessonResponse>;
 //test
 export type GetTestRequest = z.infer<typeof $GetTestRequest>;
 export type GetTestResponse = z.infer<typeof $GetTestResponse>;
@@ -533,9 +537,30 @@ export const $GetHomeworkResponse = $Homework.nullable();
 
 export const $UpdateHomeworkAnswerRequest = z.object({
     lessonId: z.string(),
-    groupId: z.number(),
+    groupId: z.string(),
     answer: z.string(),
     fileIds: z.number().array(),
 });
 
 export const $UpdateHomeworkAnswerResponse = $Homework;
+
+//LESSON
+
+export const $Lesson = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    content: z.string(),
+    hasTest: z.boolean(),
+    hasHomework: z.boolean(),
+    lessonStatus: $LessonStatus,
+    videos: $UploadedFile.array(),
+    files: $UploadedFile.array(),
+});
+
+export const $GetLessonRequest = z.object({
+    id: z.string(),
+    groupId: z.string(),
+});
+
+export const $GetLessonResponse = $Lesson;

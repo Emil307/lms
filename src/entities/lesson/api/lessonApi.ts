@@ -66,6 +66,9 @@ import {
     CreateAdminHomeworkAnswerMessageRequest,
     CreateAdminHomeworkAnswerMessageResponse,
     $CreateAdminHomeworkAnswerMessageResponse,
+    GetLessonRequest,
+    GetLessonResponse,
+    $GetLessonResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -179,6 +182,10 @@ class LessonApi extends BaseApi {
     }
 
     //USER
+    async getLesson({ id, ...params }: GetLessonRequest): Promise<GetLessonResponse> {
+        const response = await this.instance.get(`user/lessons/${id}`, { params });
+        return $GetLessonResponse.parse(response);
+    }
 
     //test
     async getTest({ lessonId }: GetTestRequest): Promise<GetTestResponse> {

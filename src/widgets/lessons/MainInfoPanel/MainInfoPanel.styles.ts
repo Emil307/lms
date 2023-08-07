@@ -8,36 +8,17 @@ interface CreateStylesParams {
 export default createStyles((theme, { status }: CreateStylesParams) => ({
     root: {
         flexDirection: "column",
-        padding: 16,
-        gap: 16,
+        width: "100%",
+        padding: 24,
+        gap: 32,
         borderRadius: 16,
-        backgroundColor: status === "blocked" ? theme.colors.grayLight[0] : theme.colors.white[0],
+        backgroundColor: theme.colors.white[0],
     },
     status: {
         width: "min-content",
         height: 28,
         borderRadius: 32,
-
         ...getColorsByStatus(theme, { status }),
-    },
-    lockLessonInfo: {
-        width: "min-content",
-        height: 28,
-        borderRadius: 32,
-        color: theme.colors.gray45[0],
-        backgroundColor: theme.colors.white[0],
-
-        span: {
-            display: "flex",
-            gap: 8,
-        },
-    },
-    wrapperLockIcon: {
-        width: 16,
-        height: 16,
-        minHeight: 16,
-        minWidth: 16,
-        color: theme.colors.gray45[0],
     },
 }));
 

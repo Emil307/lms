@@ -7,3 +7,4 @@ export { useHomework } from "./useHomework";
 export { useAdminLessonHomeworkAnswer } from "./useAdminLessonHomeworkAnswer";
 export { useAdminLessonHomeworkAnswersResources } from "./useAdminLessonHomeworkAnswersResources";
 export { useAdminLessonHomeworkAnswerMessages } from "./useAdminLessonHomeworkAnswerMessages";
+export { useLesson } from "./useLesson";

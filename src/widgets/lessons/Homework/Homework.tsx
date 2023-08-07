@@ -9,9 +9,10 @@ import { PassedHomeworkInfo } from "./components";
 
 export interface HomeworkProps {
     lessonId: string;
+    groupId: string;
 }
 
-const Homework = ({ lessonId }: HomeworkProps) => {
+const Homework = ({ lessonId, groupId }: HomeworkProps) => {
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const [openedHomeworkDetails, setOpenedHomeworkDetails] = useState(false);
     const [isVisibleCollapsedView, setVisibleCollapsedView] = useState(false);
@@ -87,13 +88,12 @@ const Homework = ({ lessonId }: HomeworkProps) => {
                     </Flex>
                 </Collapse>
 
-                <PassedHomeworkInfo data={homeworkData} lessonId={lessonId} />
+                <PassedHomeworkInfo data={homeworkData} lessonId={lessonId} groupId={groupId} />
 
                 <UpdateLessonHomeworkAnswerForm
                     data={homeworkData}
                     lessonId={lessonId}
-                    //TODO: для теста. тк groupId будет браться из show lesson ЛК
-                    groupId={3}
+                    groupId={groupId}
                     onClose={handleCloseUpdateLessonHomeworkAnswerForm}
                     hidden={!openedHomeworkAnswerForm}
                 />
