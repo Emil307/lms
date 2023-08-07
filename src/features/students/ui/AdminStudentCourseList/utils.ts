@@ -9,7 +9,10 @@ export const adaptGetStudentCoursesRequest = (
     return {
         ...rest,
         filter: {
-            studentIds: studentId,
+            studentIds: {
+                items: [studentId],
+                operator: "or",
+            },
         },
     };
 };
