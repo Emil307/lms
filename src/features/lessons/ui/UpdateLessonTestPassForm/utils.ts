@@ -20,7 +20,7 @@ export const getInitialValues = (testData?: GetTestResponse, testPassData?: GetT
                             isPrevSelected,
                         };
                     }),
-                    isCheckbox: task.is_checkbox,
+                    isCheckbox: task.isCheckbox,
                 };
             }) || [],
     };
@@ -32,7 +32,7 @@ export const adaptUpdateLessonTestPassRequest = (
     const { tasks } = data;
     return {
         answers: tasks.map((task) => ({
-            test_task_id: task.id,
+            testTaskId: task.id,
             selections: task.answers.filter((answer) => answer.isSelected).map(({ order }) => order),
         })),
     };
