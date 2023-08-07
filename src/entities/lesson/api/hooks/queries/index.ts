@@ -8,3 +8,4 @@ export { useAdminLessonHomeworkAnswer } from "./useAdminLessonHomeworkAnswer";
 export { useAdminLessonHomeworkAnswersResources } from "./useAdminLessonHomeworkAnswersResources";
 export { useAdminLessonHomeworkAnswerMessages } from "./useAdminLessonHomeworkAnswerMessages";
 export { useLesson } from "./useLesson";
+export { useLessonHomeworkAnswerMessages } from "./useLessonHomeworkAnswerMessages";

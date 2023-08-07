@@ -1,4 +1,4 @@
-import { Badge, Collapse, Flex, Text } from "@mantine/core";
+import { Badge, Collapse, Divider, Flex, Text } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronUp } from "react-feather";
 import { Button, ContentByTextEditor, FileItem, Heading, Loader } from "@shared/ui";
@@ -6,6 +6,7 @@ import { useHomework } from "@entities/lesson";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
 import useStyles from "./Homework.styles";
 import { PassedHomeworkInfo } from "./components";
+import { HomeworkChat } from "../HomeworkChat";
 
 export interface HomeworkProps {
     lessonId: string;
@@ -97,6 +98,13 @@ const Homework = ({ lessonId, groupId }: HomeworkProps) => {
                     onClose={handleCloseUpdateLessonHomeworkAnswerForm}
                     hidden={!openedHomeworkAnswerForm}
                 />
+                <Divider size={1} color="gray20" hidden={!homeworkData?.answers.length} />
+                {!!homeworkData?.answers.length && (
+                    <HomeworkChat
+                        homeworkAnswerId={String(homeworkData.answers[0].id)}
+                        answerIsCompleted={homeworkData.answers[0]?.status.name === "completed"}
+                    />
+                )}
             </Flex>
         </Flex>
     );
