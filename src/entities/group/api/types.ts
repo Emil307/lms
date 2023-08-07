@@ -94,8 +94,8 @@ export type GroupCategory = z.infer<typeof $GroupCategory>;
 export type GroupModule = z.infer<typeof $GroupModule>;
 export type GroupModuleFromList = z.infer<typeof $GroupModuleFromList>;
 export type GroupModuleLesson = z.infer<typeof $GroupModuleLesson>;
-export type GroupModuleLessonStatus = z.infer<typeof $GroupModuleLessonStatus>;
-export type GroupModuleLessonStatusName = z.infer<typeof $GroupModuleLessonStatusName>;
+export type LessonStatus = z.infer<typeof $LessonStatus>;
+export type LessonStatusName = z.infer<typeof $LessonStatusName>;
 
 //REQ/RESP
 export type GetGroupsRequest = z.infer<typeof $GetGroupsRequest>;
@@ -517,14 +517,10 @@ export const $GetGroupsCountsResponse = $GroupsCount.array();
 
 //group modules
 
-export const $GroupModuleLessonStatusName = z
-    .literal("blocked")
-    .or(z.literal("inProgress"))
-    .or(z.literal("onReview"))
-    .or(z.literal("completed"));
+export const $LessonStatusName = z.literal("blocked").or(z.literal("inProgress")).or(z.literal("onReview")).or(z.literal("completed"));
 
-export const $GroupModuleLessonStatus = z.object({
-    name: $GroupModuleLessonStatusName,
+export const $LessonStatus = z.object({
+    name: $LessonStatusName,
     displayName: z.string(),
 });
 
@@ -534,7 +530,7 @@ export const $GroupModuleLesson = z.object({
     description: z.string(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
-    lessonStatus: $GroupModuleLessonStatus,
+    lessonStatus: $LessonStatus,
     videos: $UploadedFile.array(),
     files: $UploadedFile.array(),
 });

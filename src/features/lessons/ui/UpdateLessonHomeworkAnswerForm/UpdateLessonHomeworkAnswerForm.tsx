@@ -10,7 +10,7 @@ import { $UpdateLessonHomeworkAnswerFormValidation, UpdateLessonHomeworkAnswerFo
 export interface UpdateLessonHomeworkAnswerFormProps extends Omit<BoxProps, "children"> {
     data?: GetHomeworkResponse;
     lessonId: string;
-    groupId: number;
+    groupId: string;
     hidden?: boolean;
     onClose: () => void;
     isEditableAnswer?: boolean;
