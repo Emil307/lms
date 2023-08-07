@@ -1,6 +1,6 @@
 import { Route } from "nextjs-routes";
 import { Roles } from "./roles";
-import { managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
+import { adminPaths, managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
 
 export const isCorrectPath = (regex: string, newUrlPath: string) => new RegExp(`^${regex}`).test(newUrlPath);
 
@@ -9,7 +9,7 @@ export const isPathIncluded = (pathArray: string[], newUrlPath: string) => pathA
 export const isAccessAllowed = (userRole: number, newUrlPath: string) => {
     switch (userRole) {
         case Roles.administrator:
-            return true;
+            return isPathIncluded(adminPaths, newUrlPath);
         case Roles.manager:
             return isPathIncluded(managerPaths, newUrlPath);
         case Roles.teacher:
