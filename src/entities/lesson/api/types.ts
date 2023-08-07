@@ -460,8 +460,7 @@ export const $TestTask = z.object({
     order: z.number(),
     content: z.string(),
     answers: $TestTaskAnswer.array(),
-    //TODO: исправить на camelCase
-    is_checkbox: z.boolean(),
+    isCheckbox: z.boolean(),
 });
 
 export const $Test = z.object({
@@ -498,8 +497,7 @@ export const $UpdateTestPassRequest = z.object({
     courseId: z.string(),
     answers: z
         .object({
-            //TODO: исправить на camelCase
-            test_task_id: z.number(),
+            testTaskId: z.number(),
             selections: z.number().array(),
         })
         .array(),
