@@ -1,6 +1,6 @@
 import { Avatar, Flex, Skeleton } from "@mantine/core";
-import AvatarIcon from "@public/icons/avatar.svg";
 import React from "react";
+import AvatarIcon from "@public/icons/avatar.svg";
 import { useSession } from "@features/auth";
 import { Heading, Paragraph } from "@shared/ui";
 

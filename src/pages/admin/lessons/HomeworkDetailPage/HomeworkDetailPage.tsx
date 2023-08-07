@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { TRouterQueries } from "@shared/types";
-import { getBreadCrumbsItems } from "./utils";
 import React, { useMemo } from "react";
-import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { Box, Text } from "@mantine/core";
-import { tabList } from "./constants";
+import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
+import { TRouterQueries } from "@shared/types";
 import { useAdminLessonHomeworkAnswer } from "@entities/lesson";
 import { HomeworkChat, HomeworkInfoPanel, HomeworkTask } from "@widgets/admin/lessons";
+import { tabList } from "./constants";
+import { getBreadCrumbsItems } from "./utils";
 
 const HomeworkDetailPage = () => {
     const router = useRouter();
