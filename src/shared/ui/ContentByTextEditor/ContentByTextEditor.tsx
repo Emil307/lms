@@ -26,10 +26,37 @@ const ContentByTextEditor = ({ data = "", className, ...props }: ContentByTextEd
                 }}>
                 {parse(data, {
                     transform: (reactNode, domNode, index) => {
-                        if (typeof reactNode !== "string" && reactNode.type === "img") {
-                            const image = domNode as Element;
+                        if (typeof reactNode === "string") {
+                            return reactNode;
+                        }
+                        if (reactNode.type === "table") {
                             return (
-                                <a data-fancybox="gallery" className={classes.imageWrapper} href={image.attribs.src} key={index}>
+                                <div className="tableWrapper" key={index}>
+                                    <table>{reactNode.props.children}</table>
+                                </div>
+                            );
+                        }
+                        if (reactNode.type === "td" || reactNode.type === "th") {
+                            const tableCell = domNode as Element;
+                            const cellWidth = tableCell.attribs.colwidth + "px";
+                            if (reactNode.type === "td") {
+                                return (
+                                    <td {...reactNode.props} style={{ minWidth: cellWidth }} key={index}>
+                                        {reactNode.props.children}
+                                    </td>
+                                );
+                            }
+                            return (
+                                <th {...reactNode.props} style={{ minWidth: cellWidth }} key={index}>
+                                    {reactNode.props.children}
+                                </th>
+                            );
+                        }
+                        if (reactNode.props.className === "imageWrapper") {
+                            const imageWrapper = domNode as Element;
+                            const image = imageWrapper.firstChild as Element;
+                            return (
+                                <a data-fancybox="gallery" className="imageWrapper" href={image.attribs.src} key={index}>
                                     <img src={image.attribs.src} alt={image.attribs.alt} />
                                     <ActionIcon w={56} h={40} className={classes.zoomIconWrapper}>
                                         <ZoomInIcon />

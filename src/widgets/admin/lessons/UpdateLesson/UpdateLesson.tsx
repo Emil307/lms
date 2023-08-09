@@ -128,7 +128,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                                     <FSwitch name="hasContent" variant="secondary" />
                                 </Flex>
                                 <Collapse in={values.hasContent}>
-                                    <FTextEditor name="content" h={560} />
+                                    <FTextEditor name="content" contentHeight={512} />
                                 </Collapse>
                             </Flex>
                         </Flex>

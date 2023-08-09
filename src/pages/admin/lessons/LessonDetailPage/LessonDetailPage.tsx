@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
@@ -10,9 +10,12 @@ import { InfoCard } from "@components/InfoCard";
 import { fields } from "./constants";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 import { TLessonInfoCard, TQueryParams } from "./types";
+import useStyles from "./LessonDetailPage.styles";
 
 const LessonDetailPage = () => {
     const router = useRouter();
+    const { classes } = useStyles();
+
     const { id, tab, moduleId, lessonId } = router.query as unknown as TQueryParams;
     const { data: courseData, isFetching: isFetchingCourse, isError: isErrorCourse } = useAdminCourse(id);
     const { data: moduleData, isFetching: isFetchingModule, isError: isErrorModule } = useCourseModule({ courseId: id, moduleId });
@@ -106,10 +109,8 @@ const LessonDetailPage = () => {
             />
             <LessonInfoPanel id={lessonId} />
             <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} my={32} />
-            <Flex gap={56} align="start">
-                <Box maw={1162} w="100%">
-                    {renderComponent()}
-                </Box>
+            <Box className={classes.wrapper}>
+                {renderComponent()}
                 <InfoCard<TLessonInfoCard>
                     variant="whiteBg"
                     fields={fields}
@@ -121,7 +122,7 @@ const LessonDetailPage = () => {
                         </Button>
                     }
                 />
-            </Flex>
+            </Box>
         </Box>
     );
 };

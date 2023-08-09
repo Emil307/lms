@@ -120,7 +120,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                             </Fieldset>
                             <Fieldset label="Контент статьи" icon={<IconFileText />} maw={1162}>
                                 <Box w="100%">
-                                    <FTextEditor name="content" h={320} />
+                                    <FTextEditor name="content" contentHeight={272} />
                                 </Box>
                             </Fieldset>
                             <Flex gap={8}>

@@ -64,7 +64,7 @@ const UpdateLessonHomeworkAnswerForm = ({
                 {({ dirty, onCancel }) => {
                     return (
                         <Flex direction="column" gap={24}>
-                            <FTextEditor name="answer" h={320} />
+                            <FTextEditor name="answer" contentHeight={272} />
                             <FFileInputMultiple
                                 name="files"
                                 type="document"

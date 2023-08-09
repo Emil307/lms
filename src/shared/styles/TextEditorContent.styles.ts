@@ -6,6 +6,10 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         fontFamily: InterFont.style.fontFamily,
         color: theme.colors.dark[0],
         wordBreak: "break-word",
+
+        "&:nth-last-child(1 of :not(.ProseMirror-gapcursor))": {
+            marginBottom: 0,
+        },
     },
 
     p: {
@@ -32,10 +36,13 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
 
     h1: {
         marginTop: 0,
-        marginBottom: 32,
         fontWeight: 500,
         fontSize: 26,
         lineHeight: "32px",
+
+        "+ *": {
+            marginTop: 32,
+        },
 
         [theme.fn.smallerThan("md")]: {
             fontSize: 24,
@@ -120,7 +127,6 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
     ol: {
         display: "flex",
         flexDirection: "column",
-        marginTop: 8,
         marginBottom: 8,
         paddingLeft: 56,
         paddingRight: 24,
@@ -139,7 +145,6 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
     ul: {
         display: "flex",
         flexDirection: "column",
-        marginTop: 8,
         marginBottom: 8,
         paddingLeft: 56,
         paddingRight: 24,
@@ -168,26 +173,43 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         },
     },
 
-    img: {
+    ".imageWrapper": {
+        position: "relative",
+        display: "block",
         maxWidth: "100%",
-        maxHeight: "100%",
-        objectFit: "contain",
+        paddingTop: "47%",
+        marginBottom: 24,
+        borderRadius: 12,
+        background: theme.colors.neutralLight[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            paddingTop: "60%",
+        },
+
+        img: {
+            display: "block",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            maxWidth: "94%",
+            maxHeight: "100%",
+        },
     },
 
     ".tableWrapper": {
-        overflowX: "auto",
-        overflowY: "hidden",
-
-        "::-webkit-scrollbar:horizontal": {
-            backgroundColor: "transparent",
-            width: 4,
+        "&::-webkit-scrollbar": {
+            height: 4,
         },
+        overflowX: "auto",
+        width: "100%",
+        paddingBottom: 3,
+        marginBottom: 24,
     },
 
     table: {
         borderCollapse: "collapse",
         margin: 0,
-        tableLayout: "fixed",
 
         tr: {
             "&:last-of-type td": {
@@ -201,6 +223,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             padding: "12px 18px",
             border: `1px solid ${theme.colors.gray20[0]}`,
             verticalAlign: "top",
+            backgroundClip: "padding-box",
 
             p: {
                 fontSize: 14,
@@ -232,5 +255,9 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             zIndex: 2,
             pointerEvents: "none",
         },
+    },
+
+    ".ProseMirror": {
+        height: "auto",
     },
 });

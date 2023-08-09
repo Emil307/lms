@@ -14,6 +14,8 @@ import { createNotification, ToastType } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateHomework.styles";
+import { FastFieldProps } from "formik/dist/FastField";
+import { FastField } from "formik";
 
 interface UpdateHomeworkProps {
     lessonId: string;
@@ -85,6 +87,7 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
             onSuccess={onSuccessUpdate}
             onError={onError}
             hasConfirmModal
+            validateOnChange={false}
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>
@@ -101,7 +104,9 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
                             maw={252}
                         />
                     </Flex>
-                    <FTextEditor name="content" h={320} />
+                    <FastField name="content">
+                        {(props: FastFieldProps<string>) => <FTextEditor {...props.field} contentHeight={272} />}
+                    </FastField>
                     <FFileInputMultiple
                         name="files"
                         type="document"
