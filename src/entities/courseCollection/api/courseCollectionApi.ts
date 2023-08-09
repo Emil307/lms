@@ -10,6 +10,7 @@ import {
     $GetAdminCourseCollectionsResponse,
     $GetCourseCollectionResponse,
     $GetCourseCollectionsResponse,
+    $GetRandomCourseCollectionResponse,
     $UpdateAdminCourseCollectionActivityResponse,
     $UpdateAdminCourseCollectionResponse,
     AttachAdminCoursesToCourseCollectionRequest,
@@ -30,6 +31,8 @@ import {
     GetCourseCollectionResponse,
     GetCourseCollectionsRequest,
     GetCourseCollectionsResponse,
+    GetRandomCourseCollectionRequest,
+    GetRandomCourseCollectionResponse,
     UpdateAdminCourseCollectionActivityRequest,
     UpdateAdminCourseCollectionActivityResponse,
     UpdateAdminCourseCollectionRequest,
@@ -104,6 +107,11 @@ class CourseCollectionApi extends BaseApi {
     async getCourseCollection({ id }: GetCourseCollectionRequest): Promise<GetCourseCollectionResponse> {
         const response = await this.instance.get(`course-collections/${id}`);
         return $GetCourseCollectionResponse.parse(response);
+    }
+
+    async getRandomCourseCollection(data: GetRandomCourseCollectionRequest): Promise<GetRandomCourseCollectionResponse> {
+        const response = await this.instance.post(`course-collections/list/random`, data);
+        return $GetRandomCourseCollectionResponse.parse(response);
     }
 }
 

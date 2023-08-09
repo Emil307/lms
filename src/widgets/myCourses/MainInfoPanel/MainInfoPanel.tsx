@@ -87,7 +87,9 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 </Flex>
 
                 <Box className={classes.imageWrapper}>
-                    <Image src={data.cover.absolutePath} loader={({ src }) => `${src}`} fill sizes="100vw" alt={data.cover.name} />
+                    {data.cover && (
+                        <Image src={data.cover.absolutePath} loader={({ src }) => `${src}`} fill sizes="100vw" alt={data.cover.name} />
+                    )}
                 </Box>
             </Flex>
             <Flex direction="column" gap={8}>
