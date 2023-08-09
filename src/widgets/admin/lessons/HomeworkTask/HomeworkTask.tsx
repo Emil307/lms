@@ -1,6 +1,5 @@
 import { Avatar, Flex, ThemeIcon, Box, Collapse } from "@mantine/core";
 import { ChevronDown as ChevronDownIcon } from "react-feather";
-import dayjs from "dayjs";
 import React, { useState } from "react";
 import { closeModal, openModal } from "@mantine/modals";
 import { AdminHomeworkAnswer, useUpdateLessonHomeworkAnswerStatus } from "@entities/lesson";
@@ -8,9 +7,10 @@ import CompletedIcon from "public/icons/completed.svg";
 import ReworkIcon from "public/icons/rework.svg";
 import AvatarIcon from "@public/icons/avatar.svg";
 import FolderIcon from "public/icons/folder.svg";
-import { Button, ContentByTextEditor, Heading, Loader, Paragraph } from "@shared/ui";
+import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
 import useStyles from "./HomeworkTask.styles";
+import { getFormatUpdatedAt } from "./utils";
 
 interface HomeworkTaskProps {
     homeworkAnswer: AdminHomeworkAnswer;
@@ -87,32 +87,42 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                     </Box>
                 )}
             </Flex>
-            <Flex gap={16} justify="space-between" align="flex-start">
-                <Flex gap={16} align={homeworkAnswer.module?.name ? "start" : "center"}>
-                    <ThemeIcon className={classes.icon} radius={56} w={48} h={48}>
-                        <FolderIcon />
-                    </ThemeIcon>
-                    <Flex gap={2} direction="column">
-                        <Paragraph variant="text-caption">{homeworkAnswer.module?.name}</Paragraph>
-                        <Heading order={3}>{homeworkAnswer.homework.lesson.name}</Heading>
-                    </Flex>
-                </Flex>
-                {renderHomeworkToggle()}
-            </Flex>
 
-            <Collapse in={isOpenedHomework}>
-                <Flex gap={24} direction="column">
-                    <ContentByTextEditor data={homeworkAnswer.homework.content} />
-                    {/*TODO: выводить FileItems, когда вернут бэки*/}
-                    {/*{homeworkAnswer.homework && homework.files.length > 0 && (*/}
-                    {/*    <Flex gap={24} direction="column">*/}
-                    {/*        {homework.files.map((file) => (*/}
-                    {/*            <FileItem type="document" fileName={file.name} fileSize={file.size} key={file.id} />*/}
-                    {/*        ))}*/}
-                    {/*    </Flex>*/}
-                    {/*)}*/}
+            <Box>
+                <Flex gap={16} justify="space-between" align="flex-start">
+                    <Flex gap={16} align={homeworkAnswer.module?.name ? "start" : "center"}>
+                        <ThemeIcon className={classes.icon} radius={56} w={48} h={48}>
+                            <FolderIcon />
+                        </ThemeIcon>
+                        <Flex gap={2} direction="column">
+                            <Paragraph variant="text-caption">{homeworkAnswer.module?.name}</Paragraph>
+                            <Heading order={3}>{homeworkAnswer.homework.lesson.name}</Heading>
+                        </Flex>
+                    </Flex>
+                    {renderHomeworkToggle()}
                 </Flex>
-            </Collapse>
+
+                <Box>
+                    <Collapse in={isOpenedHomework}>
+                        <Flex gap={24} direction="column" mt={32}>
+                            <ContentByTextEditor data={homeworkAnswer.homework.content} />
+                            {homeworkAnswer.homework.files.length > 0 && (
+                                <Flex gap={24} direction="column">
+                                    {homeworkAnswer.homework.files.map((file) => (
+                                        <FileItem
+                                            type="document"
+                                            fileName={file.name}
+                                            fileSize={file.size}
+                                            fileUrl={file.absolutePath}
+                                            key={file.id}
+                                        />
+                                    ))}
+                                </Flex>
+                            )}
+                        </Flex>
+                    </Collapse>
+                </Box>
+            </Box>
 
             {renderActionButtons()}
 
@@ -120,9 +130,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                 <Heading order={4}>Ответ ученика</Heading>
                 <Flex className={classes.answerContent} gap={8}>
                     <Avatar
-                        // TODO: Когда бэк вернет аватар студента
-                        // src={homeworkAnswer.student.profile}
-                        src=""
+                        src={homeworkAnswer.student.profile.avatar?.absolutePath}
                         alt="avatar"
                         w={32}
                         h={32}
@@ -141,18 +149,25 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                                 {studentFio}
                             </Paragraph>
                             <Paragraph variant="text-caption" color="neutral_gray">
-                                {dayjs(homeworkAnswer.updatedAt).format("DD.MM.YYYY")}
+                                {getFormatUpdatedAt(homeworkAnswer.updatedAt)}
                             </Paragraph>
                         </Flex>
-                        <ContentByTextEditor data={homeworkAnswer.answer} />
-                        {/*TODO: выводить FileItems, когда вернут бэки*/}
-                        {/*{homeworkAnswer.homework && homework.files.length > 0 && (*/}
-                        {/*    <Flex gap={24} direction="column">*/}
-                        {/*        {homework.files.map((file) => (*/}
-                        {/*            <FileItem type="document" fileName={file.name} fileSize={file.size} key={file.id} />*/}
-                        {/*        ))}*/}
-                        {/*    </Flex>*/}
-                        {/*)}*/}
+                        <Flex gap={24} direction="column">
+                            <ContentByTextEditor data={homeworkAnswer.answer} />
+                            {homeworkAnswer.files.length > 0 && (
+                                <Flex gap={24} direction="column">
+                                    {homeworkAnswer.files.map((file) => (
+                                        <FileItem
+                                            type="document"
+                                            fileName={file.name}
+                                            fileSize={file.size}
+                                            fileUrl={file.absolutePath}
+                                            key={file.id}
+                                        />
+                                    ))}
+                                </Flex>
+                            )}
+                        </Flex>
                     </Box>
                 </Flex>
             </Flex>

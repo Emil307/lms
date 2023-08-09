@@ -7,7 +7,7 @@ import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { useCourseCollections } from "@entities/courseCollection";
-import {initialParamsForCollection, initialParamsForCourses} from "./constants";
+import { initialParamsForCollection, initialParamsForCourses } from "./constants";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
 
 const RecommendCourseListFromCollection = () => {
