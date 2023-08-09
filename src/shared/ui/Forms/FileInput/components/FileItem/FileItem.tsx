@@ -69,9 +69,13 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
                 );
             default:
                 return (
-                    <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
-                        Скачать
-                    </Button>
+                    <>
+                        {fileUrl && (
+                            <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
+                                Скачать
+                            </Button>
+                        )}
+                    </>
                 );
         }
     }, [status]);

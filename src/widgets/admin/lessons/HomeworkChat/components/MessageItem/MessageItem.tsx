@@ -6,6 +6,7 @@ import { Paragraph } from "@shared/ui";
 import { AdminHomeworkAnswerMessage } from "@entities/lesson";
 import useStyles from "./MessageItem.styles";
 import { getFormatCreatedAt } from "./utils";
+import { Roles } from "@app/routes";
 
 export interface MessageItemProps extends Omit<FlexProps, "onClick"> {
     data: AdminHomeworkAnswerMessage;
@@ -15,7 +16,9 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     const { classes } = useStyles();
 
     const getUserRole = () => {
-        //TODO Вывести роль пользователя, когда будет отдавать бек
+        if (data.sender.roles[0].id === Roles.student) {
+            return "Ученик";
+        }
         return "Куратор";
     };
 

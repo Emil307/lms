@@ -1,4 +1,4 @@
-import {TDefaultRequestParams} from "@shared/types";
+import { TDefaultRequestParams } from "@shared/types";
 
 export const initialParamsForCollection: TDefaultRequestParams = {
     page: 1,

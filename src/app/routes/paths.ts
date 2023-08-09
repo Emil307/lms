@@ -53,8 +53,6 @@ export const managerPaths = teacherPaths.concat([
     "/admin/users",
 ]);
 
-export const adminPaths = managerPaths.concat([
-    "/admin/settings"
-])
+export const adminPaths = managerPaths.concat(["/admin/settings"]);
 
 export const allPaths = adminPaths.concat(authPaths).concat([logoutPath]);

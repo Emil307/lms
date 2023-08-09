@@ -7,6 +7,7 @@ import {
     $getPaginationResponseType,
     $LastUpdated,
     $Profile,
+    $Role,
     $UploadedFile,
 } from "@shared/types";
 import { $User } from "@entities/user";
@@ -322,13 +323,11 @@ export const $AdminHomeworkAnswer = z.object({
     answer: z.string(),
     status: $HomeworkAnswerStatus,
     updatedAt: z.coerce.date(),
-    //TODO: Вернуть, когда бэки будут отдавать
-    // files: $UploadedFile.array(),
+    files: $UploadedFile.array(),
     student: z.object({
         id: z.number(),
         email: z.string(),
         profile: $Profile.omit({
-            avatar: true,
             additionalImage: true,
         }),
     }),
@@ -344,6 +343,7 @@ export const $AdminHomeworkAnswer = z.object({
         id: z.number(),
         content: z.string(),
         requiredType: $HomeworkRequiredType,
+        files: $UploadedFile.array(),
         lesson: $AdminLesson.omit({
             lastUpdated: true,
             isActive: true,
@@ -394,8 +394,33 @@ export const $AdminHomeworkAnswersRequest = z.object({
 });
 
 export const $GetAdminHomeworkAnswersRequest = $getFiltersRequestType($AdminHomeworkAnswersRequest);
-//TODO: Omit files, когда бэки будут отдавать
-export const $AdminHomeworkAnswerFromList = $AdminHomeworkAnswer;
+
+export const $AdminHomeworkAnswerFromList = $AdminHomeworkAnswer
+    .omit({
+        files: true,
+        homework: true,
+        student: true,
+    })
+    .extend({
+        homework: z.object({
+            id: z.number(),
+            content: z.string(),
+            requiredType: $HomeworkRequiredType,
+            lesson: $AdminLesson.omit({
+                lastUpdated: true,
+                isActive: true,
+                createdAt: true,
+                updatedAt: true,
+                videos: true,
+            }),
+        }),
+        student: z.object({
+            profile: $Profile.pick({
+                firstName: true,
+                lastName: true,
+            }),
+        }),
+    });
 
 export const $GetAdminHomeworkAnswersResponse = $getPaginationResponseType($AdminHomeworkAnswerFromList);
 
@@ -417,6 +442,7 @@ export const $AdminHomeworkAnswerMessage = z.object({
         profile: $Profile.omit({
             additionalImage: true,
         }),
+        roles: z.array($Role),
     }),
 });
 
