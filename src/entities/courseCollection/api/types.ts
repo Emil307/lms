@@ -58,6 +58,8 @@ export type GetCourseCollectionsRequest = z.infer<typeof $GetCourseCollectionsRe
 export type GetCourseCollectionsResponse = z.infer<typeof $GetCourseCollectionsResponse>;
 export type GetCourseCollectionRequest = z.infer<typeof $GetCourseCollectionRequest>;
 export type GetCourseCollectionResponse = z.infer<typeof $GetCourseCollectionResponse>;
+export type GetRandomCourseCollectionRequest = z.infer<typeof $GetRandomCourseCollectionRequest>;
+export type GetRandomCourseCollectionResponse = z.infer<typeof $GetRandomCourseCollectionResponse>;
 
 /**
  *
@@ -220,3 +222,9 @@ export const $GetCourseCollectionResponse = $CourseCollection.pick({
     name: true,
     description: true,
 });
+
+export const $GetRandomCourseCollectionRequest = z.object({
+    limit: z.number(),
+});
+
+export const $GetRandomCourseCollectionResponse = z.array($GetCourseCollectionResponse);

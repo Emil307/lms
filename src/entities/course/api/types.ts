@@ -574,7 +574,7 @@ export const $MyCourse = z.object({
         total: z.number(),
         passed: z.number(),
     }),
-    cover: $UploadedFile,
+    cover: $UploadedFile.nullable(),
     category: $MyCourseCategory.nullable(),
     tags: $MyCourseTag.array(),
     authors: $MyCourseAuthor.array(),

@@ -6,16 +6,16 @@ import { Button, Heading, Paragraph } from "@shared/ui";
 import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
-import { useCourseCollections } from "@entities/courseCollection";
+import { useRandomCourseCollection } from "@entities/courseCollection";
 import { initialParamsForCollection, initialParamsForCourses } from "./constants";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
 
 const RecommendCourseListFromCollection = () => {
     const router = useRouter();
 
-    const { data: courseCollectionData, isFetching: isFetchingCollection } = useCourseCollections(initialParamsForCollection);
+    const { data: courseCollectionData = [], isFetching: isFetchingCollection } = useRandomCourseCollection(initialParamsForCollection);
 
-    const courseCollection = courseCollectionData?.data[0];
+    const collection = courseCollectionData[0];
 
     const {
         data: courses,
@@ -23,8 +23,8 @@ const RecommendCourseListFromCollection = () => {
         hasNextPage,
         fetchNextPage,
     } = useCoursesInfinite(
-        adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(courseCollection?.id) }),
-        !!courseCollection
+        adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(collection?.id) }),
+        !!collection
     );
 
     const { ref: lastElemRef, entry } = useIntersection();
@@ -44,15 +44,13 @@ const RecommendCourseListFromCollection = () => {
         );
     }
 
-    if (!courseCollectionData?.data.length || !courses?.data.length) {
+    if (!collection || !courses?.data.length) {
         return null;
     }
 
     const handleClickAllCourseCollections = () => router.push("/course-collections");
 
     const handleClickCourseCard = (courseId: number) => router.push({ pathname: "/courses/[id]", query: { id: String(courseId) } });
-
-    const collection = courseCollectionData.data[0];
 
     return (
         <Flex gap={32} direction="column">

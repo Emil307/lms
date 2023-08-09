@@ -36,15 +36,17 @@ const MemoizedHeader = memo(function Header({ data, ...props }: HeaderProps) {
                 </Flex>
             </Flex>
             <Box className={classes.imageWrapper}>
-                <Image
-                    src={data.cover.absolutePath}
-                    alt={data.cover.name}
-                    fill
-                    sizes="100vw"
-                    style={{
-                        objectFit: "cover",
-                    }}
-                />
+                {data.cover && (
+                    <Image
+                        src={data.cover.absolutePath}
+                        alt={data.cover.name}
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "cover",
+                        }}
+                    />
+                )}
             </Box>
         </MCard.Section>
     );

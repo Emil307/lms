@@ -460,7 +460,7 @@ export const $Group = z.object({
         total: z.number(),
         passed: z.number(),
     }),
-    cover: $UploadedFile,
+    cover: $UploadedFile.nullable(),
     category: $GroupCategory.nullable(),
     tags: $GroupTag.array(),
     authors: $GroupAuthor.array(),
