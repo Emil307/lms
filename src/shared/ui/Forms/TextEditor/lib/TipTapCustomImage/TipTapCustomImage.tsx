@@ -85,7 +85,15 @@ export const TipTapCustomImage = (uploadFn: UploadFn) => {
                 },
             },
         ],
-        renderHTML: ({ HTMLAttributes }) => ["img", mergeAttributes(HTMLAttributes)],
+        renderHTML: ({ HTMLAttributes }) => {
+            const imageWrapper = document.createElement("div");
+            imageWrapper.classList.add("imageWrapper");
+            const image = document.createElement("img");
+            const attributes = mergeAttributes(HTMLAttributes);
+            image.src = attributes.src;
+            imageWrapper.append(image);
+            return { dom: imageWrapper };
+        },
 
         addCommands() {
             return {

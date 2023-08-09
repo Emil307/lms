@@ -16,6 +16,7 @@ export interface TextEditorProps extends Omit<RichTextEditorProps, "editor" | "c
     description?: string;
     success?: string | boolean;
     readonly?: boolean;
+    contentHeight?: string | number;
 }
 
 const MemoizedTextEditor = memo(function TextEditor({
@@ -25,6 +26,7 @@ const MemoizedTextEditor = memo(function TextEditor({
     success,
     readonly = false,
     setValue = () => undefined,
+    contentHeight,
     ...props
 }: TextEditorProps) {
     const statusSuccess = !!value && !error && !!success;
@@ -155,7 +157,7 @@ const MemoizedTextEditor = memo(function TextEditor({
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
 
-                <RichTextEditor.Content />
+                <RichTextEditor.Content h={contentHeight} />
             </RichTextEditor>
             {renderError}
             {renderDescription()}

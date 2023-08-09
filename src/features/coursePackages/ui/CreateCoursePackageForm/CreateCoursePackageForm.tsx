@@ -83,7 +83,7 @@ const CreateCoursePackageForm = ({ onClose }: CreateCoursePackageFormProps) => {
 
                         <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={1162} legendProps={{ mb: 24 }}>
                             <Box w="100%">
-                                <FTextEditor name="description" placeholder="Введите текст" h={320} />
+                                <FTextEditor name="description" placeholder="Введите текст" contentHeight={272} />
                             </Box>
                         </Fieldset>
 

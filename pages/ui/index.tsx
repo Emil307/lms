@@ -268,7 +268,7 @@ export const UIDemo = () => {
                                 <FTextEditor
                                     name="content"
                                     description="Размер сообщения не больше 1000 симвовлов"
-                                    h={320}
+                                    contentHeight={272}
                                     success="alalalaalalal"
                                 />
                                 <FTimeInput name="dateTime" label="TimeInput" />
