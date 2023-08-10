@@ -188,51 +188,55 @@ class LessonApi extends BaseApi {
     }
 
     //USER
-    async getLesson({ id, ...params }: GetLessonRequest): Promise<GetLessonResponse> {
-        const response = await this.instance.get(`user/lessons/${id}`, { params });
+    async getLesson({ id, courseId }: GetLessonRequest): Promise<GetLessonResponse> {
+        const response = await this.instance.get(`user/courses/${courseId}/lessons/${id}`);
         return $GetLessonResponse.parse(response);
     }
 
     //test
-    async getTest({ lessonId }: GetTestRequest): Promise<GetTestResponse> {
-        const response = await this.instance.get(`user/lessons/${lessonId}/test`);
+    async getTest({ lessonId, courseId }: GetTestRequest): Promise<GetTestResponse> {
+        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/test`);
         return $GetTestResponse.parse(response);
     }
 
-    async getTestPass({ lessonId }: GetTestPassRequest): Promise<GetTestPassResponse> {
-        const response = await this.instance.get(`user/lessons/${lessonId}/test-pass`);
+    async getTestPass({ lessonId, courseId }: GetTestPassRequest): Promise<GetTestPassResponse> {
+        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/test-pass`);
         return $GetTestPassResponse.parse(response);
     }
 
-    async updateTestPass({ lessonId, ...data }: UpdateTestPassRequest): Promise<UpdateTestPassResponse> {
-        const response = await this.instance.put(`user/lessons/${lessonId}/test-pass`, data);
+    async updateTestPass({ lessonId, courseId, ...data }: UpdateTestPassRequest): Promise<UpdateTestPassResponse> {
+        const response = await this.instance.put(`user/courses/${courseId}/lessons/${lessonId}/test-pass`, data);
         return $UpdateTestPassResponse.parse(response);
     }
 
     //homework
-    async getHomework({ lessonId }: GetHomeworkRequest): Promise<GetHomeworkResponse> {
-        const response = await this.instance.get(`user/lessons/${lessonId}/homework`);
+    async getHomework({ lessonId, courseId }: GetHomeworkRequest): Promise<GetHomeworkResponse> {
+        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/homework`);
         return $GetHomeworkResponse.parse(response);
     }
 
-    async updateHomeworkAnswer({ lessonId, ...data }: UpdateHomeworkAnswerRequest): Promise<UpdateHomeworkAnswerResponse> {
-        const response = await this.instance.put(`user/lessons/${lessonId}/homework-answer`, data);
+    async updateHomeworkAnswer({ lessonId, courseId, ...data }: UpdateHomeworkAnswerRequest): Promise<UpdateHomeworkAnswerResponse> {
+        const response = await this.instance.put(`user/courses/${courseId}/lessons/${lessonId}/homework-answers`, data);
         return $UpdateHomeworkAnswerResponse.parse(response);
     }
 
     async getHomeworkAnswerMessages({
         homeworkAnswerId,
+        courseId,
         ...params
     }: GetHomeworkAnswerMessagesRequest): Promise<GetHomeworkAnswerMessagesResponse> {
-        const response = await this.instance.get(`user/lessons/homeworks/answers/${homeworkAnswerId}/messages`, { params });
+        const response = await this.instance.get(`user/courses/${courseId}/lessons/homework-answers/${homeworkAnswerId}/messages`, {
+            params,
+        });
         return $GetHomeworkAnswerMessagesResponse.parse(response);
     }
 
     async createHomeworkAnswerMessage({
         homeworkAnswerId,
+        courseId,
         ...data
     }: CreateHomeworkAnswerMessageRequest): Promise<CreateHomeworkAnswerMessageResponse> {
-        const response = await this.instance.post(`user/lessons/homeworks/answers/${homeworkAnswerId}/messages`, data);
+        const response = await this.instance.post(`user/courses/${courseId}/lessons/homework-answers/${homeworkAnswerId}/messages`, data);
         return $CreateHomeworkAnswerMessageResponse.parse(response);
     }
 }

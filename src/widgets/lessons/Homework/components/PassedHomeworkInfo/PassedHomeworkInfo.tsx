@@ -10,10 +10,10 @@ import useStyles from "./PassedHomeworkInfo.styles";
 export interface PassedHomeworkInfoProps extends Omit<FlexProps, "children"> {
     data?: GetHomeworkResponse;
     lessonId: string;
-    groupId: string;
+    courseId: string;
 }
 
-const PassedHomeworkInfo = ({ data, lessonId, groupId, ...props }: PassedHomeworkInfoProps) => {
+const PassedHomeworkInfo = ({ data, lessonId, courseId, ...props }: PassedHomeworkInfoProps) => {
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const { classes, cx } = useStyles();
 
@@ -30,7 +30,7 @@ const PassedHomeworkInfo = ({ data, lessonId, groupId, ...props }: PassedHomewor
                 <UpdateLessonHomeworkAnswerForm
                     data={data}
                     lessonId={lessonId}
-                    groupId={groupId}
+                    courseId={courseId}
                     onClose={handleCloseUpdateLessonHomeworkAnswerForm}
                     isEditableAnswer
                 />

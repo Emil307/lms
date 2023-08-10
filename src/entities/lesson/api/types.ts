@@ -430,7 +430,38 @@ export const $UpdateAdminHomeworkAnswerStatusRequest = z.object({
     content: z.string().nullable(),
 });
 
-export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer;
+export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer
+    .pick({
+        id: true,
+        answer: true,
+        status: true,
+        updatedAt: true,
+        course: true,
+        module: true,
+        group: true,
+    })
+    .extend({
+        homework: z.object({
+            id: z.number(),
+            content: z.string(),
+            requiredType: $HomeworkRequiredType,
+            lesson: $AdminLesson.omit({
+                lastUpdated: true,
+                isActive: true,
+                createdAt: true,
+                updatedAt: true,
+                videos: true,
+            }),
+        }),
+        student: $User
+            .pick({
+                id: true,
+                email: true,
+            })
+            .extend({
+                profile: $Profile.omit({ avatar: true, additionalImage: true }),
+            }),
+    });
 
 export const $AdminHomeworkAnswerMessage = z.object({
     id: z.number(),
@@ -516,12 +547,14 @@ export const $TestPass = z.object({
 
 export const $GetTestRequest = z.object({
     lessonId: z.string(),
+    courseId: z.string(),
 });
 
-export const $GetTestResponse = $Test;
+export const $GetTestResponse = $Test.nullable();
 
 export const $GetTestPassRequest = z.object({
     lessonId: z.string(),
+    courseId: z.string(),
 });
 
 export const $GetTestPassResponse = $TestPass;
@@ -545,12 +578,12 @@ export const $HomeworkAnswer = z.object({
     answer: z.string(),
     status: $HomeworkAnswerStatus,
     updatedAt: z.coerce.date(),
-    files: $UploadedFile.array(),
     student: $User.pick({
         id: true,
         email: true,
         profile: true,
     }),
+    files: $UploadedFile.array(),
 });
 
 export const $Homework = z.object({
@@ -563,13 +596,14 @@ export const $Homework = z.object({
 
 export const $GetHomeworkRequest = z.object({
     lessonId: z.string(),
+    courseId: z.string(),
 });
 
 export const $GetHomeworkResponse = $Homework.nullable();
 
 export const $UpdateHomeworkAnswerRequest = z.object({
     lessonId: z.string(),
-    groupId: z.string(),
+    courseId: z.string(),
     answer: z.string(),
     fileIds: z.number().array(),
 });
@@ -581,7 +615,7 @@ export const $Lesson = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string(),
-    content: z.string(),
+    content: z.string().nullable(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
     lessonStatus: $LessonStatus,
@@ -591,14 +625,16 @@ export const $Lesson = z.object({
 
 export const $GetLessonRequest = z.object({
     id: z.string(),
-    groupId: z.string(),
+    courseId: z.number().optional(),
 });
 
 export const $GetLessonResponse = $Lesson;
+
 //HOMEWORK MESSAGE
 export const $HomeworkAnswerMessage = z.object({
     id: z.number(),
     content: z.string(),
+    isRead: z.boolean(),
     createdAt: z.coerce.date(),
     sender: $User.pick({
         id: true,
@@ -613,19 +649,15 @@ export const $GetHomeworkAnswerMessagesResponse = $getPaginationResponseType($Ho
 
 export const $HomeworkAnswerMessagesRequest = z.object({
     homeworkAnswerId: z.string(),
+    courseId: z.string(),
 });
 
 export const $GetHomeworkAnswerMessagesRequest = $getFiltersRequestType($HomeworkAnswerMessagesRequest);
 
 export const $CreateHomeworkAnswerMessageRequest = z.object({
     homeworkAnswerId: z.string(),
+    courseId: z.string(),
     content: z.string(),
 });
 
-export const $CreateHomeworkAnswerMessageResponse = $HomeworkAnswerMessage.omit({ sender: true }).extend({
-    sender: $User.pick({
-        id: true,
-        email: true,
-        profile: true,
-    }),
-});
+export const $CreateHomeworkAnswerMessageResponse = $HomeworkAnswerMessage;

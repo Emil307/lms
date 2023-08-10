@@ -13,7 +13,7 @@ export interface TestProps {
 
 const Test = ({ lessonId, courseId }: TestProps) => {
     const [isTestAgain, setIsTestAgain] = useState(false);
-    const { data: testPassData, isLoading } = useTestPass({ lessonId });
+    const { data: testPassData, isLoading } = useTestPass({ lessonId, courseId });
 
     const { classes } = useStyles({ status: testPassData?.status.name });
 

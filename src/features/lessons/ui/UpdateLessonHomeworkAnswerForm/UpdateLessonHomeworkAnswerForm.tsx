@@ -10,7 +10,7 @@ import { $UpdateLessonHomeworkAnswerFormValidation, UpdateLessonHomeworkAnswerFo
 export interface UpdateLessonHomeworkAnswerFormProps extends Omit<BoxProps, "children"> {
     data?: GetHomeworkResponse;
     lessonId: string;
-    groupId: string;
+    courseId: string;
     hidden?: boolean;
     onClose: () => void;
     isEditableAnswer?: boolean;
@@ -19,14 +19,14 @@ export interface UpdateLessonHomeworkAnswerFormProps extends Omit<BoxProps, "chi
 const UpdateLessonHomeworkAnswerForm = ({
     data,
     lessonId,
-    groupId,
+    courseId,
     hidden,
     isEditableAnswer,
     onClose,
     ...props
 }: UpdateLessonHomeworkAnswerFormProps) => {
     const updateLessonHomeworkAnswer = (values: UpdateLessonHomeworkAnswerFormValidation) => {
-        return lessonApi.updateHomeworkAnswer({ ...adaptUpdateLessonHomeworkAnswerRequest(values), lessonId, groupId });
+        return lessonApi.updateHomeworkAnswer({ ...adaptUpdateLessonHomeworkAnswerRequest(values), lessonId, courseId });
     };
 
     const onSuccess = () => {

@@ -15,15 +15,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     const { classes } = useStyles();
 
     return (
-        <Indicator
-            size={8}
-            offset={16}
-            position="top-start"
-            color="done"
-            //TODO: Добавить условие отображения индикатора как бек добавит эту возможность https://addamant.planfix.ru/task/97190/?comment=8749753
-            disabled
-            // disabled={!data.hasSupportMessage}
-        >
+        <Indicator size={8} offset={16} position="top-start" color="done" disabled={data.isRead}>
             <Flex {...props} className={classes.root}>
                 <Flex align="center" gap={8}>
                     <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>

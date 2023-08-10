@@ -1,10 +1,10 @@
 import { createStyles } from "@mantine/core";
 
 interface CreateStylesParams {
-    isPrevSelected: boolean;
+    isSelected: boolean;
 }
 
-export default createStyles((theme, { isPrevSelected }: CreateStylesParams) => ({
+export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
     root: {
         paddingInline: 18,
         paddingBlock: 16,
@@ -19,10 +19,10 @@ export default createStyles((theme, { isPrevSelected }: CreateStylesParams) => (
         width: 40,
         height: 40,
         borderRadius: 60,
-        backgroundColor: isPrevSelected ? theme.colors.primaryHover[0] : theme.colors.primary8[0],
+        backgroundColor: isSelected ? theme.colors.primaryHover[0] : theme.colors.primary8[0],
         fontWeight: 600,
         fontSize: 16,
         lineHeight: "24px",
-        color: isPrevSelected ? theme.colors.white[0] : theme.colors.primaryHover[0],
+        color: isSelected ? theme.colors.white[0] : theme.colors.primaryHover[0],
     },
 }));

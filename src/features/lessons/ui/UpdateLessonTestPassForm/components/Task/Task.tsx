@@ -15,7 +15,7 @@ const MemoizedTask = memo(function Task({ data, ...props }: TaskProps) {
 
     const { setFieldValue } = useFormikContext<UpdateLessonTestPassFormValidation>();
 
-    const taskVariant = data.isCheckbox ? "checkbox" : "radio";
+    const taskVariant = data?.isCheckbox ? "checkbox" : "radio";
 
     const handleSelectPossibleAnswer = (selectedPossibleAnswerOrder: number) => {
         if (data.isCheckbox) {
