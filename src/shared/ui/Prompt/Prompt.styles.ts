@@ -10,7 +10,6 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.info16[0],
     },
     icon: {
-        border: "none",
         color: theme.colors.info[0],
         width: 32,
         height: 32,
@@ -26,12 +25,5 @@ export default createStyles((theme) => ({
             width: 15,
             strokeWidth: 3,
         },
-    },
-    content: {
-        flex: 1,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
     },
 }));

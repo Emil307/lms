@@ -9,6 +9,7 @@ export const columns: MRT_ColumnDef<AdminStaticReviewFromList>["columns"] = [
     {
         header: "Фото",
         accessorKey: "authorAvatar.absolutePath",
+        size: 140,
         Cell: ({ row }) => (
             <>
                 <Avatar
@@ -44,6 +45,7 @@ export const columns: MRT_ColumnDef<AdminStaticReviewFromList>["columns"] = [
     {
         header: "ФИО",
         accessorKey: "lastName",
+        size: 339,
         accessorFn: (row) => {
             if (!row.lastName || !row.firstName) {
                 return "";
@@ -54,13 +56,16 @@ export const columns: MRT_ColumnDef<AdminStaticReviewFromList>["columns"] = [
     {
         header: "Об авторе",
         accessorKey: "position",
+        size: 339,
     },
     {
         header: "Видео",
         accessorKey: "video.name",
+        size: 339,
     },
     {
         header: "Краткий отзыв",
         accessorKey: "quote",
+        size: 339,
     },
 ];

@@ -8,23 +8,28 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 120,
     },
     {
         header: "Название курса",
         accessorKey: "name",
+        size: 468,
     },
     {
         header: "Категория курса",
         accessorKey: "category.name",
+        size: 468,
     },
     {
         header: "Стоимость",
         accessorKey: "price",
+        size: 220,
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.price })}</>,
     },
     {
         header: "Стоимость со скидкой",
         accessorKey: "discountPrice",
+        size: 220,
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.discountPrice })}</>,
     },
 ];

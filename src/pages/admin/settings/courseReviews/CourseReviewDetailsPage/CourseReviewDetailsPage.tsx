@@ -27,7 +27,7 @@ const CourseReviewDetailsPage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ authorName, id })} mb={8} />
             <Heading mb={24}>{authorName}</Heading>
-            <InfoPanel id={id} />
+            <InfoPanel id={id} mb={24} />
             <CourseReviewSettings id={id} />
         </Box>
     );

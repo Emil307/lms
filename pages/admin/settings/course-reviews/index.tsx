@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { CourseReviewsPage } from "@pages/admin/settings";
 
-const Reviews: NextPageWithLayout = () => {
+const CourseReviews: NextPageWithLayout = () => {
     return (
         <AdminPage title="Отзывы курсов">
             <CourseReviewsPage />
@@ -13,8 +13,8 @@ const Reviews: NextPageWithLayout = () => {
     );
 };
 
-Reviews.getLayout = function (page: ReactElement) {
+CourseReviews.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default Reviews;
+export default CourseReviews;

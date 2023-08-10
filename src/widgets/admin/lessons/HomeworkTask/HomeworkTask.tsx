@@ -132,14 +132,8 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                     <Avatar
                         src={homeworkAnswer.student.profile.avatar?.absolutePath}
                         alt="avatar"
-                        w={32}
-                        h={32}
-                        miw={32}
-                        radius={56}
-                        styles={(theme) => ({
-                            placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                        })}>
-                        <ThemeIcon variant="outline" className={classes.avatarDefaultIconWrapper}>
+                        className={classes.avatarWrapper}>
+                        <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>
                     </Avatar>

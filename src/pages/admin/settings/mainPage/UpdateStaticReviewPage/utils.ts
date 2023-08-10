@@ -1,12 +1,16 @@
 import { TBreadCrumbItem } from "@shared/ui";
 
 interface TGetBreadCrumbsItemsProps {
-    fullName?: string;
+    name?: string;
     id: string;
 }
 
-export const getBreadCrumbsItems = ({ fullName = "", id }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
+export const getBreadCrumbsItems = ({ name = "", id }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Титульная страница", href: { pathname: "/admin/settings/main-page/reviews" } },
     { title: "Отзывы", href: { pathname: "/admin/settings/main-page/reviews" } },
-    { title: fullName, href: { pathname: "/admin/settings/main-page/reviews/[id]/edit", query: { id } } },
+    {
+        title: name,
+        href: { pathname: "/admin/settings/main-page/reviews/[id]/edit", query: { id } },
+        maxWidth: 300,
+    },
 ];

@@ -12,6 +12,10 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
                 backgroundColor: status ? "transparent" : theme.colors.secondary16[0],
             },
         },
+
+        [theme.fn.smallerThan("xs")]: {
+            gap: 4,
+        },
     },
     icon: {
         ref: getRef("icon"),
@@ -25,6 +29,10 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         borderRadius: 8,
         backgroundColor: status ? "transparent" : theme.colors.secondary8[0],
         color: status === "error" ? theme.colors.warning[0] : theme.colors.secondary[0],
+
+        [theme.fn.smallerThan("xs")]: {
+            marginRight: 12,
+        },
     },
     statusInfo: {
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],

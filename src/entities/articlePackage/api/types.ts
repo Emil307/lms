@@ -5,7 +5,6 @@ import {
     $LastUpdated,
     $getDateObjectType,
     $getFiltersRequestType,
-    $getMultiValueObjectType,
     $getPaginationResponseType,
 } from "@shared/types";
 
@@ -167,7 +166,7 @@ export const $AdminArticlePackagesRequest = z.object({
             isActive: z.literal("1").or(z.literal("0")),
             categoryIds: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
-            "discount.finishingDate": $getMultiValueObjectType(z.string(), z.literal("lte")),
+            "discount.finishingDate": $getDateObjectType(z.literal("range")),
         })
         .partial(),
 });
@@ -180,7 +179,8 @@ export const $AdminArticlePackagesFiltersForm = z.object({
     categoryId: z.string(),
     createdAtFrom: z.coerce.date().nullable(),
     createdAtTo: z.coerce.date().nullable(),
-    discountFinishingDate: z.coerce.date().nullable(),
+    discountFinishingDateFrom: z.coerce.date().nullable(),
+    discountFinishingDateTo: z.coerce.date().nullable(),
 });
 
 export const $AdminArticlesFromArticlePackageExtraFilters = z.object({

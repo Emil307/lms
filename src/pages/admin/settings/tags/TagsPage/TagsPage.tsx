@@ -29,7 +29,7 @@ const TagsPage = () => {
                     Создать тег
                 </Button>
             </Flex>
-            <AdminTagList mt={24} />
+            <AdminTagList />
         </Box>
     );
 };

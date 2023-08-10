@@ -1,26 +1,23 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React from "react";
-import { AlignLeft, Trash } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Heading, Rating } from "@shared/ui";
+import { Button, DisplayField, Heading, Paragraph, Rating } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
 import { useAdminCourseReview, useUpdateCourseReviewPublishingStatus } from "@entities/courseReview";
-import { DeleteCourseReviewModal } from "@features/courseReviews";
 import { fields } from "./constants";
 import useStyles from "./CourseReviewSettings.styles";
 import { CourseReviewCardInfoFields } from "./types";
 import { getDataInfoCard } from "./utils";
+import { DeleteCourseReviewButton } from "./components";
 
-export interface CourseReviewSettingsProps {
+export interface CourseReviewSettingsProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
+const CourseReviewSettings = ({ id, ...props }: CourseReviewSettingsProps) => {
     const { classes } = useStyles();
-    const router = useRouter();
     const { data: courseReviewData } = useAdminCourseReview({ id });
     const { mutate: updatePublishingStatus } = useUpdateCourseReviewPublishingStatus({ id });
 
@@ -29,31 +26,16 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
 
     const dataInfoCard = getDataInfoCard(courseReviewData);
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_COURSE_REVIEW");
-        router.push("/admin/settings/course-reviews");
-    };
-
-    const openModalDeleteCourseReview = () => {
-        openModal({
-            modalId: "DELETE_COURSE_REVIEW",
-            title: "Удаление отзыва",
-            children: <DeleteCourseReviewModal id={id} fullName={dataInfoCard.fio} onClose={handleCloseDeleteModal} />,
-        });
-    };
-
     const handleChangePublishingStatus = () => updatePublishingStatus({ isPublished: !courseReviewData?.isPublished });
 
     return (
-        <Box>
-            <Box mt={32} className={classes.info}>
-                <Flex direction="column" gap={32}>
-                    <Flex gap={48} align="center">
-                        <Heading order={2}>Данные отзыва</Heading>
-                        <Button onClick={openModalDeleteCourseReview} variant="text" leftIcon={<Trash />}>
-                            Удалить отзыв
-                        </Button>
-                    </Flex>
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
+                    <Heading order={2}>Данные автора</Heading>
+                    <DeleteCourseReviewButton data={courseReviewData} />
+                </Flex>
+                <Flex direction="column" gap={{ base: 24, md: 32 }}>
                     <Fieldset label="Детали" icon={<IconClipboardText />}>
                         <DisplayField label="ФИО" value={dataInfoCard.fio} />
                         <DisplayField label="Курс" value={courseReviewData?.group.course.name} />
@@ -64,35 +46,39 @@ const CourseReviewSettings = ({ id }: CourseReviewSettingsProps) => {
                                 <Flex gap={4}>
                                     <Flex align="center" gap={2}>
                                         <Rating defaultValue={1} count={1} readOnly size="small" />
-                                        <Text className={classes.ratingValue}>{courseReviewData?.score}</Text>
+                                        <Paragraph variant="small-semi">{courseReviewData?.score}</Paragraph>
                                     </Flex>
-                                    <Text className={classes.ratingMaxValue}>из 5</Text>
+                                    <Paragraph variant="small-m" color="gray45">
+                                        из 5
+                                    </Paragraph>
                                 </Flex>
                             )}
                         />
                     </Fieldset>
 
                     <Fieldset label="Содержание отзыва" icon={<AlignLeft />}>
-                        <Text className={classes.description}>{courseReviewData?.content}</Text>
+                        <Paragraph variant="small-m" color="dark">
+                            {courseReviewData?.content}
+                        </Paragraph>
                     </Fieldset>
                 </Flex>
-                <Box>
-                    <InfoCard<CourseReviewCardInfoFields>
-                        avatar={{
-                            src: courseReviewData?.user.profile.avatar?.absolutePath,
-                        }}
-                        values={dataInfoCard}
-                        variant="whiteBg"
-                        fields={fields}
-                        actionSlot={
-                            <Button variant={variantPublishButton} onClick={handleChangePublishingStatus}>
-                                {labelPublishingSwitch}
-                            </Button>
-                        }
-                    />
-                </Box>
+            </Flex>
+            <Box>
+                <InfoCard<CourseReviewCardInfoFields>
+                    avatar={{
+                        src: courseReviewData?.user.profile.avatar?.absolutePath,
+                    }}
+                    values={dataInfoCard}
+                    variant="whiteBg"
+                    fields={fields}
+                    actionSlot={
+                        <Button variant={variantPublishButton} onClick={handleChangePublishingStatus}>
+                            {labelPublishingSwitch}
+                        </Button>
+                    }
+                />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

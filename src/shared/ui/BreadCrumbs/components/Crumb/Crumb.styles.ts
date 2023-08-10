@@ -1,9 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme, { isActiveCrumb }: { isActiveCrumb: boolean }) => ({
+interface CreateStylesParams {
+    isActiveCrumb: boolean;
+}
+
+export default createStyles((theme, { isActiveCrumb }: CreateStylesParams, getRef) => ({
     crumb: {
-        fontWeight: 500,
-        color: isActiveCrumb ? theme.colors.dark[0] : theme.colors.gray45[0],
         textDecoration: "none",
         whiteSpace: "nowrap",
 
@@ -11,7 +13,15 @@ export default createStyles((theme, { isActiveCrumb }: { isActiveCrumb: boolean 
             textDecoration: "underline",
         },
         "&:active": {
-            color: theme.colors.dark[0],
+            [`.${getRef("control")}`]: {
+                color: theme.colors.dark[0],
+            },
         },
+    },
+    content: {
+        ref: getRef("imageBack"),
+        display: "block",
+        color: isActiveCrumb ? theme.colors.dark[0] : theme.colors.gray45[0],
+        whiteSpace: "nowrap",
     },
 }));

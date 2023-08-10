@@ -10,7 +10,7 @@ const UpdateMainBannerPage = () => {
     const router = useRouter();
     const { data, isLoading } = useMainBanner();
 
-    const handleCloseEditForm = () => {
+    const handleCloseUpdateMainBannerForm = () => {
         router.push("/admin/settings/main-page/banner");
     };
 
@@ -19,10 +19,10 @@ const UpdateMainBannerPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ title: data?.title })} mb={8} />
             <Flex direction="column" gap={24} mb={32}>
                 <Heading>{data?.title}</Heading>
-                <LastUpdatedInfo data={data?.lastUpdated} />
+                <LastUpdatedInfo data={data?.lastUpdated} scrollable />
             </Flex>
             {isLoading && <Loader />}
-            <UpdateMainBannerForm data={data} onClose={handleCloseEditForm} />
+            <UpdateMainBannerForm data={data} onClose={handleCloseUpdateMainBannerForm} />
         </Box>
     );
 };

@@ -1,3 +1,3 @@
-import InfoPanel from "./InfoPanel";
+import InfoPanel, { type InfoPanelProps } from "./InfoPanel";
 
-export { InfoPanel };
+export { InfoPanel, InfoPanelProps };

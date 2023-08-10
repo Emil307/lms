@@ -19,17 +19,21 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 60,
     },
     {
         header: "Курс",
         accessorKey: "name",
+        size: 248,
     },
     {
         header: "Категория курса",
         accessorKey: "category.name",
+        size: 248,
     },
     {
         header: "Подкатегория",
         accessorKey: "subcategory.name",
+        size: 248,
     },
 ];

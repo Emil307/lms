@@ -15,13 +15,11 @@ const UpdateStaticReviewPage = () => {
 
     const { data } = useAdminStaticReview({ id });
 
-    const fullName = `${data?.firstName} ${data?.lastName}`;
-
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ fullName, id })} mb={8} />
-            <Heading>{fullName}</Heading>
-            <UpdateStaticReviewForm data={data} onClose={handleCloseForm} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: data?.content, id })} mb={8} />
+            <Heading>{data?.content}</Heading>
+            <UpdateStaticReviewForm data={data} onClose={handleCloseForm} mt={24} />
         </Box>
     );
 };

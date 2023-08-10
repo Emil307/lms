@@ -1,45 +1,33 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React from "react";
-import { Trash, AlignLeft } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Heading } from "@shared/ui";
-import { useAdminArticlePackage } from "@entities/articlePackage";
-import { DeleteArticlePackageModal } from "@features/articlePackages";
-import { PackageInfo } from "./components";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
+import { GetAdminArticlePackageResponse, useAdminArticlePackage } from "@entities/articlePackage";
+import { InfoCard } from "@components/InfoCard";
+import { DeleteArticlePackageButton } from "./components";
 import useStyles from "./ArticlePackageSettings.styles";
+import { fields } from "./constants";
 
-export interface ArticlePackageSettingsProps {
+export interface ArticlePackageSettingsProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
+const ArticlePackageSettings = ({ id, ...props }: ArticlePackageSettingsProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: articlePackageData } = useAdminArticlePackage(id);
 
-    const handleOpenEditPage = () => router.push({ pathname: "/admin/settings/article-packages/[id]/edit", query: { id } });
-
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_ARTICLE_PACKAGE");
-        router.push("/admin/settings/article-packages");
-    };
-
-    const openModalDeletePackage = () => {
-        openModal({
-            modalId: "DELETE_ARTICLE_PACKAGE",
-            title: "Удаление пакета",
-            children: <DeleteArticlePackageModal id={id} name={articlePackageData?.name} onClose={handleCloseDeleteModal} />,
-        });
-    };
+    const handleOpenUpdateArticlePackagePage = () => router.push({ pathname: "/admin/settings/article-packages/[id]/edit", query: { id } });
 
     const categories = articlePackageData?.categories.map(({ name }) => name).join(", ");
     const tags = articlePackageData?.tags.map(({ name }) => name).join(", ");
-    const validity = () => {
-        if (!articlePackageData?.discount?.startingDate || !articlePackageData.discount.finishingDate) {
+
+    const renderValidity = () => {
+        if (!articlePackageData?.discount) {
             return "-";
         }
 
@@ -49,47 +37,45 @@ const ArticlePackageSettings = ({ id }: ArticlePackageSettingsProps) => {
     };
 
     return (
-        <Box>
-            <Box mt={32} className={classes.info}>
-                <Flex direction="column" gap={32} w="100%">
-                    <Flex gap={48} align="center">
-                        <Heading order={2}>Данные пакета базы знаний</Heading>
-                        <Button onClick={openModalDeletePackage} variant="text" leftIcon={<Trash />}>
-                            Удалить пакет
-                        </Button>
-                    </Flex>
-                    <Fieldset label="Общие" icon={<IconClipboardText />}>
-                        <DisplayField label="Наименование" value={articlePackageData?.name} />
-                        <DisplayField label="Категории" value={categories} />
-                        <DisplayField label="Теги" value={tags} />
-                        <DisplayField label="Полная стоимость пакета" value={`${articlePackageData?.fullPrice.toLocaleString("ru")} ₽`} />
-                    </Fieldset>
-                    <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                        <Text className={classes.description}>{articlePackageData?.description}</Text>
-                    </Fieldset>
-                    {articlePackageData?.discount && (
-                        <Fieldset label="Параметры скидки" icon={<IconPercentage />}>
-                            <DisplayField label="Тип скидки" value={articlePackageData.discount.type === "currency" ? "₽" : "%"} />
-
-                            <DisplayField label="Размер скидки" value={articlePackageData.discount.amount?.toString()} />
-
-                            <DisplayField
-                                label="Стоимость со скидкой"
-                                value={`${articlePackageData.discountPrice?.toLocaleString("ru")} ₽`}
-                            />
-                            <DisplayField label="Период действия" value={validity()} />
-                        </Fieldset>
-                    )}
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
+                    <Heading order={2}>Данные пакета базы знаний</Heading>
+                    <DeleteArticlePackageButton data={articlePackageData} />
                 </Flex>
-                <Box>
-                    <PackageInfo data={articlePackageData}>
-                        <Button variant="secondary" mt={16} onClick={handleOpenEditPage}>
+                <Fieldset label="Общие" icon={<IconClipboardText />}>
+                    <DisplayField label="Наименование" value={articlePackageData?.name} />
+                    <DisplayField label="Категории" value={categories} />
+                    <DisplayField label="Теги" value={tags} />
+                    <DisplayField label="Полная стоимость пакета" value={`${articlePackageData?.fullPrice.toLocaleString("ru")} ₽`} />
+                </Fieldset>
+                <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
+                    <Paragraph variant="small-m" color="gray45">
+                        {articlePackageData?.description}
+                    </Paragraph>
+                </Fieldset>
+                {articlePackageData?.hasDiscount && (
+                    <Fieldset label="Параметры скидки" icon={<IconPercentage />}>
+                        <DisplayField label="Тип скидки" value={articlePackageData.discount?.type === "currency" ? "₽" : "%"} />
+                        <DisplayField label="Размер скидки" value={articlePackageData.discount?.amount.toString()} />
+                        <DisplayField label="Стоимость со скидкой" value={`${articlePackageData.discountPrice.toLocaleString("ru")} ₽`} />
+                        <DisplayField label="Период действия" value={renderValidity()} />
+                    </Fieldset>
+                )}
+            </Flex>
+            <Box>
+                <InfoCard<GetAdminArticlePackageResponse>
+                    values={articlePackageData}
+                    variant="whiteBg"
+                    fields={fields}
+                    actionSlot={
+                        <Button variant="secondary" onClick={handleOpenUpdateArticlePackagePage}>
                             Редактировать данные
                         </Button>
-                    </PackageInfo>
-                </Box>
+                    }
+                />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

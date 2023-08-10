@@ -14,6 +14,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
 import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
 import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
+import useStyles from "./UpdateStudentForm.styles";
 
 export interface UpdateStudentFormProps {
     data?: UserDetailResponse;
@@ -22,6 +23,7 @@ export interface UpdateStudentFormProps {
 
 const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
     const { data: options } = useAdminStudentsFilters();
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
@@ -114,10 +116,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                                     <Avatar
                                         src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
                                         alt="avatar"
-                                        w={84}
-                                        h={84}
-                                        radius={50}
-                                        styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                                        className={classes.avatarWrapper}>
                                         <AvatarIcon />
                                     </Avatar>
                                     <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />

@@ -39,15 +39,7 @@ const Menu = ({ user }: MenuProps) => {
         <MMenu width={200} shadow="md" opened={opened} onChange={setOpened} position="bottom-end">
             <MMenu.Target>
                 <Flex align="center" gap={8} className={classes.root}>
-                    <Avatar
-                        src={user.profile.avatar?.absolutePath}
-                        alt="avatar"
-                        w={50}
-                        h={50}
-                        radius={160}
-                        styles={(theme) => ({
-                            placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                        })}>
+                    <Avatar src={user.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                         <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>

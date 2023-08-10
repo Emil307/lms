@@ -39,9 +39,9 @@ const CoursePackageDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ packageName: coursePackageData.name, id })} mb={8} />
-            <Heading>{coursePackageData.name}</Heading>
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
+            <Heading mb={24}>{coursePackageData.name}</Heading>
+            <InfoPanel id={id} mb={24} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}
         </Box>
     );

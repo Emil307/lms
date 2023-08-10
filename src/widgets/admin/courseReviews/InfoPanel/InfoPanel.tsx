@@ -1,16 +1,16 @@
-import { Box, Flex } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import React, { ChangeEvent, useState } from "react";
 import dayjs from "dayjs";
-import { Prompt, Switch } from "@shared/ui";
+import { Paragraph, Prompt, Switch } from "@shared/ui";
 import { useAdminCourseReview, useUpdateCourseReviewPublishingStatus } from "@entities/courseReview";
 import useStyles from "./InfoPanel.styles";
 
-interface InfoPanelProps {
+export interface InfoPanelProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
-    const { classes } = useStyles();
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
+    const { classes, cx } = useStyles();
     const [openedPrompt, setOpenedPrompt] = useState(true);
     const { data } = useAdminCourseReview({ id });
 
@@ -24,13 +24,18 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const handleClosePrompt = () => setOpenedPrompt(false);
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={32} align="center">
-                <Box className={classes.infoItem}>
-                    ID: <span>{data?.id}</span>
-                </Box>
-                <Flex gap={8} align="center" className={classes.infoItem}>
-                    Статус:
+        <Flex {...props} className={cx(classes.root, props.className)}>
+            <Flex className={classes.inner}>
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                </Flex>
+                <Flex align="center" gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         variant="secondary"
                         label={labelPublishingSwitch}
@@ -39,9 +44,12 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         onChange={handleChangePublishingStatus}
                     />
                 </Flex>
-                <Box className={classes.infoItem}>
-                    Дата отзыва: <span>{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                </Box>
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Дата отзыва:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</Paragraph>
+                </Flex>
             </Flex>
             <Prompt
                 isOpened={openedPrompt}

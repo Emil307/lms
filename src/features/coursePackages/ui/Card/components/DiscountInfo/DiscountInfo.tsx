@@ -17,9 +17,7 @@ const DiscountInfo = ({ discount }: DiscountInfoProps) => {
 
     return (
         <MCard.Section className={classes.root}>
-            <Badge variant="outline" className={classes.discount}>
-                {discountValue}
-            </Badge>
+            <Badge className={classes.discount}>{discountValue}</Badge>
             {discount.finishingDate && (
                 <Badge variant="outline" className={classes.discountEndDate}>
                     {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}

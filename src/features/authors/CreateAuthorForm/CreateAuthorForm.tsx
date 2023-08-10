@@ -67,12 +67,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
                         <Flex align="center" gap={24} mb={24}>
-                            <Avatar
-                                src={values.avatar?.absolutePath}
-                                alt="avatar"
-                                className={classes.avatarWrapper}
-                                radius={50}
-                                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                                 <AvatarIcon />
                             </Avatar>
                             <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />

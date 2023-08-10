@@ -8,7 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { AdminArticlePackageFromList, useUpdateArticlePackageActivity } from "@entities/articlePackage";
 import { DeleteArticlePackageModal } from "@features/articlePackages";
 
-interface ListMenuProps {
+export interface ListMenuProps {
     row: MRT_Row<AdminArticlePackageFromList>;
 }
 
@@ -49,19 +49,19 @@ const ListMenu = ({ row }: ListMenuProps) => {
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={handleOpenDetailPage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenEditPage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

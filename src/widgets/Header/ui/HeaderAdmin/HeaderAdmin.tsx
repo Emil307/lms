@@ -56,15 +56,7 @@ const HeaderAdmin = () => {
 
         return (
             <Flex align="center" gap={16}>
-                <Avatar
-                    src={user.profile.avatar?.absolutePath}
-                    alt="avatar"
-                    w={50}
-                    h={50}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
+                <Avatar src={user.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>

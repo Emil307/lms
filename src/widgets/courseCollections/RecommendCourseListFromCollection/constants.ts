@@ -1,4 +1,5 @@
-import {TDefaultRequestParams} from "@shared/types";
+import { GetRandomCourseCollectionRequest } from "@entities/courseCollection";
+import { TDefaultRequestParams } from "@shared/types";
 
 export const initialParamsForCollection: GetRandomCourseCollectionRequest = {
     limit: 1,

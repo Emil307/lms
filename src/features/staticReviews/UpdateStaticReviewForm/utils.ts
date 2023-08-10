@@ -8,7 +8,7 @@ export const adaptDataForUpdateReviewForm = (staticReview?: AdminStaticReview): 
         content: staticReview?.content,
         quote: staticReview?.quote || "",
         position: staticReview?.position || "",
-        authorIsActive: !!staticReview?.firstName,
+        authorIsActive: staticReview?.authorIsActive,
         isActive: staticReview?.isActive,
         preview: staticReview?.preview,
         avatar: staticReview?.authorAvatar,

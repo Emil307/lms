@@ -5,10 +5,12 @@ export default createStyles((theme) => ({
         alignItems: "center",
         justifyContent: "space-between",
         gap: 16,
+        marginBottom: 24,
 
         [theme.fn.smallerThan("xs")]: {
             flexDirection: "column",
             alignItems: "flex-start",
+            marginBottom: 32,
         },
     },
 }));

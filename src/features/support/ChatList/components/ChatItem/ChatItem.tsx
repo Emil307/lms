@@ -22,16 +22,7 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
         <Indicator size={8} offset={16} position="top-start" color="done" disabled={!data.hasSupportMessage}>
             <Flex {...props} className={classes.root} onClick={handleClick}>
                 <Flex gap={8}>
-                    <Avatar
-                        src={data.profile.avatar?.absolutePath}
-                        alt="avatar"
-                        w={32}
-                        h={32}
-                        miw={32}
-                        radius={160}
-                        styles={(theme) => ({
-                            placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                        })}>
+                    <Avatar src={data.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                         <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>

@@ -20,7 +20,7 @@ export const $UpdateMainBannerFormValidation = z
         indexBannerAuthorFirstName: z.string().optional(),
         indexBannerAuthorLastName: z.string().optional(),
         indexBannerAuthorAbout: z.string().optional(),
-        indexBannerAuthorShortQuote: z.string().optional(),
+        indexBannerAuthorShortQuote: z.string().max(150, "Должно быть не более 150 символов").optional(),
     })
     .refine(
         (data) => {

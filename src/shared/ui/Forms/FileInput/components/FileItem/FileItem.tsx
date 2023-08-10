@@ -56,7 +56,7 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
                         <Paragraph variant="text-small-m" className={classes.statusInfo}>
                             Готово
                         </Paragraph>
-                        <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
+                        <Button className={classes.buttonDownload} onClick={handleDownloadFile} sx={{ paddingRight: 0 }}>
                             Скачать
                         </Button>
                     </Flex>

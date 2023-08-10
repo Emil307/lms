@@ -1,7 +1,9 @@
-import { Box, BoxProps, Flex, Group, Text } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import { AlignLeft } from "react-feather";
 import React from "react";
+import dayjs from "dayjs";
+import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FDateRangePicker,
@@ -13,6 +15,7 @@ import {
     Heading,
     Input,
     ManagedForm,
+    Paragraph,
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
@@ -37,6 +40,7 @@ export interface UpdateArticlePackageFormProps extends BoxProps {
 
 const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePackageFormProps) => {
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const articlePackageResources = useAdminArticlePackageResourcesCreate();
 
@@ -83,12 +87,30 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                     });
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={8} align="center">
-                                <Text color="gray45">Статус:</Text>
-                                <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
+                            <Flex className={classes.infoPanel}>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        ID:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                                </Flex>
+                                <Flex align="center" gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Статус:
+                                    </Paragraph>
+                                    <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
+                                </Flex>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Создание:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">
+                                        {data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                                    </Paragraph>
+                                </Flex>
                             </Flex>
 
-                            <Fieldset label="Общее" icon={<IconClipboardText />} maw={512}>
+                            <Fieldset label="Общее" icon={<IconClipboardText />} legendProps={{ mb: 24 }} maw={512}>
                                 <Flex direction="column" gap={8} w="100%">
                                     <FInput name="name" label="Наименование" size="sm" />
                                     <FMultiSelect
@@ -109,21 +131,11 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                         name="tags"
                                         label="Теги"
                                     />
-                                    <FInput name="price" label="Стоимость пакета" type="number" size="sm" w="50%" />
+                                    <FInput name="price" label="Стоимость пакета" type="number" size="sm" className={classes.priceInput} />
                                 </Flex>
                             </Fieldset>
-                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={772}>
-                                <FTextarea
-                                    name="description"
-                                    placeholder="Введите текст"
-                                    w="100%"
-                                    maw={772}
-                                    sx={{
-                                        textarea: {
-                                            minHeight: 190,
-                                        },
-                                    }}
-                                />
+                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} legendProps={{ mb: 24 }} maw={772}>
+                                <FTextarea name="description" placeholder="Введите текст" className={classes.descriptionTextarea} />
                             </Fieldset>
 
                             <Box component="fieldset" className={classes.fieldset} maw={772}>
@@ -133,7 +145,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                     <FSwitch variant="secondary" name="hasDiscount" />
                                 </Box>
                                 {values.hasDiscount && (
-                                    <Flex direction="column" gap={24} w="100%">
+                                    <Flex direction="column" gap={16} w="100%">
                                         <Flex>
                                             <FRadioGroup name="discount.type" defaultValue="percentage">
                                                 {radioGroupValues.map((item) => {
@@ -141,40 +153,37 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                                 })}
                                             </FRadioGroup>
                                         </Flex>
-                                        <Group sx={{ gap: 8 }}>
+                                        <Flex className={classes.discountFieldsContainer}>
                                             <FInput
                                                 name="discount.amount"
                                                 label="Размер скидки"
                                                 type="number"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountInput}
                                             />
                                             <FDateRangePicker
                                                 name="discount.startingDate"
                                                 nameTo="discount.finishingDate"
                                                 label="Период действия"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountDateRangePicker}
                                             />
                                             <Input
                                                 value={discountAmount}
                                                 label="Стоимость со скидкой"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountInput}
                                                 disabled
                                             />
-                                        </Group>
+                                        </Flex>
                                     </Flex>
                                 )}
                             </Box>
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

@@ -1,3 +1,3 @@
-import CreateCoursePackageForm from "./CreateCoursePackageForm";
+import CreateCoursePackageForm, { type CreateCoursePackageFormProps } from "./CreateCoursePackageForm";
 
-export { CreateCoursePackageForm };
+export { CreateCoursePackageForm, CreateCoursePackageFormProps };

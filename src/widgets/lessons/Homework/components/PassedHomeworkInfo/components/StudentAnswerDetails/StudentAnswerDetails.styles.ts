@@ -12,6 +12,7 @@ export default createStyles((theme) => ({
         width: 32,
         height: 32,
         minWidth: "auto",
+        borderRadius: 50,
 
         ".mantine-Avatar-placeholder": {
             backgroundColor: theme.colors.grayLight[0],

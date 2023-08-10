@@ -146,14 +146,16 @@ const MemoizedTextEditor = memo(function TextEditor({
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
+                        <TableControls.MergeCells />
+                        <TableControls.SplitCell />
+                    </RichTextEditor.ControlsGroup>
+                    <RichTextEditor.ControlsGroup>
                         <TableControls.AddColumnBefore />
                         <TableControls.AddColumnAfter />
                         <TableControls.DeleteColumn />
                         <TableControls.AddRowBefore />
                         <TableControls.AddRowAfter />
                         <TableControls.DeleteRow />
-                        <TableControls.MergeCells />
-                        <TableControls.SplitCell />
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
 

@@ -1,8 +1,9 @@
-import { Box, Text, Flex, Group, BoxProps } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FDateRangePicker,
@@ -14,6 +15,7 @@ import {
     Heading,
     Input,
     ManagedForm,
+    Paragraph,
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
@@ -22,9 +24,9 @@ import { CreateArticlePackageResponse, articlePackageApi, useAdminArticlePackage
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues, radioGroupValues } from "./constants";
-import useStyles from "./CreateArticlePackageForm.styles";
 import { $CreateArticlePackageFormValidation, CreateArticlePackageFormValidation } from "./types";
 import { adaptCreateArticlePackageRequest } from "./utils";
+import useStyles from "./CreateArticlePackageForm.styles";
 
 export interface CreateArticlePackageFormProps extends BoxProps {
     onClose: () => void;
@@ -33,6 +35,8 @@ export interface CreateArticlePackageFormProps extends BoxProps {
 const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const articlePackageResources = useAdminArticlePackageResourcesCreate();
 
@@ -77,12 +81,14 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                     });
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={8} align="center">
-                                <Text color="gray45">Статус:</Text>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
 
-                            <Fieldset label="Общее" icon={<IconClipboardText />} maw={512}>
+                            <Fieldset label="Общее" icon={<IconClipboardText />} legendProps={{ mb: 24 }} maw={512}>
                                 <Flex direction="column" gap={8} w="100%">
                                     <FInput name="name" label="Наименование" size="sm" />
                                     <FMultiSelect
@@ -103,21 +109,11 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                                         name="tags"
                                         label="Теги"
                                     />
-                                    <FInput name="price" label="Стоимость пакета" type="number" size="sm" w="50%" />
+                                    <FInput name="price" label="Стоимость пакета" type="number" size="sm" className={classes.priceInput} />
                                 </Flex>
                             </Fieldset>
-                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={772}>
-                                <FTextarea
-                                    name="description"
-                                    placeholder="Введите текст"
-                                    w="100%"
-                                    maw={772}
-                                    sx={{
-                                        textarea: {
-                                            minHeight: 190,
-                                        },
-                                    }}
-                                />
+                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} legendProps={{ mb: 24 }} maw={772}>
+                                <FTextarea name="description" placeholder="Введите текст" className={classes.descriptionTextarea} />
                             </Fieldset>
 
                             <Box component="fieldset" className={classes.fieldset} maw={772}>
@@ -127,48 +123,43 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                                     <FSwitch variant="secondary" name="hasDiscount" />
                                 </Box>
                                 {values.hasDiscount && (
-                                    <Flex direction="column" gap={24} w="100%">
-                                        <Flex>
-                                            <FRadioGroup name="discount.type" defaultValue="percentage">
-                                                {radioGroupValues.map((item) => {
-                                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                                })}
-                                            </FRadioGroup>
-                                        </Flex>
-                                        <Group sx={{ gap: 8 }}>
+                                    <Flex direction="column" gap={16} w="100%">
+                                        <FRadioGroup name="discount.type" defaultValue="percentage">
+                                            {radioGroupValues.map((item) => {
+                                                return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                            })}
+                                        </FRadioGroup>
+                                        <Flex className={classes.discountFieldsContainer}>
                                             <FInput
                                                 name="discount.amount"
                                                 label="Размер скидки"
                                                 type="number"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountInput}
                                             />
                                             <FDateRangePicker
                                                 name="discount.startingDate"
                                                 nameTo="discount.finishingDate"
                                                 label="Период действия"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountDateRangePicker}
                                             />
                                             <Input
                                                 value={discountAmount}
                                                 label="Стоимость со скидкой"
                                                 size="sm"
-                                                w="100%"
-                                                maw={252}
+                                                className={classes.discountInput}
                                                 disabled
                                             />
-                                        </Group>
+                                        </Flex>
                                     </Flex>
                                 )}
                             </Box>
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

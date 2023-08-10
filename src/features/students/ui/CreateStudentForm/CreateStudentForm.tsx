@@ -63,13 +63,7 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
                     <Fieldset label="Личные данные" icon={<User />}>
                         <Box>
                             <Flex align="center" gap={24}>
-                                <Avatar
-                                    src={values.avatar?.absolutePath}
-                                    alt="avatar"
-                                    w={84}
-                                    h={84}
-                                    radius={50}
-                                    styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                                <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                                     <AvatarIcon />
                                 </Avatar>
                                 <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />

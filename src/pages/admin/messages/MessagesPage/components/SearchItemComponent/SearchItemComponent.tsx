@@ -19,14 +19,7 @@ const SearchItemComponent = ({ data, isSelected, onClick = () => undefined }: Se
 
     return (
         <Flex className={classes.root} onClick={handleClick}>
-            <Avatar
-                src={data.profile.avatar?.absolutePath}
-                alt="avatar"
-                w={32}
-                h={32}
-                miw={32}
-                radius={160}
-                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+            <Avatar src={data.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                 <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                     <AvatarIcon />
                 </ThemeIcon>

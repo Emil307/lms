@@ -1,8 +1,8 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Flex, Text } from "@mantine/core";
-import { getHumanDate } from "@shared/utils";
+import { Flex } from "@mantine/core";
+import dayjs from "dayjs";
 import { AdminArticlePackageFromList, AdminArticlePackagesFiltersForm } from "@entities/articlePackage";
-import useStyles from "./AdminList.styles";
+import { Paragraph } from "@shared/ui";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -16,7 +16,8 @@ export const filterInitialValues: AdminArticlePackagesFiltersForm = {
     categoryId: "",
     createdAtFrom: null,
     createdAtTo: null,
-    discountFinishingDate: null,
+    discountFinishingDateFrom: null,
+    discountFinishingDateTo: null,
 };
 
 export const columnOrder = [
@@ -34,52 +35,54 @@ export const columns: MRT_ColumnDef<AdminArticlePackageFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Название пакета",
         accessorKey: "name",
+        size: 229,
     },
     {
         header: "Категории",
         accessorKey: "categories",
         enableSorting: false,
-        Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
+        size: 229,
+        accessorFn: ({ categories }) => categories.map(({ name }) => name).join(", "),
     },
     {
         header: "Полная стоимость",
         accessorKey: "fullPrice",
-        accessorFn: (row) => `${row.fullPrice.toLocaleString("ru") || 0} ₽`,
+        size: 229,
+        accessorFn: ({ fullPrice }) => `${fullPrice.toLocaleString("ru") || 0} ₽`,
     },
     {
         header: "Стоимость со скидкой",
         accessorKey: "discountPrice",
-        accessorFn: (row) => (row.discountPrice ? `${row.discountPrice.toLocaleString("ru")} ₽` : ""),
+        size: 229,
+        accessorFn: ({ discountPrice }) => (discountPrice ? `${discountPrice.toLocaleString("ru")} ₽` : ""),
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
-        accessorFn: (row) => getHumanDate(row.createdAt, { month: "2-digit", day: "2-digit", year: "numeric" }),
+        size: 220,
+        accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
     {
         header: "Скидка действует",
         accessorKey: "discount.finishingDate",
+        size: 220,
         Cell: ({ row }) => {
-            const { classes } = useStyles();
             return (
                 <Flex direction="column">
                     {row.original.discount?.startingDate && (
-                        <Text className={classes.startingDate} lineClamp={1}>{`с ${getHumanDate(row.original.discount.startingDate, {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                        })}`}</Text>
+                        <Paragraph variant="text-small-m" lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
+                            "DD.MM.YYYY"
+                        )}`}</Paragraph>
                     )}
                     {row.original.discount?.finishingDate && (
-                        <Text className={classes.finishingDate} lineClamp={1}>{`до ${getHumanDate(row.original.discount.finishingDate, {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                        })}`}</Text>
+                        <Paragraph variant="text-caption" color="gray45" lineClamp={1}>{`до ${dayjs(
+                            row.original.discount.finishingDate
+                        ).format("DD.MM.YYYY")}`}</Paragraph>
                     )}
                 </Flex>
             );

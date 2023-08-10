@@ -25,16 +25,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     return (
         <Flex {...props} className={classes.root}>
             <Flex align="center" gap={8}>
-                <Avatar
-                    src={data.sender.profile.avatar?.absolutePath}
-                    alt="avatar"
-                    w={32}
-                    h={32}
-                    miw={32}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
+                <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>
