@@ -13,22 +13,17 @@ const AuthorInfoCard = ({ data }: AuthorInfoCardProps) => {
 
     const authorFullName = [data?.authorFirstName, data?.authorLastName].join(" ");
 
+    if (!data?.authorActive) {
+        return null;
+    }
+
     return (
         <Flex className={classes.root}>
             <Paragraph variant="text-small-m" className={classes.shortQuote}>
-                {data?.authorShortQuote}
+                {data.authorShortQuote}
             </Paragraph>
             <Flex gap={8}>
-                <Avatar
-                    src={data?.authorImage?.absolutePath}
-                    alt="avatar"
-                    w={44}
-                    h={44}
-                    miw={44}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
+                <Avatar src={data.authorImage?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>
@@ -38,7 +33,7 @@ const AuthorInfoCard = ({ data }: AuthorInfoCardProps) => {
                         {authorFullName}
                     </Paragraph>
                     <Paragraph variant="text-caption" className={classes.authorAbout}>
-                        {data?.authorAbout}
+                        {data.authorAbout}
                     </Paragraph>
                 </Flex>
             </Flex>

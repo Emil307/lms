@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { memo } from "react";
-import { TBreadCrumbItem } from "@shared/ui";
+import { Paragraph, TBreadCrumbItem } from "@shared/ui";
 import useStyles from "./Crumb.styles";
 
 export interface CrumbProps {
@@ -13,7 +13,9 @@ const MemoizedCrumb = memo(function Crumb({ item, isActive }: CrumbProps) {
 
     return (
         <Link className={classes.crumb} href={item.href}>
-            {item.title}
+            <Paragraph variant="text-small-m" lineClamp={1} maw={item.maxWidth} className={classes.content}>
+                {item.title}
+            </Paragraph>
         </Link>
     );
 });

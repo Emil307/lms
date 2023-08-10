@@ -1,18 +1,17 @@
-import { Flex, Text, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteAdvantage } from "@entities/staticPage";
 import useStyles from "./DeleteAdvantageModal.styles";
 
-interface DeleteAdvantageModalProps {
+export interface DeleteAdvantageModalProps {
     id: string;
     name: string;
     onClose: () => void;
 }
 
 const DeleteAdvantageModal = ({ id, name, onClose }: DeleteAdvantageModalProps) => {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
     const deleteAdvantage = useDeleteAdvantage(id);
 
@@ -27,10 +26,15 @@ const DeleteAdvantageModal = ({ id, name, onClose }: DeleteAdvantageModalProps) 
     return (
         <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <AlertTriangle color={theme.colors.secondary[0]} />
-                </Flex>
-                <Text className={classes.text}>{`Вы действительно хотите удалить преимущество, «${id}: ${name}»?`}</Text>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {"Вы действительно хотите удалить преимущество, "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
+                </Box>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteAdvantage.isLoading} w="100%">

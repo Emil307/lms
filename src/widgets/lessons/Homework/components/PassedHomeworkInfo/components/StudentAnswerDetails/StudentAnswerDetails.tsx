@@ -31,7 +31,7 @@ const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: Stud
 
     return (
         <Flex className={classes.root}>
-            <Avatar src={data.student.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper} radius={50}>
+            <Avatar src={data.student.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                 <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                     <AvatarIcon />
                 </ThemeIcon>

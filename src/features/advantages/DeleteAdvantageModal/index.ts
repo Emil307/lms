@@ -1,3 +1,3 @@
-import DeleteAdvantageModal from "./DeleteAdvantageModal";
+import DeleteAdvantageModal, { type DeleteAdvantageModalProps } from "./DeleteAdvantageModal";
 
-export { DeleteAdvantageModal };
+export { DeleteAdvantageModal, DeleteAdvantageModalProps };

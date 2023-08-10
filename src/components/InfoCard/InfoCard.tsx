@@ -41,7 +41,7 @@ function InfoCard<T>({
             <Box className={classes.imageWrapper}>
                 <Flex className={classes.imageBack}>
                     <ImageIcon />
-                    {src && <Image className={classes.image} src={src} width={270} height={166} {...props} alt="infoCardImage" />}
+                    {src && <Image className={classes.image} src={src} fill sizes="100vw" {...props} alt="infoCardImage" />}
                 </Flex>
                 {children}
             </Box>
@@ -63,13 +63,7 @@ function InfoCard<T>({
             return null;
         }
         return (
-            <Avatar
-                alt="avatar"
-                w={84}
-                h={84}
-                radius={50}
-                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}
-                {...avatar}>
+            <Avatar className={classes.avatarWrapper} alt="avatar" {...avatar}>
                 <AvatarIcon />
             </Avatar>
         );
@@ -87,7 +81,9 @@ function InfoCard<T>({
         () =>
             fields.map(({ value, ...field }, index) => {
                 const getValue = field.renderString ? field.renderString(get(values, field.name), values) : get(values, field.name);
-                if (hideFieldIfEmpty && !getValue) {
+                const isHidden = typeof field.hidden === "function" ? field.hidden(get(values, field.name), values) : !!field.hidden;
+
+                if ((hideFieldIfEmpty && !getValue) || isHidden) {
                     return null;
                 }
                 return <DisplayField key={index} {...field} value={getValue} variant="compact" />;

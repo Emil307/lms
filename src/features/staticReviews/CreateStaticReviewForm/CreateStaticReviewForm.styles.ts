@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((_theme) => ({
+export default createStyles((theme) => ({
     fieldset: {
         display: "flex",
         flexDirection: "column",
@@ -14,10 +14,50 @@ export default createStyles((_theme) => ({
     legend: {
         display: "flex",
         gap: 16,
-        marginBottom: 16,
+        marginBottom: 24,
 
         svg: {
             color: "gray45.0",
+        },
+    },
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+        borderRadius: 50,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
+    quoteTextarea: {
+        textarea: {
+            minHeight: 190,
+        },
+    },
+    previewFileInput: {
+        height: 304,
+        width: "100%",
+        maxWidth: 660,
+
+        [theme.fn.smallerThan("xs")]: {
+            height: 129,
+        },
+    },
+    actions: {
+        gap: 8,
+
+        button: {
+            width: "100%",
+            maxWidth: 252,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+
+            button: {
+                maxWidth: "none",
+            },
         },
     },
 }));

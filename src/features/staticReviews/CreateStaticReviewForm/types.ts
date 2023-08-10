@@ -11,7 +11,7 @@ export const $CreateAdminStaticReviewFormValidation = z
         firstName: z.string().nullish(),
         lastName: z.string().nullish(),
         position: z.string().optional(),
-        quote: z.string().optional(),
+        quote: z.string().max(150, "Должно быть не более 150 символов").optional(),
         preview: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите изображение",
         }),
@@ -20,6 +20,18 @@ export const $CreateAdminStaticReviewFormValidation = z
             message: "Выберите видео",
         }),
     })
+    .refine(
+        (data) => {
+            if (!data.authorIsActive) {
+                return true;
+            }
+            return !!data.avatar;
+        },
+        {
+            message: "Выберите аватар",
+            path: ["avatar"],
+        }
+    )
     .refine(
         (data) => {
             if (!data.authorIsActive) {
@@ -42,5 +54,29 @@ export const $CreateAdminStaticReviewFormValidation = z
         {
             message: "Введите фамилию",
             path: ["lastName"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive) {
+                return true;
+            }
+            return !!data.position;
+        },
+        {
+            message: "Укажите информацию об авторе",
+            path: ["position"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive) {
+                return true;
+            }
+            return !!data.quote;
+        },
+        {
+            message: "Введите краткую цитату",
+            path: ["quote"],
         }
     );

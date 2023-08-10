@@ -1,7 +1,8 @@
-import { Box, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FDatePicker, FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -14,20 +15,23 @@ import {
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
-const AdminList = () => {
+export interface AdminListProps extends Omit<BoxProps, "children"> {}
+
+const AdminList = (props: AdminListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const articlePackageFilters = useAdminArticlePackageFilters();
 
-    const openArticlePackageDetailPage = (id: number) =>
-        router.push({ pathname: "/admin/settings/article-packages/[id]", query: { id: id.toString() } });
-
-    const handlerClickCell = (cell: MRT_Cell<AdminArticlePackageFromList>) => {
-        openArticlePackageDetailPage(cell.row.original.id);
+    const handleClickCell = (cell: MRT_Cell<AdminArticlePackageFromList>) => {
+        router.push({ pathname: "/admin/settings/article-packages/[id]", query: { id: cell.row.original.id.toString() } });
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <ManagedDataGrid<AdminArticlePackageFromList, AdminArticlePackagesFiltersForm>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_PACKAGES}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}
@@ -40,50 +44,82 @@ const AdminList = () => {
                     "categoryId",
                     "createdAtFrom",
                     "createdAtTo",
-                    "discountFinishingDate",
+                    "discountFinishingDateFrom",
+                    "discountFinishingDateTo",
                 ]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
-                onClickCell={handlerClickCell}
+                onClickCell={handleClickCell}
                 columns={columns}
                 countName="Подборок"
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
-                <Box mb={24}>
-                    <Group sx={{ gap: 8 }}>
-                        <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
-                        <FSelect
-                            name="categoryId"
-                            size="sm"
-                            data={prepareOptionsForSelect({
-                                data: articlePackageFilters.data?.categories,
-                                value: "id",
-                                label: "name",
-                            })}
-                            clearable
-                            label="Категория"
-                            disabled={articlePackageFilters.isLoading}
-                            w="100%"
-                            maw={252}
-                        />
-                        <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" clearable />
-                        <FDatePicker name="discountFinishingDate" label="Период действия" size="sm" clearable />
-                    </Group>
-                    <Box mt={16}>
-                        <FRadioGroup name="isActive" defaultValue="">
-                            {radioGroupValues.map((item) => {
-                                return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                            })}
-                        </FRadioGroup>
-                    </Box>
-                    <Button mt={16} type="submit" w="100%" maw={164}>
-                        Найти
-                    </Button>
-                </Box>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+
+                    return (
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
+                                <FSelect
+                                    name="categoryId"
+                                    size="sm"
+                                    data={prepareOptionsForSelect({
+                                        data: articlePackageFilters.data?.categories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    clearable
+                                    label="Категория"
+                                    className={classes.filterSelect}
+                                    disabled={articlePackageFilters.isLoading || !articlePackageFilters.data?.categories.length}
+                                />
+
+                                <FDateRangePicker
+                                    name="createdAtFrom"
+                                    nameTo="createdAtTo"
+                                    label="Дата создания"
+                                    size="sm"
+                                    clearable
+                                    className={classes.filterDateRangePicker}
+                                />
+                                <FDateRangePicker
+                                    name="discountFinishingDateFrom"
+                                    nameTo="discountFinishingDateTo"
+                                    label="Период действия"
+                                    size="sm"
+                                    clearable
+                                    className={classes.filterDateRangePicker}
+                                />
+                            </Flex>
+                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Flex>
+                    );
+                }}
             </ManagedDataGrid>
         </Box>
     );

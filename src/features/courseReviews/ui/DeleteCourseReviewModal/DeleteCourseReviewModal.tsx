@@ -1,7 +1,8 @@
-import { Flex, Stack, Text, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCourseReview } from "@entities/courseReview";
 import useStyles from "./DeleteCourseReviewModal.styles";
 
@@ -12,8 +13,8 @@ export interface DeleteCourseReviewModalProps {
 }
 
 const DeleteCourseReviewModal = ({ id, fullName, onClose }: DeleteCourseReviewModalProps) => {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
     const deleteCourseReview = useDeleteCourseReview({ id });
 
     const handleSubmit = () => {
@@ -25,22 +26,37 @@ const DeleteCourseReviewModal = ({ id, fullName, onClose }: DeleteCourseReviewMo
     };
 
     return (
-        <Stack>
+        <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <AlertTriangle color={theme.colors.secondary[0]} />
-                </Flex>
-                <Text className={classes.text}>{`Вы действительно хотите удалить отзыв, «${id}: ${fullName}»?`}</Text>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {`Вы действительно хотите удалить отзыв, `}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«${id}: ${fullName}»?`}</Paragraph>
+                </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteCourseReview.isLoading} w="100%">
+                <Button
+                    size={isMobile ? "medium" : "large"}
+                    variant="border"
+                    onClick={onClose}
+                    loading={deleteCourseReview.isLoading}
+                    w="100%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteCourseReview.isLoading} w="100%">
+                <Button
+                    size={isMobile ? "medium" : "large"}
+                    variant="secondary"
+                    onClick={handleSubmit}
+                    loading={deleteCourseReview.isLoading}
+                    w="100%">
                     Удалить
                 </Button>
             </Flex>
-        </Stack>
+        </Flex>
     );
 };
 

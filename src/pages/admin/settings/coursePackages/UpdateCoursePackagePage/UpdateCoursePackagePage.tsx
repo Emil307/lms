@@ -26,7 +26,7 @@ const UpdateCoursePackagePage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ coursePackageName: data.name, id })} mb={8} />
             <Heading>{data.name}</Heading>
-            <UpdateCoursePackageForm data={data} onClose={handleCloseForm} />
+            <UpdateCoursePackageForm data={data} onClose={handleCloseForm} mt={24} />
         </Box>
     );
 };

@@ -1,9 +1,9 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
-
+import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Edit3, User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
@@ -14,12 +14,14 @@ import useStyles from "./CreateStaticReviewForm.styles";
 import { $CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewFormValidation } from "./types";
 import { adaptCreateStaticReviewRequest } from "./utils";
 
-export interface CreateStaticReviewFormProps {
+export interface CreateStaticReviewFormProps extends Omit<BoxProps, "children"> {
     onClose: () => void;
 }
 
-const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
+const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormProps) => {
     const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const createStaticReview = (values: CreateAdminStaticReviewFormValidation) => {
         return staticReviewApi.createStaticReview(adaptCreateStaticReviewRequest(values));
@@ -42,99 +44,98 @@ const CreateStaticReviewForm = ({ onClose }: CreateStaticReviewFormProps) => {
     };
 
     return (
-        <ManagedForm<CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewResponse>
-            initialValues={initialValues}
-            validationSchema={$CreateAdminStaticReviewFormValidation}
-            mutationKey={[MutationKeys.CREATE_STATIC_REVIEW]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
-            mutationFunction={createStaticReview}
-            onSuccess={onSuccess}
-            hasConfirmModal
-            onCancel={onClose}
-            onError={onError}>
-            {({ values, dirty, onCancel }) => (
-                <Flex direction="column" gap={32}>
-                    <Flex gap={8} mt={24} align="center">
-                        <Text color="gray45">Статус:</Text>
-                        <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
-                    </Flex>
-                    <FFileInput
-                        name="preview"
-                        title="Изменить фото"
-                        type="image"
-                        withDeleteButton
-                        h={608}
-                        w="100%"
-                        maw={1320}
-                        description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
-                    />
-
-                    <Fieldset label="Видео" icon={<Video />} maw={772}>
-                        <Box w="100%">
-                            <FFileInput
-                                name="video"
-                                type="document"
-                                withDeleteButton
-                                fileFormats={["mp4"]}
-                                descriptionInside="Формат mp4"
-                            />
-                        </Box>
-                    </Fieldset>
-                    <Fieldset label="Заголовок" icon={<IconClipboardText />} maw={772}>
-                        <FInput
-                            name="content"
-                            label="Текст заголовка отзыва"
-                            size="sm"
-                            w="100%"
-                            withAsterisk
-                            description="до 120 символов"
+        <Box {...props}>
+            <ManagedForm<CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewResponse>
+                initialValues={initialValues}
+                validationSchema={$CreateAdminStaticReviewFormValidation}
+                mutationKey={[MutationKeys.CREATE_STATIC_REVIEW]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
+                mutationFunction={createStaticReview}
+                onSuccess={onSuccess}
+                hasConfirmModal
+                onCancel={onClose}
+                onError={onError}>
+                {({ values, dirty, onCancel }) => (
+                    <Flex direction="column" gap={32}>
+                        <Flex align="center" gap={8}>
+                            <Paragraph variant="text-small-m" color="gray45">
+                                Статус:
+                            </Paragraph>
+                            <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
+                        </Flex>
+                        <FFileInput
+                            name="preview"
+                            title="Изменить фото"
+                            type="image"
+                            withDeleteButton
+                            className={classes.previewFileInput}
+                            description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
                         />
-                    </Fieldset>
 
-                    <Box component="fieldset" className={classes.fieldset} maw={512}>
-                        <Box component="legend" className={classes.legend}>
-                            <User />
-                            <Heading order={4}>Карточка автора</Heading>
-                            <FSwitch variant="secondary" name="authorIsActive" />
-                        </Box>
-                        {values.authorIsActive && (
-                            <Flex direction="column" gap={24}>
-                                <Flex gap={24}>
-                                    <Avatar
-                                        src={values.avatar?.absolutePath}
-                                        alt="avatar"
-                                        w={84}
-                                        h={84}
-                                        radius={50}
-                                        styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                                        <AvatarIcon />
-                                    </Avatar>
-                                    <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                </Flex>
-                                <Flex direction="column" gap={8}>
-                                    <Flex gap={8}>
-                                        <FInput name="firstName" label="Имя" size="sm" withAsterisk />
-                                        <FInput name="lastName" label="Фамилия" size="sm" withAsterisk />
+                        <Fieldset label="Видео" icon={<Video />} maw={772}>
+                            <Box w="100%">
+                                <FFileInput
+                                    name="video"
+                                    type="document"
+                                    withDeleteButton
+                                    fileFormats={["mp4"]}
+                                    descriptionInside="Формат mp4"
+                                />
+                            </Box>
+                        </Fieldset>
+                        <Fieldset label="Заголовок" icon={<IconClipboardText />} maw={772}>
+                            <FInput
+                                name="content"
+                                label="Текст заголовка отзыва"
+                                size="sm"
+                                w="100%"
+                                withAsterisk
+                                description="до 120 символов"
+                            />
+                        </Fieldset>
+
+                        <Box component="fieldset" className={classes.fieldset} maw={512}>
+                            <Box component="legend" className={classes.legend}>
+                                <User />
+                                <Heading order={4}>Карточка автора</Heading>
+                                <FSwitch variant="secondary" name="authorIsActive" />
+                            </Box>
+                            {values.authorIsActive && (
+                                <Flex direction="column" gap={24} w="100%">
+                                    <Flex align="center" wrap="wrap" columnGap={24} rowGap={16}>
+                                        <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
+                                            <AvatarIcon />
+                                        </Avatar>
+                                        <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                     </Flex>
+                                    <Flex direction="column" gap={8}>
+                                        <Flex direction={{ base: "column", xs: "row" }} gap={8}>
+                                            <FInput name="firstName" label="Имя" size="sm" withAsterisk w="100%" />
+                                            <FInput name="lastName" label="Фамилия" size="sm" withAsterisk w="100%" />
+                                        </Flex>
 
-                                    <FInput name="position" label="Об авторе" size="sm" w="100%" />
-                                    <FTextarea name="quote" />
+                                        <FInput name="position" label="Об авторе" size="sm" w="100%" />
+                                        <FTextarea
+                                            name="quote"
+                                            description="Краткая цитата автора до 150 символов"
+                                            className={classes.quoteTextarea}
+                                        />
+                                    </Flex>
                                 </Flex>
-                            </Flex>
-                        )}
-                    </Box>
-
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                            Отменить
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
-                            Сохранить
-                        </Button>
+                            )}
+                        </Box>
+                        <Flex className={classes.actions}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                Отменить
+                            </Button>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
+                                Сохранить
+                            </Button>
+                        </Flex>
                     </Flex>
-                </Flex>
-            )}
-        </ManagedForm>
+                )}
+            </ManagedForm>
+        </Box>
     );
 };
 

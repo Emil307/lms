@@ -22,20 +22,24 @@ export const columns: MRT_ColumnDef<AdminCourseCollectionFromList>["columns"] = 
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Название",
         accessorKey: "name",
+        size: 452,
     },
     {
         header: "Кол-во курсов",
         accessorKey: "coursesCount",
         enableSorting: false,
+        size: 252,
     },
 
     {
         header: "Дата создания",
         accessorKey: "createdAt",
+        size: 252,
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
 ];

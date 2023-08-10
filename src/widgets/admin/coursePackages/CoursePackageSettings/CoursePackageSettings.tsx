@@ -1,40 +1,30 @@
-import { Box, Flex } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import React from "react";
-import { Trash, AlignLeft } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
 import { Button, ContentByTextEditor, DisplayField, Heading } from "@shared/ui";
-import { useAdminCoursePackage } from "@entities/coursePackage";
-import { DeleteCoursePackageModal } from "@features/coursePackages";
-import { PackageInfo } from "./components";
+import { AdminCoursePackageDetails, useAdminCoursePackage } from "@entities/coursePackage";
+import { InfoCard } from "@components/InfoCard";
+import { DeleteCoursePackageButton } from "./components";
 import useStyles from "./CoursePackageSettings.styles";
+import { fields } from "./constants";
 
-export interface CoursePackageSettingsProps {
+export interface CoursePackageSettingsProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
+const CoursePackageSettings = ({ id, ...props }: CoursePackageSettingsProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: coursePackageData } = useAdminCoursePackage(id);
 
-    const handleOpenEditPage = () => router.push({ pathname: "/admin/settings/course-packages/[id]/edit", query: { id } });
+    const handleOpenUpdateCoursePackagePage = () => router.push({ pathname: "/admin/settings/course-packages/[id]/edit", query: { id } });
 
-    const handleCloseDeleteModal = () => closeModal("DELETE_COURSE_PACKAGE");
-
-    const openModalDeleteCoursePackage = () => {
-        openModal({
-            modalId: "DELETE_COURSE_PACKAGE",
-            title: "Удаление пакета",
-            children: <DeleteCoursePackageModal id={id} name={coursePackageData?.name} onClose={handleCloseDeleteModal} />,
-        });
-    };
-
-    const validity = () => {
-        if (!coursePackageData?.discount?.startingDate || !coursePackageData.discount.finishingDate) {
+    const renderValidity = () => {
+        if (!coursePackageData?.discount) {
             return "-";
         }
 
@@ -44,43 +34,45 @@ const CoursePackageSettings = ({ id }: CoursePackageSettingsProps) => {
     };
 
     return (
-        <Box>
-            <Box mt={32} className={classes.info}>
-                <Flex direction="column" gap={32} w="100%">
-                    <Flex gap={48} align="center">
-                        <Heading order={2}>Данные пакета курсов</Heading>
-                        <Button onClick={openModalDeleteCoursePackage} variant="text" leftIcon={<Trash />}>
-                            Удалить пакет
-                        </Button>
-                    </Flex>
-                    <Fieldset label="Общие" icon={<IconClipboardText />}>
-                        <DisplayField label="Наименование" value={coursePackageData?.name} />
-                        <DisplayField label="Стоимость" value={`${coursePackageData?.price.toLocaleString("ru")} ₽`} />
-                    </Fieldset>
-                    <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                        <ContentByTextEditor data={coursePackageData?.description} />
-                    </Fieldset>
-                    {coursePackageData?.discount && (
-                        <Fieldset label="Параметры скидки" icon={<IconPercentage />}>
-                            <DisplayField label="Тип скидки" value={coursePackageData.discount.type === "currency" ? "₽" : "%"} />
-                            <DisplayField label="Размер скидки" value={coursePackageData.discount.amount?.toString()} />
-                            <DisplayField
-                                label="Стоимость со скидкой"
-                                value={`${coursePackageData.discountPrice.toLocaleString("ru")} ₽`}
-                            />
-                            <DisplayField label="Период действия" value={validity()} />
-                        </Fieldset>
-                    )}
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
+                    <Heading order={2}>Данные пакета курсов</Heading>
+                    <DeleteCoursePackageButton data={coursePackageData} />
                 </Flex>
-                <Box>
-                    <PackageInfo data={coursePackageData}>
-                        <Button variant="secondary" mt={16} onClick={handleOpenEditPage}>
+                <Fieldset label="Общие" icon={<IconClipboardText />}>
+                    <DisplayField label="Наименование" value={coursePackageData?.name} />
+                    <DisplayField label="Стоимость" value={`${coursePackageData?.price.toLocaleString("ru")} ₽`} />
+                </Fieldset>
+                <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
+                    <ContentByTextEditor data={coursePackageData?.description} />
+                </Fieldset>
+                {coursePackageData?.hasDiscount && (
+                    <Fieldset label="Параметры скидки" icon={<IconPercentage />}>
+                        <DisplayField label="Тип скидки" value={coursePackageData.discount?.type === "currency" ? "₽" : "%"} />
+                        <DisplayField label="Размер скидки" value={coursePackageData.discount?.amount.toString()} />
+                        <DisplayField label="Стоимость со скидкой" value={`${coursePackageData.discountPrice.toLocaleString("ru")} ₽`} />
+                        <DisplayField label="Период действия" value={renderValidity()} />
+                    </Fieldset>
+                )}
+            </Flex>
+            <Box>
+                <InfoCard<AdminCoursePackageDetails>
+                    image={{
+                        src: coursePackageData?.cover?.absolutePath,
+                        alt: "course package image",
+                    }}
+                    values={coursePackageData}
+                    variant="whiteBg"
+                    fields={fields}
+                    actionSlot={
+                        <Button variant="secondary" onClick={handleOpenUpdateCoursePackagePage}>
                             Редактировать данные
                         </Button>
-                    </PackageInfo>
-                </Box>
+                    }
+                />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

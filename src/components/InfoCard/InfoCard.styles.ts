@@ -4,8 +4,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
     root: {
         display: "flex",
         flexDirection: "column",
-        maxWidth: 334,
-        width: "100%",
+        width: 334,
         gap: 24,
         padding: 32,
         paddingTop: 24,
@@ -14,11 +13,15 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.08)}` : "none",
 
         [theme.fn.smallerThan("md")]: {
+            width: "100%",
+            maxWidth: 295,
             padding: 24,
         },
     },
     imageWrapper: {
         position: "relative",
+        width: "100%",
+        height: "100%",
         marginBottom: 16,
         borderRadius: 16,
     },
@@ -37,6 +40,11 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
             height: 86,
             transform: "translateX(-50%) translateY(-50%)",
             color: theme.colors.gray20[0],
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            width: "100%",
+            height: 152,
         },
     },
     image: {
@@ -58,6 +66,17 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
             height: 86,
         },
     },
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+        borderRadius: 50,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
+
     content: {
         flexDirection: "column",
         alignItems: "flex-start",

@@ -1,6 +1,7 @@
-import { Box, BoxProps, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -14,11 +15,15 @@ import {
 import { columns, radioGroupValues, filterInitialValues, columnOrder, scoreOptions } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminCourseReviewsRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
 export interface AdminListProps extends BoxProps {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const courseReviewsResources = useAdminCourseReviewsResources({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseReviewFromList>) => {
@@ -41,7 +46,10 @@ const AdminList = (props: AdminListProps) => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: filterInitialValues });
@@ -49,51 +57,55 @@ const AdminList = (props: AdminListProps) => {
                     };
 
                     return (
-                        <Box mb={24}>
-                            <Group sx={{ gap: 8 }}>
-                                <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch name="query" placeholder="Поиск" size="sm" className={classes.filterSearch} />
                                 <FSelect
-                                    name="courseId"
-                                    size="sm"
+                                    name="categoryIds"
+                                    label="Категория"
                                     data={prepareOptionsForSelect({
                                         data: courseReviewsResources.data?.courses,
                                         value: "id",
                                         label: "name",
                                     })}
+                                    size="sm"
+                                    className={classes.filterSelect}
                                     clearable
-                                    label="Курс"
                                     disabled={courseReviewsResources.isLoading || !courseReviewsResources.data?.courses.length}
-                                    w="100%"
-                                    maw={252}
                                 />
-                                <FSelect name="score" size="sm" data={scoreOptions} clearable label="Оценка" w="100%" maw={252} />
+                                <FSelect
+                                    name="score"
+                                    label="Оценка"
+                                    data={scoreOptions}
+                                    size="sm"
+                                    clearable
+                                    className={classes.filterSelect}
+                                />
                                 <FDateRangePicker
                                     name="createdAtFrom"
                                     nameTo="createdAtTo"
                                     label="Дата отзыва"
                                     size="sm"
                                     clearable
-                                    maw={252}
+                                    className={classes.filterDateRangePicker}
                                 />
-                            </Group>
-                            <Box mt={16}>
-                                <FRadioGroup name="isPublished" defaultValue="">
-                                    {radioGroupValues.map((item) => {
-                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                    })}
-                                </FRadioGroup>
-                            </Box>
-                            <Group>
-                                <Button mt={16} type="submit" w="100%" maw={164}>
+                            </Flex>
+                            <FRadioGroup name="isPublished" defaultValue="" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
-                                        Сбросить
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
                                     </Button>
                                 )}
-                            </Group>
-                        </Box>
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

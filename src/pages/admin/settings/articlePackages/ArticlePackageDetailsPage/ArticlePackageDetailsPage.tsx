@@ -38,10 +38,10 @@ const ArticlePackageDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ packageName: articlePackageData.name, id })} mb={8} />
-            <Heading>{articlePackageData.name}</Heading>
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: articlePackageData.name, id })} mb={8} />
+            <Heading mb={24}>{articlePackageData.name}</Heading>
+            <InfoPanel id={id} mb={24} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}
         </Box>
     );

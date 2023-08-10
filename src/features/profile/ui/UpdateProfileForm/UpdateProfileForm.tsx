@@ -63,13 +63,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                         <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={24}>
                                 <Flex gap={24}>
-                                    <Avatar
-                                        className={classes.avatarIcon}
-                                        src={values.avatar?.absolutePath}
-                                        alt="avatar"
-                                        w={84}
-                                        h={84}
-                                        radius={50}>
+                                    <Avatar className={classes.avatarWrapper} src={values.avatar?.absolutePath} alt="avatar">
                                         <AvatarIcon />
                                     </Avatar>
                                     <Flex sx={{ flexDirection: "column", gap: 8 }}>

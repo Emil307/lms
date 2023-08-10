@@ -5,7 +5,7 @@ import { AdminArticlePackagesFiltersForm, GetAdminArticlePackagesRequest } from 
 export const adaptGetAdminArticlePackagesRequest = (
     params: TFunctionParams<AdminArticlePackagesFiltersForm>
 ): GetAdminArticlePackagesRequest => {
-    const { createdAtFrom, createdAtTo, isActive, discountFinishingDate, categoryId, ...rest } = params;
+    const { createdAtFrom, createdAtTo, isActive, discountFinishingDateFrom, discountFinishingDateTo, categoryId, ...rest } = params;
 
     return {
         ...rest,
@@ -21,12 +21,16 @@ export const adaptGetAdminArticlePackagesRequest = (
                     },
                 }),
 
-            ...(discountFinishingDate && {
-                "discount.finishingDate": {
-                    items: [dayjs(discountFinishingDate).endOf("day").format()],
-                    operator: "lte",
-                },
-            }),
+            ...(discountFinishingDateFrom &&
+                discountFinishingDateTo && {
+                    "discount.finishingDate": {
+                        items: [
+                            dayjs(discountFinishingDateFrom).format("YYYY-MM-DD"),
+                            dayjs(discountFinishingDateTo).endOf("day").format(),
+                        ],
+                        operator: "range",
+                    },
+                }),
         },
     };
 };

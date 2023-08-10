@@ -1,6 +1,5 @@
-import { Box, Collapse, Flex, Group, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp } from "react-feather";
 import { Button, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import {
     AdminArticleFromArticlePackageExtraFilters,
@@ -15,40 +14,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import useStyles from "./AddArticleToArticlePackageModal.styles";
 import { adaptGetAdminArticlesRequest } from "./utils";
 
-export interface AddArticleToArticlePackageModalProps {
+export interface AddArticleToArticlePackageModalProps extends Omit<BoxProps, "children"> {
     articlePackageId: string;
     onClose: () => void;
 }
 
-const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArticleToArticlePackageModalProps) => {
+const AddArticleToArticlePackageModal = ({ articlePackageId, onClose, ...props }: AddArticleToArticlePackageModalProps) => {
     const { classes } = useStyles();
-    const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
     const articleResources = useAdminArticleFilters();
-    const attachArticleToPackage = useAttachArticleToArticlePackage(articlePackageId);
-
-    const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
-
-    const renderIconToggleButton = () => {
-        if (openedFilters) {
-            return (
-                <ThemeIcon className={classes.iconToggle}>
-                    <ChevronUp />
-                </ThemeIcon>
-            );
-        }
-        return (
-            <ThemeIcon className={classes.iconToggle}>
-                <ChevronDown />
-            </ThemeIcon>
-        );
-    };
-
-    const labelToggleButton = openedFilters ? "Скрыть фильтр" : "Показать фильтр";
+    const attachArticlesToArticlePackage = useAttachArticleToArticlePackage(articlePackageId);
 
     const handleSubmit = () => {
-        attachArticleToPackage.mutate(
+        attachArticlesToArticlePackage.mutate(
             { articleIds: selected },
             {
                 onSuccess: () => {
@@ -59,7 +38,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <ManagedDataGrid<AdminArticleFromList, AdminArticleFromArticlePackageFiltersForm, AdminArticleFromArticlePackageExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
@@ -75,50 +54,61 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                     columnOrder,
                 }}
                 disableQueryParams
-                onChangeSelect={setSelected}>
-                {({ dirty }) => {
+                onChangeSelect={setSelected}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: true,
+                    leftIcon: null,
+                    titleOpened: "Показать фильтр",
+                    titleClosed: "Скрыть фильтр",
+                }}>
+                {({ dirty, resetForm, handleSubmit: handleSubmitFilters }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmitFilters();
+                    };
+
                     return (
-                        <Box>
-                            <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
-                                {labelToggleButton}
-                            </Button>
-                            <Collapse in={openedFilters} mt={16}>
-                                <Group sx={{ gap: 8, alignItems: "flex-start" }}>
-                                    <FSearch w="100%" maw={428} size="sm" name="query" placeholder="Поиск" />
-                                    <FSelect
-                                        name="categoryId"
-                                        size="sm"
-                                        data={prepareOptionsForSelect({
-                                            data: articleResources.data?.categories,
-                                            value: "id",
-                                            label: "name",
-                                        })}
-                                        clearable
-                                        label="Категория"
-                                        disabled={articleResources.isLoading}
-                                        w="100%"
-                                        maw={210}
-                                    />
-                                    <FSelect
-                                        name="subcategoryId"
-                                        size="sm"
-                                        data={prepareOptionsForSelect({
-                                            data: articleResources.data?.subcategories,
-                                            value: "id",
-                                            label: "name",
-                                        })}
-                                        clearable
-                                        label="Подкатегория"
-                                        disabled={articleResources.isLoading}
-                                        w="100%"
-                                        maw={210}
-                                    />
-                                </Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch name="query" placeholder="Поиск" size="sm" className={classes.filterSearch} />
+                                <FSelect
+                                    name="categoryId"
+                                    label="Категория"
+                                    data={prepareOptionsForSelect({
+                                        data: articleResources.data?.categories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    size="sm"
+                                    className={classes.filterSelect}
+                                    clearable
+                                    disabled={articleResources.isLoading || !articleResources.data?.categories.length}
+                                />
+                                <FSelect
+                                    name="subcategoryId"
+                                    label="Подкатегория"
+                                    data={prepareOptionsForSelect({
+                                        data: articleResources.data?.subcategories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    size="sm"
+                                    className={classes.filterSelect}
+                                    clearable
+                                    disabled={articleResources.isLoading || !articleResources.data?.subcategories.length}
+                                />
+                            </Flex>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit" disabled={!dirty}>
                                     Найти
                                 </Button>
-                            </Collapse>
-                        </Box>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

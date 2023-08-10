@@ -31,6 +31,17 @@ export default createStyles((theme) => ({
         },
     },
 
+    avatarWrapper: {
+        width: 44,
+        minWidth: 44,
+        height: 44,
+        borderRadius: 160,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
+
     avatarDefaultIconWrapper: {
         svg: {
             transform: "scale(0.4)",

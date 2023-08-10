@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export type AttachCourseToCoursePackageFormValidation = z.infer<typeof $AttachCourseToCoursePackageFormValidation>;
+export type AttachArticlesToArticlePackageFormValidation = z.infer<typeof $AttachArticlesToArticlePackageFormValidation>;
 
-export const $AttachCourseToCoursePackageFormValidation = z.object({
+export const $AttachArticlesToArticlePackageFormValidation = z.object({
     ids: z.string().array(),
 });

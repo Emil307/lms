@@ -1,9 +1,8 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Flex, Text } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
-import { getHumanDate } from "@shared/utils";
 import { AdminCoursePackage, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
-import useStyles from "./AdminList.styles";
+import { Paragraph } from "@shared/ui";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -36,46 +35,52 @@ export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Название пакета",
         accessorKey: "name",
+        size: 226,
     },
     {
         header: "Курсы, шт",
         accessorKey: "coursesCount",
+        size: 226,
     },
     {
         header: "Полная стоимость",
         accessorKey: "price",
-        accessorFn: (row) => `${row.price.toLocaleString("ru") || 0} ₽`,
+        size: 226,
+        accessorFn: ({ price }) => `${price.toLocaleString("ru") || 0} ₽`,
     },
     {
         header: "Стоимость со скидкой",
         accessorKey: "discountPrice",
-        accessorFn: (row) => (row.discountPrice ? `${row.discountPrice.toLocaleString("ru")} ₽` : ""),
+        size: 226,
+        accessorFn: ({ discountPrice }) => (discountPrice ? `${discountPrice.toLocaleString("ru")} ₽` : ""),
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
-        accessorFn: (row) => getHumanDate(row.createdAt, { month: "2-digit", day: "2-digit", year: "numeric" }),
+        size: 226,
+        accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
     {
         header: "Скидка действует",
         accessorKey: "discount.finishingDate",
+        size: 226,
         Cell: ({ row }) => {
-            const { classes } = useStyles();
             return (
                 <Flex direction="column">
                     {row.original.discount?.startingDate && (
-                        <Text className={classes.startingDate} lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
+                        <Paragraph variant="text-small-m" lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
                             "DD.MM.YYYY"
-                        )}`}</Text>
+                        )}`}</Paragraph>
                     )}
                     {row.original.discount?.finishingDate && (
-                        <Text className={classes.finishingDate} lineClamp={1}>{`до ${dayjs(row.original.discount.finishingDate).format(
-                            "DD.MM.YYYY"
-                        )}`}</Text>
+                        <Paragraph variant="text-caption" color="gray45" lineClamp={1}>{`до ${dayjs(
+                            row.original.discount.finishingDate
+                        ).format("DD.MM.YYYY")}`}</Paragraph>
                     )}
                 </Flex>
             );

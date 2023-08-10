@@ -1,9 +1,10 @@
-import { Box, Text, Flex, Avatar } from "@mantine/core";
+import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Edit3, User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
@@ -14,16 +15,23 @@ import { adaptDataForEditForm } from "./utils";
 import { $UpdateMainBannerFormValidation, UpdateMainBannerFormValidation } from "./types";
 import useStyles from "./UpdateMainBannerForm.styles";
 
-export interface UpdateMainBannerFormProps {
+export interface UpdateMainBannerFormProps extends Omit<BoxProps, "children"> {
     data?: GetMainBannerResponse;
     onClose: () => void;
 }
 
-const UpdateMainBannerForm = ({ data, onClose }: UpdateMainBannerFormProps) => {
+const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
 
-    const authorFullName = [data?.authorFirstName, data?.authorLastName].join(" ");
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
+    const renderAuthorFullName = () => {
+        if (!data?.authorFirstName || !data.authorLastName) {
+            return null;
+        }
+        return <Paragraph variant="small-semi" lineClamp={1}>{`${data.authorFirstName} ${data.authorLastName}`}</Paragraph>;
+    };
 
     const updateMainBanner = (values: UpdateMainBannerFormValidation) => {
         return staticPageApi.updateMainBanner({
@@ -49,94 +57,93 @@ const UpdateMainBannerForm = ({ data, onClose }: UpdateMainBannerFormProps) => {
     };
 
     return (
-        <ManagedForm<UpdateMainBannerFormValidation, GetMainBannerResponse>
-            initialValues={{ ...initialValues, ...adaptDataForEditForm(data) }}
-            validationSchema={$UpdateMainBannerFormValidation}
-            mutationKey={[MutationKeys.UPDATE_MAIN_BANNER]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_MAIN_BANNER] }]}
-            mutationFunction={updateMainBanner}
-            hasConfirmModal
-            onSuccess={onSuccess}
-            onCancel={onClose}
-            onError={onError}>
-            {({ values, dirty, onCancel }) => {
-                return (
-                    <Flex direction="column" gap={32}>
-                        <FFileInput
-                            name="indexBannerFile"
-                            title="Изменить фото"
-                            type="image"
-                            withDeleteButton
-                            h={608}
-                            w="100%"
-                            maw={1320}
-                        />
+        <Box {...props}>
+            <ManagedForm<UpdateMainBannerFormValidation, GetMainBannerResponse>
+                initialValues={{ ...initialValues, ...adaptDataForEditForm(data) }}
+                validationSchema={$UpdateMainBannerFormValidation}
+                mutationKey={[MutationKeys.UPDATE_MAIN_BANNER]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_MAIN_BANNER] }]}
+                mutationFunction={updateMainBanner}
+                hasConfirmModal
+                onSuccess={onSuccess}
+                onCancel={onClose}
+                onError={onError}>
+                {({ values, dirty, onCancel }) => {
+                    return (
+                        <Flex direction="column" gap={32}>
+                            <FFileInput
+                                name="indexBannerFile"
+                                title="Изменить фото"
+                                type="image"
+                                withDeleteButton
+                                className={classes.bannerFileInput}
+                            />
 
-                        <Fieldset label="Детали" icon={<IconClipboardText />} maw={512}>
-                            <Flex direction="column" gap={8} w="100%">
-                                <FInput name="indexBannerTitle" label="Заголовок баннера" size="sm" />
-                                <FInput name="indexBannerSubTitle" label="Подзаголовок" size="sm" />
-                                <Flex gap={8}>
-                                    <FInput name="indexBannerButtonText" label="Программируемая кнопка" size="sm" w="100%" />
-                                    <FInput name="indexBannerButtonLink" label="Ссылка" size="sm" w="100%" />
+                            <Fieldset label="Детали" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>
+                                <Flex direction="column" gap={8} w="100%">
+                                    <FInput name="indexBannerTitle" label="Заголовок баннера" size="sm" />
+                                    <FInput name="indexBannerSubTitle" label="Подзаголовок" size="sm" />
+                                    <Flex direction={{ base: "column", xs: "row" }} gap={8}>
+                                        <FInput name="indexBannerButtonText" label="Программируемая кнопка" size="sm" w="100%" />
+                                        <FInput name="indexBannerButtonLink" label="Ссылка" size="sm" w="100%" />
+                                    </Flex>
                                 </Flex>
-                            </Flex>
-                        </Fieldset>
+                            </Fieldset>
 
-                        <Box component="fieldset" className={classes.fieldset} maw={512}>
-                            <Box component="legend" className={classes.legend}>
-                                <User />
-                                <Heading order={4}>Карточка автора</Heading>
-                                <FSwitch variant="secondary" name="indexBannerAuthorActive" />
-                            </Box>
-                            {values.indexBannerAuthorActive && (
-                                <Flex direction="column" gap={24} w="100%">
-                                    <Flex gap={24}>
-                                        <Avatar
-                                            src={values.indexBannerAuthorAvatar?.absolutePath}
-                                            alt="avatar"
-                                            w={84}
-                                            h={84}
-                                            radius={50}
-                                            styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
-                                            <AvatarIcon />
-                                        </Avatar>
-                                        <Flex direction="column" justify="center" gap={8}>
-                                            <Text className={classes.authorFullName} lineClamp={1}>
-                                                {authorFullName}
-                                            </Text>
-                                            <FFileButton
-                                                name="indexBannerAuthorAvatar"
-                                                label="Изменить аватар"
-                                                buttonProps={{ leftIcon: <Edit3 /> }}
+                            <Box component="fieldset" className={classes.fieldset} maw={512}>
+                                <Box component="legend" className={classes.legend}>
+                                    <User />
+                                    <Heading order={4}>Карточка автора</Heading>
+                                    <FSwitch variant="secondary" name="indexBannerAuthorActive" />
+                                </Box>
+                                {values.indexBannerAuthorActive && (
+                                    <Flex direction="column" gap={24} w="100%">
+                                        <Flex align="center" wrap="wrap" columnGap={24} rowGap={16}>
+                                            <Avatar
+                                                src={values.indexBannerAuthorAvatar?.absolutePath}
+                                                alt="avatar"
+                                                className={classes.avatarWrapper}>
+                                                <AvatarIcon />
+                                            </Avatar>
+                                            <Flex direction="column" justify="center" gap={8}>
+                                                {renderAuthorFullName()}
+                                                <FFileButton
+                                                    name="indexBannerAuthorAvatar"
+                                                    label="Изменить аватар"
+                                                    buttonProps={{ leftIcon: <Edit3 /> }}
+                                                />
+                                            </Flex>
+                                        </Flex>
+                                        <Flex direction="column" gap={8}>
+                                            <Flex direction={{ base: "column", xs: "row" }} gap={8}>
+                                                <FInput name="indexBannerAuthorFirstName" label="Имя" size="sm" withAsterisk w="100%" />
+                                                <FInput name="indexBannerAuthorLastName" label="Фамилия" size="sm" withAsterisk w="100%" />
+                                            </Flex>
+
+                                            <FInput name="indexBannerAuthorAbout" label="Об авторе" size="sm" w="100%" />
+                                            <FTextarea
+                                                name="indexBannerAuthorShortQuote"
+                                                placeholder="Краткая цитата"
+                                                description="Краткая цитата автора до 150 символов"
+                                                className={classes.quoteTextarea}
                                             />
                                         </Flex>
                                     </Flex>
-                                    <Flex direction="column" gap={8}>
-                                        <Flex gap={8}>
-                                            <FInput name="indexBannerAuthorFirstName" label="Имя" size="sm" withAsterisk w="100%" />
-                                            <FInput name="indexBannerAuthorLastName" label="Фамилия" size="sm" withAsterisk w="100%" />
-                                        </Flex>
-
-                                        <FInput name="indexBannerAuthorAbout" label="Об авторе" size="sm" w="100%" />
-                                        <FTextarea name="indexBannerAuthorShortQuote" placeholder="Краткая цитата" />
-                                    </Flex>
-                                </Flex>
-                            )}
-                        </Box>
-
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
-                                Сохранить
-                            </Button>
+                                )}
+                            </Box>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                    Отменить
+                                </Button>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
+                                    Сохранить
+                                </Button>
+                            </Flex>
                         </Flex>
-                    </Flex>
-                );
-            }}
-        </ManagedForm>
+                    );
+                }}
+            </ManagedForm>
+        </Box>
     );
 };
 

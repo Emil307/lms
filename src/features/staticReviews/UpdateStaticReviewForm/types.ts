@@ -11,7 +11,7 @@ export const $UpdateAdminStaticReviewFormValidation = z
         firstName: z.string().nullish(),
         lastName: z.string().nullish(),
         position: z.string().optional(),
-        quote: z.string().optional(),
+        quote: z.string().max(150, "Должно быть не более 150 символов").optional(),
         preview: $UploadedFile.nullable().refine((value) => value !== null, {
             message: "Выберите изображение",
         }),

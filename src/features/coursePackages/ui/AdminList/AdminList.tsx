@@ -1,6 +1,7 @@
-import { Box, Group } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import {
@@ -12,9 +13,14 @@ import {
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminCoursePackagesRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
 const AdminList = () => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const coursePackageResources = useAdminCoursePackageResourses({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCoursePackage>) => {
@@ -48,7 +54,10 @@ const AdminList = () => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: filterInitialValues });
@@ -56,9 +65,9 @@ const AdminList = () => {
                     };
 
                     return (
-                        <Box mb={24}>
-                            <Group sx={{ gap: 8 }}>
-                                <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
                                 <FSelect
                                     name="courseIds"
                                     size="sm"
@@ -69,37 +78,43 @@ const AdminList = () => {
                                     })}
                                     clearable
                                     label="Курс"
-                                    disabled={coursePackageResources.isLoading}
-                                    w="100%"
-                                    maw={252}
+                                    className={classes.filterSelect}
+                                    disabled={coursePackageResources.isLoading || !coursePackageResources.data?.courses.length}
                                 />
-                                <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" clearable />
+
+                                <FDateRangePicker
+                                    name="createdAtFrom"
+                                    nameTo="createdAtTo"
+                                    label="Дата создания"
+                                    size="sm"
+                                    clearable
+                                    className={classes.filterDateRangePicker}
+                                />
                                 <FDateRangePicker
                                     name="discountFinishingDateFrom"
                                     nameTo="discountFinishingDateTo"
                                     label="Период действия"
                                     size="sm"
                                     clearable
+                                    className={classes.filterDateRangePicker}
                                 />
-                            </Group>
-                            <Box mt={16}>
-                                <FRadioGroup name="isActive" defaultValue="">
-                                    {radioGroupValues.map((item) => (
-                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                                    ))}
-                                </FRadioGroup>
-                            </Box>
-                            <Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                            </Flex>
+                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
-                                        Сбросить
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
                                     </Button>
                                 )}
-                            </Group>
-                        </Box>
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

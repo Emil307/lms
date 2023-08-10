@@ -123,12 +123,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
 
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
                         <Flex align="center" gap={16} mb={16}>
-                            <Avatar
-                                src={values.avatar?.absolutePath}
-                                alt="avatar"
-                                className={classes.avatarWrapper}
-                                radius={50}
-                                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                                 <AvatarIcon />
                             </Avatar>
                             <Flex direction="column" gap={8}>

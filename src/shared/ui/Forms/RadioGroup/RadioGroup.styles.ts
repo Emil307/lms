@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 
 export const useRadioGroupStyles = createStyles((theme) => ({
+    root: {
+        "> .mantine-Group-root": {
+            paddingTop: 0,
+        },
+    },
     error: {
         display: "flex",
         gap: 4,

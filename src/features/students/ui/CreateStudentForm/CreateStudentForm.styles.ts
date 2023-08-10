@@ -7,4 +7,14 @@ export default createStyles((theme) => ({
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
     },
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+        borderRadius: 50,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
 }));

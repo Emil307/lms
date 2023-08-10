@@ -20,29 +20,46 @@ export default createStyles((theme) => ({
             color: "gray45.0",
         },
     },
-    authorFullName: {
-        fontWeight: 600,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    wrapperIconError: {
-        gap: 4,
-        marginTop: 4,
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+        borderRadius: 50,
 
-        svg: {
-            width: 16,
-            height: 16,
-            color: theme.colors.warning[0],
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
+
+    bannerFileInput: {
+        height: 304,
+        width: "100%",
+        maxWidth: 660,
+
+        [theme.fn.smallerThan("xs")]: {
+            height: 129,
+        },
+    },
+
+    quoteTextarea: {
+        textarea: {
+            minHeight: 190,
+        },
+    },
+    actions: {
+        gap: 8,
+
+        button: {
+            width: "100%",
+            maxWidth: 252,
         },
 
-        "> div": {
-            width: "calc(100% - 20px)",
-            paddingTop: 2,
-            color: theme.colors.dark[0],
-            fontWeight: 400,
-            fontSize: 10,
-            lineHeight: "12px",
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+
+            button: {
+                maxWidth: "none",
+            },
         },
     },
 }));

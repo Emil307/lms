@@ -15,7 +15,7 @@ interface ListMenuProps {
 
 const ListMenu = ({ row, articlePackageId }: ListMenuProps) => {
     const router = useRouter();
-    const handleOpenDetailPage = () => router.push({ pathname: "/admin/articles/[id]", query: { id: String(row.original.id) } });
+    const handleOpenDetailsPage = () => router.push({ pathname: "/admin/articles/[id]", query: { id: String(row.original.id) } });
 
     const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE_FROM_PACKAGE");
 
@@ -36,14 +36,14 @@ const ListMenu = ({ row, articlePackageId }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8} onClick={handleOpenDetailPage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+            <MenuItemDataGrid mt={8} onClick={handleOpenDetailsPage}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить статью из пакета

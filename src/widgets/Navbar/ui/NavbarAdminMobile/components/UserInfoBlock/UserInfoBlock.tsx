@@ -30,15 +30,7 @@ const UserInfoBlock = (props: UserInfoBlockProps) => {
     return (
         <Flex className={classes.root} {...props}>
             <Flex align="center" gap={16}>
-                <Avatar
-                    src={user?.profile.avatar?.absolutePath}
-                    alt="avatar"
-                    w={64}
-                    h={64}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
+                <Avatar src={user?.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>

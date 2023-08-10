@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { CreateStaticReviewPage } from "@pages/admin/settings";
 
-const ReviewCreate: NextPageWithLayout = () => {
+const CreateStaticReview: NextPageWithLayout = () => {
     return (
         <AdminPage title="Создание отзыва">
             <CreateStaticReviewPage />
@@ -13,8 +13,8 @@ const ReviewCreate: NextPageWithLayout = () => {
     );
 };
 
-ReviewCreate.getLayout = function (page: ReactElement) {
+CreateStaticReview.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default ReviewCreate;
+export default CreateStaticReview;

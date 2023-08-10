@@ -8,13 +8,13 @@ import { breadCrumbsItems } from "./constants";
 const CreateStaticReviewPage = () => {
     const router = useRouter();
 
-    const handleCloseForm = () => router.push("/admin/settings/main-page/reviews");
+    const handleCloseCreateForm = () => router.push("/admin/settings/main-page/reviews");
 
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
             <Heading>Создание отзыва</Heading>
-            <CreateStaticReviewForm onClose={handleCloseForm} />
+            <CreateStaticReviewForm onClose={handleCloseCreateForm} mt={24} />
         </Box>
     );
 };

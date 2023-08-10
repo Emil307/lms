@@ -1,11 +1,17 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    avatarWrapper: {
+        width: 32,
+        minWidth: 32,
+        height: 32,
+        borderRadius: 160,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
     avatarDefaultIconWrapper: {
-        width: "auto",
-        height: "auto",
-        minWidth: "auto",
-        border: "none",
         svg: {
             transform: "scale(0.4)",
         },
@@ -13,7 +19,6 @@ export default createStyles((theme) => ({
     wrapperPaymentIcon: {
         width: 32,
         height: 32,
-        border: "none",
         borderRadius: 56,
         backgroundColor: theme.colors.secondary16[0],
         color: theme.colors.secondary[0],
@@ -28,7 +33,6 @@ export default createStyles((theme) => ({
     wrapperHomeworkIcon: {
         width: 32,
         height: 32,
-        border: "none",
         borderRadius: 56,
         backgroundColor: theme.colors.info16[0],
     },
@@ -36,7 +40,6 @@ export default createStyles((theme) => ({
     wrapperUnlockCourseIcon: {
         width: 32,
         height: 32,
-        border: "none",
         borderRadius: 56,
         backgroundColor: theme.colors.done16[0],
         color: theme.colors.done[0],
@@ -51,7 +54,6 @@ export default createStyles((theme) => ({
     wrapperUnlockFreeCourseIcon: {
         width: 32,
         height: 32,
-        border: "none",
         borderRadius: 56,
         backgroundColor: theme.colors.error16[0],
         color: theme.colors.errorDark[0],

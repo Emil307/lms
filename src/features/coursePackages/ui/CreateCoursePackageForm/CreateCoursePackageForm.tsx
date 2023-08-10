@@ -1,7 +1,9 @@
-import { Box, Text, Flex } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import {
     Button,
     FDateRangePicker,
@@ -13,6 +15,7 @@ import {
     Heading,
     Input,
     ManagedForm,
+    Paragraph,
     Radio,
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
@@ -24,20 +27,23 @@ import { $CreateCoursePackageFormValidation, CreateCoursePackageFormValidation }
 import { adaptCreateCoursePackageFormRequest } from "./utils";
 import useStyles from "./CreateCoursePackageForm.styles";
 
-export interface CreateCoursePackageFormProps {
+export interface CreateCoursePackageFormProps extends Omit<BoxProps, "children"> {
     onClose: () => void;
 }
 
-const CreateCoursePackageForm = ({ onClose }: CreateCoursePackageFormProps) => {
+const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormProps) => {
     const { classes } = useStyles();
+    const router = useRouter();
 
-    const onSuccess = () => {
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
+    const onSuccess = (response: AdminCoursePackageDetails) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Создание пакета",
             message: "Пакет курсов успешно создан",
         });
-        onClose();
+        router.push({ pathname: "/admin/settings/course-packages/[id]", query: { id: String(response.id) } });
     };
 
     const onError = () => {
@@ -48,88 +54,104 @@ const CreateCoursePackageForm = ({ onClose }: CreateCoursePackageFormProps) => {
     };
 
     return (
-        <ManagedForm<CreateCoursePackageFormValidation, AdminCoursePackageDetails>
-            initialValues={initialValues}
-            validationSchema={$CreateCoursePackageFormValidation}
-            mutationKey={[MutationKeys.CREATE_COURSE_PACKAGE]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGES] }]}
-            mutationFunction={(params) => coursePackageApi.createCoursePackage(adaptCreateCoursePackageFormRequest(params))}
-            onSuccess={onSuccess}
-            hasConfirmModal
-            onCancel={onClose}
-            onError={onError}>
-            {({ values, errors, dirty, onCancel }) => {
-                const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
-                const discountAmount = getDiscountPrice({
-                    price: !errors.price ? values.price : null,
-                    amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
-                    type: values.discount.type,
-                });
+        <Box {...props}>
+            <ManagedForm<CreateCoursePackageFormValidation, AdminCoursePackageDetails>
+                initialValues={initialValues}
+                validationSchema={$CreateCoursePackageFormValidation}
+                mutationKey={[MutationKeys.CREATE_COURSE_PACKAGE]}
+                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGES] }]}
+                mutationFunction={(params) => coursePackageApi.createCoursePackage(adaptCreateCoursePackageFormRequest(params))}
+                onSuccess={onSuccess}
+                hasConfirmModal
+                onCancel={onClose}
+                onError={onError}>
+                {({ values, errors, dirty, onCancel }) => {
+                    const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
+                    const discountAmount = getDiscountPrice({
+                        price: !errors.price ? values.price : null,
+                        amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
+                        type: values.discount.type,
+                    });
 
-                return (
-                    <Flex direction="column" gap={32}>
-                        <Flex gap={8} mt={24} align="center">
-                            <Text color="gray45">Статус:</Text>
-                            <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
-                        </Flex>
-                        <FFileInput name="cover" title="Изменить фото" type="image" withDeleteButton h={308} w="100%" maw={512} />
-
-                        <Fieldset label="Общее" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>
-                            <Flex direction="column" gap={8} w="100%">
-                                <FInput name="name" label="Наименование" size="sm" w="100%" />
-                                <FInput name="price" label="Стоимость пакета" type="number" size="sm" w="100%" maw={252} />
+                    return (
+                        <Flex direction="column" gap={32}>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
+                                <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
-                        </Fieldset>
+                            <FFileInput name="cover" title="Изменить фото" type="image" className={classes.coverFileInput} />
 
-                        <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={1162} legendProps={{ mb: 24 }}>
-                            <Box w="100%">
-                                <FTextEditor name="description" placeholder="Введите текст" contentHeight={272} />
-                            </Box>
-                        </Fieldset>
+                            <Fieldset label="Общее" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>
+                                <Flex direction="column" gap={8} w="100%">
+                                    <FInput name="name" label="Наименование" size="sm" w="100%" />
+                                    <FInput name="price" label="Стоимость пакета" type="number" size="sm" className={classes.priceInput} />
+                                </Flex>
+                            </Fieldset>
 
-                        <Box component="fieldset" className={classes.fieldset}>
-                            <Box component="legend" className={classes.legend}>
-                                <IconPercentage />
-                                <Heading order={4}>Параметры скидки</Heading>
-                                <FSwitch variant="secondary" name="hasDiscount" />
-                            </Box>
-                            {values.hasDiscount && (
-                                <Flex direction="column" gap={24} w="100%">
-                                    <Flex>
-                                        <FRadioGroup name="discount.type" defaultValue="percentage">
+                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={1162} legendProps={{ mb: 24 }}>
+                                <Box w="100%">
+                                    <FTextEditor name="description" placeholder="Введите текст" className={classes.textEditorDescription} />
+                                </Box>
+                            </Fieldset>
+
+                            <Box component="fieldset" className={classes.fieldset}>
+                                <Box component="legend" className={classes.legend}>
+                                    <IconPercentage />
+                                    <Heading order={4}>Параметры скидки</Heading>
+                                    <FSwitch variant="secondary" name="hasDiscount" />
+                                </Box>
+                                {values.hasDiscount && (
+                                    <Flex direction="column" gap={16} w="100%">
+                                        <FRadioGroup
+                                            name="discount.type"
+                                            defaultValue="percentage"
+                                            className={classes.discountTypeRadioGroup}>
                                             {radioGroupValues.map((item) => {
                                                 return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
                                             })}
                                         </FRadioGroup>
+                                        <Flex className={classes.discountFieldsContainer}>
+                                            <FInput
+                                                name="discount.amount"
+                                                label="Размер скидки"
+                                                type="number"
+                                                size="sm"
+                                                className={classes.discountInput}
+                                            />
+                                            <FDateRangePicker
+                                                name="discount.startingDate"
+                                                nameTo="discount.finishingDate"
+                                                label="Период действия"
+                                                size="sm"
+                                                className={classes.discountDateRangePicker}
+                                            />
+                                            <Input
+                                                value={discountAmount}
+                                                label="Стоимость со скидкой"
+                                                size="sm"
+                                                className={classes.discountInput}
+                                                disabled
+                                            />
+                                        </Flex>
                                     </Flex>
-                                    <Flex gap={8}>
-                                        <FInput name="discount.amount" label="Размер скидки" type="number" size="sm" w="100%" maw={252} />
-                                        <FDateRangePicker
-                                            name="discount.startingDate"
-                                            nameTo="discount.finishingDate"
-                                            label="Период действия"
-                                            size="sm"
-                                            w="100%"
-                                            maw={252}
-                                        />
-                                        <Input value={discountAmount} label="Стоимость со скидкой" size="sm" w="100%" maw={252} disabled />
-                                    </Flex>
-                                </Flex>
-                            )}
-                        </Box>
+                                )}
+                            </Box>
 
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
-                                Сохранить
-                            </Button>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                    Отменить
+                                </Button>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
+                                    Сохранить
+                                </Button>
+                            </Flex>
                         </Flex>
-                    </Flex>
-                );
-            }}
-        </ManagedForm>
+                    );
+                }}
+            </ManagedForm>
+        </Box>
     );
 };
 

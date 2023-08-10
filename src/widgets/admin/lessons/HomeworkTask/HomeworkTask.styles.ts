@@ -15,6 +15,16 @@ export default createStyles((theme) => ({
         padding: 16,
         borderRadius: 8,
     },
+    avatarWrapper: {
+        width: 32,
+        minWidth: 32,
+        height: 32,
+        borderRadius: 56,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
     avatarDefaultIconWrapper: {
         width: "auto",
         height: "auto",

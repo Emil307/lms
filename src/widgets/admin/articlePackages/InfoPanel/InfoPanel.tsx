@@ -1,16 +1,16 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Flex, FlexProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { useAdminArticlePackage, useUpdateArticlePackageActivity } from "@entities/articlePackage";
-import { LastUpdatedInfo, Switch } from "@shared/ui";
+import { LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import useStyles from "./InfoPanel.styles";
 
-export interface InfoPanelProps {
+export interface InfoPanelProps extends Omit<FlexProps, "children"> {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
-    const { classes } = useStyles();
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
+    const { classes, cx } = useStyles();
     const { data: articlePackageData } = useAdminArticlePackage(id);
 
     const { mutate: updateActivityStatus } = useUpdateArticlePackageActivity(id);
@@ -20,12 +20,17 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
-        <Flex mt={24} gap={32} align="center">
-            <Box className={classes.infoItem}>
-                ID: <span>{articlePackageData?.id}</span>
-            </Box>
+        <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex gap={8}>
-                <Text className={classes.infoItem}>Статус:</Text>
+                <Paragraph variant="text-small-m" color="gray45">
+                    ID:
+                </Paragraph>
+                <Paragraph variant="text-small-m">{articlePackageData?.id}</Paragraph>
+            </Flex>
+            <Flex align="center" gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Статус:
+                </Paragraph>
                 <Switch
                     checked={articlePackageData?.isActive}
                     onChange={handleChangeActiveStatus}
@@ -34,10 +39,14 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     labelPosition="left"
                 />
             </Flex>
-            <Box className={classes.infoItem}>
-                Создание:{" "}
-                <span>{articlePackageData?.createdAt ? dayjs(articlePackageData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-            </Box>
+            <Flex gap={8}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Создание:
+                </Paragraph>
+                <Paragraph variant="text-small-m">
+                    {articlePackageData?.createdAt ? dayjs(articlePackageData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                </Paragraph>
+            </Flex>
             <LastUpdatedInfo data={articlePackageData?.lastUpdated} />
         </Flex>
     );

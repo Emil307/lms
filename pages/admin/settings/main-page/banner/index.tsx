@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { MainBannerPage } from "@pages/admin/settings";
 
-const SettingsMainPage: NextPageWithLayout = () => {
+const MainBanner: NextPageWithLayout = () => {
     return (
         <AdminPage title="Главный баннер">
             <MainBannerPage />
@@ -13,8 +13,8 @@ const SettingsMainPage: NextPageWithLayout = () => {
     );
 };
 
-SettingsMainPage.getLayout = function (page: ReactElement) {
+MainBanner.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default SettingsMainPage;
+export default MainBanner;

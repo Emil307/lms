@@ -14,7 +14,7 @@ const CreateCoursePackagePage = () => {
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
             <Heading>Создать пакет</Heading>
-            <CreateCoursePackageForm onClose={handleCloseForm} />
+            <CreateCoursePackageForm onClose={handleCloseForm} mt={24} />
         </Box>
     );
 };

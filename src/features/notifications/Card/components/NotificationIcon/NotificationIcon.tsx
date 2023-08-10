@@ -17,43 +17,34 @@ const NotificationIcon = ({ data }: NotificationIconProps) => {
     switch (data.type) {
         case "paymentMessage":
             return (
-                <ThemeIcon variant="outline" className={classes.wrapperPaymentIcon}>
+                <ThemeIcon className={classes.wrapperPaymentIcon}>
                     <IconReceipt />
                 </ThemeIcon>
             );
         case "homeworkMessage":
             return (
-                <ThemeIcon variant="outline" className={classes.wrapperHomeworkIcon}>
+                <ThemeIcon className={classes.wrapperHomeworkIcon}>
                     <IconBookWithPencil />
                 </ThemeIcon>
             );
         case "unlockCourse":
             return (
-                <ThemeIcon variant="outline" className={classes.wrapperUnlockCourseIcon}>
+                <ThemeIcon className={classes.wrapperUnlockCourseIcon}>
                     <Unlock />
                 </ThemeIcon>
             );
 
         case "unlockFreeCourse":
             return (
-                <ThemeIcon variant="outline" className={classes.wrapperUnlockFreeCourseIcon}>
+                <ThemeIcon className={classes.wrapperUnlockFreeCourseIcon}>
                     <Key />
                 </ThemeIcon>
             );
 
         default:
             return (
-                <Avatar
-                    src={data.sender.profile.avatar?.absolutePath}
-                    alt="avatar"
-                    w={32}
-                    h={32}
-                    miw={32}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
-                    <ThemeIcon variant="outline" className={classes.avatarDefaultIconWrapper}>
+                <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
+                    <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>
                 </Avatar>

@@ -19,16 +19,7 @@ const AuthorInfoCard = ({ data }: AuthorInfoCardProps) => {
                 {data.quote}
             </Paragraph>
             <Flex gap={8}>
-                <Avatar
-                    src={data.authorAvatar?.absolutePath}
-                    alt="avatar"
-                    w={44}
-                    h={44}
-                    miw={44}
-                    radius={160}
-                    styles={(theme) => ({
-                        placeholder: { backgroundColor: theme.colors.grayLight[0] },
-                    })}>
+                <Avatar src={data.authorAvatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>

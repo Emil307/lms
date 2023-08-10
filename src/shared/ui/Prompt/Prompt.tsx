@@ -1,6 +1,7 @@
-import { Flex, ThemeIcon, Text, ActionIcon, FlexProps } from "@mantine/core";
+import { Flex, ThemeIcon, ActionIcon, FlexProps } from "@mantine/core";
 import { Info, X } from "react-feather";
 import useStyles from "./Prompt.styles";
+import { Paragraph } from "../Typography";
 
 export interface PromptProps extends FlexProps {
     isOpened: boolean;
@@ -17,10 +18,12 @@ const Prompt = ({ isOpened, content, onClose, ...props }: PromptProps) => {
 
     return (
         <Flex {...props} className={classes.root}>
-            <ThemeIcon className={classes.icon} variant="outline">
+            <ThemeIcon className={classes.icon}>
                 <Info width={32} height={32} />
             </ThemeIcon>
-            <Text className={classes.content}>{content}</Text>
+            <Paragraph variant="text-small-semi" color="gray45" sx={{ flex: 1 }}>
+                {content}
+            </Paragraph>
             <ActionIcon className={classes.closeIcon} onClick={onClose}>
                 <X />
             </ActionIcon>

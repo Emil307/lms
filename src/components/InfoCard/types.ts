@@ -7,7 +7,8 @@ export type TInfoCardImageProps = Omit<ImageProps, "src"> & {
     children?: ReactNode;
 };
 
-export type TInfoCardDisplayFields<T> = (DisplayFieldProps & {
+export type TInfoCardDisplayFields<T> = (Omit<DisplayFieldProps, "render"> & {
     name: keyof T | string;
-    renderString?: (value: T[keyof T], item?: T) => string;
+    renderString?: (value: T[keyof T], item?: T) => ReactNode;
+    hidden?: ((value: T[keyof T], item?: T) => boolean) | boolean;
 })[];
