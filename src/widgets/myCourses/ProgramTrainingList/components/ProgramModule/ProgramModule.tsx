@@ -8,14 +8,14 @@ import { LessonCard } from "../LessonCard";
 export interface ProgramModuleProps {
     data: GroupModule;
     numberModule: number;
-    courseId?: number;
+    groupId: string;
 }
 
-const ProgramModule = ({ data, courseId, numberModule }: ProgramModuleProps) => {
+const ProgramModule = ({ data, groupId, numberModule }: ProgramModuleProps) => {
     const { classes } = useStyles();
 
     const renderLessons = useMemo(
-        () => data.lessons.map((lesson) => <LessonCard key={lesson.id} data={lesson} moduleName={data.name} courseId={courseId} />),
+        () => data.lessons.map((lesson) => <LessonCard key={lesson.id} data={lesson} moduleName={data.name} groupId={groupId} />),
         [data.lessons]
     );
 

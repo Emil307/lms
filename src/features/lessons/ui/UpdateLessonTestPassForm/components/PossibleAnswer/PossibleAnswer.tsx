@@ -11,7 +11,7 @@ export interface PossibleAnswerProps {
 }
 
 const PossibleAnswer = ({ data, taskVariant, onSelect }: PossibleAnswerProps) => {
-    const { classes } = useStyles({ isPrevSelected: data.isPrevSelected });
+    const { classes } = useStyles({ isSelected: data.isSelected });
 
     const handleSelectPossbleAnswer = () => onSelect(data.order);
 

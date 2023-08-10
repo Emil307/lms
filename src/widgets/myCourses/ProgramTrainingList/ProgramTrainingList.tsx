@@ -28,7 +28,7 @@ const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingLis
         () =>
             groupModulesData?.data.map((module, index) => (
                 <Box key={module.id} ref={lastElemRef}>
-                    <ProgramModule data={module} numberModule={index + 1} courseId={courseId} />
+                    <ProgramModule data={module} numberModule={index + 1} groupId={groupId} />
                 </Box>
             )),
         [groupModulesData?.data]

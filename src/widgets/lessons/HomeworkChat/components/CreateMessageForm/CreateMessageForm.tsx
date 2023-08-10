@@ -12,9 +12,10 @@ import useStyles from "./CreateMessageForm.styles";
 
 interface CreateMessageFormProps {
     homeworkAnswerId: string;
+    courseId: string;
 }
 
-const CreateMessageForm = ({ homeworkAnswerId }: CreateMessageFormProps) => {
+const CreateMessageForm = ({ homeworkAnswerId, courseId }: CreateMessageFormProps) => {
     const { classes } = useStyles();
 
     const onSuccess = (
@@ -41,7 +42,7 @@ const CreateMessageForm = ({ homeworkAnswerId }: CreateMessageFormProps) => {
             validationSchema={$CreateHomeworkAnswerMessageFormValidation}
             mutationKey={[MutationKeys.CREATE_LESSON_HOMEWORK_MESSAGE]}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_LESSON_HOMEWORK_MESSAGES] }]}
-            mutationFunction={(values) => lessonApi.createHomeworkAnswerMessage({ ...values, homeworkAnswerId })}
+            mutationFunction={(values) => lessonApi.createHomeworkAnswerMessage({ ...values, homeworkAnswerId, courseId })}
             onSuccess={onSuccess}
             onError={onError}>
             {({ dirty }) => {

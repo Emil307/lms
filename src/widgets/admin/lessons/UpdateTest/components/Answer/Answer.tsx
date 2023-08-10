@@ -45,7 +45,7 @@ const Answer = ({ name, answer, index, onDelete, setFieldValue }: AnswerProps) =
                     <IconDragDots />
                 </ActionIcon>
                 <Flex className={classes.letter} justify="center" align="center">
-                    {getAnswerLetterFromRussianAlphabet(index)}
+                    {getAnswerLetterFromRussianAlphabet(index + 1)}
                 </Flex>
                 <ActionIcon className={classes.checkIconWrapper} onClick={handleChangeCorrectness} w={40} h={40}>
                     <MarkCheckCircleBoldIcon />

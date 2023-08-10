@@ -29,13 +29,13 @@ export default createStyles((theme, { status, openedHomeworkDetails }: CreateSty
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
-        case "needs_edit":
+        case "needsEdit":
             return { backgroundColor: theme.colors.warning16[0], color: theme.colors.warning[0] };
 
         case "completed":
             return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
 
-        case "on_review":
+        case "onReview":
             return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
 
         default:

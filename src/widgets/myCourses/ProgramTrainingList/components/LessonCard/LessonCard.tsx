@@ -9,15 +9,15 @@ import useStyles from "./LessonCard.styles";
 export interface LessonCardProps extends Omit<FlexProps, "children"> {
     data: GroupModuleLesson;
     moduleName: string;
-    courseId?: number;
+    groupId: string;
 }
 
-const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, courseId, ...props }: LessonCardProps) {
+const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId, ...props }: LessonCardProps) {
     const router = useRouter();
     const { classes } = useStyles({ status: data.lessonStatus.name });
 
     const handleOpenLessonDetailsPage = () =>
-        router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: String(courseId), lessonId: String(data.id) } });
+        router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
 
     const renderStatus = () => {
         if (data.lessonStatus.name === "blocked") {

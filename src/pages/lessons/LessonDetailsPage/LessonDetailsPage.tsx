@@ -13,13 +13,13 @@ const LessonDetailsPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const { id, lessonId, tab } = router.query as TRouterQueries;
+    const { id: groupId, lessonId, tab } = router.query as TRouterQueries;
 
-    const group = useGroup({ id });
+    const group = useGroup({ id: groupId });
 
     const lesson = useLesson({
         id: lessonId,
-        groupId: id,
+        courseId: group.data?.courseId,
     });
 
     const tabList = getTabList({
@@ -28,7 +28,7 @@ const LessonDetailsPage = () => {
     });
 
     const handleChangeTab = (value: string) => {
-        router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id, lessonId, tab: value } });
+        router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId, tab: value } });
     };
 
     const renderContent = () => {
@@ -36,14 +36,14 @@ const LessonDetailsPage = () => {
             case "materials":
                 return <MaterialList data={lesson.data} />;
             case "test":
-                return <Test lessonId={lessonId} courseId={id} />;
+                return <Test lessonId={lessonId} courseId={String(group.data?.courseId)} />;
             case "homework":
-                return <Homework lessonId={lessonId} groupId={id} />;
+                return <Homework lessonId={lessonId} courseId={String(group.data?.courseId)} />;
             default:
                 return (
                     <Flex className={classes.lessonContent}>
                         <VideoInput loadedFilesData={lesson.data?.videos} />
-                        <ContentByTextEditor data={lesson.data?.content} />
+                        <ContentByTextEditor data={lesson.data?.content || ""} />
                     </Flex>
                 );
         }
@@ -63,7 +63,7 @@ const LessonDetailsPage = () => {
                 items={getBreadCrumbsItems({
                     nameLesson: lesson.data.name,
                     nameCourse: group.data.name,
-                    groupId: id,
+                    groupId,
                     lessonId,
                 })}
             />

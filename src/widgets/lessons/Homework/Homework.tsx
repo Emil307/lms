@@ -10,14 +10,14 @@ import { HomeworkChat } from "../HomeworkChat";
 
 export interface HomeworkProps {
     lessonId: string;
-    groupId: string;
+    courseId: string;
 }
 
-const Homework = ({ lessonId, groupId }: HomeworkProps) => {
+const Homework = ({ lessonId, courseId }: HomeworkProps) => {
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const [openedHomeworkDetails, setOpenedHomeworkDetails] = useState(false);
     const [isVisibleCollapsedView, setVisibleCollapsedView] = useState(false);
-    const { data: homeworkData, isLoading, isError } = useHomework({ lessonId });
+    const { data: homeworkData, isLoading, isError } = useHomework({ lessonId, courseId });
 
     const labelToggleButton = openedHomeworkDetails ? "Скрыть задание" : "Показать задание";
 
@@ -89,12 +89,12 @@ const Homework = ({ lessonId, groupId }: HomeworkProps) => {
                     </Flex>
                 </Collapse>
 
-                <PassedHomeworkInfo data={homeworkData} lessonId={lessonId} groupId={groupId} />
+                <PassedHomeworkInfo data={homeworkData} lessonId={lessonId} courseId={courseId} />
 
                 <UpdateLessonHomeworkAnswerForm
                     data={homeworkData}
                     lessonId={lessonId}
-                    groupId={groupId}
+                    courseId={courseId}
                     onClose={handleCloseUpdateLessonHomeworkAnswerForm}
                     hidden={!openedHomeworkAnswerForm}
                 />
@@ -102,6 +102,7 @@ const Homework = ({ lessonId, groupId }: HomeworkProps) => {
                 {!!homeworkData?.answers.length && (
                     <HomeworkChat
                         homeworkAnswerId={String(homeworkData.answers[0].id)}
+                        courseId={courseId}
                         answerIsCompleted={homeworkData.answers[0]?.status.name === "completed"}
                     />
                 )}

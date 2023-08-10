@@ -2,19 +2,17 @@ import { Card as MCard, CardProps as MCardProps } from "@mantine/core";
 import { memo } from "react";
 import { PlayCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { useRouter } from "next/router";
 import IconStarDefault from "public/icons/icon24px/rating/star-default.svg";
 import { Button } from "@shared/ui";
 import { GroupFromList } from "@entities/group";
 import { CreateCourseReviewForm } from "@features/courseReviews";
 
-export interface FooterProps extends Omit<MCardProps, "children"> {
+export interface FooterProps extends Omit<MCardProps, "children" | "onClick"> {
     data: Pick<GroupFromList, "courseId" | "groupId" | "status">;
+    onClick?: (id: unknown) => void;
 }
 
-const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
-    const router = useRouter();
-
+const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterProps) {
     const handleCloseCreateReviewModal = () => closeModal("CREATE_COURSE_REVIEW");
 
     const handleOpenCreateReviewModal = () => {
@@ -27,7 +25,7 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
         });
     };
 
-    const handleOpenMyCourseDetailsPage = () => router.push({ pathname: "/my-courses/[id]", query: { id: String(data.groupId) } });
+    const handleOpenMyCourseDetailsPage = () => onClick?.(data.groupId);
 
     const renderActionContent = () => {
         switch (data.status.name) {

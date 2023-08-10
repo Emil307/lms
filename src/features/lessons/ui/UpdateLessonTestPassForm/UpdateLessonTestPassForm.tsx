@@ -20,7 +20,7 @@ export interface UpdateLessonTestPassFormProps extends Omit<BoxProps, "children"
 
 const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props }: UpdateLessonTestPassFormProps) => {
     const { classes } = useStyles();
-    const { data: testData, isLoading, isError } = useTest({ lessonId });
+    const { data: testData, isLoading, isError } = useTest({ lessonId, courseId });
 
     const progressBarLabel = getPluralString(testData?.tasks.length || 0, "вопрос", "вопроса", "вопросов");
 
@@ -68,7 +68,7 @@ const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props 
                 {({ values, onCancel, setFieldValue }) => {
                     const currentTask = values.tasks[values.progressCounter];
                     const isLastQuestion = values.progressCounter + 1 === values.tasks.length;
-                    const isSelectedPossibleAnswerInCurrentTask = !!currentTask.answers.find(({ isSelected }) => isSelected);
+                    const isSelectedPossibleAnswerInCurrentTask = !!currentTask?.answers.find(({ isSelected }) => isSelected);
 
                     const handleClickArrowLeft = () => {
                         if (values.progressCounter === 0) {
@@ -90,7 +90,7 @@ const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props 
                                 </ActionIcon>
                                 <FProgressBar
                                     name="progressCounter"
-                                    maxValue={testData.tasks.length || 0}
+                                    maxValue={testData?.tasks.length || 0}
                                     label={progressBarLabel}
                                     wrapperProps={{ className: classes.progressBarWrapper }}
                                 />

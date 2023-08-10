@@ -10,7 +10,7 @@ export const getInitialValues = (data?: GetHomeworkResponse): UpdateLessonHomewo
 
 export const adaptUpdateLessonHomeworkAnswerRequest = (
     data: UpdateLessonHomeworkAnswerFormValidation
-): Omit<UpdateHomeworkAnswerRequest, "lessonId" | "groupId"> => {
+): Omit<UpdateHomeworkAnswerRequest, "lessonId" | "courseId"> => {
     const { files, ...rest } = data;
     return {
         ...rest,

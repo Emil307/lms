@@ -10,10 +10,11 @@ import useStyles from "./HomeworkChat.styles";
 
 export interface MessageListProps {
     homeworkAnswerId: string;
+    courseId: string;
     answerIsCompleted: boolean;
 }
 
-const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps) => {
+const HomeworkChat = ({ homeworkAnswerId, courseId, answerIsCompleted }: MessageListProps) => {
     const { classes } = useStyles();
     const containerRef = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<HTMLDivElement>(null);
@@ -27,7 +28,7 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
         isLoading,
         isFetching,
         isRefetching,
-    } = useLessonHomeworkAnswerMessages({ ...initialParams, homeworkAnswerId });
+    } = useLessonHomeworkAnswerMessages({ ...initialParams, homeworkAnswerId, courseId });
 
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -76,7 +77,7 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
                     </Flex>
 
                     <Box maw={728} mb={32}>
-                        <CreateMessageForm homeworkAnswerId={homeworkAnswerId} />
+                        <CreateMessageForm homeworkAnswerId={homeworkAnswerId} courseId={courseId} />
                     </Box>
                 </>
             )}
