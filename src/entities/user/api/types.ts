@@ -171,7 +171,7 @@ export const $StaticUser = $User
         profile: true,
     })
     .extend({
-        courseCount: z.number(),
+        coursesCount: z.number(),
     });
 
 export const $StaticUserFromList = $StaticUser;

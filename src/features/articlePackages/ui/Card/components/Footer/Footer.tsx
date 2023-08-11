@@ -51,7 +51,7 @@ const Footer = ({ data }: FooterProps) => {
                         "статей"
                     )}`}</Text>
                 </Flex>
-                <> {renderAmount()}</>
+                {renderAmount()}
             </Flex>
             <Button onClick={handleClickButton}>Получить доступ</Button>
         </MCard.Section>

@@ -38,7 +38,7 @@ const CarouselList = ({ title, description, titleProps, exceptionCoursePackageId
     return (
         <Box {...props} w="100%">
             <Flex direction="column" gap={8} mb={32}>
-                <Skeleton visible={isLoading} mih={40} radius={24}>
+                <Skeleton visible={isLoading} radius={24}>
                     <Heading {...titleProps}>{title}</Heading>
                 </Skeleton>
                 {description && <Paragraph variant="small-m">{description}</Paragraph>}

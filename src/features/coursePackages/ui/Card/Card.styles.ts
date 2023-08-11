@@ -6,6 +6,7 @@ export default createStyles((_theme) => ({
         flexDirection: "column",
         height: "100%",
         padding: "24px !important",
+        gap: 32,
         borderRadius: 16,
     },
     section: {

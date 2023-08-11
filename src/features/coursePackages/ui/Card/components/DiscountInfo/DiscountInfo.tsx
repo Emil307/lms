@@ -13,16 +13,14 @@ const DiscountInfo = ({ discount }: DiscountInfoProps) => {
         return null;
     }
 
-    const discountValue = `${discount.amount} ${discount.type === "percentage" ? "%" : "₽"}`;
+    const discountValue = discount.type === "percentage" ? `${discount.amount} %` : `-${discount.amount} ₽`;
 
     return (
         <MCard.Section className={classes.root}>
             <Badge className={classes.discount}>{discountValue}</Badge>
-            {discount.finishingDate && (
-                <Badge variant="outline" className={classes.discountEndDate}>
-                    {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}
-                </Badge>
-            )}
+            <Badge variant="outline" className={classes.discountEndDate}>
+                {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}
+            </Badge>
         </MCard.Section>
     );
 };

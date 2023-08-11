@@ -47,7 +47,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
                     Только профессионалы в своем деле.
                 </Paragraph>
             </Flex>
-            <Flex className={classes.authorWrapperList}>{renderAuthors}</Flex>
+            <Flex className={classes.authorList}>{renderAuthors}</Flex>
         </Flex>
     );
 };

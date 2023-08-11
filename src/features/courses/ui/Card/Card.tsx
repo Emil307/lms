@@ -1,12 +1,14 @@
 import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
+import { useMediaQuery } from "@mantine/hooks";
 import { CourseFromList } from "@entities/course";
 import { getDiscountValue, getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { AmountInfo, FavoriteButton, StartDateBlock } from "./components";
+import { AmountInfo, StartDateBlock } from "./components";
 import useStyles from "./Card.styles";
+import { FavoriteButton } from "../FavoriteButton";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: CourseFromList;
@@ -17,6 +19,8 @@ export interface CardProps extends Omit<MCardProps, "children"> {
 const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => undefined, ...props }: CardProps) {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
+    const isTablet = useMediaQuery("(max-width: 1440px)");
+
     const handleClickCard = () => onClick(data.id);
 
     const discountValue = getDiscountValue({ amountDiscount: data.discount?.amount, type: data.discount?.type });
@@ -24,7 +28,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
     const renderButton = () => {
         switch (buttonVariant) {
             case "favorite":
-                return <FavoriteButton courseId={data.id} isFavorite={data.isFavorite} />;
+                return <FavoriteButton data={data} variant={isTablet ? "compact" : "default"} />;
             case "more":
                 return (
                     <Button variant="white" onClick={handleClickCard}>
@@ -75,7 +79,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
                     <Heading order={4} className={classes.title} lineClamp={2}>
                         {data.name}
                     </Heading>
-                    <StartDateBlock />
+                    <StartDateBlock data={data} />
                 </Box>
                 <Group sx={{ justifyContent: "space-between" }}>
                     <Flex direction="column">

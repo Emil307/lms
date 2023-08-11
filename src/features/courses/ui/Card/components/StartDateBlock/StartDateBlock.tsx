@@ -2,18 +2,23 @@ import { Flex, ThemeIcon } from "@mantine/core";
 import dayjs from "dayjs";
 import { Paragraph } from "@shared/ui";
 import IconCalendar from "public/icons/calendar.svg";
+import { CourseFromList } from "@entities/course";
 import useStyles from "./StartDateBlock.styles";
 
 export interface StartDateBlockProps {
-    startDate?: string;
+    data: CourseFromList;
 }
 
-const StartDateBlock = ({ startDate }: StartDateBlockProps) => {
+const StartDateBlock = ({ data }: StartDateBlockProps) => {
     const { classes } = useStyles();
 
     const renderStartDate = () => {
-        if (startDate) {
-            return <Paragraph variant="text-small-m">{`Начало: ${dayjs(startDate).format("D MMMM YYYY")}`}</Paragraph>;
+        if (data.type === "autonomous") {
+            return (
+                <Paragraph variant="text-small-m">{`Начало: ${
+                    data.availableGroup?.educationStartDate ? dayjs(data.availableGroup.educationStartDate).format("D MMMM YYYY") : "-"
+                }`}</Paragraph>
+            );
         }
         return <Paragraph variant="text-small-m">Свободное прохождение</Paragraph>;
     };

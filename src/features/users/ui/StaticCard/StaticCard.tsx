@@ -34,7 +34,7 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
                 </Box>
                 <Group className={classes.cardSectionContent}>
                     <Badge variant="outline" className={classes.countCourse}>
-                        {`${data.courseCount} ${getPluralString(data.courseCount, "курс", "курса", "курсов")}`}
+                        {`${data.coursesCount} ${getPluralString(data.coursesCount, "курс", "курса", "курсов")}`}
                     </Badge>
                 </Group>
             </MCard.Section>
