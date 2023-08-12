@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { MRT_TableInstance } from "mantine-react-table";
-import { Pagination as MPagination, NativeSelect, Box, ThemeIcon } from "@mantine/core";
-import { ChevronDown } from "react-feather";
+import { Pagination as MPagination, Box } from "@mantine/core";
 import { TPagination } from "@shared/types";
 import { Paragraph } from "@shared/ui/Typography";
 import { usePaginationStyles } from "./Pagination.styles";
 import { useTablePagination } from "../../utils";
+import { Select } from "@shared/ui";
 
 export type TPaginationProps<T extends Record<string, any>> = {
     table: MRT_TableInstance<T>;
@@ -22,6 +22,13 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
     });
 
     const { classes } = usePaginationStyles();
+
+    const perPageSelectOptions = useMemo(() => {
+        return perPageOptions.map((option) => ({
+            label: option,
+            value: option,
+        }));
+    }, [perPageOptions]);
 
     if (!data || !data.total) {
         return null;
@@ -47,17 +54,12 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
                     withControls={false}
                 />
             )}
-            <NativeSelect
+            <Select
                 className={classes.perPageSelect}
                 label="На странице:"
-                data={perPageOptions}
+                data={perPageSelectOptions}
                 value={pageSize.toString()}
                 onChange={handleChangePerPage}
-                rightSection={
-                    <ThemeIcon color="gray45" w={16} h={16}>
-                        <ChevronDown />
-                    </ThemeIcon>
-                }
             />
         </Box>
     );
