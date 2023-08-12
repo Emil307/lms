@@ -38,9 +38,6 @@ export const usePaginationStyles = createStyles((theme) => ({
     },
     perPageSelect: {
         gridArea: "perPageSelect",
-        display: "flex",
-        alignItems: "center",
-        gap: "4px",
         cursor: "pointer",
 
         label: {
@@ -49,24 +46,37 @@ export const usePaginationStyles = createStyles((theme) => ({
             fontWeight: 500,
             color: theme.colors.gray45[0],
             whiteSpace: "nowrap",
-        },
-        select: {
-            border: "none",
-            paddingRight: 20,
-            paddingLeft: 0,
-            fontWeight: 500,
-            fontSize: 14,
-            lineHeight: "16px",
-            cursor: "pointer",
+            top: "50%",
+            left: 0,
+            transform: "translateY(-50%)",
         },
 
-        ".mantine-NativeSelect-rightSection": {
+        ".mantine-Select-rightSection": {
             pointerEvents: "none",
             width: 16,
+
+            ".mantine-ThemeIcon-root": {
+                width: 16,
+            },
         },
 
-        "& .mantine-Select-input": {
-            width: "90px",
+        ".mantine-Select-input": {
+            border: "none",
+            maxWidth: 127,
+            minHeight: "unset",
+            height: "unset",
+            padding: 0,
+            paddingLeft: "96px !important",
+
+            "&:hover": {
+                boxShadow: "unset",
+                border: "none",
+            },
+
+            "&:focus": {
+                boxShadow: "unset",
+                border: "none",
+            },
         },
     },
 }));

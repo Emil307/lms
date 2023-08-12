@@ -1,4 +1,3 @@
-import React from "react";
 import { TPaginationProps } from "../../components";
 
 export const useTablePagination = <T extends Record<string, any>>({ data, table }: Pick<TPaginationProps<T>, "data" | "table">) => {
@@ -18,11 +17,13 @@ export const useTablePagination = <T extends Record<string, any>>({ data, table 
         }));
     };
 
-    const handleChangePerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setPagination({
-            pageIndex: 1,
-            pageSize: Number(e.target.value),
-        });
+    const handleChangePerPage = (value: string | null) => {
+        if (value) {
+            setPagination({
+                pageIndex: 1,
+                pageSize: Number(value),
+            });
+        }
     };
 
     return { firstElemIndex, lastElemIndex, pageIndex, pageSize, handleChangePage, handleChangePerPage };

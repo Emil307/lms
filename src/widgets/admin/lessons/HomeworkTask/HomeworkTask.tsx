@@ -129,10 +129,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
             <Flex className={classes.answer} gap={24} direction="column">
                 <Heading order={4}>Ответ ученика</Heading>
                 <Flex className={classes.answerContent} gap={8}>
-                    <Avatar
-                        src={homeworkAnswer.student.profile.avatar?.absolutePath}
-                        alt="avatar"
-                        className={classes.avatarWrapper}>
+                    <Avatar src={homeworkAnswer.student.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                         <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>
