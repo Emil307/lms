@@ -1,17 +1,21 @@
 import { Box, ThemeIcon, Flex } from "@mantine/core";
 import React from "react";
-import { Folder, Heart } from "react-feather";
+import { Folder } from "react-feather";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Button, Heading, Tabs } from "@shared/ui";
+import { BreadCrumbs, Heading, Tabs } from "@shared/ui";
 import { List as GroupList } from "@features/groups";
 import { TRouterQueries } from "@shared/types";
 import { useGroupsCounts } from "@entities/group";
 import { breadCrumbsItems } from "./constants";
 import { getSortedTabList, getTabList } from "./utils";
+import useStyles from "./MyCoursesPage.styles";
+import { FavoriteRedirectButton } from "./components";
 
 const MyCoursesPage = () => {
     const router = useRouter();
     const { tab } = router.query as TRouterQueries;
+
+    const { classes } = useStyles();
 
     const countsGroups = useGroupsCounts();
 
@@ -21,13 +25,11 @@ const MyCoursesPage = () => {
         router.push({ pathname: "/my-courses", query: { tab: value } });
     };
 
-    const handleOpenFavoriteCourses = () => router.push("/my-courses/favorite");
-
     const handleOpenMyCoursesDetails = (id: unknown) => router.push({ pathname: "/my-courses/[id]", query: { id: String(id) } });
 
     return (
         <Box>
-            <Flex justify="space-between" gap={24} mb={32}>
+            <Flex className={classes.heading}>
                 <Box>
                     <BreadCrumbs items={breadCrumbsItems} mb={8} />
                     <Flex align="center" gap={12}>
@@ -37,9 +39,7 @@ const MyCoursesPage = () => {
                         <Heading>Мои курсы</Heading>
                     </Flex>
                 </Box>
-                <Button variant="border" leftIcon={<Heart />} onClick={handleOpenFavoriteCourses}>
-                    Избранные курсы
-                </Button>
+                <FavoriteRedirectButton />
             </Flex>
             {!!tabsList.length && <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} mb={32} />}
             <GroupList perPage={9} withPagination onClick={handleOpenMyCoursesDetails} />

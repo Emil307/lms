@@ -41,7 +41,7 @@ const List = ({
 
     const renderContent = () => {
         if (!isLoading && !coursesData?.data.length && !!Object.values(params).find((param) => !!param)) {
-            return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
+            return <EmptyData title="Такого пока нет. Попробуете выбрать другую вкладку" description="" />;
         }
 
         return (

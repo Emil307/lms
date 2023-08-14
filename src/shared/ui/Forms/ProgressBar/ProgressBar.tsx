@@ -17,7 +17,7 @@ const MemoizedProgressBar = memo(function ProgressBar({
     wrapperProps,
     ...props
 }: ProgressBarProps) {
-    const { classes, cx } = useStyles();
+    const { classes, cx } = useStyles({ hiddenLabel });
 
     const valueProgress = useMemo(() => (value / maxValue) * 100, [value, maxValue]);
 

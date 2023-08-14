@@ -1,9 +1,13 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+interface CreateStylesParams {
+    hiddenLabel: boolean;
+}
+
+export default createStyles((theme, { hiddenLabel }: CreateStylesParams) => ({
     wrapper: {
         display: "grid",
-        gridTemplateColumns: "1fr auto",
+        gridTemplateColumns: hiddenLabel ? "1fr" : "1fr auto",
         alignItems: "center",
         columnGap: 16,
     },
