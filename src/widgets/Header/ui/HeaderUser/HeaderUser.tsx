@@ -75,9 +75,9 @@ const HeaderUser = ({ ...props }: HeaderUserProps) => {
                         <ActionIcon
                             className={classes.actionIcon}
                             sx={{
-                                backgroundColor: router.pathname === "/courses/favorite" ? theme.colors.grayLight[0] : "transparent",
+                                backgroundColor: router.pathname === "/my-courses/favorite" ? theme.colors.grayLight[0] : "transparent",
                             }}
-                            onClick={() => router.push("/courses/favorite")}>
+                            onClick={() => router.push("/my-courses/favorite")}>
                             <Heart />
                         </ActionIcon>
                         <NotificationMenu position="bottom-end" />
