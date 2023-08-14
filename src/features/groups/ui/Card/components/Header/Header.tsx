@@ -14,11 +14,19 @@ export interface HeaderProps extends Omit<MCardProps, "children"> {
 const MemoizedHeader = memo(function Header({ data, ...props }: HeaderProps) {
     const { classes } = useStyles({ status: data.status.name });
 
-    const renderEndDate = useMemo(() => {
+    const renderAvailableDate = useMemo(() => {
         if (data.availableTo) {
-            return <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(data.availableTo).format("D MMMM YYYY")}`}</Paragraph>;
+            return (
+                <Paragraph variant="text-small-m" className={classes.availableDate}>{`Доступ: до ${dayjs(data.availableTo).format(
+                    "D MMMM YYYY"
+                )}`}</Paragraph>
+            );
         }
-        return <Paragraph variant="text-small-m">Бессрочный доступ</Paragraph>;
+        return (
+            <Paragraph variant="text-small-m" className={classes.availableDate}>
+                Бессрочный доступ
+            </Paragraph>
+        );
     }, [data.availableTo]);
 
     return (
@@ -28,11 +36,11 @@ const MemoizedHeader = memo(function Header({ data, ...props }: HeaderProps) {
                 <Heading order={4} lineClamp={2}>
                     {data.name}
                 </Heading>
-                <Flex align="center" sx={{ gap: 8 }}>
+                <Flex align="center" gap={8}>
                     <ThemeIcon className={classes.iconCalendarWrapper}>
                         <IconCalendar />
                     </ThemeIcon>
-                    {renderEndDate}
+                    {renderAvailableDate}
                 </Flex>
             </Flex>
             <Box className={classes.imageWrapper}>
