@@ -1,7 +1,7 @@
-import { Badge, Box, Flex, Text } from "@mantine/core";
+import { Badge, Box, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Heading, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
 import useStyles from "./InfoPanel.styles";
 
@@ -28,12 +28,17 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     {groupData?.status.name}
                 </Badge>
             </Flex>
-            <Flex mt={24} gap={32} align="center">
-                <Box className={classes.infoItem}>
-                    ID: <span>{groupData?.id}</span>
-                </Box>
+            <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>
-                    <Text className={classes.infoItem}>Статус:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{groupData?.id}</Paragraph>
+                </Flex>
+                <Flex align="center" gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         checked={groupData?.isActive}
                         onChange={handleChangeActiveStatus}
@@ -42,14 +47,21 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         labelPosition="left"
                     />
                 </Flex>
-                <Box className={classes.infoItem}>
-                    Учебный курс: <span>{groupData?.course.name}</span>
-                </Box>
-                <Box className={classes.infoItem}>
-                    Создание: <span>{groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                </Box>
-                {/* TODO:  https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/156*/}
-                {/* <LastUpdatedInfo data={groupData?.lastUpdated} /> */}
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Учебный курс:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{groupData?.course.name}</Paragraph>
+                </Flex>
+                <Flex gap={8}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Создание:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">
+                        {groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                    </Paragraph>
+                </Flex>
+                <LastUpdatedInfo data={groupData?.lastUpdated} />
             </Flex>
         </Box>
     );

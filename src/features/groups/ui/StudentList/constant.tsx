@@ -1,18 +1,12 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { AdminGroupParticipantFromList } from "@entities/group";
+import { Badge } from "@mantine/core";
+import { AdminGroupStudentFromList } from "@entities/group";
 import { getFullName } from "@shared/utils";
+import useStyles from "./StudentList.styles";
 
-export const columnOrder = [
-    "profile",
-    "lessons",
-    "tests",
-    "homeworks",
-    // "status",
-    // "isActive",
-    "mrt-row-actions",
-];
+export const columnOrder = ["profile", "lessons", "tests", "homeworks", "status.name", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminGroupParticipantFromList>["columns"] = [
+export const columns: MRT_ColumnDef<AdminGroupStudentFromList>["columns"] = [
     {
         header: "Ученик",
         accessorKey: "profile",
@@ -21,22 +15,24 @@ export const columns: MRT_ColumnDef<AdminGroupParticipantFromList>["columns"] = 
     {
         header: "Пройдено уроков",
         accessorKey: "lessons",
-        accessorFn: ({ lessons }) => `${lessons.completed}/${lessons.total}`,
+        accessorFn: ({ lessons }) => `${lessons.completedCount}/${lessons.totalCount}`,
     },
     {
         header: "Выполнено тестов",
         accessorKey: "tests",
-        accessorFn: ({ tests }) => `${tests.completed}/${tests.total}`,
+        accessorFn: ({ tests }) => `${tests.completedCount}/${tests.totalCount}`,
     },
     {
         header: "Выполнено заданий",
         accessorKey: "homeworks",
-        accessorFn: ({ homeworks }) => `${homeworks.completed}/${homeworks.total}`,
+        accessorFn: ({ homeworks }) => `${homeworks.completedCount}/${homeworks.totalCount}`,
     },
-    //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/160
-    // {
-    //     header: "Статус",
-    //     accessorKey: "isActive",
-    //     Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
-    // },
+    {
+        header: "Статус",
+        accessorKey: "status.name",
+        Cell: ({ row }) => {
+            const { classes } = useStyles({ statusType: row.original.status.name });
+            return <Badge className={classes.status}>{row.original.status.displayName}</Badge>;
+        },
+    },
 ];

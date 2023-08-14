@@ -39,9 +39,9 @@ const GroupDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ groupName: groupData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name, id })} mb={8} />
             <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mt={32} />
             {renderContent()}
         </Box>
     );

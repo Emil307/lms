@@ -1,5 +1,5 @@
 export * from "./useAdminDeleteGroup";
 export * from "./useUpdateGroupActivity";
-export * from "./useAttachParticipantsToGroup";
-export * from "./useDeleteParticipantsFromGroup";
+export * from "./useAttachStudentsToGroup";
+export * from "./useDeleteStudentsFromGroup";
 export * from "./useAdminDeleteGroupSchedule";

@@ -4,12 +4,12 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
-import { AttachParticipantsToGroupRequest, AttachParticipantsToGroupResponse, groupApi } from "@entities/group";
+import { AttachStudentsToGroupRequest, AttachStudentsToGroupResponse, groupApi } from "@entities/group";
 
-export const useAttachParticipantsToGroup = ({ groupId }: Pick<AttachParticipantsToGroupRequest, "groupId">) => {
-    return useMutation<AttachParticipantsToGroupResponse, AxiosError<FormErrorResponse>, Omit<AttachParticipantsToGroupRequest, "groupId">>(
-        [MutationKeys.ATTACH_PARTICIPANTS_TO_GROUP, groupId],
-        (params) => groupApi.attachParticipantsToGroup({ ...params, groupId }),
+export const useAttachStudentsToGroup = ({ groupId }: Pick<AttachStudentsToGroupRequest, "groupId">) => {
+    return useMutation<AttachStudentsToGroupResponse, AxiosError<FormErrorResponse>, Omit<AttachStudentsToGroupRequest, "groupId">>(
+        [MutationKeys.ATTACH_ADMIN_STUDENTS_TO_GROUP, groupId],
+        (params) => groupApi.attachStudentsToGroup({ ...params, groupId }),
         {
             onSuccess: () => {
                 createNotification({
@@ -18,7 +18,7 @@ export const useAttachParticipantsToGroup = ({ groupId }: Pick<AttachParticipant
                 });
 
                 //TODO: Добавить invalidate на ключ для списка ученико в которых нет в группе
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUP_PARTICIPANTS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUP_STUDENTS]);
             },
             onError: () => {
                 createNotification({

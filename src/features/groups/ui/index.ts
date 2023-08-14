@@ -10,3 +10,4 @@ export * from "./UpdateScheduleForm";
 export * from "./DeleteStudentFromGroupModal";
 export * from "./Card";
 export * from "./List";
+export * from "./AddStudentsToGroupModal";

@@ -4,9 +4,9 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
 import { Paragraph } from "@shared/ui";
 import { AdminHomeworkAnswerMessage } from "@entities/lesson";
+import { Roles } from "@app/routes";
 import useStyles from "./MessageItem.styles";
 import { getFormatCreatedAt } from "./utils";
-import { Roles } from "@app/routes";
 
 export interface MessageItemProps extends Omit<FlexProps, "onClick"> {
     data: AdminHomeworkAnswerMessage;

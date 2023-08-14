@@ -1,8 +1,9 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { Badge, Flex, Text } from "@mantine/core";
+import { Badge, Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminGroupFromList, AdminGroupsFiltersForm } from "@entities/group";
 import { getFullName } from "@shared/utils";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./AdminList.styles";
 
 export const columnOrder = [
@@ -12,8 +13,8 @@ export const columnOrder = [
     "name",
     "studentsCount",
     "educationFinishDate",
-    "teacher",
-    "status",
+    "teacher.profile.fullName",
+    "status.name",
     "isActive",
     "mrt-row-actions",
 ];
@@ -22,35 +23,40 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Учебный курс",
         accessorKey: "course.name",
+        size: 198,
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
+        size: 160,
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
     {
         header: "Группа",
         accessorKey: "name",
+        size: 160,
     },
     {
         header: "Учеников",
         accessorKey: "studentsCount",
+        size: 160,
     },
     {
         header: "Даты обучения",
         accessorKey: "educationFinishDate",
+        size: 160,
         Cell: ({ row }) => {
-            const { classes } = useStyles({});
             return (
                 <Flex direction="column">
-                    <Text className={classes.educationStartDate}>{`c ${dayjs(row.original.educationStartDate).format("DD.MM.YYYY")}`}</Text>
-                    <Text className={classes.educationFinishDate}>
+                    <Paragraph variant="text-small-m">{`c ${dayjs(row.original.educationStartDate).format("DD.MM.YYYY")}`}</Paragraph>
+                    <Paragraph variant="text-caption" color="gray45">
                         {`до ${dayjs(row.original.educationFinishDate).format("DD.MM.YYYY")}`}
-                    </Text>
+                    </Paragraph>
                 </Flex>
             );
         },
@@ -58,24 +64,23 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
     {
         header: "Преподаватель",
         accessorKey: "teacher",
+        id: "teacher.profile.fullName",
+        size: 198,
         accessorFn: ({ teacher }) => getFullName({ data: teacher?.profile }),
     },
     {
         header: "Статус группы",
-        accessorKey: "status",
+        accessorKey: "status.name",
+        size: 160,
         Cell: ({ row }) => {
             const { classes } = useStyles({ statusType: row.original.status.type });
-            return (
-                //TODO: displayName как беки добавят
-                <Badge variant="outline" className={classes.status}>
-                    {row.original.status.name}
-                </Badge>
-            );
+            return <Badge className={classes.status}>{row.original.status.name}</Badge>;
         },
     },
     {
         header: "Статус",
         accessorKey: "isActive",
+        size: 160,
         Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];

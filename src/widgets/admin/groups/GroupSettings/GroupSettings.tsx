@@ -12,8 +12,6 @@ import { DeleteGroupModal } from "@features/groups";
 import { InfoCard } from "@components/InfoCard";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
-import "dayjs/locale/ru";
-dayjs.locale("ru");
 
 export interface GroupSettingsProps extends BoxProps {
     id: string;
@@ -26,7 +24,10 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
 
     const handleOpenUpdateGroupForm = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
 
-    const handleCloseDeleteGroupModal = () => closeModal("DELETE_GROUP");
+    const handleCloseDeleteGroupModal = () => {
+        closeModal("DELETE_GROUP");
+        router.push("/admin/groups");
+    };
 
     const openModalDeleteGroup = () => {
         openModal({

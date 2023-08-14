@@ -8,6 +8,7 @@ import {
     $getFiltersRequestType,
     $LastUpdated,
     $UserNotifications,
+    $getMultiValueObjectType,
 } from "@shared/types";
 
 export type TUser = z.infer<typeof $User>;
@@ -205,6 +206,7 @@ export const $AdminStudentsRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
+            studentGroupIds: $getMultiValueObjectType(z.string(), z.literal("not")),
             isActive: z.boolean(),
             roleName: z.string(),
         })

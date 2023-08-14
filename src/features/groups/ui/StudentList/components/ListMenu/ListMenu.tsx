@@ -4,20 +4,24 @@ import React from "react";
 import { Eye, Trash } from "react-feather";
 import { IconPercentage } from "@tabler/icons-react";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
-import { AdminGroupParticipantFromList } from "@entities/group";
+import { AdminGroupStudentFromList } from "@entities/group";
 import { DeleteStudentFromGroupModal } from "@features/groups";
 import { getFullName } from "@shared/utils";
 
 interface ListMenuProps {
     groupId?: string;
-    row: MRT_Row<AdminGroupParticipantFromList>;
+    row: MRT_Row<AdminGroupStudentFromList>;
 }
 
 const ListMenu = ({ groupId, row }: ListMenuProps) => {
-    //TODO: Добавить методы по статистике и открыть после того как будет готово на бекенде
+    const router = useRouter();
+    //TODO: Добавить метод по статистике после того как будет готово на бекенде
 
     const studentFullName = getFullName({ data: row.original.profile });
+
+    const handleOpenStudentDetailsPage = () => router.push({ pathname: "/admin/students/[id]", query: { id: String(row.original.id) } });
 
     const handleCloseDeleteStudentFromGroupModal = () => closeModal("DELETE_STUDENT_FROM_GROUP");
 
@@ -28,7 +32,7 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
             children: (
                 <DeleteStudentFromGroupModal
                     groupId={groupId}
-                    studentId={String(row.original.id)}
+                    studentId={row.original.id}
                     fullName={studentFullName}
                     onClose={handleCloseDeleteStudentFromGroupModal}
                 />
@@ -38,20 +42,20 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+            <MenuItemDataGrid mt={8} onClick={handleOpenStudentDetailsPage}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <IconPercentage />
                 </ThemeIcon>
                 Статистика
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteStudentFromGroupModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

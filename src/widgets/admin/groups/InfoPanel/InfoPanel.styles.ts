@@ -6,25 +6,28 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { statusType }: CreateStylesProps) => ({
-    infoItem: {
-        alignSelf: "center",
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
+    infoPanelListInfo: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        overflowX: "auto",
+        gap: 32,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
         },
     },
     status: {
-        width: "min-content",
-        height: 28,
-        padding: "6px 10px",
-        border: "none",
         borderRadius: 32,
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        textTransform: "inherit",
+
         ...getColorsByStatus(theme, { statusType }),
     },
 }));

@@ -43,9 +43,7 @@ const UpdateGroupPage = () => {
 
             <Flex gap={16} align="center" mb={24}>
                 <Heading>{groupData.name}</Heading>
-                <Badge variant="outline" className={classes.status}>
-                    {groupData.status.name}
-                </Badge>
+                <Badge className={classes.status}>{groupData.status.name}</Badge>
             </Flex>
             <UpdateAdminGroupForm data={groupData} courseId={courseId} onSuccess={handleSuccessForm} onCancel={handleCancelForm} />
         </Box>
