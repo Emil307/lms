@@ -1,4 +1,4 @@
-import { Collapse, Flex } from "@mantine/core";
+import { Collapse, Flex, Box } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { ChevronUp } from "react-feather";
 import { Button } from "@shared/ui";
@@ -33,12 +33,14 @@ const Footer = ({ data, openUpdateTestPassForm }: FooterProps) => {
     }
 
     return (
-        <>
-            <Collapse in={openedAnswersDetails} w="100%">
-                <Flex direction="column" gap={32}>
-                    {renderAnswers}
-                </Flex>
-            </Collapse>
+        <Box>
+            <Box>
+                <Collapse in={openedAnswersDetails} w="100%">
+                    <Flex direction="column" gap={32} mb={32}>
+                        {renderAnswers}
+                    </Flex>
+                </Collapse>
+            </Box>
             <Button
                 variant="text"
                 onClick={handleToggleVisibilityAnswersDetails}
@@ -46,7 +48,7 @@ const Footer = ({ data, openUpdateTestPassForm }: FooterProps) => {
                 className={classes.buttonToggle}>
                 {labelToggleButton}
             </Button>
-        </>
+        </Box>
     );
 };
 

@@ -1,11 +1,14 @@
 import { MantineTheme, createStyles } from "@mantine/core";
 import { LessonStatusName } from "@entities/group";
+import { HomeworkAnswerStatusName, TestStatusName } from "@entities/lesson";
 
 interface CreateStylesParams {
     status: LessonStatusName;
+    testStatus?: TestStatusName;
+    homeworkStatus?: HomeworkAnswerStatusName;
 }
 
-export default createStyles((theme, { status }: CreateStylesParams) => ({
+export default createStyles((theme, { status, testStatus, homeworkStatus }: CreateStylesParams) => ({
     root: {
         flexDirection: "column",
         width: "100%",
@@ -18,11 +21,17 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: "min-content",
         height: 28,
         borderRadius: 32,
-        ...getColorsByStatus(theme, { status }),
+        ...getColorsByLessonStatus(theme, { status }),
+    },
+    testStatus: {
+        ...getColorsByTestStatus(theme, { testStatus }),
+    },
+    homeworkStatus: {
+        ...getColorsByHomeworkStatus(theme, { homeworkStatus }),
     },
 }));
 
-const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
+const getColorsByLessonStatus = (theme: MantineTheme, { status }: Pick<CreateStylesParams, "status">) => {
     switch (status) {
         case "completed":
             return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
@@ -35,5 +44,34 @@ const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) 
 
         default:
             return { backgroundColor: theme.colors.light[0], color: theme.colors.gray45[0] };
+    }
+};
+
+const getColorsByTestStatus = (theme: MantineTheme, { testStatus }: Pick<CreateStylesParams, "testStatus">) => {
+    switch (testStatus) {
+        case "completed":
+            return { color: theme.colors.doneDark[0] };
+
+        case "needsEdit":
+            return { color: theme.colors.warning[0] };
+
+        default:
+            return { color: theme.colors.dark[0] };
+    }
+};
+
+const getColorsByHomeworkStatus = (theme: MantineTheme, { homeworkStatus }: Pick<CreateStylesParams, "homeworkStatus">) => {
+    switch (homeworkStatus) {
+        case "completed":
+            return { color: theme.colors.doneDark[0] };
+
+        case "needsEdit":
+            return { color: theme.colors.warning[0] };
+
+        case "onReview":
+            return { color: theme.colors.info[0] };
+
+        default:
+            return { color: theme.colors.dark[0] };
     }
 };

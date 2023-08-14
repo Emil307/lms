@@ -40,7 +40,7 @@ const Test = ({ lessonId, courseId }: TestProps) => {
                 <Heading order={2}>Тест</Heading>
                 {testPassData && <Badge className={classes.status}>{testPassData.status.displayName}</Badge>}
             </Flex>
-            <Box className={classes.contentContaner}>{renderContent()}</Box>
+            <Box className={classes.contentContainer}>{renderContent()}</Box>
         </Flex>
     );
 };

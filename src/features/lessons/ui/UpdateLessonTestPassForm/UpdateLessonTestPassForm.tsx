@@ -58,7 +58,10 @@ const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props 
                 initialValues={getInitialValues(testData, data)}
                 validationSchema={$UpdateLessonTestPassFormValidation}
                 mutationKey={[MutationKeys.UPDATE_LESSON_TEST_PASS]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_LESSON_TEST_PASS] }]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_LESSON_TEST_PASS] },
+                    { queryKey: [QueryKeys.GET_LESSON, lessonId, courseId] },
+                ]}
                 mutationFunction={updateLessonTestPass}
                 onSuccess={onSuccess}
                 onError={onError}

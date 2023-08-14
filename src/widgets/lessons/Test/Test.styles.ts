@@ -18,7 +18,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         ...getColorsByStatus(theme, { status }),
     },
 
-    contentContaner: {
+    contentContainer: {
         padding: 24,
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
