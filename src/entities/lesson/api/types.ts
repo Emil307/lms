@@ -195,7 +195,9 @@ export const $CreateLessonFormValues = z.object({
 });
 
 export const $CreateLessonRequest = $CreateLessonFormValues;
-export const $CreateLessonResponse = $AdminLesson;
+export const $CreateLessonResponse = $AdminLesson.omit({
+    content: true,
+});
 
 export const $UpdateLessonFormValues = $CreateLessonFormValues;
 
@@ -513,8 +515,7 @@ export const $TestPassAnswer = $TestTaskAnswer.extend({
 
 export const $TestPassTaskAnswer = z.object({
     id: z.number(),
-    //TODO: исправить на camelCase
-    test_pass_id: z.number(),
+    testPassId: z.number(),
     question: z.string(),
     answer: $TestPassAnswer.array(),
     result: z.boolean(),
