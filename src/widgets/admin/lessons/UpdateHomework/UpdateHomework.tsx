@@ -1,6 +1,8 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertCircle as AlertCircleIcon, AlertTriangle as AlertTriangleIcon } from "react-feather";
+import { FastFieldProps } from "formik/dist/FastField";
+import { FastField } from "formik";
 import { Button, FFileInputMultiple, FSelect, FTextEditor, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import {
     AdminHomework,
@@ -14,8 +16,6 @@ import { createNotification, ToastType } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateHomework.styles";
-import { FastFieldProps } from "formik/dist/FastField";
-import { FastField } from "formik";
 
 interface UpdateHomeworkProps {
     lessonId: string;

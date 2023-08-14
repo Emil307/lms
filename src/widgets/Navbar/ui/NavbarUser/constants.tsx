@@ -58,12 +58,12 @@ export const sidebarPublicItems: SidebarItemData[] = [
     },
     {
         label: "Избранное",
-        href: { pathname: "/courses/favorite" },
+        href: { pathname: "/my-courses/favorite" },
         icon: (
             <ThemeIcon color="dark">
                 <Heart />
             </ThemeIcon>
         ),
-        isCheckRoute: "/courses/favorite",
+        isCheckRoute: "/my-courses/favorite",
     },
 ];
