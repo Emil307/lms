@@ -28,7 +28,11 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
     const renderButton = () => {
         switch (buttonVariant) {
             case "favorite":
-                return <FavoriteButton data={data} variant={isTablet ? "compact" : "default"} />;
+                return (
+                    <Box onClick={(event) => event.stopPropagation()}>
+                        <FavoriteButton data={data} variant={isTablet ? "compact" : "default"} />
+                    </Box>
+                );
             case "more":
                 return (
                     <Button variant="white" onClick={handleClickCard}>
