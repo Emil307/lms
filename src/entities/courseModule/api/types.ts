@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
+import { $LastUpdated, $getFiltersRequestType, $getPaginationResponseType } from "@shared/types";
 
 export type CourseModule = z.infer<typeof $CourseModule>;
 export type CourseModuleWithoutLessons = z.infer<typeof $CourseModuleWithoutLessons>;
@@ -39,10 +39,12 @@ export const $CourseModule = z.object({
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
     lessons: z.array($CourseModuleLesson),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $CourseModuleWithoutLessons = $CourseModule.omit({
     lessons: true,
+    lastUpdated: true,
 });
 
 export const $GetCourseModulesRequest = $getFiltersRequestType(

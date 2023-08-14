@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent, memo } from "react";
 import dayjs from "dayjs";
-import { Heading, Loader, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader, Switch } from "@shared/ui";
 import { useCourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
 import useStyles from "./InfoPanel.styles";
 
@@ -49,8 +49,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
                     <Text className={classes.label}>Создание:</Text>
                     <Text>{dayjs(moduleData.createdAt).format("DD.MM.YYYY HH:mm")}</Text>
                 </Flex>
-                {/* TODO: Добавить информацию updatedAt как добавиться компонент LastUpdated */}
-                {/*<LastUpdatedInfo data={moduleData.lastUpdated} />*/}
+                <LastUpdatedInfo data={moduleData.lastUpdated} />
             </Flex>
         </Box>
     );
