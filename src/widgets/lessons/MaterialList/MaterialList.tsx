@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { EmptyData, FileItem, Heading, VideoItem } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
 import useStyles from "./MaterialList.styles";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 export interface MaterialListProps extends Omit<FlexProps, "children"> {
     data?: GetLessonResponse;
@@ -37,7 +38,7 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
 
     const emptyBlock = useMemo(() => {
         if (!videos && !documents) {
-            return <EmptyData title="Материалы отсутствуют" description="" />;
+            return <EmptyData title="Материалы отсутствуют" description="" icon={<IconEmptyBox />} />;
         }
         return null;
     }, [videos, documents]);

@@ -1,12 +1,12 @@
 import { Flex, FlexProps } from "@mantine/core";
-import { GetTestPassResponse } from "@entities/lesson";
+import { GetTestPassResponse, TestPass } from "@entities/lesson";
 import { Heading } from "@shared/ui";
 import useStyles from "./PassedTestInfo.styles";
 import { answerCounts } from "./constants";
 import { AnswerCountInfo, Footer } from "./components";
 
 export interface PassedTestInfoProps extends Omit<FlexProps, "children"> {
-    data: GetTestPassResponse;
+    data: TestPass;
     openUpdateTestPassForm: () => void;
 }
 

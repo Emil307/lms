@@ -291,7 +291,11 @@ export const $UpdateAdminTestResponse = $AdminTest.nullable();
 
 export const $HomeworkRequiredType = z.literal("required").or(z.literal("notRequired"));
 
-export const $HomeworkAnswerStatusName = z.literal("onReview").or(z.literal("needsEdit")).or(z.literal("completed"));
+export const $HomeworkAnswerStatusName = z
+    .literal("notAttempted")
+    .or(z.literal("onReview"))
+    .or(z.literal("needsEdit"))
+    .or(z.literal("completed"));
 
 export const $HomeworkAnswerStatus = z.object({
     name: $HomeworkAnswerStatusName,
@@ -557,7 +561,7 @@ export const $GetTestPassRequest = z.object({
     courseId: z.string(),
 });
 
-export const $GetTestPassResponse = $TestPass;
+export const $GetTestPassResponse = $TestPass.nullable();
 
 export const $UpdateTestPassRequest = z.object({
     lessonId: z.string(),

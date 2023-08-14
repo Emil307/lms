@@ -40,20 +40,25 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
         }
     }, [entry]);
 
-    const renderItems = useMemo(
-        () =>
-            messagesData?.data.map((message, index) => {
-                return (
-                    <Box key={message.id} ref={index === messagesData?.data.length - 1 ? lastElemRef : null}>
-                        {messagesData.data[index - 1]?.createdAt.getDate() !== message.createdAt.getDate() && (
-                            <DateDivider date={message.createdAt} />
-                        )}
-                        <MessageItem data={message} w="fit-content" />
-                    </Box>
-                );
-            }),
-        [messagesData]
-    );
+    const messages = useMemo(() => {
+        if (!messagesData?.data.length) {
+            return null;
+        }
+        return (
+            <Flex className={classes.messageContainer}>
+                {messagesData.data.map((message, index) => {
+                    return (
+                        <Box key={message.id} ref={index === messagesData.data.length - 1 ? lastElemRef : null}>
+                            {messagesData.data[index - 1]?.createdAt.getDate() !== message.createdAt.getDate() && (
+                                <DateDivider date={message.createdAt} />
+                            )}
+                            <MessageItem data={message} w="fit-content" />
+                        </Box>
+                    );
+                })}
+            </Flex>
+        );
+    }, [messagesData]);
 
     if (isLoading) {
         return <Loader />;
@@ -81,8 +86,9 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
                 type="auto"
                 offsetScrollbars
                 viewportRef={viewportRef}
+                hidden={!messages}
                 scrollbarSize={4}>
-                <Flex className={classes.messageContainer}>{renderItems}</Flex>
+                {messages}
                 <Box ref={containerRef} />
                 {(isFetching || isRefetching) && <Loader />}
             </ScrollArea.Autosize>
