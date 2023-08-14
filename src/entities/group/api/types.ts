@@ -23,13 +23,14 @@ export type AdminGroupTeacherFromList = z.infer<typeof $AdminGroupTeacherFromLis
 export type AdminGroupCourse = z.infer<typeof $AdminGroupCourse>;
 export type AdminGroupStatus = z.infer<typeof $AdminGroupStatus>;
 export type AdminGroupStatusType = z.infer<typeof $AdminGroupStatusType>;
-//participants (students)
-export type AdminGroupParticipant = z.infer<typeof $AdminGroupParticipant>;
-export type AdminGroupParticipantFromList = z.infer<typeof $AdminGroupParticipantFromList>;
-export type AdminGroupParticipantStatus = z.infer<typeof $AdminGroupParticipantStatus>;
-export type AdminGroupParticipantLessonsStatistics = z.infer<typeof $AdminGroupParticipantLessonsStatistics>;
-export type AdminGroupParticipantTestsStatistics = z.infer<typeof $AdminGroupParticipantTestsStatistics>;
-export type AdminGroupParticipantHomeworksStatistics = z.infer<typeof $AdminGroupParticipantHomeworksStatistics>;
+//students
+export type AdminGroupStudent = z.infer<typeof $AdminGroupStudent>;
+export type AdminGroupStudentFromList = z.infer<typeof $AdminGroupStudentFromList>;
+export type AdminGroupStudentStatus = z.infer<typeof $AdminGroupStudentStatus>;
+export type AdminGroupStudentStatusName = z.infer<typeof $AdminGroupStudentStatusName>;
+export type AdminGroupStudentLessonsStatistics = z.infer<typeof $AdminGroupStudentLessonsStatistics>;
+export type AdminGroupStudentTestsStatistics = z.infer<typeof $AdminGroupStudentTestsStatistics>;
+export type AdminGroupStudentHomeworksStatistics = z.infer<typeof $AdminGroupStudentHomeworksStatistics>;
 //schedules
 export type AdminGroupSchedule = z.infer<typeof $AdminGroupSchedule>;
 export type AdminGroupScheduleTiming = z.infer<typeof $AdminGroupScheduleTiming>;
@@ -37,8 +38,8 @@ export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromL
 
 //FILTERS
 export type AdminGroupsFiltersForm = z.infer<typeof $AdminGroupsFiltersForm>;
-//participants (students)
-export type AdminGroupParticipantsExtraFilters = z.infer<typeof $AdminGroupParticipantsExtraFilters>;
+//students
+export type AdminGroupStudentsExtraFilters = z.infer<typeof $AdminGroupStudentsExtraFilters>;
 //schedules
 export type AdminGroupSchedulesExtraFilters = z.infer<typeof $AdminGroupSchedulesExtraFilters>;
 
@@ -57,13 +58,13 @@ export type UpdateGroupActivityRequest = z.infer<typeof $UpdateGroupActivityRequ
 export type UpdateGroupActivityResponse = z.infer<typeof $UpdateGroupActivityResponse>;
 export type DeleteAdminGroupRequest = z.infer<typeof $DeleteAdminGroupRequest>;
 export type DeleteAdminGroupResponse = z.infer<typeof $DeleteAdminGroupResponse>;
-//participants (students)
-export type GetAdminGroupParticipantsRequest = z.infer<typeof $GetAdminGroupParticipantsRequest>;
-export type GetAdminGroupParticipantsResponse = z.infer<typeof $GetAdminGroupParticipantsResponse>;
-export type AttachParticipantsToGroupRequest = z.infer<typeof $AttachParticipantsToGroupRequest>;
-export type AttachParticipantsToGroupResponse = z.infer<typeof $AttachParticipantsToGroupResponse>;
-export type DeleteParticipantsFromGroupRequest = z.infer<typeof $DeleteParticipantsFromGroupRequest>;
-export type DeleteParticipantsFromGroupResponse = z.infer<typeof $DeleteParticipantsFromGroupResponse>;
+//students
+export type GetAdminGroupStudentsRequest = z.infer<typeof $GetAdminGroupStudentsRequest>;
+export type GetAdminGroupStudentsResponse = z.infer<typeof $GetAdminGroupStudentsResponse>;
+export type AttachStudentsToGroupRequest = z.infer<typeof $AttachStudentsToGroupRequest>;
+export type AttachStudentsToGroupResponse = z.infer<typeof $AttachStudentsToGroupResponse>;
+export type DeleteStudentsFromGroupRequest = z.infer<typeof $DeleteStudentsFromGroupRequest>;
+export type DeleteStudentsFromGroupResponse = z.infer<typeof $DeleteStudentsFromGroupResponse>;
 //schedules
 export type GetAdminGroupSchedulesRequest = z.infer<typeof $GetAdminGroupSchedulesRequest>;
 export type GetAdminGroupSchedulesResponse = z.infer<typeof $GetAdminGroupSchedulesResponse>;
@@ -167,6 +168,7 @@ export const $AdminGroup = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     studentsCount: z.number(),
+    freePlacesCount: z.number(),
     teacher: $AdminGroupTeacher.nullable(),
     course: $AdminCourse.pick({
         id: true,
@@ -184,8 +186,7 @@ export const $AdminGroup = z.object({
         createdAt: true,
         updatedAt: true,
     }),
-    //TODO: беки должны добавить инфу о пользаке
-    lastUpdated: $LastUpdated.pick({ date: true }).nullable(),
+    lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $AdminGroupFromList = $AdminGroup.pick({
@@ -199,6 +200,7 @@ export const $AdminGroupFromList = $AdminGroup.pick({
     createdAt: true,
     updatedAt: true,
     studentsCount: true,
+    freePlacesCount: true,
     teacher: true,
     course: true,
 });
@@ -246,6 +248,7 @@ export const $GetAdminGroupRequest = z.object({
 
 export const $GetAdminGroupResponse = $AdminGroup.omit({
     studentsCount: true,
+    freePlacesCount: true,
 });
 
 export const $CreateAdminGroupRequest = z.object({
@@ -258,7 +261,7 @@ export const $CreateAdminGroupRequest = z.object({
     educationFinishDate: z.string().datetime(),
 });
 
-export const $CreateAdminGroupResponse = $AdminGroup;
+export const $CreateAdminGroupResponse = $AdminGroup.omit({ lastUpdated: true });
 
 export const $UpdateAdminGroupRequest = $CreateAdminGroupRequest.extend({
     id: z.string(),
@@ -281,23 +284,29 @@ export const $DeleteAdminGroupRequest = z.object({
 
 export const $DeleteAdminGroupResponse = z.null();
 
-//participants (students)
+//students
+//TODO: Дописать типы статусов
+export const $AdminGroupStudentStatusName = z.literal("inProgress").or(z.literal("completed")).or(z.literal("notStarted"));
 
-export const $AdminGroupParticipantStatus = z.literal("inProgress").or(z.literal("completed"));
-
-export const $AdminGroupParticipantLessonsStatistics = z.object({
-    completed: z.number(),
-    total: z.number(),
+export const $AdminGroupStudentStatus = z.object({
+    name: $AdminGroupStudentStatusName,
+    displayName: z.string(),
 });
-export const $AdminGroupParticipantTestsStatistics = $AdminGroupParticipantLessonsStatistics;
-export const $AdminGroupParticipantHomeworksStatistics = $AdminGroupParticipantLessonsStatistics;
 
-export const $AdminGroupParticipant = z.object({
+export const $AdminGroupStudentLessonsStatistics = z.object({
+    completedCount: z.number(),
+    totalCount: z.number(),
+});
+export const $AdminGroupStudentTestsStatistics = $AdminGroupStudentLessonsStatistics;
+export const $AdminGroupStudentHomeworksStatistics = $AdminGroupStudentLessonsStatistics;
+
+export const $AdminGroupStudent = z.object({
     id: z.number(),
-    lessons: $AdminGroupParticipantLessonsStatistics,
-    tests: $AdminGroupParticipantTestsStatistics,
-    homeworks: $AdminGroupParticipantHomeworksStatistics,
-    status: $AdminGroupParticipantStatus,
+    isActive: z.boolean(),
+    lessons: $AdminGroupStudentLessonsStatistics,
+    tests: $AdminGroupStudentTestsStatistics,
+    homeworks: $AdminGroupStudentHomeworksStatistics,
+    status: $AdminGroupStudentStatus,
     profile: $Profile.pick({
         id: true,
         firstName: true,
@@ -307,36 +316,35 @@ export const $AdminGroupParticipant = z.object({
     }),
 });
 
-export const $AdminGroupParticipantFromList = $AdminGroupParticipant;
+export const $AdminGroupStudentFromList = $AdminGroupStudent;
 
-export const $GetAdminGroupParticipantsResponse = $getPaginationResponseType($AdminGroupParticipantFromList);
+export const $GetAdminGroupStudentsResponse = $getPaginationResponseType($AdminGroupStudentFromList);
 
-export const $AdminGroupParticipantsExtraFilters = z.object({
+export const $AdminGroupStudentsExtraFilters = z.object({
     groupId: z.string(),
 });
 
-export const $AdminGroupParticipantsRequest = z.object({
+export const $AdminGroupStudentsRequest = z.object({
     groupId: z.string(),
 });
 
-export const $GetAdminGroupParticipantsRequest = $getFiltersRequestType($AdminGroupParticipantsRequest);
+export const $GetAdminGroupStudentsRequest = $getFiltersRequestType($AdminGroupStudentsRequest);
 
-export const $AttachParticipantsToGroupRequest = z.object({
+export const $AttachStudentsToGroupRequest = z.object({
     groupId: z.string(),
-    ids: z.string().array(),
+    ids: z.number().array(),
 });
 
-export const $AttachParticipantsToGroupResponse = z.null();
+export const $AttachStudentsToGroupResponse = z.null();
 
-export const $DeleteParticipantsFromGroupRequest = z.object({
+export const $DeleteStudentsFromGroupRequest = z.object({
     groupId: z.string(),
-    ids: z.string().array(),
+    ids: z.number().array(),
 });
 
-export const $DeleteParticipantsFromGroupResponse = z.null();
+export const $DeleteStudentsFromGroupResponse = z.null();
 
 //schedules
-
 export const $AdminGroupScheduleTiming = z.object({
     id: z.number(),
     from: z.coerce.date(),

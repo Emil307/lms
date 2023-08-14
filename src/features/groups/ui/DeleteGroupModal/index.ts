@@ -1,3 +1,3 @@
-import DeleteGroupModal from "./DeleteGroupModal";
+import DeleteGroupModal, { type DeleteGroupModalProps } from "./DeleteGroupModal";
 
-export { DeleteGroupModal };
+export { DeleteGroupModal, DeleteGroupModalProps };

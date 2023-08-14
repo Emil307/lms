@@ -7,18 +7,13 @@ interface CreateStylesProps {
 
 export default createStyles((theme, { statusType }: CreateStylesProps) => ({
     status: {
-        height: "auto",
-        paddingInline: 10,
-        paddingBlock: 6,
-        border: "none",
+        ...getColorsByStatus(theme, { statusType }),
 
         span: {
             fontWeight: 500,
             fontSize: 12,
             lineHeight: "16px",
         },
-
-        ...getColorsByStatus(theme, { statusType }),
     },
     infoItem: {
         alignSelf: "center",

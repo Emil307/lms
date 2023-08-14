@@ -4,7 +4,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { BoxProps } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { AdminGroupParticipantsExtraFilters, AdminGroupScheduleFromList, groupApi } from "@entities/group";
+import { AdminGroupScheduleFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
 import { CreateScheduleForm } from "@features/groups";
 import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
@@ -34,7 +34,7 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
                 </Button>
             </Flex>
 
-            <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupParticipantsExtraFilters>
+            <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupStudentsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_GROUP_SCHEDULES}
                 queryFunction={(params) => groupApi.getAdminGroupSchedules(params)}
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}
