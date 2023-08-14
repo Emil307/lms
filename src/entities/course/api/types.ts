@@ -10,7 +10,7 @@ import {
     $LastUpdated,
     $FilterType,
 } from "@shared/types";
-import { $User } from "@entities/user";
+import { $StaticUserFromList } from "@entities/user";
 
 /**
  *
@@ -66,12 +66,11 @@ export type MyCourse = z.infer<typeof $MyCourse>;
 export type CourseFromList = z.infer<typeof $CourseFromList>;
 export type CourseRating = z.infer<typeof $CourseRating>;
 export type CourseAuthor = z.infer<typeof $CourseAuthor>;
-export type CourseTeacher = z.infer<typeof $CourseTeacher>;
 export type CourseModule = z.infer<typeof $CourseModule>;
 export type CourseModuleLesson = z.infer<typeof $CourseModuleLesson>;
 export type CourseCategory = z.infer<typeof $CourseCategory>;
 export type CourseTag = z.infer<typeof $CourseTag>;
-export type CourseUpcomingGroup = z.infer<typeof $CourseUpcomingGroup>;
+export type CourseAvailableGroup = z.infer<typeof $CourseAvailableGroup>;
 
 //FILTERS
 export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
@@ -461,17 +460,11 @@ export const $CourseAuthor = z.object({
     avatar: $UploadedFile.nullable(),
 });
 
-export const $CourseTeacher = $User.pick({
-    id: true,
-    email: true,
-    profile: true,
-});
-
 export const $CourseModuleLesson = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string(),
-    content: z.string().nullable(),
+    content: z.string().optional(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
 });
@@ -481,11 +474,11 @@ export const $CourseModule = z.object({
     name: z.string(),
     description: z.string(),
     lessonsCount: z.number(),
-    lessonHomeworksCount: z.number(),
+    homeworksCount: z.number(),
     lessons: $CourseModuleLesson.array(),
 });
 
-export const $CourseUpcomingGroup = z.object({
+export const $CourseAvailableGroup = z.object({
     id: z.number(),
     name: z.string(),
     status: z.object({ type: z.string(), name: z.string() }),
@@ -506,18 +499,18 @@ export const $Course = z.object({
     isOwn: z.boolean(),
     lessonsCount: z.number(),
     modulesCount: z.number(),
-    lessonTestsCount: z.number(),
-    lessonHomeworksCount: z.number(),
+    testsCount: z.number(),
+    homeworksCount: z.number(),
     cover: $UploadedFile.nullable(),
     category: $CourseCategory.nullable(),
     subcategory: $CourseCategory.nullable(),
     tags: $CourseTag.array(),
     authors: $CourseAuthor.array(),
-    teachers: $CourseTeacher.array(),
+    teachers: $StaticUserFromList.array(),
     discount: $Discount.nullable(),
-    rating: $CourseRating,
+    rating: $CourseRating.nullable(),
     modules: $CourseModule.array(),
-    upcomingGroup: $CourseUpcomingGroup.nullable(),
+    availableGroup: $CourseAvailableGroup.nullable(),
     duration: z.string().nullable(),
 });
 
@@ -586,22 +579,30 @@ export const $MyCourse = z.object({
 
 //MY COURSE end
 
-export const $CourseFromList = $Course.pick({
-    id: true,
-    name: true,
-    description: true,
-    price: true,
-    discountPrice: true,
-    type: true,
-    isFavorite: true,
-    isOwn: true,
-    lessonsCount: true,
-    cover: true,
-    category: true,
-    subcategory: true,
-    discount: true,
-    upcomingGroup: true,
-});
+export const $CourseFromList = $Course
+    .pick({
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        discountPrice: true,
+        type: true,
+        isFavorite: true,
+        isOwn: true,
+        lessonsCount: true,
+        cover: true,
+        category: true,
+        subcategory: true,
+        discount: true,
+    })
+    .extend({
+        availableGroup: $CourseAvailableGroup
+            .omit({
+                studentsCount: true,
+                freePlacesCount: true,
+            })
+            .nullable(),
+    });
 
 export const $GetCoursesResponse = $getPaginationResponseType($CourseFromList);
 
@@ -658,8 +659,8 @@ export const $CourseDetails = $Course.pick({
     isFavorite: true,
     lessonsCount: true,
     modulesCount: true,
-    lessonTestsCount: true,
-    lessonHomeworksCount: true,
+    testsCount: true,
+    homeworksCount: true,
     cover: true,
     category: true,
     tags: true,
@@ -668,7 +669,7 @@ export const $CourseDetails = $Course.pick({
     discount: true,
     rating: true,
     modules: true,
-    upcomingGroup: true,
+    availableGroup: true,
     duration: true,
 });
 

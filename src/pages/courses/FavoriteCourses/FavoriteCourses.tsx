@@ -30,7 +30,7 @@ const FavoriteCoursesPage = () => {
                     <Box>
                         <BreadCrumbs items={breadCrumbsItems} mb={8} />
                         <Heading sx={{ display: "flex", gap: 12, alignItems: "center" }}>
-                            <ThemeIcon color="primaryHover" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="primaryHover">
                                 <Heart />
                             </ThemeIcon>
                             Избранные курсы

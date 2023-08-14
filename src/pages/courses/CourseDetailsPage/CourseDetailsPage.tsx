@@ -2,16 +2,17 @@ import { Flex, Group, Text, Title } from "@mantine/core";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Edit } from "react-feather";
-import { BreadCrumbs, Button, Heading, Loader, Rating } from "@shared/ui";
-import { AuthorsInfo, MainInfoPanel, ProgramTrainingList } from "@widgets/course";
+import { BreadCrumbs, Button, Loader } from "@shared/ui";
+import { AuthorsInfo, MainInfoPanel, ProgramTrainingList, TeacherList } from "@widgets/course";
 import { useCourse } from "@entities/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
-import { getPluralString, isMyCourse } from "@shared/utils";
+import { isMyCourse } from "@shared/utils";
 import { useSession } from "@features/auth";
 import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./CourseDetailsPage.styles";
+import { RatingInfo } from "./components";
 
 const CourseDetailsPage = () => {
     const router = useRouter();
@@ -30,6 +31,7 @@ const CourseDetailsPage = () => {
     }, [courseData]);
 
     const handleOpenAuthPage = () => {
+        //TODO: написать логику чтобы открывалась модалка для покупки курса
         router.push({ pathname: "/auth", query: { redirect: router.asPath } });
     };
 
@@ -50,37 +52,22 @@ const CourseDetailsPage = () => {
                     <AuthorsInfo data={courseData} />
                 </Flex>
                 <ProgramTrainingList data={courseData} />
+                <TeacherList data={courseData.teachers} />
                 <CoursePackageCarouselList
                     title={`Курс «${courseData.name}» содержится в пакетах`}
                     description="Выберите дополнительный курс по более выгодной цене."
                     courseId={id}
+                    titleProps={{ order: 2 }}
                 />
                 <CourseReviewCarouselList
                     headerSlot={
-                        <Group sx={{ justifyContent: "space-between", marginBottom: 32 }}>
+                        <Group sx={{ justifyContent: "space-between", gap: 24, marginBottom: 32 }}>
                             <Group sx={{ columnGap: 24 }}>
                                 <Title order={2} color="dark">
                                     Отзывы студентов
                                 </Title>
-                                <Flex align="flex-end" gap={16}>
-                                    <Flex gap={4}>
-                                        <Flex align="center" gap={2}>
-                                            <Rating defaultValue={1} count={1} readOnly size="small" />
-                                            <Heading order={2}>{courseData.rating.averageRating}</Heading>
-                                        </Flex>
-                                        <Heading order={2} color="gray45">
-                                            из 5
-                                        </Heading>
-                                    </Flex>
-                                    <Text className={classes.reviewInfo}>{`${courseData.rating.reviewsCount} ${getPluralString(
-                                        courseData.rating.reviewsCount,
-                                        "отзыв",
-                                        "отзыва",
-                                        "отзывов"
-                                    )}`}</Text>
-                                </Flex>
+                                <RatingInfo data={courseData.rating} />
                             </Group>
-
                             {user?.id && (
                                 <Button variant="text" leftIcon={<Edit />} onClick={handleOpenAuthPage}>
                                     Написать отзыв

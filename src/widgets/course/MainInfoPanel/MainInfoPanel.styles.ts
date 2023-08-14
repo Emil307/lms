@@ -1,47 +1,58 @@
 import { createStyles } from "@mantine/core";
 
-interface CreateStylesParams {
-    isFavorite?: boolean;
-}
-
-export default createStyles((theme, { isFavorite }: CreateStylesParams) => ({
+export default createStyles((theme) => ({
     root: {
         width: "100%",
         padding: 32,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("md")]: {
+            padding: 24,
+        },
     },
-    discount: {
-        boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
+    contentBody: {
+        gap: 48,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column-reverse",
+        },
     },
+    contentBodyLeftContainer: {
+        flex: 1,
+        flexDirection: "column",
+        gap: 48,
+    },
+    contentBodyTextContainer: {
+        flexDirection: "column",
+        gap: 16,
+    },
+
+    containerActions: {
+        flexWrap: "wrap-reverse",
+        columnGap: 24,
+        rowGap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column-reverse",
+        },
+    },
+
     category: {
         backgroundColor: theme.colors.light[0],
         color: theme.colors.dark[0],
     },
-    ratingValue: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
+
+    availableGroupInfoContainer: {
+        flexWrap: "wrap",
+        columnGap: 16,
+        rowGap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
     },
-    ratingMaxValue: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
-    },
-    reviewInfo: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    dividerDot: {
-        alignSelf: "center",
-        height: 4,
-        borderLeftColor: theme.colors.dark[0],
-        borderLeftStyle: "dotted",
-    },
+
     imageWrapper: {
         position: "relative",
         overflow: "hidden",
@@ -49,6 +60,17 @@ export default createStyles((theme, { isFavorite }: CreateStylesParams) => ({
         height: 260,
         borderRadius: 16,
         backgroundColor: theme.colors.grayLight[0],
+
+        [theme.fn.smallerThan("md")]: {
+            width: 350,
+            height: 215,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+            maxWidth: 295,
+            height: 181,
+        },
     },
 
     icon: {
@@ -65,36 +87,11 @@ export default createStyles((theme, { isFavorite }: CreateStylesParams) => ({
         height: 48,
         width: 48,
         borderRadius: 8,
-        backgroundColor: isFavorite ? theme.colors.grayLight[0] : "transparent",
-        color: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
+    },
 
-        svg: {
-            width: 20,
-            fill: isFavorite ? theme.colors.secondary[0] : "transparent",
-        },
-
-        ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
-            svg: {
-                color: theme.colors.secondary[0],
-                fill: theme.colors.secondary[0],
-            },
-        },
-
-        ":active": {
-            backgroundColor: theme.colors.grayLight[0],
-            svg: {
-                color: theme.colors.dark[0],
-                fill: theme.colors.dark[0],
-            },
-        },
-        ":disabled": {
-            color: theme.colors.gray45[0],
-            backgroundColor: theme.colors.grayLight[0],
-            svg: {
-                color: theme.colors.gray45[0],
-                fill: theme.colors.gray45[0],
-            },
-        },
+    descriptionContainer: {
+        flexDirection: "column",
+        marginTop: 32,
+        gap: 6,
     },
 }));

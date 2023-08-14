@@ -7,6 +7,11 @@ export default createStyles((theme) => ({
         borderRadius: 24,
         gap: 69,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("md")]: {
+            flexDirection: "column",
+            gap: 24,
+        },
     },
     headingContainer: {
         flex: 1,
@@ -15,7 +20,7 @@ export default createStyles((theme) => ({
         gap: 8,
     },
 
-    authorWrapperList: {
+    authorList: {
         flex: 2,
         flexDirection: "column",
         gap: 24,
@@ -25,6 +30,11 @@ export default createStyles((theme) => ({
         flex: 2,
         alignItems: "center",
         gap: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
     },
 
     avatarWrapper: {

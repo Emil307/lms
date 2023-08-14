@@ -16,8 +16,8 @@ const MemoizedCard = memo(function CoursePackageCard({ data, children, ...props 
 
     return (
         <MCard {...props} className={classes.root}>
-            <DiscountInfo discount={data.discount} />
-            <MCard.Section className={classes.section} h={82}>
+            <MCard.Section className={classes.section}>
+                <DiscountInfo discount={data.discount} />
                 <Heading order={3}>{data.name}</Heading>
                 <ContentByTextEditor color="gray45" data={data.description} lineClamp={2} />
             </MCard.Section>

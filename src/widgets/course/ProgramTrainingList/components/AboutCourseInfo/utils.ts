@@ -13,12 +13,12 @@ export const getCourseInfoList = (data: CourseDetails) => {
         {
             id: 2,
             label: "Практических заданий",
-            value: `${data.lessonHomeworksCount} ${getPluralString(
-                data.lessonHomeworksCount,
+            value: `${data.homeworksCount} ${getPluralString(
+                data.homeworksCount,
                 "домашнее задание",
                 "домашнего задания",
                 "домашних заданий"
-            )}, ${data.lessonTestsCount} ${getPluralString(data.lessonTestsCount, "тест", "теста", "тестов")}`,
+            )}, ${data.testsCount} ${getPluralString(data.testsCount, "тест", "теста", "тестов")}`,
         },
     ];
 

@@ -16,16 +16,17 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
     const [isOpen, setIsOpen] = useState(false);
 
     const spoilerControlRef = useEventListener("click", () => {
-        setIsOpen((prev) => !prev);
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
     });
 
     const { classes } = useStyles({ isOpen });
 
+    const handleChangeOpen = () => setIsOpen((prev) => !prev);
+
     const showLabel = () => {
-        const hiddenCountCourse = data.courses.length - 3;
+        const hiddenCountCourse = data.courses.length - 4;
         return (
-            <Flex gap={8}>
+            <Flex gap={8} onClick={handleChangeOpen}>
                 <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
                     hiddenCountCourse,
                     "курс",
@@ -40,7 +41,7 @@ const CourseListFromPackage = ({ data, ...props }: CourseListFromPackageProps) =
     };
 
     const hideLabel = (
-        <Flex gap={8}>
+        <Flex gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Свернуть</Text>
             <ThemeIcon color="dark">
                 <ChevronUp />

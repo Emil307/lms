@@ -8,11 +8,11 @@ export interface AmountInfoProps {
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles({ hasDiscount: !!data.discount });
 
     if (data.discount) {
         return (
-            <Flex sx={{ gap: 6 }}>
+            <Flex align="center" gap={12}>
                 <Heading order={3} className={classes.price}>
                     {`${data.discountPrice.toLocaleString("ru")} ₽`}
                 </Heading>

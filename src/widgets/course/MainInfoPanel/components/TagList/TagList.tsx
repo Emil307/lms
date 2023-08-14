@@ -7,14 +7,14 @@ export interface TagListProps extends Omit<GroupProps, "children"> {
 }
 
 const TagList = ({ data, ...props }: TagListProps) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     if (!data.length) {
         return null;
     }
 
     return (
-        <Group {...props} sx={{ gap: 4 }}>
+        <Group {...props} className={cx(classes.root, props.className)}>
             {data.map((tag) => (
                 <Badge key={tag.id} className={classes.tag}>
                     #{tag.name}

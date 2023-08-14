@@ -13,7 +13,7 @@ const DiscountInfo = ({ discount }: DiscountInfoProps) => {
         return null;
     }
 
-    const discountValue = `${discount.amount} ${discount.type === "percentage" ? "%" : "₽"}`;
+    const discountValue = discount.type === "percentage" ? `${discount.amount} %` : `-${discount.amount} ₽`;
 
     return (
         <Flex gap={8}>

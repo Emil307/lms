@@ -1,4 +1,4 @@
-import { Flex, Group } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import { Heading, Paragraph } from "@shared/ui";
 import { CourseDetails } from "@entities/course";
 import useStyles from "./AboutCourseInfo.styles";
@@ -22,12 +22,12 @@ const AboutCourseInfo = ({ data }: AboutCourseInfoProps) => {
         ));
 
     return (
-        <Group className={classes.root}>
+        <Flex className={classes.root}>
             <Heading order={3} w={136}>
                 О курсе
             </Heading>
-            {renderAboutCourse()}
-        </Group>
+            <Flex className={classes.aboutInfoList}>{renderAboutCourse()}</Flex>
+        </Flex>
     );
 };
 
