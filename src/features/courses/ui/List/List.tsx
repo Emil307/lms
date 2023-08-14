@@ -13,7 +13,7 @@ export interface ListProps extends BoxProps, Pick<TListProps<CourseFromList>, "c
     collectionIds?: string;
     perPage?: number;
     isFavorite?: boolean;
-    headerSlot?: ReactNode | ((data?: GetCoursesResponse) => ReactNode);
+    headerSlot?: ReactNode | ((data: { data?: GetCoursesResponse }) => ReactNode);
     footerSlot?: ReactNode;
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
@@ -77,7 +77,7 @@ const List = ({
     };
 
     const renderHeader = () => {
-        return typeof headerSlot === "function" ? headerSlot(coursesData) : headerSlot;
+        return typeof headerSlot === "function" ? headerSlot({ data: coursesData }) : headerSlot;
     };
 
     return (

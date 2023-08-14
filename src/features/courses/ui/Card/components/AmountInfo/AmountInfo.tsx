@@ -13,12 +13,12 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
     if (data.discount) {
         return (
             <Flex align="center" gap={6}>
-                <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
-                <Text className={classes.priceWithoutDiscount}>{`${data.price} ₽`}</Text>
+                <Heading order={3} className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>
+                <Text className={classes.priceWithoutDiscount}>{`${data.price.toLocaleString("ru")} ₽`}</Text>
             </Flex>
         );
     }
-    return <Heading order={3} className={classes.price}>{`${data.price} ₽`}</Heading>;
+    return <Heading order={3} className={classes.price}>{`${data.price.toLocaleString("ru")} ₽`}</Heading>;
 };
 
 export default AmountInfo;
