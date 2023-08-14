@@ -12,7 +12,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }) => ({
         width: "100%",
         height: "100%",
         maxHeight: 660,
-        maxWidth: 1114,
+        maxWidth: "100%",
         borderRadius: 8,
     },
     text: {

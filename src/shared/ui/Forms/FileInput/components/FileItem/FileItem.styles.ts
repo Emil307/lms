@@ -60,4 +60,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
             backgroundColor: "transparent",
         },
     },
+    size: {
+        whiteSpace: "nowrap",
+    },
 }));

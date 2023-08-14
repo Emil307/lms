@@ -89,7 +89,7 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
                         {fileName}
                     </Paragraph>
                     {fileSize && (
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.size}>
                             {getFileSize(fileSize)}
                         </Paragraph>
                     )}

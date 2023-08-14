@@ -518,7 +518,6 @@ export const $TestPassTaskAnswer = z.object({
     testPassId: z.number(),
     question: z.string(),
     answer: $TestPassAnswer.array(),
-    result: z.boolean(),
 });
 
 export const $TestTask = z.object({
@@ -543,7 +542,7 @@ export const $TestPass = z.object({
         name: $TestStatusName,
         displayName: z.string(),
     }),
-    answers: $TestPassTaskAnswer.array().optional(),
+    answers: z.array($TestPassTaskAnswer).nullable().optional(),
 });
 
 export const $GetTestRequest = z.object({
@@ -628,14 +627,18 @@ export const $Lesson = z.object({
     lessonStatus: $LessonStatus,
     prevLesson: $NeighboringLesson.nullable(),
     nextLesson: $NeighboringLesson.nullable(),
-    homeworkStatus: z.object({
-        name: z.string(),
-        displayName: z.string(),
-    }),
-    testStatus: z.object({
-        name: z.string(),
-        displayName: z.string(),
-    }),
+    homeworkStatus: z
+        .object({
+            name: $HomeworkAnswerStatusName,
+            displayName: z.string(),
+        })
+        .nullable(),
+    testStatus: z
+        .object({
+            name: $TestStatusName,
+            displayName: z.string(),
+        })
+        .nullable(),
     videos: $UploadedFile.array(),
     files: $UploadedFile.array(),
 });

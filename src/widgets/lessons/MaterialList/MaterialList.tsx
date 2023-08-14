@@ -1,6 +1,6 @@
 import { Flex, FlexProps, Group } from "@mantine/core";
 import { useMemo } from "react";
-import { FileItem, Heading, VideoItem } from "@shared/ui";
+import { EmptyData, FileItem, Heading, VideoItem } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
 import useStyles from "./MaterialList.styles";
 
@@ -11,7 +11,7 @@ export interface MaterialListProps extends Omit<FlexProps, "children"> {
 const MaterialList = ({ data, ...props }: MaterialListProps) => {
     const { classes } = useStyles();
 
-    const renderVideos = useMemo(() => {
+    const videos = useMemo(() => {
         if (!data?.videos.length) return null;
 
         return (
@@ -23,7 +23,7 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
         );
     }, [data?.videos]);
 
-    const renderDocuments = useMemo(() => {
+    const documents = useMemo(() => {
         if (!data?.files.length) return null;
 
         return (
@@ -35,11 +35,19 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
         );
     }, [data?.files]);
 
+    const emptyBlock = useMemo(() => {
+        if (!videos && !documents) {
+            return <EmptyData title="Материалы отсутствуют" description="" />;
+        }
+        return null;
+    }, [videos, documents]);
+
     return (
         <Flex {...props} className={classes.root}>
-            <Heading order={2}>Материалы</Heading>
-            {renderVideos}
-            {renderDocuments}
+            <Heading order={2}>Материалы урока</Heading>
+            {emptyBlock}
+            {videos}
+            {documents}
         </Flex>
     );
 };

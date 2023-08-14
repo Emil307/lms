@@ -1,13 +1,14 @@
 import { Flex } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Text } from "@mantine/core";
-import { BreadCrumbs, ContentByTextEditor, Loader, Tabs, VideoInput } from "@shared/ui";
+import { BreadCrumbs, ContentByTextEditor, EmptyData, Loader, Tabs, VideoInput } from "@shared/ui";
 import { Homework, MainInfoPanel, MaterialList, Test } from "@widgets/lessons";
 import { useLesson } from "@entities/lesson";
 import { useGroup } from "@entities/group";
 import { TRouterQueries } from "./types";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 import useStyles from "./LessonDetailsPage.styles";
+import { useMemo } from "react";
 
 const LessonDetailsPage = () => {
     const router = useRouter();
@@ -27,8 +28,28 @@ const LessonDetailsPage = () => {
         hasHomework: lesson.data?.hasHomework,
     });
 
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabList[0].value;
+    }, [router.isReady, tab, tabList]);
+
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId, tab: value } });
+    };
+
+    const renderMainContent = () => {
+        if (!lesson.data?.content && lesson.data?.videos.length === 0) {
+            return <EmptyData title="Содержание отсутствует" description="" />;
+        }
+        return (
+            <>
+                {lesson.data && lesson.data.videos.length > 0 && <VideoInput loadedFilesData={lesson.data?.videos} />}
+                <ContentByTextEditor data={lesson.data?.content || ""} />
+            </>
+        );
     };
 
     const renderContent = () => {
@@ -40,12 +61,7 @@ const LessonDetailsPage = () => {
             case "homework":
                 return <Homework lessonId={lessonId} courseId={String(group.data?.courseId)} />;
             default:
-                return (
-                    <Flex className={classes.lessonContent}>
-                        <VideoInput loadedFilesData={lesson.data?.videos} />
-                        <ContentByTextEditor data={lesson.data?.content || ""} />
-                    </Flex>
-                );
+                return <Flex className={classes.lessonContent}>{renderMainContent()}</Flex>;
         }
     };
 
@@ -68,7 +84,7 @@ const LessonDetailsPage = () => {
                 })}
             />
             <MainInfoPanel data={lesson.data} myCourseData={group.data} />
-            <Tabs value={tab || tabList[0].value} tabs={tabList} onTabChange={handleChangeTab} />
+            <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} />
             {renderContent()}
         </Flex>
     );
