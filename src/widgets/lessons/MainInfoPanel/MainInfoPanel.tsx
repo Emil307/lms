@@ -19,7 +19,7 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
     });
 
     const renderTestAndHomeworkData = () => {
-        if (!data.testStatus && !data.homeworkStatus) {
+        if (!data.hasTest && !data.hasHomework) {
             return null;
         }
         return (

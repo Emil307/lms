@@ -1,27 +1,26 @@
-import { ActionIcon, Box, BoxProps, Flex, Text } from "@mantine/core";
+import { ActionIcon, Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import { FieldArray } from "formik";
 import { ArrowLeft } from "react-feather";
-import { Button, FProgressBar, Loader, ManagedForm } from "@shared/ui";
+import { Button, FProgressBar, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, getPluralString, ToastType } from "@shared/utils";
-import { GetTestPassResponse, UpdateTestPassResponse, lessonApi, useTest } from "@entities/lesson";
+import { GetTestPassResponse, UpdateTestPassResponse, lessonApi, GetTestResponse } from "@entities/lesson";
 import { adaptUpdateLessonTestPassRequest, getInitialValues } from "./utils";
 import { $UpdateLessonTestPassFormValidation, UpdateLessonTestPassFormValidation } from "./types";
 import useStyles from "./UpdateLessonTestPassForm.styles";
 import { Task } from "./components";
 
 export interface UpdateLessonTestPassFormProps extends Omit<BoxProps, "children"> {
-    data?: GetTestPassResponse;
+    testData: GetTestResponse;
+    testPassData?: GetTestPassResponse;
     lessonId: string;
     courseId: string;
     onClose: () => void;
 }
 
-const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props }: UpdateLessonTestPassFormProps) => {
+const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, onClose, ...props }: UpdateLessonTestPassFormProps) => {
     const { classes } = useStyles();
-    const { data: testData, isLoading, isError } = useTest({ lessonId, courseId });
-
     const progressBarLabel = getPluralString(testData?.tasks.length || 0, "вопрос", "вопроса", "вопросов");
 
     const updateLessonTestPass = (values: UpdateLessonTestPassFormValidation) => {
@@ -44,18 +43,10 @@ const UpdateLessonTestPassForm = ({ data, lessonId, courseId, onClose, ...props 
         });
     };
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    if (isError) {
-        return <Text>Произошла ошибка, попробуйте позднее</Text>;
-    }
-
     return (
         <Box {...props}>
             <ManagedForm<UpdateLessonTestPassFormValidation, UpdateTestPassResponse>
-                initialValues={getInitialValues(testData, data)}
+                initialValues={getInitialValues(testData, testPassData)}
                 validationSchema={$UpdateLessonTestPassFormValidation}
                 mutationKey={[MutationKeys.UPDATE_LESSON_TEST_PASS]}
                 keysInvalidateQueries={[

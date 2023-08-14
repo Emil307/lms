@@ -94,7 +94,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
             {homework?.files && homework.files.length > 0 && (
                 <Flex gap={24} direction="column">
                     {homework.files.map((file) => (
-                        <FileItem type="document" fileName={file.name} fileSize={file.size} key={file.id} />
+                        <FileItem type="document" fileName={file.name} fileSize={file.size} fileUrl={file.absolutePath} key={file.id} />
                     ))}
                 </Flex>
             )}

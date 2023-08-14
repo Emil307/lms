@@ -33,7 +33,7 @@ const UpdateLessonHomeworkAnswerForm = ({
         createNotification({
             type: ToastType.SUCCESS,
             title: "Решение домашнего задание",
-            message: "Ваше решение отправлены на проверку",
+            message: "Ваше решение отправлено на проверку",
         });
         onClose();
     };
@@ -55,7 +55,10 @@ const UpdateLessonHomeworkAnswerForm = ({
                 initialValues={getInitialValues(data)}
                 validationSchema={$UpdateLessonHomeworkAnswerFormValidation}
                 mutationKey={[MutationKeys.UPDATE_LESSON_HOMEWORK_ANSWER]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_LESSON_HOMEWORK] }]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_LESSON_HOMEWORK] },
+                    { queryKey: [QueryKeys.GET_LESSON, lessonId, courseId] },
+                ]}
                 mutationFunction={updateLessonHomeworkAnswer}
                 onSuccess={onSuccess}
                 onError={onError}

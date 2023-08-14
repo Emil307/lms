@@ -9,6 +9,7 @@ import { TRouterQueries } from "./types";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 import useStyles from "./LessonDetailsPage.styles";
 import { useMemo } from "react";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 const LessonDetailsPage = () => {
     const router = useRouter();
@@ -42,7 +43,7 @@ const LessonDetailsPage = () => {
 
     const renderMainContent = () => {
         if (!lesson.data?.content && lesson.data?.videos.length === 0) {
-            return <EmptyData title="Содержание отсутствует" description="" />;
+            return <EmptyData title="Содержание отсутствует" description="" icon={<IconEmptyBox />} />;
         }
         return (
             <>
@@ -53,7 +54,7 @@ const LessonDetailsPage = () => {
     };
 
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "materials":
                 return <MaterialList data={lesson.data} />;
             case "test":

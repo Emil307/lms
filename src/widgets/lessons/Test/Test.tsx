@@ -1,10 +1,11 @@
-import { Badge, Box, Flex } from "@mantine/core";
-import { useState } from "react";
-import { Heading, Loader } from "@shared/ui";
-import { useTestPass } from "@entities/lesson";
+import { Badge, Box, Flex, Text } from "@mantine/core";
+import React, { useState } from "react";
+import { EmptyData, Heading, Loader } from "@shared/ui";
+import { useTest, useTestPass } from "@entities/lesson";
 import { UpdateLessonTestPassForm } from "@features/lessons";
 import useStyles from "./Test.styles";
 import { PassedTestInfo } from "./components";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 export interface TestProps {
     lessonId: string;
@@ -13,7 +14,12 @@ export interface TestProps {
 
 const Test = ({ lessonId, courseId }: TestProps) => {
     const [isTestAgain, setIsTestAgain] = useState(false);
-    const { data: testPassData, isLoading } = useTestPass({ lessonId, courseId });
+    const { data: testData, isFetching: isFetchingTest, isError: isErrorTest } = useTest({ lessonId, courseId });
+    const {
+        data: testPassData,
+        isFetching: isFetchingTestPass,
+        isError: isErrorTestPass,
+    } = useTestPass({ lessonId, courseId }, !!testData);
 
     const { classes } = useStyles({ status: testPassData?.status.name });
 
@@ -21,16 +27,36 @@ const Test = ({ lessonId, courseId }: TestProps) => {
     const handleOpenUpdateTestPassForm = () => setIsTestAgain(true);
 
     const renderContent = () => {
-        if (isLoading) {
+        if (isFetchingTest || isFetchingTestPass) {
             return <Loader />;
         }
 
+        if (isErrorTest || isErrorTestPass) {
+            return <Text>Произошла ошибка, попробуйте позднее</Text>;
+        }
+
+        if (!testData) {
+            return <EmptyData title="Тест отсутствует" description="" icon={<IconEmptyBox />} />;
+        }
+
         if (testPassData && !isTestAgain) {
-            return <PassedTestInfo data={testPassData} openUpdateTestPassForm={handleOpenUpdateTestPassForm} />;
+            return (
+                <Box className={classes.contentContainer}>
+                    <PassedTestInfo data={testPassData} openUpdateTestPassForm={handleOpenUpdateTestPassForm} />
+                </Box>
+            );
         }
 
         return (
-            <UpdateLessonTestPassForm data={testPassData} lessonId={lessonId} courseId={courseId} onClose={handleCloseUpdateTestPassForm} />
+            <Box className={classes.contentContainer}>
+                <UpdateLessonTestPassForm
+                    testData={testData}
+                    testPassData={testPassData}
+                    lessonId={lessonId}
+                    courseId={courseId}
+                    onClose={handleCloseUpdateTestPassForm}
+                />
+            </Box>
         );
     };
 
@@ -40,7 +66,7 @@ const Test = ({ lessonId, courseId }: TestProps) => {
                 <Heading order={2}>Тест</Heading>
                 {testPassData && <Badge className={classes.status}>{testPassData.status.displayName}</Badge>}
             </Flex>
-            <Box className={classes.contentContainer}>{renderContent()}</Box>
+            {renderContent()}
         </Flex>
     );
 };

@@ -69,7 +69,7 @@ const getColorsByHomeworkStatus = (theme: MantineTheme, { homeworkStatus }: Pick
             return { color: theme.colors.warning[0] };
 
         case "onReview":
-            return { color: theme.colors.info[0] };
+            return { color: theme.colors.errorDark[0] };
 
         default:
             return { color: theme.colors.dark[0] };
