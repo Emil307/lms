@@ -611,6 +611,12 @@ export const $UpdateHomeworkAnswerRequest = z.object({
 export const $UpdateHomeworkAnswerResponse = $Homework;
 
 //LESSON
+export const $NeighboringLesson = z.object({
+    id: z.number(),
+    name: z.string(),
+    isAvailable: z.boolean(),
+});
+
 export const $Lesson = z.object({
     id: z.number(),
     name: z.string(),
@@ -619,6 +625,16 @@ export const $Lesson = z.object({
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
     lessonStatus: $LessonStatus,
+    prevLesson: $NeighboringLesson.nullable(),
+    nextLesson: $NeighboringLesson.nullable(),
+    homeworkStatus: z.object({
+        name: z.string(),
+        displayName: z.string(),
+    }),
+    testStatus: z.object({
+        name: z.string(),
+        displayName: z.string(),
+    }),
     videos: $UploadedFile.array(),
     files: $UploadedFile.array(),
 });
