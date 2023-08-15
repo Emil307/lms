@@ -36,14 +36,18 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
         );
     }, [data.documents]);
 
+    if (!data.documents.length && !data.videos.length) {
+        return null;
+    }
+
     return (
         <Flex className={classes.root}>
-            <Heading sx={{ display: "flex", gap: 12, alignItems: "center" }}>
-                <ThemeIcon color="secondary" sx={{ borderRadius: 56, height: 60, width: 60 }}>
+            <Flex className={classes.headingContainer}>
+                <ThemeIcon className={classes.wrapperPaperclipIcon}>
                     <Paperclip height={28} width={28} />
                 </ThemeIcon>
-                Прикрепленные файлы
-            </Heading>
+                <Heading>Прикрепленные файлы</Heading>
+            </Flex>
             {renderVideos}
             {renderDocuments}
         </Flex>

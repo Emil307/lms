@@ -13,12 +13,19 @@ export default createStyles((theme) => ({
             boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
         },
     },
-    countArticles: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
+    textContainer: {
+        flex: 1,
+        flexDirection: "column",
+        gap: 2,
     },
+    wrapperIconBook: {
+        height: 48,
+        width: 48,
+        borderRadius: 56,
+        backgroundColor: theme.colors.secondary[0],
+        color: theme.colors.white[0],
+    },
+
     arrowIcon: {
         height: 40,
         width: 56,

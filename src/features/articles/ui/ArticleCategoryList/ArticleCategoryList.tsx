@@ -12,7 +12,7 @@ export interface ArticleCategoryListProps extends FlexProps {
 }
 
 const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProps) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     const {
         data: articleCategoriesData,
@@ -29,13 +29,13 @@ const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProp
     }
 
     if (!articleCategoriesData?.data.length) {
-        return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
+        return <EmptyData title="Такого пока нет. Попробуете изменить запрос." />;
     }
 
     return (
-        <Flex {...props} direction="column" gap={32}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
             <List<ArticleCategoryFromList>
-                data={articleCategoriesData?.data}
+                data={articleCategoriesData.data}
                 m={0}
                 colProps={{ p: 0, py: 4 }}
                 renderItem={(props) => <ArticleCategoryItem {...props} />}

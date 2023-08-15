@@ -3,7 +3,6 @@ import { AxiosError } from "axios";
 import {
     ArticleFromList,
     GetArticleResponse,
-    GetFavoriteArticleResponse,
     UpdateArticleFavoriteStatusRequest,
     UpdateArticleFavoriteStatusResponse,
     articleApi,
@@ -26,15 +25,9 @@ export const useUpdateArticleFavoriteStatus = ({
         onMutate: async ({ isFavorite }) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLE, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLES] });
-            //favorite
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_FAVORITE_ARTICLE, id] });
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_FAVORITE_ARTICLES] });
 
             const previousArticleData = queryClient.getQueryData<GetArticleResponse>([QueryKeys.GET_ARTICLE, id]);
             const previousArticlesData = queryClient.getQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES]);
-
-            const previousFavoriteArticleData = queryClient.getQueryData<GetFavoriteArticleResponse>([QueryKeys.GET_FAVORITE_ARTICLE, id]);
-            const previousFavoriteArticlesData = queryClient.getQueriesData<GetArticlesQueriesData>([QueryKeys.GET_FAVORITE_ARTICLES]);
 
             queryClient.setQueryData<GetArticleResponse>(
                 [QueryKeys.GET_ARTICLE, id],
@@ -59,39 +52,8 @@ export const useUpdateArticleFavoriteStatus = ({
                     }),
                 };
             });
-            //favorite
-            queryClient.setQueryData<GetFavoriteArticleResponse>(
-                [QueryKeys.GET_FAVORITE_ARTICLE, id],
-                (previousData) =>
-                    previousData && {
-                        ...previousData,
-                        data: {
-                            ...previousData.data,
-                            isFavorite,
-                        },
-                    }
-            );
-            queryClient.setQueriesData<GetArticlesQueriesData>([QueryKeys.GET_FAVORITE_ARTICLES], (previousData) => {
-                if (!previousData) {
-                    return undefined;
-                }
 
-                return {
-                    ...previousData,
-                    pages: previousData.pages.map((page) => {
-                        const updatedDataPage = page.data.map((article) =>
-                            String(article.id) === id ? { ...article, isFavorite } : article
-                        );
-
-                        return {
-                            ...page,
-                            data: updatedDataPage,
-                        };
-                    }),
-                };
-            });
-
-            return { previousArticleData, previousArticlesData, previousFavoriteArticleData, previousFavoriteArticlesData };
+            return { previousArticleData, previousArticlesData };
         },
         onError: (err, _, context) => {
             let message = "";
@@ -119,31 +81,6 @@ export const useUpdateArticleFavoriteStatus = ({
                     });
                 });
             }
-            //favorite
-            if (typeof context === "object" && "previousFavoriteArticleData" in context) {
-                queryClient.setQueryData([QueryKeys.GET_FAVORITE_ARTICLE, id], context.previousFavoriteArticleData);
-                if (context.previousFavoriteArticleData) {
-                    message = context.previousFavoriteArticleData.data.isFavorite
-                        ? `Ошибка удаления статьи ${context.previousFavoriteArticleData.data.name} из избранных`
-                        : `Ошибка добавления статьи ${context.previousFavoriteArticleData.data.name} в избранное`;
-                }
-            }
-            if (typeof context === "object" && "previousArticlesData" in context) {
-                queryClient.setQueriesData([QueryKeys.GET_FAVORITE_ARTICLES], context.previousFavoriteArticlesData);
-                context.previousFavoriteArticlesData.map((previewData) => {
-                    return previewData[1]?.pages.map((page) => {
-                        const foundedArticle = page.data.find((article) => String(article.id) === id);
-
-                        if (!foundedArticle) {
-                            return;
-                        }
-
-                        message = foundedArticle.isFavorite
-                            ? `Ошибка удаления статьи ${foundedArticle.name} из избранных`
-                            : `Ошибка добавления статьи ${foundedArticle.name} в избранное`;
-                    });
-                });
-            }
 
             createNotification({
                 type: ToastType.WARN,
@@ -152,7 +89,6 @@ export const useUpdateArticleFavoriteStatus = ({
         },
         onSettled() {
             queryClient.invalidateQueries([QueryKeys.GET_ARTICLES]);
-            queryClient.invalidateQueries([QueryKeys.GET_FAVORITE_ARTICLES]);
         },
         onSuccess: ({ isFavorite }) => {
             const message = isFavorite ? `Статья успешно добавлена в избранные` : `Статья успешно удалена из избранных`;

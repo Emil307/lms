@@ -35,6 +35,7 @@ export const useUpdateArticleRating = (
             onMutate: async (updatedStatus) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLE, id] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLES] });
+
                 const previousArticleData = queryClient.getQueryData<GetArticleResponse>([QueryKeys.GET_ARTICLE, id]);
                 const previousArticlesData = queryClient.getQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES]);
 

@@ -2,7 +2,7 @@ import { Card as MCard, Text, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
-import { Button, Heading } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { InvoicePaymentForm } from "@features/coursePackages";
 import { ArticlePackageFromList } from "@entities/articlePackage";
 import useStyles from "./Footer.styles";
@@ -36,7 +36,7 @@ const Footer = ({ data }: FooterProps) => {
                 </Flex>
             );
         }
-        return <Text className={classes.price}>{`${fullPrice.toLocaleString("ru")} ₽`}</Text>;
+        return <Heading order={3} className={classes.price}>{`${fullPrice.toLocaleString("ru")} ₽`}</Heading>;
     };
 
     return (
@@ -44,16 +44,18 @@ const Footer = ({ data }: FooterProps) => {
             <Flex direction="column" gap={6}>
                 <Flex gap={8}>
                     <IconStarFour />
-                    <Text className={classes.countPackages}>{`${data.articlesCount} ${getPluralString(
+                    <Paragraph variant="text-small-semi">{`${data.articlesCount} ${getPluralString(
                         data.articlesCount,
                         "статья",
                         "статьи",
                         "статей"
-                    )}`}</Text>
+                    )}`}</Paragraph>
                 </Flex>
                 {renderAmount()}
             </Flex>
-            <Button onClick={handleClickButton}>Получить доступ</Button>
+            <Button onClick={handleClickButton} w="min-content">
+                Получить доступ
+            </Button>
         </MCard.Section>
     );
 };

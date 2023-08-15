@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Info } from "react-feather";
 import { ArticleCategoryFromList } from "@entities/article";
 import { getPluralString } from "@shared/utils";
-import { Tooltip } from "@shared/ui";
+import { Paragraph, Tooltip } from "@shared/ui";
 import useStyles from "./CategoryItem.styles";
 
 export interface CategoryItemProps {
@@ -17,7 +17,7 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data, onClick }: Categ
     const handleClickItem = () => onClick(data.id);
 
     return (
-        <Flex key={data.id} gap={24}>
+        <Flex className={classes.root}>
             <Flex align="center" gap={8}>
                 <Text className={classes.name}>{data.name}</Text>
                 <Tooltip label="Подробнее о статьях">
@@ -27,12 +27,12 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data, onClick }: Categ
                 </Tooltip>
             </Flex>
             <Divider my="xs" sx={{ flex: 1 }} color="gray45" variant="dashed" />
-            <Text className={classes.price}>{`${data.articlesCount} ${getPluralString(
+            <Paragraph variant="text-small-semi" ta="end">{`${data.articlesCount} ${getPluralString(
                 data.articlesCount,
                 "статья",
                 "статьи",
                 "статей"
-            )} `}</Text>
+            )} `}</Paragraph>
         </Flex>
     );
 });

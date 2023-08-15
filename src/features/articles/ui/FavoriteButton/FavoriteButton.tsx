@@ -18,9 +18,9 @@ const FavoriteButton = ({ data, variant = "default" }: FavoriteButtonProps) => {
         updateFavorite.mutate({ isFavorite: !data.isFavorite });
     };
 
-    if (!data.isAvailable) {
-        return null;
-    }
+    // if (!data.isAvailable) {
+    //     return null;
+    // }
 
     if (variant === "compact") {
         return (

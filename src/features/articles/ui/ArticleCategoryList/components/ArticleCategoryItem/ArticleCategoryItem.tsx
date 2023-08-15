@@ -1,10 +1,10 @@
-import { Flex, FlexProps, ThemeIcon, Text } from "@mantine/core";
+import { Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
 import { IconArrowNarrowRight, IconBook2 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { ArticleCategoryFromList } from "@entities/article";
 import { getPluralString } from "@shared/utils";
-import { Heading } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import useStyles from "./ArticleCategoryItem.styles";
 
 export interface ArticleCategoryItemProps extends FlexProps {
@@ -12,26 +12,26 @@ export interface ArticleCategoryItemProps extends FlexProps {
 }
 
 const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ...props }: ArticleCategoryItemProps) {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const router = useRouter();
 
     const handleOpenCategory = () => router.push({ pathname: "/articles", query: { ...router.query, categoryId: String(data.id) } });
 
     return (
-        <Flex {...props} className={classes.root} onClick={handleOpenCategory}>
-            <ThemeIcon color="secondary" sx={{ height: 48, width: 48, borderRadius: 56 }}>
+        <Flex {...props} className={cx(classes.root, props.className)} onClick={handleOpenCategory}>
+            <ThemeIcon className={classes.wrapperIconBook}>
                 <IconBook2 />
             </ThemeIcon>
-            <Flex direction="column" gap={2} sx={{ flex: 1 }}>
+            <Flex className={classes.textContainer}>
                 <Heading order={3} lineClamp={1}>
                     {data.name}
                 </Heading>
-                <Text className={classes.countArticles}>{`${data.articlesCount} ${getPluralString(
+                <Paragraph variant="text-caption" color="gray45">{`${data.articlesCount} ${getPluralString(
                     data.articlesCount,
                     "статья",
                     "статьи",
                     "статей"
-                )}`}</Text>
+                )}`}</Paragraph>
             </Flex>
             <ThemeIcon className={classes.arrowIcon}>
                 <IconArrowNarrowRight />

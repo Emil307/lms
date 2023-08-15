@@ -4,7 +4,7 @@ import { GetArticleByCategoryRequest, GetArticleByCategoryResponse, articleApi }
 
 export const useArticleByCategory = ({ id, categoryId }: GetArticleByCategoryRequest) => {
     return useQuery<GetArticleByCategoryResponse>(
-        [QueryKeys.GET_ARTICLE_BY_CATEGORY, id, categoryId],
+        [QueryKeys.GET_ARTICLE, "by-category", id, categoryId],
         () => articleApi.getArticleByCategory({ id, categoryId }),
         {
             enabled: !!id,

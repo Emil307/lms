@@ -8,5 +8,9 @@ export default createStyles((theme) => ({
         gap: 48,
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            paddingTop: 24,
+        },
     },
 }));

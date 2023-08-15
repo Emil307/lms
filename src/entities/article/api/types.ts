@@ -434,7 +434,11 @@ export const $ArticleCategoryFromList = $ArticleCategory.pick({ name: true }).ex
     articlesCount: z.number(),
 });
 
-export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategoryFromList);
+export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategoryFromList).extend({
+    meta: z.object({
+        articlesCount: z.number(),
+    }),
+});
 
 export const $ArticleCategoriesRequest = z.object({
     query: z.string().optional(),
