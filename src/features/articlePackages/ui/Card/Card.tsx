@@ -1,6 +1,7 @@
-import { Card as MCard, CardProps as MCardProps, Text } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps } from "@mantine/core";
 import { memo, ReactNode } from "react";
 import { ArticlePackageFromList } from "@entities/articlePackage";
+import { Paragraph } from "@shared/ui";
 import { Footer, Header } from "./components";
 import useStyles from "./Card.styles";
 
@@ -16,7 +17,9 @@ const MemoizedCard = memo(function Card({ data, children, ...props }: CardProps)
         <MCard {...props} className={classes.root}>
             <Header data={data} />
             <MCard.Section className={classes.section}>
-                <Text className={classes.contentLabel}>Содержание:</Text>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Содержание:
+                </Paragraph>
                 {children({ data })}
             </MCard.Section>
             <Footer data={data} />

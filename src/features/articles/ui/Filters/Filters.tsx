@@ -1,10 +1,16 @@
-import { ActionIcon, Box, BoxProps, Flex, Group } from "@mantine/core";
+import { ActionIcon, Box, BoxProps, Collapse, Flex, Group, MediaQuery } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticlesFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
-import { FilterList } from "./components";
+import { FilterList, ToggleFilterButton } from "./components";
 import { initialValues } from "./contants";
+import useStyles from "./Filters.styles";
+import { TRouterQueries } from "./types";
+import { getCountAppliedQueries } from "./utils";
 
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;
@@ -14,7 +20,24 @@ export interface FiltersProps extends BoxProps {
 }
 
 const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: FiltersProps) => {
+    const [openedFilters, setOpenedFilters] = useState(false);
+
+    const { classes } = useStyles();
+    const router = useRouter();
+    const queryParams = router.query as TRouterQueries;
+
     const articleFilters = useArticlesFilters({ articleType, courseId });
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
+    useEffect(() => {
+        if (isTablet) {
+            return setOpenedFilters(false);
+        }
+        return setOpenedFilters(true);
+    }, [isTablet]);
+
+    const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
 
     const config: FormikConfig<ArticleAndArticleCategoryFiltersForm> = {
         initialValues: { ...initialValues, ...data },
@@ -24,7 +47,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
     };
 
     return (
-        <Box {...props}>
+        <Box {...props} className={(classes.root, props.className)}>
             <Form config={config} isLoading={articleFilters.isLoading} disableOverlay={false}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
@@ -33,8 +56,49 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                     };
 
                     return (
-                        <Flex direction="column" gap={32} miw={264}>
-                            <FSearch name="query" placeholder="Область, тематика" />
+                        <Flex className={classes.filtersBlock}>
+                            <FSearch name="query" placeholder="Область, тематика" className={classes.searchFilter} />
+                            <MediaQuery largerThan="md" styles={{ display: "none" }}>
+                                <ToggleFilterButton
+                                    isOpened={openedFilters}
+                                    onClick={handleToggleVisibilityFilters}
+                                    countAppliedQueries={getCountAppliedQueries(queryParams, initialValues)}
+                                />
+                            </MediaQuery>
+
+                            <Collapse in={openedFilters} className={classes.wrapperFiltersBlock}>
+                                <Flex className={classes.filtersBlockCollapseInner}>
+                                    <FilterList
+                                        field="subcategoryIds"
+                                        filterName="Тематика"
+                                        searchPlaceholder="Найти тематики"
+                                        labelsPluralString={["тематика", "тематики", "тематик"]}
+                                        data={articleFilters.data?.subcategories}
+                                    />
+                                    <FilterList
+                                        field="tags"
+                                        filterName="Теги"
+                                        searchPlaceholder="Найти теги"
+                                        labelsPluralString={["тег", "тега", "тегов"]}
+                                        data={articleFilters.data?.tags}
+                                    />
+                                    <Flex className={classes.buttonsFormContainer}>
+                                        <Button type="submit" variant="white" leftIcon={<IconFilter />}>
+                                            Подобрать
+                                        </Button>
+                                        {dirty && (
+                                            <ActionIcon onClick={handleResetForm}>
+                                                <IconFilterOff />
+                                            </ActionIcon>
+                                        )}
+                                    </Flex>
+                                </Flex>
+                            </Collapse>
+                        </Flex>
+                    );
+
+                    return (
+                        <>
                             <FilterList
                                 field="subcategoryIds"
                                 filterName="Тематика"
@@ -59,7 +123,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                     </ActionIcon>
                                 )}
                             </Group>
-                        </Flex>
+                        </>
                     );
                 }}
             </Form>

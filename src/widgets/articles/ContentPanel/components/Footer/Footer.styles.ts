@@ -8,10 +8,4 @@ export default createStyles((theme) => ({
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
     },
-    helperText: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
 }));

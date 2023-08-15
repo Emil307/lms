@@ -8,12 +8,15 @@ import { initialFilterValues, tabsList } from "./constants";
 import { TRouterQueries } from "./types";
 import { adaptArticleCategoriesFiltersForm, getBreadCrumbsItems, getTitle, prepareQueryParams } from "./utils";
 import { ArticleCategories, ArticlesFromCategory, FavoriteArticles, MyArticles } from "./components";
+import useStyles from "./ArticlesPage.styles";
 
 const ArticlesPage = () => {
     const router = useRouter();
     const [filterParams, setFilterParams] = useState<ArticleAndArticleCategoryFiltersForm>(initialFilterValues);
     const queryParams = router.query as TRouterQueries;
     const { tab, categoryId } = queryParams;
+
+    const { classes } = useStyles();
 
     const categoryData = useCategory({ id: categoryId });
 
@@ -78,14 +81,14 @@ const ArticlesPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ categoryTitle: categoryData.data?.name, tab, filterParams })} mb={8} />
-            <Heading sx={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 32 }}>
-                <ThemeIcon color="primaryHover" variant="outline" sx={{ border: "none", height: 36, width: 36 }}>
-                    {titleContent.icon}
-                </ThemeIcon>
-                {titleContent.label}
-            </Heading>
-            <Flex direction="column" gap={32}>
-                <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} />
+            <Flex className={classes.wrapperContent}>
+                <Flex direction="column" gap={32}>
+                    <Flex className={classes.headingContainer}>
+                        <ThemeIcon className={classes.headingIcon}>{titleContent.icon}</ThemeIcon>
+                        <Heading>{titleContent.label}</Heading>
+                    </Flex>
+                    <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} />
+                </Flex>
                 {renderContent()}
             </Flex>
         </Box>

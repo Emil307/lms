@@ -6,20 +6,39 @@ import { ArticleMeta } from "@entities/article";
 
 export interface PaginationProps {
     meta: ArticleMeta;
+    type: "favorite" | "my-articles" | "by-category";
 }
 
-const Pagination = ({ meta }: PaginationProps) => {
+const Pagination = ({ meta, type }: PaginationProps) => {
     const router = useRouter();
+
+    const handleRedirectArticle = (articleId: number) => {
+        switch (type) {
+            case "by-category":
+                return router.push({
+                    pathname: "/articles/by-category/[categoryId]/article/[id]",
+                    query: { id: articleId.toString(), categoryId: String(router.query.categoryId) },
+                });
+
+            case "my-articles":
+                return router.push({
+                    pathname: "/articles/my/[id]",
+                    query: { id: articleId.toString() },
+                });
+            case "favorite":
+                return router.push({ pathname: "/articles/favorite/[id]", query: { id: articleId.toString() } });
+        }
+    };
 
     const handlePrevArticle = () => {
         if (meta.prev) {
-            router.push({ pathname: "/articles/favorite/[id]", query: { id: meta.prev.toString() } });
+            handleRedirectArticle(meta.prev);
         }
     };
 
     const handleNextArticle = () => {
         if (meta.next) {
-            router.push({ pathname: "/articles/favorite/[id]", query: { id: meta.next.toString() } });
+            handleRedirectArticle(meta.next);
         }
     };
 

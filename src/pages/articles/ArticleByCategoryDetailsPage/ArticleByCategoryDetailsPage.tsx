@@ -1,4 +1,4 @@
-import { Flex, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { ContentPanel, MainInfoPanel } from "@widgets/articles";
@@ -23,7 +23,7 @@ const ArticleByCategoryDetailsPage = () => {
     }
 
     return (
-        <Flex direction="column" gap={32}>
+        <Box>
             <BreadCrumbs
                 items={getBreadCrumbsItems({
                     title: articleByCategory.data.data.name,
@@ -31,10 +31,11 @@ const ArticleByCategoryDetailsPage = () => {
                     id,
                     categoryId,
                 })}
+                mb={32}
             />
-            <MainInfoPanel.Navigated articleData={articleByCategory.data} />
+            <MainInfoPanel.Navigated articleData={articleByCategory.data} type="by-category" mb={16} />
             <ContentPanel data={articleByCategory.data.data} />
-        </Flex>
+        </Box>
     );
 };
 

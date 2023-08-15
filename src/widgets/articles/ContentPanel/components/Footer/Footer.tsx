@@ -1,7 +1,8 @@
-import { Flex, Group, Text } from "@mantine/core";
+import { Flex, Group } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Article } from "@entities/article";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
@@ -16,7 +17,7 @@ const Footer = ({ data }: FooterProps) => {
 
     return (
         <Group className={classes.root}>
-            <Text className={classes.helperText}>Оцените статью:</Text>
+            <Paragraph variant="small-m">Оцените статью:</Paragraph>
             <Flex gap={8}>
                 <Rating data={data} />
                 <FavoriteButton data={data} variant={variantFavoriteButton} />

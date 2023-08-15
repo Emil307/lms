@@ -4,7 +4,7 @@ import { useInfiniteRequest } from "@shared/utils";
 
 export const useMyArticles = (data: Omit<GetMyArticlesRequest, "page">) => {
     return useInfiniteRequest<ArticleFromList>(
-        [QueryKeys.GET_MY_ARTICLES, data],
+        [QueryKeys.GET_ARTICLES, "my-articles", data],
         ({ pageParam = 1 }) => articleApi.getMyArticles({ ...data, page: pageParam }),
         { keepPreviousData: true }
     );

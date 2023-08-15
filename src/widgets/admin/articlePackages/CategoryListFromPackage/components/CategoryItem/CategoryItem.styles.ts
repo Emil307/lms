@@ -1,20 +1,20 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    root: {
+        gap: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            gap: 16,
+        },
+    },
     name: {
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",
         color: theme.colors.dark[0],
     },
-    price: {
-        minWidth: 80,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-        textAlign: "end",
-    },
+
     iconLink: {
         height: 18,
         width: 18,

@@ -3,38 +3,25 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         display: "flex",
-        margin: "0px !important",
-        columnGap: 32,
+        margin: "0 !important",
+        marginBottom: "0 !important",
+        gap: 32,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexWrap: "wrap",
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
     },
-    discount: {
-        height: "auto",
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 60,
-        backgroundColor: theme.colors.dark[0],
-        boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.white[0],
-        textTransform: "inherit",
+    contentContainer: {
+        flexDirection: "column",
+        flexWrap: "wrap",
+        gap: 16,
     },
-    discountEndDate: {
-        height: "auto",
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 60,
-        backgroundColor: theme.colors.light[0],
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-        textTransform: "inherit",
-    },
-    description: {
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
+    textContainer: {
+        flexDirection: "column",
+        gap: 8,
     },
 }));

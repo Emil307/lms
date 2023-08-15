@@ -4,6 +4,7 @@ import { ArticleAndArticleCategoryFiltersForm, ArticleFromList } from "@entities
 import { CarouselList as ArticlePackageCarouselList } from "@widgets/articlePackages";
 import { ArticleCategoryList, Filters, FiltersProps } from "@features/articles";
 import { List as ArticleList } from "@widgets/articles";
+import useStyles from "./ArticleCategories.styles";
 
 export interface ArticleCategoriesProps extends FlexProps, Pick<FiltersProps, "onSubmitFilters"> {
     filterParams?: ArticleAndArticleCategoryFiltersForm;
@@ -11,6 +12,7 @@ export interface ArticleCategoriesProps extends FlexProps, Pick<FiltersProps, "o
 
 const ArticleCategories = ({ filterParams, onSubmitFilters, ...props }: ArticleCategoriesProps) => {
     const router = useRouter();
+    const { classes, cx } = useStyles();
 
     const openArticle = (article: ArticleFromList) =>
         router.push({
@@ -26,9 +28,9 @@ const ArticleCategories = ({ filterParams, onSubmitFilters, ...props }: ArticleC
     };
 
     return (
-        <Flex gap={32} {...props}>
-            <Filters data={filterParams} onSubmitFilters={onSubmitFilters} w={264} />
-            <Flex direction="column" gap={64} sx={{ flex: 1 }}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
+            <Filters data={filterParams} onSubmitFilters={onSubmitFilters} />
+            <Flex className={classes.wrapperContent}>
                 {renderList()}
                 <ArticlePackageCarouselList />
             </Flex>
