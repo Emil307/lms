@@ -557,8 +557,12 @@ export const $MyCourse = z.object({
     type: $CourseType,
     availableTo: z.coerce.date().nullable(),
     status: $MyCourseStatus,
-    nextLesson: z.number().nullable(),
-    prevLesson: z.number().nullable(),
+    nextLesson: z
+        .object({
+            id: z.number(),
+            name: z.string(),
+        })
+        .nullable(),
     lessonsCount: z.object({
         total: z.number(),
         passed: z.number(),

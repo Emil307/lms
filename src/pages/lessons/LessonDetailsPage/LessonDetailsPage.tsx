@@ -1,15 +1,15 @@
 import { Flex } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Text } from "@mantine/core";
+import { useMemo } from "react";
 import { BreadCrumbs, ContentByTextEditor, EmptyData, Loader, Tabs, VideoInput } from "@shared/ui";
 import { Homework, MainInfoPanel, MaterialList, Test } from "@widgets/lessons";
 import { useLesson } from "@entities/lesson";
 import { useGroup } from "@entities/group";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 import { TRouterQueries } from "./types";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 import useStyles from "./LessonDetailsPage.styles";
-import { useMemo } from "react";
-import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 const LessonDetailsPage = () => {
     const router = useRouter();
@@ -47,7 +47,7 @@ const LessonDetailsPage = () => {
         }
         return (
             <>
-                {lesson.data && lesson.data.videos.length > 0 && <VideoInput loadedFilesData={lesson.data?.videos} />}
+                {lesson.data && lesson.data.videos.length > 0 && <VideoInput loadedFilesData={lesson.data.videos} />}
                 <ContentByTextEditor data={lesson.data?.content || ""} />
             </>
         );

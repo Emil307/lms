@@ -458,8 +458,12 @@ export const $Group = z.object({
     type: $CourseType,
     availableTo: z.coerce.date().nullable(),
     status: $GroupStatus,
-    nextLesson: z.number().nullable(),
-    prevLesson: z.number().nullable(),
+    nextLesson: z
+        .object({
+            id: z.number(),
+            name: z.string(),
+        })
+        .nullable(),
     lessonsCount: z.object({
         total: z.number(),
         passed: z.number(),
@@ -484,7 +488,7 @@ export const $GroupFromList = $Group.pick({
     name: true,
     availableTo: true,
     status: true,
-    prevLesson: true,
+    nextLesson: true,
     lessonsCount: true,
     practiceCount: true,
     cover: true,
