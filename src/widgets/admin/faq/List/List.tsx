@@ -71,7 +71,7 @@ const List = (props: ListProps) => {
                 </Paragraph>
             )}
             <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
-                <SortableContext items={faqItems}>
+                <SortableContext items={faqItems} disabled={faqItems.length === 1}>
                     {faqItems.map((item) => {
                         if (currentUpdateItemId === item.id) {
                             return (

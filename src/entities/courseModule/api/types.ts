@@ -106,7 +106,10 @@ export const $UpdateCourseModuleOrderRequest = z.object({
     after: z.number(),
 });
 
-export const $UpdateCourseModuleOrderResponse = $CourseModule;
+export const $UpdateCourseModuleOrderResponse = $CourseModule.omit({
+    lessons: true,
+    lastUpdated: true
+});
 
 export const $AttachLessonToCourseModuleRequest = z.object({
     courseId: z.string(),

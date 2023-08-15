@@ -84,7 +84,7 @@ const List = ({ courseId }: ModuleListProps) => {
         }
         return (
             <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
-                <SortableContext items={modules}>
+                <SortableContext items={modules} disabled={modules.length === 1}>
                     {modules.map((module, index) => {
                         return (
                             <DndCard
