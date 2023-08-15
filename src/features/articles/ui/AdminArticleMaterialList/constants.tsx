@@ -1,5 +1,6 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { UploadedFileFromList } from "@entities/storage";
+import { getFileSize } from "@shared/utils";
 
 export const columnOrder = ["id", "name", "size", "mrt-row-actions"];
 
@@ -7,15 +8,17 @@ export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Название",
         accessorKey: "name",
+        size: 678,
     },
-    //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/132
-    // {
-    //     header: "Объем",
-    //     accessorKey: "size",
-    //     accessorFn: (row) => getFileSize(row.size),
-    // },
+    {
+        header: "Объем",
+        accessorKey: "size",
+        size: 678,
+        accessorFn: (row) => getFileSize(row.size),
+    },
 ];

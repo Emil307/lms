@@ -1,3 +1,3 @@
-import CreateArticleForm from "./CreateArticleForm";
+import CreateArticleForm, { type CreateArticleFormProps } from "./CreateArticleForm";
 
-export { CreateArticleForm };
+export { CreateArticleForm, CreateArticleFormProps };

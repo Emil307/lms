@@ -1,6 +1,5 @@
-import { Box, Collapse, Flex, Group, ThemeIcon } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp } from "react-feather";
 import { Button, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachCoursesToArticle } from "@entities/article";
 import { QueryKeys } from "@shared/constant";
@@ -22,30 +21,10 @@ export interface AddCoursesToArticleModalProps {
 
 const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleModalProps) => {
     const { classes } = useStyles();
-    const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
     const courseResources = useAdminCourseResources({ type: "select" });
     const attachCoursesToArticle = useAttachCoursesToArticle(articleId);
-
-    const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
-
-    const renderIconToggleButton = () => {
-        if (openedFilters) {
-            return (
-                <ThemeIcon className={classes.iconToggle}>
-                    <ChevronUp />
-                </ThemeIcon>
-            );
-        }
-        return (
-            <ThemeIcon className={classes.iconToggle}>
-                <ChevronDown />
-            </ThemeIcon>
-        );
-    };
-
-    const labelToggleButton = openedFilters ? "Скрыть фильтр" : "Показать фильтр";
 
     const handleSubmit = () => {
         attachCoursesToArticle.mutate(
@@ -75,7 +54,13 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                     columnOrder,
                 }}
                 disableQueryParams
-                onChangeSelect={setSelected}>
+                onChangeSelect={setSelected}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: true,
+                    leftIcon: null,
+                    titleOpened: "Показать фильтр",
+                    titleClosed: "Скрыть фильтр",
+                }}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: filterInitialValues });
@@ -83,63 +68,59 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                     };
 
                     return (
-                        <Box>
-                            <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
-                                {labelToggleButton}
-                            </Button>
-                            <Collapse in={openedFilters} mt={16}>
-                                <Group sx={{ gap: 8, alignItems: "flex-start" }}>
-                                    <FSearch w="100%" maw={210} size="sm" name="query" placeholder="Поиск" />
-                                    <FSelect
-                                        name="categoryId"
-                                        size="sm"
-                                        data={prepareOptionsForSelect({
-                                            data: courseResources.data?.categories,
-                                            value: "id",
-                                            label: "name",
-                                        })}
-                                        clearable
-                                        label="Категория"
-                                        disabled={courseResources.isLoading}
-                                        w="100%"
-                                        maw={210}
-                                    />
-                                    <FSelect
-                                        name="subcategoryId"
-                                        size="sm"
-                                        data={prepareOptionsForSelect({
-                                            data: courseResources.data?.subcategories,
-                                            value: "id",
-                                            label: "name",
-                                        })}
-                                        clearable
-                                        label="Тип"
-                                        disabled={courseResources.isLoading}
-                                        w="100%"
-                                        maw={210}
-                                    />
-                                    <FMultiSelect
-                                        name="tagIds"
-                                        label="Теги"
-                                        data={prepareOptionsForSelect({
-                                            data: courseResources.data?.tags,
-                                            value: "id",
-                                            label: "name",
-                                        })}
-                                    />
-                                </Group>
-                                <Group>
-                                    <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
-                                        Найти
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch name="query" placeholder="Поиск" size="sm" className={classes.filterSearch} />
+                                <FSelect
+                                    name="categoryId"
+                                    label="Категория"
+                                    data={prepareOptionsForSelect({
+                                        data: courseResources.data?.categories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    size="sm"
+                                    className={classes.filterSelect}
+                                    clearable
+                                    disabled={courseResources.isLoading || !courseResources.data?.categories.length}
+                                />
+                                <FSelect
+                                    name="subcategoryId"
+                                    label="Подкатегория"
+                                    data={prepareOptionsForSelect({
+                                        data: courseResources.data?.subcategories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    size="sm"
+                                    className={classes.filterSelect}
+                                    clearable
+                                    disabled={courseResources.isLoading || !courseResources.data?.subcategories.length}
+                                />
+                                <FMultiSelect
+                                    name="tagIds"
+                                    label="Теги"
+                                    data={prepareOptionsForSelect({
+                                        data: courseResources.data?.tags,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    className={classes.filterSelect}
+                                    clearable
+                                    disabled={courseResources.isLoading || !courseResources.data?.tags.length}
+                                />
+                            </Flex>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit" disabled={!dirty}>
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
                                     </Button>
-                                    {dirty && (
-                                        <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
-                                            Сбросить
-                                        </Button>
-                                    )}
-                                </Group>
-                            </Collapse>
-                        </Box>
+                                )}
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

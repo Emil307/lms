@@ -1,16 +1,15 @@
 import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { Trash, Edit3 } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
 import { Button, ContentByTextEditor, DisplayField, Heading } from "@shared/ui";
-import { AdminArticle, useAdminArticle } from "@entities/article";
-import { DeleteArticleModal } from "@features/articles";
+import { GetAdminArticleResponse, useAdminArticle } from "@entities/article";
 import { InfoCard } from "@components/InfoCard";
 import { fields } from "./constants";
 import useStyles from "./ArticleSettings.styles";
+import { DeleteArticleButton } from "./components";
 
 export interface ArticleSettingsProps extends BoxProps {
     id: string;
@@ -21,32 +20,18 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
     const { classes } = useStyles();
     const { data: articleData } = useAdminArticle({ id });
 
-    const handleOpenUpdateArticle = () => router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(articleData?.id) } });
-
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_ARTICLE");
-        router.push("/admin/articles");
-    };
-
-    const openModalDeleteArticle = () => {
-        openModal({
-            modalId: "DELETE_ARTICLE",
-            title: "Удаление статьи",
-            children: <DeleteArticleModal id={id} name={articleData?.name} onClose={handleCloseDeleteModal} />,
-        });
-    };
+    const handleOpenUpdateArticlePage = () =>
+        router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(articleData?.id) } });
 
     const tagsNames = articleData?.tags.map((tag) => tag.name).join(", ");
     const subcategoriesNames = articleData?.subcategories.map((tag) => tag.name).join(", ");
 
     return (
-        <Box {...props} className={classes.root}>
-            <Flex direction="column" gap={32}>
-                <Flex gap={48} align="center">
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные статьи</Heading>
-                    <Button onClick={openModalDeleteArticle} variant="text" leftIcon={<Trash />}>
-                        Удалить
-                    </Button>
+                    <DeleteArticleButton data={articleData} />
                 </Flex>
                 <Fieldset label="Настройки" icon={<Edit3 />}>
                     <DisplayField label="Название статьи" value={articleData?.name} />
@@ -59,19 +44,19 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
                 </Fieldset>
             </Flex>
             <Box>
-                <InfoCard<AdminArticle>
+                <InfoCard<GetAdminArticleResponse>
+                    values={articleData}
                     variant="whiteBg"
                     fields={fields}
                     hideFieldIfEmpty
-                    values={articleData}
                     actionSlot={
-                        <Button variant="secondary" onClick={handleOpenUpdateArticle}>
+                        <Button variant="secondary" onClick={handleOpenUpdateArticlePage}>
                             Редактировать данные
                         </Button>
                     }
                 />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

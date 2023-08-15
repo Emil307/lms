@@ -1,9 +1,10 @@
-import { Box, Flex, Text, ThemeIcon } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React, { useState } from "react";
 import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { FormikProps } from "formik";
+import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FInput,
@@ -14,6 +15,7 @@ import {
     Heading,
     LastUpdatedInfo,
     ManagedForm,
+    Paragraph,
     prepareOptionsForSelect,
 } from "@shared/ui";
 import { GetAdminArticleResponse, UpdateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
@@ -36,6 +38,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const router = useRouter();
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id));
     const articleResources = useAdminArticleResourcesCreate();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const subCategoriesResources = useAdminSubCategories({
         ...initialParams,
@@ -87,39 +90,47 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
             hasConfirmModal
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => {
-                const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
+                const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                 return (
                     <Flex direction="column" gap={32}>
-                        <Flex mt={24} gap={32} align="center">
-                            <Box className={classes.infoItem}>
-                                ID: <span>{data?.id}</span>
-                            </Box>
+                        <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
-                                <Text className={classes.infoItem}>Статус:</Text>
-                                <FSwitch name="isActive" variant="secondary" label={labelStatus} labelPosition="left" />
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    ID:
+                                </Paragraph>
+                                <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                             </Flex>
-                            <Flex gap={8} align="center">
-                                <Text className={classes.ratingTitle}>Рейтинг:</Text>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
+                                <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
+                            </Flex>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Рейтинг:
+                                </Paragraph>
                                 <Flex gap={16}>
                                     <Flex gap={8}>
-                                        <ThemeIcon variant="outline" color="dark" className={classes.thumbs}>
+                                        <ThemeIcon color="dark">
                                             <ThumbsUp />
                                         </ThemeIcon>
-                                        <Text className={classes.ratingValue}>{data?.likesCount}</Text>
+                                        <Paragraph variant="small-semi">{data?.likesCount}</Paragraph>
                                     </Flex>
                                     <Flex gap={8}>
-                                        <ThemeIcon variant="outline" color="dark" className={classes.thumbs}>
+                                        <ThemeIcon color="dark">
                                             <ThumbsDown />
                                         </ThemeIcon>
-                                        <Text className={classes.ratingValue}>{data?.dislikesCount}</Text>
+                                        <Paragraph variant="small-semi">{data?.dislikesCount}</Paragraph>
                                     </Flex>
                                 </Flex>
                             </Flex>
                             <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
+
                         <Heading order={2}>Данные статьи</Heading>
 
-                        <Fieldset label="Настройки" icon={<Edit3 />} maw={512}>
+                        <Fieldset label="Настройки" icon={<Edit3 />} maw={512} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={8} w="100%">
                                 <FInput name="name" label="Название" />
                                 <FSelect
@@ -158,16 +169,16 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                                 />
                             </Flex>
                         </Fieldset>
-                        <Fieldset label="Контент статьи" icon={<IconFileText />} maw={1162}>
+                        <Fieldset label="Контент статьи" icon={<IconFileText />} legendProps={{ mb: 24 }} maw={1162}>
                             <Box w="100%">
                                 <FTextEditor name="content" contentHeight={272} />
                             </Box>
                         </Fieldset>
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                                Отмена
+                        <Flex className={classes.actions}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                Отменить
                             </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>
