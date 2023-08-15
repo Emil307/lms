@@ -1,38 +1,24 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
-import { Button, Heading, ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
-import { AddMaterialsToArticleModal } from "@features/articles";
 import { columns, columnOrder } from "./constants";
-import { ListMenu } from "./components";
+import { AddMaterialsToArticleButton, ListMenu } from "./components";
 import { adaptGetArticleMaterialFilesRequest } from "./utils";
+import useStyles from "./AdminArticleMaterialList.styles";
 
-export interface ArticleMaterialListProps extends BoxProps {
+export interface AdminArticleMaterialListProps extends BoxProps {
     articleId: string;
 }
 
-const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) => {
-    const handleCloseAddMaterialsToArticleModal = () => closeModal("ADD_MATERIAL_TO_ARTICLE");
-
-    const openAddMaterialsToArticleModal = () => {
-        openModal({
-            modalId: "ADD_MATERIAL_TO_ARTICLE",
-            title: "Добавить материалы",
-            children: <AddMaterialsToArticleModal articleId={articleId} onClose={handleCloseAddMaterialsToArticleModal} />,
-            size: 912,
-            mah: 912,
-        });
-    };
+const AdminArticleMaterialList = ({ articleId, ...props }: AdminArticleMaterialListProps) => {
+    const { classes } = useStyles();
 
     return (
         <Box {...props}>
-            <Flex gap={48} align="center">
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Материалы</Heading>
-                <Button variant="text" onClick={openAddMaterialsToArticleModal} leftIcon={<PlusCircle />}>
-                    Добавить материалы
-                </Button>
+                <AddMaterialsToArticleButton articleId={articleId} />
             </Flex>
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminArticleMaterialsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_MATERIALS}
@@ -51,4 +37,4 @@ const ArticleMaterialList = ({ articleId, ...props }: ArticleMaterialListProps) 
     );
 };
 
-export default ArticleMaterialList;
+export default AdminArticleMaterialList;

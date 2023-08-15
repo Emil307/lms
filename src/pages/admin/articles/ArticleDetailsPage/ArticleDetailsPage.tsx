@@ -1,12 +1,12 @@
 import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useAdminArticle } from "@entities/article";
 import { InfoPanel } from "@widgets/admin/articles/InfoPanel";
 import { ArticleSettings } from "@widgets/admin/articles";
-import { AdminArticleCourseList, ArticleMaterialList } from "@features/articles";
+import { AdminArticleCourseList, AdminArticleMaterialList } from "@features/articles";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 
@@ -22,12 +22,11 @@ const ArticleDetailsPage = () => {
     const renderContent = () => {
         switch (tab) {
             case "materials":
-                return <ArticleMaterialList articleId={id} mt={32} />;
+                return <AdminArticleMaterialList articleId={id} />;
             case "courses":
-                //TODO: https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/176
-                return <AdminArticleCourseList articleId={id} mt={32} />;
+                return <AdminArticleCourseList articleId={id} />;
             default:
-                return <ArticleSettings id={id} mt={32} />;
+                return <ArticleSettings id={id} />;
         }
     };
 
@@ -42,8 +41,9 @@ const ArticleDetailsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ articleName: articleData.name, id })} mb={8} />
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
+            <Heading mb={24}>{articleData.name}</Heading>
+            <InfoPanel id={id} mb={32} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mb={32} />
             {renderContent()}
         </Box>
     );

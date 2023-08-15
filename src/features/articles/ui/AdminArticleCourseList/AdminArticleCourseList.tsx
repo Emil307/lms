@@ -1,38 +1,24 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
-import { Button, Heading, ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { AddCoursesToArticleModal } from "@features/articles";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
 import { columns, columnOrder } from "./constants";
-import { ListMenu } from "./components";
+import { AddArticleCourseButton, ListMenu } from "./components";
 import { adaptGetArticleCoursesRequest } from "./utils";
+import useStyles from "./AdminArticleCourseList.styles";
 
 export interface AdminArticleCourseListProps extends BoxProps {
     articleId: string;
 }
 
 const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListProps) => {
-    const handleCloseAddCoursesToArticleModal = () => closeModal("ATTACH_COURSES_TO_ARTICLE");
-
-    const openAddCoursesToArticleModal = () => {
-        openModal({
-            modalId: "ATTACH_COURSES_TO_ARTICLE",
-            title: "Привязать к курсу",
-            children: <AddCoursesToArticleModal articleId={articleId} onClose={handleCloseAddCoursesToArticleModal} />,
-            size: 912,
-            mah: 912,
-        });
-    };
+    const { classes } = useStyles();
 
     return (
         <Box {...props}>
-            <Flex gap={48} align="center">
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Привязка к курсу</Heading>
-                <Button variant="text" onClick={openAddCoursesToArticleModal} leftIcon={<PlusCircle />}>
-                    Добавить привязку
-                </Button>
+                <AddArticleCourseButton articleId={articleId} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminArticleCoursesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_COURSES}

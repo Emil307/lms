@@ -1,6 +1,7 @@
-import { Box, BoxProps, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -9,11 +10,15 @@ import { AdminArticleFromList, AdminArticlesFiltersForm, articleApi, useAdminArt
 import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminArticlesRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
-export interface AdminListProps extends BoxProps {}
+export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const articleResources = useAdminArticleFilters();
 
     const handleClickCell = (cell: MRT_Cell<AdminArticleFromList>) => {
@@ -36,54 +41,70 @@ const AdminList = (props: AdminListProps) => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => {
-                    return <ListMenu row={row} />;
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
                 }}>
-                <Box mb={24}>
-                    <Group sx={{ gap: 8 }}>
-                        <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
-                        <FSelect
-                            name="courseIds"
-                            size="sm"
-                            data={prepareOptionsForSelect({ data: articleResources.data?.courses, value: "id", label: "name" })}
-                            clearable
-                            label="Курс"
-                            disabled={articleResources.isLoading || !articleResources.data?.courses.length}
-                            w="100%"
-                            maw={252}
-                        />
-                        <FSelect
-                            name="categoryId"
-                            size="sm"
-                            data={prepareOptionsForSelect({ data: articleResources.data?.categories, value: "id", label: "name" })}
-                            clearable
-                            label="Категория"
-                            disabled={articleResources.isLoading || !articleResources.data?.categories.length}
-                            w="100%"
-                            maw={252}
-                        />
-                        <FSelect
-                            name="subcategoryId"
-                            size="sm"
-                            data={prepareOptionsForSelect({ data: articleResources.data?.subcategories, value: "id", label: "name" })}
-                            clearable
-                            label="Подкатегория"
-                            disabled={articleResources.isLoading || !articleResources.data?.subcategories.length}
-                            w="100%"
-                            maw={252}
-                        />
-                    </Group>
-                    <Box mt={16}>
-                        <FRadioGroup name="isActive" defaultValue="">
-                            {radioGroupValues.map((item) => {
-                                return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                            })}
-                        </FRadioGroup>
-                    </Box>
-                    <Button mt={16} type="submit" w="100%" maw={164}>
-                        Найти
-                    </Button>
-                </Box>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+
+                    return (
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
+                                <FSelect
+                                    name="courseIds"
+                                    size="sm"
+                                    data={prepareOptionsForSelect({ data: articleResources.data?.courses, value: "id", label: "name" })}
+                                    clearable
+                                    label="Курс"
+                                    className={classes.filterSelect}
+                                    disabled={articleResources.isLoading || !articleResources.data?.courses.length}
+                                />
+                                <FSelect
+                                    name="categoryId"
+                                    size="sm"
+                                    data={prepareOptionsForSelect({ data: articleResources.data?.categories, value: "id", label: "name" })}
+                                    clearable
+                                    label="Категория"
+                                    className={classes.filterSelect}
+                                    disabled={articleResources.isLoading || !articleResources.data?.categories.length}
+                                />
+                                <FSelect
+                                    name="subcategoryId"
+                                    size="sm"
+                                    data={prepareOptionsForSelect({
+                                        data: articleResources.data?.subcategories,
+                                        value: "id",
+                                        label: "name",
+                                    })}
+                                    clearable
+                                    label="Подкатегория"
+                                    className={classes.filterSelect}
+                                    disabled={articleResources.isLoading || !articleResources.data?.subcategories.length}
+                                />
+                            </Flex>
+                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Flex>
+                    );
+                }}
             </ManagedDataGrid>
         </Box>
     );

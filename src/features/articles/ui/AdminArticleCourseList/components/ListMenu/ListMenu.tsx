@@ -7,7 +7,7 @@ import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { DeleteArticleCourseModal } from "@features/articles";
 import { AdminCourseFromList } from "@entities/course";
 
-interface ListMenuProps {
+export interface ListMenuProps {
     row: MRT_Row<AdminCourseFromList>;
     articleId: string;
 }
@@ -33,7 +33,7 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

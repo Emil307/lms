@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { ArticlesPage } from "@pages/admin/articles";
 
-const AdminArticles: NextPageWithLayout = () => {
+const Articles: NextPageWithLayout = () => {
     return (
         <AdminPage title="База знаний">
             <ArticlesPage />
@@ -13,8 +13,8 @@ const AdminArticles: NextPageWithLayout = () => {
     );
 };
 
-AdminArticles.getLayout = function (page: ReactElement) {
+Articles.getLayout = function (page: ReactElement) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default AdminArticles;
+export default Articles;

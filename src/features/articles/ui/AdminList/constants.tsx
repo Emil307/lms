@@ -7,21 +7,25 @@ export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Статья",
         accessorKey: "name",
+        size: 299,
     },
 
     {
         header: "Категория",
         accessorKey: "category.name",
+        size: 299,
         accessorFn: (row) => row.category?.name || "",
     },
     {
         header: "Подкатегория",
         accessorKey: "subcategories",
         enableSorting: false,
+        size: 299,
         accessorFn: (row) => row.subcategories.map(({ name }) => name).join(", "),
     },
 
@@ -29,11 +33,13 @@ export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
         header: "Учебный курс",
         accessorKey: "courses",
         enableSorting: false,
+        size: 299,
         accessorFn: (row) => row.courses.map(({ name }) => name).join(", "),
     },
     {
         header: "Статус",
         accessorKey: "isActive",
+        size: 160,
         Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];

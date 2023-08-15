@@ -19,17 +19,27 @@ export default createStyles((theme) => ({
     },
 
     filterSearch: {
-        width: 210,
+        width: 512,
 
         [theme.fn.smallerThan("xs")]: {
             width: "100%",
         },
     },
+
     filterSelect: {
-        width: 210,
+        width: 252,
 
         [theme.fn.smallerThan("xs")]: {
             width: "100%",
+        },
+    },
+
+    filterRadioGroup: {
+        [theme.fn.smallerThan("sm")]: {
+            ".mantine-Group-root": {
+                alignItems: "flex-start",
+                flexDirection: "column",
+            },
         },
     },
 }));

@@ -5,7 +5,7 @@ export * from "./AdminList";
 export * from "./DeleteArticleModal";
 export * from "./CreateArticleForm";
 export * from "./UpdateArticleForm";
-export * from "./ArticleMaterialList";
+export * from "./AdminArticleMaterialList";
 export * from "./DeleteArticleMaterialModal";
 export * from "./Card";
 export * from "./Rating";

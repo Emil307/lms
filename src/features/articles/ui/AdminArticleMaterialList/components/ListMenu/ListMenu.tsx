@@ -8,7 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { DeleteArticleMaterialModal } from "@features/articles";
 import { UploadedFileFromList } from "@entities/storage";
 
-interface ListMenuProps {
+export interface ListMenuProps {
     row: MRT_Row<UploadedFileFromList>;
     articleId: string;
 }
@@ -36,13 +36,13 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={handleDownloadFile}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Download />
                 </ThemeIcon>
                 Скачать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

@@ -21,24 +21,29 @@ export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 60,
     },
     {
         header: "Название",
         accessorKey: "name",
+        size: 181,
     },
     {
         header: "Категория",
         accessorKey: "categories",
         enableSorting: false,
+        size: 181,
         Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
     },
     {
         header: "Тип файла",
         accessorKey: "type.name",
+        size: 181,
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
+        size: 181,
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
 ];

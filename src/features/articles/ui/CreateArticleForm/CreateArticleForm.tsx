@@ -1,10 +1,11 @@
-import { Text, Flex, Box, BoxProps } from "@mantine/core";
+import { Flex, Box, BoxProps } from "@mantine/core";
 import React, { useState } from "react";
 import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { FormikProps } from "formik";
-import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, ManagedForm, Paragraph, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -13,6 +14,7 @@ import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
 import { $CreateArticleFormValidation, CreateArticleFormValidation } from "./types";
 import { adaptCreateArticleRequest } from "./utils";
+import useStyles from "./CreateArticleForm.styles";
 
 export interface CreateArticleFormProps extends BoxProps {
     onClose: () => void;
@@ -20,6 +22,10 @@ export interface CreateArticleFormProps extends BoxProps {
 
 const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
 
     const articleResources = useAdminArticleResourcesCreate();
@@ -69,12 +75,14 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                 onError={onError}
                 hasConfirmModal
                 onCancel={onClose}>
-                {({ values, onCancel }) => {
+                {({ values, dirty, onCancel }) => {
                     const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={8} align="center">
-                                <Text color="gray45">Статус:</Text>
+                            <Flex align="center" gap={8}>
+                                <Paragraph variant="text-small-m" color="gray45">
+                                    Статус:
+                                </Paragraph>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelStatus} />
                             </Flex>
 
@@ -123,11 +131,12 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                                     <FTextEditor name="content" contentHeight={272} />
                                 </Box>
                             </Fieldset>
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                                    Отмена
+
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                    Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>
