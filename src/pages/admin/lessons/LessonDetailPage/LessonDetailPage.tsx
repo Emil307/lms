@@ -118,7 +118,7 @@ const LessonDetailPage = () => {
                     values={{ ...lessonData, moduleName: moduleData?.name }}
                     actionSlot={
                         <Button variant="secondary" onClick={handleOpenUpdateLessonPage}>
-                            Редактировать данные
+                            Редактировать
                         </Button>
                     }
                 />

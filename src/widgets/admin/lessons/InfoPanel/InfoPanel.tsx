@@ -29,7 +29,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     return (
         <>
             <Heading>{lessonData.name}</Heading>
-            <Flex mt={24} gap={32} align="center">
+            <Flex className={classes.wrapper}>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         ID:

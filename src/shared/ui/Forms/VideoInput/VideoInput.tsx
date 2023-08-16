@@ -1,12 +1,12 @@
 import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Plus as PlusIcon } from "react-feather";
 import { UploadedFile } from "@shared/types";
 import { getPluralString } from "@shared/utils";
-import { Button, Heading, isFile, LoadedFile, Paragraph, VideoLoaded } from "@shared/ui";
+import { Heading, isFile, LoadedFile, Paragraph, VideoLoaded } from "@shared/ui";
 import useStyles from "./VideoInput.styles";
 import { isCorrectVideoFormat } from "./utils";
 import { DEFAULT_VIDEO_MAX_SIZE, VIDEO_FORMATS } from "./constants";
+import AddVideoButton from "./components/AddVideoButton/AddVideoButton";
 
 export interface VideoInputProps {
     loadedFilesData?: UploadedFile[];
@@ -33,7 +33,7 @@ const VideoInput = ({
     const [replaceLoadedFileId, setReplaceLoadedFileId] = useState<number | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const { classes } = useStyles();
+    const { classes } = useStyles({ editMode });
 
     useEffect(() => {
         setErrorMessage(error);
@@ -156,15 +156,11 @@ const VideoInput = ({
 
     return (
         <Box className={classes.wrapper}>
-            <Flex justify="space-between" align="center">
+            <Flex className={classes.heading} justify="space-between" align="center">
                 <Flex gap={8} direction="column">
                     {renderHeader()}
                 </Flex>
-                {editMode && (
-                    <Button className={classes.buttonAdd} variant="white" leftIcon={<PlusIcon />} size="small" onClick={onAddFile}>
-                        Загрузить видео
-                    </Button>
-                )}
+                <AddVideoButton editMode={editMode} onAddFile={onAddFile} />
             </Flex>
 
             {errorMessage && <Text className={classes.error}>{errorMessage}</Text>}

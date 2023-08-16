@@ -3,6 +3,7 @@ import { AlertTriangle } from "react-feather";
 import React from "react";
 import { Button, Paragraph } from "@shared/ui";
 import useStyles from "./DeleteQuestionModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface DeleteQuestionModalProps {
     questionName: string;
@@ -13,9 +14,11 @@ interface DeleteQuestionModalProps {
 const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuestionModalProps) => {
     const { classes } = useStyles();
 
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16}>
+            <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
                     <ThemeIcon color="secondary">
                         <AlertTriangle />
@@ -23,14 +26,14 @@ const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuesti
                 </Flex>
                 <Paragraph variant="small-m">
                     Вы действительно хотите удалить вопрос,
-                    <Paragraph variant="small-semi">{`«${questionName}»?`}</Paragraph>
+                    <Paragraph className={classes.questionName} variant="small-semi">{`«${questionName}»?`}</Paragraph>
                 </Paragraph>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onCancel} w="50%">
+                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onCancel} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={onSuccess} w="50%">
+                <Button size={isMobile ? "medium" : "large"} variant="secondary" onClick={onSuccess} w="50%">
                     Удалить
                 </Button>
             </Flex>

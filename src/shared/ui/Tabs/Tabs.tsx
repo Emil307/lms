@@ -17,9 +17,11 @@ const Tabs = ({ tabs, ...props }: TabsProps) => {
             <Indicator offset={12} key={id} disabled={!withIndicator} size={8} color={defaultTheme.colors?.done?.[0]}>
                 <MTabs.Tab value={value}>
                     {label}
-                    <Paragraph variant="small-m" color="gray45">
-                        {count}
-                    </Paragraph>
+                    {typeof count === "number" && (
+                        <Paragraph variant="small-m" color="gray45">
+                            {count}
+                        </Paragraph>
+                    )}
                 </MTabs.Tab>
             </Indicator>
         );

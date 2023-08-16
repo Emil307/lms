@@ -8,8 +8,10 @@ import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { UpdateLesson } from "@widgets/admin/lessons";
 import { getBreadCrumbsItems } from "./utils";
 import { TQueryParams } from "./types";
+import useStyles from "./UpdateLessonPage.styles";
 
 const UpdateLessonPage = () => {
+    const { classes } = useStyles();
     const router = useRouter();
     const { id, moduleId, lessonId } = router.query as unknown as TQueryParams;
     const { data: courseData, isFetching: isFetchingCourse, isError: isErrorCourse } = useAdminCourse(id);
@@ -48,7 +50,7 @@ const UpdateLessonPage = () => {
                 mb={8}
             />
             <Box maw={1162} w="100%">
-                <Flex gap={48} align="center" mb={32}>
+                <Flex className={classes.heading}>
                     <Heading order={2}>Редактирование данных урока</Heading>
                 </Flex>
                 <UpdateLesson data={lessonData} moduleName={moduleData?.name} onClose={onCloseUpdateForm} />

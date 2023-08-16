@@ -1,7 +1,12 @@
 import { createStyles } from "@mantine/core";
 import { FileStatus } from "@shared/types";
 
-export default createStyles((theme, { status }: { status?: FileStatus }) => ({
+interface CreateStylesProps {
+    status?: FileStatus;
+    autoAdapt?: boolean;
+}
+
+export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) => ({
     status: {
         fontWeight: 600,
         fontSize: 14,
@@ -14,17 +19,32 @@ export default createStyles((theme, { status }: { status?: FileStatus }) => ({
         maxHeight: 660,
         maxWidth: "100%",
         borderRadius: 8,
+
+        ...(autoAdapt
+            ? {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+              }
+            : {}),
+    },
+    name: {
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+    },
+    size: {
+        whiteSpace: "nowrap",
+    },
+    extra: {
+        gap: 2,
+        flexDirection: "column",
+        width: "100%",
     },
     text: {
         fontSize: 14,
         lineHeight: "16px",
         fontWeight: 500,
-    },
-    size: {
-        fontSize: 14,
-        lineHeight: "16px",
-        fontWeight: 500,
-        color: theme.colors.neutral_gray[0],
     },
     readyText: {
         fontSize: 16,
@@ -36,6 +56,12 @@ export default createStyles((theme, { status }: { status?: FileStatus }) => ({
     },
     videoWrapper: {
         position: "relative",
+
+        ...(autoAdapt
+            ? {
+                  paddingTop: "60%",
+              }
+            : {}),
     },
     loader: {
         position: "absolute",

@@ -4,6 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDetachMaterialsFromLesson } from "@entities/lesson";
 import useStyles from "./DeleteMaterialFromLessonModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface DeleteMaterialFromLessonModalProps {
     lessonId: string;
@@ -18,6 +19,8 @@ const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, mater
     const { classes } = useStyles();
     const { mutate: detachMaterialFromLesson, isLoading } = useDetachMaterialsFromLesson({ lessonId });
 
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const handleSubmit = () => {
         detachMaterialFromLesson([materialId], {
             onSuccess: () => {
@@ -28,7 +31,7 @@ const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, mater
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16}>
+            <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
                     <AlertTriangle color={theme.colors.secondary[0]} />
                 </Flex>
@@ -42,10 +45,10 @@ const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, mater
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} disabled={isLoading} w="50%">
+                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} disabled={isLoading} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
+                <Button size={isMobile ? "medium" : "large"} variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
                     Удалить
                 </Button>
             </Flex>

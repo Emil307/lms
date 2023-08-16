@@ -9,6 +9,7 @@ import { createNotification, ToastType } from "@shared/utils";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { initialValues } from "./constants";
 import useStyles from "./CreateLessonModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateLessonModalProps {
     courseId?: string;
@@ -22,6 +23,8 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
     const { classes } = useStyles();
     const [isSubmitting, setSubmitting] = useState(false);
     const { mutate: attachLessonToModule } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const createLesson = (values: CreateLessonFormValues) => {
         setSubmitting(true);
@@ -91,10 +94,16 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
                         <FControlPanel name="hasHomework" label="Домашнее задание" variant="secondary" />
                     </Flex>
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} disabled={isSubmitting} w="50%">
+                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isSubmitting} w="50%">
                             Отмена
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" loading={isSubmitting} disabled={!dirty} w="50%">
+                        <Button
+                            type="submit"
+                            variant="secondary"
+                            size={isTablet ? "medium" : "large"}
+                            loading={isSubmitting}
+                            disabled={!dirty}
+                            w="50%">
                             Сохранить
                         </Button>
                     </Flex>

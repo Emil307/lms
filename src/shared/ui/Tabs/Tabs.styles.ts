@@ -46,5 +46,9 @@ export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps
         fontWeight: 600,
         fontSize: 16,
         lineHeight: "24px",
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: "12px 16px",
+        },
     },
 }));

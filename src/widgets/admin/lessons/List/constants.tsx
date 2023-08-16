@@ -6,17 +6,17 @@ export const columns: MRT_ColumnDef<AdminLessonFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
-        size: 80,
+        size: 120,
     },
     {
         header: "Название",
         accessorKey: "name",
-        size: 180,
+        size: 339,
     },
     {
         header: "Описание",
         accessorKey: "description",
-        size: 180,
+        size: 339,
     },
     {
         header: "Дата создания",
@@ -27,12 +27,13 @@ export const columns: MRT_ColumnDef<AdminLessonFromList>["columns"] = [
                 month: "2-digit",
                 year: "numeric",
             }),
-        size: 180,
+        size: 339,
     },
     {
         header: "Статус",
         accessorKey: "isActive",
         Cell: ({ cell }) => <>{cell.row.original.isActive ? "Активен" : "Не активен"}</>,
+        size: 339,
     },
 ];
 

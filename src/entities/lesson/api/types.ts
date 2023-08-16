@@ -160,6 +160,7 @@ export const $AdminLessonsRequest = z.object({
             isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
             createdAt: $getDateObjectType(z.literal("range")),
             moduleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
+            courseIds: $getMultiValueObjectType(z.string(), z.literal("not")),
         })
         .partial(),
 });
@@ -234,7 +235,7 @@ export const $AdminSelectLessonsFilters = $AdminLessonsFilters.omit({
     isActive: true,
 });
 export const $AdminSelectLessonsExtraFilters = z.object({
-    moduleIds: z.array(z.string()),
+    courseIds: z.array(z.string()),
 });
 
 export const $UpdateLessonOrderRequest = z.object({

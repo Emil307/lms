@@ -29,16 +29,5 @@ export default createStyles((theme) => ({
             width: 32,
             height: 32,
         },
-
-        [theme.fn.smallerThan("md")]: {
-            width: 56,
-            minWidth: 56,
-            height: 56,
-
-            svg: {
-                width: 24,
-                height: 24,
-            },
-        },
     },
 }));

@@ -5,14 +5,14 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 export const adaptGetAdminLessonsRequest = ({
     createdAtFrom,
     createdAtTo,
-    moduleIds,
+    courseIds,
     ...rest
 }: TFunctionParams<AdminSelectLessonsFilters, AdminSelectLessonsExtraFilters>): GetAdminLessonsRequest => {
     return {
         ...rest,
         filter: {
-            moduleIds: {
-                items: moduleIds,
+            courseIds: {
+                items: courseIds,
                 operator: "not",
             },
             ...(createdAtFrom &&

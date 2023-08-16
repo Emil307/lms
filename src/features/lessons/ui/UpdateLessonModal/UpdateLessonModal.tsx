@@ -9,6 +9,7 @@ import { createNotification, ToastType } from "@shared/utils";
 import { CourseModuleLesson } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
 import useStyles from "./UpdateLessonModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateLessonModalProps {
     data: AdminLessonFromList | CourseModuleLesson;
@@ -18,6 +19,8 @@ export interface UpdateLessonModalProps {
 
 const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalProps) => {
     const { classes } = useStyles();
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const updateLesson = (values: UpdateLessonFormValues) => {
         return lessonApi.updateLesson({ ...values, id: String(data.id) });
@@ -80,10 +83,16 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
                         <FControlPanel name="hasHomework" label="Домашнее задание" variant="secondary" />
                     </Flex>
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} disabled={isLoading} w="50%">
+                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isLoading} w="50%">
                             Отмена
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" loading={isLoading} disabled={!dirty} w="50%">
+                        <Button
+                            type="submit"
+                            variant="secondary"
+                            size={isTablet ? "medium" : "large"}
+                            loading={isLoading}
+                            disabled={!dirty}
+                            w="50%">
                             Сохранить
                         </Button>
                     </Flex>

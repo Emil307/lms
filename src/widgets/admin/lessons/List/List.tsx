@@ -5,12 +5,17 @@ import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio } from "
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
-import { adaptGetAdminLessonsRequest } from "@widgets/admin/lessons/List/utils";
+import { adaptGetAdminLessonsRequest } from "./utils";
 import { radioGroupValues, columns, filterInitialValues } from "./constants";
 import { ListMenu } from "./components";
+import useStyles from "./List.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 const List = () => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const openLessonDetails = (id: number) => {
         router.push({ pathname: "/admin/lessons/[lessonId]", query: { lessonId: String(id) } });
@@ -36,21 +41,46 @@ const List = () => {
                 initialState={{
                     columnOrder: ["id", "name", "description", "createdAt", "isActive", "mrt-row-actions"],
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
-                <Flex gap={16} direction="column">
-                    <Flex gap={8}>
-                        <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
-                        <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" w="100%" maw={252} />
-                    </Flex>
-                    <FRadioGroup name="isActive" defaultValue="">
-                        {radioGroupValues.map((item) => (
-                            <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                        ))}
-                    </FRadioGroup>
-                    <Button type="submit" w="100%" maw={164}>
-                        Найти
-                    </Button>
-                </Flex>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+
+                    return (
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                <FDateRangePicker
+                                    className={classes.filterDateRangePicker}
+                                    name="createdAtFrom"
+                                    nameTo="createdAtTo"
+                                    label="Дата создания"
+                                    size="sm"
+                                />
+                            </Flex>
+                            <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button type="submit" w={164}>
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Flex>
+                    );
+                }}
             </ManagedDataGrid>
         </Box>
     );

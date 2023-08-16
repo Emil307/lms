@@ -5,8 +5,13 @@ import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading } from "@shared/ui";
 import { LessonList } from "@widgets/admin/lessons";
 import { CreateLessonModal } from "@features/lessons";
+import useStyles from "./LessonListPage.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 const LessonListPage = () => {
+    const { classes } = useStyles();
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
     const handleCloseCreateLessonModal = () => closeModal("CREATE_LESSON");
 
     const handleOpenCreateLessonModal = () => {
@@ -19,9 +24,13 @@ const LessonListPage = () => {
 
     return (
         <Box>
-            <Flex align="center" justify="space-between">
+            <Flex className={classes.headingContainer}>
                 <Heading>Уроки</Heading>
-                <Button variant="secondary" size="large" onClick={handleOpenCreateLessonModal} leftIcon={<PlusCircle />}>
+                <Button
+                    variant="secondary"
+                    size={isTablet ? "medium" : "large"}
+                    onClick={handleOpenCreateLessonModal}
+                    leftIcon={<PlusCircle />}>
                     Создать урок
                 </Button>
             </Flex>

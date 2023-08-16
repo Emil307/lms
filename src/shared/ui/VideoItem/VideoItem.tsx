@@ -14,6 +14,7 @@ export interface VideoItemProps extends CSSProperties {
     showOnlyUploadedFile?: boolean;
     actionSlot?: ReactNode;
     downloadButton?: boolean;
+    autoAdapt?: boolean;
 }
 
 const VideoItem = ({
@@ -23,10 +24,11 @@ const VideoItem = ({
     downloadButton = false,
     isLoading = false,
     showOnlyUploadedFile = false,
+    autoAdapt = false,
     error,
     ...props
 }: VideoItemProps) => {
-    const { classes } = useStyles({ status });
+    const { classes } = useStyles({ status, autoAdapt });
 
     const downloadFile = () => {
         if (isFile(file)) {
@@ -74,10 +76,12 @@ const VideoItem = ({
                 <video src={videoData.src} className={classes.video} controls style={props}></video>
             </Box>
             <Flex gap={16} justify="space-between" align="center">
-                <Flex gap={2} direction="column">
+                <Flex className={classes.extra}>
                     <Flex gap={8} align="start">
-                        <Paragraph variant="text-small-m">{videoData.name}</Paragraph>
-                        <Paragraph variant="text-small-m" color="neutral_gray" display="inline">
+                        <Paragraph variant="text-small-m" className={classes.name}>
+                            {videoData.name}
+                        </Paragraph>
+                        <Paragraph variant="text-small-m" className={classes.size} color="neutral_gray" display="inline">
                             {getFileSize(videoData.size)}
                         </Paragraph>
                     </Flex>

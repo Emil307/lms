@@ -9,6 +9,7 @@ import { QuestionList } from "./components";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
 import useStyles from "./UpdateTest.styles";
 import { adaptUpdateTestRequest, getInitialValues } from "./utils";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface UpdateTestProps {
     lessonId: string;
@@ -18,6 +19,8 @@ interface UpdateTestProps {
 
 const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
     const { classes } = useStyles({ greenCheckIcon: true });
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const updateTest = (data: UpdateTestFormValues) => {
         return lessonApi.updateAdminTest(adaptUpdateTestRequest(data, lessonId));
@@ -51,7 +54,7 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
             onCancel={onClose}>
             {({ dirty, onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>
-                    <Flex className={classes.card} gap={32} align="center" justify="space-between">
+                    <Flex className={classes.topCard}>
                         <Flex gap={16} align="center">
                             <Flex className={classes.checkIconWrapper} align="center" justify="center">
                                 <ThemeIcon w={48} h={48} color="secondary">
@@ -63,16 +66,21 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
                                 <Paragraph variant="text-caption">Для успешного прохождения тестирования</Paragraph>
                             </Flex>
                         </Flex>
-                        <FInput name="correctAnswersCount" type="number" label="Количество ответов" maw={252} w="100%" />
+                        <FInput className={classes.answersCountInput} name="correctAnswersCount" type="number" label="Количество ответов" />
                     </Flex>
 
                     <QuestionList />
 
-                    <Flex gap={8} mt={32}>
-                        <Button variant="border" size="large" w="100%" maw={252} onClick={onCancel}>
+                    <Flex className={classes.buttons}>
+                        <Button className={classes.confirmButton} variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                             Отменить
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                        <Button
+                            className={classes.confirmButton}
+                            type="submit"
+                            variant="secondary"
+                            size={isMobile ? "medium" : "large"}
+                            disabled={!dirty}>
                             Сохранить
                         </Button>
                     </Flex>
