@@ -1,19 +1,18 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
-import { Trash, Flag, FolderPlus, Users } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { Flag, FolderPlus, Users } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
 import { GetAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { getFullName } from "@shared/utils";
-import { DeleteGroupModal } from "@features/groups";
 import { InfoCard } from "@components/InfoCard";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
+import { DeleteGroupButton } from "./components";
 
-export interface GroupSettingsProps extends BoxProps {
+export interface GroupSettingsProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
@@ -24,36 +23,22 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
 
     const handleOpenUpdateGroupForm = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
 
-    const handleCloseDeleteGroupModal = () => {
-        closeModal("DELETE_GROUP");
-        router.push("/admin/groups");
-    };
-
-    const openModalDeleteGroup = () => {
-        openModal({
-            modalId: "DELETE_GROUP",
-            title: "Удаление группы",
-            children: <DeleteGroupModal id={id} name={groupData?.name} onClose={handleCloseDeleteGroupModal} />,
-        });
-    };
-
     const teacherFullName = getFullName({ data: groupData?.teacher?.profile });
 
     const getEducationDates = () => {
-        if (!groupData?.educationStartDate || !groupData.educationFinishDate) {
+        if (!groupData?.educationStartDate) {
             return "-";
         }
-        return `${dayjs(groupData.educationStartDate).format("D MMMM")} - ${dayjs(groupData.educationStartDate).format("D MMMM YYYY")}`;
+        return `${dayjs(groupData.educationStartDate).format("D MMMM YYYY")} - ${dayjs(groupData.educationStartDate).format(
+            "D MMMM YYYY"
+        )}`;
     };
-
     return (
-        <Box {...props} className={classes.root}>
-            <Flex direction="column" gap={32}>
-                <Flex gap={48} align="center">
+        <Flex className={classes.info} {...props}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные группы</Heading>
-                    <Button onClick={openModalDeleteGroup} variant="text" leftIcon={<Trash />}>
-                        Удалить группу
-                    </Button>
+                    <DeleteGroupButton data={groupData} />
                 </Flex>
                 <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }}>
                     <DisplayField label="Учебный курс" value={groupData?.course.name} />
@@ -79,7 +64,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
                     }
                 />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

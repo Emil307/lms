@@ -6,23 +6,20 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { statusType }: CreateStylesProps) => ({
-    status: {
-        ...getColorsByStatus(theme, { statusType }),
+    headingContainer: {
+        alignItems: "center",
+        marginBottom: 24,
+        gap: 16,
 
-        span: {
-            fontWeight: 500,
-            fontSize: 12,
-            lineHeight: "16px",
+        [theme.fn.smallerThan("sm")]: {
+            flexWrap: "wrap",
         },
     },
-    infoItem: {
-        alignSelf: "center",
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
-        },
+    status: {
+        overflow: "initial",
+        borderRadius: 32,
+
+        ...getColorsByStatus(theme, { statusType }),
     },
 }));
 

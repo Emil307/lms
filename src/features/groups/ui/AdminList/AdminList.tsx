@@ -1,6 +1,7 @@
-import { Box, BoxProps, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -9,11 +10,14 @@ import { QueryKeys } from "@shared/constant";
 import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminGroupsRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const groupFilters = useAdminGroupFilters({ type: "select" });
 
@@ -48,29 +52,28 @@ const AdminList = (props: AdminListProps) => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: filterInitialValues });
                         handleSubmit();
                     };
+
                     return (
-                        <Box>
-                            <Group sx={{ gap: 8 }}>
-                                <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
                                 <FSelect
                                     name="courseId"
                                     size="sm"
-                                    data={prepareOptionsForSelect({
-                                        data: groupFilters.data?.courses,
-                                        value: "id",
-                                        label: "name",
-                                    })}
+                                    data={prepareOptionsForSelect({ data: groupFilters.data?.courses, value: "id", label: "name" })}
                                     clearable
                                     label="Курс"
+                                    className={classes.filterSelect}
                                     disabled={groupFilters.isLoading || !groupFilters.data?.courses.length}
-                                    w="100%"
-                                    maw={252}
                                 />
                                 <FSelect
                                     name="teacherId"
@@ -82,18 +85,16 @@ const AdminList = (props: AdminListProps) => {
                                     })}
                                     clearable
                                     label="Преподаватель"
+                                    className={classes.filterSelect}
                                     disabled={groupFilters.isLoading || !groupFilters.data?.teachers.length}
-                                    w="100%"
-                                    maw={252}
                                 />
                                 <FDateRangePicker
                                     name="createdAtFrom"
                                     nameTo="createdAtTo"
                                     label="Дата создания"
                                     size="sm"
+                                    className={classes.filterDateRangePicker}
                                     clearable
-                                    w="100%"
-                                    maw={252}
                                 />
                                 <FSelect
                                     name="statusType"
@@ -105,29 +106,26 @@ const AdminList = (props: AdminListProps) => {
                                     })}
                                     clearable
                                     label="Статус группы"
+                                    className={classes.filterSelect}
                                     disabled={groupFilters.isLoading || !groupFilters.data?.statuses.length}
-                                    w="100%"
-                                    maw={252}
                                 />
-                            </Group>
-                            <Box mt={16}>
-                                <FRadioGroup name="isActive" defaultValue="">
-                                    {radioGroupValues.map((item) => (
-                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                                    ))}
-                                </FRadioGroup>
-                            </Box>
-                            <Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                            </Flex>
+                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => (
+                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                ))}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
-                                        Сбросить
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
                                     </Button>
                                 )}
-                            </Group>
-                        </Box>
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

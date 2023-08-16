@@ -3,9 +3,9 @@ import { MRT_TableInstance } from "mantine-react-table";
 import { Pagination as MPagination, Box } from "@mantine/core";
 import { TPagination } from "@shared/types";
 import { Paragraph } from "@shared/ui/Typography";
+import { Select } from "@shared/ui";
 import { usePaginationStyles } from "./Pagination.styles";
 import { useTablePagination } from "../../utils";
-import { Select } from "@shared/ui";
 
 export type TPaginationProps<T extends Record<string, any>> = {
     table: MRT_TableInstance<T>;

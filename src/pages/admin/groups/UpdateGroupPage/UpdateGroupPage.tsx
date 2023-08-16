@@ -40,8 +40,7 @@ const UpdateGroupPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ groupName: groupData.name, id })} mb={8} />
-
-            <Flex gap={16} align="center" mb={24}>
+            <Flex className={classes.headingContainer}>
                 <Heading>{groupData.name}</Heading>
                 <Badge className={classes.status}>{groupData.status.name}</Badge>
             </Flex>

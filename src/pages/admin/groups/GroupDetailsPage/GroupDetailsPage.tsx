@@ -29,19 +29,19 @@ const GroupDetailsPage = () => {
     const renderContent = () => {
         switch (tab) {
             case "composition":
-                return <StudentList groupId={id} courseId={groupData.course.id} mt={32} />;
+                return <StudentList groupId={id} courseId={groupData.course.id} />;
             case "schedule":
-                return <GroupScheduleList groupId={id} mt={32} />;
+                return <GroupScheduleList groupId={id} />;
             default:
-                return <GroupSettings id={id} mt={32} />;
+                return <GroupSettings id={id} />;
         }
     };
 
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name, id })} mb={8} />
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mt={32} />
+            <InfoPanel id={id} mb={32} />
+            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}
         </Box>
     );

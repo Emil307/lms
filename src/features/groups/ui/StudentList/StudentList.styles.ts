@@ -1,17 +1,38 @@
 import { MantineTheme, createStyles } from "@mantine/core";
 import { AdminGroupStudentStatusName } from "@entities/group";
 
-interface CreateStylesProps {
+interface UseCellStylesProps {
     statusType?: AdminGroupStudentStatusName;
 }
 
-export default createStyles((theme, { statusType }: CreateStylesProps) => ({
+export default createStyles((theme) => ({
+    headingContainer: {
+        alignItems: "center",
+        gap: 48,
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+            gap: 16,
+        },
+    },
+}));
+
+export const useCellStyles = createStyles((theme, { statusType }: UseCellStylesProps) => ({
+    headingContainer: {
+        alignItems: "center",
+        gap: 48,
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+            gap: 16,
+        },
+    },
     status: {
         ...getColorsByStatus(theme, { statusType }),
     },
 }));
 
-const getColorsByStatus = (theme: MantineTheme, { statusType }: CreateStylesProps) => {
+const getColorsByStatus = (theme: MantineTheme, { statusType }: UseCellStylesProps) => {
     switch (statusType) {
         case "inProgress":
             return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };

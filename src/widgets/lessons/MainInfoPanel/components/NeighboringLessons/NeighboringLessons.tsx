@@ -1,8 +1,8 @@
-import { GetLessonResponse } from "@entities/lesson";
 import { useRouter } from "next/router";
 import { Box, Flex } from "@mantine/core";
-import { Button } from "@shared/ui";
 import { ArrowLeftCircle, ArrowRightCircle } from "react-feather";
+import { Button } from "@shared/ui";
+import { GetLessonResponse } from "@entities/lesson";
 
 interface NeighboringLessonsProps extends Pick<GetLessonResponse, "prevLesson" | "nextLesson"> {}
 

@@ -1,15 +1,15 @@
-import { Badge, Box, Flex } from "@mantine/core";
+import { Badge, Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
 import useStyles from "./InfoPanel.styles";
 
-export interface InfoPanelProps {
+export interface InfoPanelProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { data: groupData } = useAdminGroup({ id });
     const { classes } = useStyles({ statusType: groupData?.status.type });
 
@@ -21,12 +21,10 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
-        <Box>
-            <Flex gap={16} align="center" mb={24}>
+        <Box {...props}>
+            <Flex className={classes.headingContainer}>
                 <Heading>{groupData?.name}</Heading>
-                <Badge variant="outline" className={classes.status}>
-                    {groupData?.status.name}
-                </Badge>
+                <Badge className={classes.status}>{groupData?.status.name}</Badge>
             </Flex>
             <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>

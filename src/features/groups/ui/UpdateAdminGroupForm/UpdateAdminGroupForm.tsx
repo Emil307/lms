@@ -1,8 +1,19 @@
-import { Box, Text, Flex, Grid, BoxProps } from "@mantine/core";
+import { Box, Flex, Grid, BoxProps } from "@mantine/core";
 import React from "react";
 import { Flag, FolderPlus } from "react-feather";
 import dayjs from "dayjs";
-import { Button, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
+import { useMediaQuery } from "@mantine/hooks";
+import {
+    Button,
+    FDateRangePicker,
+    FInput,
+    FSelect,
+    FSwitch,
+    LastUpdatedInfo,
+    ManagedForm,
+    Paragraph,
+    prepareOptionsForSelect,
+} from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetAdminGroupResponse, UpdateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -20,6 +31,7 @@ export interface UpdateAdminGroupFormProps extends BoxProps {
 
 const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }: UpdateAdminGroupFormProps) => {
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
 
@@ -61,23 +73,34 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={32} align="center">
-                                <Box className={classes.infoItem}>
-                                    ID: <span>{data?.id}</span>
-                                </Box>
+                            <Flex className={classes.infoPanel}>
                                 <Flex gap={8}>
-                                    <Text className={classes.infoItem}>Статус:</Text>
-                                    <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        ID:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                                 </Flex>
-                                <Box className={classes.infoItem}>
-                                    Учебный курс: <span>{data?.course.name}</span>
-                                </Box>
-                                <Box className={classes.infoItem}>
-                                    Создание: <span>{data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}</span>
-                                </Box>
-                                {/* TODO:  https://gitlab.addamant-work.ru/business-gallery/business-gallery-back/-/issues/156*/}
-                                {/* <LastUpdatedInfo data={data?.lastUpdated} /> */}
+                                <Flex align="center" gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Статус:
+                                    </Paragraph>
+                                    <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
+                                </Flex>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Учебный курс:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">{data?.course.name}</Paragraph>
+                                </Flex>
+                                <Flex gap={8}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Создание:
+                                    </Paragraph>
+                                    <Paragraph variant="text-small-m">{dayjs(data?.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
+                                </Flex>
+                                <LastUpdatedInfo data={data?.lastUpdated} />
                             </Flex>
+
                             <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }} maw={512}>
                                 <FSelect
                                     name="courseId"
@@ -94,7 +117,7 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                 />
                             </Fieldset>
                             <Fieldset label="Данные группы" icon={<FolderPlus />} legendProps={{ mb: 24 }} maw={512}>
-                                <Grid>
+                                <Grid gutter={8}>
                                     <Grid.Col>
                                         <FInput label="Название группы" name="name" size="sm" />
                                     </Grid.Col>
@@ -126,11 +149,11 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                     </Grid.Col>
                                 </Grid>
                             </Fieldset>
-                            <Flex gap={8} maw={512}>
-                                <Button variant="border" size="large" onClick={onCancel}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

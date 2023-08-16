@@ -1,37 +1,23 @@
 import { Box, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
 import { BoxProps } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { Button } from "@shared/ui";
 import { AdminGroupScheduleFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
-import { CreateScheduleForm } from "@features/groups";
 import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
-import { ListMenu } from "./components";
+import { CreateGroupScheduleButton, ListMenu } from "./components";
+import useStyles from "./GroupScheduleList.styles";
 
 export interface GroupScheduleListProps extends BoxProps {
     groupId: string;
 }
 
 const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
-    const handleCloseCreateScheduleModal = () => closeModal("CREATE_SCHEDULE");
-
-    const openCreateScheduleModal = () => {
-        openModal({
-            modalId: "CREATE_SCHEDULE",
-            title: "Добавление занятия",
-            children: <CreateScheduleForm groupId={groupId} onClose={handleCloseCreateScheduleModal} />,
-        });
-    };
-
+    const { classes } = useStyles();
     return (
         <Box {...props}>
-            <Flex gap={48} align="center">
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Расписание группы</Heading>
-                <Button variant="text" onClick={openCreateScheduleModal} leftIcon={<PlusCircle />}>
-                    Добавить занятие
-                </Button>
+                <CreateGroupScheduleButton groupId={groupId} />
             </Flex>
 
             <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupStudentsExtraFilters>
