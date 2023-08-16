@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { AdminCourseFromList, courseApi } from "@entities/course";
@@ -8,11 +8,11 @@ import { TeacherCourseListExtraParams } from "./types";
 import { adaptGetTeacherCoursesRequest } from "./utils";
 import { columns, columnOrder } from "./constants";
 
-interface TeacherCourseListProps {
+export interface TeacherCourseListProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
-const TeacherCourseList = ({ id }: TeacherCourseListProps) => {
+const TeacherCourseList = ({ id, ...props }: TeacherCourseListProps) => {
     const router = useRouter();
 
     const handlerClickCell = (cell: MRT_Cell<AdminCourseFromList>) => {
@@ -20,7 +20,7 @@ const TeacherCourseList = ({ id }: TeacherCourseListProps) => {
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <Heading order={2}>Список курсов</Heading>
             <ManagedDataGrid<AdminCourseFromList, unknown, TeacherCourseListExtraParams>
                 queryKey={QueryKeys.GET_TEACHER_COURSES}
@@ -33,7 +33,8 @@ const TeacherCourseList = ({ id }: TeacherCourseListProps) => {
                 onClickCell={handlerClickCell}
                 initialState={{
                     columnOrder,
-                }}></ManagedDataGrid>
+                }}
+            />
         </Box>
     );
 };

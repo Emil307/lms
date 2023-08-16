@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { QueryKeys } from "@shared/constant";
@@ -8,11 +8,11 @@ import { TeacherGroupListExtraParams } from "./types";
 import { adaptGetTeacherGroupsRequest } from "./utils";
 import { columns, columnOrder } from "./constants";
 
-interface TeacherGroupListProps {
+export interface TeacherGroupListProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
-const TeacherGroupList = ({ id }: TeacherGroupListProps) => {
+const TeacherGroupList = ({ id, ...props }: TeacherGroupListProps) => {
     const router = useRouter();
 
     const handlerClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
@@ -20,7 +20,7 @@ const TeacherGroupList = ({ id }: TeacherGroupListProps) => {
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <Heading order={2}>Список групп</Heading>
             <ManagedDataGrid<AdminGroupFromList, unknown, TeacherGroupListExtraParams>
                 queryKey={QueryKeys.GET_TEACHER_GROUPS}
@@ -33,7 +33,8 @@ const TeacherGroupList = ({ id }: TeacherGroupListProps) => {
                 onClickCell={handlerClickCell}
                 initialState={{
                     columnOrder,
-                }}></ManagedDataGrid>
+                }}
+            />
         </Box>
     );
 };

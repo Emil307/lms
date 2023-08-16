@@ -79,7 +79,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                     <Fieldset label="О преподавателе" icon={<UserCheck />}>
                         <Flex direction="column" gap={16} w="100%">
                             {data.profile.additionalImage?.absolutePath && (
-                                <Flex direction="column" gap={4} w={376}>
+                                <Flex direction="column" gap={4} maw={376}>
                                     <Image radius="lg" src={data.profile.additionalImage.absolutePath} alt="User" />
                                     <Flex gap={4} align="center">
                                         <ThemeIcon size={16} color="primaryHover">

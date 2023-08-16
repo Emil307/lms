@@ -54,10 +54,10 @@ const UserDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ data })} />
-            <InfoPanel id={id} />
+            <BreadCrumbs items={getBreadCrumbsItems({ data })} mb={8} />
+            <InfoPanel id={id} mb={32} />
             {Roles.teacher === data.roles[0].id && (
-                <Tabs tabs={tabsList} value={currentTab} onTabChange={handleChangeTab} my={32} maw={1162} />
+                <Tabs tabs={tabsList} value={currentTab} onTabChange={handleChangeTab} maw={1162} mb={32} />
             )}
             {renderComponent()}
         </Box>

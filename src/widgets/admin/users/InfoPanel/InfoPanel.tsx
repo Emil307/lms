@@ -52,7 +52,12 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     />
                 </Flex>
                 {Roles.teacher === data?.roles[0].id && (
-                    <Checkbox label="Отображать на главной" checked={data.isStatic} onChange={handleChangeStaticStatus} />
+                    <Checkbox
+                        label="Отображать на главной"
+                        checked={data.isStatic}
+                        onChange={handleChangeStaticStatus}
+                        className={classes.checkboxStatic}
+                    />
                 )}
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">

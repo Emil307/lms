@@ -20,4 +20,9 @@ export const useInfoPanelStyles = createStyles((theme) => ({
             gap: 24,
         },
     },
+    checkboxStatic: {
+        ".mantine-Checkbox-label": {
+            whiteSpace: "nowrap",
+        },
+    },
 }));

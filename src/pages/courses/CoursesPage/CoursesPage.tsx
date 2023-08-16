@@ -24,10 +24,13 @@ const CoursesPage = () => {
             }>
             <Flex direction="column" gap={64} w="100%">
                 <CoursesList colProps={{ sm: 6 }} withPagination />
-                <Flex direction="column" gap={32}>
-                    <Heading order={2}>{titleCourseCollections}</Heading>
-                    <CourseCollectionList perPage={3} hasCardMore colProps={{ sm: 6, xs: 12 }} />
-                </Flex>
+                <CourseCollectionList
+                    perPage={3}
+                    title={titleCourseCollections}
+                    hasCardMore
+                    headingProps={{ order: 2 }}
+                    colProps={{ sm: 6, xs: 12 }}
+                />
             </Flex>
         </Filters>
     );
