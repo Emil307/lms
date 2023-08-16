@@ -8,9 +8,10 @@ import useStyles from "./AddStudentsToGroupButton.styles";
 
 export interface AddStudentsToGroupButtonProps {
     groupId: string;
+    courseId: number;
 }
 
-const AddStudentsToGroupButton = ({ groupId }: AddStudentsToGroupButtonProps) => {
+const AddStudentsToGroupButton = ({ groupId, courseId }: AddStudentsToGroupButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMediaQuery("(max-width: 744px)");
@@ -21,7 +22,7 @@ const AddStudentsToGroupButton = ({ groupId }: AddStudentsToGroupButtonProps) =>
         openModal({
             modalId: "ADD_STUDENTS_TO_GROUP",
             title: "Добавление ученика",
-            children: <AddStudentsToGroupModal groupId={groupId} onClose={handleCloseAddStudentsToGroupModal} />,
+            children: <AddStudentsToGroupModal groupId={groupId} courseId={courseId} onClose={handleCloseAddStudentsToGroupModal} />,
             size: 912,
             mah: 912,
             className: classes.addStudentsToGroupModalWrapper,

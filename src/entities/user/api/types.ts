@@ -206,6 +206,7 @@ export const $AdminStudentsRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
+            studentCourseIds: z.number(),
             studentGroupIds: $getMultiValueObjectType(z.string(), z.literal("not")),
             isActive: z.boolean(),
             roleName: z.string(),

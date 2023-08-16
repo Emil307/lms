@@ -40,6 +40,7 @@ export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromL
 export type AdminGroupsFiltersForm = z.infer<typeof $AdminGroupsFiltersForm>;
 //students
 export type AdminGroupStudentsExtraFilters = z.infer<typeof $AdminGroupStudentsExtraFilters>;
+export type AdminAddGroupStudentsExtraFilters = z.infer<typeof $AdminAddGroupStudentsExtraFilters>;
 //schedules
 export type AdminGroupSchedulesExtraFilters = z.infer<typeof $AdminGroupSchedulesExtraFilters>;
 
@@ -285,7 +286,6 @@ export const $DeleteAdminGroupRequest = z.object({
 export const $DeleteAdminGroupResponse = z.null();
 
 //students
-//TODO: Дописать типы статусов
 export const $AdminGroupStudentStatusName = z.literal("inProgress").or(z.literal("completed")).or(z.literal("notStarted"));
 
 export const $AdminGroupStudentStatus = z.object({
@@ -319,6 +319,11 @@ export const $AdminGroupStudent = z.object({
 export const $AdminGroupStudentFromList = $AdminGroupStudent;
 
 export const $GetAdminGroupStudentsResponse = $getPaginationResponseType($AdminGroupStudentFromList);
+
+export const $AdminAddGroupStudentsExtraFilters = z.object({
+    groupId: z.string(),
+    courseId: z.number(),
+});
 
 export const $AdminGroupStudentsExtraFilters = z.object({
     groupId: z.string(),
