@@ -6,7 +6,7 @@ import { HomeworkList } from "@widgets/admin/lessons";
 const HomeworkListPage = () => {
     return (
         <Box>
-            <Heading>Домашние задания</Heading>
+            <Heading mb={24}>Домашние задания</Heading>
             <HomeworkList />
         </Box>
     );

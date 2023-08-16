@@ -27,7 +27,7 @@ const HomeworkInfoPanel = ({ homeworkAnswer, studentFio }: HomeworkInfoPanelProp
     return (
         <>
             <Heading>{studentFio}</Heading>
-            <Flex mt={24} gap={32} align="center">
+            <Flex className={classes.infoPanel}>
                 {homeworkAnswer.status.name !== "completed" && (
                     <Flex className={classes.item}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -42,33 +42,25 @@ const HomeworkInfoPanel = ({ homeworkAnswer, studentFio }: HomeworkInfoPanelProp
                     <Paragraph variant="text-small-m" color="gray45">
                         Обязательность:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {homeworkAnswer.homework.requiredType === "required" ? "Да" : "Нет"}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{homeworkAnswer.homework.requiredType === "required" ? "Да" : "Нет"}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Группа:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {homeworkAnswer.group.name}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{homeworkAnswer.group.name}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Учебный курс:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {homeworkAnswer.course.name}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{homeworkAnswer.course.name}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Дата выполнения:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {dayjs(homeworkAnswer.updatedAt).format("DD.MM.YYYY HH:mm")}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{dayjs(homeworkAnswer.updatedAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
                 </Flex>
             </Flex>
         </>

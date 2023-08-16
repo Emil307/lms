@@ -6,9 +6,29 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { status }: CreateStylesProps) => ({
-    item: {
-        gap: 8,
+    infoPanel: {
+        flexDirection: "row",
         alignItems: "center",
+        width: "100%",
+        marginTop: 24,
+        overflowX: "auto",
+        gap: 32,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
+        },
+    },
+    item: {
+        alignItems: "center",
+        gap: 8,
     },
     status: {
         borderRadius: 32,

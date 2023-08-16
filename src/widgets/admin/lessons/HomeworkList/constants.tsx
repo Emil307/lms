@@ -4,7 +4,7 @@ import { Badge } from "@mantine/core";
 import { getFullName } from "@shared/utils";
 import { AdminHomeworkAnswerFromList } from "@entities/lesson";
 import { AdminHomeworkAnswersFilters } from "./types";
-import useStyles from "./HomeworkList.styles";
+import { useCellStyles } from "./HomeworkList.styles";
 
 export const columnOrder = [
     "student.profile.fullName",
@@ -62,7 +62,7 @@ export const columns: MRT_ColumnDef<AdminHomeworkAnswerFromList>["columns"] = [
         accessorKey: "status.name",
         Cell: ({ cell }) => {
             const status = cell.row.original.status.name;
-            const { classes } = useStyles({ status });
+            const { classes } = useCellStyles({ status });
             switch (status) {
                 case "onReview":
                     return (
