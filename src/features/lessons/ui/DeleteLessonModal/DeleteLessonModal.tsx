@@ -4,6 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDeleteLesson } from "@entities/lesson";
 import useStyles from "./DeleteLessonModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface DeleteLessonModalProps {
     id: string;
@@ -16,6 +17,8 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
     const { classes } = useStyles();
     const { mutate: deleteLesson, isLoading } = useDeleteLesson(id);
 
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
     const handleSubmit = () => {
         deleteLesson(null, {
             onSuccess: () => {
@@ -26,9 +29,9 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16}>
+            <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
+                    <ThemeIcon variant="outline" color="secondary">
                         <AlertTriangle />
                     </ThemeIcon>
                 </Flex>
@@ -40,10 +43,10 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onCancel} disabled={isLoading} w="50%">
+                <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onCancel} disabled={isLoading} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
+                <Button variant="secondary" size={isTablet ? "medium" : "large"} onClick={handleSubmit} loading={isLoading} w="50%">
                     Удалить
                 </Button>
             </Flex>

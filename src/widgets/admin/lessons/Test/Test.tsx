@@ -1,4 +1,4 @@
-import { Flex, Title, Text, ThemeIcon } from "@mantine/core";
+import { Flex, Text, ThemeIcon } from "@mantine/core";
 import { PlusCircle as PlusCircleIcon, Edit3 as EditIcon, HelpCircle as HelpCircleIcon } from "react-feather";
 import React from "react";
 import { Button, Heading, Loader, Paragraph } from "@shared/ui";
@@ -28,9 +28,9 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
     const renderTopCard = () => {
         if (!test) {
             return (
-                <Flex className={classes.card} gap={18} align="center" justify="space-between">
+                <Flex className={classes.topCard} gap={18} align="center" justify="space-between">
                     <Flex gap={8} direction="column">
-                        <Title order={3}>Тест</Title>
+                        <Heading order={3}>Тест</Heading>
                         <Paragraph variant="text-small-m" color="neutral_gray">
                             Нет добавленных вопросов.
                         </Paragraph>
@@ -42,9 +42,9 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
             );
         }
         return (
-            <Flex className={classes.card} gap={18} align="center" justify="space-between">
-                <Flex gap={56}>
-                    <Flex gap={16} align="center">
+            <Flex className={classes.topCard}>
+                <Flex className={classes.topCardContent}>
+                    <Flex className={classes.count}>
                         <Flex className={classes.checkIconWrapper} align="center" justify="center">
                             <ThemeIcon w={48} h={48} color="secondary">
                                 <MarkCheckCircleIcon />
@@ -58,7 +58,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                             <Paragraph variant="text-caption">Для успешного прохождения тестирования</Paragraph>
                         </Flex>
                     </Flex>
-                    <Flex gap={16} align="center">
+                    <Flex className={classes.count}>
                         <Flex className={classes.helpIconWrapper} align="center" justify="center">
                             <ThemeIcon w={48} h={48} color="secondary">
                                 <HelpCircleIcon />
@@ -81,7 +81,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
 
     return (
         <Flex direction="column" gap={32} w="100%">
-            <Title order={2}>Проверочный тест</Title>
+            <Heading order={2}>Проверочный тест</Heading>
             {renderTopCard()}
             {test && test.tasks.length > 0 && (
                 <Flex gap={16} direction="column">

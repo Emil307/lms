@@ -39,7 +39,7 @@ const Answer = ({ name, answer, index, onDelete, setFieldValue }: AnswerProps) =
     };
 
     return (
-        <Flex ref={setNodeRef} gap={16} align="center" className={classes.questionCard} style={style}>
+        <Flex ref={setNodeRef} gap={16} align="center" className={classes.answerCard} style={style}>
             <Flex gap={8} align="center">
                 <ActionIcon className={cx(classes.actionIcon, classes.dragIcon)} {...attributes} {...listeners}>
                     <IconDragDots />

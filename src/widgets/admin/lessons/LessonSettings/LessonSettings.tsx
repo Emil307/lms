@@ -1,14 +1,12 @@
 import { Flex, Box } from "@mantine/core";
 import React from "react";
-import { useRouter } from "next/router";
-import { closeModal, openModal } from "@mantine/modals";
-import { Trash as TrashIcon } from "react-feather";
-import { Button, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
+import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
-import { DeleteLessonModal } from "@features/lessons";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
 import useStyles from "./LessonSettings.styles";
+import { useMediaQuery } from "@mantine/hooks";
+import { DeleteLessonButton } from "./components";
 
 interface LessonSettingsProps {
     data: AdminLesson;
@@ -16,33 +14,9 @@ interface LessonSettingsProps {
 }
 
 const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
-    const router = useRouter();
     const { classes } = useStyles();
-    const lessonId = String(data.id);
 
-    const closeDeleteLessonModal = () => closeModal("DELETE_LESSON");
-
-    const handleCancelDeleteLesson = () => closeDeleteLessonModal();
-
-    const handleSuccessDeleteLesson = () => {
-        closeDeleteLessonModal();
-        router.push("/admin/lessons");
-    };
-
-    const handleOpenDeleteLessonModal = () => {
-        openModal({
-            modalId: "DELETE_LESSON",
-            title: "Удаление урока",
-            children: (
-                <DeleteLessonModal
-                    id={lessonId}
-                    name={data.name}
-                    onSuccess={handleSuccessDeleteLesson}
-                    onCancel={handleCancelDeleteLesson}
-                />
-            ),
-        });
-    };
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const renderLabelValue = (isTrue: boolean) => {
         if (isTrue) {
@@ -61,15 +35,38 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
         );
     };
 
+    const renderLessonContent = () => {
+        if (isMobile && data.content) {
+            return <ContentByTextEditor data={data.content} />;
+        }
+
+        if (!data.content) {
+            return (
+                <Heading color="neutral_gray" order={3}>
+                    Содержание урока
+                </Heading>
+            );
+        }
+
+        if (data.content) {
+            return (
+                <>
+                    <Heading order={3}>Содержание урока</Heading>
+                    {isMobile}
+                    <TextEditor value={data.content} mt={24} h={560} readonly />
+                </>
+            );
+        }
+        return null;
+    };
+
     return (
         <Flex direction="column" gap={32} w="100%">
-            <Flex gap={48} align="center">
+            <Flex className={classes.heading}>
                 <Heading order={2}>Данные урока</Heading>
-                <Button onClick={handleOpenDeleteLessonModal} variant="text" leftIcon={<TrashIcon />}>
-                    Удалить урок
-                </Button>
+                <DeleteLessonButton lessonId={String(data.id)} lessonName={data.name} />
             </Flex>
-            <Flex gap={16} direction="column">
+            <Flex className={classes.wrapper}>
                 <Box className={classes.card}>
                     <Flex gap={16} align="center" justify="space-between">
                         <Flex gap={2} direction="column">
@@ -80,7 +77,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
                     <Paragraph variant="small-m" color="neutral_gray" className={classes.lessonDescription}>
                         {data.description}
                     </Paragraph>
-                    <Flex gap={24}>
+                    <Flex className={classes.testAndHomeworkWrapper}>
                         <Flex gap={6}>
                             <Paragraph variant="small-semi">Проверочный тест:</Paragraph>
                             {renderLabelValue(data.hasTest)}
@@ -94,19 +91,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
 
                 <VideoInput loadedFilesData={data.videos} />
 
-                <Box className={classes.card}>
-                    {!data.content && (
-                        <Heading color="neutral_gray" order={3}>
-                            Содержание урока
-                        </Heading>
-                    )}
-                    {data.content && (
-                        <>
-                            <Heading order={3}>Содержание урока</Heading>
-                            <TextEditor value={data.content} mt={24} h={560} readonly />
-                        </>
-                    )}
-                </Box>
+                <Box className={classes.card}>{renderLessonContent()}</Box>
             </Flex>
         </Flex>
     );

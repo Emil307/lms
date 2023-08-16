@@ -14,12 +14,44 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         border: "1px solid",
         borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
     },
-    taskCard: {
-        backgroundColor: theme.colors.white[0],
-        padding: "16px 18px",
-        borderRadius: 8,
+    topCard: {
+        gap: 32,
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        padding: 24,
+        borderRadius: 12,
+        backgroundColor: theme.colors.neutralLight[0],
         border: "1px solid",
-        borderColor: theme.colors.grayLight[0],
+        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column",
+            alignItems: "flex-start",
+        },
+    },
+    questionCard: {
+        width: "100%",
+        gap: 32,
+        flexDirection: "column",
+        padding: 24,
+        borderRadius: 12,
+        backgroundColor: theme.colors.neutralLight[0],
+        border: "1px solid",
+        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: "0 0 32px 0",
+            backgroundColor: theme.colors.white[0],
+            border: "none",
+        },
+    },
+    answersCountInput: {
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
     },
     letter: {
         minWidth: 40,
@@ -36,23 +68,62 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         backgroundColor: theme.colors.secondary16[0],
         borderRadius: 56,
     },
-    questionCard: {
+    answerCard: {
         padding: "16px 18px",
         borderRadius: 8,
         border: "1px solid",
         borderColor: theme.colors.grayLight[0],
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+
+            "> *": {
+                "&:first-child": {
+                    order: 1,
+                },
+                "&:nth-child(2)": {
+                    order: 3,
+                    width: "100%",
+                },
+                "&:last-child": {
+                    order: 2,
+                },
+            },
+        },
     },
     actionIcon: {
         minWidth: 40,
         height: 40,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            "&:hover": {
+                backgroundColor: theme.colors.grayLight[0],
+            },
+        },
     },
     icon: {
         pointerEvents: "none",
     },
     dragIcon: {
         cursor: "grab",
+    },
+    buttons: {
+        gap: 8,
+        marginTop: 32,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+    confirmButton: {
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
     },
     error: {
         display: "flex",

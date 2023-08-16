@@ -9,8 +9,10 @@ import { AdminTestQuestion } from "@entities/lesson";
 import { Button } from "@shared/ui";
 import { Question } from "../Question";
 import { UpdateTestFormValues } from "../../types";
+import useStyles from "./QuestionList.styles";
 
 const QuestionList = () => {
+    const { classes } = useStyles();
     const { values, setFieldValue, errors, touched, setTouched, setFieldTouched, validateForm } = useFormikContext<UpdateTestFormValues>();
 
     const initialLastQuestionId = useMemo(() => {
@@ -95,7 +97,7 @@ const QuestionList = () => {
             return null;
         }
         return (
-            <Flex gap={16} direction="column">
+            <Flex className={classes.questionsWrapper}>
                 <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
                     <SortableContext items={questionsForSortable}>
                         <FieldArray

@@ -108,7 +108,7 @@ export const $UpdateCourseModuleOrderRequest = z.object({
 
 export const $UpdateCourseModuleOrderResponse = $CourseModule.omit({
     lessons: true,
-    lastUpdated: true
+    lastUpdated: true,
 });
 
 export const $AttachLessonToCourseModuleRequest = z.object({

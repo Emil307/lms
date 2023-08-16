@@ -1,7 +1,7 @@
-import { Box, Loader, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Heading } from "@shared/ui";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useAdminCourseReview } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";

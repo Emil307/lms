@@ -24,7 +24,7 @@ const MaterialsPage = () => {
                     </Paragraph>
                 </Flex>
             ),
-            children: <SelectTypeMaterial />,
+            children: <SelectTypeMaterial description="Выберите тип отображения контента" />,
             size: 912,
         });
     };

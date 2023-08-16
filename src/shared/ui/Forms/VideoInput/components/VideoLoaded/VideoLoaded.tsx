@@ -87,6 +87,7 @@ const VideoLoaded = ({ fileId, file, onSuccessUpload, onChange, onDelete, onErro
             downloadButton={!editMode}
             error={error}
             showOnlyUploadedFile
+            autoAdapt
         />
     );
 };

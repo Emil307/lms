@@ -1,16 +1,11 @@
 import { Box, Flex } from "@mantine/core";
-import { PlusCircle as PlusCircleIcon } from "react-feather";
-import { openModal, closeModal } from "@mantine/modals";
-import { Heading, Loader, ManagedDataGrid, Button } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, storageApi } from "@entities/storage";
-import { SelectTypeMaterial } from "@widgets/admin/materials";
-import { useAttachMaterialsToLesson } from "@entities/lesson";
-import { AddMaterialsToLessonModal } from "@features/lessons";
 import { columnOrder, columns } from "./constants";
-import { ListMenu } from "./components";
-import { adaptGetMaterialFilesRequest } from "./utils";
+import { AddMaterialsButton, ListMenu } from "./components";
 import { AdminLessonMaterialsExtraParams } from "./types";
+import { adaptGetMaterialFilesRequest } from "./utils";
 
 interface MaterialsProps {
     lessonId: string;
@@ -18,42 +13,11 @@ interface MaterialsProps {
 }
 
 const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
-    const handleCloseAddMaterialsToLessonModal = () => closeModal("ADD_MATERIALS_TO_LESSON");
-
-    const { mutate: attachMaterialsToLesson, isLoading } = useAttachMaterialsToLesson({ lessonId });
-
-    const handleSuccessLoadFiles = (fileIds: string[]) => {
-        attachMaterialsToLesson(fileIds);
-    };
-
-    const handleOpenSelectMaterialsTypeModal = () => {
-        openModal({
-            modalId: "SELECT_MATERIALS_TYPE",
-            title: "Добавить материалы",
-            children: (
-                <SelectTypeMaterial onSuccessLoadFiles={handleSuccessLoadFiles} onSelectFromBase={handleOpenAddMaterialsToLessonModal} />
-            ),
-            size: 912,
-        });
-    };
-
-    const handleOpenAddMaterialsToLessonModal = () => {
-        openModal({
-            modalId: "ADD_MATERIALS_TO_LESSON",
-            title: "Выбрать из базы материалов",
-            children: <AddMaterialsToLessonModal lessonId={lessonId} onClose={handleCloseAddMaterialsToLessonModal} />,
-            size: 912,
-        });
-    };
-
     return (
         <Box>
-            <Loader overlay isLoading={isLoading} />
             <Flex align="center" gap={48}>
                 <Heading order={2}>Материалы урока</Heading>
-                <Button onClick={handleOpenSelectMaterialsTypeModal} variant="text" leftIcon={<PlusCircleIcon />}>
-                    Добавить материалы
-                </Button>
+                <AddMaterialsButton lessonId={lessonId} />
             </Flex>
 
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminLessonMaterialsExtraParams>

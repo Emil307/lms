@@ -55,11 +55,11 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
             <ManagedDataGrid<AdminLessonFromList, AdminSelectLessonsFilters, AdminSelectLessonsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT}
                 queryFunction={(params) => lessonApi.getAdminLessons(adaptGetAdminLessonsRequest(params))}
-                queryCacheKeys={["page", "perPage", "sort", "query", "createdAtFrom", "createdAtTo", "moduleIds"]}
+                queryCacheKeys={["page", "perPage", "sort", "query", "createdAtFrom", "createdAtTo", "courseIds"]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                extraFilterParams={{ moduleIds: [moduleId] }}
+                extraFilterParams={{ courseIds: [courseId] }}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Уроков"

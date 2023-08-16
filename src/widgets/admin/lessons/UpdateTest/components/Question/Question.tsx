@@ -1,5 +1,5 @@
 import { Flex, ActionIcon, useMantineTheme, Box } from "@mantine/core";
-import { AlertTriangle, PlusCircle as PlusCircleIcon, Trash } from "react-feather";
+import { AlertTriangle, PlusCircle as PlusCircleIcon } from "react-feather";
 import React, { useRef, useState, memo, useMemo } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
@@ -8,15 +8,13 @@ import { CSS } from "@dnd-kit/utilities";
 import { ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from "react-feather";
 import { FastField, FieldArray, FormikErrors, FormikHelpers } from "formik";
 import { FastFieldProps } from "formik/dist/FastField";
-import { closeModal, openModal } from "@mantine/modals";
 import { AdminTestAnswer, AdminTestQuestion } from "@entities/lesson";
 import { Button, Heading, FInput, Paragraph } from "@shared/ui";
-import { createNotification, ToastType } from "@shared/utils";
 import { UpdateTestFormValues } from "../../types";
 import { Answer } from "../Answer";
 import { TestAnswer } from "../Answer/types";
 import useStyles from "../../UpdateTest.styles";
-import { DeleteQuestionModal } from "../DeleteQuestionModal";
+import { DeleteQuestionButton } from "../DeleteQuestionButton";
 
 interface QuestionProps {
     name: string;
@@ -89,31 +87,6 @@ const Question = ({
         setFieldValue(`${name}.answers`, [...answers, newAnswer]);
     };
 
-    const handleCloseDeleteQuestionModal = () => closeModal("DELETE_QUESTION_FROM_TEST");
-
-    const handleSuccessDeleteQuestion = () => {
-        createNotification({
-            type: ToastType.SUCCESS,
-            title: "Вопрос успешно удален",
-        });
-        onDeleteQuestion(index);
-        handleCloseDeleteQuestionModal();
-    };
-
-    const handleDeleteQuestion = () => {
-        openModal({
-            modalId: "DELETE_QUESTION_FROM_TEST",
-            title: "Удаление вопроса",
-            children: (
-                <DeleteQuestionModal
-                    questionName={questionName}
-                    onSuccess={handleSuccessDeleteQuestion}
-                    onCancel={handleCloseDeleteQuestionModal}
-                />
-            ),
-        });
-    };
-
     const renderError = () => {
         if (typeof error !== "string") {
             return null;
@@ -127,14 +100,12 @@ const Question = ({
     };
 
     return (
-        <Flex ref={setNodeRef} gap={32} direction="column" className={classes.card} style={style}>
+        <Flex ref={setNodeRef} className={classes.questionCard} style={style}>
             <Flex gap={16} direction="column">
                 <Flex gap={32} justify="space-between" align="center">
                     <Heading order={3}>{index + 1} вопрос</Heading>
-                    <Flex gap={24}>
-                        <Button size="small" variant="white" onClick={handleDeleteQuestion} leftIcon={<Trash />} className={classes.button}>
-                            Удалить вопрос
-                        </Button>
+                    <Flex gap={24} align="center">
+                        <DeleteQuestionButton questionName={questionName} index={index} onDeleteQuestion={onDeleteQuestion} />
                         <Flex gap={8}>
                             <ActionIcon
                                 className={cx(classes.actionIcon, classes.button)}

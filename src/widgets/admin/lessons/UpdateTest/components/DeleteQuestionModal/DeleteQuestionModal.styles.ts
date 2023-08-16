@@ -8,4 +8,7 @@ export default createStyles((theme) => ({
         minWidth: 48,
         height: 48,
     },
+    questionName: {
+        display: "inline",
+    },
 }));

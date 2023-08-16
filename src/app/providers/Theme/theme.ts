@@ -277,6 +277,7 @@ export const defaultTheme: MantineThemeOverride = {
                     fontFamily: ManropeFont.style.fontFamily,
                     fontWeight: 600,
                     borderRadius: 8,
+                    minWidth: "fit-content",
                 },
             }),
         },
@@ -303,6 +304,7 @@ export const defaultTheme: MantineThemeOverride = {
                     borderRadius: 16,
                     background: theme.colors.white[0],
                     boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+                    maxWidth: "100%",
 
                     [theme.fn.smallerThan("xs")]: {
                         minWidth: "100%",
@@ -313,6 +315,10 @@ export const defaultTheme: MantineThemeOverride = {
                     },
                 },
                 close: {
+                    minWidth: 32,
+                    minHeight: 32,
+                    width: 32,
+                    height: 32,
                     svg: {
                         color: theme.colors.primary[0],
                     },
@@ -410,6 +416,16 @@ export const defaultTheme: MantineThemeOverride = {
                         marginLeft: 8,
                         gap: 8,
                         color: theme.colors.dark[0],
+                    },
+                },
+            }),
+        },
+        ActionIcon: {
+            styles: (theme) => ({
+                root: {
+                    "&:hover": {
+                        backgroundColor: "unset",
+                        color: theme.colors.primary[0],
                     },
                 },
             }),

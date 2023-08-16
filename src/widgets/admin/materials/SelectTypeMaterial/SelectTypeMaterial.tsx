@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core";
+import { Flex, Box } from "@mantine/core";
 import React from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { CreateMaterialsForm, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
@@ -7,14 +7,16 @@ import FoldersIcon from "public/icons/folders.svg";
 import { fileTypeCards } from "./constants";
 import { MaterialTypeCard } from "./components";
 import useStyles from "./SelectTypeMaterial.styles";
+import { Paragraph } from "@shared/ui";
 
 interface SelectTypeMaterialProps {
+    description: string;
     onSelectFromBase?: () => void;
     onSuccessLoadFiles?: (fileIds: string[]) => void;
 }
 
-const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectTypeMaterialProps) => {
-    const { classes } = useStyles();
+const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase }: SelectTypeMaterialProps) => {
+    const { classes } = useStyles({ selectFromBase: !!onSelectFromBase });
 
     const handleCloseCreateMaterialsModal = () => {
         closeModal("CREATE_MATERIALS");
@@ -62,12 +64,17 @@ const SelectTypeMaterial = ({ onSuccessLoadFiles, onSelectFromBase }: SelectType
     };
 
     return (
-        <Flex className={classes.root}>
-            {onSelectFromBase && <MaterialTypeCard title="Выбрать из базы" icon={<FoldersIcon />} onClick={onSelectFromBase} />}
-            {fileTypeCards.map((card) => (
-                <MaterialTypeCard key={card.id} title={card.title} icon={card.icon} onClick={() => handleSelectCard(card.id)} />
-            ))}
-        </Flex>
+        <Box>
+            <Paragraph className={classes.description} variant="small-m" color="neutral_gray">
+                {description}
+            </Paragraph>
+            <Flex className={classes.content}>
+                {onSelectFromBase && <MaterialTypeCard title="Выбрать из базы" icon={<FoldersIcon />} onClick={onSelectFromBase} />}
+                {fileTypeCards.map((card) => (
+                    <MaterialTypeCard key={card.id} title={card.title} icon={card.icon} onClick={() => handleSelectCard(card.id)} />
+                ))}
+            </Flex>
+        </Box>
     );
 };
 

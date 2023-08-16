@@ -51,6 +51,11 @@ export const usePaginationStyles = createStyles((theme) => ({
             transform: "translateY(-50%)",
         },
 
+        ".mantine-Select-dropdown": {
+            left: "calc(100% - 80px) !important",
+            maxWidth: "80px",
+        },
+
         ".mantine-Select-rightSection": {
             pointerEvents: "none",
             width: 16,
