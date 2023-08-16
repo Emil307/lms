@@ -77,9 +77,9 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
     };
 
     return (
-        <Flex gap={32} direction="column">
+        <Flex className={classes.root}>
             <Loader isLoading={isLoading} overlay />
-            <Flex gap={16}>
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Домашнее задание</Heading>
                 {homeworkAnswer.status.name === "completed" && (
                     <Box className={classes.status}>
@@ -88,65 +88,61 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                 )}
             </Flex>
 
-            <Box>
-                <Flex gap={16} justify="space-between" align="flex-start">
-                    <Flex gap={16} align={homeworkAnswer.module?.name ? "start" : "center"}>
-                        <ThemeIcon className={classes.icon} radius={56} w={48} h={48}>
-                            <FolderIcon />
-                        </ThemeIcon>
-                        <Flex gap={2} direction="column">
-                            <Paragraph variant="text-caption">{homeworkAnswer.module?.name}</Paragraph>
-                            <Heading order={3}>{homeworkAnswer.homework.lesson.name}</Heading>
-                        </Flex>
+            <Flex className={classes.headingHomeworkContainer}>
+                <Flex align={homeworkAnswer.module?.name ? "start" : "center"} className={classes.headingHomeworkTextContainer}>
+                    <ThemeIcon className={classes.icon}>
+                        <FolderIcon />
+                    </ThemeIcon>
+                    <Flex direction="column" gap={2}>
+                        <Paragraph variant="text-caption">{homeworkAnswer.module?.name}</Paragraph>
+                        <Heading order={3}>{homeworkAnswer.homework.lesson.name}</Heading>
                     </Flex>
-                    {renderHomeworkToggle()}
                 </Flex>
+                {renderHomeworkToggle()}
+            </Flex>
 
-                <Box>
-                    <Collapse in={isOpenedHomework}>
-                        <Flex gap={24} direction="column" mt={32}>
-                            <ContentByTextEditor data={homeworkAnswer.homework.content} />
-                            {homeworkAnswer.homework.files.length > 0 && (
-                                <Flex gap={24} direction="column">
-                                    {homeworkAnswer.homework.files.map((file) => (
-                                        <FileItem
-                                            type="document"
-                                            fileName={file.name}
-                                            fileSize={file.size}
-                                            fileUrl={file.absolutePath}
-                                            key={file.id}
-                                        />
-                                    ))}
-                                </Flex>
-                            )}
+            <Collapse in={isOpenedHomework}>
+                <Flex direction="column" gap={24}>
+                    <ContentByTextEditor data={homeworkAnswer.homework.content} />
+                    {homeworkAnswer.homework.files.length > 0 && (
+                        <Flex direction="column" gap={16}>
+                            {homeworkAnswer.homework.files.map((file) => (
+                                <FileItem
+                                    type="document"
+                                    fileName={file.name}
+                                    fileSize={file.size}
+                                    fileUrl={file.absolutePath}
+                                    key={file.id}
+                                />
+                            ))}
                         </Flex>
-                    </Collapse>
-                </Box>
-            </Box>
+                    )}
+                </Flex>
+            </Collapse>
 
             {renderActionButtons()}
 
-            <Flex className={classes.answer} gap={24} direction="column">
+            <Flex className={classes.answerContainer}>
                 <Heading order={4}>Ответ ученика</Heading>
-                <Flex className={classes.answerContent} gap={8}>
+                <Flex className={classes.answerContent}>
                     <Avatar src={homeworkAnswer.student.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                         <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
                         </ThemeIcon>
                     </Avatar>
-                    <Box>
-                        <Flex gap={6} mb={8}>
-                            <Paragraph variant="text-caption" color="neutral_gray">
+                    <Box className={classes.answerStudentContainer}>
+                        <Flex className={classes.answerStudentInfo}>
+                            <Paragraph variant="text-caption" color="gray45">
                                 {studentFio}
                             </Paragraph>
-                            <Paragraph variant="text-caption" color="neutral_gray">
+                            <Paragraph variant="text-caption" color="gray45" sx={{ whiteSpace: "nowrap" }}>
                                 {getFormatUpdatedAt(homeworkAnswer.updatedAt)}
                             </Paragraph>
                         </Flex>
-                        <Flex gap={24} direction="column">
+                        <Flex direction="column" gap={24}>
                             <ContentByTextEditor data={homeworkAnswer.answer} />
                             {homeworkAnswer.files.length > 0 && (
-                                <Flex gap={24} direction="column">
+                                <Flex direction="column" gap={16}>
                                     {homeworkAnswer.files.map((file) => (
                                         <FileItem
                                             type="document"

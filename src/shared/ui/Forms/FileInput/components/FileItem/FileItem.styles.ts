@@ -44,7 +44,9 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         color: theme.colors.gray45[0],
     },
     content: {
-        width: "100%",
+        flexDirection: "column",
+        width: "calc(100% - 64px)",
+        gap: 2,
     },
     buttonDownload: {
         width: "fit-content",

@@ -8,7 +8,7 @@ import { HomeworkChat, HomeworkInfoPanel, HomeworkTask } from "@widgets/admin/le
 import { tabList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 
-const HomeworkDetailPage = () => {
+const HomeworkDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: homeworkAnswer, isLoading, isError } = useAdminLessonHomeworkAnswer(id);
@@ -37,8 +37,6 @@ const HomeworkDetailPage = () => {
 
     const renderComponent = () => {
         switch (currentTab) {
-            case "task":
-                return <HomeworkTask homeworkAnswer={homeworkAnswer} studentFio={studentFio} />;
             case "chat":
                 return (
                     <HomeworkChat
@@ -63,4 +61,4 @@ const HomeworkDetailPage = () => {
     );
 };
 
-export default HomeworkDetailPage;
+export default HomeworkDetailsPage;

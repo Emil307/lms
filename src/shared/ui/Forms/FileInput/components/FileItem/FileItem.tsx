@@ -83,9 +83,9 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
     return (
         <Box className={classes.root}>
             <Box className={classes.icon}>{renderIcon}</Box>
-            <Flex gap={2} direction="column" className={classes.content}>
-                <Flex gap={2} align="center">
-                    <Paragraph variant="text-small-semi" color="dark" lineClamp={1}>
+            <Flex className={classes.content}>
+                <Flex gap={2} align="center" w="100%">
+                    <Paragraph variant="text-small-semi" lineClamp={1}>
                         {fileName}
                     </Paragraph>
                     {fileSize && (
