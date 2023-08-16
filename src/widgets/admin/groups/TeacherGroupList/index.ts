@@ -1,3 +1,3 @@
-import TeacherGroupList from "./TeacherGroupList";
+import TeacherGroupList, { type TeacherGroupListProps } from "./TeacherGroupList";
 
-export { TeacherGroupList };
+export { TeacherGroupList, TeacherGroupListProps };

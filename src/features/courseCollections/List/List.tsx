@@ -2,7 +2,7 @@ import { Box, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useRouter } from "next/router";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
 import { List as ListComponent, ListProps as TListProps } from "@components/List";
-import { Heading } from "@shared/ui";
+import { Heading, HeadingProps } from "@shared/ui";
 import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import { Card } from "../Card";
 import { CardMore } from "../CardMore";
@@ -15,10 +15,20 @@ export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "c
     title?: string;
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
+    headingProps?: HeadingProps;
     visible?: boolean;
 }
 
-const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrapperProps, skeletonListProps, ...props }: ListProps) => {
+const List = ({
+    perPage,
+    hasCardMore,
+    exceptionCourseCollectionId,
+    title,
+    wrapperProps,
+    skeletonListProps,
+    headingProps,
+    ...props
+}: ListProps) => {
     const router = useRouter();
     const page = router.query.page || 1;
 
@@ -55,7 +65,7 @@ const List = ({ perPage, hasCardMore, exceptionCourseCollectionId, title, wrappe
         <Flex {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Heading>{title}</Heading>
+                    <Heading {...headingProps}>{title}</Heading>
                 </Skeleton>
             )}
             <Box>

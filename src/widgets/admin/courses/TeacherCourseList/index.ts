@@ -1,3 +1,3 @@
-import TeacherCourseList from "./TeacherCourseList";
+import TeacherCourseList, { type TeacherCourseListProps } from "./TeacherCourseList";
 
-export { TeacherCourseList };
+export { TeacherCourseList, TeacherCourseListProps };

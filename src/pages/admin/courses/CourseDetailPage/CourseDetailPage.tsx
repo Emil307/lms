@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
-import { CourseInfoPanel, CourseSettings, CourseReviews } from "@widgets/admin/courses";
+import { InfoPanel, CourseSettings, CourseReviews } from "@widgets/admin/courses";
 import { useAdminCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
 import { CourseGroups } from "@widgets/admin/courses/Groups";
@@ -57,7 +57,7 @@ const CourseDetailPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name, courseId: courseData.id })} mb={8} />
-            <CourseInfoPanel id={id} />
+            <InfoPanel id={id} />
             <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} my={32} />
             {renderComponent()}
         </Box>
