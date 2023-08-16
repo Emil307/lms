@@ -9,9 +9,10 @@ import { AddStudentsToGroupButton, ListMenu } from "./components";
 
 export interface StudentListProps extends BoxProps {
     groupId: string;
+    courseId: number;
 }
 
-const StudentList = ({ groupId, ...props }: StudentListProps) => {
+const StudentList = ({ groupId, courseId, ...props }: StudentListProps) => {
     const router = useRouter();
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupStudentFromList>) => {
@@ -22,7 +23,7 @@ const StudentList = ({ groupId, ...props }: StudentListProps) => {
         <Box {...props}>
             <Flex gap={48} align="center">
                 <Heading order={2}>Состав группы</Heading>
-                <AddStudentsToGroupButton groupId={groupId} />
+                <AddStudentsToGroupButton groupId={groupId} courseId={courseId} />
             </Flex>
             <ManagedDataGrid<AdminGroupStudentFromList, unknown, AdminGroupStudentsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_GROUP_STUDENTS}
