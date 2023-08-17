@@ -17,7 +17,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     return (
         <Indicator size={8} offset={16} position="top-start" color="done" disabled={data.isRead}>
             <Flex {...props} className={classes.root}>
-                <Flex align="center" gap={8}>
+                <Flex gap={8}>
                     <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                         <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                             <AvatarIcon />
@@ -25,9 +25,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                     </Avatar>
                     <Flex className={classes.userInfo}>
                         <Flex direction="column">
-                            <Paragraph variant="text-small-m" lineClamp={1}>
-                                {getFullName({ data: data.sender.profile })}
-                            </Paragraph>
+                            <Paragraph variant="text-small-m">{getFullName({ data: data.sender.profile })}</Paragraph>
                             <Paragraph variant="text-caption" color="gray45">
                                 {data.sender.roles[0].displayName}
                             </Paragraph>
