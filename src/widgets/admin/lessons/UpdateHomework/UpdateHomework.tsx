@@ -16,6 +16,7 @@ import { createNotification, ToastType } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateHomework.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface UpdateHomeworkProps {
     lessonId: string;
@@ -25,6 +26,8 @@ interface UpdateHomeworkProps {
 
 const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) => {
     const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const updateHomework = (data: UpdateAdminHomeworkFormValues) => {
         return lessonApi.updateAdminHomework(adaptDataForUpdateHomeworkRequest({ ...data, id: lessonId }));
@@ -91,7 +94,7 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>
-                    <Flex className={classes.card} gap={32} align="center" justify="space-between">
+                    <Flex className={classes.topCard} gap={32} align="center" justify="space-between">
                         <Flex gap={16} align="center">
                             {renderLabelWithIcon(values.requiredType)}
                         </Flex>
@@ -115,11 +118,16 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
                         h={190}
                         w="100%"
                     />
-                    <Flex gap={8} mt={32}>
-                        <Button variant="border" size="large" w="100%" maw={252} onClick={onCancel}>
+                    <Flex className={classes.buttons}>
+                        <Button className={classes.button} variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                             Отменить
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                        <Button
+                            className={classes.button}
+                            type="submit"
+                            variant="secondary"
+                            size={isMobile ? "medium" : "large"}
+                            disabled={!dirty}>
                             Сохранить
                         </Button>
                     </Flex>

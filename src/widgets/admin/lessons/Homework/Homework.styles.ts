@@ -1,11 +1,23 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    card: {
+    topCard: {
+        gap: 32,
+        alignItems: "center",
+        justifyContent: "space-between",
         padding: 24,
         borderRadius: 12,
         backgroundColor: theme.colors.neutralLight[0],
-        margin: "32px 0",
+
+        [theme.fn.smallerThan("sm")]: {
+            backgroundColor: theme.colors.white[0],
+            border: `1px solid rgba(0, 4, 41, 0.2)`,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+            alignItems: "flex-start",
+        },
     },
     alertIconWrapper: {
         backgroundColor: theme.colors.secondary16[0],
