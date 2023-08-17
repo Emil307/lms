@@ -4,8 +4,7 @@ import { TBreadCrumbItem } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 
 export const breadCrumbsItems: TBreadCrumbItem[] = [
-    //TODO: изменить урл моего профиля
-    { title: "Мой профиль", href: { pathname: "/" } },
+    { title: "Мой профиль", href: { pathname: "/cabinet" } },
     { title: "Настройки профиля", href: { pathname: "/profile" } },
 ];
 
