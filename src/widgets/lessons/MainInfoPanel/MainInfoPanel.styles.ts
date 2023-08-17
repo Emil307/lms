@@ -17,6 +17,28 @@ export default createStyles((theme, { status, testStatus, homeworkStatus }: Crea
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
     },
+    testAndHomeworkInfo: {
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column",
+            gap: 8,
+        },
+    },
+    testInfo: {
+        columnGap: 6,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+    homeworkInfo: {
+        columnGap: 6,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
     status: {
         width: "min-content",
         height: 28,

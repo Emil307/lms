@@ -14,7 +14,29 @@ export default createStyles((theme, { status, openedHomeworkDetails }: CreateSty
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
     },
+    headingContainer: {
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "space-between",
+        columnGap: 32,
+        rowGap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
+    },
+    headingTextContainer: {
+        gap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+            justifyContent: "space-between",
+        },
+    },
     status: {
+        overflow: "initial",
+        height: "fit-content",
         ...getColorsByStatus(theme, { status }),
     },
 

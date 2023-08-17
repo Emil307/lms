@@ -1,5 +1,6 @@
-import { Flex, FlexProps } from "@mantine/core";
+import { ActionIcon, Flex, FlexProps } from "@mantine/core";
 import { useState } from "react";
+import { Edit3 } from "react-feather";
 import { Heading } from "@shared/ui";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
 import { GetHomeworkResponse } from "@entities/lesson";
@@ -44,7 +45,13 @@ const PassedHomeworkInfo = ({ data, lessonId, courseId, ...props }: PassedHomewo
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
-            <Heading order={3}>{AnswerStatus[data.answers[0].status.name as keyof typeof AnswerStatus]}</Heading>
+            <Flex align="center" justify="space-between">
+                <Heading order={3}>{AnswerStatus[data.answers[0].status.name as keyof typeof AnswerStatus]}</Heading>
+                <ActionIcon className={classes.editActionIcon} onClick={handleOpenUpdateLessonHomeworkAnswerForm}>
+                    <Edit3 size={18} />
+                </ActionIcon>
+            </Flex>
+
             {renderContent()}
         </Flex>
     );

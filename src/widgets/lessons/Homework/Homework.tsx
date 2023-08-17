@@ -33,7 +33,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
         if (!homeworkData) {
             return;
         }
-        if ((homeworkData && !homeworkData.answers.length) || answerStatus !== "onReview") {
+        if (!homeworkData.answers.length || answerStatus !== "onReview") {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
 
@@ -92,13 +92,12 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
                     hidden={!openedHomeworkAnswerForm}
                 />
 
-                <Box my={48}>
-                    <Divider
-                        size={1}
-                        color="gray20"
-                        hidden={!homeworkData.answers.length || homeworkData.answers[0]?.status.name === "completed"}
-                    />
-                </Box>
+                <Divider
+                    size={1}
+                    color="gray20"
+                    my={48}
+                    hidden={!homeworkData?.answers.length || homeworkData.answers[0]?.status.name === "completed"}
+                />
 
                 {!!homeworkData.answers.length && (
                     <HomeworkChat
@@ -121,8 +120,8 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
 
     return (
         <Flex className={classes.root}>
-            <Flex align="center" justify="space-between" gap={32}>
-                <Flex gap={16}>
+            <Flex className={classes.headingContainer}>
+                <Flex className={classes.headingTextContainer}>
                     <Heading order={2}>Домашнее задание</Heading>
                     {!!homeworkData?.answers.length && (
                         <Badge className={classes.status}>{homeworkData.answers[0].status.displayName}</Badge>

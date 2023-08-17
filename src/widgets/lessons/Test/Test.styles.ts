@@ -14,6 +14,13 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
     },
+    headingContainer: {
+        gap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+        },
+    },
     status: {
         ...getColorsByStatus(theme, { status }),
     },
@@ -22,6 +29,10 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         padding: 24,
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: 16,
+        },
     },
 }));
 

@@ -21,7 +21,7 @@ const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: Stud
         }
 
         return (
-            <Flex direction="column" gap={16} mt={24}>
+            <Flex className={classes.documentListWrapper}>
                 {data.files.map((doc) => (
                     <FileItem key={doc.id} fileUrl={doc.absolutePath} fileName={doc.name} fileSize={doc.size} type="document" />
                 ))}
@@ -30,32 +30,29 @@ const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: Stud
     };
 
     return (
-        <Flex className={classes.root}>
+        <Box className={classes.root}>
             <Avatar src={data.student.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                 <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                     <AvatarIcon />
                 </ThemeIcon>
             </Avatar>
-            <Box sx={{ flex: 1 }}>
-                <Flex direction="column" gap={8}>
-                    <Flex gap={6}>
-                        <Paragraph variant="text-caption" color="gray45">
-                            {getFullName({ data: data.student.profile })}
-                        </Paragraph>
-                        <Paragraph variant="text-caption" color="gray45">
-                            {getFormatUpdatedAt(data.updatedAt)}
-                        </Paragraph>
-                    </Flex>
-                    <ContentByTextEditor data={data.answer} />
-                </Flex>
-                {renderDocuments()}
-            </Box>
+            <Flex className={classes.answerTextHeadingContainer}>
+                <Paragraph variant="text-caption" color="gray45">
+                    {getFullName({ data: data.student.profile })}
+                </Paragraph>
+                <Paragraph variant="text-caption" color="gray45" sx={{ whiteSpace: "nowrap" }}>
+                    {getFormatUpdatedAt(data.updatedAt)}
+                </Paragraph>
+            </Flex>
+            <ContentByTextEditor data={data.answer} className={classes.answerContent} />
+
+            {renderDocuments()}
             {data.status.name === "onReview" && (
                 <ActionIcon className={classes.editActionIcon} onClick={openUpdateLessonHomeworkAnswerForm}>
                     <Edit3 size={18} />
                 </ActionIcon>
             )}
-        </Flex>
+        </Box>
     );
 };
 

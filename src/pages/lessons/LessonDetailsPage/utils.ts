@@ -8,8 +8,8 @@ interface GetBreadCrumbsItemsProps {
 }
 
 interface GetTabListProps {
-    hasTest?: boolean;
-    hasHomework?: boolean;
+    isTestExists?: boolean;
+    isHomeworkExists?: boolean;
 }
 
 export const getBreadCrumbsItems = ({
@@ -24,17 +24,17 @@ export const getBreadCrumbsItems = ({
     { title: nameLesson, href: { pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId } } },
 ];
 
-export const getTabList = ({ hasHomework, hasTest }: GetTabListProps) => {
+export const getTabList = ({ isTestExists, isHomeworkExists }: GetTabListProps) => {
     const tabsList = [
         { id: 1, label: "Содержание", value: "contents" },
         { id: 2, label: "Материалы", value: "materials" },
     ];
 
-    if (hasTest) {
+    if (isTestExists) {
         tabsList.push({ id: 3, label: "Тест", value: "test" });
     }
 
-    if (hasHomework) {
+    if (isHomeworkExists) {
         tabsList.push({ id: 4, label: "Домашнее задание", value: "homework" });
     }
 

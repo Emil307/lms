@@ -1,10 +1,10 @@
 import { Box, Flex, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button } from "@shared/ui";
 import { useDetachMaterialsFromLesson } from "@entities/lesson";
 import useStyles from "./DeleteMaterialFromLessonModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 interface DeleteMaterialFromLessonModalProps {
     lessonId: string;

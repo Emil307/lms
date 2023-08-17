@@ -16,7 +16,9 @@ const PossibleAnswer = ({ data }: PossibleAnswerProps) => {
             <Flex className={classes.answerLetterWrapper}>{getAnswerLetterFromRussianAlphabet(data.order + 1)}</Flex>
             <Flex align="center" gap={8}>
                 <Checkbox checked={data.isSelected} disabled />
-                <Paragraph variant="text-small-m">{data.content}</Paragraph>
+                <Paragraph variant="text-small-m" className={classes.content}>
+                    {data.content}
+                </Paragraph>
             </Flex>
         </Flex>
     );

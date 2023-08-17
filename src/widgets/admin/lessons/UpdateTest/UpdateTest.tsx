@@ -1,5 +1,6 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { AdminTest, lessonApi, UpdateAdminTestResponse } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
@@ -9,7 +10,6 @@ import { QuestionList } from "./components";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
 import useStyles from "./UpdateTest.styles";
 import { adaptUpdateTestRequest, getInitialValues } from "./utils";
-import { useMediaQuery } from "@mantine/hooks";
 
 interface UpdateTestProps {
     lessonId: string;

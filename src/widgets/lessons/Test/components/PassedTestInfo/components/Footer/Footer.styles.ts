@@ -12,4 +12,14 @@ export default createStyles((theme, { isOpenAnswers }: CreateStylesParams) => ({
             transform: `rotate(${isOpenAnswers ? 0 : 180}deg)`,
         },
     },
+    answerListWrapper: {
+        flexDirection: "column",
+        marginBottom: 32,
+        gap: 32,
+
+        [theme.fn.smallerThan("sm")]: {
+            marginBottom: 24,
+            gap: 24,
+        },
+    },
 }));

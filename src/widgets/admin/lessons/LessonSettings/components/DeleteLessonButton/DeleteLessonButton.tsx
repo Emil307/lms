@@ -2,10 +2,10 @@ import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import React from "react";
-import { DeleteLessonModal } from "@features/lessons";
 import { Trash as TrashIcon } from "react-feather";
-import { Button } from "@shared/ui";
 import { useRouter } from "next/router";
+import { DeleteLessonModal } from "@features/lessons";
+import { Button } from "@shared/ui";
 
 interface DeleteLessonButtonProps {
     lessonId: string;

@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Text } from "@mantine/core";
 import { useMemo } from "react";
@@ -25,8 +25,8 @@ const LessonDetailsPage = () => {
     });
 
     const tabList = getTabList({
-        hasTest: lesson.data?.hasTest,
-        hasHomework: lesson.data?.hasHomework,
+        isTestExists: lesson.data?.testExists,
+        isHomeworkExists: lesson.data?.homeworkExists,
     });
 
     const currentTab = useMemo(() => {
@@ -47,7 +47,9 @@ const LessonDetailsPage = () => {
         }
         return (
             <>
-                {lesson.data && lesson.data.videos.length > 0 && <VideoInput loadedFilesData={lesson.data.videos} />}
+                {lesson.data && lesson.data.videos.length > 0 && (
+                    <VideoInput loadedFilesData={lesson.data.videos} className={classes.videoItemWrapper} />
+                )}
                 <ContentByTextEditor data={lesson.data?.content || ""} />
             </>
         );
@@ -75,7 +77,7 @@ const LessonDetailsPage = () => {
     }
 
     return (
-        <Flex direction="column" gap={32}>
+        <Box>
             <BreadCrumbs
                 items={getBreadCrumbsItems({
                     nameLesson: lesson.data.name,
@@ -83,11 +85,14 @@ const LessonDetailsPage = () => {
                     groupId,
                     lessonId,
                 })}
+                mb={32}
             />
-            <MainInfoPanel data={lesson.data} myCourseData={group.data} />
-            <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} />
-            {renderContent()}
-        </Flex>
+            <Flex className={classes.content}>
+                <MainInfoPanel data={lesson.data} myCourseData={group.data} />
+                <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} />
+                {renderContent()}
+            </Flex>
+        </Box>
     );
 };
 

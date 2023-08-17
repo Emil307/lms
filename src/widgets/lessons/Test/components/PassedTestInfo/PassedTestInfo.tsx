@@ -23,9 +23,9 @@ const PassedTestInfo = ({ data, openUpdateTestPassForm, ...props }: PassedTestIn
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
-            <Flex className={classes.heading}>
+            <Flex className={classes.headingContainer}>
                 <Heading order={3}>Тестирование завершено</Heading>
-                <Flex gap={56}>{renderTestPassInfoList()}</Flex>
+                <Flex className={classes.wrapperInfoList}>{renderTestPassInfoList()}</Flex>
             </Flex>
             <Footer data={data} openUpdateTestPassForm={openUpdateTestPassForm} />
         </Flex>

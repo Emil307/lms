@@ -2,8 +2,8 @@ import { Flex, FlexProps, Group } from "@mantine/core";
 import { useMemo } from "react";
 import { EmptyData, FileItem, Heading, VideoItem } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
-import useStyles from "./MaterialList.styles";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import useStyles from "./MaterialList.styles";
 
 export interface MaterialListProps extends Omit<FlexProps, "children"> {
     data?: GetLessonResponse;

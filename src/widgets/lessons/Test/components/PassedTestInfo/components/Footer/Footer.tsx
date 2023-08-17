@@ -36,9 +36,7 @@ const Footer = ({ data, openUpdateTestPassForm }: FooterProps) => {
         <Box>
             <Box>
                 <Collapse in={openedAnswersDetails} w="100%">
-                    <Flex direction="column" gap={32} mb={32}>
-                        {renderAnswers}
-                    </Flex>
+                    <Flex className={classes.answerListWrapper}>{renderAnswers}</Flex>
                 </Collapse>
             </Box>
             <Button

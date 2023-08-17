@@ -27,6 +27,8 @@ const ActiveCourseList = () => {
 
     const groupList = coursesInProgress.data.concat(newCourses.data || []);
 
+    const handleOpenMyCourseDetails = (id: unknown) => router.push({ pathname: "/my-courses/[id]", query: { id: String(id) } });
+
     const renderContent = () => {
         if (!groupList.length) {
             return (
@@ -37,7 +39,13 @@ const ActiveCourseList = () => {
                 />
             );
         }
-        return <ListComponent<GroupFromList> data={groupList} colProps={{ md: 4, sm: 6 }} renderItem={(props) => <Card {...props} />} />;
+        return (
+            <ListComponent<GroupFromList>
+                data={groupList}
+                colProps={{ md: 4, sm: 6 }}
+                renderItem={(props) => <Card {...props} onClick={handleOpenMyCourseDetails} />}
+            />
+        );
     };
 
     const handleClickAllMyCourses = () => router.push("/my-courses");

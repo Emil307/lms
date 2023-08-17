@@ -2,16 +2,39 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
+        display: "grid",
+        // gridTemplateAreas: "'iconBack progressBar buttonNextOrSubmit'",
+        gridTemplateAreas: `'avatar textHeadingContainer editIcon'
+                            'avatar content editIcon'
+                            '. documents editIcon'`,
+        gridTemplateColumns: "auto 1fr auto",
         padding: 16,
-        gap: 8,
+        columnGap: 8,
         borderRadius: 8,
         border: `1px solid ${theme.colors.grayLight[0]}`,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            gridTemplateAreas: `'avatar textHeadingContainer'
+                                'content content'
+                                'documents documents'`,
+
+            gridTemplateColumns: "auto 1fr",
+        },
+    },
+    answerTextHeadingContainer: {
+        gridArea: "textHeadingContainer",
+        gap: 6,
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+        },
     },
     avatarWrapper: {
+        gridArea: "avatar",
         width: 32,
         height: 32,
-        minWidth: "auto",
+        minWidth: 32,
         borderRadius: 50,
 
         ".mantine-Avatar-placeholder": {
@@ -24,8 +47,27 @@ export default createStyles((theme) => ({
         },
     },
     editActionIcon: {
+        gridArea: "editIcon",
         width: 32,
         height: 32,
         color: theme.colors.gray45[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            display: "none",
+        },
+    },
+    answerContent: {
+        gridArea: "content",
+        marginTop: 2,
+
+        [theme.fn.smallerThan("sm")]: {
+            marginTop: 8,
+        },
+    },
+    documentListWrapper: {
+        gridArea: "documents",
+        flexDirection: "column",
+        marginTop: 24,
+        gap: 16,
     },
 }));

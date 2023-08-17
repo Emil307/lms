@@ -1,5 +1,6 @@
 import { Box, Collapse, Flex } from "@mantine/core";
 import React from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { createNotification, ToastType } from "@shared/utils";
 import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
@@ -9,7 +10,6 @@ import FalsyIcon from "@public/icons/falsy.svg";
 import useStyles from "./UpdateLesson.styles";
 import { UpdateLessonButton } from "./components";
 import { adaptDataForUpdateLessonContentRequest, getInitialValues } from "./utils";
-import { useMediaQuery } from "@mantine/hooks";
 
 interface UpdateLessonProps {
     data: AdminLesson;

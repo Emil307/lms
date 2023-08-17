@@ -2,11 +2,11 @@ import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import React from "react";
+import { Edit3 as EditIcon } from "react-feather";
 import { UpdateLessonModal } from "@features/lessons";
 import { Button } from "@shared/ui";
-import { Edit3 as EditIcon } from "react-feather";
-import useStyles from "./UpdateLessonButton.styles";
 import { AdminLesson } from "@entities/lesson";
+import useStyles from "./UpdateLessonButton.styles";
 
 interface UpdateLessonButtonProps {
     data: AdminLesson;
