@@ -9,6 +9,7 @@ export default createStyles((theme, { isAvailable }: { isAvailable: boolean }) =
         borderRadius: 16,
         backgroundColor: isAvailable ? theme.colors.white[0] : theme.colors.grayLight[0],
         cursor: "pointer",
+        pointerEvents: isAvailable ? "auto" : "none",
 
         ":hover": {
             boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",

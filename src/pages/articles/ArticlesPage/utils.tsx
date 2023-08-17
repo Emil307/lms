@@ -9,7 +9,11 @@ export const getBreadCrumbsItems = ({
     tab,
     filterParams,
 }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => {
-    if (!tab || tab !== "all") {
+    if (!tab) {
+        return initialBreadCrumbsItems;
+    }
+
+    if (tab !== "all") {
         const tabInfo = tabsList.find((item) => item.value === tab);
 
         return [
