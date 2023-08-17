@@ -1,11 +1,11 @@
 import { Flex, Box } from "@mantine/core";
 import React from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
 import useStyles from "./LessonSettings.styles";
-import { useMediaQuery } from "@mantine/hooks";
 import { DeleteLessonButton } from "./components";
 
 interface LessonSettingsProps {

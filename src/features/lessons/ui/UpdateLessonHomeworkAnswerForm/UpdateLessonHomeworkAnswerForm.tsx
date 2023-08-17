@@ -1,5 +1,6 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileInputMultiple, FTextEditor, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
@@ -25,6 +26,8 @@ const UpdateLessonHomeworkAnswerForm = ({
     onClose,
     ...props
 }: UpdateLessonHomeworkAnswerFormProps) => {
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const updateLessonHomeworkAnswer = (values: UpdateLessonHomeworkAnswerFormValidation) => {
         return lessonApi.updateHomeworkAnswer({ ...adaptUpdateLessonHomeworkAnswerRequest(values), lessonId, courseId });
     };
@@ -48,6 +51,27 @@ const UpdateLessonHomeworkAnswerForm = ({
     if (hidden) {
         return null;
     }
+
+    const renderActions = (dirty: boolean, onCancel: () => void) => {
+        if (isEditableAnswer) {
+            return (
+                <>
+                    <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel} maw={200} w="100%">
+                        Отмена
+                    </Button>
+                    <Button variant="secondary" type="submit" size={isMobile ? "medium" : "large"} maw={200} w="100%" disabled={!dirty}>
+                        Отправить
+                    </Button>
+                </>
+            );
+        }
+
+        return (
+            <Button variant="secondary" type="submit" size="medium" maw={200} w="100%" disabled={!dirty}>
+                Отправить
+            </Button>
+        );
+    };
 
     return (
         <Box {...props}>
@@ -76,16 +100,7 @@ const UpdateLessonHomeworkAnswerForm = ({
                                 h={190}
                                 w="100%"
                             />
-                            <Flex gap={16}>
-                                {isEditableAnswer && (
-                                    <Button variant="border" size="large" onClick={onCancel} maw={200} w="100%">
-                                        Отмена
-                                    </Button>
-                                )}
-                                <Button variant="secondary" type="submit" size="large" maw={200} w="100%" disabled={!dirty}>
-                                    Отправить
-                                </Button>
-                            </Flex>
+                            <Flex gap={16}>{renderActions(dirty, onCancel)}</Flex>
                         </Flex>
                     );
                 }}

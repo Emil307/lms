@@ -28,7 +28,9 @@ const PossibleAnswer = ({ data, taskVariant, onSelect }: PossibleAnswerProps) =>
             <Flex className={classes.answerLetterWrapper}>{getAnswerLetterFromRussianAlphabet(data.order + 1)}</Flex>
             <Flex align="center" gap={8}>
                 {renderSelector()}
-                <Paragraph variant="text-small-m">{data.content}</Paragraph>
+                <Paragraph variant="text-small-m" className={classes.content}>
+                    {data.content}
+                </Paragraph>
             </Flex>
         </Flex>
     );

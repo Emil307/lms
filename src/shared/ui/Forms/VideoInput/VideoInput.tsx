@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, BoxProps, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { UploadedFile } from "@shared/types";
 import { getPluralString } from "@shared/utils";
@@ -8,7 +8,7 @@ import { isCorrectVideoFormat } from "./utils";
 import { DEFAULT_VIDEO_MAX_SIZE, VIDEO_FORMATS } from "./constants";
 import AddVideoButton from "./components/AddVideoButton/AddVideoButton";
 
-export interface VideoInputProps {
+export interface VideoInputProps extends Omit<BoxProps, "children"> {
     loadedFilesData?: UploadedFile[];
     editMode?: boolean;
     error?: string;
@@ -24,6 +24,7 @@ const VideoInput = ({
     onDeleteLoadedFile = () => undefined,
     onUploaded = () => undefined,
     error,
+    ...props
 }: VideoInputProps) => {
     const loadedFilesCount = useRef(loadedFilesData.length);
     const [files, setFiles] = useState<LoadedFile[]>(loadedFilesData.map((video, index) => ({ data: video, id: index + 1 })));
@@ -33,7 +34,7 @@ const VideoInput = ({
     const [replaceLoadedFileId, setReplaceLoadedFileId] = useState<number | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const { classes } = useStyles({ editMode });
+    const { classes, cx } = useStyles({ editMode });
 
     useEffect(() => {
         setErrorMessage(error);
@@ -155,7 +156,7 @@ const VideoInput = ({
     };
 
     return (
-        <Box className={classes.wrapper}>
+        <Box {...props} className={cx(classes.wrapper, props.className)}>
             <Flex className={classes.heading} justify="space-between" align="center">
                 <Flex gap={8} direction="column">
                     {renderHeader()}

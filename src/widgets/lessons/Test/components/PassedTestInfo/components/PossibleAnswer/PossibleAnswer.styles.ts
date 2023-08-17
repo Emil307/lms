@@ -6,23 +6,34 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { isCorrect }: CreateStylesParams) => ({
     root: {
+        alignItems: "center",
         paddingInline: 18,
         paddingBlock: 16,
         gap: 16,
         borderRadius: 8,
         border: `1px solid ${theme.colors.grayLight[0]}`,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            paddingInline: 16,
+            paddingBlock: 14,
+            gap: 8,
+        },
     },
     answerLetterWrapper: {
         alignItems: "center",
         justifyContent: "center",
         width: 40,
         height: 40,
+        minWidth: 40,
         borderRadius: 60,
         backgroundColor: isCorrect ? theme.colors.done16[0] : theme.colors.warning16[0],
         fontWeight: 600,
         fontSize: 16,
         lineHeight: "24px",
         color: isCorrect ? theme.colors.done[0] : theme.colors.warning[0],
+    },
+    content: {
+        overflowWrap: "anywhere",
     },
 }));

@@ -629,6 +629,8 @@ export const $Lesson = z.object({
     content: z.string().nullable(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
+    testExists: z.boolean(),
+    homeworkExists: z.boolean(),
     lessonStatus: $LessonStatus,
     prevLesson: $NeighboringLesson.nullable(),
     nextLesson: $NeighboringLesson.nullable(),

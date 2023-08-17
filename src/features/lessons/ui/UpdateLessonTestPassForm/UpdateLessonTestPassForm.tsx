@@ -75,10 +75,10 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                     const handleClickNextQuestion = () => setFieldValue("progressCounter", ++values.progressCounter);
 
                     return (
-                        <Flex gap={32} direction="column">
+                        <Flex className={classes.innerForm}>
                             <FieldArray name="tasks">{() => <Task data={currentTask} />}</FieldArray>
 
-                            <Flex gap={24} w="100%">
+                            <Box className={classes.footerInnerForm}>
                                 <ActionIcon className={classes.actionIconBack} onClick={handleClickArrowLeft}>
                                     <ArrowLeft size={24} />
                                 </ActionIcon>
@@ -92,9 +92,8 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                                 {!isLastQuestion && (
                                     <Button
                                         variant="secondary"
-                                        maw={200}
-                                        w="100%"
                                         onClick={handleClickNextQuestion}
+                                        className={classes.buttonNextOrSubmit}
                                         disabled={!isSelectedPossibleAnswerInCurrentTask}>
                                         Дaлee
                                     </Button>
@@ -103,13 +102,12 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                                     <Button
                                         variant="secondary"
                                         type="submit"
-                                        maw={200}
-                                        w="100%"
+                                        className={classes.buttonNextOrSubmit}
                                         disabled={!isSelectedPossibleAnswerInCurrentTask}>
                                         Завершить
                                     </Button>
                                 )}
-                            </Flex>
+                            </Box>
                         </Flex>
                     );
                 }}

@@ -8,7 +8,6 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("md")]: {
             paddingInline: 0,
             paddingBlock: 0,
-            paddingTop: 24,
         },
     },
     messageContainer: {

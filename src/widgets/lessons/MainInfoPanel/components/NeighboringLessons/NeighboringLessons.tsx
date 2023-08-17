@@ -3,28 +3,30 @@ import { Box, Flex } from "@mantine/core";
 import { ArrowLeftCircle, ArrowRightCircle } from "react-feather";
 import { Button } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
+import useStyles from "./NeighboringLessons.styles";
 
 interface NeighboringLessonsProps extends Pick<GetLessonResponse, "prevLesson" | "nextLesson"> {}
 
 const NeighboringLessons = ({ prevLesson, nextLesson }: NeighboringLessonsProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
 
-    const openLessonDetail = (lessonId: string) => {
+    const openLessonDetails = (lessonId: string) => {
         router.push({
             pathname: "/my-courses/[id]/lessons/[lessonId]",
             query: { id: String(router.query.id), lessonId: lessonId },
         });
     };
 
-    const handlePreviousLesson = () => openLessonDetail(String(prevLesson?.id));
-    const handleNextLesson = () => openLessonDetail(String(nextLesson?.id));
+    const handlePreviousLesson = () => openLessonDetails(String(prevLesson?.id));
+    const handleNextLesson = () => openLessonDetails(String(nextLesson?.id));
 
     const renderNeighboringLessons = () => {
         if (!prevLesson && !nextLesson) {
             return null;
         }
         return (
-            <Flex justify="space-between">
+            <Flex className={classes.root}>
                 <Box>
                     {prevLesson && (
                         <Button

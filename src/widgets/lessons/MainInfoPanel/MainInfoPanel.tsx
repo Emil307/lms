@@ -19,21 +19,21 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
     });
 
     const renderTestAndHomeworkData = () => {
-        if (!data.hasTest && !data.hasHomework) {
+        if (!data.testExists && !data.homeworkExists) {
             return null;
         }
         return (
-            <Flex gap={16}>
-                {data.hasTest && (
-                    <Flex gap={6}>
+            <Flex className={classes.testAndHomeworkInfo}>
+                {data.testExists && (
+                    <Flex className={classes.testInfo}>
                         <Paragraph variant="small-semi">Тест:</Paragraph>
                         <Paragraph variant="small-m" className={classes.testStatus}>
                             {data.testStatus?.displayName || "Не выполнено"}
                         </Paragraph>
                     </Flex>
                 )}
-                {data.hasHomework && (
-                    <Flex gap={6}>
+                {data.homeworkExists && (
+                    <Flex className={classes.homeworkInfo}>
                         <Paragraph variant="small-semi">Домашнее задание:</Paragraph>
                         <Paragraph variant="small-m" className={classes.homeworkStatus}>
                             {data.homeworkStatus?.displayName || "Не выполнено"}

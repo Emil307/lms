@@ -1,12 +1,12 @@
 import { Trash as TrashIcon } from "react-feather";
-import { Button } from "@shared/ui";
 import React from "react";
 import { closeModal, openModal } from "@mantine/modals";
-import { createNotification, ToastType } from "@shared/utils";
-import { DeleteQuestionModal } from "../DeleteQuestionModal";
-import useStyles from "./DeleteQuestionButton.styles";
 import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
+import { createNotification, ToastType } from "@shared/utils";
+import { Button } from "@shared/ui";
+import useStyles from "./DeleteQuestionButton.styles";
+import { DeleteQuestionModal } from "../DeleteQuestionModal";
 
 interface DeleteQuestionButtonProps {
     questionName: string;

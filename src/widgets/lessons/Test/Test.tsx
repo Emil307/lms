@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { EmptyData, Heading, Loader } from "@shared/ui";
 import { useTest, useTestPass } from "@entities/lesson";
 import { UpdateLessonTestPassForm } from "@features/lessons";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 import useStyles from "./Test.styles";
 import { PassedTestInfo } from "./components";
-import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 export interface TestProps {
     lessonId: string;
@@ -62,7 +62,7 @@ const Test = ({ lessonId, courseId }: TestProps) => {
 
     return (
         <Flex className={classes.root}>
-            <Flex gap={16}>
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Тест</Heading>
                 {testPassData && <Badge className={classes.status}>{testPassData.status.displayName}</Badge>}
             </Flex>

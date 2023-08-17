@@ -1,12 +1,12 @@
 import { closeModal, openModal } from "@mantine/modals";
-import { SelectTypeMaterial } from "@widgets/admin/materials";
-import { useAttachMaterialsToLesson } from "@entities/lesson";
-import { AddMaterialsToLessonModal } from "@features/lessons";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
-import { Button, Loader } from "@shared/ui";
 import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import React from "react";
+import { SelectTypeMaterial } from "@widgets/admin/materials";
+import { useAttachMaterialsToLesson } from "@entities/lesson";
+import { AddMaterialsToLessonModal } from "@features/lessons";
+import { Button, Loader } from "@shared/ui";
 
 interface AddMaterialsButtonProps {
     lessonId: string;

@@ -1,6 +1,7 @@
 import { Flex, ThemeIcon, Text } from "@mantine/core";
 import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React, { useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -9,7 +10,6 @@ import { createNotification, ToastType } from "@shared/utils";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { initialValues } from "./constants";
 import useStyles from "./CreateLessonModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateLessonModalProps {
     courseId?: string;
