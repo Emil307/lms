@@ -27,7 +27,7 @@ export const useAttachMaterialsToLesson = ({
                 setTimeout(() => {
                     queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_MATERIALS, lessonId]);
                     queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT, lessonId]);
-                }, 500);
+                }, 1500);
             },
             onError: () => {
                 createNotification({

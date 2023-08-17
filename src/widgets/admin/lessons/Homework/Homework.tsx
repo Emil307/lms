@@ -1,4 +1,4 @@
-import { Flex, Text, ThemeIcon, Title, Box } from "@mantine/core";
+import { Flex, Text, ThemeIcon, Title } from "@mantine/core";
 import React from "react";
 import {
     AlertCircle as AlertCircleIcon,
@@ -31,7 +31,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
     const renderTopCard = () => {
         if (!homework) {
             return (
-                <Flex className={classes.card} gap={32} align="center" justify="space-between">
+                <Flex className={classes.topCard}>
                     <Flex gap={8} direction="column">
                         <Title order={3}>Задание</Title>
                         <Paragraph variant="text-small-m" color="neutral_gray">
@@ -46,7 +46,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
         }
         if (homework.requiredType === "required") {
             return (
-                <Flex className={classes.card} gap={32} align="center" justify="space-between">
+                <Flex className={classes.topCard}>
                     <Flex gap={16} align="center">
                         <Flex className={classes.alertIconWrapper} align="center" justify="center">
                             <ThemeIcon w={48} h={48} color="secondary">
@@ -67,7 +67,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
             );
         }
         return (
-            <Flex className={classes.card} gap={32} align="center" justify="space-between">
+            <Flex className={classes.topCard}>
                 <Flex gap={16} align="center">
                     <Flex className={classes.warningIconWrapper} align="center" justify="center">
                         <ThemeIcon w={48} h={48} color="warning">
@@ -87,18 +87,20 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
     };
 
     return (
-        <Box w="100%" maw={1162}>
+        <Flex gap={32} direction="column" w="100%" maw={1162}>
             <Title order={2}>Домашнее задание</Title>
             {renderTopCard()}
-            <ContentByTextEditor data={homework?.content} mb={24} />
-            {homework?.files && homework.files.length > 0 && (
-                <Flex gap={24} direction="column">
-                    {homework.files.map((file) => (
-                        <FileItem type="document" fileName={file.name} fileSize={file.size} fileUrl={file.absolutePath} key={file.id} />
-                    ))}
-                </Flex>
-            )}
-        </Box>
+            <Flex gap={24} direction="column">
+                <ContentByTextEditor data={homework?.content} />
+                {homework?.files && homework.files.length > 0 && (
+                    <Flex gap={24} direction="column">
+                        {homework.files.map((file) => (
+                            <FileItem type="document" fileName={file.name} fileSize={file.size} fileUrl={file.absolutePath} key={file.id} />
+                        ))}
+                    </Flex>
+                )}
+            </Flex>
+        </Flex>
     );
 };
 
