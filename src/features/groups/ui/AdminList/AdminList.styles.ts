@@ -1,17 +1,69 @@
 import { MantineTheme, createStyles } from "@mantine/core";
 import { AdminGroupStatusType } from "@entities/group";
 
-interface CreateStylesProps {
+interface UseCellStylesProps {
     statusType?: AdminGroupStatusType;
 }
 
-export default createStyles((theme, { statusType }: CreateStylesProps) => ({
+export default createStyles((theme) => ({
+    filterWrapper: {
+        flexDirection: "column",
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            gap: 24,
+        },
+    },
+    filterSearchAndSelects: {
+        flexWrap: "wrap",
+        gap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+
+    filterSearch: {
+        width: 512,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
+
+    filterSelect: {
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
+
+    filterDateRangePicker: {
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
+
+    filterRadioGroup: {
+        [theme.fn.smallerThan("sm")]: {
+            ".mantine-Group-root": {
+                alignItems: "flex-start",
+                flexDirection: "column",
+            },
+        },
+    },
+}));
+
+export const useCellStyles = createStyles((theme, { statusType }: UseCellStylesProps) => ({
     status: {
         ...getColorsByStatus(theme, { statusType }),
     },
 }));
 
-const getColorsByStatus = (theme: MantineTheme, { statusType }: CreateStylesProps) => {
+const getColorsByStatus = (theme: MantineTheme, { statusType }: UseCellStylesProps) => {
     switch (statusType) {
         case "inProgress":
             return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };

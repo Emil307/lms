@@ -1,6 +1,7 @@
-import { Box, BoxProps, Flex, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
 import { AdminGroupScheduleFromList, UpdateAdminGroupScheduleResponse, groupApi } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -16,6 +17,8 @@ export interface UpdateScheduleFormProps extends BoxProps {
 }
 
 const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateScheduleFormProps) => {
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const updateGroupSchedule = (values: UpdateScheduleFormValidation) => {
         return groupApi.updateAdminGroupSchedule({ ...adaptUpdateGroupScheduleRequest(values), groupId, scheduleId: data.id });
     };
@@ -44,10 +47,12 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
                 mutationFunction={updateGroupSchedule}
                 onSuccess={onSuccess}
-                onError={onError}>
-                {({ values }) => (
+                onError={onError}
+                hasConfirmModal
+                onCancel={onClose}>
+                {({ dirty, values, onCancel }) => (
                     <>
-                        <Flex direction="column" gap={24} mb={24}>
+                        <Flex direction="column" gap={16} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
                             <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
@@ -69,8 +74,18 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                                 return (
                                                     <Flex key={index} align="center" justify="space-between">
                                                         <Flex gap={8}>
-                                                            <FTimeInput name={`scheduleTimings.${index}.from`} label="Начало" w={90} />
-                                                            <FTimeInput name={`scheduleTimings.${index}.to`} label="Конец" w={90} />
+                                                            <FTimeInput
+                                                                name={`scheduleTimings.${index}.from`}
+                                                                label="Начало"
+                                                                size="sm"
+                                                                w={90}
+                                                            />
+                                                            <FTimeInput
+                                                                name={`scheduleTimings.${index}.to`}
+                                                                label="Конец"
+                                                                size="sm"
+                                                                w={90}
+                                                            />
                                                         </Flex>
 
                                                         <Button
@@ -88,14 +103,14 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                 }}
                             </FieldArray>
                         </Flex>
-                        <Group sx={{ flexWrap: "nowrap" }}>
-                            <Button type="button" variant="border" fullWidth onClick={onClose}>
+                        <Flex gap={16}>
+                            <Button type="button" variant="border" size={isMobile ? "medium" : "large"} fullWidth onClick={onCancel}>
                                 Отмена
                             </Button>
-                            <Button type="submit" variant="secondary" fullWidth>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} fullWidth disabled={!dirty}>
                                 Сохранить
                             </Button>
-                        </Group>
+                        </Flex>
                     </>
                 )}
             </ManagedForm>

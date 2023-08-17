@@ -83,6 +83,7 @@ export const useInputStyles = createStyles(
             },
 
             ".mantine-TimeInput-controls": {
+                height: size === "sm" ? "auto" : 34,
                 opacity: floating ? 1 : 0,
             },
 

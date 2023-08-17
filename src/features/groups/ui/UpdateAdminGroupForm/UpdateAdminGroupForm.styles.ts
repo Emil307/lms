@@ -1,26 +1,45 @@
 import { createStyles, MantineTheme } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    infoItem: {
-        alignSelf: "center",
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
+    infoPanel: {
+        alignItems: "center",
+        gap: 32,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("lg")]: {
+            flexDirection: "row",
+            width: "100%",
+            gap: 24,
+            overflowX: "auto",
         },
     },
     status: {
         width: "min-content",
-        height: 28,
-        padding: "6px 10px",
-        border: "none",
         borderRadius: 32,
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        textTransform: "inherit",
         ...getColorsByStatus(theme, { status }),
+    },
+    actions: {
+        gap: 8,
+
+        button: {
+            width: "100%",
+            maxWidth: 252,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+
+            button: {
+                maxWidth: "none",
+            },
+        },
     },
 }));
 

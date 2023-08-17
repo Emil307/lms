@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { AdminGroupFromList, AdminGroupsFiltersForm } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { Paragraph } from "@shared/ui";
-import useStyles from "./AdminList.styles";
+import { useCellStyles } from "./AdminList.styles";
 
 export const columnOrder = [
     "id",
@@ -73,7 +73,7 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
         accessorKey: "status.name",
         size: 160,
         Cell: ({ row }) => {
-            const { classes } = useStyles({ statusType: row.original.status.type });
+            const { classes } = useCellStyles({ statusType: row.original.status.type });
             return <Badge className={classes.status}>{row.original.status.name}</Badge>;
         },
     },

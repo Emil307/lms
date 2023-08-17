@@ -6,6 +6,15 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { statusType }: CreateStylesProps) => ({
+    headingContainer: {
+        alignItems: "center",
+        marginBottom: 24,
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexWrap: "wrap",
+        },
+    },
     infoPanelListInfo: {
         flexDirection: "row",
         alignItems: "center",
@@ -26,6 +35,7 @@ export default createStyles((theme, { statusType }: CreateStylesProps) => ({
         },
     },
     status: {
+        overflow: "initial",
         borderRadius: 32,
 
         ...getColorsByStatus(theme, { statusType }),

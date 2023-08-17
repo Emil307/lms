@@ -1,6 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import useStyles from "./ConfirmActionModal.styles";
 
@@ -11,6 +12,7 @@ export interface ConfirmActionModalProps {
 
 const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
     const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     return (
         <>
@@ -21,10 +23,10 @@ const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
                 <Paragraph variant="small-m">Вы хотите сохранить изменения перед закрытием?</Paragraph>
             </Flex>
             <Flex gap={8}>
-                <Button variant="border" size="large" fullWidth onClick={onClose} w="100%">
+                <Button variant="border" size={isMobile ? "medium" : "large"} fullWidth onClick={onClose} w="100%">
                     Закрыть
                 </Button>
-                <Button variant="secondary" size="large" fullWidth onClick={onSubmit} w="100%">
+                <Button variant="secondary" size={isMobile ? "medium" : "large"} fullWidth onClick={onSubmit} w="100%">
                     Сохранить
                 </Button>
             </Flex>

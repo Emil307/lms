@@ -1,6 +1,7 @@
 import { Box, Text, Flex, Grid, BoxProps } from "@mantine/core";
 import React from "react";
 import { Flag, FolderPlus } from "react-feather";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
@@ -8,6 +9,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { $CreateGroupFormValidation, CreateGroupFormValidation } from "./types";
 import { adaptCreateAdminGroupRequest, adaptCreateAdminGroupForm } from "./utils";
+import useStyles from "./CreateAdminGroupForm.styles";
 
 export interface CreateAdminGroupFormProps extends BoxProps {
     courseId?: string;
@@ -16,6 +18,9 @@ export interface CreateAdminGroupFormProps extends BoxProps {
 }
 
 const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: CreateAdminGroupFormProps) => {
+    const { classes } = useStyles();
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
 
     const createGroup = (values: CreateGroupFormValidation) => {
@@ -54,7 +59,7 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
-                            <Flex gap={8} align="center">
+                            <Flex align="center" gap={8}>
                                 <Text color="gray45">Статус:</Text>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
@@ -74,7 +79,7 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                                 />
                             </Fieldset>
                             <Fieldset label="Данные группы" icon={<FolderPlus />} legendProps={{ mb: 24 }}>
-                                <Grid>
+                                <Grid gutter={8}>
                                     <Grid.Col>
                                         <FInput label="Название группы" name="name" size="sm" />
                                     </Grid.Col>
@@ -106,11 +111,11 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                                     </Grid.Col>
                                 </Grid>
                             </Fieldset>
-                            <Flex gap={8}>
-                                <Button variant="border" size="large" onClick={onCancel}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

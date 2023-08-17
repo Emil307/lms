@@ -4,10 +4,10 @@ import { ChevronUp } from "react-feather";
 import { Button, ContentByTextEditor, EmptyData, FileItem, Heading, Loader } from "@shared/ui";
 import { useHomework } from "@entities/lesson";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 import useStyles from "./Homework.styles";
 import { PassedHomeworkInfo } from "./components";
 import { HomeworkChat } from "../HomeworkChat";
-import IconEmptyBox from "@public/icons/emptyBox.svg";
 
 export interface HomeworkProps {
     lessonId: string;
@@ -77,7 +77,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
                 <Box>
                     <Collapse in={openedHomeworkDetails}>
                         <Flex direction="column" gap={24} mb={48}>
-                            <ContentByTextEditor data={homeworkData?.content} />
+                            <ContentByTextEditor data={homeworkData.content} />
                             {renderDocuments}
                         </Flex>
                     </Collapse>
@@ -96,11 +96,11 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
                     <Divider
                         size={1}
                         color="gray20"
-                        hidden={!homeworkData?.answers.length || homeworkData.answers[0]?.status.name === "completed"}
+                        hidden={!homeworkData.answers.length || homeworkData.answers[0]?.status.name === "completed"}
                     />
                 </Box>
 
-                {!!homeworkData?.answers.length && (
+                {!!homeworkData.answers.length && (
                     <HomeworkChat
                         homeworkAnswerId={String(homeworkData.answers[0].id)}
                         courseId={courseId}
