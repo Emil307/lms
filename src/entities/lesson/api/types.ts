@@ -473,6 +473,7 @@ export const $UpdateAdminHomeworkAnswerStatusResponse = $AdminHomeworkAnswer
 export const $AdminHomeworkAnswerMessage = z.object({
     id: z.number(),
     content: z.string(),
+    isRead: z.boolean(),
     createdAt: z.coerce.date(),
     sender: z.object({
         id: z.number(),
@@ -629,8 +630,8 @@ export const $Lesson = z.object({
     content: z.string().nullable(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
-    testExists: z.boolean(),
-    homeworkExists: z.boolean(),
+    testExists: z.boolean().optional(),
+    homeworkExists: z.boolean().optional(),
     lessonStatus: $LessonStatus,
     prevLesson: $NeighboringLesson.nullable(),
     nextLesson: $NeighboringLesson.nullable(),

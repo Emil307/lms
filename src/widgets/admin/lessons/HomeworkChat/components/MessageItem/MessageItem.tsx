@@ -1,4 +1,4 @@
-import { Avatar, Flex, FlexProps, ThemeIcon } from "@mantine/core";
+import { Avatar, Flex, FlexProps, Indicator, ThemeIcon } from "@mantine/core";
 import { memo } from "react";
 import AvatarIcon from "public/icons/avatar.svg";
 import { getFullName } from "@shared/utils";
@@ -16,36 +16,40 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     const { classes } = useStyles();
 
     const getUserRole = () => {
-        if (data.sender.roles[0].id === Roles.student) {
-            return "Ученик";
+        switch (data.sender.roles[0].id) {
+            case Roles.student:
+                return "Ученик";
+            case Roles.administrator:
+                return "Администратор";
+            default:
+                return "Куратор";
         }
-        return "Куратор";
     };
 
     return (
-        <Flex {...props} className={classes.root}>
-            <Flex align="center" gap={8}>
-                <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                    <ThemeIcon className={classes.avatarDefaultIconWrapper}>
-                        <AvatarIcon />
-                    </ThemeIcon>
-                </Avatar>
-                <Flex className={classes.userInfo}>
-                    <Flex direction="column">
-                        <Paragraph variant="text-small-m" lineClamp={1}>
-                            {getFullName({ data: data.sender.profile })}
-                        </Paragraph>
-                        <Paragraph variant="text-caption" color="gray45">
-                            {getUserRole()}
+        <Indicator size={8} offset={16} position="top-start" color="done" disabled={data.isRead}>
+            <Flex {...props} className={classes.root}>
+                <Flex gap={8}>
+                    <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
+                        <ThemeIcon className={classes.avatarDefaultIconWrapper}>
+                            <AvatarIcon />
+                        </ThemeIcon>
+                    </Avatar>
+                    <Flex className={classes.userInfo}>
+                        <Flex direction="column">
+                            <Paragraph variant="text-small-m">{getFullName({ data: data.sender.profile })}</Paragraph>
+                            <Paragraph variant="text-caption" color="gray45">
+                                {getUserRole()}
+                            </Paragraph>
+                        </Flex>
+                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
+                            {getFormatCreatedAt(data.createdAt)}
                         </Paragraph>
                     </Flex>
-                    <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
-                        {getFormatCreatedAt(data.createdAt)}
-                    </Paragraph>
                 </Flex>
+                <Paragraph variant="text-small-m">{data.content}</Paragraph>
             </Flex>
-            <Paragraph variant="text-small-m">{data.content}</Paragraph>
-        </Flex>
+        </Indicator>
     );
 });
 
