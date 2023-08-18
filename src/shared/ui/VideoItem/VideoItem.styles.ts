@@ -8,9 +8,6 @@ interface CreateStylesProps {
 
 export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) => ({
     status: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
     video: {
@@ -28,12 +25,9 @@ export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) =>
               }
             : {}),
     },
-    name: {
-        textOverflow: "ellipsis",
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-    },
+
     size: {
+        color: theme.colors.gray45[0],
         whiteSpace: "nowrap",
     },
     extra: {

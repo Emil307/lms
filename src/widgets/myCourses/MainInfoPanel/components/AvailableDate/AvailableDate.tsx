@@ -2,22 +2,22 @@ import { Flex, ThemeIcon } from "@mantine/core";
 import dayjs from "dayjs";
 import IconCalendar from "public/icons/calendar.svg";
 import { Paragraph } from "@shared/ui";
-import useStyles from "./AccessEndDate.styles";
+import useStyles from "./AvailableDate.styles";
 
-export interface AccessEndDateProps {
+export interface AvailableDateProps {
     availableTo: Date | null;
 }
 
-const AccessEndDate = ({ availableTo }: AccessEndDateProps) => {
+const AvailableDate = ({ availableTo }: AvailableDateProps) => {
     const { classes } = useStyles();
 
     return (
-        <Flex align="center" gap={6}>
+        <Flex className={classes.root}>
             <ThemeIcon className={classes.wrapperIcon}>
                 <IconCalendar />
             </ThemeIcon>
             {availableTo ? (
-                <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(availableTo).format("D MMMM YYYY HH:mm")}`}</Paragraph>
+                <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(availableTo).format("D MMMM YYYY")}`}</Paragraph>
             ) : (
                 <Paragraph variant="text-small-m">Доступ не ограничен</Paragraph>
             )}
@@ -25,4 +25,4 @@ const AccessEndDate = ({ availableTo }: AccessEndDateProps) => {
     );
 };
 
-export default AccessEndDate;
+export default AvailableDate;

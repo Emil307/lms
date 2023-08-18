@@ -21,7 +21,7 @@ export default createStyles((theme) => ({
     contentBodyLeftContainer: {
         flex: 1,
         flexDirection: "column",
-        gap: 48,
+        gap: 24,
     },
     contentBodyTextContainer: {
         flexDirection: "column",
@@ -92,6 +92,6 @@ export default createStyles((theme) => ({
     descriptionContainer: {
         flexDirection: "column",
         marginTop: 32,
-        gap: 6,
+        gap: 8,
     },
 }));

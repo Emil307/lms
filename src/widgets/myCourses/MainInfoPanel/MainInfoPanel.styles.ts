@@ -10,6 +10,22 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         padding: 32,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
+
+        [theme.fn.smallerThan("md")]: {
+            padding: 24,
+        },
+    },
+    contentBody: {
+        gap: 48,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column-reverse",
+        },
+    },
+    contentBodyLeftContainer: {
+        flex: 1,
+        flexDirection: "column",
+        gap: 24,
     },
     status: {
         ...getColorsByStatus(theme, { status }),
@@ -18,36 +34,29 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         backgroundColor: theme.colors.light[0],
         color: theme.colors.dark[0],
     },
-    ratingValue: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    ratingMaxValue: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.gray45[0],
-    },
-    reviewInfo: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-    },
-    dividerDot: {
-        alignSelf: "center",
-        height: 4,
-        borderLeftColor: theme.colors.dark[0],
-        borderLeftStyle: "dotted",
-    },
     imageWrapper: {
         position: "relative",
         overflow: "hidden",
         width: 424,
         height: 260,
         borderRadius: 16,
+        backgroundColor: theme.colors.grayLight[0],
+
+        [theme.fn.smallerThan("md")]: {
+            width: 350,
+            height: 215,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+            maxWidth: 295,
+            height: 181,
+        },
+    },
+    descriptionContainer: {
+        flexDirection: "column",
+        marginTop: 32,
+        gap: 8,
     },
 }));
 

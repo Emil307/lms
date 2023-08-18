@@ -13,7 +13,7 @@ export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {
 }
 
 const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingListProps) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     const { data: groupModulesData, hasNextPage, fetchNextPage, isLoading, isFetching } = useGroupModules({ ...initialParams, groupId });
     const { ref: lastElemRef, entry } = useIntersection();
@@ -39,7 +39,7 @@ const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingLis
     }
 
     return (
-        <Flex {...props} className={classes.root}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
             {renderModules}
             {isFetching && <Loader />}
         </Flex>

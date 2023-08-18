@@ -7,6 +7,7 @@ import { Filters } from "@features/articles";
 import { TRouterQueries } from "@shared/types";
 import { initialFilterValues } from "./constants";
 import { adaptCourseArticleFiltersForm, prepareQueryParams } from "./utils";
+import useStyles from "./MyCourseArticles.styles";
 
 export interface MyCourseArticlesProps extends FlexProps {
     courseId: string;
@@ -14,8 +15,9 @@ export interface MyCourseArticlesProps extends FlexProps {
 
 const MyCourseArticles = ({ courseId, ...props }: MyCourseArticlesProps) => {
     const router = useRouter();
-    const [filterParams, setFilterParams] = useState<ArticleAndArticleCategoryFiltersForm>(initialFilterValues);
     const queryParams = router.query as TRouterQueries;
+    const [filterParams, setFilterParams] = useState<ArticleAndArticleCategoryFiltersForm>(initialFilterValues);
+    const { classes, cx } = useStyles();
 
     useEffect(() => {
         if (!router.isReady) {
@@ -36,9 +38,9 @@ const MyCourseArticles = ({ courseId, ...props }: MyCourseArticlesProps) => {
     };
 
     return (
-        <Flex gap={32} {...props}>
-            <Filters data={filterParams} onSubmitFilters={handleSubmitFilters} w={264} articleType="by-course" courseId={courseId} />
-            <Flex direction="column" gap={64} sx={{ flex: 1 }}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
+            <Filters data={filterParams} onSubmitFilters={handleSubmitFilters} articleType="by-course" courseId={courseId} />
+            <Flex className={classes.wrapperContent}>
                 <ArticleList.Main filterParams={{ ...filterParams, courseId }} />
             </Flex>
         </Flex>
