@@ -1,54 +1,30 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
-import { closeModal } from "@mantine/modals";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useRouter } from "next/router";
-import { LinkProps } from "next/link";
 import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteUser } from "@entities/user";
-import { ToastType, createNotification } from "@shared/utils";
 import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
 
 export interface UserDeleteModalProps {
     id: string;
     fio: string;
-    redirectUrl?: LinkProps["href"];
+    onClose: () => void;
 }
 
-const UserDeleteModal = ({ id, fio, redirectUrl }: UserDeleteModalProps) => {
-    const router = useRouter();
+const UserDeleteModal = ({ id, fio, onClose }: UserDeleteModalProps) => {
     const { classes } = UserDeleteModalStyles();
-    const deleteUser = useDeleteUser();
+    const deleteUser = useDeleteUser({ id, fio });
 
     const isMobile = useMediaQuery("(max-width: 576px)");
 
     const handleDeleteUser = async () => {
-        deleteUser.mutate(id, {
+        deleteUser.mutate(null, {
             onSuccess: () => {
-                closeModal(`${id}`);
-                createNotification({
-                    type: ToastType.SUCCESS,
-                    title: "Удаление пользователя",
-                    message: `Пользователь "${fio}" успешно удален`,
-                });
-                if (!redirectUrl) {
-                    return;
-                }
-                router.push(redirectUrl);
-            },
-            onError: () => {
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка удаления пользователя",
-                });
-
-                closeModal(`${id}`);
+                onClose();
             },
         });
     };
-
-    const handleCancel = () => closeModal(`${id}`);
 
     return (
         <Flex direction="column" gap={24}>
@@ -64,12 +40,7 @@ const UserDeleteModal = ({ id, fio, redirectUrl }: UserDeleteModalProps) => {
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="border"
-                    onClick={handleCancel}
-                    loading={deleteUser.isLoading}
-                    w="100%">
+                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteUser.isLoading} w="100%">
                     Отмена
                 </Button>
                 <Button

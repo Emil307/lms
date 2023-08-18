@@ -8,18 +8,18 @@ import { UserDeleteModal } from "@features/users";
 import { Button } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 
-export interface DeleteUserButtonProps {
+export interface DeleteStudentButtonProps {
     data?: UserDetailResponse;
     hidden?: boolean;
 }
 
-const DeleteUserButton = ({ data, hidden = false }: DeleteUserButtonProps) => {
+const DeleteStudentButton = ({ data, hidden = false }: DeleteStudentButtonProps) => {
     const router = useRouter();
     const isMobile = useMediaQuery("(max-width: 744px)");
 
     const handleCloseDeleteModal = () => {
         closeModal("DELETE_USER");
-        router.push("/admin/users");
+        router.push("/admin/students");
     };
 
     const handleOpenDeleteModal = () => {
@@ -49,4 +49,4 @@ const DeleteUserButton = ({ data, hidden = false }: DeleteUserButtonProps) => {
     );
 };
 
-export default DeleteUserButton;
+export default DeleteStudentButton;

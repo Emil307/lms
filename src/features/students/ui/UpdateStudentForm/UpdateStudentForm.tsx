@@ -1,9 +1,10 @@
-import { Box, Flex, Avatar } from "@mantine/core";
+import { Box, Flex, Grid, Col, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FInput, FRadioGroup, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
@@ -16,15 +17,17 @@ import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./typ
 import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
 import useStyles from "./UpdateStudentForm.styles";
 
-export interface UpdateStudentFormProps {
+export interface UpdateStudentFormProps extends Omit<BoxProps, "children"> {
     data?: UserDetailResponse;
     onClose: () => void;
 }
 
-const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
+const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: options } = useAdminStudentsFilters();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
@@ -64,7 +67,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <ManagedForm<UpdateStudentFormValidation, UpdateAdminUserResponse>
                 initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataUpdateStudentForm(data) }}
                 validationSchema={$UpdateStudentFormValidation}
@@ -81,7 +84,7 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                 hasConfirmModal>
                 {({ values, dirty, onCancel }) => (
                     <Flex direction="column" gap={32}>
-                        <Flex gap={32} align="center">
+                        <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
                                 <Paragraph variant="text-small-m" color="gray45">
                                     ID:
@@ -110,33 +113,37 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                             <LastUpdatedInfo data={data?.lastUpdated} />
                         </Flex>
 
-                        <Fieldset label="Личные данные" icon={<User />}>
-                            <>
-                                <Flex align="center" gap={24}>
-                                    <Avatar
-                                        src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
-                                        alt="avatar"
-                                        className={classes.avatarWrapper}>
-                                        <AvatarIcon />
-                                    </Avatar>
-                                    <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                </Flex>
-                                <Flex mt={24} gap={8}>
-                                    <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
-                                    <FInput name="lastName" label="Фамилия" size="sm" w={252} withAsterisk />
-                                    <FInput name="patronymic" label="Отчество" size="sm" w={252} />
-                                </Flex>
-                            </>
+                        <Fieldset label="Личные данные" icon={<User />} showDivider={false} maw={772}>
+                            <Flex align="center" wrap="wrap" gap={24} mb={24}>
+                                <Avatar
+                                    src={values.avatar?.absolutePath || data?.profile.avatar?.absolutePath}
+                                    alt="avatar"
+                                    className={classes.avatarWrapper}>
+                                    <AvatarIcon />
+                                </Avatar>
+                                <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                            </Flex>
+                            <Grid gutter={8} w="100%">
+                                <Col xs={6} sm={4}>
+                                    <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
+                                </Col>
+                                <Col xs={6} sm={4}>
+                                    <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
+                                </Col>
+                                <Col xs={6} sm={4}>
+                                    <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
+                                </Col>
+                            </Grid>
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />}>
                             <Flex direction="column" gap={16} w="100%">
-                                <FRadioGroup name="roleId">
+                                <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
                                     {options?.roles.map((item) => (
                                         <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
                                     ))}
                                 </FRadioGroup>
                                 <Flex wrap="wrap" gap={8}>
-                                    <FInput name="email" label="Email" size="sm" w={252} disabled />
+                                    <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} disabled />
                                     <Button
                                         type="button"
                                         variant="border"
@@ -150,11 +157,11 @@ const UpdateStudentForm = ({ data, onClose }: UpdateStudentFormProps) => {
                             </Flex>
                         </Fieldset>
 
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                        <Flex className={classes.actions}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                 Отменить
                             </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

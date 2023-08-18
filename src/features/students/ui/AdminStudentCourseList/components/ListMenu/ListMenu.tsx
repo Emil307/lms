@@ -8,7 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminCourseFromList } from "@entities/course";
 import { DeleteStudentCourseModal } from "@features/students";
 
-interface ListMenuProps {
+export interface ListMenuProps {
     row: MRT_Row<AdminCourseFromList>;
     studentId: string;
 }
@@ -39,14 +39,14 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
     return (
         <MenuDataGrid>
             <MenuItemDataGrid mt={8} onClick={handleOpenDetailsPage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             {/* //TODO: Добавить статистику курса */}
             <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить доступ

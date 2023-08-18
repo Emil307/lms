@@ -1,24 +1,25 @@
-import { Box, BoxProps, Flex, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
-import { Bell, Shield, Trash, User as UserIcon } from "react-feather";
+import { Bell, Shield, User as UserIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
 import { useDetailsUser } from "@entities/user";
-import { ChangeUserPasswordForm, UserDeleteModal } from "@features/users";
+import { ChangeUserPasswordForm } from "@features/users";
 import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { fields } from "./constants";
 import useStyles from "./StudentSettings.styles";
+import { DeleteStudentButton } from "./components";
 
-interface StudentSettingsProps extends BoxProps {
+export interface StudentSettingsProps extends BoxProps {
     id: string;
 }
 
-const StudentSettings = ({ id, className, ...props }: StudentSettingsProps) => {
+const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
     const router = useRouter();
     const { classes, cx } = useStyles();
     const { data } = useDetailsUser(id);
@@ -33,14 +34,6 @@ const StudentSettings = ({ id, className, ...props }: StudentSettingsProps) => {
 
     const handleChangeNotification = (notification: string, isActive: boolean) => {
         updateNotification({ notification, isActive });
-    };
-
-    const openModalDeleteUser = () => {
-        openModal({
-            modalId: `${id}`,
-            title: "Удаление пользователя",
-            children: <UserDeleteModal redirectUrl="/admin/students" id={id} fio={getFullName({ data: data?.profile })} />,
-        });
     };
 
     const openUserEditPage = () => router.push({ pathname: "/admin/students/[id]/edit", query: { id } });
@@ -61,29 +54,27 @@ const StudentSettings = ({ id, className, ...props }: StudentSettingsProps) => {
         });
 
     return (
-        <Box className={cx(classes.info, className)} {...props}>
-            <Group sx={{ flexDirection: "column", alignItems: "flex-start" }}>
-                <Flex gap={48} align="center">
+        <Flex {...props} className={cx(classes.root, props.className)}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
-                    <Button onClick={openModalDeleteUser} variant="text" leftIcon={<Trash />}>
-                        Удалить пользователя
-                    </Button>
+                    <DeleteStudentButton data={data} />
                 </Flex>
-                <Fieldset mt={32} label="Личные данные" icon={<UserIcon />}>
+                <Fieldset label="Личные данные" icon={<UserIcon />}>
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
                     <DisplayField label="Имя" value={data?.profile.firstName} />
                     <DisplayField label="Отчество" value={data?.profile.patronymic} />
                 </Fieldset>
 
-                <Fieldset mt={24} label="Системные данные" icon={<Shield />}>
+                <Fieldset label="Системные данные" icon={<Shield />}>
                     <DisplayField label="Роль" value={data?.roles[0].displayName} />
                     <DisplayField label="Email" value={data?.email} />
                 </Fieldset>
 
-                <Fieldset label="Настройки уведомлений" icon={<Bell />} mt={32}>
+                <Fieldset label="Настройки уведомлений" icon={<Bell />}>
                     <SettingsNotificationList notifications={data?.notifications} variant="secondary" onChange={handleChangeNotification} />
                 </Fieldset>
-            </Group>
+            </Flex>
             <Box>
                 <InfoCard
                     avatar={{
@@ -104,7 +95,7 @@ const StudentSettings = ({ id, className, ...props }: StudentSettingsProps) => {
                     }
                 />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

@@ -6,26 +6,31 @@ export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "ФИО",
         accessorKey: "profile",
         id: "fullName",
-        Cell: ({ cell }) => <>{getFullName({ data: cell.row.original.profile })}</>,
+        size: 339,
+        accessorFn: ({ profile }) => getFullName({ data: profile }),
     },
     {
         header: "Роль",
         accessorKey: "roles",
         id: "roleName",
-        Cell: ({ cell }) => <>{cell.row.original.roles[0].displayName}</>,
+        size: 339,
+        accessorFn: ({ roles }) => roles[0].displayName,
     },
     {
         header: "Email",
         accessorKey: "email",
+        size: 339,
     },
     {
         header: "Статус",
         accessorKey: "isActive",
+        size: 140,
         Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];

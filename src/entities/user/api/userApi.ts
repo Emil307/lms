@@ -35,27 +35,33 @@ import {
     UpdateUserStaticRequest,
     UpdateUserStaticResponse,
     $UpdateUserStaticResponse,
+    DeleteUserRequest,
+    DeleteUserResponse,
+    $DeleteUserResponse,
+    ChangeUserPasswordResponse,
+    $ChangeUserPasswordResponse,
 } from "./types";
 
 export class UserApi extends BaseApi {
     async getAdminUsers({ roleName, isActive, ...params }: UsersRequestParamsType): Promise<GetUsersResponse> {
-        const result = await this.instance.post("admin/users/administrators/list", {
+        const response = await this.instance.post("admin/users/administrators/list", {
             ...params,
             filter: {
                 roleName,
                 isActive,
             },
         });
-        return $GetUsersResponse.parse(result);
+        return $GetUsersResponse.parse(response);
     }
 
     async getAdminUsersFilters(): Promise<GetUsersAdminFiltersResponse> {
-        const result = await this.instance.get("admin/users/administrators/filters");
-        return $GetUsersAdminFiltersResponse.parse(result);
+        const response = await this.instance.get("admin/users/administrators/filters");
+        return $GetUsersAdminFiltersResponse.parse(response);
     }
 
-    async deleteUser(id: string): Promise<void> {
-        await this.instance.delete(`admin/users/${id}`);
+    async deleteUser({ id }: DeleteUserRequest): Promise<DeleteUserResponse> {
+        const response = await this.instance.delete(`admin/users/${id}`);
+        return $DeleteUserResponse.parse(response);
     }
 
     async updateUserActivity({ id, isActive }: UpdateUserActivityRequest): Promise<UpdateUserActivityResponse> {
@@ -69,22 +75,23 @@ export class UserApi extends BaseApi {
     }
 
     async showUser(id: string): Promise<UserDetailResponse> {
-        const result = await this.instance.get(`admin/users/${id}`);
-        return $UserDetailResponse.parse(result);
+        const response = await this.instance.get(`admin/users/${id}`);
+        return $UserDetailResponse.parse(response);
     }
 
     async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
-        const result = await this.instance.post("admin/users", data);
-        return $CreateUserResponse.parse(result);
+        const response = await this.instance.post("admin/users", data);
+        return $CreateUserResponse.parse(response);
     }
 
     async updateUser({ id, ...data }: UpdateAdminUserRequest): Promise<UpdateAdminUserResponse> {
-        const result = await this.instance.put(`admin/users/${id}`, data);
-        return $UpdateAdminUserResponse.parse(result);
+        const response = await this.instance.put(`admin/users/${id}`, data);
+        return $UpdateAdminUserResponse.parse(response);
     }
 
-    async updateUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<void> {
-        await this.instance.put(`admin/users/${id}/change-password`, data);
+    async updateUserPassword({ id, ...data }: ChangeUserPasswordRequest): Promise<ChangeUserPasswordResponse> {
+        const response = await this.instance.put(`admin/users/${id}/change-password`, data);
+        return $ChangeUserPasswordResponse.parse(response);
     }
 
     //teachers
@@ -95,12 +102,12 @@ export class UserApi extends BaseApi {
 
     //students
     async getAdminStudents(params: GetAdminStudentsRequest): Promise<GetAdminStudentsResponse> {
-        const result = await this.instance.post("admin/users/students/list", params);
-        return $GetAdminStudentsResponse.parse(result);
+        const response = await this.instance.post("admin/users/students/list", params);
+        return $GetAdminStudentsResponse.parse(response);
     }
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
-        const result = await this.instance.get("admin/users/students/filters");
-        return $GetAdminStudentsFiltersResponse.parse(result);
+        const response = await this.instance.get("admin/users/students/filters");
+        return $GetAdminStudentsFiltersResponse.parse(response);
     }
 
     //students <---> COURSES ADMIN

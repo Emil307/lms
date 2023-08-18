@@ -1,39 +1,24 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { PlusCircle } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
-import { Button, Heading, ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminStudentCoursesExtraFilters, courseApi } from "@entities/course";
-import { AddCoursesToStudentModal } from "@features/students";
 import { columns, columnOrder } from "./constants";
-import { ListMenu } from "./components";
+import { AddStudentCourseButton, ListMenu } from "./components";
 import { adaptGetStudentCoursesRequest } from "./utils";
+import useStyles from "./AdminStudentCourseList.styles";
 
 export interface AdminStudentCourseListProps extends BoxProps {
     studentId: string;
 }
 
 const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListProps) => {
-    const handleCloseAddCoursesToStudentModal = () => closeModal("ATTACH_COURSES_TO_STUDENT");
-
-    const openAddCoursesToStudentModal = () => {
-        openModal({
-            modalId: "ATTACH_COURSES_TO_STUDENT",
-            title: "Добавить курс",
-            centered: true,
-            children: <AddCoursesToStudentModal studentId={studentId} onClose={handleCloseAddCoursesToStudentModal} />,
-            size: 912,
-            mah: 912,
-        });
-    };
+    const { classes } = useStyles();
 
     return (
         <Box {...props}>
-            <Flex gap={48} align="center">
+            <Flex className={classes.headingContainer}>
                 <Heading order={2}>Список курсов</Heading>
-                <Button variant="text" onClick={openAddCoursesToStudentModal} leftIcon={<PlusCircle />}>
-                    Добавить курс
-                </Button>
+                <AddStudentCourseButton studentId={studentId} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminStudentCoursesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_STUDENT_COURSES}

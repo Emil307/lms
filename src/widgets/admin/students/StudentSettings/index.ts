@@ -1,3 +1,3 @@
-import StudentSettings from "./StudentSettings";
+import StudentSettings, { type StudentSettingsProps } from "./StudentSettings";
 
-export { StudentSettings };
+export { StudentSettings, StudentSettingsProps };

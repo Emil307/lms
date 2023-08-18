@@ -1,7 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    warningIconWrapper: {
+    warning: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

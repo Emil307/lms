@@ -1,7 +1,8 @@
-import { Box, Flex, Avatar } from "@mantine/core";
+import { Box, Flex, Avatar, BoxProps, Col, Grid } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@mantine/hooks";
 import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
@@ -13,13 +14,16 @@ import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest
 import { notificationLabels, notifications } from "./constants";
 import useStyles from "./CreateStudentForm.styles";
 
-export interface CreateStudentFormProps {
+export interface CreateStudentFormProps extends Omit<BoxProps, "children"> {
     onClose: () => void;
 }
 
-const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
+const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 576px)");
+
     const { data: options } = useAdminStudentsFilters();
     const defaultRole = String(options?.roles.at(0)?.id ?? 0);
 
@@ -44,82 +48,103 @@ const CreateStudentForm = ({ onClose }: CreateStudentFormProps) => {
     };
 
     return (
-        <ManagedForm<CreateStudentValidationFormRequest, CreateUserResponse>
-            initialValues={getInitialValuesForm(defaultRole)}
-            validationSchema={$CreateStudentValidationFormRequest}
-            mutationKey={[MutationKeys.CREATE_USER]}
-            mutationFunction={createStudent}
-            onSuccess={onSuccess}
-            onError={onError}
-            onCancel={onClose}>
-            {({ values, dirty, onCancel }) => (
-                <Flex gap={32} direction="column">
-                    <Flex gap={8} align="center">
-                        <Paragraph variant="text-small-m" color="gray45">
-                            Статус:
-                        </Paragraph>
-                        <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
-                    </Flex>
-                    <Fieldset label="Личные данные" icon={<User />}>
-                        <Box>
-                            <Flex align="center" gap={24}>
-                                <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                    <AvatarIcon />
-                                </Avatar>
-                                <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+        <Box {...props}>
+            <ManagedForm<CreateStudentValidationFormRequest, CreateUserResponse>
+                initialValues={getInitialValuesForm(defaultRole)}
+                validationSchema={$CreateStudentValidationFormRequest}
+                mutationKey={[MutationKeys.CREATE_USER]}
+                mutationFunction={createStudent}
+                onSuccess={onSuccess}
+                onError={onError}
+                onCancel={onClose}>
+                {({ values, dirty, onCancel }) => (
+                    <Flex direction="column" gap={32}>
+                        <Flex align="center" gap={8}>
+                            <Paragraph variant="text-small-m" color="gray45">
+                                Статус:
+                            </Paragraph>
+                            <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
+                        </Flex>
+                        <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} maw={772}>
+                            <Flex direction="column" gap={24} w="100%">
+                                <Flex align="center" gap={24} wrap="wrap">
+                                    <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
+                                        <AvatarIcon />
+                                    </Avatar>
+                                    <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                </Flex>
+                                <Grid gutter={8}>
+                                    <Col xs={6} sm={4}>
+                                        <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
+                                    </Col>
+                                    <Col xs={6} sm={4}>
+                                        <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
+                                    </Col>
+                                    <Col xs={6} sm={4}>
+                                        <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
+                                    </Col>
+                                </Grid>
                             </Flex>
-                            <Flex mt={24} gap={8}>
-                                <FInput name="firstName" label="Имя" size="sm" w={252} withAsterisk />
-                                <FInput name="lastName" label="Фамилия" size="sm" w={252} withAsterisk />
-                                <FInput name="patronymic" label="Отчество" size="sm" w={252} />
+                        </Fieldset>
+                        <Fieldset label="Системные данные" icon={<Shield />} legendProps={{ mb: 24 }} maw={772}>
+                            <Flex direction="column" gap={24} w="100%">
+                                <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
+                                    {options?.roles.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
+                                    ))}
+                                </FRadioGroup>
+                                <Grid gutter={8}>
+                                    <Col xs={6} sm={4}>
+                                        <FInput name="email" label="Email" size="sm" className={classes.formInput} withAsterisk />
+                                    </Col>
+                                    <Col xs={6} sm={4}>
+                                        <FInput
+                                            name="password"
+                                            type="password"
+                                            label="Пароль"
+                                            size="sm"
+                                            className={classes.formInput}
+                                            withAsterisk
+                                        />
+                                    </Col>
+                                    <Col xs={6} sm={4}>
+                                        <FInput
+                                            name="passwordConfirmation"
+                                            type="password"
+                                            label="Повторите пароль"
+                                            size="sm"
+                                            className={classes.formInput}
+                                            withAsterisk
+                                        />
+                                    </Col>
+                                </Grid>
                             </Flex>
-                        </Box>
-                    </Fieldset>
-                    <Fieldset label="Системные данные" icon={<Shield />}>
-                        <Box>
-                            <FRadioGroup name="roleId">
-                                {options?.roles.map((item) => (
-                                    <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
-                                ))}
-                            </FRadioGroup>
-                            <Flex mt={24} gap={8}>
-                                <FInput name="email" label="Email" size="sm" w={252} withAsterisk />
-                                <FInput name="password" type="password" label="Пароль" size="sm" w={252} withAsterisk />
-                                <FInput
-                                    name="passwordConfirmation"
-                                    type="password"
-                                    label="Повторите пароль"
-                                    size="sm"
-                                    w={252}
-                                    withAsterisk
-                                />
-                            </Flex>
-                        </Box>
-                    </Fieldset>
+                        </Fieldset>
 
-                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                        <Box className={classes.notificationsContainer}>
-                            {notifications.map((name, index) => (
-                                <FControlPanel
-                                    name={`notifications[${name}]`}
-                                    key={index}
-                                    label={notificationLabels[name as keyof typeof notificationLabels]}
-                                    variant="secondary"
-                                />
-                            ))}
-                        </Box>
-                    </Fieldset>
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
-                            Отменить
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
-                            Сохранить
-                        </Button>
+                        <Fieldset label="Настройки уведомлений" icon={<Bell />} legendProps={{ mb: 24 }} maw={772}>
+                            <Box className={classes.notificationsContainer}>
+                                {notifications.map((name, index) => (
+                                    <FControlPanel
+                                        name={`notifications[${name}]`}
+                                        key={index}
+                                        label={notificationLabels[name as keyof typeof notificationLabels]}
+                                        variant="secondary"
+                                    />
+                                ))}
+                            </Box>
+                        </Fieldset>
+                        <Flex className={classes.actions}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                Отменить
+                            </Button>
+                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
+                                Сохранить
+                            </Button>
+                        </Flex>
                     </Flex>
-                </Flex>
-            )}
-        </ManagedForm>
+                )}
+            </ManagedForm>
+        </Box>
     );
 };
 

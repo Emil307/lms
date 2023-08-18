@@ -12,7 +12,7 @@ import { QueryKeys } from "@shared/constant";
 import { ManagedDataGrid } from "@shared/ui";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
-import { UsersListMenu } from "./components";
+import { ListMenu } from "./components";
 import useStyles from "./List.styles";
 
 const UserList = () => {
@@ -64,7 +64,7 @@ const UserList = () => {
                     initialState={{
                         columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
                     }}
-                    renderRowActions={({ row }) => <UsersListMenu row={row} />}
+                    renderRowActions={({ row }) => <ListMenu row={row} />}
                     collapsedFiltersBlockProps={{
                         isCollapsed: isMobile,
                     }}>
