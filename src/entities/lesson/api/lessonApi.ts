@@ -75,6 +75,9 @@ import {
     CreateHomeworkAnswerMessageRequest,
     CreateHomeworkAnswerMessageResponse,
     $CreateHomeworkAnswerMessageResponse,
+    FinishLessonRequest,
+    FinishLessonResponse,
+    $FinishLessonResponse,
 } from "@entities/lesson";
 
 class LessonApi extends BaseApi {
@@ -191,6 +194,10 @@ class LessonApi extends BaseApi {
     async getLesson({ id, courseId }: GetLessonRequest): Promise<GetLessonResponse> {
         const response = await this.instance.get(`user/courses/${courseId}/lessons/${id}`);
         return $GetLessonResponse.parse(response);
+    }
+    async finishLesson({ courseId, lessonId }: FinishLessonRequest): Promise<FinishLessonResponse> {
+        const response = await this.instance.post(`user/courses/${courseId}/lessons/${lessonId}/finish`);
+        return $FinishLessonResponse.parse(response);
     }
 
     //test

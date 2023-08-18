@@ -106,6 +106,8 @@ export type HomeworkAnswerMessageFromList = z.infer<typeof $HomeworkAnswerMessag
 //REQ/RESP
 export type GetLessonRequest = z.infer<typeof $GetLessonRequest>;
 export type GetLessonResponse = z.infer<typeof $GetLessonResponse>;
+export type FinishLessonRequest = z.infer<typeof $FinishLessonRequest>;
+export type FinishLessonResponse = z.infer<typeof $FinishLessonResponse>;
 //test
 export type GetTestRequest = z.infer<typeof $GetTestRequest>;
 export type GetTestResponse = z.infer<typeof $GetTestResponse>;
@@ -657,6 +659,13 @@ export const $GetLessonRequest = z.object({
 });
 
 export const $GetLessonResponse = $Lesson;
+
+export const $FinishLessonRequest = z.object({
+    courseId: z.string(),
+    lessonId: z.string(),
+});
+
+export const $FinishLessonResponse = $Lesson;
 
 //HOMEWORK MESSAGE
 export const $HomeworkAnswerMessage = z.object({

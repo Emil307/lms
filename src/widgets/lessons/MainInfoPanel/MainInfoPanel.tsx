@@ -3,6 +3,7 @@ import { Box } from "@mantine/core";
 import { Heading, Paragraph } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
 import { MyCourse } from "@entities/course";
+import { FinishLessonButton } from "@features/lessons";
 import { NeighboringLessons } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
@@ -17,6 +18,8 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
         testStatus: data.testStatus?.name,
         homeworkStatus: data.homeworkStatus?.name,
     });
+
+    const isVisibleFinishLessonButton = !data.homeworkExists && !data.testExists && data.lessonStatus.name !== "completed";
 
     const renderTestAndHomeworkData = () => {
         if (!data.testExists && !data.homeworkExists) {
@@ -46,17 +49,28 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
 
     return (
         <Flex {...props} className={classes.root}>
-            <Flex direction="column" gap={16}>
-                <Badge className={classes.status}>{data.lessonStatus.displayName}</Badge>
-                <Box>
-                    <Paragraph variant="text-small-m">{myCourseData.name}</Paragraph>
-                    <Heading>{data.name}</Heading>
-                </Box>
-                <Paragraph variant="small-m" color="gray45">
-                    {data.description}
-                </Paragraph>
-                {renderTestAndHomeworkData()}
+            <Flex className={classes.inner}>
+                <Flex direction="column" gap={16}>
+                    <Badge className={classes.status}>{data.lessonStatus.displayName}</Badge>
+                    <Box>
+                        <Paragraph variant="text-small-m">{myCourseData.name}</Paragraph>
+                        <Heading>{data.name}</Heading>
+                    </Box>
+                    <Paragraph variant="small-m" color="gray45">
+                        {data.description}
+                    </Paragraph>
+                    {renderTestAndHomeworkData()}
+                </Flex>
+                <FinishLessonButton
+                    courseId={String(myCourseData.courseId)}
+                    lessonId={String(data.id)}
+                    visible={isVisibleFinishLessonButton}
+                    nameLesson={data.name}
+                    w="100%"
+                    maw={170}
+                />
             </Flex>
+
             <NeighboringLessons prevLesson={data.prevLesson} nextLesson={data.nextLesson} />
         </Flex>
     );

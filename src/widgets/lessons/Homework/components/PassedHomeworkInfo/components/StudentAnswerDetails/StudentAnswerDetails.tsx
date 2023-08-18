@@ -8,12 +8,16 @@ import useStyles from "./StudentAnswerDetails.styles";
 import { getFormatUpdatedAt } from "./utils";
 
 export interface StudentAnswerDetailsProps {
-    data: HomeworkAnswer;
+    data: HomeworkAnswer | null;
     openUpdateLessonHomeworkAnswerForm: () => void;
 }
 
 const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: StudentAnswerDetailsProps) => {
     const { classes } = useStyles();
+
+    if (!data) {
+        return null;
+    }
 
     const renderDocuments = () => {
         if (!data.files.length) {
