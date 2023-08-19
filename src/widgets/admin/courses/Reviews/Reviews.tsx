@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon, Collapse } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FDateRangePicker, FSearch, FSelect, Heading, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -63,7 +63,12 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                 columnOrder,
             }}
             renderRowActions={({ row }) => <ListMenu row={row} />}>
-            {({ dirty, resetForm }) => {
+            {({ dirty, resetForm, handleSubmit }) => {
+                const handleResetForm = () => {
+                    resetForm({ values: filterInitialValues });
+                    handleSubmit();
+                };
+
                 return (
                     <Box>
                         <Heading order={2}>Отзывы</Heading>
@@ -71,32 +76,38 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                             {labelToggleButton}
                         </Button>
                         <Collapse in={openedFilters} w="100%" mt={16}>
-                            <Flex gap={16} direction="column">
-                                <Flex gap={8}>
-                                    <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
-                                    <FSelect name="score" size="sm" data={scoreOptions} clearable label="Оценка" w="100%" maw={252} />
+                            <Flex className={classes.filterWrapper}>
+                                <Flex className={classes.filterSearchAndSelects}>
+                                    <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                    <FSelect
+                                        className={classes.filterSelect}
+                                        name="score"
+                                        size="sm"
+                                        data={scoreOptions}
+                                        clearable
+                                        label="Оценка"
+                                    />
                                     <FDateRangePicker
+                                        className={classes.filterDateRangePicker}
                                         name="createdAtFrom"
                                         nameTo="createdAtTo"
                                         label="Дата отзыва"
                                         size="sm"
                                         clearable
-                                        maw={252}
-                                        w="100%"
                                     />
                                 </Flex>
-                                <FRadioGroup name="isPublished" defaultValue="">
+                                <FRadioGroup name="isPublished" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => {
                                         return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
                                     })}
                                 </FRadioGroup>
-                                <Flex>
-                                    <Button type="submit" w="100%" maw={164}>
+                                <Flex gap={16}>
+                                    <Button type="submit" w={164}>
                                         Найти
                                     </Button>
                                     {dirty && (
-                                        <Button variant="white" w="100%" maw={164} onClick={resetForm}>
-                                            Сбросить
+                                        <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                            Cбросить
                                         </Button>
                                     )}
                                 </Flex>

@@ -4,6 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteGroup } from "@entities/group";
 import useStyles from "./DeleteGroupModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface DeleteGroupModalProps {
     id: string;
@@ -15,6 +16,8 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
     const { classes } = useStyles();
     const deleteGroup = useAdminDeleteGroup({ id });
 
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
     const handleSubmit = () => {
         deleteGroup.mutate(null, {
             onSuccess: () => {
@@ -24,8 +27,8 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
     };
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
+        <Box>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>
@@ -36,15 +39,20 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteGroup.isLoading} w="100%">
+            <Flex gap={8} mt={56}>
+                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onClose} disabled={deleteGroup.isLoading} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteGroup.isLoading} w="100%">
+                <Button
+                    size={isTablet ? "medium" : "large"}
+                    variant="secondary"
+                    onClick={handleSubmit}
+                    loading={deleteGroup.isLoading}
+                    w="50%">
                     Удалить
                 </Button>
             </Flex>
-        </Flex>
+        </Box>
     );
 };
 

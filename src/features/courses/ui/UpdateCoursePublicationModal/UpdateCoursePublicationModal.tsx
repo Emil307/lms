@@ -5,6 +5,7 @@ import { Button } from "@shared/ui";
 import { useUpdateCoursePublication } from "@entities/course";
 import { createNotification, ToastType } from "@shared/utils";
 import useStyles from "./UpdateCoursePublicationModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateCoursePublicationModalProps {
     id: string;
@@ -17,6 +18,8 @@ export interface UpdateCoursePublicationModalProps {
 const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel }: UpdateCoursePublicationModalProps) => {
     const { classes } = useStyles();
     const { mutate: publishCourse, isLoading } = useUpdateCoursePublication(id);
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const handleSubmit = () => {
         publishCourse(true, {
@@ -34,7 +37,7 @@ const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel 
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16}>
+            <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
                     <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
                         <AlertTriangle />
@@ -48,10 +51,10 @@ const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel 
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onCancel} disabled={isLoading} w="50%">
+                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel} disabled={isLoading} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
+                <Button size={isTablet ? "medium" : "large"} variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
                     Продолжить
                 </Button>
             </Flex>

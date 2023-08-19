@@ -5,23 +5,30 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
         padding: 24,
-        paddingBottom: 32,
-        gap: 20,
+        gap: 8,
         borderRadius: 12,
         backgroundColor: theme.colors.light[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            backgroundColor: theme.colors.white[0],
+            padding: 0,
+        },
     },
-    emptyText: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.neutral_gray,
-    },
-    lessonOptionHeader: {
-        flexDirection: "column",
-        gap: 8,
+    heading: {
+        gap: 48,
+        alignItems: "center",
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+        },
     },
     icon: {
         minWidth: 24,
         minHeight: 24,
+    },
+    homeworkAndTest: {
+        columnGap: 24,
+        rowGap: 16,
+        flexWrap: "wrap",
     },
 }));

@@ -3,15 +3,13 @@ import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { PlusCircle as PlusCircleIcon, Folder as FolderIcon } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { Folder as FolderIcon } from "react-feather";
 import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import { Button, DndCard, Heading, Loader } from "@shared/ui";
+import { DndCard, Heading, Loader, Paragraph } from "@shared/ui";
 import { CourseModuleWithoutLessons, useCourseModules } from "@entities/courseModule";
-import { CreateCourseModuleModal } from "@features/courseModules";
 import { useUpdateCourseModuleOrder } from "@entities/courseModule";
-import { ListMenu } from "./components";
+import { AddModuleButton, ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
 
@@ -54,17 +52,6 @@ const List = ({ courseId }: ModuleListProps) => {
         return <Loader />;
     }
 
-    const handleCloseCreateModuleModal = () => closeModal("CREATE_COURSE_MODULE");
-
-    const handleOpenCreateModuleModal = () => {
-        const moduleNumber = modulesData ? modulesData.pagination.total + 1 : 1;
-        openModal({
-            modalId: "CREATE_COURSE_MODULE",
-            title: "Создание модуля",
-            children: <CreateCourseModuleModal courseId={courseId} moduleNumber={moduleNumber} onClose={handleCloseCreateModuleModal} />,
-        });
-    };
-
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
 
@@ -80,7 +67,11 @@ const List = ({ courseId }: ModuleListProps) => {
 
     const renderContent = () => {
         if (!modules.length) {
-            return <Text className={classes.emptyText}>В данном курсе пока нет модулей.</Text>;
+            return (
+                <Paragraph variant="small-m" color="neutral_gray">
+                    В данном курсе пока нет модулей.
+                </Paragraph>
+            );
         }
         return (
             <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
@@ -107,11 +98,9 @@ const List = ({ courseId }: ModuleListProps) => {
 
     return (
         <Flex direction="column" gap={32} maw={1162} w="100%">
-            <Flex gap={48} align="center">
+            <Flex className={classes.heading}>
                 <Heading order={2}>Модули курса</Heading>
-                <Button onClick={handleOpenCreateModuleModal} variant="text" leftIcon={<PlusCircleIcon />}>
-                    Добавить модуль
-                </Button>
+                <AddModuleButton courseId={courseId} moduleNumber={modulesData ? modulesData.pagination.total + 1 : 1} />
             </Flex>
             <Flex className={classes.wrapper}>{renderContent()}</Flex>
         </Flex>

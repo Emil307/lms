@@ -4,6 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDetachLessonFromCourseModule } from "@entities/courseModule";
 import useStyles from "./DetachLessonFromCourseModuleModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface DetachLessonFromCourseModuleModalProps {
     courseId: string;
@@ -31,6 +32,8 @@ const DetachLessonFromCourseModuleModal = ({
         moduleName,
     });
 
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
     const handleSubmit = () => {
         detachLessonFromModule(null, {
             onSuccess: () => {
@@ -41,7 +44,7 @@ const DetachLessonFromCourseModuleModal = ({
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16}>
+            <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
                     <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
                         <AlertTriangle />
@@ -56,10 +59,10 @@ const DetachLessonFromCourseModuleModal = ({
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} disabled={isLoading} w="50%">
+                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onClose} disabled={isLoading} w="50%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
+                <Button size={isTablet ? "medium" : "large"} variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
                     Удалить
                 </Button>
             </Flex>

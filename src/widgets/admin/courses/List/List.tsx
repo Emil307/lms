@@ -8,11 +8,17 @@ import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
 import { radioGroupValues, filterInitialValues, columns } from "./constants";
-import { adaptGetAdminCoursesRequest } from "./utils";
 import { ListMenu } from "./components";
+import useStyles from "./List.styles";
+import { adaptGetAdminCoursesRequest } from "./utils";
+import { useMediaQuery } from "@mantine/hooks";
 
 const List = () => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
+
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) => {
@@ -84,51 +90,79 @@ const List = () => {
                         "discountPrice",
                         "mrt-row-actions",
                     ],
+                }}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
                 }}>
-                <Box>
-                    <Flex columnGap={8} rowGap={0}>
-                        <FSearch w={512} size="sm" name="query" placeholder="Поиск" />
-                        <FSelect
-                            w={252}
-                            name="category"
-                            size="sm"
-                            data={optionsForSelects.categories}
-                            clearable
-                            label="Категория"
-                            disabled={isLoadingFilters}
-                        />
-                        <FMultiSelect w={252} name="tags" data={optionsForSelects.tags} label="Теги" disabled={isLoadingFilters} />
-                        <FMultiSelect
-                            w={252}
-                            name="teachers"
-                            data={optionsForSelects.teachers}
-                            label="Преподаватели"
-                            disabled={isLoadingFilters}
-                        />
-                        <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" />
-                    </Flex>
-                    <Box mt={16}>
-                        <FSelect
-                            w={252}
-                            name="discountType"
-                            size="sm"
-                            data={optionsForSelects.discountTypes}
-                            clearable
-                            label="Скидка"
-                            disabled={isLoadingFilters}
-                        />
-                    </Box>
-                    <Box mt={16}>
-                        <FRadioGroup name="isActive" defaultValue="">
-                            {radioGroupValues.map((item) => {
-                                return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                            })}
-                        </FRadioGroup>
-                    </Box>
-                    <Button w={164} mt={16} type="submit">
-                        Найти
-                    </Button>
-                </Box>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+
+                    return (
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                <FSelect
+                                    className={classes.filterSelect}
+                                    name="category"
+                                    size="sm"
+                                    data={optionsForSelects.categories}
+                                    clearable
+                                    label="Категория"
+                                    disabled={isLoadingFilters}
+                                />
+                                <FMultiSelect
+                                    className={classes.filterSelect}
+                                    name="tags"
+                                    data={optionsForSelects.tags}
+                                    label="Теги"
+                                    disabled={isLoadingFilters}
+                                />
+                                <FMultiSelect
+                                    className={classes.filterSelect}
+                                    name="teachers"
+                                    data={optionsForSelects.teachers}
+                                    label="Преподаватели"
+                                    disabled={isLoadingFilters}
+                                />
+                                <FDateRangePicker
+                                    className={classes.filterDateRangePicker}
+                                    name="createdAtFrom"
+                                    nameTo="createdAtTo"
+                                    label="Дата создания"
+                                    size="sm"
+                                    disabled={isLoadingFilters}
+                                />
+                                <FSelect
+                                    className={classes.filterSelect}
+                                    name="discountType"
+                                    size="sm"
+                                    data={optionsForSelects.discountTypes}
+                                    clearable
+                                    label="Скидка"
+                                    disabled={isLoadingFilters}
+                                />
+                            </Flex>
+                            <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
+                                {radioGroupValues.map((item) => {
+                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                })}
+                            </FRadioGroup>
+                            <Flex gap={16}>
+                                <Button type="submit" w={164}>
+                                    Найти
+                                </Button>
+                                {dirty && (
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Flex>
+                    );
+                }}
             </ManagedDataGrid>
         </Box>
     );

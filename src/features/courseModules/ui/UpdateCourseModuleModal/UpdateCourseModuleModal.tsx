@@ -12,6 +12,7 @@ import {
 } from "@entities/courseModule";
 import { $UpdateCourseModuleFormValues } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateCourseModuleModalProps {
     courseId: string;
@@ -22,6 +23,8 @@ export interface UpdateCourseModuleModalProps {
 
 const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: UpdateCourseModuleModalProps) => {
     const moduleId = String(module.id);
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const updateCourseModule = (values: UpdateCourseModuleFormValues) => {
         return courseModuleApi.updateModule({ ...values, courseId, moduleId });
@@ -58,7 +61,7 @@ const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: Up
             disableOverlay>
             {({ isLoading }) => (
                 <Flex gap={24} direction="column">
-                    <Flex gap={16}>
+                    <Flex gap={16} align="center">
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <FolderIcon />
                         </ThemeIcon>
@@ -69,10 +72,10 @@ const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: Up
                         <FTextarea name="description" placeholder="Описание модуля" minRows={9} />
                     </Flex>
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} disabled={isLoading} w="50%">
+                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isLoading} w="50%">
                             Отмена
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" loading={isLoading} w="50%">
+                        <Button type="submit" variant="secondary" size={isTablet ? "medium" : "large"} loading={isLoading} w="50%">
                             Сохранить
                         </Button>
                     </Flex>

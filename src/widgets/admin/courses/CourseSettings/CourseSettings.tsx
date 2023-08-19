@@ -1,11 +1,11 @@
-import { Flex, Text, ThemeIcon, useMantineTheme } from "@mantine/core";
+import { Box, Flex, Text, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
-import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon, Trash as TrashIcon } from "react-feather";
-import { Button, DisplayField, Heading } from "@shared/ui";
-import { DeleteCourseModal, UpdateCoursePublicationModal } from "@features/courses";
+import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
+import { UpdateCoursePublicationModal } from "@features/courses";
 import { getFullName } from "@shared/utils";
 import { AdminCourse } from "@entities/course";
 import { InfoCard } from "@components/InfoCard";
@@ -14,8 +14,9 @@ import FileMarkIcon from "public/icons/file-mark.svg";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
-import { getInfoCardFields } from "./utils";
+import { DeleteCourseButton } from "./components";
 import useStyles from "./CourseSettings.styles";
+import { getInfoCardFields } from "./utils";
 
 interface CourseSettingsProps {
     data: AdminCourse;
@@ -24,36 +25,14 @@ interface CourseSettingsProps {
 const CourseSettings = ({ data }: CourseSettingsProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-    const theme = useMantineTheme();
+
+    const courseId = String(data.id);
 
     const handleGoToUpdateCoursePage = () => {
-        router.push({ pathname: "/admin/courses/[id]/edit", query: { id: String(data.id) } });
+        router.push({ pathname: "/admin/courses/[id]/edit", query: { id: courseId } });
     };
 
-    const closeDeleteCourseModal = () => closeModal("DELETE_COURSE");
     const closeUpdateCoursePublicationModal = () => closeModal("UPDATE_COURSE_PUBLICATION");
-
-    const handleCancelDeleteCourse = () => closeDeleteCourseModal();
-
-    const handleSuccessDeleteCourse = () => {
-        closeDeleteCourseModal();
-        router.push("/admin/courses");
-    };
-
-    const handleOpenDeleteModal = () => {
-        openModal({
-            modalId: "DELETE_COURSE",
-            title: "Удаление курса",
-            children: (
-                <DeleteCourseModal
-                    id={String(data.id)}
-                    name={data.name}
-                    onCancel={handleCancelDeleteCourse}
-                    onSuccess={handleSuccessDeleteCourse}
-                />
-            ),
-        });
-    };
 
     const handleOpenCoursePublicationModal = () => {
         openModal({
@@ -61,7 +40,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
             title: "Опубликовать курс",
             children: (
                 <UpdateCoursePublicationModal
-                    id={String(data.id)}
+                    id={courseId}
                     name={data.name}
                     coverSrc={data.cover?.absolutePath}
                     onCancel={closeUpdateCoursePublicationModal}
@@ -96,13 +75,11 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
     };
 
     return (
-        <Flex gap={56} mt={32} align="start">
+        <Box className={classes.root}>
             <Flex direction="column" gap={32} w="100%">
-                <Flex gap={48} align="center">
+                <Flex className={classes.heading}>
                     <Heading order={2}>Настройки курса</Heading>
-                    <Button onClick={handleOpenDeleteModal} variant="text" leftIcon={<TrashIcon />}>
-                        Удалить курс
-                    </Button>
+                    <DeleteCourseButton courseId={courseId} courseName={data.name} />
                 </Flex>
 
                 <Fieldset label="Общая информация" icon={<FileLeftIcon />}>
@@ -114,9 +91,9 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
 
                 {data.description && (
                     <Fieldset label="Описание курса" icon={<AlignLeftIcon />}>
-                        <Text size={16} lh="24px" color={theme.colors.neutral_gray[0]}>
+                        <Paragraph variant="small-m" color="neutral_gray">
                             {data.description}
-                        </Text>
+                        </Paragraph>
                     </Fieldset>
                 )}
 
@@ -180,7 +157,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                     </>
                 }
             />
-        </Flex>
+        </Box>
     );
 };
 

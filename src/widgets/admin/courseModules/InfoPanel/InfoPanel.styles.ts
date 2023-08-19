@@ -1,14 +1,19 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+export default createStyles(() => ({
+    wrapper: {
+        marginTop: 24,
+        gap: 32,
+        overflowX: "auto",
+        alignItems: "center",
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+    },
     item: {
         gap: 8,
         alignItems: "center",
-    },
-    label: {
-        fontSize: 14,
-        fontWeight: 500,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        whiteSpace: "nowrap",
     },
 }));

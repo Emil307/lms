@@ -7,6 +7,7 @@ import { createNotification, ToastType } from "@shared/utils";
 import { $CreateCourseModuleFormValues, courseModuleApi } from "@entities/courseModule";
 import { CreateCourseModuleFormValues, CreateCourseModuleResponse } from "@entities/courseModule";
 import { initialValues } from "./constants";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateCourseModuleModalProps {
     courseId: string;
@@ -15,6 +16,8 @@ export interface CreateCourseModuleModalProps {
 }
 
 const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCourseModuleModalProps) => {
+    const isTablet = useMediaQuery("(max-width: 1024px)");
+
     const createCourseModule = (values: CreateCourseModuleFormValues) => {
         return courseModuleApi.createModule({ ...values, courseId });
     };
@@ -47,7 +50,7 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
             disableOverlay>
             {({ isLoading }) => (
                 <Flex gap={24} direction="column">
-                    <Flex gap={16}>
+                    <Flex gap={16} align="center">
                         <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
                             <FolderIcon />
                         </ThemeIcon>
@@ -58,10 +61,10 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
                         <FTextarea name="description" placeholder="Описание модуля" minRows={9} />
                     </Flex>
                     <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} disabled={isLoading} w="50%">
+                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isLoading} w="50%">
                             Отмена
                         </Button>
-                        <Button type="submit" variant="secondary" size="large" loading={isLoading} w="50%">
+                        <Button type="submit" variant="secondary" size={isTablet ? "medium" : "large"} loading={isLoading} w="50%">
                             Сохранить
                         </Button>
                     </Flex>

@@ -8,6 +8,7 @@ import { AdminLessonFromList, AdminSelectLessonsExtraFilters, AdminSelectLessons
 import { adaptGetAdminLessonsRequest } from "@features/lessons/ui/LessonListModal/utils";
 import { columns, filterInitialValues } from "./constants";
 import useStyles from "./LessonListModal.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface LessonListModalProps {
     courseId: string;
@@ -20,6 +21,8 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const { mutate: attachLessonsToModule, isLoading } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 
@@ -68,28 +71,49 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
                 }}
                 disableQueryParams
                 onChangeSelect={setSelected}>
-                <>
-                    <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
-                        {labelToggleButton}
-                    </Button>
-                    <Collapse in={openedFilters} mt={16}>
-                        <Flex gap={8}>
-                            <FSearch name="query" w="100%" size="sm" placeholder="Поиск" />
-                            <FDateRangePicker name="createdAtFrom" nameTo="createdAtTo" label="Дата создания" size="sm" miw={210} />
-                        </Flex>
-                        <Button mt={16} type="submit" w="100%" maw={164}>
-                            Найти
-                        </Button>
-                    </Collapse>
-                </>
+                {({ dirty, resetForm, handleSubmit }) => {
+                    const handleResetForm = () => {
+                        resetForm({ values: filterInitialValues });
+                        handleSubmit();
+                    };
+                    return (
+                        <>
+                            <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
+                                {labelToggleButton}
+                            </Button>
+                            <Collapse in={openedFilters} mt={16}>
+                                <Flex className={classes.filter}>
+                                    <FSearch className={classes.filterSearch} name="query" size="sm" placeholder="Поиск" />
+                                    <FDateRangePicker
+                                        className={classes.filterDateRangePicker}
+                                        name="createdAtFrom"
+                                        nameTo="createdAtTo"
+                                        label="Дата создания"
+                                        size="sm"
+                                    />
+                                </Flex>
+                                <Flex gap={16} mt={16}>
+                                    <Button type="submit" w={164}>
+                                        Найти
+                                    </Button>
+                                    {dirty && (
+                                        <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                            Cбросить
+                                        </Button>
+                                    )}
+                                </Flex>
+                            </Collapse>
+                        </>
+                    );
+                }}
             </ManagedDataGrid>
-            <Flex justify="space-between" mt={14} gap={8}>
-                <Button variant="border" size="large" onClick={onClose} w="100%" maw={252} disabled={isLoading}>
+            <Flex justify="space-between" mt={24} gap={8}>
+                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose} w="100%" maw={252} disabled={isLoading}>
                     Отмена
                 </Button>
                 <Button
                     variant="secondary"
-                    size="large"
+                    size={isMobile ? "medium" : "large"}
                     w="100%"
                     maw={252}
                     onClick={handleSubmit}

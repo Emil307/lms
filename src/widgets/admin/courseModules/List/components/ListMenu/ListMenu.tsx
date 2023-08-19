@@ -1,10 +1,12 @@
 import { Divider, ThemeIcon } from "@mantine/core";
 import React, { ChangeEvent } from "react";
-import { Edit3, Trash } from "react-feather";
+import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { CourseModuleWithoutLessons, useUpdateCourseModuleActivity } from "@entities/courseModule";
 import { DeleteCourseModuleModal, UpdateCourseModuleModal } from "@features/courseModules";
+import { useMediaQuery } from "@mantine/hooks";
+import { useRouter } from "next/router";
 
 export interface ListMenuProps {
     courseId: string;
@@ -13,8 +15,11 @@ export interface ListMenuProps {
 }
 
 const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
+    const router = useRouter();
     const moduleId = String(data.id);
     const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId, moduleName: data.name });
+
+    const isMobile = useMediaQuery("(max-width: 744px)");
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
@@ -51,6 +56,10 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
         });
     };
 
+    const handleOpenModuleDetail = () => {
+        router.push({ pathname: "/admin/courses/[id]/modules/[moduleId]", query: { id: courseId, moduleId } });
+    };
+
     const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
     return (
@@ -65,14 +74,22 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
                 />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
+            {isMobile && (
+                <MenuItemDataGrid mt={8} onClick={handleOpenModuleDetail}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+            )}
             <MenuItemDataGrid onClick={handleOpenUpdateModuleModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenDeleteModuleModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

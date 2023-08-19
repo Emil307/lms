@@ -3,9 +3,10 @@ import { createStyles } from "@mantine/core";
 interface CreateStylesProps {
     isActive: boolean;
     expanded: boolean;
+    hasOpenButton: boolean;
 }
 
-export default createStyles((theme, { isActive, expanded }: CreateStylesProps) => ({
+export default createStyles((theme, { isActive, expanded, hasOpenButton }: CreateStylesProps) => ({
     root: {
         width: "100%",
         padding: 32,
@@ -13,23 +14,36 @@ export default createStyles((theme, { isActive, expanded }: CreateStylesProps) =
         backgroundColor: isActive ? theme.colors.white[0] : theme.colors.light[0],
         cursor: "pointer",
 
-        ...(isActive && {
-            boxShadow: expanded
-                ? "0px 16px 32px rgba(2, 6, 46, 0.08)"
-                : "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-        }),
+        ...(isActive &&
+            expanded && {
+                boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+            }),
 
         [theme.fn.smallerThan("sm")]: {
-            padding: 16,
+            padding: "15px 16px",
+            border: `1px solid ${theme.colors.grayLight[0]}`,
         },
     },
     title: {
         color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
     },
     actionIcon: {
-        width: 40,
-        height: 40,
+        minWidth: 40,
+        minHeight: 40,
         cursor: "grab",
+
+        "&:hover": {
+            backgroundColor: theme.colors.neutralLight[0],
+        },
+    },
+    openButton: {
+        ...(hasOpenButton
+            ? {
+                  [theme.fn.smallerThan("sm")]: {
+                      display: "none",
+                  },
+              }
+            : {}),
     },
     textContent: {
         marginTop: 32,

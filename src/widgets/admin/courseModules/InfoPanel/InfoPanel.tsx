@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent, memo } from "react";
 import dayjs from "dayjs";
-import { Heading, LastUpdatedInfo, Loader, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useCourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
 import useStyles from "./InfoPanel.styles";
 
@@ -31,12 +31,19 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
     return (
         <Box mb={32}>
             <Heading>{moduleData.name}</Heading>
-            <Flex mt={24} gap={32} align="center">
+            <Flex className={classes.wrapper}>
                 <Flex className={classes.item}>
-                    <span className={classes.label}>ID:</span> <span>{moduleData.id}</span>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {moduleData.id}
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Статус:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         checked={moduleData.isActive}
                         onChange={handleChangeActiveStatus}
@@ -46,8 +53,12 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Создание:</Text>
-                    <Text>{dayjs(moduleData.createdAt).format("DD.MM.YYYY HH:mm")}</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Создание:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {dayjs(moduleData.createdAt).format("DD.MM.YYYY HH:mm")}
+                    </Paragraph>
                 </Flex>
                 <LastUpdatedInfo data={moduleData.lastUpdated} />
             </Flex>

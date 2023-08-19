@@ -11,19 +11,23 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 120,
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
+        size: 292,
     },
     {
         header: "Группа",
         accessorKey: "name",
+        size: 160,
     },
     {
         header: "Учеников",
         accessorKey: "studentsCount",
+        size: 160,
     },
     {
         header: "Даты обучения",
@@ -39,11 +43,13 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
                 </Flex>
             );
         },
+        size: 292,
     },
     {
         header: "Преподаватель",
         accessorKey: "teacher",
         accessorFn: ({ teacher }) => getFullName({ data: teacher?.profile }),
+        size: 292,
     },
     {
         header: "Статус группы",
@@ -57,5 +63,6 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
                 </Badge>
             );
         },
+        size: 160,
     },
 ];
