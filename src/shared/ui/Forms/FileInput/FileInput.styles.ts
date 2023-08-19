@@ -9,7 +9,6 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         padding: 0,
         borderRadius: 16,
         border: error ? `1px dashed ${theme.colors.warning[0]}` : `1px dashed ${theme.colors.primary[0]}`,
-        minHeight: 190,
         backgroundColor: "transparent",
 
         ":hover": {

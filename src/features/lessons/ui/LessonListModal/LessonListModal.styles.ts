@@ -12,11 +12,27 @@ export default createStyles((theme) => ({
         ":hover": {
             backgroundColor: theme.colors.secondary8[0],
         },
-
         svg: {
             width: 9,
             color: theme.colors.secondaryHover[0],
             strokeWidth: 5,
+        },
+    },
+    filter: {
+        gap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+    filterSearch: {
+        width: "100%",
+    },
+    filterDateRangePicker: {
+        minWidth: 210,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
         },
     },
 }));

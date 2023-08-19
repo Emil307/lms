@@ -10,34 +10,41 @@ export const columns: MRT_ColumnDef<AdminCourseReviewFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "ФИО",
         accessorKey: "user.profile",
         id: "fullName",
         Cell: ({ cell }) => <>{getFullName({ data: cell.row.original.user?.profile })}</>,
+        size: 278,
     },
     {
         header: "Отзыв",
         accessorKey: "content",
+        size: 278,
     },
     {
         header: "Группа",
         accessorKey: "group.name",
+        size: 160,
     },
     {
         header: "Оценка",
         accessorKey: "score",
+        size: 160,
     },
     {
         header: "Дата отзыва",
         accessorKey: "createdAt",
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
+        size: 160,
     },
     {
         header: "Опубликован",
         accessorKey: "publishedAt",
         accessorFn: ({ publishedAt }) => (publishedAt ? dayjs(publishedAt).format("DD.MM.YYYY") : ""),
+        size: 160,
     },
 ];
 

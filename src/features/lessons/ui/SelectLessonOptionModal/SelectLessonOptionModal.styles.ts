@@ -1,8 +1,20 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    root: {
+    description: {
+        marginTop: -16,
+        marginBottom: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            marginTop: 0,
+        },
+    },
+    content: {
         gap: 24,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column",
+        },
     },
     card: {
         flex: 1,
@@ -16,6 +28,10 @@ export default createStyles((theme) => ({
         gap: 48,
         alignItems: "flex-start",
         flexDirection: "column",
+
+        [theme.fn.smallerThan("xs")]: {
+            gap: 24,
+        },
     },
     wrapperIcon: {
         display: "flex",

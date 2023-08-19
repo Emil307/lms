@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Text } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React, { useMemo, useState } from "react";
 import { FormikProps } from "formik";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
@@ -16,6 +16,7 @@ import {
     Heading,
     Input,
     ManagedForm,
+    Paragraph,
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
@@ -34,6 +35,8 @@ import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptCreateCourseRequest } from "./utils";
 import { initialParams, initialValues, radioGroupValues } from "./constants";
+import useStyles from "./CreateCourseForm.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateCourseFormProps {
     onSuccess: (newCourseId: number) => void;
@@ -41,12 +44,15 @@ export interface CreateCourseFormProps {
 }
 
 const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
+    const { classes } = useStyles();
     const [selectedCategory, setSelectedCategory] = useState<string>();
     const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: "manipulation" });
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategory },
     });
+
+    const isTablet = useMediaQuery("(max-width: 1024px)");
 
     const createCourse = (values: CreateCourseFormValues) => {
         return courseApi.createCourse(adaptCreateCourseRequest(values));
@@ -119,23 +125,38 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex gap={32} direction="column">
-                            <Flex align="center" gap={32}>
-                                <Flex gap={8} align="center">
-                                    <Text color="gray45">Статус:</Text>
+                            <Flex className={classes.wrapper}>
+                                <Flex className={classes.item}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Статус:
+                                    </Paragraph>
                                     <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                                 </Flex>
-                                <Flex gap={8} align="center">
-                                    <Text color="gray45">Тип курса:</Text>
+                                <Flex className={classes.item}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Тип курса:
+                                    </Paragraph>
                                     <FCheckbox name="isInteractive" label="Интерактивный" />
                                 </Flex>
-                                <Flex gap={8} align="center">
-                                    <Text color="gray45">Отображать в популярных:</Text>
+                                <Flex className={classes.item}>
+                                    <Paragraph variant="text-small-m" color="gray45">
+                                        Отображать в популярных:
+                                    </Paragraph>
                                     <FCheckbox name="isPopular" label="Да" />
                                 </Flex>
                             </Flex>
 
                             <Heading order={2}>Настройки курса</Heading>
-                            <FFileInput name="cover" title="Изменить фото" type="image" withDeleteButton h={308} w="100%" maw={512} />
+
+                            <Box className={classes.imageInputWrapper}>
+                                <FFileInput
+                                    className={classes.imageInput}
+                                    name="cover"
+                                    title="Изменить фото"
+                                    type="image"
+                                    withDeleteButton
+                                />
+                            </Box>
 
                             <Fieldset label="Общая информация" icon={<FileLeftIcon />} maw={512} showDivider={false}>
                                 <FInput size="sm" name="name" label="Название курса" w="100%" />
@@ -166,24 +187,26 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                     disabled={isLoadingResources || !optionsForSelects.tags.length}
                                     w="100%"
                                 />
-                                <Grid grow gutter={21} align="center">
-                                    <Grid.Col span={1}>
-                                        <FInput name="price" label="Стоимость курса (₽)" type="number" size="sm" w={252} />
-                                    </Grid.Col>
-                                    <Grid.Col span={1}>
-                                        <FSwitch
-                                            name="isDemonstrative"
-                                            label="Доступен для сотрудников"
-                                            labelPosition="left"
-                                            variant="secondary"
-                                        />
-                                    </Grid.Col>
-                                </Grid>
                                 <FInput size="sm" name="duration" label="Продолжительность курса" w="100%" />
+                                <Flex className={classes.cost}>
+                                    <FInput
+                                        className={classes.costInput}
+                                        name="price"
+                                        label="Стоимость курса (₽)"
+                                        type="number"
+                                        size="sm"
+                                    />
+                                    <FSwitch
+                                        name="isDemonstrative"
+                                        label="Доступен для сотрудников"
+                                        labelPosition="left"
+                                        variant="secondary"
+                                    />
+                                </Flex>
                             </Fieldset>
 
                             <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={772} showDivider={false}>
-                                <FTextarea name="description" placeholder="Описание курса" w="100%" />
+                                <FTextarea name="description" placeholder="Описание курса" w="100%" minRows={9} />
                             </Fieldset>
 
                             <Fieldset
@@ -192,23 +215,30 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                 showDivider={false}
                                 extraElement={<FSwitch name="hasDiscount" variant="secondary" disabled={!Number(values.price)} />}
                                 isOpen={values.hasDiscount && !!values.price}
+                                legendProps={{ mb: values.hasDiscount ? 24 : 0 }}
                                 maw={772}>
-                                <FRadioGroup name="discount.type">
+                                <FRadioGroup name="discount.type" className={classes.discountRadio}>
                                     {radioGroupValues.map((item) => {
                                         return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
                                     })}
                                 </FRadioGroup>
-                                <Flex gap={8} w="100%" mt={8}>
-                                    <FInput name="discount.amount" label="Размер скидки" size="sm" type="number" maw={252} w="100%" />
+                                <Flex className={classes.discount}>
+                                    <FInput
+                                        className={classes.discountItem}
+                                        name="discount.amount"
+                                        label="Размер скидки"
+                                        size="sm"
+                                        type="number"
+                                    />
                                     <FDateRangePicker
+                                        className={classes.discountItem}
                                         name="discount.startingDate"
                                         nameTo="discount.finishingDate"
                                         label="Период действия"
                                         size="sm"
-                                        maw={252}
-                                        w="100%"
                                     />
                                     <Input
+                                        className={classes.discountItem}
                                         label="Стоимость со скидкой"
                                         value={getDiscountPrice({
                                             price: Number(values.price),
@@ -217,8 +247,6 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                         })}
                                         size="sm"
                                         disabled
-                                        maw={252}
-                                        w="100%"
                                     />
                                 </Flex>
                             </Fieldset>
@@ -259,11 +287,16 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                 />
                             </Fieldset>
 
-                            <Flex gap={8} mt={24}>
-                                <Button variant="border" onClick={onCancel} maw={252} w="100%">
+                            <Flex className={classes.buttons}>
+                                <Button className={classes.button} size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel}>
                                     Отменить
                                 </Button>
-                                <Button variant="secondary" type="submit" disabled={!dirty} maw={252} w="100%">
+                                <Button
+                                    className={classes.button}
+                                    size={isTablet ? "medium" : "large"}
+                                    variant="secondary"
+                                    type="submit"
+                                    disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

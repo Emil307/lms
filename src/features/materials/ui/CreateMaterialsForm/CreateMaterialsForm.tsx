@@ -45,10 +45,10 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
                 />
             </Box>
             <Flex gap={8}>
-                <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="100%">
+                <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="50%">
                     Отмена
                 </Button>
-                <Button type="submit" size={isMobile ? "medium" : "large"} variant="secondary" w="100%">
+                <Button type="submit" size={isMobile ? "medium" : "large"} variant="secondary" w="50%">
                     Далее
                 </Button>
             </Flex>

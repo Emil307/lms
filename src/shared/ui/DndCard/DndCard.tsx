@@ -32,7 +32,7 @@ const DndCard = ({
     elementRef,
 }: PropsWithChildren<DndCardProps>) => {
     const [expanded, setExpanded] = useState(false);
-    const { classes } = useStyles({ isActive, expanded });
+    const { classes } = useStyles({ isActive, expanded, hasOpenButton: !!onOpen });
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
     const toggleOpenedContent = () => setExpanded((prev) => !prev);
@@ -54,14 +54,14 @@ const DndCard = ({
                     <ActionIcon className={classes.actionIcon} {...attributes} {...listeners}>
                         <IconDragDots />
                     </ActionIcon>
-                    {leftIcon && <ThemeIcon color="primaryHover">{leftIcon}</ThemeIcon>}
+                    {leftIcon && <ThemeIcon color={isActive ? "primaryHover" : "neutral_gray"}>{leftIcon}</ThemeIcon>}
                     <Heading className={classes.title} order={3}>
                         {title}
                     </Heading>
                 </Flex>
                 <Flex align="center" gap={16}>
                     {onOpen && (
-                        <Button leftIcon={<EyeIcon />} variant="text" handleClick={handleOpenIconClick}>
+                        <Button className={classes.openButton} leftIcon={<EyeIcon />} variant="text" handleClick={handleOpenIconClick}>
                             Открыть
                         </Button>
                     )}

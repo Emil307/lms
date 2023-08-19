@@ -1,7 +1,7 @@
 import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Heading, LastUpdatedInfo, Loader, Switch } from "@shared/ui";
+import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
 import useStyles from "./InfoPanel.styles";
@@ -35,12 +35,19 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     return (
         <>
             <Heading>{courseData.name}</Heading>
-            <Flex mt={24} gap={32} align="center">
+            <Flex className={classes.wrapper}>
                 <Flex className={classes.item}>
-                    <span className={classes.label}>ID:</span> <span>{courseData.id}</span>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        ID:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {courseData.id}
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Статус:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
                     <Switch
                         checked={courseData.isActive}
                         onChange={handleChangeActiveStatus}
@@ -50,15 +57,23 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Тип курса:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Тип курса:
+                    </Paragraph>
                     <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Создание:</Text>
-                    <Text>{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Создание:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" color="dark">
+                        {dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
-                    <Text className={classes.label}>Отображать в популярных:</Text>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Отображать в популярных:
+                    </Paragraph>
                     <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
                 </Flex>
                 <LastUpdatedInfo data={courseData.lastUpdated} />
