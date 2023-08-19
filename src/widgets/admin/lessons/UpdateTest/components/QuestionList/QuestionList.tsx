@@ -7,9 +7,9 @@ import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { FieldArray, setNestedObjectValues, useFormikContext } from "formik";
 import { AdminTestQuestion } from "@entities/lesson";
 import { Button } from "@shared/ui";
+import useStyles from "./QuestionList.styles";
 import { Question } from "../Question";
 import { UpdateTestFormValues } from "../../types";
-import useStyles from "./QuestionList.styles";
 
 const QuestionList = () => {
     const { classes } = useStyles();

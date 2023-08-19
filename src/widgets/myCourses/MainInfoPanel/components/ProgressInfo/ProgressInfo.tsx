@@ -1,13 +1,15 @@
-import { Flex, FlexProps } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import { Paragraph, ProgressBar } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { GetGroupResponse } from "@entities/group";
+import useStyles from "./ProgressInfo.styles";
 
-export interface ProgressInfoProps extends Omit<FlexProps, "children"> {
+export interface ProgressInfoProps {
     data: GetGroupResponse;
 }
 
-const ProgressInfo = ({ data, ...props }: ProgressInfoProps) => {
+const ProgressInfo = ({ data }: ProgressInfoProps) => {
+    const { classes } = useStyles();
     const { lessonsCount, practiceCount } = data;
 
     const maxValue = lessonsCount.total + practiceCount.total;
@@ -17,14 +19,14 @@ const ProgressInfo = ({ data, ...props }: ProgressInfoProps) => {
         case "completed":
         case "notStarted":
             return (
-                <Flex gap={8} {...props}>
-                    <Paragraph variant="small-m">{`${lessonsCount.total} ${getPluralString(
+                <Flex className={classes.contentText}>
+                    <Paragraph variant="small-m" className={classes.text}>{`${lessonsCount.total} ${getPluralString(
                         lessonsCount.total,
                         "урок",
                         "урока",
                         "уроков"
                     )}`}</Paragraph>
-                    <Paragraph variant="small-m">{`${practiceCount.total} ${getPluralString(
+                    <Paragraph variant="small-m" className={classes.text}>{`${practiceCount.total} ${getPluralString(
                         practiceCount.total,
                         "практическое задание",
                         "практического задания",
@@ -35,15 +37,14 @@ const ProgressInfo = ({ data, ...props }: ProgressInfoProps) => {
 
         case "inProgress":
             return (
-                <Flex {...props} direction="column">
-                    <Flex gap={8} mb={16}>
-                        <Paragraph variant="small-m">{`${lessonsCount.passed}/${lessonsCount.total} ${getPluralString(
-                            lessonsCount.total,
-                            "урок",
-                            "урока",
-                            "уроков"
-                        )}`}</Paragraph>
-                        <Paragraph variant="small-m">{`${practiceCount.passed}/${practiceCount.total} ${getPluralString(
+                <Flex className={classes.rootProgress}>
+                    <Flex className={classes.contentText}>
+                        <Paragraph variant="small-m" className={classes.text}>{`${lessonsCount.passed}/${
+                            lessonsCount.total
+                        } ${getPluralString(lessonsCount.total, "урок", "урока", "уроков")}`}</Paragraph>
+                        <Paragraph variant="small-m" className={classes.text}>{`${practiceCount.passed}/${
+                            practiceCount.total
+                        } ${getPluralString(
                             practiceCount.total,
                             "практическое задание",
                             "практического задания",

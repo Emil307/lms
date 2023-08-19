@@ -20,10 +20,10 @@ const ProgramModule = ({ data, groupId, numberModule }: ProgramModuleProps) => {
     );
 
     return (
-        <Flex gap={32}>
+        <Flex className={classes.root}>
             <Flex className={classes.moduleBlockInfo}>
-                <Heading order={4} mb={8}>{`Модуль ${numberModule}`}</Heading>
-                <Heading order={2} mb={16}>
+                <Heading order={4} className={classes.moduleNumber}>{`Модуль ${numberModule}`}</Heading>
+                <Heading order={2} className={classes.moduleName}>
                     {data.name}
                 </Heading>
                 <Paragraph variant="small-m" color="gray45">

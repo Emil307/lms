@@ -43,9 +43,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
         <Flex {...props} className={classes.root}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>{titleAuthorInfo}</Heading>
-                <Paragraph variant="small-m" lineClamp={2}>
-                    Только профессионалы в своем деле.
-                </Paragraph>
+                <Paragraph variant="small-m">Только профессионалы в своем деле.</Paragraph>
             </Flex>
             <Flex className={classes.authorList}>{renderAuthors}</Flex>
         </Flex>

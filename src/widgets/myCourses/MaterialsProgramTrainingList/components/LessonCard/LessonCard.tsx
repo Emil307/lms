@@ -12,7 +12,7 @@ export interface LessonCardProps extends Omit<FlexProps, "children"> {
 }
 
 const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, courseId, ...props }: LessonCardProps) {
-    const { classes } = useStyles({ status: data.lessonStatus.name });
+    const { classes, cx } = useStyles({ status: data.lessonStatus.name });
 
     const isBlocked = data.lessonStatus.name === "blocked";
 
@@ -55,7 +55,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, courseId
     };
 
     return (
-        <Flex {...props} className={classes.root}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex direction="column" gap={24}>
                 <Flex direction="column" gap={8}>
                     {renderStatus()}

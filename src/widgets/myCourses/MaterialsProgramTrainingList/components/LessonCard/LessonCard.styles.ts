@@ -13,6 +13,10 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         borderRadius: 16,
         border: status === "blocked" ? "none" : `1px solid ${theme.colors.grayLight[0]}`,
         backgroundColor: status === "blocked" ? theme.colors.grayLight[0] : theme.colors.white[0],
+
+        [theme.fn.smallerThan("sm")]: {
+            padding: 16,
+        },
     },
 
     lockLessonInfo: {

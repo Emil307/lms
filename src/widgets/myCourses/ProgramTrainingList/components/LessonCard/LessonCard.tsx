@@ -14,7 +14,7 @@ export interface LessonCardProps extends Omit<FlexProps, "children"> {
 
 const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId, ...props }: LessonCardProps) {
     const router = useRouter();
-    const { classes } = useStyles({ status: data.lessonStatus.name });
+    const { classes, cx } = useStyles({ status: data.lessonStatus.name });
 
     const handleOpenLessonDetailsPage = () =>
         router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
@@ -35,7 +35,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
     };
 
     return (
-        <Flex {...props} className={classes.root}>
+        <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex direction="column" gap={8}>
                 {renderStatus()}
                 <Flex direction="column" gap={2}>

@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode, useMemo } from "react";
-import { Flex, Text, ThemeIcon, Box } from "@mantine/core";
+import { Flex, ThemeIcon, Box } from "@mantine/core";
 import { saveAs } from "file-saver";
 import { isFile, Button, Paragraph, Loader } from "@shared/ui";
 import { FileStatus, UploadedFile } from "@shared/types";
@@ -40,11 +40,23 @@ const VideoItem = ({
     const renderStatusText = () => {
         switch (status) {
             case "loading":
-                return <Text className={classes.status}>Загружается</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.status}>
+                        Загружается
+                    </Paragraph>
+                );
             case "done":
-                return <Text className={classes.status}>Готово</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.status}>
+                        Готово
+                    </Paragraph>
+                );
             case "error":
-                return <Text className={classes.status}>{error ? error : "Загрузка не удалась"}</Text>;
+                return (
+                    <Paragraph variant="text-small-m" className={classes.status}>
+                        {error ? error : "Загрузка не удалась"}
+                    </Paragraph>
+                );
             default:
                 return null;
         }
@@ -78,10 +90,10 @@ const VideoItem = ({
             <Flex gap={16} justify="space-between" align="center">
                 <Flex className={classes.extra}>
                     <Flex gap={8} align="start">
-                        <Paragraph variant="text-small-m" className={classes.name}>
+                        <Paragraph variant="text-small-m" lineClamp={1}>
                             {videoData.name}
                         </Paragraph>
-                        <Paragraph variant="text-small-m" className={classes.size} color="neutral_gray" display="inline">
+                        <Paragraph variant="text-small-m" className={classes.size}>
                             {getFileSize(videoData.size)}
                         </Paragraph>
                     </Flex>
