@@ -1,7 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
 import { Button, FInput, ManagedForm } from "@shared/ui";
-import { userApi } from "@entities/user";
+import { ChangeUserPasswordResponse, userApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
 import { useSession } from "@features/auth";
@@ -40,7 +40,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
     };
 
     return (
-        <ManagedForm<Omit<ChangePasswordFormValidationSchema, "id">, void>
+        <ManagedForm<Omit<ChangePasswordFormValidationSchema, "id">, ChangeUserPasswordResponse>
             initialValues={getInitialValues(userData.roleId, user?.roles[0].id)}
             validationSchema={$changePasswordFormValidationSchema}
             mutationKey={[MutationKeys.CHANGE_USER_PASSWORD, userData.id]}

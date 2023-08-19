@@ -1,4 +1,4 @@
-import { Flex, ThemeIcon, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Heading, Paragraph } from "@shared/ui";
@@ -13,7 +13,6 @@ export interface DeleteStudentCourseModalProps {
 }
 
 const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteStudentCourseModalProps) => {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
     const deleteStudentCourse = useDeleteStudentCourses({ studentId, ids: [id] });
 
@@ -28,16 +27,17 @@ const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteS
     return (
         <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
-                <ThemeIcon className={classes.warningIconWrapper}>
-                    <AlertTriangle color={theme.colors.secondary[0]} />
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
                 </ThemeIcon>
                 <Flex direction="column" gap={8}>
                     <Heading order={4}>Внимание!</Heading>
-                    <Paragraph
-                        variant="small-semi"
-                        fw={
-                            500
-                        }>{`Ученик потеряет доступ к учебному курсу, статистика по курсу будет удалена. Вы уверены, что хотите удалить доступ к курсу, «${name}»?`}</Paragraph>
+                    <Box>
+                        <Paragraph variant="small-m" component="span">
+                            {`Ученик потеряет доступ к учебному курсу, статистика по курсу будет удалена. Вы уверены, что хотите удалить доступ к курсу, `}
+                        </Paragraph>
+                        <Paragraph variant="small-semi" component="span">{`«${name}»?`}</Paragraph>
+                    </Box>
                 </Flex>
             </Flex>
             <Flex gap={8}>

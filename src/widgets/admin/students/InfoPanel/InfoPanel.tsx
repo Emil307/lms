@@ -1,15 +1,18 @@
-import { Box, Flex } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
+import useStyles from "./InfoPanel.styles";
 
-interface InfoPanelProps {
+export interface InfoPanelProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
-const InfoPanel = ({ id }: InfoPanelProps) => {
+const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
+    const { classes } = useStyles();
+
     const { data } = useDetailsUser(id);
 
     const userFullname = getFullName({ data: data?.profile });
@@ -21,9 +24,9 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
     return (
-        <Box>
-            <Heading mt={8}>{userFullname}</Heading>
-            <Flex mt={24} gap={32} align="center">
+        <Box {...props}>
+            <Heading mb={24}>{userFullname}</Heading>
+            <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         ID:

@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
             backgroundColor: theme.colors.grayLight[0],
         },
     },
-    filterRadioGroup: {
+    rolesRadioGroup: {
         [theme.fn.smallerThan("xs")]: {
             ".mantine-Group-root": {
                 alignItems: "flex-start",

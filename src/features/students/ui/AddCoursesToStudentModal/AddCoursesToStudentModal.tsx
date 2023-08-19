@@ -1,4 +1,4 @@
-import { Box, Flex } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -7,12 +7,12 @@ import { useAttachCoursesToStudent } from "@entities/user";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 
-export interface AddCoursesToStudentModalProps {
+export interface AddCoursesToStudentModalProps extends Omit<BoxProps, "children"> {
     studentId: string;
     onClose: () => void;
 }
 
-const AddCoursesToStudentModal = ({ studentId, onClose }: AddCoursesToStudentModalProps) => {
+const AddCoursesToStudentModal = ({ studentId, onClose, ...props }: AddCoursesToStudentModalProps) => {
     const [selected, setSelected] = useState<string[]>([]);
 
     const attachCoursesToStudent = useAttachCoursesToStudent({ studentId });
@@ -29,7 +29,7 @@ const AddCoursesToStudentModal = ({ studentId, onClose }: AddCoursesToStudentMod
     };
 
     return (
-        <Box>
+        <Box {...props}>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminStudentCoursesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}

@@ -3,18 +3,18 @@ import { MRT_Row } from "mantine-react-table";
 import { useRouter } from "next/router";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
-import { openModal } from "@mantine/modals";
+import { closeModal, openModal } from "@mantine/modals";
 import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
 import { useSession } from "@features/auth";
 
-export interface UsersListMenuProps {
+export interface ListMenuProps {
     row: MRT_Row<UserFromList>;
 }
 
-const UsersListMenu = ({ row }: UsersListMenuProps) => {
+const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
     const { user } = useSession();
 
@@ -27,11 +27,13 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 
-    const openModalDeleteUser = () => {
+    const handleCloseDeleteModal = () => closeModal("DELETE_USER");
+
+    const handleOpenDeleteModal = () => {
         openModal({
-            modalId: `${row.original.id}`,
+            modalId: "DELETE_USER",
             title: "Удаление пользователя",
-            children: <UserDeleteModal id={String(row.original.id)} fio={userFullname} />,
+            children: <UserDeleteModal id={String(row.original.id)} fio={userFullname} onClose={handleCloseDeleteModal} />,
         });
     };
 
@@ -74,7 +76,7 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalDeleteUser}>
+            <MenuItemDataGrid onClick={handleOpenDeleteModal}>
                 <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
@@ -84,4 +86,4 @@ const UsersListMenu = ({ row }: UsersListMenuProps) => {
     );
 };
 
-export default UsersListMenu;
+export default ListMenu;

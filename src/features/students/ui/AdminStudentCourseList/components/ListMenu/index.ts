@@ -1,3 +1,3 @@
-import ListMenu from "./ListMenu";
+import ListMenu, { type ListMenuProps } from "./ListMenu";
 
-export { ListMenu };
+export { ListMenu, ListMenuProps };

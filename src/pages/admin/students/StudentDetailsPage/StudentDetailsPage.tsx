@@ -1,4 +1,4 @@
-import { Box, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
@@ -24,15 +24,15 @@ const StudentDetailsPage = () => {
     const renderContent = () => {
         switch (tab) {
             case "courses":
-                return <AdminStudentCourseList studentId={id} mt={32} />;
+                return <AdminStudentCourseList studentId={id} />;
             case "groups":
                 //TODO: Заменить на вкладку со списком групп, в которые входит ученик
-                return <StudentSettings id={id} mt={32} />;
+                return null;
             case "article-packages":
                 //TODO: Заменить на вкладку со списком пакетов БЗ, которые имеет ученик
-                return <StudentSettings id={id} mt={32} />;
+                return null;
             default:
-                return <StudentSettings id={id} mt={32} />;
+                return <StudentSettings id={id} />;
         }
     };
 
@@ -46,10 +46,12 @@ const StudentDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ userName, id })} />
-            <InfoPanel id={id} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mt={32} />
-            {renderContent()}
+            <BreadCrumbs items={getBreadCrumbsItems({ userName, id })} mb={8} />
+            <Flex direction="column" gap={32}>
+                <InfoPanel id={id} />
+                <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
+                {renderContent()}
+            </Flex>
         </Box>
     );
 };

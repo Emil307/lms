@@ -1,1 +1,1 @@
-export * from "./UsersListMenu";
+export * from "./ListMenu";

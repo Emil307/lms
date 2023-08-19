@@ -30,6 +30,9 @@ export type UpdateUserActivityResponse = z.infer<typeof $UpdateUserActivityRespo
 export type UpdateUserStaticRequest = z.infer<typeof $UpdateUserStaticRequest>;
 export type UpdateUserStaticResponse = z.infer<typeof $UpdateUserStaticResponse>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
+export type ChangeUserPasswordResponse = z.infer<typeof $ChangeUserPasswordResponse>;
+export type DeleteUserRequest = z.infer<typeof $DeleteUserRequest>;
+export type DeleteUserResponse = z.infer<typeof $DeleteUserResponse>;
 
 //students
 export type AdminStudentsFiltersForm = z.infer<typeof $AdminStudentsFiltersForm>;
@@ -162,6 +165,14 @@ export const $ChangeUserPasswordRequest = z.object({
     password: z.string(),
     passwordConfirmation: z.string(),
 });
+
+export const $ChangeUserPasswordResponse = z.null();
+
+export const $DeleteUserRequest = z.object({
+    id: z.string(),
+});
+
+export const $DeleteUserResponse = z.null();
 
 //static users
 

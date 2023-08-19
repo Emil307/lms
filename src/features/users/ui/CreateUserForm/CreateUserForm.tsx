@@ -82,7 +82,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
-                        <Flex align="center" gap={16} mb={16}>
+                        <Flex align="center" gap={16} mb={16} wrap="wrap">
                             <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                                 <AvatarIcon />
                             </Avatar>
@@ -96,7 +96,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                     </Fieldset>
                     <Fieldset label="Системные данные" icon={<Shield />}>
                         <Flex direction="column" gap={16}>
-                            <FRadioGroup name="roleId" className={classes.filterRadioGroup}>
+                            <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
                                 {filteredRoles?.map((item) => (
                                     <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
                                 ))}
