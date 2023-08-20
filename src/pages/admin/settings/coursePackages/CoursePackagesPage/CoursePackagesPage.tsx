@@ -2,10 +2,10 @@ import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Heading, Prompt } from "@shared/ui";
 import { AdminList as AdminCoursePackageList } from "@features/coursePackages";
 import useStyles from "./CoursePackagesPage.styles";
+import { useMedia } from "@shared/utils";
 
 const CoursePackagesPage = () => {
     const router = useRouter();
@@ -13,7 +13,7 @@ const CoursePackagesPage = () => {
 
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const openCreateCoursePackageForm = () => router.push("/admin/settings/course-packages/create");
 

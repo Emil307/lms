@@ -3,13 +3,12 @@ import React from "react";
 import { Edit3, User } from "react-feather";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminAuthor, UpdateAuthorResponse, authorApi } from "@entities/author";
 import AvatarIcon from "@public/icons/avatar.svg";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import useStyles from "./UpdateAuthorForm.styles";
 import { initialValues } from "./constants";
@@ -25,7 +24,7 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
     const { classes } = useStyles();
     const router = useRouter();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const userFullName = [data?.lastName, data?.firstName, data?.patronymic].join(" ");
 

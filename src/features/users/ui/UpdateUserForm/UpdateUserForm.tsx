@@ -4,7 +4,6 @@ import { Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FFileButton,
@@ -23,7 +22,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, checkRoleOrder, createNotification, getFullName } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification, getFullName, useMedia } from "@shared/utils";
 import { useMe } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { getInitialValuesForm } from "./constants";
@@ -42,7 +41,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const currentRole = String(filteredRoles?.find((role) => role.id === data?.roles[0].id)?.id);

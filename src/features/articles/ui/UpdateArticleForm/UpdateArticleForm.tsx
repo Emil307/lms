@@ -4,7 +4,6 @@ import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { FormikProps } from "formik";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FInput,
@@ -21,7 +20,7 @@ import {
 import { GetAdminArticleResponse, UpdateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
 import { adaptUpdateArticleFormValues, adaptUpdateArticleRequest } from "./utils";
@@ -38,7 +37,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const router = useRouter();
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id));
     const articleResources = useAdminArticleResourcesCreate();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const subCategoriesResources = useAdminSubCategories({
         ...initialParams,

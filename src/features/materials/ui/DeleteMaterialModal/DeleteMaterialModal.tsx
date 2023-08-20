@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteUploadedFile } from "@entities/storage";
 import useStyles from "./DeleteMaterialModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteMaterialModalProps {
     id: string;
@@ -16,7 +16,7 @@ export interface DeleteMaterialModalProps {
 const DeleteMaterialModal = ({ id, name, onClose }: DeleteMaterialModalProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const deleteMaterial = useDeleteUploadedFile(id, name);
 

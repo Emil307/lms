@@ -19,10 +19,10 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const [openedHomeworkDetails, setOpenedHomeworkDetails] = useState(false);
     const [isVisibleCollapsedView, setVisibleCollapsedView] = useState(false);
-    const { data: homeworkData, isLoading, isError } = useHomework({ lessonId, courseId });
+    const { data: homeworkData, isFetching, isError } = useHomework({ lessonId, courseId });
 
     const labelToggleButton = openedHomeworkDetails ? "Скрыть задание" : "Показать задание";
-    const answerStatus = homeworkData?.answers[0]?.status.name;
+    const answerStatus = homeworkData?.answer?.status.name;
 
     const { classes } = useStyles({ status: answerStatus, openedHomeworkDetails });
 
@@ -33,7 +33,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
         if (!homeworkData) {
             return;
         }
-        if (!homeworkData.answers.length || answerStatus !== "onReview") {
+        if (!homeworkData.answer || answerStatus !== "onReview") {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
 
@@ -96,21 +96,21 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
                     size={1}
                     color="gray20"
                     my={48}
-                    hidden={!homeworkData?.answers.length || homeworkData.answers[0]?.status.name === "completed"}
+                    hidden={!homeworkData?.answer || homeworkData.answer.status.name === "completed"}
                 />
 
-                {!!homeworkData.answers.length && (
+                {homeworkData.answer && (
                     <HomeworkChat
-                        homeworkAnswerId={String(homeworkData.answers[0].id)}
+                        homeworkAnswerId={String(homeworkData.answer.id)}
                         courseId={courseId}
-                        answerIsCompleted={homeworkData.answers[0]?.status.name === "completed"}
+                        answerIsCompleted={homeworkData.answer.status.name === "completed"}
                     />
                 )}
             </Box>
         );
     };
 
-    if (isLoading || !isReadyToRender) {
+    if (isFetching || !isReadyToRender) {
         return <Loader />;
     }
 
@@ -123,9 +123,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
             <Flex className={classes.headingContainer}>
                 <Flex className={classes.headingTextContainer}>
                     <Heading order={2}>Домашнее задание</Heading>
-                    {!!homeworkData?.answers.length && (
-                        <Badge className={classes.status}>{homeworkData.answers[0].status.displayName}</Badge>
-                    )}
+                    {homeworkData?.answer && <Badge className={classes.status}>{homeworkData.answer.status.displayName}</Badge>}
                 </Flex>
                 {isVisibleCollapsedView && (
                     <Button

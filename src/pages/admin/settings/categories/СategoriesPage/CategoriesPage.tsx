@@ -2,14 +2,14 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminCategoryList, CreateCategoryForm } from "@features/categories";
 import useStyles from "./CategoriesPage.styles";
+import { useMedia } from "@shared/utils";
 
 const CategoriesPage = () => {
     const { classes } = useStyles();
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleCloseCreateCategoryModal = () => closeModal("CREATE_CATEGORY");
 

@@ -1,9 +1,8 @@
 import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from "@mantine/core";
 import { memo } from "react";
 import Image from "next/image";
-import { useMediaQuery } from "@mantine/hooks";
 import { CourseFromList } from "@entities/course";
-import { getDiscountValue, getPluralString } from "@shared/utils";
+import { getDiscountValue, getPluralString, useMedia } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { AmountInfo, StartDateBlock } from "./components";
@@ -19,7 +18,7 @@ export interface CardProps extends Omit<MCardProps, "children"> {
 const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => undefined, ...props }: CardProps) {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const isTablet = useMediaQuery("(max-width: 1440px)");
+    const isTablet = useMedia("lg");
 
     const handleClickCard = () => onClick(data.id);
 

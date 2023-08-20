@@ -1,10 +1,10 @@
 import { Box, Flex, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button } from "@shared/ui";
 import { useDetachMaterialsFromLesson } from "@entities/lesson";
 import useStyles from "./DeleteMaterialFromLessonModal.styles";
+import { useMedia } from "@shared/utils";
 
 interface DeleteMaterialFromLessonModalProps {
     lessonId: string;
@@ -19,7 +19,7 @@ const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, mater
     const { classes } = useStyles();
     const { mutate: detachMaterialFromLesson, isLoading } = useDetachMaterialsFromLesson({ lessonId });
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleSubmit = () => {
         detachMaterialFromLesson([materialId], {

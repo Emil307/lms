@@ -6,11 +6,11 @@ import { Button, Heading } from "@shared/ui";
 import { LessonList } from "@widgets/admin/lessons";
 import { CreateLessonModal } from "@features/lessons";
 import useStyles from "./LessonListPage.styles";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 const LessonListPage = () => {
     const { classes } = useStyles();
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleCloseCreateLessonModal = () => closeModal("CREATE_LESSON");
 

@@ -3,13 +3,12 @@ import React from "react";
 import { Edit3, User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForEditForm } from "./utils";
 import { $UpdateMainBannerFormValidation, UpdateMainBannerFormValidation } from "./types";
@@ -24,7 +23,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
     const { classes } = useStyles();
     const router = useRouter();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
         if (!data?.authorFirstName || !data.authorLastName) {

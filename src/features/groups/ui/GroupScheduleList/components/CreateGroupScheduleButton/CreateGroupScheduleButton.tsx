@@ -1,10 +1,10 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { CreateScheduleForm } from "@features/groups";
 import useStyles from "./CreateGroupScheduleButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface CreateGroupScheduleButtonProps {
     groupId: string;
@@ -13,7 +13,7 @@ export interface CreateGroupScheduleButtonProps {
 const CreateGroupScheduleButton = ({ groupId }: CreateGroupScheduleButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleCloseCreateGroupScheduleModal = () => closeModal("CREATE_SCHEDULE");
 

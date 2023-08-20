@@ -2,12 +2,11 @@ import { Box, Flex, Avatar, BoxProps, Col, Grid } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { MutationKeys } from "@shared/constant";
 import { adaptCreateUserFormRequest, getInitialValuesForm } from "./utils";
 import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
@@ -22,7 +21,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const { data: options } = useAdminStudentsFilters();
     const defaultRole = String(options?.roles.at(0)?.id ?? 0);

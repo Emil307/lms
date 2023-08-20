@@ -1,10 +1,10 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { AddCourseToCoursePackageModal } from "@features/coursePackages";
 import useStyles from "./AddCoursesToCoursePackageButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AddCoursesToCoursePackageButtonProps {
     coursePackageId: string;
@@ -13,7 +13,7 @@ export interface AddCoursesToCoursePackageButtonProps {
 const AddCoursesToCoursePackageButton = ({ coursePackageId }: AddCoursesToCoursePackageButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleCloseAddCourseToPackageModal = () => closeModal("ADD_COURSE_TO_PACKAGE");
 

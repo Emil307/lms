@@ -11,13 +11,13 @@ import { radioGroupValues, filterInitialValues, columns } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
 import { adaptGetAdminCoursesRequest } from "./utils";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 const List = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });
 

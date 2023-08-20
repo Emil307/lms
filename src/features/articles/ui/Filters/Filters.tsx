@@ -3,7 +3,6 @@ import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticlesFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
 import { FilterList, ToggleFilterButton } from "./components";
@@ -11,6 +10,7 @@ import { initialValues } from "./contants";
 import useStyles from "./Filters.styles";
 import { TRouterQueries } from "./types";
 import { getCountAppliedQueries } from "./utils";
+import { useMedia } from "@shared/utils";
 
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;
@@ -28,7 +28,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
 
     const articleFilters = useArticlesFilters({ articleType, courseId });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     useEffect(() => {
         if (isTablet) {

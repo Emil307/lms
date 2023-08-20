@@ -54,10 +54,9 @@ const List = ({ courseId }: ModuleListProps) => {
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
-
-        if (active.id !== over?.id) {
+        if (over?.id && active.id !== over.id) {
             const oldIndex = modules.findIndex(({ id }) => id === active.id);
-            const newIndex = modules.findIndex(({ id }) => id === over?.id);
+            const newIndex = modules.findIndex(({ id }) => id === over.id);
             const updatedArray = arrayMove(modules, oldIndex, newIndex);
 
             setModules(updatedArray);

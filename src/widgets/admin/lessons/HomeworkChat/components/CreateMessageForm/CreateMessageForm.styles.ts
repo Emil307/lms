@@ -6,6 +6,7 @@ export default createStyles((theme) => ({
             minHeight: 86,
             height: "100%",
             padding: "20px 16px",
+            paddingRight: 72,
 
             "::placeholder": {
                 color: theme.colors.gray45[0],
@@ -15,8 +16,10 @@ export default createStyles((theme) => ({
 
     sendIcon: {
         position: "absolute",
-        right: 30,
-        top: 30,
+        right: 18,
+        top: 20,
+        width: 48,
+        height: 48,
         color: theme.colors.dark[0],
 
         ":hover": {

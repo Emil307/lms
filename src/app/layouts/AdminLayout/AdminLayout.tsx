@@ -1,12 +1,13 @@
 import { Box } from "@mantine/core";
 import { AppShell } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { useElementSize, useMediaQuery } from "@mantine/hooks";
+import { useElementSize } from "@mantine/hooks";
 import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
 import { NavbarAdmin, NavbarAdminMobile } from "@widgets/Navbar";
 import useStyles from "./AdminLayout.styles";
 import { AdminSidebarMenuContext } from "./utils";
+import { useMedia } from "@shared/utils";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();
@@ -14,7 +15,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
 
     const { ref, height } = useElementSize();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     //для того чтобы скрывать мобильный сайдбар при увеличении размера экрана более 744px
     useEffect(() => {

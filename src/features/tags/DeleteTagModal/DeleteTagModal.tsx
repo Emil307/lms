@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteTag } from "@entities/tag";
 import useStyles from "./DeleteTagModal.styles";
+import { useMedia } from "@shared/utils";
 
 interface DeleteTagModalProps {
     id: string;
@@ -16,7 +16,7 @@ const DeleteTagModal = ({ id, name, onClose }: DeleteTagModalProps) => {
     const { classes } = useStyles();
     const deleteTag = useDeleteTag({ id });
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleSubmit = () => {
         deleteTag.mutate(null, {

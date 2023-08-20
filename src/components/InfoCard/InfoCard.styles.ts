@@ -21,14 +21,16 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
     imageWrapper: {
         position: "relative",
         width: "100%",
-        height: "100%",
+        paddingTop: "62%",
         marginBottom: 16,
         borderRadius: 16,
     },
     imageBack: {
-        position: "relative",
-        width: 270,
-        height: 166,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
         backgroundColor: theme.colors.grayLight[0],
         borderRadius: 16,
 
@@ -41,27 +43,25 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
             transform: "translateX(-50%) translateY(-50%)",
             color: theme.colors.gray20[0],
         },
-
-        [theme.fn.smallerThan("md")]: {
-            width: "100%",
-            height: 152,
-        },
     },
     image: {
         borderRadius: "inherit",
         zIndex: 1,
     },
     iconWrapper: {
-        alignItems: "center",
-        justifyContent: "center",
-        width: 270,
-        height: 166,
+        position: "relative",
+        width: "100%",
+        paddingTop: "62%",
         marginBottom: 16,
         borderRadius: 16,
         backgroundColor: theme.colors.neutralLight[0],
         color: theme.colors.primary[0],
 
         svg: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             width: 86,
             height: 86,
         },

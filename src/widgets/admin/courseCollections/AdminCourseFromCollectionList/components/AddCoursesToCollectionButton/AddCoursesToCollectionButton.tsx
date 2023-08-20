@@ -1,8 +1,8 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { Button } from "@shared/ui";
 import useStyles from "./AddCoursesToCollectionButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AddCoursesToCollectionButtonProps {
     isActiveCategory?: boolean;
@@ -12,7 +12,7 @@ export interface AddCoursesToCollectionButtonProps {
 const AddCoursesToCollectionButton = ({ isActiveCategory, ...props }: AddCoursesToCollectionButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     if (isTablet) {
         return (

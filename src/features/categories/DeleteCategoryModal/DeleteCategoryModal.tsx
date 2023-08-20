@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCategory } from "@entities/category";
 import useStyles from "./DeleteCategoryModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteCategoryModalProps {
     id: string;
@@ -17,7 +17,7 @@ const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategor
     const { classes } = useStyles();
     const deleteCategory = useDeleteCategory({ id });
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleSubmit = () => {
         deleteCategory.mutate(null, {

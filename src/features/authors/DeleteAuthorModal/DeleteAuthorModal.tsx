@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteAuthor } from "@entities/author";
 import useStyles from "./DeleteAuthorModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteAuthorModalProps {
     id: string;
@@ -16,7 +16,7 @@ const DeleteAuthorModal = ({ id, fullName, onClose }: DeleteAuthorModalProps) =>
     const { classes } = useStyles();
     const deleteAuthor = useDeleteAuthor({ id });
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleSubmit = () => {
         deleteAuthor.mutate(null, {

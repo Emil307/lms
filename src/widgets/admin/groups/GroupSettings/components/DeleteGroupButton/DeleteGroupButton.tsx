@@ -1,11 +1,11 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { GetAdminGroupResponse } from "@entities/group";
 import { DeleteGroupModal } from "@features/groups";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteGroupButtonProps {
     data?: GetAdminGroupResponse;
@@ -13,7 +13,7 @@ export interface DeleteGroupButtonProps {
 
 const DeleteGroupButton = ({ data }: DeleteGroupButtonProps) => {
     const router = useRouter();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseDeleteModal = () => {
         closeModal("DELETE_GROUP");

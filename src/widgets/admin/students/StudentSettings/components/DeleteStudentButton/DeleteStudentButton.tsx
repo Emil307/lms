@@ -1,12 +1,11 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { UserDetailResponse } from "@entities/user";
 import { UserDeleteModal } from "@features/users";
 import { Button } from "@shared/ui";
-import { getFullName } from "@shared/utils";
+import { getFullName, useMedia } from "@shared/utils";
 
 export interface DeleteStudentButtonProps {
     data?: UserDetailResponse;
@@ -15,7 +14,7 @@ export interface DeleteStudentButtonProps {
 
 const DeleteStudentButton = ({ data, hidden = false }: DeleteStudentButtonProps) => {
     const router = useRouter();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseDeleteModal = () => {
         closeModal("DELETE_USER");

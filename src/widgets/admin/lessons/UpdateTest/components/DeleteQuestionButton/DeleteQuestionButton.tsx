@@ -1,9 +1,8 @@
 import { Trash as TrashIcon } from "react-feather";
 import React from "react";
 import { closeModal, openModal } from "@mantine/modals";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { Button } from "@shared/ui";
 import useStyles from "./DeleteQuestionButton.styles";
 import { DeleteQuestionModal } from "../DeleteQuestionModal";
@@ -17,7 +16,7 @@ interface DeleteQuestionButtonProps {
 const DeleteQuestionButton = ({ questionName, index, onDeleteQuestion }: DeleteQuestionButtonProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseDeleteQuestionModal = () => closeModal("DELETE_QUESTION_FROM_TEST");
 

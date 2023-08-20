@@ -3,7 +3,7 @@ import React from "react";
 import { Folder as FolderIcon } from "react-feather";
 import { Button, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import {
     courseModuleApi,
     CourseModuleWithoutLessons,
@@ -12,7 +12,6 @@ import {
 } from "@entities/courseModule";
 import { $UpdateCourseModuleFormValues } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateCourseModuleModalProps {
     courseId: string;
@@ -24,7 +23,7 @@ export interface UpdateCourseModuleModalProps {
 const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: UpdateCourseModuleModalProps) => {
     const moduleId = String(module.id);
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const updateCourseModule = (values: UpdateCourseModuleFormValues) => {
         return courseModuleApi.updateModule({ ...values, courseId, moduleId });

@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { Heart } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { GetCoursesResponse } from "@entities/course";
 import { BreadCrumbs, Heading, TBreadCrumbItem } from "@shared/ui";
 import useStyles from "./Header.styles";
 import { DeleteFavoriteCoursesButton } from "../DeleteFavoriteCoursesButton";
+import { useMedia } from "@shared/utils";
 
 export interface HeaderProps {
     data?: GetCoursesResponse;
@@ -13,7 +13,7 @@ export interface HeaderProps {
 
 const Header = ({ data, breadCrumbsItems }: HeaderProps) => {
     const { classes } = useStyles({ hasCourseData: !!data?.data.length });
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const titlePage = isTablet ? "Избранное" : "Избранные курсы";
 

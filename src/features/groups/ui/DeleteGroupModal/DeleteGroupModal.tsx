@@ -4,7 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteGroup } from "@entities/group";
 import useStyles from "./DeleteGroupModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteGroupModalProps {
     id: string;
@@ -16,7 +16,7 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
     const { classes } = useStyles();
     const deleteGroup = useAdminDeleteGroup({ id });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         deleteGroup.mutate(null, {

@@ -3,7 +3,6 @@ import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FDateRangePicker,
@@ -21,7 +20,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
 import { radioGroupValues } from "./constants";
 import { $UpdateCoursePackageFormValidation, UpdateCoursePackageFormValidation } from "./types";
@@ -36,7 +35,7 @@ export interface UpdateCoursePackageFormProps extends Omit<BoxProps, "children">
 const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackageFormProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const onSuccess = () => {
         createNotification({

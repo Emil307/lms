@@ -4,14 +4,14 @@ import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
 import { CourseList } from "@widgets/admin/courses";
-import { useMediaQuery } from "@mantine/hooks";
 import useStyles from "./CourseListPage.styles";
+import { useMedia } from "@shared/utils";
 
 const CourseListPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const openCreateCourseForm = () => router.push({ pathname: "/admin/courses/create" });
 

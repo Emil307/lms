@@ -1,10 +1,10 @@
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import React from "react";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { Button } from "@shared/ui";
 import { CreateCourseModuleModal } from "@features/courseModules";
+import { useMedia } from "@shared/utils";
 
 interface AddModuleButtonProps {
     courseId: string;
@@ -12,7 +12,7 @@ interface AddModuleButtonProps {
 }
 
 const AddModuleButton = ({ courseId, moduleNumber }: AddModuleButtonProps) => {
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseCreateModuleModal = () => closeModal("CREATE_COURSE_MODULE");
 

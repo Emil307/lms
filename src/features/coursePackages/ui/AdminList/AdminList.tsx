@@ -1,7 +1,6 @@
 import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import {
@@ -14,12 +13,13 @@ import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./c
 import { ListMenu } from "./components";
 import { adaptGetAdminCoursePackagesRequest } from "./utils";
 import useStyles from "./AdminList.styles";
+import { useMedia } from "@shared/utils";
 
 const AdminList = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const coursePackageResources = useAdminCoursePackageResourses({ type: "select" });
 

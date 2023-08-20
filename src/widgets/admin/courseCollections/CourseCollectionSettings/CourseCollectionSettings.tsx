@@ -23,7 +23,7 @@ const CourseCollectionSettings = ({ id, ...props }: CourseCollectionSettingsProp
         router.push({ pathname: "/admin/settings/course-collections/[id]/edit", query: { id } });
 
     return (
-        <Flex className={classes.info} {...props}>
+        <Box className={classes.info} {...props}>
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные автора</Heading>
@@ -38,21 +38,19 @@ const CourseCollectionSettings = ({ id, ...props }: CourseCollectionSettingsProp
                     </Fieldset>
                 </Flex>
             </Flex>
-            <Box>
-                <InfoCard<GetAdminCourseCollectionResponse>
-                    iconName={courseCollectionData?.iconName}
-                    variant="whiteBg"
-                    fields={fields}
-                    hideFieldIfEmpty
-                    values={courseCollectionData}
-                    actionSlot={
-                        <Button variant="secondary" onClick={handleOpenUpdateCourseCollectionPage}>
-                            Редактировать данные
-                        </Button>
-                    }
-                />
-            </Box>
-        </Flex>
+            <InfoCard<GetAdminCourseCollectionResponse>
+                iconName={courseCollectionData?.iconName}
+                variant="whiteBg"
+                fields={fields}
+                hideFieldIfEmpty
+                values={courseCollectionData}
+                actionSlot={
+                    <Button variant="secondary" onClick={handleOpenUpdateCourseCollectionPage}>
+                        Редактировать данные
+                    </Button>
+                }
+            />
+        </Box>
     );
 };
 

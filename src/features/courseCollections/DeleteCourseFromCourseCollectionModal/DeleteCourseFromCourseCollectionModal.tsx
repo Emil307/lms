@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteCourseFromCourseCollection } from "@entities/courseCollection";
 import useStyles from "./DeleteCourseFromCourseCollectionModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteCourseFromCourseCollectionModalProps {
     id: number;
@@ -15,7 +15,7 @@ export interface DeleteCourseFromCourseCollectionModalProps {
 
 const DeleteCourseFromCourseCollectionModal = ({ id, name, courseCollectionId, onClose }: DeleteCourseFromCourseCollectionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const deleteCourseFromCourseCollection = useAdminDeleteCourseFromCourseCollection({ courseCollectionId, ids: [id] });
 

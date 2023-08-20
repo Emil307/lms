@@ -1,9 +1,8 @@
 import { ActionIcon, Box, Flex } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { ChevronLeft } from "react-feather";
 import { AdminSupportConversationFromList } from "@entities/support";
 import { Heading, Paragraph } from "@shared/ui";
-import { getFullName } from "@shared/utils";
+import { getFullName, useMedia } from "@shared/utils";
 import useStyles from "./HeaderSelectedConversation.styles";
 
 export interface HeaderSelectedConversationProps {
@@ -14,7 +13,7 @@ export interface HeaderSelectedConversationProps {
 const HeaderSelectedConversation = ({ selectedConversation, onCloseConversation }: HeaderSelectedConversationProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     if (!selectedConversation) {
         return null;

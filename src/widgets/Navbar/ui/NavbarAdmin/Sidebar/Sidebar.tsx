@@ -3,13 +3,14 @@ import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
-import { useClickOutside, useMediaQuery } from "@mantine/hooks";
+import { useClickOutside } from "@mantine/hooks";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "public/icons/closeBook.svg";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
 import { MinimizedModeSidebarContext } from "./utils";
+import { useMedia } from "@shared/utils";
 
 export default function Sidebar() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function Sidebar() {
 
     const { classes } = useStyles({ isMinimizedModeSidebar });
 
-    const isTablet = useMediaQuery("(max-width: 1440px)");
+    const isTablet = useMedia("lg");
 
     const sidebarRef = useClickOutside(() => isTablet && setIsMinimizedModeSidebar(true));
 

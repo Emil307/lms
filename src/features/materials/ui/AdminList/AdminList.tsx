@@ -1,5 +1,4 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -8,6 +7,7 @@ import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./c
 import { ListMenu } from "./components";
 import { adaptGetMaterialFilesRequest } from "./utils";
 import useStyles from "./AdminList.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends BoxProps {}
 
@@ -16,7 +16,7 @@ const AdminList = (props: AdminListProps) => {
 
     const materialResources = useUploadedFileResources();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     return (
         <Box {...props}>

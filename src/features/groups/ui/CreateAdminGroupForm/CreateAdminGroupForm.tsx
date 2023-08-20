@@ -1,12 +1,11 @@
 import { Box, Text, Flex, Grid, BoxProps } from "@mantine/core";
 import React from "react";
 import { Flag, FolderPlus } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { $CreateGroupFormValidation, CreateGroupFormValidation } from "./types";
 import { adaptCreateAdminGroupRequest, adaptCreateAdminGroupForm } from "./utils";
 import useStyles from "./CreateAdminGroupForm.styles";
@@ -19,7 +18,7 @@ export interface CreateAdminGroupFormProps extends BoxProps {
 
 const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: CreateAdminGroupFormProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
 

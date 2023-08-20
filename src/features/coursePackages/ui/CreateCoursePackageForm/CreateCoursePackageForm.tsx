@@ -2,7 +2,6 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
-import { useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import {
     Button,
@@ -20,7 +19,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
 import { initialValues, radioGroupValues } from "./constants";
 import { $CreateCoursePackageFormValidation, CreateCoursePackageFormValidation } from "./types";
@@ -35,7 +34,7 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
     const { classes } = useStyles();
     const router = useRouter();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const onSuccess = (response: AdminCoursePackageDetails) => {
         createNotification({

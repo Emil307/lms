@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteUser } from "@entities/user";
 import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface UserDeleteModalProps {
     id: string;
@@ -16,7 +16,7 @@ const UserDeleteModal = ({ id, fio, onClose }: UserDeleteModalProps) => {
     const { classes } = UserDeleteModalStyles();
     const deleteUser = useDeleteUser({ id, fio });
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleDeleteUser = async () => {
         deleteUser.mutate(null, {

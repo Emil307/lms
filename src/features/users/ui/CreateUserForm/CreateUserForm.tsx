@@ -2,7 +2,6 @@ import { Box, Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FControlPanel,
@@ -21,7 +20,7 @@ import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
-import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification, useMedia } from "@shared/utils";
 import { Roles } from "@app/routes";
 import { adaptCreateUserFormRequest, getInitialValuesForm, getNotificationList } from "./utils";
 import { notificationLabels } from "./constants";
@@ -38,7 +37,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);

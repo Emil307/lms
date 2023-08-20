@@ -3,8 +3,8 @@ import { UpdateLessonHomeworkAnswerFormValidation } from "./types";
 
 export const getInitialValues = (data?: GetHomeworkResponse): UpdateLessonHomeworkAnswerFormValidation => {
     return {
-        answer: data?.answers[0]?.answer || "",
-        files: data?.answers[0]?.files || [],
+        answer: data?.answer?.answer || "",
+        files: data?.answer?.files || [],
     };
 };
 

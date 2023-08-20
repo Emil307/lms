@@ -1,12 +1,11 @@
 import { Flex, ThemeIcon, Text } from "@mantine/core";
 import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React, { useState } from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $CreateLessonFormValues, CreateLessonFormValues, CreateLessonResponse, lessonApi } from "@entities/lesson";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { initialValues } from "./constants";
 import useStyles from "./CreateLessonModal.styles";
@@ -24,7 +23,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
     const [isSubmitting, setSubmitting] = useState(false);
     const { mutate: attachLessonToModule } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const createLesson = (values: CreateLessonFormValues) => {
         setSubmitting(true);

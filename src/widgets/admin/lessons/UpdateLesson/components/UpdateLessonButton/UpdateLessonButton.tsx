@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import React from "react";
@@ -7,6 +6,7 @@ import { UpdateLessonModal } from "@features/lessons";
 import { Button } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import useStyles from "./UpdateLessonButton.styles";
+import { useMedia } from "@shared/utils";
 
 interface UpdateLessonButtonProps {
     data: AdminLesson;
@@ -15,7 +15,7 @@ interface UpdateLessonButtonProps {
 const UpdateLessonButton = ({ data }: UpdateLessonButtonProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const closeUpdateLessonModal = () => closeModal("UPDATE_LESSON");
 

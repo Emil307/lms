@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { FormikConfig } from "formik";
 import { Box, Flex } from "@mantine/core";
-import { useIntersection, useMediaQuery } from "@mantine/hooks";
+import { useIntersection } from "@mantine/hooks";
 import { Button, Checkbox, FCheckboxGroup, Form, Loader } from "@shared/ui";
 import { useAdminCategories } from "@entities/category";
-import { getDataFromSessionStorage } from "@shared/utils";
+import { getDataFromSessionStorage, useMedia } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import useStyles from "./BindingMaterialsWithCategories.styles";
 import { initialParams } from "./constants";
@@ -17,7 +17,7 @@ export interface BindingMaterialsWithCategoriesProps {
 const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategoriesProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 

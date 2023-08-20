@@ -1,8 +1,7 @@
 import { Box, Collapse, Flex } from "@mantine/core";
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import PositivelyIcon from "@public/icons/positively.svg";
@@ -21,7 +20,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
     const { classes } = useStyles();
     const lessonId = String(data.id);
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleUpdateLessonContent = (data: UpdateLessonContentFormValues) => {
         return lessonApi.updateLessonContent(adaptDataForUpdateLessonContentRequest({ ...data, id: lessonId }));

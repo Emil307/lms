@@ -3,11 +3,10 @@ import React from "react";
 import { Folder as FolderIcon } from "react-feather";
 import { Button, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { $CreateCourseModuleFormValues, courseModuleApi } from "@entities/courseModule";
 import { CreateCourseModuleFormValues, CreateCourseModuleResponse } from "@entities/courseModule";
 import { initialValues } from "./constants";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateCourseModuleModalProps {
     courseId: string;
@@ -16,7 +15,7 @@ export interface CreateCourseModuleModalProps {
 }
 
 const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCourseModuleModalProps) => {
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const createCourseModule = (values: CreateCourseModuleFormValues) => {
         return courseModuleApi.createModule({ ...values, courseId });

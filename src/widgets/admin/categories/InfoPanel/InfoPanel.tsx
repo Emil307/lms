@@ -2,10 +2,10 @@ import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Folder } from "react-feather";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminCategory, useAdminUpdateCategoryActivity } from "@entities/category";
 import useStyles from "./InfoPanel.styles";
+import { useMedia } from "@shared/utils";
 
 export interface InfoPanelProps extends BoxProps {
     id: string;
@@ -15,7 +15,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data } = useAdminCategory({ id });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id });
 

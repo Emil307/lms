@@ -1,15 +1,15 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { CreateAdvantageForm } from "@features/advantages";
 import useStyles from "./CreateAdvantageButton.styles";
+import { useMedia } from "@shared/utils";
 
 const CreateAdvantageButton = () => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleCloseCreateAdvantageModal = () => closeModal("CREATE_ADVANTAGE");
 

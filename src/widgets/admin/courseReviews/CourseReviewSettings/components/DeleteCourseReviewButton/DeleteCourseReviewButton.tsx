@@ -1,12 +1,11 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { DeleteCourseReviewModal } from "@features/courseReviews";
 import { GetAdminCourseReviewResponse } from "@entities/courseReview";
-import { getFullName } from "@shared/utils";
+import { getFullName, useMedia } from "@shared/utils";
 
 export interface DeleteCourseReviewButtonProps {
     data?: GetAdminCourseReviewResponse;
@@ -14,12 +13,16 @@ export interface DeleteCourseReviewButtonProps {
 
 const DeleteCourseReviewButton = ({ data }: DeleteCourseReviewButtonProps) => {
     const router = useRouter();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_COURSE_REVIEW");
+    const closeDeleteModal = () => closeModal("DELETE_COURSE_REVIEW");
+
+    const handleSuccessDelete = () => {
+        closeDeleteModal();
         router.push("/admin/settings/course-reviews");
     };
+
+    const handleCancelDelete = () => closeDeleteModal();
 
     const openDeleteModal = () => {
         openModal({
@@ -29,7 +32,8 @@ const DeleteCourseReviewButton = ({ data }: DeleteCourseReviewButtonProps) => {
                 <DeleteCourseReviewModal
                     id={String(data?.id)}
                     fullName={getFullName({ data: data?.user.profile })}
-                    onClose={handleCloseDeleteModal}
+                    onSuccess={handleSuccessDelete}
+                    onCancel={handleCancelDelete}
                 />
             ),
         });

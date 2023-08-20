@@ -1,27 +1,28 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteCourseCollection } from "@entities/courseCollection";
 import useStyles from "./DeleteCourseCollectionModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteCourseCollectionModalProps {
     id: string;
     name?: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteCourseCollectionModal = ({ id, name, onClose }: DeleteCourseCollectionModalProps) => {
+const DeleteCourseCollectionModal = ({ id, name, onSuccess, onCancel }: DeleteCourseCollectionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const deleteCourseCollection = useAdminDeleteCourseCollection({ id });
 
     const handleSubmit = () => {
         deleteCourseCollection.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
@@ -43,7 +44,7 @@ const DeleteCourseCollectionModal = ({ id, name, onClose }: DeleteCourseCollecti
                 <Button
                     size={isMobile ? "medium" : "large"}
                     variant="border"
-                    onClick={onClose}
+                    onClick={onCancel}
                     loading={deleteCourseCollection.isLoading}
                     w="100%">
                     Отмена

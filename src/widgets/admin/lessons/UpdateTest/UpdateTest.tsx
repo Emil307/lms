@@ -1,11 +1,10 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { AdminTest, lessonApi, UpdateAdminTestResponse } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { QuestionList } from "./components";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
 import useStyles from "./UpdateTest.styles";
@@ -20,7 +19,7 @@ interface UpdateTestProps {
 const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
     const { classes } = useStyles({ greenCheckIcon: true });
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const updateTest = (data: UpdateTestFormValues) => {
         return lessonApi.updateAdminTest(adaptUpdateTestRequest(data, lessonId));

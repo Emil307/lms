@@ -41,9 +41,9 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
 
-        if (active.id !== over?.id) {
+        if (over?.id && active.id !== over.id) {
             const oldIndex = lessons.findIndex(({ id }) => id === active.id);
-            const newIndex = lessons.findIndex(({ id }) => id === over?.id);
+            const newIndex = lessons.findIndex(({ id }) => id === over.id);
             const updatedArray = arrayMove(lessons, oldIndex, newIndex);
             setLessons(updatedArray);
             updateLessonOrder({ lessonId: String(active.id), after: newIndex ? updatedArray[newIndex - 1].id : 0 });
