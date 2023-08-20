@@ -1,10 +1,10 @@
 import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button } from "@shared/ui";
 import { useDeleteLesson } from "@entities/lesson";
 import useStyles from "./DeleteLessonModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteLessonModalProps {
     id: string;
@@ -17,7 +17,7 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
     const { classes } = useStyles();
     const { mutate: deleteLesson, isLoading } = useDeleteLesson(id);
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         deleteLesson(null, {

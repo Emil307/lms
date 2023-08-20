@@ -2,12 +2,21 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     info: {
-        gap: 56,
-        borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        display: "grid",
+        gridTemplateColumns: "minmax(300px, 1162px) 334px",
+        gridGap: 56,
+        alignItems: "flex-start",
 
         [theme.fn.smallerThan("md")]: {
-            flexDirection: "column-reverse",
+            gridTemplateColumns: "100%",
+
+            "> div": {
+                "&:last-child": {
+                    maxWidth: 334,
+                    width: "100%",
+                    order: -1,
+                },
+            },
         },
     },
     settingsInfo: {

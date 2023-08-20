@@ -4,7 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDeleteCourseModule } from "@entities/courseModule";
 import useStyles from "./DeleteCourseModuleModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteCourseModuleModalProps {
     courseId: string;
@@ -17,7 +17,7 @@ const DeleteCourseModuleModal = ({ courseId, moduleId, moduleName, onClose }: De
     const { classes } = useStyles();
     const { mutate: deleteCourseModule, isLoading } = useDeleteCourseModule({ courseId, moduleId, moduleName });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         deleteCourseModule(null, {

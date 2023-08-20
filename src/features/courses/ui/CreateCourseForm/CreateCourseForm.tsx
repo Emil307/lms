@@ -29,14 +29,13 @@ import {
     useAdminCourseResources,
 } from "@entities/course";
 import { Fieldset } from "@components/Fieldset";
-import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
+import { createNotification, getDiscountPrice, ToastType, useMedia } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptCreateCourseRequest } from "./utils";
 import { initialParams, initialValues, radioGroupValues } from "./constants";
 import useStyles from "./CreateCourseForm.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface CreateCourseFormProps {
     onSuccess: (newCourseId: number) => void;
@@ -52,7 +51,7 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
         filter: { parentId: selectedCategory },
     });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const createCourse = (values: CreateCourseFormValues) => {
         return courseApi.createCourse(adaptCreateCourseRequest(values));

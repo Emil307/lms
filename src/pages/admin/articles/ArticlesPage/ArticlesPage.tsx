@@ -2,16 +2,16 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminArticleList } from "@features/articles";
 import useStyles from "./ArticlesPage.styles";
+import { useMedia } from "@shared/utils";
 
 const ArticlesPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleOpenCreateArticleForm = () => router.push("/admin/articles/create");
 

@@ -1,10 +1,10 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { AddCoursesToArticleModal } from "@features/articles";
 import useStyles from "./AddArticleCourseButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AddArticleCourseButtonProps {
     articleId: string;
@@ -13,7 +13,7 @@ export interface AddArticleCourseButtonProps {
 const AddArticleCourseButton = ({ articleId }: AddArticleCourseButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleCloseAddArticleCoursesModal = () => closeModal("ATTACH_COURSES_TO_ARTICLE");
 

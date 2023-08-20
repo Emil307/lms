@@ -1,9 +1,9 @@
 import { Trash2 } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { Button } from "@shared/ui";
 import { GetCoursesResponse, useDeleteFavoriteCourses } from "@entities/course";
 import useStyles from "./DeleteFavoriteCoursesButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteFavoriteCoursesButtonProps {
     data?: GetCoursesResponse;
@@ -12,7 +12,7 @@ export interface DeleteFavoriteCoursesButtonProps {
 const DeleteFavoriteCoursesButton = ({ data }: DeleteFavoriteCoursesButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const deleteFavoriteCourses = useDeleteFavoriteCourses();
 

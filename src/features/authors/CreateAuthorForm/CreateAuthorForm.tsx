@@ -2,14 +2,13 @@ import { Flex, Avatar } from "@mantine/core";
 import React from "react";
 import { Edit3, User } from "react-feather";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "@public/icons/avatar.svg";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAuthorResponse, authorApi } from "@entities/author";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { initialValues } from "./constants";
 import { $CreateAuthorFormValidation, CreateAuthorFormValidation } from "./types";
 import { adaptCreateAuthorRequest } from "./utils";
@@ -24,7 +23,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
 
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const createAuthor = (values: CreateAuthorFormValidation) => {
         return authorApi.createAuthor(adaptCreateAuthorRequest(values));

@@ -12,11 +12,10 @@ import {
     UpdateAdminHomeworkResponse,
 } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateHomework.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 interface UpdateHomeworkProps {
     lessonId: string;
@@ -27,7 +26,7 @@ interface UpdateHomeworkProps {
 const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const updateHomework = (data: UpdateAdminHomeworkFormValues) => {
         return lessonApi.updateAdminHomework(adaptDataForUpdateHomeworkRequest({ ...data, id: lessonId }));

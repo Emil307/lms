@@ -1,11 +1,11 @@
 import { Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { FileText } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ArticleWithMeta } from "@entities/article";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Heading, Paragraph } from "@shared/ui";
 import { Pagination, TagList } from "./components";
 import useStyles from "./MainInfoPanelNavigated.styles";
+import { useMedia } from "@shared/utils";
 
 export interface MainInfoPanelNavigatedProps extends Omit<FlexProps, "children"> {
     articleData: ArticleWithMeta;
@@ -15,7 +15,7 @@ export interface MainInfoPanelNavigatedProps extends Omit<FlexProps, "children">
 const MainInfoPanelNavigated = ({ articleData: { data, meta }, type, ...props }: MainInfoPanelNavigatedProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const variantFavoriteButton = isTablet ? "compact" : "default";
 

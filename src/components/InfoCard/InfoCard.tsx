@@ -55,7 +55,7 @@ function InfoCard<T>({
 
         const icon = getIcon({ iconName });
 
-        return <Flex className={classes.iconWrapper}>{icon}</Flex>;
+        return <Box className={classes.iconWrapper}>{icon}</Box>;
     }, [iconName]);
 
     const renderAvatar = useCallback(() => {

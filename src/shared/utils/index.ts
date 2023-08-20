@@ -18,3 +18,4 @@ export * from "./getRandomArrayElement";
 export * from "./getAnswerLetterFromRussianAlphabet";
 export * from "./openVideo";
 export * from "./isMyCourse";
+export * from "./useMedia";

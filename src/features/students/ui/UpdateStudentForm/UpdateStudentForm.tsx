@@ -4,12 +4,11 @@ import { Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FInput, FRadioGroup, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getFullName } from "@shared/utils";
+import { ToastType, createNotification, getFullName, useMedia } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
@@ -27,7 +26,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
     const { classes } = useStyles();
     const { data: options } = useAdminStudentsFilters();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 

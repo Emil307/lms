@@ -1,9 +1,9 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import useStyles from "./ConfirmActionModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface ConfirmActionModalProps {
     onSubmit: () => void;
@@ -12,7 +12,7 @@ export interface ConfirmActionModalProps {
 
 const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     return (
         <>

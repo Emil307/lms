@@ -11,6 +11,7 @@ import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } fro
 import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
 import useStyles from "./HomeworkTask.styles";
 import { getFormatUpdatedAt } from "./utils";
+import { useMedia } from "@shared/utils";
 
 interface HomeworkTaskProps {
     homeworkAnswer: AdminHomeworkAnswer;
@@ -25,6 +26,8 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
         status: "completed",
         content: null,
     });
+
+    const isMobile = useMedia("sm");
 
     const handleToggleOpenedHomework = () => setOpenedHomework((prevState) => !prevState);
 
@@ -62,11 +65,19 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
         switch (homeworkAnswer.status.name) {
             case "onReview":
                 return (
-                    <Flex gap={8}>
-                        <Button variant="border" leftIcon={<ReworkIcon />} onClick={openUpdateHomeworkAnswerStatus}>
+                    <Flex gap={8} wrap="wrap">
+                        <Button
+                            variant="border"
+                            size={isMobile ? "small" : "medium"}
+                            leftIcon={<ReworkIcon />}
+                            onClick={openUpdateHomeworkAnswerStatus}>
                             На доработку
                         </Button>
-                        <Button variant="border" leftIcon={<CompletedIcon />} onClick={() => updateAnswerStatus(null)}>
+                        <Button
+                            variant="border"
+                            size={isMobile ? "small" : "medium"}
+                            leftIcon={<CompletedIcon />}
+                            onClick={() => updateAnswerStatus(null)}>
                             Выполнено
                         </Button>
                     </Flex>

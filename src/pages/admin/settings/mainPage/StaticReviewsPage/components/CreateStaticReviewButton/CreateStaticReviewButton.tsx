@@ -1,9 +1,9 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import useStyles from "./CreateStaticReviewButton.styles";
+import { useMedia } from "@shared/utils";
 
 const CreateStaticReviewButton = () => {
     const router = useRouter();
@@ -11,7 +11,7 @@ const CreateStaticReviewButton = () => {
 
     const redirectCreateReview = () => router.push({ pathname: "/admin/settings/main-page/reviews/create" });
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     if (isTablet) {
         return (

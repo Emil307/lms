@@ -597,7 +597,7 @@ export const $Homework = z.object({
     content: z.string(),
     requiredType: z.string(),
     files: $UploadedFile.array(),
-    answers: $HomeworkAnswer.array(),
+    answer: $HomeworkAnswer.nullable(),
 });
 
 export const $GetHomeworkRequest = z.object({

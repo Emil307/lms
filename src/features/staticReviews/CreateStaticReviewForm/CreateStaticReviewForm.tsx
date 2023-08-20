@@ -2,13 +2,12 @@ import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Edit3, User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { initialValues } from "./constants";
 import useStyles from "./CreateStaticReviewForm.styles";
 import { $CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewFormValidation } from "./types";
@@ -21,7 +20,7 @@ export interface CreateStaticReviewFormProps extends Omit<BoxProps, "children"> 
 const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const createStaticReview = (values: CreateAdminStaticReviewFormValidation) => {
         return staticReviewApi.createStaticReview(adaptCreateStaticReviewRequest(values));

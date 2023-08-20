@@ -1,17 +1,17 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
 import { Button } from "@shared/ui";
 import { DeleteArticlePackageModal } from "@features/articlePackages";
 import { GetAdminArticlePackageResponse } from "@entities/articlePackage";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteArticlePackageButtonProps {
     data?: GetAdminArticlePackageResponse;
 }
 
 const DeleteArticlePackageButton = ({ data }: DeleteArticlePackageButtonProps) => {
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseDeleteModal = () => {
         closeModal("DELETE_ARTICLE_PACKAGE");

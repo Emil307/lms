@@ -4,12 +4,11 @@ import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { FormikProps } from "formik";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, ManagedForm, Paragraph, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
 import { $CreateArticleFormValidation, CreateArticleFormValidation } from "./types";
@@ -24,7 +23,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
 

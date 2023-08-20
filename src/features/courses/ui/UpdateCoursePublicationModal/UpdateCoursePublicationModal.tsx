@@ -3,9 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useUpdateCoursePublication } from "@entities/course";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import useStyles from "./UpdateCoursePublicationModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateCoursePublicationModalProps {
     id: string;
@@ -19,7 +18,7 @@ const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel 
     const { classes } = useStyles();
     const { mutate: publishCourse, isLoading } = useUpdateCoursePublication(id);
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         publishCourse(true, {

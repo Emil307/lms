@@ -1,9 +1,9 @@
 import { Flex, Group } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Article } from "@entities/article";
 import { Paragraph } from "@shared/ui";
 import useStyles from "./Footer.styles";
+import { useMedia } from "@shared/utils";
 
 export interface FooterProps {
     data: Article;
@@ -11,7 +11,7 @@ export interface FooterProps {
 
 const Footer = ({ data }: FooterProps) => {
     const { classes } = useStyles();
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const variantFavoriteButton = isTablet ? "compact" : "default";
 

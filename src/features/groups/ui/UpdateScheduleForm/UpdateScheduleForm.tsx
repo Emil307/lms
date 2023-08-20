@@ -1,11 +1,10 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
 import { AdminGroupScheduleFromList, UpdateAdminGroupScheduleResponse, groupApi } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { $UpdateScheduleFormValidation, UpdateScheduleFormValidation } from "./types";
 import { adaptUpdateGroupScheduleRequest, adaptUpdateScheduleForm } from "./utils";
 import { initialValues } from "./constants";
@@ -17,7 +16,7 @@ export interface UpdateScheduleFormProps extends BoxProps {
 }
 
 const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateScheduleFormProps) => {
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const updateGroupSchedule = (values: UpdateScheduleFormValidation) => {
         return groupApi.updateAdminGroupSchedule({ ...adaptUpdateGroupScheduleRequest(values), groupId, scheduleId: data.id });

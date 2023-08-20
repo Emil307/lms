@@ -1,8 +1,8 @@
 import { Box, Flex, ScrollArea } from "@mantine/core";
 import React, { useState } from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button } from "@shared/ui";
 import { List as ExternalIconList } from "@widgets/externalIcons";
+import { useMedia } from "@shared/utils";
 
 export interface SelectIconModalProps {
     initialSelectedIcon?: string;
@@ -13,7 +13,7 @@ export interface SelectIconModalProps {
 const SelectIconModal = ({ initialSelectedIcon = "", onSubmit, onClose }: SelectIconModalProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string>(initialSelectedIcon);
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const handleSubmit = () => onSubmit(selectedIcon);
 

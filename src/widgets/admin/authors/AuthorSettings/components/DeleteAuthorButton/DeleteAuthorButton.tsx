@@ -1,11 +1,11 @@
 import { ActionIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { DeleteAuthorModal } from "@features/authors";
 import { GetAdminAuthorResponse } from "@entities/author";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteAuthorButtonProps {
     data?: GetAdminAuthorResponse;
@@ -13,7 +13,7 @@ export interface DeleteAuthorButtonProps {
 
 const DeleteAuthorButton = ({ data }: DeleteAuthorButtonProps) => {
     const router = useRouter();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const userFullName = [data?.lastName, data?.firstName, data?.patronymic].join(" ");
 

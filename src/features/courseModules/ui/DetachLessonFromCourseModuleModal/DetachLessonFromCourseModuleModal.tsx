@@ -4,7 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDetachLessonFromCourseModule } from "@entities/courseModule";
 import useStyles from "./DetachLessonFromCourseModuleModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 export interface DetachLessonFromCourseModuleModalProps {
     courseId: string;
@@ -32,7 +32,7 @@ const DetachLessonFromCourseModuleModal = ({
         moduleName,
     });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         detachLessonFromModule(null, {

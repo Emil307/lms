@@ -3,7 +3,6 @@ import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import { AlignLeft } from "react-feather";
 import React from "react";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FDateRangePicker,
@@ -26,7 +25,7 @@ import {
     articlePackageApi,
     useAdminArticlePackageResourcesCreate,
 } from "@entities/articlePackage";
-import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptUpdateArticlePackageForm, adaptUpdateArticlePackageRequest } from "./utils";
 import { radioGroupValues } from "./constants";
@@ -40,7 +39,7 @@ export interface UpdateArticlePackageFormProps extends BoxProps {
 
 const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePackageFormProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const articlePackageResources = useAdminArticlePackageResourcesCreate();
 

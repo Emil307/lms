@@ -33,7 +33,8 @@ const ListMenu = ({ row }: ListMenuProps) => {
                 <DeleteCourseReviewModal
                     id={String(row.original.id)}
                     fullName={getFullName({ data: row.original.user.profile })}
-                    onClose={handleCloseDeleteModal}
+                    onSuccess={handleCloseDeleteModal}
+                    onCancel={handleCloseDeleteModal}
                 />
             ),
         });

@@ -2,7 +2,6 @@ import { Box, Flex } from "@mantine/core";
 import { PlusCircle } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { FSearch, FSelect, Heading } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -14,15 +13,16 @@ import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
+import { useMedia } from "@shared/utils";
 
 const UserList = () => {
     const router = useRouter();
     const { classes } = useStyles();
     const userFilters = useAdminUsersFilters();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const rolesSelectOption = userFilters.data?.roles.map((item) => {
         return {

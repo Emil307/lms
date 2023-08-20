@@ -4,10 +4,9 @@ import { AlertTriangle, AlignLeft, Type } from "react-feather";
 import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon } from "@shared/utils";
+import { ToastType, createNotification, getIcon, useMedia } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
@@ -22,7 +21,7 @@ export interface CreateCourseCollectionFormProps extends BoxProps {
 const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const createCourseCollection = (values: CreateCourseCollectionFormValidation) => {
         return courseCollectionApi.createAdminCourseCollection(values);

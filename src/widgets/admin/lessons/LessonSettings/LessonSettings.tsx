@@ -1,12 +1,12 @@
 import { Flex, Box } from "@mantine/core";
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
 import useStyles from "./LessonSettings.styles";
 import { DeleteLessonButton } from "./components";
+import { useMedia } from "@shared/utils";
 
 interface LessonSettingsProps {
     data: AdminLesson;
@@ -16,7 +16,7 @@ interface LessonSettingsProps {
 const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const renderLabelValue = (isTrue: boolean) => {
         if (isTrue) {

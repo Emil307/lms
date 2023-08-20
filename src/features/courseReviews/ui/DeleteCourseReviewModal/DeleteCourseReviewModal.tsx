@@ -1,26 +1,27 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCourseReview } from "@entities/courseReview";
 import useStyles from "./DeleteCourseReviewModal.styles";
+import { useMedia } from "@shared/utils";
 
 export interface DeleteCourseReviewModalProps {
     id: string;
     fullName: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteCourseReviewModal = ({ id, fullName, onClose }: DeleteCourseReviewModalProps) => {
+const DeleteCourseReviewModal = ({ id, fullName, onSuccess, onCancel }: DeleteCourseReviewModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
     const deleteCourseReview = useDeleteCourseReview({ id });
 
     const handleSubmit = () => {
         deleteCourseReview.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
@@ -42,7 +43,7 @@ const DeleteCourseReviewModal = ({ id, fullName, onClose }: DeleteCourseReviewMo
                 <Button
                     size={isMobile ? "medium" : "large"}
                     variant="border"
-                    onClick={onClose}
+                    onClick={onCancel}
                     loading={deleteCourseReview.isLoading}
                     w="100%">
                     Отмена

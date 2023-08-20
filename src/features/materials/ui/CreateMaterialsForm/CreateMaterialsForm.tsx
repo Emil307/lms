@@ -1,10 +1,9 @@
 import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { FormikConfig } from "formik";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileInputMultiple, Form } from "@shared/ui";
 import { CreateMaterialsDataForm, FileTypeCard, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
-import { getDataFromSessionStorage } from "@shared/utils";
+import { getDataFromSessionStorage, useMedia } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
 import { $CreateMaterialsFormValidation, CreateMaterialsFormValidation } from "./types";
 import { getInitialValues } from "./utils";
@@ -21,7 +20,7 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const config: FormikConfig<CreateMaterialsFormValidation> = {
         initialValues: getInitialValues(sessionStorageData),

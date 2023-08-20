@@ -1,9 +1,8 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileInputMultiple, FTextEditor, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { GetHomeworkResponse, UpdateHomeworkAnswerResponse, lessonApi } from "@entities/lesson";
 import { adaptUpdateLessonHomeworkAnswerRequest, getInitialValues } from "./utils";
 import { $UpdateLessonHomeworkAnswerFormValidation, UpdateLessonHomeworkAnswerFormValidation } from "./types";
@@ -26,7 +25,7 @@ const UpdateLessonHomeworkAnswerForm = ({
     onClose,
     ...props
 }: UpdateLessonHomeworkAnswerFormProps) => {
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const updateLessonHomeworkAnswer = (values: UpdateLessonHomeworkAnswerFormValidation) => {
         return lessonApi.updateHomeworkAnswer({ ...adaptUpdateLessonHomeworkAnswerRequest(values), lessonId, courseId });

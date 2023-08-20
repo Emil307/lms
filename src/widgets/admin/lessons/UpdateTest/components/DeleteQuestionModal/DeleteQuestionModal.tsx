@@ -1,9 +1,9 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle } from "react-feather";
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Paragraph } from "@shared/ui";
 import useStyles from "./DeleteQuestionModal.styles";
+import { useMedia } from "@shared/utils";
 
 interface DeleteQuestionModalProps {
     questionName: string;
@@ -14,7 +14,7 @@ interface DeleteQuestionModalProps {
 const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuestionModalProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     return (
         <Flex direction="column" gap={56}>

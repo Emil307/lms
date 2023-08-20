@@ -1,12 +1,12 @@
 import { closeModal, openModal } from "@mantine/modals";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import React from "react";
 import { SelectTypeMaterial } from "@widgets/admin/materials";
 import { useAttachMaterialsToLesson } from "@entities/lesson";
 import { AddMaterialsToLessonModal } from "@features/lessons";
 import { Button, Loader } from "@shared/ui";
+import { useMedia } from "@shared/utils";
 
 interface AddMaterialsButtonProps {
     lessonId: string;
@@ -15,7 +15,7 @@ interface AddMaterialsButtonProps {
 const AddMaterialsButton = ({ lessonId }: AddMaterialsButtonProps) => {
     const { mutate: attachMaterialsToLesson, isLoading } = useAttachMaterialsToLesson({ lessonId });
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleCloseAddMaterialsToLessonModal = () => closeModal("ADD_MATERIALS_TO_LESSON");
 

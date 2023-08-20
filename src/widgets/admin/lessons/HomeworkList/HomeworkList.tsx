@@ -2,7 +2,6 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
-import { useMediaQuery } from "@mantine/hooks";
 import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -11,13 +10,14 @@ import { adaptGetAdminHomeworkAnswersRequest, getBadgeColors } from "./utils";
 import { radioGroupValues, columns, filterInitialValues, columnOrder } from "./constants";
 import { AdminHomeworkAnswersFilters } from "./types";
 import useStyles from "./HomeworkList.styles";
+import { useMedia } from "@shared/utils";
 
 export interface HomeworkListProps extends Omit<BoxProps, "children"> {}
 
 const HomeworkList = (props: HomeworkListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const { data: homeworkFilters, isLoading: isLoadingFilters } = useAdminLessonHomeworkAnswersResources({ type: "select" });
 

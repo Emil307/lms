@@ -1,8 +1,8 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { Button } from "@shared/ui";
 import useStyles from "./CreateSubCategoryButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface CreateSubCategoryButtonProps {
     isActiveCategory?: boolean;
@@ -12,7 +12,7 @@ export interface CreateSubCategoryButtonProps {
 const CreateSubCategoryButton = ({ isActiveCategory, ...props }: CreateSubCategoryButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     if (!isActiveCategory) {
         return null;

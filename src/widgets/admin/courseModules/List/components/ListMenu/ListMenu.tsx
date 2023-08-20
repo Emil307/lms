@@ -5,8 +5,8 @@ import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { CourseModuleWithoutLessons, useUpdateCourseModuleActivity } from "@entities/courseModule";
 import { DeleteCourseModuleModal, UpdateCourseModuleModal } from "@features/courseModules";
-import { useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import { useMedia } from "@shared/utils";
 
 export interface ListMenuProps {
     courseId: string;
@@ -19,7 +19,7 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
     const moduleId = String(data.id);
     const { mutate: updateActivityStatus } = useUpdateCourseModuleActivity({ courseId, moduleId, moduleName: data.name });
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 

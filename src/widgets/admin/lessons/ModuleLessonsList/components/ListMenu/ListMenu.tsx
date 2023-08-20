@@ -7,8 +7,8 @@ import { useUpdateLessonActivity } from "@entities/lesson";
 import { DetachLessonFromCourseModuleModal } from "@features/courseModules";
 import { UpdateLessonModal } from "@features/lessons";
 import { CourseModuleLesson } from "@entities/courseModule";
-import { useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import { useMedia } from "@shared/utils";
 
 export interface ListMenuProps {
     courseId: string;
@@ -24,7 +24,7 @@ const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMe
     const lessonId = String(data.id);
     const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id: lessonId, moduleId, lessonName: data.name });
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
 

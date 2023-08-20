@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import React from "react";
@@ -6,6 +5,7 @@ import { Trash as TrashIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { DeleteCourseModal } from "@features/courses";
+import { useMedia } from "@shared/utils";
 
 interface DeleteCourseButtonProps {
     courseId: string;
@@ -14,7 +14,7 @@ interface DeleteCourseButtonProps {
 
 const DeleteCourseButton = ({ courseId, courseName }: DeleteCourseButtonProps) => {
     const router = useRouter();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const closeDeleteCourseModal = () => closeModal("DELETE_COURSE");
 

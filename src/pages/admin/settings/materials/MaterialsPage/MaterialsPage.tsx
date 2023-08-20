@@ -2,16 +2,16 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { AdminList as AdminMaterialList } from "@features/materials";
 import { SelectTypeMaterial } from "@widgets/admin/materials";
 import useStyles from "./MaterialsPage.styles";
+import { useMedia } from "@shared/utils";
 
 const MaterialsPage = () => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const openModalCreateMaterial = () => {
         openModal({

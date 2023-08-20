@@ -8,7 +8,7 @@ import { AdminLessonFromList, AdminSelectLessonsExtraFilters, AdminSelectLessons
 import { adaptGetAdminLessonsRequest } from "@features/lessons/ui/LessonListModal/utils";
 import { columns, filterInitialValues } from "./constants";
 import useStyles from "./LessonListModal.styles";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMedia } from "@shared/utils";
 
 export interface LessonListModalProps {
     courseId: string;
@@ -22,7 +22,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const { mutate: attachLessonsToModule, isLoading } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 

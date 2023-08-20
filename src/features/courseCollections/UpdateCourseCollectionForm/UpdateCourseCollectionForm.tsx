@@ -5,10 +5,9 @@ import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon } from "@shared/utils";
+import { ToastType, createNotification, getIcon, useMedia } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { GetAdminCourseCollectionResponse, UpdateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
@@ -25,7 +24,7 @@ export interface UpdateCourseCollectionFormProps extends BoxProps {
 const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const updateCourseCollection = (values: UpdateCourseCollectionFormValidation) => {
         return courseCollectionApi.updateAdminCourseCollection({ ...values, id: String(data?.id) });

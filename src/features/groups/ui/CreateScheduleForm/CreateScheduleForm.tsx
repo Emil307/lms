@@ -1,11 +1,10 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
 import { CreateAdminGroupScheduleResponse, groupApi } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { $CreateScheduleFormValidation, CreateScheduleFormValidation } from "./types";
 import { adaptCreateGroupScheduleRequest } from "./utils";
 import { initialValues } from "./constants";
@@ -16,7 +15,7 @@ export interface CreateScheduleFormProps extends BoxProps {
 }
 
 const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormProps) => {
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const createGroupSchedule = (values: CreateScheduleFormValidation) => {
         return groupApi.createAdminGroupSchedule({ ...adaptCreateGroupScheduleRequest(values), groupId });

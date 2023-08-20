@@ -3,9 +3,8 @@ import React from "react";
 import { FieldArray, FormikConfig } from "formik";
 import { ChevronLeft, FileText, PlayCircle } from "react-feather";
 import axios from "axios";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FInput, Form, getFileExtension } from "@shared/ui";
-import { ToastType, createNotification, getDataFromSessionStorage } from "@shared/utils";
+import { ToastType, createNotification, getDataFromSessionStorage, useMedia } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { MaterialType, useUpdateUploadedFiles } from "@entities/storage";
 import { $UpdateMaterialsFormValidation, MaterialFile, UpdateMaterialsFormValidation } from "./types";
@@ -25,7 +24,7 @@ export interface UpdateMaterialsFormProps {
 const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onClose, onSubmit }: UpdateMaterialsFormProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 

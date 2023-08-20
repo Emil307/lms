@@ -67,9 +67,9 @@ const Question = ({
     const handleDragEnd = async (event: DragEndEvent) => {
         const { active, over } = event;
 
-        if (active.id !== over?.id) {
+        if (over?.id && active.id !== over.id) {
             const oldIndex = answers.findIndex(({ id }) => id === active.id);
-            const newIndex = answers.findIndex(({ id }) => id === over?.id);
+            const newIndex = answers.findIndex(({ id }) => id === over.id);
             const updatedArray = arrayMove(answers, oldIndex, newIndex);
             setFieldTouched(`${name}.answers.${newIndex}.content`, true);
             setFieldValue(`${name}.answers`, updatedArray);

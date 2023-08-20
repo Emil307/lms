@@ -1,10 +1,10 @@
 import { PlusCircle } from "react-feather";
-import { useMediaQuery } from "@mantine/hooks";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { AddMaterialsToArticleModal } from "@features/articles";
 import useStyles from "./AddMaterialsToArticleButton.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AddMaterialsToArticleButtonProps {
     articleId: string;
@@ -13,7 +13,7 @@ export interface AddMaterialsToArticleButtonProps {
 const AddMaterialsToArticleButton = ({ articleId }: AddMaterialsToArticleButtonProps) => {
     const { classes } = useStyles();
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleCloseAddMaterialsToArticleModal = () => closeModal("ADD_MATERIAL_TO_ARTICLE");
 

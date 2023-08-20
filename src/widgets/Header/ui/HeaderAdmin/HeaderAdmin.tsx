@@ -3,7 +3,6 @@ import { ActionIcon, Avatar, Flex, Header as MHeader, ThemeIcon, MediaQuery, Ske
 import { AlignLeft, LogOut, Settings, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useMediaQuery } from "@mantine/hooks";
 import AvatarIcon from "public/icons/avatar.svg";
 import { useSession } from "@features/auth";
 import { Logo } from "@components/Logo";
@@ -12,6 +11,7 @@ import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import { logoutPath, Roles } from "@app/routes";
 import useStyles from "./HeaderAdmin.styles";
+import { useMedia } from "@shared/utils";
 
 const HeaderAdmin = () => {
     const router = useRouter();
@@ -19,7 +19,7 @@ const HeaderAdmin = () => {
     const { user } = useSession();
     const { openedSidebar, setOpenedSidebar } = useContext(AdminSidebarMenuContext);
 
-    const isTablet = useMediaQuery("(max-width: 744px)");
+    const isTablet = useMedia("sm");
 
     const handleRedirectProfilePage = () => router.push("/profile");
     const handleRedirectLogout = () => router.push(logoutPath);

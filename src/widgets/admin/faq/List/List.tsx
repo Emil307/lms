@@ -35,9 +35,9 @@ const List = (props: ListProps) => {
     function handleDragEnd(event: DragEndEvent) {
         const { active, over } = event;
 
-        if (active.id !== over?.id) {
+        if (over?.id && active.id !== over.id) {
             const oldIndex = faqItems.findIndex(({ id }) => id === active.id);
-            const newIndex = faqItems.findIndex(({ id }) => id === over?.id);
+            const newIndex = faqItems.findIndex(({ id }) => id === over.id);
             const updatedArray = arrayMove(faqItems, oldIndex, newIndex);
 
             setFaqItems(updatedArray);

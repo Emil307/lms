@@ -3,13 +3,13 @@ import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FSearch, FSlider, FSwitch, Form, Paragraph } from "@shared/ui";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { CategoryFilterList, FilterList, ToggleFilterButton } from "./components";
 import { adaptCourseFiltersForm, getCountAppliedQueries, getInitialValues, prepareQueryParams } from "./utils";
 import { TRouterQueries } from "./types";
 import useStyles from "./Filters.styles";
+import { useMedia } from "@shared/utils";
 
 export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
     title: ReactNode;
@@ -22,7 +22,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     useEffect(() => {
         if (isTablet) {

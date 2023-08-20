@@ -3,7 +3,6 @@ import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import {
     Button,
     FDateRangePicker,
@@ -21,7 +20,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticlePackageResponse, articlePackageApi, useAdminArticlePackageResourcesCreate } from "@entities/articlePackage";
-import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues, radioGroupValues } from "./constants";
 import { $CreateArticlePackageFormValidation, CreateArticlePackageFormValidation } from "./types";
@@ -36,7 +35,7 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
     const { classes } = useStyles();
     const router = useRouter();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const articlePackageResources = useAdminArticlePackageResourcesCreate();
 

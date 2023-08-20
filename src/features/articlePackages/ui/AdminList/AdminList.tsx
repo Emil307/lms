@@ -1,7 +1,6 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "@mantine/hooks";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -16,13 +15,14 @@ import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./c
 import { ListMenu } from "./components";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
 import useStyles from "./AdminList.styles";
+import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMediaQuery("(max-width: 744px)");
+    const isMobile = useMedia("sm");
 
     const articlePackageFilters = useAdminArticlePackageFilters();
 

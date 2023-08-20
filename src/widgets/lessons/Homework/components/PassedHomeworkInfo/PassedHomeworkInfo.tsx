@@ -21,9 +21,11 @@ const PassedHomeworkInfo = ({ data, lessonId, courseId, ...props }: PassedHomewo
     const handleOpenUpdateLessonHomeworkAnswerForm = () => setOpenedHomeworkAnswerForm(true);
     const handleCloseUpdateLessonHomeworkAnswerForm = () => setOpenedHomeworkAnswerForm(false);
 
-    if (!data?.answers.length || data.answers[0]?.status.name === "needsEdit") {
+    if (!data?.answer || data.answer.status.name === "needsEdit") {
         return null;
     }
+
+    const answer = data.answer;
 
     const renderContent = () => {
         if (openedHomeworkAnswerForm) {
@@ -38,15 +40,13 @@ const PassedHomeworkInfo = ({ data, lessonId, courseId, ...props }: PassedHomewo
             );
         }
 
-        return (
-            <StudentAnswerDetails data={data.answers[0]} openUpdateLessonHomeworkAnswerForm={handleOpenUpdateLessonHomeworkAnswerForm} />
-        );
+        return <StudentAnswerDetails data={answer} openUpdateLessonHomeworkAnswerForm={handleOpenUpdateLessonHomeworkAnswerForm} />;
     };
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex align="center" justify="space-between">
-                <Heading order={3}>{AnswerStatus[data.answers[0].status.name as keyof typeof AnswerStatus]}</Heading>
+                <Heading order={3}>{AnswerStatus[answer.status.name as keyof typeof AnswerStatus]}</Heading>
                 <ActionIcon className={classes.editActionIcon} onClick={handleOpenUpdateLessonHomeworkAnswerForm}>
                     <Edit3 size={18} />
                 </ActionIcon>

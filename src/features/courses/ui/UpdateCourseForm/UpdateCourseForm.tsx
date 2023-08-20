@@ -30,14 +30,13 @@ import {
     useAdminCourseResources,
 } from "@entities/course";
 import { Fieldset } from "@components/Fieldset";
-import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
+import { createNotification, getDiscountPrice, ToastType, useMedia } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
 import { initialParams, radioGroupValues } from "./constants";
 import useStyles from "./UpdateCourseForm.styles";
-import { useMediaQuery } from "@mantine/hooks";
 
 export interface UpdateCourseFormProps {
     data: AdminCourse;
@@ -54,7 +53,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
         filter: { parentId: selectedCategory },
     });
 
-    const isTablet = useMediaQuery("(max-width: 1024px)");
+    const isTablet = useMedia("md");
 
     const updateCourse = (values: UpdateCourseFormValues) => {
         return courseApi.updateCourse(adaptUpdateCourseRequest(String(data.id), values));

@@ -3,13 +3,12 @@ import React from "react";
 import { Edit3, User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { useMediaQuery } from "@mantine/hooks";
 import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { AdminStaticReview, UpdateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
 import { $UpdateAdminStaticReviewFormValidation, UpdateAdminStaticReviewFormValidation } from "./types";
@@ -23,7 +22,7 @@ export interface UpdateStaticReviewFormProps extends Omit<BoxProps, "children"> 
 const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewFormProps) => {
     const { classes } = useStyles();
 
-    const isMobile = useMediaQuery("(max-width: 576px)");
+    const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
         if (!data?.firstName || !data.lastName) {
