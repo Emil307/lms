@@ -2,8 +2,8 @@ import { InfiniteQueryObserverResult, QueryFunction, QueryKey, useInfiniteQuery,
 import { useMemo } from "react";
 import { TPaginationResponse } from "../utils";
 
-type TData<T> = {
-    data: TPaginationResponse<T[]> | undefined;
+type TData<T, M = unknown> = {
+    data: TPaginationResponse<T[], M> | undefined;
 };
 
 /**
@@ -12,6 +12,8 @@ type TData<T> = {
  * Хук должен возвращаться любым хуком для создания запроса с бесконечной пагинацией.
  *
  * @template T - Тип возвращаемого массива данных. Передается как дженерик.
+ *
+ * @template M - Тип меты. Передается как дженерик.
  *
  * @param queryKey - Массив ключей для кэширования запроса (аналогично 1-ому параметру useQuery в React Query).
  *
@@ -22,11 +24,11 @@ type TData<T> = {
  *
  * @returns Объект со свойством "data" - данные типа {@link TPaginationResponse<T>} и остальными свойствами (isFetching, isError, ...) {@link InfiniteQueryObserverResult<TQueryFnData>}
  */
-export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T[]> = TPaginationResponse<T[]>>(
+export function useInfiniteRequest<T, M = unknown, TQueryFnData extends TPaginationResponse<T[], M> = TPaginationResponse<T[], M>>(
     queryKey: QueryKey,
     queryFn: QueryFunction<TQueryFnData, QueryKey>,
     options?: Omit<UseInfiniteQueryOptions<TQueryFnData, unknown, TQueryFnData, TQueryFnData, QueryKey>, "queryKey" | "queryFn"> | undefined
-): Omit<InfiniteQueryObserverResult<TQueryFnData>, "data"> & TData<T> {
+): Omit<InfiniteQueryObserverResult<TQueryFnData>, "data"> & TData<T, M> {
     const fullOptions: typeof options = {
         getNextPageParam: (lastPage, pages) => {
             const nextPage = pages.length + 1;
@@ -35,15 +37,16 @@ export function useInfiniteRequest<T, TQueryFnData extends TPaginationResponse<T
         ...options,
     };
 
-    const { data: infiniteData, ...rest } = useInfiniteQuery<TQueryFnData>(queryKey, queryFn, fullOptions);
+    const { data: infiniteData, ...rest } = useInfiniteQuery(queryKey, queryFn, fullOptions);
 
     const data = useMemo(() => {
         if (!infiniteData) {
             return;
         }
         const onlyData = infiniteData.pages.map((page) => page.data);
+        const meta = infiniteData.pages[0].meta;
         const cleanData = onlyData.flat();
-        return { data: cleanData, pagination: infiniteData.pages[infiniteData.pages.length - 1].pagination };
+        return { data: cleanData, pagination: infiniteData.pages[infiniteData.pages.length - 1].pagination, meta };
     }, [infiniteData]);
 
     return { data, ...rest };
