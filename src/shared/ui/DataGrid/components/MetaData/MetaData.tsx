@@ -19,7 +19,7 @@ function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDat
                 {displayMeta.name || "Итого:"}
             </Paragraph>
             <Paragraph variant="text-small-m" color="dark">
-                {meta[displayMeta.key]}
+                {displayMeta.value(meta)}
             </Paragraph>
         </Flex>
     );

@@ -40,7 +40,7 @@ export type TCollapsedFiltersBlockProps<F> = {
 
 export type TDisplayMeta<G> = {
     name?: string;
-    key: keyof G;
+    value: (meta: G) => string;
 };
 
 export type TMetaProps<M, G> = M extends Record<string, any> ? { displayMeta: TDisplayMeta<G> } : { displayMeta?: never };
