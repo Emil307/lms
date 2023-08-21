@@ -66,13 +66,9 @@ function BaseTable<T extends Record<string, any>>({
             return Cell ? Cell(props) : (props.cell.getValue() as ReactNode);
         };
 
-        const renderContent = (columnId: string, cellValue: ReactNode) => {
-            //TODO: нужно починить тултип для первой колонки из-за badge
-            if (columnId === "id" || columnId === "student.profile.fullName") {
-                return cellValue;
-            }
+        const renderContent = (cellValue: ReactNode) => {
             return (
-                <Tooltip label={cellValue}>
+                <Tooltip label={cellValue} position="top">
                     <Text className={classes.tableBodyCellValue}>{cellValue}</Text>
                 </Tooltip>
             );
@@ -84,7 +80,7 @@ function BaseTable<T extends Record<string, any>>({
                 const cellValue = getCellValue(props, Cell);
                 return (
                     <div className={classes.tableBodyCellValueWrapper} style={{ width: column.size ? column.size - 32 : "100%" }}>
-                        {renderContent(props.column.id, cellValue)}
+                        {renderContent(cellValue)}
                     </div>
                 );
             },

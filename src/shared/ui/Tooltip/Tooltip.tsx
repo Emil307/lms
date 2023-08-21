@@ -6,7 +6,7 @@ const MemoizedTooltip = memo(function Tooltip({ children, ...props }: MTooltipPr
     const { classes } = useStyles();
 
     return (
-        <MTooltip classNames={classes} multiline withArrow {...props}>
+        <MTooltip classNames={classes} multiline withArrow withinPortal {...props}>
             {children}
         </MTooltip>
     );
