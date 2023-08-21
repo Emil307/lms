@@ -63,10 +63,6 @@ export type LastUpdated = z.infer<typeof $LastUpdated>;
 
 export type TRequestFilterParams<T extends Record<string, any>> = TDefaultRequestParams & Partial<T>;
 
-export const $defaultMeta = z.object({
-    pagination: $pagination,
-});
-
 export const $LastUpdated = z.object({
     date: z.coerce.date(),
     user: z
@@ -96,9 +92,10 @@ export function $getDateObjectType<T extends TDateOperator = "range">(operator: 
     });
 }
 
-export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
+export function $getPaginationResponseType<T extends ZodTypeAny, M extends ZodTypeAny>(data: T, meta?: M) {
     return z.object({
         data: data.array(),
         pagination: $pagination,
+        meta: meta ? meta : z.never(),
     });
 }

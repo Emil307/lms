@@ -2,39 +2,63 @@ import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { DataGridResponse, TCollapsedFiltersBlockProps, TExtraFiltersProps, TFiltersProps, TFunctionParams, TSelectProps } from "./types";
+import {
+    DataGridResponse,
+    TCollapsedFiltersBlockProps,
+    TExtraFiltersProps,
+    TFiltersProps,
+    TFunctionParams,
+    TMetaProps,
+    TSelectProps,
+} from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
 import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
 
-type TExtendedProps<T extends Record<string, any>, F, E, K extends FormikValues> = Omit<
-    TDataGridProps<T, K>,
-    "data" | "pagination" | "formikConfig" | "isLoading"
-> &
-    TFiltersProps<F, K> &
-    TExtraFiltersProps<E> &
-    TCollapsedFiltersBlockProps<F>;
+type TExtendedProps<
+    Data extends Record<string, any>,
+    Filter,
+    Extra,
+    Meta,
+    MetaData extends Record<string, any>,
+    Formik extends FormikValues
+> = Omit<TDataGridProps<Data, MetaData, Formik>, "data" | "pagination" | "meta" | "formikConfig" | "isEmptyFilter" | "isLoading"> &
+    TFiltersProps<Filter, Formik> &
+    TExtraFiltersProps<Extra> &
+    TMetaProps<Meta, MetaData> &
+    TCollapsedFiltersBlockProps<Filter>;
 
-export type TManagedDataGridProps<T extends Record<string, any>, F, E, R, K extends FormikValues> = {
-    queryFunction: (params: R) => Promise<DataGridResponse<T>>;
+export type TManagedDataGridProps<
+    Data extends Record<string, any>,
+    Filter,
+    Extra,
+    Meta,
+    MetaData extends Record<string, any>,
+    Request,
+    Formik extends FormikValues
+> = {
+    queryFunction: (params: Request) => Promise<DataGridResponse<Data, Meta, MetaData>>;
     queryKey: string;
-    queryCacheKeys?: Array<keyof R>;
+    queryCacheKeys?: Array<keyof Request>;
     disableQueryParams?: boolean;
-} & TExtendedProps<T, F, E, K> &
+} & TExtendedProps<Data, Filter, Extra, Meta, MetaData, Formik> &
     TSelectProps;
 
 /**
  * Компонент таблицы с фильтрами.
- * @template T - Тип возвращаемого массива данных.
- * @template F - Тип фильтра Formik.
- * @template Е - Тип object для передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
+ * @template Data - Тип возвращаемого массива данных.
+ * @template Filter - Тип фильтра Formik.
+ * @template Extra - Тип object для передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
+ * @template Meta - Тип возвращаемых meta данных.
  */
 function ManagedDataGrid<
-    T extends Record<string, any>,
-    F = unknown,
-    E = unknown,
-    R = TFunctionParams<F, E>,
-    K extends FormikValues = F extends FormikValues ? F : FormikValues
->(props: TManagedDataGridProps<T, F, E, R, K>) {
+    Data extends Record<string, any>,
+    Filter = unknown,
+    Extra = unknown,
+    Meta = unknown,
+    MetaData extends Record<string, any> = Meta extends Record<string, any> ? Meta : Record<string, any>,
+    Request = TFunctionParams<Filter, Extra>,
+    Formik extends FormikValues = Filter extends FormikValues ? Filter : FormikValues
+>(props: TManagedDataGridProps<Data, Filter, Extra, Meta, MetaData, Request, Formik>) {
     const router = useRouter();
     const {
         queryFunction,
@@ -47,6 +71,8 @@ function ManagedDataGrid<
         selectItems,
         onChangeSelect,
         collapsedFiltersBlockProps,
+        defaultBlock,
+        displayMeta,
         ...rest
     } = props;
 
@@ -54,24 +80,24 @@ function ManagedDataGrid<
 
     const { setPagination, paginationParams, goToFirstPage } = useDataGridPagination(disableQueryParams);
     const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams, goToFirstPage });
-    const filters = useDataGridFilters<K>({ filter, disableQueryParams, goToFirstPage });
+    const filters = useDataGridFilters<Formik>({ filter, disableQueryParams, goToFirstPage });
 
     const paramsForRequest = {
         ...paginationParams,
         ...sortParams,
         ...filters?.filterParams,
         ...extraFilterParams,
-    } as R;
+    } as Request;
 
     const {
         data: queryData,
         isLoading,
         isRefetching,
         isFetching,
-    } = useQuery<DataGridResponse<T>>({
+    } = useQuery<DataGridResponse<Data, Meta, MetaData>>({
         queryKey: [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
         queryFn: () => queryFunction(paramsForRequest),
-        enabled: router.isReady,
+        enabled: router.isReady && ((defaultBlock && !filters?.isEmptyFilter) || !defaultBlock),
     });
 
     const collapsed = {
@@ -81,10 +107,11 @@ function ManagedDataGrid<
     };
 
     return (
-        <DataGrid<T, K>
+        <DataGrid<Data, MetaData, Formik>
             {...rest}
             formikConfig={filters?.formikConfig}
             formRef={filters?.formRef}
+            isEmptyFilter={filters?.isEmptyFilter}
             isLoading={isLoading || isRefetching || isFetching}
             data={queryData?.data}
             rowSelection={rowSelection}
@@ -93,6 +120,8 @@ function ManagedDataGrid<
             onSortingChange={setSorting}
             sorting={sorting}
             pagination={queryData?.pagination}
+            meta={queryData?.meta}
+            defaultBlock={defaultBlock}
             enableFilters={false}
             enableColumnActions={false}
             getRowId={(row) => row.id}

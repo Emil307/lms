@@ -5,7 +5,9 @@ import React from "react";
 import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
 
-export type DataGridResponse<T> = z.infer<ReturnType<typeof $getPaginationResponseType>> & { data: T[] };
+type DataGridResponseData<T, M, G> = M extends Record<string, any> ? { data: T[]; meta: G } : { data: T[] };
+
+export type DataGridResponse<T, M, G> = z.infer<ReturnType<typeof $getPaginationResponseType>> & DataGridResponseData<T, M, G>;
 
 export type TDefaultSortQueryParams = {
     sortField: string;
@@ -35,6 +37,13 @@ export type TSelectProps = { selectItems?: string[]; onChangeSelect?: (selectedI
 export type TCollapsedFiltersBlockProps<F> = {
     collapsedFiltersBlockProps?: Omit<CollapsedFiltersBlockProps<F>, "queryParams" | "initialValues" | "children">;
 };
+
+export type TDisplayMeta<G> = {
+    name?: string;
+    key: keyof G;
+};
+
+export type TMetaProps<M, G> = M extends Record<string, any> ? { displayMeta: TDisplayMeta<G> } : { displayMeta?: never };
 
 export type TCellProps<T extends Record<string, any>> = {
     cell: MRT_Cell<T>;

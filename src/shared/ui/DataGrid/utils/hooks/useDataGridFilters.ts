@@ -78,6 +78,19 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
         return params;
     };
 
+    const isEmptyFilter = () => {
+        if (!paramsForRequest || !Object.keys(paramsForRequest).length) {
+            return true;
+        }
+        return Object.keys(paramsForRequest).every((key) => {
+            const param = paramsForRequest[key];
+            if (Array.isArray(param) && !param.length) {
+                return true;
+            }
+            return !param;
+        });
+    };
+
     const handleSubmit = async (values: F) => {
         if (disableQueryParams) {
             setFormStateForDisabledQuery(values);
@@ -100,5 +113,5 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
         onSubmit: handleSubmit,
     };
 
-    return { formikConfig, formRef, filterParams: paramsForRequest };
+    return { formikConfig, formRef, filterParams: paramsForRequest, isEmptyFilter: isEmptyFilter() };
 };

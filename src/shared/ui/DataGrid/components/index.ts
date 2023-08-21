@@ -5,3 +5,4 @@ export * from "./CountData";
 export * from "./MenuDataGrid";
 export * from "./MenuItemDataGrid";
 export * from "./SelectedRowsCount";
+export * from "./MetaData";
