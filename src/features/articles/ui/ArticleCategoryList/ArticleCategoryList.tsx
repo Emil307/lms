@@ -1,7 +1,8 @@
-import { Flex, FlexProps } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import { List } from "@components/List";
 import { ArticleAndArticleCategoryFiltersForm, ArticleCategoryFromList, useArticleCategories } from "@entities/article";
-import { Button, EmptyData, Loader } from "@shared/ui";
+import { Button, EmptyData, Loader, Paragraph } from "@shared/ui";
+import { getPluralString } from "@shared/utils";
 import { ArticleCategoryItem } from "./components";
 import { adaptGetArticleCategoriesRequest } from "./utils";
 import { initialParams } from "./constants";
@@ -45,7 +46,21 @@ const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProp
                     Показать еще категории
                 </Button>
             )}
-            {/* TODO: Добавить кол-во статей как бек добавит это */}
+            {articleCategoriesData.meta && (
+                <Box>
+                    <Paragraph variant="text-small-m" component="span" color="gray45">
+                        {"Всего: "}
+                    </Paragraph>
+                    <Paragraph variant="text-small-m" component="span">
+                        {`${articleCategoriesData.meta.articlesCount} ${getPluralString(
+                            articleCategoriesData.meta.articlesCount,
+                            "статья",
+                            "статьи",
+                            "статей"
+                        )}`}
+                    </Paragraph>
+                </Box>
+            )}
         </Flex>
     );
 };

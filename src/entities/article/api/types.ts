@@ -64,6 +64,7 @@ export type ArticleSubCategory = z.infer<typeof $ArticleSubCategory>;
 export type ArticleTag = z.infer<typeof $ArticleTag>;
 export type ArticleCategoryFromList = z.infer<typeof $ArticleCategoryFromList>;
 export type ArticleWithMeta = z.infer<typeof $ArticleWithMeta>;
+export type ArticleCategoriesMeta = z.infer<typeof $ArticleCategoriesMeta>;
 
 //FILTERS
 export type ArticleFiltersForm = z.infer<typeof $ArticleFiltersForm>;
@@ -434,10 +435,12 @@ export const $ArticleCategoryFromList = $ArticleCategory.pick({ name: true }).ex
     articlesCount: z.number(),
 });
 
+export const $ArticleCategoriesMeta = z.object({
+    articlesCount: z.number(),
+});
+
 export const $GetArticleCategoriesResponse = $getPaginationResponseType($ArticleCategoryFromList).extend({
-    meta: z.object({
-        articlesCount: z.number(),
-    }),
+    meta: $ArticleCategoriesMeta,
 });
 
 export const $ArticleCategoriesRequest = z.object({

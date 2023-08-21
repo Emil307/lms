@@ -69,7 +69,8 @@ export type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
 
-export type TPaginationResponse<T> = {
+export type TPaginationResponse<T, M = unknown> = {
     data: T;
     pagination: TPagination;
+    meta?: M;
 };
