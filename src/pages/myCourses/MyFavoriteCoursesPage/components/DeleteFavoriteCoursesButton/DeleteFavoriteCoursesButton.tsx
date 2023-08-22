@@ -2,8 +2,8 @@ import { Trash2 } from "react-feather";
 import { ActionIcon } from "@mantine/core";
 import { Button } from "@shared/ui";
 import { GetCoursesResponse, useDeleteFavoriteCourses } from "@entities/course";
-import useStyles from "./DeleteFavoriteCoursesButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteFavoriteCoursesButton.styles";
 
 export interface DeleteFavoriteCoursesButtonProps {
     data?: GetCoursesResponse;

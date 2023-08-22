@@ -5,8 +5,8 @@ import { openModal } from "@mantine/modals";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { AdminList as AdminMaterialList } from "@features/materials";
 import { SelectTypeMaterial } from "@widgets/admin/materials";
-import useStyles from "./MaterialsPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./MaterialsPage.styles";
 
 const MaterialsPage = () => {
     const { classes } = useStyles();

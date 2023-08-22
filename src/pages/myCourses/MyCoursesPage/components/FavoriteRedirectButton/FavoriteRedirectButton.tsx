@@ -2,8 +2,8 @@ import { Heart } from "react-feather";
 import { ActionIcon } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
-import useStyles from "./FavoriteRedirectButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./FavoriteRedirectButton.styles";
 
 const FavoriteRedirectButton = () => {
     const router = useRouter();

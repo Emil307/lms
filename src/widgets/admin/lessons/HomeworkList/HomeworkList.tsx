@@ -6,11 +6,11 @@ import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, prepa
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminHomeworkAnswerFromList, lessonApi, useAdminLessonHomeworkAnswersResources } from "@entities/lesson";
+import { useMedia } from "@shared/utils";
 import { adaptGetAdminHomeworkAnswersRequest, getBadgeColors } from "./utils";
 import { radioGroupValues, columns, filterInitialValues, columnOrder } from "./constants";
 import { AdminHomeworkAnswersFilters } from "./types";
 import useStyles from "./HomeworkList.styles";
-import { useMedia } from "@shared/utils";
 
 export interface HomeworkListProps extends Omit<BoxProps, "children"> {}
 

@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteUploadedFile } from "@entities/storage";
-import useStyles from "./DeleteMaterialModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteMaterialModal.styles";
 
 export interface DeleteMaterialModalProps {
     id: string;

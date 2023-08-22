@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteGroup } from "@entities/group";
-import useStyles from "./DeleteGroupModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteGroupModal.styles";
 
 export interface DeleteGroupModalProps {
     id: string;

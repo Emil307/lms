@@ -4,8 +4,8 @@ import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminGroupList } from "@features/groups";
-import useStyles from "./GroupsPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./GroupsPage.styles";
 
 const GroupsPage = () => {
     const router = useRouter();

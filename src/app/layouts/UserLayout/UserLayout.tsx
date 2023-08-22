@@ -7,9 +7,9 @@ import { FooterUser } from "@widgets/Footer";
 import { HeaderPublicUser, HeaderUser } from "@widgets/Header";
 import { NavbarUser } from "@widgets/Navbar";
 import { isPathIncluded, publicPaths } from "@app/routes";
+import { useMedia } from "@shared/utils";
 import useStyles from "./UserLayout.styles";
 import { SidebarMenuContext } from "./utils";
-import { useMedia } from "@shared/utils";
 
 export default function UserLayout({ children }: React.PropsWithChildren) {
     const [openedSidebar, setOpenedSidebar] = useState(false);

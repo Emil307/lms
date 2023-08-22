@@ -12,9 +12,10 @@ export interface InfoPanelProps extends BoxProps {
 const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes, cx } = useStyles();
     const { data: articleData } = useAdminArticle({ id });
-    const { mutate: updateActivityStatus } = useUpdateArticleActivity(id);
+    const { mutate: updateActivityStatus } = useUpdateArticleActivity({ id, name: articleData?.name });
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const labelActivitySwitch = articleData?.isActive ? "Деактивировать" : "Активировать";
 

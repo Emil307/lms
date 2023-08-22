@@ -2,8 +2,8 @@ import { Flex, Group } from "@mantine/core";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Article } from "@entities/article";
 import { Paragraph } from "@shared/ui";
-import useStyles from "./Footer.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./Footer.styles";
 
 export interface FooterProps {
     data: Article;

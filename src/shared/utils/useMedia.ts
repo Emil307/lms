@@ -1,8 +1,8 @@
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { useMediaQuery } from "@mantine/hooks";
 import { DeepPartial } from "@mantine/styles/lib/theme/types/DeepPartial";
 import { MantineSizes } from "@mantine/core";
 import { MantineSize } from "@mantine/styles/lib/theme/types/MantineSize";
+import { defaultTheme } from "@app/providers/Theme/theme";
 
 export const useMedia = (value: MantineSize) => {
     const breakpoints = defaultTheme.breakpoints as DeepPartial<MantineSizes>;

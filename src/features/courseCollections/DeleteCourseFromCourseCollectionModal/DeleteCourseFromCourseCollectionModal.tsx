@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useAdminDeleteCourseFromCourseCollection } from "@entities/courseCollection";
-import useStyles from "./DeleteCourseFromCourseCollectionModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteCourseFromCourseCollectionModal.styles";
 
 export interface DeleteCourseFromCourseCollectionModalProps {
     id: number;

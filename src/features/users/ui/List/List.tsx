@@ -9,11 +9,11 @@ import { UserFromList, UsersFilters } from "@entities/user/api/types";
 import { useAdminUsersFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { ManagedDataGrid } from "@shared/ui";
+import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
 import { $validationSchema } from "./types/validation";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
-import { useMedia } from "@shared/utils";
 
 const UserList = () => {
     const router = useRouter();

@@ -11,11 +11,11 @@ import {
     courseCollectionApi,
     useAdminCourseCollectionResources,
 } from "@entities/courseCollection";
+import { useMedia } from "@shared/utils";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminCourseCollectionsRequest } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends BoxProps {}
 

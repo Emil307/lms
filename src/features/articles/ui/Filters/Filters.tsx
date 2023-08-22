@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticlesFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
+import { useMedia } from "@shared/utils";
 import { FilterList, ToggleFilterButton } from "./components";
 import { initialValues } from "./contants";
 import useStyles from "./Filters.styles";
 import { TRouterQueries } from "./types";
 import { getCountAppliedQueries } from "./utils";
-import { useMedia } from "@shared/utils";
 
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;

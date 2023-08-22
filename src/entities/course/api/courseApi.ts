@@ -41,6 +41,12 @@ import {
     UpdateCourseFavoriteStatusRequest,
     UpdateCourseFavoriteStatusResponse,
     $UpdateCourseFavoriteStatusResponse,
+    AttachArticlesToCourseRequest,
+    AttachArticlesToCourseResponse,
+    $AttachArticlesToCourseResponse,
+    DeleteCourseArticlesRequest,
+    DeleteCourseArticlesResponse,
+    $DeleteCourseArticlesResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -92,6 +98,17 @@ class CourseApi extends BaseApi {
 
     async deleteCourse(id: string): Promise<void> {
         await this.instance.delete(`admin/courses/${id}`);
+    }
+
+    //COURSES <---> ARTICLES ADMIN
+    async attachArticlesToCourse({ courseId, ...data }: AttachArticlesToCourseRequest): Promise<AttachArticlesToCourseResponse> {
+        const response = await this.instance.post(`admin/courses/${courseId}/articles`, data);
+        return $AttachArticlesToCourseResponse.parse(response);
+    }
+
+    async deleteCourseArticles({ courseId, ...data }: DeleteCourseArticlesRequest): Promise<DeleteCourseArticlesResponse> {
+        const response = await this.instance.delete(`admin/courses/${courseId}/articles`, { data });
+        return $DeleteCourseArticlesResponse.parse(response);
     }
 
     //USER

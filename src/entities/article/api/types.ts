@@ -24,11 +24,13 @@ export type AdminArticleCourse = z.infer<typeof $AdminArticleCourse>;
 //FILTERS
 export type AdminArticlesFiltersForm = z.infer<typeof $AdminArticlesFiltersForm>;
 export type AdminArticleFromArticlePackageFiltersForm = z.infer<typeof $AdminArticleFromArticlePackageFiltersForm>;
+export type AdminArticleFromCourseFiltersForm = z.infer<typeof $AdminArticleFromCourseFiltersForm>;
 export type AdminArticleFromArticlePackageExtraFilters = z.infer<typeof $AdminArticleFromArticlePackageExtraFilters>;
+export type AdminArticleFromCourseExtraFilters = z.infer<typeof $AdminArticleFromCourseExtraFilters>;
+export type AdminCourseArticleExtraFilters = z.infer<typeof $AdminCourseArticleExtraFilters>;
 
 //REQ/RESP
 export type GetAdminArticlesRequest = z.infer<typeof $GetAdminArticlesRequest>;
-export type GetAdminArticlesNoIncludedArticlePackageRequest = z.infer<typeof $GetAdminArticlesNoIncludedArticlePackageRequest>;
 export type GetAdminArticlesResponse = z.infer<typeof $GetAdminArticlesResponse>;
 export type GetAdminArticleRequest = z.infer<typeof $GetAdminArticleRequest>;
 export type GetAdminArticleResponse = z.infer<typeof $GetAdminArticleResponse>;
@@ -210,11 +212,11 @@ export const $AdminArticlesRequest = z.object({
     query: z.string().optional(),
     filter: z
         .object({
-            isActive: z.literal("1").or(z.literal("0")),
+            isActive: z.boolean(),
             "category.id": z.string(),
             subcategoryIds: z.string(),
-            courseIds: z.string(),
-            articlePackageIds: z.string(),
+            courseIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
+            articlePackageIds: z.string().or($getMultiValueObjectType(z.string(), z.literal("not"))),
         })
         .partial(),
 });
@@ -236,23 +238,19 @@ export const $AdminArticleFromArticlePackageFiltersForm = z.object({
     subcategoryId: z.string(),
 });
 
+export const $AdminArticleFromCourseFiltersForm = $AdminArticleFromArticlePackageFiltersForm;
+
 export const $AdminArticleFromArticlePackageExtraFilters = z.object({
     articlePackageIds: z.string(),
 });
-export const $AdminArticlesNoIncludedArticlePackageRequest = z.object({
-    query: z.string().optional(),
-    filter: z
-        .object({
-            isActive: z.literal("1").or(z.literal("0")),
-            "category.id": z.string(),
-            "subcategory.id": z.string(),
-            courseIds: z.string(),
-            articlePackageIds: $getMultiValueObjectType(z.string(), z.literal("not")),
-        })
-        .partial(),
+
+export const $AdminArticleFromCourseExtraFilters = z.object({
+    courseId: z.string(),
 });
 
-export const $GetAdminArticlesNoIncludedArticlePackageRequest = $getFiltersRequestType($AdminArticlesNoIncludedArticlePackageRequest);
+export const $AdminCourseArticleExtraFilters = z.object({
+    courseId: z.string(),
+});
 
 export const $AttachMaterialFilesToArticleRequest = z.object({
     articleId: z.string(),

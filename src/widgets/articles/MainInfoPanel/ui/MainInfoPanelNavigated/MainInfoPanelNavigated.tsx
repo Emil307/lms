@@ -3,9 +3,9 @@ import { FileText } from "react-feather";
 import { ArticleWithMeta } from "@entities/article";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Heading, Paragraph } from "@shared/ui";
+import { useMedia } from "@shared/utils";
 import { Pagination, TagList } from "./components";
 import useStyles from "./MainInfoPanelNavigated.styles";
-import { useMedia } from "@shared/utils";
 
 export interface MainInfoPanelNavigatedProps extends Omit<FlexProps, "children"> {
     articleData: ArticleWithMeta;

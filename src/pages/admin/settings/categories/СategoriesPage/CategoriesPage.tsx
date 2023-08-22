@@ -4,8 +4,8 @@ import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminCategoryList, CreateCategoryForm } from "@features/categories";
-import useStyles from "./CategoriesPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./CategoriesPage.styles";
 
 const CategoriesPage = () => {
     const { classes } = useStyles();

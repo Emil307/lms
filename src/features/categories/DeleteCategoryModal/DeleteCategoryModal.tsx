@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCategory } from "@entities/category";
-import useStyles from "./DeleteCategoryModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteCategoryModal.styles";
 
 export interface DeleteCategoryModalProps {
     id: string;

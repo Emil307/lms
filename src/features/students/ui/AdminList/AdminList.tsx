@@ -7,11 +7,11 @@ import { Button } from "@shared/ui";
 import { AdminStudentsFiltersForm, UserFromList } from "@entities/user/api/types";
 import { useAdminStudentsFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
+import { useMedia } from "@shared/utils";
 import { ListMenu } from "./components";
 import { columns, radioGroupValues, filterInitialValues } from "./constants";
 import { adaptGetAdminStudentsRequest } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends BoxProps {}
 

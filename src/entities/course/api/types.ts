@@ -54,13 +54,17 @@ export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopulari
 export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
 export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublicationRequest>;
 export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
+//courses <---> articles
+export type AttachArticlesToCourseRequest = z.infer<typeof $AttachArticlesToCourseRequest>;
+export type AttachArticlesToCourseResponse = z.infer<typeof $AttachArticlesToCourseResponse>;
+export type DeleteCourseArticlesRequest = z.infer<typeof $DeleteCourseArticlesRequest>;
+export type DeleteCourseArticlesResponse = z.infer<typeof $DeleteCourseArticlesResponse>;
 
 /**
  *
  * USER TYPES
  *
  */
-// export type Course = z.infer<typeof $Course>;
 export type CourseDetails = z.infer<typeof $CourseDetails>;
 export type MyCourse = z.infer<typeof $MyCourse>;
 export type CourseFromList = z.infer<typeof $CourseFromList>;
@@ -434,6 +438,21 @@ export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({
     subcategoryId: z.string(),
     tagIds: z.string().array(),
 });
+
+//courses <-> articles
+export const $AttachArticlesToCourseRequest = z.object({
+    courseId: z.string(),
+    articleIds: z.string().array(),
+});
+
+export const $AttachArticlesToCourseResponse = z.null();
+
+export const $DeleteCourseArticlesRequest = z.object({
+    courseId: z.string(),
+    articleIds: z.number().array(),
+});
+
+export const $DeleteCourseArticlesResponse = z.null();
 
 /**
  * USER ZOD

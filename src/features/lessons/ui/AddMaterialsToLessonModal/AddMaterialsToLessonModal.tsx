@@ -12,10 +12,10 @@ import {
     AdminMaterialsNoIncludedLessonExtraFilters,
 } from "@entities/storage";
 import { useAttachMaterialsToLesson } from "@entities/lesson";
+import { useMedia } from "@shared/utils";
 import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetMaterialsNoIncludedLessonRequest } from "./utils";
 import useStyles from "./AddMaterialsToLessonModal.styles";
-import { useMedia } from "@shared/utils";
 
 interface AddMaterialsToLessonModalProps {
     lessonId: string;

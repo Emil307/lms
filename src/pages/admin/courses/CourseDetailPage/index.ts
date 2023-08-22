@@ -1,3 +1,3 @@
-import CourseDetailPage from "./CourseDetailPage";
+import CourseDetailsPage from "./CourseDetailsPage";
 
-export { CourseDetailPage };
+export { CourseDetailsPage };

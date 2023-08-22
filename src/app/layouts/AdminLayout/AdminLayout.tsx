@@ -5,9 +5,9 @@ import { useElementSize } from "@mantine/hooks";
 import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
 import { NavbarAdmin, NavbarAdminMobile } from "@widgets/Navbar";
+import { useMedia } from "@shared/utils";
 import useStyles from "./AdminLayout.styles";
 import { AdminSidebarMenuContext } from "./utils";
-import { useMedia } from "@shared/utils";
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
     const { classes } = useStyles();

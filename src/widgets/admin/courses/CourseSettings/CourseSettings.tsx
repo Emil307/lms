@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
+import { IconChartBar } from "@tabler/icons-react";
 import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { UpdateCoursePublicationModal } from "@features/courses";
 import { getFullName } from "@shared/utils";
@@ -31,6 +32,9 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
     const handleGoToUpdateCoursePage = () => {
         router.push({ pathname: "/admin/courses/[id]/edit", query: { id: courseId } });
     };
+
+    //TODO: Добавить редирект на страницу статистики
+    const handleOpenCourseStatisticsPage = () => undefined;
 
     const closeUpdateCoursePublicationModal = () => closeModal("UPDATE_COURSE_PUBLICATION");
 
@@ -152,6 +156,11 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                         {!data.isFulfillment && (
                             <Button variant="border" leftIcon={<FileMarkIcon />} onClick={handleOpenCoursePublicationModal}>
                                 Опубликовать курс
+                            </Button>
+                        )}
+                        {data.isFulfillment && (
+                            <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
+                                Статистика
                             </Button>
                         )}
                     </>

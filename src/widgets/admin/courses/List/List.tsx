@@ -7,11 +7,11 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
+import { useMedia } from "@shared/utils";
 import { radioGroupValues, filterInitialValues, columns } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
 import { adaptGetAdminCoursesRequest } from "./utils";
-import { useMedia } from "@shared/utils";
 
 const List = () => {
     const router = useRouter();

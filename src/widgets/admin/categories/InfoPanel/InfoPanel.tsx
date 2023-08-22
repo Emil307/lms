@@ -4,8 +4,8 @@ import { Folder } from "react-feather";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminCategory, useAdminUpdateCategoryActivity } from "@entities/category";
-import useStyles from "./InfoPanel.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
     id: string;
