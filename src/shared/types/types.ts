@@ -96,6 +96,6 @@ export function $getPaginationResponseType<T extends ZodTypeAny, M extends ZodTy
     return z.object({
         data: data.array(),
         pagination: $pagination,
-        meta: meta ? meta : z.never(),
+        meta: meta ? meta : z.object({}).optional(),
     });
 }
