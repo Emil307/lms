@@ -8,3 +8,4 @@ export * from "./DeleteMaterialFromLessonModal";
 export * from "./UpdateLessonTestPassForm";
 export * from "./UpdateLessonHomeworkAnswerForm";
 export * from "./UpdateLessonHomeworkStatusAnswerModal";
+export * from "./FinishLessonButton";

@@ -92,12 +92,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
                     hidden={!openedHomeworkAnswerForm}
                 />
 
-                <Divider
-                    size={1}
-                    color="gray20"
-                    my={48}
-                    hidden={!homeworkData?.answer || homeworkData.answer.status.name === "completed"}
-                />
+                <Divider size={1} color="gray20" my={48} hidden={!homeworkData.answer || homeworkData.answer.status.name === "completed"} />
 
                 {homeworkData.answer && (
                     <HomeworkChat

@@ -4,3 +4,4 @@ export { useAttachMaterialsToLesson } from "./useAttachMaterialsToLesson";
 export { useDetachMaterialsFromLesson } from "./useDetachMaterialsFromLesson";
 export { useUpdateLessonOrder } from "./useUpdateLessonOrder";
 export { useUpdateLessonHomeworkAnswerStatus } from "./useUpdateLessonHomeworkAnswerStatus";
+export { useFinishLesson } from "./useFinishLesson";

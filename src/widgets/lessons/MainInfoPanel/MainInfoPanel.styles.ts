@@ -17,6 +17,14 @@ export default createStyles((theme, { status, testStatus, homeworkStatus }: Crea
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
     },
+    inner: {
+        justifyContent: "space-between",
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexDirection: "column",
+        },
+    },
     testAndHomeworkInfo: {
         gap: 16,
 
