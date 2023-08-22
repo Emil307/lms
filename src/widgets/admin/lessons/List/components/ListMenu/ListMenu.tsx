@@ -64,22 +64,21 @@ const ListMenu = ({ row }: ListMenuProps) => {
                     onChange={handleChangeActiveStatus}
                 />
             </MenuItemDataGrid>
-
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={handleOpenLessonDetail}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenUpdateLessonModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenDeleteLessonModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

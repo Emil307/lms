@@ -14,7 +14,7 @@ interface DeleteTagModalProps {
 
 const DeleteTagModal = ({ id, name, onClose }: DeleteTagModalProps) => {
     const { classes } = useStyles();
-    const deleteTag = useDeleteTag({ id });
+    const deleteTag = useDeleteTag({ id, name });
 
     const isMobile = useMedia("xs");
 

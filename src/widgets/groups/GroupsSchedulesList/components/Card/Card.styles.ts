@@ -26,8 +26,6 @@ export default createStyles((theme) => ({
         },
     },
     badge: {
-        padding: "6px 10px",
-        borderRadius: 60,
         backgroundColor: theme.colors.neutralLight[0],
     },
     courseButton: {

@@ -12,7 +12,7 @@ import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUpdateAuthorActivity = ({ id }: Omit<UpdateAuthorActivityRequest, "isActive">) => {
+export const useUpdateAuthorActivity = ({ id, name }: Pick<UpdateAuthorActivityRequest, "id"> & { name: string }) => {
     return useMutation<UpdateAuthorActivityResponse, AxiosError<FormErrorResponse>, Omit<UpdateAuthorActivityRequest, "id">, unknown>(
         [MutationKeys.UPDATE_AUTHOR_ACTIVITY],
         (data) => authorApi.updateAuthorActivity({ ...data, id }),
@@ -58,21 +58,13 @@ export const useUpdateAuthorActivity = ({ id }: Omit<UpdateAuthorActivityRequest
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_AUTHORS]);
             },
-            onSuccess: () => {
-                const authorData = queryClient.getQueryData<GetAdminAuthorResponse>([QueryKeys.GET_ADMIN_AUTHOR, id]);
-                const authorFromList = queryClient
-                    .getQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS])?.[0]?.[1]
-                    ?.data.find((author) => author.id.toString() === id);
-
-                const statusMessage = authorData?.isActive || authorFromList?.isActive ? "активирован" : "деактивирован";
-
-                const fioByAuthorData = [authorData?.lastName, authorData?.firstName, authorData?.patronymic].join(" ");
-                const fioByAuthorFromList = [authorFromList?.lastName, authorFromList?.firstName, authorFromList?.patronymic].join(" ");
+            onSuccess: ({ isActive }) => {
+                const statusMessage = isActive ? "активирован" : "деактивирован";
 
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Пользователь "${fioByAuthorData || fioByAuthorFromList}" ${statusMessage}.`,
+                    message: `Пользователь "${name}" ${statusMessage}.`,
                 });
             },
         }

@@ -54,6 +54,8 @@ export type UpdateCoursePopularityRequest = z.infer<typeof $UpdateCoursePopulari
 export type UpdateCoursePopularityResponse = z.infer<typeof $UpdateCoursePopularityResponse>;
 export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublicationRequest>;
 export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
+export type DeleteCourseRequest = z.infer<typeof $DeleteCourseRequest>;
+export type DeleteCourseResponse = z.infer<typeof $DeleteCourseResponse>;
 //courses <---> articles
 export type AttachArticlesToCourseRequest = z.infer<typeof $AttachArticlesToCourseRequest>;
 export type AttachArticlesToCourseResponse = z.infer<typeof $AttachArticlesToCourseResponse>;
@@ -423,6 +425,11 @@ export const $UpdateCoursePublicationRequest = z.object({
 export const $UpdateCoursePublicationResponse = $UpdateCoursePublicationRequest.pick({
     isFulfillment: true,
 });
+
+export const $DeleteCourseRequest = z.object({
+    id: z.string(),
+});
+export const $DeleteCourseResponse = z.null();
 
 export const $AdminArticleCoursesExtraFilters = z.object({
     articleId: z.string(),

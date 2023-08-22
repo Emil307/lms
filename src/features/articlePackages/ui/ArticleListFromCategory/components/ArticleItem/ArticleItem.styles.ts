@@ -8,7 +8,6 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.primary8[0],
     },
     wrapperDocumentIcon: {
-        border: "none",
         minHeight: "auto",
         minWidth: "auto",
         height: 16,

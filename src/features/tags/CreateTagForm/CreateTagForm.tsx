@@ -16,11 +16,11 @@ const CreateTagForm = ({ onClose, ...props }: CreateTagFormProps) => {
         return tagApi.createAdminTag(values);
     };
 
-    const onSuccess = () => {
+    const onSuccess = (response: CreateAdminTagResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Создание тега",
-            message: "Тег успешно создан",
+            message: `Тег "${response.name}" успешно создан`,
         });
         onClose();
     };

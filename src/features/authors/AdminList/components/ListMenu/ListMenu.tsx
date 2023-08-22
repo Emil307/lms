@@ -8,6 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { useUpdateAuthorActivity } from "@entities/author";
 import { DeleteAuthorModal } from "@features/authors";
 import { AdminAuthorFromList } from "@entities/author";
+import { getFullName } from "@shared/utils";
 
 interface ListMenuProps {
     row: MRT_Row<AdminAuthorFromList>;
@@ -16,7 +17,8 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useUpdateAuthorActivity({ id: row.original.id.toString() });
+    const authorName = getFullName({ data: row.original });
+    const { mutate: updateActivityStatus } = useUpdateAuthorActivity({ id: row.original.id.toString(), name: authorName });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
@@ -55,19 +57,19 @@ const ListMenu = ({ row }: ListMenuProps) => {
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={openAuthorDetail}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={opeEditAuthor}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={openModalDeleteAuthor}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

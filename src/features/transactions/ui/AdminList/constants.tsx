@@ -61,11 +61,7 @@ export const columns: MRT_ColumnDef<AdminTransactionFromList>["columns"] = [
         accessorKey: "status.status",
         Cell: ({ row }) => {
             const { classes } = useStyles({ status: row.original.status });
-            return (
-                <Badge variant="outline" className={classes.status}>
-                    {row.original.status.name}
-                </Badge>
-            );
+            return <Badge className={classes.status}>{row.original.status.name}</Badge>;
         },
     },
 ];

@@ -18,11 +18,11 @@ const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }:
         return categoryApi.createAdminCategory({ ...values, parentId, isActive: isSubcategory });
     };
 
-    const onSuccess = () => {
+    const onSuccess = (response: CreateAdminCategoryResponse) => {
         createNotification({
             type: ToastType.SUCCESS,
             title: "Создание категории",
-            message: "Категория успешно создана",
+            message: `Категория "${response.name}" успешно создана`,
         });
         onClose();
     };

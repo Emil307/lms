@@ -19,17 +19,6 @@ export default createStyles((theme, { statusType }: CreateStylesProps) => ({
         color: theme.colors.gray45[0],
     },
     status: {
-        height: "auto",
-        paddingInline: 10,
-        paddingBlock: 6,
-        border: "none",
-
-        span: {
-            fontWeight: 500,
-            fontSize: 12,
-            lineHeight: "16px",
-        },
-
         ...getColorsByStatus(theme, { statusType }),
     },
 }));

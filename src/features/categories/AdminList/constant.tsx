@@ -13,7 +13,7 @@ export const columns: MRT_ColumnDef<AdminCategoryFromList>["columns"] = [
         accessorFn: ({ id }) => {
             return (
                 <Flex gap={16} align="center">
-                    <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                    <ThemeIcon color="dark">
                         <Folder />
                     </ThemeIcon>
                     <Text color="dark" lh="16px">

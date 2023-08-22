@@ -241,7 +241,7 @@ export const UIDemo = () => {
                     value={inputValuePassword}
                     label="Label"
                     icon={
-                        <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                        <ThemeIcon color="gray45">
                             <Target />
                         </ThemeIcon>
                     }

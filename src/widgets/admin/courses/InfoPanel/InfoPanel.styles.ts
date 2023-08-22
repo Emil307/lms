@@ -5,6 +5,7 @@ export default createStyles(() => ({
         marginTop: 24,
         gap: 32,
         overflowX: "auto",
+        overflowY: "hidden",
         alignItems: "center",
 
         "::-webkit-scrollbar": {

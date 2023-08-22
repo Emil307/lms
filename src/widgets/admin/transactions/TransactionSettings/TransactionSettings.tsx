@@ -49,7 +49,7 @@ const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
                         onClick={openDeleteModal}
                         variant="text"
                         leftIcon={
-                            <ThemeIcon color="dark" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="dark">
                                 <Trash />
                             </ThemeIcon>
                         }>
@@ -67,7 +67,7 @@ const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
                 <Fieldset
                     label="Статус и оплата"
                     icon={
-                        <ThemeIcon variant="outline" sx={{ border: "none" }}>
+                        <ThemeIcon>
                             <CheckStatusIcon />
                         </ThemeIcon>
                     }

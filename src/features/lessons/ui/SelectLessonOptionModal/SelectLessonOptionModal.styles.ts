@@ -41,7 +41,6 @@ export default createStyles((theme) => ({
         minWidth: 64,
         minHeight: 64,
         borderRadius: 24,
-        border: "none",
         backgroundColor: theme.colors.white[0],
 
         svg: {

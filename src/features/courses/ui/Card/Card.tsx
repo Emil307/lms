@@ -60,21 +60,9 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
                     )}
                 </Box>
                 <Group className={classes.cardSectionContent}>
-                    {discountValue && (
-                        <Badge variant="outline" className={classes.discount}>
-                            {discountValue}
-                        </Badge>
-                    )}
-                    {data.category && (
-                        <Badge variant="outline" className={classes.category}>
-                            {data.category.name}
-                        </Badge>
-                    )}
-                    {data.subcategory && (
-                        <Badge variant="outline" className={classes.category}>
-                            {data.subcategory.name}
-                        </Badge>
-                    )}
+                    {discountValue && <Badge className={classes.discount}>{discountValue}</Badge>}
+                    {data.category && <Badge className={classes.category}>{data.category.name}</Badge>}
+                    {data.subcategory && <Badge className={classes.category}>{data.subcategory.name}</Badge>}
                 </Group>
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody}>

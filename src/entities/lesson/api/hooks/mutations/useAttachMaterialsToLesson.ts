@@ -4,8 +4,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
-import { AttachMaterialsToLessonRequest, GetAdminLessonResponse } from "../../types";
-import { lessonApi } from "../../lessonApi";
+import { AttachMaterialsToLessonRequest, GetAdminLessonResponse, lessonApi } from "@entities/lesson";
 
 export const useAttachMaterialsToLesson = ({
     lessonId,

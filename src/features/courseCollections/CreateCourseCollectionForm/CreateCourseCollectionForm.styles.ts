@@ -63,12 +63,6 @@ export default createStyles((theme, _params, getRef) => ({
         height: 64,
         color: theme.colors.white[0],
     },
-    defaultIcon: {
-        width: 64,
-        height: 64,
-        border: "none",
-        color: theme.colors.gray20[0],
-    },
 
     wrapperIconError: {
         gap: 4,

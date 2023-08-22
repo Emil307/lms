@@ -3,6 +3,7 @@ import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useAdminAuthor, useUpdateAuthorActivity } from "@entities/author";
+import { getFullName } from "@shared/utils";
 import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps extends Omit<FlexProps, "children"> {
@@ -13,7 +14,9 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data } = useAdminAuthor({ id });
 
-    const { mutate: updateActivityStatus } = useUpdateAuthorActivity({ id });
+    const fullName = getFullName({ data: data });
+
+    const { mutate: updateActivityStatus } = useUpdateAuthorActivity({ id, name: fullName });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 

@@ -18,7 +18,7 @@ export const useDeleteStudentsFromGroup = ({ groupId }: Pick<DeleteStudentsFromG
                     message: `Ученик успешно удален из группы`,
                 });
 
-                //TODO: Добавить invalidate на ключ для списка ученико в которых нет в группе
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUP_STUDENTS]);
             },
             onError: () => {

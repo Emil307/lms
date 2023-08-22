@@ -13,9 +13,9 @@ interface InfoPanelProps {
 const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: courseData, isLoading, isError } = useAdminCourse(id);
-    const { mutate: updateActivityStatus } = useUpdateCourseActivity(id);
-    const { mutate: updateType } = useUpdateCourseType(id);
-    const { mutate: updatePopularity } = useUpdateCoursePopularity(id);
+    const { mutate: updateActivityStatus } = useUpdateCourseActivity({ id, name: courseData?.name });
+    const { mutate: updateType } = useUpdateCourseType({ id, name: courseData?.name });
+    const { mutate: updatePopularity } = useUpdateCoursePopularity({ id, name: courseData?.name });
 
     if (isLoading) {
         return <Loader />;
@@ -25,10 +25,11 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
     const handleChangeType = (newValue: ChangeEvent<HTMLInputElement>) =>
         updateType(newValue.target.checked ? "interactive" : "autonomous");
-    const handleChangePopularity = (newValue: ChangeEvent<HTMLInputElement>) => updatePopularity(newValue.target.checked);
+    const handleChangePopularity = (newValue: ChangeEvent<HTMLInputElement>) => updatePopularity({ isPopular: newValue.target.checked });
 
     const labelActivitySwitch = courseData.isActive ? "Деактивировать" : "Активировать";
 
@@ -40,9 +41,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m" color="gray45">
                         ID:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {courseData.id}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{courseData.id}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
@@ -66,9 +65,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m" color="gray45">
                         Создание:
                     </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}
-                    </Paragraph>
+                    <Paragraph variant="text-small-m">{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">

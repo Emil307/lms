@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useUpdateCoursePublication } from "@entities/course";
 import { createNotification, ToastType, useMedia } from "@shared/utils";
 import useStyles from "./UpdateCoursePublicationModal.styles";
@@ -16,37 +16,38 @@ export interface UpdateCoursePublicationModalProps {
 
 const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel }: UpdateCoursePublicationModalProps) => {
     const { classes } = useStyles();
-    const { mutate: publishCourse, isLoading } = useUpdateCoursePublication(id);
+    const { mutate: publishCourse, isLoading } = useUpdateCoursePublication({ id });
 
     const isTablet = useMedia("md");
 
     const handleSubmit = () => {
-        publishCourse(true, {
-            onSuccess: () => {
-                createNotification({
-                    type: ToastType.IMAGE,
-                    srcImage: coverSrc,
-                    title: "Курс опубликован",
-                    message: name,
-                });
-                onSuccess();
-            },
-        });
+        publishCourse(
+            { isFulfillment: true },
+            {
+                onSuccess: () => {
+                    createNotification({
+                        type: ToastType.IMAGE,
+                        srcImage: coverSrc,
+                        title: "Курс опубликован",
+                        message: name,
+                    });
+                    onSuccess();
+                },
+            }
+        );
     };
 
     return (
-        <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
-                        Вы действительно хотите опубликовать курс
-                        <Text className={classes.textData}>{`«${name}»?`}</Text>
-                    </Text>
+        <Flex direction="column" gap={24}>
+            <Flex gap={16} mih={80}>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {"Вы действительно хотите опубликовать курс "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«${name}»?`}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

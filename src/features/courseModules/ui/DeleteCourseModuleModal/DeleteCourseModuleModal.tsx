@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCourseModule } from "@entities/courseModule";
 import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCourseModuleModal.styles";
@@ -28,18 +28,16 @@ const DeleteCourseModuleModal = ({ courseId, moduleId, moduleName, onClose }: De
     };
 
     return (
-        <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
-                        Вы действительно хотите удалить модуль,
-                        <Text className={classes.textData}>{` «ID: ${moduleId} ${moduleName}»?`}</Text>
-                    </Text>
+        <Flex direction="column" gap={24}>
+            <Flex gap={16} mih={80}>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {"Вы действительно хотите удалить модуль, "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«ID: ${moduleId} ${moduleName}»?`}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

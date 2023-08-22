@@ -58,9 +58,7 @@ export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
             const { classes } = useStyles({ statusType: row.original.status.type });
             return (
                 //TODO: displayName как беки добавят
-                <Badge variant="outline" className={classes.status}>
-                    {row.original.status.name}
-                </Badge>
+                <Badge className={classes.status}>{row.original.status.name}</Badge>
             );
         },
         size: 160,

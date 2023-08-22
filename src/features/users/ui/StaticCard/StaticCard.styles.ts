@@ -26,16 +26,8 @@ export default createStyles((theme) => ({
         background: "rgba(0, 4, 41, 0.15)",
     },
     countCourse: {
-        height: "auto",
-        padding: "6px 10px",
-        border: "none",
-        borderRadius: 60,
         backgroundColor: theme.colors.white[0],
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
         color: theme.colors.dark[0],
-        textTransform: "inherit",
     },
     cardSectionContent: {
         position: "absolute",

@@ -14,7 +14,8 @@ import { ToastType, createNotification } from "@shared/utils";
 
 export const useAdminUpdateCategoryActivity = ({
     id,
-}: Pick<UpdateAdminCategoryActivityRequest, "id">): UseMutationResult<
+    name,
+}: Pick<UpdateAdminCategoryActivityRequest, "id"> & { name?: string }): UseMutationResult<
     UpdateAdminCategoryActivityResponse,
     AxiosError<FormErrorResponse>,
     Omit<UpdateAdminCategoryActivityRequest, "id">
@@ -62,20 +63,13 @@ export const useAdminUpdateCategoryActivity = ({
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORIES]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_CATEGORY, id]);
         },
-        onSuccess: () => {
-            const categoryData = queryClient.getQueryData<GetAdminCategoryResponse>([QueryKeys.GET_ADMIN_CATEGORY, id]);
-            const categoryFromList = queryClient
-                .getQueriesData<GetAdminCategoriesResponse>([QueryKeys.GET_ADMIN_CATEGORIES])[0]?.[1]
-                ?.data.find((category) => category.id.toString() === id);
-
-            const categoryName = categoryData?.name || categoryFromList?.name;
-
-            const statusMessage = categoryData?.isActive || categoryFromList?.isActive ? "активирован" : "деактивирован";
+        onSuccess: ({ isActive }) => {
+            const statusMessage = isActive ? "активирован" : "деактивирован";
 
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",
-                message: `Категория "${categoryName}" ${statusMessage}.`,
+                message: `Категория "${name}" ${statusMessage}.`,
             });
         },
     });

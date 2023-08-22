@@ -38,13 +38,13 @@ const ListMenu = ({ row, lessonId, lessonName }: LessonMaterialsListMenuProps) =
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={handleDownload}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Download />
                 </ThemeIcon>
                 Скачать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

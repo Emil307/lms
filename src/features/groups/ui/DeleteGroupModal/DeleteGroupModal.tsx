@@ -14,7 +14,7 @@ export interface DeleteGroupModalProps {
 
 const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => {
     const { classes } = useStyles();
-    const deleteGroup = useAdminDeleteGroup({ id });
+    const deleteGroup = useAdminDeleteGroup({ id, name });
 
     const isTablet = useMedia("md");
 

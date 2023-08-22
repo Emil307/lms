@@ -31,7 +31,7 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
         <Flex direction="column" gap={56}>
             <Flex gap={16} align="center">
                 <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary">
+                    <ThemeIcon color="secondary">
                         <AlertTriangle />
                     </ThemeIcon>
                 </Flex>
