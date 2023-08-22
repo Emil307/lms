@@ -5,8 +5,8 @@ import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading } from "@shared/ui";
 import { LessonList } from "@widgets/admin/lessons";
 import { CreateLessonModal } from "@features/lessons";
-import useStyles from "./LessonListPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./LessonListPage.styles";
 
 const LessonListPage = () => {
     const { classes } = useStyles();

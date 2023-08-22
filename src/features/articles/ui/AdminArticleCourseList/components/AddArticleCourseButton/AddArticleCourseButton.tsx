@@ -3,8 +3,8 @@ import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { AddCoursesToArticleModal } from "@features/articles";
-import useStyles from "./AddArticleCourseButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./AddArticleCourseButton.styles";
 
 export interface AddArticleCourseButtonProps {
     articleId: string;

@@ -3,12 +3,12 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { CourseListPage } from "@pages/admin/courses";
+import { CoursesPage } from "@pages/admin/courses";
 
 const AdminCourses: NextPageWithLayout = () => {
     return (
         <AdminPage title="Курсы">
-            <CourseListPage />
+            <CoursesPage />
         </AdminPage>
     );
 };

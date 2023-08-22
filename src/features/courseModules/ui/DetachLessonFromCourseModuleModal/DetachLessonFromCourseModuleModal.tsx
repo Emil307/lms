@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button } from "@shared/ui";
 import { useDetachLessonFromCourseModule } from "@entities/courseModule";
-import useStyles from "./DetachLessonFromCourseModuleModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DetachLessonFromCourseModuleModal.styles";
 
 export interface DetachLessonFromCourseModuleModalProps {
     courseId: string;

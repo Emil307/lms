@@ -26,7 +26,7 @@ export const getTabList = ({ isInteractive }: GetTabListProps) => {
     }
 
     //TODO Вомзожно нужно будет добавить еще условия на отображение табов
-    tabs.push({ id: 4, label: "Статистика", value: "statistics" });
+    tabs.push({ id: 4, label: "Статьи", value: "articles" });
     tabs.push({ id: 5, label: "Отзывы", value: "reviews" });
 
     return tabs;

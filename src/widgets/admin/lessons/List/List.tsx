@@ -5,11 +5,11 @@ import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio } from "
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
+import { useMedia } from "@shared/utils";
 import { adaptGetAdminLessonsRequest } from "./utils";
 import { radioGroupValues, columns, filterInitialValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
-import { useMedia } from "@shared/utils";
 
 const List = () => {
     const router = useRouter();

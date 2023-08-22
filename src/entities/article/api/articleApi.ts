@@ -34,7 +34,6 @@ import {
     GetAdminArticleFiltersResponse,
     GetAdminArticleResourcesCreateResponse,
     GetAdminArticleResponse,
-    GetAdminArticlesNoIncludedArticlePackageRequest,
     GetAdminArticlesRequest,
     GetAdminArticlesResponse,
     GetArticleCategoriesRequest,
@@ -86,9 +85,7 @@ class ArticleApi extends BaseApi {
      * ADMIN
      *
      */
-    async getAdminArticles(
-        params: GetAdminArticlesRequest | GetAdminArticlesNoIncludedArticlePackageRequest
-    ): Promise<GetAdminArticlesResponse> {
+    async getAdminArticles(params: GetAdminArticlesRequest): Promise<GetAdminArticlesResponse> {
         const response = await this.instance.post("admin/articles/list", params);
         return $GetAdminArticlesResponse.parse(response);
     }

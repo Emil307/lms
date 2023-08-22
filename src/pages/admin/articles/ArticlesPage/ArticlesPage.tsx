@@ -4,8 +4,8 @@ import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminArticleList } from "@features/articles";
-import useStyles from "./ArticlesPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./ArticlesPage.styles";
 
 const ArticlesPage = () => {
     const router = useRouter();

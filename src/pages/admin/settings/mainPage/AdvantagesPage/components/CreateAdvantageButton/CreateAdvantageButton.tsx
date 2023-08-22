@@ -3,8 +3,8 @@ import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { CreateAdvantageForm } from "@features/advantages";
-import useStyles from "./CreateAdvantageButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./CreateAdvantageButton.styles";
 
 const CreateAdvantageButton = () => {
     const { classes } = useStyles();

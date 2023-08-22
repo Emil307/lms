@@ -6,11 +6,11 @@ import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { useClickOutside } from "@mantine/hooks";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "public/icons/closeBook.svg";
+import { useMedia } from "@shared/utils";
 import SidebarItem from "./ui/SidebarItem/SidebarItem";
 import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
 import useStyles from "./Sidebar.styles";
 import { MinimizedModeSidebarContext } from "./utils";
-import { useMedia } from "@shared/utils";
 
 export default function Sidebar() {
     const router = useRouter();

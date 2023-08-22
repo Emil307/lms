@@ -2,12 +2,12 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import {
     AdminArticleFromArticlePackageExtraFilters,
     AdminArticleFromArticlePackageFiltersForm,
-    GetAdminArticlesNoIncludedArticlePackageRequest,
+    GetAdminArticlesRequest,
 } from "@entities/article";
 
 export const adaptGetAdminArticlesRequest = (
     params: TFunctionParams<AdminArticleFromArticlePackageFiltersForm, AdminArticleFromArticlePackageExtraFilters>
-): GetAdminArticlesNoIncludedArticlePackageRequest => {
+): GetAdminArticlesRequest => {
     const { categoryId, subcategoryId, articlePackageIds, ...rest } = params;
 
     return {
@@ -18,7 +18,7 @@ export const adaptGetAdminArticlesRequest = (
                 operator: "not",
             },
             "category.id": categoryId,
-            "subcategory.id": subcategoryId,
+            subcategoryIds: subcategoryId,
         },
     };
 };

@@ -5,11 +5,11 @@ import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, FSearch, FSlider, FSwitch, Form, Paragraph } from "@shared/ui";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
+import { useMedia } from "@shared/utils";
 import { CategoryFilterList, FilterList, ToggleFilterButton } from "./components";
 import { adaptCourseFiltersForm, getCountAppliedQueries, getInitialValues, prepareQueryParams } from "./utils";
 import { TRouterQueries } from "./types";
 import useStyles from "./Filters.styles";
-import { useMedia } from "@shared/utils";
 
 export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
     title: ReactNode;

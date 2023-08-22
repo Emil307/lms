@@ -2,8 +2,8 @@ import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
-import useStyles from "./ConfirmActionModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./ConfirmActionModal.styles";
 
 export interface ConfirmActionModalProps {
     onSubmit: () => void;

@@ -1,9 +1,9 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
+import React from "react";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import FoldersIcon from "public/icons/folders.svg";
 import BookIcon from "public/icons/book.svg";
 import useStyles from "./SelectLessonOptionModal.styles";
-import React from "react";
 
 export interface SelectLessonOptionModalProps {
     onCreate: () => void;

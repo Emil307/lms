@@ -9,11 +9,11 @@ import {
     coursePackageApi,
     useAdminCoursePackageResourses,
 } from "@entities/coursePackage";
+import { useMedia } from "@shared/utils";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminCoursePackagesRequest } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useMedia } from "@shared/utils";
 
 const AdminList = () => {
     const router = useRouter();

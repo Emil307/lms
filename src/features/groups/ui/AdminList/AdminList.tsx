@@ -6,11 +6,11 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminGroupFromList, AdminGroupsFiltersForm, groupApi, useAdminGroupFilters } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
+import { useMedia } from "@shared/utils";
 import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminGroupsRequest } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 

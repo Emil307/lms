@@ -4,10 +4,10 @@ import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
 import { CourseList } from "@widgets/admin/courses";
-import useStyles from "./CourseListPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./CoursesPage.styles";
 
-const CourseListPage = () => {
+const CoursesPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
@@ -28,4 +28,4 @@ const CourseListPage = () => {
     );
 };
 
-export default CourseListPage;
+export default CoursesPage;

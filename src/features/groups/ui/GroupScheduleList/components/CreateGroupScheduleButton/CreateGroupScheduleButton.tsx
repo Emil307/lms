@@ -3,8 +3,8 @@ import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { CreateScheduleForm } from "@features/groups";
-import useStyles from "./CreateGroupScheduleButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./CreateGroupScheduleButton.styles";
 
 export interface CreateGroupScheduleButtonProps {
     groupId: string;

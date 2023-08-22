@@ -6,9 +6,9 @@ import { QueryKeys } from "@shared/constant";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { AdminLessonFromList, AdminSelectLessonsExtraFilters, AdminSelectLessonsFilters, lessonApi } from "@entities/lesson";
 import { adaptGetAdminLessonsRequest } from "@features/lessons/ui/LessonListModal/utils";
+import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues } from "./constants";
 import useStyles from "./LessonListModal.styles";
-import { useMedia } from "@shared/utils";
 
 export interface LessonListModalProps {
     courseId: string;

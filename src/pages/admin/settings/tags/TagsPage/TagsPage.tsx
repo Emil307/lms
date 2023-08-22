@@ -4,8 +4,8 @@ import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading } from "@shared/ui";
 import { CreateTagForm, AdminList as AdminTagList } from "@features/tags";
-import useStyles from "./TagsPage.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./TagsPage.styles";
 
 const TagsPage = () => {
     const { classes } = useStyles();

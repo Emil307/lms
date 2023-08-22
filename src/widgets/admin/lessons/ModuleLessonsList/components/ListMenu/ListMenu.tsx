@@ -2,12 +2,12 @@ import { Divider, ThemeIcon } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { useUpdateLessonActivity } from "@entities/lesson";
 import { DetachLessonFromCourseModuleModal } from "@features/courseModules";
 import { UpdateLessonModal } from "@features/lessons";
 import { CourseModuleLesson } from "@entities/courseModule";
-import { useRouter } from "next/router";
 import { useMedia } from "@shared/utils";
 
 export interface ListMenuProps {

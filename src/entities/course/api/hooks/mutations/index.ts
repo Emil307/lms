@@ -5,3 +5,5 @@ export * from "./useUpdateCoursePublication";
 export * from "./useDeleteCourse";
 export * from "./useDeleteFavoriteCourses";
 export * from "./useUpdateCourseFavoriteStatus";
+export * from "./useAttachArticlesToCourse";
+export * from "./useDeleteCourseArticles";

@@ -3,13 +3,13 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
-import { InfoPanel, CourseSettings, CourseReviews } from "@widgets/admin/courses";
+import { InfoPanel, CourseSettings, CourseReviews, CourseArticles } from "@widgets/admin/courses";
 import { useAdminCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
 import { CourseGroups } from "@widgets/admin/courses/Groups";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 
-const CourseDetailPage = () => {
+const CourseDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: courseData, isLoading, isError } = useAdminCourse(id);
@@ -36,7 +36,6 @@ const CourseDetailPage = () => {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
-    //TODO: Добавить статистику, когда будет готово на бэке
     const renderComponent = () => {
         switch (currentTab) {
             case "settings":
@@ -45,8 +44,8 @@ const CourseDetailPage = () => {
                 return <ModuleList courseId={id} />;
             case "groups":
                 return <CourseGroups courseId={id} />;
-            case "statistics":
-                return null;
+            case "articles":
+                return <CourseArticles courseId={id} />;
             case "reviews":
                 return <CourseReviews courseId={id} />;
             default:
@@ -64,4 +63,4 @@ const CourseDetailPage = () => {
     );
 };
 
-export default CourseDetailPage;
+export default CourseDetailsPage;

@@ -15,11 +15,12 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useUpdateArticleActivity(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateArticleActivity({ id: String(row.original.id), name: row.original.name });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE");
 

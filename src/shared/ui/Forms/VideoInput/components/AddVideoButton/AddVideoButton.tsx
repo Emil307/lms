@@ -2,8 +2,8 @@ import { ActionIcon } from "@mantine/core";
 import React from "react";
 import { Plus as PlusIcon } from "react-feather";
 import { Button } from "@shared/ui";
-import useStyles from "./AddVideoButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./AddVideoButton.styles";
 
 interface AddVideoButtonProps {
     editMode: boolean;

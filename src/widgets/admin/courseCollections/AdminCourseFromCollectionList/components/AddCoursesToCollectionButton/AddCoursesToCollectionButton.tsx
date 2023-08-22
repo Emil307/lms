@@ -1,8 +1,8 @@
 import { PlusCircle } from "react-feather";
 import { ActionIcon } from "@mantine/core";
 import { Button } from "@shared/ui";
-import useStyles from "./AddCoursesToCollectionButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./AddCoursesToCollectionButton.styles";
 
 export interface AddCoursesToCollectionButtonProps {
     isActiveCategory?: boolean;

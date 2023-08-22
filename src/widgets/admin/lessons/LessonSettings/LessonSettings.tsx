@@ -4,9 +4,9 @@ import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from 
 import { AdminLesson } from "@entities/lesson";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
+import { useMedia } from "@shared/utils";
 import useStyles from "./LessonSettings.styles";
 import { DeleteLessonButton } from "./components";
-import { useMedia } from "@shared/utils";
 
 interface LessonSettingsProps {
     data: AdminLesson;

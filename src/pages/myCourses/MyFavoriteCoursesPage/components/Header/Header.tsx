@@ -2,9 +2,9 @@ import { Box, Flex, ThemeIcon } from "@mantine/core";
 import { Heart } from "react-feather";
 import { GetCoursesResponse } from "@entities/course";
 import { BreadCrumbs, Heading, TBreadCrumbItem } from "@shared/ui";
+import { useMedia } from "@shared/utils";
 import useStyles from "./Header.styles";
 import { DeleteFavoriteCoursesButton } from "../DeleteFavoriteCoursesButton";
-import { useMedia } from "@shared/utils";
 
 export interface HeaderProps {
     data?: GetCoursesResponse;

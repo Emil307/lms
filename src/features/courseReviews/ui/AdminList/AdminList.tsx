@@ -11,11 +11,11 @@ import {
     courseReviewApi,
     useAdminCourseReviewsResources,
 } from "@entities/courseReview";
+import { useMedia } from "@shared/utils";
 import { columns, radioGroupValues, filterInitialValues, columnOrder, scoreOptions } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminCourseReviewsRequest } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useMedia } from "@shared/utils";
 
 export interface AdminListProps extends BoxProps {}
 

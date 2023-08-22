@@ -3,8 +3,8 @@ import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
 import { AddStudentsToGroupModal } from "@features/groups";
-import useStyles from "./AddStudentsToGroupButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./AddStudentsToGroupButton.styles";
 
 export interface AddStudentsToGroupButtonProps {
     groupId: string;

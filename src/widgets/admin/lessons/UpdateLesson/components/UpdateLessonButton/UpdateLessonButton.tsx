@@ -5,8 +5,8 @@ import { Edit3 as EditIcon } from "react-feather";
 import { UpdateLessonModal } from "@features/lessons";
 import { Button } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
-import useStyles from "./UpdateLessonButton.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./UpdateLessonButton.styles";
 
 interface UpdateLessonButtonProps {
     data: AdminLesson;

@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteAuthor } from "@entities/author";
-import useStyles from "./DeleteAuthorModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteAuthorModal.styles";
 
 export interface DeleteAuthorModalProps {
     id: string;

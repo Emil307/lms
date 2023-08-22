@@ -3,8 +3,8 @@ import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Paragraph } from "@shared/ui";
 import { useDeleteTag } from "@entities/tag";
-import useStyles from "./DeleteTagModal.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./DeleteTagModal.styles";
 
 interface DeleteTagModalProps {
     id: string;
