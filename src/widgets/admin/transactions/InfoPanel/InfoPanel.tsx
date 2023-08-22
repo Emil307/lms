@@ -17,9 +17,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
         <Box {...props}>
             <Flex gap={16} align="center">
                 <Heading>{transactionData?.entity.name}</Heading>
-                <Badge variant="outline" className={classes.status}>
-                    {transactionData?.status.name}
-                </Badge>
+                <Badge className={classes.status}>{transactionData?.status.name}</Badge>
             </Flex>
 
             <Flex mt={24} gap={32} align="center">

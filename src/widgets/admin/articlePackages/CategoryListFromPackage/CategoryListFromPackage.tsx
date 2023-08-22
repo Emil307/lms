@@ -37,7 +37,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
     const showLabel = (
         <Flex align="center" gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Показать еще</Text>
-            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+            <ThemeIcon color="dark">
                 <ChevronDown />
             </ThemeIcon>
         </Flex>
@@ -46,7 +46,7 @@ const CategoryListFromPackage = ({ data, ...props }: CategoryListFromPackageProp
     const hideLabel = (
         <Flex align="center" gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Свернуть</Text>
-            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+            <ThemeIcon color="dark">
                 <ChevronUp />
             </ThemeIcon>
         </Flex>

@@ -15,7 +15,7 @@ export interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id: row.original.id.toString() });
+    const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id: row.original.id.toString(), name: row.original.name });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

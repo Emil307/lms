@@ -70,7 +70,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
             {({ dirty }) => (
                 <Flex gap={24} direction="column">
                     <Flex gap={16} align="center">
-                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                        <ThemeIcon color="primaryHover">
                             <AlignLeftIcon />
                         </ThemeIcon>
                         <Heading order={4}>{lessonNumber ? `Урок ${lessonNumber}` : "Данные урока"}</Heading>
@@ -81,7 +81,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
                     </Flex>
                     <Flex gap={16} direction="column">
                         <Flex gap={16} align="center">
-                            <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                            <ThemeIcon color="primaryHover">
                                 <FileMarkIcon className={classes.icon} />
                             </ThemeIcon>
                             <Heading order={4}>Практические задания</Heading>

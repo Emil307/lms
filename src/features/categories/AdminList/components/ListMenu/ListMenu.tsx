@@ -15,7 +15,7 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
 
-    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id: String(row.original.id) });
+    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id: String(row.original.id), name: row.original.name });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 

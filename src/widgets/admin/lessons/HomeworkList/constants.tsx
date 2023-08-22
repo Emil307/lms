@@ -65,23 +65,11 @@ export const columns: MRT_ColumnDef<AdminHomeworkAnswerFromList>["columns"] = [
             const { classes } = useCellStyles({ status });
             switch (status) {
                 case "onReview":
-                    return (
-                        <Badge variant="outline" className={classes.status}>
-                            Проверка
-                        </Badge>
-                    );
+                    return <Badge className={classes.status}>Проверка</Badge>;
                 case "needsEdit":
-                    return (
-                        <Badge variant="outline" className={classes.status}>
-                            На доработку
-                        </Badge>
-                    );
+                    return <Badge className={classes.status}>На доработку</Badge>;
                 case "completed":
-                    return (
-                        <Badge variant="outline" className={classes.status}>
-                            Выполнено
-                        </Badge>
-                    );
+                    return <Badge className={classes.status}>Выполнено</Badge>;
             }
         },
     },

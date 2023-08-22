@@ -27,7 +27,7 @@ const DeleteFaqModal = ({ id, question = "", onClose }: DeleteFaqModalProps) => 
         <Flex direction="column" gap={24}>
             <Flex gap={16} mih={80}>
                 <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
+                    <ThemeIcon color="secondary">
                         <AlertTriangle />
                     </ThemeIcon>
                 </Flex>

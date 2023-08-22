@@ -11,7 +11,6 @@ interface TGetStylesByStatus extends TCreateStylesParams {
     theme: MantineTheme;
 }
 
-// @ts-ignore
 export default createStyles((theme, { isError, statusSuccess, readonly }: TCreateStylesParams) => ({
     root: {
         display: "flex",
@@ -37,10 +36,6 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         height: "100%",
         overflowY: "auto",
         borderRadius: 8,
-
-        ...(readonly && {
-            pointerEvents: "none",
-        }),
 
         ".column-resize-handle": {
             position: "absolute",

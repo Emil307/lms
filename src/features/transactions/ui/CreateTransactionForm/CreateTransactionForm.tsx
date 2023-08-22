@@ -100,7 +100,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                             <Fieldset
                                 label="Статус и оплата"
                                 icon={
-                                    <ThemeIcon variant="outline" sx={{ border: "none" }}>
+                                    <ThemeIcon>
                                         <CheckStatusIcon />
                                     </ThemeIcon>
                                 }

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { DeleteAuthorModal } from "@features/authors";
 import { GetAdminAuthorResponse } from "@entities/author";
-import { useMedia } from "@shared/utils";
+import { getFullName, useMedia } from "@shared/utils";
 
 export interface DeleteAuthorButtonProps {
     data?: GetAdminAuthorResponse;
@@ -15,7 +15,7 @@ const DeleteAuthorButton = ({ data }: DeleteAuthorButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
-    const userFullName = [data?.lastName, data?.firstName, data?.patronymic].join(" ");
+    const userFullName = getFullName({ data });
 
     const handleCloseDeleteAuthorModal = () => {
         closeModal("DELETE_AUTHOR");

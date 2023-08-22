@@ -4,13 +4,28 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { courseApi, GetAdminCourseResponse, GetAdminCoursesResponse, UpdateCourseActivityResponse } from "@entities/course";
+import {
+    courseApi,
+    GetAdminCourseResponse,
+    GetAdminCoursesResponse,
+    UpdateCourseActivityRequest,
+    UpdateCourseActivityResponse,
+} from "@entities/course";
 
-export const useUpdateCourseActivity = (
-    id: string
-): UseMutationResult<UpdateCourseActivityResponse, AxiosError<FormErrorResponse>, boolean> => {
-    return useMutation([MutationKeys.UPDATE_COURSE_ACTIVITY, id], (isActive: boolean) => courseApi.updateCourseActivity({ id, isActive }), {
-        onMutate: async (updatedStatus) => {
+interface UseUpdateCourseActivityProps extends Pick<UpdateCourseActivityRequest, "id"> {
+    name?: string;
+}
+
+export const useUpdateCourseActivity = ({
+    id,
+    name,
+}: UseUpdateCourseActivityProps): UseMutationResult<
+    UpdateCourseActivityResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<UpdateCourseActivityRequest, "id">
+> => {
+    return useMutation([MutationKeys.UPDATE_COURSE_ACTIVITY, id], (data) => courseApi.updateCourseActivity({ ...data, id }), {
+        onMutate: async ({ isActive }) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSES] });
 
@@ -19,7 +34,7 @@ export const useUpdateCourseActivity = (
 
             queryClient.setQueryData<GetAdminCourseResponse>(
                 [QueryKeys.GET_ADMIN_COURSE, id],
-                (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                (previousData) => previousData && { ...previousData, isActive }
             );
 
             queryClient.setQueriesData<GetAdminCoursesResponse>([QueryKeys.GET_ADMIN_COURSES], (previousData) => {
@@ -29,7 +44,7 @@ export const useUpdateCourseActivity = (
 
                 return {
                     ...previousData,
-                    data: previousData.data.map((course) => (String(course.id) === id ? { ...course, isActive: updatedStatus } : course)),
+                    data: previousData.data.map((course) => (String(course.id) === id ? { ...course, isActive } : course)),
                 };
             });
 
@@ -47,15 +62,13 @@ export const useUpdateCourseActivity = (
                 title: "Ошибка изменения статуса",
             });
         },
-        onSuccess: ({ isActive }, _, context) => {
-            const course = context?.previousCourseData;
-            const courseFromList = context?.previousCoursesData[0]?.[1]?.data.find((course) => String(course.id) === id);
+        onSuccess: ({ isActive }) => {
             const statusMessage = isActive ? "активирован" : "деактивирован";
 
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",
-                message: `Учебный курс "${course?.name || courseFromList?.name}" ${statusMessage}.`,
+                message: `Учебный курс "${name}" ${statusMessage}.`,
             });
         },
         onSettled() {

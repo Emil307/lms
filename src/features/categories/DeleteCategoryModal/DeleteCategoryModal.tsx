@@ -15,7 +15,7 @@ export interface DeleteCategoryModalProps {
 
 const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategoryModalProps) => {
     const { classes } = useStyles();
-    const deleteCategory = useDeleteCategory({ id });
+    const deleteCategory = useDeleteCategory({ id, name });
 
     const isMobile = useMedia("xs");
 
@@ -35,7 +35,6 @@ const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategor
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>
-
                 <Box>
                     <Paragraph variant="small-m" component="span">
                         {contentText}

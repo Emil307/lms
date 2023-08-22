@@ -12,9 +12,14 @@ import {
     groupApi,
 } from "@entities/group";
 
+interface UseUpdateGroupActivityProps extends Pick<UpdateGroupActivityRequest, "id"> {
+    name?: string;
+}
+
 export const useUpdateGroupActivity = ({
     id,
-}: Pick<UpdateGroupActivityRequest, "id">): UseMutationResult<
+    name,
+}: UseUpdateGroupActivityProps): UseMutationResult<
     UpdateGroupActivityResponse,
     AxiosError<FormErrorResponse>,
     Omit<UpdateGroupActivityRequest, "id">
@@ -61,18 +66,13 @@ export const useUpdateGroupActivity = ({
         onSettled() {
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUPS]);
         },
-        onSuccess: (updatedStatus) => {
-            const coursePackageData = queryClient.getQueryData<GetAdminGroupResponse>([QueryKeys.GET_ADMIN_GROUP, id]);
-            const coursePackageFromList = queryClient
-                .getQueriesData<GetAdminGroupsResponse>([QueryKeys.GET_ADMIN_GROUPS])?.[0]?.[1]
-                ?.data.find((group) => group.id.toString() === id);
-
-            const statusMessage = updatedStatus.isActive ? "активирована" : "деактивирована";
+        onSuccess: ({ isActive }) => {
+            const statusMessage = isActive ? "активирована" : "деактивирована";
 
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение статуса",
-                message: `Группа "${coursePackageData?.name || coursePackageFromList?.name}" ${statusMessage}.`,
+                message: `Группа "${name}" ${statusMessage}.`,
             });
         },
     });

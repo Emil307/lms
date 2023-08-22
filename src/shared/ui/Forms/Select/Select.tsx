@@ -137,7 +137,7 @@ const MemoizedSelect = (props: SelectProps) => {
     const renderIcon = () => {
         if (variantSearhableSelect === "searchable" && searchable) {
             return (
-                <ThemeIcon color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon color="primary">
                     <Search />
                 </ThemeIcon>
             );

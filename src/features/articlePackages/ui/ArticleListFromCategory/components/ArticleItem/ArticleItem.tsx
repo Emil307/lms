@@ -12,7 +12,7 @@ const MemoizedArticleItem = memo(function ArticleItem({ data, ...props }: Articl
     const { classes } = useStyles();
     return (
         <Flex {...props} className={classes.root}>
-            <ThemeIcon variant="outline" color="secondary" className={classes.wrapperDocumentIcon}>
+            <ThemeIcon color="secondary" className={classes.wrapperDocumentIcon}>
                 <FileText width={16} height={16} />
             </ThemeIcon>
             <Text className={classes.articleName}>{data.name}</Text>

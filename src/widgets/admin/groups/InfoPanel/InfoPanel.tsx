@@ -13,7 +13,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { data: groupData } = useAdminGroup({ id });
     const { classes } = useStyles({ statusType: groupData?.status.type });
 
-    const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id });
+    const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id, name: groupData?.name });
 
     const labelActivitySwitch = groupData?.isActive ? "Деактивировать" : "Активировать";
 

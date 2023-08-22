@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDetachLessonFromCourseModule } from "@entities/courseModule";
 import { useMedia } from "@shared/utils";
 import useStyles from "./DetachLessonFromCourseModuleModal.styles";
@@ -44,18 +44,19 @@ const DetachLessonFromCourseModuleModal = ({
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
-                        Вы действительно хотите удалить урок,
-                        <Text className={classes.textData}>{` «ID: ${lessonId} ${lessonName}» `}</Text>
-                        из модуля <Text className={classes.textData}>{` «${moduleName}»? `}</Text>
-                    </Text>
+            <Flex gap={16} mih={80}>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {" Вы действительно хотите удалить урок, "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«ID: ${lessonId} ${lessonName}» `}</Paragraph>
+                    <Paragraph variant="small-m" component="span">
+                        {"из модуля "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«${moduleName}»? `}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

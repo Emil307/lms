@@ -50,7 +50,7 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
             {({ isLoading }) => (
                 <Flex gap={24} direction="column">
                     <Flex gap={16} align="center">
-                        <ThemeIcon variant="outline" color="primaryHover" sx={{ border: "none" }}>
+                        <ThemeIcon color="primaryHover">
                             <FolderIcon />
                         </ThemeIcon>
                         <Heading order={4}>Модуль {moduleNumber}</Heading>

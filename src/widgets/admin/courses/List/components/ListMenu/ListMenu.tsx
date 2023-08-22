@@ -15,11 +15,12 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
     const courseId = String(row.original.id);
-    const { mutate: updateActivityStatus } = useUpdateCourseActivity(String(row.original.id));
+    const { mutate: updateActivityStatus } = useUpdateCourseActivity({ id: String(row.original.id), name: row.original.name });
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const handleGoToCoursePage = () => {
         router.push({ pathname: "/admin/courses/[id]", query: { id: courseId } });
@@ -62,19 +63,19 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
             <Divider size={1} color="light" mx={12} />
             <MenuItemDataGrid mt={8} onClick={handleGoToCoursePage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleGoToUpdateCoursePage}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Edit3 />
                 </ThemeIcon>
                 Редактировать
             </MenuItemDataGrid>
             <MenuItemDataGrid onClick={handleOpenDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary" variant="outline" sx={{ border: "none" }}>
+                <ThemeIcon w={16} h={16} color="primary">
                     <Trash />
                 </ThemeIcon>
                 Удалить

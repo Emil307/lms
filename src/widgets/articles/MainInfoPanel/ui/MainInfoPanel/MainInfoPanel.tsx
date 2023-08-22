@@ -17,7 +17,7 @@ const MainInfoPanel = ({ articleData, ...props }: MainInfoPanelProps) => {
         <Flex {...props} className={classes.root}>
             <Group w="100%">
                 <Flex align="center" gap={16} sx={{ flex: 1 }}>
-                    <ThemeIcon variant="outline" className={classes.wrapperDocumentIcon}>
+                    <ThemeIcon className={classes.wrapperDocumentIcon}>
                         <FileText width={26} height={26} />
                     </ThemeIcon>
                     <Flex direction="column" gap={4}>

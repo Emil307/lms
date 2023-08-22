@@ -49,7 +49,8 @@ const Groups = ({ courseId }: GroupsProps) => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}></ManagedDataGrid>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+            />
         </Box>
     );
 };

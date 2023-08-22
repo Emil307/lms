@@ -37,7 +37,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                     hiddenCountCourse,
                     ...labelsPluralString
                 )}`}</Text>
-                <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+                <ThemeIcon color="dark">
                     <ChevronDown />
                 </ThemeIcon>
             </Flex>
@@ -47,7 +47,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const hideLabel = (
         <Flex gap={8} onClick={handleChangeOpen}>
             <Text className={classes.spoilerLabelText}>Свернуть</Text>
-            <ThemeIcon variant="outline" color="dark" sx={{ border: "none" }}>
+            <ThemeIcon color="dark">
                 <ChevronUp />
             </ThemeIcon>
         </Flex>

@@ -17,7 +17,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
     const isTablet = useMedia("md");
 
-    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id });
+    const { mutate: updateActivityStatus } = useAdminUpdateCategoryActivity({ id, name: data?.name });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 

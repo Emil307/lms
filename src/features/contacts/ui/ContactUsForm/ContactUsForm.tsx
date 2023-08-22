@@ -42,7 +42,7 @@ const ContactUsForm = (props: ContactUsFormProps) => {
                         name="username"
                         label="Как к вам обращаться?"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <User />
                             </ThemeIcon>
                         }
@@ -52,7 +52,7 @@ const ContactUsForm = (props: ContactUsFormProps) => {
                         name="phoneNumber"
                         label="Телефон"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <PhoneCall />
                             </ThemeIcon>
                         }
@@ -62,7 +62,7 @@ const ContactUsForm = (props: ContactUsFormProps) => {
                         name="email"
                         label="Email"
                         icon={
-                            <ThemeIcon color="gray45" variant="outline" sx={{ border: "none" }}>
+                            <ThemeIcon color="gray45">
                                 <AtSign />
                             </ThemeIcon>
                         }

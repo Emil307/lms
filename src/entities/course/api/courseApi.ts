@@ -47,6 +47,9 @@ import {
     DeleteCourseArticlesRequest,
     DeleteCourseArticlesResponse,
     $DeleteCourseArticlesResponse,
+    DeleteCourseRequest,
+    DeleteCourseResponse,
+    $DeleteCourseResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -96,8 +99,9 @@ class CourseApi extends BaseApi {
         return $UpdateCoursePublicationResponse.parse(response);
     }
 
-    async deleteCourse(id: string): Promise<void> {
-        await this.instance.delete(`admin/courses/${id}`);
+    async deleteCourse({ id }: DeleteCourseRequest): Promise<DeleteCourseResponse> {
+        const response = await this.instance.delete(`admin/courses/${id}`);
+        return $DeleteCourseResponse.parse(response);
     }
 
     //COURSES <---> ARTICLES ADMIN

@@ -4,10 +4,17 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { courseApi, CourseType, GetAdminCourseResponse, UpdateCourseTypeResponse } from "@entities/course";
+import { courseApi, CourseType, GetAdminCourseResponse, UpdateCourseTypeRequest, UpdateCourseTypeResponse } from "@entities/course";
 
-export const useUpdateCourseType = (id: string): UseMutationResult<UpdateCourseTypeResponse, AxiosError<FormErrorResponse>, CourseType> => {
-    return useMutation([MutationKeys.UPDATE_COURSE_TYPE, id], (type: CourseType) => courseApi.updateCourseType({ id, type }), {
+interface UseUpdateCourseTypeProps extends Pick<UpdateCourseTypeRequest, "id"> {
+    name?: string;
+}
+
+export const useUpdateCourseType = ({
+    id,
+    name,
+}: UseUpdateCourseTypeProps): UseMutationResult<UpdateCourseTypeResponse, AxiosError<FormErrorResponse>, CourseType> => {
+    return useMutation([MutationKeys.UPDATE_COURSE_TYPE, id], (type) => courseApi.updateCourseType({ id, type }), {
         onMutate: async (updatedType) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE, id] });
             const previousCourseData = queryClient.getQueryData<GetAdminCourseResponse>([QueryKeys.GET_ADMIN_COURSE, id]);
@@ -28,14 +35,13 @@ export const useUpdateCourseType = (id: string): UseMutationResult<UpdateCourseT
                 title: "Ошибка изменения интерактивности",
             });
         },
-        onSuccess: ({ type }, _, context) => {
-            const course = context?.previousCourseData;
+        onSuccess: ({ type }) => {
             const statusMessage = type === "interactive" ? "стал интерактивным" : "стал неинтерактивным";
 
             createNotification({
                 type: ToastType.INFO,
                 title: "Изменение интерактивности",
-                message: `Учебный курс "${course?.name}" ${statusMessage}.`,
+                message: `Учебный курс "${name}" ${statusMessage}.`,
             });
         },
     });

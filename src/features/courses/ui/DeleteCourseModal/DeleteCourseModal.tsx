@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteCourse } from "@entities/course";
 import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCourseModal.styles";
@@ -15,7 +15,7 @@ export interface DeleteCourseModalProps {
 
 const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalProps) => {
     const { classes } = useStyles();
-    const { mutate: deleteCourse, isLoading } = useDeleteCourse(id);
+    const { mutate: deleteCourse, isLoading } = useDeleteCourse({ id, name });
 
     const isTablet = useMedia("md");
 
@@ -28,18 +28,16 @@ const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalP
     };
 
     return (
-        <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon variant="outline" color="secondary" sx={{ border: "none" }}>
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
-                        Вы действительно хотите удалить учебный курс,
-                        <Text className={classes.textData}>{` «ID: ${id} ${name}»?`}</Text>
-                    </Text>
+        <Flex direction="column" gap={24}>
+            <Flex gap={16} mih={80}>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        {"Вы действительно хотите удалить учебный курс, "}
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{`«ID: ${id} ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

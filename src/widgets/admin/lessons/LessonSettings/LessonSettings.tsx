@@ -52,7 +52,6 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
             return (
                 <>
                     <Heading order={3}>Содержание урока</Heading>
-                    {isMobile}
                     <TextEditor value={data.content} mt={24} h={560} readonly />
                 </>
             );
