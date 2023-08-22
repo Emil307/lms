@@ -14,7 +14,7 @@ export default function CountData({ countName, pagination }: TCountDataProps) {
     const { classes } = useCountDataStyles();
 
     if (!countName) {
-        return <></>;
+        return null;
     }
 
     return (

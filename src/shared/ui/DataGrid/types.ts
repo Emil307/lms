@@ -2,12 +2,14 @@ import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
 import { MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import React from "react";
-import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder } from "@shared/types";
+import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
 
-type DataGridResponseData<T, M, G> = M extends Record<string, any> ? { data: T[]; meta: G } : { data: T[] };
+type DataGridResponseData<T, M> = { data: T[]; meta?: M };
 
-export type DataGridResponse<T, M, G> = z.infer<ReturnType<typeof $getPaginationResponseType>> & DataGridResponseData<T, M, G>;
+export type DataGridResponseWithoutPagination<T, M> = DataGridResponseData<T, M>;
+
+export type DataGridResponse<T, M> = z.infer<ReturnType<typeof $getPaginationResponseType>> & DataGridResponseData<T, M>;
 
 export type TDefaultSortQueryParams = {
     sortField: string;
@@ -19,7 +21,7 @@ export type TDefaultPageQueryParams = {
     perPage: string;
 };
 
-export type TDefaultQueryParams = TDefaultSortQueryParams & TDefaultPageQueryParams;
+export type TFunctionParamsWithoutPagination<F = unknown, E = unknown> = TSortParams & Partial<F> & E;
 
 export type TFunctionParams<F = unknown, E = unknown> = TDefaultRequestParams & Partial<F> & E;
 
@@ -38,12 +40,22 @@ export type TCollapsedFiltersBlockProps<F> = {
     collapsedFiltersBlockProps?: Omit<CollapsedFiltersBlockProps<F>, "queryParams" | "initialValues" | "children">;
 };
 
-export type TDisplayMeta<G> = {
+export type TDisplayMetaData<G> = {
     name?: string;
     value: (meta: G) => string;
 };
 
-export type TMetaProps<M, G> = M extends Record<string, any> ? { displayMeta: TDisplayMeta<G> } : { displayMeta?: never };
+export type TDisplayMeta<G> = {
+    leftSide?: TDisplayMetaData<G>;
+    rightSide?: TDisplayMetaData<G>;
+};
+
+export type TDisplayMetaProps<M, G> = M extends Record<string, any> ? { displayMeta: TDisplayMeta<G> } : { displayMeta?: never };
+
+export type TMetaProps<M> = {
+    meta?: M;
+    displayMeta?: TDisplayMeta<M>;
+};
 
 export type TCellProps<T extends Record<string, any>> = {
     cell: MRT_Cell<T>;

@@ -1,3 +1,3 @@
-import MetaData, { type TMetaDataProps } from "./MetaData";
+import MetaData from "./MetaData";
 
-export { MetaData, TMetaDataProps };
+export { MetaData };

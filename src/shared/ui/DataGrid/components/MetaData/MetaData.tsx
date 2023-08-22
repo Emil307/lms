@@ -1,11 +1,11 @@
-import { TDisplayMeta } from "@shared/ui/DataGrid/types";
+import { TDisplayMetaData } from "@shared/ui/DataGrid/types";
 import { Flex } from "@mantine/core";
 import React from "react";
 import { Paragraph } from "@shared/ui";
 
-export type TMetaDataProps<M> = {
+type TMetaDataProps<M> = {
     meta?: M;
-    displayMeta?: TDisplayMeta<M>;
+    displayMeta?: TDisplayMetaData<M>;
 };
 
 function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDataProps<M>) {

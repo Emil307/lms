@@ -78,6 +78,10 @@ export function $getFiltersRequestType<T extends ZodRawShape>(data: z.ZodObject<
     return data.merge($DefaultRequestParams);
 }
 
+export function $getFiltersRequestWithoutPaginationType<T extends ZodRawShape>(data: z.ZodObject<T>) {
+    return data.merge($sortParams);
+}
+
 export function $getMultiValueObjectType<T extends TMultiValueOperator = "or">(data: z.ZodString, operator: z.ZodLiteral<T>) {
     return z.object({
         items: z.array(data),
@@ -92,10 +96,9 @@ export function $getDateObjectType<T extends TDateOperator = "range">(operator: 
     });
 }
 
-export function $getPaginationResponseType<T extends ZodTypeAny, M extends ZodTypeAny>(data: T, meta?: M) {
+export function $getPaginationResponseType<T extends ZodTypeAny>(data: T) {
     return z.object({
         data: data.array(),
         pagination: $pagination,
-        meta: meta ? meta : z.object({}).optional(),
     });
 }
