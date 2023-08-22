@@ -6,7 +6,7 @@ import { TFilterTable } from "../../types";
 
 type TParams<F> = {
     disableQueryParams: boolean;
-    goToFirstPage: () => void;
+    goToFirstPage?: () => void;
     filter?: TFilterTable<F>;
 };
 
@@ -94,13 +94,13 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
     const handleSubmit = async (values: F) => {
         if (disableQueryParams) {
             setFormStateForDisabledQuery(values);
-            goToFirstPage();
+            goToFirstPage && goToFirstPage();
             return;
         }
         router.push(
             {
                 pathname: router.pathname,
-                query: { ...router.query, page: "1", ...prepareQueryParams(values) },
+                query: { ...router.query, ...(goToFirstPage ? { page: "1" } : {}), ...prepareQueryParams(values) },
             },
             undefined,
             { shallow: true }

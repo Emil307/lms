@@ -2,15 +2,16 @@ import { Box, Flex } from "@mantine/core";
 import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { TPagination } from "@shared/types";
-import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount, MetaData, TMetaDataProps } from "./components";
+import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount, MetaData } from "./components";
 import { EmptyData, EmptyDataProps } from "@shared/ui";
+import { TMetaProps } from "@shared/ui/DataGrid/types";
 
 type TExtendedProps<T extends Record<string, any>, M extends Record<string, any>, F extends FormikValues = FormikValues> = Omit<
     TBaseTableProps<T>,
     "key" | "pagination" | "meta"
 > &
     TFilterProps<F> &
-    TMetaDataProps<M>;
+    TMetaProps<M>;
 
 export type TDataGridProps<T extends Record<string, any>, M extends Record<string, any>, F extends FormikValues = FormikValues> = {
     pagination?: TPagination;
@@ -43,13 +44,16 @@ function DataGrid<T extends Record<string, any>, M extends Record<string, any>, 
         }
         return (
             <>
-                <Flex gap={16} justify="space-between">
-                    <CountData countName={countName} pagination={pagination} />
-                    <Flex gap={12}>
+                <Flex gap={16} justify="space-between" mt={32} wrap="wrap">
+                    <Flex gap={12} wrap="wrap">
+                        <CountData countName={countName} pagination={pagination} />
+                        <MetaData<M> meta={meta} displayMeta={displayMeta?.leftSide} />
+                    </Flex>
+                    <Flex gap={12} wrap="wrap">
+                        <MetaData<M> meta={meta} displayMeta={displayMeta?.rightSide} />
                         {rest.initialState?.columnOrder?.includes("mrt-row-select") && (
                             <SelectedRowsCount rowSelection={rest.rowSelection} />
                         )}
-                        <MetaData<M> meta={meta} displayMeta={displayMeta} />
                     </Flex>
                 </Flex>
                 <Box mt={24}>

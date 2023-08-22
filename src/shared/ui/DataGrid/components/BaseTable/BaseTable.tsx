@@ -17,6 +17,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     data?: T[];
     columns?: MantineReactTableProps<T>["columns"];
     pagination?: TPagination;
+    disablePagination?: boolean;
     isLoading: boolean;
     sorting?: SortingState;
     rowSelection?: RowSelectionState;
@@ -30,6 +31,7 @@ function BaseTable<T extends Record<string, any>>({
     onClickCell,
     stylesForCell,
     pagination,
+    disablePagination = false,
     perPageOptions = ["5", "10", "15"],
     isLoading,
     sorting,
@@ -56,7 +58,7 @@ function BaseTable<T extends Record<string, any>>({
     };
 
     const handleSortingChange = (updater: Updater<ColumnSort[]>) => {
-        if (paginationData?.total && paginationData.total > 1) {
+        if (disablePagination || (paginationData?.total && paginationData.total > 1)) {
             onSortingChange && onSortingChange(updater);
         }
     };
@@ -95,7 +97,9 @@ function BaseTable<T extends Record<string, any>>({
             rowCount={rowCount}
             pageCount={totalPage}
             renderBottomToolbar={({ table }) => {
-                return <Pagination<T> table={table} data={paginationData} perPageOptions={perPageOptions} />;
+                if (!disablePagination) {
+                    return <Pagination<T> table={table} data={paginationData} perPageOptions={perPageOptions} />;
+                }
             }}
             state={{
                 isLoading,

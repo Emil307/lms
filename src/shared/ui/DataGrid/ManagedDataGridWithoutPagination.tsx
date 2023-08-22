@@ -3,16 +3,16 @@ import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import {
-    DataGridResponse,
+    DataGridResponseWithoutPagination,
     TCollapsedFiltersBlockProps,
     TDisplayMetaProps,
     TExtraFiltersProps,
     TFiltersProps,
-    TFunctionParams,
+    TFunctionParamsWithoutPagination,
     TSelectProps,
 } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
-import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
+import { useDataGridSort, useDataGridSelect, useDataGridFilters } from "./utils";
 
 type TExtendedProps<
     Data extends Record<string, any>,
@@ -27,7 +27,7 @@ type TExtendedProps<
     TDisplayMetaProps<Meta, MetaData> &
     TCollapsedFiltersBlockProps<Filter>;
 
-export type TManagedDataGridProps<
+export type TManagedDataGridWithoutPaginationProps<
     Data extends Record<string, any>,
     Filter,
     Extra,
@@ -36,7 +36,7 @@ export type TManagedDataGridProps<
     Request,
     Formik extends FormikValues
 > = {
-    queryFunction: (params: Request) => Promise<DataGridResponse<Data, MetaData>>;
+    queryFunction: (params: Request) => Promise<DataGridResponseWithoutPagination<Data, MetaData>>;
     queryKey: string;
     queryCacheKeys?: Array<keyof Request>;
     disableQueryParams?: boolean;
@@ -50,15 +50,15 @@ export type TManagedDataGridProps<
  * @template Extra - Тип object для передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
  * @template Meta - Тип возвращаемых meta данных.
  */
-function ManagedDataGrid<
+function ManagedDataGridWithoutPagination<
     Data extends Record<string, any>,
     Filter = unknown,
     Extra = unknown,
     Meta = unknown,
     MetaData extends Record<string, any> = Meta extends Record<string, any> ? Meta : Record<string, any>,
-    Request = TFunctionParams<Filter, Extra>,
+    Request = TFunctionParamsWithoutPagination<Filter, Extra>,
     Formik extends FormikValues = Filter extends FormikValues ? Filter : FormikValues
->(props: TManagedDataGridProps<Data, Filter, Extra, Meta, MetaData, Request, Formik>) {
+>(props: TManagedDataGridWithoutPaginationProps<Data, Filter, Extra, Meta, MetaData, Request, Formik>) {
     const router = useRouter();
     const {
         queryFunction,
@@ -77,12 +77,10 @@ function ManagedDataGrid<
 
     const { rowSelection, setRowSelection } = useDataGridSelect({ disableQueryParams, selectItems, onChangeSelect });
 
-    const { setPagination, paginationParams, goToFirstPage } = useDataGridPagination(disableQueryParams);
-    const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams, goToFirstPage });
-    const filters = useDataGridFilters<Formik>({ filter, disableQueryParams, goToFirstPage });
+    const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams });
+    const filters = useDataGridFilters<Formik>({ filter, disableQueryParams });
 
     const paramsForRequest = {
-        ...paginationParams,
         ...sortParams,
         ...filters?.filterParams,
         ...extraFilterParams,
@@ -93,7 +91,7 @@ function ManagedDataGrid<
         isLoading,
         isRefetching,
         isFetching,
-    } = useQuery<DataGridResponse<Data, MetaData>>({
+    } = useQuery<DataGridResponseWithoutPagination<Data, MetaData>>({
         queryKey: [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
         queryFn: () => queryFunction(paramsForRequest),
         enabled: router.isReady && ((defaultBlock && !filters?.isEmptyFilter) || !defaultBlock),
@@ -115,11 +113,10 @@ function ManagedDataGrid<
             data={queryData?.data}
             rowSelection={rowSelection}
             onRowSelectionChange={setRowSelection}
-            onPaginationChange={setPagination}
             onSortingChange={setSorting}
             sorting={sorting}
-            pagination={queryData?.pagination}
             meta={queryData?.meta}
+            disablePagination
             defaultBlock={defaultBlock}
             enableFilters={false}
             enableColumnActions={false}
@@ -132,4 +129,4 @@ function ManagedDataGrid<
     );
 }
 
-export default memo(ManagedDataGrid) as typeof ManagedDataGrid;
+export default memo(ManagedDataGridWithoutPagination) as typeof ManagedDataGridWithoutPagination;

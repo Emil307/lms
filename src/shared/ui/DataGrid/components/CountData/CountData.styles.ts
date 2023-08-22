@@ -8,6 +8,5 @@ export const useCountDataStyles = createStyles((theme) => ({
         span: {
             color: theme.colors.dark[0],
         },
-        marginTop: "32px",
     },
 }));

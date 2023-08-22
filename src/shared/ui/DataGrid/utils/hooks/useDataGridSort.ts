@@ -6,7 +6,7 @@ import { TSortParams } from "@shared/types";
 
 type TParams = {
     disableQueryParams: boolean;
-    goToFirstPage: () => void;
+    goToFirstPage?: () => void;
 };
 
 export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) => {
@@ -27,12 +27,13 @@ export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) 
             return;
         }
         if (disableQueryParams) {
-            return goToFirstPage();
+            goToFirstPage && goToFirstPage();
+            return;
         }
         router.push(
             {
                 pathname: router.pathname,
-                query: { ...createNewSortParams(), page: "1" },
+                query: { ...createNewSortParams(), ...(goToFirstPage ? { page: "1" } : {}) },
             },
             undefined,
             { shallow: true }

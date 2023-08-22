@@ -40,6 +40,7 @@ export type UpdateFaqOrderRequest = z.infer<typeof $UpdateFaqOrderRequest>;
 export type UpdateFaqActivityStatusRequest = z.infer<typeof $UpdateFaqActivityStatusRequest>;
 export type UpdateFaqActivityStatusResponse = z.infer<typeof $UpdateFaqActivityStatusResponse>;
 export type GetAdminAdvantagesResponse = z.infer<typeof $GetAdminAdvantagesResponse>;
+export type GetAdminAdvantagesResponseMeta = z.infer<typeof $GetAdminAdvantagesResponseMeta>;
 
 export type GetAdvantagesRequest = TDefaultRequestParams;
 
@@ -154,11 +155,13 @@ export const $GetMainBannerResponse = z.object({
 
 export const $GetAdvantagesResponse = $getPaginationResponseType($Advantage);
 
+export const $GetAdminAdvantagesResponseMeta = z.object({
+    lastUpdated: $LastUpdated.nullable(),
+});
+
 export const $GetAdminAdvantagesResponse = $getPaginationResponseType($Advantage).merge(
     z.object({
-        meta: z.object({
-            lastUpdated: $LastUpdated.nullable(),
-        }),
+        meta: $GetAdminAdvantagesResponseMeta,
     })
 );
 
