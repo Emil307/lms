@@ -11,7 +11,7 @@ import { initialParams } from "./constants";
 const GroupsSchedulesList = () => {
     const router = useRouter();
 
-    const { data: schedulesInfo, isFetching, isError, hasNextPage, fetchNextPage } = useGroupsSchedules(initialParams);
+    const { data: schedulesInfo, isLoading, isError, hasNextPage, fetchNextPage } = useGroupsSchedules(initialParams);
 
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -21,7 +21,7 @@ const GroupsSchedulesList = () => {
         }
     }, [entry]);
 
-    if (isFetching) {
+    if (isLoading) {
         return (
             <>
                 <Skeleton maw={323} h={40} radius={8} />

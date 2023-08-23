@@ -19,7 +19,7 @@ const RecommendCourseListFromCollection = () => {
 
     const {
         data: courses,
-        isFetching: isFetchingCourses,
+        isLoading: isLoadingCourses,
         hasNextPage,
         fetchNextPage,
     } = useCoursesInfinite(
@@ -35,7 +35,7 @@ const RecommendCourseListFromCollection = () => {
         }
     }, [entry]);
 
-    if (isFetchingCollection || isFetchingCourses) {
+    if (isFetchingCollection || isLoadingCourses) {
         return (
             <>
                 <Skeleton maw={420} h={72} radius={8} />

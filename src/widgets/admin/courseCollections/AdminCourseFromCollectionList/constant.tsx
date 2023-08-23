@@ -13,18 +13,18 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
     {
         header: "Название курса",
         accessorKey: "name",
-        size: 458,
+        size: 454,
     },
     {
         header: "Категория курса",
         accessorKey: "category.name",
-        size: 458,
+        size: 454,
     },
     {
         header: "Преподаватель",
         accessorKey: "teachers",
         enableSorting: false,
-        size: 458,
+        size: 454,
         Cell: ({ row }) => row.original.teachers.map(({ profile }) => getFullName({ data: profile })).join(", "),
     },
 ];
