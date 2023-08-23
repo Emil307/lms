@@ -1,12 +1,12 @@
 import { useDebouncedState, useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
-import { AdminTransactionEntity, AdminTransactionEntityType, useAdminTransactionCreateEntities } from "@entities/transaction";
+import { AdminTransactionEntity, AdminTransactionEntityTypeName, useAdminTransactionCreateEntities } from "@entities/transaction";
 import { FSelect, prepareOptionsForSelect } from "@shared/ui";
 import { initialParams } from "./constants";
 
 export interface EntitySelectProps {
     name: string;
-    entityType: AdminTransactionEntityType | "";
+    entityType: AdminTransactionEntityTypeName;
     entity?: AdminTransactionEntity;
 }
 
@@ -33,7 +33,7 @@ const EntitySelect = ({ name, entityType, entity }: EntitySelectProps) => {
     const getOptions = () => {
         switch (entityType) {
             case "course":
-            case "course package":
+            case "course_package":
                 if (!entitiesResourcesData?.data.find((course) => course.id === entity?.id)) {
                     return [
                         ...prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" }),

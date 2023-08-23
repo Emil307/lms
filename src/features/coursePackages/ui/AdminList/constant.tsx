@@ -1,7 +1,7 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
-import { AdminCoursePackage, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
+import { AdminCoursePackageFromList, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
 import { Paragraph } from "@shared/ui";
 
 export const radioGroupValues = [
@@ -31,7 +31,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminCoursePackage>["columns"] = [
+export const columns: MRT_ColumnDef<AdminCoursePackageFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",

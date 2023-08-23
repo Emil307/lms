@@ -39,6 +39,7 @@ export const teacherPaths = studentPaths.concat([
     "/admin/courses/(\\d+|\\[\\w+])/module/(\\d+|\\[\\w+])/lesson/(\\d+|\\[\\w+])$",
     "/admin/homeworks",
     //TODO: аналитика
+    "/admin/analytics",
 ]);
 
 export const managerPaths = teacherPaths.concat([

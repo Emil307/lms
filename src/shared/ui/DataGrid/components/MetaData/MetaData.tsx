@@ -1,6 +1,6 @@
-import { TDisplayMetaData } from "@shared/ui/DataGrid/types";
-import { Flex } from "@mantine/core";
 import React from "react";
+import { Box } from "@mantine/core";
+import { TDisplayMetaData } from "@shared/ui/DataGrid/types";
 import { Paragraph } from "@shared/ui";
 
 type TMetaDataProps<M> = {
@@ -14,14 +14,14 @@ function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDat
     }
 
     return (
-        <Flex>
-            <Paragraph variant="text-small-m" color="neutral_gray">
+        <Box>
+            <Paragraph variant="text-small-m" component="span" color="neutral_gray">
                 {displayMeta.name || "Итого:"}
             </Paragraph>
-            <Paragraph variant="text-small-m" color="dark">
+            <Paragraph variant="text-small-m" component="span" color="dark">
                 {displayMeta.value(meta)}
             </Paragraph>
-        </Flex>
+        </Box>
     );
 }
 

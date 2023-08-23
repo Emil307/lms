@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
-import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
+import { IconClipboardText, IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { useClickOutside } from "@mantine/hooks";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "public/icons/closeBook.svg";
@@ -95,7 +95,21 @@ export default function Sidebar() {
                         icon={<BookOpen />}
                         href="/admin/lessons"
                     />
-                    {/* //TODO: Аналитика */}
+                    <SidebarItemWithChildren
+                        roles={[Roles.administrator, Roles.manager]}
+                        label="Аналитика"
+                        isActive={router.pathname.includes("/admin/analytics")}
+                        icon={<IconClipboardText />}
+                        isOpen={activeSidebarItemsWithChildren.includes("/admin/analytics")}
+                        itemId="/admin/analytics"
+                        setIsOpenSidebarItem={handleChangeActiveSidebarItemWithChildren}>
+                        <SidebarItem
+                            inner={true}
+                            label="Отчет по ученикам"
+                            href="/admin/analytics/student-report"
+                            isActive={router.pathname.includes("/admin/analytics/student-report")}
+                        />
+                    </SidebarItemWithChildren>
                     <SidebarItem
                         roles={[Roles.administrator, Roles.manager]}
                         label="Транзакции"

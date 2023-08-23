@@ -1,17 +1,16 @@
 import { useDebouncedState, useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
-import { AdminTransactionEntityTypeName, useAdminTransactionCreateEntities } from "@entities/transaction";
-import { FSelect, prepareOptionsForSelect } from "@shared/ui";
+import { FSelect, SelectProps, prepareOptionsForSelect } from "@shared/ui";
+import { AdminTransactionableTypeName, useAdminStudentReportEntities } from "@entities/report";
 import { initialParams } from "./constants";
 
-export interface EntitySelectProps {
+export interface EntitySelectProps extends Omit<SelectProps, "data"> {
     name: string;
-    entityType: AdminTransactionEntityTypeName;
+    entityType: AdminTransactionableTypeName;
 }
 
-const EntitySelect = ({ name, entityType }: EntitySelectProps) => {
+const EntitySelect = ({ name, entityType, ...props }: EntitySelectProps) => {
     const [query, setQuery] = useDebouncedState("", 500);
-
     const {
         data: entitiesResourcesData,
         hasNextPage,
@@ -19,7 +18,7 @@ const EntitySelect = ({ name, entityType }: EntitySelectProps) => {
         isLoading,
         isFetching,
         isRefetching,
-    } = useAdminTransactionCreateEntities({ ...initialParams, query, entityType, filter: {} });
+    } = useAdminStudentReportEntities({ ...initialParams, query, entityType, filter: {} });
 
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -33,10 +32,7 @@ const EntitySelect = ({ name, entityType }: EntitySelectProps) => {
         switch (entityType) {
             case "course":
                 return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
-            case "course_package":
-                return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
-            case "article_package":
-                return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
+
             default:
                 return [];
         }
@@ -45,6 +41,7 @@ const EntitySelect = ({ name, entityType }: EntitySelectProps) => {
     return (
         <>
             <FSelect
+                {...props}
                 name={name}
                 size="sm"
                 data={getOptions()}
