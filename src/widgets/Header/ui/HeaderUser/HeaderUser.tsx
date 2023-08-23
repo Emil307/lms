@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import { Menu as NotificationMenu } from "@widgets/notifications";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
 import { menuLinks } from "./constants";

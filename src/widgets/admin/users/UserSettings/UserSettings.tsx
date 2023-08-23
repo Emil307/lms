@@ -8,7 +8,7 @@ import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { useDetailsUser } from "@entities/user";
 import { ChangeUserPasswordForm } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
@@ -25,10 +25,10 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
     const { data } = useDetailsUser(id);
-    const { user: authUser } = useSession();
+    const userRole = useUserRole();
     const { mutate: updateNotification } = useUpdateAdminUserNotification(id);
 
-    const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > -1;
+    const isRoleOrder = checkRoleOrder(userRole, data?.roles[0].id) > -1;
 
     const dataProfile = {
         fio: getFullName({ data: data?.profile }),

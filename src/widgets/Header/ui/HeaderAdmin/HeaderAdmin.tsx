@@ -4,7 +4,7 @@ import { AlignLeft, LogOut, Settings, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import AvatarIcon from "public/icons/avatar.svg";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import { Logo } from "@components/Logo";
 import { Menu as NotificationMenu } from "@widgets/notifications";
 import { Paragraph } from "@shared/ui";

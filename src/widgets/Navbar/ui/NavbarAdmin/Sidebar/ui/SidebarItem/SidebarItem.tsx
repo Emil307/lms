@@ -4,7 +4,7 @@ import { ThemeIcon, Text, Flex, FlexProps, Box } from "@mantine/core";
 import { LinkProps } from "next/link";
 import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import useStyles from "./SidebarItem.styles";
 import { MinimizedModeSidebarContext } from "../../utils";
@@ -23,7 +23,7 @@ const SidebarItem = forwardRef(function SidebarItem(
     { icon, label, isActive = false, href, inner = false, roles = [], isOpenInnerContent = true, ...props }: SidebarItemProps,
     ref: ForwardedRef<HTMLDivElement>
 ) {
-    const { user } = useSession();
+    const userRole = useUserRole();
     const router = useRouter();
 
     const { classes } = useStyles({ isActive, inner });
@@ -51,7 +51,7 @@ const SidebarItem = forwardRef(function SidebarItem(
         return <Box className={classes.inducatorCloseInnerContent} />;
     };
 
-    if (isMenuItemDenied(roles, user?.roles[0].id)) {
+    if (isMenuItemDenied(roles, userRole)) {
         return null;
     }
 

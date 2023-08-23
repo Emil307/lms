@@ -2,7 +2,7 @@ import { ActionIcon, BoxProps } from "@mantine/core";
 import { Heart } from "react-feather";
 import { Button } from "@shared/ui";
 import { CourseDetails, CourseFromList, useUpdateCourseFavoriteStatus } from "@entities/course";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import useStyles from "./FavoriteButton.styles";
 
 export interface FavoriteButtonProps extends Omit<BoxProps, "children"> {

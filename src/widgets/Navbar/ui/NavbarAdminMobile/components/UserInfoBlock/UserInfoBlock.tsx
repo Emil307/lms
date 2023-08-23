@@ -2,7 +2,7 @@ import { ActionIcon, Avatar, Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { LogOut, Settings } from "react-feather";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import { Paragraph } from "@shared/ui";
 import AvatarIcon from "public/icons/avatar.svg";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";

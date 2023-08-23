@@ -7,7 +7,7 @@ import { IconBrandMessenger } from "@tabler/icons";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import useStyles from "./HeaderPublicUser.styles";
 import { Menu } from "./components";
 

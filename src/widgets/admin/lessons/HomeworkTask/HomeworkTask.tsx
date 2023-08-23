@@ -12,6 +12,8 @@ import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
 import { useMedia } from "@shared/utils";
 import useStyles from "./HomeworkTask.styles";
 import { getFormatUpdatedAt } from "./utils";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth/hooks";
 
 interface HomeworkTaskProps {
     homeworkAnswer: AdminHomeworkAnswer;
@@ -26,6 +28,8 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
         status: "completed",
         content: null,
     });
+
+    const userRole = useUserRole();
 
     const isMobile = useMedia("sm");
 
@@ -62,6 +66,9 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
     };
 
     const renderActionButtons = () => {
+        if (userRole === Roles.manager) {
+            return null;
+        }
         switch (homeworkAnswer.status.name) {
             case "onReview":
                 return (

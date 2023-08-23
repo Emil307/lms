@@ -8,7 +8,7 @@ import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 
 export interface ListMenuProps {
     row: MRT_Row<UserFromList>;
@@ -16,9 +16,9 @@ export interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
-    const { user } = useSession();
+    const userRole = useUserRole();
 
-    const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
+    const isRoleOrder = checkRoleOrder(userRole, row.original.roles[0].id) >= 0;
     const userFullname = getFullName({ data: row.original.profile });
 
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id: String(row.original.id), fio: userFullname });

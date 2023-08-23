@@ -7,6 +7,8 @@ import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { getFullName } from "@shared/utils";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface ListMenuProps {
     row: MRT_Row<UserFromList>;
@@ -15,6 +17,8 @@ export interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const userFullName = getFullName({ data: row.original.profile });
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id: String(row.original.id), fio: userFullName });
+
+    const userRole = useUserRole();
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
@@ -30,38 +34,54 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
     };
 
-    return (
-        <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false}>
-                <Switch
-                    variant="secondary"
-                    checked={row.original.isActive}
-                    label={labelActivitySwitch}
-                    labelPosition="left"
-                    onChange={handleChangeActiveStatus}
-                />
-            </MenuItemDataGrid>
-            <Divider size={1} color="light" mx={12} />
-            <MenuItemDataGrid mt={8}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Eye />
-                </ThemeIcon>
-                Открыть
-            </MenuItemDataGrid>
-            <MenuItemDataGrid>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Edit3 />
-                </ThemeIcon>
-                Редактировать
-            </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={handleOpenDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
-        </MenuDataGrid>
-    );
+    const renderItems = () => {
+        if (userRole === Roles.teacher) {
+            return (
+                <MenuItemDataGrid>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+            );
+        }
+        return (
+            <>
+                <MenuItemDataGrid closeMenuOnClick={false}>
+                    <Switch
+                        variant="secondary"
+                        checked={row.original.isActive}
+                        label={labelActivitySwitch}
+                        labelPosition="left"
+                        onChange={handleChangeActiveStatus}
+                    />
+                </MenuItemDataGrid>
+                <Divider size={1} color="light" mx={12} />
+
+                <MenuItemDataGrid mt={8}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+
+                <MenuItemDataGrid>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Edit3 />
+                    </ThemeIcon>
+                    Редактировать
+                </MenuItemDataGrid>
+                <MenuItemDataGrid onClick={handleOpenDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            </>
+        );
+    };
+
+    return <MenuDataGrid>{renderItems()}</MenuDataGrid>;
 };
 
 export default ListMenu;

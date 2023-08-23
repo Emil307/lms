@@ -6,6 +6,8 @@ import { useAdminLessonHomeworkAnswerMessages } from "@entities/lesson";
 import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./HomeworkChat.styles";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface MessageListProps {
     homeworkAnswerId: string;
@@ -17,6 +19,10 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
     const containerRef = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<HTMLDivElement>(null);
 
+    const { ref: lastElemRef, entry } = useIntersection();
+
+    const userRole = useUserRole();
+
     const scrollToTop = () => viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
     const {
@@ -27,8 +33,6 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
         isFetching,
         isRefetching,
     } = useAdminLessonHomeworkAnswerMessages({ ...initialParams, homeworkAnswerId });
-
-    const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
         scrollToTop();
@@ -75,9 +79,11 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
                     <Heading order={2} mb={32}>
                         Диалог с учеником
                     </Heading>
-                    <Box maw={772} mb={32}>
-                        <CreateMessageForm homeworkAnswerId={homeworkAnswerId} />
-                    </Box>
+                    {userRole !== Roles.manager && (
+                        <Box maw={772} mb={32}>
+                            <CreateMessageForm homeworkAnswerId={homeworkAnswerId} />
+                        </Box>
+                    )}
                 </>
             )}
             <ScrollArea.Autosize
