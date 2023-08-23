@@ -15,8 +15,12 @@ const DeleteGroupButton = ({ data }: DeleteGroupButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_GROUP");
+    const closeDeleteModal = () => closeModal("DELETE_GROUP");
+
+    const handleCancelDelete = () => closeDeleteModal();
+
+    const handleSuccessDeleteModal = () => {
+        closeDeleteModal();
         router.push("/admin/groups");
     };
 
@@ -24,7 +28,14 @@ const DeleteGroupButton = ({ data }: DeleteGroupButtonProps) => {
         openModal({
             modalId: "DELETE_GROUP",
             title: "Удаление группы",
-            children: <DeleteGroupModal id={String(data?.id)} name={data?.name} onClose={handleCloseDeleteModal} />,
+            children: (
+                <DeleteGroupModal
+                    id={String(data?.id)}
+                    name={data?.name}
+                    onSuccess={handleSuccessDeleteModal}
+                    onCancel={handleCancelDelete}
+                />
+            ),
         });
     };
 

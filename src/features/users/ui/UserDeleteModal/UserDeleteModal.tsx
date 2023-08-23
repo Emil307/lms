@@ -9,10 +9,11 @@ import { UserDeleteModalStyles } from "./UserDeleteModal.styles";
 export interface UserDeleteModalProps {
     id: string;
     fio: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const UserDeleteModal = ({ id, fio, onClose }: UserDeleteModalProps) => {
+const UserDeleteModal = ({ id, fio, onSuccess, onCancel }: UserDeleteModalProps) => {
     const { classes } = UserDeleteModalStyles();
     const deleteUser = useDeleteUser({ id, fio });
 
@@ -21,14 +22,14 @@ const UserDeleteModal = ({ id, fio, onClose }: UserDeleteModalProps) => {
     const handleDeleteUser = async () => {
         deleteUser.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
+        <Flex direction="column" gap={56}>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>
@@ -40,7 +41,7 @@ const UserDeleteModal = ({ id, fio, onClose }: UserDeleteModalProps) => {
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteUser.isLoading} w="100%">
+                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onCancel} loading={deleteUser.isLoading} w="100%">
                     Отмена
                 </Button>
                 <Button

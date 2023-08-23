@@ -18,7 +18,7 @@ const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuesti
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
+            <Flex gap={16}>
                 <Flex align="center" justify="center" className={classes.warning}>
                     <ThemeIcon color="secondary">
                         <AlertTriangle />

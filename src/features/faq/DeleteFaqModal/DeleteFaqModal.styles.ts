@@ -8,9 +8,4 @@ export default createStyles((theme) => ({
         minWidth: 48,
         height: 48,
     },
-    text: {
-        fontSize: 16,
-        lineHeight: "24px",
-        fontWeight: 500,
-    },
 }));

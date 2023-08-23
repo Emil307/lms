@@ -44,7 +44,7 @@ const DetachLessonFromCourseModuleModal = ({
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16} mih={80}>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>

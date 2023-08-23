@@ -1,7 +1,7 @@
-import { Box, Flex, Text, useMantineTheme } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDetachMaterialsFromLesson } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteMaterialFromLessonModal.styles";
@@ -15,7 +15,6 @@ interface DeleteMaterialFromLessonModalProps {
 }
 
 const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, materialName, onClose }: DeleteMaterialFromLessonModalProps) => {
-    const theme = useMantineTheme();
     const { classes } = useStyles();
     const { mutate: detachMaterialFromLesson, isLoading } = useDetachMaterialsFromLesson({ lessonId });
 
@@ -31,17 +30,23 @@ const DeleteMaterialFromLessonModal = ({ lessonId, lessonName, materialId, mater
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <AlertTriangle color={theme.colors.secondary[0]} />
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
+            <Flex gap={16}>
+                <ThemeIcon color="secondary" className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
                         Вы действительно хотите удалить материал,
-                        <Text className={classes.textData}>{` «${materialName}» `}</Text>
-                        <Text className={classes.inline}>из урока</Text>
-                        <Text className={classes.textData}>{` «${lessonName}»?`}</Text>
-                    </Text>
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">
+                        {` «${materialName}» `}
+                    </Paragraph>
+                    <Paragraph variant="small-m" component="span">
+                        из урока
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">
+                        {` «${lessonName}»?`}
+                    </Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

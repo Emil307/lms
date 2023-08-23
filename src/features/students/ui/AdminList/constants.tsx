@@ -6,7 +6,7 @@ export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
-        size: 140,
+        size: 120,
     },
     {
         header: "ФИО",
@@ -30,7 +30,7 @@ export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
     {
         header: "Статус",
         accessorKey: "isActive",
-        size: 140,
+        size: 339,
         Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
     },
 ];

@@ -1,7 +1,7 @@
-import { Flex, Text, ThemeIcon } from "@mantine/core";
+import { Flex, Box, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteFaq } from "@entities/staticPage";
 import useStyles from "./DeleteFaqModal.styles";
 
@@ -24,14 +24,19 @@ const DeleteFaqModal = ({ id, question = "", onClose }: DeleteFaqModalProps) => 
     };
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon color="secondary">
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Text className={classes.text}>{`Вы действительно хотите удалить вопрос, «${question}»?`}</Text>
+        <Flex direction="column" gap={56}>
+            <Flex gap={16}>
+                <ThemeIcon className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
+                        Вы действительно хотите удалить вопрос
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">
+                        {` «${question}»?`}
+                    </Paragraph>
+                </Box>
             </Flex>
             <Flex gap={8}>
                 <Button size="large" variant="border" onClick={onClose} loading={deleteFaq.isLoading} w="100%">
