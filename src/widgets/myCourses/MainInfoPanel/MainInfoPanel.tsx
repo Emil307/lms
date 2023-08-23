@@ -22,7 +22,6 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
         openModal({
             modalId: "CREATE_COURSE_REVIEW",
             title: "Оставить отзыв",
-            centered: true,
             size: 408,
             children: <CreateCourseReviewForm data={data} onClose={handleCloseCreateReviewModal} />,
         });

@@ -6,7 +6,9 @@ import { useDetailsUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
 import { getFullName } from "@shared/utils";
-import { AdminStudentCourseList } from "@features/students";
+import { AdminStudentCourseList } from "@widgets/admin/courses";
+import { AdminStudentGroupList } from "@widgets/admin/groups";
+import { AdminStudentArticlePackageList } from "@widgets/admin/articlePackages";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
 
@@ -26,11 +28,9 @@ const StudentDetailsPage = () => {
             case "courses":
                 return <AdminStudentCourseList studentId={id} />;
             case "groups":
-                //TODO: Заменить на вкладку со списком групп, в которые входит ученик
-                return null;
+                return <AdminStudentGroupList studentId={id} />;
             case "article-packages":
-                //TODO: Заменить на вкладку со списком пакетов БЗ, которые имеет ученик
-                return null;
+                return <AdminStudentArticlePackageList studentId={id} />;
             default:
                 return <StudentSettings id={id} />;
         }

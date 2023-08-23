@@ -4,12 +4,12 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
-import { AttachCoursesToStudentRequest, AttachCoursesToStudentResponse, userApi } from "@entities/user";
+import { AttachCoursesToStudentRequest, AttachCoursesToStudentResponse, courseApi } from "@entities/course";
 
 export const useAttachCoursesToStudent = ({ studentId }: Pick<AttachCoursesToStudentRequest, "studentId">) => {
     return useMutation<AttachCoursesToStudentResponse, AxiosError<FormErrorResponse>, Omit<AttachCoursesToStudentRequest, "studentId">>(
         [MutationKeys.ATTACH_COURSES_TO_STUDENT, studentId],
-        (params) => userApi.attachCoursesToStudent({ ...params, studentId }),
+        (params) => courseApi.attachCoursesToStudent({ ...params, studentId }),
         {
             onSuccess: () => {
                 createNotification({

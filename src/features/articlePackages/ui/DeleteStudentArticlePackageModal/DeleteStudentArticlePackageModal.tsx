@@ -2,22 +2,22 @@ import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { useDeleteStudentCourses } from "@entities/user";
-import useStyles from "./DeleteStudentCourseModal.styles";
+import { useDeleteStudentArticlePackage } from "@entities/articlePackage";
+import useStyles from "./DeleteStudentArticlePackageModal.styles";
 
-export interface DeleteStudentCourseModalProps {
+export interface DeleteStudentArticlePackageModalProps {
     id: number;
     studentId: string;
     name?: string;
     onClose: () => void;
 }
 
-const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteStudentCourseModalProps) => {
+const DeleteStudentArticlePackageModal = ({ id, studentId, name = "", onClose }: DeleteStudentArticlePackageModalProps) => {
     const { classes } = useStyles();
-    const deleteStudentCourse = useDeleteStudentCourses({ studentId, ids: [id] });
+    const deleteStudentArticlePackage = useDeleteStudentArticlePackage({ studentId, articlePackageId: id, name });
 
     const handleSubmit = () => {
-        deleteStudentCourse.mutate(null, {
+        deleteStudentArticlePackage.mutate(null, {
             onSuccess: () => {
                 onClose();
             },
@@ -34,17 +34,17 @@ const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteS
                     <Heading order={4}>Внимание!</Heading>
                     <Box>
                         <Paragraph variant="small-m" component="span">
-                            {`Ученик потеряет доступ к учебному курсу, статистика по курсу будет удалена. Вы уверены, что хотите удалить доступ к курсу, `}
+                            {`Ученик потеряет доступ к пакету базы знаний. Вы уверены, что хотите удалить доступ к пакету, `}
                         </Paragraph>
                         <Paragraph variant="small-semi" component="span">{`«${name}»?`}</Paragraph>
                     </Box>
                 </Flex>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteStudentCourse.isLoading} w="100%">
+                <Button size="large" variant="border" onClick={onClose} loading={deleteStudentArticlePackage.isLoading} w="100%">
                     Отмена
                 </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteStudentCourse.isLoading} w="100%">
+                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteStudentArticlePackage.isLoading} w="100%">
                     Удалить
                 </Button>
             </Flex>
@@ -52,4 +52,4 @@ const DeleteStudentCourseModal = ({ id, studentId, name = "", onClose }: DeleteS
     );
 };
 
-export default DeleteStudentCourseModal;
+export default DeleteStudentArticlePackageModal;

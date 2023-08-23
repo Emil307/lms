@@ -51,12 +51,6 @@ export type StaticUsersExtraFilters = z.infer<typeof $StaticUsersExtraFilters>;
 export type GetStaticUsersRequest = z.infer<typeof $GetStaticUsersRequest>;
 export type GetStaticUsersResponse = z.infer<typeof $GetStaticUsersResponse>;
 
-//students <--> courses
-export type AttachCoursesToStudentRequest = z.infer<typeof $AttachCoursesToStudentRequest>;
-export type AttachCoursesToStudentResponse = z.infer<typeof $AttachCoursesToStudentResponse>;
-export type DeleteStudentCoursesRequest = z.infer<typeof $DeleteStudentCoursesRequest>;
-export type DeleteStudentCoursesResponse = z.infer<typeof $DeleteStudentCoursesResponse>;
-
 export const $User = z.object({
     id: z.number(),
     email: z.string(),
@@ -228,18 +222,3 @@ export const $AdminStudentsRequest = z.object({
 export const $GetAdminStudentsRequest = $getFiltersRequestType($AdminStudentsRequest);
 
 export const $GetAdminStudentsResponse = $GetUsersResponse;
-
-//students <--> courses
-export const $AttachCoursesToStudentRequest = z.object({
-    studentId: z.string(),
-    ids: z.string().array(),
-});
-
-export const $AttachCoursesToStudentResponse = z.null();
-
-export const $DeleteStudentCoursesRequest = z.object({
-    studentId: z.string(),
-    ids: z.number().array(),
-});
-
-export const $DeleteStudentCoursesResponse = z.null();

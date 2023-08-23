@@ -35,6 +35,10 @@ export type AdminGroupStudentHomeworksStatistics = z.infer<typeof $AdminGroupStu
 export type AdminGroupSchedule = z.infer<typeof $AdminGroupSchedule>;
 export type AdminGroupScheduleTiming = z.infer<typeof $AdminGroupScheduleTiming>;
 export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromList>;
+//students <-> group
+export type AdminStudentGroupFromList = z.infer<typeof $AdminStudentGroupFromList>;
+export type AdminStudentGroupStatusType = z.infer<typeof $AdminStudentGroupStatusType>;
+export type AdminStudentGroupStatus = z.infer<typeof $AdminStudentGroupStatus>;
 
 //FILTERS
 export type AdminGroupsFiltersForm = z.infer<typeof $AdminGroupsFiltersForm>;
@@ -75,6 +79,9 @@ export type UpdateAdminGroupScheduleRequest = z.infer<typeof $UpdateAdminGroupSc
 export type UpdateAdminGroupScheduleResponse = z.infer<typeof $UpdateAdminGroupScheduleResponse>;
 export type DeleteAdminGroupScheduleRequest = z.infer<typeof $DeleteAdminGroupScheduleRequest>;
 export type DeleteAdminGroupScheduleResponse = z.infer<typeof $DeleteAdminGroupScheduleResponse>;
+//students <-> group
+export type GetAdminStudentGroupsRequest = z.infer<typeof $GetAdminStudentGroupsRequest>;
+export type GetAdminStudentGroupsResponse = z.infer<typeof $GetAdminStudentGroupsResponse>;
 
 /**
  *
@@ -414,6 +421,45 @@ export const $DeleteAdminGroupScheduleRequest = z.object({
 });
 
 export const $DeleteAdminGroupScheduleResponse = z.null();
+
+//students <-> group
+
+export const $AdminStudentGroupStatusType = z
+    .literal("notStarted")
+    .or(z.literal("inProgress"))
+    .or(z.literal("completed"))
+    .or(z.literal("archive"));
+
+export const $AdminStudentGroupStatus = z.object({
+    name: $AdminStudentGroupStatusType,
+    displayName: z.string(),
+});
+
+export const $AdminStudentGroup = $AdminGroup
+    .pick({
+        id: true,
+        name: true,
+        isActive: true,
+        createdAt: true,
+        status: true,
+    })
+    .extend({
+        status: $AdminStudentGroupStatus.nullable(),
+        accessExpirationDate: z.coerce.date().nullable(),
+        course: $AdminCourse.pick({
+            name: true,
+        }),
+    });
+
+export const $AdminStudentGroupFromList = $AdminStudentGroup;
+
+export const $GetAdminStudentGroupsResponse = $getPaginationResponseType($AdminStudentGroupFromList);
+
+export const $AdminStudentGroupsRequest = z.object({
+    studentId: z.string(),
+});
+
+export const $GetAdminStudentGroupsRequest = $getFiltersRequestType($AdminStudentGroupsRequest);
 
 /**
  *

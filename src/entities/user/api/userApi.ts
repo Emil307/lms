@@ -26,12 +26,6 @@ import {
     $GetAdminStudentsResponse,
     UpdateUserActivityResponse,
     $UpdateUserActivityResponse,
-    AttachCoursesToStudentRequest,
-    AttachCoursesToStudentResponse,
-    $AttachCoursesToStudentResponse,
-    DeleteStudentCoursesRequest,
-    DeleteStudentCoursesResponse,
-    $DeleteStudentCoursesResponse,
     UpdateUserStaticRequest,
     UpdateUserStaticResponse,
     $UpdateUserStaticResponse,
@@ -108,17 +102,6 @@ export class UserApi extends BaseApi {
     async getAdminStudentsFilters(): Promise<GetAdminStudentsFiltersResponse> {
         const response = await this.instance.get("admin/users/students/filters");
         return $GetAdminStudentsFiltersResponse.parse(response);
-    }
-
-    //students <---> COURSES ADMIN
-    async attachCoursesToStudent({ studentId, ...data }: AttachCoursesToStudentRequest): Promise<AttachCoursesToStudentResponse> {
-        const response = await this.instance.post(`admin/users/${studentId}/courses`, data);
-        return $AttachCoursesToStudentResponse.parse(response);
-    }
-
-    async deleteStudentCourses({ studentId, ...params }: DeleteStudentCoursesRequest): Promise<DeleteStudentCoursesResponse> {
-        const response = await this.instance.delete(`admin/users/${studentId}/courses`, { params });
-        return $DeleteStudentCoursesResponse.parse(response);
     }
 }
 

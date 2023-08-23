@@ -7,3 +7,5 @@ export * from "./useDeleteFavoriteCourses";
 export * from "./useUpdateCourseFavoriteStatus";
 export * from "./useAttachArticlesToCourse";
 export * from "./useDeleteCourseArticles";
+export * from "./useAttachCoursesToStudent";
+export * from "./useDeleteStudentCourses";

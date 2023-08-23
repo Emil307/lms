@@ -21,7 +21,6 @@ const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterP
         openModal({
             modalId: "CREATE_COURSE_REVIEW",
             title: "Оставить отзыв",
-            centered: true,
             size: 408,
             children: <CreateCourseReviewForm data={data} onClose={handleCloseCreateReviewModal} />,
         });
