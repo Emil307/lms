@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Button, FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import {
-    AdminCoursePackage,
+    AdminCoursePackageFromList,
     AdminCoursePackagesFiltersForm,
     coursePackageApi,
     useAdminCoursePackageResourses,
@@ -23,13 +23,13 @@ const AdminList = () => {
 
     const coursePackageResources = useAdminCoursePackageResourses({ type: "select" });
 
-    const handleClickCell = (cell: MRT_Cell<AdminCoursePackage>) => {
+    const handleClickCell = (cell: MRT_Cell<AdminCoursePackageFromList>) => {
         router.push({ pathname: "/admin/settings/course-packages/[id]", query: { id: cell.row.original.id.toString() } });
     };
 
     return (
         <Box>
-            <ManagedDataGrid<AdminCoursePackage, AdminCoursePackagesFiltersForm>
+            <ManagedDataGrid<AdminCoursePackageFromList, AdminCoursePackagesFiltersForm>
                 queryKey={QueryKeys.GET_ADMIN_COURSE_PACKAGES}
                 queryFunction={(params) => coursePackageApi.getAdminCoursePackages(adaptGetAdminCoursePackagesRequest(params))}
                 queryCacheKeys={[

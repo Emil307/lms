@@ -11,6 +11,7 @@ export type AdminTransaction = z.infer<typeof $AdminTransaction>;
 export type AdminTransactionFromList = z.infer<typeof $AdminTransactionFromList>;
 export type AdminTransactionEntity = z.infer<typeof $AdminTransactionEntity>;
 export type AdminTransactionEntityType = z.infer<typeof $AdminTransactionEntityType>;
+export type AdminTransactionEntityTypeName = z.infer<typeof $AdminTransactionEntityTypeName>;
 export type AdminTransactionPaymentType = z.infer<typeof $AdminTransactionPaymentType>;
 export type AdminTransactionStatus = z.infer<typeof $AdminTransactionStatus>;
 
@@ -59,8 +60,10 @@ export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFilt
  */
 
 //TODO: Дополнить как появятся новые типы сущностей
+
+export const $AdminTransactionEntityTypeName = z.literal("course").or(z.literal("course_package")).or(z.literal("article_package"));
 export const $AdminTransactionEntityType = z.object({
-    type: z.literal("course").or(z.literal("course package")),
+    type: $AdminTransactionEntityTypeName,
     name: z.string(),
 });
 export const $AdminTransactionPaymentType = z.object({
@@ -187,7 +190,7 @@ export const $GetAdminTransactionCreateEntities = z.object({
 
 export const $AdminTransactionCreateEntitiesRequest = z.object({
     query: z.string().optional(),
-    entityType: $AdminTransactionEntityType.or(z.literal("")),
+    entityType: $AdminTransactionEntityTypeName,
     filter: z.object({}).partial(),
 });
 

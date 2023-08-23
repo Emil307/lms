@@ -5,11 +5,11 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { AdminCoursePackage, useUpdateCoursePackageActivity } from "@entities/coursePackage";
+import { AdminCoursePackageFromList, useUpdateCoursePackageActivity } from "@entities/coursePackage";
 import { DeleteCoursePackageModal } from "@features/coursePackages";
 
 interface ListMenuProps {
-    row: MRT_Row<AdminCoursePackage>;
+    row: MRT_Row<AdminCoursePackageFromList>;
 }
 
 const ListMenu = ({ row }: ListMenuProps) => {

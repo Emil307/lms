@@ -1,13 +1,13 @@
-import { GetAdminTransactionCreateEntitiesRequest } from "@entities/transaction";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { useInfiniteRequest } from "@shared/utils";
+import { GetAdminStudentReportEntitiesRequest } from "@entities/report";
 import { AdminCoursePackageFromList, coursePackageApi } from "@entities/coursePackage";
 import { AdminArticlePackageFromList, articlePackageApi } from "@entities/articlePackage";
 
-export const useAdminTransactionCreateEntities = ({ entityType, ...data }: Omit<GetAdminTransactionCreateEntitiesRequest, "page">) => {
+export const useAdminStudentReportEntities = ({ entityType, ...data }: Omit<GetAdminStudentReportEntitiesRequest, "page">) => {
     return useInfiniteRequest<AdminCourseFromList | AdminCoursePackageFromList | AdminArticlePackageFromList>(
-        [QueryKeys.GET_ADMIN_TRANSACTION_CREATE_ENTITIES, entityType, data],
+        [QueryKeys.GET_ADMIN_STUDENT_REPORT_ENTITIES, entityType, data],
         ({ pageParam = 1 }) => {
             switch (entityType) {
                 case "course":
