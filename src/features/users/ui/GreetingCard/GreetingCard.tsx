@@ -1,7 +1,7 @@
 import { Avatar, Flex, Skeleton } from "@mantine/core";
 import React from "react";
 import AvatarIcon from "@public/icons/avatar.svg";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import { Heading, Paragraph } from "@shared/ui";
 
 const GreetingCard = () => {

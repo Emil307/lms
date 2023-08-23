@@ -14,6 +14,8 @@ import { useUpdateAdminUserNotification } from "@entities/notification";
 import { fields } from "./constants";
 import useStyles from "./StudentSettings.styles";
 import { DeleteStudentButton } from "./components";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth/hooks";
 
 export interface StudentSettingsProps extends BoxProps {
     id: string;
@@ -23,6 +25,8 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
     const router = useRouter();
     const { classes, cx } = useStyles();
     const { data } = useDetailsUser(id);
+
+    const userRole = useUserRole();
 
     const { mutate: updateNotification } = useUpdateAdminUserNotification(id);
 
@@ -53,12 +57,29 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
             ),
         });
 
+    const renderInfoCardActions = () => {
+        if (userRole === Roles.teacher) {
+            return null;
+        }
+        return (
+            <>
+                <Button variant="secondary" onClick={openUserEditPage}>
+                    Редактировать данные
+                </Button>
+                <Button variant="border" onClick={handleOpenChangePasswordModal}>
+                    Изменить пароль
+                </Button>
+            </>
+        );
+    };
+
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
-                    <DeleteStudentButton data={data} />
+
+                    {userRole !== Roles.teacher && <DeleteStudentButton data={data} />}
                 </Flex>
                 <Fieldset label="Личные данные" icon={<UserIcon />}>
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
@@ -71,9 +92,15 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
                     <DisplayField label="Email" value={data?.email} />
                 </Fieldset>
 
-                <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                    <SettingsNotificationList notifications={data?.notifications} variant="secondary" onChange={handleChangeNotification} />
-                </Fieldset>
+                {userRole !== Roles.teacher && (
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <SettingsNotificationList
+                            notifications={data?.notifications}
+                            variant="secondary"
+                            onChange={handleChangeNotification}
+                        />
+                    </Fieldset>
+                )}
             </Flex>
             <Box>
                 <InfoCard
@@ -83,16 +110,7 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
                     values={dataProfile}
                     variant="whiteBg"
                     fields={fields}
-                    actionSlot={
-                        <>
-                            <Button variant="secondary" onClick={openUserEditPage}>
-                                Редактировать данные
-                            </Button>
-                            <Button variant="border" onClick={handleOpenChangePasswordModal}>
-                                Изменить пароль
-                            </Button>
-                        </>
-                    }
+                    actionSlot={renderInfoCardActions()}
                 />
             </Box>
         </Flex>

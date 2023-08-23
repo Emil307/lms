@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useRef } from "react";
 import { Accordion, Box } from "@mantine/core";
 import { Minus, Plus } from "react-feather";
 import { useToggle } from "@mantine/hooks";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import useStyles from "./SidebarItemWithChildren.styles";
 import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
@@ -12,7 +12,7 @@ interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
 }
 
 export default function SidebarItemWithChildren({ children, icon, isActive = false, label, roles = [] }: SidebarItemWithChildrenProps) {
-    const { user } = useSession();
+    const userRole = useUserRole();
     const [isOpen, setIsOpen] = useToggle();
 
     const lastElementRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
         }
     }, [isOpen]);
 
-    if (isMenuItemDenied(roles, user?.roles[0].id)) {
+    if (isMenuItemDenied(roles, userRole)) {
         return null;
     }
 

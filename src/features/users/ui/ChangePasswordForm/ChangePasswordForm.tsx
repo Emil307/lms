@@ -4,7 +4,7 @@ import { Button, FInput, ManagedForm } from "@shared/ui";
 import { ChangeUserPasswordResponse, userApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 import { ToastType, createNotification } from "@shared/utils";
 import { getInitialValues } from "./utils";
 
@@ -18,7 +18,7 @@ export interface ChangeUserPasswordFormProps {
 }
 
 const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormProps) => {
-    const { user } = useSession();
+    const userRole = useUserRole();
     const changeUserPassword = ({ isOldPassword, ...values }: Omit<ChangePasswordFormValidationSchema, "id">) => {
         return userApi.updateUserPassword({ id: userData.id, ...values });
     };
@@ -41,7 +41,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
 
     return (
         <ManagedForm<Omit<ChangePasswordFormValidationSchema, "id">, ChangeUserPasswordResponse>
-            initialValues={getInitialValues(userData.roleId, user?.roles[0].id)}
+            initialValues={getInitialValues(userData.roleId, userRole)}
             validationSchema={$changePasswordFormValidationSchema}
             mutationKey={[MutationKeys.CHANGE_USER_PASSWORD, userData.id]}
             mutationFunction={changeUserPassword}

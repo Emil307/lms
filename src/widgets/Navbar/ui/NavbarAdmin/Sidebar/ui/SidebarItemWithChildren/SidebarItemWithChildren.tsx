@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useRef } from "react";
 import { Accordion, Box } from "@mantine/core";
 import { Minus, Plus } from "react-feather";
-import { useSession } from "@features/auth";
+import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import useStyles from "./SidebarItemWithChildren.styles";
 import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
@@ -24,7 +24,7 @@ export default function SidebarItemWithChildren({
     itemId,
     setIsOpenSidebarItem,
 }: SidebarItemWithChildrenProps) {
-    const { user } = useSession();
+    const userRole = useUserRole();
     const lastElementRef = useRef<HTMLDivElement>(null);
 
     const { isMinimizedModeSidebar } = useContext(MinimizedModeSidebarContext);
@@ -41,7 +41,7 @@ export default function SidebarItemWithChildren({
         }
     }, [isOpen]);
 
-    if (isMenuItemDenied(roles, user?.roles[0].id)) {
+    if (isMenuItemDenied(roles, userRole)) {
         return null;
     }
 

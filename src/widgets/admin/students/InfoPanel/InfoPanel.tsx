@@ -5,6 +5,8 @@ import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
 import useStyles from "./InfoPanel.styles";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface InfoPanelProps extends Omit<BoxProps, "children"> {
     id: string;
@@ -12,6 +14,8 @@ export interface InfoPanelProps extends Omit<BoxProps, "children"> {
 
 const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const { data } = useDetailsUser(id);
 
@@ -33,18 +37,22 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                 </Flex>
-                <Flex align="center" gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Статус:
-                    </Paragraph>
-                    <Switch
-                        variant="secondary"
-                        label={labelActivitySwitch}
-                        labelPosition="left"
-                        checked={data?.isActive}
-                        onChange={handleChangeActiveStatus}
-                    />
-                </Flex>
+
+                {userRole !== Roles.teacher && (
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
+                        <Switch
+                            variant="secondary"
+                            label={labelActivitySwitch}
+                            labelPosition="left"
+                            checked={data?.isActive}
+                            onChange={handleChangeActiveStatus}
+                        />
+                    </Flex>
+                )}
+
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Последний вход:

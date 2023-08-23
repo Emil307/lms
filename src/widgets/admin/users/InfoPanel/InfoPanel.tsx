@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useDetailsUser, useUpdateUserActivity, useUpdateUserStatic } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useSession } from "@features/auth";
+import { useSession } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
