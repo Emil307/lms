@@ -14,6 +14,45 @@ export default createStyles((theme, { status }: CreateStylesProps) => ({
     status: {
         ...getColorsByStatus(theme, { status }),
     },
+
+    filterWrapper: {
+        flexDirection: "column",
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            gap: 24,
+        },
+    },
+    filterSearchAndSelects: {
+        flexWrap: "wrap",
+        gap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+    filterSearch: {
+        width: 418,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
+    filterSelect: {
+        width: 205,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
+
+    filterDateRangePicker: {
+        width: 205,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
 }));
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesProps) => {
