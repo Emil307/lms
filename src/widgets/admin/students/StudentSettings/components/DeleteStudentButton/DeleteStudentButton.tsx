@@ -16,8 +16,12 @@ const DeleteStudentButton = ({ data, hidden = false }: DeleteStudentButtonProps)
     const router = useRouter();
     const isMobile = useMedia("sm");
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_USER");
+    const closeDeleteModal = () => closeModal("DELETE_USER");
+
+    const handleCancelDelete = () => closeDeleteModal();
+
+    const handleSuccessDeleteModal = () => {
+        closeDeleteModal();
         router.push("/admin/students");
     };
 
@@ -25,7 +29,14 @@ const DeleteStudentButton = ({ data, hidden = false }: DeleteStudentButtonProps)
         openModal({
             modalId: "DELETE_USER",
             title: "Удаление пользователя",
-            children: <UserDeleteModal id={String(data?.id)} fio={getFullName({ data: data?.profile })} onClose={handleCloseDeleteModal} />,
+            children: (
+                <UserDeleteModal
+                    id={String(data?.id)}
+                    fio={getFullName({ data: data?.profile })}
+                    onSuccess={handleSuccessDeleteModal}
+                    onCancel={handleCancelDelete}
+                />
+            ),
         });
     };
 

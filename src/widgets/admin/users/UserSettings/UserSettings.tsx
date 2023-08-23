@@ -57,6 +57,22 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
         updateNotification({ notification, isActive });
     };
 
+    const renderInfoCardActions = () => {
+        if (!isRoleOrder) {
+            return null;
+        }
+        return (
+            <>
+                <Button variant="secondary" onClick={openEditUserPage} disabled={!isRoleOrder}>
+                    Редактировать данные
+                </Button>
+                <Button variant="border" onClick={handleOpenChangePasswordModal} disabled={!isRoleOrder}>
+                    Изменить пароль
+                </Button>
+            </>
+        );
+    };
+
     return (
         <Flex className={classes.info} {...props}>
             <Flex className={classes.settingsInfo}>
@@ -98,9 +114,15 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                     </Fieldset>
                 )}
 
-                <Fieldset label="Настройки уведомлений" icon={<Bell />}>
-                    <SettingsNotificationList notifications={data?.notifications} variant="secondary" onChange={handleChangeNotification} />
-                </Fieldset>
+                {isRoleOrder && (
+                    <Fieldset label="Настройки уведомлений" icon={<Bell />}>
+                        <SettingsNotificationList
+                            notifications={data?.notifications}
+                            variant="secondary"
+                            onChange={handleChangeNotification}
+                        />
+                    </Fieldset>
+                )}
             </Flex>
             <Box>
                 <InfoCard
@@ -110,18 +132,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                     values={dataProfile}
                     variant="whiteBg"
                     fields={fields}
-                    actionSlot={
-                        isRoleOrder && (
-                            <>
-                                <Button variant="secondary" onClick={openEditUserPage} disabled={!isRoleOrder}>
-                                    Редактировать данные
-                                </Button>
-                                <Button variant="border" onClick={handleOpenChangePasswordModal} disabled={!isRoleOrder}>
-                                    Изменить пароль
-                                </Button>
-                            </>
-                        )
-                    }
+                    actionSlot={renderInfoCardActions()}
                 />
             </Box>
         </Flex>

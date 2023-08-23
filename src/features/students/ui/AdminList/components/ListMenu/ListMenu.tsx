@@ -30,7 +30,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_USER",
             title: "Удаление пользователя",
-            children: <UserDeleteModal id={String(row.original.id)} fio={userFullName} onClose={handleCloseDeleteModal} />,
+            children: (
+                <UserDeleteModal
+                    id={String(row.original.id)}
+                    fio={userFullName}
+                    onSuccess={handleCloseDeleteModal}
+                    onCancel={handleCloseDeleteModal}
+                />
+            ),
         });
     };
 

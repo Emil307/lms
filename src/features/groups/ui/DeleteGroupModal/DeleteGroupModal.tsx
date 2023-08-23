@@ -9,10 +9,11 @@ import useStyles from "./DeleteGroupModal.styles";
 export interface DeleteGroupModalProps {
     id: string;
     name?: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => {
+const DeleteGroupModal = ({ id, name = "", onSuccess, onCancel }: DeleteGroupModalProps) => {
     const { classes } = useStyles();
     const deleteGroup = useAdminDeleteGroup({ id, name });
 
@@ -21,7 +22,7 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
     const handleSubmit = () => {
         deleteGroup.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
@@ -40,7 +41,7 @@ const DeleteGroupModal = ({ id, name = "", onClose }: DeleteGroupModalProps) => 
                 </Box>
             </Flex>
             <Flex gap={8} mt={56}>
-                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onClose} disabled={deleteGroup.isLoading} w="50%">
+                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel} disabled={deleteGroup.isLoading} w="50%">
                     Отмена
                 </Button>
                 <Button

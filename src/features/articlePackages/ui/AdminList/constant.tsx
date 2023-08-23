@@ -35,7 +35,7 @@ export const columns: MRT_ColumnDef<AdminArticlePackageFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
-        size: 140,
+        size: 120,
     },
     {
         header: "Название пакета",

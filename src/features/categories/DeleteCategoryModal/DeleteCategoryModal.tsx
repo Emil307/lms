@@ -30,8 +30,8 @@ const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategor
     const contentText = isSubcategory ? `Вы действительно хотите удалить подкатегорию, ` : `Вы действительно хотите удалить категорию, `;
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
+        <Flex direction="column" gap={56}>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>

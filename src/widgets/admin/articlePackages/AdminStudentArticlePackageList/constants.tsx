@@ -8,7 +8,7 @@ export const columns: MRT_ColumnDef<AdminStudentArticlePackageFromList>["columns
     {
         header: "ID",
         accessorKey: "id",
-        size: 140,
+        size: 120,
     },
     {
         header: "Название пакета",

@@ -1,7 +1,7 @@
-import { Box, Flex, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button } from "@shared/ui";
+import { Button, Paragraph } from "@shared/ui";
 import { useDeleteLesson } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteLessonModal.styles";
@@ -29,17 +29,15 @@ const DeleteLessonModal = ({ id, name, onSuccess, onCancel }: DeleteLessonModalP
 
     return (
         <Flex direction="column" gap={56}>
-            <Flex gap={16} align="center">
-                <Flex align="center" justify="center" className={classes.warning}>
-                    <ThemeIcon color="secondary">
-                        <AlertTriangle />
-                    </ThemeIcon>
-                </Flex>
-                <Box className={classes.textWrapper}>
-                    <Text>
+            <Flex gap={16}>
+                <ThemeIcon color="secondary" className={classes.warning}>
+                    <AlertTriangle />
+                </ThemeIcon>
+                <Box>
+                    <Paragraph variant="small-m" component="span">
                         Вы действительно хотите удалить урок,
-                        <Text className={classes.textData}>{` «ID: ${id} ${name}»?`}</Text>
-                    </Text>
+                    </Paragraph>
+                    <Paragraph variant="small-semi" component="span">{` «ID: ${id} ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>

@@ -78,8 +78,7 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
-
-                    {userRole !== Roles.teacher && <DeleteStudentButton data={data} />}
+                    <DeleteStudentButton data={data} hidden={userRole === Roles.teacher} />
                 </Flex>
                 <Fieldset label="Личные данные" icon={<UserIcon />}>
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />

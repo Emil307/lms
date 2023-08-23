@@ -15,8 +15,12 @@ const DeleteArticleButton = ({ data }: DeleteArticleButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_ARTICLE");
+    const closeDeleteModal = () => closeModal("DELETE_ARTICLE");
+
+    const handleCancelDelete = () => closeDeleteModal();
+
+    const handleSuccessDeleteModal = () => {
+        closeDeleteModal();
         router.push("/admin/articles");
     };
 
@@ -24,7 +28,14 @@ const DeleteArticleButton = ({ data }: DeleteArticleButtonProps) => {
         openModal({
             modalId: "DELETE_ARTICLE",
             title: "Удаление статьи",
-            children: <DeleteArticleModal id={String(data?.id)} name={data?.name} onClose={handleCloseDeleteModal} />,
+            children: (
+                <DeleteArticleModal
+                    id={String(data?.id)}
+                    name={data?.name}
+                    onSuccess={handleSuccessDeleteModal}
+                    onCancel={handleCancelDelete}
+                />
+            ),
         });
     };
 

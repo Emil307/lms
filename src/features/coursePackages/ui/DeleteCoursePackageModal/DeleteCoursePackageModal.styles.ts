@@ -10,6 +10,5 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         minWidth: 48,
         height: 48,
-        color: theme.colors.secondary[0],
     },
 }));

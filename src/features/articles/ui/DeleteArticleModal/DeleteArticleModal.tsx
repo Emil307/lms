@@ -8,24 +8,25 @@ import useStyles from "./DeleteArticleModal.styles";
 export interface DeleteArticleModalProps {
     id: string;
     name?: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteArticleModal = ({ id, name = "", onClose }: DeleteArticleModalProps) => {
+const DeleteArticleModal = ({ id, name = "", onSuccess, onCancel }: DeleteArticleModalProps) => {
     const { classes } = useStyles();
     const deleteArticle = useDeleteArticle(id);
 
     const handleSubmit = () => {
         deleteArticle.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
+        <Flex direction="column" gap={56}>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>
@@ -37,7 +38,7 @@ const DeleteArticleModal = ({ id, name = "", onClose }: DeleteArticleModalProps)
                 </Box>
             </Flex>
             <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteArticle.isLoading} w="100%">
+                <Button size="large" variant="border" onClick={onCancel} loading={deleteArticle.isLoading} w="100%">
                     Отмена
                 </Button>
                 <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteArticle.isLoading} w="100%">

@@ -28,16 +28,16 @@ const DeleteCourseModal = ({ id, name, onSuccess, onCancel }: DeleteCourseModalP
     };
 
     return (
-        <Flex direction="column" gap={24}>
-            <Flex gap={16} mih={80}>
+        <Flex direction="column" gap={56}>
+            <Flex gap={16}>
                 <ThemeIcon className={classes.warning}>
                     <AlertTriangle />
                 </ThemeIcon>
                 <Box>
                     <Paragraph variant="small-m" component="span">
-                        {"Вы действительно хотите удалить учебный курс, "}
+                        Вы действительно хотите удалить учебный курс
                     </Paragraph>
-                    <Paragraph variant="small-semi" component="span">{`«ID: ${id} ${name}»?`}</Paragraph>
+                    <Paragraph variant="small-semi" component="span">{` «ID: ${id} ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
             <Flex gap={8}>
