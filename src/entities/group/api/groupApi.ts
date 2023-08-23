@@ -12,6 +12,7 @@ import {
     $GetAdminGroupSchedulesResponse,
     $GetAdminGroupStudentsResponse,
     $GetAdminGroupsResponse,
+    $GetAdminStudentGroupsResponse,
     $GetGroupModulesResponse,
     $GetGroupResponse,
     $GetGroupsCountsResponse,
@@ -43,6 +44,8 @@ import {
     GetAdminGroupStudentsResponse,
     GetAdminGroupsRequest,
     GetAdminGroupsResponse,
+    GetAdminStudentGroupsRequest,
+    GetAdminStudentGroupsResponse,
     GetGroupModulesRequest,
     GetGroupModulesResponse,
     GetGroupRequest,
@@ -125,6 +128,12 @@ class GroupApi extends BaseApi {
     async deleteAdminGroupSchedule({ groupId, scheduleId }: DeleteAdminGroupScheduleRequest): Promise<DeleteAdminGroupScheduleResponse> {
         const response = await this.instance.delete(`admin/groups/${groupId}/schedules/${scheduleId}`);
         return $DeleteAdminGroupScheduleResponse.parse(response);
+    }
+
+    //students <-> group
+    async getAdminStudentGroups({ studentId, ...data }: GetAdminStudentGroupsRequest): Promise<GetAdminStudentGroupsResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/groups/list`, data);
+        return $GetAdminStudentGroupsResponse.parse(response);
     }
 
     //USER

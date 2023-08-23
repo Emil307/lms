@@ -54,7 +54,10 @@ export const whenAuthMicroserviceRoute: TAxiosRunWhen = (config) => {
         !!config.url?.startsWith("authentication") ||
         !!config.url?.startsWith("authorization") ||
         (!!config.url?.startsWith("me") && !config.url.startsWith("me/articles")) ||
-        (!!config.url?.startsWith("admin/users") && !config.url.includes("courses")) ||
+        (!!config.url?.startsWith("admin/users") &&
+            !config.url.includes("courses") &&
+            !config.url.includes("groups") &&
+            !config.url.includes("article-packages")) ||
         (!!config.url?.startsWith("notifications") &&
             !config.url.includes("read-all") &&
             !config.url.includes("list") &&
@@ -83,6 +86,7 @@ export const whenCoursesMicroserviceRoute: TAxiosRunWhen = (config) => {
         !!config.url?.startsWith("admin/course-reviews") ||
         !!config.url?.startsWith("course-reviews") ||
         (!!config.url?.startsWith("admin/users") && config.url.includes("courses")) ||
+        (!!config.url?.startsWith("admin/users") && config.url.includes("groups")) ||
         !!config.url?.startsWith("user/courses")
     );
 };
@@ -100,6 +104,7 @@ export const whenArticlesMicroserviceRoute: TAxiosRunWhen = (config) => {
         (!!config.url?.startsWith("category") && config.url.includes("article")) ||
         (!!config.url?.startsWith("courses") && config.url.includes("articles")) ||
         (!!config.url?.startsWith("admin/courses") && config.url.includes("articles")) ||
+        (!!config.url?.startsWith("admin/users") && config.url.includes("article-packages")) ||
         !!config.url?.startsWith("me/articles") ||
         !!config.url?.includes("article-packages")
     );

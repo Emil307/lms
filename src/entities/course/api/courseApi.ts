@@ -50,6 +50,15 @@ import {
     DeleteCourseRequest,
     DeleteCourseResponse,
     $DeleteCourseResponse,
+    GetAdminStudentCoursesRequest,
+    GetAdminStudentCoursesResponse,
+    $GetAdminStudentCoursesResponse,
+    AttachCoursesToStudentRequest,
+    AttachCoursesToStudentResponse,
+    $AttachCoursesToStudentResponse,
+    $DeleteStudentCoursesResponse,
+    DeleteStudentCoursesRequest,
+    DeleteStudentCoursesResponse,
 } from "./types";
 
 class CourseApi extends BaseApi {
@@ -102,6 +111,22 @@ class CourseApi extends BaseApi {
     async deleteCourse({ id }: DeleteCourseRequest): Promise<DeleteCourseResponse> {
         const response = await this.instance.delete(`admin/courses/${id}`);
         return $DeleteCourseResponse.parse(response);
+    }
+
+    //COURSES <---> STUDENTS ADMIN
+    async getAdminStudentCourses({ studentId, ...data }: GetAdminStudentCoursesRequest): Promise<GetAdminStudentCoursesResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/courses/list`, data);
+        return $GetAdminStudentCoursesResponse.parse(response);
+    }
+
+    async attachCoursesToStudent({ studentId, ...data }: AttachCoursesToStudentRequest): Promise<AttachCoursesToStudentResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/courses`, data);
+        return $AttachCoursesToStudentResponse.parse(response);
+    }
+
+    async deleteStudentCourses({ studentId, ...params }: DeleteStudentCoursesRequest): Promise<DeleteStudentCoursesResponse> {
+        const response = await this.instance.delete(`admin/users/${studentId}/courses`, { params });
+        return $DeleteStudentCoursesResponse.parse(response);
     }
 
     //COURSES <---> ARTICLES ADMIN

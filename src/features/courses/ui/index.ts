@@ -10,3 +10,5 @@ export * from "./Filters";
 export * from "./FavoriteButton";
 export * from "./AddArticlesToCourseModal";
 export * from "./DeleteCourseArticleModal";
+export * from "./AddCoursesToStudentModal";
+export * from "./DeleteStudentCourseModal";

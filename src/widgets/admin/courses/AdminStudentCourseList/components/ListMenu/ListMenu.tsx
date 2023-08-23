@@ -5,11 +5,11 @@ import { Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
-import { AdminCourseFromList } from "@entities/course";
-import { DeleteStudentCourseModal } from "@features/students";
+import { AdminStudentCourseFromList } from "@entities/course";
+import { DeleteStudentCourseModal } from "@features/courses";
 
 export interface ListMenuProps {
-    row: MRT_Row<AdminCourseFromList>;
+    row: MRT_Row<AdminStudentCourseFromList>;
     studentId: string;
 }
 
@@ -24,7 +24,6 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_STUDENT_COURSE",
             title: "Удаление доступа",
-            centered: true,
             children: (
                 <DeleteStudentCourseModal
                     id={row.original.id}

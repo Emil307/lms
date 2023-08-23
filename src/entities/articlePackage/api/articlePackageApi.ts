@@ -24,17 +24,22 @@ import {
     DeleteArticleFromPackageRequest,
     AttachArticleToPackageRequest,
     GetArticlePackagesRequest,
+    GetAdminStudentArticlePackagesRequest,
+    GetAdminStudentArticlePackagesResponse,
+    $GetAdminStudentArticlePackagesResponse,
+    AttachArticlePackagesToStudentRequest,
+    AttachArticlePackagesToStudentResponse,
+    $AttachArticlePackagesToStudentResponse,
+    DeleteStudentArticlePackageRequest,
+    DeleteStudentArticlePackageResponse,
+    $DeleteStudentArticlePackageResponse,
 } from "./types";
 
 class ArticlePackageApi extends BaseApi {
+    //ADMIN
     async getAdminArticlePackages(params: GetAdminArticlePackagesRequest): Promise<GetAdminArticlePackagesResponse> {
         const response = await this.instance.post("admin/article-packages/list", params);
         return $GetAdminArticlePackagesResponse.parse(response);
-    }
-
-    async getArticlePackages(data: GetArticlePackagesRequest): Promise<GetArticlePackagesResponse> {
-        const response = await this.instance.post("article-packages/list", data);
-        return $GetArticlePackagesResponse.parse(response);
     }
 
     async getAdminArticlePackageFilters(): Promise<GetAdminArticlePackageFiltersResponse> {
@@ -73,14 +78,45 @@ class ArticlePackageApi extends BaseApi {
         return $UpdateArticlePackageActivityResponse.parse(response);
     }
 
-    //ARTICLES <--> ARTICLE_PACKAGE
+    //students <-> articlePackage ADMIN
+    async getAdminStudentArticlePackages({
+        studentId,
+        ...data
+    }: GetAdminStudentArticlePackagesRequest): Promise<GetAdminStudentArticlePackagesResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/article-packages/list`, data);
+        return $GetAdminStudentArticlePackagesResponse.parse(response);
+    }
 
+    async attachArticlePackagesToStudent({
+        studentId,
+        ...data
+    }: AttachArticlePackagesToStudentRequest): Promise<AttachArticlePackagesToStudentResponse> {
+        const response = await this.instance.post(`admin/users/${studentId}/article-packages`, data);
+        return $AttachArticlePackagesToStudentResponse.parse(response);
+    }
+
+    async deleteStudentArticlePackage({
+        studentId,
+        articlePackageId,
+    }: DeleteStudentArticlePackageRequest): Promise<DeleteStudentArticlePackageResponse> {
+        const response = await this.instance.delete(`admin/users/${studentId}/article-packages/${articlePackageId}`);
+        return $DeleteStudentArticlePackageResponse.parse(response);
+    }
+
+    //ARTICLES <--> ARTICLE_PACKAGE ADMIN
     async attachArticleToArticlePackage({ articlePackageId, ...data }: AttachArticleToPackageRequest): Promise<void> {
         await this.instance.post(`admin/article-packages/${articlePackageId}/articles`, data);
     }
 
     async deleteArticleFromArticlePackage({ articleId, articlePackageId }: DeleteArticleFromPackageRequest): Promise<void> {
         await this.instance.delete(`admin/article-packages/${articlePackageId}/articles/${articleId}`);
+    }
+
+    //USERS
+
+    async getArticlePackages(data: GetArticlePackagesRequest): Promise<GetArticlePackagesResponse> {
+        const response = await this.instance.post("article-packages/list", data);
+        return $GetArticlePackagesResponse.parse(response);
     }
 }
 

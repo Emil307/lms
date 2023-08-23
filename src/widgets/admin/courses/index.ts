@@ -4,3 +4,4 @@ export * from "./List";
 export * from "./Reviews";
 export * from "./TeacherCourseList";
 export * from "./Articles";
+export * from "./AdminStudentCourseList";

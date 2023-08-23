@@ -2,8 +2,8 @@ import { PlusCircle } from "react-feather";
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { AddCoursesToStudentModal } from "@features/students";
 import { useMedia } from "@shared/utils";
+import { AddCoursesToStudentModal } from "@features/courses";
 import useStyles from "./AddStudentCourseButton.styles";
 
 export interface AddStudentCourseButtonProps {
@@ -21,7 +21,6 @@ const AddStudentCourseButton = ({ studentId }: AddStudentCourseButtonProps) => {
         openModal({
             modalId: "ATTACH_COURSES_TO_STUDENT",
             title: "Добавить курс",
-            centered: true,
             children: <AddCoursesToStudentModal studentId={studentId} onClose={handleCloseAddCoursesToStudentModal} />,
             size: 912,
             className: classes.addCoursesToStudentModalWrapper,

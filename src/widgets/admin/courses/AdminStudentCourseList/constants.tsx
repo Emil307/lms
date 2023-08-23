@@ -1,6 +1,8 @@
 import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
-import { AdminCourseFromList } from "@entities/course";
+import { Badge } from "@mantine/core";
+import { AdminStudentCourseFromList } from "@entities/course";
+import { useCellStyles } from "./AdminStudentCourseList.styles";
 
 export const columnOrder = [
     "id",
@@ -8,12 +10,12 @@ export const columnOrder = [
     "category.name",
     "accessExpirationDate",
     "createdAt",
-    "isActive",
+    "status",
     "discountPrice",
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
+export const columns: MRT_ColumnDef<AdminStudentCourseFromList>["columns"] = [
     {
         header: "ID",
         accessorKey: "id",
@@ -41,7 +43,18 @@ export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
         size: 156,
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
     },
-    { header: "Статус", accessorKey: "isActive", size: 156, Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</> },
+    {
+        header: "Статус",
+        accessorKey: "status",
+        Cell: ({ row }) => {
+            const { classes } = useCellStyles({ statusType: row.original.status?.name });
+            if (!row.original.status) {
+                return null;
+            }
+            return <Badge className={classes.status}>{row.original.status.displayName}</Badge>;
+        },
+        size: 240,
+    },
     {
         header: "Стоимость",
         accessorKey: "discountPrice",

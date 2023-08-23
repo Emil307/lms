@@ -25,6 +25,10 @@ export type CourseType = z.infer<typeof $CourseType>;
  *
  */
 export type AdminCourse = z.infer<typeof $AdminCourse>;
+//student <---> courses
+export type AdminStudentCourseFromList = z.infer<typeof $AdminStudentCourseFromList>;
+export type AdminStudentCourseStatus = z.infer<typeof $AdminStudentCourseStatus>;
+export type AdminStudentCourseStatusType = z.infer<typeof $AdminStudentCourseStatusType>;
 
 //FILTERS
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
@@ -32,6 +36,7 @@ export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCours
 export type AdminCoursesForCourseCollectionFiltersForm = z.infer<typeof $AdminCoursesForCourseCollectionFiltersForm>;
 export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
 export type AdminCoursesNoIncludedArticleFiltersForm = z.infer<typeof $AdminCoursesNoIncludedArticleFiltersForm>;
+export type AdminArticleCoursesExtraFilters = z.infer<typeof $AdminArticleCoursesExtraFilters>;
 
 //REQ/RESP
 export type AdminCourseFromList = z.infer<typeof $AdminCourseFromList>;
@@ -56,6 +61,13 @@ export type UpdateCoursePublicationRequest = z.infer<typeof $UpdateCoursePublica
 export type UpdateCoursePublicationResponse = z.infer<typeof $UpdateCoursePublicationResponse>;
 export type DeleteCourseRequest = z.infer<typeof $DeleteCourseRequest>;
 export type DeleteCourseResponse = z.infer<typeof $DeleteCourseResponse>;
+//student <---> courses
+export type GetAdminStudentCoursesRequest = z.infer<typeof $GetAdminStudentCoursesRequest>;
+export type GetAdminStudentCoursesResponse = z.infer<typeof $GetAdminStudentCoursesResponse>;
+export type AttachCoursesToStudentRequest = z.infer<typeof $AttachCoursesToStudentRequest>;
+export type AttachCoursesToStudentResponse = z.infer<typeof $AttachCoursesToStudentResponse>;
+export type DeleteStudentCoursesRequest = z.infer<typeof $DeleteStudentCoursesRequest>;
+export type DeleteStudentCoursesResponse = z.infer<typeof $DeleteStudentCoursesResponse>;
 //courses <---> articles
 export type AttachArticlesToCourseRequest = z.infer<typeof $AttachArticlesToCourseRequest>;
 export type AttachArticlesToCourseResponse = z.infer<typeof $AttachArticlesToCourseResponse>;
@@ -80,8 +92,6 @@ export type CourseAvailableGroup = z.infer<typeof $CourseAvailableGroup>;
 
 //FILTERS
 export type CoursesFiltersForm = z.infer<typeof $CoursesFiltersForm>;
-export type AdminArticleCoursesExtraFilters = z.infer<typeof $AdminArticleCoursesExtraFilters>;
-export type AdminStudentCoursesExtraFilters = z.infer<typeof $AdminStudentCoursesExtraFilters>;
 
 //REQ/RESP
 export type GetCoursesRequest = z.infer<typeof $GetCoursesRequest>;
@@ -435,10 +445,6 @@ export const $AdminArticleCoursesExtraFilters = z.object({
     articleId: z.string(),
 });
 
-export const $AdminStudentCoursesExtraFilters = z.object({
-    studentId: z.string(),
-});
-
 export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({
     query: z.string(),
     categoryId: z.string(),
@@ -460,6 +466,56 @@ export const $DeleteCourseArticlesRequest = z.object({
 });
 
 export const $DeleteCourseArticlesResponse = z.null();
+
+//student <---> courses
+export const $AdminStudentCourseStatusType = z
+    .literal("notStarted")
+    .or(z.literal("inProgress"))
+    .or(z.literal("completed"))
+    .or(z.literal("archive"));
+
+export const $AdminStudentCourseStatus = z.object({
+    name: $AdminStudentCourseStatusType,
+    displayName: z.string(),
+});
+
+export const $AdminStudentCourse = $AdminCourse
+    .pick({
+        id: true,
+        name: true,
+        discountPrice: true,
+        isActive: true,
+        createdAt: true,
+        accessExpirationDate: true,
+        category: true,
+    })
+    .extend({
+        status: $AdminStudentCourseStatus.nullable(),
+    });
+
+export const $AdminStudentCourseFromList = $AdminStudentCourse;
+
+export const $GetAdminStudentCoursesResponse = $getPaginationResponseType($AdminStudentCourseFromList);
+
+export const $AdminStudentCoursesRequest = z.object({
+    studentId: z.string(),
+});
+
+export const $GetAdminStudentCoursesRequest = $getFiltersRequestType($AdminStudentCoursesRequest);
+
+export const $AttachCoursesToStudentRequest = z.object({
+    studentId: z.string(),
+    ids: z.string().array(),
+});
+
+export const $AttachCoursesToStudentResponse = z.null();
+
+export const $DeleteStudentCoursesRequest = z.object({
+    studentId: z.string(),
+    ids: z.number().array(),
+});
+
+export const $DeleteStudentCoursesResponse = z.null();
 
 /**
  * USER ZOD

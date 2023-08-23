@@ -7,3 +7,5 @@ export * from "./DeleteArticleFromArticlePackageModal";
 export * from "./Card";
 export * from "./ArticleListFromCategory";
 export * from "./AddArticleToArticlePackageModal";
+export * from "./AddArticlePackagesToStudentModal";
+export * from "./DeleteStudentArticlePackageModal";

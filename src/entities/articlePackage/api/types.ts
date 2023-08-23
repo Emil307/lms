@@ -19,6 +19,8 @@ export type AdminArticlePackageTag = z.infer<typeof $AdminArticlePackageTag>;
 export type AdminArticlePackage = z.infer<typeof $AdminArticlePackage>;
 export type AdminArticlePackageFromList = z.infer<typeof $AdminArticlePackageFromList>;
 export type AdminArticleFromArticlePackage = z.infer<typeof $AdminArticleFromArticlePackage>;
+//students <-> articlePackage
+export type AdminStudentArticlePackageFromList = z.infer<typeof $AdminStudentArticlePackageFromList>;
 
 //FILTERS
 export type AdminArticlePackagesFiltersForm = z.infer<typeof $AdminArticlePackagesFiltersForm>;
@@ -38,6 +40,13 @@ export type CreateArticlePackageResponse = z.infer<typeof $CreateArticlePackageR
 export type UpdateArticlePackageResponse = z.infer<typeof $UpdateArticlePackageResponse>;
 export type DeleteArticleFromPackageRequest = z.infer<typeof $DeleteArticleFromPackageRequest>;
 export type AttachArticleToPackageRequest = z.infer<typeof $AttachArticleToPackageRequest>;
+//students <-> articlePackage
+export type GetAdminStudentArticlePackagesRequest = z.infer<typeof $GetAdminStudentArticlePackagesRequest>;
+export type GetAdminStudentArticlePackagesResponse = z.infer<typeof $GetAdminStudentArticlePackagesResponse>;
+export type AttachArticlePackagesToStudentRequest = z.infer<typeof $AttachArticlePackagesToStudentRequest>;
+export type AttachArticlePackagesToStudentResponse = z.infer<typeof $AttachArticlePackagesToStudentResponse>;
+export type DeleteStudentArticlePackageRequest = z.infer<typeof $DeleteStudentArticlePackageRequest>;
+export type DeleteStudentArticlePackageResponse = z.infer<typeof $DeleteStudentArticlePackageResponse>;
 
 /**
  *
@@ -196,6 +205,44 @@ export const $DeleteArticleFromPackageRequest = z.object({
     articlePackageId: z.string(),
     articleId: z.number(),
 });
+
+//students <-> articlePackage
+export const $AdminStudentArticlePackage = $AdminArticlePackage
+    .pick({
+        id: true,
+        name: true,
+        isActive: true,
+        discount: true,
+        categories: true,
+    })
+    .extend({
+        price: z.number(),
+        availableTo: z.coerce.date().nullable(),
+    });
+
+export const $AdminStudentArticlePackageFromList = $AdminStudentArticlePackage;
+
+export const $GetAdminStudentArticlePackagesResponse = $getPaginationResponseType($AdminStudentArticlePackageFromList);
+
+export const $AdminStudentArticlePackagesRequest = z.object({
+    studentId: z.string(),
+});
+
+export const $GetAdminStudentArticlePackagesRequest = $getFiltersRequestType($AdminStudentArticlePackagesRequest);
+
+export const $AttachArticlePackagesToStudentRequest = z.object({
+    studentId: z.string(),
+    articlePackageIds: z.string().array(),
+});
+
+export const $AttachArticlePackagesToStudentResponse = z.null();
+
+export const $DeleteStudentArticlePackageRequest = z.object({
+    studentId: z.string(),
+    articlePackageId: z.number(),
+});
+
+export const $DeleteStudentArticlePackageResponse = z.null();
 
 /**
  *
