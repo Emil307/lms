@@ -105,6 +105,12 @@ export default function Sidebar() {
                         setIsOpenSidebarItem={handleChangeActiveSidebarItemWithChildren}>
                         <SidebarItem
                             inner={true}
+                            label="Отчет по продажам"
+                            href="/admin/analytics/transaction-report"
+                            isActive={router.pathname.includes("/admin/analytics/transaction-report")}
+                        />
+                        <SidebarItem
+                            inner={true}
                             label="Отчет по ученикам"
                             href="/admin/analytics/student-report"
                             isActive={router.pathname.includes("/admin/analytics/student-report")}
