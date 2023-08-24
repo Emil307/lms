@@ -1,7 +1,7 @@
 import { useDebouncedState, useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { FSelect, SelectProps, prepareOptionsForSelect } from "@shared/ui";
-import { AdminTransactionableTypeName, useAdminStudentReportEntities } from "@entities/report";
+import { AdminTransactionableTypeName, useAdminTransactionReportEntities } from "@entities/report";
 import { initialParams } from "./constants";
 
 export interface EntitySelectProps extends Omit<SelectProps, "data"> {
@@ -18,7 +18,7 @@ const EntitySelect = ({ name, entityType, ...props }: EntitySelectProps) => {
         isLoading,
         isFetching,
         isRefetching,
-    } = useAdminStudentReportEntities({ ...initialParams, query, entityType, filter: {} });
+    } = useAdminTransactionReportEntities({ ...initialParams, query, entityType, filter: {} });
 
     const { ref: lastElemRef, entry } = useIntersection();
 
