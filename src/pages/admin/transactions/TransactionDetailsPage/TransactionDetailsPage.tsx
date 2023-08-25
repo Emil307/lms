@@ -22,7 +22,7 @@ const TransactionDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: transactionData.entity.type.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: `Транзакция №${transactionData.id}`, id })} mb={8} />
             <InfoPanel id={id} mb={32} />
             <TransactionSettings id={id} />
         </Box>

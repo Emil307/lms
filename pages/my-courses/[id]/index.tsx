@@ -1,11 +1,39 @@
 import React from "react";
 import { ReactElement } from "react";
+import { GetServerSidePropsContext } from "next";
+import { dehydrate } from "@tanstack/react-query";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { MyCourseDetailsPage } from "@pages/myCourses";
+import { UserPage } from "@components/UserPage";
+import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
+import { getSsrInstances } from "@app/config/ssr";
+import { GroupApi } from "@entities/group";
+import { QueryKeys } from "@shared/constant";
 
-const MyCourseDetails: NextPageWithLayout = () => {
-    return <MyCourseDetailsPage />;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const groupApi = new GroupApi(axios);
+
+    const response = await queryClient.fetchQuery([QueryKeys.GET_GROUP, id], () => groupApi.getGroup({ id }));
+
+    return {
+        props: {
+            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+            title: response.name,
+        },
+    };
+}
+
+const MyCourseDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
+    return (
+        <UserPage title={title}>
+            <MyCourseDetailsPage />
+        </UserPage>
+    );
 };
 
 MyCourseDetails.getLayout = function (page: ReactElement) {

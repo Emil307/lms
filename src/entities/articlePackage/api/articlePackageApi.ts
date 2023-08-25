@@ -35,7 +35,7 @@ import {
     $DeleteStudentArticlePackageResponse,
 } from "./types";
 
-class ArticlePackageApi extends BaseApi {
+export class ArticlePackageApi extends BaseApi {
     //ADMIN
     async getAdminArticlePackages(params: GetAdminArticlePackagesRequest): Promise<GetAdminArticlePackagesResponse> {
         const response = await this.instance.post("admin/article-packages/list", params);

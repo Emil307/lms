@@ -16,7 +16,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     return (
         <Box {...props}>
             <Flex gap={16} align="center">
-                <Heading>{transactionData?.entity.name}</Heading>
+                <Heading>{`Транзакция №${transactionData?.id}`}</Heading>
                 <Badge className={classes.status}>{transactionData?.status.name}</Badge>
             </Flex>
 

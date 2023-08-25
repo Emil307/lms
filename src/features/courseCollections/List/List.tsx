@@ -62,13 +62,13 @@ const List = ({
     }
 
     return (
-        <Flex {...wrapperProps}>
+        <Flex direction="column" {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} mih={40} radius={24}>
                     <Heading {...headingProps}>{title}</Heading>
                 </Skeleton>
             )}
-            <Box>
+            <Box w="100%">
                 <Skeleton visible={isLoading} {...skeletonListProps}>
                     <ListComponent<CourseCollectionFromList>
                         {...props}

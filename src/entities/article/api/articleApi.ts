@@ -79,7 +79,7 @@ import {
     GetArticlesByCourseFiltersResponse,
 } from "./types";
 
-class ArticleApi extends BaseApi {
+export class ArticleApi extends BaseApi {
     /**
      *
      * ADMIN

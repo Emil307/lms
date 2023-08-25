@@ -90,7 +90,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                             </Flex>
-                            <Flex gap={8}>
+                            <Flex align="center" gap={8}>
                                 <Paragraph variant="text-small-m" color="gray45">
                                     Статус:
                                 </Paragraph>

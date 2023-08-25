@@ -28,11 +28,12 @@ export const adaptUpdateCoursePackageForm = (data?: AdminCoursePackageDetails): 
     return {
         ...initialValues,
         ...data,
-        discount: {
-            type: data?.discount?.type || "percentage",
-            amount: data?.discount?.amount,
-            startingDate: data?.discount?.startingDate || null,
-            finishingDate: data?.discount?.finishingDate || null,
-        },
+        discount: data?.discount
+            ? {
+                  ...data.discount,
+                  startingDate: new Date(String(data.discount.startingDate)),
+                  finishingDate: new Date(String(data.discount.finishingDate)),
+              }
+            : initialValues.discount,
     };
 };

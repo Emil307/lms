@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { FAQPage } from "@pages/staticPages";
+import { UserPage } from "@components/UserPage";
 
 const FAQ: NextPageWithLayout = () => {
-    return <FAQPage />;
+    return (
+        <UserPage title="Вопрос-ответ">
+            <FAQPage />
+        </UserPage>
+    );
 };
 
 FAQ.getLayout = function (page: ReactElement) {

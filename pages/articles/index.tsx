@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { ArticlesPage } from "@pages/articles";
+import { UserPage } from "@components/UserPage";
 
 const Articles: NextPageWithLayout = () => {
-    return <ArticlesPage />;
+    return (
+        <UserPage title="База знаний">
+            <ArticlesPage />
+        </UserPage>
+    );
 };
 
 Articles.getLayout = function (page: ReactElement) {

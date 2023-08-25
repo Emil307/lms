@@ -1,6 +1,7 @@
 import { Box, Flex, FlexProps } from "@mantine/core";
 import Image from "next/image";
 import { memo } from "react";
+import { useRouter } from "next/router";
 import { GetAboutResponse } from "@entities/staticPage";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import useStyles from "./AboutCard.styles";
@@ -10,7 +11,10 @@ export interface AboutCardProps extends Omit<FlexProps, "children"> {
 }
 
 const MemoizedAboutCard = memo(function AboutCard({ data, className, ...props }: AboutCardProps) {
+    const router = useRouter();
     const { classes, cx } = useStyles();
+
+    const handleOpenCoursesPage = () => router.push("/courses");
 
     return (
         <Flex className={cx(classes.root, className)} {...props}>
@@ -29,7 +33,9 @@ const MemoizedAboutCard = memo(function AboutCard({ data, className, ...props }:
             <Flex className={classes.contentSection}>
                 <Flex className={classes.headingContentSection}>
                     <Heading order={2}>{data?.title}</Heading>
-                    <Button w="min-content">Подобрать курс</Button>
+                    <Button w="min-content" onClick={handleOpenCoursesPage}>
+                        Подобрать курс
+                    </Button>
                 </Flex>
                 <Paragraph variant="small-m" className={classes.shortContent}>
                     {data?.shortContent}

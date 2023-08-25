@@ -23,7 +23,7 @@ export default createStyles((theme) => ({
         width: "100%",
         height: 220,
         borderRadius: 14,
-        background: "rgba(0, 4, 41, 0.15)",
+        backgroundColor: theme.colors.darkGray[0],
     },
     countCourse: {
         backgroundColor: theme.colors.white[0],

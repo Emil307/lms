@@ -39,7 +39,7 @@ import {
     UpdateAdminCourseCollectionResponse,
 } from "./types";
 
-class CourseCollectionApi extends BaseApi {
+export class CourseCollectionApi extends BaseApi {
     //ADMIN
     async getAdminCourseCollections(data: GetAdminCourseCollectionsRequest): Promise<GetAdminCourseCollectionsResponse> {
         const response = await this.instance.post("admin/course-collections/list", data);
