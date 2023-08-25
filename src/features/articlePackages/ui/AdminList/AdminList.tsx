@@ -53,7 +53,7 @@ const AdminList = (props: AdminListProps) => {
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 onClickCell={handleClickCell}
                 columns={columns}
-                countName="Подборок"
+                countName="Пакетов"
                 initialState={{
                     columnOrder,
                 }}

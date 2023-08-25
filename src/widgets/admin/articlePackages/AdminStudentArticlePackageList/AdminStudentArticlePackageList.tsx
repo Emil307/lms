@@ -33,7 +33,7 @@ const AdminStudentArticlePackageList = ({ studentId, ...props }: AdminStudentArt
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
-                countName="Групп"
+                countName="Пакетов"
                 extraFilterParams={{ studentId }}
                 onClickCell={handleClickCell}
                 initialState={{

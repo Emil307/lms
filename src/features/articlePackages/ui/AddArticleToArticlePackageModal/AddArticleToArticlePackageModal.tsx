@@ -48,7 +48,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose, ...props }
                 }}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
-                countName="Курсов"
+                countName="Статей"
                 extraFilterParams={{ articlePackageIds: articlePackageId }}
                 initialState={{
                     columnOrder,

@@ -34,7 +34,7 @@ const AdminArticleList = ({ articlePackageId, ...props }: AdminArticleListProps)
                 onClickCell={handleClickCell}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
-                countName="статей"
+                countName="Статей"
                 initialState={{
                     columnOrder,
                 }}

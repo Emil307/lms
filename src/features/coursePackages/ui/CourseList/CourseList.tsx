@@ -34,7 +34,7 @@ const CourseList = ({ coursePackageId }: CourseListProps) => {
                 onClickCell={handleClickCell}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
-                countName="курсов"
+                countName="Курсов"
                 initialState={{
                     columnOrder,
                 }}
