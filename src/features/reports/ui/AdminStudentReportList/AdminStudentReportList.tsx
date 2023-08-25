@@ -79,6 +79,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                     size="sm"
                                     className={classes.filterDateRangePicker}
                                     clearable
+                                    disabled={studentReportResources.isLoading}
                                 />
                                 <FSelect
                                     name="transactionableType"
@@ -97,6 +98,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                     name="transactionableIds"
                                     entityType={values.transactionableType as AdminTransactionableTypeName}
                                     className={classes.filterSelect}
+                                    disabled={studentReportResources.isLoading}
                                 />
                                 <FSelect
                                     name="roleId"
@@ -113,12 +115,12 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                 />
                             </Flex>
 
-                            <Flex gap={16}>
-                                <Button w={164} type="submit" disabled={!dirty}>
+                            <Flex className={classes.buttons}>
+                                <Button className={classes.button} type="submit" disabled={!dirty}>
                                     Сформировать
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                    <Button className={classes.button} type="button" variant="white" onClick={handleResetForm}>
                                         Cбросить
                                     </Button>
                                 )}

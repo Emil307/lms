@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
         },
 
         [theme.fn.smallerThan("sm")]: {
-            height: 98,
+            height: 180,
         },
     },
 

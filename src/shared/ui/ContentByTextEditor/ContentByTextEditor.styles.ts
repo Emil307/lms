@@ -3,6 +3,7 @@ import { textEditorContentStyles } from "@shared/styles";
 
 export default createStyles((theme) => ({
     root: {
+        maxWidth: "100%",
         ...textEditorContentStyles(theme),
     },
     zoomIconWrapper: {

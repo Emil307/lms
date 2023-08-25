@@ -11,8 +11,7 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
         gap: 8,
         border: "none",
     },
-    legend: {
-        display: "flex",
+    legendContent: {
         gap: 16,
         marginBottom: isOpen ? 16 : 0,
 

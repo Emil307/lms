@@ -1,4 +1,4 @@
-import { Box, BoxProps, Divider } from "@mantine/core";
+import { Box, BoxProps, Divider, Flex } from "@mantine/core";
 import { Fragment, memo, ReactNode, useMemo } from "react";
 import { Heading } from "@shared/ui";
 import useStyles from "./Fieldset.styles";
@@ -46,10 +46,12 @@ const MemoizedFieldset = memo(function Fieldset({
 
     return (
         <Box {...props} component="fieldset" className={cx(classes.fieldset, className)}>
-            <Box {...legendProps} component="legend" className={classes.legend}>
-                {icon}
-                <Heading order={4}>{label}</Heading>
-                {extraElement}
+            <Box component="legend">
+                <Flex {...legendProps} className={classes.legendContent}>
+                    {icon}
+                    <Heading order={4}>{label}</Heading>
+                    {extraElement}
+                </Flex>
             </Box>
             {isOpen && renderRows}
         </Box>

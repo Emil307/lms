@@ -2,11 +2,10 @@ import React from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
-import { IconMessageDots, IconReceipt } from "@tabler/icons-react";
+import { IconClipboardText, IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "@public/icons/closeBook.svg";
-import SidebarItem from "./ui/SidebarItem/SidebarItem";
-import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
+import { SidebarItem, SidebarItemWithChildren } from "./ui";
 
 export default function SidebarMenu() {
     const router = useRouter();
@@ -44,7 +43,24 @@ export default function SidebarMenu() {
                 icon={<BookOpen />}
                 href="/admin/lessons"
             />
-            {/* //TODO: Аналитика */}
+            <SidebarItemWithChildren
+                roles={[Roles.administrator, Roles.manager]}
+                label="Аналитика"
+                isActive={router.pathname.includes("/admin/analytics")}
+                icon={<IconClipboardText />}>
+                <SidebarItem
+                    inner={true}
+                    label="Отчет по продажам"
+                    href="/admin/analytics/transaction-report"
+                    isActive={router.pathname.includes("/admin/analytics/transaction-report")}
+                />
+                <SidebarItem
+                    inner={true}
+                    label="Отчет по ученикам"
+                    href="/admin/analytics/student-report"
+                    isActive={router.pathname.includes("/admin/analytics/student-report")}
+                />
+            </SidebarItemWithChildren>
             <SidebarItem
                 roles={[Roles.administrator, Roles.manager]}
                 label="Транзакции"

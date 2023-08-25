@@ -38,6 +38,20 @@ export default createStyles((theme) => ({
             width: "100%",
         },
     },
+    buttons: {
+        gap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+        },
+    },
+    button: {
+        width: 164,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
 }));
 
 export const useCellStyles = createStyles((theme, { status }: UseCellStylesProps) => ({

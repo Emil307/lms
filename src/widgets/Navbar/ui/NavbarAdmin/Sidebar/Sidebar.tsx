@@ -7,8 +7,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "public/icons/closeBook.svg";
 import { useMedia } from "@shared/utils";
-import SidebarItem from "./ui/SidebarItem/SidebarItem";
-import SidebarItemWithChildren from "./ui/SidebarItemWithChildren/SidebarItemWithChildren";
+import { SidebarItem, SidebarItemWithChildren } from "./ui";
 import useStyles from "./Sidebar.styles";
 import { MinimizedModeSidebarContext } from "./utils";
 

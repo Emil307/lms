@@ -7,6 +7,7 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { isActive, inner }: CreateStylesParams, getRef) => ({
     root: {
+        position: "relative",
         color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
         cursor: "pointer",
 
@@ -23,9 +24,13 @@ export default createStyles((theme, { isActive, inner }: CreateStylesParams, get
         position: "absolute",
     },
 
-    inducatorCloseInnerContent: {
+    indicatorCloseInnerContent: {
+        position: "absolute",
+        left: 0,
+        top: "50%",
         width: 2,
         height: 20,
+        transform: "translateY(-50%)",
         borderTopRightRadius: 100,
         borderBottomRightRadius: 100,
         backgroundColor: theme.colors.secondaryHover[0],
