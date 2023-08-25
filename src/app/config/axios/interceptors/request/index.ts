@@ -6,8 +6,6 @@ export const tokenInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
     const token = getCookie(ECookies.TOKEN);
     const tokenType = getCookie(ECookies.TOKEN_TYPE);
 
-    // console.log("tokenInterceptor", token, config);
-
     if (!token || !tokenType) return config;
 
     config.headers["Authorization"] = `${tokenType} ${token}`;

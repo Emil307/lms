@@ -47,7 +47,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
     };
 
     return (
-        <Box {...props} className={(classes.root, props.className)}>
+        <Box {...props} className={props.className}>
             <Form config={config} isLoading={articleFilters.isLoading} disableOverlay={false}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {

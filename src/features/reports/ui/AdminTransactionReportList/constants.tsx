@@ -12,34 +12,34 @@ export const columns: MRT_ColumnDef<AdminTransactionReportFromList>["columns"] =
         header: "ФИО ученика",
         accessorKey: "user.profile",
         id: "fullName",
-        size: 250,
+        size: 248,
         accessorFn: ({ user }) => getFullName({ data: user.profile }),
     },
     {
         header: "Тип ученика",
         accessorKey: "user.roles",
         id: "role",
-        size: 250,
+        size: 248,
         accessorFn: ({ user }) => user.roles[0].displayName,
     },
     {
         header: "Название сущности",
         accessorKey: "entity.name",
         id: "entityName",
-        size: 250,
+        size: 248,
     },
 
     {
         header: "Дата платежа",
         accessorKey: "paidAt",
-        size: 250,
+        size: 248,
         accessorFn: ({ paidAt }) => dayjs(paidAt).format("DD.MM.YYYY"),
     },
 
     {
         header: "Тип платежа",
         accessorKey: "paymentType",
-        size: 250,
+        size: 248,
         accessorFn: ({ paymentType }) => paymentType.name,
     },
     {

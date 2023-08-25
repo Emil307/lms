@@ -151,12 +151,12 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                                 />
                             </Flex>
 
-                            <Flex gap={16}>
-                                <Button w={164} type="submit" disabled={!dirty}>
+                            <Flex className={classes.buttons}>
+                                <Button className={classes.button} type="submit" disabled={!dirty}>
                                     Сформировать
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                    <Button className={classes.button} type="button" variant="white" onClick={handleResetForm}>
                                         Cбросить
                                     </Button>
                                 )}

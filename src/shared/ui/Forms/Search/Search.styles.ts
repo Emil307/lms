@@ -4,7 +4,7 @@ export const useSearchStyles = createStyles((theme, { styleVariant }: { styleVar
     root: {
         input: {
             height: 48,
-            padding: "8px 16px 8px 40px",
+            padding: "8px 36px 8px 40px",
             backgroundColor: styleVariant === "course" ? theme.colors.white[0] : theme.colors.grayLight[0],
             border: styleVariant === "course" ? "1px solid rgba(0, 4, 41, 0.2)" : "1px solid rgba(0,0,0,0.0)",
             borderRadius: 8,

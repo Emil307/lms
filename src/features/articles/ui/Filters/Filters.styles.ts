@@ -1,12 +1,6 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    root: {
-        flexDirection: "column",
-        minWidth: 264,
-        gap: 32,
-    },
-
     wrapperFiltersBlock: {
         width: "100%",
     },
@@ -14,12 +8,16 @@ export default createStyles((theme) => ({
     filtersBlock: {
         display: "flex",
         flexDirection: "column",
-        width: "100%",
         gap: 32,
+        width: 264,
 
         [theme.fn.smallerThan("md")]: {
             alignItems: "flex-start",
             gap: 24,
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
         },
     },
 
@@ -33,7 +31,7 @@ export default createStyles((theme) => ({
         },
     },
     searchFilter: {
-        width: 264,
+        width: "100%",
 
         [theme.fn.smallerThan("md")]: {
             width: "100%",

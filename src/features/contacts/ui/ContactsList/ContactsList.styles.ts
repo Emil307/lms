@@ -14,6 +14,7 @@ export default createStyles((theme) => ({
         },
     },
     requisitesContainer: {
+        width: "100%",
         flexDirection: "column",
         alignItems: "flex-start",
         gap: 8,

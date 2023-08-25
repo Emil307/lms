@@ -49,7 +49,7 @@ const SidebarItem = forwardRef(function SidebarItem(
             );
         }
 
-        return <Box className={classes.inducatorCloseInnerContent} />;
+        return <Box className={classes.indicatorCloseInnerContent} />;
     };
 
     if (isMenuItemDenied(roles, userRole)) {
