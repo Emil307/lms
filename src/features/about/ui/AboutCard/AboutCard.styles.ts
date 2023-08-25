@@ -20,6 +20,7 @@ export default createStyles((theme) => ({
         height: 420,
         marginTop: "0 !important",
         borderRadius: 16,
+        backgroundColor: theme.colors.darkGray[0],
     },
     bannerImage: {
         objectFit: "contain",

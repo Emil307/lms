@@ -80,7 +80,7 @@ import {
     $FinishLessonResponse,
 } from "@entities/lesson";
 
-class LessonApi extends BaseApi {
+export class LessonApi extends BaseApi {
     //ADMIN
     async getAdminLessons(params: GetAdminLessonsFromModuleRequest | GetAdminLessonsRequest): Promise<GetAdminLessonsResponse> {
         const response = await this.instance.post("admin/lessons/list", params);

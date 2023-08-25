@@ -61,7 +61,7 @@ import {
     DeleteStudentCoursesResponse,
 } from "./types";
 
-class CourseApi extends BaseApi {
+export class CourseApi extends BaseApi {
     //ADMIN
     async getAdminCourseResources(params: GetAdminCourseResourcesRequest): Promise<GetAdminCourseResourcesResponse> {
         const response = await this.instance.get("admin/courses/resources", { params });

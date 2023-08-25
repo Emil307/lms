@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios, { AxiosInstance } from "axios";
 import {
     defaultHeaders,
     errorLogger,
@@ -18,6 +18,7 @@ import {
     tokenInterceptor,
 } from "./interceptors/request";
 import { responderInterceptor } from "./interceptors/response";
+import { TAxiosResponseInterceptorError } from "./types";
 
 export const axios = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL_CORE,
@@ -25,34 +26,38 @@ export const axios = Axios.create({
     responseType: "json",
 });
 
-/**
- *  Добавляй header token, если запрос делает пользователь личного кабинета.
- */
-axios.interceptors.request.use(tokenInterceptor, errorLogger, { runWhen: () => true });
+export const getInterceptors = (axios: AxiosInstance, handleResponseInterceptorError: TAxiosResponseInterceptorError) => {
+    /**
+     *  Добавляй header token, если запрос делает пользователь личного кабинета.
+     */
+    axios.interceptors.request.use(tokenInterceptor, errorLogger, { runWhen: () => true });
 
-/**
- *  Добавляй content-type = multipart/form-data, если загружает файл.
- */
-axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenUsingUploadToStorageRoute });
+    /**
+     *  Добавляй content-type = multipart/form-data, если загружает файл.
+     */
+    axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenUsingUploadToStorageRoute });
 
-/**
- *  Меняй baseUrl, если работаешь с API Routes.
- */
-axios.interceptors.request.use(apiRoutesInterceptor, errorLogger, { runWhen: whenApiRoutesRoute });
+    /**
+     *  Меняй baseUrl, если работаешь с API Routes.
+     */
+    axios.interceptors.request.use(apiRoutesInterceptor, errorLogger, { runWhen: whenApiRoutesRoute });
 
-/**
- *  Меняй baseUrl, если работаешь с микросервисом AUTH.
- */
-axios.interceptors.request.use(authMicroserviceInterceptor, errorLogger, { runWhen: whenAuthMicroserviceRoute });
+    /**
+     *  Меняй baseUrl, если работаешь с микросервисом AUTH.
+     */
+    axios.interceptors.request.use(authMicroserviceInterceptor, errorLogger, { runWhen: whenAuthMicroserviceRoute });
 
-/**
- *  Меняй baseUrl, если работаешь с микросервисом COURSES.
- */
-axios.interceptors.request.use(coursesMicroserviceInterceptor, errorLogger, { runWhen: whenCoursesMicroserviceRoute });
+    /**
+     *  Меняй baseUrl, если работаешь с микросервисом COURSES.
+     */
+    axios.interceptors.request.use(coursesMicroserviceInterceptor, errorLogger, { runWhen: whenCoursesMicroserviceRoute });
 
-/**
- *  Меняй baseUrl, если работаешь с микросервисом ARTICLES.
- */
-axios.interceptors.request.use(articlesMicroserviceInterceptor, errorLogger, { runWhen: whenArticlesMicroserviceRoute });
+    /**
+     *  Меняй baseUrl, если работаешь с микросервисом ARTICLES.
+     */
+    axios.interceptors.request.use(articlesMicroserviceInterceptor, errorLogger, { runWhen: whenArticlesMicroserviceRoute });
 
-axios.interceptors.response.use(responderInterceptor, handleAxiosError);
+    axios.interceptors.response.use(responderInterceptor, handleResponseInterceptorError);
+};
+
+getInterceptors(axios, handleAxiosError);

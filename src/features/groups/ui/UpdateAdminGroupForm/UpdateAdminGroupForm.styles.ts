@@ -1,4 +1,4 @@
-import { createStyles, MantineTheme } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     infoPanel: {
@@ -20,11 +20,7 @@ export default createStyles((theme) => ({
             overflowX: "auto",
         },
     },
-    status: {
-        width: "min-content",
-        borderRadius: 32,
-        ...getColorsByStatus(theme, { status }),
-    },
+
     actions: {
         gap: 8,
 
@@ -42,14 +38,3 @@ export default createStyles((theme) => ({
         },
     },
 }));
-
-const getColorsByStatus = (theme: MantineTheme, { status }: { status?: string }) => {
-    switch (status) {
-        case "notStarted":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
-        case "done":
-            return { backgroundColor: theme.colors.secondary16[0], color: theme.colors.secondary[0] };
-        default:
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
-    }
-};

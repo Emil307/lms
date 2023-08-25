@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { AboutPage } from "@pages/staticPages";
+import { UserPage } from "@components/UserPage";
 
 const About: NextPageWithLayout = () => {
-    return <AboutPage />;
+    return (
+        <UserPage title="О проекте">
+            <AboutPage />
+        </UserPage>
+    );
 };
 
 About.getLayout = function (page: ReactElement) {

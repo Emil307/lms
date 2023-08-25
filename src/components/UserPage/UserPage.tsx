@@ -1,14 +1,12 @@
 import Head from "next/head";
 import React, { PropsWithChildren } from "react";
 
-export interface AdminPageProps {
+export interface UserPageProps {
     title?: React.ReactNode;
-    headTitle?: string;
-    hidePrompt?: boolean;
     permission?: string;
 }
 
-function AdminPage({ children, title }: PropsWithChildren<AdminPageProps>) {
+function UserPage({ children, title }: PropsWithChildren<UserPageProps>) {
     const titleValue = title ? `${title} | Галерея бизнеса` : "Галерея бизнеса";
     return (
         <>
@@ -20,4 +18,4 @@ function AdminPage({ children, title }: PropsWithChildren<AdminPageProps>) {
     );
 }
 
-export default AdminPage;
+export default UserPage;

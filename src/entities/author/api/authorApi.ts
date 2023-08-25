@@ -21,7 +21,7 @@ import {
     UpdateAuthorResponse,
 } from "./types";
 
-class AuthorApi extends BaseApi {
+export class AuthorApi extends BaseApi {
     async getAdminAuthors(params: GetAdminAuthorsRequest): Promise<GetAdminAuthorsResponse> {
         const response = await this.instance.post("admin/authors/list", params);
         return $GetAdminAuthorsResponse.parse(response);

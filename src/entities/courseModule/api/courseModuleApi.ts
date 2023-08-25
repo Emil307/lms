@@ -23,7 +23,7 @@ import {
     $UpdateCourseModuleOrderResponse,
 } from "./types";
 
-class CourseModuleApi extends BaseApi {
+export class CourseModuleApi extends BaseApi {
     async getCourseModules({ courseId, ...params }: GetCourseModulesRequest): Promise<GetCourseModulesResponse> {
         const response = await this.instance.post(`admin/courses/${courseId}/modules/list`, params);
         return $GetCourseModulesResponse.parse(response);

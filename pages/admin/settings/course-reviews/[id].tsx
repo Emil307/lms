@@ -7,7 +7,7 @@ import { CourseReviewDetailsPage } from "@pages/admin/settings";
 
 const CourseReviewDetails: NextPageWithLayout = () => {
     return (
-        <AdminPage title="Отзыв">
+        <AdminPage title="Отзыв о курсе">
             <CourseReviewDetailsPage />
         </AdminPage>
     );

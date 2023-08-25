@@ -24,7 +24,7 @@ const UpdateTransactionPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: transactionData?.entity.type.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: `Транзакция №${transactionData?.id}`, id })} mb={8} />
             <InfoPanel id={id} mb={32} />
             <UpdateTransactionForm data={transactionData} onClose={handleCancel} maw={512} />
         </Box>

@@ -60,7 +60,7 @@ import {
     UpdateGroupActivityResponse,
 } from "./types";
 
-class GroupApi extends BaseApi {
+export class GroupApi extends BaseApi {
     //ADMIN
     async getAdminGroups(data: GetAdminGroupsRequest): Promise<GetAdminGroupsResponse> {
         const response = await this.instance.post("admin/groups/list", data);

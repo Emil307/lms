@@ -3,9 +3,15 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { CourseCollectionsPage } from "@pages/courseCollections";
+import { UserPage } from "@components/UserPage";
 
 const CourseCollections: NextPageWithLayout = () => {
-    return <CourseCollectionsPage />;
+    const title = `Топовые подборки курсов ${new Date().getFullYear()}`;
+    return (
+        <UserPage title={title}>
+            <CourseCollectionsPage />
+        </UserPage>
+    );
 };
 
 CourseCollections.getLayout = function (page: ReactElement) {

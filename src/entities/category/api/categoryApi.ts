@@ -29,7 +29,7 @@ import {
     $GetAdminSubCategoriesPaginateResponse,
 } from "./types";
 
-class CategoryApi extends BaseApi {
+export class CategoryApi extends BaseApi {
     //ADMIN
     async getAdminCategories(data: GetAdminCategoriesRequest): Promise<GetAdminCategoriesResponse> {
         const response = await this.instance.post("admin/categories/list", data);

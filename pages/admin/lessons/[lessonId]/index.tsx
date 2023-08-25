@@ -1,13 +1,40 @@
 import React from "react";
 import { ReactElement } from "react";
+import { GetServerSidePropsContext } from "next";
+import { dehydrate } from "@tanstack/react-query";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { LessonDetailPage } from "@pages/admin/lessons";
+import { getSsrInstances } from "@app/config/ssr";
+import { LessonApi } from "@entities/lesson";
+import { QueryKeys } from "@shared/constant";
+import { NextPageWithLayoutProps } from "@shared/types";
 
-const LessonDetail: NextPageWithLayout = () => {
+type GetServerSidePropsContextParams = {
+    lessonId: string;
+};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { lessonId } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const lessonApi = new LessonApi(axios);
+
+    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () => lessonApi.getAdminLesson(lessonId));
+
+    return {
+        props: {
+            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+            title: response.name,
+        },
+    };
+}
+
+const LessonDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title="Урок">
+        <AdminPage title={title}>
             <LessonDetailPage />
         </AdminPage>
     );

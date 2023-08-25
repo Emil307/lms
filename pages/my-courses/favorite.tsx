@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { MyFavoriteCoursesPage } from "@pages/myCourses";
+import { UserPage } from "@components/UserPage";
 
 const MyFavoriteCourses: NextPageWithLayout = () => {
-    return <MyFavoriteCoursesPage />;
+    return (
+        <UserPage title="Избранные курсы">
+            <MyFavoriteCoursesPage />
+        </UserPage>
+    );
 };
 
 MyFavoriteCourses.getLayout = function (page: ReactElement) {

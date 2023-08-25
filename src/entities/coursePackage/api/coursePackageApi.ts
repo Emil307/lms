@@ -23,7 +23,7 @@ import {
     UpdateCoursePackageRequest,
 } from "./types";
 
-class CoursePackageApi extends BaseApi {
+export class CoursePackageApi extends BaseApi {
     async getAdminCoursePackageResourses(params: GetAdminCoursePackageResoursesRequest): Promise<GetAdminCoursePackageResoursesResponse> {
         const response = await this.instance.get("admin/course-packages/resources", { params });
         return $GetAdminCoursePackageResoursesResponse.parse(response);

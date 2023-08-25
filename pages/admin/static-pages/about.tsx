@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AboutPage } from "@pages/admin/staticPages";
+import { AdminPage } from "@components/AdminPage";
 
 const AdminPageAbout: NextPageWithLayout = () => {
-    return <AboutPage />;
+    return (
+        <AdminPage title="О проекте">
+            <AboutPage />
+        </AdminPage>
+    );
 };
 
 AdminPageAbout.getLayout = function (page: ReactElement) {

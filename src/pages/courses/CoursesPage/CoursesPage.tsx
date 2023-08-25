@@ -28,7 +28,7 @@ const CoursesPage = () => {
                     perPage={3}
                     title={titleCourseCollections}
                     hasCardMore
-                    headingProps={{ order: 2 }}
+                    headingProps={{ order: 2, mb: 32 }}
                     colProps={{ sm: 6, xs: 12 }}
                 />
             </Flex>

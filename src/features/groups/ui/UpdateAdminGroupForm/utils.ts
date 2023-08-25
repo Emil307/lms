@@ -6,7 +6,11 @@ import { initialValues } from "./constant";
 export const adaptUpdateAdminGroupForm = (data?: GetAdminGroupResponse): UpdateGroupFormValidation => {
     return {
         ...initialValues,
-        ...data,
+        ...(data && {
+            ...data,
+            educationStartDate: new Date(String(data.educationStartDate)),
+            educationFinishDate: new Date(String(data.educationFinishDate)),
+        }),
         courseId: String(data?.course.id),
         teacherId: data?.teacher ? data.teacher.id.toString() : "",
     };

@@ -27,7 +27,13 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         teacherIds: teachers.map((teacher) => teacher.id.toString()),
         authorIds: authors.map((author) => author.id.toString()),
         tagIds: tags.map((tag) => tag.id.toString()),
-        discount: discount || initialValues.discount,
+        discount: discount
+            ? {
+                  ...discount,
+                  startingDate: new Date(String(discount.startingDate)),
+                  finishingDate: new Date(String(discount.finishingDate)),
+              }
+            : initialValues.discount,
     };
 };
 

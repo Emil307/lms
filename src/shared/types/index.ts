@@ -4,3 +4,4 @@ export * from "./profile";
 export * from "./filterType";
 export * from "./userNotification";
 export * from "./file";
+export * from "./page";

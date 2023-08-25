@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { CoursesPage } from "@pages/courses";
+import { UserPage } from "@components/UserPage";
 
 const Courses: NextPageWithLayout = () => {
-    return <CoursesPage />;
+    return (
+        <UserPage title="Курсы">
+            <CoursesPage />
+        </UserPage>
+    );
 };
 
 Courses.getLayout = function (page: ReactElement) {

@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 import { AuthLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { RecoveryPasswordForm } from "@features/auth";
+import { UserPage } from "@components/UserPage";
 
 const RecoveryPassword: NextPageWithLayout = () => {
-    return <RecoveryPasswordForm />;
+    return (
+        <UserPage title="Восстановление пароля">
+            <RecoveryPasswordForm />
+        </UserPage>
+    );
 };
 
 RecoveryPassword.getLayout = function (page: ReactElement) {
