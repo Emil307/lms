@@ -2,8 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
-import { useAttachCoursesToStudent } from "@entities/course";
-import { AdminArticlePackageFromList, articlePackageApi } from "@entities/articlePackage";
+import { AdminArticlePackageFromList, articlePackageApi, useAttachArticlePackagesToStudent } from "@entities/articlePackage";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
 import { StudentArticlePackageListExtraParams } from "./types";
@@ -16,11 +15,11 @@ export interface AddArticlePackagesToStudentModalProps extends Omit<BoxProps, "c
 const AddArticlePackagesToStudentModal = ({ studentId, onClose, ...props }: AddArticlePackagesToStudentModalProps) => {
     const [selected, setSelected] = useState<string[]>([]);
 
-    const attachCoursesToStudent = useAttachCoursesToStudent({ studentId });
+    const attachArticlePackagesToStudent = useAttachArticlePackagesToStudent({ studentId });
 
     const handleSubmit = () => {
-        attachCoursesToStudent.mutate(
-            { ids: selected },
+        attachArticlePackagesToStudent.mutate(
+            { articlePackageIds: selected },
             {
                 onSuccess: () => {
                     onClose();
@@ -32,12 +31,12 @@ const AddArticlePackagesToStudentModal = ({ studentId, onClose, ...props }: AddA
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminArticlePackageFromList, unknown, StudentArticlePackageListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
+                queryKey={QueryKeys.GET_ADMIN_NO_STUDENT_ARTICLE_PACKAGES}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
-                countName="Курсов"
+                countName="Пакетов"
                 extraFilterParams={{ studentId }}
                 initialState={{
                     columnOrder,

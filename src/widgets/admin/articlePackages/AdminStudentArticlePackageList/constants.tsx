@@ -2,7 +2,7 @@ import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminStudentArticlePackageFromList } from "@entities/articlePackage";
 
-export const columnOrder = ["id", "name", "categories", "availableTo", "price", "mrt-row-actions"];
+export const columnOrder = ["id", "name", "categories", "availableFrom", "fullPrice", "mrt-row-actions"];
 
 export const columns: MRT_ColumnDef<AdminStudentArticlePackageFromList>["columns"] = [
     {
@@ -24,14 +24,14 @@ export const columns: MRT_ColumnDef<AdminStudentArticlePackageFromList>["columns
     },
     {
         header: "Доступ открыт",
-        accessorKey: "availableTo",
+        accessorKey: "availableFrom",
         size: 240,
-        accessorFn: ({ availableTo }) => (availableTo ? dayjs(availableTo).format("DD.MM.YYYY") : ""),
+        accessorFn: ({ availableFrom }) => (availableFrom ? dayjs(availableFrom).format("DD.MM.YYYY") : ""),
     },
     {
         header: "Стоимость пакета",
-        accessorKey: "price",
+        accessorKey: "fullPrice",
         size: 240,
-        accessorFn: ({ price }) => `${price.toLocaleString("ru")} ₽`,
+        accessorFn: ({ fullPrice }) => `${fullPrice.toLocaleString("ru")} ₽`,
     },
 ];

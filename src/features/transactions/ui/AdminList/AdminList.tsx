@@ -30,7 +30,7 @@ const AdminList = (props: AdminListProps) => {
                 }}
                 onClickCell={handleClickCell}
                 columns={columns}
-                countName="Статей"
+                countName="Транзакций"
                 initialState={{
                     columnOrder,
                 }}

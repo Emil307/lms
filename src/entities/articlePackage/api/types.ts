@@ -5,6 +5,7 @@ import {
     $LastUpdated,
     $getDateObjectType,
     $getFiltersRequestType,
+    $getMultiValueObjectType,
     $getPaginationResponseType,
 } from "@shared/types";
 
@@ -175,6 +176,7 @@ export const $AdminArticlePackagesRequest = z.object({
             isActive: z.literal("1").or(z.literal("0")),
             categoryIds: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
+            userIds: $getMultiValueObjectType(z.string(), z.literal("not")),
             "discount.finishingDate": $getDateObjectType(z.literal("range")),
         })
         .partial(),
@@ -212,12 +214,11 @@ export const $AdminStudentArticlePackage = $AdminArticlePackage
         id: true,
         name: true,
         isActive: true,
-        discount: true,
+        fullPrice: true,
         categories: true,
     })
     .extend({
-        price: z.number(),
-        availableTo: z.coerce.date().nullable(),
+        availableFrom: z.coerce.date().nullable(),
     });
 
 export const $AdminStudentArticlePackageFromList = $AdminStudentArticlePackage;

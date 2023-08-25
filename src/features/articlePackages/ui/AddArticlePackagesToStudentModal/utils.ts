@@ -11,11 +11,10 @@ export const adaptGetAdminArticlePackagesRequest = (
     return {
         ...rest,
         filter: {
-            //TODO: добавить фильтрацию с оператором not как беки поправят и добавят данную функциональность
-            // studentIds: {
-            //     items: [studentId],
-            //     operator: "not",
-            // },
+            userIds: {
+                items: [studentId],
+                operator: "not",
+            },
         },
     };
 };

@@ -20,10 +20,10 @@ const AddStudentArticlePackageButton = ({ studentId }: AddStudentArticlePackageB
     const openAddArticlePackagesToStudentModal = () => {
         openModal({
             modalId: "ATTACH_ARTICLE_PACKAGES_TO_STUDENT",
-            title: "Добавить курс",
+            title: "Добавить пакет",
             children: <AddArticlePackagesToStudentModal studentId={studentId} onClose={handleCloseAddArticlePackagesToStudentModal} />,
             size: 912,
-            className: classes.addCoursesToStudentModalWrapper,
+            className: classes.addArticlePackagesToStudentModalWrapper,
         });
     };
 
