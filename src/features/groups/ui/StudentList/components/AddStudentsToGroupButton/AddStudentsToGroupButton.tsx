@@ -9,9 +9,10 @@ import useStyles from "./AddStudentsToGroupButton.styles";
 export interface AddStudentsToGroupButtonProps {
     groupId: string;
     courseId: number;
+    hidden?: boolean;
 }
 
-const AddStudentsToGroupButton = ({ groupId, courseId }: AddStudentsToGroupButtonProps) => {
+const AddStudentsToGroupButton = ({ groupId, courseId, hidden }: AddStudentsToGroupButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -28,6 +29,10 @@ const AddStudentsToGroupButton = ({ groupId, courseId }: AddStudentsToGroupButto
             className: classes.addStudentsToGroupModalWrapper,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isTablet) {
         return (

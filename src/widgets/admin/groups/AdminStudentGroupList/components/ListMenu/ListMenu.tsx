@@ -17,7 +17,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8} onClick={handleOpenDetailsPage}>
+            <MenuItemDataGrid onClick={handleOpenDetailsPage}>
                 <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>

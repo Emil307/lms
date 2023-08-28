@@ -2,6 +2,8 @@ import { Flex, Box } from "@mantine/core";
 import React from "react";
 import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
 import { useMedia } from "@shared/utils";
@@ -17,6 +19,8 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
     const { classes } = useStyles();
 
     const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
 
     const renderLabelValue = (isTrue: boolean) => {
         if (isTrue) {
@@ -63,7 +67,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
         <Flex direction="column" gap={32} w="100%">
             <Flex className={classes.heading}>
                 <Heading order={2}>Данные урока</Heading>
-                <DeleteLessonButton lessonId={String(data.id)} lessonName={data.name} />
+                <DeleteLessonButton lessonId={String(data.id)} lessonName={data.name} hidden={userRole === Roles.teacher} />
             </Flex>
             <Flex className={classes.wrapper}>
                 <Box className={classes.card}>

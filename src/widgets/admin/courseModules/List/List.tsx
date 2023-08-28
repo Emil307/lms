@@ -7,11 +7,14 @@ import { Folder as FolderIcon } from "react-feather";
 import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { DndCard, Heading, Loader, Paragraph } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { CourseModuleWithoutLessons, useCourseModules } from "@entities/courseModule";
 import { useUpdateCourseModuleOrder } from "@entities/courseModule";
 import { AddModuleButton, ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
+import { useMedia } from "@shared/utils";
 
 interface ModuleListProps {
     courseId: string;
@@ -21,6 +24,10 @@ const List = ({ courseId }: ModuleListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { data: modulesData, hasNextPage, fetchNextPage, isError } = useCourseModules({ ...initialValues, courseId });
+
+    const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
 
     const updateModuleOrder = useUpdateCourseModuleOrder(courseId);
 
@@ -64,6 +71,13 @@ const List = ({ courseId }: ModuleListProps) => {
         }
     };
 
+    const getListMenu = (module: CourseModuleWithoutLessons, moduleNumber: number) => {
+        if (isMobile || userRole !== Roles.teacher) {
+            return <ListMenu data={module} courseId={courseId} moduleNumber={moduleNumber} />;
+        }
+        return null;
+    };
+
     const renderContent = () => {
         if (!modules.length) {
             return (
@@ -81,11 +95,12 @@ const List = ({ courseId }: ModuleListProps) => {
                                 id={module.id}
                                 title={module.name}
                                 text={module.description}
-                                listMenu={<ListMenu data={module} courseId={courseId} moduleNumber={index + 1} />}
+                                listMenu={getListMenu(module, index + 1)}
                                 onOpen={() => handleGoCourseModulePage(module.id)}
                                 isActive={module.isActive}
                                 leftIcon={<FolderIcon />}
                                 elementRef={lastElementRef}
+                                hideDrag={userRole === Roles.teacher}
                                 key={module.id}
                             />
                         );
@@ -99,7 +114,11 @@ const List = ({ courseId }: ModuleListProps) => {
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex className={classes.heading}>
                 <Heading order={2}>Модули курса</Heading>
-                <AddModuleButton courseId={courseId} moduleNumber={modulesData ? modulesData.pagination.total + 1 : 1} />
+                <AddModuleButton
+                    courseId={courseId}
+                    moduleNumber={modulesData ? modulesData.pagination.total + 1 : 1}
+                    hidden={userRole === Roles.teacher}
+                />
             </Flex>
             <Flex className={classes.wrapper}>{renderContent()}</Flex>
         </Flex>

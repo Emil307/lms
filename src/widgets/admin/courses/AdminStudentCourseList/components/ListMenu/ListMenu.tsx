@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminStudentCourseFromList } from "@entities/course";
 import { DeleteStudentCourseModal } from "@features/courses";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminStudentCourseFromList>;
@@ -15,6 +17,8 @@ export interface ListMenuProps {
 
 const ListMenu = ({ row, studentId }: ListMenuProps) => {
     const router = useRouter();
+
+    const userRole = useUserRole();
 
     const handleOpenDetailsPage = () => router.push({ pathname: "/admin/courses/[id]", query: { id: String(row.original.id) } });
 
@@ -37,19 +41,21 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8} onClick={handleOpenDetailsPage}>
+            <MenuItemDataGrid onClick={handleOpenDetailsPage}>
                 <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
             {/* //TODO: Добавить статистику курса */}
-            <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить доступ
-            </MenuItemDataGrid>
+            {userRole !== Roles.teacher && (
+                <MenuItemDataGrid onClick={openDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить доступ
+                </MenuItemDataGrid>
+            )}
         </MenuDataGrid>
     );
 };

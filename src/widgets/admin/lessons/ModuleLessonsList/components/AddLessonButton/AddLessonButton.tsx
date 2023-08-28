@@ -10,9 +10,10 @@ import { useMedia } from "@shared/utils";
 interface AddLessonButtonProps {
     courseId: string;
     module: CourseModule;
+    hidden?: boolean;
 }
 
-const AddLessonButton = ({ courseId, module }: AddLessonButtonProps) => {
+const AddLessonButton = ({ courseId, module, hidden }: AddLessonButtonProps) => {
     const moduleId = String(module.id);
 
     const isMobile = useMedia("sm");
@@ -56,6 +57,10 @@ const AddLessonButton = ({ courseId, module }: AddLessonButtonProps) => {
             ),
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (

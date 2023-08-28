@@ -13,9 +13,10 @@ export const getBreadCrumbsItems = ({ courseId, courseName }: GetBreadCrumbsItem
 interface GetTabListProps {
     isInteractive: boolean;
     isPublished: boolean;
+    isTeacher: boolean;
 }
 
-export const getTabList = ({ isInteractive }: GetTabListProps) => {
+export const getTabList = ({ isInteractive, isTeacher }: GetTabListProps) => {
     const tabs = [
         { id: 1, label: "Настройки", value: "settings" },
         { id: 2, label: "Модули и уроки", value: "modulesAndLessons" },
@@ -27,7 +28,10 @@ export const getTabList = ({ isInteractive }: GetTabListProps) => {
 
     //TODO Вомзожно нужно будет добавить еще условия на отображение табов
     tabs.push({ id: 4, label: "Статьи", value: "articles" });
-    tabs.push({ id: 5, label: "Отзывы", value: "reviews" });
+
+    if (!isTeacher) {
+        tabs.push({ id: 5, label: "Отзывы", value: "reviews" });
+    }
 
     return tabs;
 };

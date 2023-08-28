@@ -10,9 +10,10 @@ import { useMedia } from "@shared/utils";
 
 interface AddMaterialsButtonProps {
     lessonId: string;
+    hidden?: boolean;
 }
 
-const AddMaterialsButton = ({ lessonId }: AddMaterialsButtonProps) => {
+const AddMaterialsButton = ({ lessonId, hidden }: AddMaterialsButtonProps) => {
     const { mutate: attachMaterialsToLesson, isLoading } = useAttachMaterialsToLesson({ lessonId });
 
     const isMobile = useMedia("sm");
@@ -46,6 +47,10 @@ const AddMaterialsButton = ({ lessonId }: AddMaterialsButtonProps) => {
             size: 912,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (

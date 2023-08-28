@@ -1,21 +1,24 @@
 import { Box, Flex, Text } from "@mantine/core";
-import React from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { useDetailsUser } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth";
 import { getFullName } from "@shared/utils";
 import { AdminStudentCourseList } from "@widgets/admin/courses";
 import { AdminStudentGroupList } from "@widgets/admin/groups";
 import { AdminStudentArticlePackageList } from "@widgets/admin/articlePackages";
-import { tabsList } from "./constants";
-import { getBreadCrumbsItems } from "./utils";
+import { getBreadCrumbsItems, getTabList } from "./utils";
 
 const StudentDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: userData, isLoading, isError } = useDetailsUser(id);
+
+    const userRole = useUserRole();
 
     const userName = getFullName({ data: userData?.profile });
 
@@ -23,8 +26,18 @@ const StudentDetailsPage = () => {
         router.push({ pathname: "/admin/students/[id]", query: { id, tab: value } });
     };
 
+    const tabList = getTabList({ isTeacher: userRole === Roles.teacher });
+
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabList[0].value;
+    }, [router.isReady, tab, tabList]);
+
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "courses":
                 return <AdminStudentCourseList studentId={id} />;
             case "groups":
@@ -49,7 +62,7 @@ const StudentDetailsPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ userName, id })} mb={8} />
             <Flex direction="column" gap={32}>
                 <InfoPanel id={id} />
-                <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
+                <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} />
                 {renderContent()}
             </Flex>
         </Box>

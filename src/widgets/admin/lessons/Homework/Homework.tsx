@@ -9,6 +9,8 @@ import {
 import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { useAdminLessonHomework } from "@entities/lesson";
 import useStyles from "./Homework.styles";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 
 interface HomeworkProps {
     lessonId: string;
@@ -19,6 +21,8 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
     const { data: homework, isFetching, isError } = useAdminLessonHomework(lessonId);
 
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     if (isFetching) {
         return <Loader />;
@@ -38,9 +42,12 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
                             Без проверки домашнего задания доступ к следующему уроку будет закрыт
                         </Paragraph>
                     </Flex>
-                    <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
-                        Добавить задание
-                    </Button>
+
+                    {userRole !== Roles.teacher && (
+                        <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
+                            Добавить задание
+                        </Button>
+                    )}
                 </Flex>
             );
         }
@@ -60,9 +67,12 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
                             </Paragraph>
                         </Flex>
                     </Flex>
-                    <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
-                        Редактировать
-                    </Button>
+
+                    {userRole !== Roles.teacher && (
+                        <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
+                            Редактировать
+                        </Button>
+                    )}
                 </Flex>
             );
         }

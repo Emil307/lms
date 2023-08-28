@@ -9,6 +9,8 @@ import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { UpdateCoursePublicationModal } from "@features/courses";
 import { getFullName } from "@shared/utils";
 import { AdminCourse } from "@entities/course";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { InfoCard } from "@components/InfoCard";
 import { Fieldset } from "@components/Fieldset";
 import FileMarkIcon from "public/icons/file-mark.svg";
@@ -26,6 +28,8 @@ interface CourseSettingsProps {
 const CourseSettings = ({ data }: CourseSettingsProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+
+    const userRole = useUserRole();
 
     const courseId = String(data.id);
 
@@ -78,12 +82,47 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         );
     };
 
+    const renderInfoCardActions = () => {
+        if (userRole === Roles.teacher) {
+            if (data.isFulfillment) {
+                return (
+                    <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
+                        Статистика
+                    </Button>
+                );
+            }
+            return null;
+        }
+        if (data.isFulfillment) {
+            return (
+                <>
+                    <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
+                        Редактировать данные
+                    </Button>
+                    <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
+                        Статистика
+                    </Button>
+                </>
+            );
+        }
+        return (
+            <>
+                <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
+                    Редактировать данные
+                </Button>
+                <Button variant="border" leftIcon={<FileMarkIcon />} onClick={handleOpenCoursePublicationModal}>
+                    Опубликовать курс
+                </Button>
+            </>
+        );
+    };
+
     return (
         <Box className={classes.root}>
             <Flex direction="column" gap={32} w="100%">
                 <Flex className={classes.heading}>
                     <Heading order={2}>Настройки курса</Heading>
-                    <DeleteCourseButton courseId={courseId} courseName={data.name} />
+                    <DeleteCourseButton courseId={courseId} courseName={data.name} hidden={userRole === Roles.teacher} />
                 </Flex>
 
                 <Fieldset label="Общая информация" icon={<FileLeftIcon />}>
@@ -148,23 +187,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 fields={getInfoCardFields(data)}
                 hideFieldIfEmpty
                 values={data}
-                actionSlot={
-                    <>
-                        <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
-                            Редактировать данные
-                        </Button>
-                        {!data.isFulfillment && (
-                            <Button variant="border" leftIcon={<FileMarkIcon />} onClick={handleOpenCoursePublicationModal}>
-                                Опубликовать курс
-                            </Button>
-                        )}
-                        {data.isFulfillment && (
-                            <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
-                                Статистика
-                            </Button>
-                        )}
-                    </>
-                }
+                actionSlot={renderInfoCardActions()}
             />
         </Box>
     );

@@ -26,8 +26,18 @@ export default function SidebarMenu() {
                 icon={<User />}
                 href="/admin/users"
             />
-            <SidebarItem label="Ученики" isActive={router.pathname.includes("/admin/students")} icon={<Users />} href="/admin/students" />
-            <SidebarItem label="Группы" isActive={router.pathname.includes("/admin/groups")} icon={<Folder />} href="/admin/groups" />
+            <SidebarItem
+                label="Ученики"
+                isActive={router.pathname.includes("/admin/students")}
+                icon={<Users />}
+                href="/admin/students"
+            />
+            <SidebarItem
+                label="Группы"
+                isActive={router.pathname.includes("/admin/groups")}
+                icon={<Folder />}
+                href="/admin/groups"
+            />
             <SidebarItem
                 roles={[Roles.administrator, Roles.manager]}
                 label="База знаний"
@@ -35,9 +45,13 @@ export default function SidebarMenu() {
                 icon={<Briefcase />}
                 href="/admin/articles"
             />
-            <SidebarItem label="Курсы" isActive={router.pathname.includes("/admin/courses")} icon={<Layers />} href="/admin/courses" />
             <SidebarItem
-                roles={[Roles.administrator, Roles.manager]}
+                label="Курсы"
+                isActive={router.pathname.includes("/admin/courses")}
+                icon={<Layers />}
+                href="/admin/courses"
+            />
+            <SidebarItem
                 label="Уроки"
                 isActive={router.pathname.includes("/admin/lessons")}
                 icon={<BookOpen />}

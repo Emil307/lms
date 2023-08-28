@@ -1,10 +1,12 @@
 import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
+import { useUserRole } from "@entities/auth";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
 import useStyles from "./InfoPanel.styles";
+import { Roles } from "@app/routes";
 
 interface InfoPanelProps {
     id: string;
@@ -16,6 +18,8 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { mutate: updateActivityStatus } = useUpdateCourseActivity({ id, name: courseData?.name });
     const { mutate: updateType } = useUpdateCourseType({ id, name: courseData?.name });
     const { mutate: updatePopularity } = useUpdateCoursePopularity({ id, name: courseData?.name });
+
+    const userRole = useUserRole();
 
     if (isLoading) {
         return <Loader />;
@@ -43,37 +47,48 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{courseData.id}</Paragraph>
                 </Flex>
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Статус:
-                    </Paragraph>
-                    <Switch
-                        checked={courseData.isActive}
-                        onChange={handleChangeActiveStatus}
-                        variant="secondary"
-                        label={labelActivitySwitch}
-                        labelPosition="left"
-                    />
-                </Flex>
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Тип курса:
-                    </Paragraph>
-                    <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
-                </Flex>
+
+                {userRole !== Roles.teacher && (
+                    <Flex className={classes.item}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
+                        <Switch
+                            checked={courseData.isActive}
+                            onChange={handleChangeActiveStatus}
+                            variant="secondary"
+                            label={labelActivitySwitch}
+                            labelPosition="left"
+                        />
+                    </Flex>
+                )}
+
+                {userRole !== Roles.teacher && (
+                    <Flex className={classes.item}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Тип курса:
+                        </Paragraph>
+                        <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
+                    </Flex>
+                )}
+
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Создание:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
                 </Flex>
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Отображать в популярных:
-                    </Paragraph>
-                    <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
-                </Flex>
-                <LastUpdatedInfo data={courseData.lastUpdated} />
+
+                {userRole !== Roles.teacher && (
+                    <Flex className={classes.item}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Отображать в популярных:
+                        </Paragraph>
+                        <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
+                    </Flex>
+                )}
+
+                <LastUpdatedInfo data={courseData.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </>
     );

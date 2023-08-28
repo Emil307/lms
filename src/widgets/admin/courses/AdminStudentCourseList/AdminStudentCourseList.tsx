@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminStudentCourseFromList, courseApi } from "@entities/course";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { columns, columnOrder } from "./constants";
 import { AddStudentCourseButton, ListMenu } from "./components";
 import useStyles from "./AdminStudentCourseList.styles";
@@ -17,6 +19,8 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
     const router = useRouter();
     const { classes } = useStyles();
 
+    const userRole = useUserRole();
+
     const handleClickCell = (cell: MRT_Cell<AdminStudentCourseFromList>) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });
     };
@@ -25,7 +29,7 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Список курсов</Heading>
-                <AddStudentCourseButton studentId={studentId} />
+                <AddStudentCourseButton studentId={studentId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminStudentCourseFromList, unknown, StudentCourseListExtraParams>
                 queryKey={QueryKeys.GET_ADMIN_STUDENT_COURSES}

@@ -61,7 +61,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         {data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}
                     </Paragraph>
                 </Flex>
-                <LastUpdatedInfo data={data?.lastUpdated} />
+                <LastUpdatedInfo data={data?.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </Box>
     );

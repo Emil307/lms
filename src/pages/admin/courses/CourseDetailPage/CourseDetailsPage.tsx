@@ -3,6 +3,8 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { InfoPanel, CourseSettings, CourseReviews, CourseArticles } from "@widgets/admin/courses";
 import { useAdminCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
@@ -14,11 +16,17 @@ const CourseDetailsPage = () => {
     const { id, tab } = router.query as TRouterQueries;
     const { data: courseData, isLoading, isError } = useAdminCourse(id);
 
+    const userRole = useUserRole();
+
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id, tab: value } });
     };
 
-    const tabList = getTabList({ isInteractive: courseData?.type === "interactive", isPublished: !!courseData?.isFulfillment });
+    const tabList = getTabList({
+        isInteractive: courseData?.type === "interactive",
+        isPublished: !!courseData?.isFulfillment,
+        isTeacher: userRole === Roles.teacher,
+    });
 
     const currentTab = useMemo(() => {
         if (!router.isReady) {
@@ -38,8 +46,6 @@ const CourseDetailsPage = () => {
 
     const renderComponent = () => {
         switch (currentTab) {
-            case "settings":
-                return <CourseSettings data={courseData} />;
             case "modulesAndLessons":
                 return <ModuleList courseId={id} />;
             case "groups":

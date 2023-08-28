@@ -5,7 +5,9 @@ import { useRouter } from "next/router";
 import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
 import { QueryKeys } from "@shared/constant";
+import { Roles } from "@app/routes";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
 import { useMedia } from "@shared/utils";
 import { radioGroupValues, filterInitialValues, columns } from "./constants";
@@ -16,6 +18,8 @@ import { adaptGetAdminCoursesRequest } from "./utils";
 const List = () => {
     const router = useRouter();
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const isMobile = useMedia("sm");
 
@@ -120,13 +124,17 @@ const List = () => {
                                     label="Теги"
                                     disabled={isLoadingFilters}
                                 />
-                                <FMultiSelect
-                                    className={classes.filterSelect}
-                                    name="teachers"
-                                    data={optionsForSelects.teachers}
-                                    label="Преподаватели"
-                                    disabled={isLoadingFilters}
-                                />
+
+                                {userRole !== Roles.teacher && (
+                                    <FMultiSelect
+                                        className={classes.filterSelect}
+                                        name="teachers"
+                                        data={optionsForSelects.teachers}
+                                        label="Преподаватели"
+                                        disabled={isLoadingFilters}
+                                    />
+                                )}
+
                                 <FDateRangePicker
                                     className={classes.filterDateRangePicker}
                                     name="createdAtFrom"

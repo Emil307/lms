@@ -1,5 +1,5 @@
 import { Box, Text } from "@mantine/core";
-import React from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { useAdminGroup } from "@entities/group";
@@ -14,6 +14,18 @@ const GroupDetailsPage = () => {
     const { id, tab } = router.query as TRouterQueries;
     const { data: groupData, isLoading, isError } = useAdminGroup({ id });
 
+    const handleChangeTab = (value: string) => {
+        router.push({ pathname: "/admin/groups/[id]", query: { id, tab: value } });
+    };
+
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabsList[0].value;
+    }, [router.isReady, tab]);
+
     if (!router.isReady || isLoading) {
         return <Loader />;
     }
@@ -22,12 +34,8 @@ const GroupDetailsPage = () => {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
-    const handleChangeTab = (value: string) => {
-        router.push({ pathname: "/admin/groups/[id]", query: { id, tab: value } });
-    };
-
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "composition":
                 return <StudentList groupId={id} courseId={groupData.course.id} />;
             case "schedule":
@@ -41,7 +49,7 @@ const GroupDetailsPage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name, id })} mb={8} />
             <InfoPanel id={id} mb={32} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
+            <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}
         </Box>
     );

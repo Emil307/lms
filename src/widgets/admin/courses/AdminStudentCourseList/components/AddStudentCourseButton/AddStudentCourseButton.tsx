@@ -8,9 +8,10 @@ import useStyles from "./AddStudentCourseButton.styles";
 
 export interface AddStudentCourseButtonProps {
     studentId: string;
+    hidden?: boolean;
 }
 
-const AddStudentCourseButton = ({ studentId }: AddStudentCourseButtonProps) => {
+const AddStudentCourseButton = ({ studentId, hidden }: AddStudentCourseButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -26,6 +27,10 @@ const AddStudentCourseButton = ({ studentId }: AddStudentCourseButtonProps) => {
             className: classes.addCoursesToStudentModalWrapper,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isTablet) {
         return (

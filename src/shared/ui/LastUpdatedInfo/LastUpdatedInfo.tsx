@@ -9,11 +9,16 @@ import { Paragraph } from "../Typography";
 export interface LastUpdatedInfoProps {
     data?: LastUpdated | null;
     scrollable?: boolean;
+    hidden?: boolean;
 }
 
-const LastUpdatedInfo = ({ data, scrollable = false }: LastUpdatedInfoProps) => {
+const LastUpdatedInfo = ({ data, scrollable = false, hidden }: LastUpdatedInfoProps) => {
     const { classes } = useStyles({ scrollable });
     const fio = getFullName({ data: data?.user?.profile, hidePatronymic: true });
+
+    if (hidden) {
+        return null;
+    }
 
     return (
         <Flex className={classes.root}>

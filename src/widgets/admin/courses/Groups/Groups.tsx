@@ -1,15 +1,16 @@
 import { Box, Flex, Title } from "@mantine/core";
-import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { ManagedDataGrid } from "@shared/ui";
-import { Button } from "@shared/ui";
 import { AdminGroupFromList, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { columns, columnOrder } from "./constants";
-import { ListMenu } from "./components";
+import { AddGroupButton, ListMenu } from "./components";
 import { adaptGetAdminGroupsRequest } from "./utils";
 import { TCourseGroupsExtraParams } from "./types";
+import useStyles from "./Groups.styles";
 
 interface GroupsProps {
     courseId: string;
@@ -17,24 +18,21 @@ interface GroupsProps {
 
 const Groups = ({ courseId }: GroupsProps) => {
     const router = useRouter();
+    const { classes } = useStyles({ statusType: undefined });
+
+    const userRole = useUserRole();
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id: String(cell.row.original.id) } });
     };
 
-    const handleOpenCreateForm = () => {
-        router.push({ pathname: "/admin/groups/create", query: { courseId } });
-    };
-
     return (
         <Box>
-            <Flex align="center" gap={48}>
+            <Flex className={classes.heading}>
                 <Title order={2} color="dark">
                     Группы
                 </Title>
-                <Button onClick={handleOpenCreateForm} variant="text" leftIcon={<PlusCircleIcon />}>
-                    Добавить группу
-                </Button>
+                <AddGroupButton courseId={courseId} hidden={userRole === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<AdminGroupFromList, unknown, TCourseGroupsExtraParams>

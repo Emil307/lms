@@ -16,19 +16,16 @@ export const columns: MRT_ColumnDef<AdminGroupStudentFromList>["columns"] = [
     {
         header: "Пройдено уроков",
         accessorKey: "lessons",
-        size: 339,
         accessorFn: ({ lessons }) => `${lessons.completedCount}/${lessons.totalCount}`,
     },
     {
         header: "Выполнено тестов",
         accessorKey: "tests",
-        size: 339,
         accessorFn: ({ tests }) => `${tests.completedCount}/${tests.totalCount}`,
     },
     {
         header: "Выполнено заданий",
         accessorKey: "homeworks",
-        size: 339,
         accessorFn: ({ homeworks }) => `${homeworks.completedCount}/${homeworks.totalCount}`,
     },
     {

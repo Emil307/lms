@@ -3,6 +3,8 @@ import { MRT_Row } from "mantine-react-table";
 import React from "react";
 import { Download, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { UploadedFileFromList } from "@entities/storage";
@@ -15,6 +17,8 @@ interface LessonMaterialsListMenuProps {
 }
 
 const ListMenu = ({ row, lessonId, lessonName }: LessonMaterialsListMenuProps) => {
+    const userRole = useUserRole();
+
     const handleCloseDeleteModal = () => closeModal("DETACH_MATERIAL_FROM_LESSON");
 
     const handleOpenDeleteModal = () => {
@@ -43,12 +47,15 @@ const ListMenu = ({ row, lessonId, lessonName }: LessonMaterialsListMenuProps) =
                 </ThemeIcon>
                 Скачать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={handleOpenDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
+
+            {userRole !== Roles.teacher && (
+                <MenuItemDataGrid onClick={handleOpenDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            )}
         </MenuDataGrid>
     );
 };

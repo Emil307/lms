@@ -3,6 +3,8 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth";
 import { CourseList } from "@widgets/admin/courses";
 import { useMedia } from "@shared/utils";
 import useStyles from "./CoursesPage.styles";
@@ -10,6 +12,8 @@ import useStyles from "./CoursesPage.styles";
 const CoursesPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const isTablet = useMedia("md");
 
@@ -19,9 +23,16 @@ const CoursesPage = () => {
         <Box>
             <Flex className={classes.headingContainer}>
                 <Heading>Курсы</Heading>
-                <Button variant="secondary" size={isTablet ? "medium" : "large"} onClick={openCreateCourseForm} leftIcon={<PlusCircle />}>
-                    Создать курс
-                </Button>
+
+                {userRole !== Roles.teacher && (
+                    <Button
+                        variant="secondary"
+                        size={isTablet ? "medium" : "large"}
+                        onClick={openCreateCourseForm}
+                        leftIcon={<PlusCircle />}>
+                        Создать курс
+                    </Button>
+                )}
             </Flex>
             <CourseList />
         </Box>

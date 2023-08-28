@@ -8,9 +8,10 @@ import useStyles from "./AddCourseArticlesButton.styles";
 
 export interface AddCourseArticlesButtonProps {
     courseId: string;
+    hidden?: boolean;
 }
 
-const AddCourseArticlesButton = ({ courseId }: AddCourseArticlesButtonProps) => {
+const AddCourseArticlesButton = ({ courseId, hidden }: AddCourseArticlesButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -26,6 +27,10 @@ const AddCourseArticlesButton = ({ courseId }: AddCourseArticlesButtonProps) => 
             className: classes.addArticlesToArticlePackageModalWrapper,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isTablet) {
         return (

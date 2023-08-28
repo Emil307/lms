@@ -1,6 +1,8 @@
 import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminLesson, useUpdateLessonActivity } from "@entities/lesson";
 import useStyles from "./InfoPanel.styles";
@@ -13,6 +15,8 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const { classes } = useStyles();
     const { data: lessonData, isLoading, isError } = useAdminLesson(id);
     const { mutate: updateActivityStatus } = useUpdateLessonActivity({ id, lessonName: lessonData?.name });
+
+    const userRole = useUserRole();
 
     if (isLoading) {
         return <Loader />;
@@ -38,18 +42,22 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         {lessonData.id}
                     </Paragraph>
                 </Flex>
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Статус:
-                    </Paragraph>
-                    <Switch
-                        checked={lessonData.isActive}
-                        onChange={handleChangeActiveStatus}
-                        variant="secondary"
-                        label={labelActivitySwitch}
-                        labelPosition="left"
-                    />
-                </Flex>
+
+                {userRole !== Roles.teacher && (
+                    <Flex className={classes.item}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
+                        <Switch
+                            checked={lessonData.isActive}
+                            onChange={handleChangeActiveStatus}
+                            variant="secondary"
+                            label={labelActivitySwitch}
+                            labelPosition="left"
+                        />
+                    </Flex>
+                )}
+
                 <Flex className={classes.item}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Создание:
@@ -58,7 +66,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                         {dayjs(lessonData.createdAt).format("DD.MM.YYYY HH:mm")}
                     </Paragraph>
                 </Flex>
-                <LastUpdatedInfo data={lessonData.lastUpdated} />
+                <LastUpdatedInfo data={lessonData.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </>
     );

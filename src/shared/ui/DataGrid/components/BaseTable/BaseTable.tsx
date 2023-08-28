@@ -22,6 +22,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     sorting?: SortingState;
     rowSelection?: RowSelectionState;
     onClickCell?: (cell: MRT_Cell<T>) => void;
+    disableClickCell?: boolean;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderBadge?: (row: MRT_Cell<T>) => TCellBadge[];
 } & TExtendedProps<T>;
@@ -29,6 +30,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
 function BaseTable<T extends Record<string, any>>({
     data = [],
     onClickCell,
+    disableClickCell,
     stylesForCell,
     pagination,
     disablePagination = false,
@@ -48,6 +50,9 @@ function BaseTable<T extends Record<string, any>>({
     const totalPage = paginationData?.totalPages || 0;
 
     const handleClickCell = (cell: MRT_Cell<T>) => {
+        if (disableClickCell) {
+            return;
+        }
         if (cell.column.id === "mrt-row-actions") {
             return;
         }

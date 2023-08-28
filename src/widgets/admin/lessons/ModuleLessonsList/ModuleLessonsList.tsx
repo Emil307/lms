@@ -6,11 +6,14 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { useRouter } from "next/router";
 import { DndCard, Heading, Paragraph } from "@shared/ui";
 import { useUpdateLessonOrder } from "@entities/lesson";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
 import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
 import { AddLessonButton, ListMenu } from "./components";
 import useStyles from "./ModuleLessonsList.styles";
+import { useMedia } from "@shared/utils";
 
 interface ModuleLessonsListProps {
     courseId: string;
@@ -20,6 +23,9 @@ interface ModuleLessonsListProps {
 const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
+    const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
 
     const moduleId = String(module.id);
 
@@ -67,6 +73,13 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
         );
     };
 
+    const getListMenu = (lesson: CourseModuleLesson, lessonNumber: number) => {
+        if (isMobile || userRole !== Roles.teacher) {
+            return <ListMenu data={lesson} courseId={courseId} moduleId={moduleId} moduleName={module.name} lessonNumber={lessonNumber} />;
+        }
+        return null;
+    };
+
     const renderContent = () => {
         if (!lessons.length) {
             return (
@@ -84,17 +97,10 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
                                 id={lesson.id}
                                 title={lesson.name}
                                 text={lesson.description}
-                                listMenu={
-                                    <ListMenu
-                                        data={lesson}
-                                        courseId={courseId}
-                                        moduleId={moduleId}
-                                        moduleName={module.name}
-                                        lessonNumber={index + 1}
-                                    />
-                                }
+                                listMenu={getListMenu(lesson, index + 1)}
                                 onOpen={() => handleGoAdminLessonPage(lesson.id)}
                                 isActive={lesson.isActive}
+                                hideDrag={userRole === Roles.teacher}
                                 key={lesson.id}>
                                 <Flex className={classes.homeworkAndTest}>
                                     <Flex gap={6}>
@@ -118,7 +124,7 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex className={classes.heading}>
                 <Heading order={2}>Уроки модуля</Heading>
-                <AddLessonButton courseId={courseId} module={module} />
+                <AddLessonButton courseId={courseId} module={module} hidden={userRole === Roles.teacher} />
             </Flex>
             <Flex className={classes.wrapper}>{renderContent()}</Flex>
         </Flex>

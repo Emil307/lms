@@ -4,6 +4,8 @@ import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { AdminArticleFromList, useUpdateArticleActivity } from "@entities/article";
 import { DeleteCourseArticleModal } from "@features/courses";
@@ -15,6 +17,8 @@ interface ListMenuProps {
 
 const ListMenu = ({ row, courseId }: ListMenuProps) => {
     const router = useRouter();
+
+    const userRole = useUserRole();
 
     const { mutate: updateActivityStatus } = useUpdateArticleActivity({ id: String(row.original.id), name: row.original.name });
 
@@ -48,6 +52,10 @@ const ListMenu = ({ row, courseId }: ListMenuProps) => {
     const handleOpenUpdateArticlePage = () => {
         router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(row.original.id) } });
     };
+
+    if (userRole === Roles.teacher) {
+        return null;
+    }
 
     return (
         <MenuDataGrid>

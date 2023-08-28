@@ -6,6 +6,8 @@ import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { CreateGroupScheduleButton, ListMenu } from "./components";
 import useStyles from "./GroupScheduleList.styles";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface GroupScheduleListProps extends BoxProps {
     groupId: string;
@@ -13,11 +15,14 @@ export interface GroupScheduleListProps extends BoxProps {
 
 const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
+
     return (
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Расписание группы</Heading>
-                <CreateGroupScheduleButton groupId={groupId} />
+                <CreateGroupScheduleButton groupId={groupId} hidden={userRole === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupStudentsExtraFilters>
