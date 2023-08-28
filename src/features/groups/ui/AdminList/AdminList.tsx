@@ -6,11 +6,13 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminGroupFromList, AdminGroupsFiltersForm, groupApi, useAdminGroupFilters } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
+import { Roles } from "@app/routes";
 import { useMedia } from "@shared/utils";
+import { useUserRole } from "@entities/auth/hooks";
 import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
 import { ListMenu } from "./components";
-import { adaptGetAdminGroupsRequest } from "./utils";
 import useStyles from "./AdminList.styles";
+import { adaptGetAdminGroupsRequest } from "./utils";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
@@ -18,6 +20,8 @@ const AdminList = (props: AdminListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
 
     const groupFilters = useAdminGroupFilters({ type: "select" });
 
@@ -75,19 +79,23 @@ const AdminList = (props: AdminListProps) => {
                                     className={classes.filterSelect}
                                     disabled={groupFilters.isLoading || !groupFilters.data?.courses.length}
                                 />
-                                <FSelect
-                                    name="teacherId"
-                                    size="sm"
-                                    data={prepareOptionsForSelect({
-                                        data: groupFilters.data?.teachers,
-                                        value: "id",
-                                        label: ({ profile }) => [profile.lastName, profile.firstName].join(" "),
-                                    })}
-                                    clearable
-                                    label="Преподаватель"
-                                    className={classes.filterSelect}
-                                    disabled={groupFilters.isLoading || !groupFilters.data?.teachers.length}
-                                />
+
+                                {userRole !== Roles.teacher && (
+                                    <FSelect
+                                        name="teacherId"
+                                        size="sm"
+                                        data={prepareOptionsForSelect({
+                                            data: groupFilters.data?.teachers,
+                                            value: "id",
+                                            label: ({ profile }) => [profile.lastName, profile.firstName].join(" "),
+                                        })}
+                                        clearable
+                                        label="Преподаватель"
+                                        className={classes.filterSelect}
+                                        disabled={groupFilters.isLoading || !groupFilters.data?.teachers.length}
+                                    />
+                                )}
+
                                 <FDateRangePicker
                                     name="createdAtFrom"
                                     nameTo="createdAtTo"

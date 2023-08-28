@@ -2,9 +2,12 @@ import { Box, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, storageApi } from "@entities/storage";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { columnOrder, columns } from "./constants";
 import { AddMaterialsButton, ListMenu } from "./components";
 import { AdminLessonMaterialsExtraParams } from "./types";
+import useStyles from "./Materials.styles";
 import { adaptGetMaterialFilesRequest } from "./utils";
 
 interface MaterialsProps {
@@ -13,11 +16,14 @@ interface MaterialsProps {
 }
 
 const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
+    const { classes } = useStyles();
+    const userRole = useUserRole();
+
     return (
         <Box>
-            <Flex align="center" gap={48}>
+            <Flex className={classes.heading}>
                 <Heading order={2}>Материалы урока</Heading>
-                <AddMaterialsButton lessonId={lessonId} />
+                <AddMaterialsButton lessonId={lessonId} hidden={userRole === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminLessonMaterialsExtraParams>

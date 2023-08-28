@@ -2,6 +2,8 @@ import { Badge, Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth/hooks";
 import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
 import useStyles from "./InfoPanel.styles";
 
@@ -12,6 +14,8 @@ export interface InfoPanelProps extends Omit<BoxProps, "children"> {
 const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { data: groupData } = useAdminGroup({ id });
     const { classes } = useStyles({ statusType: groupData?.status.type });
+
+    const userRole = useUserRole();
 
     const { mutate: updateActivityStatus } = useUpdateGroupActivity({ id, name: groupData?.name });
 
@@ -33,18 +37,20 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{groupData?.id}</Paragraph>
                 </Flex>
-                <Flex align="center" gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Статус:
-                    </Paragraph>
-                    <Switch
-                        checked={groupData?.isActive}
-                        onChange={handleChangeActiveStatus}
-                        variant="secondary"
-                        label={labelActivitySwitch}
-                        labelPosition="left"
-                    />
-                </Flex>
+                {userRole !== Roles.teacher && (
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
+                        <Switch
+                            checked={groupData?.isActive}
+                            onChange={handleChangeActiveStatus}
+                            variant="secondary"
+                            label={labelActivitySwitch}
+                            labelPosition="left"
+                        />
+                    </Flex>
+                )}
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Учебный курс:
@@ -59,7 +65,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         {groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
                     </Paragraph>
                 </Flex>
-                <LastUpdatedInfo data={groupData?.lastUpdated} />
+                <LastUpdatedInfo data={groupData?.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </Box>
     );

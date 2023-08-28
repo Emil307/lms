@@ -5,8 +5,10 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
+import { Roles } from "@app/routes";
 import { AdminCourseFromList, useUpdateCourseActivity } from "@entities/course";
 import { DeleteCourseModal } from "@features/courses";
+import { useUserRole } from "@entities/auth";
 
 interface ListMenuProps {
     row: MRT_Row<AdminCourseFromList>;
@@ -16,6 +18,8 @@ const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
     const courseId = String(row.original.id);
     const { mutate: updateActivityStatus } = useUpdateCourseActivity({ id: String(row.original.id), name: row.original.name });
+
+    const userRole = useUserRole();
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
@@ -49,39 +53,54 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
     };
 
-    return (
-        <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false}>
-                <Switch
-                    variant="secondary"
-                    checked={row.original.isActive}
-                    label={labelActivitySwitch}
-                    labelPosition="left"
-                    onChange={handleChangeActiveStatus}
-                />
-            </MenuItemDataGrid>
+    const renderItems = () => {
+        if (userRole === Roles.teacher) {
+            return (
+                <MenuItemDataGrid onClick={handleGoToCoursePage}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+            );
+        }
+        return (
+            <>
+                <MenuItemDataGrid closeMenuOnClick={false}>
+                    <Switch
+                        variant="secondary"
+                        checked={row.original.isActive}
+                        label={labelActivitySwitch}
+                        labelPosition="left"
+                        onChange={handleChangeActiveStatus}
+                    />
+                </MenuItemDataGrid>
+                <Divider size={1} color="light" mx={12} />
 
-            <Divider size={1} color="light" mx={12} />
-            <MenuItemDataGrid mt={8} onClick={handleGoToCoursePage}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Eye />
-                </ThemeIcon>
-                Открыть
-            </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={handleGoToUpdateCoursePage}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Edit3 />
-                </ThemeIcon>
-                Редактировать
-            </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={handleOpenDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
-        </MenuDataGrid>
-    );
+                <MenuItemDataGrid mt={8} onClick={handleGoToCoursePage}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+
+                <MenuItemDataGrid onClick={handleGoToUpdateCoursePage}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Edit3 />
+                    </ThemeIcon>
+                    Редактировать
+                </MenuItemDataGrid>
+                <MenuItemDataGrid onClick={handleOpenDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            </>
+        );
+    };
+
+    return <MenuDataGrid>{renderItems()}</MenuDataGrid>;
 };
 
 export default ListMenu;

@@ -4,9 +4,12 @@ import React from "react";
 import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { AdminArticleFromList, AdminCourseArticleExtraFilters, articleApi } from "@entities/article";
 import { columns, columnOrder } from "./constants";
 import { AddCourseArticlesButton, ListMenu } from "./components";
+import useStyles from "./Articles.styles";
 import { adaptGetAdminCourseArticlesRequest } from "./utils";
 
 export interface ArticlesProps extends Omit<BoxProps, "children"> {
@@ -15,6 +18,9 @@ export interface ArticlesProps extends Omit<BoxProps, "children"> {
 
 const Articles = ({ courseId, ...props }: ArticlesProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const handleClickCell = (cell: MRT_Cell<AdminArticleFromList>) => {
         router.push({ pathname: "/admin/articles/[id]", query: { id: cell.row.original.id.toString() } });
@@ -22,11 +28,11 @@ const Articles = ({ courseId, ...props }: ArticlesProps) => {
 
     return (
         <Box {...props}>
-            <Flex align="center" gap={48}>
+            <Flex className={classes.heading}>
                 <Title order={2} color="dark">
                     Статьи
                 </Title>
-                <AddCourseArticlesButton courseId={courseId} />
+                <AddCourseArticlesButton courseId={courseId} hidden={userRole === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<AdminArticleFromList, unknown, AdminCourseArticleExtraFilters>
@@ -36,6 +42,7 @@ const Articles = ({ courseId, ...props }: ArticlesProps) => {
                 extraFilterParams={{ courseId }}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 onClickCell={handleClickCell}
+                disableClickCell={userRole === Roles.teacher}
                 columns={columns}
                 countName="Статей"
                 initialState={{

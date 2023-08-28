@@ -11,6 +11,8 @@ import { InfoCard } from "@components/InfoCard";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
 import { DeleteGroupButton } from "./components";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface GroupSettingsProps extends Omit<BoxProps, "children"> {
     id: string;
@@ -20,6 +22,8 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
     const { data: groupData } = useAdminGroup({ id });
+
+    const userRole = useUserRole();
 
     const handleOpenUpdateGroupForm = () => router.push({ pathname: "/admin/groups/[id]/edit", query: { id: String(groupData?.id) } });
 
@@ -33,12 +37,24 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
             "D MMMM YYYY"
         )}`;
     };
+
+    const renderInfoCardActions = () => {
+        if (userRole === Roles.teacher) {
+            return null;
+        }
+        return (
+            <Button variant="secondary" onClick={handleOpenUpdateGroupForm}>
+                Редактировать данные
+            </Button>
+        );
+    };
+
     return (
         <Flex className={classes.info} {...props}>
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные группы</Heading>
-                    <DeleteGroupButton data={groupData} />
+                    <DeleteGroupButton data={groupData} hidden={userRole === Roles.teacher} />
                 </Flex>
                 <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }}>
                     <DisplayField label="Учебный курс" value={groupData?.course.name} />
@@ -57,11 +73,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
                     variant="whiteBg"
                     fields={fields}
                     values={groupData}
-                    actionSlot={
-                        <Button variant="secondary" onClick={handleOpenUpdateGroupForm}>
-                            Редактировать данные
-                        </Button>
-                    }
+                    actionSlot={renderInfoCardActions()}
                 />
             </Box>
         </Flex>

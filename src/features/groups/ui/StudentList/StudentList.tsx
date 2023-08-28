@@ -7,6 +7,8 @@ import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { AddStudentsToGroupButton, ListMenu } from "./components";
 import useStyles from "./StudentList.styles";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 export interface StudentListProps extends BoxProps {
     groupId: string;
@@ -17,6 +19,8 @@ const StudentList = ({ groupId, courseId, ...props }: StudentListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
+    const userRole = useUserRole();
+
     const handleClickCell = (cell: MRT_Cell<AdminGroupStudentFromList>) => {
         router.push({ pathname: "/admin/students/[id]", query: { id: String(cell.row.original.id) } });
     };
@@ -25,7 +29,7 @@ const StudentList = ({ groupId, courseId, ...props }: StudentListProps) => {
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Состав группы</Heading>
-                <AddStudentsToGroupButton groupId={groupId} courseId={courseId} />
+                <AddStudentsToGroupButton groupId={groupId} courseId={courseId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminGroupStudentFromList, unknown, AdminGroupStudentsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_GROUP_STUDENTS}

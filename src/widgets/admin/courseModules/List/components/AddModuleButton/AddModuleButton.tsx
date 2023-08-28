@@ -9,9 +9,10 @@ import { useMedia } from "@shared/utils";
 interface AddModuleButtonProps {
     courseId: string;
     moduleNumber: number;
+    hidden?: boolean;
 }
 
-const AddModuleButton = ({ courseId, moduleNumber }: AddModuleButtonProps) => {
+const AddModuleButton = ({ courseId, moduleNumber, hidden }: AddModuleButtonProps) => {
     const isMobile = useMedia("sm");
 
     const handleCloseCreateModuleModal = () => closeModal("CREATE_COURSE_MODULE");
@@ -23,6 +24,10 @@ const AddModuleButton = ({ courseId, moduleNumber }: AddModuleButtonProps) => {
             children: <CreateCourseModuleModal courseId={courseId} moduleNumber={moduleNumber} onClose={handleCloseCreateModuleModal} />,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (

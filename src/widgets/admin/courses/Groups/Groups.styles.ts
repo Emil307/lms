@@ -6,6 +6,14 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { statusType }: CreateStylesProps) => ({
+    heading: {
+        gap: 48,
+        alignItems: "center",
+
+        [theme.fn.smallerThan("xs")]: {
+            justifyContent: "space-between",
+        },
+    },
     educationStartDate: {
         fontWeight: 500,
         fontSize: 14,

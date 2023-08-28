@@ -88,7 +88,6 @@ export default function Sidebar() {
                         href="/admin/courses"
                     />
                     <SidebarItem
-                        roles={[Roles.administrator, Roles.manager]}
                         label="Уроки"
                         isActive={router.pathname.includes("/admin/lessons")}
                         icon={<BookOpen />}

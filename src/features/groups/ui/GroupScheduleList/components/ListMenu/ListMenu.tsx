@@ -4,6 +4,8 @@ import React from "react";
 import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { DeleteScheduleModal, UpdateScheduleForm } from "@features/groups";
 import { AdminGroupScheduleFromList } from "@entities/group";
@@ -16,6 +18,8 @@ interface ListMenuProps {
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
     const { id: groupId } = router.query as TRouterQueries;
+
+    const userRole = useUserRole();
 
     const handleCloseDeleteScheduleModal = () => closeModal("DELETE_SCHEDULE");
     const handleCloseUpdateScheduleModal = () => closeModal("UPDATE_SCHEDULE");
@@ -35,6 +39,11 @@ const ListMenu = ({ row }: ListMenuProps) => {
             children: <UpdateScheduleForm groupId={groupId} data={row.original} onClose={handleCloseUpdateScheduleModal} />,
         });
     };
+
+    if (userRole === Roles.teacher) {
+        return null;
+    }
+
     return (
         <MenuDataGrid>
             <MenuItemDataGrid onClick={openUpdateScheduleModal}>

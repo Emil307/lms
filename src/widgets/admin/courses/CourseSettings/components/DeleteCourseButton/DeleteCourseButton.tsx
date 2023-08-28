@@ -10,9 +10,10 @@ import { useMedia } from "@shared/utils";
 interface DeleteCourseButtonProps {
     courseId: string;
     courseName: string;
+    hidden?: boolean;
 }
 
-const DeleteCourseButton = ({ courseId, courseName }: DeleteCourseButtonProps) => {
+const DeleteCourseButton = ({ courseId, courseName, hidden }: DeleteCourseButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
@@ -39,6 +40,10 @@ const DeleteCourseButton = ({ courseId, courseName }: DeleteCourseButtonProps) =
             ),
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (

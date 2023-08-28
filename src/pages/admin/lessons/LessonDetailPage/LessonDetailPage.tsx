@@ -3,6 +3,8 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
 import { useAdminCourse } from "@entities/course";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { LessonInfoPanel, LessonSettings, LessonMaterials, Test, Homework } from "@widgets/admin/lessons";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
@@ -20,6 +22,8 @@ const LessonDetailPage = () => {
     const { data: courseData, isFetching: isFetchingCourse, isError: isErrorCourse } = useAdminCourse(id);
     const { data: moduleData, isFetching: isFetchingModule, isError: isErrorModule } = useCourseModule({ courseId: id, moduleId });
     const { data: lessonData, isError: isErrorLesson } = useAdminLesson(lessonId);
+
+    const userRole = useUserRole();
 
     const handleChangeTab = (value: string) => {
         if (courseData && moduleData) {
@@ -81,8 +85,6 @@ const LessonDetailPage = () => {
 
     const renderComponent = () => {
         switch (currentTab) {
-            case "settings":
-                return <LessonSettings data={lessonData} moduleName={moduleData?.name} />;
             case "materials":
                 return <LessonMaterials lessonId={lessonId} lessonName={lessonData.name} />;
             case "test":
@@ -92,6 +94,17 @@ const LessonDetailPage = () => {
             default:
                 return <LessonSettings data={lessonData} moduleName={moduleData?.name} />;
         }
+    };
+
+    const renderInfoCardActions = () => {
+        if (userRole === Roles.teacher) {
+            return null;
+        }
+        return (
+            <Button variant="secondary" onClick={handleOpenUpdateLessonPage}>
+                Редактировать
+            </Button>
+        );
     };
 
     return (
@@ -116,11 +129,7 @@ const LessonDetailPage = () => {
                     fields={fields}
                     hideFieldIfEmpty
                     values={{ ...lessonData, moduleName: moduleData?.name }}
-                    actionSlot={
-                        <Button variant="secondary" onClick={handleOpenUpdateLessonPage}>
-                            Редактировать
-                        </Button>
-                    }
+                    actionSlot={renderInfoCardActions()}
                 />
             </Box>
         </Box>

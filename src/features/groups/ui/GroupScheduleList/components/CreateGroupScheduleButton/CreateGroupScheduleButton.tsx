@@ -8,9 +8,10 @@ import useStyles from "./CreateGroupScheduleButton.styles";
 
 export interface CreateGroupScheduleButtonProps {
     groupId: string;
+    hidden?: boolean;
 }
 
-const CreateGroupScheduleButton = ({ groupId }: CreateGroupScheduleButtonProps) => {
+const CreateGroupScheduleButton = ({ groupId, hidden }: CreateGroupScheduleButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -24,6 +25,10 @@ const CreateGroupScheduleButton = ({ groupId }: CreateGroupScheduleButtonProps) 
             children: <CreateScheduleForm groupId={groupId} onClose={handleCloseCreateGroupScheduleModal} />,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isTablet) {
         return (

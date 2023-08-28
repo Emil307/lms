@@ -17,6 +17,7 @@ export interface DndCardProps {
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
     elementRef?: Ref<HTMLDivElement>;
+    hideDrag?: boolean;
 }
 
 const DndCard = ({
@@ -30,6 +31,7 @@ const DndCard = ({
     rightIcon,
     children,
     elementRef,
+    hideDrag,
 }: PropsWithChildren<DndCardProps>) => {
     const [expanded, setExpanded] = useState(false);
     const { classes } = useStyles({ isActive, expanded, hasOpenButton: !!onOpen });
@@ -51,9 +53,11 @@ const DndCard = ({
         <Box ref={setNodeRef} style={style} className={classes.root} onClick={toggleOpenedContent}>
             <Flex align="center" justify="space-between" gap={16} ref={elementRef}>
                 <Flex align="center" gap={16}>
-                    <ActionIcon className={classes.actionIcon} {...attributes} {...listeners}>
-                        <IconDragDots />
-                    </ActionIcon>
+                    {!hideDrag && (
+                        <ActionIcon className={classes.actionIcon} {...attributes} {...listeners}>
+                            <IconDragDots />
+                        </ActionIcon>
+                    )}
                     {leftIcon && <ThemeIcon color={isActive ? "primaryHover" : "neutral_gray"}>{leftIcon}</ThemeIcon>}
                     <Heading className={classes.title} order={3}>
                         {title}

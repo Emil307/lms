@@ -9,9 +9,10 @@ import { useMedia } from "@shared/utils";
 
 export interface DeleteGroupButtonProps {
     data?: GetAdminGroupResponse;
+    hidden?: boolean;
 }
 
-const DeleteGroupButton = ({ data }: DeleteGroupButtonProps) => {
+const DeleteGroupButton = ({ data, hidden }: DeleteGroupButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
@@ -38,6 +39,10 @@ const DeleteGroupButton = ({ data }: DeleteGroupButtonProps) => {
             ),
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (

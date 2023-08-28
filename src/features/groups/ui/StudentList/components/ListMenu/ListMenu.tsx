@@ -9,6 +9,8 @@ import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminGroupStudentFromList } from "@entities/group";
 import { DeleteStudentFromGroupModal } from "@features/groups";
 import { getFullName } from "@shared/utils";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 
 interface ListMenuProps {
     groupId?: string;
@@ -18,6 +20,8 @@ interface ListMenuProps {
 const ListMenu = ({ groupId, row }: ListMenuProps) => {
     const router = useRouter();
     //TODO: Добавить метод по статистике после того как будет готово на бекенде
+
+    const userRole = useUserRole();
 
     const studentFullName = getFullName({ data: row.original.profile });
 
@@ -42,7 +46,7 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid mt={8} onClick={handleOpenStudentDetailsPage}>
+            <MenuItemDataGrid onClick={handleOpenStudentDetailsPage}>
                 <ThemeIcon w={16} h={16} color="primary">
                     <Eye />
                 </ThemeIcon>
@@ -54,12 +58,14 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
                 </ThemeIcon>
                 Статистика
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openDeleteStudentFromGroupModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
+            {userRole !== Roles.teacher && (
+                <MenuItemDataGrid onClick={openDeleteStudentFromGroupModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            )}
         </MenuDataGrid>
     );
 };

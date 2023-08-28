@@ -44,6 +44,6 @@ export const columns: MRT_ColumnDef<AdminStudentGroupFromList>["columns"] = [
             }
             return <Badge className={classes.status}>{row.original.status.displayName}</Badge>;
         },
-        size: 240,
+        size: 156,
     },
 ];

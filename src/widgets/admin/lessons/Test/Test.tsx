@@ -2,6 +2,8 @@ import { Flex, Text, ThemeIcon } from "@mantine/core";
 import { PlusCircle as PlusCircleIcon, Edit3 as EditIcon, HelpCircle as HelpCircleIcon } from "react-feather";
 import React from "react";
 import { Button, Heading, Loader, Paragraph } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { useAdminLessonTest } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { getAnswerLetterFromRussianAlphabet, getPluralString } from "@shared/utils";
@@ -16,6 +18,8 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
     const { data: test, isFetching, isError } = useAdminLessonTest(lessonId);
 
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     if (isFetching) {
         return <Loader />;
@@ -35,9 +39,12 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                             Нет добавленных вопросов.
                         </Paragraph>
                     </Flex>
-                    <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
-                        Добавить тест
-                    </Button>
+
+                    {userRole !== Roles.teacher && (
+                        <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
+                            Добавить тест
+                        </Button>
+                    )}
                 </Flex>
             );
         }
@@ -72,9 +79,12 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
-                    Редактировать
-                </Button>
+
+                {userRole !== Roles.teacher && (
+                    <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
+                        Редактировать
+                    </Button>
+                )}
             </Flex>
         );
     };
