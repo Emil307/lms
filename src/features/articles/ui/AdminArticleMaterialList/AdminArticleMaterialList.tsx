@@ -2,6 +2,8 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { columns, columnOrder } from "./constants";
 import { AddMaterialsToArticleButton, ListMenu } from "./components";
 import { adaptGetArticleMaterialFilesRequest } from "./utils";
@@ -14,11 +16,13 @@ export interface AdminArticleMaterialListProps extends BoxProps {
 const AdminArticleMaterialList = ({ articleId, ...props }: AdminArticleMaterialListProps) => {
     const { classes } = useStyles();
 
+    const userRole = useUserRole();
+
     return (
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Материалы</Heading>
-                <AddMaterialsToArticleButton articleId={articleId} />
+                <AddMaterialsToArticleButton articleId={articleId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminArticleMaterialsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_MATERIALS}

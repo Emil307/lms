@@ -42,7 +42,6 @@ const Articles = ({ courseId, ...props }: ArticlesProps) => {
                 extraFilterParams={{ courseId }}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 onClickCell={handleClickCell}
-                disableClickCell={userRole === Roles.teacher}
                 columns={columns}
                 countName="Статей"
                 initialState={{

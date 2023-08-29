@@ -4,6 +4,8 @@ import React from "react";
 import { Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { DeleteArticleCourseModal } from "@features/articles";
 import { AdminCourseFromList } from "@entities/course";
 
@@ -13,6 +15,8 @@ export interface ListMenuProps {
 }
 
 const ListMenu = ({ row, articleId }: ListMenuProps) => {
+    const userRole = useUserRole();
+
     const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE_COURSE");
 
     const openDeleteModal = () => {
@@ -29,6 +33,10 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
             ),
         });
     };
+
+    if (userRole === Roles.teacher) {
+        return null;
+    }
 
     return (
         <MenuDataGrid>

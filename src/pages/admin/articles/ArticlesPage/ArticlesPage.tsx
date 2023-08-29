@@ -3,6 +3,8 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { AdminList as AdminArticleList } from "@features/articles";
 import { useMedia } from "@shared/utils";
 import useStyles from "./ArticlesPage.styles";
@@ -10,6 +12,8 @@ import useStyles from "./ArticlesPage.styles";
 const ArticlesPage = () => {
     const router = useRouter();
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const isTablet = useMedia("md");
 
@@ -19,13 +23,16 @@ const ArticlesPage = () => {
         <Box>
             <Flex className={classes.headingContainer}>
                 <Heading>База знаний</Heading>
-                <Button
-                    variant="secondary"
-                    size={isTablet ? "medium" : "large"}
-                    leftIcon={<PlusCircle />}
-                    onClick={handleOpenCreateArticleForm}>
-                    Создать статью
-                </Button>
+
+                {userRole !== Roles.teacher && (
+                    <Button
+                        variant="secondary"
+                        size={isTablet ? "medium" : "large"}
+                        leftIcon={<PlusCircle />}
+                        onClick={handleOpenCreateArticleForm}>
+                        Создать статью
+                    </Button>
+                )}
             </Flex>
             <AdminArticleList />
         </Box>

@@ -8,9 +8,10 @@ import useStyles from "./AddArticleCourseButton.styles";
 
 export interface AddArticleCourseButtonProps {
     articleId: string;
+    hidden?: boolean;
 }
 
-const AddArticleCourseButton = ({ articleId }: AddArticleCourseButtonProps) => {
+const AddArticleCourseButton = ({ articleId, hidden }: AddArticleCourseButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -26,6 +27,11 @@ const AddArticleCourseButton = ({ articleId }: AddArticleCourseButtonProps) => {
             className: classes.addArticleCoursesModalWrapper,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
+
     if (isTablet) {
         return (
             <ActionIcon className={classes.actionIcon} onClick={handleOpenAddArticleCoursesModal}>

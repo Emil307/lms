@@ -9,9 +9,10 @@ import { useMedia } from "@shared/utils";
 
 export interface DeleteArticleButtonProps {
     data?: GetAdminArticleResponse;
+    hidden?: boolean;
 }
 
-const DeleteArticleButton = ({ data }: DeleteArticleButtonProps) => {
+const DeleteArticleButton = ({ data, hidden }: DeleteArticleButtonProps) => {
     const router = useRouter();
     const isMobile = useMedia("sm");
 
@@ -38,6 +39,10 @@ const DeleteArticleButton = ({ data }: DeleteArticleButtonProps) => {
             ),
         });
     };
+
+    if (hidden) {
+        return null;
+    }
 
     if (isMobile) {
         return (
