@@ -1,4 +1,4 @@
-import { Box, Flex, Avatar, BoxProps, Col, Grid } from "@mantine/core";
+import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
@@ -72,17 +72,11 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                     </Avatar>
                                     <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                                 </Flex>
-                                <Grid gutter={8}>
-                                    <Col xs={6} sm={4}>
-                                        <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
-                                    </Col>
-                                    <Col xs={6} sm={4}>
-                                        <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
-                                    </Col>
-                                    <Col xs={6} sm={4}>
-                                        <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
-                                    </Col>
-                                </Grid>
+                                <Flex gap={8} wrap="wrap">
+                                    <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
+                                    <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
+                                    <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
+                                </Flex>
                             </Flex>
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />} legendProps={{ mb: 24 }} maw={772}>
@@ -92,31 +86,25 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                         <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
                                     ))}
                                 </FRadioGroup>
-                                <Grid gutter={8}>
-                                    <Col xs={6} sm={4}>
-                                        <FInput name="email" label="Email" size="sm" className={classes.formInput} withAsterisk />
-                                    </Col>
-                                    <Col xs={6} sm={4}>
-                                        <FInput
-                                            name="password"
-                                            type="password"
-                                            label="Пароль"
-                                            size="sm"
-                                            className={classes.formInput}
-                                            withAsterisk
-                                        />
-                                    </Col>
-                                    <Col xs={6} sm={4}>
-                                        <FInput
-                                            name="passwordConfirmation"
-                                            type="password"
-                                            label="Повторите пароль"
-                                            size="sm"
-                                            className={classes.formInput}
-                                            withAsterisk
-                                        />
-                                    </Col>
-                                </Grid>
+                                <Flex gap={8} wrap="wrap">
+                                    <FInput name="email" label="Email" size="sm" className={classes.formInput} withAsterisk />
+                                    <FInput
+                                        name="password"
+                                        type="password"
+                                        label="Пароль"
+                                        size="sm"
+                                        className={classes.formInput}
+                                        withAsterisk
+                                    />
+                                    <FInput
+                                        name="passwordConfirmation"
+                                        type="password"
+                                        label="Повторите пароль"
+                                        size="sm"
+                                        className={classes.formInput}
+                                        withAsterisk
+                                    />
+                                </Flex>
                             </Flex>
                         </Fieldset>
 

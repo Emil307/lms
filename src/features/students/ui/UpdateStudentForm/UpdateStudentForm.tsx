@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Col, Avatar, BoxProps } from "@mantine/core";
+import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
 import React from "react";
 import { Edit3, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
@@ -13,8 +13,8 @@ import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
 import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
-import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
 import useStyles from "./UpdateStudentForm.styles";
+import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
 
 export interface UpdateStudentFormProps extends Omit<BoxProps, "children"> {
     data?: UserDetailResponse;
@@ -122,17 +122,11 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                                 </Avatar>
                                 <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
                             </Flex>
-                            <Grid gutter={8} w="100%">
-                                <Col xs={6} sm={4}>
-                                    <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
-                                </Col>
-                                <Col xs={6} sm={4}>
-                                    <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
-                                </Col>
-                                <Col xs={6} sm={4}>
-                                    <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
-                                </Col>
-                            </Grid>
+                            <Flex gap={8} wrap="wrap">
+                                <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
+                                <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
+                                <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
+                            </Flex>
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />}>
                             <Flex direction="column" gap={16} w="100%">

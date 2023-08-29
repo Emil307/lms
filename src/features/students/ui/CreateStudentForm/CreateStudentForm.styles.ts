@@ -13,7 +13,11 @@ export default createStyles((theme) => ({
     },
 
     formInput: {
-        width: "100%",
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
     },
 
     rolesRadioGroup: {
