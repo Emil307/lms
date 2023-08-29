@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { $LastUpdated, $UploadedFile, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
+import { $LastUpdated, $UploadedFile, $getFiltersRequestType, $getPaginationResponseType, TDefaultRequestParams } from "@shared/types";
 
 /**
  *
@@ -34,7 +34,7 @@ export type StaticReviewFromList = z.infer<typeof $StaticReviewFromList>;
 //REQ/RESP
 export type GetStaticReviewRequest = z.infer<typeof $GetStaticReviewRequest>;
 export type GetStaticReviewResponse = z.infer<typeof $GetStaticReviewResponse>;
-export type GetStaticReviewsRequest = TDefaultRequestParams;
+export type GetStaticReviewsRequest = z.infer<typeof $GetStaticReviewsRequest>;
 export type GetStaticReviewsResponse = z.infer<typeof $GetStaticReviewsResponse>;
 
 /**
@@ -140,6 +140,10 @@ export const $StaticReview = z.object({
 export const $StaticReviewFromList = $StaticReview;
 
 export const $GetStaticReviewsResponse = $getPaginationResponseType($StaticReviewFromList);
+
+export const $StaticReviewsRequest = z.object({});
+
+export const $GetStaticReviewsRequest = $getFiltersRequestType($StaticReviewsRequest);
 
 export const $GetStaticReviewRequest = z.object({
     id: z.string(),

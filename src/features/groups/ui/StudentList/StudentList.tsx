@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupStudentFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { columnOrder, columns } from "./constant";
 import { AddStudentsToGroupButton, ListMenu } from "./components";
 import useStyles from "./StudentList.styles";
-import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 
 export interface StudentListProps extends BoxProps {
     groupId: string;
