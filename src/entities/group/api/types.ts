@@ -293,7 +293,11 @@ export const $DeleteAdminGroupRequest = z.object({
 export const $DeleteAdminGroupResponse = z.null();
 
 //students
-export const $AdminGroupStudentStatusName = z.literal("inProgress").or(z.literal("completed")).or(z.literal("notStarted"));
+export const $AdminGroupStudentStatusName = z
+    .literal("inProgress")
+    .or(z.literal("completed"))
+    .or(z.literal("notStarted"))
+    .or(z.literal("archive"));
 
 export const $AdminGroupStudentStatus = z.object({
     name: $AdminGroupStudentStatusName,
