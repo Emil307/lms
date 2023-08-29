@@ -6,6 +6,9 @@ export const useMenuItemStyles = createStyles((theme) => ({
             backgroundColor: theme.colors.grayLight[0],
         },
     },
+    menuItem: {
+        padding: 0,
+    },
     inner: {
         padding: 12,
         cursor: "pointer",

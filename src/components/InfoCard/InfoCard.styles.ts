@@ -6,8 +6,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         flexDirection: "column",
         width: 334,
         gap: 24,
-        padding: 32,
-        paddingTop: 24,
+        padding: "24px 32px",
         borderRadius: 16,
         backgroundColor: variant === "whiteBg" ? theme.colors.white[0] : theme.colors.light[0],
         boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.08)}` : "none",
@@ -87,5 +86,6 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         button: {
             width: "100%",
         },
+        marginBottom: 8,
     },
 }));

@@ -1,6 +1,6 @@
 import { Flex, Text } from "@mantine/core";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useGroup } from "@entities/group";
@@ -19,8 +19,16 @@ const MyCourseDetailsPage = () => {
         router.push({ pathname: "/my-courses/[id]", query: { id, tab: value } });
     };
 
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabsList[0].value;
+    }, [router.isReady, tab]);
+
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "materials":
                 return <MaterialsProgramTrainingList groupId={id} />;
             case "articles":
@@ -51,7 +59,7 @@ const MyCourseDetailsPage = () => {
                 <MainInfoPanel data={groupData} />
                 <AuthorsInfo data={groupData} />
             </Flex>
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} />
+            <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} />
             {renderContent()}
         </Flex>
     );

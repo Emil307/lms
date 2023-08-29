@@ -13,10 +13,8 @@ const CourseCollectionDetailsPage = () => {
     const { id, tab } = router.query as TRouterQueries;
     const { data: courseCollectionData, isLoading, isError } = useAdminCourseCollection({ id });
 
-    const handleChangeTab = (value: string | null) => {
-        if (value) {
-            router.push({ pathname: "/admin/settings/course-collections/[id]", query: { id, tab: value } });
-        }
+    const handleChangeTab = (value: string) => {
+        router.push({ pathname: "/admin/settings/course-collections/[id]", query: { id, tab: value } });
     };
 
     const currentTab = useMemo(() => {

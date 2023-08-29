@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
             return <NavbarAdminMobile hidden={!openedSidebar} />;
         }
 
-        return <NavbarAdmin mah={height + 16} />;
+        return <NavbarAdmin mah={height - 24} />;
     };
 
     return (

@@ -50,7 +50,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
     if (!isRoleOrder) {
         return (
             <MenuDataGrid>
-                <MenuItemDataGrid mt={8} onClick={pushOnUserDetail}>
+                <MenuItemDataGrid onClick={pushOnUserDetail}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Eye />
                     </ThemeIcon>
@@ -61,13 +61,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
     }
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false}>
+            <MenuItemDataGrid closeMenuOnClick={false} py={4}>
                 <Switch
                     variant="secondary"
                     checked={row.original.isActive}
                     label={labelActivitySwitch}
                     labelPosition="left"
                     onChange={handleChangeActiveStatus}
+                    w="100%"
                 />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />

@@ -50,6 +50,9 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
             },
         },
     },
+    body: {
+        justifyContent: "space-between",
+    },
     trackLabel: {
         minWidth: "auto",
     },

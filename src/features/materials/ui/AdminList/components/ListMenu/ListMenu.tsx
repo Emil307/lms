@@ -58,13 +58,14 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false}>
+            <MenuItemDataGrid closeMenuOnClick={false} py={4}>
                 <Switch
                     variant="secondary"
                     checked={row.original.isActive}
                     label={labelActivitySwitch}
                     labelPosition="left"
                     onChange={handleChangeActiveStatus}
+                    w="100%"
                 />
             </MenuItemDataGrid>
 

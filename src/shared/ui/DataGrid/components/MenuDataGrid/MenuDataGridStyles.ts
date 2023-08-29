@@ -1,6 +1,9 @@
 import { createStyles } from "@mantine/core";
 
 export const useMenuStyles = createStyles((theme) => ({
+    root: {
+        width: 240,
+    },
     action: {
         display: "flex",
         marginLeft: "auto",

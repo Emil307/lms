@@ -8,9 +8,9 @@ export type TMenuItemDataGridProps = MenuItemProps & {
 };
 
 const MenuItemDataGrid = ({ children, onClick = () => undefined, ...props }: TMenuItemDataGridProps) => {
-    const { classes } = useMenuItemStyles();
+    const { classes, cx } = useMenuItemStyles();
     return (
-        <Menu.Item {...props} onClick={onClick}>
+        <Menu.Item {...props} className={cx(classes.menuItem, props.className)} onClick={onClick}>
             <Flex gap={8} align="center" className={classes.inner}>
                 {children}
             </Flex>
