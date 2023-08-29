@@ -8,9 +8,10 @@ import useStyles from "./AddMaterialsToArticleButton.styles";
 
 export interface AddMaterialsToArticleButtonProps {
     articleId: string;
+    hidden?: boolean;
 }
 
-const AddMaterialsToArticleButton = ({ articleId }: AddMaterialsToArticleButtonProps) => {
+const AddMaterialsToArticleButton = ({ articleId, hidden }: AddMaterialsToArticleButtonProps) => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("sm");
@@ -26,6 +27,11 @@ const AddMaterialsToArticleButton = ({ articleId }: AddMaterialsToArticleButtonP
             className: classes.addMaterialsToArticleModalWrapper,
         });
     };
+
+    if (hidden) {
+        return null;
+    }
+
     if (isTablet) {
         return (
             <ActionIcon className={classes.actionIcon} onClick={handleOpenAddMaterialsToArticleModal}>

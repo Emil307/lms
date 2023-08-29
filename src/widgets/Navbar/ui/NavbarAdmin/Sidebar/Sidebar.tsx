@@ -75,7 +75,6 @@ export default function Sidebar() {
                         href="/admin/groups"
                     />
                     <SidebarItem
-                        roles={[Roles.administrator, Roles.manager]}
                         label="База знаний"
                         isActive={router.pathname.includes("/admin/articles")}
                         icon={<Briefcase />}

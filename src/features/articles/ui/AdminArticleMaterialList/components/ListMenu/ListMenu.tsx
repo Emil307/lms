@@ -5,6 +5,8 @@ import { Download, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { DeleteArticleMaterialModal } from "@features/articles";
 import { UploadedFileFromList } from "@entities/storage";
 
@@ -14,6 +16,8 @@ export interface ListMenuProps {
 }
 
 const ListMenu = ({ row, articleId }: ListMenuProps) => {
+    const userRole = useUserRole();
+
     const handleCloseDeleteModal = () => closeModal("DELETE_ARTICLE_MATERIAL");
 
     const openDeleteModal = () => {
@@ -41,12 +45,15 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
                 </ThemeIcon>
                 Скачать
             </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
+
+            {userRole !== Roles.teacher && (
+                <MenuItemDataGrid onClick={openDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            )}
         </MenuDataGrid>
     );
 };
