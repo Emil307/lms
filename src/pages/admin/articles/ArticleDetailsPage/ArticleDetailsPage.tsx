@@ -1,5 +1,5 @@
 import { Box, Text } from "@mantine/core";
-import React from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Heading, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
@@ -19,8 +19,16 @@ const ArticleDetailsPage = () => {
         router.push({ pathname: "/admin/articles/[id]", query: { id, tab: value } });
     };
 
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabsList[0].value;
+    }, [router.isReady, tab]);
+
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "materials":
                 return <AdminArticleMaterialList articleId={id} />;
             case "courses":
@@ -43,7 +51,7 @@ const ArticleDetailsPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ articleName: articleData.name, id })} mb={8} />
             <Heading mb={24}>{articleData.name}</Heading>
             <InfoPanel id={id} mb={32} />
-            <Tabs value={tab || tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} mb={32} />
+            <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} mb={32} />
             {renderContent()}
         </Box>
     );

@@ -74,7 +74,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
                 </Box>
                 <Group sx={{ justifyContent: "space-between" }}>
                     <Flex direction="column">
-                        <Flex gap={6}>
+                        <Flex gap={6} mb={2}>
                             <IconStarFour />
                             <Paragraph variant="text-small-m">{`${data.lessonsCount} ${getPluralString(
                                 data.lessonsCount,

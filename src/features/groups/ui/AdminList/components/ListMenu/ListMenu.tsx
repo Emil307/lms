@@ -62,13 +62,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
         }
         return (
             <>
-                <MenuItemDataGrid closeMenuOnClick={false}>
+                <MenuItemDataGrid closeMenuOnClick={false} py={4}>
                     <Switch
                         variant="secondary"
                         checked={row.original.isActive}
                         label={labelActivitySwitch}
                         labelPosition="left"
                         onChange={handleChangeActiveStatus}
+                        w="100%"
                     />
                 </MenuItemDataGrid>
                 <Divider size={1} color="light" mx={12} />

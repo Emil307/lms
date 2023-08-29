@@ -32,13 +32,14 @@ const ListMenu = ({ data, openUpdateForm }: ListMenuProps) => {
 
     return (
         <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false}>
+            <MenuItemDataGrid closeMenuOnClick={false} py={4}>
                 <Switch
                     variant="secondary"
                     checked={data.isActive}
                     label={labelActivitySwitch}
                     labelPosition="left"
                     onChange={handleChangeActiveStatus}
+                    w="100%"
                 />
             </MenuItemDataGrid>
             <Divider size={1} color="light" mx={12} />

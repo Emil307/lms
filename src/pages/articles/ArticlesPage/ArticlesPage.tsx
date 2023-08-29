@@ -1,5 +1,5 @@
 import { Box, ThemeIcon, Flex, Text } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Heading } from "@shared/ui";
 import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";
@@ -29,10 +29,8 @@ const ArticlesPage = () => {
         setFilterParams({ ...initialFilterValues, ...adaptArticleCategoriesFiltersForm(queryParams) });
     }, [router.isReady, queryParams]);
 
-    const handleChangeTab = (value: string | null) => {
-        if (value) {
-            router.push({ pathname: "/articles", query: { tab: value } });
-        }
+    const handleChangeTab = (value: string) => {
+        router.push({ pathname: "/articles", query: { tab: value } });
     };
 
     const handleSubmitFilters = (values: ArticleAndArticleCategoryFiltersForm) => {
@@ -48,14 +46,20 @@ const ArticlesPage = () => {
 
     const handleBackToArticleCategoryList = () => handleChangeTab("all");
 
+    const currentTab = useMemo(() => {
+        if (!router.isReady) {
+            return "";
+        }
+        const currentTab = tabsList.find((tabItem) => tabItem.value === tab);
+        return currentTab?.value || tabsList[0].value;
+    }, [router.isReady, tab]);
+
     const renderContent = () => {
-        switch (tab) {
+        switch (currentTab) {
             case "favorite":
                 return <FavoriteArticles filterParams={filterParams} onSubmitFilters={handleSubmitFilters} />;
-
             case "my-articles":
                 return <MyArticles filterParams={filterParams} onSubmitFilters={handleSubmitFilters} />;
-
             default:
                 if (categoryId) {
                     return (
@@ -87,7 +91,7 @@ const ArticlesPage = () => {
                         <ThemeIcon className={classes.headingIcon}>{titleContent.icon}</ThemeIcon>
                         <Heading>{titleContent.label}</Heading>
                     </Flex>
-                    <Tabs tabs={tabsList} value={tab || tabsList[0].value} onTabChange={handleChangeTab} />
+                    <Tabs tabs={tabsList} value={currentTab} onTabChange={handleChangeTab} />
                 </Flex>
                 {renderContent()}
             </Flex>
