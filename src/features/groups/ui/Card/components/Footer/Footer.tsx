@@ -10,10 +10,9 @@ import { CreateCourseReviewForm } from "@features/courseReviews";
 
 export interface FooterProps extends Omit<MCardProps, "children" | "onClick"> {
     data: Pick<GroupFromList, "courseId" | "groupId" | "status" | "nextLesson">;
-    onClick?: (id: unknown) => void;
 }
 
-const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterProps) {
+const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
     const router = useRouter();
     const handleCloseCreateReviewModal = () => closeModal("CREATE_COURSE_REVIEW");
 
@@ -25,8 +24,6 @@ const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterP
             children: <CreateCourseReviewForm data={data} onClose={handleCloseCreateReviewModal} />,
         });
     };
-
-    const handleOpenMyCourseDetailsPage = () => onClick?.(data.groupId);
 
     const handleOpenNextLessonFromMyCoursePage = () =>
         router.push({
@@ -45,7 +42,7 @@ const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterP
 
             case "notStarted":
                 return (
-                    <Button variant="primary" onClick={handleOpenMyCourseDetailsPage}>
+                    <Button variant="primary" onClick={handleOpenNextLessonFromMyCoursePage}>
                         Начать обучение
                     </Button>
                 );
@@ -60,7 +57,12 @@ const MemoizedFooter = memo(function Footer({ data, onClick, ...props }: FooterP
     };
 
     return (
-        <MCard.Section {...props} m={0}>
+        <MCard.Section
+            {...props}
+            m={0}
+            onClick={(event) => {
+                event.stopPropagation();
+            }}>
             {renderActionContent()}
         </MCard.Section>
     );

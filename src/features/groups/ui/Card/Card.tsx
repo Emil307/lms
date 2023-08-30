@@ -12,11 +12,13 @@ export interface CardProps extends Omit<MCardProps, "children" | "onClick"> {
 const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) {
     const { classes } = useStyles();
 
+    const handleClick = () => onClick?.(data.groupId);
+
     return (
-        <MCard {...props} className={classes.root}>
+        <MCard {...props} className={classes.root} onClick={handleClick}>
             <Header data={data} />
             <ProgressInfo data={data} />
-            <Footer data={data} onClick={onClick} />
+            <Footer data={data} />
         </MCard>
     );
 });
