@@ -64,7 +64,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                         <Group>
                             <Flex gap={8}>
                                 <Badge className={classes.status}>{data.status.displayName}</Badge>
-                                <Badge className={classes.category}>{data.category?.name}</Badge>
+                                {data.category && <Badge className={classes.category}>{data.category.name}</Badge>}
                             </Flex>
                             <RatingInfo data={data.rating} />
                         </Group>

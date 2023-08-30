@@ -8,5 +8,6 @@ export default createStyles((theme) => ({
         gap: 24,
         borderRadius: 16,
         border: `1px solid ${theme.colors.light[0]}`,
+        cursor: "pointer",
     },
 }));

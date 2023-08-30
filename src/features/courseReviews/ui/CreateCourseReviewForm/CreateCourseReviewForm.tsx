@@ -47,26 +47,29 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
 
     return (
         <Flex direction="column" gap={24}>
-            <Group mb={8}>
-                <Badge className={classes.category}>{groupData.category?.name}</Badge>
-                <Flex gap={8}>
-                    <Flex gap={4}>
-                        <Flex gap={2}>
-                            <Rating defaultValue={1} count={1} readOnly size="small" />
-                            <Text className={classes.ratingValue}>{groupData.rating.averageRating}</Text>
+            <Flex direction="column" gap={8}>
+                <Group>
+                    {groupData.category && <Badge className={classes.category}>{groupData.category.name}</Badge>}
+                    <Flex gap={8}>
+                        <Flex gap={4}>
+                            <Flex gap={2}>
+                                <Rating defaultValue={1} count={1} readOnly size="small" />
+                                <Text className={classes.ratingValue}>{groupData.rating.averageRating}</Text>
+                            </Flex>
+                            <Text className={classes.ratingMaxValue}>из 5</Text>
                         </Flex>
-                        <Text className={classes.ratingMaxValue}>из 5</Text>
+                        <Divider className={classes.dividerDot} orientation="vertical" size={4} />
+                        <Text className={classes.reviewInfo}>{`${groupData.rating.reviewsCount} ${getPluralString(
+                            groupData.rating.reviewsCount,
+                            "отзыв",
+                            "отзыва",
+                            "отзывов"
+                        )}`}</Text>
                     </Flex>
-                    <Divider className={classes.dividerDot} orientation="vertical" size={4} />
-                    <Text className={classes.reviewInfo}>{`${groupData.rating.reviewsCount} ${getPluralString(
-                        groupData.rating.reviewsCount,
-                        "отзыв",
-                        "отзыва",
-                        "отзывов"
-                    )}`}</Text>
-                </Flex>
-            </Group>
-            <Heading order={4}>{groupData.name}</Heading>
+                </Group>
+                <Heading order={4}>{groupData.name}</Heading>
+            </Flex>
+
             <ManagedForm<CreateCourseReviewFormValidation, CreateCourseReviewResponse>
                 initialValues={initialValues}
                 validationSchema={$CreateCourseReviewFormValidation}
