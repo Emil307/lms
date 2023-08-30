@@ -25,6 +25,8 @@ export type CourseType = z.infer<typeof $CourseType>;
  *
  */
 export type AdminCourse = z.infer<typeof $AdminCourse>;
+export type AdminCourseGroupStatusName = z.infer<typeof $AdminCourseGroupStatusName>;
+export type AdminCourseStatistics = z.infer<typeof $AdminCourseStatistics>;
 //student <---> courses
 export type AdminStudentCourseFromList = z.infer<typeof $AdminStudentCourseFromList>;
 export type AdminStudentCourseStatus = z.infer<typeof $AdminStudentCourseStatus>;
@@ -45,6 +47,8 @@ export type GetAdminCourseResourcesRequest = z.infer<typeof $GetAdminCourseResou
 export type GetAdminCourseResourcesResponse = z.infer<typeof $GetAdminCourseResourcesResponse>;
 export type GetAdminCoursesResponse = z.infer<typeof $GetAdminCoursesResponse>;
 export type GetAdminCourseResponse = z.infer<typeof $GetAdminCourseResponse>;
+export type GetAdminCourseStatisticsRequest = z.infer<typeof $GetAdminCourseStatisticsRequest>;
+export type GetAdminCourseStatisticsResponse = z.infer<typeof $GetAdminCourseStatisticsResponse>;
 export type CreateCourseFormValues = z.infer<typeof $CreateCourseFormValues>;
 export type UpdateCourseFormValues = z.infer<typeof $UpdateCourseFormValues>;
 export type CreateCourseRequest = z.infer<typeof $CreateCourseRequest>;
@@ -264,6 +268,28 @@ export const $AdminCoursesRequest = z.object({
 
 export const $GetAdminCoursesRequest = $getFiltersRequestType($AdminCoursesRequest);
 export const $GetAdminCourseResponse = $AdminCourse;
+
+export const $GetAdminCourseStatisticsRequest = $getFiltersRequestType(
+    z.object({
+        courseId: z.string(),
+    })
+);
+
+export const $AdminCourseGroupStatusName = z.literal("notStarted").or(z.literal("inProgress")).or(z.literal("completed"));
+
+export const $AdminCourseStatistics = z.object({
+    id: z.number(),
+    name: z.string(),
+    completedLessonsPercent: z.number(),
+    completedLessonTestsPercent: z.number(),
+    completedLessonHomeworksPercent: z.number(),
+    status: z.object({
+        name: $AdminCourseGroupStatusName,
+        displayName: z.string(),
+    }),
+});
+
+export const $GetAdminCourseStatisticsResponse = $getPaginationResponseType($AdminCourseStatistics);
 
 export const $CreateCourseFormValues = z
     .object({

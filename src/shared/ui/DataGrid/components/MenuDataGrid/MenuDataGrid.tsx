@@ -11,7 +11,7 @@ const MenuDataGrid = ({ children, ...props }: TMenuDataGridProps) => {
     const { classes } = useMenuStyles();
 
     return (
-        <Menu {...props} width={240} withinPortal position="bottom-end">
+        <Menu classNames={{ dropdown: classes.dropdown }} width={240} withinPortal position="bottom-end" {...props}>
             <Menu.Target>
                 <ActionIcon className={classes.action} color="dark">
                     <MoreVertical width={24} height={24} />

@@ -59,6 +59,9 @@ import {
     $DeleteStudentCoursesResponse,
     DeleteStudentCoursesRequest,
     DeleteStudentCoursesResponse,
+    GetAdminCourseStatisticsResponse,
+    $GetAdminCourseStatisticsResponse,
+    GetAdminCourseStatisticsRequest,
 } from "./types";
 
 export class CourseApi extends BaseApi {
@@ -76,6 +79,11 @@ export class CourseApi extends BaseApi {
     async getAdminCourse(id: string): Promise<GetAdminCourseResponse> {
         const response = await this.instance.get(`admin/courses/${id}`);
         return $GetAdminCourseResponse.parse(response);
+    }
+
+    async getAdminCourseStatistics({ courseId, ...params }: GetAdminCourseStatisticsRequest): Promise<GetAdminCourseStatisticsResponse> {
+        const response = await this.instance.get(`admin/courses/${courseId}/statistics`, { params });
+        return $GetAdminCourseStatisticsResponse.parse(response);
     }
 
     async createCourse(data: CreateCourseRequest): Promise<CreateCourseResponse> {
