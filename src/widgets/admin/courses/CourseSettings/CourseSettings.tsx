@@ -37,8 +37,9 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
         router.push({ pathname: "/admin/courses/[id]/edit", query: { id: courseId } });
     };
 
-    //TODO: Добавить редирект на страницу статистики
-    const handleOpenCourseStatisticsPage = () => undefined;
+    const handleOpenCourseStatisticsPage = () => {
+        router.push({ pathname: "/admin/courses/[id]/statistics", query: { id: courseId } });
+    };
 
     const closeUpdateCoursePublicationModal = () => closeModal("UPDATE_COURSE_PUBLICATION");
 

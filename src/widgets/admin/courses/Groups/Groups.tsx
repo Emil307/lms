@@ -1,7 +1,7 @@
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { ManagedDataGrid } from "@shared/ui";
+import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupFromList, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth";
@@ -29,9 +29,9 @@ const Groups = ({ courseId }: GroupsProps) => {
     return (
         <Box>
             <Flex className={classes.heading}>
-                <Title order={2} color="dark">
+                <Heading order={2} color="dark">
                     Группы
-                </Title>
+                </Heading>
                 <AddGroupButton courseId={courseId} hidden={userRole === Roles.teacher} />
             </Flex>
 
