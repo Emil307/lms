@@ -185,8 +185,8 @@ export const $AdminTransactionReportsRequest = z.object({
             transactionableType: z.string(),
             transactionableIds: z.string().array(),
             roleId: z.string(),
-            paymentTypes: z.string(),
-            statuses: z.string(),
+            paymentTypes: z.string().array(),
+            statuses: z.string().array(),
             date: z.object({
                 from: z.string(),
                 to: z.string(),
