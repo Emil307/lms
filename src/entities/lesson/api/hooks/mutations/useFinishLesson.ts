@@ -18,6 +18,7 @@ export const useFinishLesson = ({ courseId, lessonId, name }: FinishLessonReques
                     message: `Урок "${name}" успешно завершен`,
                 });
 
+                queryClient.invalidateQueries([QueryKeys.GET_GROUP_MODULES]);
                 queryClient.invalidateQueries([QueryKeys.GET_LESSON, lessonId, courseId]);
             },
             onError: (error) => {
