@@ -52,6 +52,7 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                 keysInvalidateQueries={[
                     { queryKey: [QueryKeys.GET_LESSON_TEST_PASS] },
                     { queryKey: [QueryKeys.GET_LESSON, lessonId, courseId] },
+                    { queryKey: [QueryKeys.GET_GROUP_MODULES] },
                 ]}
                 mutationFunction={updateLessonTestPass}
                 onSuccess={onSuccess}

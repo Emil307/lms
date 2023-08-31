@@ -36,8 +36,11 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const renderActionButton = () => {
         switch (data.status.name) {
             case "notStarted":
-                //TODO: Добавить редирект
-                return <Button w="min-content">Начать обучение</Button>;
+                return (
+                    <Button w="min-content" onClick={handleOpenNextLessonFromMyCoursePage}>
+                        Начать обучение
+                    </Button>
+                );
 
             case "inProgress":
                 return (
@@ -47,7 +50,12 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 );
             case "completed":
                 return (
-                    <Button variant="border" leftIcon={<Star />} w="min-content" onClick={handleOpenCreateReviewModal}>
+                    <Button
+                        variant="border"
+                        leftIcon={<Star />}
+                        w="min-content"
+                        onClick={handleOpenCreateReviewModal}
+                        disabled={data.isReviewed}>
                         Оценить курс
                     </Button>
                 );

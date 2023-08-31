@@ -9,7 +9,7 @@ import { GroupFromList } from "@entities/group";
 import { CreateCourseReviewForm } from "@features/courseReviews";
 
 export interface FooterProps extends Omit<MCardProps, "children" | "onClick"> {
-    data: Pick<GroupFromList, "courseId" | "groupId" | "status" | "nextLesson">;
+    data: Pick<GroupFromList, "courseId" | "groupId" | "status" | "nextLesson" | "isReviewed">;
 }
 
 const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
@@ -49,7 +49,11 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
 
             default:
                 return (
-                    <Button variant="border" leftIcon={<IconStarDefault />} onClick={handleOpenCreateReviewModal}>
+                    <Button
+                        variant="border"
+                        leftIcon={<IconStarDefault />}
+                        onClick={handleOpenCreateReviewModal}
+                        disabled={data.isReviewed}>
                         Оценить курс
                     </Button>
                 );

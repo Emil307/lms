@@ -528,6 +528,7 @@ export const $Group = z.object({
         passed: z.number(),
     }),
     modalShowed: z.boolean().nullable(),
+    isReviewed: z.boolean(),
     cover: $UploadedFile.nullable(),
     category: $GroupCategory.nullable(),
     tags: $GroupTag.array(),
@@ -547,6 +548,7 @@ export const $GroupFromList = $Group.pick({
     nextLesson: true,
     lessonsCount: true,
     practiceCount: true,
+    isReviewed: true,
     cover: true,
 });
 
