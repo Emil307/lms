@@ -228,7 +228,7 @@ export const UIDemo = () => {
                 <DisplayField label="Отчество" />
                 <Box display="flex">
                     <RingProgress value={valueRingProgress} label="text" />
-                    <RingProgress value={valueRingProgress} size="small" />
+                    <RingProgress value={valueRingProgress} />
                 </Box>
                 <Button type="button" onClick={() => setValueRingProgress((prev) => prev - 10)}>
                     -

@@ -1,43 +1,39 @@
-import { Box, RingProgress as MRingProgress, RingProgressProps as MRingProgressProps, Text } from "@mantine/core";
+import { Flex, RingProgress as MRingProgress, RingProgressProps as MRingProgressProps } from "@mantine/core";
 import { memo, useMemo } from "react";
 
 import useStyles from "./RingProgress.styles";
+import { Heading, Paragraph } from "@shared/ui";
 
 export interface RingProgressProps extends Omit<MRingProgressProps, "label" | "sections" | "size"> {
     value: number;
     label?: string;
-    size?: "small" | "normal";
 }
 
-const MemoizedRingProgress = memo(function RingProgress({ value, label, size = "normal", ...props }: RingProgressProps) {
-    const { classes } = useStyles({ size });
-    const sections = useMemo(() => [{ value, color: "secondary" }], [value]);
-    const thickness = useMemo(() => (size === "small" ? 4.8 : 9.6), [size]);
-    const sizeValue = useMemo(() => (size === "small" ? 64 : 128), [size]);
+const MemoizedRingProgress = memo(function RingProgress({ value, label, ...props }: RingProgressProps) {
+    const { classes } = useStyles();
+    const sections = useMemo(() => [{ value, color: "done" }], [value]);
+
     const labelContent = useMemo(
         () => (
-            <Box>
-                <Text color="dark" align="center" size="xl" lh="24px" fw={600} {...(size === "small" && { size: "sm", lh: "16px" })}>
-                    {value}%
-                </Text>
-                {size !== "small" && (
-                    <Text color="gray45" align="center" mx="auto" lineClamp={1} size="xs" lh="16px" fw={500}>
-                        {label}
-                    </Text>
-                )}
-            </Box>
+            <Flex direction="column" align="center">
+                <Heading order={3}>{value}%</Heading>
+                <Paragraph variant="text-caption" color="gray45">
+                    {label}
+                </Paragraph>
+            </Flex>
         ),
-        [value, size]
+        [value]
     );
     return (
         <MRingProgress
             {...props}
-            size={sizeValue}
+            size={191}
             classNames={classes}
             label={labelContent}
             sections={sections}
             roundCaps
-            thickness={thickness}
+            thickness={14}
+            rootColor="white"
         />
     );
 });

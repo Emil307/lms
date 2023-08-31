@@ -13,19 +13,21 @@ import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
 
 interface ListMenuProps {
-    groupId?: string;
+    groupId: string;
     row: MRT_Row<AdminGroupStudentFromList>;
 }
 
 const ListMenu = ({ groupId, row }: ListMenuProps) => {
     const router = useRouter();
-    //TODO: Добавить метод по статистике после того как будет готово на бекенде
 
     const userRole = useUserRole();
 
     const studentFullName = getFullName({ data: row.original.profile });
 
     const handleOpenStudentDetailsPage = () => router.push({ pathname: "/admin/students/[id]", query: { id: String(row.original.id) } });
+
+    const handleOpenStudentStatisticsPage = () =>
+        router.push({ pathname: "/admin/groups/[id]/statistics/[studentId]", query: { id: groupId, studentId: String(row.original.id) } });
 
     const handleCloseDeleteStudentFromGroupModal = () => closeModal("DELETE_STUDENT_FROM_GROUP");
 
@@ -52,7 +54,7 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
-            <MenuItemDataGrid>
+            <MenuItemDataGrid onClick={handleOpenStudentStatisticsPage}>
                 <ThemeIcon w={16} h={16} color="primary">
                     <IconPercentage />
                 </ThemeIcon>

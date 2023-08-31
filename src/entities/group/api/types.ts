@@ -28,6 +28,11 @@ export type AdminGroupStudent = z.infer<typeof $AdminGroupStudent>;
 export type AdminGroupStudentFromList = z.infer<typeof $AdminGroupStudentFromList>;
 export type AdminGroupStudentStatus = z.infer<typeof $AdminGroupStudentStatus>;
 export type AdminGroupStudentStatusName = z.infer<typeof $AdminGroupStudentStatusName>;
+export type AdminGroupStudentStatistics = z.infer<typeof $AdminGroupStudentStatistics>;
+export type AdminGroupModuleForStudentStatistics = z.infer<typeof $AdminGroupModuleForStudentStatistics>;
+export type AdminGroupLessonForStudentStatistics = z.infer<typeof $AdminGroupLessonForStudentStatistics>;
+export type HomeworkStatusName = z.infer<typeof $HomeworkStatusName>;
+export type TestStatusName = z.infer<typeof $TestStatusName>;
 export type AdminGroupStudentLessonsStatistics = z.infer<typeof $AdminGroupStudentLessonsStatistics>;
 export type AdminGroupStudentTestsStatistics = z.infer<typeof $AdminGroupStudentTestsStatistics>;
 export type AdminGroupStudentHomeworksStatistics = z.infer<typeof $AdminGroupStudentHomeworksStatistics>;
@@ -66,6 +71,8 @@ export type DeleteAdminGroupResponse = z.infer<typeof $DeleteAdminGroupResponse>
 //students
 export type GetAdminGroupStudentsRequest = z.infer<typeof $GetAdminGroupStudentsRequest>;
 export type GetAdminGroupStudentsResponse = z.infer<typeof $GetAdminGroupStudentsResponse>;
+export type GetAdminGroupStudentStatisticsRequest = z.infer<typeof $GetAdminGroupStudentStatisticsRequest>;
+export type GetAdminGroupStudentStatisticsResponse = z.infer<typeof $GetAdminGroupStudentStatisticsResponse>;
 export type AttachStudentsToGroupRequest = z.infer<typeof $AttachStudentsToGroupRequest>;
 export type AttachStudentsToGroupResponse = z.infer<typeof $AttachStudentsToGroupResponse>;
 export type DeleteStudentsFromGroupRequest = z.infer<typeof $DeleteStudentsFromGroupRequest>;
@@ -331,6 +338,83 @@ export const $AdminGroupStudentFromList = $AdminGroupStudent;
 
 export const $GetAdminGroupStudentsResponse = $getPaginationResponseType($AdminGroupStudentFromList);
 
+export const $LessonStatusName = z.literal("blocked").or(z.literal("inProgress")).or(z.literal("onReview")).or(z.literal("completed"));
+
+export const $LessonStatus = z.object({
+    name: $LessonStatusName,
+    displayName: z.string(),
+});
+
+export const $TestStatusName = z.literal("completed").or(z.literal("needsEdit")).or(z.literal("notStarted"));
+
+export const $TestStatus = z.object({
+    name: $TestStatusName,
+    displayName: z.string(),
+});
+
+export const $HomeworkStatusName = z
+    .literal("notAttempted")
+    .or(z.literal("onReview"))
+    .or(z.literal("needsEdit"))
+    .or(z.literal("completed"));
+
+export const $HomeworkStatus = z.object({
+    name: $HomeworkStatusName,
+    displayName: z.string(),
+});
+
+export const $AdminGroupLessonForStudentStatistics = z.object({
+    id: z.number(),
+    name: z.string(),
+    hasTest: z.boolean(),
+    hasHomework: z.boolean(),
+    lessonStatus: $LessonStatus.nullable(),
+    testStatus: $TestStatus.nullable(),
+    homeworkStatus: $HomeworkStatus.nullable(),
+});
+
+export const $AdminGroupModuleForStudentStatistics = z.object({
+    id: z.number(),
+    name: z.string(),
+    completedPercent: z.number(),
+    lessons: z.array($AdminGroupLessonForStudentStatistics),
+});
+
+export const $GetAdminGroupStudentStatisticsRequest = z.object({
+    groupId: z.string(),
+    studentId: z.string(),
+});
+
+export const $AdminGroupStudentStatistics = z.object({
+    id: z.number(),
+    lessons: $AdminGroupStudentLessonsStatistics.extend({
+        completedPercent: z.number(),
+    }),
+    tests: $AdminGroupStudentTestsStatistics.extend({
+        completedPercent: z.number(),
+    }),
+    homeworks: $AdminGroupStudentHomeworksStatistics.extend({
+        completedPercent: z.number(),
+    }),
+    course: z.object({
+        id: z.number(),
+        name: z.string(),
+    }),
+    group: z.object({
+        id: z.number(),
+        name: z.string(),
+    }),
+    modules: z.array($AdminGroupModuleForStudentStatistics),
+    profile: $Profile.pick({
+        id: true,
+        firstName: true,
+        lastName: true,
+        patronymic: true,
+    }),
+});
+
+export const $GetAdminGroupStudentStatisticsResponse = $AdminGroupStudentStatistics;
+
 export const $AdminAddGroupStudentsExtraFilters = z.object({
     groupId: z.string(),
     courseId: z.number(),
@@ -573,13 +657,6 @@ export const $GetGroupResponse = $Group;
 export const $GetGroupsCountsResponse = $GroupsCount.array();
 
 //group modules
-
-export const $LessonStatusName = z.literal("blocked").or(z.literal("inProgress")).or(z.literal("onReview")).or(z.literal("completed"));
-
-export const $LessonStatus = z.object({
-    name: $LessonStatusName,
-    displayName: z.string(),
-});
 
 export const $GroupModuleLesson = z.object({
     id: z.number(),

@@ -9,6 +9,7 @@ import { AdminStudentCourseFromList } from "@entities/course";
 import { DeleteStudentCourseModal } from "@features/courses";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
+import { IconPercentage } from "@tabler/icons-react";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminStudentCourseFromList>;
@@ -21,6 +22,10 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
     const userRole = useUserRole();
 
     const handleOpenDetailsPage = () => router.push({ pathname: "/admin/courses/[id]", query: { id: String(row.original.id) } });
+
+    //TODO: поменять на groupId, когда добавят поле на бэке
+    const handleOpenStudentStatisticsPage = () =>
+        router.push({ pathname: "/admin/students/[id]/statistics/[groupId]", query: { id: studentId, groupId: String(row.original.id) } });
 
     const handleCloseDeleteModal = () => closeModal("DELETE_STUDENT_COURSE");
 
@@ -47,7 +52,12 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
                 </ThemeIcon>
                 Открыть
             </MenuItemDataGrid>
-            {/* //TODO: Добавить статистику курса */}
+            <MenuItemDataGrid onClick={handleOpenStudentStatisticsPage}>
+                <ThemeIcon w={16} h={16} color="primary">
+                    <IconPercentage />
+                </ThemeIcon>
+                Статистика
+            </MenuItemDataGrid>
             {userRole !== Roles.teacher && (
                 <MenuItemDataGrid onClick={openDeleteModal}>
                     <ThemeIcon w={16} h={16} color="primary">
