@@ -5,3 +5,4 @@ export * from "./useGroups";
 export * from "./useGroupsCounts";
 export * from "./useGroupModules";
 export * from "./useGroupsSchedules";
+export * from "./useAdminGroupStudentStatistics";

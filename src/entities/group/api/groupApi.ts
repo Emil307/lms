@@ -58,6 +58,9 @@ import {
     UpdateAdminGroupScheduleResponse,
     UpdateGroupActivityRequest,
     UpdateGroupActivityResponse,
+    GetAdminGroupStudentStatisticsRequest,
+    GetAdminGroupStudentStatisticsResponse,
+    $GetAdminGroupStudentStatisticsResponse,
 } from "./types";
 
 export class GroupApi extends BaseApi {
@@ -95,6 +98,13 @@ export class GroupApi extends BaseApi {
     async getAdminGroupStudents({ groupId, ...data }: GetAdminGroupStudentsRequest): Promise<GetAdminGroupStudentsResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/students/list`, data);
         return $GetAdminGroupStudentsResponse.parse(response);
+    }
+    async getAdminGroupStudentStatistics({
+        groupId,
+        studentId,
+    }: GetAdminGroupStudentStatisticsRequest): Promise<GetAdminGroupStudentStatisticsResponse> {
+        const response = await this.instance.get(`admin/groups/${groupId}/students/${studentId}/statistics`);
+        return $GetAdminGroupStudentStatisticsResponse.parse(response);
     }
     async attachStudentsToGroup({ groupId, ...data }: AttachStudentsToGroupRequest): Promise<AttachStudentsToGroupResponse> {
         const response = await this.instance.post(`admin/groups/${groupId}/students`, data);
