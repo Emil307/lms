@@ -1,17 +1,14 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
-    label: {
-        width: 24,
-        height: 24,
-        top: -34,
-        borderRadius: 8,
-        backgroundColor: theme.colors.primary[0],
-        fontSize: 0,
+export default createStyles((_theme) => ({
+    thumb: {
+        position: "relative",
+    },
 
-        svg: {
-            width: "14px !important",
-            height: "14px !important",
-        },
+    iconChevronRight: {
+        position: "absolute",
+        bottom: 8,
+        padding: 4,
+        borderRadius: 8,
     },
 }));

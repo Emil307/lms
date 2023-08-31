@@ -1,4 +1,4 @@
-import { Box, Slider as MSlider, SliderProps as MSliderProps } from "@mantine/core";
+import { Box, Slider as MSlider, SliderProps as MSliderProps, ThemeIcon } from "@mantine/core";
 import { memo, useMemo } from "react";
 import { ChevronRight } from "react-feather";
 import { Paragraph } from "@shared/ui";
@@ -31,7 +31,18 @@ const MemoizedSlider = memo(function Slider({ showTextInfo = false, ...props }: 
 
     return (
         <Box pt={30}>
-            <MSlider {...props} classNames={classes} size={4} label={<ChevronRight />} />
+            <MSlider
+                label={null}
+                showLabelOnHover={false}
+                classNames={classes}
+                size={4}
+                thumbChildren={
+                    <ThemeIcon variant="filled" className={classes.iconChevronRight}>
+                        <ChevronRight size={16} />
+                    </ThemeIcon>
+                }
+                {...props}
+            />
             {showTextInfo && textInfo}
         </Box>
     );
