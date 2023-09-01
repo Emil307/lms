@@ -52,11 +52,15 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
     return (
         <Box {...props}>
             <Form config={config} disableOverlay={false}>
-                {({ dirty, resetForm, handleSubmit }) => {
+                {({ resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: getInitialValues(courseResources.data?.prices.highest) });
                         handleSubmit();
                     };
+
+                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues(courseResources.data?.prices.highest));
+
+                    const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
                     return (
                         <>
                             <Flex className={classes.wrapperTitle}>
@@ -72,10 +76,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                         <ToggleFilterButton
                                             isOpened={openedFilters}
                                             onClick={handleToggleVisibilityFilters}
-                                            countAppliedQueries={getCountAppliedQueries(
-                                                queryParams,
-                                                getInitialValues(courseResources.data?.prices.highest)
-                                            )}
+                                            countAppliedQueries={countAppliedQueries}
                                         />
                                     </MediaQuery>
 
@@ -110,7 +111,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 <Button type="submit" variant="white" leftIcon={<IconFilter />}>
                                                     Подобрать
                                                 </Button>
-                                                {dirty && (
+                                                {isDirty && (
                                                     <ActionIcon onClick={handleResetForm}>
                                                         <IconFilterOff />
                                                     </ActionIcon>
