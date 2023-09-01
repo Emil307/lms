@@ -10,7 +10,7 @@ import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@share
 import { getFullName } from "@shared/utils";
 import { AuthorApi } from "@entities/author";
 import { QueryKeys } from "@shared/constant";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,16 +19,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const authorApi = new AuthorApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_AUTHOR, id], () => authorApi.getAdminAuthor({ id }));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_AUTHOR, id], () => authorApi.getAdminAuthor({ id }));
 
-    const fullName = getFullName({ data: response });
+        const fullName = getFullName({ data: response });
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: fullName,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: fullName,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const UpdateAuthor: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

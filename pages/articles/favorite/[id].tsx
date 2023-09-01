@@ -6,7 +6,7 @@ import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { FavoriteArticleDetailsPage } from "@pages/articles";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { ArticleApi } from "@entities/article";
 import { QueryKeys } from "@shared/constant";
 import { UserPage } from "@components/UserPage";
@@ -18,14 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const articleApi = new ArticleApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "favorite", id], () => articleApi.getFavoriteArticle({ id }));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "favorite", id], () => articleApi.getFavoriteArticle({ id }));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.data.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.data.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const FavoriteArticleDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

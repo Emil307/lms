@@ -7,7 +7,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { CategoryDetailsPage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CategoryApi } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
 
@@ -18,14 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const categoryApi = new CategoryApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, id], () => categoryApi.getAdminCategory({ id }));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, id], () => categoryApi.getAdminCategory({ id }));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const CategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
