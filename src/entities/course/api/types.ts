@@ -516,6 +516,7 @@ export const $AdminStudentCourse = $AdminCourse
         category: true,
     })
     .extend({
+        groupId: z.number().nullable(),
         status: $AdminStudentCourseStatus.nullable(),
     });
 
