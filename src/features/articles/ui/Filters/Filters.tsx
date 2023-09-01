@@ -1,4 +1,4 @@
-import { ActionIcon, Box, BoxProps, Collapse, Flex, Group, MediaQuery } from "@mantine/core";
+import { ActionIcon, Box, BoxProps, Collapse, Flex, MediaQuery } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
@@ -49,7 +49,10 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
     return (
         <Box {...props} className={props.className}>
             <Form config={config} isLoading={articleFilters.isLoading} disableOverlay={false}>
-                {({ dirty, resetForm, handleSubmit }) => {
+                {({ resetForm, handleSubmit }) => {
+                    const countAppliedQueries = getCountAppliedQueries(queryParams, initialValues);
+                    const isDirty = !!countAppliedQueries;
+
                     const handleResetForm = () => {
                         resetForm({ values: initialValues });
                         handleSubmit();
@@ -62,7 +65,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                 <ToggleFilterButton
                                     isOpened={openedFilters}
                                     onClick={handleToggleVisibilityFilters}
-                                    countAppliedQueries={getCountAppliedQueries(queryParams, initialValues)}
+                                    countAppliedQueries={countAppliedQueries}
                                 />
                             </MediaQuery>
 
@@ -86,7 +89,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                         <Button type="submit" variant="white" leftIcon={<IconFilter />}>
                                             Подобрать
                                         </Button>
-                                        {dirty && (
+                                        {isDirty && (
                                             <ActionIcon onClick={handleResetForm}>
                                                 <IconFilterOff />
                                             </ActionIcon>
@@ -95,35 +98,6 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                 </Flex>
                             </Collapse>
                         </Flex>
-                    );
-
-                    return (
-                        <>
-                            <FilterList
-                                field="subcategoryIds"
-                                filterName="Тематика"
-                                searchPlaceholder="Найти тематики"
-                                labelsPluralString={["тематика", "тематики", "тематик"]}
-                                data={articleFilters.data?.subcategories}
-                            />
-                            <FilterList
-                                field="tags"
-                                filterName="Теги"
-                                searchPlaceholder="Найти теги"
-                                labelsPluralString={["тег", "тега", "тегов"]}
-                                data={articleFilters.data?.tags}
-                            />
-                            <Group sx={{ justifyContent: "center", gap: 8 }}>
-                                <Button type="submit" variant="white" leftIcon={<IconFilter />}>
-                                    Подобрать
-                                </Button>
-                                {dirty && (
-                                    <ActionIcon onClick={handleResetForm}>
-                                        <IconFilterOff />
-                                    </ActionIcon>
-                                )}
-                            </Group>
-                        </>
                     );
                 }}
             </Form>
