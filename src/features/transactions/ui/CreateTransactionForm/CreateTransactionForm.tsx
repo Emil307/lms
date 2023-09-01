@@ -60,7 +60,11 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                 onError={onError}
                 hasConfirmModal
                 onCancel={onClose}>
-                {({ dirty, onCancel, values }) => {
+                {({ dirty, onCancel, values, setFieldValue }) => {
+                    const resetEntitySelect = () => {
+                        setFieldValue("entityId", "");
+                    };
+
                     return (
                         <Flex direction="column" gap={32}>
                             <Fieldset label="Данные транзакции" icon={<IconClipboard />} legendProps={{ mb: 24 }}>
@@ -74,6 +78,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                             label: "name",
                                         })}
                                         clearable
+                                        onChange={resetEntitySelect}
                                         label="Вид сущности"
                                         disabled={transactionResources.isLoading}
                                     />
