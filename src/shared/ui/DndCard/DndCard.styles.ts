@@ -26,6 +26,7 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
     },
     title: {
         color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
+        wordBreak: "break-word",
     },
     actionIcon: {
         minWidth: 40,
@@ -37,13 +38,11 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
         },
     },
     openButton: {
-        ...(hasOpenButton
-            ? {
-                  [theme.fn.smallerThan("sm")]: {
-                      display: "none",
-                  },
-              }
-            : {}),
+        ...(hasOpenButton && {
+            [theme.fn.smallerThan("sm")]: {
+                display: "none",
+            },
+        }),
     },
     textContent: {
         marginTop: 32,

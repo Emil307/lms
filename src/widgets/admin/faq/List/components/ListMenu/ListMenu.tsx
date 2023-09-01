@@ -12,11 +12,12 @@ export interface ListMenuProps {
 }
 
 const ListMenu = ({ data, openUpdateForm }: ListMenuProps) => {
-    const { mutate: updateActivityStatus } = useUpdateFaqActivity(data.id);
+    const { mutate: updateActivityStatus } = useUpdateFaqActivity({ id: data.id, name: data.question });
 
     const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     const handleOpenUpdateForm = () => openUpdateForm(data.id);
 
