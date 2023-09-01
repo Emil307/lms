@@ -46,6 +46,7 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
     },
     textContent: {
         marginTop: 32,
+        wordBreak: "break-word",
 
         [theme.fn.smallerThan("sm")]: {
             marginTop: 16,
