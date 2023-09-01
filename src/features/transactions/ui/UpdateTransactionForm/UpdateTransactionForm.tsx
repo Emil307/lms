@@ -66,7 +66,10 @@ const UpdateTransactionForm = ({ data, onClose, ...props }: UpdateTransactionFor
                 onError={onError}
                 hasConfirmModal
                 onCancel={onClose}>
-                {({ dirty, onCancel, values }) => {
+                {({ dirty, onCancel, values, setFieldValue }) => {
+                    const resetEntitySelect = () => {
+                        setFieldValue("entityId", "");
+                    };
                     return (
                         <Flex direction="column" gap={32}>
                             <Fieldset label="Данные транзакции" icon={<IconClipboard />} legendProps={{ mb: 24 }}>
@@ -79,6 +82,7 @@ const UpdateTransactionForm = ({ data, onClose, ...props }: UpdateTransactionFor
                                             value: "type",
                                             label: "name",
                                         })}
+                                        onChange={resetEntitySelect}
                                         clearable
                                         label="Вид сущности"
                                         disabled={transactionResources.isLoading}
