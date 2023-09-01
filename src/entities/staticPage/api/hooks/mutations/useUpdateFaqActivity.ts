@@ -4,59 +4,61 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { GetAdminFaqResponse, UpdateFaqActivityStatusResponse, staticPageApi } from "@entities/staticPage";
+import { GetAdminFaqResponse, UpdateFaqActivityStatusRequest, UpdateFaqActivityStatusResponse, staticPageApi } from "@entities/staticPage";
 
-export const useUpdateFaqActivity = (
-    id: number
-): UseMutationResult<UpdateFaqActivityStatusResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
-    return useMutation(
-        [MutationKeys.UPDATE_FAQ_ACTIVITY, id],
-        (isActive: boolean) => staticPageApi.updateActivityStatusFaq({ id, isActive }),
-        {
-            onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_FAQ] });
+interface UseUpdateFaqActivityProps extends Pick<UpdateFaqActivityStatusRequest, "id"> {
+    name: string;
+}
 
-                const previousFaqData = queryClient.getQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ]);
+export const useUpdateFaqActivity = ({
+    id,
+    name,
+}: UseUpdateFaqActivityProps): UseMutationResult<
+    UpdateFaqActivityStatusResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<UpdateFaqActivityStatusRequest, "id">,
+    unknown
+> => {
+    return useMutation([MutationKeys.UPDATE_FAQ_ACTIVITY, id], (data) => staticPageApi.updateActivityStatusFaq({ ...data, id }), {
+        onMutate: async ({ isActive }) => {
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_FAQ] });
 
-                queryClient.setQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ], (previousData) => {
-                    if (!previousData) {
-                        return undefined;
-                    }
+            const previousFaqData = queryClient.getQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ]);
 
-                    return {
-                        ...previousData,
-                        data: previousData.data.map((faq) => (faq.id === id ? { ...faq, isActive: updatedStatus } : faq)),
-                    };
-                });
-
-                return { previousFaqData };
-            },
-            onError: (err, _, context) => {
-                if (typeof context === "object" && "previousFaqData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_FAQ], context.previousFaqData);
+            queryClient.setQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ], (previousData) => {
+                if (!previousData) {
+                    return undefined;
                 }
 
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка изменения статуса",
-                });
-            },
-            onSettled() {
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_FAQ]);
-            },
-            onSuccess: () => {
-                const faqFromList = queryClient
-                    .getQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ])?.[0]?.[1]
-                    ?.data.find((faq) => faq.id === id);
+                return {
+                    ...previousData,
+                    data: previousData.data.map((faq) => (faq.id === id ? { ...faq, isActive } : faq)),
+                };
+            });
 
-                const statusMessage = faqFromList?.isActive ? "активирован" : "деактивирован";
+            return { previousFaqData };
+        },
+        onError: (err, _, context) => {
+            if (typeof context === "object" && "previousFaqData" in context) {
+                queryClient.setQueriesData([QueryKeys.GET_ADMIN_FAQ], context.previousFaqData);
+            }
 
-                createNotification({
-                    type: ToastType.INFO,
-                    title: "Изменение статуса",
-                    message: `Материал "${faqFromList?.question}" ${statusMessage}.`,
-                });
-            },
-        }
-    );
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка изменения статуса",
+            });
+        },
+        onSettled() {
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_FAQ]);
+        },
+        onSuccess: ({ isActive }) => {
+            const statusMessage = isActive ? "активирован" : "деактивирован";
+
+            createNotification({
+                type: ToastType.INFO,
+                title: "Изменение статуса",
+                message: `Вопрос "${name}" ${statusMessage}.`,
+            });
+        },
+    });
 };

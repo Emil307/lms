@@ -41,8 +41,8 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
-                            <Flex align="center" wrap="wrap" columnGap={32} rowGap={16} mb={24}>
-                                <Flex gap={8} align="center">
+                            <Flex className={classes.infoPanelFormContainer}>
+                                <Flex align="center" gap={8}>
                                     <Paragraph variant="text-small-m" color="gray45">
                                         Статус:
                                     </Paragraph>
@@ -52,7 +52,7 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                             </Flex>
                             <FInput size="sm" name="question" label="Вопрос" />
                             <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
-                            <Flex gap={8} mt={24}>
+                            <Flex className={classes.actions}>
                                 <Button variant="border" onClick={onCancel}>
                                     Отменить
                                 </Button>

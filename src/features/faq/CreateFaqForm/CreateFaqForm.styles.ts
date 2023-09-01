@@ -11,6 +11,13 @@ export default createStyles((theme) => ({
             paddingInline: 16,
         },
     },
+    infoPanelFormContainer: {
+        alignItems: "center",
+        flexWrap: "wrap",
+        columnGap: 32,
+        rowGap: 16,
+        marginBottom: 24,
+    },
     answerTextarea: {
         marginTop: 8,
 
@@ -22,6 +29,14 @@ export default createStyles((theme) => ({
             textarea: {
                 minHeight: 190,
             },
+        },
+    },
+    actions: {
+        marginTop: 24,
+        gap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
         },
     },
 }));
