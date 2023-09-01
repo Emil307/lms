@@ -1,14 +1,14 @@
 import { TBreadCrumbItem } from "@shared/ui";
 
 interface TGetBreadCrumbsItemsProps {
-    groupId: string;
-    groupName: string;
+    courseId: string;
+    courseName: string;
     studentId: string;
     studentFullName: string;
 }
 
-export const getBreadCrumbsItems = ({ groupId, groupName, studentId, studentFullName }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
+export const getBreadCrumbsItems = ({ courseId, courseName, studentId, studentFullName }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Ученики", href: { pathname: "/admin/students" } },
     { title: studentFullName, href: { pathname: "/admin/students/[id]", query: { id: studentId } } },
-    { title: groupName, href: { pathname: "/admin/groups/[id]", query: { id: groupId } } },
+    { title: courseName, href: { pathname: "/admin/courses/[id]", query: { id: courseId } } },
 ];
