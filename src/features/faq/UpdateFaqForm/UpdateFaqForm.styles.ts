@@ -12,6 +12,31 @@ export default createStyles((theme) => ({
         },
     },
 
+    headingFormContainer: {
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        columnGap: 32,
+        rowGap: 24,
+        marginBottom: 24,
+
+        [theme.fn.smallerThan("xs")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
+    },
+
+    infoPanelFormContainer: {
+        alignItems: "center",
+        flexWrap: "wrap",
+        columnGap: 32,
+        rowGap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
+    },
+
     answerTextarea: {
         marginTop: 8,
 
@@ -23,6 +48,15 @@ export default createStyles((theme) => ({
             textarea: {
                 minHeight: 190,
             },
+        },
+    },
+
+    actions: {
+        marginTop: 24,
+        gap: 8,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
         },
     },
 }));

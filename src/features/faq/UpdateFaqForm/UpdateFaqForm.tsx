@@ -38,8 +38,8 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
-                            <Flex justify="space-between" wrap="wrap" columnGap={32} rowGap={24} mb={24}>
-                                <Flex align="center" wrap="wrap" columnGap={32} rowGap={16}>
+                            <Flex className={classes.headingFormContainer}>
+                                <Flex className={classes.infoPanelFormContainer}>
                                     <Flex align="center" gap={8}>
                                         <Paragraph variant="text-small-m" color="gray45">
                                             Статус:
@@ -52,7 +52,7 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                             </Flex>
                             <FInput size="sm" name="question" label="Вопрос" />
                             <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
-                            <Flex gap={8} mt={24}>
+                            <Flex className={classes.actions}>
                                 <Button variant="border" onClick={onCancel}>
                                     Отменить
                                 </Button>
