@@ -31,11 +31,10 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
                     &#169; {`${new Date().getFullYear()}, Галерея бизнеса `}
                 </Paragraph>
                 <Flex className={classes.linksGroup}>
-                    {/* //TODO: Добавить ссылки на док-ты */}
-                    <Link className={classes.link} href="/">
+                    <Link className={classes.link} href="/user-agreement">
                         Обработка персональных данных
                     </Link>
-                    <Link className={classes.link} href="/">
+                    <Link className={classes.link} href="/user-agreement">
                         Пользовательское соглашение
                     </Link>
                 </Flex>
