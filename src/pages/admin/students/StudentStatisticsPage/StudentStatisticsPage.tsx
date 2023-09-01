@@ -28,14 +28,14 @@ const StudentStatisticsPage = () => {
         <Box>
             <BreadCrumbs
                 items={getBreadCrumbsItems({
-                    groupId,
-                    groupName: data.group.name,
+                    courseId: String(data.course.id),
+                    courseName: data.course.name,
                     studentId: id,
                     studentFullName,
                 })}
                 mb={8}
             />
-            <Heading mb={32}>{data.group.name}</Heading>
+            <Heading mb={32}>{data.course.name}</Heading>
             <StudentStatistics data={data} />
         </Box>
     );
