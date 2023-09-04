@@ -6,7 +6,7 @@ import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { UpdateUserPage } from "@pages/admin/users";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { UserApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { getFullName } from "@shared/utils";
@@ -19,16 +19,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const userApi = new UserApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
 
-    const userFullName = getFullName({ data: response.profile });
+        const userFullName = getFullName({ data: response.profile });
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: userFullName,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: userFullName,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const UpdateUser: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

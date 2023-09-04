@@ -6,10 +6,10 @@ import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@share
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminLayout } from "@app/layouts";
 import { AdminPage } from "@components/AdminPage";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GroupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
-import {GroupStudentStatisticsPage} from "@pages/admin/groups";
+import { GroupStudentStatisticsPage } from "@pages/admin/groups";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -18,14 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const groupApi = new GroupApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_GROUP, id], () => groupApi.getAdminGroup({ id }));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_GROUP, id], () => groupApi.getAdminGroup({ id }));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const GroupStudentStatisticsDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

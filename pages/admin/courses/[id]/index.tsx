@@ -8,7 +8,7 @@ import { AdminPage } from "@components/AdminPage";
 import { CourseDetailsPage } from "@pages/admin/courses";
 import { QueryKeys } from "@shared/constant";
 import { CourseApi } from "@entities/course";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -17,15 +17,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { axios, queryClient } = await getSsrInstances(context);
 
     const courseApi = new CourseApi(axios);
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE, id], () => courseApi.getAdminCourse(String(id)));
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE, id], () => courseApi.getAdminCourse(String(id)));
-
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const CourseDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

@@ -9,7 +9,7 @@ import { UpdateLessonPage } from "@pages/admin/lessons";
 import { NextPageWithLayoutProps } from "@shared/types";
 import { QueryKeys } from "@shared/constant";
 import { LessonApi } from "@entities/lesson";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 
 type GetServerSidePropsContextParams = {
     lessonId: string;
@@ -22,14 +22,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const lessonApi = new LessonApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () => lessonApi.getAdminLesson(lessonId));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () => lessonApi.getAdminLesson(lessonId));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const UpdateLesson: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

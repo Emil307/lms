@@ -5,7 +5,7 @@ import { dehydrate } from "@tanstack/react-query";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { ArticleByCategoryDetailsPage } from "@pages/articles";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { QueryKeys } from "@shared/constant";
 import { ArticleApi } from "@entities/article";
 import { NextPageWithLayoutProps } from "@shared/types";
@@ -23,16 +23,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const articleApi = new ArticleApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "by-category", id], () =>
-        articleApi.getArticleByCategory({ id, categoryId })
-    );
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "by-category", id], () =>
+            articleApi.getArticleByCategory({ id, categoryId })
+        );
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.data.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.data.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const ArticleByCategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

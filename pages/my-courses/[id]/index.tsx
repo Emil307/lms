@@ -7,7 +7,7 @@ import { NextPageWithLayout } from "@shared/utils/types";
 import { MyCourseDetailsPage } from "@pages/myCourses";
 import { UserPage } from "@components/UserPage";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GroupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
 
@@ -18,14 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const groupApi = new GroupApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_GROUP, id], () => groupApi.getGroup({ id }));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_GROUP, id], () => groupApi.getGroup({ id }));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const MyCourseDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {

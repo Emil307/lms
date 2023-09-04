@@ -5,7 +5,7 @@ import { dehydrate } from "@tanstack/react-query";
 import { CoursePackageDetailPage } from "@pages/coursePackages";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
-import { getSsrInstances } from "@app/config/ssr";
+import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { CoursePackageApi } from "@entities/coursePackage";
 import { QueryKeys } from "@shared/constant";
@@ -18,14 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const coursePackageApi = new CoursePackageApi(axios);
 
-    const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_PACKAGE, id], () => coursePackageApi.getCoursePackage(id));
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_PACKAGE, id], () => coursePackageApi.getCoursePackage(id));
 
-    return {
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            title: response.name,
-        },
-    };
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
 }
 
 const CoursePackageDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
