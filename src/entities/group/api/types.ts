@@ -135,7 +135,7 @@ export const $AdminGroupTeacher = z
     .object({
         id: z.number(),
         email: z.string().optional(),
-        isActive: z.string().optional(),
+        isActive: z.boolean().optional(),
     })
     .extend({
         profile: $Profile.pick({
