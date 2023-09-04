@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminTagFromList, TagsFilters } from "@entities/tag";
 import { getHumanDate } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "createdAt", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminTagFromList>["columns"] = [
+export const columns: TColumns<AdminTagFromList> = [
     {
         header: "ID",
         accessorKey: "id",

@@ -1,8 +1,8 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { UserFromList, UsersFilters } from "@entities/user/api/types";
 import { getFullName } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
-export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
+export const columns: TColumns<UserFromList> = [
     {
         header: "ID",
         accessorKey: "id",

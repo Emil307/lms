@@ -4,6 +4,12 @@ import { initialValues } from "./constants";
 
 export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFormValues => {
     const {
+        isActive = false,
+        isDemonstrative = false,
+        isPopular = false,
+        hasDiscount = false,
+        hasTeachers = false,
+        hasAuthors = false,
         discount,
         type,
         category,
@@ -20,13 +26,19 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
     } = data;
     return {
         ...rest,
+        isActive,
+        isDemonstrative,
+        isPopular,
+        hasTeachers,
+        hasAuthors,
+        hasDiscount,
         isInteractive: type === "interactive",
         description: description ?? "",
         category: category?.id.toString() ?? "",
         subCategory: subcategory?.id.toString() ?? "",
-        teacherIds: teachers.map((teacher) => teacher.id.toString()),
-        authorIds: authors.map((author) => author.id.toString()),
-        tagIds: tags.map((tag) => tag.id.toString()),
+        teacherIds: teachers.map((teacher) => String(teacher.id)),
+        authorIds: authors.map((author) => String(author.id)),
+        tagIds: tags.map((tag) => String(tag.id)),
         discount: discount
             ? {
                   ...discount,

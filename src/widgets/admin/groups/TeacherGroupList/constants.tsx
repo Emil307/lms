@@ -1,12 +1,12 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { AdminGroupFromList } from "@entities/group";
 import useStyles from "./TeacherGroupList.styles";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "createdAt", "category.name", "isActive"];
 
-export const columns: MRT_ColumnDef<AdminGroupFromList>["columns"] = [
+export const columns: TColumns<AdminGroupFromList> = [
     {
         header: "ID",
         accessorKey: "id",

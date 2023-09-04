@@ -107,6 +107,10 @@ const LessonDetailPage = () => {
         );
     };
 
+    if (!userRole) {
+        return null;
+    }
+
     return (
         <Box>
             <BreadCrumbs

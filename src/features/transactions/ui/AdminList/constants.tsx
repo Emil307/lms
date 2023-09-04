@@ -1,9 +1,9 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Badge } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm } from "@entities/transaction";
 import { getFullName } from "@shared/utils";
 import useStyles from "./AdminList.styles";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = [
     "id",
@@ -17,7 +17,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminTransactionFromList>["columns"] = [
+export const columns: TColumns<AdminTransactionFromList> = [
     {
         header: "ID",
         accessorKey: "id",

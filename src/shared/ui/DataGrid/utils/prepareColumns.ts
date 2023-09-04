@@ -1,11 +1,14 @@
 import { MRT_ColumnDef } from "mantine-react-table";
-import { composeColumns } from "./composeColumns";
+import { TColumns } from "../types";
 
-export function prepareColumns<T extends Record<string, any>>(data: T[]): MRT_ColumnDef<T>[] {
-    if (!data.length) return [];
-
-    const entity = data.at(0);
-    if (!entity) return [];
-
-    return composeColumns(entity);
-}
+export const prepareColumns = <T extends Record<string, any>>(data: TColumns<T>, accessRole: number): MRT_ColumnDef<T>["columns"] => {
+    return data.reduce((prev = [], current): MRT_ColumnDef<T>["columns"] => {
+        const { access, sizes, ...rest } = current;
+        const column = rest as MRT_ColumnDef<T>;
+        if (!access || (access && access.includes(accessRole))) {
+            prev.push({ ...column, size: sizes ? sizes[accessRole] : rest.size });
+            return prev;
+        }
+        return prev;
+    }, [] as MRT_ColumnDef<T>["columns"]);
+};

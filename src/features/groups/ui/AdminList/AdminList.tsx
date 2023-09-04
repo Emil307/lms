@@ -9,10 +9,10 @@ import { QueryKeys } from "@shared/constant";
 import { Roles } from "@app/routes";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
-import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
+import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./AdminList.styles";
-import { adaptGetAdminGroupsRequest } from "./utils";
+import { useGroupListData } from "./utils";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
@@ -23,6 +23,8 @@ const AdminList = (props: AdminListProps) => {
 
     const userRole = useUserRole();
 
+    const { columns, columnOrder, filterInitialValues, adaptGetAdminGroupsRequest, renderBadge } = useGroupListData(userRole);
+
     const groupFilters = useAdminGroupFilters({ type: "select" });
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
@@ -31,7 +33,7 @@ const AdminList = (props: AdminListProps) => {
 
     return (
         <Box {...props}>
-            <ManagedDataGrid<AdminGroupFromList, AdminGroupsFiltersForm>
+            <ManagedDataGrid<AdminGroupFromList, Partial<AdminGroupsFiltersForm>>
                 queryKey={QueryKeys.GET_ADMIN_GROUPS}
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={[
@@ -49,9 +51,10 @@ const AdminList = (props: AdminListProps) => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
+                accessRole={userRole}
                 countName="Групп"
                 initialState={{
                     columnOrder,
@@ -81,29 +84,31 @@ const AdminList = (props: AdminListProps) => {
                                 />
 
                                 {userRole !== Roles.teacher && (
-                                    <FSelect
-                                        name="teacherId"
-                                        size="sm"
-                                        data={prepareOptionsForSelect({
-                                            data: groupFilters.data?.teachers,
-                                            value: "id",
-                                            label: ({ profile }) => [profile.lastName, profile.firstName].join(" "),
-                                        })}
-                                        clearable
-                                        label="Преподаватель"
-                                        className={classes.filterSelect}
-                                        disabled={groupFilters.isLoading || !groupFilters.data?.teachers.length}
-                                    />
+                                    <>
+                                        <FSelect
+                                            name="teacherId"
+                                            size="sm"
+                                            data={prepareOptionsForSelect({
+                                                data: groupFilters.data?.teachers,
+                                                value: "id",
+                                                label: ({ profile }) => [profile.lastName, profile.firstName].join(" "),
+                                            })}
+                                            clearable
+                                            label="Преподаватель"
+                                            className={classes.filterSelect}
+                                            disabled={groupFilters.isLoading || !groupFilters.data?.teachers.length}
+                                        />
+                                        <FDateRangePicker
+                                            name="createdAtFrom"
+                                            nameTo="createdAtTo"
+                                            label="Дата создания"
+                                            size="sm"
+                                            className={classes.filterDateRangePicker}
+                                            clearable
+                                        />
+                                    </>
                                 )}
 
-                                <FDateRangePicker
-                                    name="createdAtFrom"
-                                    nameTo="createdAtTo"
-                                    label="Дата создания"
-                                    size="sm"
-                                    className={classes.filterDateRangePicker}
-                                    clearable
-                                />
                                 <FSelect
                                     name="statusType"
                                     size="sm"
@@ -118,11 +123,15 @@ const AdminList = (props: AdminListProps) => {
                                     disabled={groupFilters.isLoading || !groupFilters.data?.statuses.length}
                                 />
                             </Flex>
-                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
-                                {radioGroupValues.map((item) => (
-                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                                ))}
-                            </FRadioGroup>
+
+                            {userRole !== Roles.teacher && (
+                                <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                    {radioGroupValues.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                    ))}
+                                </FRadioGroup>
+                            )}
+
                             <Flex gap={16}>
                                 <Button w={164} type="submit">
                                     Найти

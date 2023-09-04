@@ -44,6 +44,10 @@ const CourseDetailsPage = () => {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
+    if (!userRole) {
+        return null;
+    }
+
     const renderComponent = () => {
         switch (currentTab) {
             case "modulesAndLessons":

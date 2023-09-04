@@ -31,7 +31,7 @@ const LessonListPage = () => {
             <Flex className={classes.headingContainer}>
                 <Heading>Уроки</Heading>
 
-                {userRole !== Roles.teacher && (
+                {userRole && userRole !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

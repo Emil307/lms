@@ -8,11 +8,14 @@ import { TRouterQueries } from "@shared/types";
 import { GroupScheduleList, StudentList } from "@features/groups";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
+import { useUserRole } from "@entities/auth";
 
 const GroupDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: groupData, isLoading, isError } = useAdminGroup({ id });
+
+    const userRole = useUserRole();
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id, tab: value } });
@@ -32,6 +35,10 @@ const GroupDetailsPage = () => {
 
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
+    if (!userRole) {
+        return null;
     }
 
     const renderContent = () => {

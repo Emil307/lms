@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminCourseFromList } from "@entities/course";
 import { getLocaleString } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "category.name", "price", "discountPrice", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
+export const columns: TColumns<AdminCourseFromList> = [
     {
         header: "ID",
         accessorKey: "id",

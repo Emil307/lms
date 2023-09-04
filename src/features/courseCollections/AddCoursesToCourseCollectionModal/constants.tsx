@@ -1,6 +1,6 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminCourseFromList, AdminCoursesForCourseCollectionFiltersForm } from "@entities/course";
 import { AttachCoursesToCourseCollectionFormValidation } from "./types";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const initialValues: AttachCoursesToCourseCollectionFormValidation = {
     ids: [],
@@ -15,7 +15,7 @@ export const filterInitialValues: AdminCoursesForCourseCollectionFiltersForm = {
 
 export const columnOrder = ["mrt-row-select", "id", "name", "category.name", "subcategory.name"];
 
-export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
+export const columns: TColumns<AdminCourseFromList> = [
     {
         header: "ID",
         accessorKey: "id",

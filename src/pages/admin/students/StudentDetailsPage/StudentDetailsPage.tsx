@@ -57,6 +57,10 @@ const StudentDetailsPage = () => {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
+    if (!userRole) {
+        return null;
+    }
+
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ userName, id })} mb={8} />

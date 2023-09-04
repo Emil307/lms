@@ -1,6 +1,6 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminCourseCollectionFromList, AdminCourseCollectionsFiltersForm } from "@entities/courseCollection";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -18,7 +18,7 @@ export const filterInitialValues: AdminCourseCollectionsFiltersForm = {
 
 export const columnOrder = ["id", "name", "coursesCount", "createdAt", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminCourseCollectionFromList>["columns"] = [
+export const columns: TColumns<AdminCourseCollectionFromList> = [
     {
         header: "ID",
         accessorKey: "id",

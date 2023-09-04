@@ -2,11 +2,10 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
-import { columns, columnOrder } from "./constants";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { AddArticleCourseButton, ListMenu } from "./components";
-import { adaptGetArticleCoursesRequest } from "./utils";
+import { useArticleCoursesListData } from "./utils";
 import useStyles from "./AdminArticleCourseList.styles";
 
 export interface AdminArticleCourseListProps extends BoxProps {
@@ -17,6 +16,8 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
     const { classes } = useStyles();
 
     const userRole = useUserRole();
+
+    const { columns, columnOrder, adaptGetArticleCoursesRequest, renderBadge } = useArticleCoursesListData(userRole);
 
     return (
         <Box {...props}>
@@ -29,8 +30,9 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetArticleCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 columns={columns}
+                accessRole={userRole}
                 countName="Курсов"
                 initialState={{
                     columnOrder,

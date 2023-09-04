@@ -8,7 +8,6 @@ import {
     $Profile,
     $UploadedFile,
 } from "@shared/types";
-import { $User } from "@entities/user";
 import { $AdminCourse, $CourseType } from "@entities/course";
 
 /**
@@ -132,11 +131,11 @@ export type GetGroupsSchedulesInfoResponse = z.infer<typeof $GetGroupsSchedulesI
  *
  */
 
-export const $AdminGroupTeacher = $User
-    .pick({
-        id: true,
-        email: true,
-        isActive: true,
+export const $AdminGroupTeacher = z
+    .object({
+        id: z.number(),
+        email: z.string().optional(),
+        isActive: z.string().optional(),
     })
     .extend({
         profile: $Profile.pick({
@@ -163,7 +162,7 @@ export const $AdminGroupTeacherFromList = $AdminGroupTeacher
 export const $AdminGroupCourse = z.object({
     id: z.number(),
     name: z.string(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
 });
 export const $AdminGroupStatusType = z.literal("notStarted").or(z.literal("inProgress")).or(z.literal("completed"));
 
@@ -178,10 +177,10 @@ export const $AdminGroup = z.object({
     status: $AdminGroupStatus,
     educationStartDate: z.coerce.date(),
     educationFinishDate: z.coerce.date(),
-    maxStudentsCount: z.number(),
-    isActive: z.boolean(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    maxStudentsCount: z.number().optional(),
+    isActive: z.boolean().optional(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     studentsCount: z.number(),
     freePlacesCount: z.number(),
     teacher: $AdminGroupTeacher.nullable(),

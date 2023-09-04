@@ -24,7 +24,7 @@ const ArticlesPage = () => {
             <Flex className={classes.headingContainer}>
                 <Heading>База знаний</Heading>
 
-                {userRole !== Roles.teacher && (
+                {userRole && userRole !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

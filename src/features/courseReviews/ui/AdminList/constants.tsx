@@ -1,7 +1,7 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminCourseReviewFiltersForm, AdminCourseReviewFromList } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = [
     "id",
@@ -15,7 +15,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminCourseReviewFromList>["columns"] = [
+export const columns: TColumns<AdminCourseReviewFromList> = [
     {
         header: "ID",
         accessorKey: "id",

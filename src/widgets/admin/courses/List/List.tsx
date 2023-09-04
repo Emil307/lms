@@ -1,19 +1,19 @@
 import { Box, Flex } from "@mantine/core";
-import React, { useMemo } from "react";
-import { MRT_Cell } from "mantine-react-table";
+import React from "react";
 import { useRouter } from "next/router";
-import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
+import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
 import { QueryKeys } from "@shared/constant";
 import { Roles } from "@app/routes";
-import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
+import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi } from "@entities/course";
 import { useMedia } from "@shared/utils";
-import { radioGroupValues, filterInitialValues, columns } from "./constants";
+import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
-import { adaptGetAdminCoursesRequest } from "./utils";
+import { MRT_Cell } from "mantine-react-table";
+import { useCourseListData } from "./utils";
 
 const List = () => {
     const router = useRouter();
@@ -21,43 +21,22 @@ const List = () => {
 
     const userRole = useUserRole();
 
-    const isMobile = useMedia("sm");
+    const { adaptGetAdminCoursesRequest, columns, columnOrder, filterInitialValues, renderBadge, optionsForSelects, isLoadingFilters } =
+        useCourseListData(userRole);
 
-    const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });
+    const isMobile = useMedia("sm");
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseFromList>) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id: String(cell.row.original.id) } });
     };
 
-    const optionsForSelects = useMemo(() => {
-        const categories = prepareOptionsForSelect({
-            data: coursesFilters?.categories,
-            value: "id",
-            label: "name",
-            emptyOptionLabel: "Без категории",
-        });
-        const tags = prepareOptionsForSelect({
-            data: coursesFilters?.tags,
-            value: "id",
-            label: "name",
-        });
-        const teachers = prepareOptionsForSelect({
-            data: coursesFilters?.teachers,
-            value: "id",
-            label: (data) => `${data.profile?.lastName} ${data.profile?.firstName}`,
-        });
-        const discountTypes = prepareOptionsForSelect({
-            data: coursesFilters?.discountTypes,
-            value: "type",
-            label: "name",
-        });
-
-        return { categories, tags, teachers, discountTypes };
-    }, [coursesFilters]);
+    if (!userRole) {
+        return null;
+    }
 
     return (
         <Box mt={24}>
-            <ManagedDataGrid<AdminCourseFromList, AdminCoursesFiltersForm>
+            <ManagedDataGrid<AdminCourseFromList, Partial<AdminCoursesFiltersForm>>
                 queryKey={QueryKeys.GET_ADMIN_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={[
@@ -78,22 +57,12 @@ const List = () => {
                 }}
                 onClickCell={handleClickCell}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 columns={columns}
+                accessRole={userRole}
                 countName="Курсов"
                 initialState={{
-                    columnOrder: [
-                        "id",
-                        "name",
-                        "category.name",
-                        "tags",
-                        "createdAt",
-                        "teachers",
-                        "price",
-                        "discount.amount",
-                        "discountPrice",
-                        "mrt-row-actions",
-                    ],
+                    columnOrder,
                 }}
                 collapsedFiltersBlockProps={{
                     isCollapsed: isMobile,
@@ -126,23 +95,25 @@ const List = () => {
                                 />
 
                                 {userRole !== Roles.teacher && (
-                                    <FMultiSelect
-                                        className={classes.filterSelect}
-                                        name="teachers"
-                                        data={optionsForSelects.teachers}
-                                        label="Преподаватели"
-                                        disabled={isLoadingFilters}
-                                    />
+                                    <>
+                                        <FMultiSelect
+                                            className={classes.filterSelect}
+                                            name="teachers"
+                                            data={optionsForSelects.teachers}
+                                            label="Преподаватели"
+                                            disabled={isLoadingFilters}
+                                        />
+                                        <FDateRangePicker
+                                            className={classes.filterDateRangePicker}
+                                            name="createdAtFrom"
+                                            nameTo="createdAtTo"
+                                            label="Дата создания"
+                                            size="sm"
+                                            disabled={isLoadingFilters}
+                                        />
+                                    </>
                                 )}
 
-                                <FDateRangePicker
-                                    className={classes.filterDateRangePicker}
-                                    name="createdAtFrom"
-                                    nameTo="createdAtTo"
-                                    label="Дата создания"
-                                    size="sm"
-                                    disabled={isLoadingFilters}
-                                />
                                 <FSelect
                                     className={classes.filterSelect}
                                     name="discountType"
@@ -153,11 +124,15 @@ const List = () => {
                                     disabled={isLoadingFilters}
                                 />
                             </Flex>
-                            <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
-                                {radioGroupValues.map((item) => {
-                                    return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
-                                })}
-                            </FRadioGroup>
+
+                            {userRole !== Roles.teacher && (
+                                <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
+                                    {radioGroupValues.map((item) => {
+                                        return <Radio size="md" key={item.id} label={item.label} value={item.value} />;
+                                    })}
+                                </FRadioGroup>
+                            )}
+
                             <Flex gap={16}>
                                 <Button type="submit" w={164}>
                                     Найти

@@ -1,9 +1,9 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Advantage } from "@entities/staticPage";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["title", "description", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<Advantage>["columns"] = [
+export const columns: TColumns<Advantage> = [
     {
         header: "Заголовок",
         accessorKey: "title",

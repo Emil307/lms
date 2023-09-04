@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Heading, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useAdminArticle } from "@entities/article";
+import { useUserRole } from "@entities/auth";
 import { InfoPanel } from "@widgets/admin/articles/InfoPanel";
 import { ArticleSettings } from "@widgets/admin/articles";
 import { AdminArticleCourseList, AdminArticleMaterialList } from "@features/articles";
@@ -14,6 +15,8 @@ const ArticleDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: articleData, isLoading, isError } = useAdminArticle({ id });
+
+    const userRole = useUserRole();
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/articles/[id]", query: { id, tab: value } });
@@ -44,6 +47,10 @@ const ArticleDetailsPage = () => {
 
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
+    if (!userRole) {
+        return null;
     }
 
     return (

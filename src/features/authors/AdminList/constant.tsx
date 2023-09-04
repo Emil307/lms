@@ -1,11 +1,11 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminAuthorFromList, AdminAuthorsFiltersForm } from "@entities/author";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "fullName", "createdAt", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminAuthorFromList>["columns"] = [
+export const columns: TColumns<AdminAuthorFromList> = [
     {
         header: "ID",
         accessorKey: "id",

@@ -44,28 +44,30 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                 </Flex>
 
                 {userRole !== Roles.teacher && (
-                    <Flex className={classes.item}>
-                        <Paragraph variant="text-small-m" color="gray45">
-                            Статус:
-                        </Paragraph>
-                        <Switch
-                            checked={lessonData.isActive}
-                            onChange={handleChangeActiveStatus}
-                            variant="secondary"
-                            label={labelActivitySwitch}
-                            labelPosition="left"
-                        />
-                    </Flex>
+                    <>
+                        <Flex className={classes.item}>
+                            <Paragraph variant="text-small-m" color="gray45">
+                                Статус:
+                            </Paragraph>
+                            <Switch
+                                checked={lessonData.isActive}
+                                onChange={handleChangeActiveStatus}
+                                variant="secondary"
+                                label={labelActivitySwitch}
+                                labelPosition="left"
+                            />
+                        </Flex>
+                        <Flex className={classes.item}>
+                            <Paragraph variant="text-small-m" color="gray45">
+                                Создание:
+                            </Paragraph>
+                            <Paragraph variant="text-small-m" color="dark">
+                                {dayjs(lessonData.createdAt).format("DD.MM.YYYY HH:mm")}
+                            </Paragraph>
+                        </Flex>
+                    </>
                 )}
 
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Создание:
-                    </Paragraph>
-                    <Paragraph variant="text-small-m" color="dark">
-                        {dayjs(lessonData.createdAt).format("DD.MM.YYYY HH:mm")}
-                    </Paragraph>
-                </Flex>
                 <LastUpdatedInfo data={lessonData.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </>

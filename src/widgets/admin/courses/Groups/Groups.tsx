@@ -6,9 +6,8 @@ import { AdminGroupFromList, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
-import { columns, columnOrder } from "./constants";
 import { AddGroupButton, ListMenu } from "./components";
-import { adaptGetAdminGroupsRequest } from "./utils";
+import { useCourseGroupsListData } from "./utils";
 import { TCourseGroupsExtraParams } from "./types";
 import useStyles from "./Groups.styles";
 
@@ -21,6 +20,8 @@ const Groups = ({ courseId }: GroupsProps) => {
     const { classes } = useStyles({ statusType: undefined });
 
     const userRole = useUserRole();
+
+    const { columns, columnOrder, adaptGetAdminGroupsRequest, renderBadge } = useCourseGroupsListData(userRole);
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id: String(cell.row.original.id) } });
@@ -40,9 +41,10 @@ const Groups = ({ courseId }: GroupsProps) => {
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "courseId"]}
                 extraFilterParams={{ courseId }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
+                accessRole={userRole}
                 countName="Групп"
                 initialState={{
                     columnOrder,

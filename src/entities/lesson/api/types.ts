@@ -139,10 +139,10 @@ export const $AdminLesson = z.object({
     content: z.string().nullable(),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
     videos: z.array($UploadedFile),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     lastUpdated: $LastUpdated,
 });
 

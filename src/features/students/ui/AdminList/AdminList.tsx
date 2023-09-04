@@ -9,9 +9,11 @@ import { useAdminStudentsFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import { ListMenu } from "./components";
-import { columns, radioGroupValues, filterInitialValues } from "./constants";
-import { adaptGetAdminStudentsRequest } from "./utils";
+import { radioGroupValues } from "./constants";
+import { useStudentListData } from "./utils";
 import useStyles from "./AdminList.styles";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 
 export interface AdminListProps extends BoxProps {}
 
@@ -19,6 +21,10 @@ const AdminList = (props: AdminListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
+
+    const { columns, columnOrder, filterInitialValues, adaptGetAdminStudentsRequest, renderBadge } = useStudentListData(userRole);
 
     const studentFilters = useAdminStudentsFilters();
 
@@ -30,19 +36,20 @@ const AdminList = (props: AdminListProps) => {
 
     return (
         <Box {...props}>
-            <ManagedDataGrid<UserFromList, AdminStudentsFiltersForm>
+            <ManagedDataGrid<UserFromList, Partial<AdminStudentsFiltersForm>>
                 queryKey={QueryKeys.GET_ADMIN_STUDENTS}
                 queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 onClickCell={handlerClickCell}
                 columns={columns}
+                accessRole={userRole}
                 countName="Учеников"
                 initialState={{
-                    columnOrder: ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"],
+                    columnOrder,
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
                 collapsedFiltersBlockProps={{
@@ -72,11 +79,15 @@ const AdminList = (props: AdminListProps) => {
                                     disabled={studentFilters.isLoading || !studentFilters.data?.roles.length}
                                 />
                             </Flex>
-                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
-                                {radioGroupValues.map((item) => (
-                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                                ))}
-                            </FRadioGroup>
+
+                            {userRole !== Roles.teacher && (
+                                <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                    {radioGroupValues.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                    ))}
+                                </FRadioGroup>
+                            )}
+
                             <Flex gap={16}>
                                 <Button w={164} type="submit">
                                     Найти

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
-import { MRT_Cell, MRT_Column, MRT_Row, MRT_TableInstance } from "mantine-react-table";
+import { MRT_Cell, MRT_Column, MRT_ColumnDef, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import React from "react";
 import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
@@ -26,7 +26,7 @@ export type TFunctionParamsWithoutPagination<F = unknown, E = unknown> = TSortPa
 export type TFunctionParams<F = unknown, E = unknown> = TDefaultRequestParams & Partial<F> & E;
 
 export type TFilterTable<F> = {
-    initialValues: Required<F>;
+    initialValues: F;
     validationSchema?: FormikConfig<F>["validationSchema"];
 };
 
@@ -66,6 +66,13 @@ export type TCellProps<T extends Record<string, any>> = {
 };
 
 export type TCellBadge = {
-    condition: boolean;
+    condition?: boolean;
     color?: string;
 };
+
+type TColumn<T extends Record<string, any>, R extends number[] = number[]> = MRT_ColumnDef<T> & {
+    access?: R;
+    sizes?: { [key in R[number]]: number };
+};
+
+export type TColumns<T extends Record<string, any>, R extends number[] = number[]> = TColumn<T, R>[];

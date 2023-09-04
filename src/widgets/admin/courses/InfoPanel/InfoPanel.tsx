@@ -37,6 +37,46 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
 
     const labelActivitySwitch = courseData.isActive ? "Деактивировать" : "Активировать";
 
+    const renderContent = () => {
+        if (userRole === Roles.teacher) {
+            return null;
+        }
+        return (
+            <>
+                <Flex className={classes.item}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Статус:
+                    </Paragraph>
+                    <Switch
+                        checked={courseData.isActive}
+                        onChange={handleChangeActiveStatus}
+                        variant="secondary"
+                        label={labelActivitySwitch}
+                        labelPosition="left"
+                    />
+                </Flex>
+                <Flex className={classes.item}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Тип курса:
+                    </Paragraph>
+                    <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
+                </Flex>
+                <Flex className={classes.item}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Создание:
+                    </Paragraph>
+                    <Paragraph variant="text-small-m">{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
+                </Flex>
+                <Flex className={classes.item}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Отображать в популярных:
+                    </Paragraph>
+                    <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
+                </Flex>
+            </>
+        );
+    };
+
     return (
         <>
             <Heading>{courseData.name}</Heading>
@@ -47,47 +87,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{courseData.id}</Paragraph>
                 </Flex>
-
-                {userRole !== Roles.teacher && (
-                    <Flex className={classes.item}>
-                        <Paragraph variant="text-small-m" color="gray45">
-                            Статус:
-                        </Paragraph>
-                        <Switch
-                            checked={courseData.isActive}
-                            onChange={handleChangeActiveStatus}
-                            variant="secondary"
-                            label={labelActivitySwitch}
-                            labelPosition="left"
-                        />
-                    </Flex>
-                )}
-
-                {userRole !== Roles.teacher && (
-                    <Flex className={classes.item}>
-                        <Paragraph variant="text-small-m" color="gray45">
-                            Тип курса:
-                        </Paragraph>
-                        <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
-                    </Flex>
-                )}
-
-                <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Создание:
-                    </Paragraph>
-                    <Paragraph variant="text-small-m">{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
-                </Flex>
-
-                {userRole !== Roles.teacher && (
-                    <Flex className={classes.item}>
-                        <Paragraph variant="text-small-m" color="gray45">
-                            Отображать в популярных:
-                        </Paragraph>
-                        <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
-                    </Flex>
-                )}
-
+                {renderContent()}
                 <LastUpdatedInfo data={courseData.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </>

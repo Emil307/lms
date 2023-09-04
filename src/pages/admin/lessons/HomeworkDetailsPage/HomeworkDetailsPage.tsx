@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { Box, Text } from "@mantine/core";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
+import { useUserRole } from "@entities/auth";
 import { useAdminLessonHomeworkAnswer } from "@entities/lesson";
 import { HomeworkChat, HomeworkInfoPanel, HomeworkTask } from "@widgets/admin/lessons";
 import { tabList } from "./constants";
@@ -12,6 +13,8 @@ const HomeworkDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
     const { data: homeworkAnswer, isLoading, isError } = useAdminLessonHomeworkAnswer(id);
+
+    const userRole = useUserRole();
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/homeworks/[id]", query: { id, tab: value } });
@@ -31,6 +34,10 @@ const HomeworkDetailsPage = () => {
 
     if (isError) {
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
+    if (!userRole) {
+        return null;
     }
 
     const studentFio = `${homeworkAnswer.student.profile.lastName} ${homeworkAnswer.student.profile.firstName}`;

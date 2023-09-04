@@ -10,11 +10,6 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    //TODO: Убрать при релизе
-    if (url.pathname === "/ui") {
-        return NextResponse.next();
-    }
-
     const isPageExist = isPathIncluded(allPaths, url.pathname);
 
     if (!isPageExist) {

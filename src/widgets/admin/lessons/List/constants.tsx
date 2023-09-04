@@ -1,8 +1,8 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { getHumanDate } from "@shared/utils";
-import { AdminLessonFromList, AdminLessonsFilters } from "@entities/lesson";
+import { AdminLessonFromList } from "@entities/lesson";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
-export const columns: MRT_ColumnDef<AdminLessonFromList>["columns"] = [
+export const columns: TColumns<AdminLessonFromList> = [
     {
         header: "ID",
         accessorKey: "id",
@@ -42,5 +42,3 @@ export const radioGroupValues = [
     { id: "2", label: "Активен", value: "1" },
     { id: "3", label: "Не активен", value: "0" },
 ];
-
-export const filterInitialValues: AdminLessonsFilters = { query: "", isActive: "", createdAtTo: null, createdAtFrom: null };
