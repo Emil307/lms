@@ -7,10 +7,12 @@ import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminArticleFromList, AdminArticlesFiltersForm, articleApi, useAdminArticleFilters } from "@entities/article";
 import { useMedia } from "@shared/utils";
-import { columns, radioGroupValues, filterInitialValues, columnOrder } from "./constants";
+import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
-import { adaptGetAdminArticlesRequest } from "./utils";
+import { useArticleListData } from "./utils";
 import useStyles from "./AdminList.styles";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 
 export interface AdminListProps extends Omit<BoxProps, "children"> {}
 
@@ -18,6 +20,10 @@ const AdminList = (props: AdminListProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
+
+    const userRole = useUserRole();
+
+    const { adaptGetAdminArticlesRequest, columns, columnOrder, filterInitialValues, renderBadge } = useArticleListData(userRole);
 
     const articleResources = useAdminArticleFilters();
 
@@ -27,16 +33,17 @@ const AdminList = (props: AdminListProps) => {
 
     return (
         <Box {...props}>
-            <ManagedDataGrid<AdminArticleFromList, AdminArticlesFiltersForm>
+            <ManagedDataGrid<AdminArticleFromList, Partial<AdminArticlesFiltersForm>>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query", "categoryId", "subcategoryId", "courseIds"]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
+                accessRole={userRole}
                 countName="Статей"
                 initialState={{
                     columnOrder,
@@ -87,11 +94,15 @@ const AdminList = (props: AdminListProps) => {
                                     disabled={articleResources.isLoading || !articleResources.data?.subcategories.length}
                                 />
                             </Flex>
-                            <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
-                                {radioGroupValues.map((item) => (
-                                    <Radio size="md" key={item.id} label={item.label} value={item.value} />
-                                ))}
-                            </FRadioGroup>
+
+                            {userRole !== Roles.teacher && (
+                                <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
+                                    {radioGroupValues.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.label} value={item.value} />
+                                    ))}
+                                </FRadioGroup>
+                            )}
+
                             <Flex gap={16}>
                                 <Button w={164} type="submit">
                                     Найти

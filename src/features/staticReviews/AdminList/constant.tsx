@@ -1,11 +1,11 @@
 import { Avatar } from "@mantine/core";
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Camera } from "react-feather";
 import { AdminStaticReviewFromList } from "@entities/staticReview";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["authorAvatar.absolutePath", "lastName", "position", "video.name", "quote", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminStaticReviewFromList>["columns"] = [
+export const columns: TColumns<AdminStaticReviewFromList> = [
     {
         header: "Фото",
         accessorKey: "authorAvatar.absolutePath",

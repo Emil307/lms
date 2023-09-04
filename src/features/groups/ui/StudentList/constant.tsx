@@ -1,8 +1,8 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Badge } from "@mantine/core";
 import { AdminGroupStudentFromList } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { useCellStyles } from "./StudentList.styles";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = [
     "fullName",
@@ -13,7 +13,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminGroupStudentFromList>["columns"] = [
+export const columns: TColumns<AdminGroupStudentFromList> = [
     {
         header: "Ученик",
         accessorKey: "profile",

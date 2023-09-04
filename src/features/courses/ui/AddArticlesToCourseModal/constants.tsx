@@ -1,7 +1,7 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminCoursesForCoursePackageFiltersForm } from "@entities/course";
 import { AdminArticleFromList } from "@entities/article";
 import { AttachArticlesToArticlePackageFormValidation } from "./types";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const initialValues: AttachArticlesToArticlePackageFormValidation = {
     ids: [],
@@ -16,7 +16,7 @@ export const filterInitialValues: AdminCoursesForCoursePackageFiltersForm = {
 
 export const columnOrder = ["mrt-row-select", "id", "name", "category.name", "subcategories", "courses"];
 
-export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
+export const columns: TColumns<AdminArticleFromList> = [
     {
         header: "ID",
         accessorKey: "id",

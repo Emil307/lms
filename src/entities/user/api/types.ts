@@ -54,13 +54,13 @@ export type GetStaticUsersResponse = z.infer<typeof $GetStaticUsersResponse>;
 export const $User = z.object({
     id: z.number(),
     email: z.string(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
     isStatic: z.boolean(),
     profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
 });
 
 export const $UserFromList = $User.omit({

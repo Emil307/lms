@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminStudentReportFromList, AdminStudentReportsFiltersForm } from "@entities/report";
 import { getFullName } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["fullName", "user.email", "role", "amount"];
 
-export const columns: MRT_ColumnDef<AdminStudentReportFromList>["columns"] = [
+export const columns: TColumns<AdminStudentReportFromList> = [
     {
         header: "ФИО ученика",
         accessorKey: "user.profile",

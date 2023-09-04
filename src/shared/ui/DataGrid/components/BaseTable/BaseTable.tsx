@@ -8,14 +8,14 @@ import { Tooltip } from "@shared/ui";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
-import { TCellBadge, TCellProps } from "../../types";
+import { TCellBadge, TCellProps, TColumns } from "../../types";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
 
 export type TBaseTableProps<T extends Record<string, any>> = {
     data?: T[];
-    columns?: MantineReactTableProps<T>["columns"];
+    columns: TColumns<T>;
     pagination?: TPagination;
     disablePagination?: boolean;
     isLoading: boolean;
@@ -25,6 +25,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     disableClickCell?: boolean;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderBadge?: (row: MRT_Cell<T>) => TCellBadge[];
+    accessRole?: number;
 } & TExtendedProps<T>;
 
 function BaseTable<T extends Record<string, any>>({
@@ -40,11 +41,12 @@ function BaseTable<T extends Record<string, any>>({
     onSortingChange,
     rowSelection,
     renderBadge,
+    accessRole = 0,
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();
     const { classes } = useBaseTableStyles({ hasActionButton: rest.initialState?.columnOrder?.includes("mrt-row-actions") });
-    const columns = rest.columns || prepareColumns(data);
+    const columns = prepareColumns(rest.columns, accessRole) || [];
     const paginationData = useCurrentPaginationData(pagination);
     const rowCount = paginationData?.count;
     const totalPage = paginationData?.totalPages || 0;

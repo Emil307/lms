@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { UploadedFileFromList } from "@entities/storage";
 import { getFileSize } from "@shared/utils";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "size", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
+export const columns: TColumns<UploadedFileFromList> = [
     {
         header: "ID",
         accessorKey: "id",

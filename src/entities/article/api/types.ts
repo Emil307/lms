@@ -136,7 +136,7 @@ export const $AdminArticle = z.object({
     id: z.number(),
     name: z.string(),
     content: z.string(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
     updatedAt: z.coerce.date(),
     createdAt: z.coerce.date(),
     likesCount: z.number(),

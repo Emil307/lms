@@ -1,9 +1,9 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { AdminArticleFromList } from "@entities/article";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "category.name", "subcategories", "courses", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminArticleFromList>["columns"] = [
+export const columns: TColumns<AdminArticleFromList> = [
     {
         header: "ID",
         accessorKey: "id",

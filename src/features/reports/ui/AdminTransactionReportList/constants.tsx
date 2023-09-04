@@ -1,13 +1,13 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { AdminTransactionReportFromList, AdminTransactionReportsFiltersForm } from "@entities/report";
 import { getFullName } from "@shared/utils";
 import { useCellStyles } from "./AdminTransactionReportList.styles";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["fullName", "role", "entityName", "paidAt", "paymentType", "status", "amount"];
 
-export const columns: MRT_ColumnDef<AdminTransactionReportFromList>["columns"] = [
+export const columns: TColumns<AdminTransactionReportFromList> = [
     {
         header: "ФИО ученика",
         accessorKey: "user.profile",

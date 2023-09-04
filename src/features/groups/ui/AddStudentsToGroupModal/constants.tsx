@@ -1,7 +1,7 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { UserFromList } from "@entities/user";
 import { getFullName } from "@shared/utils";
 import { AttachArticlesToArticlePackageFormValidation } from "./types";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const initialValues: AttachArticlesToArticlePackageFormValidation = {
     ids: [],
@@ -9,7 +9,7 @@ export const initialValues: AttachArticlesToArticlePackageFormValidation = {
 
 export const columnOrder = ["mrt-row-select", "profile"];
 
-export const columns: MRT_ColumnDef<UserFromList>["columns"] = [
+export const columns: TColumns<UserFromList> = [
     {
         header: "ID",
         accessorKey: "id",

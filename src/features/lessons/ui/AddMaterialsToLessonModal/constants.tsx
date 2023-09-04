@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminMaterialsNoIncludedLessonFiltersForm, UploadedFileFromList } from "@entities/storage";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["mrt-row-select", "id", "name", "categories", "type.name", "createdAt"];
 
-export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
+export const columns: TColumns<UploadedFileFromList> = [
     {
         header: "ID",
         accessorKey: "id",

@@ -8,7 +8,7 @@ export type CollapsedFiltersBlockProps<F> = Omit<FlexProps, "title" | "onSubmit"
     titleOpened?: ReactNode;
     titleClosed?: ReactNode;
     queryParams?: Partial<F>;
-    initialValues?: Required<F>;
+    initialValues?: F;
     isCollapsed?: boolean;
     leftIcon?: ReactNode;
     children?: ReactNode;

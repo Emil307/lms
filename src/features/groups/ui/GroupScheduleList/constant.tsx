@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminGroupScheduleFromList } from "@entities/group";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["date", "timings", "mrt-row-actions"];
 
-export const columns: MRT_ColumnDef<AdminGroupScheduleFromList>["columns"] = [
+export const columns: TColumns<AdminGroupScheduleFromList> = [
     {
         header: "Дата занятия",
         accessorKey: "date",

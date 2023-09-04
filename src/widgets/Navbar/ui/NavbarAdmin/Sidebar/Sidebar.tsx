@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Book, Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
+import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
 import { IconClipboardText, IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { useClickOutside } from "@mantine/hooks";
 import { Roles } from "@app/routes";
@@ -47,8 +47,6 @@ export default function Sidebar() {
         <MinimizedModeSidebarContext.Provider value={{ isMinimizedModeSidebar, setIsMinimizedModeSidebar }}>
             <Box className={classes.root} ref={sidebarRef}>
                 <Box className={classes.inner}>
-                    {/*TODO: Убрать при релизе*/}
-                    <SidebarItem label="UI" isActive={router.pathname.includes("/ui")} icon={<Book />} href="/ui" />
                     <SidebarItem
                         label="Домашние задания"
                         isActive={router.pathname.includes("/admin/homeworks")}

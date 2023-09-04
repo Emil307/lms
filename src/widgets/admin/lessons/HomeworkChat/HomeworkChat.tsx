@@ -79,7 +79,7 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
                     <Heading order={2} mb={32}>
                         Диалог с учеником
                     </Heading>
-                    {userRole !== Roles.manager && (
+                    {userRole === Roles.teacher && (
                         <Box maw={772} mb={32}>
                             <CreateMessageForm homeworkAnswerId={homeworkAnswerId} />
                         </Box>

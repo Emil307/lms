@@ -1,8 +1,8 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminArticlePackageFromList, AdminArticlePackagesFiltersForm } from "@entities/articlePackage";
 import { Paragraph } from "@shared/ui";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const radioGroupValues = [
     { id: "1", label: "Все", value: "" },
@@ -31,7 +31,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminArticlePackageFromList>["columns"] = [
+export const columns: TColumns<AdminArticlePackageFromList> = [
     {
         header: "ID",
         accessorKey: "id",

@@ -126,7 +126,7 @@ export const $CourseType = z.literal("interactive").or(z.literal("autonomous"));
 const $AdminCourseCategory = z.object({
     id: z.number(),
     name: z.string(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
 });
 
 const $AdminCourseTag = z.object({
@@ -137,7 +137,7 @@ const $AdminCourseTag = z.object({
 const $AdminCourseTeacher = z.object({
     id: z.number(),
     email: z.string().optional(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
     profile: z
         .object({
             firstName: z.string(),
@@ -148,7 +148,7 @@ const $AdminCourseTeacher = z.object({
 });
 
 const $AdminCourseAuthor = z.object({
-    id: z.number(),
+    id: z.number().optional(),
     firstName: z.string(),
     lastName: z.string(),
 });
@@ -170,24 +170,24 @@ export const $AdminCourse = z.object({
     price: z.number(),
     discountPrice: z.number(),
     cover: $UploadedFile.nullable(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
     description: z.string().nullable(),
     category: $AdminCourseCategory.nullable(),
     tags: z.array($AdminCourseTag),
-    hasTeachers: z.boolean(),
+    hasTeachers: z.boolean().optional(),
     teachers: z.array($AdminCourseTeacher),
     subcategory: $AdminCourseCategory.nullable(),
-    hasAuthors: z.boolean(),
+    hasAuthors: z.boolean().optional(),
     authors: z.array($AdminCourseAuthor),
     rating: $AdminCourseRating.nullable(),
     duration: z.string().nullable(),
-    hasDiscount: z.boolean(),
+    hasDiscount: z.boolean().optional(),
     discount: $Discount.nullable(),
-    isDemonstrative: z.boolean(),
-    isFulfillment: z.boolean(),
+    isDemonstrative: z.boolean().optional(),
+    isFulfillment: z.boolean().optional(),
     isPopular: z.boolean(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     accessExpirationDate: z.coerce.date().nullable().optional(),
     lastUpdated: $LastUpdated.nullable(),
 });

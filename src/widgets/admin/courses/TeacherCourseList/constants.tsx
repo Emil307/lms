@@ -1,10 +1,10 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminCourseFromList } from "@entities/course";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = ["id", "name", "createdAt", "category.name", "isActive"];
 
-export const columns: MRT_ColumnDef<AdminCourseFromList>["columns"] = [
+export const columns: TColumns<AdminCourseFromList> = [
     {
         header: "ID",
         accessorKey: "id",

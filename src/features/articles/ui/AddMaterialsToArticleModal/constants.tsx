@@ -1,7 +1,7 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import dayjs from "dayjs";
 import { AdminMaterialsNoIncludedArticleFiltersForm, UploadedFileFromList } from "@entities/storage";
 import { AttachMaterialsToArticleFormValidation } from "./types";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const initialValues: AttachMaterialsToArticleFormValidation = {
     fileIds: [],
@@ -17,7 +17,7 @@ export const filterInitialValues: AdminMaterialsNoIncludedArticleFiltersForm = {
 
 export const columnOrder = ["mrt-row-select", "id", "name", "category.name", "subcategories", "courses"];
 
-export const columns: MRT_ColumnDef<UploadedFileFromList>["columns"] = [
+export const columns: TColumns<UploadedFileFromList> = [
     {
         header: "ID",
         accessorKey: "id",

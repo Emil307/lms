@@ -37,6 +37,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{groupData?.id}</Paragraph>
                 </Flex>
+
                 {userRole !== Roles.teacher && (
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -51,20 +52,25 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         />
                     </Flex>
                 )}
+
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Учебный курс:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{groupData?.course.name}</Paragraph>
                 </Flex>
-                <Flex gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Создание:
-                    </Paragraph>
-                    <Paragraph variant="text-small-m">
-                        {groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
-                    </Paragraph>
-                </Flex>
+
+                {userRole !== Roles.teacher && (
+                    <Flex gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Создание:
+                        </Paragraph>
+                        <Paragraph variant="text-small-m">
+                            {groupData?.createdAt ? dayjs(groupData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                        </Paragraph>
+                    </Flex>
+                )}
+
                 <LastUpdatedInfo data={groupData?.lastUpdated} hidden={userRole === Roles.teacher} />
             </Flex>
         </Box>

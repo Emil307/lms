@@ -1,7 +1,7 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { Badge } from "@mantine/core";
 import { AdminCourseStatistics } from "@entities/course";
 import useStyles from "./Statistics.styles";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = [
     "name",
@@ -12,7 +12,7 @@ export const columnOrder = [
     "mrt-row-actions",
 ];
 
-export const columns: MRT_ColumnDef<AdminCourseStatistics>["columns"] = [
+export const columns: TColumns<AdminCourseStatistics> = [
     {
         header: "Группа",
         accessorKey: "name",

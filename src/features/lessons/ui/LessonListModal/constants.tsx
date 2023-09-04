@@ -1,8 +1,8 @@
-import { MRT_ColumnDef } from "mantine-react-table";
 import { getHumanDate } from "@shared/utils";
 import { AdminLessonFromList, AdminSelectLessonsFilters } from "@entities/lesson";
+import { TColumns } from "@shared/ui/DataGrid/types";
 
-export const columns: MRT_ColumnDef<AdminLessonFromList>["columns"] = [
+export const columns: TColumns<AdminLessonFromList> = [
     {
         header: "ID",
         accessorKey: "id",
