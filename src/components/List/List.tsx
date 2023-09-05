@@ -1,8 +1,9 @@
-import { ColProps as MColProps, GridProps as MGridProps, Grid, Flex } from "@mantine/core";
+import { ColProps as MColProps, GridProps as MGridProps, Grid, Box } from "@mantine/core";
 import { ReactNode, Ref } from "react";
 import { TPagination } from "@shared/types";
 import { Loader } from "@shared/ui";
 import { Pagination } from "./components";
+import { useScrollIntoView } from "@mantine/hooks";
 
 export interface ListProps<T> extends Omit<MGridProps, "children"> {
     data?: T[];
@@ -28,17 +29,23 @@ function List<T extends { id?: unknown; groupId?: unknown }>({
     renderItem,
     declensionWordCountItems,
     onClick = () => undefined,
-    onPaginationChange,
+    onPaginationChange = () => undefined,
     lastElemRef,
     ...props
 }: ListProps<T>) {
+    const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+        duration: 1000,
+    });
+
+    const handlePaginationChange = (page: number) => {
+        scrollIntoView({ alignment: "end" });
+        onPaginationChange(page);
+    };
+
     return (
         <>
-            {isLoading && (
-                <Flex sx={{ w: "100%", justifyContent: "center" }}>
-                    <Loader size="lg" />
-                </Flex>
-            )}
+            {isLoading && <Loader size="lg" />}
+            <Box ref={targetRef} w={1} h={1}></Box>
             <Grid {...props} gutter={24}>
                 {data?.map((row) => (
                     <Grid.Col {...colProps} key={`row-${row.id || row.groupId}`} ref={lastElemRef}>
@@ -52,7 +59,11 @@ function List<T extends { id?: unknown; groupId?: unknown }>({
                 )}
             </Grid>
             {!!data?.length && withPagination && (
-                <Pagination data={pagination} declensionWordCountItems={declensionWordCountItems} onPaginationChange={onPaginationChange} />
+                <Pagination
+                    data={pagination}
+                    declensionWordCountItems={declensionWordCountItems}
+                    onPaginationChange={handlePaginationChange}
+                />
             )}
         </>
     );

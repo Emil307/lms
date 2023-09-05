@@ -86,7 +86,7 @@ function InfoCard<T>({
                 if ((hideFieldIfEmpty && !getValue) || isHidden) {
                     return null;
                 }
-                return <DisplayField key={index} {...field} value={getValue} variant="compact" />;
+                return <DisplayField key={index} {...field} value={getValue} variant="compact" textAlign="start" />;
             }),
         [fields, values]
     );

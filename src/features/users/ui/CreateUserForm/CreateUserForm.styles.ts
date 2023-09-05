@@ -34,7 +34,6 @@ export default createStyles((theme) => ({
 
     descriptionTextarea: {
         width: "100%",
-        maxWidth: 600,
         textarea: {
             minHeight: 190,
         },

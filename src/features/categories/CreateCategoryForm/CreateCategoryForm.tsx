@@ -46,22 +46,18 @@ const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }:
                 { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE] },
             ]}
             onError={onError}
-            hasConfirmModal
-            onCancel={onClose}
             disableOverlay>
-            {({ onCancel }) => (
-                <Flex direction="column" gap={{ base: 24, xs: 32 }}>
-                    <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onCancel} w="100%">
-                            Отмена
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+            <Flex direction="column" gap={{ base: 24, xs: 32 }}>
+                <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />
+                <Flex gap={8}>
+                    <Button variant="border" size="large" onClick={onClose} w="100%">
+                        Отмена
+                    </Button>
+                    <Button type="submit" variant="secondary" size="large" w="100%">
+                        Сохранить
+                    </Button>
                 </Flex>
-            )}
+            </Flex>
         </ManagedForm>
     );
 };

@@ -4,7 +4,7 @@ import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import { Logo } from "@components/Logo";
-import { COMPANY_LINKS } from "@shared/constant";
+import { CompanyLinks } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
 
@@ -36,20 +36,19 @@ const FooterAdmin = (props: FooterAdminProps) => {
                     </Flex>
                 </Flex>
                 <Flex gap={16}>
-                    <a href={COMPANY_LINKS.VK} target="_blank" rel="noreferrer">
+                    <a href={CompanyLinks.VK} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconVK />
                         </Flex>
                     </a>
 
-                    {/* //TODO: Добавить редирект на whatsapp */}
-                    <a target="_blank" rel="noreferrer">
+                    <a href={CompanyLinks.WHATSAPP} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconWhatsapp />
                         </Flex>
                     </a>
 
-                    <a href={COMPANY_LINKS.TELEGRAM} target="_blank" rel="noreferrer">
+                    <a href={CompanyLinks.TELEGRAM} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconTelegram />
                         </Flex>
