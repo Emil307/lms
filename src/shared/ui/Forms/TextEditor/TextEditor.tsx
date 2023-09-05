@@ -56,7 +56,6 @@ const MemoizedTextEditor = memo(function TextEditor({
             <Paragraph variant="text-smaller" pt={2}>
                 {error}
             </Paragraph>
-            pt={2}
         </Flex>
     );
 

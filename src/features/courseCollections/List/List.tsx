@@ -27,10 +27,11 @@ const List = ({
     wrapperProps,
     skeletonListProps,
     headingProps,
+    withPagination,
     ...props
 }: ListProps) => {
     const router = useRouter();
-    const page = router.query.page || 1;
+    const page = withPagination ? router.query.page || 1 : 1;
 
     const {
         data: courseCollectionsData,
@@ -75,6 +76,7 @@ const List = ({
                         data={courseCollectionsData.data}
                         renderItem={(props) => <Card {...props} />}
                         pagination={courseCollectionsData.pagination}
+                        withPagination={withPagination}
                         declensionWordCountItems={["подборка", "подборки", "подборок"]}
                         isLoading={isFetching || isLoading}
                         cardMore={renderCardMore()}

@@ -5,7 +5,7 @@ import { Button } from "@shared/ui";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
-import { COMPANY_LINKS } from "@shared/constant";
+import { CompanyLinks } from "@shared/constant";
 import useStyles from "./FooterNavbar.styles";
 
 export interface FooterNavbarProps extends FlexProps {
@@ -45,20 +45,19 @@ const FooterNavbar = ({ isPublic = false, ...props }: FooterNavbarProps) => {
             </Flex>
 
             <Flex gap={16}>
-                <a href={COMPANY_LINKS.VK} target="_blank" rel="noreferrer">
+                <a href={CompanyLinks.VK} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconVK />
                     </Flex>
                 </a>
 
-                {/* //TODO: Добавить редирект на whatsapp */}
-                <a target="_blank" rel="noreferrer">
+                <a href={CompanyLinks.WHATSAPP} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconWhatsapp />
                     </Flex>
                 </a>
 
-                <a href={COMPANY_LINKS.TELEGRAM} target="_blank" rel="noreferrer">
+                <a href={CompanyLinks.TELEGRAM} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconTelegram />
                     </Flex>

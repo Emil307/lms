@@ -72,7 +72,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
             hasConfirmModal
             onCancel={onClose}>
             {({ values, dirty, onCancel }) => (
-                <Flex direction="column" gap={32}>
+                <Flex direction="column" gap={32} maw={772}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Статус:

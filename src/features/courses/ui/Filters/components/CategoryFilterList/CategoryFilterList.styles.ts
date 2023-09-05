@@ -4,6 +4,7 @@ export default createStyles((theme) => ({
     root: {
         flexDirection: "column",
         gap: 8,
+        wordBreak: "break-word",
 
         "::-webkit-scrollbar": {
             display: "none",

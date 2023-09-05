@@ -9,11 +9,13 @@ export interface DisplayFieldProps {
     value?: string | null; //Значение
     render?: (value: string) => ReactNode; //На случай если нужно отредерить что-то своё.
     defaultValue?: string;
+    textAlign?: "start" | "end";
 }
 
 const MemoizedDisplayField = memo(function DisplayField({
     variant = "default",
     defaultValue = "-",
+    textAlign = "end",
     label,
     value,
     render,
@@ -25,7 +27,7 @@ const MemoizedDisplayField = memo(function DisplayField({
             return render(value || defaultValue);
         }
         return (
-            <Paragraph variant="small-semi" ta="end">
+            <Paragraph variant="small-semi" ta={textAlign}>
                 {value || defaultValue}
             </Paragraph>
         );
