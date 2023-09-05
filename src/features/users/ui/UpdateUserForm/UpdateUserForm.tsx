@@ -1,12 +1,12 @@
-import { Flex, Avatar } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React from "react";
-import { Edit3, Shield, User, UserCheck } from "react-feather";
+import { Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import dayjs from "dayjs";
 import {
     Button,
-    FFileButton,
+    FAvatarInput,
     FFileInput,
     FInput,
     FRadioGroup,
@@ -18,7 +18,6 @@ import {
     Radio,
 } from "@shared/ui";
 import { useAdminUsersFilters, UserDetailResponse, userApi, UpdateAdminUserResponse } from "@entities/user";
-import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -121,23 +120,14 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
                     </Flex>
 
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
-                        <Flex align="center" gap={16} mb={16}>
-                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                <AvatarIcon />
-                            </Avatar>
-                            <Flex direction="column" gap={8}>
-                                <Flex direction="column" gap={4}>
-                                    <Paragraph variant="small-semi" lineClamp={1}>
-                                        {userFullName}
-                                    </Paragraph>
-                                    <Paragraph variant="text-small-m" color="primaryHover">
-                                        {data?.roles[0].displayName}
-                                    </Paragraph>
-                                </Flex>
-                                <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                            </Flex>
-                        </Flex>
-                        <Flex gap={8} wrap="wrap">
+                        <FAvatarInput
+                            name="avatar"
+                            label="Изменить аватар"
+                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                            title={userFullName}
+                            subtitle={data?.roles[0].displayName}
+                        />
+                        <Flex gap={8} wrap="wrap" mt={16}>
                             <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />

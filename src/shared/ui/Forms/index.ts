@@ -8,7 +8,7 @@ export * from "./Switch";
 export * from "./Select";
 export * from "./MultiSelect";
 export * from "./RadioGroup";
-export * from "./FileButton";
+export * from "./AvatarInput";
 export * from "./DatePicker";
 export * from "./FileInput";
 export * from "./Search";

@@ -21,7 +21,6 @@ import {
     FSelect,
     FMultiSelect,
     FRadioGroup,
-    FFileButton,
     FDatePicker,
     DatePicker,
     TBreadCrumbItem,
@@ -40,7 +39,7 @@ import {
     FTextEditor,
     TextEditor,
     ControlPanel,
-    FControlPanel,
+    FControlPanel, FAvatarInput,
 } from "@shared/ui";
 import { createNotification, ToastType } from "@shared/utils";
 import { REGEXP_TEXTEDITOR_INNER_TEXT } from "@shared/constant";
@@ -274,7 +273,11 @@ export const UIDemo = () => {
                                 <FTimeInput name="dateTime" label="TimeInput" />
                                 <FTimeRangeInput name="ranges.dateFrom" nameTo="ranges.dateTo" label="TimeRangeInput" />
                                 <Avatar src={values.avatarImage?.absolutePath || ""} />
-                                <FFileButton name="avatarImage" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
+                                <FAvatarInput
+                                    name="avatar"
+                                    label="Изменить аватар"
+                                    description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                />
                                 <FDatePicker name="date" success="alalala" description="rtrtrtrt" />
                                 <FSlider name="price" labelAlwaysOn min={1400} max={2000} showTextInfo />
                                 <FInput label="Login" name="login" description="lalalala" />

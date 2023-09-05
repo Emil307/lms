@@ -1,9 +1,8 @@
-import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { Edit3, User, Video } from "react-feather";
+import { User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
-import AvatarIcon from "public/icons/avatar.svg";
+import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -101,12 +100,11 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                             </Box>
                             {values.authorIsActive && (
                                 <Flex direction="column" gap={24} w="100%">
-                                    <Flex align="center" wrap="wrap" columnGap={24} rowGap={16}>
-                                        <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                            <AvatarIcon />
-                                        </Avatar>
-                                        <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                    </Flex>
+                                    <FAvatarInput
+                                        name="avatar"
+                                        label="Загрузить аватар"
+                                        description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                    />
                                     <Flex direction="column" gap={8}>
                                         <Flex direction={{ base: "column", xs: "row" }} gap={8}>
                                             <FInput name="firstName" label="Имя" size="sm" withAsterisk w="100%" />

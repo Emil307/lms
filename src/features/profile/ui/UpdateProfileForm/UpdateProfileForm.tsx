@@ -1,8 +1,7 @@
-import { Avatar, Box, BoxProps, Flex } from "@mantine/core";
-import { Edit3, Shield, User as UserIcon } from "react-feather";
+import { Box, BoxProps, Flex } from "@mantine/core";
+import { Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
-import AvatarIcon from "public/icons/avatar.svg";
-import { Button, FFileButton, FInput, ManagedForm, Paragraph } from "@shared/ui";
+import { Button, FAvatarInput, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { User, UpdateMeResponse, authApi, UpdateMeForm, $UpdateMeForm } from "@entities/auth";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
@@ -58,24 +57,17 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                 onCancel={handleCloseForm}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ values, dirty, onCancel }) => (
+                {({ dirty, onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={24}>
-                                <Flex gap={24}>
-                                    <Avatar className={classes.avatarWrapper} src={values.avatar?.absolutePath} alt="avatar">
-                                        <AvatarIcon />
-                                    </Avatar>
-                                    <Flex sx={{ flexDirection: "column", gap: 8 }}>
-                                        <Flex sx={{ flexDirection: "column", gap: 4 }}>
-                                            <Paragraph variant="small-semi">{`${adaptData.firstName} ${adaptData.lastName}`}</Paragraph>
-                                            <Paragraph variant="text-small-m" color="primaryHover">
-                                                {adaptData.role}
-                                            </Paragraph>
-                                        </Flex>
-                                        <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                    </Flex>
-                                </Flex>
+                                <FAvatarInput
+                                    name="avatar"
+                                    label="Изменить аватар"
+                                    description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                    title={`${adaptData.firstName} ${adaptData.lastName}`}
+                                    subtitle={adaptData.role}
+                                />
                                 <Flex wrap="wrap" gap={8}>
                                     <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                                     <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />

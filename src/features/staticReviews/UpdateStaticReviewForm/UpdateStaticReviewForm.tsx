@@ -1,10 +1,9 @@
-import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { Edit3, User, Video } from "react-feather";
+import { User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
-import AvatarIcon from "public/icons/avatar.svg";
+import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminStaticReview, UpdateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -28,7 +27,7 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
         if (!data?.firstName || !data.lastName) {
             return null;
         }
-        return <Paragraph variant="small-semi">{`${data.firstName} ${data.lastName}`}</Paragraph>;
+        return `${data.firstName} ${data.lastName}`;
     };
 
     const updateStaticReview = (values: UpdateAdminStaticReviewFormValidation) => {
@@ -132,15 +131,12 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                 </Box>
                                 {values.authorIsActive && (
                                     <Flex direction="column" gap={24}>
-                                        <Flex align="center" wrap="wrap" columnGap={24} rowGap={16}>
-                                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                                <AvatarIcon />
-                                            </Avatar>
-                                            <Flex direction="column" gap={8}>
-                                                {renderAuthorFullName()}
-                                                <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                            </Flex>
-                                        </Flex>
+                                        <FAvatarInput
+                                            name="avatar"
+                                            label="Загрузить аватар"
+                                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                            title={renderAuthorFullName()}
+                                        />
                                         <Flex direction="column" gap={8}>
                                             <Flex direction={{ base: "column", xs: "row" }} gap={8}>
                                                 <FInput name="firstName" label="Имя" size="sm" withAsterisk />

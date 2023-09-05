@@ -25,6 +25,19 @@ export default createStyles((theme) => ({
         fontSize: 16,
         lineHeight: "24px",
     },
+    content: {
+        wordBreak: "break-word",
+    },
+    avatarWrapper: {
+        width: 84,
+        minWidth: 84,
+        height: 84,
+        borderRadius: 50,
+
+        ".mantine-Avatar-placeholder": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
+    },
     error: {
         gap: 4,
         marginTop: 4,

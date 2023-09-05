@@ -1,11 +1,11 @@
-import { Box, Flex, Avatar } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import React from "react";
-import { Bell, Edit3, Shield, User, UserCheck } from "react-feather";
+import { Bell, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import {
     Button,
+    FAvatarInput,
     FControlPanel,
-    FFileButton,
     FFileInput,
     FInput,
     FRadioGroup,
@@ -16,7 +16,6 @@ import {
     Radio,
 } from "@shared/ui";
 import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/user";
-import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
@@ -81,13 +80,12 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
-                        <Flex align="center" gap={16} mb={16} wrap="wrap">
-                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                <AvatarIcon />
-                            </Avatar>
-                            <FFileButton name="avatar" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                        </Flex>
-                        <Flex gap={8} wrap="wrap">
+                        <FAvatarInput
+                            name="avatar"
+                            label="Изменить аватар"
+                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                        />
+                        <Flex gap={8} wrap="wrap" mt={16}>
                             <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />

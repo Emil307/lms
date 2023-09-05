@@ -1,10 +1,9 @@
-import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { Edit3, User } from "react-feather";
+import { User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FFileButton, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
-import AvatarIcon from "public/icons/avatar.svg";
+import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -29,7 +28,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
         if (!data?.authorFirstName || !data.authorLastName) {
             return null;
         }
-        return <Paragraph variant="small-semi" lineClamp={1}>{`${data.authorFirstName} ${data.authorLastName}`}</Paragraph>;
+        return `${data.authorFirstName} ${data.authorLastName}`;
     };
 
     const updateMainBanner = (values: UpdateMainBannerFormValidation) => {
@@ -97,22 +96,12 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                 </Box>
                                 {values.indexBannerAuthorActive && (
                                     <Flex direction="column" gap={24} w="100%">
-                                        <Flex align="center" wrap="wrap" columnGap={24} rowGap={16}>
-                                            <Avatar
-                                                src={values.indexBannerAuthorAvatar?.absolutePath}
-                                                alt="avatar"
-                                                className={classes.avatarWrapper}>
-                                                <AvatarIcon />
-                                            </Avatar>
-                                            <Flex direction="column" justify="center" gap={8}>
-                                                {renderAuthorFullName()}
-                                                <FFileButton
-                                                    name="indexBannerAuthorAvatar"
-                                                    label="Изменить аватар"
-                                                    buttonProps={{ leftIcon: <Edit3 /> }}
-                                                />
-                                            </Flex>
-                                        </Flex>
+                                        <FAvatarInput
+                                            name="indexBannerAuthorAvatar"
+                                            label="Изменить аватар"
+                                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                            title={renderAuthorFullName()}
+                                        />
                                         <Flex direction="column" gap={8}>
                                             <Flex direction={{ base: "column", xs: "row" }} gap={8}>
                                                 <FInput name="indexBannerAuthorFirstName" label="Имя" size="sm" withAsterisk w="100%" />
