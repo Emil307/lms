@@ -2,6 +2,8 @@ import { GetServerSidePropsContext } from "next";
 import Axios, { AxiosError } from "axios";
 import { getCookies } from "cookies-next";
 import { QueryClient } from "@tanstack/react-query";
+import { logoutPath } from "@app/routes";
+import { bindInterceptors } from "@app/config/axios/default";
 
 export async function getSsrInstances(context: GetServerSidePropsContext) {
     const cookies = getCookies(context);
@@ -14,6 +16,8 @@ export async function getSsrInstances(context: GetServerSidePropsContext) {
         headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: authorization },
         responseType: "json",
     });
+
+    bindInterceptors(axios);
 
     return { axios, queryClient };
 }
@@ -57,7 +61,7 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
         return {
             redirect: {
                 permanent: false,
-                destination: "/401",
+                destination: logoutPath,
             },
         };
     }

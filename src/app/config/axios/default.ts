@@ -26,7 +26,7 @@ export const axios = Axios.create({
     responseType: "json",
 });
 
-export const getInterceptors = (axios: AxiosInstance, handleResponseInterceptorError: TAxiosResponseInterceptorError) => {
+export const bindInterceptors = (axios: AxiosInstance, handleResponseInterceptorError?: TAxiosResponseInterceptorError) => {
     /**
      *  Добавляй header token, если запрос делает пользователь личного кабинета.
      */
@@ -60,4 +60,4 @@ export const getInterceptors = (axios: AxiosInstance, handleResponseInterceptorE
     axios.interceptors.response.use(responderInterceptor, handleResponseInterceptorError);
 };
 
-getInterceptors(axios, handleAxiosError);
+bindInterceptors(axios, handleAxiosError);
