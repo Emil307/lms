@@ -1,9 +1,8 @@
-import { Flex, Avatar } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React from "react";
-import { Edit3, User } from "react-feather";
+import { User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FFileButton, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
-import AvatarIcon from "@public/icons/avatar.svg";
+import { Button, FAvatarInput, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAuthorResponse, authorApi } from "@entities/author";
@@ -56,7 +55,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
             onError={onError}
             hasConfirmModal
             onCancel={onClose}>
-            {({ values, dirty, onCancel }) => (
+            {({ dirty, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -65,13 +64,12 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                         <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />
                     </Flex>
                     <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} showDivider={false}>
-                        <Flex align="center" gap={24} mb={24}>
-                            <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                <AvatarIcon />
-                            </Avatar>
-                            <FFileButton name="avatar" type="image" label="Изменить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                        </Flex>
-                        <Flex gap={8} wrap="wrap">
+                        <FAvatarInput
+                            name="avatar"
+                            label="Изменить аватар"
+                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                        />
+                        <Flex gap={8} wrap="wrap" mt={24}>
                             <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
                             <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />

@@ -1,10 +1,9 @@
-import { Box, Flex, Avatar, BoxProps } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { Bell, Edit3, Shield, User } from "react-feather";
+import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FControlPanel, FFileButton, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import { Button, FAvatarInput, FControlPanel, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
-import AvatarIcon from "public/icons/avatar.svg";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { MutationKeys } from "@shared/constant";
@@ -56,7 +55,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                 onSuccess={onSuccess}
                 onError={onError}
                 onCancel={onClose}>
-                {({ values, dirty, onCancel }) => (
+                {({ dirty, onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Flex align="center" gap={8}>
                             <Paragraph variant="text-small-m" color="gray45">
@@ -66,12 +65,11 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                         </Flex>
                         <Fieldset label="Личные данные" icon={<User />} legendProps={{ mb: 24 }} maw={772}>
                             <Flex direction="column" gap={24} w="100%">
-                                <Flex align="center" gap={24} wrap="wrap">
-                                    <Avatar src={values.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
-                                        <AvatarIcon />
-                                    </Avatar>
-                                    <FFileButton name="avatar" label="Загрузить аватар" buttonProps={{ leftIcon: <Edit3 /> }} />
-                                </Flex>
+                                <FAvatarInput
+                                    name="avatar"
+                                    label="Загрузить аватар"
+                                    description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
+                                />
                                 <Flex gap={8} wrap="wrap">
                                     <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
                                     <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
