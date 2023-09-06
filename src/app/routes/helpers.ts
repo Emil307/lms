@@ -22,7 +22,7 @@ export const isAccessAllowed = (userRole: number, newUrlPath: string) => {
     }
 };
 
-export const getStartPage = (userRole: number): Route => {
+export const getStartPage = (userRole?: number): Route => {
     switch (userRole) {
         case Roles.administrator:
         case Roles.manager:
