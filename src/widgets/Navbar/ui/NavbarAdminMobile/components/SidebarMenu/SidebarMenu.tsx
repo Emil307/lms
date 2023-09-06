@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
-import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen } from "react-feather";
+import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen, Home } from "react-feather";
 import { IconClipboardText, IconMessageDots, IconReceipt } from "@tabler/icons-react";
 import { Roles } from "@app/routes";
 import CloseBookIcon from "@public/icons/closeBook.svg";
@@ -11,6 +11,7 @@ export default function SidebarMenu() {
     const router = useRouter();
     return (
         <Box sx={{ paddingRight: 24, position: "relative" }}>
+            <SidebarItem label="Главная" isActive={router.pathname === "/admin"} icon={<Home />} href="/admin" />
             <SidebarItem
                 label="Домашние задания"
                 isActive={router.pathname.includes("/admin/homeworks")}

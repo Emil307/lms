@@ -9,7 +9,7 @@ import { Logo } from "@components/Logo";
 import { Menu as NotificationMenu } from "@widgets/notifications";
 import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
-import { logoutPath, Roles } from "@app/routes";
+import { getStartPage, logoutPath } from "@app/routes";
 import { useMedia } from "@shared/utils";
 import useStyles from "./HeaderAdmin.styles";
 
@@ -25,13 +25,6 @@ const HeaderAdmin = () => {
     const handleRedirectLogout = () => router.push(logoutPath);
 
     const handleChangeOpenedSidebar = () => setOpenedSidebar(!openedSidebar);
-
-    const getLogoClickHref = () => {
-        if (user?.roles[0].id === Roles.teacher) {
-            return "/admin/homeworks";
-        }
-        return "/admin/users";
-    };
 
     const renderSidebarBurger = () => {
         if (openedSidebar) {
@@ -75,7 +68,7 @@ const HeaderAdmin = () => {
 
     return (
         <MHeader classNames={classes} height="auto">
-            <Link href={getLogoClickHref()} className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
+            <Link href={getStartPage(user?.roles[0].id)} className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
                 <Logo
                     className={classes.logo}
                     textProps={{

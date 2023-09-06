@@ -4,7 +4,7 @@ import React, {ReactElement} from "react";
 import {ErrorLayout} from "@app/layouts";
 import {CustomPage404} from "@pages/errors";
 
-const About: NextPageWithLayout = () => {
+const Custom404: NextPageWithLayout = () => {
     return (
         <UserPage title="Страницы не существует">
             <CustomPage404 />
@@ -12,8 +12,8 @@ const About: NextPageWithLayout = () => {
     );
 };
 
-About.getLayout = function (page: ReactElement) {
+Custom404.getLayout = function (page: ReactElement) {
     return <ErrorLayout>{page}</ErrorLayout>;
 };
 
-export default About;
+export default Custom404;

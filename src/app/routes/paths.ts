@@ -29,6 +29,7 @@ export const studentPaths = publicPaths.concat([
 ]);
 
 export const teacherPaths = studentPaths.concat([
+    "/admin$",
     "/admin/students$",
     "/admin/students/(\\d+|\\[\\w+])$",
     "/admin/students/(\\d+|\\[\\w+])/statistics/(\\d+|\\[\\w+])$",
