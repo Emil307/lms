@@ -26,9 +26,8 @@ export const getStartPage = (userRole?: number): Route => {
     switch (userRole) {
         case Roles.administrator:
         case Roles.manager:
-            return { pathname: "/admin/users" };
         case Roles.teacher:
-            return { pathname: "/admin/homeworks" };
+            return { pathname: "/admin" };
         case Roles.employee:
         case Roles.student:
             return { pathname: "/cabinet" };
