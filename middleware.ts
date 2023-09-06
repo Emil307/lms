@@ -10,13 +10,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    const isPageExist = isPathIncluded(allPaths, url.pathname);
-
-    if (!isPageExist) {
-        url.pathname = notFoundPath;
-        //TODO Поменять на redirect, если будет готова 404 страница
-        return NextResponse.rewrite(url);
-    }
+    //TODO Сделать проверку на существование страницы, в противном случае редирект на 404
 
     const token = req.cookies.get(ECookies.TOKEN)?.value;
     const userRole = Number(req.cookies.get(ECookies.USER_ROLE)?.value);
