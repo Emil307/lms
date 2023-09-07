@@ -7,7 +7,7 @@ import { UploadedFile } from "@shared/types";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
-    type: "document";
+    type: "document" | "video";
     withDeleteButton?: boolean;
     fileId: number;
     file: File | UploadedFile;
@@ -67,5 +67,5 @@ export default function FileInputLoadedDocument({
         return <X cursor="pointer" onClick={() => onDelete(fileId)} />;
     }, [status, fileId]);
 
-    return <FileItem {...props} type={type} status={status} actionSlot={actionSlot} />;
+    return <FileItem {...props} type={type} status={status} actionSlot={actionSlot} error={error} />;
 }

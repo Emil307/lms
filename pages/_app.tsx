@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <ThemeProvider>
             <QueryProvider pageProps={pageProps}>
                 <SessionProvider>
-                    <NotificationsProvider position="bottom-right" limit={2}>
+                    <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
                         <ModalsProvider>{getLayout(<Component {...pageProps} />)}</ModalsProvider>
                     </NotificationsProvider>
                 </SessionProvider>

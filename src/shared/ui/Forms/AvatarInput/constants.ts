@@ -1,6 +1,6 @@
 import { AvatarFileFormat } from "@shared/ui";
 
-export const DEFAULT_MAX_FILE_SIZE = 500000;
+export const DEFAULT_MAX_FILE_SIZE = 512000;
 
 export const MIME_TYPES: { [key in AvatarFileFormat]: string } = {
     png: "image/png",

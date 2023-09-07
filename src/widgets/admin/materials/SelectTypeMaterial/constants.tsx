@@ -8,7 +8,7 @@ export const fileTypeCards: FileTypeCard[] = [
         icon: <PlayCircle />,
         type: "video",
         fileFormats: ["mp4", "avi", "mpg"],
-        description: "mp4, avi, mpg (не более 10 файлов за раз)",
+        description: "mp4, avi, mpg (не более 10 файлов за раз, размер не более 1Мb)",
     },
     {
         id: 1,
@@ -16,6 +16,6 @@ export const fileTypeCards: FileTypeCard[] = [
         icon: <FileText />,
         type: "document",
         fileFormats: ["pdf", "doc", "docx", "mp4", "jpeg", "jpg", "png", "mpg"],
-        description: "jpg, png, pdf, doc, docx, mp4, mpg (не более 10 файлов за раз)",
+        description: "jpg, png, pdf, doc, docx, mp4, mpg (не более 10 файлов за раз, размер не более 1Мb)",
     },
 ];

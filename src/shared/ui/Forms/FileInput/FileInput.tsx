@@ -3,7 +3,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, Info } from "react-feather";
 import { UploadedFile } from "@shared/types";
-import { Paragraph } from "@shared/ui";
+import { DEFAULT_MAX_FILES_COUNT, getLoadFileError, Paragraph } from "@shared/ui";
 import { FileInputDefault, FileInputLoaded } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
@@ -50,11 +50,13 @@ const MemoizedFileInput = memo(function FileInput({
     educational = false,
     fileFormats = [],
     maxFileSize = DEFAULT_MAX_FILE_SIZE,
+    maxFiles = DEFAULT_MAX_FILES_COUNT,
     imageMaxWidth = DEFAULT_IMAGE_MAX_WIDTH,
     imageMaxHeight = DEFAULT_IMAGE_MAX_HEIGHT,
     loadedFilesData = [],
     titleButtonFileDialog,
     containerFilesProps,
+    disabled,
     onUploaded = () => undefined,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
@@ -66,11 +68,13 @@ const MemoizedFileInput = memo(function FileInput({
     const [isErrorLoadFile, setIsErrorLoadFile] = useState(false);
     const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData?.map((file, index) => ({ id: index + 1, data: file })));
 
-    const { classes, cx } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile });
+    const isDisabled = disabled || maxFiles <= loadedFiles.length;
+
+    const { classes, cx } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile, disabled: isDisabled });
 
     //Это для сброса значений FileInput'a в форме
     useEffect(() => {
-        if (!multiple && !loadedFilesData.length) {
+        if (!loadedFilesData.length && !replaceLoadedFileId.current) {
             setLoadedFiles([]);
         }
     }, [loadedFilesData]);
@@ -88,7 +92,6 @@ const MemoizedFileInput = memo(function FileInput({
             setIsErrorLoadFile(false);
             const fileForDeleting = loadedFiles.find((file) => file.id === fileId);
             setLoadedFiles((state) => state.filter((file) => file.id !== fileId));
-
             if (fileForDeleting && !isFile(fileForDeleting.data)) {
                 onDeleteLoadedFile(fileForDeleting.data);
             }
@@ -105,7 +108,7 @@ const MemoizedFileInput = memo(function FileInput({
     const handleRejectFiles = useCallback((files: FileRejection[]) => {
         handleLoadFile(
             files.map((file) => file.file),
-            "Слишком большой файл или неверный формат"
+            getLoadFileError(files[0].errors[0].code)
         );
         handleErrorLoadFile("Слишком большой файл или неверный формат");
     }, []);
@@ -143,13 +146,13 @@ const MemoizedFileInput = memo(function FileInput({
                 setLoadedFiles((prevLoadedFiles) =>
                     prevLoadedFiles.map((file) => (file.id === replaceLoadedFileId.current ? { ...adaptedFiles[0] } : file))
                 );
-                replaceLoadedFileId.current = null;
             } else {
                 setLoadedFiles((prevLoadedFiles) => [...prevLoadedFiles, ...adaptedFiles]);
             }
         } else {
             setLoadedFiles([{ id: ++loadedFilesCount.current, data: files[0], error: rejected }]);
         }
+        replaceLoadedFileId.current = null;
     };
 
     const handleDropFiles = (files: FileWithPath[]) => {
@@ -165,7 +168,7 @@ const MemoizedFileInput = memo(function FileInput({
     };
 
     const contentInsideDropzone = useMemo(() => {
-        if (!multiple && type !== "document" && loadedFiles[0]?.id && !loadedFiles[0].error) {
+        if (!multiple && type === "image" && loadedFiles[0]?.id && !loadedFiles[0].error) {
             const fileUrl = isFile(loadedFiles[0].data) ? URL.createObjectURL(loadedFiles[0].data) : loadedFiles[0].data.absolutePath;
             return (
                 <FileInputLoaded
@@ -194,12 +197,13 @@ const MemoizedFileInput = memo(function FileInput({
                 onOpenFileDialog={handleOnOpenFileDialog}
                 titleButtonFileDialog={titleButtonFileDialog}
                 description={descriptionInside}
+                disabled={isDisabled}
             />
         );
     }, [loadedFiles, multiple, type]);
 
     const contentOutsideDropzone = useMemo(() => {
-        if ((!multiple && type === "image") || !loadedFiles.length) {
+        if (!loadedFiles.length || type === "image") {
             return null;
         }
 
@@ -215,7 +219,7 @@ const MemoizedFileInput = memo(function FileInput({
                             fileUrl={fileUrl}
                             fileName={file.data.name || "Файл"}
                             fileSize={file.data.size}
-                            type="document"
+                            type={type}
                             withDeleteButton={withDeleteButton}
                             educational={educational}
                             onEdit={handleReplaceLoadedFile}
@@ -246,6 +250,9 @@ const MemoizedFileInput = memo(function FileInput({
     };
 
     const errorMessage = useMemo(() => {
+        if (!props.error && !isErrorLoadFile) {
+            return null;
+        }
         if (props.error && !isErrorLoadFile) {
             return (
                 <Flex className={classes.error}>
@@ -254,23 +261,15 @@ const MemoizedFileInput = memo(function FileInput({
                 </Flex>
             );
         }
-        if (isErrorLoadFile && !multiple) {
-            return (
-                <Flex className={classes.error}>
-                    <AlertTriangle />
-                    <Paragraph variant="text-smaller">Слишком большой файл или неверный формат</Paragraph>
-                </Flex>
-            );
-        }
-        if (isErrorLoadFile && multiple) {
-            return (
-                <Flex className={classes.error}>
-                    <AlertTriangle />
-                    <Paragraph variant="text-smaller">Превышен максимальный объем файлов или загружен неверный формат</Paragraph>
-                </Flex>
-            );
-        }
-    }, [props.error, isErrorLoadFile, multiple]);
+        return (
+            <Flex className={classes.error}>
+                <AlertTriangle />
+                <Paragraph variant="text-smaller">Слишком большой файл и/или неверный формат</Paragraph>
+            </Flex>
+        );
+    }, [props.error, isErrorLoadFile]);
+
+    const maxFilesCount = maxFiles - loadedFiles.length;
 
     return (
         <Box className={classes.wrapper}>
@@ -278,6 +277,7 @@ const MemoizedFileInput = memo(function FileInput({
                 <Dropzone
                     {...props}
                     openRef={openRef}
+                    maxFiles={maxFilesCount}
                     classNames={classes}
                     accept={getCorrectFileFormatsForInput(fileFormats)}
                     onDrop={handleDropFiles}

@@ -90,6 +90,7 @@ type Values = {
     date: Date | null;
     logo: File | UploadedFile | null;
     attachments: UploadedFile[];
+    videos: UploadedFile[];
     ranges: {
         dateFrom: Date | null;
         dateTo: Date | null;
@@ -194,6 +195,7 @@ export const UIDemo = () => {
                         "https://api-bucket.addamant-work.ru/business-galery-public/images/Z4HsGLrX4oQL3ezwIPUyR8rmV5pdeXAgs7guTN6O.jpg",
                 },
             ],
+            videos: [],
             ranges: {
                 dateTo: null,
                 dateFrom: null,
@@ -347,6 +349,12 @@ export const UIDemo = () => {
                                     name="attachments"
                                     title="Загрузить документы с ПК"
                                     fileFormats={["pdf", "jpeg", "jpg", "png"]}
+                                />
+                                <FFileInputMultiple
+                                    type="video"
+                                    name="videos"
+                                    title="Загрузить Видео с ПК"
+                                    fileFormats={["mp4"]}
                                 />
 
                                 <Tooltip label="Оптимизация управления финансами в реалиях современного бизнеса и мировой повести по ядерному вооружению крупных мировых держав мировой повести по ядерному вооружению крупных мировых держав ">

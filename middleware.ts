@@ -10,6 +10,10 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
+    if (url.pathname === "/ui") {
+        return NextResponse.next();
+    }
+
     //TODO Сделать проверку на существование страницы, в противном случае редирект на 404
 
     const token = req.cookies.get(ECookies.TOKEN)?.value;

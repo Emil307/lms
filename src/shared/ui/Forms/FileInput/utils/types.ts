@@ -42,3 +42,5 @@ export type FileFormat =
     | "exe"
     | "avi"
     | "mpg";
+
+export type FileErrorType = "file-invalid-type" | "file-too-large";

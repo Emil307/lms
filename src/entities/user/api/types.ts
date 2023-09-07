@@ -70,6 +70,7 @@ export const $UserFromList = $User.omit({
 export const $GetUsersResponse = $getPaginationResponseType($UserFromList);
 
 export const $UserDetailResponse = $User.extend({
+    description: z.string().optional(),
     lastLoginAt: z.coerce.date().nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
@@ -113,6 +114,7 @@ export const $UpdateAdminUserRequest = z.object({
     patronymic: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.string(),
+    description: z.string().optional(),
     // avatar: $UploadedFile.nullable(),
     // additionalImage: $UploadedFile.nullable(),
     avatarId: z.number().optional(),

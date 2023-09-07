@@ -15,6 +15,7 @@ export interface FileInputLoadedImageProps {
     imageMaxWidth: number;
     imageMaxHeight: number;
     withDeleteButton?: boolean;
+    educational?: boolean;
     error?: string;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
@@ -29,6 +30,7 @@ export default function FileInputLoadedImage({
     fileUrl,
     imageMaxWidth,
     imageMaxHeight,
+    educational,
     error,
     withDeleteButton = false,
     onOpenFileDialog = () => undefined,
@@ -43,7 +45,7 @@ export default function FileInputLoadedImage({
     useEffect(() => {
         if (isFile(file) && !error) {
             uploadFile(
-                { file, type },
+                { file, type, educational },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(fileId, resp);
