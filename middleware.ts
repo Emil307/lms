@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {ECookies} from "@app/config/axios/cookies";
-import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded, allPaths, notFoundPath} from "@app/routes";
+import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded, errorPaths} from "@app/routes";
 
 export function middleware(req: NextRequest) {
     const url = req.nextUrl;
@@ -11,6 +11,12 @@ export function middleware(req: NextRequest) {
     }
 
     if (url.pathname === "/ui") {
+        return NextResponse.next();
+    }
+
+    const isErrorPath = isPathIncluded(errorPaths, url.pathname);
+
+    if (isErrorPath) {
         return NextResponse.next();
     }
 

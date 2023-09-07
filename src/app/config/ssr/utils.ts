@@ -26,6 +26,7 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
     const { response: error } = errorSsr as { response: AxiosError };
 
     const isNetworkError = error.code === "ERR_NETWORK";
+
     if (isNetworkError) {
         return {
             redirect: {
@@ -34,29 +35,16 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
             },
         };
     }
-    const statusCode = error.status;
 
+    const statusCode = error.status;
     const isAccessError = statusCode === 403 || statusCode === 404;
-    const isUnknownError = statusCode === 500;
     const isAuthError = statusCode === 401;
 
-    if (isUnknownError) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/500",
-            },
-        };
-    }
     if (isAccessError) {
         return {
-            redirect: {
-                permanent: false,
-                destination: "/404",
-            },
+            notFound: true,
         };
     }
-
     if (isAuthError) {
         return {
             redirect: {

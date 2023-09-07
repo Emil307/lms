@@ -4,6 +4,7 @@ import { Button, Heading } from "@shared/ui";
 import { useRouter } from "next/router";
 import { useUserRole } from "@entities/auth";
 import { getStartPage } from "@app/routes";
+import image404 from "public/404.png";
 import useStyles from "./CustomPage404.styles";
 
 const CustomPage404 = () => {
@@ -18,7 +19,7 @@ const CustomPage404 = () => {
     return (
         <Flex direction="column" align="center" gap={48}>
             <Box className={classes.imageWrapper}>
-                <Image src="/404.svg" fill alt="404 ошибка" />
+                <Image src={image404} fill alt="404 ошибка" />
             </Box>
             <Flex direction="column" gap={16}>
                 <Heading align="center">Ого! Вы нашли несуществующую страницу</Heading>

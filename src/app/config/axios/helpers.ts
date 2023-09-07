@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
-import { logoutPath } from "@app/routes";
+import { logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
 import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
@@ -122,18 +122,15 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
     const statusCode = error.response?.status;
 
     const isAccessError = statusCode === 403 || statusCode === 404;
-    const isUnknownError = statusCode === 500;
+    const isServerError = statusCode === 500;
     const isAuthError = statusCode === 401;
 
-    if (isUnknownError) {
+    if (isServerError) {
+        Router.replace(serverErrorPath);
         return Promise.reject(error);
     }
     if (isAccessError) {
-        Router.replace("/404");
-        return Promise.reject(error);
-    }
-    //TODO: Возможно стоит отказаться от условия в силу изменений на бэке
-    if (isAuthError && (window.location.pathname.split("/")[1] === "auth" || window.location.pathname === "/")) {
+        Router.replace(notFoundPath);
         return Promise.reject(error);
     }
     if (isAuthError) {

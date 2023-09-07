@@ -3,6 +3,9 @@ export const authPath = "/auth";
 export const logoutPath = "/logout";
 
 export const notFoundPath = "/404";
+export const serverErrorPath = "/500";
+
+export const errorPaths = [notFoundPath, serverErrorPath];
 
 export const authPaths = ["/auth"];
 
