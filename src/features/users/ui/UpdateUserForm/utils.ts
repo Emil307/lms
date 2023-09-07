@@ -1,5 +1,6 @@
 import { UpdateAdminUserRequest, UserDetailResponse } from "@entities/user";
 import { UpdateUserFormValidation } from "./types";
+import { Roles } from "@app/routes";
 
 export const adaptDataForUpdateForm = (userDetail?: UserDetailResponse): Partial<UpdateUserFormValidation> => {
     return {
@@ -8,16 +9,18 @@ export const adaptDataForUpdateForm = (userDetail?: UserDetailResponse): Partial
         patronymic: userDetail?.profile.patronymic || "",
         email: userDetail?.email,
         isActive: !!userDetail?.isActive,
+        description: userDetail?.description || "",
         avatar: userDetail?.profile.avatar,
         additionalImage: userDetail?.profile.additionalImage,
     };
 };
 
 export const adaptUpdateUserRequest = (data: UpdateUserFormValidation): Omit<UpdateAdminUserRequest, "id"> => {
-    const { additionalImage, avatar, ...rest } = data;
+    const { additionalImage, avatar, description, ...rest } = data;
     return {
         ...rest,
         avatarId: avatar?.id,
+        ...(data.roleId === String(Roles.teacher) && { description }),
         additionalImageId: additionalImage?.id,
     };
 };

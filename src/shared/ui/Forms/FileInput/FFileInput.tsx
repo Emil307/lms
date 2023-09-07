@@ -10,7 +10,6 @@ export interface FFileInputProps extends Omit<FileInputProps, "onError" | "file"
 
 export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoadedFile = () => undefined, ...props }: FFileInputProps) {
     const [field, meta, helpers] = useField<UploadedFile | null>(name);
-
     const error = useMemo(() => (meta.touched && meta.error) || undefined, [meta.error, meta.touched]);
 
     const handleUploadedFile = (file: UploadedFile) => {

@@ -5,10 +5,10 @@ import FileInputDefaultImage, { FileInputDefaultImageProps } from "./FileInputDe
 export type FileInputDefaultProps = FileInputDefaultDocumentProps | FileInputDefaultImageProps;
 
 const MemoizedFileInputDefault = memo(function FileInputDefault(props: FileInputDefaultProps) {
-    if (props.type === "document") {
-        return <FileInputDefaultDocument {...props} />;
+    if (props.type === "image") {
+        return <FileInputDefaultImage {...props} />;
     }
-    return <FileInputDefaultImage {...props} />;
+    return <FileInputDefaultDocument {...props} />;
 });
 
 export default MemoizedFileInputDefault;

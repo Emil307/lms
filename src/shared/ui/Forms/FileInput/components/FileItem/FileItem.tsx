@@ -1,6 +1,6 @@
 import React, { memo, ReactNode, useMemo } from "react";
 import { Box, Button, Text, Flex } from "@mantine/core";
-import { FileText, Slash } from "react-feather";
+import { FileText, PlayCircle, Slash } from "react-feather";
 import { saveAs } from "file-saver";
 import { Loader, Paragraph } from "@shared/ui";
 import { FileStatus } from "@shared/types";
@@ -9,15 +9,24 @@ import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
 
 export interface FileItemProps {
-    type: "document";
+    type: "document" | "video";
     fileName?: string;
     fileUrl?: string;
     fileSize: number;
     status?: FileStatus;
     actionSlot?: ReactNode;
+    error?: string;
 }
 
-const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl, fileSize, status, actionSlot }: FileItemProps) {
+const MemoizedFileItem = memo(function FileItem({
+    type,
+    fileName = "Файл",
+    fileUrl,
+    fileSize,
+    status,
+    actionSlot,
+    error = "Загрузка не удалась",
+}: FileItemProps) {
     const { classes } = useStyles({ status });
 
     const handleDownloadFile = () => {
@@ -35,7 +44,7 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
             default:
                 return (
                     <>
-                        <FileText />
+                        {type === "document" ? <FileText /> : <PlayCircle />}
                         <Text className={classes.extension}>{getFileExtension(fileName)}</Text>
                     </>
                 );
@@ -64,7 +73,7 @@ const MemoizedFileItem = memo(function FileItem({ fileName = "Файл", fileUrl
             case "error":
                 return (
                     <Paragraph variant="text-small-m" className={classes.statusInfo}>
-                        Загрузка не удалась
+                        {error}
                     </Paragraph>
                 );
             default:

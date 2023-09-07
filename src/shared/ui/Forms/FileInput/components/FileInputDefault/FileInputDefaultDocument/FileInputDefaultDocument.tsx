@@ -4,18 +4,20 @@ import { Paragraph } from "@shared/ui/Typography";
 import useStyles from "./FileInputDefaultDocument.styles";
 
 export interface FileInputDefaultDocumentProps {
-    type: "document";
+    type: "document" | "video";
     title?: string;
     description?: string;
     onOpenFileDialog: () => void;
     exampleUrl?: string;
     onDownloadExample?: () => void;
+    disabled?: boolean;
 }
 
 const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument({
     title = "Перетащите файлы сюда",
     description,
     onOpenFileDialog,
+    disabled,
     exampleUrl,
     onDownloadExample,
 }: FileInputDefaultDocumentProps) {
@@ -37,7 +39,8 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                     padding: "12px 24px",
                 })}
                 type="button"
-                onClick={onOpenFileDialog}>
+                onClick={onOpenFileDialog}
+                disabled={disabled}>
                 Выберите файлы
             </Button>
             {exampleUrl && (
@@ -56,7 +59,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                 </Button>
             )}
             {description && (
-                <Paragraph variant="text-caption" color="gray45" lineClamp={2} ta="center">
+                <Paragraph variant="text-caption" color="gray45" ta="center">
                     {description}
                 </Paragraph>
             )}

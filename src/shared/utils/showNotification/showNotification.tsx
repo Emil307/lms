@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { NotificationProps as MNotificationProps, showNotification } from "@mantine/notifications";
 import Image from "next/image";
+import { ReactNode } from "react";
 import { AlertCircle, AlertTriangle, CheckCircle, Info, Image as ImageIcon } from "react-feather";
 import { FormErrorResponse } from "@shared/types";
 import getStyles from "./showNotification.styles";
@@ -9,7 +10,7 @@ import { ToastType } from "./constants";
 export interface TNotificationProps extends Omit<MNotificationProps, "message"> {
     type: ToastType;
     srcImage?: string;
-    message?: React.ReactNode;
+    message?: ReactNode;
     isMinimized?: boolean;
 }
 
@@ -53,11 +54,7 @@ export const createNotification = ({ type, srcImage, message = "", isMinimized =
             case ToastType.ERROR:
                 return <AlertCircle />;
             default:
-                return srcImage ? (
-                    <Image src={srcImage} loader={({ src }) => `${src}`} alt="image" width={64} height={64} />
-                ) : (
-                    <ImageIcon />
-                );
+                return srcImage ? <Image src={srcImage} alt="Картинка" width={64} height={64} /> : <ImageIcon />;
         }
     };
 

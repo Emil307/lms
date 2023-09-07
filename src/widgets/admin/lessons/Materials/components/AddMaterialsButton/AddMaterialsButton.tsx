@@ -19,12 +19,14 @@ const AddMaterialsButton = ({ lessonId, hidden }: AddMaterialsButtonProps) => {
     const isMobile = useMedia("sm");
 
     const handleCloseAddMaterialsToLessonModal = () => closeModal("ADD_MATERIALS_TO_LESSON");
+    const closeSelectMaterialsTypeModal = () => closeModal("SELECT_MATERIALS_TYPE");
 
     const handleSuccessLoadFiles = (fileIds: string[]) => {
         attachMaterialsToLesson(fileIds);
     };
 
     const handleOpenAddMaterialsToLessonModal = () => {
+        closeSelectMaterialsTypeModal();
         openModal({
             modalId: "ADD_MATERIALS_TO_LESSON",
             title: "Выбрать из базы материалов",

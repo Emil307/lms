@@ -47,9 +47,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleP
         <Flex direction="column" {...wrapperProps}>
             {title && (
                 <Skeleton visible={isLoading} radius={24}>
-                    <Heading order={3} {...titleProps}>
-                        {title}
-                    </Heading>
+                    <Heading {...titleProps}>{title}</Heading>
                 </Skeleton>
             )}
             <Skeleton visible={isLoading} {...skeletonListProps}>

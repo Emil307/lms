@@ -1,6 +1,7 @@
-import { FileFormat } from "./types";
+import { FileErrorType, FileFormat } from "./types";
 
 export const DEFAULT_MAX_FILE_SIZE = 26214400;
+export const DEFAULT_MAX_FILES_COUNT = 10;
 export const DEFAULT_IMAGE_MAX_WIDTH = 1320;
 export const DEFAULT_IMAGE_MAX_HEIGHT = 292;
 
@@ -39,4 +40,15 @@ export const isCorrectLoadedFileFormat = (file: File, formats: FileFormat[]) => 
 
 export const getFileExtension = (fileName: string) => {
     return fileName.split(".").pop()?.toUpperCase();
+};
+
+export const getLoadFileError = (errorType: FileErrorType | string) => {
+    switch (errorType) {
+        case "file-invalid-type":
+            return "Неверный формат";
+        case "file-too-large":
+            return "Слишкой большой файл";
+        default:
+            return "Загрузка не удалась";
+    }
 };

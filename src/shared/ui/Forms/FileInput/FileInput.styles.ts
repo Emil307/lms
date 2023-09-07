@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
+interface createStylesProps {
+    error: boolean;
+    disabled: boolean;
+}
+
+export default createStyles((theme, { error, disabled }: createStylesProps, getRef) => ({
     root: {
         ref: getRef("FileInputRoot"),
         display: "flex",
@@ -10,6 +15,7 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         borderRadius: 16,
         border: error ? `1px dashed ${theme.colors.warning[0]}` : `1px dashed ${theme.colors.primary[0]}`,
         backgroundColor: "transparent",
+        pointerEvents: disabled ? "none" : "all",
 
         ":hover": {
             backgroundColor: theme.colors.secondary16[0],
@@ -19,7 +25,7 @@ export default createStyles((theme, { error }: { error: boolean }, getRef) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        pointerEvents: "all",
+        pointerEvents: disabled ? "none" : "all",
         width: "100%",
         height: "100%",
     },

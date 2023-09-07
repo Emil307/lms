@@ -25,6 +25,7 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
     const config: FormikConfig<CreateMaterialsFormValidation> = {
         initialValues: getInitialValues(sessionStorageData),
         validationSchema: $CreateMaterialsFormValidation,
+        validateOnChange: true,
         onSubmit: (values) => {
             sessionStorage.setItem(MATERIALS_LOCAL_STORAGE_KEY, JSON.stringify({ ...sessionStorageData, ...values }));
             onSubmit(values.materials, data.type);
