@@ -4,6 +4,7 @@ import { Button, Heading } from "@shared/ui";
 import { useRouter } from "next/router";
 import { useUserRole } from "@entities/auth";
 import { getStartPage } from "@app/routes";
+import image500 from "public/500.png";
 import useStyles from "./CustomPage500.styles";
 
 const CustomPage500 = () => {
@@ -18,7 +19,7 @@ const CustomPage500 = () => {
     return (
         <Flex direction="column" align="center" gap={48}>
             <Box className={classes.imageWrapper}>
-                <Image src="/500.svg" fill alt="500 ошибка" />
+                <Image src={image500} fill alt="500 ошибка" />
             </Box>
             <Flex direction="column" gap={16}>
                 <Heading align="center">Внутренняя ошибка сервера</Heading>
