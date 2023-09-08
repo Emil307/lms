@@ -209,11 +209,13 @@ const MemoizedFileInput = memo(function FileInput({
 
         return (
             <Box {...containerFilesProps} className={cx(classes.containerFiles, containerFilesProps?.className)}>
-                {loadedFiles.map((file) => {
+                {loadedFiles.map((file, index) => {
                     const fileUrl = isFile(file.data) ? URL.createObjectURL(file.data) : file.data.absolutePath;
                     return (
                         <FileInputLoaded
                             key={file.id}
+                            fileNumber={index + 1}
+                            showFileNumber={!!multiple}
                             fileId={file.id}
                             file={file.data}
                             fileUrl={fileUrl}

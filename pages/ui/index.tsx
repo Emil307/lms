@@ -324,26 +324,6 @@ export const UIDemo = () => {
                                     description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
                                 />
                                 <FDateRangePicker name="ranges.dateFrom" nameTo="ranges.dateTo" label="FDateRangePicker" />
-
-                                {/* <FFileInput
-                                    type="image"
-                                    name="img"
-                                    title="Загрузить картинку с ПК"
-                                    fileFormats={["jpeg", "jpg", "png"]}
-                                    withDeleteButton
-                                    useUploadFile={useUploadImage}
-                                    // fileUploadUrl="https://gallery-back.addamant-work.ru/api/storage/uploads/images"
-                                    // imageMaxHeight={300}
-                                    // h={500}
-                                />
-
-                                <FFileInput
-                                    type="document"
-                                    name="logo"
-                                    title="Загрузить файл с ПК"
-                                    fileFormats={["jpeg", "jpg", "png"]}
-                                    useUploadFile={useUploadImage}
-                                /> */}
                                 <FFileInputMultiple
                                     type="document"
                                     name="attachments"
