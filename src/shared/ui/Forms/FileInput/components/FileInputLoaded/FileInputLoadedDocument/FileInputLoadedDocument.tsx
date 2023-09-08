@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Edit3, Trash, X } from "react-feather";
-import { Flex } from "@mantine/core";
+import { Flex, ActionIcon } from "@mantine/core";
 import { isFile } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
@@ -9,6 +9,8 @@ import { FileItem, FileItemProps } from "../../FileItem";
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
     type: "document" | "video";
     withDeleteButton?: boolean;
+    fileNumber?: number;
+    showFileNumber?: boolean;
     fileId: number;
     file: File | UploadedFile;
     error?: string;
@@ -59,8 +61,12 @@ export default function FileInputLoadedDocument({
         if (status === "done")
             return (
                 <Flex gap={8}>
-                    <Trash cursor="pointer" onClick={() => onDelete(fileId)} />
-                    <Edit3 cursor="pointer" onClick={() => onEdit(fileId)} />
+                    <ActionIcon color="dark" w={32} h={32} onClick={() => onDelete(fileId)}>
+                        <Trash />
+                    </ActionIcon>
+                    <ActionIcon color="dark" w={32} h={32} onClick={() => onEdit(fileId)}>
+                        <Edit3 />
+                    </ActionIcon>
                 </Flex>
             );
 

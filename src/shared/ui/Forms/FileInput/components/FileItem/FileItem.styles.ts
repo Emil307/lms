@@ -3,19 +3,22 @@ import { FileStatus } from "@shared/types";
 
 export default createStyles((theme, { status }: { status?: FileStatus }, getRef) => ({
     root: {
-        display: "flex",
+        alignItems: "center",
+        gap: 8,
+    },
+    main: {
+        width: "100%",
         alignItems: "center",
         gap: 16,
-
-        "&:hover": {
-            [`.${getRef("icon")}`]: {
-                backgroundColor: status ? "transparent" : theme.colors.secondary16[0],
-            },
-        },
 
         [theme.fn.smallerThan("xs")]: {
             gap: 4,
         },
+    },
+    fileNumber: {
+        alignItems: "center",
+        width: 20,
+        height: "100%",
     },
     icon: {
         ref: getRef("icon"),
@@ -25,9 +28,12 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         justifyContent: "center",
         minWidth: 48,
         minHeight: 48,
+        width: 48,
+        height: 48,
+        padding: 4,
         gap: 4,
         borderRadius: 8,
-        backgroundColor: status ? "transparent" : theme.colors.secondary8[0],
+        backgroundColor: status === "done" || !status ? theme.colors.secondary8[0] : "transparent",
         color: status === "error" ? theme.colors.warning[0] : theme.colors.secondary[0],
 
         [theme.fn.smallerThan("xs")]: {
@@ -49,18 +55,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         gap: 2,
     },
     buttonDownload: {
-        width: "fit-content",
-        height: 24,
-        paddingLeft: 0,
-        backgroundColor: "transparent",
-        fontWeight: 600,
         fontSize: 14,
-        lineHeight: "24px",
-        color: theme.colors.dark[0],
-
-        "&:hover": {
-            backgroundColor: "transparent",
-        },
     },
     size: {
         whiteSpace: "nowrap",

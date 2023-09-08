@@ -1,8 +1,8 @@
 import React, { memo, ReactNode, useMemo } from "react";
-import { Box, Button, Text, Flex } from "@mantine/core";
+import { Box, Text, Flex } from "@mantine/core";
 import { FileText, PlayCircle, Slash } from "react-feather";
 import { saveAs } from "file-saver";
-import { Loader, Paragraph } from "@shared/ui";
+import { Loader, Paragraph, Button } from "@shared/ui";
 import { FileStatus } from "@shared/types";
 import { getFileSize } from "@shared/utils";
 import useStyles from "./FileItem.styles";
@@ -10,6 +10,8 @@ import { getFileExtension } from "../../utils";
 
 export interface FileItemProps {
     type: "document" | "video";
+    fileNumber?: number;
+    showFileNumber?: boolean;
     fileName?: string;
     fileUrl?: string;
     fileSize: number;
@@ -20,6 +22,8 @@ export interface FileItemProps {
 
 const MemoizedFileItem = memo(function FileItem({
     type,
+    fileNumber,
+    showFileNumber,
     fileName = "Файл",
     fileUrl,
     fileSize,
@@ -45,7 +49,9 @@ const MemoizedFileItem = memo(function FileItem({
                 return (
                     <>
                         {type === "document" ? <FileText /> : <PlayCircle />}
-                        <Text className={classes.extension}>{getFileExtension(fileName)}</Text>
+                        <Text className={classes.extension} lineClamp={1}>
+                            {getFileExtension(fileName)}
+                        </Text>
                     </>
                 );
         }
@@ -65,7 +71,7 @@ const MemoizedFileItem = memo(function FileItem({
                         <Paragraph variant="text-small-m" className={classes.statusInfo}>
                             Готово
                         </Paragraph>
-                        <Button className={classes.buttonDownload} onClick={handleDownloadFile} sx={{ paddingRight: 0 }}>
+                        <Button variant="text" className={classes.buttonDownload} onClick={handleDownloadFile} sx={{ paddingRight: 0 }}>
                             Скачать
                         </Button>
                     </Flex>
@@ -80,7 +86,7 @@ const MemoizedFileItem = memo(function FileItem({
                 return (
                     <>
                         {fileUrl && (
-                            <Button className={classes.buttonDownload} onClick={handleDownloadFile}>
+                            <Button variant="text" className={classes.buttonDownload} onClick={handleDownloadFile}>
                                 Скачать
                             </Button>
                         )}
@@ -90,23 +96,30 @@ const MemoizedFileItem = memo(function FileItem({
     }, [status]);
 
     return (
-        <Box className={classes.root}>
-            <Box className={classes.icon}>{renderIcon}</Box>
-            <Flex className={classes.content}>
-                <Flex gap={2} align="center" w="100%">
-                    <Paragraph variant="text-small-semi" lineClamp={1}>
-                        {fileName}
-                    </Paragraph>
-                    {fileSize && (
-                        <Paragraph variant="text-small-m" color="gray45" className={classes.size}>
-                            {getFileSize(fileSize)}
-                        </Paragraph>
-                    )}
+        <Flex className={classes.root}>
+            {showFileNumber && fileNumber && (
+                <Flex className={classes.fileNumber}>
+                    <Paragraph variant="small-semi">{fileNumber}</Paragraph>
                 </Flex>
-                {renderAdditionalContent}
+            )}
+            <Flex className={classes.main}>
+                <Box className={classes.icon}>{renderIcon}</Box>
+                <Flex className={classes.content}>
+                    <Flex gap={2} align="center" w="100%">
+                        <Paragraph variant="text-small-semi" lineClamp={1}>
+                            {fileName}
+                        </Paragraph>
+                        {fileSize && (
+                            <Paragraph variant="text-small-m" color="gray45" className={classes.size}>
+                                {getFileSize(fileSize)}
+                            </Paragraph>
+                        )}
+                    </Flex>
+                    {renderAdditionalContent}
+                </Flex>
+                <Box>{actionSlot}</Box>
             </Flex>
-            <Box>{actionSlot}</Box>
-        </Box>
+        </Flex>
     );
 });
 
