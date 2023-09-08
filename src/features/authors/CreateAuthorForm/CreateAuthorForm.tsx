@@ -70,9 +70,9 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                             description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
                         />
                         <Flex gap={8} wrap="wrap" mt={24}>
-                            <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
-                            <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
-                            <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />
+                            <FInput name="firstName" label="Имя" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="lastName" label="Фамилия" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                            <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
                         </Flex>
                     </Fieldset>
                     <Fieldset label="Об авторе" icon={<UserDescriptionIcon />} legendProps={{ mb: 24 }}>

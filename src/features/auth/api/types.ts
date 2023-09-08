@@ -13,8 +13,8 @@ export const $AuthFormValidationSchema = z.object({
 });
 
 export const $SignUpFormValidationSchema = z.object({
-    firstName: z.string({ required_error: "Введите имя" }),
-    lastName: z.string({ required_error: "Введите фамилию" }),
+    firstName: z.string({ required_error: "Введите имя" }).max(32, "Должно быть не более 32 символов"),
+    lastName: z.string({ required_error: "Введите фамилию" }).max(32, "Должно быть не более 32 символов"),
     email: z.string({ required_error: "Введите email" }).email({ message: "Неверный формат" }),
     passwords: z
         .object({

@@ -68,6 +68,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                         <FInput
                                             name="firstName"
                                             label="Ваше имя"
+                                            onlyLetters
                                             icon={
                                                 <ThemeIcon color="gray45">
                                                     <User />
@@ -79,6 +80,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                         <FInput
                                             name="lastName"
                                             label="Ваша фамилия"
+                                            onlyLetters
                                             icon={
                                                 <ThemeIcon color="gray45">
                                                     <User />

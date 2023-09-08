@@ -104,8 +104,22 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                         />
                                         <Flex direction="column" gap={8}>
                                             <Flex direction={{ base: "column", xs: "row" }} gap={8}>
-                                                <FInput name="indexBannerAuthorFirstName" label="Имя" size="sm" withAsterisk w="100%" />
-                                                <FInput name="indexBannerAuthorLastName" label="Фамилия" size="sm" withAsterisk w="100%" />
+                                                <FInput
+                                                    name="indexBannerAuthorFirstName"
+                                                    label="Имя"
+                                                    onlyLetters
+                                                    size="sm"
+                                                    withAsterisk
+                                                    w="100%"
+                                                />
+                                                <FInput
+                                                    name="indexBannerAuthorLastName"
+                                                    label="Фамилия"
+                                                    onlyLetters
+                                                    size="sm"
+                                                    withAsterisk
+                                                    w="100%"
+                                                />
                                             </Flex>
 
                                             <FInput name="indexBannerAuthorAbout" label="Об авторе" size="sm" w="100%" />

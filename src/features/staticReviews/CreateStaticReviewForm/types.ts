@@ -79,4 +79,28 @@ export const $CreateAdminStaticReviewFormValidation = z
             message: "Введите краткую цитату",
             path: ["quote"],
         }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive || !data.firstName) {
+                return true;
+            }
+            return data.firstName.length <= 32;
+        },
+        {
+            message: "Должно быть не более 32 символов",
+            path: ["firstName"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive || !data.lastName) {
+                return true;
+            }
+            return data.lastName.length <= 32;
+        },
+        {
+            message: "Должно быть не более 32 символов",
+            path: ["lastName"],
+        }
     );
