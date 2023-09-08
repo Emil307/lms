@@ -1,17 +1,26 @@
 import { TextInput as MInput, ThemeIcon, Flex } from "@mantine/core";
-import { memo, ReactNode, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, ComponentProps, KeyboardEvent, memo, ReactNode, useCallback, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle, Eye, EyeOff, Info } from "react-feather";
 import { z } from "zod";
 import { usePassword } from "@shared/utils";
 import { useInputStyles } from "@shared/styles";
 import { Paragraph } from "@shared/ui/Typography";
+import {
+    REGEXP_INPUT_NUMBER,
+    REGEXP_INPUT_NUMBER_KEYS,
+    REGEXP_INPUT_PASSWORD,
+    REGEXP_INPUT_TEXT,
+    REGEXP_INPUT_FIO,
+} from "@shared/constant";
 
-export interface InputProps extends React.ComponentProps<typeof MInput> {
+export interface InputProps extends Omit<ComponentProps<typeof MInput>, "onChange"> {
+    onChange?: (value: string) => void;
     success?: string | boolean;
+    onlyLetters?: boolean;
 }
 
-const MemoizedInput = memo(function Input({ success = false, error, description, ...props }: InputProps) {
-    const { type, icon, rightSection, size } = props;
+const Input = ({ success = false, onlyLetters = false, error, description, onChange = () => undefined, ...props }: InputProps) => {
+    const { type = "text", icon, rightSection, size, ...rest } = props;
 
     const isPasswordField = type === "password";
     const { isPasswordVisible, toggleVisibility } = usePassword();
@@ -50,6 +59,42 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
                 </>
             ),
         [error]
+    );
+
+    const handleKeyDown = useCallback(
+        (event: KeyboardEvent<HTMLInputElement>) => {
+            const target = event.target as HTMLInputElement;
+            if (event.key === "Backspace") {
+                return;
+            }
+            if (event.code === "Space" && (!target.value || target.value[target.value.length - 1] === " ")) {
+                return event.preventDefault();
+            }
+            if (type === "number" && new RegExp(REGEXP_INPUT_NUMBER_KEYS).test(event.key)) {
+                return event.preventDefault();
+            }
+        },
+        [type]
+    );
+
+    const handleChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            const value = event.target.value;
+            if (onlyLetters) {
+                return onChange(value.replace(REGEXP_INPUT_FIO, ""));
+            }
+            switch (type) {
+                case "text":
+                    return onChange(value.replace(REGEXP_INPUT_TEXT, ""));
+                case "number":
+                    return onChange(value.replace(REGEXP_INPUT_NUMBER, ""));
+                case "password":
+                    return onChange(value.replace(REGEXP_INPUT_PASSWORD, ""));
+                default:
+                    return onChange(value);
+            }
+        },
+        [type]
     );
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
@@ -95,9 +140,11 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
 
     return (
         <MInput
-            {...props}
+            {...rest}
             classNames={classes}
             type={getType()}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
             onFocus={() => setFocused(true)}
             onBlur={(event) => {
                 props.onBlur && props.onBlur(event);
@@ -108,8 +155,9 @@ const MemoizedInput = memo(function Input({ success = false, error, description,
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
+            min={0}
         />
     );
-});
+};
 
-export default MemoizedInput;
+export default memo(Input);

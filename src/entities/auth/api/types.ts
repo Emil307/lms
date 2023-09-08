@@ -48,9 +48,9 @@ export const $ResetPasswordRequest = z.object({
 export const $ResetPasswordResponse = z.null();
 
 export const $UpdateMeForm = z.object({
-    firstName: z.string({ required_error: "Введите имя" }),
-    lastName: z.string({ required_error: "Введите фамилию" }),
-    patronymic: z.string().optional(),
+    firstName: z.string({ required_error: "Введите имя" }).max(32, "Должно быть не более 32 символов"),
+    lastName: z.string({ required_error: "Введите фамилию" }).max(32, "Должно быть не более 32 символов"),
+    patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
     email: z.string({ required_error: "Введите email" }),
     avatar: $UploadedFile.nullable().optional(),
     role: z.string(),

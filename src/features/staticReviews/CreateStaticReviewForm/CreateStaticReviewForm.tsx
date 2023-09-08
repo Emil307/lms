@@ -107,8 +107,8 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                                     />
                                     <Flex direction="column" gap={8}>
                                         <Flex direction={{ base: "column", xs: "row" }} gap={8}>
-                                            <FInput name="firstName" label="Имя" size="sm" withAsterisk w="100%" />
-                                            <FInput name="lastName" label="Фамилия" size="sm" withAsterisk w="100%" />
+                                            <FInput name="firstName" label="Имя" onlyLetters size="sm" withAsterisk w="100%" />
+                                            <FInput name="lastName" label="Фамилия" onlyLetters size="sm" withAsterisk w="100%" />
                                         </Flex>
 
                                         <FInput name="position" label="Об авторе" size="sm" w="100%" />

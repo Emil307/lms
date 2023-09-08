@@ -71,9 +71,16 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                     description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
                                 />
                                 <Flex gap={8} wrap="wrap">
-                                    <FInput name="firstName" label="Имя" size="sm" className={classes.formInput} withAsterisk />
-                                    <FInput name="lastName" label="Фамилия" size="sm" className={classes.formInput} withAsterisk />
-                                    <FInput name="patronymic" label="Отчество" size="sm" className={classes.formInput} />
+                                    <FInput name="firstName" label="Имя" onlyLetters size="sm" className={classes.formInput} withAsterisk />
+                                    <FInput
+                                        name="lastName"
+                                        label="Фамилия"
+                                        onlyLetters
+                                        size="sm"
+                                        className={classes.formInput}
+                                        withAsterisk
+                                    />
+                                    <FInput name="patronymic" label="Отчество" onlyLetters size="sm" className={classes.formInput} />
                                 </Flex>
                             </Flex>
                         </Fieldset>

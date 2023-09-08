@@ -238,7 +238,7 @@ export const UIDemo = () => {
                     +
                 </Button>
                 <Input
-                    onChange={(e) => setInputValuePassword(e.target.value)}
+                    onChange={setInputValuePassword}
                     value={inputValuePassword}
                     label="Label"
                     icon={
@@ -254,8 +254,8 @@ export const UIDemo = () => {
                     })}
                 </RadioGroup>
                 <Search styleVariant="course" placeholder="Search" value={searchValue} setValue={setSearchValue} />
-                <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" />
-                <Input onChange={(e) => setInputValue(e.target.value)} value={inputValue} label="Label" icon={<Target />} disabled />
+                <Input onChange={setInputValue} value={inputValue} label="Label" />
+                <Input onChange={setInputValue} value={inputValue} label="Label" icon={<Target />} disabled />
                 <Select data={testDataSelect} clearable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <Select data={testDataSelect} searchable label="Select" value={selectValue} onChange={handlerChangeSelect} />
                 <DatePicker value={date} onChange={setDate} label="Date" allowLevelChange={false} />

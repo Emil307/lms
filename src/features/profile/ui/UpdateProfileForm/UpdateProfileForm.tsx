@@ -69,9 +69,23 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                     subtitle={adaptData.role}
                                 />
                                 <Flex wrap="wrap" gap={8}>
-                                    <FInput name="firstName" label="Имя" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
-                                    <FInput name="lastName" label="Фамилия" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
-                                    <FInput name="patronymic" label="Отчество" size="sm" miw={{ base: "100%", xs: 252 }} />
+                                    <FInput
+                                        name="firstName"
+                                        label="Имя"
+                                        onlyLetters
+                                        size="sm"
+                                        miw={{ base: "100%", xs: 252 }}
+                                        withAsterisk
+                                    />
+                                    <FInput
+                                        name="lastName"
+                                        label="Фамилия"
+                                        onlyLetters
+                                        size="sm"
+                                        miw={{ base: "100%", xs: 252 }}
+                                        withAsterisk
+                                    />
+                                    <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
                                 </Flex>
                             </Flex>
                         </Fieldset>
