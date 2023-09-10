@@ -153,7 +153,9 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                                     name="cover"
                                     title="Изменить фото"
                                     type="image"
+                                    fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                                     withDeleteButton
+                                    description="До 1Mb"
                                 />
                             </Box>
 

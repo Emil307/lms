@@ -95,7 +95,7 @@ const UpdateLessonHomeworkAnswerForm = ({
                                 name="files"
                                 type="document"
                                 fileFormats={["jpg", "jpeg", "png", "pdf", "doc", "docx"]}
-                                descriptionInside="jpg, png, pdf, doc, docx"
+                                descriptionInside="jpg, png, pdf, doc, docx. До 8Mb"
                                 h={190}
                                 w="100%"
                             />

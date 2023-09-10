@@ -14,7 +14,7 @@ import { $UpdateAdminStaticReviewFormValidation, UpdateAdminStaticReviewFormVali
 import useStyles from "./UpdateStaticReviewForm.styles";
 
 export interface UpdateStaticReviewFormProps extends Omit<BoxProps, "children"> {
-    data?: AdminStaticReview;
+    data: AdminStaticReview;
     onClose: () => void;
 }
 
@@ -24,14 +24,14 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
     const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
-        if (!data?.firstName || !data.lastName) {
+        if (!data.firstName || !data.lastName) {
             return null;
         }
         return `${data.firstName} ${data.lastName}`;
     };
 
     const updateStaticReview = (values: UpdateAdminStaticReviewFormValidation) => {
-        return staticReviewApi.updateAdminStaticReview({ ...adaptUpdateStaticReviewRequest(values), id: String(data?.id) });
+        return staticReviewApi.updateAdminStaticReview({ ...adaptUpdateStaticReviewRequest(values), id: String(data.id) });
     };
 
     const onSuccess = () => {
@@ -96,19 +96,20 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                 name="preview"
                                 title="Изменить фото"
                                 type="image"
+                                fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                                 withDeleteButton
                                 className={classes.previewFileInput}
-                                description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
+                                description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px, до 1Mb"
                             />
 
                             <Fieldset label="Видео" icon={<Video />} maw={772}>
                                 <Box w="100%">
                                     <FFileInput
                                         name="video"
-                                        type="document"
+                                        type="video"
                                         withDeleteButton
                                         fileFormats={["mp4"]}
-                                        descriptionInside="Формат mp4"
+                                        descriptionInside="Формат mp4. До 64Mb"
                                     />
                                 </Box>
                             </Fieldset>

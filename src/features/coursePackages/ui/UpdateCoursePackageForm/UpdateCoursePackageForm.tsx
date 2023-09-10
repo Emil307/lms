@@ -108,8 +108,10 @@ const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackag
                                 name="cover"
                                 title="Изменить фото"
                                 type="image"
+                                fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                                 withDeleteButton
                                 className={classes.coverFileInput}
+                                description="До 1Mb"
                             />
 
                             <Fieldset label="Общее" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>

@@ -14,7 +14,7 @@ import { $UpdateMainBannerFormValidation, UpdateMainBannerFormValidation } from 
 import useStyles from "./UpdateMainBannerForm.styles";
 
 export interface UpdateMainBannerFormProps extends Omit<BoxProps, "children"> {
-    data?: GetMainBannerResponse;
+    data: GetMainBannerResponse;
     onClose: () => void;
 }
 
@@ -25,7 +25,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
     const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
-        if (!data?.authorFirstName || !data.authorLastName) {
+        if (!data.authorFirstName || !data.authorLastName) {
             return null;
         }
         return `${data.authorFirstName} ${data.authorLastName}`;
@@ -73,8 +73,10 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                 name="indexBannerFile"
                                 title="Изменить фото"
                                 type="image"
+                                fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                                 withDeleteButton
                                 className={classes.bannerFileInput}
+                                description="До 1Mb"
                             />
 
                             <Fieldset label="Детали" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>
