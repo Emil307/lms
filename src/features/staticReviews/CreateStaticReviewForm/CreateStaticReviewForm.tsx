@@ -65,19 +65,20 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                             name="preview"
                             title="Изменить фото"
                             type="image"
+                            fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                             withDeleteButton
                             className={classes.previewFileInput}
-                            description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px"
+                            description="Рекомендуемый размер для обложки видео-отзыва: 1320х608 px, до 1Mb"
                         />
 
                         <Fieldset label="Видео" icon={<Video />} maw={772}>
                             <Box w="100%">
                                 <FFileInput
                                     name="video"
-                                    type="document"
+                                    type="video"
                                     withDeleteButton
                                     fileFormats={["mp4"]}
-                                    descriptionInside="Формат mp4"
+                                    descriptionInside="Формат mp4. До 64Mb"
                                 />
                             </Box>
                         </Fieldset>

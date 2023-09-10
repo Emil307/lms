@@ -3,12 +3,11 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, Info } from "react-feather";
 import { UploadedFile } from "@shared/types";
-import { DEFAULT_MAX_FILES_COUNT, getLoadFileError, Paragraph } from "@shared/ui";
+import { DEFAULT_MAX_FILES_COUNT, getLoadFileError, getMaxFileSizeByType, Paragraph } from "@shared/ui";
 import { FileInputDefault, FileInputLoaded } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
     DEFAULT_IMAGE_MAX_WIDTH,
-    DEFAULT_MAX_FILE_SIZE,
     FileFormat,
     FileRejection,
     getCorrectFileFormatsForInput,
@@ -49,7 +48,7 @@ const MemoizedFileInput = memo(function FileInput({
     withDeleteButton = false,
     educational = false,
     fileFormats = [],
-    maxFileSize = DEFAULT_MAX_FILE_SIZE,
+    maxFileSize,
     maxFiles = DEFAULT_MAX_FILES_COUNT,
     imageMaxWidth = DEFAULT_IMAGE_MAX_WIDTH,
     imageMaxHeight = DEFAULT_IMAGE_MAX_HEIGHT,
@@ -68,6 +67,7 @@ const MemoizedFileInput = memo(function FileInput({
     const [isErrorLoadFile, setIsErrorLoadFile] = useState(false);
     const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData?.map((file, index) => ({ id: index + 1, data: file })));
 
+    const resultMaxFileSize = maxFileSize || getMaxFileSizeByType(type);
     const isDisabled = disabled || maxFiles <= loadedFiles.length;
 
     const { classes, cx } = useStyles({ error: (props.error && !isErrorLoadFile) || isErrorLoadFile, disabled: isDisabled });
@@ -98,12 +98,6 @@ const MemoizedFileInput = memo(function FileInput({
         },
         [loadedFiles]
     );
-
-    const getRemainFilesSize = useCallback(() => {
-        let overallSize = 0;
-        loadedFiles.forEach((file) => (overallSize += file.data.size));
-        return maxFileSize - overallSize;
-    }, [loadedFiles, maxFileSize]);
 
     const handleRejectFiles = useCallback((files: FileRejection[]) => {
         handleLoadFile(
@@ -285,7 +279,7 @@ const MemoizedFileInput = memo(function FileInput({
                     onDrop={handleDropFiles}
                     onFileDialogCancel={handleFileDialogCancel}
                     onReject={handleRejectFiles}
-                    maxSize={getRemainFilesSize()}
+                    maxSize={resultMaxFileSize}
                     multiple={!replaceLoadedFileId.current && multiple}
                     activateOnClick={false}>
                     {contentInsideDropzone}

@@ -40,8 +40,10 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                             title="Загрузите файлы"
                             name="image"
                             type="image"
+                            fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
                             withDeleteButton
                             className={classes.imageFileUploader}
+                            description="До 1Mb"
                         />
                         <Flex gap={16} align="center" mt={24}>
                             <ThemeIcon color="gray45">

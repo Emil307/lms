@@ -127,7 +127,6 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                                     title="Загрузите файл"
                                     type="image"
                                     description="Рекомендуемый размер изображения: 376х220 px, до 1Mb"
-                                    maxFileSize={1024 * 1024 * 8}
                                     withDeleteButton
                                     className={classes.additionalImageFileInput}
                                 />

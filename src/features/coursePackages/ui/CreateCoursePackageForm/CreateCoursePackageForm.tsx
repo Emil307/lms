@@ -80,7 +80,14 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                                 </Paragraph>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
-                            <FFileInput name="cover" title="Изменить фото" type="image" className={classes.coverFileInput} />
+                            <FFileInput
+                                name="cover"
+                                title="Изменить фото"
+                                type="image"
+                                fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
+                                className={classes.coverFileInput}
+                                description="До 1Mb"
+                            />
 
                             <Fieldset label="Общее" icon={<IconClipboardText />} maw={512} legendProps={{ mb: 24 }}>
                                 <Flex direction="column" gap={8} w="100%">

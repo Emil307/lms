@@ -1,4 +1,5 @@
 import { FileErrorType, FileFormat } from "./types";
+import { FileInputProps } from "@shared/ui";
 
 export const DEFAULT_MAX_FILE_SIZE = 26214400;
 export const DEFAULT_MAX_FILES_COUNT = 10;
@@ -50,5 +51,18 @@ export const getLoadFileError = (errorType: FileErrorType | string) => {
             return "Слишкой большой файл";
         default:
             return "Загрузка не удалась";
+    }
+};
+
+export const getMaxFileSizeByType = (type: FileInputProps["type"]) => {
+    switch (type) {
+        case "document":
+            return 1024 * 1024 * 8;
+        case "image":
+            return 1024 * 1024;
+        case "video":
+            return 1024 * 1024 * 64;
+        default:
+            return 1024 * 1024 * 8;
     }
 };
