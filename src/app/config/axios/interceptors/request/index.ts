@@ -18,7 +18,7 @@ export const storageInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
 };
 
 export const apiRoutesInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
-    config.baseURL = process.env.NEXT_PUBLIC_API_ROUTES_URL;
+    config.baseURL = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_API_ROUTES_URL : "http://localhost:3000/api/";
     return config;
 };
 
