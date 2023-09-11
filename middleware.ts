@@ -14,11 +14,12 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    const isErrorPath = isPathIncluded(errorPaths, url.pathname);
-
-    if (isErrorPath) {
-        return NextResponse.next();
-    }
+    //TODO Нужно фиксануть баг с периодическим 500 на деталках с SSR
+    // const isErrorPath = isPathIncluded(errorPaths, url.pathname);
+    //
+    // if (isErrorPath) {
+    //     return NextResponse.next();
+    // }
 
     //TODO Сделать проверку на существование страницы, в противном случае редирект на 404
 
