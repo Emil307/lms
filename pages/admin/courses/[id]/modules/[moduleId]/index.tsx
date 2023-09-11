@@ -16,28 +16,28 @@ type GetServerSidePropsContextParams = {
     id: string;
 };
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { moduleId, id: courseId } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const courseModuleApi = new CourseModuleApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], () =>
-//             courseModuleApi.getCourseModule({ courseId: String(courseId), moduleId: String(moduleId) })
-//         );
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { moduleId, id: courseId } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const courseModuleApi = new CourseModuleApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], () =>
+            courseModuleApi.getCourseModule({ courseId: String(courseId), moduleId: String(moduleId) })
+        );
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const CourseModuleDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

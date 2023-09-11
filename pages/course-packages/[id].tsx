@@ -11,26 +11,26 @@ import { CoursePackageApi } from "@entities/coursePackage";
 import { QueryKeys } from "@shared/constant";
 import { UserPage } from "@components/UserPage";
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { id } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const coursePackageApi = new CoursePackageApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_PACKAGE, id], () => coursePackageApi.getCoursePackage(id));
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const coursePackageApi = new CoursePackageApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_PACKAGE, id], () => coursePackageApi.getCoursePackage(id));
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const CoursePackageDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

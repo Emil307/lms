@@ -7,12 +7,12 @@
     },
     "rules": {
         "no-unused-vars": "off",
-//        "@typescript-eslint/no-unused-vars": [
-//            "error",
-//            { "argsIgnorePattern": "^_", "vars": "local", "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }
-//        ],
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            { "argsIgnorePattern": "^_", "vars": "local", "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }
+        ],
         "@typescript-eslint/no-unnecessary-condition": "warn",
-        "import/no-unresolved": "warn",
+        "import/no-unresolved": "error",
         "import/first": "error",
         "no-console": ["error", { "allow": ["warn", "error"] }],
         "react-hooks/exhaustive-deps": "off",

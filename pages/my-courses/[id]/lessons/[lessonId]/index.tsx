@@ -17,34 +17,34 @@ type GetServerSidePropsContextParams = {
     id: string;
 };
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { lessonId, id: groupId } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const lessonApi = new LessonApi(axios);
-//     const groupApi = new GroupApi(axios);
-//
-//     try {
-//         const responseGroup = await queryClient.fetchQuery([QueryKeys.GET_GROUP, groupId], () => groupApi.getGroup({ id: groupId }));
-//
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_LESSON, lessonId], () =>
-//             lessonApi.getLesson({
-//                 id: lessonId,
-//                 courseId: responseGroup.courseId,
-//             })
-//         );
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { lessonId, id: groupId } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const lessonApi = new LessonApi(axios);
+    const groupApi = new GroupApi(axios);
+
+    try {
+        const responseGroup = await queryClient.fetchQuery([QueryKeys.GET_GROUP, groupId], () => groupApi.getGroup({ id: groupId }));
+
+        const response = await queryClient.fetchQuery([QueryKeys.GET_LESSON, lessonId], () =>
+            lessonApi.getLesson({
+                id: lessonId,
+                courseId: responseGroup.courseId,
+            })
+        );
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const LessonDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
