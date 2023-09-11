@@ -15,28 +15,28 @@ type GetServerSidePropsContextParams = {
     lessonId: string;
 };
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { lessonId } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const lessonApi = new LessonApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () =>
-//             lessonApi.getAdminLesson(String(lessonId))
-//         );
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { lessonId } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const lessonApi = new LessonApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () =>
+            lessonApi.getAdminLesson(String(lessonId))
+        );
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const LessonDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

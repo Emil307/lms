@@ -11,26 +11,26 @@ import { GroupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { id } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const groupApi = new GroupApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_GROUP, id], () => groupApi.getAdminGroup({ id }));
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const groupApi = new GroupApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_GROUP, id], () => groupApi.getAdminGroup({ id }));
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const GroupDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

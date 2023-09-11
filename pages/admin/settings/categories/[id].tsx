@@ -11,26 +11,26 @@ import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CategoryApi } from "@entities/category";
 import { QueryKeys } from "@shared/constant";
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { id } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const categoryApi = new CategoryApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, id], () => categoryApi.getAdminCategory({ id }));
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const categoryApi = new CategoryApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, id], () => categoryApi.getAdminCategory({ id }));
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const CategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

@@ -11,28 +11,28 @@ import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CourseCollectionApi } from "@entities/courseCollection";
 import { QueryKeys } from "@shared/constant";
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { id } = context.params as GetServerSidePropsContextParams;
-//
-//     const { axios, queryClient } = await getSsrInstances(context);
-//
-//     const courseCollectionApi = new CourseCollectionApi(axios);
-//
-//     try {
-//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_COLLECTION, id], () =>
-//             courseCollectionApi.getAdminCourseCollection({ id })
-//         );
-//
-//         return {
-//             props: {
-//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//                 title: response.name,
-//             },
-//         };
-//     } catch (error) {
-//         return handleAxiosErrorSsr(error);
-//     }
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.params as GetServerSidePropsContextParams;
+
+    const { axios, queryClient } = await getSsrInstances(context);
+
+    const courseCollectionApi = new CourseCollectionApi(axios);
+
+    try {
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_COLLECTION, id], () =>
+            courseCollectionApi.getAdminCourseCollection({ id })
+        );
+
+        return {
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                title: response.name,
+            },
+        };
+    } catch (error) {
+        return handleAxiosErrorSsr(error);
+    }
+}
 
 const UpdateCourseCollection: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
