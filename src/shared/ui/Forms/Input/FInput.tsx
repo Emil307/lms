@@ -12,7 +12,7 @@ export default function FInput(props: FInputProps) {
     const error = React.useMemo(() => (meta.touched && meta.error) || null, [meta.error, meta.touched]);
     const success = useMemo(() => meta.touched && props.success, [meta.touched, props.success]);
 
-    const onChange = (value: string) => {
+    const onChange = (value: string | number) => {
         helpers.setValue(value);
     };
 

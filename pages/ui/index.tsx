@@ -140,8 +140,8 @@ export const $loginValidationSchema = z.object({
 
 export const UIDemo = () => {
     const [valueRingProgress, setValueRingProgress] = useState(60);
-    const [inputValue, setInputValue] = useState("");
-    const [inputValuePassword, setInputValuePassword] = useState("");
+    const [inputValue, setInputValue] = useState<string | number>("");
+    const [inputValuePassword, setInputValuePassword] = useState<string | number>("");
     const [searchValue, setSearchValue] = useState("");
     const [selectValue, setSelectValue] = useState("");
     const [multiSelectValue, setMultiSelectValue] = useState<string[] | never[]>([]);
