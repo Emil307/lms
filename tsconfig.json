@@ -1,38 +1,75 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": false,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "strictNullChecks": true,
-        "outDir": "dist",
-        "jsx": "preserve",
-        "removeComments": true,
-        "sourceMap": true,
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
-        "paths": {
-            "@app/*": ["./src/app/*"],
-            "@fonts/*": ["./src/app/providers/theme/fonts/*"],
-            "@components/*": ["src/components/*"],
-            "@public/*": ["./public/*"],
-            "@layouts/*": ["src/layouts/*"],
-            "@pages/*": ["./src/pages/*"],
-            "@shared/*": ["src/shared/*"],
-            "@entities/*": ["src/entities/*"],
-            "@widgets/*": ["src/widgets/*"],
-            "@features/*": ["src/features/*"]
-        },
-        "skipLibCheck": true,
-        "noEmit": true,
-        "incremental": false,
-        "isolatedModules": true
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strictNullChecks": true,
+    "outDir": "dist",
+    "jsx": "preserve",
+    "removeComments": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@fonts/*": [
+        "./src/app/providers/theme/fonts/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@widgets/*": [
+        "src/widgets/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules", "scripts"]
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": false,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts"
+  ]
 }

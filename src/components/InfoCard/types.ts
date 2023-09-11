@@ -1,6 +1,6 @@
-import { ImageProps } from "next/dist/client/image";
 import { ReactNode } from "react";
 import { DisplayFieldProps } from "@shared/ui";
+import { ImageProps } from "next/image";
 
 export type TInfoCardImageProps = Omit<ImageProps, "src"> & {
     src?: string | null;
