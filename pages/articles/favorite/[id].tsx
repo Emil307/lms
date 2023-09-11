@@ -11,26 +11,26 @@ import { ArticleApi } from "@entities/article";
 import { QueryKeys } from "@shared/constant";
 import { UserPage } from "@components/UserPage";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
-
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const articleApi = new ArticleApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "favorite", id], () => articleApi.getFavoriteArticle({ id }));
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.data.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//     const { id } = context.params as GetServerSidePropsContextParams;
+//
+//     const { axios, queryClient } = await getSsrInstances(context);
+//
+//     const articleApi = new ArticleApi(axios);
+//
+//     try {
+//         const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "favorite", id], () => articleApi.getFavoriteArticle({ id }));
+//
+//         return {
+//             props: {
+//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//                 title: response.data.name,
+//             },
+//         };
+//     } catch (error) {
+//         return handleAxiosErrorSsr(error);
+//     }
+// }
 
 const FavoriteArticleDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

@@ -11,26 +11,26 @@ import { QueryKeys } from "@shared/constant";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { UserPage } from "@components/UserPage";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
-
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const articleApi = new ArticleApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle({ id }));
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//     const { id } = context.params as GetServerSidePropsContextParams;
+//
+//     const { axios, queryClient } = await getSsrInstances(context);
+//
+//     const articleApi = new ArticleApi(axios);
+//
+//     try {
+//         const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle({ id }));
+//
+//         return {
+//             props: {
+//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//                 title: response.name,
+//             },
+//         };
+//     } catch (error) {
+//         return handleAxiosErrorSsr(error);
+//     }
+// }
 
 const ArticleDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (

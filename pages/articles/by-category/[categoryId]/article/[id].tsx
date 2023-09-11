@@ -16,28 +16,28 @@ type GetServerSidePropsContextParams = {
     categoryId: string;
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id, categoryId } = context.params as GetServerSidePropsContextParams;
-
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const articleApi = new ArticleApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "by-category", id], () =>
-            articleApi.getArticleByCategory({ id, categoryId })
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.data.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//     const { id, categoryId } = context.params as GetServerSidePropsContextParams;
+//
+//     const { axios, queryClient } = await getSsrInstances(context);
+//
+//     const articleApi = new ArticleApi(axios);
+//
+//     try {
+//         const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "by-category", id], () =>
+//             articleApi.getArticleByCategory({ id, categoryId })
+//         );
+//
+//         return {
+//             props: {
+//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//                 title: response.data.name,
+//             },
+//         };
+//     } catch (error) {
+//         return handleAxiosErrorSsr(error);
+//     }
+// }
 
 const ArticleByCategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
