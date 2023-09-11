@@ -12,28 +12,28 @@ import { QueryKeys } from "@shared/constant";
 import { getFullName } from "@shared/utils";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
-
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const userApi = new UserApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
-
-        const userFullName = getFullName({ data: response.profile });
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: userFullName,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//     const { id } = context.params as GetServerSidePropsContextParams;
+//
+//     const { axios, queryClient } = await getSsrInstances(context);
+//
+//     const userApi = new UserApi(axios);
+//
+//     try {
+//         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
+//
+//         const userFullName = getFullName({ data: response.profile });
+//
+//         return {
+//             props: {
+//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//                 title: userFullName,
+//             },
+//         };
+//     } catch (error) {
+//         return handleAxiosErrorSsr(error);
+//     }
+// }
 
 const UserDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
