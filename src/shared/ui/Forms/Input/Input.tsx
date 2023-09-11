@@ -14,7 +14,7 @@ import {
 } from "@shared/constant";
 
 export interface InputProps extends Omit<ComponentProps<typeof MInput>, "onChange"> {
-    onChange?: (value: string) => void;
+    onChange?: (value: string | number) => void;
     success?: string | boolean;
     onlyLetters?: boolean;
 }
@@ -25,15 +25,15 @@ const Input = ({ success = false, onlyLetters = false, error, description, onCha
     const isPasswordField = type === "password";
     const { isPasswordVisible, toggleVisibility } = usePassword();
 
-    const getType = () => {
+    const getType = useCallback(() => {
         if (isPasswordField && !isPasswordVisible) {
             return "password";
         }
         if (isPasswordField && isPasswordVisible) {
             return "text";
         }
-        return props.type;
-    };
+        return type;
+    }, [type, isPasswordField, isPasswordVisible]);
 
     const getRightSection = useCallback((): ReactNode => {
         if (rightSection) return rightSection;
@@ -86,8 +86,10 @@ const Input = ({ success = false, onlyLetters = false, error, description, onCha
             switch (type) {
                 case "text":
                     return onChange(value.replace(REGEXP_INPUT_TEXT, ""));
-                case "number":
-                    return onChange(value.replace(REGEXP_INPUT_NUMBER, ""));
+                case "number": {
+                    const result = value.replace(REGEXP_INPUT_NUMBER, "");
+                    return result ? onChange(Number(result)) : onChange("");
+                }
                 case "password":
                     return onChange(value.replace(REGEXP_INPUT_PASSWORD, ""));
                 default:
