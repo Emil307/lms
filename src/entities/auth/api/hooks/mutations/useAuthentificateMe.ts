@@ -17,7 +17,7 @@ export const useAuthenticateMe = () => {
         [MutationKeys.AUTHENTICATE_ME],
         (data: AuthFormValidationSchema) => authApi.authMe(data),
         {
-            onSuccess: (response) => {
+            onSuccess: async (response) => {
                 setCookie(ECookies.TOKEN, response.data.accessToken);
                 setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
                 const userRole = response.meta.user.roles[0].id;
@@ -25,11 +25,11 @@ export const useAuthenticateMe = () => {
 
                 if (router.query.redirect) {
                     const redirectUrl = router.query.redirect as unknown as Route;
-                    router.push(redirectUrl);
-                    return;
+                    await router.replace(redirectUrl);
+                } else {
+                    await router.replace(getStartPage(userRole));
                 }
-
-                router.push(getStartPage(userRole));
+                router.reload();
             },
             onError: () => {
                 createNotification({

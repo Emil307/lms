@@ -4,7 +4,7 @@ const withRoutes = require("nextjs-routes/config")();
 const withSVGR = (nextConfig) => {
     nextConfig.webpack = (config) => {
         config.module.rules.map((rule) => {
-            if (rule.test !== undefined && rule.test.source.includes("|svg|")) {
+            if (rule.test !== undefined && rule.test.source === "|svg|") {
                 rule.test = new RegExp(rule.test.source.replace("|svg|", "|"));
             }
         });

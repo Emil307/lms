@@ -22,7 +22,10 @@ const Logout = () => {
             queryClient.clear();
         })
 
-        router.push({ pathname: authPath, query: router.query});
+        router.replace({ pathname: authPath, query: router.query})
+            .then(() => {
+                router.reload()
+            })
     }, [router.isReady]);
 
     return null;
