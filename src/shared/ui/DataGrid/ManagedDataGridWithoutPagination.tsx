@@ -75,14 +75,14 @@ function ManagedDataGridWithoutPagination<
         ...rest
     } = props;
 
-    const { rowSelection, setRowSelection } = useDataGridSelect({ disableQueryParams, selectItems, onChangeSelect });
+    const { rowSelection, setRowSelection } = useDataGridSelect({ selectItems, onChangeSelect });
 
-    const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams });
+    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({ disableQueryParams });
     const filters = useDataGridFilters<Formik>({ filter, disableQueryParams });
 
     const paramsForRequest = {
-        ...sortParams,
-        ...filters?.filterParams,
+        ...sortParamsForRequest,
+        ...filters?.filterParamsForRequest,
         ...extraFilterParams,
     } as Request;
 
@@ -99,7 +99,7 @@ function ManagedDataGridWithoutPagination<
 
     const collapsed = {
         ...collapsedFiltersBlockProps,
-        queryParams: filters?.filterParams,
+        queryParams: filters?.filterParamsForRequest,
         initialValues: filter?.initialValues,
     };
 
@@ -113,8 +113,8 @@ function ManagedDataGridWithoutPagination<
             data={queryData?.data}
             rowSelection={rowSelection}
             onRowSelectionChange={setRowSelection}
-            onSortingChange={setSorting}
-            sorting={sorting}
+            onSortingChange={handleChangeSorting}
+            sorting={sortingParams}
             meta={queryData?.meta}
             disablePagination
             defaultBlock={defaultBlock}

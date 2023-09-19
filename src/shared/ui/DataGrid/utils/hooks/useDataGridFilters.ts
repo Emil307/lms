@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FormikConfig, FormikProps, FormikValues } from "formik";
 import dayjs from "dayjs";
 import { TFilterTable } from "../../types";
+import { ArrayParam, DateParam, NumberParam, StringParam, useQueryParams } from "use-query-params";
 
 type TParams<F> = {
     disableQueryParams: boolean;
@@ -13,6 +14,24 @@ type TParams<F> = {
 export const useDataGridFilters = <F extends FormikValues>({ filter, disableQueryParams, goToFirstPage }: TParams<F>) => {
     const router = useRouter();
     const formRef = useRef<FormikProps<F>>(null);
+
+    const initialFilterParams: F = useMemo(() => {
+        return Object.keys(filter?.initialValues || {}).reduce((acc, cur) => {
+            if (Array.isArray(filter?.initialValues[cur])) {
+                return { ...acc, [cur]: ArrayParam };
+            }
+            if (filter?.initialValues[cur] === null) {
+                return { ...acc, [cur]: DateParam };
+            }
+            return { ...acc, [cur]: StringParam };
+        }, {} as F);
+    }, [filter?.initialValues]);
+
+    const [query, setQuery] = useQueryParams({
+        ...initialFilterParams,
+        page: NumberParam,
+    });
+
     const [formStateForDisabledQuery, setFormStateForDisabledQuery] = useState<F | undefined>(filter?.initialValues);
 
     useEffect(() => {
@@ -26,70 +45,50 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
         return;
     }
 
-    const getParamsForRequest = () => {
+    const createNewFilterParams = (values: F) => {
+        const newParams = {} as Partial<F>;
+        Object.keys(values).forEach((fieldKey: keyof F) => {
+            const value = values[fieldKey];
+            newParams[fieldKey] = value === "" ? undefined : value;
+        });
+        return newParams;
+    };
+
+    const getFilterParamsForRequest = () => {
         const necessaryFilterParams = {} as Partial<F>;
 
         if (disableQueryParams && formStateForDisabledQuery) {
-            Object.keys(formStateForDisabledQuery).forEach((fieldKey: keyof F) => {
-                const value = formStateForDisabledQuery[fieldKey];
-                necessaryFilterParams[fieldKey] = value === "" ? undefined : value;
-            });
-            return necessaryFilterParams;
+            return createNewFilterParams(formStateForDisabledQuery);
         }
 
-        const { page, perPage, sortField, sortOrder, ...params } = router.query;
-        const currentFilterParams = { ...params };
         Object.keys(filter.initialValues).forEach((fieldKey: keyof F) => {
-            const value = currentFilterParams[fieldKey as string];
-            if (Array.isArray(filter.initialValues[fieldKey]) && !Array.isArray(value)) {
-                necessaryFilterParams[fieldKey] = value ? ([value] as F[keyof F]) : ([] as F[keyof F]);
+            const value = query[fieldKey] as F[keyof F];
+            if (!value) {
                 return;
             }
-            if (typeof value === "string" && typeof filter.initialValues[fieldKey] !== "string" && value.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                necessaryFilterParams[fieldKey] = new Date(value) as F[keyof F];
-                return;
+            if ((value as unknown) instanceof Date) {
+                necessaryFilterParams[fieldKey] = dayjs(value).format("YYYY-MM-DD") as F[keyof F];
             }
-            necessaryFilterParams[fieldKey] = value === "" ? undefined : (value as F[keyof F]);
+            necessaryFilterParams[fieldKey] = value;
         });
 
         return necessaryFilterParams;
     };
 
-    const paramsForRequest = getParamsForRequest();
+    const paramsForRequest = getFilterParamsForRequest();
 
     const getInitialFormValues = () => {
+        if (disableQueryParams && formStateForDisabledQuery) {
+            return formStateForDisabledQuery;
+        }
         const initialValues = { ...filter.initialValues };
         for (const key in filter.initialValues) {
-            initialValues[key] = paramsForRequest[key] ?? filter.initialValues[key];
+            initialValues[key] = (query[key] as F[keyof F]) ?? filter.initialValues[key];
         }
         return initialValues;
     };
 
-    const prepareQueryParams = (values: F) => {
-        const params = {} as Record<string, any>;
-        Object.keys(values).forEach((key) => {
-            const value = values[key];
-            if (value instanceof Date) {
-                params[key] = dayjs(value).format("YYYY-MM-DD");
-                return;
-            }
-            params[key] = value;
-        });
-        return params;
-    };
-
-    const isEmptyFilter = () => {
-        if (!paramsForRequest || !Object.keys(paramsForRequest).length) {
-            return true;
-        }
-        return Object.keys(paramsForRequest).every((key) => {
-            const param = paramsForRequest[key];
-            if (Array.isArray(param) && !param.length) {
-                return true;
-            }
-            return !param;
-        });
-    };
+    const isEmptyFilter = () => !paramsForRequest || !Object.keys(paramsForRequest).length;
 
     const handleSubmit = async (values: F) => {
         if (disableQueryParams) {
@@ -97,14 +96,10 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
             goToFirstPage && goToFirstPage();
             return;
         }
-        router.push(
-            {
-                pathname: router.pathname,
-                query: { ...router.query, ...(goToFirstPage ? { page: "1" } : {}), ...prepareQueryParams(values) },
-            },
-            undefined,
-            { shallow: true }
-        );
+        setQuery({
+            ...createNewFilterParams(values),
+            page: goToFirstPage ? 1 : undefined,
+        });
     };
 
     const formikConfig: FormikConfig<F> = {
@@ -113,5 +108,5 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
         onSubmit: handleSubmit,
     };
 
-    return { formikConfig, formRef, filterParams: paramsForRequest, isEmptyFilter: isEmptyFilter() };
+    return { formikConfig, formRef, filterParamsForRequest: paramsForRequest, isEmptyFilter: isEmptyFilter() };
 };

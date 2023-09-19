@@ -13,6 +13,8 @@ import {
 } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
 import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
+import { TPagination } from "@shared/types";
+import {PER_PAGE_OPTIONS_DEFAULT} from "@shared/ui/DataGrid/constants";
 
 type TExtendedProps<
     Data extends Record<string, any>,
@@ -68,6 +70,7 @@ function ManagedDataGrid<
         filter,
         extraFilterParams = {},
         disableQueryParams = false,
+        perPageOptions = PER_PAGE_OPTIONS_DEFAULT,
         selectItems,
         onChangeSelect,
         collapsedFiltersBlockProps,
@@ -75,16 +78,16 @@ function ManagedDataGrid<
         ...rest
     } = props;
 
-    const { rowSelection, setRowSelection } = useDataGridSelect({ disableQueryParams, selectItems, onChangeSelect });
+    const { rowSelection, setRowSelection } = useDataGridSelect({ selectItems, onChangeSelect });
 
-    const { setPagination, paginationParams, goToFirstPage } = useDataGridPagination(disableQueryParams);
-    const { sorting, setSorting, sortParams } = useDataGridSort({ disableQueryParams, goToFirstPage });
+    const { paginationParams, handleChangePagination, goToFirstPage } = useDataGridPagination({ disableQueryParams, perPageOptions });
+    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({ disableQueryParams, goToFirstPage });
     const filters = useDataGridFilters<Formik>({ filter, disableQueryParams, goToFirstPage });
 
     const paramsForRequest = {
         ...paginationParams,
-        ...sortParams,
-        ...filters?.filterParams,
+        ...sortParamsForRequest,
+        ...filters?.filterParamsForRequest,
         ...extraFilterParams,
     } as Request;
 
@@ -101,9 +104,15 @@ function ManagedDataGrid<
 
     const collapsed = {
         ...collapsedFiltersBlockProps,
-        queryParams: filters?.filterParams,
+        queryParams: filters?.filterParamsForRequest,
         initialValues: filter?.initialValues,
     };
+
+    const paginationData = {
+        ...queryData?.pagination,
+        currentPage: paginationParams.page,
+        perPage: paginationParams.perPage,
+    } as TPagination;
 
     return (
         <DataGrid<Data, MetaData, Formik>
@@ -115,10 +124,10 @@ function ManagedDataGrid<
             data={queryData?.data}
             rowSelection={rowSelection}
             onRowSelectionChange={setRowSelection}
-            onPaginationChange={setPagination}
-            onSortingChange={setSorting}
-            sorting={sorting}
-            pagination={queryData?.pagination}
+            onPaginationChange={handleChangePagination}
+            onSortingChange={handleChangeSorting}
+            sorting={sortingParams}
+            pagination={paginationData}
             meta={queryData?.meta}
             defaultBlock={defaultBlock}
             enableFilters={false}

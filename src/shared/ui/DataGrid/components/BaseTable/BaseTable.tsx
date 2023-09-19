@@ -9,6 +9,7 @@ import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
 import { TCellBadge, TCellProps, TColumns } from "../../types";
+import {PAGE_DEFAULT, PER_PAGE_OPTIONS_DEFAULT} from "@shared/ui/DataGrid/constants";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
@@ -35,7 +36,7 @@ function BaseTable<T extends Record<string, any>>({
     stylesForCell,
     pagination,
     disablePagination = false,
-    perPageOptions = ["5", "10", "15"],
+    perPageOptions = PER_PAGE_OPTIONS_DEFAULT,
     isLoading,
     sorting,
     onSortingChange,
@@ -112,12 +113,13 @@ function BaseTable<T extends Record<string, any>>({
                 isLoading,
                 sorting,
                 pagination: {
-                    pageIndex: paginationData?.currentPage || 0,
-                    pageSize: paginationData?.perPage || Number(perPageOptions[1]),
+                    pageIndex: paginationData?.currentPage || PAGE_DEFAULT,
+                    pageSize: paginationData?.perPage || perPageOptions[1],
                 },
                 rowSelection,
             }}
             onSortingChange={handleSortingChange}
+            sortDescFirst
             enableSelectAll
             enableRowSelection
             enableDensityToggle={false}
