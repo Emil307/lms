@@ -2,6 +2,7 @@ import React from "react";
 import { Box } from "@mantine/core";
 import { TDisplayMetaData } from "@shared/ui/DataGrid/types";
 import { Paragraph } from "@shared/ui";
+import {useCurrentMetaData} from "@shared/ui/DataGrid/utils";
 
 type TMetaDataProps<M> = {
     meta?: M;
@@ -9,7 +10,9 @@ type TMetaDataProps<M> = {
 };
 
 function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDataProps<M>) {
-    if (!meta || !displayMeta) {
+    const metaData = useCurrentMetaData(meta);
+
+    if (!displayMeta || !metaData) {
         return null;
     }
 
@@ -19,7 +22,7 @@ function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDat
                 {displayMeta.name || "Итого:"}
             </Paragraph>
             <Paragraph variant="text-small-m" component="span" color="dark">
-                {displayMeta.value(meta)}
+                {displayMeta.value(metaData)}
             </Paragraph>
         </Box>
     );

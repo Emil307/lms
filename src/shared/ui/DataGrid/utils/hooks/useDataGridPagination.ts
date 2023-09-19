@@ -1,55 +1,50 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MRT_PaginationState } from "mantine-react-table";
-import { TDefaultPageQueryParams } from "@shared/ui/DataGrid/types";
+import { PaginationState } from "@tanstack/table-core/src/features/Pagination";
+import {createEnumParam, NumberParam, useQueryParams} from "use-query-params";
 import { TPageParams } from "@shared/types";
+import { PAGE_DEFAULT } from "@shared/ui/DataGrid/constants";
 
-export const useDataGridPagination = (disableQueryParams: boolean) => {
-    const router = useRouter();
-    const [pagination, setPagination] = useState<MRT_PaginationState>({
-        pageIndex: 1,
-        pageSize: 10,
+type TParams = {
+    disableQueryParams: boolean;
+    perPageOptions: [number, number, ...number[]];
+}
+
+export const useDataGridPagination = ({ disableQueryParams, perPageOptions }: TParams) => {
+    const [query, setQuery] = useQueryParams({
+        page: NumberParam,
+        perPage: createEnumParam(perPageOptions.map(option => String(option))),
     });
 
-    const { page = 1, perPage = 10 } = router.query as TDefaultPageQueryParams;
+    const [pagination, setPagination] = useState<MRT_PaginationState>({
+        pageIndex: PAGE_DEFAULT,
+        pageSize: perPageOptions[1],
+    });
 
-    useEffect(() => {
+    const handleChangePagination = (updater: () => Partial<PaginationState>) => {
+        const values = updater();
         if (disableQueryParams) {
-            return;
+            return setPagination((state) => ({ ...state, ...values }));
         }
-        setPagination({ pageIndex: Number(page), pageSize: Number(perPage) });
-    }, [router.isReady]);
-
-    useEffect(() => {
-        if (!router.isReady || disableQueryParams) {
-            return;
-        }
-        router.push(
-            {
-                pathname: router.pathname,
-                query: { ...router.query, perPage: `${pagination.pageSize}`, page: `${pagination.pageIndex}` },
-            },
-            undefined,
-            { shallow: true }
-        );
-    }, [pagination, router.isReady]);
+        setQuery((state) => ({ page: values.pageIndex || state.page, perPage: values.pageSize ? String(values.pageSize) : state.perPage }));
+    };
 
     const goToFirstPage = () => {
         setPagination((state) => ({ ...state, pageIndex: 1 }));
     };
 
-    const preparePaginationParams = (): TPageParams => {
+    const getPaginationParams = (): TPageParams => {
         if (disableQueryParams) {
             return {
-                perPage: pagination.pageSize,
                 page: pagination.pageIndex,
+                perPage: pagination.pageSize,
             };
         }
         return {
-            perPage: Number(perPage),
-            page: Number(page),
+            page: query.page || pagination.pageIndex,
+            perPage: Number(query.perPage) || pagination.pageSize,
         };
     };
 
-    return { setPagination, paginationParams: preparePaginationParams(), goToFirstPage };
+    return { handleChangePagination, paginationParams: getPaginationParams(), goToFirstPage };
 };

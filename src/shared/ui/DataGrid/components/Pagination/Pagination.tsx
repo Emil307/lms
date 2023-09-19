@@ -10,7 +10,7 @@ import { useTablePagination } from "../../utils";
 export type TPaginationProps<T extends Record<string, any>> = {
     table: MRT_TableInstance<T>;
     data?: TPagination;
-    perPageOptions: [string, string, ...string[]];
+    perPageOptions: [number, number, ...number[]];
 };
 
 export default function Pagination<T extends Record<string, any>>(props: TPaginationProps<T>) {
@@ -25,8 +25,8 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
 
     const perPageSelectOptions = useMemo(() => {
         return perPageOptions.map((option) => ({
-            label: option,
-            value: option,
+            label: String(option),
+            value: String(option),
         }));
     }, [perPageOptions]);
 

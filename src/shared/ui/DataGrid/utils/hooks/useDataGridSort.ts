@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MRT_SortingState } from "mantine-react-table";
-import { useRouter } from "next/router";
-import { TDefaultSortQueryParams } from "@shared/ui/DataGrid/types";
-import { TSortParams } from "@shared/types";
+import { TSortOrder, TSortParams } from "@shared/types";
+import { createEnumParam, NumberParam, StringParam, useQueryParams } from "use-query-params";
+import { SortingState } from "@tanstack/table-core";
 
 type TParams = {
     disableQueryParams: boolean;
@@ -10,68 +10,65 @@ type TParams = {
 };
 
 export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) => {
-    const router = useRouter();
+    const [query, setQuery] = useQueryParams({
+        sortField: StringParam,
+        sortOrder: createEnumParam(["asc", "desc"]),
+        page: NumberParam,
+    });
+
     const [sorting, setSorting] = useState<MRT_SortingState>([]);
 
-    const { sortField, sortOrder } = router.query as TDefaultSortQueryParams;
-
-    useEffect(() => {
-        if (disableQueryParams) {
-            return;
-        }
-        setSorting(getInitialSortParams());
-    }, [router.isReady]);
-
-    useEffect(() => {
-        if (!router.isReady) {
-            return;
-        }
+    const handleChangeSorting = (updater: () => SortingState) => {
+        const value = updater();
         if (disableQueryParams) {
             goToFirstPage && goToFirstPage();
-            return;
+            if (sorting.length && !sorting[0].desc && !value[0].desc) {
+                return setSorting([]);
+            }
+            return setSorting(value);
         }
-        router.push(
-            {
-                pathname: router.pathname,
-                query: { ...createNewSortParams(), ...(goToFirstPage ? { page: "1" } : {}) },
-            },
-            undefined,
-            { shallow: true }
-        );
-    }, [sorting, router.isReady]);
+        setQuery(createNewSortParams(value));
+    };
 
-    const prepareSortParams = (): TSortParams | undefined => {
+    const getSortParamsForRequest = (): TSortParams | undefined => {
         if (disableQueryParams && !sorting.length) {
-            return undefined;
-        }
-        if (!disableQueryParams && !sortField) {
             return undefined;
         }
         if (disableQueryParams) {
             return { sort: { [sorting[0].id]: sorting[0].desc ? "desc" : "asc" } };
         }
-        return { sort: { [sortField]: sortOrder } };
+        if (!query.sortField || !query.sortOrder) {
+            return undefined;
+        }
+        return { sort: { [query.sortField]: query.sortOrder } };
     };
 
-    const getInitialSortParams = () => {
-        if (!sortField || Array.isArray(sortField)) {
+    const createNewSortParams = (value: SortingState) => {
+        if (query.sortOrder === "asc" && !value[0].desc) {
+            return {
+                sortField: undefined,
+                sortOrder: undefined,
+                page: goToFirstPage ? 1 : undefined,
+            };
+        }
+        const { id, desc } = value[0];
+        return {
+            sortField: id,
+            sortOrder: desc ? "desc" : ("asc" as TSortOrder),
+            page: goToFirstPage ? 1 : undefined,
+        };
+    };
+
+    const getSortingParams = () => {
+        if (disableQueryParams) {
+            return sorting;
+        }
+        const { sortField, sortOrder } = query;
+        if (!sortField || !sortOrder) {
             return [];
         }
         return [{ id: sortField, desc: sortOrder === "desc" }];
     };
 
-    const createNewSortParams = () => {
-        const newQueryParams = { ...router.query };
-        if (!sorting.length) {
-            delete newQueryParams.sortField;
-            delete newQueryParams.sortOrder;
-            return newQueryParams;
-        }
-        const { id, desc } = sorting[0];
-        newQueryParams.sortField = id;
-        newQueryParams.sortOrder = desc ? "desc" : "asc";
-        return newQueryParams;
-    };
-
-    return { sorting, setSorting, sortParams: prepareSortParams() };
+    return { sortingParams: getSortingParams(), handleChangeSorting, sortParamsForRequest: getSortParamsForRequest() };
 };

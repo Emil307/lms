@@ -1,13 +1,13 @@
 import { TPaginationProps } from "../../components";
 
-export const useTablePagination = <T extends Record<string, any>>({ data, table }: Pick<TPaginationProps<T>, "data" | "table">) => {
+export const useTablePagination = <T extends Record<string, any>>({ data, table }: Omit<TPaginationProps<T>, "perPageOptions">) => {
     const { getState, setPagination } = table;
 
     const firstElemIndex = (data?.perPage ?? 0) * ((data?.currentPage ?? 0) - 1) + 1;
     const lastElemIndex = (data?.perPage ?? 0) * ((data?.currentPage ?? 0) - 1) + (data?.count ?? 0);
 
     const {
-        pagination: { pageIndex = 1, pageSize = 10 },
+        pagination: { pageIndex, pageSize },
     } = getState();
 
     const handleChangePage = (selectedPage: number) => {
