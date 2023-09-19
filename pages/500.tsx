@@ -1,8 +1,8 @@
-import {NextPageWithLayout} from "@shared/utils";
-import {UserPage} from "@components/UserPage";
-import React, {ReactElement} from "react";
-import {ErrorLayout} from "@app/layouts";
-import {CustomPage500} from "@pages/errors";
+import React, { ReactElement } from "react";
+import { NextPageWithLayout } from "@shared/utils";
+import { UserPage } from "@components/UserPage";
+import { ErrorLayout } from "@app/layouts";
+import { CustomPage500 } from "@pages/errors";
 
 const Custom500: NextPageWithLayout = () => {
     return (

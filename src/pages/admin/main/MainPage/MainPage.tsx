@@ -2,10 +2,10 @@ import Image from "next/image";
 import { Avatar, Box, Flex, Skeleton } from "@mantine/core";
 import React from "react";
 import backgroundImage from "public/background-image-auth.png";
-import useStyles from "./MainPage.styles";
 import { useSession } from "@entities/auth";
 import AvatarIcon from "@public/icons/avatar.svg";
 import { Heading } from "@shared/ui";
+import useStyles from "./MainPage.styles";
 
 const MainPage = () => {
     const { classes } = useStyles();

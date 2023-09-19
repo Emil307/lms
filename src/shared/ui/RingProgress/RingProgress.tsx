@@ -1,8 +1,8 @@
 import { Flex, RingProgress as MRingProgress, RingProgressProps as MRingProgressProps } from "@mantine/core";
 import { memo, useMemo } from "react";
 
-import useStyles from "./RingProgress.styles";
 import { Heading, Paragraph } from "@shared/ui";
+import useStyles from "./RingProgress.styles";
 
 export interface RingProgressProps extends Omit<MRingProgressProps, "label" | "sections" | "size"> {
     value: number;

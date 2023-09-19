@@ -3,11 +3,11 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { Heading, Loader } from "@shared/ui";
 import { useAdminLessonHomeworkAnswerMessages } from "@entities/lesson";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./HomeworkChat.styles";
-import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 
 export interface MessageListProps {
     homeworkAnswerId: string;

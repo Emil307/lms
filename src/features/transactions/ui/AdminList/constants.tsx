@@ -2,8 +2,8 @@ import { Badge } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm } from "@entities/transaction";
 import { getFullName } from "@shared/utils";
-import useStyles from "./AdminList.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import useStyles from "./AdminList.styles";
 
 export const columnOrder = [
     "id",

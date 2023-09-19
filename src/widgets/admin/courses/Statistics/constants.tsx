@@ -1,7 +1,7 @@
 import { Badge } from "@mantine/core";
 import { AdminCourseStatistics } from "@entities/course";
-import useStyles from "./Statistics.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import useStyles from "./Statistics.styles";
 
 export const columnOrder = [
     "name",

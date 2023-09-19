@@ -1,13 +1,13 @@
-import { AdminGroupFromList, GetAdminGroupsRequest } from "@entities/group";
-import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
-import { TCourseGroupsExtraParams } from "./types";
 import { useCallback, useMemo } from "react";
-import { Roles } from "@app/routes";
-import { getFullName } from "@shared/utils";
 import { MRT_Cell } from "mantine-react-table";
 import dayjs from "dayjs";
-import useStyles from "@widgets/admin/courses/Groups/Groups.styles";
 import { Badge, Flex, Text } from "@mantine/core";
+import { Roles } from "@app/routes";
+import { getFullName } from "@shared/utils";
+import useStyles from "@widgets/admin/courses/Groups/Groups.styles";
+import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
+import { AdminGroupFromList, GetAdminGroupsRequest } from "@entities/group";
+import { TCourseGroupsExtraParams } from "./types";
 
 export const useCourseGroupsListData = (userRole: number = 0) => {
     const columns: TColumns<AdminGroupFromList> = useMemo(() => {

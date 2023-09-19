@@ -11,9 +11,9 @@ import { Roles } from "@app/routes";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
 import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
+import { useMedia } from "@shared/utils";
 import { AddLessonButton, ListMenu } from "./components";
 import useStyles from "./ModuleLessonsList.styles";
-import { useMedia } from "@shared/utils";
 
 interface ModuleLessonsListProps {
     courseId: string;

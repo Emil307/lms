@@ -3,11 +3,11 @@ import { BoxProps } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupScheduleFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
 import { QueryKeys } from "@shared/constant";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { columnOrder, columns } from "./constant";
 import { CreateGroupScheduleButton, ListMenu } from "./components";
 import useStyles from "./GroupScheduleList.styles";
-import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 
 export interface GroupScheduleListProps extends BoxProps {
     groupId: string;

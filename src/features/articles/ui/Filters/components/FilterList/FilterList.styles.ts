@@ -54,9 +54,6 @@ export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) =
     },
     notFound: {
         paddingBottom: 16,
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: "16px",
         color: theme.colors.gray45[0],
         wordBreak: "break-word",
     },

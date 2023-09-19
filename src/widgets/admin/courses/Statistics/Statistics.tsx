@@ -2,9 +2,9 @@ import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
+import { AdminCourseStatistics, courseApi } from "@entities/course";
 import { columns, columnOrder } from "./constants";
 import { TCourseStatisticsExtraParams } from "./types";
-import { AdminCourseStatistics, courseApi } from "@entities/course";
 import { ListMenu } from "./components";
 
 interface GroupsProps {

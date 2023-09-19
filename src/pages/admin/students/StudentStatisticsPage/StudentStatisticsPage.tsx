@@ -1,8 +1,8 @@
 import { Box, Text } from "@mantine/core";
-import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import React from "react";
-import { useAdminGroupStudentStatistics } from "@entities/group";
 import { useRouter } from "next/router";
+import { BreadCrumbs, Heading, Loader } from "@shared/ui";
+import { useAdminGroupStudentStatistics } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { StudentStatistics } from "@features/students";
 import { TRouterQueriesParams } from "./types";

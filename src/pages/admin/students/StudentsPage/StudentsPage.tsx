@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { AdminList as AdminStudentList } from "@features/students";
 import { Button, Heading } from "@shared/ui";
 import { useMedia } from "@shared/utils";
-import useStyles from "./StudentsPage.styles";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
+import useStyles from "./StudentsPage.styles";
 
 const StudentsPage = () => {
     const router = useRouter();

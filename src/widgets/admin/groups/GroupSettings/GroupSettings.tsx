@@ -8,11 +8,11 @@ import { Button, DisplayField, Heading } from "@shared/ui";
 import { GetAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
+import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@app/routes";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
 import { DeleteGroupButton } from "./components";
-import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 
 export interface GroupSettingsProps extends Omit<BoxProps, "children"> {
     id: string;

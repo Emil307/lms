@@ -4,9 +4,9 @@ import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
-import useStyles from "./InfoPanel.styles";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
+import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends Omit<BoxProps, "children"> {
     id: string;
