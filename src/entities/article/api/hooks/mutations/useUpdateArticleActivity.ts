@@ -25,9 +25,11 @@ export const useUpdateArticleActivity = ({
         onMutate: async ({ isActive }) => {
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE, id] });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLES] });
+            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_ARTICLES] });
 
             const previousArticleData = queryClient.getQueryData<GetAdminArticleResponse>([QueryKeys.GET_ADMIN_ARTICLE, id]);
             const previousArticlesData = queryClient.getQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_ARTICLES]);
+            const previousCourseArticlesData = queryClient.getQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_COURSE_ARTICLES]);
 
             queryClient.setQueryData<GetAdminArticleResponse>(
                 [QueryKeys.GET_ADMIN_ARTICLE, id],
@@ -45,7 +47,18 @@ export const useUpdateArticleActivity = ({
                 };
             });
 
-            return { previousArticleData, previousArticlesData };
+            queryClient.setQueriesData<GetAdminArticlesResponse>([QueryKeys.GET_ADMIN_COURSE_ARTICLES], (previousData) => {
+                if (!previousData) {
+                    return undefined;
+                }
+
+                return {
+                    ...previousData,
+                    data: previousData.data.map((article) => (String(article.id) === id ? { ...article, isActive } : article)),
+                };
+            });
+
+            return { previousArticleData, previousArticlesData, previousCourseArticlesData };
         },
         onError: (err, _, context) => {
             if (typeof context === "object" && "previousArticleData" in context) {
@@ -53,6 +66,10 @@ export const useUpdateArticleActivity = ({
             }
             if (typeof context === "object" && "previousArticlesData" in context) {
                 queryClient.setQueriesData([QueryKeys.GET_ADMIN_ARTICLES], context.previousArticlesData);
+            }
+
+            if (typeof context === "object" && "previousCourseArticlesData" in context) {
+                queryClient.setQueriesData([QueryKeys.GET_ADMIN_COURSE_ARTICLES], context.previousCourseArticlesData);
             }
 
             createNotification({
@@ -63,6 +80,7 @@ export const useUpdateArticleActivity = ({
         onSettled() {
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLES]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE, id]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_ARTICLES]);
         },
         onSuccess: ({ isActive }) => {
             const statusMessage = isActive ? "активирована" : "деактивирована";
