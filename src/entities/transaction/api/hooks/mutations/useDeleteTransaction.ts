@@ -4,13 +4,7 @@ import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
-import {
-    DeleteAdminTransactionRequest,
-    DeleteAdminTransactionResponse,
-    GetAdminTransactionResponse,
-    GetAdminTransactionsResponse,
-    transactionApi,
-} from "@entities/transaction";
+import { DeleteAdminTransactionRequest, DeleteAdminTransactionResponse, transactionApi } from "@entities/transaction";
 
 export const useDeleteTransaction = ({ id }: DeleteAdminTransactionRequest) => {
     return useMutation<DeleteAdminTransactionResponse, AxiosError<FormErrorResponse>, null>(
@@ -18,15 +12,10 @@ export const useDeleteTransaction = ({ id }: DeleteAdminTransactionRequest) => {
         () => transactionApi.deleteAdminTransaction({ id }),
         {
             onSuccess: () => {
-                const transactionData = queryClient.getQueryData<GetAdminTransactionResponse>([QueryKeys.GET_ADMIN_TRANSACTION, id]);
-                const transactionFromList = queryClient
-                    .getQueriesData<GetAdminTransactionsResponse>([QueryKeys.GET_ADMIN_TRANSACTIONS])[0]?.[1]
-                    ?.data.find((transaction) => transaction.id.toString() === id);
-
                 createNotification({
                     type: ToastType.SUCCESS,
                     title: "Удаление транзакции",
-                    message: `Транзация "${transactionData?.id || transactionFromList?.id}" успешно удалена`,
+                    message: `Транзакция №${id} успешно удалена`,
                 });
 
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_TRANSACTIONS]);

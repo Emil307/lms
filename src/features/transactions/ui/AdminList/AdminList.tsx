@@ -1,18 +1,22 @@
-import { Box, BoxProps, Group } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm, transactionApi, useAdminTransactionFilters } from "@entities/transaction";
+import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, columnOrder } from "./constants";
 import { ListMenu } from "./components";
 import { adaptGetAdminTransactionsRequest } from "./utils";
+import useStyles from "./AdminList.styles";
 
 export interface AdminListProps extends BoxProps {}
 
 const AdminList = (props: AdminListProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+    const isMobile = useMedia("sm");
     const transactionFilters = useAdminTransactionFilters();
 
     const handleClickCell = (cell: MRT_Cell<AdminTransactionFromList>) => {
@@ -34,16 +38,20 @@ const AdminList = (props: AdminListProps) => {
                 initialState={{
                     columnOrder,
                 }}
-                renderRowActions={({ row }) => <ListMenu row={row} />}>
+                renderRowActions={({ row }) => <ListMenu row={row} />}
+                collapsedFiltersBlockProps={{
+                    isCollapsed: isMobile,
+                }}>
                 {({ dirty, resetForm, handleSubmit }) => {
                     const handleResetForm = () => {
                         resetForm({ values: filterInitialValues });
                         handleSubmit();
                     };
+
                     return (
-                        <Box mb={24}>
-                            <Group sx={{ gap: 8 }}>
-                                <FSearch w="100%" maw={512} size="sm" name="query" placeholder="Поиск" />
+                        <Flex className={classes.filterWrapper}>
+                            <Flex className={classes.filterSearchAndSelects}>
+                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
                                 <FSelect
                                     name="entityType"
                                     size="sm"
@@ -54,11 +62,9 @@ const AdminList = (props: AdminListProps) => {
                                     })}
                                     clearable
                                     label="Сущность"
+                                    className={classes.filterSelect}
                                     disabled={transactionFilters.isLoading || !transactionFilters.data?.entityTypes.length}
-                                    w="100%"
-                                    maw={252}
                                 />
-
                                 <FSelect
                                     name="paymentType"
                                     size="sm"
@@ -69,9 +75,8 @@ const AdminList = (props: AdminListProps) => {
                                     })}
                                     clearable
                                     label="Вид оплаты"
+                                    className={classes.filterSelect}
                                     disabled={transactionFilters.isLoading || !transactionFilters.data?.paymentTypes.length}
-                                    w="100%"
-                                    maw={252}
                                 />
                                 <FDateRangePicker
                                     name="createdAtFrom"
@@ -79,8 +84,7 @@ const AdminList = (props: AdminListProps) => {
                                     label="Дата создания"
                                     size="sm"
                                     clearable
-                                    w="100%"
-                                    maw={252}
+                                    className={classes.filterDateRangePicker}
                                 />
                                 <FSelect
                                     name="status"
@@ -92,22 +96,22 @@ const AdminList = (props: AdminListProps) => {
                                     })}
                                     clearable
                                     label="Статус"
+                                    className={classes.filterSelect}
                                     disabled={transactionFilters.isLoading || !transactionFilters.data?.statuses.length}
-                                    w="100%"
-                                    maw={252}
                                 />
-                            </Group>
-                            <Group>
-                                <Button mt={16} type="submit" w="100%" maw={164} disabled={!dirty}>
+                            </Flex>
+
+                            <Flex gap={16}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w="100%" maw={164} onClick={handleResetForm}>
-                                        Сбросить
+                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        Cбросить
                                     </Button>
                                 )}
-                            </Group>
-                        </Box>
+                            </Flex>
+                        </Flex>
                     );
                 }}
             </ManagedDataGrid>

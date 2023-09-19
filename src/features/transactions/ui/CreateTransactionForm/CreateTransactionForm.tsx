@@ -6,7 +6,7 @@ import { IconClipboard } from "@tabler/icons";
 import { Button, FInput, FSelect, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import {
     AdminTransactionEntityTypeName,
     CreateAdminTransactionResponse,
@@ -14,10 +14,11 @@ import {
     useAdminTransactionCreateResources,
 } from "@entities/transaction";
 import CheckStatusIcon from "public/icons/checkStatus.svg";
-import { initialValues } from "./constant";
+import { initialValues } from "./constants";
 import { $CreateTransactionFormValidation, CreateTransactionFormValidation } from "./types";
 import { adaptCreateTransactionRequest } from "./utils";
 import { EntitySelect } from "./components";
+import useStyles from "./CreateTransactionForm.styles";
 
 export interface CreateTransactionFormProps extends BoxProps {
     onClose: () => void;
@@ -25,6 +26,9 @@ export interface CreateTransactionFormProps extends BoxProps {
 
 const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps) => {
     const router = useRouter();
+    const { classes } = useStyles();
+
+    const isMobile = useMedia("xs");
 
     const transactionResources = useAdminTransactionCreateResources();
 
@@ -80,7 +84,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                         clearable
                                         onChange={resetEntitySelect}
                                         label="Вид сущности"
-                                        disabled={transactionResources.isLoading}
+                                        disabled={transactionResources.isLoading || !transactionResources.data?.entityTypes.length}
                                     />
                                     <EntitySelect name="entityId" entityType={values.entityType as AdminTransactionEntityTypeName} />
                                     <FInput name="amount" label="Стоимость (₽)" type="number" size="sm" w="100%" />
@@ -98,7 +102,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                         })}
                                         clearable
                                         label="Ученик"
-                                        disabled={transactionResources.isLoading}
+                                        disabled={transactionResources.isLoading || !transactionResources.data?.users.length}
                                     />
                                 </Box>
                             </Fieldset>
@@ -110,7 +114,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                     </ThemeIcon>
                                 }
                                 legendProps={{ mb: 24 }}>
-                                <Flex gap={8} w="100%">
+                                <Flex className={classes.statusAndPaymentTypeSelectsWrapper}>
                                     <FSelect
                                         name="status"
                                         size="sm"
@@ -121,7 +125,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                         })}
                                         clearable
                                         label="Статус"
-                                        disabled={transactionResources.isLoading}
+                                        disabled={transactionResources.isLoading || !transactionResources.data?.statuses.length}
                                         w="100%"
                                     />
                                     <FSelect
@@ -134,16 +138,16 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                         })}
                                         clearable
                                         label="Вид оплаты"
-                                        disabled={transactionResources.isLoading}
+                                        disabled={transactionResources.isLoading || !transactionResources.data?.paymentTypes.length}
                                         w="100%"
                                     />
                                 </Flex>
                             </Fieldset>
-                            <Flex gap={8} mt={32}>
-                                <Button variant="border" size="large" onClick={onCancel} w="100%" maw={252}>
+                            <Flex className={classes.actions}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
                                     Отмена
                                 </Button>
-                                <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
+                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>
