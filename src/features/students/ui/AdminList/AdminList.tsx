@@ -8,12 +8,12 @@ import { AdminStudentsFiltersForm, UserFromList } from "@entities/user/api/types
 import { useAdminStudentsFilters, userApi } from "@entities/user";
 import { QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { ListMenu } from "./components";
 import { radioGroupValues } from "./constants";
 import { useStudentListData } from "./utils";
 import useStyles from "./AdminList.styles";
-import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 
 export interface AdminListProps extends BoxProps {}
 

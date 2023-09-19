@@ -1,1 +1,1 @@
-export const MAX_HEIGHT_FILTER_CONTENT = 152;
+export const HEIGHT_CONTENT_INDENT = 8;

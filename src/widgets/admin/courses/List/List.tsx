@@ -1,6 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
+import { MRT_Cell } from "mantine-react-table";
 import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
@@ -12,7 +13,6 @@ import { useMedia } from "@shared/utils";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
-import { MRT_Cell } from "mantine-react-table";
 import { useCourseListData } from "./utils";
 
 const List = () => {

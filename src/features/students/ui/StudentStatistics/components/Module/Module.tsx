@@ -1,9 +1,9 @@
 import { Box, Flex, ActionIcon, Collapse } from "@mantine/core";
-import useStyles from "./Module.styles";
-import { Heading } from "@shared/ui";
-import { AdminGroupModuleForStudentStatistics } from "@entities/group";
 import { ChevronDown as ChevronDownIcon } from "react-feather";
 import React, { useState } from "react";
+import { Heading } from "@shared/ui";
+import { AdminGroupModuleForStudentStatistics } from "@entities/group";
+import useStyles from "./Module.styles";
 import { Lesson } from "../Lesson";
 
 interface ModuleProps {

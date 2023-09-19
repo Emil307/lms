@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
-import { Paragraph } from "@shared/ui";
 import React from "react";
+import { Paragraph } from "@shared/ui";
 import useStyles from "./FooterError.styles";
 
 const FooterError = () => {

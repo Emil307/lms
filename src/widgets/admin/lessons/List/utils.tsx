@@ -1,11 +1,11 @@
 import dayjs from "dayjs";
-import { AdminLessonFromList, AdminLessonsFilters, GetAdminLessonsRequest } from "@entities/lesson";
-import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { MRT_Cell } from "mantine-react-table";
-import { getHumanDate } from "@shared/utils";
-import { Roles } from "@app/routes";
 import { useMemo } from "react";
 import { useRouter } from "next/router";
+import { AdminLessonFromList, AdminLessonsFilters, GetAdminLessonsRequest } from "@entities/lesson";
+import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
+import { getHumanDate } from "@shared/utils";
+import { Roles } from "@app/routes";
 
 export const useLessonListData = (userRole?: number) => {
     const router = useRouter();

@@ -1,8 +1,8 @@
 import { Box, Text } from "@mantine/core";
 import React from "react";
+import { useRouter } from "next/router";
 import { BreadCrumbs, Heading, Loader } from "@shared/ui";
 import { CourseStatistics } from "@widgets/admin/courses";
-import { useRouter } from "next/router";
 import { TRouterQueries } from "@shared/types";
 import { useAdminCourse } from "@entities/course";
 import { getBreadCrumbsItems } from "./utils";

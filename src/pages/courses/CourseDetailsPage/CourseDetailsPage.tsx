@@ -9,8 +9,8 @@ import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackag
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
 import { isMyCourse } from "@shared/utils";
-import { getBreadCrumbsItems } from "./utils";
 import { useSession } from "@entities/auth/hooks";
+import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./CourseDetailsPage.styles";
 import { RatingInfo } from "./components";
 

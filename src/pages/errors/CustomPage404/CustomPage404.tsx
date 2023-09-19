@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Flex, Box } from "@mantine/core";
-import { Button, Heading } from "@shared/ui";
 import { useRouter } from "next/router";
+import { Button, Heading } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
 import { getStartPage } from "@app/routes";
 import image404 from "public/404.png";

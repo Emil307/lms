@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { getFullName } from "@shared/utils";
 import { AdminHomeworkAnswerFromList } from "@entities/lesson";
+import { TColumns } from "@shared/ui/DataGrid/types";
 import { AdminHomeworkAnswersFilters } from "./types";
 import { useCellStyles } from "./HomeworkList.styles";
-import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const columnOrder = [
     "student.profile.fullName",

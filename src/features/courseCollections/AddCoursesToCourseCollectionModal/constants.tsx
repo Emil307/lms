@@ -1,6 +1,6 @@
 import { AdminCourseFromList, AdminCoursesForCourseCollectionFiltersForm } from "@entities/course";
-import { AttachCoursesToCourseCollectionFormValidation } from "./types";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { AttachCoursesToCourseCollectionFormValidation } from "./types";
 
 export const initialValues: AttachCoursesToCourseCollectionFormValidation = {
     ids: [],

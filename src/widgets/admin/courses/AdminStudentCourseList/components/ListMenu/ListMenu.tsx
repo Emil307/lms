@@ -4,12 +4,12 @@ import React from "react";
 import { Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
+import { IconPercentage } from "@tabler/icons-react";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminStudentCourseFromList } from "@entities/course";
 import { DeleteStudentCourseModal } from "@features/courses";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
-import { IconPercentage } from "@tabler/icons-react";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminStudentCourseFromList>;

@@ -1,9 +1,9 @@
 import { ColProps as MColProps, GridProps as MGridProps, Grid, Box } from "@mantine/core";
 import { ReactNode, Ref } from "react";
+import { useScrollIntoView } from "@mantine/hooks";
 import { TPagination } from "@shared/types";
 import { Loader } from "@shared/ui";
 import { Pagination } from "./components";
-import { useScrollIntoView } from "@mantine/hooks";
 
 export interface ListProps<T> extends Omit<MGridProps, "children"> {
     data?: T[];

@@ -1,13 +1,14 @@
 import { Box, Divider, Flex, Spoiler as MSpoiler, Text, ThemeIcon } from "@mantine/core";
-import { ChangeEvent, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useEventListener } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { FieldArray, FormikProps } from "formik";
-import { ArticleAndArticleCategoryFiltersForm, ArticleCategory, ArticleTag } from "@entities/article";
+import { FieldArray } from "formik";
+import { ArticleCategory, ArticleTag } from "@entities/article";
 import { getPluralString } from "@shared/utils";
-import { Button, Checkbox, Search } from "@shared/ui";
+import { Button, Paragraph, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
-import { MAX_HEIGHT_FILTER_CONTENT } from "./constants";
+import { HEIGHT_CONTENT_INDENT } from "./constants";
+import { FilterItem } from "./components";
 
 export interface FilterListProps {
     field: "tags" | "subcategoryIds";
@@ -19,13 +20,41 @@ export interface FilterListProps {
 
 const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
+    const spoilerContentRef = useRef<HTMLDivElement>(null);
+    const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > MAX_HEIGHT_FILTER_CONTENT });
+    const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > maxHeightSpoilerContainer });
 
     const spoilerControlRef = useEventListener("click", () => {
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    //Нужен для определения высоты контента для компонента Spoiler для 5 элементов с отступами
+    useEffect(() => {
+        const elements = Array.from(spoilerContentRef.current?.children || []);
+        const firstFiveElements = elements.slice(0, 5);
+
+        const heightIndents = (firstFiveElements.length - 1) * HEIGHT_CONTENT_INDENT;
+
+        const heightElements = firstFiveElements.reduce((acc, currentElement) => {
+            return acc + currentElement.clientHeight;
+        }, 0);
+
+        setMaxHeightSpoilerContainer(heightElements + heightIndents);
+    }, [data]);
+
+    const renderItems = useMemo(() => {
+        const foundItems = data?.filter((item) => item.name.includes(searchValue));
+
+        if (!foundItems?.length && searchValue) {
+            return (
+                <Paragraph variant="text-small-m" className={classes.notFound}>{`По запросу "${searchValue}" ничего не найдено`}</Paragraph>
+            );
+        }
+
+        return foundItems?.map((item) => <FilterItem key={item.id} data={item} field={field} />);
+    }, [searchValue, data, maxHeightSpoilerContainer]);
 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
@@ -52,33 +81,6 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
             </ThemeIcon>
         </Flex>
     );
-
-    const renderItems = (form: FormikProps<ArticleAndArticleCategoryFiltersForm>) => {
-        const foundItems = data?.filter((item) => item.name.includes(searchValue));
-
-        if (!foundItems?.length && searchValue) {
-            return <Text className={classes.notFound}>{`По запросу "${searchValue}" ничего не найдено`}</Text>;
-        }
-
-        return foundItems?.map((item) => {
-            const isChecked = !![...form.values[field]].find((value) => value === item.id?.toString());
-
-            const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
-                if (newValue.target.checked) {
-                    const array = [...form.values[field]];
-
-                    array.push(String(item.id));
-                    return form.setFieldValue(field, array);
-                }
-
-                form.setFieldValue(
-                    field,
-                    [...form.values[field]].filter((value) => value !== item.id?.toString())
-                );
-            };
-            return <Checkbox key={item.id} checked={isChecked} onChange={handleChange} label={item.name} />;
-        });
-    };
 
     if (!data?.length) {
         return null;
@@ -112,11 +114,11 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                                 ref={spoilerRef}
                                 classNames={classes}
                                 controlRef={spoilerControlRef}
-                                maxHeight={MAX_HEIGHT_FILTER_CONTENT}
+                                maxHeight={maxHeightSpoilerContainer}
                                 showLabel={showLabel()}
                                 hideLabel={hideLabel}>
-                                <Flex direction="column" gap={8}>
-                                    {renderItems(form)}
+                                <Flex ref={spoilerContentRef} direction="column" gap={HEIGHT_CONTENT_INDENT}>
+                                    {renderItems}
                                 </Flex>
                             </MSpoiler>
                             {!!form.values[field]?.length && (

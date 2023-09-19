@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import { z } from "zod";
+import { useCallback, useMemo } from "react";
+import { MRT_Cell } from "mantine-react-table";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminCourseFromList, AdminCoursesFiltersForm, GetAdminCoursesRequest, useAdminCourseResources } from "@entities/course";
 import { Roles } from "@app/routes";
-import { useCallback, useMemo } from "react";
 import { prepareOptionsForSelect } from "@shared/ui";
 import { getHumanDate, getLocaleString, getSurnameWithInitials } from "@shared/utils";
-import { MRT_Cell } from "mantine-react-table";
 
 export const useCourseListData = (userRole: number = 0) => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });

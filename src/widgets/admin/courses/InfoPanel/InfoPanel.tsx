@@ -5,8 +5,8 @@ import { useUserRole } from "@entities/auth";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
-import useStyles from "./InfoPanel.styles";
 import { Roles } from "@app/routes";
+import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
     id: string;

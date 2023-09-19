@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { AdminMaterialsNoIncludedArticleFiltersForm, UploadedFileFromList } from "@entities/storage";
-import { AttachMaterialsToArticleFormValidation } from "./types";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { AttachMaterialsToArticleFormValidation } from "./types";
 
 export const initialValues: AttachMaterialsToArticleFormValidation = {
     fileIds: [],

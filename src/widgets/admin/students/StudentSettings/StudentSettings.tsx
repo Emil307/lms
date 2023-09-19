@@ -11,11 +11,11 @@ import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
+import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth/hooks";
 import { fields } from "./constants";
 import useStyles from "./StudentSettings.styles";
 import { DeleteStudentButton } from "./components";
-import { Roles } from "@app/routes";
-import { useUserRole } from "@entities/auth/hooks";
 
 export interface StudentSettingsProps extends BoxProps {
     id: string;

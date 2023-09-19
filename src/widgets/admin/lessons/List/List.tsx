@@ -4,11 +4,11 @@ import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
-import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { useLessonListData } from "./utils";
 
 const List = () => {

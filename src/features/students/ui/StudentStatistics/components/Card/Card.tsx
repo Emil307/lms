@@ -1,7 +1,7 @@
-import useStyles from "./Card.styles";
 import { Flex } from "@mantine/core";
-import { Heading, Paragraph, RingProgress } from "@shared/ui";
 import React from "react";
+import { Heading, Paragraph, RingProgress } from "@shared/ui";
+import useStyles from "./Card.styles";
 
 interface CardProps {
     title: string;
