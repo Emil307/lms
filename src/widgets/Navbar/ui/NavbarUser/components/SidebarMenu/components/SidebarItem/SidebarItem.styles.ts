@@ -14,6 +14,7 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
             height: 24,
 
             ".mantine-ThemeIcon-root": {
+                color: theme.colors.dark[0],
                 width: 24,
                 height: 24,
             },
@@ -26,8 +27,8 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
                 color: theme.colors.secondary[0],
 
                 ".mantine-ThemeIcon-root": {
-                    "svg path": {
-                        fill: theme.colors.secondary[0],
+                    svg: {
+                        color: theme.colors.secondary[0],
                     },
                 },
             },
@@ -40,8 +41,8 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
                 color: theme.colors.gray45[0],
 
                 ".mantine-ThemeIcon-root": {
-                    "svg path": {
-                        fill: theme.colors.gray45[0],
+                    svg: {
+                        color: theme.colors.gray45[0],
                     },
                 },
             },

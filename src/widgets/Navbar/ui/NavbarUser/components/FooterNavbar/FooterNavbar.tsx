@@ -9,10 +9,10 @@ import { CompanyLinks } from "@shared/constant";
 import useStyles from "./FooterNavbar.styles";
 
 export interface FooterNavbarProps extends FlexProps {
-    isPublic?: boolean;
+    isUserAuth?: boolean;
 }
 
-const FooterNavbar = ({ isPublic = false, ...props }: FooterNavbarProps) => {
+const FooterNavbar = ({ isUserAuth = false, ...props }: FooterNavbarProps) => {
     const { classes } = useStyles();
     const router = useRouter();
 
@@ -20,7 +20,7 @@ const FooterNavbar = ({ isPublic = false, ...props }: FooterNavbarProps) => {
 
     return (
         <Flex className={classes.root} {...props}>
-            {isPublic && (
+            {!isUserAuth && (
                 <Button variant="secondary" onClick={handleRedirectSignUpPage} w="fit-content">
                     Регистрация
                 </Button>

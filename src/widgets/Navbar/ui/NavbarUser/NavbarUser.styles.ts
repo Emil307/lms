@@ -4,7 +4,8 @@ export default createStyles((theme) => ({
     root: {
         position: "fixed",
         justifyContent: "space-between",
-        height: "calc(100vh - 74px)",
+        gap: 94,
+        minHeight: "calc(100vh - 74px)",
         width: "100vw",
         top: 74,
         bottom: 0,
@@ -13,5 +14,6 @@ export default createStyles((theme) => ({
         paddingInline: 16,
         border: "none",
         backgroundColor: theme.colors.white[0],
+        overflowY: "auto",
     },
 }));
