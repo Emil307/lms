@@ -57,6 +57,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         flexDirection: "column",
         marginTop: 32,
         gap: 8,
+        wordBreak: "break-word",
     },
 }));
 

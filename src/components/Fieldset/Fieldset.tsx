@@ -1,5 +1,5 @@
 import { Box, BoxProps, Divider, Flex } from "@mantine/core";
-import { Fragment, memo, ReactNode, useMemo } from "react";
+import { memo, ReactNode, useMemo } from "react";
 import { Heading } from "@shared/ui";
 import useStyles from "./Fieldset.styles";
 
@@ -33,15 +33,15 @@ const MemoizedFieldset = memo(function Fieldset({
                     return;
                 }
                 return (
-                    <Fragment key={index}>
+                    <Box className={classes.item} key={index}>
                         {child}
                         {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
-                    </Fragment>
+                    </Box>
                 );
             });
         }
 
-        return children;
+        return <Box className={classes.item}>{children}</Box>;
     }, [children]);
 
     return (

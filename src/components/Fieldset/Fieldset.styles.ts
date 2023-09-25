@@ -19,4 +19,8 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
             color: theme.colors.gray45[0],
         },
     },
+    item: {
+        width: "100%",
+        wordBreak: "break-word",
+    },
 }));
