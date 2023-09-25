@@ -12,11 +12,6 @@ export default createStyles((theme) => ({
         paddingInline: 16,
         marginInline: "auto",
 
-        a: {
-            textDecoration: "none",
-            color: theme.colors.dark[0],
-        },
-
         [theme.fn.smallerThan("lg")]: {
             margin: 0,
         },
@@ -63,12 +58,18 @@ export default createStyles((theme) => ({
         lineHeight: "24px",
         color: theme.colors.gray45,
         textDecoration: "none",
+        cursor: "pointer",
 
         ":hover": {
             textDecoration: "underline",
         },
     },
+
     link: {
+        textDecoration: "none",
+        color: theme.colors.dark[0],
+    },
+    socialLink: {
         alignItems: "center",
         justifyContent: "center",
         height: 56,
