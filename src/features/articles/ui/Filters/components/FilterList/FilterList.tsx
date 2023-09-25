@@ -8,10 +8,10 @@ import { getPluralString } from "@shared/utils";
 import { Button, Paragraph, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
 import { HEIGHT_CONTENT_INDENT } from "./constants";
-import { FilterItem } from "./components";
+import { FilterItem, FilterItemProps } from "./components";
 
 export interface FilterListProps {
-    field: "tags" | "subcategoryIds";
+    field: FilterItemProps["field"];
     filterName: string;
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
@@ -22,6 +22,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
     const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(0);
+    const [selectedFilterItem, setSelectedFilterItem] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > maxHeightSpoilerContainer });
@@ -30,8 +31,8 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         spoilerRef.current?.children[0].scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    //Нужен для определения высоты контента для компонента Spoiler для 5 элементов с отступами
-    useEffect(() => {
+    //Для определения высоты контента для компонента Spoiler для 5 элементов с отступами
+    const getMaxHeightSpoilerContainer = async () => {
         const elements = Array.from(spoilerContentRef.current?.children || []);
         const firstFiveElements = elements.slice(0, 5);
 
@@ -42,7 +43,15 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         }, 0);
 
         setMaxHeightSpoilerContainer(heightElements + heightIndents);
-    }, [data]);
+    };
+
+    //Нужен для определения высоты контента для компонента Spoiler для 5 элементов с отступами
+    //timeout - для того чтобы успевало просчитывать высоту элементов
+    useEffect(() => {
+        setTimeout(() => {
+            getMaxHeightSpoilerContainer();
+        }, 1);
+    }, [data, spoilerContentRef.current]);
 
     const renderItems = useMemo(() => {
         const foundItems = data?.filter((item) => item.name.includes(searchValue));
@@ -53,17 +62,21 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
             );
         }
 
-        return foundItems?.map((item) => <FilterItem key={item.id} data={item} field={field} />);
-    }, [searchValue, data, maxHeightSpoilerContainer]);
+        return foundItems?.map((item) => {
+            const isSelected = selectedFilterItem === item.id;
+
+            return <FilterItem key={item.id} data={item} field={field} selected={isSelected} onChangeSelected={setSelectedFilterItem} />;
+        });
+    }, [searchValue, data, selectedFilterItem, maxHeightSpoilerContainer]);
 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const showLabel = () => {
-        const hiddenCountCourse = data ? data.length - 5 : 0;
+        const hiddenCountItems = data && data.length > 5 ? data.length - 5 : 0;
         return (
             <Flex gap={8} onClick={handleChangeOpen}>
-                <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountCourse} ${getPluralString(
-                    hiddenCountCourse,
+                <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountItems} ${getPluralString(
+                    hiddenCountItems,
                     ...labelsPluralString
                 )}`}</Text>
                 <ThemeIcon color="dark">
