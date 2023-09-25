@@ -6,17 +6,37 @@ interface CreateStylesProps {
 }
 
 export default createStyles((theme, { status }: CreateStylesProps) => ({
-    status: {
-        ...getColorsByStatus(theme, { status }),
-    },
-    infoItem: {
-        alignSelf: "center",
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.gray45[0],
-        span: {
-            color: theme.colors.dark[0],
+    headingContainer: {
+        alignItems: "center",
+        marginBottom: 24,
+        gap: 16,
+
+        [theme.fn.smallerThan("sm")]: {
+            flexWrap: "wrap",
         },
+    },
+    infoPanelListInfo: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        overflowX: "auto",
+        gap: 32,
+
+        p: {
+            whiteSpace: "nowrap",
+        },
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
+        },
+    },
+    status: {
+        overflow: "initial",
+        ...getColorsByStatus(theme, { status }),
     },
 }));
 

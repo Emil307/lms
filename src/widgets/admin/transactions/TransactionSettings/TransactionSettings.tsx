@@ -1,60 +1,36 @@
 import { Box, Flex, ThemeIcon, BoxProps } from "@mantine/core";
 import React from "react";
-import { Trash } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { IconClipboard, IconUserCircle } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
-import { DeleteTransactionModal } from "@features/transactions";
-import { AdminTransaction, useAdminTransaction } from "@entities/transaction";
+import { GetAdminTransactionResponse, useAdminTransaction } from "@entities/transaction";
 import CheckStatusIcon from "public/icons/checkStatus.svg";
 import { getFullName } from "@shared/utils";
 import { fields } from "./constants";
 import useStyles from "./TransactionSettings.styles";
+import { DeleteTransactionButton } from "./components";
 
-export interface TransactionSettingsProps extends BoxProps {
+export interface TransactionSettingsProps extends Omit<BoxProps, "children"> {
     id: string;
 }
 
 const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
     const router = useRouter();
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const { data: transactionData } = useAdminTransaction({ id });
 
     const customerFullName = getFullName({ data: transactionData?.user.profile });
 
-    const handleOpenUpdateTransaction = () => router.push({ pathname: "/admin/transactions/[id]/edit", query: { id } });
-
-    const handleCloseDeleteModal = () => {
-        closeModal("DELETE_TRANSACTION");
-        router.push("/admin/transactions");
-    };
-
-    const openDeleteModal = () => {
-        openModal({
-            modalId: "DELETE_TRANSACTION",
-            title: "Удаление транзакции",
-            children: <DeleteTransactionModal id={id} name={transactionData?.entity.type.name} onClose={handleCloseDeleteModal} />,
-        });
-    };
+    const handleOpenUpdateTransactionPage = () => router.push({ pathname: "/admin/transactions/[id]/edit", query: { id } });
 
     return (
-        <Box {...props} className={classes.root}>
-            <Flex direction="column" gap={32}>
-                <Flex gap={48} align="center">
+        <Flex {...props} className={cx(classes.root, props.className)}>
+            <Flex className={classes.settingsInfo}>
+                <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Транзакция</Heading>
-                    <Button
-                        onClick={openDeleteModal}
-                        variant="text"
-                        leftIcon={
-                            <ThemeIcon color="dark">
-                                <Trash />
-                            </ThemeIcon>
-                        }>
-                        Удалить транзакцию
-                    </Button>
+                    <DeleteTransactionButton data={transactionData} />
                 </Flex>
                 <Fieldset label="Данные транзакции" icon={<IconClipboard />} legendProps={{ mb: 24 }}>
                     <DisplayField label="Вид сущности" value={transactionData?.entity.type.name} />
@@ -77,19 +53,19 @@ const TransactionSettings = ({ id, ...props }: TransactionSettingsProps) => {
                 </Fieldset>
             </Flex>
             <Box>
-                <InfoCard<AdminTransaction>
+                <InfoCard<GetAdminTransactionResponse>
+                    values={transactionData}
                     variant="whiteBg"
                     fields={fields}
                     hideFieldIfEmpty
-                    values={transactionData}
                     actionSlot={
-                        <Button variant="secondary" onClick={handleOpenUpdateTransaction}>
+                        <Button variant="secondary" onClick={handleOpenUpdateTransactionPage}>
                             Редактировать данные
                         </Button>
                     }
                 />
             </Box>
-        </Box>
+        </Flex>
     );
 };
 

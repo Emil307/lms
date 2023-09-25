@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm } from "@entities/transaction";
 import { getFullName } from "@shared/utils";
 import { TColumns } from "@shared/ui/DataGrid/types";
-import useStyles from "./AdminList.styles";
+import { useCellStyles } from "./AdminList.styles";
 
 export const columnOrder = [
     "id",
@@ -67,7 +67,7 @@ export const columns: TColumns<AdminTransactionFromList> = [
         header: "Статус платежа",
         accessorKey: "status.status",
         Cell: ({ row }) => {
-            const { classes } = useStyles({ status: row.original.status });
+            const { classes } = useCellStyles({ status: row.original.status });
             return <Badge className={classes.status}>{row.original.status.name}</Badge>;
         },
         size: 160,

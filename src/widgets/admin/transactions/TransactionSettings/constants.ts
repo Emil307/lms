@@ -1,8 +1,8 @@
 import { TInfoCardDisplayFields } from "@components/InfoCard";
-import { AdminTransaction } from "@entities/transaction";
+import { GetAdminTransactionResponse } from "@entities/transaction";
 import { getFullName } from "@shared/utils";
 
-export const fields: TInfoCardDisplayFields<AdminTransaction> = [
+export const fields: TInfoCardDisplayFields<GetAdminTransactionResponse> = [
     {
         name: "entity.type.name",
         label: "Вид сущности",
