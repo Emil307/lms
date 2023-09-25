@@ -54,10 +54,10 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
             <ManagedForm<UpdateAdminStaticReviewFormValidation, UpdateAdminStaticReviewResponse>
                 initialValues={{ ...initialValues, ...adaptDataForUpdateReviewForm(data) }}
                 validationSchema={$UpdateAdminStaticReviewFormValidation}
-                mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, data?.id.toString()]}
+                mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, String(data.id)]}
                 keysInvalidateQueries={[
                     { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS, data?.id.toString()] },
+                    { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEW, String(data.id)] },
                 ]}
                 mutationFunction={updateStaticReview}
                 onSuccess={onSuccess}
