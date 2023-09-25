@@ -27,8 +27,10 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
         setScrollLocked(isMobile && openedSidebar);
     }, [isMobile, openedSidebar]);
 
+    const isPublicPath = isPathIncluded(publicPaths, router.pathname);
+
     const renderHeader = () => {
-        if (isPathIncluded(publicPaths, router.pathname)) {
+        if (isPublicPath) {
             return <HeaderPublicUser />;
         }
         return <HeaderUser />;
@@ -41,7 +43,7 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
                 classNames={classes}
                 layout="alt"
                 header={renderHeader()}
-                navbar={<NavbarUser hidden={!openedSidebar} />}
+                navbar={<NavbarUser hidden={!openedSidebar} isPublic={isPublicPath} />}
                 footer={<FooterUser hidden={openedSidebar} />}>
                 <Box className={classes.wrapperContent}>{children}</Box>
             </AppShell>
