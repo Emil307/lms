@@ -4,7 +4,7 @@ import { Heading } from "@shared/ui";
 import useStyles from "./CounterSlidesInfo.styles";
 
 export interface CounterSlidesInfoProps {
-    total: number;
+    total?: number;
     current: number;
 }
 

@@ -40,7 +40,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
 
     const handleSlideChange = (slideIndex: number) => setCurrentSlideIndex(slideIndex + 1);
 
-    if (!staticReviews?.data.length) {
+    if (!staticReviews?.data.length && !isLoading) {
         return null;
     }
 
@@ -51,9 +51,9 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
                     <Heading>{title}</Heading>
                 </Skeleton>
             )}
-            <Skeleton visible={isLoading} mih={340}>
+            <Skeleton visible={isLoading} h={608}>
                 <Carousel<StaticReviewFromList>
-                    data={staticReviews.data}
+                    data={staticReviews?.data}
                     lastElemRef={lastElemRef}
                     slideSize="100%"
                     classNames={classes}
@@ -62,7 +62,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
                     dragFree={false}>
                     {(props) => <StaticReviewCard {...props} mih={340} w="100%" />}
                 </Carousel>
-                <CounterSlidesInfo ref={counterSlidesRef} current={currentSlideIndex} total={staticReviews.pagination.total} />
+                <CounterSlidesInfo ref={counterSlidesRef} current={currentSlideIndex} total={staticReviews?.pagination.total} />
             </Skeleton>
         </Box>
     );

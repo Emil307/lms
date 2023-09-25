@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mantine/core";
 import { TDisplayMetaData } from "@shared/ui/DataGrid/types";
 import { Paragraph } from "@shared/ui";
-import {useCurrentMetaData} from "@shared/ui/DataGrid/utils";
+import { useCurrentMetaData } from "@shared/ui/DataGrid/utils";
 
 type TMetaDataProps<M> = {
     meta?: M;

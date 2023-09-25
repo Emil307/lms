@@ -11,6 +11,10 @@ export interface AuthorInfoCardProps {
 const AuthorInfoCard = ({ data }: AuthorInfoCardProps) => {
     const { classes } = useStyles();
 
+    if (!data.firstName) {
+        return null;
+    }
+
     const authorFullName = [data.firstName, data.lastName].join(" ");
 
     return (

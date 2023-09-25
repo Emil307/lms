@@ -14,7 +14,7 @@ import {
 import DataGrid, { TDataGridProps } from "./DataGrid";
 import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
 import { TPagination } from "@shared/types";
-import {PER_PAGE_OPTIONS_DEFAULT} from "@shared/ui/DataGrid/constants";
+import { PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 
 type TExtendedProps<
     Data extends Record<string, any>,

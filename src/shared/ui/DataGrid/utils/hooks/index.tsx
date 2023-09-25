@@ -6,4 +6,12 @@ import { useDataGridSelect } from "./useDataGridSelect";
 import { useCurrentPaginationData } from "./useCurrentPaginationData";
 import { useCurrentMetaData } from "./useCurrentMetaData";
 
-export { useDataGridSort, useDataGridPagination, useDataGridFilters, useTablePagination, useDataGridSelect, useCurrentPaginationData, useCurrentMetaData };
+export {
+    useDataGridSort,
+    useDataGridPagination,
+    useDataGridFilters,
+    useTablePagination,
+    useDataGridSelect,
+    useCurrentPaginationData,
+    useCurrentMetaData,
+};
