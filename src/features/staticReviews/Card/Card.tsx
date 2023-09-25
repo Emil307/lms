@@ -20,7 +20,6 @@ const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
                         <Image
                             src={data.preview.absolutePath}
                             alt="background"
-                            loader={({ src }) => `${src}`}
                             fill
                             sizes="100vw"
                             style={{

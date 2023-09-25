@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { MRT_PaginationState } from "mantine-react-table";
 import { PaginationState } from "@tanstack/table-core/src/features/Pagination";
-import {createEnumParam, NumberParam, useQueryParams} from "use-query-params";
+import { createEnumParam, NumberParam, useQueryParams } from "use-query-params";
 import { TPageParams } from "@shared/types";
 import { PAGE_DEFAULT } from "@shared/ui/DataGrid/constants";
 
 type TParams = {
     disableQueryParams: boolean;
     perPageOptions: [number, number, ...number[]];
-}
+};
 
 export const useDataGridPagination = ({ disableQueryParams, perPageOptions }: TParams) => {
     const [query, setQuery] = useQueryParams({
         page: NumberParam,
-        perPage: createEnumParam(perPageOptions.map(option => String(option))),
+        perPage: createEnumParam(perPageOptions.map((option) => String(option))),
     });
 
     const [pagination, setPagination] = useState<MRT_PaginationState>({
