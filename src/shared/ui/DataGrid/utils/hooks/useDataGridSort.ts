@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { MRT_SortingState } from "mantine-react-table";
-import { TSortOrder, TSortParams } from "@shared/types";
 import { createEnumParam, NumberParam, StringParam, useQueryParams } from "use-query-params";
 import { SortingState } from "@tanstack/table-core";
+import { TSortOrder, TSortParams } from "@shared/types";
 
 type TParams = {
     disableQueryParams: boolean;

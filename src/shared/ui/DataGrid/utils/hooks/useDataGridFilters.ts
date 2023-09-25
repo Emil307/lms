@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FormikConfig, FormikProps, FormikValues } from "formik";
 import dayjs from "dayjs";
-import { TFilterTable } from "../../types";
 import { ArrayParam, DateParam, NumberParam, StringParam, useQueryParams } from "use-query-params";
+import { TFilterTable } from "../../types";
 
 type TParams<F> = {
     disableQueryParams: boolean;
