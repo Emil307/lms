@@ -25,6 +25,18 @@ export const $UpdateAdminStaticReviewFormValidation = z
             if (!data.authorIsActive) {
                 return true;
             }
+            return !!data.avatar;
+        },
+        {
+            message: "Выберите аватар",
+            path: ["avatar"],
+        }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive) {
+                return true;
+            }
             return !!data.firstName;
         },
         {
