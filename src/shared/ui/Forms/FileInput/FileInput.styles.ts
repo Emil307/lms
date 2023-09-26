@@ -31,10 +31,6 @@ export default createStyles((theme, { error, disabled }: createStylesProps, getR
     },
 
     wrapper: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        gap: 16,
         backgroundColor: "transparent",
     },
 

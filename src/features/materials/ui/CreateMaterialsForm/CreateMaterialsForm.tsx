@@ -1,4 +1,4 @@
-import { Box, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React from "react";
 import { FormikConfig } from "formik";
 import { Button, FFileInputMultiple, Form } from "@shared/ui";
@@ -33,17 +33,15 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
     };
     return (
         <Form config={config} disableOverlay>
-            <Box className={classes.fileInputWrapper}>
-                <FFileInputMultiple
-                    type={data.type}
-                    name="materials"
-                    educational
-                    fileFormats={data.fileFormats}
-                    w="100%"
-                    containerFilesProps={{ className: classes.fileInputContainerFiles }}
-                    descriptionInside={data.description}
-                />
-            </Box>
+            <FFileInputMultiple
+                type={data.type}
+                name="materials"
+                educational
+                fileFormats={data.fileFormats}
+                w="100%"
+                containerFilesProps={{ className: classes.fileInputContainerFiles }}
+                descriptionInside={data.description}
+            />
             <Flex gap={8}>
                 <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="50%">
                     Отмена

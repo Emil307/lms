@@ -1,20 +1,14 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    fileInputWrapper: {
-        height: 472,
-        marginBottom: 16,
-
-        [theme.fn.smallerThan("xs")]: {
-            height: 560,
-        },
-    },
     fileInputContainerFiles: {
-        overflow: "auto",
-        height: 270,
+        height: 272,
+        marginBottom: 24,
+        marginTop: "16px !important",
+        overflowY: "auto",
 
         [theme.fn.smallerThan("xs")]: {
-            height: 354,
+            height: "calc(100vh - 426px)",
         },
     },
 }));
