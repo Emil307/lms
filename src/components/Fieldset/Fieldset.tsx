@@ -35,7 +35,7 @@ const MemoizedFieldset = memo(function Fieldset({
                 return (
                     <Box className={classes.item} key={index}>
                         {child}
-                        {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" />}
+                        {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" mt={7} />}
                     </Box>
                 );
             });
