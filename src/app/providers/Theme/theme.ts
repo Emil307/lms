@@ -142,6 +142,7 @@ export const defaultTheme: MantineThemeOverride = {
                     lineHeight: "16px",
                     color: theme.colors.white[0],
                     textTransform: "inherit",
+                    letterSpacing: "unset",
                 },
             }),
         },

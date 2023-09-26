@@ -1,4 +1,4 @@
-import { Flex, Box, ThemeIcon, Collapse } from "@mantine/core";
+import { Flex, Badge, ThemeIcon, Collapse } from "@mantine/core";
 import { ChevronDown as ChevronDownIcon } from "react-feather";
 import React, { useState } from "react";
 import dayjs from "dayjs";
@@ -33,11 +33,11 @@ const Card = ({ data, onClick }: CardProps) => {
                 </Paragraph>
                 <Flex gap={6} wrap="wrap">
                     {schedule.timings.map((timing) => (
-                        <Box className={classes.badge} key={timing.id}>
+                        <Badge className={classes.badge} key={timing.id}>
                             <Paragraph variant="text-caption">
                                 {dayjs(timing.from).format("HH:mm")}-{dayjs(timing.to).format("HH:mm")}
                             </Paragraph>
-                        </Box>
+                        </Badge>
                     ))}
                 </Flex>
             </Flex>
