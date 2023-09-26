@@ -117,7 +117,7 @@ const MemoizedFileItem = memo(function FileItem({
                     </Flex>
                     {renderAdditionalContent}
                 </Flex>
-                <Box>{actionSlot}</Box>
+                {actionSlot && <Box>{actionSlot}</Box>}
             </Flex>
         </Flex>
     );
