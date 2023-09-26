@@ -1,6 +1,6 @@
 import { ActionIcon } from "@mantine/core";
 import React from "react";
-import { PlusCircle as PlusCircleIcon, Trash as TrashIcon } from "react-feather";
+import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { useMedia } from "@shared/utils";
@@ -25,7 +25,7 @@ const AddGroupButton = ({ courseId, hidden }: AddGroupButtonProps) => {
     if (isMobile) {
         return (
             <ActionIcon color="dark" onClick={handleOpenCreateForm}>
-                <TrashIcon />
+                <PlusCircleIcon />
             </ActionIcon>
         );
     }
