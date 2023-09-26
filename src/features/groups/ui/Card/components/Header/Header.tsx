@@ -16,17 +16,9 @@ const MemoizedHeader = memo(function Header({ data, ...props }: HeaderProps) {
 
     const renderAvailableDate = useMemo(() => {
         if (data.availableTo) {
-            return (
-                <Paragraph variant="text-small-m" className={classes.availableDate}>{`Доступ: до ${dayjs(data.availableTo).format(
-                    "D MMMM YYYY"
-                )}`}</Paragraph>
-            );
+            return <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(data.availableTo).format("D MMMM YYYY")}`}</Paragraph>;
         }
-        return (
-            <Paragraph variant="text-small-m" className={classes.availableDate}>
-                Бессрочный доступ
-            </Paragraph>
-        );
+        return <Paragraph variant="text-small-m">Бессрочный доступ</Paragraph>;
     }, [data.availableTo]);
 
     return (

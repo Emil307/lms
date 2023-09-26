@@ -39,24 +39,22 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
                         {data.nextLesson?.name}
                     </Button>
                 );
-
             case "notStarted":
                 return (
                     <Button variant="primary" onClick={handleOpenNextLessonFromMyCoursePage}>
                         Начать обучение
                     </Button>
                 );
-
             default:
-                return (
-                    <Button
-                        variant="border"
-                        leftIcon={<IconStarDefault />}
-                        onClick={handleOpenCreateReviewModal}
-                        disabled={data.isReviewed}>
-                        Оценить курс
-                    </Button>
-                );
+                //TODO: Добавить проверку data.modalShowed, когда добавит бек
+                if (!data.isReviewed) {
+                    return (
+                        <Button variant="border" leftIcon={<IconStarDefault />} onClick={handleOpenCreateReviewModal}>
+                            Оценить курс
+                        </Button>
+                    );
+                }
+                return null;
         }
     };
 

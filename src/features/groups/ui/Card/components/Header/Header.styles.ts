@@ -23,9 +23,6 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         minHeight: 124,
         gap: 8,
     },
-    availableDate: {
-        whiteSpace: "nowrap",
-    },
     imageWrapper: {
         position: "relative",
         overflow: "hidden",
