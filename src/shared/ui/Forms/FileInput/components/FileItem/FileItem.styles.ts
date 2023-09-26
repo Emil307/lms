@@ -18,6 +18,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
     fileNumber: {
         alignItems: "center",
         width: 20,
+        minWidth: 20,
         height: "100%",
     },
     icon: {
@@ -44,14 +45,17 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
     extension: {
+        width: "100%",
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
         color: theme.colors.gray45[0],
+        textAlign: "center",
     },
     content: {
+        alignItems: "flex-start",
         flexDirection: "column",
-        width: "calc(100% - 64px)",
+        flexGrow: 1,
         gap: 2,
     },
     buttonDownload: {

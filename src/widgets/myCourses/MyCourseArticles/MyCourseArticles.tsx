@@ -1,7 +1,7 @@
 import { Flex, FlexProps } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ArticleAndArticleCategoryFiltersForm } from "@entities/article";
+import { ArticleAndArticleCategoryFiltersForm, ArticleFromList } from "@entities/article";
 import { List as ArticleList } from "@widgets/articles";
 import { Filters } from "@features/articles";
 import { TRouterQueries } from "@shared/types";
@@ -37,11 +37,15 @@ const MyCourseArticles = ({ courseId, ...props }: MyCourseArticlesProps) => {
         );
     };
 
+    const handleClickArticleCard = (article: ArticleFromList) => {
+        router.push({ pathname: "/articles/my/[id]", query: { id: String(article.id) } });
+    };
+
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
             <Filters data={filterParams} onSubmitFilters={handleSubmitFilters} articleType="by-course" courseId={courseId} />
             <Flex className={classes.wrapperContent}>
-                <ArticleList.Main filterParams={{ ...filterParams, courseId }} />
+                <ArticleList.Main filterParams={{ ...filterParams, courseId }} onClickCard={handleClickArticleCard} />
             </Flex>
         </Flex>
     );
