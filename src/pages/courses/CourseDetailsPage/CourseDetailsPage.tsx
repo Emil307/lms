@@ -1,15 +1,13 @@
 import { Flex, Group, Text, Title } from "@mantine/core";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Edit } from "react-feather";
-import { BreadCrumbs, Button, Loader } from "@shared/ui";
+import { BreadCrumbs, Loader } from "@shared/ui";
 import { AuthorsInfo, MainInfoPanel, ProgramTrainingList, TeacherList } from "@widgets/course";
 import { useCourse } from "@entities/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
 import { isMyCourse } from "@shared/utils";
-import { useSession } from "@entities/auth/hooks";
 import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./CourseDetailsPage.styles";
 import { RatingInfo } from "./components";
@@ -19,7 +17,6 @@ const CourseDetailsPage = () => {
     const { classes } = useStyles();
     const { id } = router.query as TRouterQueries;
 
-    const { user } = useSession();
     const { data: courseData, isLoading, isError } = useCourse({ id });
 
     //Если авторизованный пользователь попытается открыть данную страницу курса,
@@ -30,10 +27,7 @@ const CourseDetailsPage = () => {
         }
     }, [courseData]);
 
-    const handleOpenAuthPage = () => {
-        //TODO: написать логику чтобы открывалась модалка для покупки курса
-        router.push({ pathname: "/auth", query: { redirect: router.asPath } });
-    };
+    //TODO: написать логику чтобы открывалась модалка для покупки курса
 
     if (isLoading || (courseData && isMyCourse(courseData))) {
         return <Loader />;
@@ -68,11 +62,6 @@ const CourseDetailsPage = () => {
                                 </Title>
                                 <RatingInfo data={courseData.rating} />
                             </Group>
-                            {user?.id && (
-                                <Button variant="text" leftIcon={<Edit />} onClick={handleOpenAuthPage}>
-                                    Написать отзыв
-                                </Button>
-                            )}
                         </Group>
                     }
                     courseId={id}

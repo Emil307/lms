@@ -25,7 +25,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 <Flex className={classes.contentBodyLeftContainer}>
                     <Flex className={classes.contentBodyTextContainer}>
                         <Group>
-                            <Flex gap={8}>
+                            <Flex gap={8} hidden={!data.category && !data.discount}>
                                 <DiscountInfo data={data.discount} />
                                 <Badge className={classes.category} hidden={!data.category}>
                                     {data.category?.name}

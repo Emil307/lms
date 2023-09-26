@@ -41,26 +41,21 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                         Начать обучение
                     </Button>
                 );
-
             case "inProgress":
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage} w="min-content">
                         {data.nextLesson?.name}
                     </Button>
                 );
-            case "completed":
-                return (
-                    <Button
-                        variant="border"
-                        leftIcon={<Star />}
-                        w="min-content"
-                        onClick={handleOpenCreateReviewModal}
-                        disabled={data.isReviewed}>
-                        Оценить курс
-                    </Button>
-                );
             default:
-                return;
+                if (data.modalShowed && !data.isReviewed) {
+                    return (
+                        <Button variant="border" leftIcon={<Star />} w="min-content" onClick={handleOpenCreateReviewModal}>
+                            Оценить курс
+                        </Button>
+                    );
+                }
+                return null;
         }
     };
 
