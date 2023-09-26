@@ -79,8 +79,8 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
                         <FieldArray name="files">
                             {() => (
                                 <ScrollArea.Autosize
-                                    maxHeight={isMobile ? 456 : 368}
-                                    style={{ height: "100%", width: "100%" }}
+                                    maxHeight={isMobile ? "calc(100vh - 304px)" : 392}
+                                    style={{ height: isMobile ? "calc(100vh - 304px)" : 392, width: "100%" }}
                                     type="auto"
                                     offsetScrollbars
                                     scrollbarSize={4}>

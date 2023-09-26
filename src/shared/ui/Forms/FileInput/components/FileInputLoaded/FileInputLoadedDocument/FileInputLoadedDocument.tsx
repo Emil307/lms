@@ -70,7 +70,11 @@ export default function FileInputLoadedDocument({
                 </Flex>
             );
 
-        return <X cursor="pointer" onClick={() => onDelete(fileId)} />;
+        return (
+            <ActionIcon color="dark" w={32} h={32} onClick={() => onDelete(fileId)}>
+                <X onClick={() => onDelete(fileId)} />
+            </ActionIcon>
+        );
     }, [status, fileId]);
 
     return <FileItem {...props} type={type} status={status} actionSlot={actionSlot} error={error} />;
