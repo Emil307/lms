@@ -66,8 +66,8 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         <Logo />
                         <Flex direction="column" gap={8}>
                             <Paragraph variant="large">
-                                <a href="mailto:info@gb-business.ru" className={classes.link}>
-                                    info@gb-business.ru
+                                <a href="mailto:info@mail.ru" className={classes.link}>
+                                    info@mail.ru
                                 </a>
                             </Paragraph>
                             <Paragraph variant="text-caption" color="gray45">
@@ -119,7 +119,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                 </Flex>
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
                 <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Paragraph variant="text-small-m">© 2023, Галерея бизнеса</Paragraph>
+                    <Paragraph variant="text-small-m">© 2023, Addamant</Paragraph>
                     <Text fw={400} td="underline" component="a" href="/user-agreement">
                         Пользовательское соглашение
                     </Text>

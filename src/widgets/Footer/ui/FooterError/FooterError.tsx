@@ -8,7 +8,7 @@ const FooterError = () => {
 
     return (
         <Flex className={classes.footer}>
-            <Paragraph variant="text-small-m">&#169; {`${new Date().getFullYear()}, Галерея бизнеса `}</Paragraph>
+            <Paragraph variant="text-small-m">&#169; {`${new Date().getFullYear()}, Addamant `}</Paragraph>
         </Flex>
     );
 };

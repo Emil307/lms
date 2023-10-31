@@ -7,7 +7,7 @@ export interface UserPageProps {
 }
 
 function UserPage({ children, title }: PropsWithChildren<UserPageProps>) {
-    const titleValue = title ? `${title} | Галерея бизнеса` : "Галерея бизнеса";
+    const titleValue = title ? `${title} | Addamant` : "Addamant";
     return (
         <>
             <Head>
