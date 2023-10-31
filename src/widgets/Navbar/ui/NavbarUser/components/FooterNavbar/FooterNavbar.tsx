@@ -27,8 +27,8 @@ const FooterNavbar = ({ isUserAuth = false, ...props }: FooterNavbarProps) => {
             )}
             <Flex direction="column" gap={32}>
                 <Flex direction="column" maw={179}>
-                    <Text component="a" fw={500} fz={18} lh="24px" href="mailto:info@gb-business.ru">
-                        info@gb-business.ru
+                    <Text component="a" fw={500} fz={18} lh="24px" href="mailto:info@mail.ru">
+                        info@mail.ru
                     </Text>
                     <Text fw={500} fz={12} lh="16px" color="gray45">
                         Пишите, если есть вопросы

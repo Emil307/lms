@@ -20,7 +20,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                     <Logo />
                     <Flex direction="column" gap={8}>
                         <Paragraph variant="large">
-                            <a href="mailto:info@gb-business.ru">info@gb-business.ru</a>
+                            <a href="mailto:info@mail.ru">info@mail.ru</a>
                         </Paragraph>
                         <Paragraph variant="text-caption" color="gray45">
                             Пишите, если есть вопросы
@@ -56,7 +56,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                 </Flex>
             </Flex>
             <Paragraph variant="text-small-m" className={classes.companyName}>
-                © 2023, Галерея бизнеса
+                © 2023, Addamant
             </Paragraph>
         </MFooter>
     );

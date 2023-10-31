@@ -9,7 +9,7 @@ export interface AdminPageProps {
 }
 
 function AdminPage({ children, title }: PropsWithChildren<AdminPageProps>) {
-    const titleValue = title ? `${title} | Галерея бизнеса` : "Галерея бизнеса";
+    const titleValue = title ? `${title} | Addamant` : "Addamant";
     return (
         <>
             <Head>
