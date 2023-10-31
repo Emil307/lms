@@ -19,6 +19,7 @@ const withSVGR = (nextConfig) => {
 };
 
 const nextConfig = {
+    output: "standalone",
     reactStrictMode: true,
     experimental: {
         esmExternals: false,
@@ -31,7 +32,7 @@ const nextConfig = {
                 hostname: "**",
             },
         ],
-    }
+    },
 };
 
 module.exports = withRoutes(withSVGR(nextConfig));
