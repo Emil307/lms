@@ -60,10 +60,8 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS] }]}
                 mutationFunction={createCourseCollection}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ dirty, values, onCancel, setFieldValue, errors }) => {
+                onError={onError}>
+                {({ dirty, values, setFieldValue, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const icon = getIcon({ iconName: values.iconName });
 
@@ -120,7 +118,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                                 />
                             </Fieldset>
                             <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                     Отменить
                                 </Button>
                                 <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

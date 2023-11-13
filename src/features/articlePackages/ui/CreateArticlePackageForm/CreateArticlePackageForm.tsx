@@ -68,10 +68,8 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] }]}
                 mutationFunction={createArticlePackage}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ dirty, values, errors, onCancel }) => {
+                onError={onError}>
+                {({ dirty, values, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
                         price: !errors.price ? values.price : null,
@@ -155,7 +153,7 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                                 )}
                             </Box>
                             <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                     Отменить
                                 </Button>
                                 <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

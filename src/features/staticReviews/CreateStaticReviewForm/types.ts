@@ -103,4 +103,16 @@ export const $CreateAdminStaticReviewFormValidation = z
             message: "Должно быть не более 32 символов",
             path: ["lastName"],
         }
+    )
+    .refine(
+        (data) => {
+            if (!data.authorIsActive || !data.position) {
+                return true;
+            }
+            return data.position.length <= 255;
+        },
+        {
+            message: "Должно быть не более 255 символов",
+            path: ["position"],
+        }
     );

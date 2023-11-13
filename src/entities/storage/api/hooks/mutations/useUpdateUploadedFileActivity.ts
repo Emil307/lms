@@ -49,9 +49,10 @@ export const useUpdateUploadedFileActivity = (id: number, name: string) => {
                     title: "Ошибка изменения статуса",
                 });
             },
-            onSuccess: ({ isActive }) => {
+            onSettled: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
-
+            },
+            onSuccess: ({ isActive }) => {
                 const statusMessage = isActive ? "активирован" : "деактивирован";
 
                 createNotification({

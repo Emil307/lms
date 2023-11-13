@@ -25,6 +25,7 @@ export default createStyles((theme) => ({
 
     shortQuote: {
         color: theme.colors.white[0],
+        wordBreak: "break-word",
 
         [theme.fn.smallerThan("sm")]: {
             color: theme.colors.dark[0],
@@ -49,6 +50,7 @@ export default createStyles((theme) => ({
     },
     authorFullName: {
         color: theme.colors.white[0],
+        wordBreak: "break-word",
 
         [theme.fn.smallerThan("sm")]: {
             color: theme.colors.dark[0],
@@ -56,6 +58,7 @@ export default createStyles((theme) => ({
     },
     authorPosition: {
         color: theme.colors.white56[0],
+        wordBreak: "break-word",
 
         [theme.fn.smallerThan("sm")]: {
             color: theme.colors.gray45[0],

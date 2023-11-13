@@ -2,5 +2,5 @@ import { UpdateScheduleFormValidation } from "./types";
 
 export const initialValues: UpdateScheduleFormValidation = {
     scheduleDate: null,
-    scheduleTimings: [],
+    scheduleTimings: [{ to: null, from: null }],
 };

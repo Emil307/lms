@@ -72,6 +72,7 @@ export const useUpdateUserActivity = ({
         },
         onSettled: () => {
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_USERS]);
+            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENTS]);
         },
         onSuccess: ({ isActive }) => {
             const statusMessage = isActive ? "активирован" : "деактивирован";

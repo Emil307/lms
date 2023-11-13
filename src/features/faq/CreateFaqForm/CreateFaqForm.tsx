@@ -34,10 +34,8 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                 mutationKey={[MutationKeys.CREATE_FAQ]}
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_FAQ] }]}
                 mutationFunction={createFaq}
-                onSuccess={onSuccess}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ values, dirty, onCancel }) => {
+                onSuccess={onSuccess}>
+                {({ values, dirty }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
@@ -53,7 +51,7 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                             <FInput size="sm" name="question" label="Вопрос" />
                             <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
                             <Flex className={classes.actions}>
-                                <Button variant="border" onClick={onCancel}>
+                                <Button variant="border" onClick={onClose}>
                                     Отменить
                                 </Button>
                                 <Button variant="secondary" type="submit" disabled={!dirty}>

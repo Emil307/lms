@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import React from "react";
 import { PlusCircle } from "react-feather";
 import { openModal } from "@mantine/modals";
-import { Button, Heading, Paragraph } from "@shared/ui";
+import { Button, Heading } from "@shared/ui";
 import { AdminList as AdminMaterialList } from "@features/materials";
 import { SelectTypeMaterial } from "@widgets/admin/materials";
 import { useMedia } from "@shared/utils";
@@ -16,14 +16,7 @@ const MaterialsPage = () => {
     const openModalCreateMaterial = () => {
         openModal({
             modalId: "CREATE_MATERIAL",
-            title: (
-                <Flex direction="column" gap={{ base: 32, xs: 8 }}>
-                    <Heading order={3}>Создать материал</Heading>
-                    <Paragraph variant="small-m" color="gray45">
-                        Выберите тип отображения контента
-                    </Paragraph>
-                </Flex>
-            ),
+            title: "Создать материал",
             children: <SelectTypeMaterial description="Выберите тип отображения контента" />,
             size: 912,
         });

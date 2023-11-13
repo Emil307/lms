@@ -4,9 +4,10 @@ export default createStyles((theme) => ({
     root: {
         position: "absolute",
         alignItems: "center",
+        justifyContent: "center",
         height: 56,
-        width: "fit-content",
-        left: 120,
+        width: 58,
+        left: 112,
         top: 504,
 
         [theme.fn.smallerThan("sm")]: {

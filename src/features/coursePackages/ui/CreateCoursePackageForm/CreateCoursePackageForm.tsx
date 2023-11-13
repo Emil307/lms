@@ -61,10 +61,8 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGES] }]}
                 mutationFunction={(params) => coursePackageApi.createCoursePackage(adaptCreateCoursePackageFormRequest(params))}
                 onSuccess={onSuccess}
-                hasConfirmModal
-                onCancel={onClose}
                 onError={onError}>
-                {({ values, errors, dirty, onCancel }) => {
+                {({ values, errors, dirty }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
                         price: !errors.price ? values.price : null,
@@ -146,7 +144,7 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                             </Box>
 
                             <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                     Отменить
                                 </Button>
                                 <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

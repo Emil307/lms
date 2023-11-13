@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
+import IconHeart from "public/icons/heart.svg";
 import { Logo } from "@components/Logo";
 import { CompanyLinks } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
@@ -119,10 +120,28 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                 </Flex>
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
                 <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Paragraph variant="text-small-m">© 2023, Addamant</Paragraph>
-                    <Text fw={400} td="underline" component="a" href="/user-agreement">
-                        Пользовательское соглашение
-                    </Text>
+                    <Paragraph variant="text-small-m">© 2023, Галерея бизнеса</Paragraph>
+                    <Flex className={classes.bottomWrapper}>
+                        <Text fw={600} td="underline" component="a" href="/user-agreement">
+                            Пользовательское соглашение
+                        </Text>
+                        <Text className={classes.addamant} component="a" href={CompanyLinks.ADDAMANT} target="_blank">
+                            <Paragraph className={classes.addamantText} variant="text-small-m" component="span">
+                                <Paragraph variant="text-small-m" component="span">
+                                    Created with
+                                </Paragraph>
+                                <Text className={classes.heartIcon} component="span">
+                                    <IconHeart />
+                                </Text>
+                                <Paragraph variant="text-small-m" component="span">
+                                    at
+                                </Paragraph>
+                                <Paragraph variant="text-small-semi" td="underline" component="span">
+                                    addamant
+                                </Paragraph>
+                            </Paragraph>
+                        </Text>
+                    </Flex>
                 </Group>
             </Flex>
         </MFooter>

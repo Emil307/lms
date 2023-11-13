@@ -20,7 +20,7 @@ const Card = ({ data, onClick }: CardProps) => {
 
     const handleToggleOpenedSchedule = () => setOpenedSchedule((prevState) => !prevState);
 
-    const handleCourseButtonClick = () => onClick(data.course.id);
+    const handleCourseButtonClick = () => onClick(data.id);
 
     const firstSchedules = data.schedules.slice(0, 4);
     const restSchedules = data.schedules.slice(4);

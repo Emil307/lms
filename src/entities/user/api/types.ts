@@ -70,7 +70,6 @@ export const $UserFromList = $User.omit({
 export const $GetUsersResponse = $getPaginationResponseType($UserFromList);
 
 export const $UserDetailResponse = $User.extend({
-    description: z.string().optional(),
     lastLoginAt: z.coerce.date().nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });

@@ -13,6 +13,7 @@ const UpdateUserPage = () => {
     const { id } = router.query as TRouterQueries;
 
     const { data: userData } = useDetailsUser(id);
+
     const userName = getFullName({ data: userData?.profile });
 
     const handleCloseForm = () => router.push("/admin/users");

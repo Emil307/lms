@@ -2,7 +2,7 @@ import { Flex, Box, Text } from "@mantine/core";
 import { SelectItem as SelectItemProps } from "@mantine/core/lib/Select/types";
 import React, { ForwardedRef, forwardRef, memo } from "react";
 import { Check } from "react-feather";
-import { useSelectItemStyles } from "./SelectItemStyles";
+import { useSelectItemStyles } from "./SelectItem.styles";
 
 const SelectItem = memo(
     forwardRef(function SelectItem(props: SelectItemProps, ref: ForwardedRef<HTMLDivElement>) {

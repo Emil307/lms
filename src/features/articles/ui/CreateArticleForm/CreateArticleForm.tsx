@@ -71,10 +71,8 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ARTICLES] }]}
                 mutationFunction={createArticle}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ values, dirty, onCancel }) => {
+                onError={onError}>
+                {({ values, dirty }) => {
                     const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
@@ -132,7 +130,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                             </Fieldset>
 
                             <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                     Отменить
                                 </Button>
                                 <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

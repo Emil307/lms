@@ -48,8 +48,7 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] }]}
                 mutationFunction={(values) => supportApi.createAdminSupportMessage({ ...values, conversationId })}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal>
+                onError={onError}>
                 {({ dirty }) => {
                     return (
                         <Flex direction="column" gap={32} sx={{ position: "relative" }}>

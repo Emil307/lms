@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { AdminStudentCourseFromList } from "@entities/course";
-import { useCellStyles } from "./AdminStudentCourseList.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { useCellStyles } from "./AdminStudentCourseList.styles";
 
 export const columnOrder = [
     "id",

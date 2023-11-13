@@ -21,7 +21,7 @@ export interface FilterListProps {
 const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
-    const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(0);
+    const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(152);
     const [selectedFilterItem, setSelectedFilterItem] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
