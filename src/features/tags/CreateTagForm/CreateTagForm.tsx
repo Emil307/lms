@@ -41,22 +41,18 @@ const CreateTagForm = ({ onClose, ...props }: CreateTagFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_TAGS] }]}
                 mutationFunction={createAdminTag}
                 onSuccess={onSuccess}
-                onError={onError}
-                onCancel={onClose}
-                hasConfirmModal>
-                {({ onCancel }) => (
-                    <Flex direction="column" gap={{ base: 24, xs: 32 }}>
-                        <FInput name="name" label="Название" />
-                        <Flex gap={8}>
-                            <Button variant="border" size="large" onClick={onCancel} w="100%">
-                                Отмена
-                            </Button>
-                            <Button type="submit" variant="secondary" size="large" w="100%">
-                                Сохранить
-                            </Button>
-                        </Flex>
+                onError={onError}>
+                <Flex direction="column" gap={{ base: 24, xs: 32 }}>
+                    <FInput name="name" label="Название" />
+                    <Flex gap={8}>
+                        <Button variant="border" size="large" onClick={onClose} w="100%">
+                            Отмена
+                        </Button>
+                        <Button type="submit" variant="secondary" size="large" w="100%">
+                            Сохранить
+                        </Button>
                     </Flex>
-                )}
+                </Flex>
             </ManagedForm>
         </Box>
     );

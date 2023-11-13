@@ -34,7 +34,7 @@ const GroupsSchedulesList = () => {
         return null;
     }
 
-    const handleClickScheduleCard = (courseId: number) => router.push({ pathname: "/my-courses/[id]", query: { id: String(courseId) } });
+    const handleClickScheduleCard = (groupId: number) => router.push({ pathname: "/my-courses/[id]", query: { id: String(groupId) } });
 
     return (
         <Flex gap={32} direction="column">

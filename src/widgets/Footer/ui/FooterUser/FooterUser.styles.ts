@@ -1,4 +1,12 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, keyframes } from "@mantine/core";
+
+const pulse = keyframes({
+    "0%": { transform: "scale(1)" },
+    "25%": { transform: "scale(1.33)" },
+    "50%": { transform: "scale(1)" },
+    "75%": { transform: "scale(1.33)" },
+    "100%": { transform: "scale(1)" },
+});
 
 export default createStyles((theme) => ({
     root: {
@@ -80,5 +88,41 @@ export default createStyles((theme) => ({
         ":hover": {
             backgroundColor: theme.colors.primaryHover[0],
         },
+    },
+    bottomWrapper: {
+        gap: 32,
+        alignItems: "center",
+
+        [theme.fn.smallerThan("lg")]: {
+            flexDirection: "column",
+            gap: 16,
+        },
+    },
+    heartIcon: {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 24,
+        height: 24,
+
+        svg: {
+            width: 18,
+        },
+    },
+    addamant: {
+        "&:hover": {
+            "span:last-of-type": {
+                color: theme.colors.primaryHover[0],
+            },
+            svg: {
+                animation: `${pulse} 2s ease-in-out`,
+                animationIterationCount: "infinite",
+            },
+        },
+    },
+    addamantText: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 2,
     },
 }));

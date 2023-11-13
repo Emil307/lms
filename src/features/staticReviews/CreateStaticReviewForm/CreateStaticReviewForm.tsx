@@ -50,10 +50,8 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] }]}
                 mutationFunction={createStaticReview}
                 onSuccess={onSuccess}
-                hasConfirmModal
-                onCancel={onClose}
                 onError={onError}>
-                {({ values, dirty, onCancel }) => (
+                {({ values, dirty }) => (
                     <Flex direction="column" gap={32}>
                         <Flex align="center" gap={8}>
                             <Paragraph variant="text-small-m" color="gray45">
@@ -123,7 +121,7 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                             )}
                         </Box>
                         <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                 Отменить
                             </Button>
                             <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

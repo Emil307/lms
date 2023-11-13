@@ -45,11 +45,10 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                 mutationKey={[MutationKeys.CREATE_ADMIN_GROUP_SCHEDULE]}
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
                 mutationFunction={createGroupSchedule}
+                disableOverlay
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ dirty, values, onCancel }) => (
+                onError={onError}>
+                {({ dirty, values, isLoading }) => (
                     <>
                         <Flex direction="column" gap={16} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
@@ -87,13 +86,15 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                                                             />
                                                         </Flex>
 
-                                                        <Button
-                                                            variant="text"
-                                                            size="small"
-                                                            leftIcon={<Trash />}
-                                                            onClick={handleRemoveInterval}>
-                                                            Удалить
-                                                        </Button>
+                                                        {index > 0 && (
+                                                            <Button
+                                                                variant="text"
+                                                                size="small"
+                                                                leftIcon={<Trash />}
+                                                                onClick={handleRemoveInterval}>
+                                                                Удалить
+                                                            </Button>
+                                                        )}
                                                     </Flex>
                                                 );
                                             })}
@@ -103,10 +104,22 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                             </FieldArray>
                         </Flex>
                         <Flex gap={8}>
-                            <Button type="button" variant="border" size={isMobile ? "medium" : "large"} fullWidth onClick={onCancel}>
+                            <Button
+                                type="button"
+                                variant="border"
+                                size={isMobile ? "medium" : "large"}
+                                fullWidth
+                                onClick={onClose}
+                                disabled={isLoading}>
                                 Отмена
                             </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} fullWidth disabled={!dirty}>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                size={isMobile ? "medium" : "large"}
+                                fullWidth
+                                loading={isLoading}
+                                disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

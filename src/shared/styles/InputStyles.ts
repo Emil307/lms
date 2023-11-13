@@ -1,4 +1,4 @@
-import { createStyles, MantineSize } from "@mantine/core";
+import { createStyles, CSSObject, MantineSize, MantineTheme } from "@mantine/core";
 import { ReactNode } from "react";
 
 export const useInputStyles = createStyles(
@@ -32,21 +32,7 @@ export const useInputStyles = createStyles(
         },
         wrapper: {
             marginBottom: 0,
-
-            ...(typeof isActive === "boolean"
-                ? {
-                      ":before": {
-                          content: "''",
-                          position: "absolute",
-                          bottom: 6,
-                          left: icon ? 51 : 19,
-                          width: 4,
-                          height: 10,
-                          borderRadius: 8,
-                          backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
-                      },
-                  }
-                : {}),
+            ...getActiveBadgeStyles({ theme, size, icon, isActive }),
         },
         label: {
             position: "absolute",
@@ -155,3 +141,40 @@ export const useInputStyles = createStyles(
         },
     })
 );
+
+interface GetActiveBadgeStylesProps {
+    theme: MantineTheme;
+    size: MantineSize;
+    icon?: ReactNode;
+    isActive?: boolean;
+}
+
+const getActiveBadgeStyles = ({ theme, icon, size, isActive }: GetActiveBadgeStylesProps): CSSObject => {
+    if (typeof isActive !== "boolean") {
+        return {};
+    }
+
+    return {
+        ":before": {
+            content: "''",
+            position: "absolute",
+            bottom: getActiveBadgePosition({ size }),
+            left: icon ? 51 : 19,
+            width: 4,
+            height: 10,
+            borderRadius: 8,
+            backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
+        },
+    };
+};
+
+const getActiveBadgePosition = ({ size }: Pick<GetActiveBadgeStylesProps, "size">) => {
+    switch (size) {
+        case "sm":
+            return 10;
+        case "md":
+            return 12;
+        default:
+            return 12;
+    }
+};

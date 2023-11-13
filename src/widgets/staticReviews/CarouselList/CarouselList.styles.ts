@@ -7,7 +7,9 @@ export default createStyles((theme) => ({
     controls: {
         top: 504,
         left: 48,
-        width: "fit-content",
+        gap: 72,
+        maxWidth: "fit-content",
+        width: "unset !important",
         padding: 0,
 
         [theme.fn.smallerThan("sm")]: {

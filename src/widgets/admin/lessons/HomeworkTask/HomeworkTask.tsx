@@ -10,10 +10,10 @@ import FolderIcon from "public/icons/folder.svg";
 import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
 import { useMedia } from "@shared/utils";
-import useStyles from "./HomeworkTask.styles";
-import { getFormatUpdatedAt } from "./utils";
 import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth/hooks";
+import useStyles from "./HomeworkTask.styles";
+import { getFormatUpdatedAt } from "./utils";
 
 interface HomeworkTaskProps {
     homeworkAnswer: AdminHomeworkAnswer;

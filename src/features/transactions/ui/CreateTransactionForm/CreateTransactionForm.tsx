@@ -61,10 +61,8 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_TRANSACTIONS] }]}
                 mutationFunction={createTransaction}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ dirty, onCancel, values, setFieldValue }) => {
+                onError={onError}>
+                {({ dirty, values, setFieldValue }) => {
                     const resetEntitySelect = () => {
                         setFieldValue("entityId", "");
                     };
@@ -144,7 +142,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                 </Flex>
                             </Fieldset>
                             <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                                     Отмена
                                 </Button>
                                 <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

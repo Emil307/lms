@@ -52,10 +52,8 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_AUTHORS] }]}
             mutationFunction={createAuthor}
             onSuccess={onSuccess}
-            onError={onError}
-            hasConfirmModal
-            onCancel={onClose}>
-            {({ dirty, onCancel }) => (
+            onError={onError}>
+            {({ dirty }) => (
                 <Flex direction="column" gap={32}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -79,7 +77,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                         <FTextarea name="description" description="до 230 символов" className={classes.descriptionTextarea} />
                     </Fieldset>
                     <Flex className={classes.actions}>
-                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

@@ -43,7 +43,6 @@ const CreateMessageForm = (props: CreateMessageFormProps) => {
                 mutationFunction={(values) => supportApi.createSupportMessage(values)}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal
                 disableOverlay>
                 {({ dirty }) => {
                     return (

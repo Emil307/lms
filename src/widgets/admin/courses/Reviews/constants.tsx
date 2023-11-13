@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { AdminCourseReviewFromList } from "@entities/courseReview";
 import { getFullName } from "@shared/utils";
-import { AdminCourseReviewsFiltersForm } from "./types";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { AdminCourseReviewsFiltersForm } from "./types";
 
 export const columnOrder = ["id", "fullName", "content", "group.name", "score", "createdAt", "publishedAt", "mrt-row-actions"];
 
@@ -16,7 +16,7 @@ export const columns: TColumns<AdminCourseReviewFromList> = [
         header: "ФИО",
         accessorKey: "user.profile",
         id: "fullName",
-        Cell: ({ cell }) => <>{getFullName({ data: cell.row.original.user?.profile })}</>,
+        Cell: ({ cell }) => <>{getFullName({ data: cell.row.original.user.profile })}</>,
         size: 278,
     },
     {

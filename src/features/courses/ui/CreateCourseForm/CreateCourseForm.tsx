@@ -118,7 +118,6 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSES] }]}
                 mutationFunction={createCourse}
                 onSuccess={onSuccessCreate}
-                hasConfirmModal
                 validateOnChange={false}>
                 {({ values, dirty }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";

@@ -92,7 +92,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                 </Fieldset>
 
                 {Roles.teacher === data?.roles[0].id && (
-                    <Fieldset label="О преподавателе" icon={<UserCheck />}>
+                    <Fieldset label="О преподавателе" icon={<UserCheck />} showDivider={false}>
                         <Flex direction="column" gap={16} w="100%">
                             {data.profile.additionalImage?.absolutePath && (
                                 <Flex direction="column" gap={4} maw={376}>
@@ -107,7 +107,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                             )}
                         </Flex>
                         {data.profile.description && (
-                            <Paragraph variant="small-m" color="gray45" mt={16}>
+                            <Paragraph variant="small-m" color="gray45">
                                 {data.profile.description}
                             </Paragraph>
                         )}

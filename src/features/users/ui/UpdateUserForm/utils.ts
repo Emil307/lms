@@ -1,6 +1,6 @@
 import { UpdateAdminUserRequest, UserDetailResponse } from "@entities/user";
-import { UpdateUserFormValidation } from "./types";
 import { Roles } from "@app/routes";
+import { UpdateUserFormValidation } from "./types";
 
 export const adaptDataForUpdateForm = (userDetail?: UserDetailResponse): Partial<UpdateUserFormValidation> => {
     return {
@@ -9,7 +9,7 @@ export const adaptDataForUpdateForm = (userDetail?: UserDetailResponse): Partial
         patronymic: userDetail?.profile.patronymic || "",
         email: userDetail?.email,
         isActive: !!userDetail?.isActive,
-        description: userDetail?.description || "",
+        description: userDetail?.profile.description || "",
         avatar: userDetail?.profile.avatar,
         additionalImage: userDetail?.profile.additionalImage,
     };

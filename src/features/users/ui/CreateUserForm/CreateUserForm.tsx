@@ -68,10 +68,8 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
             mutationKey={[MutationKeys.CREATE_USER]}
             mutationFunction={createUser}
             onSuccess={onSuccess}
-            onError={onError}
-            hasConfirmModal
-            onCancel={onClose}>
-            {({ values, dirty, onCancel }) => (
+            onError={onError}>
+            {({ values, dirty }) => (
                 <Flex direction="column" gap={32} maw={772}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -155,7 +153,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                         </Box>
                     </Fieldset>
                     <Flex className={classes.actions}>
-                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
+                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
                             Отменить
                         </Button>
                         <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>

@@ -46,10 +46,9 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
                 mutationFunction={updateGroupSchedule}
                 onSuccess={onSuccess}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onClose}>
-                {({ dirty, values, onCancel }) => (
+                disableOverlay
+                onError={onError}>
+                {({ dirty, values, isLoading }) => (
                     <>
                         <Flex direction="column" gap={16} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
@@ -87,13 +86,15 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                                             />
                                                         </Flex>
 
-                                                        <Button
-                                                            variant="text"
-                                                            size="small"
-                                                            leftIcon={<Trash />}
-                                                            onClick={handleRemoveInterval}>
-                                                            Удалить
-                                                        </Button>
+                                                        {index > 0 && (
+                                                            <Button
+                                                                variant="text"
+                                                                size="small"
+                                                                leftIcon={<Trash />}
+                                                                onClick={handleRemoveInterval}>
+                                                                Удалить
+                                                            </Button>
+                                                        )}
                                                     </Flex>
                                                 );
                                             })}
@@ -103,10 +104,22 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                             </FieldArray>
                         </Flex>
                         <Flex gap={16}>
-                            <Button type="button" variant="border" size={isMobile ? "medium" : "large"} fullWidth onClick={onCancel}>
+                            <Button
+                                type="button"
+                                variant="border"
+                                size={isMobile ? "medium" : "large"}
+                                fullWidth
+                                disabled={isLoading}
+                                onClick={onClose}>
                                 Отмена
                             </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} fullWidth disabled={!dirty}>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                size={isMobile ? "medium" : "large"}
+                                fullWidth
+                                loading={isLoading}
+                                disabled={!dirty}>
                                 Сохранить
                             </Button>
                         </Flex>

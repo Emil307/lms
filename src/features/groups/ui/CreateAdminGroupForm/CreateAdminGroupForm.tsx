@@ -51,10 +51,8 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUPS] }]}
                 mutationFunction={createGroup}
                 onSuccess={onSuccessCreated}
-                onError={onError}
-                hasConfirmModal
-                onCancel={onCancel}>
-                {({ values, dirty, onCancel }) => {
+                onError={onError}>
+                {({ values, dirty }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
