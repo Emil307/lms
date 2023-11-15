@@ -1,12 +1,11 @@
 import { Collapse, Flex, ThemeIcon } from "@mantine/core";
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { Button, FDateRangePicker, FSearch, ManagedDataGrid } from "@shared/ui";
+import { Button, ControlButtons, FDateRangePicker, FSearch, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { AdminLessonFromList, AdminSelectLessonsExtraFilters, AdminSelectLessonsFilters, lessonApi } from "@entities/lesson";
 import { adaptGetAdminLessonsRequest } from "@features/lessons/ui/LessonListModal/utils";
-import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues } from "./constants";
 import useStyles from "./LessonListModal.styles";
 
@@ -14,15 +13,14 @@ export interface LessonListModalProps {
     courseId: string;
     moduleId: string;
     moduleName: string;
+    onSuccess: () => void;
     onClose: () => void;
 }
 
-const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonListModalProps) => {
+const LessonListModal = ({ courseId, moduleId, moduleName, onSuccess, onClose }: LessonListModalProps) => {
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
-
-    const isMobile = useMedia("sm");
 
     const { mutate: attachLessonsToModule, isLoading } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
 
@@ -48,7 +46,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
     const handleSubmit = () => {
         attachLessonsToModule(selected, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
@@ -107,21 +105,16 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onClose }: LessonList
                     );
                 }}
             </ManagedDataGrid>
-            <Flex justify="space-between" mt={24} gap={8}>
-                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose} w="100%" maw={252} disabled={isLoading}>
-                    Отмена
-                </Button>
-                <Button
-                    variant="secondary"
-                    size={isMobile ? "medium" : "large"}
-                    w="100%"
-                    maw={252}
-                    onClick={handleSubmit}
-                    loading={isLoading}
-                    disabled={!selected.length}>
-                    Добавить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modalTable"
+                cancelButtonText="Отмена"
+                submitButtonText="Добавить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={isLoading}
+                disabledSubmit={!selected.length}
+                mt={24}
+            />
         </>
     );
 };

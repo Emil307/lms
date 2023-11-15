@@ -18,7 +18,7 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
         return (
             <Group>
                 {data.videos.map((doc) => (
-                    <VideoItem key={doc.id} file={doc} downloadButton height={120} width={192} />
+                    <VideoItem key={doc.id} file={doc} downloadButton w={192} videoStyle={{ height: 120, width: 192 }} />
                 ))}
             </Group>
         );

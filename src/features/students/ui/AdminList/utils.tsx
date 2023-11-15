@@ -1,10 +1,10 @@
 import { z } from "zod";
+import { useCallback, useMemo } from "react";
+import { MRT_Cell } from "mantine-react-table";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminStudentsFiltersForm, GetAdminStudentsRequest, UserFromList } from "@entities/user";
-import { useCallback, useMemo } from "react";
 import { Roles } from "@app/routes";
 import { getFullName } from "@shared/utils";
-import { MRT_Cell } from "mantine-react-table";
 
 export const useStudentListData = (userRole: number = 0) => {
     const columns: TColumns<UserFromList> = useMemo(() => {

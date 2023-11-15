@@ -1,9 +1,9 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useUpdateCoursePublication } from "@entities/course";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import useStyles from "./UpdateCoursePublicationModal.styles";
 
 export interface UpdateCoursePublicationModalProps {
@@ -17,8 +17,6 @@ export interface UpdateCoursePublicationModalProps {
 const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel }: UpdateCoursePublicationModalProps) => {
     const { classes } = useStyles();
     const { mutate: publishCourse, isLoading } = useUpdateCoursePublication({ id });
-
-    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         publishCourse(
@@ -50,14 +48,14 @@ const UpdateCoursePublicationModal = ({ id, name, coverSrc, onSuccess, onCancel 
                     <Paragraph variant="small-semi" component="span">{`«${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel} disabled={isLoading} w="50%">
-                    Отмена
-                </Button>
-                <Button size={isTablet ? "medium" : "large"} variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
-                    Продолжить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Продолжить"
+                onSubmit={handleSubmit}
+                onClose={onCancel}
+                isLoading={isLoading}
+            />
         </Flex>
     );
 };

@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useAdminDeleteGroup } from "@entities/group";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteGroupModal.styles";
 
 export interface DeleteGroupModalProps {
@@ -16,8 +15,6 @@ export interface DeleteGroupModalProps {
 const DeleteGroupModal = ({ id, name = "", onSuccess, onCancel }: DeleteGroupModalProps) => {
     const { classes } = useStyles();
     const deleteGroup = useAdminDeleteGroup({ id, name });
-
-    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         deleteGroup.mutate(null, {
@@ -40,19 +37,15 @@ const DeleteGroupModal = ({ id, name = "", onSuccess, onCancel }: DeleteGroupMod
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8} mt={56}>
-                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel} disabled={deleteGroup.isLoading} w="50%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isTablet ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteGroup.isLoading}
-                    w="50%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onCancel}
+                isLoading={deleteGroup.isLoading}
+                mt={56}
+            />
         </Box>
     );
 };

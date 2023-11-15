@@ -25,7 +25,7 @@ const UpdateLessonHomeworkAnswerForm = ({
     onClose,
     ...props
 }: UpdateLessonHomeworkAnswerFormProps) => {
-    const isMobile = useMedia("xs");
+    const isTablet = useMedia("md");
 
     const updateLessonHomeworkAnswer = (values: UpdateLessonHomeworkAnswerFormValidation) => {
         return lessonApi.updateHomeworkAnswer({ ...adaptUpdateLessonHomeworkAnswerRequest(values), lessonId, courseId });
@@ -55,10 +55,10 @@ const UpdateLessonHomeworkAnswerForm = ({
         if (isEditableAnswer) {
             return (
                 <>
-                    <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel} maw={200} w="100%">
+                    <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onCancel} maw={200} w="100%">
                         Отмена
                     </Button>
-                    <Button variant="secondary" type="submit" size={isMobile ? "medium" : "large"} maw={200} w="100%" disabled={!dirty}>
+                    <Button variant="secondary" type="submit" size={isTablet ? "medium" : "large"} maw={200} w="100%" disabled={!dirty}>
                         Отправить
                     </Button>
                 </>

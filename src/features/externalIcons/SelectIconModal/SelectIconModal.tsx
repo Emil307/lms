@@ -1,8 +1,7 @@
 import { Box, Flex, ScrollArea } from "@mantine/core";
 import React, { useState } from "react";
-import { Button } from "@shared/ui";
+import { ControlButtons } from "@shared/ui";
 import { List as ExternalIconList } from "@widgets/externalIcons";
-import { useMedia } from "@shared/utils";
 
 export interface SelectIconModalProps {
     initialSelectedIcon?: string;
@@ -12,8 +11,6 @@ export interface SelectIconModalProps {
 
 const SelectIconModal = ({ initialSelectedIcon = "", onSubmit, onClose }: SelectIconModalProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string>(initialSelectedIcon);
-
-    const isMobile = useMedia("xs");
 
     const handleSubmit = () => onSubmit(selectedIcon);
 
@@ -36,15 +33,7 @@ const SelectIconModal = ({ initialSelectedIcon = "", onSubmit, onClose }: Select
                     <ExternalIconList selectedIconId={selectedIcon} onSelect={handleSelectIcon} h={472} />
                 </ScrollArea.Autosize>
             </Box>
-
-            <Flex gap={8} justify="space-between">
-                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose} w="100%" maw={252}>
-                    Отмена
-                </Button>
-                <Button variant="secondary" size={isMobile ? "medium" : "large"} onClick={handleSubmit} w="100%" maw={252}>
-                    Сохранить
-                </Button>
-            </Flex>
+            <ControlButtons variant="modalTable" cancelButtonText="Отмена" onSubmit={handleSubmit} onClose={onClose} />
         </Flex>
     );
 };

@@ -1,6 +1,6 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Box, BoxProps } from "@mantine/core";
 import React, { useState } from "react";
-import { Button, ManagedDataGrid } from "@shared/ui";
+import { ControlButtons, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { useAttachCoursesToStudent } from "@entities/course";
@@ -45,14 +45,15 @@ const AddCoursesToStudentModal = ({ studentId, onClose, ...props }: AddCoursesTo
                 disableQueryParams
                 onChangeSelect={setSelected}
             />
-            <Flex justify="space-between" mt={14} gap={8}>
-                <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
-                    Отмена
-                </Button>
-                <Button variant="secondary" size="large" w="100%" maw={252} onClick={handleSubmit} disabled={!selected}>
-                    Добавить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modalTable"
+                cancelButtonText="Отмена"
+                submitButtonText="Добавить"
+                onClose={onClose}
+                onSubmit={handleSubmit}
+                disabledSubmit={!selected.length}
+                mt={14}
+            />
         </Box>
     );
 };

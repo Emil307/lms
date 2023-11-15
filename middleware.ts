@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
+import { ECookies } from "@app/config/axios/cookies";
+import { authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded, errorPaths } from "@app/routes";
 import type { NextRequest } from "next/server";
-import {ECookies} from "@app/config/axios/cookies";
-import {authPaths, publicPaths, logoutPath, isAccessAllowed, isPathIncluded, errorPaths} from "@app/routes";
 
 export function middleware(req: NextRequest) {
     const url = req.nextUrl;

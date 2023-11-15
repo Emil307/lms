@@ -48,7 +48,11 @@ const LessonDetailsPage = () => {
         return (
             <>
                 {lesson.data && lesson.data.videos.length > 0 && (
-                    <VideoInput loadedFilesData={lesson.data.videos} className={classes.videoItemWrapper} />
+                    <VideoInput
+                        loadedFilesData={lesson.data.videos}
+                        className={classes.videoItemWrapper}
+                        fileItemStyle={{ maxHeight: 725 }}
+                    />
                 )}
                 <ContentByTextEditor data={lesson.data?.content || ""} />
             </>

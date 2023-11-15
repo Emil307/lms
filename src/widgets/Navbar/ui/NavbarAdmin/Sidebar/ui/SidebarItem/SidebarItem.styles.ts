@@ -2,10 +2,10 @@ import { createStyles } from "@mantine/core";
 
 interface CreateStylesParams {
     isActive?: boolean;
-    inner?: boolean;
+    isInner?: boolean;
 }
 
-export default createStyles((theme, { isActive, inner }: CreateStylesParams, getRef) => ({
+export default createStyles((theme, { isActive, isInner }: CreateStylesParams, getRef) => ({
     root: {
         position: "relative",
         color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
@@ -41,13 +41,13 @@ export default createStyles((theme, { isActive, inner }: CreateStylesParams, get
         color: isActive ? theme.colors.secondary[0] : theme.colors.gray45[0],
     },
     inner: {
-        paddingBlock: inner ? 8 : 12,
-        marginLeft: inner ? 0 : 24,
+        paddingBlock: isInner ? 8 : 12,
+        marginLeft: isInner ? 0 : 24,
         flex: 1,
     },
     text: {
         fontWeight: 600,
-        fontSize: inner ? 14 : 16,
+        fontSize: isInner ? 14 : 16,
         lineHeight: "24px",
     },
 }));

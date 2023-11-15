@@ -1,8 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle } from "react-feather";
 import React from "react";
-import { Button, Paragraph } from "@shared/ui";
-import { useMedia } from "@shared/utils";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import useStyles from "./DeleteQuestionModal.styles";
 
 interface DeleteQuestionModalProps {
@@ -13,8 +12,6 @@ interface DeleteQuestionModalProps {
 
 const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuestionModalProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("sm");
 
     return (
         <Flex direction="column" gap={56}>
@@ -29,14 +26,7 @@ const DeleteQuestionModal = ({ questionName, onSuccess, onCancel }: DeleteQuesti
                     <Paragraph className={classes.questionName} variant="small-semi">{`«${questionName}»?`}</Paragraph>
                 </Paragraph>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onCancel} w="50%">
-                    Отмена
-                </Button>
-                <Button size={isMobile ? "medium" : "large"} variant="secondary" onClick={onSuccess} w="50%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Удалить" onSubmit={onSuccess} onClose={onCancel} />
         </Flex>
     );
 };

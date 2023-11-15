@@ -3,11 +3,11 @@ import React from "react";
 import { User } from "react-feather";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { Button, FAvatarInput, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminAuthor, UpdateAuthorResponse, authorApi } from "@entities/author";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import useStyles from "./UpdateAuthorForm.styles";
 import { initialValues } from "./constants";
@@ -22,8 +22,6 @@ export interface UpdateAuthorFormProps {
 const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-
-    const isMobile = useMedia("xs");
 
     const userFullName = [data?.lastName, data?.firstName, data?.patronymic].join(" ");
 
@@ -60,7 +58,7 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
             onError={onError}
             hasConfirmModal
             onCancel={onClose}>
-            {({ values, dirty, onCancel }) => {
+            {({ values, onCancel }) => {
                 const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
                 return (
                     <Flex direction="column" gap={32}>
@@ -110,14 +108,7 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
                         <Fieldset label="Об авторе" icon={<UserDescriptionIcon />} legendProps={{ mb: 24 }}>
                             <FTextarea name="description" description="до 230 символов" className={classes.descriptionTextarea} />
                         </Fieldset>
-                        <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} />
                     </Flex>
                 );
             }}

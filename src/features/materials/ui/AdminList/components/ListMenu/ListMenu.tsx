@@ -7,6 +7,8 @@ import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UploadedFileFromList, useUpdateUploadedFileActivity } from "@entities/storage";
 import { DeleteMaterialModal, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 
 interface UsersListMenuProps {
     row: MRT_Row<UploadedFileFromList>;
@@ -14,6 +16,8 @@ interface UsersListMenuProps {
 
 const ListMenu = ({ row }: UsersListMenuProps) => {
     const { mutate: updateActivityStatus } = useUpdateUploadedFileActivity(row.original.id, row.original.name);
+
+    const userRole = useUserRole();
 
     const handleCloseDeleteModal = () => closeModal("DELETE_MATERIAL");
     const handleCloseEditMaterialFormModal = () => closeModal("EDIT_MATERIAL");
@@ -56,40 +60,56 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
 
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
-    return (
-        <MenuDataGrid>
-            <MenuItemDataGrid closeMenuOnClick={false} py={4}>
-                <Switch
-                    variant="secondary"
-                    checked={row.original.isActive}
-                    label={labelActivitySwitch}
-                    labelPosition="left"
-                    onChange={handleChangeActiveStatus}
-                    w="100%"
-                />
-            </MenuItemDataGrid>
+    const renderItems = () => {
+        if (userRole === Roles.teacher) {
+            return (
+                <MenuItemDataGrid onClick={handleDownload}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Download />
+                    </ThemeIcon>
+                    Скачать
+                </MenuItemDataGrid>
+            );
+        }
+        return (
+            <>
+                <MenuItemDataGrid closeMenuOnClick={false} py={4}>
+                    <Switch
+                        variant="secondary"
+                        checked={row.original.isActive}
+                        label={labelActivitySwitch}
+                        labelPosition="left"
+                        onChange={handleChangeActiveStatus}
+                        w="100%"
+                    />
+                </MenuItemDataGrid>
 
-            <Divider size={1} color="light" mx={12} />
-            <MenuItemDataGrid onClick={handleDownload}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Download />
-                </ThemeIcon>
-                Скачать
-            </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openModalEditFile}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Edit3 />
-                </ThemeIcon>
-                Редактировать
-            </MenuItemDataGrid>
-            <MenuItemDataGrid onClick={openDeleteModal}>
-                <ThemeIcon w={16} h={16} color="primary">
-                    <Trash />
-                </ThemeIcon>
-                Удалить
-            </MenuItemDataGrid>
-        </MenuDataGrid>
-    );
+                <Divider size={1} color="light" mx={12} />
+
+                <MenuItemDataGrid mt={8} onClick={handleDownload}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Download />
+                    </ThemeIcon>
+                    Скачать
+                </MenuItemDataGrid>
+
+                <MenuItemDataGrid onClick={openModalEditFile}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Edit3 />
+                    </ThemeIcon>
+                    Редактировать
+                </MenuItemDataGrid>
+                <MenuItemDataGrid onClick={openDeleteModal}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Trash />
+                    </ThemeIcon>
+                    Удалить
+                </MenuItemDataGrid>
+            </>
+        );
+    };
+
+    return <MenuDataGrid>{renderItems()}</MenuDataGrid>;
 };
 
 export default ListMenu;

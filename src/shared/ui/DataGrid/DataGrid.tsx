@@ -1,9 +1,9 @@
 import { Box, Flex } from "@mantine/core";
 import React, { memo } from "react";
 import { FormikValues } from "formik";
-import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount, MetaData } from "./components";
 import { EmptyData, EmptyDataProps } from "@shared/ui";
 import { TMetaProps } from "@shared/ui/DataGrid/types";
+import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount, MetaData } from "./components";
 
 type TExtendedProps<T extends Record<string, any>, M extends Record<string, any>, F extends FormikValues = FormikValues> = Omit<
     TBaseTableProps<T>,

@@ -1,6 +1,6 @@
 import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
-import { Button, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
+import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachCoursesToArticle } from "@entities/article";
 import { QueryKeys } from "@shared/constant";
 import {
@@ -124,14 +124,15 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                     );
                 }}
             </ManagedDataGrid>
-            <Flex justify="space-between" mt={14} gap={8}>
-                <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
-                    Отмена
-                </Button>
-                <Button variant="secondary" size="large" w="100%" maw={252} onClick={handleSubmit} disabled={!selected}>
-                    Добавить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modalTable"
+                cancelButtonText="Отмена"
+                submitButtonText="Добавить"
+                onClose={onClose}
+                onSubmit={handleSubmit}
+                disabledSubmit={!selected.length}
+                mt={14}
+            />
         </Box>
     );
 };

@@ -4,7 +4,7 @@ import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import {
-    Button,
+    FControlButtons,
     FDateRangePicker,
     FFileInput,
     FInput,
@@ -20,7 +20,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
 import { radioGroupValues } from "./constants";
 import { $UpdateCoursePackageFormValidation, UpdateCoursePackageFormValidation } from "./types";
@@ -34,8 +34,6 @@ export interface UpdateCoursePackageFormProps extends Omit<BoxProps, "children">
 
 const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackageFormProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const onSuccess = () => {
         createNotification({
@@ -70,7 +68,7 @@ const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackag
                 hasConfirmModal
                 onCancel={onClose}
                 onError={onError}>
-                {({ values, errors, dirty, onCancel }) => {
+                {({ values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
                         price: !errors.price ? values.price : null,
@@ -171,14 +169,7 @@ const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackag
                                     </Flex>
                                 )}
                             </Box>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

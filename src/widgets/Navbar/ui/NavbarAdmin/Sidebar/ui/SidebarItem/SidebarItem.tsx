@@ -7,36 +7,39 @@ import { Tooltip } from "@shared/ui";
 import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import useStyles from "./SidebarItem.styles";
-import { MinimizedModeSidebarContext } from "../../utils";
+import { SidebarAdminContext } from "../../utils";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;
     label: string;
     isActive?: boolean;
     href?: LinkProps["href"];
-    inner?: boolean;
+    isInner?: boolean;
     roles?: number[];
     isOpenInnerContent?: boolean;
 }
 
 const SidebarItem = forwardRef(function SidebarItem(
-    { icon, label, isActive = false, href, inner = false, roles = [], isOpenInnerContent = true, ...props }: SidebarItemProps,
+    { icon, label, isActive = false, href, isInner = false, roles = [], isOpenInnerContent = true, ...props }: SidebarItemProps,
     ref: ForwardedRef<HTMLDivElement>
 ) {
     const userRole = useUserRole();
     const router = useRouter();
 
-    const { classes } = useStyles({ isActive, inner });
+    const { classes } = useStyles({ isActive, isInner });
 
-    const { isMinimizedModeSidebar } = useContext(MinimizedModeSidebarContext);
+    const { isMinimizedModeSidebar, setActiveSidebarItemsWithChildren } = useContext(SidebarAdminContext);
 
-    const handlerPush = () => {
-        if (!href) return;
+    const handleClickSidebarItem = () => {
+        if (!href) {
+            return;
+        }
+        setActiveSidebarItemsWithChildren([]);
         router.push(href);
     };
 
     const renderIndicator = () => {
-        if (inner || !isActive) {
+        if (isInner || !isActive) {
             return null;
         }
 
@@ -56,11 +59,11 @@ const SidebarItem = forwardRef(function SidebarItem(
     }
 
     return (
-        <Flex ref={ref} className={classes.root} align="center" onClick={handlerPush} {...props}>
+        <Flex ref={ref} className={classes.root} align="center" onClick={handleClickSidebarItem} {...props}>
             {renderIndicator()}
             <Flex className={classes.inner}>
                 <Flex gap={16}>
-                    {!inner && (
+                    {!isInner && (
                         <Tooltip label={label} position="right" arrowPosition="center" disabled={!isMinimizedModeSidebar}>
                             <ThemeIcon className={classes.iconWrapper}>{icon}</ThemeIcon>
                         </Tooltip>

@@ -1,5 +1,5 @@
 import { Badge, Divider, Flex, Group, Text } from "@mantine/core";
-import { Button, FRating, FTextarea, Heading, Loader, ManagedForm, Paragraph, Rating } from "@shared/ui";
+import { FControlButtons, FRating, FTextarea, Heading, Loader, ManagedForm, Paragraph, Rating } from "@shared/ui";
 import { ToastType, createNotification, getPluralString } from "@shared/utils";
 import { GroupFromList, useGroup } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
@@ -96,14 +96,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                             </Flex>
                         </Flex>
                         <FTextarea name="content" placeholder="Текст отзыва" sx={{ textarea: { minHeight: 224 } }} />
-                        <Group sx={{ flexWrap: "nowrap" }}>
-                            <Button type="button" variant="border" fullWidth onClick={onClose}>
-                                Отмена
-                            </Button>
-                            <Button type="submit" variant="secondary" fullWidth>
-                                Отправить
-                            </Button>
-                        </Group>
+                        <FControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Отправить" onClose={onClose} />
                     </Flex>
                 )}
             </ManagedForm>

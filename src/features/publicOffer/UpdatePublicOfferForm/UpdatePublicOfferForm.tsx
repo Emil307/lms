@@ -9,7 +9,7 @@ import {
     staticPageApi,
     usePublicOffer,
 } from "@entities/staticPage";
-import { Button, FTextEditor, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FTextEditor, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { initialValues } from "./constants";
 import { adaptDataForUpdatePublicOfferForm } from "./utils";
@@ -39,7 +39,7 @@ const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
                 mutationFunction={updatePublicOffer}
                 onSuccess={onSuccess}
                 hasConfirmModal>
-                {({ dirty, onCancel }) => (
+                {({ onCancel }) => (
                     <>
                         <Flex gap={16} align="center">
                             <ThemeIcon color="gray45">
@@ -50,14 +50,7 @@ const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
                             </Heading>
                         </Flex>
                         <FTextEditor mt={24} name="publicOfferContent" className={classes.textEditorContent} />
-                        <Flex className={classes.actionsContainer}>
-                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
-                                Отменить
-                            </Button>
-                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} mt={32} />
                     </>
                 )}
             </ManagedForm>

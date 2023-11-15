@@ -28,7 +28,6 @@ export const useSignUp = () => {
                 } else {
                     await router.replace(getStartPage(userRole));
                 }
-                router.reload();
             },
             onError: () => {
                 createNotification({

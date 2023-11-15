@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useAdminDeleteCourseCollection } from "@entities/courseCollection";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCourseCollectionModal.styles";
 
 export interface DeleteCourseCollectionModalProps {
@@ -15,7 +14,6 @@ export interface DeleteCourseCollectionModalProps {
 
 const DeleteCourseCollectionModal = ({ id, name, onSuccess, onCancel }: DeleteCourseCollectionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const deleteCourseCollection = useAdminDeleteCourseCollection({ id });
 
@@ -40,24 +38,14 @@ const DeleteCourseCollectionModal = ({ id, name, onSuccess, onCancel }: DeleteCo
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="border"
-                    onClick={onCancel}
-                    loading={deleteCourseCollection.isLoading}
-                    w="100%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteCourseCollection.isLoading}
-                    w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onCancel}
+                isLoading={deleteCourseCollection.isLoading}
+            />
         </Flex>
     );
 };

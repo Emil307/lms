@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteAuthor } from "@entities/author";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteAuthorModal.styles";
 
 export interface DeleteAuthorModalProps {
@@ -15,8 +14,6 @@ export interface DeleteAuthorModalProps {
 const DeleteAuthorModal = ({ id, fullName, onClose }: DeleteAuthorModalProps) => {
     const { classes } = useStyles();
     const deleteAuthor = useDeleteAuthor({ id, name: fullName });
-
-    const isMobile = useMedia("xs");
 
     const handleSubmit = () => {
         deleteAuthor.mutate(null, {
@@ -39,19 +36,14 @@ const DeleteAuthorModal = ({ id, fullName, onClose }: DeleteAuthorModalProps) =>
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${fullName}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteAuthor.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteAuthor.isLoading}
-                    w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteAuthor.isLoading}
+            />
         </Flex>
     );
 };

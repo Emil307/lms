@@ -4,7 +4,7 @@ import { AlignLeft } from "react-feather";
 import React from "react";
 import dayjs from "dayjs";
 import {
-    Button,
+    FControlButtons,
     FDateRangePicker,
     FInput,
     FMultiSelect,
@@ -25,7 +25,7 @@ import {
     articlePackageApi,
     useAdminArticlePackageResourcesCreate,
 } from "@entities/articlePackage";
-import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptUpdateArticlePackageForm, adaptUpdateArticlePackageRequest } from "./utils";
 import { radioGroupValues } from "./constants";
@@ -39,7 +39,6 @@ export interface UpdateArticlePackageFormProps extends BoxProps {
 
 const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePackageFormProps) => {
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const articlePackageResources = useAdminArticlePackageResourcesCreate();
 
@@ -77,7 +76,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                 onError={onError}
                 hasConfirmModal
                 onCancel={onClose}>
-                {({ dirty, values, errors, onCancel }) => {
+                {({ values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
                         price: !errors.price ? values.price : null,
@@ -178,14 +177,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                     </Flex>
                                 )}
                             </Box>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

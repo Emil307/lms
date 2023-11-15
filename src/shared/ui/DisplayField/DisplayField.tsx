@@ -27,7 +27,7 @@ const MemoizedDisplayField = memo(function DisplayField({
             return render(value || defaultValue);
         }
         return (
-            <Paragraph variant="small-semi" ta={textAlign}>
+            <Paragraph variant="small-semi" ta={textAlign} className={classes.value}>
                 {value || defaultValue}
             </Paragraph>
         );

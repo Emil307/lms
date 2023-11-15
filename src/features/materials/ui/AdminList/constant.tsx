@@ -8,26 +8,30 @@ export const columns: TColumns<UploadedFileFromList> = [
     {
         header: "ID",
         accessorKey: "id",
+        size: 140,
     },
     {
         header: "Название",
         accessorKey: "name",
+        size: 335,
     },
     {
         header: "Категория",
         accessorKey: "categories",
         enableSorting: false,
         Cell: ({ row }) => row.original.categories.map(({ name }) => name).join(", "),
-        size: 339,
+        size: 335,
     },
     {
         header: "Тип файла",
         accessorKey: "type.name",
+        size: 335,
     },
     {
         header: "Дата создания",
         accessorKey: "createdAt",
         accessorFn: ({ createdAt }) => dayjs(createdAt).format("DD.MM.YYYY"),
+        size: 335,
     },
 ];
 

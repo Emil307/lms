@@ -18,7 +18,7 @@ const MaterialFiles = ({ data }: MaterialFilesProps) => {
         return (
             <Group>
                 {data.videos.map((doc) => (
-                    <VideoItem key={doc.id} file={doc} downloadButton />
+                    <VideoItem key={doc.id} file={doc} downloadButton w={192} videoStyle={{ width: 192, height: 120 }} />
                 ))}
             </Group>
         );

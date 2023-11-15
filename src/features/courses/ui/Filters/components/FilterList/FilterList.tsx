@@ -1,12 +1,12 @@
 import { Box, Divider, Flex, Spoiler as MSpoiler } from "@mantine/core";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useEventListener } from "@mantine/hooks";
+import { useEventListener, useTimeout } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray } from "formik";
 import { getPluralString } from "@shared/utils";
 import { Button, Paragraph, Search } from "@shared/ui";
 import { CourseCategory, CourseTag } from "@entities/course";
-import { HEIGHT_CONTENT_INDENT } from "./constants";
+import { DELAY_VISABILITY_FILTER_ICON, HEIGHT_CONTENT_INDENT, INITIAL_MAX_HEIGHT_SPOILER_CONTAINER } from "./constants";
 import useStyles from "./FilterList.styles";
 import { FilterItem, FilterItemProps } from "./components";
 
@@ -21,10 +21,11 @@ export interface FilterListProps {
 const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
-    const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(152);
-    const [selectedFilterItem, setSelectedFilterItem] = useState<number | null>(null);
+    const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(INITIAL_MAX_HEIGHT_SPOILER_CONTAINER);
+    const [selectedFilterItemId, setSelectedFilterItemId] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
+    const { start, clear } = useTimeout(() => setSelectedFilterItemId(null), DELAY_VISABILITY_FILTER_ICON);
     const { classes } = useStyles({ isOpen, hasSpoiler: (spoilerRef.current?.clientHeight ?? 0) > maxHeightSpoilerContainer });
 
     const spoilerControlRef = useEventListener("click", () => {
@@ -53,6 +54,14 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         }, 1);
     }, [data, spoilerContentRef.current]);
 
+    const handleChangeSelectFilterItem = (itemId: number | null) => {
+        clear();
+        if (itemId) {
+            start();
+        }
+        setSelectedFilterItemId(itemId);
+    };
+
     const renderItems = useMemo(() => {
         const foundItems = data?.filter((item) => item.name.includes(searchValue));
 
@@ -61,10 +70,12 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         }
 
         return foundItems?.map((item) => {
-            const isSelected = selectedFilterItem === item.id;
-            return <FilterItem key={item.id} data={item} field={field} selected={isSelected} onChangeSelected={setSelectedFilterItem} />;
+            const isSelected = selectedFilterItemId === item.id;
+            return (
+                <FilterItem key={item.id} data={item} field={field} selected={isSelected} onChangeSelected={handleChangeSelectFilterItem} />
+            );
         });
-    }, [searchValue, data, selectedFilterItem, maxHeightSpoilerContainer]);
+    }, [searchValue, data, selectedFilterItemId, maxHeightSpoilerContainer]);
 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 

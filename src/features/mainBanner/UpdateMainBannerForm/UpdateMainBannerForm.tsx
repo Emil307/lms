@@ -3,11 +3,11 @@ import React from "react";
 import { User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForEditForm } from "./utils";
 import { $UpdateMainBannerFormValidation, UpdateMainBannerFormValidation } from "./types";
@@ -21,8 +21,6 @@ export interface UpdateMainBannerFormProps extends Omit<BoxProps, "children"> {
 const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-
-    const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
         if (!data.authorFirstName || !data.authorLastName) {
@@ -66,7 +64,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                 onSuccess={onSuccess}
                 onCancel={onClose}
                 onError={onError}>
-                {({ values, dirty, onCancel }) => {
+                {({ values, onCancel }) => {
                     return (
                         <Flex direction="column" gap={32}>
                             <FFileInput
@@ -135,14 +133,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                     </Flex>
                                 )}
                             </Box>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

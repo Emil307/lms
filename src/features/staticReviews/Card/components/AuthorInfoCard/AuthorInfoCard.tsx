@@ -22,7 +22,7 @@ const AuthorInfoCard = ({ data }: AuthorInfoCardProps) => {
             <Paragraph variant="text-small-m" className={classes.shortQuote}>
                 {data.quote}
             </Paragraph>
-            <Flex gap={8}>
+            <Flex gap={10}>
                 <Avatar src={data.authorAvatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />

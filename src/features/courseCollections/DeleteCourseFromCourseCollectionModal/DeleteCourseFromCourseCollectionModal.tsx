@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useAdminDeleteCourseFromCourseCollection } from "@entities/courseCollection";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCourseFromCourseCollectionModal.styles";
 
 export interface DeleteCourseFromCourseCollectionModalProps {
@@ -15,7 +14,6 @@ export interface DeleteCourseFromCourseCollectionModalProps {
 
 const DeleteCourseFromCourseCollectionModal = ({ id, name, courseCollectionId, onClose }: DeleteCourseFromCourseCollectionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const deleteCourseFromCourseCollection = useAdminDeleteCourseFromCourseCollection({ courseCollectionId, ids: [id] });
 
@@ -40,24 +38,15 @@ const DeleteCourseFromCourseCollectionModal = ({ id, name, courseCollectionId, o
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="border"
-                    onClick={onClose}
-                    loading={deleteCourseFromCourseCollection.isLoading}
-                    w="100%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteCourseFromCourseCollection.isLoading}
-                    w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteCourseFromCourseCollection.isLoading}
+            />
         </Flex>
     );
 };

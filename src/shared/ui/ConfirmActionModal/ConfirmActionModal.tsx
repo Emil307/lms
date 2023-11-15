@@ -1,8 +1,7 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
-import { useMedia } from "@shared/utils";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import useStyles from "./ConfirmActionModal.styles";
 
 export interface ConfirmActionModalProps {
@@ -12,7 +11,6 @@ export interface ConfirmActionModalProps {
 
 const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     return (
         <>
@@ -22,14 +20,7 @@ const ConfirmActionModal = ({ onSubmit, onClose }: ConfirmActionModalProps) => {
                 </ThemeIcon>
                 <Paragraph variant="small-m">Вы хотите сохранить изменения перед закрытием?</Paragraph>
             </Flex>
-            <Flex gap={8}>
-                <Button variant="border" size={isMobile ? "medium" : "large"} fullWidth onClick={onClose} w="100%">
-                    Закрыть
-                </Button>
-                <Button variant="secondary" size={isMobile ? "medium" : "large"} fullWidth onClick={onSubmit} w="100%">
-                    Сохранить
-                </Button>
-            </Flex>
+            <ControlButtons variant="modal" cancelButtonText="Закрыть" submitButtonText="Сохранить" onSubmit={onSubmit} onClose={onClose} />
         </>
     );
 };

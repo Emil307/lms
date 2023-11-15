@@ -3,11 +3,22 @@ import React from "react";
 import { User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
+import {
+    FAvatarInput,
+    FControlButtons,
+    FFileInput,
+    FInput,
+    FSwitch,
+    FTextarea,
+    Heading,
+    LastUpdatedInfo,
+    ManagedForm,
+    Paragraph,
+} from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminStaticReview, UpdateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
 import { $UpdateAdminStaticReviewFormValidation, UpdateAdminStaticReviewFormValidation } from "./types";
@@ -20,8 +31,6 @@ export interface UpdateStaticReviewFormProps extends Omit<BoxProps, "children"> 
 
 const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewFormProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const renderAuthorFullName = () => {
         if (!data.firstName || !data.lastName) {
@@ -64,7 +73,7 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                 hasConfirmModal
                 onCancel={onClose}
                 onError={onError}>
-                {({ values, dirty, onCancel }) => {
+                {({ values, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
 
                     return (
@@ -154,15 +163,7 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                     </Flex>
                                 )}
                             </Box>
-
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

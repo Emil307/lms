@@ -2,11 +2,11 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { User, Video } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
-import { Button, FAvatarInput, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import useStyles from "./CreateStaticReviewForm.styles";
 import { $CreateAdminStaticReviewFormValidation, CreateAdminStaticReviewFormValidation } from "./types";
@@ -18,8 +18,6 @@ export interface CreateStaticReviewFormProps extends Omit<BoxProps, "children"> 
 
 const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const createStaticReview = (values: CreateAdminStaticReviewFormValidation) => {
         return staticReviewApi.createStaticReview(adaptCreateStaticReviewRequest(values));
@@ -51,7 +49,7 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                 mutationFunction={createStaticReview}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ values, dirty }) => (
+                {({ values }) => (
                     <Flex direction="column" gap={32}>
                         <Flex align="center" gap={8}>
                             <Paragraph variant="text-small-m" color="gray45">
@@ -120,14 +118,7 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                                 </Flex>
                             )}
                         </Box>
-                        <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onClose} />
                     </Flex>
                 )}
             </ManagedForm>

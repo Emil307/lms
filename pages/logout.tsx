@@ -3,7 +3,7 @@ import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { ECookies } from "@app/config/axios/cookies";
 import { queryClient } from "@app/providers";
-import {authPath} from "@app/routes";
+import { authPath } from "@app/routes";
 
 const Logout = () => {
     const router = useRouter();
@@ -22,10 +22,8 @@ const Logout = () => {
             queryClient.clear();
         })
 
-        router.replace({ pathname: authPath, query: router.query})
-            .then(() => {
-                router.reload()
-            })
+        router.replace({ pathname: authPath, query: router.query })
+
     }, [router.isReady]);
 
     return null;

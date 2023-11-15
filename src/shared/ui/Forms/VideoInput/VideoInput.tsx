@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex, Text } from "@mantine/core";
-import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import React, { CSSProperties, ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { UploadedFile } from "@shared/types";
 import { getPluralString } from "@shared/utils";
 import { Heading, isFile, LoadedFile, Paragraph, VideoLoaded } from "@shared/ui";
@@ -15,6 +15,7 @@ export interface VideoInputProps extends Omit<BoxProps, "children"> {
     maxFileSize?: number;
     onUploaded?: (file: UploadedFile) => void;
     onDeleteLoadedFile?: (file: UploadedFile) => void;
+    fileItemStyle?: CSSProperties;
 }
 
 const VideoInput = ({
@@ -24,6 +25,7 @@ const VideoInput = ({
     onDeleteLoadedFile = () => undefined,
     onUploaded = () => undefined,
     error,
+    fileItemStyle,
     ...props
 }: VideoInputProps) => {
     const loadedFilesCount = useRef(loadedFilesData.length);
@@ -178,6 +180,7 @@ const VideoInput = ({
                             onError={onError}
                             error={video.error}
                             editMode={editMode}
+                            fileItemStyle={fileItemStyle}
                             key={video.id}
                         />
                     ))}

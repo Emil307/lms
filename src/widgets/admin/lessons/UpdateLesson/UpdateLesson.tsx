@@ -1,7 +1,7 @@
 import { Box, Collapse, Flex } from "@mantine/core";
 import React from "react";
-import { Button, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { FControlButtons, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
+import { createNotification, ToastType } from "@shared/utils";
 import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import PositivelyIcon from "@public/icons/positively.svg";
@@ -19,8 +19,6 @@ interface UpdateLessonProps {
 const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
     const { classes } = useStyles();
     const lessonId = String(data.id);
-
-    const isMobile = useMedia("xs");
 
     const handleUpdateLessonContent = (data: UpdateLessonContentFormValues) => {
         return lessonApi.updateLessonContent(adaptDataForUpdateLessonContentRequest({ ...data, id: lessonId }));
@@ -99,7 +97,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                 onCancel={onClose}
                 validateOnChange={false}
                 hasConfirmModal>
-                {({ values, dirty, onCancel }) => (
+                {({ values, onCancel }) => (
                     <Flex gap={32} direction="column">
                         <Flex className={classes.wrapper}>
                             <FVideoInput name="videos" editMode />
@@ -113,27 +111,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                                 </Collapse>
                             </Flex>
                         </Flex>
-                        <Flex className={classes.buttons}>
-                            <Button
-                                className={classes.button}
-                                variant="border"
-                                size={isMobile ? "medium" : "large"}
-                                onClick={onCancel}
-                                w="100%"
-                                maw={252}>
-                                Отменить
-                            </Button>
-                            <Button
-                                className={classes.button}
-                                type="submit"
-                                variant="secondary"
-                                size={isMobile ? "medium" : "large"}
-                                disabled={!dirty}
-                                w="100%"
-                                maw={252}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} />
                     </Flex>
                 )}
             </ManagedForm>

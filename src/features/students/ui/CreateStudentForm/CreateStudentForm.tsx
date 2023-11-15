@@ -2,10 +2,10 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FAvatarInput, FControlPanel, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FControlPanel, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys } from "@shared/constant";
 import { adaptCreateUserFormRequest, getInitialValuesForm } from "./utils";
 import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
@@ -19,8 +19,6 @@ export interface CreateStudentFormProps extends Omit<BoxProps, "children"> {
 const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const { data: options } = useAdminStudentsFilters();
     const defaultRole = String(options?.roles.at(0)?.id ?? 0);
@@ -54,7 +52,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                 mutationFunction={createStudent}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ dirty }) => (
+                {() => (
                     <Flex direction="column" gap={32}>
                         <Flex align="center" gap={8}>
                             <Paragraph variant="text-small-m" color="gray45">
@@ -124,14 +122,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                 ))}
                             </Box>
                         </Fieldset>
-                        <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onClose} />
                     </Flex>
                 )}
             </ManagedForm>

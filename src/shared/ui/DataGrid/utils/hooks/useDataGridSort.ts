@@ -7,9 +7,10 @@ import { TSortOrder, TSortParams } from "@shared/types";
 type TParams = {
     disableQueryParams: boolean;
     goToFirstPage?: () => void;
+    initialSortColumnName: string | null;
 };
 
-export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) => {
+export const useDataGridSort = ({ initialSortColumnName, disableQueryParams, goToFirstPage }: TParams) => {
     const [query, setQuery] = useQueryParams({
         sortField: StringParam,
         sortOrder: createEnumParam(["asc", "desc"]),
@@ -32,12 +33,18 @@ export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) 
 
     const getSortParamsForRequest = (): TSortParams | undefined => {
         if (disableQueryParams && !sorting.length) {
+            if (initialSortColumnName) {
+                return { sort: { [initialSortColumnName]: "desc" } };
+            }
             return undefined;
         }
         if (disableQueryParams) {
             return { sort: { [sorting[0].id]: sorting[0].desc ? "desc" : "asc" } };
         }
         if (!query.sortField || !query.sortOrder) {
+            if (initialSortColumnName) {
+                return { sort: { [initialSortColumnName]: "desc" } };
+            }
             return undefined;
         }
         return { sort: { [query.sortField]: query.sortOrder } };
@@ -64,9 +71,19 @@ export const useDataGridSort = ({ disableQueryParams, goToFirstPage }: TParams) 
             return sorting;
         }
         const { sortField, sortOrder } = query;
+
         if (!sortField || !sortOrder) {
+            if (initialSortColumnName) {
+                return [
+                    {
+                        id: initialSortColumnName,
+                        desc: true,
+                    },
+                ];
+            }
             return [];
         }
+
         return [{ id: sortField, desc: sortOrder === "desc" }];
     };
 

@@ -144,7 +144,7 @@ export const useInputStyles = createStyles(
 
 interface GetActiveBadgeStylesProps {
     theme: MantineTheme;
-    size: MantineSize;
+    size?: MantineSize;
     icon?: ReactNode;
     isActive?: boolean;
 }

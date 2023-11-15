@@ -5,11 +5,11 @@ import { CSSObject, MantineTheme, useMantineTheme, Text } from "@mantine/core";
 import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
 import { Tooltip } from "@shared/ui";
+import { PAGE_DEFAULT, PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
 import { TCellBadge, TCellProps, TColumns } from "../../types";
-import { PAGE_DEFAULT, PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;

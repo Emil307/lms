@@ -3,7 +3,7 @@ import { FormikHelpers } from "formik";
 import { AlignLeft, Clipboard } from "react-feather";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { $UpdateContactsRequest, GetContactsResponse, UpdateContactsRequest, staticPageApi, useContacts } from "@entities/staticPage";
-import { Button, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
@@ -33,7 +33,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                 mutationFunction={updateContactsPage}
                 onSuccess={onSuccess}
                 hasConfirmModal>
-                {({ dirty, onCancel }) => (
+                {({ onCancel }) => (
                     <>
                         <Flex gap={16} align="center">
                             <ThemeIcon color="gray45">
@@ -60,14 +60,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             <Heading order={4}>Реквизиты</Heading>
                         </Flex>
                         <FTextEditor mt={24} name="contactPageRequisites" className={classes.textEditorRequisites} />
-                        <Flex className={classes.actionsContainer}>
-                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
-                                Отменить
-                            </Button>
-                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} mt={32} />
                     </>
                 )}
             </ManagedForm>

@@ -110,21 +110,7 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
     dragIcon: {
         cursor: "grab",
     },
-    buttons: {
-        gap: 8,
-        marginTop: 32,
 
-        [theme.fn.smallerThan("xs")]: {
-            flexDirection: "column",
-        },
-    },
-    confirmButton: {
-        width: 252,
-
-        [theme.fn.smallerThan("xs")]: {
-            width: "100%",
-        },
-    },
     error: {
         display: "flex",
         gap: 4,

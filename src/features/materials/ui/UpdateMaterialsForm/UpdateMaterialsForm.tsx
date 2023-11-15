@@ -3,7 +3,7 @@ import React from "react";
 import { FieldArray, FormikConfig } from "formik";
 import { ChevronLeft, FileText, PlayCircle } from "react-feather";
 import axios from "axios";
-import { Button, FInput, Form, getFileExtension } from "@shared/ui";
+import { FControlButtons, FInput, Form, getFileExtension } from "@shared/ui";
 import { ToastType, createNotification, getDataFromSessionStorage, useMedia } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { MaterialType, useUpdateUploadedFiles } from "@entities/storage";
@@ -96,26 +96,15 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
                             )}
                         </FieldArray>
                     </Flex>
-                    <Flex gap={8}>
-                        <Button
-                            type="button"
-                            size={isMobile ? "medium" : "large"}
-                            variant="border"
-                            onClick={onClose}
-                            w="100%"
-                            leftIcon={multiple ? <ChevronLeft /> : null}
-                            disabled={updateMaterials.isLoading}>
-                            {multiple ? "Назад" : "Отмена"}
-                        </Button>
-                        <Button
-                            type="submit"
-                            size={isMobile ? "medium" : "large"}
-                            variant="secondary"
-                            w="100%"
-                            loading={updateMaterials.isLoading}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons
+                        variant="modal"
+                        cancelButtonText={multiple ? "Назад" : "Отмена"}
+                        onClose={onClose}
+                        isLoading={updateMaterials.isLoading}
+                        cancelButtonProps={{
+                            leftIcon: multiple ? <ChevronLeft /> : null,
+                        }}
+                    />
                 </Flex>
             )}
         </Form>

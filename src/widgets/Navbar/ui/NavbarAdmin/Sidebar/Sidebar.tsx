@@ -9,7 +9,7 @@ import CloseBookIcon from "public/icons/closeBook.svg";
 import { useMedia } from "@shared/utils";
 import { SidebarItem, SidebarItemWithChildren } from "./ui";
 import useStyles from "./Sidebar.styles";
-import { MinimizedModeSidebarContext } from "./utils";
+import { SidebarAdminContext } from "./utils";
 
 export default function Sidebar() {
     const router = useRouter();
@@ -27,24 +27,14 @@ export default function Sidebar() {
         setActiveSidebarItemsWithChildren([]);
     }, [isTablet]);
 
-    const handleChangeActiveSidebarItemWithChildren = (value: string) => {
-        if (!isTablet) {
-            if (activeSidebarItemsWithChildren.includes(value)) {
-                return setActiveSidebarItemsWithChildren(activeSidebarItemsWithChildren.filter((item) => item !== value));
-            }
-            return setActiveSidebarItemsWithChildren([...activeSidebarItemsWithChildren, value]);
-        }
-        if (value === activeSidebarItemsWithChildren[0]) {
-            setActiveSidebarItemsWithChildren([]);
-            return setIsMinimizedModeSidebar(true);
-        }
-
-        setIsMinimizedModeSidebar(false);
-        setActiveSidebarItemsWithChildren([value]);
-    };
-
     return (
-        <MinimizedModeSidebarContext.Provider value={{ isMinimizedModeSidebar, setIsMinimizedModeSidebar }}>
+        <SidebarAdminContext.Provider
+            value={{
+                isMinimizedModeSidebar,
+                setIsMinimizedModeSidebar,
+                activeSidebarItemsWithChildren,
+                setActiveSidebarItemsWithChildren,
+            }}>
             <Box className={classes.root} ref={sidebarRef}>
                 <Box className={classes.inner}>
                     <SidebarItem label="Главная" isActive={router.pathname === "/admin"} icon={<Home />} href="/admin" />
@@ -96,20 +86,18 @@ export default function Sidebar() {
                         label="Аналитика"
                         isActive={router.pathname.includes("/admin/analytics")}
                         icon={<IconClipboardText />}
-                        isOpen={activeSidebarItemsWithChildren.includes("/admin/analytics")}
-                        itemId="/admin/analytics"
-                        setIsOpenSidebarItem={handleChangeActiveSidebarItemWithChildren}>
+                        href="/admin/analytics">
                         <SidebarItem
-                            inner={true}
                             label="Отчет по продажам"
                             href="/admin/analytics/transaction-report"
                             isActive={router.pathname.includes("/admin/analytics/transaction-report")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Отчет по ученикам"
                             href="/admin/analytics/student-report"
                             isActive={router.pathname.includes("/admin/analytics/student-report")}
+                            isInner
                         />
                     </SidebarItemWithChildren>
                     <SidebarItem
@@ -132,33 +120,30 @@ export default function Sidebar() {
                         label="Страницы"
                         isActive={router.pathname.includes("/admin/static-pages")}
                         icon={<Layout />}
-                        isOpen={activeSidebarItemsWithChildren.includes("/admin/static-pages")}
-                        itemId="/admin/static-pages"
-                        setIsOpenSidebarItem={handleChangeActiveSidebarItemWithChildren}>
+                        href="/admin/static-pages">
                         <SidebarItem
-                            inner={true}
                             label="О проекте"
                             href="/admin/static-pages/about"
                             isActive={router.pathname.includes("/admin/static-pages/about")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Публичная оферта"
                             href="/admin/static-pages/user-agreement"
                             isActive={router.pathname.includes("/admin/static-pages/user-agreement")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Контакты"
                             href="/admin/static-pages/contacts"
                             isActive={router.pathname.includes("/admin/static-pages/contacts")}
+                            isInner
                         />
-
                         <SidebarItem
-                            inner={true}
                             label="Вопрос-ответ"
                             href="/admin/static-pages/faq"
                             isActive={router.pathname.includes("/admin/static-pages/faq")}
+                            isInner
                         />
                     </SidebarItemWithChildren>
                     <SidebarItemWithChildren
@@ -166,66 +151,64 @@ export default function Sidebar() {
                         label="Настройки"
                         isActive={router.pathname.includes("/admin/settings")}
                         icon={<Settings />}
-                        isOpen={activeSidebarItemsWithChildren.includes("/admin/settings")}
-                        itemId="/admin/settings"
-                        setIsOpenSidebarItem={handleChangeActiveSidebarItemWithChildren}>
+                        href="/admin/settings">
                         <SidebarItem
-                            inner={true}
                             label="Теги"
                             href="/admin/settings/tags"
                             isActive={router.pathname.includes("/admin/settings/tags")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Категории курсов"
                             href="/admin/settings/categories"
                             isActive={router.pathname.includes("/admin/settings/categories")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Авторы курсов"
                             href="/admin/settings/authors"
                             isActive={router.pathname.includes("/admin/settings/authors")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Справочник материалов"
                             href="/admin/settings/materials"
                             isActive={router.pathname.includes("/admin/settings/materials")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Подборки курсов"
                             href="/admin/settings/course-collections"
                             isActive={router.pathname.includes("/admin/settings/course-collections")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Отзывы"
                             href="/admin/settings/course-reviews"
                             isActive={router.pathname.includes("/admin/settings/course-reviews")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Титульная страница"
                             href="/admin/settings/main-page/reviews"
                             isActive={router.pathname.includes("/admin/settings/main-page")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Пакеты курсов"
                             href="/admin/settings/course-packages"
                             isActive={router.pathname.includes("/admin/settings/course-packages")}
+                            isInner
                         />
                         <SidebarItem
-                            inner={true}
                             label="Пакеты базы знаний"
                             href="/admin/settings/article-packages"
                             isActive={router.pathname.includes("/admin/settings/article-packages")}
+                            isInner
                         />
                     </SidebarItemWithChildren>
                 </Box>
             </Box>
-        </MinimizedModeSidebarContext.Provider>
+        </SidebarAdminContext.Provider>
     );
 }

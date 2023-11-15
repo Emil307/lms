@@ -1,6 +1,6 @@
 import { InvalidateOptions, InvalidateQueryFilters, MutationKey, QueryKey, useMutation } from "@tanstack/react-query";
 import { FormikConfig, FormikHelpers, FormikProps, FormikValues } from "formik";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { closeModal, openModal } from "@mantine/modals";
 import { ConfirmActionModal } from "@shared/ui/ConfirmActionModal";
@@ -22,6 +22,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     validationSchema?: FormikConfig<F>["validationSchema"];
     validateOnChange?: boolean;
     hasConfirmModal?: boolean;
+    disabledLoadingOnSuccess?: boolean;
     children: React.ReactNode | ((props: FormikProps<F> & { onCancel: () => void; isLoading: boolean }) => React.ReactNode);
 }
 
@@ -36,11 +37,13 @@ export default function ManagedForm<F extends FormikValues, R>({
     initialValues,
     validationSchema,
     validateOnChange = true,
+    disabledLoadingOnSuccess = false,
     children,
     ...form
 }: ManagedFormProps<F, R>) {
+    const [isSubmiting, setIsSubmiting] = useState(false);
     const formRef = useRef<FormikProps<F>>(null);
-    const { isLoading, mutate } = useMutation<R, unknown, F>(mutationKey, { mutationFn: mutationFunction });
+    const { mutate } = useMutation<R, unknown, F>(mutationKey, { mutationFn: mutationFunction });
 
     const handleCloseConfirmModal = () => closeModal("CONFIRM_ACTION");
 
@@ -69,12 +72,16 @@ export default function ManagedForm<F extends FormikValues, R>({
     };
 
     const handleSubmit = (values: F, formikHelpers: FormikHelpers<F>) => {
+        setIsSubmiting(true);
         mutate(values, {
             onSuccess: (response) => {
                 keysInvalidateQueries.forEach(({ queryKey, filters, options }) => {
                     queryClient.invalidateQueries(queryKey, filters, options);
                 });
                 onSuccess(response, formikHelpers);
+                if (disabledLoadingOnSuccess) {
+                    setIsSubmiting(false);
+                }
             },
             onError: (error) => {
                 if (axios.isAxiosError(error)) {
@@ -83,6 +90,7 @@ export default function ManagedForm<F extends FormikValues, R>({
                     }
                 }
                 onError(error);
+                setIsSubmiting(false);
             },
         });
     };
@@ -91,7 +99,7 @@ export default function ManagedForm<F extends FormikValues, R>({
         if (typeof children === "function") {
             return children({
                 ...formikProps,
-                isLoading,
+                isLoading: isSubmiting,
                 onCancel: () => handleCancel(formikProps.dirty),
             });
         }
@@ -107,7 +115,7 @@ export default function ManagedForm<F extends FormikValues, R>({
     };
 
     return (
-        <Form {...form} config={cfg} isLoading={isLoading} customRef={formRef}>
+        <Form {...form} config={cfg} isLoading={isSubmiting} customRef={formRef}>
             {(formikProps) => (
                 <>
                     {renderForm(formikProps)}

@@ -19,4 +19,7 @@ export default createStyles((theme, { variant }: CreateStylesParams) => ({
         textAlign: "start",
         whiteSpace: "nowrap",
     },
+    value: {
+        overflowWrap: "anywhere",
+    },
 }));

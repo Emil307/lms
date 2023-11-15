@@ -3,8 +3,8 @@ import React, { useMemo, useState } from "react";
 import { FormikProps } from "formik";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
 import {
-    Button,
     FCheckbox,
+    FControlButtons,
     FDateRangePicker,
     FFileInput,
     FInput,
@@ -30,7 +30,7 @@ import {
     useAdminCourseResources,
 } from "@entities/course";
 import { Fieldset } from "@components/Fieldset";
-import { createNotification, getDiscountPrice, ToastType, useMedia } from "@shared/utils";
+import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
@@ -52,8 +52,6 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
         ...initialParams,
         filter: { parentId: selectedCategory },
     });
-
-    const isTablet = useMedia("md");
 
     const updateCourse = (values: UpdateCourseFormValues) => {
         return courseApi.updateCourse(adaptUpdateCourseRequest(String(data.id), values));
@@ -122,7 +120,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                 onSuccess={onSuccessUpdate}
                 onCancel={onCancel}
                 validateOnChange={false}>
-                {({ values, dirty, onCancel }) => {
+                {({ values, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex gap={32} direction="column">
@@ -289,20 +287,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                     w="100%"
                                 />
                             </Fieldset>
-
-                            <Flex className={classes.buttons}>
-                                <Button className={classes.button} size={isTablet ? "medium" : "large"} variant="border" onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button
-                                    className={classes.button}
-                                    size={isTablet ? "medium" : "large"}
-                                    variant="secondary"
-                                    type="submit"
-                                    disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

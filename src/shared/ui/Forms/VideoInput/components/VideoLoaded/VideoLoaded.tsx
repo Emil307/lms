@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import React, { useEffect, useMemo } from "react";
+import React, { CSSProperties, useEffect, useMemo } from "react";
 import { Edit3 as EditIcon, Trash2 as TrashIcon } from "react-feather";
 import { isFile, VideoItem } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
@@ -14,10 +14,11 @@ export interface VideoLoadedProps {
     onDelete: (fileId: number) => void;
     onError: (fileId: number, message?: string) => void;
     error?: string;
+    fileItemStyle?: CSSProperties;
     editMode: boolean;
 }
 
-const VideoLoaded = ({ fileId, file, onSuccessUpload, onChange, onDelete, onError, error, editMode }: VideoLoadedProps) => {
+const VideoLoaded = ({ fileId, file, onSuccessUpload, onChange, onDelete, onError, error, editMode, fileItemStyle }: VideoLoadedProps) => {
     const { classes } = useStyles();
 
     const { mutate: uploadFile, isLoading, isError } = useUploadFile();
@@ -87,7 +88,8 @@ const VideoLoaded = ({ fileId, file, onSuccessUpload, onChange, onDelete, onErro
             downloadButton={!editMode}
             error={error}
             showOnlyUploadedFile
-            autoAdapt
+            videoStyle={fileItemStyle}
+            disableTitleWrapping
         />
     );
 };

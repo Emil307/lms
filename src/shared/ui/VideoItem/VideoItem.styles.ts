@@ -3,10 +3,11 @@ import { FileStatus } from "@shared/types";
 
 interface CreateStylesProps {
     status?: FileStatus;
-    autoAdapt?: boolean;
+    autoAdapt: boolean;
+    disableTitleWrapping: boolean;
 }
 
-export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) => ({
+export default createStyles((theme, { status, autoAdapt, disableTitleWrapping }: CreateStylesProps) => ({
     status: {
         color: status === "error" ? theme.colors.warning[0] : theme.colors.dark[0],
     },
@@ -16,6 +17,7 @@ export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) =>
         maxHeight: 660,
         maxWidth: "100%",
         borderRadius: 8,
+        objectFit: "contain",
 
         ...(autoAdapt
             ? {
@@ -25,7 +27,22 @@ export default createStyles((theme, { status, autoAdapt }: CreateStylesProps) =>
               }
             : {}),
     },
-
+    titleWrapper: {
+        display: "table",
+        tableLayout: "fixed",
+        width: "fit-content",
+    },
+    title: {
+        ...(disableTitleWrapping
+            ? {
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+              }
+            : {
+                  wordBreak: "break-word",
+              }),
+    },
     size: {
         color: theme.colors.gray45[0],
         whiteSpace: "nowrap",
