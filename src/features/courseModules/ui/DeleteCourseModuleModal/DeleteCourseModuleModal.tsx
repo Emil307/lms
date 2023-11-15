@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteCourseModule } from "@entities/courseModule";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCourseModuleModal.styles";
 
 export interface DeleteCourseModuleModalProps {
@@ -16,8 +15,6 @@ export interface DeleteCourseModuleModalProps {
 const DeleteCourseModuleModal = ({ courseId, moduleId, moduleName, onClose }: DeleteCourseModuleModalProps) => {
     const { classes } = useStyles();
     const { mutate: deleteCourseModule, isLoading } = useDeleteCourseModule({ courseId, moduleId, moduleName });
-
-    const isTablet = useMedia("md");
 
     const handleSubmit = () => {
         deleteCourseModule(null, {
@@ -40,14 +37,14 @@ const DeleteCourseModuleModal = ({ courseId, moduleId, moduleName, onClose }: De
                     <Paragraph variant="small-semi" component="span">{`«ID: ${moduleId} ${moduleName}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isTablet ? "medium" : "large"} variant="border" onClick={onClose} disabled={isLoading} w="50%">
-                    Отмена
-                </Button>
-                <Button size={isTablet ? "medium" : "large"} variant="secondary" onClick={handleSubmit} loading={isLoading} w="50%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={isLoading}
+            />
         </Flex>
     );
 };

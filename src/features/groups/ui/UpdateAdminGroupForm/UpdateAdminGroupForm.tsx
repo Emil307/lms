@@ -3,7 +3,7 @@ import React from "react";
 import { Flag, FolderPlus } from "react-feather";
 import dayjs from "dayjs";
 import {
-    Button,
+    FControlButtons,
     FDateRangePicker,
     FInput,
     FSelect,
@@ -16,7 +16,7 @@ import {
 import { Fieldset } from "@components/Fieldset";
 import { GetAdminGroupResponse, UpdateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { $UpdateGroupFormValidation, UpdateGroupFormValidation } from "./types";
 import { adaptUpdateAdminGroupForm, adaptUpdateAdminGroupRequest } from "./utils";
 import useStyles from "./UpdateAdminGroupForm.styles";
@@ -30,7 +30,6 @@ export interface UpdateAdminGroupFormProps extends BoxProps {
 
 const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }: UpdateAdminGroupFormProps) => {
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const groupFilters = useAdminGroupFilters({ type: "manipulation" });
 
@@ -68,7 +67,7 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                 onError={onError}
                 hasConfirmModal
                 onCancel={onCancel}>
-                {({ values, dirty, onCancel }) => {
+                {({ values, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
@@ -148,14 +147,7 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                     </Grid.Col>
                                 </Grid>
                             </Fieldset>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteUploadedFile } from "@entities/storage";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteMaterialModal.styles";
 
 export interface DeleteMaterialModalProps {
@@ -15,8 +14,6 @@ export interface DeleteMaterialModalProps {
 
 const DeleteMaterialModal = ({ id, name, onClose }: DeleteMaterialModalProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const deleteMaterial = useDeleteUploadedFile(id, name);
 
@@ -41,19 +38,14 @@ const DeleteMaterialModal = ({ id, name, onClose }: DeleteMaterialModalProps) =>
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteMaterial.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteMaterial.isLoading}
-                    w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteMaterial.isLoading}
+            />
         </Flex>
     );
 };

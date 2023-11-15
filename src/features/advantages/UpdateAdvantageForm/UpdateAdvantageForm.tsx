@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 import React from "react";
-import { Button, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
@@ -50,14 +50,7 @@ const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
                 <FInput name="title" label="Заголовок" />
                 <FInput name="description" label="Пояснение" />
             </Flex>
-            <Flex mt={24} gap={8}>
-                <Button variant="border" size="large" onClick={onClose} w="100%">
-                    Отмена
-                </Button>
-                <Button type="submit" variant="secondary" size="large" w="100%">
-                    Сохранить
-                </Button>
-            </Flex>
+            <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} mt={24} />
         </ManagedForm>
     );
 };

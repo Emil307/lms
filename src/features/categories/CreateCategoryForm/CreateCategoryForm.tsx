@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 import React from "react";
-import { Button, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { categoryApi, CreateAdminCategoryResponse } from "@entities/category";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
@@ -49,14 +49,7 @@ const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }:
             disableOverlay>
             <Flex direction="column" gap={{ base: 24, xs: 32 }}>
                 <FInput name="name" label={parentId ? "Название подкатегории" : "Название"} />
-                <Flex gap={8}>
-                    <Button variant="border" size="large" onClick={onClose} w="100%">
-                        Отмена
-                    </Button>
-                    <Button type="submit" variant="secondary" size="large" w="100%">
-                        Сохранить
-                    </Button>
-                </Flex>
+                <FControlButtons variant="modal" onClose={onClose} cancelButtonText="Отмена" />
             </Flex>
         </ManagedForm>
     );

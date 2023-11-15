@@ -1,11 +1,11 @@
 import { Flex, ThemeIcon, Text } from "@mantine/core";
 import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React, { useState } from "react";
-import { Button, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $CreateLessonFormValues, CreateLessonFormValues, CreateLessonResponse, lessonApi } from "@entities/lesson";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
 import { initialValues } from "./constants";
 import useStyles from "./CreateLessonModal.styles";
@@ -15,15 +15,14 @@ export interface CreateLessonModalProps {
     moduleId?: string;
     moduleName?: string;
     lessonNumber?: number;
+    onSuccess: () => void;
     onClose: () => void;
 }
 
-const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", lessonNumber, onClose }: CreateLessonModalProps) => {
+const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", lessonNumber, onSuccess, onClose }: CreateLessonModalProps) => {
     const { classes } = useStyles();
     const [isSubmitting, setSubmitting] = useState(false);
     const { mutate: attachLessonToModule } = useAttachLessonToCourseModule({ courseId, moduleId, moduleName });
-
-    const isTablet = useMedia("md");
 
     const createLesson = (values: CreateLessonFormValues) => {
         setSubmitting(true);
@@ -41,7 +40,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
         }
         attachLessonToModule([String(response.id)], {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
             onError: () => {
                 setSubmitting(false);
@@ -67,7 +66,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
             onSuccess={onSuccessCreate}
             onError={onError}
             disableOverlay>
-            {({ dirty }) => (
+            {() => (
                 <Flex gap={24} direction="column">
                     <Flex gap={16} align="center">
                         <ThemeIcon color="primaryHover">
@@ -92,20 +91,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
                         <FControlPanel name="hasTest" label="Проверочный тест" variant="secondary" />
                         <FControlPanel name="hasHomework" label="Домашнее задание" variant="secondary" />
                     </Flex>
-                    <Flex gap={8}>
-                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isSubmitting} w="50%">
-                            Отмена
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            size={isTablet ? "medium" : "large"}
-                            loading={isSubmitting}
-                            disabled={!dirty}
-                            w="50%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} isLoading={isSubmitting} />
                 </Flex>
             )}
         </ManagedForm>

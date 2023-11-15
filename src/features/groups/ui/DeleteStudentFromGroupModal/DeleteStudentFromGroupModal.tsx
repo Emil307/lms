@@ -1,7 +1,7 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteStudentsFromGroup } from "@entities/group";
 import useStyles from "./DeleteStudentFromGroupModal.styles";
 
@@ -14,10 +14,10 @@ export interface DeleteStudentFromGroupModalProps {
 
 const DeleteStudentFromGroupModal = ({ groupId = "", studentId, fullName, onClose }: DeleteStudentFromGroupModalProps) => {
     const { classes } = useStyles();
-    const deleteSchedule = useDeleteStudentsFromGroup({ groupId });
+    const deleteStudentFromGroup = useDeleteStudentsFromGroup({ groupId });
 
     const handleSubmit = () => {
-        deleteSchedule.mutate(
+        deleteStudentFromGroup.mutate(
             { ids: [studentId] },
             {
                 onSuccess: () => {
@@ -40,14 +40,14 @@ const DeleteStudentFromGroupModal = ({ groupId = "", studentId, fullName, onClos
                     <Paragraph variant="small-semi" component="span">{`«${studentId}: ${fullName}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteSchedule.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteSchedule.isLoading} w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteStudentFromGroup.isLoading}
+            />
         </Flex>
     );
 };

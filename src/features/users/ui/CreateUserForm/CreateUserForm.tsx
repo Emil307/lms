@@ -3,8 +3,8 @@ import React from "react";
 import { Bell, Shield, User, UserCheck } from "react-feather";
 import { useRouter } from "next/router";
 import {
-    Button,
     FAvatarInput,
+    FControlButtons,
     FControlPanel,
     FFileInput,
     FInput,
@@ -19,7 +19,7 @@ import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/use
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
-import { ToastType, checkRoleOrder, createNotification, useMedia } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
 import { Roles } from "@app/routes";
 import { adaptCreateUserFormRequest, getInitialValuesForm, getNotificationList } from "./utils";
 import { notificationLabels } from "./constants";
@@ -35,8 +35,6 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
     const { classes } = useStyles();
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
-
-    const isMobile = useMedia("xs");
 
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
@@ -69,7 +67,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
             mutationFunction={createUser}
             onSuccess={onSuccess}
             onError={onError}>
-            {({ values, dirty }) => (
+            {({ values }) => (
                 <Flex direction="column" gap={32} maw={772}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -152,14 +150,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                             ))}
                         </Box>
                     </Fieldset>
-                    <Flex className={classes.actions}>
-                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                            Отменить
-                        </Button>
-                        <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

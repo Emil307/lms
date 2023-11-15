@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { closeModal, openModal } from "@mantine/modals";
+import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import React from "react";
 import { PlusCircle as PlusCircleIcon } from "react-feather";
 import { Button } from "@shared/ui";
@@ -21,6 +21,8 @@ const AddLessonButton = ({ courseId, module, hidden }: AddLessonButtonProps) => 
     const handleCloseLessonListModal = () => closeModal("LESSON_LIST");
     const handleCloseCreateLessonModal = () => closeModal("CREATE_LESSON");
 
+    const handleSuccessAddLesson = () => closeAllModals();
+
     const handleOpenSelectLessonOptionModal = () => {
         openModal({
             modalId: "SELECT_LESSON_OPTION",
@@ -40,6 +42,7 @@ const AddLessonButton = ({ courseId, module, hidden }: AddLessonButtonProps) => 
                     lessonNumber={module.lessons.length + 1}
                     moduleId={moduleId}
                     moduleName={module.name}
+                    onSuccess={handleSuccessAddLesson}
                     onClose={handleCloseCreateLessonModal}
                 />
             ),
@@ -53,7 +56,13 @@ const AddLessonButton = ({ courseId, module, hidden }: AddLessonButtonProps) => 
             size: 912,
             mah: 912,
             children: (
-                <LessonListModal courseId={courseId} moduleId={moduleId} moduleName={module.name} onClose={handleCloseLessonListModal} />
+                <LessonListModal
+                    courseId={courseId}
+                    moduleId={moduleId}
+                    moduleName={module.name}
+                    onSuccess={handleSuccessAddLesson}
+                    onClose={handleCloseLessonListModal}
+                />
             ),
         });
     };

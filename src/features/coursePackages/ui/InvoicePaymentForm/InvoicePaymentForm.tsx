@@ -1,7 +1,7 @@
-import { Box, Flex, Group, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { ChevronLeft } from "react-feather";
-import { Button, FInput, Form } from "@shared/ui";
+import { FControlButtons, FInput, Form } from "@shared/ui";
 import { $invoicePaymentFormValidationSchema, InvoicePaymentFormValidationSchema } from "@features/coursePackages";
 
 export interface InvoicePaymentFormProps {
@@ -46,14 +46,15 @@ const InvoicePaymentForm = ({ onClose }: InvoicePaymentFormProps) => {
                     <FInput name="legalAddress" label="Юридический адрес" />
                     <FInput name="bank" label="Банк" />
                 </Box>
-                <Group sx={{ flexWrap: "nowrap" }}>
-                    <Button type="button" variant="border" fullWidth onClick={onClose} leftIcon={<ChevronLeft />}>
-                        Назад
-                    </Button>
-                    <Button type="submit" variant="secondary" fullWidth>
-                        Скачать
-                    </Button>
-                </Group>
+                <FControlButtons
+                    variant="modal"
+                    cancelButtonText="Назад"
+                    submitButtonText="Скачать"
+                    onClose={onClose}
+                    cancelButtonProps={{
+                        leftIcon: <ChevronLeft />,
+                    }}
+                />
             </Form>
         </Flex>
     );

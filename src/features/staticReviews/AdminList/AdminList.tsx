@@ -19,6 +19,7 @@ const AdminList = (props: AdminListProps) => {
                 countName="Отзывов"
                 initialState={{
                     columnOrder,
+                    sorting: [{ id: "lastName", desc: true }],
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}
             />

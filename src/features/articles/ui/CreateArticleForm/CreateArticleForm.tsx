@@ -4,16 +4,25 @@ import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { FormikProps } from "formik";
-import { Button, FInput, FMultiSelect, FSelect, FSwitch, FTextEditor, ManagedForm, Paragraph, prepareOptionsForSelect } from "@shared/ui";
+import {
+    FControlButtons,
+    FInput,
+    FMultiSelect,
+    FSelect,
+    FSwitch,
+    FTextEditor,
+    ManagedForm,
+    Paragraph,
+    prepareOptionsForSelect,
+} from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
 import { $CreateArticleFormValidation, CreateArticleFormValidation } from "./types";
 import { adaptCreateArticleRequest } from "./utils";
-import useStyles from "./CreateArticleForm.styles";
 
 export interface CreateArticleFormProps extends BoxProps {
     onClose: () => void;
@@ -21,9 +30,6 @@ export interface CreateArticleFormProps extends BoxProps {
 
 const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const router = useRouter();
-    const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
 
@@ -72,7 +78,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                 mutationFunction={createArticle}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ values, dirty }) => {
+                {({ values }) => {
                     const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <Flex direction="column" gap={32}>
@@ -85,7 +91,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
 
                             <Fieldset label="Настройки" icon={<Edit3 />} maw={512}>
                                 <Flex direction="column" gap={8} w="100%">
-                                    <FInput name="name" label="Название" />
+                                    <FInput name="name" label="Название" size="sm" />
                                     <FSelect
                                         name="categoryId"
                                         size="sm"
@@ -128,15 +134,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                                     <FTextEditor name="content" contentHeight={272} />
                                 </Box>
                             </Fieldset>
-
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onClose} />
                         </Flex>
                     );
                 }}

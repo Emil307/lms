@@ -1,7 +1,7 @@
 import { Collapse, Flex, ThemeIcon } from "@mantine/core";
 import React, { useMemo, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
+import { ControlButtons, FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import {
@@ -12,7 +12,6 @@ import {
     AdminMaterialsNoIncludedLessonExtraFilters,
 } from "@entities/storage";
 import { useAttachMaterialsToLesson } from "@entities/lesson";
-import { useMedia } from "@shared/utils";
 import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetMaterialsNoIncludedLessonRequest } from "./utils";
 import useStyles from "./AddMaterialsToLessonModal.styles";
@@ -26,8 +25,6 @@ const AddMaterialsToLessonModal = ({ lessonId, onClose }: AddMaterialsToLessonMo
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
-
-    const isMobile = useMedia("sm");
 
     const { data: materialResources, isLoading: isLoadingResources } = useUploadedFileResources();
     const { mutate: attachMaterialsToLesson, isLoading: isLoadingAttach } = useAttachMaterialsToLesson({ lessonId });
@@ -160,27 +157,17 @@ const AddMaterialsToLessonModal = ({ lessonId, onClose }: AddMaterialsToLessonMo
                     );
                 }}
             </ManagedDataGrid>
-            <Flex justify="space-between" mt={24} gap={8}>
-                <Button
-                    variant="border"
-                    size={isMobile ? "medium" : "large"}
-                    onClick={onClose}
-                    w="100%"
-                    maw={252}
-                    disabled={isLoadingAttach}>
-                    Отмена
-                </Button>
-                <Button
-                    variant="secondary"
-                    size={isMobile ? "medium" : "large"}
-                    w="100%"
-                    maw={252}
-                    onClick={handleSubmit}
-                    loading={isLoadingAttach}
-                    disabled={!selected.length}>
-                    Добавить
-                </Button>
-            </Flex>
+
+            <ControlButtons
+                variant="modalTable"
+                cancelButtonText="Отмена"
+                submitButtonText="Добавить"
+                onClose={onClose}
+                onSubmit={handleSubmit}
+                isLoading={isLoadingAttach}
+                disabledSubmit={!selected.length}
+                mt={24}
+            />
         </>
     );
 };

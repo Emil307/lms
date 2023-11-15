@@ -2,7 +2,6 @@ import { useFormikContext } from "formik";
 import { ChangeEvent, useEffect } from "react";
 import { Box, ThemeIcon } from "@mantine/core";
 import { IconFilter } from "@tabler/icons-react";
-import { useTimeout } from "@mantine/hooks";
 import { CourseCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
 import { Checkbox, Tooltip } from "@shared/ui";
 import useStyles from "./FilterItem.styles";
@@ -14,21 +13,19 @@ export interface FilterItemProps {
     onChangeSelected?: (id: number | null) => void;
 }
 
-const MemoizedFilterItem = function FilterItem({ field, data, selected, onChangeSelected }: FilterItemProps) {
+const MemoizedFilterItem = function FilterItem({ field, data, selected, onChangeSelected = () => undefined }: FilterItemProps) {
     const { classes } = useStyles({ selected });
-    const { start } = useTimeout(() => onChangeSelected?.(null), 5000);
     const { setFieldValue, values, handleSubmit, isSubmitting } = useFormikContext<CoursesFiltersForm>();
 
     const isChecked = !![...values[field]].find((value) => value === data.id.toString());
 
     //Нужен для сброса плавующей иконки фильтра при submit'e формы
     useEffect(() => {
-        onChangeSelected?.(null);
+        onChangeSelected(null);
     }, [isSubmitting]);
 
     const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
-        onChangeSelected?.(data.id);
-        start();
+        onChangeSelected(data.id);
 
         if (newValue.target.checked) {
             const array = [...values[field]];

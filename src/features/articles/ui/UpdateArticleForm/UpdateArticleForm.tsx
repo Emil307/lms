@@ -5,7 +5,7 @@ import { IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { FormikProps } from "formik";
 import {
-    Button,
+    FControlButtons,
     FInput,
     FMultiSelect,
     FSelect,
@@ -20,7 +20,7 @@ import {
 import { GetAdminArticleResponse, UpdateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
 import { adaptUpdateArticleFormValues, adaptUpdateArticleRequest } from "./utils";
@@ -37,7 +37,6 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const router = useRouter();
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id));
     const articleResources = useAdminArticleResourcesCreate();
-    const isMobile = useMedia("xs");
 
     const subCategoriesResources = useAdminSubCategories({
         ...initialParams,
@@ -88,7 +87,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
             onError={onError}
             hasConfirmModal
             onCancel={onClose}>
-            {({ values, dirty, onCancel }) => {
+            {({ values, onCancel }) => {
                 const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                 return (
                     <Flex direction="column" gap={32}>
@@ -131,7 +130,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
 
                         <Fieldset label="Настройки" icon={<Edit3 />} maw={512} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={8} w="100%">
-                                <FInput name="name" label="Название" />
+                                <FInput name="name" label="Название" size="sm" />
                                 <FSelect
                                     name="categoryId"
                                     size="sm"
@@ -173,14 +172,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                                 <FTextEditor name="content" contentHeight={272} />
                             </Box>
                         </Fieldset>
-                        <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} />
                     </Flex>
                 );
             }}

@@ -7,7 +7,7 @@ import { Logo } from "@components/Logo";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, RecoveryPasswordResponse, authApi } from "@entities/auth";
 import { MutationKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, useMedia } from "@shared/utils";
 import { initialValues } from "./constants";
 
 export interface ForgotPasswordFormProps extends BoxProps {}
@@ -15,6 +15,8 @@ export interface ForgotPasswordFormProps extends BoxProps {}
 const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
     const router = useRouter();
     const { classes } = useFormStyles();
+
+    const isTablet = useMedia("md");
 
     const handleClickBack = () => router.push("/auth");
 
@@ -74,7 +76,13 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                                     }
                                     description="Пришлем вам ссылку на восстановление пароля"
                                 />
-                                <Button type="submit" variant="secondary" size="large" w="100%" disabled={!dirty} loading={isLoading}>
+                                <Button
+                                    type="submit"
+                                    variant="secondary"
+                                    size={isTablet ? "medium" : "large"}
+                                    w="100%"
+                                    disabled={!dirty}
+                                    loading={isLoading}>
                                     Выслать
                                 </Button>
                             </Flex>

@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FAvatarInput, FInput, ManagedForm, Paragraph } from "@shared/ui";
+import { Button, FAvatarInput, FControlButtons, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { User, UpdateMeResponse, authApi, UpdateMeForm, $UpdateMeForm } from "@entities/auth";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
@@ -57,7 +57,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                 onCancel={handleCloseForm}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ dirty, onCancel }) => (
+                {({ onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Fieldset label="Личные данные" icon={<UserIcon />} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={24}>
@@ -101,15 +101,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                 </Flex>
                             </Flex>
                         </Fieldset>
-
-                        <Flex className={classes.actions}>
-                            <Button type="button" variant="border" size="large" onClick={onCancel}>
-                                Отмена
-                            </Button>
-                            <Button type="submit" variant="secondary" size="large" disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} cancelButtonText="Отмена" />
                     </Flex>
                 )}
             </ManagedForm>

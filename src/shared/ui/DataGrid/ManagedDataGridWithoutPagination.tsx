@@ -12,7 +12,7 @@ import {
     TSelectProps,
 } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
-import { useDataGridSort, useDataGridSelect, useDataGridFilters } from "./utils";
+import { useDataGridSort, useDataGridSelect, useDataGridFilters, getInitialSortColumnName } from "./utils";
 
 type TExtendedProps<
     Data extends Record<string, any>,
@@ -77,7 +77,10 @@ function ManagedDataGridWithoutPagination<
 
     const { rowSelection, setRowSelection } = useDataGridSelect({ selectItems, onChangeSelect });
 
-    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({ disableQueryParams });
+    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({
+        disableQueryParams,
+        initialSortColumnName: getInitialSortColumnName(rest.initialState),
+    });
     const filters = useDataGridFilters<Formik>({ filter, disableQueryParams });
 
     const paramsForRequest = {

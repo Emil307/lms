@@ -3,10 +3,10 @@ import React from "react";
 import { useRouter } from "next/router";
 import { IconUserCircle } from "@tabler/icons-react";
 import { IconClipboard } from "@tabler/icons";
-import { Button, FInput, FSelect, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
+import { FControlButtons, FInput, FSelect, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import {
     AdminTransactionEntityTypeName,
     CreateAdminTransactionResponse,
@@ -27,8 +27,6 @@ export interface CreateTransactionFormProps extends BoxProps {
 const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const transactionResources = useAdminTransactionCreateResources();
 
@@ -62,7 +60,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                 mutationFunction={createTransaction}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ dirty, values, setFieldValue }) => {
+                {({ values, setFieldValue }) => {
                     const resetEntitySelect = () => {
                         setFieldValue("entityId", "");
                     };
@@ -141,14 +139,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                     />
                                 </Flex>
                             </Fieldset>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                    Отмена
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onClose} />
                         </Flex>
                     );
                 }}

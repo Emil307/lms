@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
-import { logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
+import { authPath, logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
 import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
@@ -131,6 +131,9 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
     }
     if (isAccessError) {
         Router.replace(notFoundPath);
+        return Promise.reject(error);
+    }
+    if (isAuthError && window.location.pathname === authPath) {
         return Promise.reject(error);
     }
     if (isAuthError) {

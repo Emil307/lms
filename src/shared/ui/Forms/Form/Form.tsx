@@ -4,6 +4,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { BaseForm, BaseFormProps } from "./BaseForm";
 import FormPersister from "./components/FormPersister";
 import FormOverlay from "./components/FormOverlay";
+import { FormSubmittingContext } from "./constants";
 
 export interface FormProps<T extends FormikValues = FormikValues> {
     config: FormikConfig<T>;
@@ -44,7 +45,9 @@ function Form<T extends FormikValues = FormikValues>({
                 <FormPersister initialValues={config.initialValues} enabled={persist}>
                     <BaseForm {...form}>
                         {!disableOverlay && <FormOverlay isLoading={isLoading} />}
-                        {typeof children === "function" ? children(formikProps) : children}
+                        <FormSubmittingContext.Provider value={isLoading}>
+                            {typeof children === "function" ? children(formikProps) : children}
+                        </FormSubmittingContext.Provider>
                     </BaseForm>
                 </FormPersister>
             )}

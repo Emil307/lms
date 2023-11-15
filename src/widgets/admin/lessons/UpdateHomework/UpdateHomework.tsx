@@ -3,7 +3,7 @@ import React from "react";
 import { AlertCircle as AlertCircleIcon, AlertTriangle as AlertTriangleIcon } from "react-feather";
 import { FastFieldProps } from "formik/dist/FastField";
 import { FastField } from "formik";
-import { Button, FFileInputMultiple, FSelect, FTextEditor, Heading, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FFileInputMultiple, FSelect, FTextEditor, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import {
     AdminHomework,
     HomeworkRequiredType,
@@ -12,7 +12,7 @@ import {
     UpdateAdminHomeworkResponse,
 } from "@entities/lesson";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateHomework.styles";
@@ -25,8 +25,6 @@ interface UpdateHomeworkProps {
 
 const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("sm");
 
     const updateHomework = (data: UpdateAdminHomeworkFormValues) => {
         return lessonApi.updateAdminHomework(adaptDataForUpdateHomeworkRequest({ ...data, id: lessonId }));
@@ -91,7 +89,7 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
             hasConfirmModal
             validateOnChange={false}
             onCancel={onClose}>
-            {({ values, dirty, onCancel }) => (
+            {({ values, onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>
                     <Flex className={classes.topCard} gap={32} align="center" justify="space-between">
                         <Flex gap={16} align="center">
@@ -117,19 +115,8 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
                         h={190}
                         w="100%"
                     />
-                    <Flex className={classes.buttons}>
-                        <Button className={classes.button} variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                            Отменить
-                        </Button>
-                        <Button
-                            className={classes.button}
-                            type="submit"
-                            variant="secondary"
-                            size={isMobile ? "medium" : "large"}
-                            disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+
+                    <FControlButtons onClose={onCancel} mt={32} />
                 </Flex>
             )}
         </ManagedForm>

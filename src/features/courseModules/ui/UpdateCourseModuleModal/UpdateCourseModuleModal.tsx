@@ -1,9 +1,9 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { Folder as FolderIcon } from "react-feather";
-import { Button, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import {
     courseModuleApi,
     CourseModuleWithoutLessons,
@@ -22,8 +22,6 @@ export interface UpdateCourseModuleModalProps {
 
 const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: UpdateCourseModuleModalProps) => {
     const moduleId = String(module.id);
-
-    const isTablet = useMedia("md");
 
     const updateCourseModule = (values: UpdateCourseModuleFormValues) => {
         return courseModuleApi.updateModule({ ...values, courseId, moduleId });
@@ -58,7 +56,7 @@ const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: Up
             ]}
             onError={onError}
             disableOverlay>
-            {({ isLoading }) => (
+            {() => (
                 <Flex gap={24} direction="column">
                     <Flex gap={16} align="center">
                         <ThemeIcon color="primaryHover">
@@ -70,14 +68,7 @@ const UpdateCourseModuleModal = ({ courseId, module, moduleNumber, onClose }: Up
                         <FInput name="name" label="Наименование" />
                         <FTextarea name="description" placeholder="Описание модуля" minRows={9} />
                     </Flex>
-                    <Flex gap={8}>
-                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isLoading} w="50%">
-                            Отмена
-                        </Button>
-                        <Button type="submit" variant="secondary" size={isTablet ? "medium" : "large"} loading={isLoading} w="50%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

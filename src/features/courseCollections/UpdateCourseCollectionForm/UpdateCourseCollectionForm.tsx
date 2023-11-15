@@ -5,9 +5,9 @@ import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { Button, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getIcon } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { GetAdminCourseCollectionResponse, UpdateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
@@ -24,7 +24,6 @@ export interface UpdateCourseCollectionFormProps extends BoxProps {
 const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const updateCourseCollection = (values: UpdateCourseCollectionFormValidation) => {
         return courseCollectionApi.updateAdminCourseCollection({ ...values, id: String(data?.id) });
@@ -68,7 +67,7 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                 onError={onError}
                 hasConfirmModal
                 onCancel={onClose}>
-                {({ dirty, values, errors, onCancel, setFieldValue }) => {
+                {({ values, errors, onCancel, setFieldValue }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const icon = getIcon({ iconName: values.iconName });
 
@@ -142,15 +141,7 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                                     className={classes.descriptionTextarea}
                                 />
                             </Fieldset>
-
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
                 }}

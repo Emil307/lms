@@ -4,7 +4,7 @@ import { AlignLeft } from "react-feather";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import {
-    Button,
+    FControlButtons,
     FDateRangePicker,
     FFileInput,
     FInput,
@@ -19,7 +19,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, getDiscountPrice, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
 import { initialValues, radioGroupValues } from "./constants";
 import { $CreateCoursePackageFormValidation, CreateCoursePackageFormValidation } from "./types";
@@ -33,8 +33,6 @@ export interface CreateCoursePackageFormProps extends Omit<BoxProps, "children">
 const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-
-    const isMobile = useMedia("xs");
 
     const onSuccess = (response: AdminCoursePackageDetails) => {
         createNotification({
@@ -62,7 +60,7 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                 mutationFunction={(params) => coursePackageApi.createCoursePackage(adaptCreateCoursePackageFormRequest(params))}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ values, errors, dirty }) => {
+                {({ values, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
                         price: !errors.price ? values.price : null,
@@ -142,15 +140,7 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                                     </Flex>
                                 )}
                             </Box>
-
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onClose} />
                         </Flex>
                     );
                 }}

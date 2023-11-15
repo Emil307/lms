@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlignLeft, Clipboard } from "react-feather";
 import { FormikHelpers } from "formik";
-import { Button, FFileInput, FInput, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FFileInput, FInput, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { GetAboutResponse, staticPageApi, useAbout } from "@entities/staticPage";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $UpdateAboutValidation, UpdateAboutValidation } from "./types";
@@ -34,7 +34,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                 mutationFunction={updateAboutPage}
                 onSuccess={onSuccess}
                 hasConfirmModal>
-                {({ dirty, onCancel }) => (
+                {({ onCancel }) => (
                     <>
                         <FFileInput
                             title="Загрузите файлы"
@@ -60,14 +60,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                             <Heading order={4}>Общая информация</Heading>
                         </Flex>
                         <FTextEditor name="aboutPageFullContent" className={classes.textEditorFullContent} />
-                        <Flex className={classes.actionsContainer}>
-                            <Button variant="border" size="large" onClick={onCancel} className={classes.actionButton} disabled={!dirty}>
-                                Отменить
-                            </Button>
-                            <Button variant="secondary" type="submit" size="large" className={classes.actionButton} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons className={classes.actions} onClose={onCancel} />
                     </>
                 )}
             </ManagedForm>

@@ -2,7 +2,7 @@ import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
 import dayjs from "dayjs";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { AdminGroupScheduleFromList, useAdminDeleteGroupSchedule } from "@entities/group";
 import useStyles from "./DeleteScheduleModal.styles";
 
@@ -46,14 +46,14 @@ const DeleteScheduleModal = ({ groupId, data, onClose }: DeleteScheduleModalProp
                 </Box>
             </Flex>
 
-            <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteSchedule.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteSchedule.isLoading} w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteSchedule.isLoading}
+            />
         </Flex>
     );
 };

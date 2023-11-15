@@ -1,9 +1,8 @@
-import { Flex } from "@mantine/core";
 import React from "react";
 import { FormikConfig } from "formik";
-import { Button, FFileInputMultiple, Form } from "@shared/ui";
+import { FControlButtons, FFileInputMultiple, Form } from "@shared/ui";
 import { CreateMaterialsDataForm, FileTypeCard, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
-import { getDataFromSessionStorage, useMedia } from "@shared/utils";
+import { getDataFromSessionStorage } from "@shared/utils";
 import { UploadedFile } from "@shared/types";
 import { $CreateMaterialsFormValidation, CreateMaterialsFormValidation } from "./types";
 import { getInitialValues } from "./utils";
@@ -19,8 +18,6 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
     const { classes } = useStyles();
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
-
-    const isMobile = useMedia("xs");
 
     const config: FormikConfig<CreateMaterialsFormValidation> = {
         initialValues: getInitialValues(sessionStorageData),
@@ -42,14 +39,7 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
                 containerFilesProps={{ className: classes.fileInputContainerFiles }}
                 descriptionInside={data.description}
             />
-            <Flex gap={8}>
-                <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="50%">
-                    Отмена
-                </Button>
-                <Button type="submit" size={isMobile ? "medium" : "large"} variant="secondary" w="50%">
-                    Далее
-                </Button>
-            </Flex>
+            <FControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Далее" onClose={onClose} />
         </Form>
     );
 };

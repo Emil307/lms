@@ -67,7 +67,7 @@ const MemoizedFileItem = memo(function FileItem({
                 );
             case "done":
                 return (
-                    <Flex gap={8} align="center">
+                    <Flex className={classes.additionalContent}>
                         <Paragraph variant="text-small-m" className={classes.statusInfo}>
                             Готово
                         </Paragraph>
@@ -106,11 +106,13 @@ const MemoizedFileItem = memo(function FileItem({
                 <Box className={classes.icon}>{renderIcon}</Box>
                 <Flex className={classes.content}>
                     <Flex gap={2} align="center" w="100%">
-                        <Paragraph variant="text-small-semi" lineClamp={1}>
-                            {fileName}
-                        </Paragraph>
+                        <Box className={classes.fileNameWrapper}>
+                            <Paragraph variant="text-small-semi" className={classes.fileName}>
+                                {fileName}
+                            </Paragraph>
+                        </Box>
                         {fileSize && (
-                            <Paragraph variant="text-small-m" color="gray45" className={classes.size}>
+                            <Paragraph variant="text-small-m" color="gray45" className={classes.fileSize}>
                                 {getFileSize(fileSize)}
                             </Paragraph>
                         )}

@@ -1,11 +1,11 @@
 import { Flex, ThemeIcon, Text } from "@mantine/core";
 import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React from "react";
-import { Button, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { $UpdateLessonFormValues, AdminLessonFromList, lessonApi, UpdateLessonFormValues, UpdateLessonResponse } from "@entities/lesson";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import { CourseModuleLesson } from "@entities/courseModule";
 import { getInitialValues } from "./utils";
 import useStyles from "./UpdateLessonModal.styles";
@@ -18,8 +18,6 @@ export interface UpdateLessonModalProps {
 
 const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalProps) => {
     const { classes } = useStyles();
-
-    const isTablet = useMedia("md");
 
     const updateLesson = (values: UpdateLessonFormValues) => {
         return lessonApi.updateLesson({ ...values, id: String(data.id) });
@@ -56,7 +54,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
             onSuccess={onSuccess}
             onError={onError}
             disableOverlay>
-            {({ isLoading, dirty }) => (
+            {() => (
                 <Flex gap={24} direction="column">
                     <Flex gap={16} align="center">
                         <ThemeIcon color="primaryHover">
@@ -81,20 +79,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
                         <FControlPanel name="hasTest" label="Проверочный тест" variant="secondary" />
                         <FControlPanel name="hasHomework" label="Домашнее задание" variant="secondary" />
                     </Flex>
-                    <Flex gap={8}>
-                        <Button variant="border" size={isTablet ? "medium" : "large"} onClick={onClose} disabled={isLoading} w="50%">
-                            Отмена
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            size={isTablet ? "medium" : "large"}
-                            loading={isLoading}
-                            disabled={!dirty}
-                            w="50%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

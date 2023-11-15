@@ -1,9 +1,8 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Paragraph } from "@shared/ui";
+import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteCategory } from "@entities/category";
-import { useMedia } from "@shared/utils";
 import useStyles from "./DeleteCategoryModal.styles";
 
 export interface DeleteCategoryModalProps {
@@ -16,8 +15,6 @@ export interface DeleteCategoryModalProps {
 const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategoryModalProps) => {
     const { classes } = useStyles();
     const deleteCategory = useDeleteCategory({ id, name });
-
-    const isMobile = useMedia("xs");
 
     const handleSubmit = () => {
         deleteCategory.mutate(null, {
@@ -42,19 +39,14 @@ const DeleteCategoryModal = ({ id, name, isSubcategory, onClose }: DeleteCategor
                     <Paragraph variant="small-semi" component="span">{`«${id}: ${name}»?`}</Paragraph>
                 </Box>
             </Flex>
-            <Flex gap={8}>
-                <Button size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} loading={deleteCategory.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button
-                    size={isMobile ? "medium" : "large"}
-                    variant="secondary"
-                    onClick={handleSubmit}
-                    loading={deleteCategory.isLoading}
-                    w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteCategory.isLoading}
+            />
         </Flex>
     );
 };

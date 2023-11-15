@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {
     Button,
     FAvatarInput,
+    FControlButtons,
     FFileInput,
     FInput,
     FRadioGroup,
@@ -21,7 +22,7 @@ import { useAdminUsersFilters, UserDetailResponse, userApi, UpdateAdminUserRespo
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, checkRoleOrder, createNotification, getFullName, useMedia } from "@shared/utils";
+import { ToastType, checkRoleOrder, createNotification, getFullName } from "@shared/utils";
 import { useMe } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { getInitialValuesForm } from "./constants";
@@ -39,8 +40,6 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
     const router = useRouter();
     const { data: profileData } = useMe();
     const { data: options } = useAdminUsersFilters();
-
-    const isMobile = useMedia("xs");
 
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const currentRole = String(filteredRoles?.find((role) => role.id === data?.roles[0].id)?.id);
@@ -93,7 +92,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             onCancel={onClose}
             onSuccess={onSuccess}
             onError={onError}>
-            {({ values, dirty, onCancel }) => (
+            {({ values, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex className={classes.infoPanel}>
                         <Flex gap={8}>
@@ -171,14 +170,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
                         </Fieldset>
                     )}
 
-                    <Flex className={classes.actions}>
-                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                            Отменить
-                        </Button>
-                        <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons onClose={onCancel} />
                 </Flex>
             )}
         </ManagedForm>

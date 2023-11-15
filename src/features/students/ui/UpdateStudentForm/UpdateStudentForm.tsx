@@ -4,10 +4,21 @@ import { Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
-import { Button, FAvatarInput, FInput, FRadioGroup, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import {
+    Button,
+    FAvatarInput,
+    FControlButtons,
+    FInput,
+    FRadioGroup,
+    FSwitch,
+    LastUpdatedInfo,
+    ManagedForm,
+    Paragraph,
+    Radio,
+} from "@shared/ui";
 import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getFullName, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
@@ -24,8 +35,6 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
     const router = useRouter();
     const { classes } = useStyles();
     const { data: options } = useAdminStudentsFilters();
-
-    const isMobile = useMedia("xs");
 
     const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
@@ -80,7 +89,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                 onError={onError}
                 onCancel={onClose}
                 hasConfirmModal>
-                {({ values, dirty, onCancel }) => (
+                {({ values, onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
@@ -144,15 +153,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                                 </Flex>
                             </Flex>
                         </Fieldset>
-
-                        <Flex className={classes.actions}>
-                            <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                                Отменить
-                            </Button>
-                            <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons onClose={onCancel} />
                     </Flex>
                 )}
             </ManagedForm>

@@ -2,6 +2,8 @@ import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
+import { TPagination } from "@shared/types";
+import { PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 import {
     DataGridResponse,
     TCollapsedFiltersBlockProps,
@@ -12,9 +14,7 @@ import {
     TSelectProps,
 } from "./types";
 import DataGrid, { TDataGridProps } from "./DataGrid";
-import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination } from "./utils";
-import { TPagination } from "@shared/types";
-import { PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
+import { useDataGridSort, useDataGridSelect, useDataGridFilters, useDataGridPagination, getInitialSortColumnName } from "./utils";
 
 type TExtendedProps<
     Data extends Record<string, any>,
@@ -81,7 +81,11 @@ function ManagedDataGrid<
     const { rowSelection, setRowSelection } = useDataGridSelect({ selectItems, onChangeSelect });
 
     const { paginationParams, handleChangePagination, goToFirstPage } = useDataGridPagination({ disableQueryParams, perPageOptions });
-    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({ disableQueryParams, goToFirstPage });
+    const { sortingParams, handleChangeSorting, sortParamsForRequest } = useDataGridSort({
+        disableQueryParams,
+        goToFirstPage,
+        initialSortColumnName: getInitialSortColumnName(rest.initialState),
+    });
     const filters = useDataGridFilters<Formik>({ filter, disableQueryParams, goToFirstPage });
 
     const paramsForRequest = {

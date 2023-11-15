@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { FormikConfig } from "formik";
 import { Box, Flex } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
-import { Button, Checkbox, FCheckboxGroup, Form, Loader } from "@shared/ui";
+import { Checkbox, FCheckboxGroup, FControlButtons, Form, Loader } from "@shared/ui";
 import { useAdminCategories } from "@entities/category";
-import { getDataFromSessionStorage, useMedia } from "@shared/utils";
+import { getDataFromSessionStorage } from "@shared/utils";
 import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import useStyles from "./BindingMaterialsWithCategories.styles";
 import { initialParams } from "./constants";
@@ -16,8 +16,6 @@ export interface BindingMaterialsWithCategoriesProps {
 
 const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategoriesProps) => {
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const sessionStorageData = getDataFromSessionStorage<CreateMaterialsDataForm>(MATERIALS_LOCAL_STORAGE_KEY);
 
@@ -61,14 +59,7 @@ const BindingMaterialsWithCategories = ({ onClose }: BindingMaterialsWithCategor
                     </Flex>
                 </FCheckboxGroup>
             </Box>
-            <Flex gap={8}>
-                <Button type="button" size={isMobile ? "medium" : "large"} variant="border" onClick={onClose} w="100%">
-                    Отмена
-                </Button>
-                <Button type="submit" size={isMobile ? "medium" : "large"} variant="secondary" w="100%">
-                    Сохранить
-                </Button>
-            </Flex>
+            <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
         </Form>
     );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Flex } from "@mantine/core";
 import { lessonApi, UpdateAdminHomeworkAnswerStatusResponse } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
-import { Button, FTextarea, ManagedForm } from "@shared/ui";
+import { FControlButtons, FTextarea, ManagedForm } from "@shared/ui";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import {
     $UpdateHomeworkAnswerStatusFormValues,
@@ -49,17 +49,10 @@ const UpdateLessonHomeworkStatusAnswerModal = ({ homeworkAnswerId, onClose }: Up
             onSuccess={onSuccessCreate}
             onError={onError}
             disableOverlay>
-            {({ isLoading }) => (
+            {() => (
                 <Flex gap={24} direction="column">
                     <FTextarea name="content" placeholder="Опишите принятое решение" minRows={6} />
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} disabled={isLoading} w="50%">
-                            Отмена
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" loading={isLoading} w="50%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

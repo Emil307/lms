@@ -1,7 +1,7 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { Button, Heading, Paragraph } from "@shared/ui";
+import { ControlButtons, Heading, Paragraph } from "@shared/ui";
 import { useDeleteStudentArticlePackage } from "@entities/articlePackage";
 import useStyles from "./DeleteStudentArticlePackageModal.styles";
 
@@ -40,14 +40,14 @@ const DeleteStudentArticlePackageModal = ({ id, studentId, name = "", onClose }:
                     </Box>
                 </Flex>
             </Flex>
-            <Flex gap={8}>
-                <Button size="large" variant="border" onClick={onClose} loading={deleteStudentArticlePackage.isLoading} w="100%">
-                    Отмена
-                </Button>
-                <Button size="large" variant="secondary" onClick={handleSubmit} loading={deleteStudentArticlePackage.isLoading} w="100%">
-                    Удалить
-                </Button>
-            </Flex>
+            <ControlButtons
+                variant="modal"
+                cancelButtonText="Отмена"
+                submitButtonText="Удалить"
+                onSubmit={handleSubmit}
+                onClose={onClose}
+                isLoading={deleteStudentArticlePackage.isLoading}
+            />
         </Flex>
     );
 };

@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
-import { Button, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { AdminTagFromList, UpdateAdminTagResponse, tagApi } from "@entities/tag";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
@@ -50,14 +50,7 @@ const UpdateTagForm = ({ data, onClose, ...props }: UpdateTagFormProps) => {
                 onError={onError}>
                 <Flex direction="column" gap={{ base: 24, xs: 32 }}>
                     <FInput name="name" label="Название" />
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%">
-                            Отмена
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%">
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
                 </Flex>
             </ManagedForm>
         </Box>

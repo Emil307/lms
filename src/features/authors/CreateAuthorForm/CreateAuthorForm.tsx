@@ -2,12 +2,12 @@ import { Flex } from "@mantine/core";
 import React from "react";
 import { User } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FAvatarInput, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAuthorResponse, authorApi } from "@entities/author";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { $CreateAuthorFormValidation, CreateAuthorFormValidation } from "./types";
 import { adaptCreateAuthorRequest } from "./utils";
@@ -21,8 +21,6 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
     const router = useRouter();
 
     const { classes } = useStyles();
-
-    const isMobile = useMedia("xs");
 
     const createAuthor = (values: CreateAuthorFormValidation) => {
         return authorApi.createAuthor(adaptCreateAuthorRequest(values));
@@ -53,7 +51,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
             mutationFunction={createAuthor}
             onSuccess={onSuccess}
             onError={onError}>
-            {({ dirty }) => (
+            {() => (
                 <Flex direction="column" gap={32}>
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
@@ -76,14 +74,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
                     <Fieldset label="Об авторе" icon={<UserDescriptionIcon />} legendProps={{ mb: 24 }}>
                         <FTextarea name="description" description="до 230 символов" className={classes.descriptionTextarea} />
                     </Fieldset>
-                    <Flex className={classes.actions}>
-                        <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                            Отменить
-                        </Button>
-                        <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

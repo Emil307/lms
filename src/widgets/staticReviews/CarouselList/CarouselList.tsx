@@ -51,7 +51,7 @@ const CarouselList = ({ title, visible = true, ...props }: CarouselListProps) =>
                     <Heading>{title}</Heading>
                 </Skeleton>
             )}
-            <Skeleton visible={isLoading} h={608}>
+            <Skeleton visible={isLoading} mih={608}>
                 <Carousel<StaticReviewFromList>
                     data={staticReviews?.data}
                     lastElemRef={lastElemRef}

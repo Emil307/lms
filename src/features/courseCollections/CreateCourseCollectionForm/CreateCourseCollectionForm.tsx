@@ -4,9 +4,9 @@ import { AlertTriangle, AlignLeft, Type } from "react-feather";
 import { Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
-import { Button, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon, useMedia } from "@shared/utils";
+import { ToastType, createNotification, getIcon } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
@@ -21,7 +21,6 @@ export interface CreateCourseCollectionFormProps extends BoxProps {
 const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectionFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const isMobile = useMedia("xs");
 
     const createCourseCollection = (values: CreateCourseCollectionFormValidation) => {
         return courseCollectionApi.createAdminCourseCollection(values);
@@ -61,7 +60,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                 mutationFunction={createCourseCollection}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ dirty, values, setFieldValue, errors }) => {
+                {({ values, setFieldValue, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const icon = getIcon({ iconName: values.iconName });
 
@@ -117,14 +116,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                                     className={classes.descriptionTextarea}
                                 />
                             </Fieldset>
-                            <Flex className={classes.actions}>
-                                <Button variant="border" size={isMobile ? "medium" : "large"} onClick={onClose}>
-                                    Отменить
-                                </Button>
-                                <Button type="submit" variant="secondary" size={isMobile ? "medium" : "large"} disabled={!dirty}>
-                                    Сохранить
-                                </Button>
-                            </Flex>
+                            <FControlButtons onClose={onClose} />
                         </Flex>
                     );
                 }}

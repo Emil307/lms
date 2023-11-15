@@ -1,10 +1,10 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FieldArray } from "formik";
 import { PlusCircle, Trash } from "react-feather";
-import { Button, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
+import { Button, FControlButtons, FDatePicker, FTimeInput, ManagedForm } from "@shared/ui";
 import { AdminGroupScheduleFromList, UpdateAdminGroupScheduleResponse, groupApi } from "@entities/group";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { $UpdateScheduleFormValidation, UpdateScheduleFormValidation } from "./types";
 import { adaptUpdateGroupScheduleRequest, adaptUpdateScheduleForm } from "./utils";
 import { initialValues } from "./constants";
@@ -16,8 +16,6 @@ export interface UpdateScheduleFormProps extends BoxProps {
 }
 
 const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateScheduleFormProps) => {
-    const isMobile = useMedia("xs");
-
     const updateGroupSchedule = (values: UpdateScheduleFormValidation) => {
         return groupApi.updateAdminGroupSchedule({ ...adaptUpdateGroupScheduleRequest(values), groupId, scheduleId: data.id });
     };
@@ -46,9 +44,8 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
                 mutationFunction={updateGroupSchedule}
                 onSuccess={onSuccess}
-                disableOverlay
                 onError={onError}>
-                {({ dirty, values, isLoading }) => (
+                {({ values }) => (
                     <>
                         <Flex direction="column" gap={16} mb={24}>
                             <FDatePicker name="scheduleDate" label="Выберите дату" />
@@ -103,26 +100,7 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                 }}
                             </FieldArray>
                         </Flex>
-                        <Flex gap={16}>
-                            <Button
-                                type="button"
-                                variant="border"
-                                size={isMobile ? "medium" : "large"}
-                                fullWidth
-                                disabled={isLoading}
-                                onClick={onClose}>
-                                Отмена
-                            </Button>
-                            <Button
-                                type="submit"
-                                variant="secondary"
-                                size={isMobile ? "medium" : "large"}
-                                fullWidth
-                                loading={isLoading}
-                                disabled={!dirty}>
-                                Сохранить
-                            </Button>
-                        </Flex>
+                        <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />
                     </>
                 )}
             </ManagedForm>

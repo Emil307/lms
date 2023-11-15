@@ -56,16 +56,4 @@ export default createStyles((theme) => ({
         minWidth: 24,
         minHeight: 24,
     },
-    button: {
-        [theme.fn.smallerThan("xs")]: {
-            maxWidth: "100%",
-        },
-    },
-    buttons: {
-        gap: 8,
-
-        [theme.fn.smallerThan("xs")]: {
-            flexDirection: "column",
-        },
-    },
 }));

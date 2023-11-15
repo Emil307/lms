@@ -21,6 +21,7 @@ export default createStyles((theme) => ({
     wrapperIconBook: {
         height: 48,
         width: 48,
+        minWidth: 48,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary[0],
         color: theme.colors.white[0],

@@ -4,6 +4,8 @@ import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, UploadedFilesFiltersForm, storageApi, useUploadedFileResources } from "@entities/storage";
 import { useMedia } from "@shared/utils";
+import { useUserRole } from "@entities/auth";
+import { Roles } from "@app/routes";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetMaterialFilesRequest } from "./utils";
@@ -13,6 +15,8 @@ export interface AdminListProps extends BoxProps {}
 
 const AdminList = (props: AdminListProps) => {
     const { classes } = useStyles();
+
+    const userRole = useUserRole();
 
     const materialResources = useUploadedFileResources();
 
@@ -27,7 +31,7 @@ const AdminList = (props: AdminListProps) => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
+                renderBadge={userRole !== Roles.teacher ? (cell) => [{ condition: !!cell.row.original.isActive }] : undefined}
                 columns={columns}
                 countName="Материалов"
                 initialState={{

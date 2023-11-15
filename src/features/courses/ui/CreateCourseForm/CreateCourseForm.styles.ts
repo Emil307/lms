@@ -71,18 +71,4 @@ export default createStyles((theme) => ({
             width: "100%",
         },
     },
-    buttons: {
-        gap: 8,
-
-        [theme.fn.smallerThan("xs")]: {
-            flexDirection: "column",
-        },
-    },
-    button: {
-        width: 252,
-
-        [theme.fn.smallerThan("xs")]: {
-            width: "100%",
-        },
-    },
 }));

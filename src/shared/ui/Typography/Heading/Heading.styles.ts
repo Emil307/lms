@@ -6,6 +6,7 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { order = 1 }: CreateStylesParams) => ({
     root: {
+        overflowWrap: "anywhere",
         ...getStylesByOrder(theme, { order }),
     },
 }));

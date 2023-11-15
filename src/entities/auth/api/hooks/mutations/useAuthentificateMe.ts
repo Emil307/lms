@@ -29,7 +29,6 @@ export const useAuthenticateMe = () => {
                 } else {
                     await router.replace(getStartPage(userRole));
                 }
-                router.reload();
             },
             onError: () => {
                 createNotification({

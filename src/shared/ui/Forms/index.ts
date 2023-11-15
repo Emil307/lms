@@ -21,3 +21,4 @@ export * from "./Textarea";
 export * from "./CheckboxGroup";
 export * from "./ControlPanel";
 export * from "./VideoInput";
+export * from "./ControlButtons";

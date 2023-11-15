@@ -1,6 +1,6 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
-import { Button, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { ChangeUserPasswordResponse, userApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
@@ -47,7 +47,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
             mutationFunction={changeUserPassword}
             onSuccess={onSuccess}
             onError={onError}>
-            {({ dirty, values }) => (
+            {({ values }) => (
                 <Flex direction="column" gap={24}>
                     <Flex direction="column" gap={16}>
                         {values.isOldPassword && (
@@ -86,14 +86,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
                             success="Пароли совпадают"
                         />
                     </Flex>
-                    <Flex gap={8}>
-                        <Button variant="border" size="large" onClick={onClose} w="100%" maw={252}>
-                            Отмена
-                        </Button>
-                        <Button type="submit" variant="secondary" size="large" w="100%" maw={252} disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons cancelButtonText="Отмена" onClose={onClose} />
                 </Flex>
             )}
         </ManagedForm>

@@ -1,10 +1,10 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
-import { Button, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { AdminTest, lessonApi, UpdateAdminTestResponse } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { MutationKeys, QueryKeys } from "@shared/constant";
-import { createNotification, ToastType, useMedia } from "@shared/utils";
+import { createNotification, ToastType } from "@shared/utils";
 import { QuestionList } from "./components";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
 import useStyles from "./UpdateTest.styles";
@@ -18,8 +18,6 @@ interface UpdateTestProps {
 
 const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
     const { classes } = useStyles({ greenCheckIcon: true });
-
-    const isMobile = useMedia("sm");
 
     const updateTest = (data: UpdateTestFormValues) => {
         return lessonApi.updateAdminTest(adaptUpdateTestRequest(data, lessonId));
@@ -51,7 +49,7 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
             onError={onError}
             hasConfirmModal
             onCancel={onClose}>
-            {({ dirty, onCancel }) => (
+            {({ onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>
                     <Flex className={classes.topCard}>
                         <Flex gap={16} align="center">
@@ -67,22 +65,8 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
                         </Flex>
                         <FInput className={classes.answersCountInput} name="correctAnswersCount" type="number" label="Количество ответов" />
                     </Flex>
-
                     <QuestionList />
-
-                    <Flex className={classes.buttons}>
-                        <Button className={classes.confirmButton} variant="border" size={isMobile ? "medium" : "large"} onClick={onCancel}>
-                            Отменить
-                        </Button>
-                        <Button
-                            className={classes.confirmButton}
-                            type="submit"
-                            variant="secondary"
-                            size={isMobile ? "medium" : "large"}
-                            disabled={!dirty}>
-                            Сохранить
-                        </Button>
-                    </Flex>
+                    <FControlButtons onClose={onCancel} mt={32} />
                 </Flex>
             )}
         </ManagedForm>
