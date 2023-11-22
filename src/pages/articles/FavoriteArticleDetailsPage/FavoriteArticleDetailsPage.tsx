@@ -5,6 +5,7 @@ import { ContentPanel, MainInfoPanel } from "@widgets/articles";
 import { useFavoriteArticle } from "@entities/article";
 import { TRouterQueries } from "@shared/types";
 import { BreadCrumbs, Loader } from "@shared/ui";
+import { ArticleTypes } from "@shared/constant";
 import { getBreadCrumbsItems } from "./utils";
 
 const FavoriteArticleDetailsPage = () => {
@@ -23,9 +24,9 @@ const FavoriteArticleDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.data.name, id })} mb={32} />
-            <MainInfoPanel.Navigated articleData={articleData} type="favorite" mb={16} />
-            <ContentPanel data={articleData.data} />
+            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.data.name })} mb={32} />
+            <MainInfoPanel.Navigated articleData={articleData} type={ArticleTypes.FAVORITE} mb={16} />
+            <ContentPanel data={articleData.data} articleType={ArticleTypes.FAVORITE} />
         </Box>
     );
 };

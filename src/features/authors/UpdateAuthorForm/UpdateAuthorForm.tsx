@@ -56,7 +56,6 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
             mutationFunction={updateAuthor}
             onSuccess={onSuccess}
             onError={onError}
-            hasConfirmModal
             onCancel={onClose}>
             {({ values, onCancel }) => {
                 const labelStatus = values.isActive ? "Деактивировать" : "Активировать";

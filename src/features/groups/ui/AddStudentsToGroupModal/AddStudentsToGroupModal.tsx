@@ -1,4 +1,3 @@
-import { Box, BoxProps } from "@mantine/core";
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -7,19 +6,19 @@ import { UserFromList, userApi } from "@entities/user";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminStudentsRequest } from "./utils";
 
-export interface AddStudentsToGroupModalProps extends Omit<BoxProps, "children"> {
+export interface AddStudentsToGroupModalProps {
     groupId: string;
     courseId: number;
     onClose: () => void;
 }
 
-const AddStudentsToGroupModal = ({ groupId, courseId, onClose, ...props }: AddStudentsToGroupModalProps) => {
+const AddStudentsToGroupModal = ({ groupId, courseId, onClose }: AddStudentsToGroupModalProps) => {
     const [selected, setSelected] = useState<string[]>([]);
 
-    const attachStudentsToGroup = useAttachStudentsToGroup({ groupId });
+    const { mutate: attachStudentsToGroup, isLoading } = useAttachStudentsToGroup({ groupId });
 
     const handleSubmit = () => {
-        attachStudentsToGroup.mutate(
+        attachStudentsToGroup(
             { ids: selected.map((item) => Number(item)) },
             {
                 onSuccess: () => {
@@ -30,7 +29,7 @@ const AddStudentsToGroupModal = ({ groupId, courseId, onClose, ...props }: AddSt
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<UserFromList, unknown, AdminAddGroupStudentsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP}
                 queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
@@ -51,10 +50,11 @@ const AddStudentsToGroupModal = ({ groupId, courseId, onClose, ...props }: AddSt
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

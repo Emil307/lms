@@ -8,7 +8,7 @@ import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useUserRole } from "@entities/auth/hooks";
+import { useSession } from "@entities/auth/hooks";
 
 export interface ListMenuProps {
     row: MRT_Row<UserFromList>;
@@ -16,9 +16,9 @@ export interface ListMenuProps {
 
 const ListMenu = ({ row }: ListMenuProps) => {
     const router = useRouter();
-    const userRole = useUserRole();
+    const { user } = useSession();
 
-    const isRoleOrder = checkRoleOrder(userRole, row.original.roles[0].id) >= 0;
+    const isRoleOrder = checkRoleOrder(user?.roles[0].id, row.original.roles[0].id) >= 0;
     const userFullname = getFullName({ data: row.original.profile });
 
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id: String(row.original.id), fio: userFullname });
@@ -46,6 +46,25 @@ const ListMenu = ({ row }: ListMenuProps) => {
 
     const pushOnUserDetail = () => router.push({ pathname: "/admin/users/[id]", query: { id: String(row.original.id) } });
     const pushOnUserEdit = () => router.push({ pathname: "/admin/users/[id]/edit", query: { id: String(row.original.id) } });
+
+    if (user?.id === row.original.id) {
+        return (
+            <MenuDataGrid>
+                <MenuItemDataGrid onClick={pushOnUserDetail}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Eye />
+                    </ThemeIcon>
+                    Открыть
+                </MenuItemDataGrid>
+                <MenuItemDataGrid onClick={pushOnUserEdit}>
+                    <ThemeIcon w={16} h={16} color="primary">
+                        <Edit3 />
+                    </ThemeIcon>
+                    Редактировать
+                </MenuItemDataGrid>
+            </MenuDataGrid>
+        );
+    }
 
     if (!isRoleOrder) {
         return (

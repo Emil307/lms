@@ -21,6 +21,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     try {
         const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle({ id }));
 
+        if (!response.isAvailable) {
+            return {
+                redirect: {
+                    destination: "/articles",
+                    permanent: false,
+                },
+            };
+        }
         return {
             props: {
                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),

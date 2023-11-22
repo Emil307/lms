@@ -54,7 +54,7 @@ const AddLessonButton = ({ courseId, module, hidden }: AddLessonButtonProps) => 
             modalId: "LESSON_LIST",
             title: "Выбрать из базы уроков",
             size: 912,
-            mah: 912,
+            styles: () => ({ modal: { height: 860 } }),
             children: (
                 <LessonListModal
                     courseId={courseId}

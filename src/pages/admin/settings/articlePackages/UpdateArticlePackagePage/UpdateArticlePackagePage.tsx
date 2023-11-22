@@ -25,7 +25,7 @@ const UpdateArticlePackagePage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: articlePackageData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: articlePackageData.name })} mb={8} />
             <Heading mb={24}>{articlePackageData.name}</Heading>
             <UpdateArticlePackageForm data={articlePackageData} onClose={handleCancel} />
         </Box>

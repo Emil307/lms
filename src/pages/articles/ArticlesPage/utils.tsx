@@ -10,7 +10,7 @@ export const getBreadCrumbsItems = ({
     filterParams,
 }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => {
     if (!tab) {
-        return initialBreadCrumbsItems;
+        return [...initialBreadCrumbsItems.slice(0, -1), { title: initialBreadCrumbsItems.slice(-1)[0].title }];
     }
 
     if (tab !== "all") {
@@ -20,7 +20,6 @@ export const getBreadCrumbsItems = ({
             ...initialBreadCrumbsItems,
             {
                 title: tabInfo?.label || "",
-                href: { pathname: "/articles", query: { ...filterParams, tab } },
             },
         ];
     }
@@ -30,12 +29,11 @@ export const getBreadCrumbsItems = ({
             ...initialBreadCrumbsItems,
             {
                 title: categoryTitle,
-                href: { pathname: "/articles", query: { ...filterParams, tab } },
             },
         ];
     }
 
-    return initialBreadCrumbsItems;
+    return [...initialBreadCrumbsItems.slice(0, -1), { title: initialBreadCrumbsItems.slice(-1)[0].title }];
 };
 
 export const getTitle = ({ categoryId, tab, categoryName = "Без категории" }: GetTitleProps): PageTitle => {

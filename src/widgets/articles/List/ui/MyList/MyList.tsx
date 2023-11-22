@@ -5,6 +5,7 @@ import { ArticleAndArticleCategoryFiltersForm, ArticleFromList, useMyArticles } 
 import { Button, EmptyData, Loader, Paragraph } from "@shared/ui";
 import { Card as ArticleCard, Rating as ArticleRating, FavoriteButton } from "@features/articles";
 import { getPluralString } from "@shared/utils";
+import { ArticleTypes } from "@shared/constant";
 import { initialParams } from "./constants";
 import { adaptGetMyArticlesRequest } from "./utils";
 import useStyles from "./MyList.styles";
@@ -55,7 +56,7 @@ const MyList = ({ filterParams, ...props }: MyListProps) => {
                         actionSlot={
                             <>
                                 <ArticleRating {...props} />
-                                <FavoriteButton {...props} variant="compact" />
+                                <FavoriteButton {...props} variant="compact" articleType={ArticleTypes.MY_ARTICLE} />
                             </>
                         }
                     />

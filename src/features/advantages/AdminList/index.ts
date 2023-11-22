@@ -1,3 +1,3 @@
-import AdminList, { type AdminListProps } from "./AdminList";
+import AdminList from "./AdminList";
 
-export { AdminList, AdminListProps };
+export { AdminList };

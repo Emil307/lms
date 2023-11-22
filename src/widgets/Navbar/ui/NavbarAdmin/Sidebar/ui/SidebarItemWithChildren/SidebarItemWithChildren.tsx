@@ -6,7 +6,8 @@ import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import { useMedia } from "@shared/utils";
 import useStyles from "./SidebarItemWithChildren.styles";
 import SidebarItem, { SidebarItemProps } from "../SidebarItem/SidebarItem";
-import { SidebarAdminContext } from "../../utils";
+import { SidebarItemsWithChildrenContext } from "../../utils";
+import { SidebarMinimizedModeContext } from "../../../utils";
 
 interface SidebarItemWithChildrenProps extends Omit<SidebarItemProps, "href"> {
     children: ReactNode;
@@ -24,8 +25,8 @@ export default function SidebarItemWithChildren({
     const userRole = useUserRole();
     const lastElementRef = useRef<HTMLDivElement>(null);
 
-    const { isMinimizedModeSidebar, setIsMinimizedModeSidebar, activeSidebarItemsWithChildren, setActiveSidebarItemsWithChildren } =
-        useContext(SidebarAdminContext);
+    const { isMinimizedModeSidebar, setIsMinimizedModeSidebar } = useContext(SidebarMinimizedModeContext);
+    const { activeSidebarItemsWithChildren, setActiveSidebarItemsWithChildren } = useContext(SidebarItemsWithChildrenContext);
 
     const isTablet = useMedia("lg");
 

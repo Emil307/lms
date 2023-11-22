@@ -1,38 +1,65 @@
-import { REGEXP_FILE_EXTENSION } from "@shared/constant";
-import { UpdateUploadedFilesRequest } from "@entities/storage";
-import { CreateMaterialsDataForm } from "@features/materials";
-import { UploadedFile } from "@shared/types";
-import { MaterialFile, UpdateMaterialsFormValidation } from "./types";
+import { UpdateUploadedFilesRequest, UploadedFileFromList } from "@entities/storage";
+import { getArrayUniqueByKey } from "@shared/utils";
+import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY, MaterialFile } from "@features/materials/helpers";
+import { UpdateMaterialsFormValidation } from "./types";
 
 interface TGetInitialValues {
     sessionStorageData: CreateMaterialsDataForm | null;
-    data: MaterialFile[];
-    hasCategories?: boolean;
+    data?: UploadedFileFromList;
 }
 
-export const getInitialValues = ({
-    sessionStorageData,
-    data,
-    hasCategories = false,
-}: TGetInitialValues): UpdateMaterialsFormValidation => ({
-    files: data,
-    isBinding: hasCategories,
-    ...sessionStorageData,
-});
+export const getInitialValues = ({ sessionStorageData, data }: TGetInitialValues): UpdateMaterialsFormValidation => {
+    const materials = sessionStorageData?.materials || [];
+    const categoryIds = sessionStorageData?.categoryIds || [];
+    const isBinding = !!sessionStorageData?.isBinding;
 
-export const adaptUpdateMaterialsInitialValues = (data: UploadedFile[]): Partial<UpdateMaterialsFormValidation> => {
+    if (data) {
+        const { id, name, extension, categories } = data;
+        const initialValues = {
+            isBinding: isBinding || !!categories.length,
+            categoryIds: categoryIds.length ? categoryIds : categories.map((category) => String(category.id)),
+            materials: materials.length
+                ? materials.map((material) => ({ ...material, name: material.name.replace(new RegExp(`.${material.extension}$`), "") }))
+                : [{ id, name: name.replace(new RegExp(`.${extension}$`), ""), extension }],
+        };
+        sessionStorage.setItem(MATERIALS_LOCAL_STORAGE_KEY, JSON.stringify({ ...sessionStorageData, ...initialValues }));
+        return initialValues;
+    }
+
+    const files = sessionStorageData?.files || [];
+
+    if (!files.length) {
+        return {
+            isBinding: false,
+            categoryIds: [],
+            materials: [],
+        };
+    }
+
+    const objectFiles = files.reduce(
+        (prev, { id, name, extension }) => ({ ...prev, [id]: { id, name, extension } }),
+        {} as { [key: number]: MaterialFile }
+    );
+    const filesArr = files.map(({ id, name, extension }) => ({ id, name: name.replace(new RegExp(`.${extension}$`), ""), extension }));
+
+    const materialValues = materials.reduce((prev, curr) => {
+        if (objectFiles[curr.id]) {
+            return [...prev, curr];
+        }
+        return prev;
+    }, [] as MaterialFile[]);
+
     return {
-        files: data.map((file) => ({ id: file.id, name: file.name.replace(REGEXP_FILE_EXTENSION, ""), extension: file.extension })),
+        isBinding,
+        categoryIds,
+        materials: getArrayUniqueByKey(materialValues.concat(filesArr), "id"),
     };
 };
 
-export const adaptUpdateMaterialsFormRequest = (
-    data: UpdateMaterialsFormValidation,
-    categoryIds?: string[]
-): UpdateUploadedFilesRequest => {
-    const isBinding = data.isBinding && !!categoryIds?.length;
+export const adaptUpdateMaterialsFormRequest = (data: UpdateMaterialsFormValidation): UpdateUploadedFilesRequest => {
+    const isBinding = data.isBinding && !!data.categoryIds.length;
     return {
-        files: data.files.map(({ id, name }) => ({ id, name })),
-        categoryIds: isBinding ? categoryIds.map((id) => Number(id)) : [],
+        files: data.materials.map(({ id, name, extension }) => ({ id, name: `${name}.${extension}` })),
+        categoryIds: isBinding ? data.categoryIds.map((id) => Number(id)) : [],
     };
 };

@@ -7,5 +7,5 @@ interface TGetBreadCrumbsItemsProps {
 export const getBreadCrumbsItems = ({ title = "" }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Главная страница", href: { pathname: "/" } },
     { title: "Курсы", href: { pathname: "/courses" } },
-    { title, href: { pathname: "/course-collections" } },
+    { title },
 ];

@@ -11,9 +11,19 @@ export interface AdminMessageListProps extends Omit<FlexProps, "onSelect"> {
     conversation: AdminSupportConversationFromList | null;
     variant?: "default" | "reverse";
     maxHeightContainer: number;
+    scrollAfterSendMessage: boolean;
+    setScrollAfterSendMessage: (value: boolean) => void;
 }
 
-const AdminMessageList = ({ conversation, variant, maxHeightContainer, children, ...props }: AdminMessageListProps) => {
+const AdminMessageList = ({
+    conversation,
+    variant,
+    maxHeightContainer,
+    scrollAfterSendMessage,
+    setScrollAfterSendMessage,
+    children,
+    ...props
+}: AdminMessageListProps) => {
     const { classes } = useStyles({ variant });
     const containerRef = useRef<HTMLDivElement>(null);
     const {
@@ -28,8 +38,14 @@ const AdminMessageList = ({ conversation, variant, maxHeightContainer, children,
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
-    }, [isLoading]);
+        if (!messagesData?.data) {
+            return;
+        }
+        if (scrollAfterSendMessage) {
+            containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
+            setScrollAfterSendMessage(false);
+        }
+    }, [messagesData?.data]);
 
     useEffect(() => {
         if (!isLoading && entry && entry.isIntersecting && hasNextPage) {

@@ -19,6 +19,7 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
                     loader={({ src, width }) => `${src}?w=${width}`}
                     fill
                     sizes="100vw"
+                    priority
                     quality={100}
                     style={{
                         objectFit: "cover",

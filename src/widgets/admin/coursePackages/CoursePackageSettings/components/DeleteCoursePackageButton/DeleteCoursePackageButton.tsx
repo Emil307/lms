@@ -1,6 +1,7 @@
 import { ActionIcon } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Trash } from "react-feather";
+import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { DeleteCoursePackageModal } from "@features/coursePackages";
 import { AdminCoursePackageDetails } from "@entities/coursePackage";
@@ -11,15 +12,31 @@ export interface DeleteCoursePackageButtonProps {
 }
 
 const DeleteCoursePackageButton = ({ data }: DeleteCoursePackageButtonProps) => {
+    const router = useRouter();
+
     const isMobile = useMedia("sm");
 
-    const handleCloseDeleteModal = () => closeModal("DELETE_COURSE_PACKAGE");
+    const closeDeleteModal = () => {
+        closeModal("DELETE_COURSE_PACKAGE");
+    };
+
+    const handleSuccessDelete = () => {
+        closeDeleteModal();
+        router.push("/admin/settings/course-packages");
+    };
 
     const openDeleteModal = () => {
         openModal({
             modalId: "DELETE_COURSE_PACKAGE",
             title: "Удаление пакета",
-            children: <DeleteCoursePackageModal id={String(data?.id)} name={data?.name} onClose={handleCloseDeleteModal} />,
+            children: (
+                <DeleteCoursePackageModal
+                    id={String(data?.id)}
+                    name={data?.name}
+                    onSuccess={handleSuccessDelete}
+                    onCancel={closeDeleteModal}
+                />
+            ),
         });
     };
 

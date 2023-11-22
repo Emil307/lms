@@ -25,7 +25,7 @@ const UpdateStaticReviewPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: data.content, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: data.content })} mb={8} />
             <Heading>{data.content}</Heading>
             <UpdateStaticReviewForm data={data} onClose={handleCloseForm} mt={24} />
         </Box>

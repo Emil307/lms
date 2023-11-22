@@ -40,7 +40,7 @@ const List = ({
     } = useGroups(adaptGetGroupsRequest({ ...initialParams, ...params, perPage }), visible);
 
     const renderContent = () => {
-        if (!isLoading && !coursesData?.data.length && !!Object.values(params).find((param) => !!param)) {
+        if (!isLoading && !coursesData?.data.length) {
             return <EmptyData title="Такого пока нет. Попробуете выбрать другую вкладку" description="" />;
         }
 

@@ -4,12 +4,13 @@ import { ArticleWithMeta } from "@entities/article";
 import { FavoriteButton, Rating } from "@features/articles";
 import { Heading, Paragraph } from "@shared/ui";
 import { useMedia } from "@shared/utils";
+import { ArticleTypes } from "@shared/constant";
 import { Pagination, TagList } from "./components";
 import useStyles from "./MainInfoPanelNavigated.styles";
 
 export interface MainInfoPanelNavigatedProps extends Omit<FlexProps, "children"> {
     articleData: ArticleWithMeta;
-    type: "favorite" | "my-articles" | "by-category";
+    type: Exclude<ArticleTypes, ArticleTypes.BY_COURSE>;
 }
 
 const MainInfoPanelNavigated = ({ articleData: { data, meta }, type, ...props }: MainInfoPanelNavigatedProps) => {
@@ -33,7 +34,7 @@ const MainInfoPanelNavigated = ({ articleData: { data, meta }, type, ...props }:
                 </Flex>
                 <Flex gap={8}>
                     <Rating data={data} />
-                    <FavoriteButton data={data} variant={variantFavoriteButton} />
+                    <FavoriteButton data={data} variant={variantFavoriteButton} articleType={type} />
                 </Flex>
             </Flex>
             <TagList data={data.tags} />

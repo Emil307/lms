@@ -1,19 +1,17 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((_theme) => ({
+export default createStyles((theme) => ({
     root: {
-        display: "flex",
         flexDirection: "column",
         gap: 32,
         height: "100%",
-        padding: "24px !important",
+        padding: 24,
         borderRadius: 16,
+        backgroundColor: theme.colors.white[0],
     },
-    section: {
-        display: "flex",
+    contentSectionWrapper: {
         flex: 1,
         flexDirection: "column",
-        margin: "0px !important",
         gap: 16,
     },
 }));

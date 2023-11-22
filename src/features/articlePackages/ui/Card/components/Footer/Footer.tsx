@@ -1,4 +1,4 @@
-import { Card as MCard, Text, Flex } from "@mantine/core";
+import { Text, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
@@ -40,7 +40,7 @@ const Footer = ({ data }: FooterProps) => {
     };
 
     return (
-        <MCard.Section className={classes.root}>
+        <Flex className={classes.root}>
             <Flex direction="column" gap={6}>
                 <Flex gap={8}>
                     <IconStarFour />
@@ -56,7 +56,7 @@ const Footer = ({ data }: FooterProps) => {
             <Button onClick={handleClickButton} w="min-content">
                 Получить доступ
             </Button>
-        </MCard.Section>
+        </Flex>
     );
 };
 

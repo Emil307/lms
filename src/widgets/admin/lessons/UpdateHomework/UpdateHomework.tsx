@@ -86,7 +86,6 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
             mutationFunction={updateHomework}
             onSuccess={onSuccessUpdate}
             onError={onError}
-            hasConfirmModal
             validateOnChange={false}
             onCancel={onClose}>
             {({ values, onCancel }) => (

@@ -70,7 +70,6 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                 ]}
                 mutationFunction={updateStaticReview}
                 onSuccess={onSuccess}
-                hasConfirmModal
                 onCancel={onClose}
                 onError={onError}>
                 {({ values, onCancel }) => {
@@ -83,7 +82,7 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                     <Paragraph variant="text-small-m" color="gray45">
                                         ID:
                                     </Paragraph>
-                                    <Paragraph variant="text-small-m">{data?.id}</Paragraph>
+                                    <Paragraph variant="text-small-m">{data.id}</Paragraph>
                                 </Flex>
                                 <Flex align="center" gap={8}>
                                     <Paragraph variant="text-small-m" color="gray45">
@@ -96,10 +95,10 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                         Создание:
                                     </Paragraph>
                                     <Paragraph variant="text-small-m">
-                                        {data?.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
+                                        {data.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
                                     </Paragraph>
                                 </Flex>
-                                <LastUpdatedInfo data={data?.lastUpdated} />
+                                <LastUpdatedInfo data={data.lastUpdated} />
                             </Flex>
                             <FFileInput
                                 name="preview"
@@ -133,12 +132,12 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                 />
                             </Fieldset>
 
-                            <Box component="fieldset" className={classes.fieldset} maw={512}>
-                                <Box component="legend" className={classes.legend}>
+                            <Flex className={classes.fieldset} maw={512}>
+                                <Flex className={classes.fieldsetHeading}>
                                     <User />
                                     <Heading order={4}>Карточка автора</Heading>
                                     <FSwitch variant="secondary" name="authorIsActive" />
-                                </Box>
+                                </Flex>
                                 {values.authorIsActive && (
                                     <Flex direction="column" gap={24}>
                                         <FAvatarInput
@@ -162,7 +161,7 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                         </Flex>
                                     </Flex>
                                 )}
-                            </Box>
+                            </Flex>
                             <FControlButtons onClose={onCancel} />
                         </Flex>
                     );

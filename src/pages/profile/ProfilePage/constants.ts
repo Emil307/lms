@@ -5,7 +5,7 @@ import { getFullName } from "@shared/utils";
 
 export const breadCrumbsItems: TBreadCrumbItem[] = [
     { title: "Мой профиль", href: { pathname: "/cabinet" } },
-    { title: "Настройки профиля", href: { pathname: "/profile" } },
+    { title: "Настройки профиля" },
 ];
 
 export const fields: TInfoCardDisplayFields<User> = [

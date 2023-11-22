@@ -5,7 +5,7 @@ export type CreateArticlePackageFormValidation = z.infer<typeof $CreateArticlePa
 
 export const $CreateArticlePackageFormValidation = z
     .object({
-        name: z.string({ required_error: "Введите наименование" }),
+        name: z.string({ required_error: "Введите наименование" }).max(128, "Не более 128 символов"),
         categories: z.string().array().min(1, "Выберите категории"),
         tags: z.string().array().min(1, "Выберите теги"),
         price: z
@@ -16,7 +16,7 @@ export const $CreateArticlePackageFormValidation = z
             .refine((value) => value !== null, {
                 message: "Введите стоимость",
             }),
-        description: z.string({ required_error: "Введите описание" }),
+        description: z.string({ required_error: "Введите описание" }).max(1024, "Не более 1024 символов"),
         isActive: z.boolean(),
         hasDiscount: z.boolean(),
         discount: z.object({

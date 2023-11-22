@@ -43,7 +43,7 @@ const CoursePackageDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ packageName: coursePackageData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ packageName: coursePackageData.name })} mb={8} />
             <Heading mb={24}>{coursePackageData.name}</Heading>
             <InfoPanel id={id} mb={24} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />

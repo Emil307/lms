@@ -61,6 +61,10 @@ export default createStyles((theme) => ({
         borderRadius: 16,
         backgroundColor: theme.colors.grayLight[0],
 
+        img: {
+            objectFit: "cover",
+        },
+
         [theme.fn.smallerThan("md")]: {
             width: 350,
             height: 215,

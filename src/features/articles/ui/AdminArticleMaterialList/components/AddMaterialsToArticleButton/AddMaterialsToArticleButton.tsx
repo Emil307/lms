@@ -24,7 +24,7 @@ const AddMaterialsToArticleButton = ({ articleId, hidden }: AddMaterialsToArticl
             title: "Добавить материалы",
             children: <AddMaterialsToArticleModal articleId={articleId} onClose={handleCloseAddMaterialsToArticleModal} />,
             size: 912,
-            className: classes.addMaterialsToArticleModalWrapper,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

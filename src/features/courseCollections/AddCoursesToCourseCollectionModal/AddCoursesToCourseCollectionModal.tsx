@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -8,20 +8,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import useStyles from "./AddCoursesToCourseCollectionModal.styles";
 
-export interface AddCoursesToCourseCollectionModalProps extends Omit<BoxProps, "children"> {
+export interface AddCoursesToCourseCollectionModalProps {
     courseCollectionId: string;
     onClose: () => void;
 }
 
-const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose, ...props }: AddCoursesToCourseCollectionModalProps) => {
+const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose }: AddCoursesToCourseCollectionModalProps) => {
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const courseResources = useAdminCourseResources({ type: "select" });
-    const attachCoursesToCourseCollection = useAdminAttachCoursesToCourseCollection({ courseCollectionId });
+    const { mutate: attachCoursesToCourseCollection, isLoading } = useAdminAttachCoursesToCourseCollection({ courseCollectionId });
 
     const handleSubmit = () => {
-        attachCoursesToCourseCollection.mutate(
+        attachCoursesToCourseCollection(
             { ids: selected },
             {
                 onSuccess: () => {
@@ -32,7 +32,7 @@ const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose, ...pro
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesForCourseCollectionFiltersForm, AdminCoursesFromCourseCollectionExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_NO_COURSE_COLLECTION}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
@@ -124,10 +124,11 @@ const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose, ...pro
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

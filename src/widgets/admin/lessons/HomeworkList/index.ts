@@ -1,3 +1,3 @@
-import HomeworkList, { type HomeworkListProps } from "./HomeworkList";
+import HomeworkList from "./HomeworkList";
 
-export { HomeworkList, HomeworkListProps };
+export { HomeworkList };

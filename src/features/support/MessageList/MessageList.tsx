@@ -10,9 +10,18 @@ import useStyles from "./MessageList.styles";
 export interface MessageListProps extends Omit<FlexProps, "onSelect"> {
     variant?: "default" | "reverse";
     maxHeightContainer: number;
+    scrollAfterSendMessage: boolean;
+    setScrollAfterSendMessage: (value: boolean) => void;
 }
 
-const MessageList = ({ variant, maxHeightContainer, children, ...props }: MessageListProps) => {
+const MessageList = ({
+    variant,
+    maxHeightContainer,
+    scrollAfterSendMessage,
+    setScrollAfterSendMessage,
+    children,
+    ...props
+}: MessageListProps) => {
     const { classes } = useStyles({ variant });
     const containerRef = useRef<HTMLDivElement>(null);
     const { data: messagesData, hasNextPage, fetchNextPage, isLoading, isFetching, isRefetching } = useSupportMessages(initialParams);
@@ -20,8 +29,14 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
-    }, [isLoading, isFetching]);
+        if (!messagesData?.data) {
+            return;
+        }
+        if (scrollAfterSendMessage) {
+            containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
+            setScrollAfterSendMessage(false);
+        }
+    }, [messagesData?.data]);
 
     useEffect(() => {
         if (!isLoading && entry && entry.isIntersecting && hasNextPage) {
@@ -30,25 +45,12 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
     }, [entry]);
 
     const renderContent = useMemo(
-        () => (
-            <ScrollArea.Autosize
-                maxHeight={maxHeightContainer}
-                style={{ height: "100%", width: "100%" }}
-                sx={{ "> div": { justifyContent: "flex-end" } }}
-                type="auto"
-                offsetScrollbars
-                scrollbarSize={4}>
-                {(isFetching || isRefetching) && <Loader />}
-                <Flex className={classes.messageContainer}>
-                    {messagesData?.data.reverse().map((message, index) => (
-                        <Box key={message.id} ref={index === 0 ? lastElemRef : null}>
-                            <MessageItem data={message} w="fit-content" />
-                        </Box>
-                    ))}
-                </Flex>
-                <Box ref={containerRef} />
-            </ScrollArea.Autosize>
-        ),
+        () =>
+            messagesData?.data.reverse().map((message, index) => (
+                <Box key={message.id} ref={index === 0 ? lastElemRef : null}>
+                    <MessageItem data={message} w="fit-content" />
+                </Box>
+            )),
         [messagesData]
     );
 
@@ -58,7 +60,21 @@ const MessageList = ({ variant, maxHeightContainer, children, ...props }: Messag
 
     return (
         <Flex className={classes.root} {...props}>
-            {!messagesData?.data.length ? <EmptyBlock /> : renderContent}
+            {!messagesData?.data.length ? (
+                <EmptyBlock />
+            ) : (
+                <ScrollArea.Autosize
+                    maxHeight={maxHeightContainer}
+                    style={{ height: "100%", width: "100%" }}
+                    sx={{ "> div": { justifyContent: "flex-end" } }}
+                    type="auto"
+                    offsetScrollbars
+                    scrollbarSize={4}>
+                    {(isFetching || isRefetching) && <Loader />}
+                    <Flex className={classes.messageContainer}>{renderContent}</Flex>
+                    <Box ref={containerRef} />
+                </ScrollArea.Autosize>
+            )}
             {children}
         </Flex>
     );

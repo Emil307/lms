@@ -43,7 +43,7 @@ const CourseCollectionDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name })} mb={8} />
             <Heading mb={32}>{courseCollectionData.name}</Heading>
             <InfoPanel id={id} mb={32} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />

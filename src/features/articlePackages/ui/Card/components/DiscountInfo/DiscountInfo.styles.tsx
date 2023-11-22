@@ -2,8 +2,6 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        display: "flex",
-        margin: "0px !important",
         gap: 8,
     },
 

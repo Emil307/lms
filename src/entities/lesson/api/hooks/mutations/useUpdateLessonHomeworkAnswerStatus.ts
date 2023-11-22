@@ -22,6 +22,8 @@ export const useUpdateLessonHomeworkAnswerStatus = (
 
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWER, data.id]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUP_STUDENT_STATISTICS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_STATISTICS]);
             },
             onError: () => {
                 createNotification({

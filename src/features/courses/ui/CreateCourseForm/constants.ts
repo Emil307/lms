@@ -22,7 +22,6 @@ export const initialValues: CreateCourseFormValues = {
     price: 0,
     isInteractive: false,
     isActive: false,
-    isDemonstrative: false,
     isPopular: false,
     hasAuthors: false,
     authorIds: [],

@@ -8,7 +8,7 @@ import { FavoriteArticleDetailsPage } from "@pages/articles";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { ArticleApi } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { ArticleTypes, QueryKeys } from "@shared/constant";
 import { UserPage } from "@components/UserPage";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -19,7 +19,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articleApi = new ArticleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "favorite", id], () => articleApi.getFavoriteArticle({ id }));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, ArticleTypes.FAVORITE, id], () =>
+            articleApi.getFavoriteArticle({ id })
+        );
+
+        if (!response.data.isAvailable) {
+            return {
+                redirect: {
+                    destination: "/articles?tab=favorite",
+                    permanent: false,
+                },
+            };
+        }
 
         return {
             props: {

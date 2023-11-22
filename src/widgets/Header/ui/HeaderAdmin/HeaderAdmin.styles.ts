@@ -13,7 +13,7 @@ export default createStyles((theme) => ({
         padding: "16px 24px",
         border: "none",
         backgroundColor: theme.colors.light[0],
-        zIndex: 999,
+        zIndex: 399,
 
         [theme.fn.smallerThan("md")]: {
             maxHeight: 82,

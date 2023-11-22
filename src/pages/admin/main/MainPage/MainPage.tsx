@@ -43,8 +43,8 @@ const MainPage = () => {
     };
 
     return (
-        <Box>
-            <Box className={classes.wrapper}>
+        <Flex className={classes.root}>
+            <Box className={classes.wrapperImage}>
                 <Image
                     src={backgroundImage}
                     alt="background"
@@ -54,9 +54,9 @@ const MainPage = () => {
                         borderRadius: 12,
                     }}
                 />
-                {renderContent()}
             </Box>
-        </Box>
+            {renderContent()}
+        </Flex>
     );
 };
 

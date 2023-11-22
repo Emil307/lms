@@ -73,8 +73,8 @@ export const $AdminUploadedFile = z.object({
     }),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
-    categories: $AdminUploadedFileCategory.array(),
-}); //.partial({ type: true, isActive: true, createdAt: true,});
+    categories: z.array($AdminUploadedFileCategory),
+});
 
 export const $GetAdminUploadedFileResponse = $AdminUploadedFile;
 
@@ -87,7 +87,12 @@ export const $UploadFileRequest = z.object({
 
 export const $UploadedFileFromList = $AdminUploadedFile.merge(
     z.object({
-        categories: z.object({ name: z.string() }).array(),
+        categories: z.array(
+            z.object({
+                id: z.number(),
+                name: z.string(),
+            })
+        ),
     })
 );
 

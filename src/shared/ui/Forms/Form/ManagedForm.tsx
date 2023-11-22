@@ -21,7 +21,6 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
     initialValues: FormikConfig<F>["initialValues"];
     validationSchema?: FormikConfig<F>["validationSchema"];
     validateOnChange?: boolean;
-    hasConfirmModal?: boolean;
     disabledLoadingOnSuccess?: boolean;
     children: React.ReactNode | ((props: FormikProps<F> & { onCancel: () => void; isLoading: boolean }) => React.ReactNode);
 }

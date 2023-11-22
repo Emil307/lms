@@ -125,7 +125,7 @@ const Question = ({
                     </Flex>
                 </Flex>
                 <FastField name={`${name}.content`}>
-                    {(props: FastFieldProps<string>) => <FInput {...props.field} label="Вопрос" w="100%" />}
+                    {(props: FastFieldProps<string>) => <FInput {...props.field} label="Вопрос" w="100%" disableValidation />}
                 </FastField>
             </Flex>
             {answers.length > 0 && (

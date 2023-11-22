@@ -88,7 +88,7 @@ const MyCourseDetailsPage = () => {
 
     return (
         <Flex direction="column" gap={32}>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name, id })} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name })} />
 
             <Flex direction="column" gap={16}>
                 <MainInfoPanel data={groupData} />

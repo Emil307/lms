@@ -66,7 +66,6 @@ const UpdateTransactionForm = ({ data, onClose, ...props }: UpdateTransactionFor
                 mutationFunction={updateTransaction}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal
                 onCancel={onClose}>
                 {({ values, onCancel, setFieldValue }) => {
                     const resetEntitySelect = () => {

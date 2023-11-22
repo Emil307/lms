@@ -1,5 +1,5 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { BreadCrumbs, Heading } from "@shared/ui";
 import { AccordionList as FaqAccordionList } from "@features/faq";
 import IconMessageDots from "public/icons/messageDots.svg";
@@ -9,6 +9,9 @@ import useStyles from "./SupportPage.styles";
 
 const SupportPage = () => {
     const { classes } = useStyles();
+
+    const [scrollAfterSendMessage, setScrollAfterSendMessage] = useState<boolean>(true);
+
     return (
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={8} />
@@ -25,8 +28,12 @@ const SupportPage = () => {
                     <Heading order={3} lineClamp={1} className={classes.chatHeader}>
                         Задать вопрос поддержке
                     </Heading>
-                    <MessageList maxHeightContainer={336} h={478}>
-                        <CreateMessageForm pt={24} />
+                    <MessageList
+                        scrollAfterSendMessage={scrollAfterSendMessage}
+                        setScrollAfterSendMessage={setScrollAfterSendMessage}
+                        maxHeightContainer={336}
+                        h={478}>
+                        <CreateMessageForm setScrollAfterSendMessage={setScrollAfterSendMessage} pt={24} />
                     </MessageList>
                 </Box>
             </Flex>

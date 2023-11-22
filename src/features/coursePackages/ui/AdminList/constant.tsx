@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { AdminCoursePackageFromList, AdminCoursePackagesFiltersForm } from "@entities/coursePackage";
-import { Paragraph } from "@shared/ui";
+import { Paragraph, Tooltip } from "@shared/ui";
 import { TColumns } from "@shared/ui/DataGrid/types";
 
 export const radioGroupValues = [
@@ -69,20 +69,32 @@ export const columns: TColumns<AdminCoursePackageFromList> = [
         header: "Скидка действует",
         accessorKey: "discount.finishingDate",
         size: 226,
+        hideTooltip: true,
         Cell: ({ row }) => {
+            const startDate = row.original.discount?.startingDate
+                ? dayjs(row.original.discount.startingDate).format("DD.MM.YYYY")
+                : undefined;
+            const finishDate = row.original.discount?.finishingDate
+                ? dayjs(row.original.discount.finishingDate).format("DD.MM.YYYY")
+                : undefined;
+            let resultString = "";
+            if (!startDate && finishDate) {
+                return undefined;
+            }
+            if (startDate) {
+                resultString += `с ${startDate} `;
+            }
+            if (finishDate) {
+                resultString += `до ${finishDate}`;
+            }
+
             return (
-                <Flex direction="column">
-                    {row.original.discount?.startingDate && (
-                        <Paragraph variant="text-small-m" lineClamp={1}>{`с ${dayjs(row.original.discount.startingDate).format(
-                            "DD.MM.YYYY"
-                        )}`}</Paragraph>
-                    )}
-                    {row.original.discount?.finishingDate && (
-                        <Paragraph variant="text-caption" color="gray45" lineClamp={1}>{`до ${dayjs(
-                            row.original.discount.finishingDate
-                        ).format("DD.MM.YYYY")}`}</Paragraph>
-                    )}
-                </Flex>
+                <Tooltip label={resultString}>
+                    <Flex direction="column">
+                        {startDate && <Paragraph variant="text-small-m" lineClamp={1}>{`с ${startDate}`}</Paragraph>}
+                        {finishDate && <Paragraph variant="text-caption" color="gray45" lineClamp={1}>{`до ${finishDate}`}</Paragraph>}
+                    </Flex>
+                </Tooltip>
             );
         },
     },

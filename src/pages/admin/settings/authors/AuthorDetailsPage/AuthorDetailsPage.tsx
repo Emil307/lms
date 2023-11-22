@@ -24,7 +24,7 @@ const AuthorDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ authorName, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ authorName })} mb={8} />
             <Heading mb={24}>{authorName}</Heading>
             <InfoPanel id={id} mb={32} />
             <AuthorSettings id={id} />

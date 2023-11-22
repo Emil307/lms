@@ -9,6 +9,7 @@ export default createStyles((theme, { statusType }: CreateStylesProps) => ({
     heading: {
         gap: 48,
         alignItems: "center",
+        marginBottom: 32,
 
         [theme.fn.smallerThan("xs")]: {
             justifyContent: "space-between",

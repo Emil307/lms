@@ -5,20 +5,30 @@ import { queryClient } from "@app/providers";
 import {
     GetAdminArticlePackageResponse,
     GetAdminArticlePackagesResponse,
+    UpdateArticlePackageActivityRequest,
     UpdateArticlePackageActivityResponse,
     articlePackageApi,
 } from "@entities/articlePackage";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
-export const useUpdateArticlePackageActivity = (
-    id: string
-): UseMutationResult<UpdateArticlePackageActivityResponse, AxiosError<FormErrorResponse>, boolean, unknown> => {
+interface UseUpdateArticlePackageActivityProps extends Pick<UpdateArticlePackageActivityRequest, "id"> {
+    name: string;
+}
+
+export const useUpdateArticlePackageActivity = ({
+    id,
+    name,
+}: UseUpdateArticlePackageActivityProps): UseMutationResult<
+    UpdateArticlePackageActivityResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<UpdateArticlePackageActivityRequest, "id">
+> => {
     return useMutation(
         [MutationKeys.UPDATE_ARTICLE_PACKAGE_ACTIVITY],
-        (isActive: boolean) => articlePackageApi.updateArticlePackageActivity({ id, isActive }),
+        (data) => articlePackageApi.updateArticlePackageActivity({ ...data, id }),
         {
-            onMutate: async (updatedStatus) => {
+            onMutate: async ({ isActive }) => {
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id] });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] });
 
@@ -32,7 +42,7 @@ export const useUpdateArticlePackageActivity = (
 
                 queryClient.setQueryData<GetAdminArticlePackageResponse>(
                     [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id],
-                    (previousData) => previousData && { ...previousData, isActive: updatedStatus }
+                    (previousData) => previousData && { ...previousData, isActive }
                 );
 
                 queryClient.setQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES], (previousData) => {
@@ -43,7 +53,7 @@ export const useUpdateArticlePackageActivity = (
                     return {
                         ...previousData,
                         data: previousData.data.map((articlePackage) =>
-                            String(articlePackage.id) === id ? { ...articlePackage, isActive: updatedStatus } : articlePackage
+                            String(articlePackage.id) === id ? { ...articlePackage, isActive } : articlePackage
                         ),
                     };
                 });
@@ -66,21 +76,13 @@ export const useUpdateArticlePackageActivity = (
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES]);
             },
-            onSuccess: () => {
-                const articlePackageData = queryClient.getQueryData<GetAdminArticlePackageResponse>([
-                    QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
-                    id,
-                ]);
-                const articlePackageFromList = queryClient
-                    .getQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES])?.[0]?.[1]
-                    ?.data.find((articlePackage) => articlePackage.id.toString() === id);
-
-                const statusMessage = articlePackageData?.isActive || articlePackageFromList?.isActive ? "активирован" : "деактивирован";
+            onSuccess: ({ isActive }) => {
+                const statusMessage = isActive ? "активирован" : "деактивирован";
 
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Пакет статей "${articlePackageData?.name || articlePackageFromList?.name}" ${statusMessage}.`,
+                    message: `Пакет статей "${name}" ${statusMessage}.`,
                 });
             },
         }

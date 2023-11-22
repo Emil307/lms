@@ -12,9 +12,10 @@ import useStyles from "./CreateAdminMessageForm.styles";
 
 export interface CreateAdminMessageFormProps extends BoxProps {
     conversationId?: number;
+    setScrollAfterSendMessage: (value: boolean) => void;
 }
 
-const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessageFormProps) => {
+const CreateAdminMessageForm = ({ conversationId, setScrollAfterSendMessage, ...props }: CreateAdminMessageFormProps) => {
     const { classes } = useStyles();
 
     const onSuccess = (
@@ -22,6 +23,7 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
         { resetForm }: Omit<FormikHelpers<CreateAdminMessageFormValidation>, "setFieldError">
     ) => {
         resetForm();
+        setScrollAfterSendMessage(true);
         createNotification({
             type: ToastType.SUCCESS,
             title: "Сообщение успешно отправлено",
@@ -47,6 +49,7 @@ const CreateAdminMessageForm = ({ conversationId, ...props }: CreateAdminMessage
                 mutationKey={[MutationKeys.CREATE_ADMIN_SUPPORT_MESSAGE]}
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] }]}
                 mutationFunction={(values) => supportApi.createAdminSupportMessage({ ...values, conversationId })}
+                disabledLoadingOnSuccess
                 onSuccess={onSuccess}
                 onError={onError}>
                 {({ dirty }) => {

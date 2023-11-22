@@ -108,6 +108,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}
+            inputFormat="DD.MM.YYYY"
         />
     );
 });

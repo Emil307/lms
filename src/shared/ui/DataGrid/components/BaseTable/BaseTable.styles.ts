@@ -43,8 +43,12 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
     },
     tableContainer: {
         borderRadius: 8,
+        minHeight: 0,
     },
     paper: {
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
         border: "none",
         boxShadow: "none",
     },

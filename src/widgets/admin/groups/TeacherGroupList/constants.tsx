@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { AdminGroupFromList } from "@entities/group";
-import useStyles from "./TeacherGroupList.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import useStyles from "./TeacherGroupList.styles";
 
 export const columnOrder = ["id", "name", "createdAt", "category.name", "isActive"];
 

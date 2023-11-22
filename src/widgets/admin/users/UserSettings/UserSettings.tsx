@@ -8,7 +8,7 @@ import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { useDetailsUser } from "@entities/user";
 import { ChangeUserPasswordForm } from "@features/users";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useUserRole } from "@entities/auth/hooks";
+import { useSession } from "@entities/auth/hooks";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
@@ -25,10 +25,10 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
     const router = useRouter();
     const { classes } = useSettingUserStyles();
     const { data } = useDetailsUser(id);
-    const userRole = useUserRole();
+    const { user } = useSession();
     const { mutate: updateNotification } = useUpdateAdminUserNotification(id);
 
-    const isRoleOrder = checkRoleOrder(userRole, data?.roles[0].id) > -1;
+    const isRoleOrder = checkRoleOrder(user?.roles[0].id, data?.roles[0].id) > -1;
 
     const dataProfile = {
         fio: getFullName({ data: data?.profile }),
@@ -78,7 +78,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
-                    <DeleteUserButton data={data} hidden={!isRoleOrder} />
+                    <DeleteUserButton data={data} hidden={!isRoleOrder || user?.id === data?.id} />
                 </Flex>
                 <Fieldset label="Личные данные" icon={<UserIcon />}>
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
@@ -98,8 +98,8 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                                 <Flex direction="column" gap={4} maw={376}>
                                     <Image radius="lg" src={data.profile.additionalImage.absolutePath} alt="User" />
                                     <Flex gap={4} align="center">
-                                        <ThemeIcon size={16} color="primaryHover">
-                                            <Info />
+                                        <ThemeIcon color="primaryHover">
+                                            <Info size={16} />
                                         </ThemeIcon>
                                         <Paragraph variant="text-smaller">Рекомендуемый размер изображения: 376х220 px</Paragraph>
                                     </Flex>

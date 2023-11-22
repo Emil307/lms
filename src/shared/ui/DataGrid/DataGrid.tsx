@@ -4,6 +4,7 @@ import { FormikValues } from "formik";
 import { EmptyData, EmptyDataProps } from "@shared/ui";
 import { TMetaProps } from "@shared/ui/DataGrid/types";
 import { BaseTable, Filter, CountData, TBaseTableProps, TFilterProps, SelectedRowsCount, MetaData } from "./components";
+import useStyles from "./DataGrid.styles";
 
 type TExtendedProps<T extends Record<string, any>, M extends Record<string, any>, F extends FormikValues = FormikValues> = Omit<
     TBaseTableProps<T>,
@@ -32,6 +33,8 @@ function DataGrid<T extends Record<string, any>, M extends Record<string, any>, 
     collapsedFiltersBlockProps,
     ...rest
 }: TDataGridProps<T, M, F>) {
+    const { classes } = useStyles();
+
     const renderContent = () => {
         if (defaultBlock && isEmptyFilter) {
             return (
@@ -42,7 +45,7 @@ function DataGrid<T extends Record<string, any>, M extends Record<string, any>, 
         }
         return (
             <>
-                <Flex gap={16} justify="space-between" mt={32} wrap="wrap">
+                <Flex gap={16} justify="space-between" wrap="wrap">
                     <Flex gap={12} wrap="wrap">
                         <CountData countName={countName} pagination={pagination} />
                         <MetaData<M> meta={meta} displayMeta={displayMeta?.leftSide} />
@@ -54,7 +57,7 @@ function DataGrid<T extends Record<string, any>, M extends Record<string, any>, 
                         )}
                     </Flex>
                 </Flex>
-                <Box mt={24}>
+                <Flex className={classes.tableWrapper}>
                     <BaseTable<T>
                         {...rest}
                         data={data}
@@ -64,7 +67,7 @@ function DataGrid<T extends Record<string, any>, M extends Record<string, any>, 
                         manualPagination
                         manualSorting
                     />
-                </Box>
+                </Flex>
             </>
         );
     };

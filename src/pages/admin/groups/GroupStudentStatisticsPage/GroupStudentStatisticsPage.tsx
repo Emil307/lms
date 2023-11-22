@@ -30,7 +30,6 @@ const GroupStudentStatisticsPage = () => {
                 items={getBreadCrumbsItems({
                     groupId: id,
                     groupName: data.group.name,
-                    studentId,
                     studentFullName,
                 })}
                 mb={8}

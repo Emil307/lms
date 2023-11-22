@@ -62,6 +62,7 @@ export const useCourseGroupsListData = (userRole: number = 0) => {
             {
                 header: "Статус группы",
                 accessorKey: "status",
+                hideTooltip: true,
                 Cell: ({ row }) => {
                     const { classes } = useStyles({ statusType: row.original.status.type });
                     return <Badge className={classes.status}>{row.original.status.name}</Badge>;

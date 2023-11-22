@@ -47,7 +47,6 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
             mutationFunction={updateTest}
             onSuccess={onSuccessUpdate}
             onError={onError}
-            hasConfirmModal
             onCancel={onClose}>
             {({ onCancel }) => (
                 <Flex gap={32} direction="column" w="100%" maw={1162}>

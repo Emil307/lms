@@ -65,7 +65,6 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                 mutationFunction={updateCourseCollection}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal
                 onCancel={onClose}>
                 {({ values, errors, onCancel, setFieldValue }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";

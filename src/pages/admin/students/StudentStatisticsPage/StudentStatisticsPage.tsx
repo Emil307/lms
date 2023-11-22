@@ -28,7 +28,6 @@ const StudentStatisticsPage = () => {
         <Box>
             <BreadCrumbs
                 items={getBreadCrumbsItems({
-                    courseId: String(data.course.id),
                     courseName: data.course.name,
                     studentId: id,
                     studentFullName,

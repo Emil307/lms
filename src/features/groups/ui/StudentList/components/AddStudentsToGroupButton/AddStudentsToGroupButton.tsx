@@ -24,9 +24,8 @@ const AddStudentsToGroupButton = ({ groupId, courseId, hidden }: AddStudentsToGr
             modalId: "ADD_STUDENTS_TO_GROUP",
             title: "Добавление ученика",
             children: <AddStudentsToGroupModal groupId={groupId} courseId={courseId} onClose={handleCloseAddStudentsToGroupModal} />,
+            styles: () => ({ modal: { height: 664 } }),
             size: 912,
-            mah: 912,
-            className: classes.addStudentsToGroupModalWrapper,
         });
     };
 

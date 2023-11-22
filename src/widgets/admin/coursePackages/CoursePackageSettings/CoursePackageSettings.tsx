@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { IconClipboardText, IconPercentage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { Fieldset } from "@components/Fieldset";
-import { Button, ContentByTextEditor, DisplayField, Heading } from "@shared/ui";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { AdminCoursePackageDetails, useAdminCoursePackage } from "@entities/coursePackage";
 import { InfoCard } from "@components/InfoCard";
 import { DeleteCoursePackageButton } from "./components";
@@ -45,7 +45,9 @@ const CoursePackageSettings = ({ id, ...props }: CoursePackageSettingsProps) => 
                     <DisplayField label="Стоимость" value={`${coursePackageData?.price.toLocaleString("ru")} ₽`} />
                 </Fieldset>
                 <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                    <ContentByTextEditor data={coursePackageData?.description} />
+                    <Paragraph variant="small-m" color="gray45">
+                        {coursePackageData?.description}
+                    </Paragraph>
                 </Fieldset>
                 {coursePackageData?.hasDiscount && (
                     <Fieldset label="Параметры скидки" icon={<IconPercentage />}>

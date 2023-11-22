@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import {
@@ -14,20 +14,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import useStyles from "./AddArticleToArticlePackageModal.styles";
 import { adaptGetAdminArticlesRequest } from "./utils";
 
-export interface AddArticleToArticlePackageModalProps extends Omit<BoxProps, "children"> {
+export interface AddArticleToArticlePackageModalProps {
     articlePackageId: string;
     onClose: () => void;
 }
 
-const AddArticleToArticlePackageModal = ({ articlePackageId, onClose, ...props }: AddArticleToArticlePackageModalProps) => {
+const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArticleToArticlePackageModalProps) => {
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const articleResources = useAdminArticleFilters();
-    const attachArticlesToArticlePackage = useAttachArticleToArticlePackage(articlePackageId);
+    const { mutate: attachArticlesToArticlePackage, isLoading } = useAttachArticleToArticlePackage(articlePackageId);
 
     const handleSubmit = () => {
-        attachArticlesToArticlePackage.mutate(
+        attachArticlesToArticlePackage(
             { articleIds: selected },
             {
                 onSuccess: () => {
@@ -38,7 +38,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose, ...props }
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<AdminArticleFromList, AdminArticleFromArticlePackageFiltersForm, AdminArticleFromArticlePackageExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
@@ -118,10 +118,11 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose, ...props }
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

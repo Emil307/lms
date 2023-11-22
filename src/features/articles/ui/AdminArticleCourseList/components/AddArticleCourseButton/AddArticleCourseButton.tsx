@@ -24,7 +24,7 @@ const AddArticleCourseButton = ({ articleId, hidden }: AddArticleCourseButtonPro
             title: "Привязать к курсу",
             children: <AddCoursesToArticleModal articleId={articleId} onClose={handleCloseAddArticleCoursesModal} />,
             size: 912,
-            className: classes.addArticleCoursesModalWrapper,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

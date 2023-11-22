@@ -11,10 +11,10 @@ import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { CourseModuleWithoutLessons, useCourseModules } from "@entities/courseModule";
 import { useUpdateCourseModuleOrder } from "@entities/courseModule";
+import { useMedia } from "@shared/utils";
 import { AddModuleButton, ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
-import { useMedia } from "@shared/utils";
 
 interface ModuleListProps {
     courseId: string;

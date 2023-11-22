@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles((theme) => ({
+interface CreateStylesParams {
+    isMinimizedModeSidebar: boolean;
+    maxHeight: number;
+}
+
+export default createStyles((theme, { isMinimizedModeSidebar, maxHeight }: CreateStylesParams) => ({
     root: {
         position: "static",
         backgroundColor: "inherit",
@@ -10,11 +15,14 @@ export default createStyles((theme) => ({
         border: "none",
         overflowY: "auto",
         minHeight: "calc(100% - 32px)",
+        maxHeight: maxHeight - 24,
         zIndex: 1,
 
         [theme.fn.smallerThan("lg")]: {
             overflow: "hidden",
-            width: 72,
+            width: isMinimizedModeSidebar ? 72 : 280,
+            minHeight: !isMinimizedModeSidebar ? "100%" : "calc(100% - 32px)",
+            maxHeight: !isMinimizedModeSidebar ? maxHeight : maxHeight - 24,
             marginBlock: 0,
             paddingBlock: 0,
 
@@ -30,7 +38,7 @@ export default createStyles((theme) => ({
         left: 0,
 
         [theme.fn.smallerThan("lg")]: {
-            position: "static",
+            position: "relative",
             height: "100%",
             top: 0,
             paddingBlock: 32,

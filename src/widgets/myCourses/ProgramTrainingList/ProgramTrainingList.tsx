@@ -2,7 +2,8 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { useEffect, useMemo } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { useGroupModules } from "@entities/group";
-import { Loader } from "@shared/ui";
+import { EmptyData, Loader } from "@shared/ui";
+import IconEmptyBox from "@public/icons/emptyBox.svg";
 import { ProgramModule } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./ProgramTrainingList.styles";
@@ -36,6 +37,10 @@ const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingLis
 
     if (isLoading) {
         return <Loader />;
+    }
+
+    if (!groupModulesData?.data.length) {
+        return <EmptyData title="Уроки отсутствуют" description="" icon={<IconEmptyBox />} />;
     }
 
     return (

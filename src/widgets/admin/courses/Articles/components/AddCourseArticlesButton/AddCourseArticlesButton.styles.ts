@@ -14,11 +14,4 @@ export default createStyles((theme) => ({
             color: theme.colors.gray45[0],
         },
     },
-    addArticlesToArticlePackageModalWrapper: {
-        ".mantine-Modal-modal": {
-            [theme.fn.smallerThan("md")]: {
-                minWidth: "100%",
-            },
-        },
-    },
 }));

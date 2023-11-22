@@ -41,7 +41,8 @@ const CreateTagForm = ({ onClose, ...props }: CreateTagFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_TAGS] }]}
                 mutationFunction={createAdminTag}
                 onSuccess={onSuccess}
-                onError={onError}>
+                onError={onError}
+                disableOverlay>
                 <Flex direction="column" gap={{ base: 24, xs: 32 }}>
                     <FInput name="name" label="Название" />
                     <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />

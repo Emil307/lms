@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useDetailsUser, useUpdateUserActivity, useUpdateUserStatic } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { useSession } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
+import { useSession } from "@entities/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
@@ -15,13 +15,14 @@ export interface InfoPanelProps extends BoxProps {
 const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
     const { classes } = useInfoPanelStyles();
     const { data } = useDetailsUser(id);
-    const { user: authUser } = useSession();
+
+    const { user } = useSession();
+
+    const isRoleOrder = checkRoleOrder(user?.roles[0].id, data?.roles[0].id) >= 0;
 
     const fio = getFullName({ data: data?.profile });
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio });
     const { mutate: updateStaticStatus } = useUpdateUserStatic({ id, fio });
-
-    const isRoleOrder = checkRoleOrder(authUser?.roles[0].id, data?.roles[0].id) > 0 || authUser?.id === data?.id;
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
@@ -38,19 +39,23 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Paragraph>
                     <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                 </Flex>
-                <Flex align="center" gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Статус:
-                    </Paragraph>
-                    <Switch
-                        variant="secondary"
-                        label={labelActivitySwitch}
-                        labelPosition="left"
-                        checked={data?.isActive}
-                        onChange={handleChangeActiveStatus}
-                        disabled={!isRoleOrder}
-                    />
-                </Flex>
+
+                {isRoleOrder && user?.id !== data?.id && (
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Статус:
+                        </Paragraph>
+                        <Switch
+                            variant="secondary"
+                            label={labelActivitySwitch}
+                            labelPosition="left"
+                            checked={data?.isActive}
+                            onChange={handleChangeActiveStatus}
+                            disabled={!isRoleOrder}
+                        />
+                    </Flex>
+                )}
+
                 {Roles.teacher === data?.roles[0].id && (
                     <Checkbox
                         label="Отображать на главной"

@@ -39,6 +39,9 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         minWidth: 16,
         color: theme.colors.gray45[0],
     },
+    lessonName: {
+        cursor: status === "blocked" ? "text" : "pointer",
+    },
 }));
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {

@@ -1,9 +1,9 @@
 import { ReactNode, forwardRef } from "react";
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { PremadeControlProps } from "@mantine/tiptap/lib/controls/Control/Control";
+import { useUploadFile } from "@entities/storage";
 import { OperationType } from "./types";
 import { selectImage } from "./selectImage";
-import { useUploadFile } from "@entities/storage";
 
 interface CreateControlProps {
     label: string;

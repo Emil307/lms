@@ -41,7 +41,7 @@ const StaticReviewsPage = () => {
                     <Heading order={2}>Отзывы для титульной страницы</Heading>
                     <CreateStaticReviewButton />
                 </Flex>
-                <AdminStaticReviewList mt={-32} />
+                <AdminStaticReviewList />
             </Flex>
         </Flex>
     );

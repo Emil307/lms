@@ -11,9 +11,17 @@ export interface CrumbProps {
 const MemoizedCrumb = memo(function Crumb({ item, isActive }: CrumbProps) {
     const { classes } = useStyles({ isActiveCrumb: isActive });
 
+    if (!item.href) {
+        return (
+            <Paragraph variant="text-small-m" maw={item.maxWidth} className={classes.content}>
+                {item.title}
+            </Paragraph>
+        );
+    }
+
     return (
         <Link className={classes.crumb} href={item.href}>
-            <Paragraph variant="text-small-m" lineClamp={1} maw={item.maxWidth} className={classes.content}>
+            <Paragraph variant="text-small-m" maw={item.maxWidth} className={classes.content}>
                 {item.title}
             </Paragraph>
         </Link>

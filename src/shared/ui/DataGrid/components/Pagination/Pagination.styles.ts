@@ -34,11 +34,17 @@ export const usePaginationStyles = createStyles((theme) => ({
                 backgroundColor: theme.colors.dark[0],
                 color: theme.colors.white[0],
             },
+
+            [theme.fn.smallerThan("xs")]: {
+                width: 40,
+                height: 40,
+            },
         },
     },
     perPageSelect: {
         gridArea: "perPageSelect",
         cursor: "pointer",
+        justifySelf: "end",
 
         label: {
             fontSize: 14,

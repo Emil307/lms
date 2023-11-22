@@ -159,7 +159,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                 />
                             </Box>
 
-                            <Fieldset label="Общая информация" icon={<FileLeftIcon />} maw={512} showDivider={false}>
+                            <Fieldset label="Общая информация" icon={<FileLeftIcon />} maw={512} gap={8} showDivider={false}>
                                 <FInput size="sm" name="name" label="Название курса" w="100%" />
                                 <FSelect
                                     name="category"
@@ -189,21 +189,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                     w="100%"
                                 />
                                 <FInput size="sm" name="duration" label="Продолжительность курса" w="100%" />
-                                <Flex className={classes.cost}>
-                                    <FInput
-                                        className={classes.costInput}
-                                        name="price"
-                                        label="Стоимость курса (₽)"
-                                        type="number"
-                                        size="sm"
-                                    />
-                                    <FSwitch
-                                        name="isDemonstrative"
-                                        label="Доступен для сотрудников"
-                                        labelPosition="left"
-                                        variant="secondary"
-                                    />
-                                </Flex>
+                                <FInput className={classes.costInput} name="price" label="Стоимость курса (₽)" type="number" size="sm" />
                             </Fieldset>
 
                             <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={772} showDivider={false}>

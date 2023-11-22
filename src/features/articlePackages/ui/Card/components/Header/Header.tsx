@@ -1,4 +1,4 @@
-import { Card as MCard, Flex, Box } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import IconBooks from "@public/icons/books.svg";
 import { ArticlePackageFromList } from "@entities/articlePackage";
 import { Heading, Paragraph } from "@shared/ui";
@@ -13,7 +13,7 @@ const Header = ({ data: { discount, name, description } }: HeaderProps) => {
     const { classes } = useStyles();
 
     return (
-        <MCard.Section className={classes.root}>
+        <Flex className={classes.root}>
             <Box miw={128}>
                 <IconBooks />
             </Box>
@@ -21,12 +21,12 @@ const Header = ({ data: { discount, name, description } }: HeaderProps) => {
                 <DiscountInfo discount={discount} />
                 <Flex className={classes.textContainer}>
                     <Heading order={3}>{name}</Heading>
-                    <Paragraph variant="text-small-m" color="gray45" lineClamp={1}>
+                    <Paragraph variant="text-small-m" color="gray45" lineClamp={2}>
                         {description}
                     </Paragraph>
                 </Flex>
             </Flex>
-        </MCard.Section>
+        </Flex>
     );
 };
 

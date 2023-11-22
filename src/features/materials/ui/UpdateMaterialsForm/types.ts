@@ -1,15 +1,10 @@
 import { z } from "zod";
+import { $MaterialFile } from "@features/materials/helpers";
 
 export type UpdateMaterialsFormValidation = z.infer<typeof $UpdateMaterialsFormValidation>;
-export type MaterialFile = z.infer<typeof $MaterialFile>;
-
-export const $MaterialFile = z.object({
-    id: z.number(),
-    name: z.string(),
-    extension: z.string(),
-});
 
 export const $UpdateMaterialsFormValidation = z.object({
-    files: $MaterialFile.array(),
+    materials: z.array($MaterialFile),
     isBinding: z.boolean(),
+    categoryIds: z.array(z.string()),
 });

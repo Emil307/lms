@@ -24,7 +24,7 @@ const CourseStatisticsPage = () => {
     return (
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name, courseId: courseData.id })} mb={8} />
-            <Heading>Статистика</Heading>
+            <Heading mb={32}>Статистика</Heading>
             <CourseStatistics courseId={id} />
         </Box>
     );

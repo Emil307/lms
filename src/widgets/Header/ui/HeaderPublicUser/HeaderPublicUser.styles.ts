@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
         left: 0,
         maxHeight: HEADER_HEIGHT,
         borderBottom: "none",
-        zIndex: 999,
+        zIndex: 399,
     },
     inner: {
         alignItems: "center",

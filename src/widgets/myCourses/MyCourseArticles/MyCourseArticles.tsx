@@ -5,6 +5,7 @@ import { ArticleAndArticleCategoryFiltersForm, ArticleFromList } from "@entities
 import { List as ArticleList } from "@widgets/articles";
 import { Filters } from "@features/articles";
 import { TRouterQueries } from "@shared/types";
+import { ArticleTypes } from "@shared/constant";
 import { initialFilterValues } from "./constants";
 import { adaptCourseArticleFiltersForm, prepareQueryParams } from "./utils";
 import useStyles from "./MyCourseArticles.styles";
@@ -43,7 +44,7 @@ const MyCourseArticles = ({ courseId, ...props }: MyCourseArticlesProps) => {
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
-            <Filters data={filterParams} onSubmitFilters={handleSubmitFilters} articleType="by-course" courseId={courseId} />
+            <Filters data={filterParams} onSubmitFilters={handleSubmitFilters} articleType={ArticleTypes.BY_COURSE} courseId={courseId} />
             <Flex className={classes.wrapperContent}>
                 <ArticleList.Main filterParams={{ ...filterParams, courseId }} onClickCard={handleClickArticleCard} />
             </Flex>

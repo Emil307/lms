@@ -60,6 +60,7 @@ export const columns: TColumns<AdminHomeworkAnswerFromList> = [
     {
         header: "Статус",
         accessorKey: "status.name",
+        hideTooltip: true,
         Cell: ({ cell }) => {
             const status = cell.row.original.status.name;
             const { classes } = useCellStyles({ status });

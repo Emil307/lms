@@ -23,7 +23,7 @@ const ArticleDetailsPage = () => {
 
     return (
         <Flex direction="column" gap={32}>
-            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.name, id })} />
+            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.name })} />
             <MainInfoPanel.Main articleData={articleData} />
             <ContentPanel data={articleData} />
         </Flex>

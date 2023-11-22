@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen, Home } from "react-feather";
@@ -9,12 +9,14 @@ import CloseBookIcon from "public/icons/closeBook.svg";
 import { useMedia } from "@shared/utils";
 import { SidebarItem, SidebarItemWithChildren } from "./ui";
 import useStyles from "./Sidebar.styles";
-import { SidebarAdminContext } from "./utils";
+import { SidebarItemsWithChildrenContext } from "./utils";
+import { SidebarMinimizedModeContext } from "../utils";
 
 export default function Sidebar() {
     const router = useRouter();
-    const [isMinimizedModeSidebar, setIsMinimizedModeSidebar] = useState(false);
     const [activeSidebarItemsWithChildren, setActiveSidebarItemsWithChildren] = useState<string[]>([]);
+
+    const { isMinimizedModeSidebar, setIsMinimizedModeSidebar } = useContext(SidebarMinimizedModeContext);
 
     const { classes } = useStyles({ isMinimizedModeSidebar });
 
@@ -28,10 +30,8 @@ export default function Sidebar() {
     }, [isTablet]);
 
     return (
-        <SidebarAdminContext.Provider
+        <SidebarItemsWithChildrenContext.Provider
             value={{
-                isMinimizedModeSidebar,
-                setIsMinimizedModeSidebar,
                 activeSidebarItemsWithChildren,
                 setActiveSidebarItemsWithChildren,
             }}>
@@ -209,6 +209,6 @@ export default function Sidebar() {
                     </SidebarItemWithChildren>
                 </Box>
             </Box>
-        </SidebarAdminContext.Provider>
+        </SidebarItemsWithChildrenContext.Provider>
     );
 }

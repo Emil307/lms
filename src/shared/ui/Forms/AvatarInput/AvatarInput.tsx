@@ -6,9 +6,9 @@ import { FileType, useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
 import { AvatarFileFormat, Button, Paragraph } from "@shared/ui";
 import { getFileSize } from "@shared/utils";
+import AvatarIcon from "@public/icons/avatar.svg";
 import { DEFAULT_MAX_FILE_SIZE, getCorrectFileFormats, isCorrectLoadedFileFormat } from "./constants";
 import useStyles from "./AvatarInput.styles";
-import AvatarIcon from "@public/icons/avatar.svg";
 
 export interface AvatarInputProps extends Omit<MFileButtonProps, "children" | "onChange"> {
     label: ReactNode;

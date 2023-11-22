@@ -85,7 +85,6 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
             mutationFunction={updateArticle}
             onSuccess={onSuccess}
             onError={onError}
-            hasConfirmModal
             onCancel={onClose}>
             {({ values, onCancel }) => {
                 const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";

@@ -36,7 +36,13 @@ const CarouselList = ({ title = "Пакетные предложения", cours
     return (
         <Flex {...props} direction="column" gap={32}>
             <Heading order={2}>{title}</Heading>
-            <Carousel<ArticlePackageFromList> data={articlePackages.data} lastElemRef={lastElemRef} slideSize="100%">
+            <Carousel<ArticlePackageFromList>
+                data={articlePackages.data}
+                lastElemRef={lastElemRef}
+                breakpoints={[
+                    { maxWidth: "md", slideSize: "100%" },
+                    { minWidth: "md", slideSize: "50%" },
+                ]}>
                 {(props) => (
                     <ArticlePackageCard {...props} mih={340} w="100%">
                         {(props) => <CategoryListFromPackage {...props} />}

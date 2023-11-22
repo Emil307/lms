@@ -1,7 +1,12 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    wrapper: {
+    root: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    wrapperImage: {
         position: "relative",
         width: "100%",
         height: 256,
@@ -22,14 +27,13 @@ export default createStyles((theme) => ({
         },
     },
     content: {
-        position: "absolute",
         maxWidth: 468,
         width: "100%",
         top: "calc(100% - 74px)",
         left: "50%",
-        transform: "translateX(-50%)",
         flexDirection: "column",
         alignItems: "center",
+        marginTop: "-72px",
         gap: 16,
         zIndex: 1,
     },

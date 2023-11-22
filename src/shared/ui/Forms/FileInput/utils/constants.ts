@@ -1,5 +1,5 @@
-import { FileErrorType, FileFormat } from "./types";
 import { FileInputProps } from "@shared/ui";
+import { FileErrorType, FileFormat } from "./types";
 
 export const DEFAULT_MAX_FILE_SIZE = 26214400;
 export const DEFAULT_MAX_FILES_COUNT = 10;

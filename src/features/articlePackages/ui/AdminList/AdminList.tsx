@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
@@ -17,9 +17,7 @@ import { ListMenu } from "./components";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
 import useStyles from "./AdminList.styles";
 
-export interface AdminListProps extends Omit<BoxProps, "children"> {}
-
-const AdminList = (props: AdminListProps) => {
+const AdminList = () => {
     const router = useRouter();
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
@@ -31,7 +29,7 @@ const AdminList = (props: AdminListProps) => {
     };
 
     return (
-        <Box {...props}>
+        <Box>
             <ManagedDataGrid<AdminArticlePackageFromList, AdminArticlePackagesFiltersForm>
                 queryKey={QueryKeys.GET_ADMIN_ARTICLE_PACKAGES}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}

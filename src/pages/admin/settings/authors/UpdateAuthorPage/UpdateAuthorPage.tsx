@@ -22,7 +22,7 @@ const UpdateAuthorPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ fullName, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ fullName })} mb={8} />
             <Heading>{fullName}</Heading>
             <UpdateAuthorForm data={authorData} onClose={handleCloseForm} />
         </Box>

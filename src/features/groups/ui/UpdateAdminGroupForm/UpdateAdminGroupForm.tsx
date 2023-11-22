@@ -65,7 +65,6 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                 mutationFunction={updateGroup}
                 onSuccess={onSuccessUpdated}
                 onError={onError}
-                hasConfirmModal
                 onCancel={onCancel}>
                 {({ values, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";

@@ -2,17 +2,20 @@ import { ActionIcon } from "@mantine/core";
 import { Heart } from "react-feather";
 import { Button } from "@shared/ui";
 import { Article, ArticleFromList, useUpdateArticleFavoriteStatus } from "@entities/article";
+import { ArticleTypes } from "@shared/constant";
 import useStyles from "./FavoriteButton.styles";
 
 export interface FavoriteButtonProps {
     data: Article | ArticleFromList;
+    articleType?: ArticleTypes;
+    categoryId?: string;
     variant?: "compact" | "default";
 }
 
-const FavoriteButton = ({ data, variant = "default" }: FavoriteButtonProps) => {
+const FavoriteButton = ({ data, variant = "default", categoryId, articleType }: FavoriteButtonProps) => {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const updateFavorite = useUpdateArticleFavoriteStatus({ id: String(data.id) });
+    const updateFavorite = useUpdateArticleFavoriteStatus({ id: String(data.id), articleType, categoryId });
 
     const handleChangeFavorite = () => {
         updateFavorite.mutate({ isFavorite: !data.isFavorite });

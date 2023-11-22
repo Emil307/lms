@@ -8,6 +8,7 @@ import { FieldArray, setNestedObjectValues, useFormikContext } from "formik";
 import { AdminTestQuestion } from "@entities/lesson";
 import { Button } from "@shared/ui";
 import useStyles from "./QuestionList.styles";
+import { INITIAL_ANSWERS } from "./constants";
 import { Question } from "../Question";
 import { UpdateTestFormValues } from "../../types";
 
@@ -87,7 +88,7 @@ const QuestionList = () => {
             id: ++lastQuestionId.current,
             order: values.tasks.length,
             content: "",
-            answers: [],
+            answers: INITIAL_ANSWERS,
         };
         setFieldValue("tasks", [...values.tasks, newQuestion]);
     };

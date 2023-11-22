@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import {
@@ -14,20 +14,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import useStyles from "./AddArticlesToCourseModal.styles";
 import { adaptGetAdminArticlesRequest } from "./utils";
 
-export interface AddArticlesToCourseModalProps extends Omit<BoxProps, "children"> {
+export interface AddArticlesToCourseModalProps {
     courseId: string;
     onClose: () => void;
 }
 
-const AddArticlesToCourseModal = ({ courseId, onClose, ...props }: AddArticlesToCourseModalProps) => {
+const AddArticlesToCourseModal = ({ courseId, onClose }: AddArticlesToCourseModalProps) => {
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const articleResources = useAdminArticleFilters();
-    const attachArticlesToCourse = useAttachArticlesToCourse({ courseId });
+    const { mutate: attachArticlesToCourse, isLoading } = useAttachArticlesToCourse({ courseId });
 
     const handleSubmit = () => {
-        attachArticlesToCourse.mutate(
+        attachArticlesToCourse(
             { articleIds: selected },
             {
                 onSuccess: () => {
@@ -38,7 +38,7 @@ const AddArticlesToCourseModal = ({ courseId, onClose, ...props }: AddArticlesTo
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<AdminArticleFromList, AdminArticleFromCourseFiltersForm, AdminArticleFromCourseExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_NO_COURSE_ARTICLES}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
@@ -118,10 +118,11 @@ const AddArticlesToCourseModal = ({ courseId, onClose, ...props }: AddArticlesTo
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

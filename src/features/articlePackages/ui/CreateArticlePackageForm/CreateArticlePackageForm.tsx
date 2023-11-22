@@ -111,12 +111,12 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                                 <FTextarea name="description" placeholder="Введите текст" className={classes.descriptionTextarea} />
                             </Fieldset>
 
-                            <Box component="fieldset" className={classes.fieldset} maw={772}>
-                                <Box component="legend" className={classes.legend}>
+                            <Flex className={classes.fieldset} maw={772}>
+                                <Flex className={classes.fieldsetHeading}>
                                     <IconPercentage />
                                     <Heading order={4}>Параметры скидки</Heading>
                                     <FSwitch variant="secondary" name="hasDiscount" />
-                                </Box>
+                                </Flex>
                                 {values.hasDiscount && (
                                     <Flex direction="column" gap={16} w="100%">
                                         <FRadioGroup name="discount.type" defaultValue="percentage">
@@ -149,7 +149,7 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                                         </Flex>
                                     </Flex>
                                 )}
-                            </Box>
+                            </Flex>
                             <FControlButtons onClose={onClose} />
                         </Flex>
                     );

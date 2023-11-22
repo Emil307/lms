@@ -20,14 +20,7 @@ const MemoizedAboutCard = memo(function AboutCard({ data, className, ...props }:
         <Flex className={cx(classes.root, className)} {...props}>
             {data?.banner && (
                 <Box className={classes.imageSection}>
-                    <Image
-                        src={data.banner.absolutePath}
-                        loader={({ src }) => `${src}`}
-                        alt={data.banner.name}
-                        fill
-                        sizes="100vw"
-                        className={classes.bannerImage}
-                    />
+                    <Image src={data.banner.absolutePath} alt={data.banner.name} fill sizes="100vw" className={classes.bannerImage} />
                 </Box>
             )}
             <Flex className={classes.contentSection}>

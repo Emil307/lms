@@ -17,9 +17,18 @@ export interface InputProps extends Omit<ComponentProps<typeof MInput>, "onChang
     onChange?: (value: string | number) => void;
     success?: string | boolean;
     onlyLetters?: boolean;
+    disableValidation?: boolean;
 }
 
-const Input = ({ success = false, onlyLetters = false, error, description, onChange = () => undefined, ...props }: InputProps) => {
+const Input = ({
+    success = false,
+    onlyLetters = false,
+    error,
+    description,
+    onChange = () => undefined,
+    disableValidation = false,
+    ...props
+}: InputProps) => {
     const { type = "text", icon, rightSection, size, ...rest } = props;
 
     const isPasswordField = type === "password";
@@ -145,8 +154,8 @@ const Input = ({ success = false, onlyLetters = false, error, description, onCha
             {...rest}
             classNames={classes}
             type={getType()}
-            onKeyDown={handleKeyDown}
-            onChange={handleChange}
+            onKeyDown={disableValidation ? undefined : handleKeyDown}
+            onChange={disableValidation ? (event) => onChange(event.target.value) : handleChange}
             onFocus={() => setFocused(true)}
             onBlur={(event) => {
                 props.onBlur && props.onBlur(event);

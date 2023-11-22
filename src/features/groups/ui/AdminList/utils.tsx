@@ -6,7 +6,7 @@ import { Badge, Flex } from "@mantine/core";
 import { AdminGroupFromList, AdminGroupsFiltersForm, GetAdminGroupsRequest } from "@entities/group";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { Roles } from "@app/routes";
-import { Paragraph } from "@shared/ui";
+import { Paragraph, Tooltip } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useCellStyles } from "@features/groups/ui/AdminList/AdminList.styles";
 
@@ -44,16 +44,20 @@ export const useGroupListData = (userRole: number = 0) => {
                 header: "Даты обучения",
                 accessorKey: "educationFinishDate",
                 size: 160,
+                hideTooltip: true,
                 Cell: ({ row }) => {
+                    const startDate = dayjs(row.original.educationStartDate).format("DD.MM.YYYY");
+                    const endDate = dayjs(row.original.educationFinishDate).format("DD.MM.YYYY");
+
                     return (
-                        <Flex direction="column">
-                            <Paragraph variant="text-small-m">{`c ${dayjs(row.original.educationStartDate).format(
-                                "DD.MM.YYYY"
-                            )}`}</Paragraph>
-                            <Paragraph variant="text-caption" color="gray45">
-                                {`до ${dayjs(row.original.educationFinishDate).format("DD.MM.YYYY")}`}
-                            </Paragraph>
-                        </Flex>
+                        <Tooltip label={`c ${startDate} до ${endDate}`} position="top">
+                            <Flex direction="column">
+                                <Paragraph variant="text-small-m">{`c ${startDate}`}</Paragraph>
+                                <Paragraph variant="text-caption" color="gray45">
+                                    {`до ${endDate}`}
+                                </Paragraph>
+                            </Flex>
+                        </Tooltip>
                     );
                 },
             },
@@ -69,6 +73,7 @@ export const useGroupListData = (userRole: number = 0) => {
                 header: "Статус группы",
                 accessorKey: "status.name",
                 size: 160,
+                hideTooltip: true,
                 Cell: ({ row }) => {
                     const { classes } = useCellStyles({ statusType: row.original.status.type });
                     return <Badge className={classes.status}>{row.original.status.name}</Badge>;

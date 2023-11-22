@@ -3,10 +3,11 @@ import { ArrowLeftCircle, ArrowRightCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
 import { ArticleMeta } from "@entities/article";
+import { ArticleTypes } from "@shared/constant";
 
 export interface PaginationProps {
     meta: ArticleMeta;
-    type: "favorite" | "my-articles" | "by-category";
+    type: Exclude<ArticleTypes, ArticleTypes.BY_COURSE>;
 }
 
 const Pagination = ({ meta, type }: PaginationProps) => {
@@ -14,18 +15,18 @@ const Pagination = ({ meta, type }: PaginationProps) => {
 
     const handleRedirectArticle = (articleId: number) => {
         switch (type) {
-            case "by-category":
+            case ArticleTypes.BY_CATEGORY:
                 return router.push({
                     pathname: "/articles/by-category/[categoryId]/article/[id]",
                     query: { id: articleId.toString(), categoryId: String(router.query.categoryId) },
                 });
 
-            case "my-articles":
+            case ArticleTypes.MY_ARTICLE:
                 return router.push({
                     pathname: "/articles/my/[id]",
                     query: { id: articleId.toString() },
                 });
-            case "favorite":
+            case ArticleTypes.FAVORITE:
                 return router.push({ pathname: "/articles/favorite/[id]", query: { id: articleId.toString() } });
         }
     };

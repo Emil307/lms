@@ -1,4 +1,4 @@
-import { Card as MCard, Badge } from "@mantine/core";
+import { Badge, Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
@@ -16,12 +16,12 @@ const DiscountInfo = ({ discount }: DiscountInfoProps) => {
     const discountValue = discount.type === "percentage" ? `${discount.amount} %` : `-${discount.amount} ₽`;
 
     return (
-        <MCard.Section className={classes.root}>
+        <Flex className={classes.root}>
             <Badge className={classes.discount}>{discountValue}</Badge>
             <Badge variant="outline" className={classes.discountEndDate}>
                 {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}
             </Badge>
-        </MCard.Section>
+        </Flex>
     );
 };
 

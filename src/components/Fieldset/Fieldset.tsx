@@ -8,6 +8,7 @@ export interface FieldsetProps extends BoxProps {
     label: string;
     extraElement?: ReactNode;
     isOpen?: boolean;
+    gap?: number;
     showDivider?: boolean;
     legendProps?: BoxProps;
     children: ReactNode | ReactNode[];
@@ -18,6 +19,7 @@ const MemoizedFieldset = memo(function Fieldset({
     label,
     showDivider = true,
     isOpen = true,
+    gap = 16,
     extraElement,
     children,
     legendProps,
@@ -28,33 +30,35 @@ const MemoizedFieldset = memo(function Fieldset({
 
     const renderRows = useMemo(() => {
         if (Array.isArray(children)) {
-            return children.map((child, index) => {
-                if (!child) {
-                    return;
-                }
-                return (
-                    <Box className={classes.item} key={index}>
-                        {child}
-                        {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" mt={7} />}
-                    </Box>
-                );
-            });
+            return (
+                <Flex direction="column" gap={!showDivider ? gap : 0}>
+                    {children.map((child, index) => {
+                        if (!child) {
+                            return;
+                        }
+                        return (
+                            <Box className={classes.item} key={index}>
+                                {child}
+                                {showDivider && index !== children.length - 1 && <Divider size="xs" color="grayLight" w="100%" my={8} />}
+                            </Box>
+                        );
+                    })}
+                </Flex>
+            );
         }
 
         return <Box className={classes.item}>{children}</Box>;
     }, [children]);
 
     return (
-        <Box {...props} component="fieldset" className={cx(classes.fieldset, className)}>
-            <Box component="legend">
-                <Flex {...legendProps} className={classes.legendContent}>
-                    {icon}
-                    <Heading order={4}>{label}</Heading>
-                    {extraElement}
-                </Flex>
-            </Box>
+        <Flex {...props} className={cx(classes.root, className)}>
+            <Flex {...legendProps} className={classes.headingContainer}>
+                {icon}
+                <Heading order={4}>{label}</Heading>
+                {extraElement}
+            </Flex>
             {isOpen && renderRows}
-        </Box>
+        </Flex>
     );
 });
 

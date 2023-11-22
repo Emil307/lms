@@ -88,26 +88,25 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             mutationKey={[MutationKeys.UPDATE_USER, data?.id]}
             mutationFunction={updateUser}
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_USER, String(data?.id)] }]}
-            hasConfirmModal
             onCancel={onClose}
             onSuccess={onSuccess}
             onError={onError}>
             {({ values, onCancel }) => (
                 <Flex direction="column" gap={32}>
                     <Flex className={classes.infoPanel}>
-                        <Flex gap={8}>
+                        <Flex gap={8} align="center">
                             <Paragraph variant="text-small-m" color="gray45">
                                 ID:
                             </Paragraph>
                             <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                         </Flex>
-                        <Flex gap={8}>
+                        <Flex gap={8} align="center">
                             <Paragraph variant="text-small-m" color="gray45">
                                 Статус:
                             </Paragraph>
                             <FSwitch name="isActive" variant="secondary" label="Деактивировать" labelPosition="left" />
                         </Flex>
-                        <Flex gap={8}>
+                        <Flex gap={8} align="center">
                             <Paragraph variant="text-small-m" color="gray45">
                                 Последний вход:
                             </Paragraph>

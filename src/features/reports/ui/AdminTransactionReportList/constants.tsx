@@ -45,6 +45,7 @@ export const columns: TColumns<AdminTransactionReportFromList> = [
     {
         header: "Статус платежа",
         accessorKey: "status",
+        hideTooltip: true,
         size: 164,
         Cell: ({ row }) => {
             const { classes } = useCellStyles({ status: row.original.status });

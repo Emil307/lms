@@ -16,8 +16,11 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
     const router = useRouter();
     const { classes, cx } = useStyles({ status: data.lessonStatus.name });
 
-    const handleOpenLessonDetailsPage = () =>
-        router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
+    const handleOpenLessonDetailsPage = () => {
+        if (data.lessonStatus.name !== "blocked") {
+            router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
+        }
+    };
 
     const renderStatus = () => {
         if (data.lessonStatus.name === "blocked") {
@@ -39,7 +42,9 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
             <Flex direction="column" gap={8}>
                 {renderStatus()}
                 <Flex direction="column" gap={2}>
-                    <Heading order={4}>{data.name}</Heading>
+                    <Heading className={classes.lessonName} order={4} onClick={handleOpenLessonDetailsPage}>
+                        {data.name}
+                    </Heading>
                     <Paragraph variant="text-caption">{moduleName}</Paragraph>
                 </Flex>
                 <Flex gap={8}>

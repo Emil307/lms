@@ -21,6 +21,8 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
     },
     control: {
         paddingInline: "0 !important",
+        paddingBottom: "0 !important",
+        backgroundColor: "initial",
     },
     content: {
         padding: "0 !important",

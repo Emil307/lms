@@ -23,11 +23,7 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.darkGray[0],
     },
     bannerImage: {
-        objectFit: "contain",
-
-        [theme.fn.smallerThan("md")]: {
-            objectFit: "cover",
-        },
+        objectFit: "cover",
     },
     contentSection: {
         justifyContent: "space-between",

@@ -24,6 +24,7 @@ const AddStudentArticlePackageButton = ({ studentId }: AddStudentArticlePackageB
             children: <AddArticlePackagesToStudentModal studentId={studentId} onClose={handleCloseAddArticlePackagesToStudentModal} />,
             size: 912,
             className: classes.addArticlePackagesToStudentModalWrapper,
+            styles: () => ({ modal: { height: 664 } }),
         });
     };
 

@@ -36,7 +36,7 @@ const AdminCourseFromCollectionList = ({ courseCollectionId, ...props }: AdminCo
                 />
             ),
             size: 912,
-            className: classes.addCoursesToCourseCollectionModalWrapper,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { Button } from "@shared/ui";
@@ -24,7 +24,7 @@ const ArticlesFromCategory = ({ filterParams, onSubmitFilters, onBackList, ...pr
         });
 
     return (
-        <Flex {...props} className={cx(classes.root, props.className)}>
+        <Box {...props} className={cx(classes.root, props.className)}>
             <Filters data={filterParams} onSubmitFilters={onSubmitFilters} />
             <Flex className={classes.wrapperContent}>
                 <Flex direction="column" gap={32}>
@@ -35,7 +35,7 @@ const ArticlesFromCategory = ({ filterParams, onSubmitFilters, onBackList, ...pr
                 </Flex>
                 <ArticlePackageCarouselList />
             </Flex>
-        </Flex>
+        </Box>
     );
 };
 

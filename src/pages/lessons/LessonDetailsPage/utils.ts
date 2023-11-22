@@ -4,7 +4,6 @@ interface GetBreadCrumbsItemsProps {
     nameLesson?: string;
     nameCourse?: string;
     groupId: string;
-    lessonId: string;
 }
 
 interface GetTabListProps {
@@ -12,16 +11,11 @@ interface GetTabListProps {
     isHomeworkExists?: boolean;
 }
 
-export const getBreadCrumbsItems = ({
-    nameLesson = "",
-    nameCourse = "",
-    groupId,
-    lessonId,
-}: GetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
+export const getBreadCrumbsItems = ({ nameLesson = "", nameCourse = "", groupId }: GetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Главная страница", href: { pathname: "/" } },
     { title: "Мои курсы", href: { pathname: "/my-courses" } },
     { title: nameCourse, href: { pathname: "/my-courses/[id]", query: { id: groupId } } },
-    { title: nameLesson, href: { pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId } } },
+    { title: nameLesson },
 ];
 
 export const getTabList = ({ isTestExists, isHomeworkExists }: GetTabListProps) => {

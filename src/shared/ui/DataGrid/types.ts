@@ -70,8 +70,9 @@ export type TCellBadge = {
     color?: string;
 };
 
-type TColumn<T extends Record<string, any>, R extends number[] = number[]> = MRT_ColumnDef<T> & {
+export type TColumn<T extends Record<string, any>, R extends number[] = number[]> = MRT_ColumnDef<T> & {
     access?: R;
+    hideTooltip?: boolean;
     sizes?: { [key in R[number]]: number };
 };
 

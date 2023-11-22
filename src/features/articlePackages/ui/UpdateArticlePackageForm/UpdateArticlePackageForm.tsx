@@ -74,7 +74,6 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                 mutationFunction={updateArticlePackage}
                 onSuccess={onSuccess}
                 onError={onError}
-                hasConfirmModal
                 onCancel={onClose}>
                 {({ values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
@@ -136,12 +135,12 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                 <FTextarea name="description" placeholder="Введите текст" className={classes.descriptionTextarea} />
                             </Fieldset>
 
-                            <Box component="fieldset" className={classes.fieldset} maw={772}>
-                                <Box component="legend" className={classes.legend}>
+                            <Flex className={classes.fieldset} maw={772}>
+                                <Flex className={classes.fieldsetHeading}>
                                     <IconPercentage />
                                     <Heading order={4}>Параметры скидки</Heading>
                                     <FSwitch variant="secondary" name="hasDiscount" />
-                                </Box>
+                                </Flex>
                                 {values.hasDiscount && (
                                     <Flex direction="column" gap={16} w="100%">
                                         <Flex>
@@ -176,7 +175,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                                         </Flex>
                                     </Flex>
                                 )}
-                            </Box>
+                            </Flex>
                             <FControlButtons onClose={onCancel} />
                         </Flex>
                     );

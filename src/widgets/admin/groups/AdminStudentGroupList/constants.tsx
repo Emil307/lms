@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { Badge } from "@mantine/core";
 import { AdminStudentGroupFromList } from "@entities/group";
-import { useCellStyles } from "./AdminStudentGroupList.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { useCellStyles } from "./AdminStudentGroupList.styles";
 
 export const columnOrder = ["id", "name", "course.name", "accessExpirationDate", "createdAt", "status", "mrt-row-actions"];
 
@@ -37,6 +37,7 @@ export const columns: TColumns<AdminStudentGroupFromList> = [
     {
         header: "Статус",
         accessorKey: "status",
+        hideTooltip: true,
         Cell: ({ row }) => {
             const { classes } = useCellStyles({ statusType: row.original.status?.name });
             if (!row.original.status) {

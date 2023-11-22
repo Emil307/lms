@@ -7,12 +7,13 @@ dayjs.extend(utc);
 dayjs.utc().format();
 
 export const adaptUpdateScheduleForm = (data?: AdminGroupScheduleFromList): Partial<UpdateScheduleFormValidation> => {
+    const currentDay = dayjs();
     return {
         scheduleDate: data?.date,
         scheduleTimings: data?.timings.map((timing) => ({
             ...timing,
-            from: dayjs(timing.from).toDate(),
-            to: dayjs(timing.to).toDate(),
+            from: dayjs(timing.from).set("day", currentDay.get("day")).toDate(),
+            to: dayjs(timing.to).set("day", currentDay.get("day")).toDate(),
         })),
     };
 };

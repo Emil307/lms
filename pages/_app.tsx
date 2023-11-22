@@ -1,12 +1,11 @@
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
+import { QueryParamProvider } from "use-query-params";
 import { QueryProvider, ThemeProvider } from "@app/providers";
 import { AppPropsWithLayout } from "@shared/utils";
-import { QueryParamProvider } from "use-query-params";
 import { Adapter } from "@app/config/query";
 import SessionProvider from "@app/providers/SessionProvider";
 import "@app/styles/index.scss";
-
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);

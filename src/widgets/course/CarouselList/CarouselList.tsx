@@ -1,6 +1,7 @@
 import { Box, BoxProps } from "@mantine/core";
 import { useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { Card } from "@features/courses";
@@ -12,6 +13,8 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
 }
 
 const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
+    const router = useRouter();
+
     const {
         data: coursePackages,
         hasNextPage,
@@ -26,6 +29,10 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
         }
     }, [entry]);
 
+    const handleClickCourseCard = (courseId: number) => {
+        router.push({ pathname: "/courses/[id]", query: { id: String(courseId) } });
+    };
+
     return (
         <Box {...props}>
             <Carousel<CourseFromList>
@@ -33,7 +40,7 @@ const CarouselList = ({ packageId, ...props }: CarouselListProps) => {
                 lastElemRef={lastElemRef}
                 slideSize={448}
                 breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
-                {(props) => <Card {...props} buttonVariant="favorite" w="100%" />}
+                {(props) => <Card {...props} buttonVariant="favorite" w="100%" onClick={handleClickCourseCard} />}
             </Carousel>
         </Box>
     );

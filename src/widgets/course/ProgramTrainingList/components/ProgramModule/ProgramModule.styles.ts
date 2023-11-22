@@ -18,11 +18,9 @@ export default createStyles((theme) => ({
         ".mantine-Accordion-content": {
             paddingTop: 0,
             paddingBottom: 32,
-            marginTop: -8,
 
             [theme.fn.smallerThan("md")]: {
                 paddingBottom: 24,
-                marginTop: 0,
             },
         },
     },

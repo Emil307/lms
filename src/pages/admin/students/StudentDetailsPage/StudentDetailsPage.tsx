@@ -63,7 +63,7 @@ const StudentDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ userName, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ userName })} mb={8} />
             <Flex direction="column" gap={32}>
                 <InfoPanel id={id} />
                 <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} />
