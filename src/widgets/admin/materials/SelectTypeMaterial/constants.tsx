@@ -1,7 +1,7 @@
 import { FileText, PlayCircle } from "react-feather";
-import { FileTypeCard } from "@features/materials";
+import { IMaterialTypeCard } from "@features/materials";
 
-export const fileTypeCards: FileTypeCard[] = [
+export const materialTypeCards: IMaterialTypeCard[] = [
     {
         id: 0,
         title: "Добавить видео",

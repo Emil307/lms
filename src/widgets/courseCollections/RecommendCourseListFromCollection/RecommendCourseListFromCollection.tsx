@@ -7,15 +7,13 @@ import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { useRandomCourseCollection } from "@entities/courseCollection";
-import { initialParamsForCollection, initialParamsForCourses } from "./constants";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
+import { initialParamsForCourses } from "./constants";
 
 const RecommendCourseListFromCollection = () => {
     const router = useRouter();
 
-    const { data: courseCollectionData = [], isFetching: isFetchingCollection } = useRandomCourseCollection(initialParamsForCollection);
-
-    const collection = courseCollectionData[0];
+    const { data: courseCollection, isFetching: isFetchingCollection } = useRandomCourseCollection();
 
     const {
         data: courses,
@@ -23,8 +21,8 @@ const RecommendCourseListFromCollection = () => {
         hasNextPage,
         fetchNextPage,
     } = useCoursesInfinite(
-        adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(collection?.id) }),
-        !!collection
+        adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(courseCollection?.id) }),
+        !!courseCollection
     );
 
     const { ref: lastElemRef, entry } = useIntersection();
@@ -35,7 +33,7 @@ const RecommendCourseListFromCollection = () => {
         }
     }, [entry]);
 
-    if (isFetchingCollection || isLoadingCourses) {
+    if (isFetchingCollection || (courseCollection && isLoadingCourses)) {
         return (
             <>
                 <Skeleton maw={420} h={72} radius={8} />
@@ -44,7 +42,7 @@ const RecommendCourseListFromCollection = () => {
         );
     }
 
-    if (!collection || !courses?.data.length) {
+    if (!courseCollection || !courses?.data.length) {
         return null;
     }
 
@@ -62,7 +60,7 @@ const RecommendCourseListFromCollection = () => {
                     </Button>
                 </Flex>
                 <Paragraph variant="large" color="neutral_gray">
-                    {collection.name}
+                    {courseCollection.name}
                 </Paragraph>
             </Flex>
             <Carousel<CourseFromList>

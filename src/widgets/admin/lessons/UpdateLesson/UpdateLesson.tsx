@@ -95,8 +95,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                 onSuccess={onSuccess}
                 onError={onError}
                 onCancel={onClose}
-                validateOnChange={false}
-                hasConfirmModal>
+                validateOnChange={false}>
                 {({ values, onCancel }) => (
                     <Flex gap={32} direction="column">
                         <Flex className={classes.wrapper}>

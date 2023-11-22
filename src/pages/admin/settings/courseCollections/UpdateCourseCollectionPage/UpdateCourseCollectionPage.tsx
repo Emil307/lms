@@ -25,7 +25,7 @@ const UpdateCourseCollectionPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: courseCollectionData.name })} mb={8} />
             <Heading mb={24}>{courseCollectionData.name}</Heading>
             <UpdateCourseCollectionForm data={courseCollectionData} onClose={handleCancel} />
         </Box>

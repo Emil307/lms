@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachMaterialFilesToArticle } from "@entities/article";
@@ -14,20 +14,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetMaterialsRequest } from "./utils";
 import useStyles from "./AddMaterialsToArticleModal.styles";
 
-export interface AddMaterialsToArticleModalProps extends Omit<BoxProps, "children"> {
+export interface AddMaterialsToArticleModalProps {
     articleId: string;
     onClose: () => void;
 }
 
-const AddMaterialsToArticleModal = ({ articleId, onClose, ...props }: AddMaterialsToArticleModalProps) => {
+const AddMaterialsToArticleModal = ({ articleId, onClose }: AddMaterialsToArticleModalProps) => {
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const fileResources = useUploadedFileResources();
-    const attachMaterialsToArticle = useAttachMaterialFilesToArticle(articleId);
+    const { mutate: attachMaterialsToArticle, isLoading } = useAttachMaterialFilesToArticle(articleId);
 
     const handleSubmit = () => {
-        attachMaterialsToArticle.mutate(
+        attachMaterialsToArticle(
             { fileIds: selected },
             {
                 onSuccess: () => {
@@ -38,7 +38,7 @@ const AddMaterialsToArticleModal = ({ articleId, onClose, ...props }: AddMateria
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<UploadedFileFromList, AdminMaterialsNoIncludedArticleFiltersForm, AdminArticleMaterialsExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialsRequest(params))}
@@ -126,10 +126,11 @@ const AddMaterialsToArticleModal = ({ articleId, onClose, ...props }: AddMateria
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

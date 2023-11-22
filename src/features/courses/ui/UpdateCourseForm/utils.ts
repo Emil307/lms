@@ -5,7 +5,6 @@ import { initialValues } from "./constants";
 export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFormValues => {
     const {
         isActive = false,
-        isDemonstrative = false,
         isPopular = false,
         hasDiscount = false,
         hasTeachers = false,
@@ -27,7 +26,6 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
     return {
         ...rest,
         isActive,
-        isDemonstrative,
         isPopular,
         hasTeachers,
         hasAuthors,

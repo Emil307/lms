@@ -8,5 +8,5 @@ interface GetBreadCrumbsItemsProps {
 export const getBreadCrumbsItems = ({ courseId, courseName }: GetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "Курсы", href: { pathname: "/admin/courses" } },
     { title: courseName, href: { pathname: "/admin/courses/[id]", query: { id: String(courseId) } } },
-    { title: "Статистика", href: { pathname: "/admin/courses/[id]/statistics", query: { id: String(courseId) } } },
+    { title: "Статистика" },
 ];

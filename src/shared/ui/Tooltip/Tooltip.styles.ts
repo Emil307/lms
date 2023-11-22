@@ -6,6 +6,7 @@ export default createStyles((theme) => ({
         maxWidth: 320,
         borderRadius: 8,
         backgroundColor: theme.colors.dark[0],
+        wordBreak: "break-word",
 
         ".mantine-Text-root": {
             fontSize: 12,

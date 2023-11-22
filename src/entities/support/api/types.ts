@@ -58,7 +58,7 @@ export const $AdminSupportConversation = z.object({
     hasSupportMessage: z.boolean(),
     profile: $Profile.pick({ firstName: true, lastName: true, patronymic: true, avatar: true }),
     roles: $Role.array(),
-    lastSupportMessage: $LastSupportMessage,
+    lastSupportMessage: $LastSupportMessage.nullable(),
     supportConversation: z.object({
         id: z.number(),
     }),

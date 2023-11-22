@@ -69,7 +69,7 @@ const List = ({
                     withPagination={withPagination}
                     pagination={coursesData?.pagination}
                     declensionWordCountItems={["курс", "курса", "курсов"]}
-                    isLoading={isFetching}
+                    isLoading={isFetching || isLoading}
                     onClick={handleClickCard}
                 />
             </Box>

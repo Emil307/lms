@@ -23,8 +23,7 @@ const AddArticlesToArticlePackageButton = ({ articlePackageId }: AddArticlesToAr
             title: "Добавить статью",
             children: <AddArticleToArticlePackageModal articlePackageId={articlePackageId} onClose={handleCloseAddArticleToPackageModal} />,
             size: 912,
-            mah: 912,
-            className: classes.addArticlesToArticlePackageModalWrapper,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

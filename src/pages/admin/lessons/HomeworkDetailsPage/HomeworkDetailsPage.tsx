@@ -58,7 +58,7 @@ const HomeworkDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ studentFio, homeworkAnswerId: homeworkAnswer.id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ studentFio })} mb={8} />
             <HomeworkInfoPanel homeworkAnswer={homeworkAnswer} studentFio={studentFio} />
             <Box mt={32} maw={1162}>
                 <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} mb={32} />

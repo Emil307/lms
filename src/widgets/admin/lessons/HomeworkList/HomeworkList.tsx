@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
@@ -12,9 +12,7 @@ import { radioGroupValues, columns, filterInitialValues, columnOrder } from "./c
 import { AdminHomeworkAnswersFilters } from "./types";
 import useStyles from "./HomeworkList.styles";
 
-export interface HomeworkListProps extends Omit<BoxProps, "children"> {}
-
-const HomeworkList = (props: HomeworkListProps) => {
+const HomeworkList = () => {
     const router = useRouter();
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
@@ -44,7 +42,7 @@ const HomeworkList = (props: HomeworkListProps) => {
     };
 
     return (
-        <Box {...props}>
+        <Box>
             <ManagedDataGrid<AdminHomeworkAnswerFromList, AdminHomeworkAnswersFilters>
                 queryKey={QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS}
                 queryFunction={(params) => lessonApi.getAdminHomeworkAnswers(adaptGetAdminHomeworkAnswersRequest(params))}

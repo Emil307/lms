@@ -23,7 +23,7 @@ const AddCoursesToCoursePackageButton = ({ coursePackageId }: AddCoursesToCourse
             title: "Добавить курс",
             children: <AddCourseToCoursePackageModal coursePackageId={coursePackageId} onClose={handleCloseAddCourseToPackageModal} />,
             size: 912,
-            className: classes.addCoursesToCoursePackageModalWrapper,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

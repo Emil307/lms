@@ -1,13 +1,9 @@
 import { createContext } from "react";
 
-export const SidebarAdminContext = createContext<{
-    isMinimizedModeSidebar: boolean;
-    setIsMinimizedModeSidebar: (isMinimizedModeSidebar: boolean) => void;
+export const SidebarItemsWithChildrenContext = createContext<{
     activeSidebarItemsWithChildren: string[];
     setActiveSidebarItemsWithChildren: (values: string[]) => void;
 }>({
-    isMinimizedModeSidebar: false,
-    setIsMinimizedModeSidebar: () => undefined,
     activeSidebarItemsWithChildren: [],
     setActiveSidebarItemsWithChildren: () => undefined,
 });

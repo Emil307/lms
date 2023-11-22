@@ -1,6 +1,6 @@
-import { CreateMaterialsDataForm } from "@features/materials";
+import { CreateMaterialsDataForm } from "@features/materials/helpers";
 import { CreateMaterialsFormValidation } from "./types";
 
 export const getInitialValues = (sessionStorageData: CreateMaterialsDataForm | null): CreateMaterialsFormValidation => ({
-    materials: sessionStorageData?.materials || [],
+    files: sessionStorageData?.files || [],
 });

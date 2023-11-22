@@ -46,6 +46,7 @@ export const columns: TColumns<AdminStudentCourseFromList> = [
     {
         header: "Статус",
         accessorKey: "status",
+        hideTooltip: true,
         Cell: ({ row }) => {
             const { classes } = useCellStyles({ statusType: row.original.status?.name });
             if (!row.original.status) {

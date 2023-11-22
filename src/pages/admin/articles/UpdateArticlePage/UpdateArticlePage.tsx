@@ -23,7 +23,7 @@ const UpdateArticlePage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ articleName: articleData?.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ articleName: articleData?.name })} mb={8} />
             <Heading mb={24}>{articleData?.name}</Heading>
             <UpdateArticleForm data={articleData} onClose={handleCancel} />
         </Box>

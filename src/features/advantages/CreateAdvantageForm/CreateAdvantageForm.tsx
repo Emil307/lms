@@ -39,7 +39,8 @@ const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
             keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ADVANTAGES] }]}
             mutationFunction={createAdvantage}
             onSuccess={onSuccess}
-            onError={onError}>
+            onError={onError}
+            disableOverlay>
             <Flex direction="column" gap={8}>
                 <FInput name="title" label="Заголовок" />
                 <FInput name="description" label="Пояснение" />

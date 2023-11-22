@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { z } from "zod";
 
 export type CreateScheduleFormValidation = z.infer<typeof $CreateScheduleFormValidation>;
@@ -8,7 +9,17 @@ export const $CreateScheduleFormValidation = z.object({
         .nullable()
         .refine((value) => value !== null, {
             message: "Выберите датy",
-        }),
+        })
+        .refine(
+            (value) => {
+                const currentDate = dayjs().set("hour", 0).set("minute", 0).set("second", 0).set("millisecond", 0);
+                const newDate = dayjs(value);
+                return newDate.isAfter(currentDate) || newDate.isSame(currentDate);
+            },
+            {
+                message: "Дата не может быть в прошлом",
+            }
+        ),
     scheduleTimings: z.array(
         z
             .object({

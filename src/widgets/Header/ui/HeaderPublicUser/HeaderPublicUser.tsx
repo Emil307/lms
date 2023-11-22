@@ -93,7 +93,7 @@ const HeaderPublicUser = () => {
                             leftIcon={<Folder />}
                             variant="white"
                             sx={{
-                                backgroundColor: router.pathname === "/courses" ? theme.colors.grayLight[0] : "transparent",
+                                backgroundColor: router.pathname.includes("/courses") ? theme.colors.grayLight[0] : "transparent",
                             }}
                             onClick={() => router.push("/courses")}>
                             Все курсы
@@ -117,7 +117,9 @@ const HeaderPublicUser = () => {
                             <ActionIcon
                                 className={classes.actionIcon}
                                 sx={{
-                                    backgroundColor: router.pathname === "/my-courses/favorite" ? theme.colors.grayLight[0] : "transparent",
+                                    backgroundColor: router.pathname.includes("/my-courses/favorite")
+                                        ? theme.colors.grayLight[0]
+                                        : "transparent",
                                 }}
                                 onClick={() => router.push("/my-courses/favorite")}>
                                 <Heart />

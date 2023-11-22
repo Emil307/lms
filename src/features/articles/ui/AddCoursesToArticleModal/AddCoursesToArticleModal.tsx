@@ -1,4 +1,4 @@
-import { Box, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachCoursesToArticle } from "@entities/article";
@@ -24,10 +24,10 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
     const [selected, setSelected] = useState<string[]>([]);
 
     const courseResources = useAdminCourseResources({ type: "select" });
-    const attachCoursesToArticle = useAttachCoursesToArticle(articleId);
+    const { mutate: attachCoursesToArticle, isLoading } = useAttachCoursesToArticle(articleId);
 
     const handleSubmit = () => {
-        attachCoursesToArticle.mutate(
+        attachCoursesToArticle(
             { courseIds: selected },
             {
                 onSuccess: () => {
@@ -38,7 +38,7 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
     };
 
     return (
-        <Box>
+        <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesNoIncludedArticleFiltersForm, AdminArticleCoursesExtraFilters>
                 queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
@@ -130,10 +130,11 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

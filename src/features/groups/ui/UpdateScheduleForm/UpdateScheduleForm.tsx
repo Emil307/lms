@@ -44,11 +44,12 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUP_SCHEDULES] }]}
                 mutationFunction={updateGroupSchedule}
                 onSuccess={onSuccess}
-                onError={onError}>
+                onError={onError}
+                disableOverlay>
                 {({ values }) => (
                     <>
                         <Flex direction="column" gap={16} mb={24}>
-                            <FDatePicker name="scheduleDate" label="Выберите дату" />
+                            <FDatePicker name="scheduleDate" label="Выберите дату" minDate={new Date()} />
                             <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
                                     const handleAddInterval = () => push({ to: null, from: null });
@@ -83,15 +84,13 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                                             />
                                                         </Flex>
 
-                                                        {index > 0 && (
-                                                            <Button
-                                                                variant="text"
-                                                                size="small"
-                                                                leftIcon={<Trash />}
-                                                                onClick={handleRemoveInterval}>
-                                                                Удалить
-                                                            </Button>
-                                                        )}
+                                                        <Button
+                                                            variant="text"
+                                                            size="small"
+                                                            leftIcon={<Trash />}
+                                                            onClick={handleRemoveInterval}>
+                                                            Удалить
+                                                        </Button>
                                                     </Flex>
                                                 );
                                             })}

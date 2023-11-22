@@ -45,7 +45,8 @@ const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
             ]}
             mutationFunction={updateAdvantage}
             onSuccess={onSuccess}
-            onError={onError}>
+            onError={onError}
+            disableOverlay>
             <Flex direction="column" gap={8}>
                 <FInput name="title" label="Заголовок" />
                 <FInput name="description" label="Пояснение" />

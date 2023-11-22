@@ -12,3 +12,4 @@ export * from "./AddArticlesToCourseModal";
 export * from "./DeleteCourseArticleModal";
 export * from "./AddCoursesToStudentModal";
 export * from "./DeleteStudentCourseModal";
+export * from "./CleanFavoriteCoursesModal";

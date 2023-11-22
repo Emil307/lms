@@ -1,23 +1,23 @@
 import { Flex, FlexProps } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { useAdminArticlePackage, useUpdateArticlePackageActivity } from "@entities/articlePackage";
+import { AdminArticlePackage, useUpdateArticlePackageActivity } from "@entities/articlePackage";
 import { LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends Omit<FlexProps, "children"> {
-    id: string;
+    data: AdminArticlePackage;
 }
 
-const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
+const InfoPanel = ({ data, ...props }: InfoPanelProps) => {
     const { classes, cx } = useStyles();
-    const { data: articlePackageData } = useAdminArticlePackage(id);
 
-    const { mutate: updateActivityStatus } = useUpdateArticlePackageActivity(id);
+    const { mutate: updateActivityStatus } = useUpdateArticlePackageActivity({ id: String(data.id), name: data.name });
 
-    const labelActivitySwitch = articlePackageData?.isActive ? "Деактивировать" : "Активировать";
+    const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
+        updateActivityStatus({ isActive: newValue.target.checked });
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
@@ -25,14 +25,14 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                 <Paragraph variant="text-small-m" color="gray45">
                     ID:
                 </Paragraph>
-                <Paragraph variant="text-small-m">{articlePackageData?.id}</Paragraph>
+                <Paragraph variant="text-small-m">{data.id}</Paragraph>
             </Flex>
             <Flex align="center" gap={8}>
                 <Paragraph variant="text-small-m" color="gray45">
                     Статус:
                 </Paragraph>
                 <Switch
-                    checked={articlePackageData?.isActive}
+                    checked={data.isActive}
                     onChange={handleChangeActiveStatus}
                     variant="secondary"
                     label={labelActivitySwitch}
@@ -43,11 +43,9 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                 <Paragraph variant="text-small-m" color="gray45">
                     Создание:
                 </Paragraph>
-                <Paragraph variant="text-small-m">
-                    {articlePackageData?.createdAt ? dayjs(articlePackageData.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
-                </Paragraph>
+                <Paragraph variant="text-small-m">{dayjs(data.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
             </Flex>
-            <LastUpdatedInfo data={articlePackageData?.lastUpdated} />
+            <LastUpdatedInfo data={data.lastUpdated} />
         </Flex>
     );
 };

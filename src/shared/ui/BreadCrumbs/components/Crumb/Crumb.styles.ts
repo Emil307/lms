@@ -13,6 +13,7 @@ export default createStyles((theme, { isActiveCrumb }: CreateStylesParams, getRe
             textDecoration: "underline",
         },
         "&:active": {
+            textDecorationColor: theme.colors.dark[0],
             [`.${getRef("control")}`]: {
                 color: theme.colors.dark[0],
             },

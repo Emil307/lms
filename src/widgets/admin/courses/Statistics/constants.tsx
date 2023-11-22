@@ -36,6 +36,7 @@ export const columns: TColumns<AdminCourseStatistics> = [
     {
         header: "Статус группы",
         accessorKey: "status",
+        hideTooltip: true,
         Cell: ({ row }) => {
             const { classes } = useStyles({ statusType: row.original.status.name });
             return <Badge className={classes.status}>{row.original.status.displayName}</Badge>;

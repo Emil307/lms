@@ -9,7 +9,7 @@ import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
 import useStyles from "./UpdateContactsForm.styles";
 
-export interface UpdateContactsFormProps extends BoxProps {}
+export interface UpdateContactsFormProps extends BoxProps { }
 
 const UpdateContactsForm = (props: UpdateContactsFormProps) => {
     const { classes } = useStyles();
@@ -32,7 +32,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_CONTACTS] }]}
                 mutationFunction={updateContactsPage}
                 onSuccess={onSuccess}
-                hasConfirmModal>
+                disabledLoadingOnSuccess>
                 {({ onCancel }) => (
                     <>
                         <Flex gap={16} align="center">

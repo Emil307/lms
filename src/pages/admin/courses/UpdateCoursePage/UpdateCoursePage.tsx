@@ -30,7 +30,7 @@ const UpdateCoursePage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ courseId: courseData.id, courseName: courseData.name })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name })} mb={8} />
             <Heading>{courseData.name}</Heading>
             <UpdateCourseForm data={courseData} onSuccess={onSuccess} onCancel={onCancel} />
         </Box>

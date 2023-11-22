@@ -290,7 +290,7 @@ export const defaultTheme: MantineThemeOverride = {
             }),
             styles: (theme) => ({
                 root: {
-                    zIndex: 999,
+                    zIndex: 399,
                 },
                 inner: {
                     height: "100vh",
@@ -302,6 +302,8 @@ export const defaultTheme: MantineThemeOverride = {
                 },
 
                 modal: {
+                    display: "flex",
+                    flexDirection: "column",
                     padding: "32px 24px 24px !important",
                     borderRadius: 16,
                     background: theme.colors.white[0],
@@ -311,10 +313,17 @@ export const defaultTheme: MantineThemeOverride = {
                     [theme.fn.smallerThan("xs")]: {
                         minWidth: "100%",
                         padding: "24px 16px 56px !important",
+                        height: "auto !important",
                         marginBottom: 0,
                         borderBottomLeftRadius: 0,
                         borderBottomRightRadius: 0,
                     },
+                },
+                body: {
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 0,
+                    flexGrow: 1,
                 },
                 close: {
                     minWidth: 32,
@@ -354,6 +363,12 @@ export const defaultTheme: MantineThemeOverride = {
                     "&[data-active]": {
                         border: "none",
                         boxShadow: " 0px 16px 32px rgba(2, 6, 46, 0.08)",
+
+                        ".mantine-Accordion-control": {
+                            paddingBottom: 24,
+                            borderBottomLeftRadius: "0 !important",
+                            borderBottomRightRadius: "0 !important",
+                        },
                     },
 
                     "&:not(:first-of-type)": {
@@ -362,6 +377,8 @@ export const defaultTheme: MantineThemeOverride = {
                 },
                 control: {
                     padding: 32,
+                    borderRadius: 16,
+                    backgroundColor: theme.colors.white[0],
 
                     [theme.fn.smallerThan("md")]: {
                         paddingInline: 24,

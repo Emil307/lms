@@ -24,7 +24,7 @@ const AddStudentCourseButton = ({ studentId, hidden }: AddStudentCourseButtonPro
             title: "Добавить курс",
             children: <AddCoursesToStudentModal studentId={studentId} onClose={handleCloseAddCoursesToStudentModal} />,
             size: 912,
-            className: classes.addCoursesToStudentModalWrapper,
+            styles: () => ({ modal: { height: 664 } }),
         });
     };
 

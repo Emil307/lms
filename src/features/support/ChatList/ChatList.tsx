@@ -82,7 +82,9 @@ const ChatList = ({
         <Flex className={classes.root} {...props}>
             <ScrollArea.Autosize maxHeight={maxHeightContainer} style={{ paddingRight: 4 }} type="auto" scrollbarSize={4}>
                 {renderNothingFound()}
-                {renderItems}
+                <Flex direction="column" gap={4}>
+                    {renderItems}
+                </Flex>
                 {(isLoading || isFetching || isRefetching) && <Loader w="100%" />}
             </ScrollArea.Autosize>
         </Flex>

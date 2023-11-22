@@ -49,7 +49,7 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                 {({ values }) => (
                     <>
                         <Flex direction="column" gap={16} mb={24}>
-                            <FDatePicker name="scheduleDate" label="Выберите дату" />
+                            <FDatePicker name="scheduleDate" label="Выберите дату" minDate={new Date()} />
                             <FieldArray name="scheduleTimings">
                                 {({ remove, push }) => {
                                     const handleAddInterval = () => push({ to: null, from: null });

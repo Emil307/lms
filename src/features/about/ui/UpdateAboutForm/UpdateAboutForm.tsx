@@ -10,7 +10,7 @@ import { initialValues } from "./constants";
 import { adaptDataForUpdateAboutForm } from "./utils";
 import useStyles from "./UpdateAboutForm.styles";
 
-export interface UpdateAboutFormProps extends BoxProps {}
+export interface UpdateAboutFormProps extends BoxProps { }
 
 const UpdateAboutForm = (props: UpdateAboutFormProps) => {
     const { classes } = useStyles();
@@ -33,7 +33,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ABOUT] }]}
                 mutationFunction={updateAboutPage}
                 onSuccess={onSuccess}
-                hasConfirmModal>
+                disabledLoadingOnSuccess>
                 {({ onCancel }) => (
                     <>
                         <FFileInput

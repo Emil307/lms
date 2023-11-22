@@ -44,7 +44,6 @@ const UpdateLessonPage = () => {
                     courseId: id,
                     moduleId,
                     moduleName: moduleData?.name,
-                    lessonId,
                     lessonName: lessonData.name,
                 })}
                 mb={8}

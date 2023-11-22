@@ -60,7 +60,6 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                 mutationKey={[MutationKeys.UPDATE_MAIN_BANNER]}
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_MAIN_BANNER] }]}
                 mutationFunction={updateMainBanner}
-                hasConfirmModal
                 onSuccess={onSuccess}
                 onCancel={onClose}
                 onError={onError}>
@@ -88,12 +87,12 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                 </Flex>
                             </Fieldset>
 
-                            <Box component="fieldset" className={classes.fieldset} maw={512}>
-                                <Box component="legend" className={classes.legend}>
+                            <Flex className={classes.fieldset} maw={512}>
+                                <Flex className={classes.fieldsetHeading}>
                                     <User />
                                     <Heading order={4}>Карточка автора</Heading>
                                     <FSwitch variant="secondary" name="indexBannerAuthorActive" />
-                                </Box>
+                                </Flex>
                                 {values.indexBannerAuthorActive && (
                                     <Flex direction="column" gap={24} w="100%">
                                         <FAvatarInput
@@ -132,7 +131,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                         </Flex>
                                     </Flex>
                                 )}
-                            </Box>
+                            </Flex>
                             <FControlButtons onClose={onCancel} />
                         </Flex>
                     );

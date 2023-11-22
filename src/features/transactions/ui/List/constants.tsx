@@ -1,8 +1,8 @@
 import { Badge } from "@mantine/core";
 import dayjs from "dayjs";
 import { TransactionFromList, TransactionsFiltersForm } from "@entities/transaction";
-import useStyles from "./List.styles";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import useStyles from "./List.styles";
 
 export const columnOrder = ["entity.type.name", "entity.name", "createdAt", "paymentType", "amount", "status"];
 
@@ -39,6 +39,7 @@ export const columns: TColumns<TransactionFromList> = [
     {
         header: "Статус платежа",
         accessorKey: "status",
+        hideTooltip: true,
         Cell: ({ row }) => {
             const { classes } = useStyles({ status: row.original.status });
             return <Badge className={classes.status}>{row.original.status.name}</Badge>;

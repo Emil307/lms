@@ -19,9 +19,9 @@ const UserInfoBlock = (props: UserInfoBlockProps) => {
     const { setOpenedSidebar } = useContext(AdminSidebarMenuContext);
 
     const handleRedirectProfilePage = () => {
-        router.push({ pathname: "/admin/users/[id]", query: { id: String(user?.id) } });
-        setOpenedSidebar(false);
+        router.push("/profile");
     };
+
     const handleRedirectLogout = () => {
         router.push(logoutPath);
         setOpenedSidebar(false);

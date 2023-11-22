@@ -9,7 +9,7 @@ import { PAGE_DEFAULT, PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/cons
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
 import { prepareColumns, useCurrentPaginationData } from "../../utils";
 import { Pagination, TPaginationProps } from "../../components";
-import { TCellBadge, TCellProps, TColumns } from "../../types";
+import { TCellBadge, TCellProps, TColumn, TColumns } from "../../types";
 
 type TExtendedProps<T extends Record<string, any>> = Omit<MantineReactTableProps<T>, "columns" | "data"> &
     Partial<Pick<TPaginationProps<T>, "perPageOptions">>;
@@ -76,7 +76,11 @@ function BaseTable<T extends Record<string, any>>({
             return Cell ? Cell(props) : (props.cell.getValue() as ReactNode);
         };
 
-        const renderContent = (cellValue: ReactNode) => {
+        const renderContent = (cellValue: ReactNode, column: TColumn<T>) => {
+            if (column.hideTooltip) {
+                return <Text className={classes.tableBodyCellValue}>{cellValue}</Text>;
+            }
+
             return (
                 <Tooltip label={cellValue} position="top">
                     <Text className={classes.tableBodyCellValue}>{cellValue}</Text>
@@ -90,7 +94,7 @@ function BaseTable<T extends Record<string, any>>({
                 const cellValue = getCellValue(props, Cell);
                 return (
                     <div className={classes.tableBodyCellValueWrapper} style={{ width: column.size ? column.size - 32 : "100%" }}>
-                        {renderContent(cellValue)}
+                        {renderContent(cellValue, column)}
                     </div>
                 );
             },

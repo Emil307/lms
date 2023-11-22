@@ -85,8 +85,7 @@ const UpdateLessonHomeworkAnswerForm = ({
                 mutationFunction={updateLessonHomeworkAnswer}
                 onSuccess={onSuccess}
                 onError={onError}
-                onCancel={onClose}
-                hasConfirmModal>
+                onCancel={onClose}>
                 {({ dirty, onCancel }) => {
                     return (
                         <Flex direction="column" gap={24}>

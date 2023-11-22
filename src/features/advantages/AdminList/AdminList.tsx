@@ -1,15 +1,13 @@
-import { Box, BoxProps } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
 import { Advantage, staticPageApi } from "@entities/staticPage";
 import { QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 
-export interface AdminListProps extends BoxProps {}
-
-const AdminList = (props: AdminListProps) => {
+const AdminList = () => {
     return (
-        <Box {...props}>
+        <Box>
             <ManagedDataGrid<Advantage>
                 queryKey={QueryKeys.GET_ADMIN_ADVANTAGES}
                 queryFunction={(params) => staticPageApi.getAdminAdvantages(params)}

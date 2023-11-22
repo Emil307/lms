@@ -5,7 +5,7 @@ import { dehydrate } from "@tanstack/react-query";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { MyArticleDetailsPage } from "@pages/articles";
-import { QueryKeys } from "@shared/constant";
+import { ArticleTypes, QueryKeys } from "@shared/constant";
 import { ArticleApi } from "@entities/article";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
@@ -19,7 +19,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articleApi = new ArticleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, "my-articles", id], () => articleApi.getMyArticle({ id }));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, ArticleTypes.MY_ARTICLE, id], () =>
+            articleApi.getMyArticle({ id })
+        );
+
+        if (!response.data.isAvailable) {
+            return {
+                redirect: {
+                    destination: "/articles?tab=my-articles",
+                    permanent: false,
+                },
+            };
+        }
 
         return {
             props: {

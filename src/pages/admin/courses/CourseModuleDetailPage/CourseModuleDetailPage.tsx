@@ -31,7 +31,6 @@ const CourseModuleDetailPage = () => {
                     courseName: courseData.name,
                     courseId,
                     moduleName: moduleData.name,
-                    moduleId,
                 })}
                 mb={8}
             />

@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import { useRouter } from "next/router";
 import { ArticleAndArticleCategoryFiltersForm, ArticleFromList } from "@entities/article";
 import { CarouselList as ArticlePackageCarouselList } from "@widgets/articlePackages";
@@ -28,13 +28,13 @@ const ArticleCategories = ({ filterParams, onSubmitFilters, ...props }: ArticleC
     };
 
     return (
-        <Flex {...props} className={cx(classes.root, props.className)}>
+        <Box {...props} className={cx(classes.root, props.className)}>
             <Filters data={filterParams} onSubmitFilters={onSubmitFilters} />
             <Flex className={classes.wrapperContent}>
                 {renderList()}
                 <ArticlePackageCarouselList />
             </Flex>
-        </Flex>
+        </Box>
     );
 };
 

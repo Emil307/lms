@@ -23,7 +23,7 @@ const CourseDetailsPage = () => {
     //который считается 'моим курсом' => редирект на детальную страницу 'моего курса'
     useEffect(() => {
         if (courseData && isMyCourse(courseData)) {
-            router.push({ pathname: "/my-courses/[id]", query: { id: String(courseData.groupId) } });
+            router.replace({ pathname: "/my-courses/[id]", query: { id: String(courseData.groupId) } });
         }
     }, [courseData]);
 
@@ -39,7 +39,7 @@ const CourseDetailsPage = () => {
 
     return (
         <Flex className={classes.root}>
-            <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name, id })} />
+            <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name })} />
             <Flex direction="column" gap={64}>
                 <Flex direction="column" gap={16}>
                     <MainInfoPanel data={courseData} />

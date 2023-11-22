@@ -1,28 +1,29 @@
 import { Box, Flex, ScrollArea, Text } from "@mantine/core";
-import React from "react";
-import { FieldArray, FormikConfig } from "formik";
+import React, { useMemo, useRef } from "react";
+import { FieldArray, FormikConfig, FormikProps } from "formik";
 import { ChevronLeft, FileText, PlayCircle } from "react-feather";
 import axios from "axios";
-import { FControlButtons, FInput, Form, getFileExtension } from "@shared/ui";
+import { FControlButtons, FInput, Form, Paragraph, getFileExtension } from "@shared/ui";
 import { ToastType, createNotification, getDataFromSessionStorage, useMedia } from "@shared/utils";
-import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
-import { MaterialType, useUpdateUploadedFiles } from "@entities/storage";
-import { $UpdateMaterialsFormValidation, MaterialFile, UpdateMaterialsFormValidation } from "./types";
+import { MaterialType, UploadedFileFromList, useUpdateUploadedFiles } from "@entities/storage";
+import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY, MaterialFile } from "@features/materials/helpers";
+import { $UpdateMaterialsFormValidation, UpdateMaterialsFormValidation } from "./types";
 import { adaptUpdateMaterialsFormRequest, getInitialValues } from "./utils";
 import useStyles from "./UpdateMaterialsForm.styles";
 import { ControlPanel } from "./components";
 
 export interface UpdateMaterialsFormProps {
-    data: MaterialFile[];
-    hasCategories?: boolean;
+    data?: UploadedFileFromList;
     type: MaterialType;
     onClose: () => void;
     onSubmit: (fileIds: string[]) => void;
     multiple?: boolean;
 }
 
-const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onClose, onSubmit }: UpdateMaterialsFormProps) => {
+//TODO: НЕ ПЕРЕНОСИТЬ НА ДРУГИЕ ПРОЕКТЫ!!!
+const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }: UpdateMaterialsFormProps) => {
     const { classes } = useStyles();
+    const formRef = useRef<FormikProps<UpdateMaterialsFormValidation>>(null);
 
     const isMobile = useMedia("xs");
 
@@ -48,13 +49,17 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
         );
     };
 
+    const initialValues = useMemo(() => {
+        return getInitialValues({ sessionStorageData, data });
+    }, []);
+
     const config: FormikConfig<UpdateMaterialsFormValidation> = {
-        initialValues: getInitialValues({ sessionStorageData, data, hasCategories }),
+        initialValues,
         validationSchema: $UpdateMaterialsFormValidation,
         onSubmit: async (values) => {
-            updateMaterials.mutate(adaptUpdateMaterialsFormRequest(values, sessionStorageData?.categoryIds), {
+            updateMaterials.mutate(adaptUpdateMaterialsFormRequest(values), {
                 onSuccess: () => {
-                    onSubmit(values.files.map((file) => String(file.id)));
+                    onSubmit(values.materials.map((material) => String(material.id)));
                 },
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {
@@ -70,13 +75,21 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
             });
         },
     };
+
+    const onCloseModal = () => {
+        if (formRef.current) {
+            sessionStorage.setItem(MATERIALS_LOCAL_STORAGE_KEY, JSON.stringify({ ...sessionStorageData, ...formRef.current.values }));
+        }
+        onClose();
+    };
+
     return (
-        <Form config={config} disableOverlay>
+        <Form config={config} disableOverlay customRef={formRef}>
             {({ values }) => (
                 <Flex direction="column" gap={16}>
                     <Flex className={classes.contentContainer}>
                         <ControlPanel />
-                        <FieldArray name="files">
+                        <FieldArray name="materials">
                             {() => (
                                 <ScrollArea.Autosize
                                     maxHeight={isMobile ? "calc(100vh - 304px)" : 392}
@@ -85,10 +98,13 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
                                     offsetScrollbars
                                     scrollbarSize={4}>
                                     <Flex direction="column" gap={16}>
-                                        {values.files.map((file, index) => (
-                                            <Flex key={index} gap={16}>
+                                        {values.materials.map((file, index) => (
+                                            <Flex key={index} gap={16} align="flex-end">
                                                 <Box className={classes.icon}>{renderIcon(file)}</Box>
-                                                <FInput name={`files.${index}.name`} label="Название" size="sm" sx={{ flex: 1 }} />
+                                                <FInput name={`materials.${index}.name`} label="Название" size="sm" sx={{ flex: 1 }} />
+                                                <Paragraph variant="text-small-semi" pb={8}>
+                                                    .{file.extension}
+                                                </Paragraph>
                                             </Flex>
                                         ))}
                                     </Flex>
@@ -99,11 +115,12 @@ const UpdateMaterialsForm = ({ data, hasCategories, type, multiple = false, onCl
                     <FControlButtons
                         variant="modal"
                         cancelButtonText={multiple ? "Назад" : "Отмена"}
-                        onClose={onClose}
+                        onClose={onCloseModal}
                         isLoading={updateMaterials.isLoading}
                         cancelButtonProps={{
                             leftIcon: multiple ? <ChevronLeft /> : null,
                         }}
+                        ignoreDirty
                     />
                 </Flex>
             )}

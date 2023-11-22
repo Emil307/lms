@@ -15,7 +15,7 @@ import { initialValues } from "./constants";
 import { adaptDataForUpdatePublicOfferForm } from "./utils";
 import useStyles from "./UpdatePublicOfferForm.styles";
 
-export interface UpdatePublicOfferFormProps extends BoxProps {}
+export interface UpdatePublicOfferFormProps extends BoxProps { }
 
 const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
     const { classes } = useStyles();
@@ -38,7 +38,7 @@ const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_PUBLIC_OFFER] }]}
                 mutationFunction={updatePublicOffer}
                 onSuccess={onSuccess}
-                hasConfirmModal>
+                disabledLoadingOnSuccess>
                 {({ onCancel }) => (
                     <>
                         <Flex gap={16} align="center">

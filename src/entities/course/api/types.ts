@@ -310,7 +310,6 @@ export const $CreateCourseFormValues = z
         duration: z.string().nullable().optional(),
         isInteractive: z.boolean(),
         isActive: z.boolean(),
-        isDemonstrative: z.boolean(),
         isPopular: z.boolean(),
         hasDiscount: z.boolean(),
         discount: z.object({
@@ -407,7 +406,6 @@ export const $CreateCourseRequest = z.object({
     price: z.number(),
     type: $CourseType,
     isActive: z.boolean(),
-    isDemonstrative: z.boolean(),
     isPopular: z.boolean(),
     hasDiscount: z.boolean(),
     discount: z

@@ -32,9 +32,9 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_FAQ] }]}
                 mutationFunction={updateFaq}
                 onSuccess={onSuccess}
-                hasConfirmModal
+                disableOverlay
                 onCancel={onClose}>
-                {({ values, dirty, onCancel }) => {
+                {({ values, dirty, isLoading, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     return (
                         <>
@@ -53,10 +53,10 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                             <FInput size="sm" name="question" label="Вопрос" />
                             <FTextarea name="answer" placeholder="Ответ на вопрос" className={classes.answerTextarea} />
                             <Flex className={classes.actions}>
-                                <Button variant="border" onClick={onCancel}>
+                                <Button variant="border" onClick={onCancel} disabled={isLoading}>
                                     Отменить
                                 </Button>
-                                <Button variant="secondary" type="submit" disabled={!dirty}>
+                                <Button variant="secondary" type="submit" loading={isLoading} disabled={!dirty}>
                                     Сохранить
                                 </Button>
                             </Flex>

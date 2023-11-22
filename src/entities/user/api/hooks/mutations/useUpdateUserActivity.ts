@@ -21,8 +21,6 @@ export const useUpdateUserActivity = ({
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_STUDENTS] });
 
             const previousUserData = queryClient.getQueryData<TUser>([QueryKeys.GET_ADMIN_USER, id]);
-            const previousUsersData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_USERS]);
-            const previousStudentsData = queryClient.getQueriesData<GetUsersResponse>([QueryKeys.GET_ADMIN_STUDENTS]);
 
             queryClient.setQueryData<TUser>(
                 [QueryKeys.GET_ADMIN_USER, id],
@@ -51,19 +49,12 @@ export const useUpdateUserActivity = ({
                 };
             });
 
-            return { previousUserData, previousUsersData, previousStudentsData };
+            return { previousUserData };
         },
         onError: (err, _, context) => {
             if (typeof context === "object" && "previousUserData" in context) {
                 queryClient.setQueryData([QueryKeys.GET_ADMIN_USER, id], context.previousUserData);
             }
-            if (typeof context === "object" && "previousUsersData" in context) {
-                queryClient.setQueriesData([QueryKeys.GET_ADMIN_USERS], context.previousUsersData);
-            }
-            if (typeof context === "object" && "previousStudentsData" in context) {
-                queryClient.setQueriesData([QueryKeys.GET_ADMIN_STUDENTS], context.previousStudentsData);
-            }
-
             createNotification({
                 type: ToastType.WARN,
                 title: "Ошибка изменения статуса",

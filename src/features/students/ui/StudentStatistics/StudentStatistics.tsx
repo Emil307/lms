@@ -1,5 +1,5 @@
-import { AdminGroupStudentStatistics } from "@entities/group";
 import { Flex } from "@mantine/core";
+import { AdminGroupStudentStatistics } from "@entities/group";
 import { Card, Module } from "./components";
 
 interface StudentStatisticsProps {

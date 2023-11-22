@@ -5,6 +5,7 @@ import { ContentPanel, MainInfoPanel } from "@widgets/articles";
 import { useMyArticle } from "@entities/article";
 import { TRouterQueries } from "@shared/types";
 import { BreadCrumbs, Loader } from "@shared/ui";
+import { ArticleTypes } from "@shared/constant";
 import { getBreadCrumbsItems } from "./utils";
 
 const MyArticleDetailsPage = () => {
@@ -23,9 +24,9 @@ const MyArticleDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.data.name, id })} mb={32} />
-            <MainInfoPanel.Navigated articleData={articleData} type="my-articles" mb={16} />
-            <ContentPanel data={articleData.data} />
+            <BreadCrumbs items={getBreadCrumbsItems({ title: articleData.data.name })} mb={32} />
+            <MainInfoPanel.Navigated articleData={articleData} type={ArticleTypes.MY_ARTICLE} mb={16} />
+            <ContentPanel data={articleData.data} articleType={ArticleTypes.MY_ARTICLE} />
         </Box>
     );
 };

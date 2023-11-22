@@ -2,10 +2,9 @@ import { TBreadCrumbItem } from "@shared/ui";
 
 interface TGetBreadCrumbsItemsProps {
     articleName?: string;
-    id: string;
 }
 
-export const getBreadCrumbsItems = ({ articleName = "", id }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
+export const getBreadCrumbsItems = ({ articleName = "" }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
     { title: "База знаний", href: { pathname: "/admin/articles" } },
-    { title: articleName, href: { pathname: "/admin/articles/[id]/edit", query: { id } } },
+    { title: articleName },
 ];

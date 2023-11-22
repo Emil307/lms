@@ -28,4 +28,8 @@ export default createStyles((theme) => ({
             strokeWidth: 3,
         },
     },
+    articlesCount: {
+        textAlign: "end",
+        whiteSpace: "nowrap",
+    },
 }));

@@ -10,6 +10,7 @@ import useStyles from "./MessagesPage.styles";
 const MessagesPage = () => {
     const [selectedConversation, setSelectedConversation] = useState<AdminSupportConversationFromList | null>(null);
     const [isSelectedConversationByManageSearch, setIsSelectedConversationByManageSearch] = useState(false);
+    const [scrollAfterSendMessage, setScrollAfterSendMessage] = useState<boolean>(true);
 
     const { classes } = useStyles({ hasSelectedConversation: !!selectedConversation });
 
@@ -58,8 +59,16 @@ const MessagesPage = () => {
                         selectedConversation={selectedConversation}
                         onCloseConversation={handleCloseSelectedConversation}
                     />
-                    <AdminMessageList conversation={selectedConversation} maxHeightContainer={450}>
-                        <CreateAdminMessageForm conversationId={selectedConversation?.supportConversation.id} pt={{ base: 16, md: 32 }} />
+                    <AdminMessageList
+                        conversation={selectedConversation}
+                        scrollAfterSendMessage={scrollAfterSendMessage}
+                        setScrollAfterSendMessage={setScrollAfterSendMessage}
+                        maxHeightContainer={450}>
+                        <CreateAdminMessageForm
+                            conversationId={selectedConversation?.supportConversation.id}
+                            setScrollAfterSendMessage={setScrollAfterSendMessage}
+                            pt={{ base: 16, md: 32 }}
+                        />
                     </AdminMessageList>
                 </Flex>
             </Flex>

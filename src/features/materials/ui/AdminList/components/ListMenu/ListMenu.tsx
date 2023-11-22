@@ -20,7 +20,10 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
     const userRole = useUserRole();
 
     const handleCloseDeleteModal = () => closeModal("DELETE_MATERIAL");
-    const handleCloseEditMaterialFormModal = () => closeModal("EDIT_MATERIAL");
+    const handleCloseEditMaterialFormModal = () => {
+        handleClearStorage();
+        closeModal("EDIT_MATERIAL");
+    };
 
     const handleSubmitEditMaterialFormModal = () => {
         closeAllModals();
@@ -45,8 +48,7 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
             title: "Редактирование материала",
             children: (
                 <UpdateMaterialsForm
-                    data={[{ ...row.original }]}
-                    hasCategories={!!row.original.categories.length}
+                    data={row.original}
                     type={row.original.type.value}
                     onSubmit={handleSubmitEditMaterialFormModal}
                     onClose={handleCloseEditMaterialFormModal}

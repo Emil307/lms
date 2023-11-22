@@ -1,7 +1,7 @@
 import { UserFromList } from "@entities/user";
 import { getFullName } from "@shared/utils";
-import { AttachArticlesToArticlePackageFormValidation } from "./types";
 import { TColumns } from "@shared/ui/DataGrid/types";
+import { AttachArticlesToArticlePackageFormValidation } from "./types";
 
 export const initialValues: AttachArticlesToArticlePackageFormValidation = {
     ids: [],

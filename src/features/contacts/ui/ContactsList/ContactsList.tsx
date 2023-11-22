@@ -19,12 +19,12 @@ const ContactsList = () => {
 
     return (
         <Flex className={classes.root}>
-            <Heading order={4}>{contactsData?.title}</Heading>
+            <Heading order={4}>{contactsData.title}</Heading>
             <Flex className={classes.requisitesContainer}>
                 <Paragraph variant="small-m" color="gray45">
                     Реквизиты:
                 </Paragraph>
-                <ContentByTextEditor data={contactsData?.requisites} />
+                <ContentByTextEditor data={contactsData.requisites} />
             </Flex>
             <Map {...mapState} />
         </Flex>

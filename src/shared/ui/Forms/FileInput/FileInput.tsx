@@ -4,6 +4,7 @@ import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { AlertTriangle, Info } from "react-feather";
 import { UploadedFile } from "@shared/types";
 import { DEFAULT_MAX_FILES_COUNT, getLoadFileError, getMaxFileSizeByType, Paragraph } from "@shared/ui";
+import { getPluralString } from "@shared/utils";
 import { FileInputDefault, FileInputLoaded } from "./components";
 import {
     DEFAULT_IMAGE_MAX_HEIGHT,
@@ -15,7 +16,6 @@ import {
     LoadedFile,
 } from "./utils";
 import useStyles from "./FileInput.styles";
-import { getPluralString } from "@shared/utils";
 
 export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad" | "onDrop"> {
     type: "image" | "document" | "video";

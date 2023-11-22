@@ -52,11 +52,15 @@ const Answer = ({ name, answer, index, onDelete, setFieldValue }: AnswerProps) =
                 </ActionIcon>
             </Flex>
             <FastField name={`${name}.content`}>
-                {(props: FastFieldProps<string>) => <FInput {...props.field} label="Ответ" w="100%" />}
+                {(props: FastFieldProps<string>) => <FInput {...props.field} label="Ответ" w="100%" disableValidation />}
             </FastField>
-            <ActionIcon className={classes.actionIcon}>
-                <CloseIcon color={theme.colors.dark[0]} onClick={handleDelete} />
-            </ActionIcon>
+
+            {/* //Рисуем кнопку удаления ответа только если это третий ответ на вопрос или более */}
+            {index > 1 && (
+                <ActionIcon className={classes.actionIcon}>
+                    <CloseIcon color={theme.colors.dark[0]} onClick={handleDelete} />
+                </ActionIcon>
+            )}
         </Flex>
     );
 };

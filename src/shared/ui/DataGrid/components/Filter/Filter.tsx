@@ -15,7 +15,7 @@ export default function Filter<F extends FormikValues>({ formikConfig, formRef, 
     }
 
     return (
-        <CollapsedFiltersBlock {...collapsedFiltersBlockProps}>
+        <CollapsedFiltersBlock mb={32} {...collapsedFiltersBlockProps}>
             <Form config={formikConfig} customRef={formRef}>
                 {typeof children === "function" ? (formikContext) => children(formikContext) : children}
             </Form>

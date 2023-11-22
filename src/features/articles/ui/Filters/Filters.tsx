@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { $ArticleAndArticleCategoryFiltersForm, ArticleAndArticleCategoryFiltersForm, useArticlesFilters } from "@entities/article";
 import { Button, FSearch, Form } from "@shared/ui";
 import { useMedia } from "@shared/utils";
+import { ArticleTypes } from "@shared/constant";
 import { FilterList, ToggleFilterButton } from "./components";
 import { initialValues } from "./contants";
 import useStyles from "./Filters.styles";
@@ -15,7 +16,7 @@ import { getCountAppliedQueries } from "./utils";
 export interface FiltersProps extends BoxProps {
     data?: ArticleAndArticleCategoryFiltersForm;
     onSubmitFilters: (values: ArticleAndArticleCategoryFiltersForm) => void;
-    articleType?: "favorite" | "my-articles" | "by-category" | "by-course";
+    articleType?: ArticleTypes;
     courseId?: string;
 }
 

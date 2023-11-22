@@ -32,13 +32,13 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
                             {getFullName({ data: data.profile })}
                         </Paragraph>
                         <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
-                            {getFormatCreatedAt(data.lastSupportMessage.createdAt)}
+                            {data.lastSupportMessage ? getFormatCreatedAt(data.lastSupportMessage.createdAt) : "-"}
                         </Paragraph>
                     </Flex>
                 </Flex>
 
                 <Paragraph variant="text-caption" className={classes.lastMesssageContent} lineClamp={1}>
-                    {data.lastSupportMessage.message}
+                    {data.lastSupportMessage?.message}
                 </Paragraph>
             </Flex>
         </Indicator>

@@ -33,6 +33,7 @@ const MemoizedTextEditor = memo(function TextEditor({
     const { classes } = useStyles({ isError: !!error, statusSuccess, readonly });
 
     const editor = useEditor({
+        editable: !readonly,
         extensions,
         parseOptions: { preserveWhitespace: "full" },
         content: value,

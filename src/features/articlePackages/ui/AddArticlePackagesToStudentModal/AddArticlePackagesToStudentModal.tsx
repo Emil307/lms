@@ -1,4 +1,3 @@
-import { Box, BoxProps } from "@mantine/core";
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
@@ -7,18 +6,18 @@ import { columnOrder, columns } from "./constants";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
 import { StudentArticlePackageListExtraParams } from "./types";
 
-export interface AddArticlePackagesToStudentModalProps extends Omit<BoxProps, "children"> {
+export interface AddArticlePackagesToStudentModalProps {
     studentId: string;
     onClose: () => void;
 }
 
-const AddArticlePackagesToStudentModal = ({ studentId, onClose, ...props }: AddArticlePackagesToStudentModalProps) => {
+const AddArticlePackagesToStudentModal = ({ studentId, onClose }: AddArticlePackagesToStudentModalProps) => {
     const [selected, setSelected] = useState<string[]>([]);
 
-    const attachArticlePackagesToStudent = useAttachArticlePackagesToStudent({ studentId });
+    const { mutate: attachArticlePackagesToStudent, isLoading } = useAttachArticlePackagesToStudent({ studentId });
 
     const handleSubmit = () => {
-        attachArticlePackagesToStudent.mutate(
+        attachArticlePackagesToStudent(
             { articlePackageIds: selected },
             {
                 onSuccess: () => {
@@ -29,7 +28,7 @@ const AddArticlePackagesToStudentModal = ({ studentId, onClose, ...props }: AddA
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<AdminArticlePackageFromList, unknown, StudentArticlePackageListExtraParams>
                 queryKey={QueryKeys.GET_ADMIN_NO_STUDENT_ARTICLE_PACKAGES}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}
@@ -50,10 +49,11 @@ const AddArticlePackagesToStudentModal = ({ studentId, onClose, ...props }: AddA
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

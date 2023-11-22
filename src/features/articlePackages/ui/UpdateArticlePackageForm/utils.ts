@@ -10,8 +10,8 @@ export const adaptUpdateArticlePackageForm = (data?: GetAdminArticlePackageRespo
         discount: {
             type: data?.discount?.type || "percentage",
             amount: data?.discount?.amount,
-            startingDate: data?.discount?.startingDate || null,
-            finishingDate: data?.discount?.finishingDate || null,
+            startingDate: data?.discount?.startingDate ? new Date(data.discount.startingDate) : null,
+            finishingDate: data?.discount?.finishingDate ? new Date(data.discount.finishingDate) : null,
         },
         price: data?.fullPrice || null,
         categories: data?.categories.map(({ id }) => id.toString()) || [],

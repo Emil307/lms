@@ -10,7 +10,7 @@ import {
     FInput,
     FRadioGroup,
     FSwitch,
-    FTextEditor,
+    FTextarea,
     Heading,
     Input,
     ManagedForm,
@@ -92,18 +92,16 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                                 </Flex>
                             </Fieldset>
 
-                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={1162} legendProps={{ mb: 24 }}>
-                                <Box w="100%">
-                                    <FTextEditor name="description" placeholder="Введите текст" className={classes.textEditorDescription} />
-                                </Box>
+                            <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />} maw={512} legendProps={{ mb: 24 }}>
+                                <FTextarea name="description" placeholder="Введите текст" minRows={7} />
                             </Fieldset>
 
-                            <Box component="fieldset" className={classes.fieldset}>
-                                <Box component="legend" className={classes.legend}>
+                            <Flex className={classes.fieldset}>
+                                <Flex className={classes.fieldsetHeading}>
                                     <IconPercentage />
                                     <Heading order={4}>Параметры скидки</Heading>
                                     <FSwitch variant="secondary" name="hasDiscount" />
-                                </Box>
+                                </Flex>
                                 {values.hasDiscount && (
                                     <Flex direction="column" gap={16} w="100%">
                                         <FRadioGroup
@@ -139,7 +137,7 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                                         </Flex>
                                     </Flex>
                                 )}
-                            </Box>
+                            </Flex>
                             <FControlButtons onClose={onClose} />
                         </Flex>
                     );

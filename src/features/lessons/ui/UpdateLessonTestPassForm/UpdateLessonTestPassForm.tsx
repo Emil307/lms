@@ -58,12 +58,11 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                 onSuccess={onSuccess}
                 onError={onError}
                 onCancel={onClose}
-                hasConfirmModal
                 validateOnChange={false}>
                 {({ values, onCancel, setFieldValue }) => {
                     const currentTask = values.tasks[values.progressCounter];
                     const isLastQuestion = values.progressCounter + 1 === values.tasks.length;
-                    const isSelectedPossibleAnswerInCurrentTask = !!currentTask?.answers.find(({ isSelected }) => isSelected);
+                    const isSelectedPossibleAnswerInCurrentTask = !!currentTask.answers.find(({ isSelected }) => isSelected);
 
                     const handleClickArrowLeft = () => {
                         if (values.progressCounter === 0) {

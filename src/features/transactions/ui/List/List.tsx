@@ -3,10 +3,10 @@ import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForS
 import { Button } from "@shared/ui";
 import { QueryKeys } from "@shared/constant";
 import { TransactionFromList, TransactionsFiltersForm, transactionApi, useTransactionFilters } from "@entities/transaction";
+import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, columnOrder } from "./constants";
 import { adaptGetTransactionsRequest } from "./utils";
 import useStyles from "./List.styles";
-import { useMedia } from "@shared/utils";
 
 export interface ListProps extends BoxProps {}
 

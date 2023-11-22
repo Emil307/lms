@@ -5,6 +5,7 @@ import { ContentPanel, MainInfoPanel } from "@widgets/articles";
 import { useArticleByCategory } from "@entities/article";
 import { BreadCrumbs, Loader } from "@shared/ui";
 import { useCategory } from "@entities/category";
+import { ArticleTypes } from "@shared/constant";
 import { getBreadCrumbsItems } from "./utils";
 import { TRouterQueries } from "./types";
 
@@ -28,13 +29,12 @@ const ArticleByCategoryDetailsPage = () => {
                 items={getBreadCrumbsItems({
                     title: articleByCategory.data.data.name,
                     categoryName: categoryData.data?.name,
-                    id,
                     categoryId,
                 })}
                 mb={32}
             />
-            <MainInfoPanel.Navigated articleData={articleByCategory.data} type="by-category" mb={16} />
-            <ContentPanel data={articleByCategory.data.data} />
+            <MainInfoPanel.Navigated articleData={articleByCategory.data} type={ArticleTypes.BY_CATEGORY} mb={16} />
+            <ContentPanel data={articleByCategory.data.data} articleType={ArticleTypes.BY_CATEGORY} categoryId={categoryId} />
         </Box>
     );
 };

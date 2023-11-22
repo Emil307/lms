@@ -65,7 +65,7 @@ const CourseDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name, courseId: courseData.id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ courseName: courseData.name })} mb={8} />
             <InfoPanel id={id} />
             <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} maw={1162} my={32} />
             {renderComponent()}

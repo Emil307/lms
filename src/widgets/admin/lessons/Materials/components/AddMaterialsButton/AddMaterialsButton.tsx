@@ -32,6 +32,7 @@ const AddMaterialsButton = ({ lessonId, hidden }: AddMaterialsButtonProps) => {
             title: "Выбрать из базы материалов",
             children: <AddMaterialsToLessonModal lessonId={lessonId} onClose={handleCloseAddMaterialsToLessonModal} />,
             size: 912,
+            styles: () => ({ modal: { height: 860 } }),
         });
     };
 

@@ -1,16 +1,15 @@
 import React from "react";
 import { FormikConfig } from "formik";
 import { FControlButtons, FFileInputMultiple, Form } from "@shared/ui";
-import { CreateMaterialsDataForm, FileTypeCard, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { getDataFromSessionStorage } from "@shared/utils";
-import { UploadedFile } from "@shared/types";
+import { CreateMaterialsDataForm, IMaterialTypeCard, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials/helpers";
 import { $CreateMaterialsFormValidation, CreateMaterialsFormValidation } from "./types";
 import { getInitialValues } from "./utils";
 import useStyles from "./CreateMaterialsForm.styles";
 
 export interface CreateMaterialsFormProps {
-    data: FileTypeCard;
-    onSubmit: (materials: UploadedFile[], type: "document" | "video") => void;
+    data: IMaterialTypeCard;
+    onSubmit: (type: "document" | "video") => void;
     onClose: () => void;
 }
 
@@ -25,21 +24,21 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
         validateOnChange: true,
         onSubmit: (values) => {
             sessionStorage.setItem(MATERIALS_LOCAL_STORAGE_KEY, JSON.stringify({ ...sessionStorageData, ...values }));
-            onSubmit(values.materials, data.type);
+            onSubmit(data.type);
         },
     };
     return (
         <Form config={config} disableOverlay>
             <FFileInputMultiple
                 type={data.type}
-                name="materials"
+                name="files"
                 educational
                 fileFormats={data.fileFormats}
                 w="100%"
                 containerFilesProps={{ className: classes.fileInputContainerFiles }}
                 descriptionInside={data.description}
             />
-            <FControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Далее" onClose={onClose} />
+            <FControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Далее" onClose={onClose} ignoreDirty />
         </Form>
     );
 };

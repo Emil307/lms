@@ -1,7 +1,6 @@
 import { Box, Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { AlertTriangle } from "react-feather";
-import { useRouter } from "next/router";
 import { ControlButtons, Paragraph } from "@shared/ui";
 import { useDeleteCoursePackage } from "@entities/coursePackage";
 import useStyles from "./DeleteCoursePackageModal.styles";
@@ -9,19 +8,18 @@ import useStyles from "./DeleteCoursePackageModal.styles";
 export interface DeleteCoursePackageModalProps {
     id: string;
     name?: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteCoursePackageModal = ({ id, name, onClose }: DeleteCoursePackageModalProps) => {
-    const router = useRouter();
+const DeleteCoursePackageModal = ({ id, name, onSuccess, onCancel }: DeleteCoursePackageModalProps) => {
     const { classes } = useStyles();
     const deleteCoursePackage = useDeleteCoursePackage(id);
 
     const handleSubmit = () => {
         deleteCoursePackage.mutate(null, {
             onSuccess: () => {
-                onClose();
-                router.push("/admin/settings/course-packages");
+                onSuccess();
             },
         });
     };
@@ -44,7 +42,7 @@ const DeleteCoursePackageModal = ({ id, name, onClose }: DeleteCoursePackageModa
                 cancelButtonText="Отмена"
                 submitButtonText="Удалить"
                 onSubmit={handleSubmit}
-                onClose={onClose}
+                onClose={onCancel}
                 isLoading={deleteCoursePackage.isLoading}
             />
         </Flex>

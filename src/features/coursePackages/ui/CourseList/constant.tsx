@@ -13,23 +13,23 @@ export const columns: TColumns<AdminCourseFromList> = [
     {
         header: "Название курса",
         accessorKey: "name",
-        size: 468,
+        size: 465,
     },
     {
         header: "Категория курса",
         accessorKey: "category.name",
-        size: 468,
+        size: 465,
     },
     {
         header: "Стоимость",
         accessorKey: "price",
-        size: 220,
+        size: 215,
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.price })}</>,
     },
     {
         header: "Стоимость со скидкой",
         accessorKey: "discountPrice",
-        size: 220,
+        size: 215,
         Cell: ({ cell }) => <>{getLocaleString({ number: cell.row.original.discountPrice })}</>,
     },
 ];

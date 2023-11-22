@@ -10,6 +10,5 @@ export const getBreadCrumbsItems = ({ data }: TGetBreadCrumbsProps): TBreadCrumb
     { title: "Пользователи", href: { pathname: "/admin/users" } },
     {
         title: getFullName({ data: data?.profile }),
-        href: { pathname: "/admin/users/[id]", query: { id: String(data?.id) } },
     },
 ];

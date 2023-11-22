@@ -4,6 +4,7 @@ import { ArticleAndArticleCategoryFiltersForm, ArticleFromList, useArticles } fr
 import { Button, EmptyData, Loader, Paragraph } from "@shared/ui";
 import { Card as ArticleCard, Rating as ArticleRating, FavoriteButton } from "@features/articles";
 import { getPluralString } from "@shared/utils";
+import { ArticleTypes } from "@shared/constant";
 import { adaptGetArticlesRequest } from "./utils";
 import { initialParams } from "./constants";
 import useStyles from "./List.styles";
@@ -15,6 +16,8 @@ export interface ListProps extends FlexProps {
 
 const List = ({ filterParams, onClickCard, ...props }: ListProps) => {
     const { classes, cx } = useStyles();
+
+    const articleType = filterParams?.categoryId ? ArticleTypes.BY_CATEGORY : undefined;
 
     const {
         data: articlesData,
@@ -52,7 +55,12 @@ const List = ({ filterParams, onClickCard, ...props }: ListProps) => {
                         actionSlot={
                             <>
                                 <ArticleRating {...props} />
-                                <FavoriteButton {...props} variant="compact" />
+                                <FavoriteButton
+                                    {...props}
+                                    variant="compact"
+                                    articleType={articleType}
+                                    categoryId={filterParams?.categoryId}
+                                />
                             </>
                         }
                     />

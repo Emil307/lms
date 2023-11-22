@@ -17,7 +17,7 @@ const CourseCollectionDetailsPage = () => {
 
     return (
         <Flex direction="column">
-            <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name })} mb={8} />
             <Flex direction="column" gap={32}>
                 <Flex align="center" gap={12}>
                     <Flex sx={(theme) => ({ svg: { color: theme.colors.primary[0] } })}>

@@ -87,8 +87,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                 mutationFunction={updateStudent}
                 onSuccess={onSuccess}
                 onError={onError}
-                onCancel={onClose}
-                hasConfirmModal>
+                onCancel={onClose}>
                 {({ values, onCancel }) => (
                     <Flex direction="column" gap={32}>
                         <Flex className={classes.infoPanel}>

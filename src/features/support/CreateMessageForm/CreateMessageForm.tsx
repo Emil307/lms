@@ -10,9 +10,11 @@ import { initialValues } from "./constants";
 import useStyles from "./CreateMessageForm.styles";
 import { $CreateMessageFormValidation, CreateMessageFormValidation } from "./types";
 
-export interface CreateMessageFormProps extends BoxProps {}
+export interface CreateMessageFormProps extends BoxProps {
+    setScrollAfterSendMessage: (value: boolean) => void;
+}
 
-const CreateMessageForm = (props: CreateMessageFormProps) => {
+const CreateMessageForm = ({ setScrollAfterSendMessage, ...props }: CreateMessageFormProps) => {
     const { classes } = useStyles();
 
     const onSuccess = (
@@ -20,6 +22,7 @@ const CreateMessageForm = (props: CreateMessageFormProps) => {
         { resetForm }: Omit<FormikHelpers<CreateMessageFormValidation>, "setFieldError">
     ) => {
         resetForm();
+        setScrollAfterSendMessage(true);
         createNotification({
             type: ToastType.SUCCESS,
             title: "Сообщение успешно отправлено",

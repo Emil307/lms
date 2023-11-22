@@ -1,11 +1,10 @@
 import { Flex, Box } from "@mantine/core";
 import React from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
-import { CreateMaterialsForm, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
-import { UploadedFile } from "@shared/types";
+import { CreateMaterialsForm, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY, IMaterialTypeCard } from "@features/materials";
 import FoldersIcon from "public/icons/folders.svg";
 import { Paragraph } from "@shared/ui";
-import { fileTypeCards } from "./constants";
+import { materialTypeCards } from "./constants";
 import { MaterialTypeCard } from "./components";
 import useStyles from "./SelectTypeMaterial.styles";
 
@@ -24,20 +23,22 @@ const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase 
     };
     const handleClearStorage = () => sessionStorage.removeItem(MATERIALS_LOCAL_STORAGE_KEY);
 
-    const handleCloseEditMaterialsFormModal = () => closeModal("EDIT_MATERIALS");
+    const handleCloseEditMaterialsFormModal = () => {
+        closeModal("EDIT_MATERIALS");
+    };
+
     const handleSubmitEditMaterialsFormModal = (fileIds: string[]) => {
         onSuccessLoadFiles && onSuccessLoadFiles(fileIds);
         closeAllModals();
         handleClearStorage();
     };
 
-    const handleSubmitCreateMaterials = (materials: UploadedFile[], type: "video" | "document") => {
+    const handleSubmitCreateMaterials = (type: "video" | "document") => {
         openModal({
             modalId: "EDIT_MATERIALS",
             title: "Шаг 2/2. Редактирование",
             children: (
                 <UpdateMaterialsForm
-                    data={materials}
                     type={type}
                     onSubmit={handleSubmitEditMaterialsFormModal}
                     onClose={handleCloseEditMaterialsFormModal}
@@ -47,18 +48,12 @@ const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase 
         });
     };
 
-    const handleSelectCard = (id: number) => {
+    const handleSelectCard = (card: IMaterialTypeCard) => {
         handleClearStorage();
         openModal({
             modalId: "CREATE_MATERIALS",
-            title: `Шаг 1/2. ${fileTypeCards[id].title}`,
-            children: (
-                <CreateMaterialsForm
-                    data={fileTypeCards[id]}
-                    onSubmit={handleSubmitCreateMaterials}
-                    onClose={handleCloseCreateMaterialsModal}
-                />
-            ),
+            title: `Шаг 1/2. ${card.title}`,
+            children: <CreateMaterialsForm data={card} onSubmit={handleSubmitCreateMaterials} onClose={handleCloseCreateMaterialsModal} />,
             onClose: handleClearStorage,
         });
     };
@@ -70,8 +65,8 @@ const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase 
             </Paragraph>
             <Flex className={classes.content}>
                 {onSelectFromBase && <MaterialTypeCard title="Выбрать из базы" icon={<FoldersIcon />} onClick={onSelectFromBase} />}
-                {fileTypeCards.map((card) => (
-                    <MaterialTypeCard key={card.id} title={card.title} icon={card.icon} onClick={() => handleSelectCard(card.id)} />
+                {materialTypeCards.map((card) => (
+                    <MaterialTypeCard key={card.id} title={card.title} icon={card.icon} onClick={() => handleSelectCard(card)} />
                 ))}
             </Flex>
         </Box>

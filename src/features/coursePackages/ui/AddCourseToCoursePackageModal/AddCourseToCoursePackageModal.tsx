@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { AdminCourseFromCoursePackageFilters, useAttachCourseToCoursePackage } from "@entities/coursePackage";
@@ -8,20 +8,20 @@ import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import useStyles from "./AddCourseToCoursePackageModal.styles";
 
-export interface AddCourseToCoursePackageModalProps extends Omit<BoxProps, "children"> {
+export interface AddCourseToCoursePackageModalProps {
     coursePackageId: string;
     onClose: () => void;
 }
 
-const AddCourseToCoursePackageModal = ({ coursePackageId, onClose, ...props }: AddCourseToCoursePackageModalProps) => {
+const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseToCoursePackageModalProps) => {
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const courseResources = useAdminCourseResources({ type: "select" });
-    const attachCoursesToCoursePackage = useAttachCourseToCoursePackage(coursePackageId);
+    const { mutate: attachCoursesToCoursePackage, isLoading } = useAttachCourseToCoursePackage(coursePackageId);
 
     const handleSubmit = () => {
-        attachCoursesToCoursePackage.mutate(
+        attachCoursesToCoursePackage(
             { ids: selected },
             {
                 onSuccess: () => {
@@ -32,7 +32,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose, ...props }: A
     };
 
     return (
-        <Box {...props}>
+        <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesForCoursePackageFiltersForm, AdminCourseFromCoursePackageFilters>
                 queryKey={QueryKeys.GET_ADMIN_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
@@ -125,10 +125,11 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose, ...props }: A
                 submitButtonText="Добавить"
                 onClose={onClose}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
                 disabledSubmit={!selected.length}
-                mt={14}
+                mt={24}
             />
-        </Box>
+        </>
     );
 };
 

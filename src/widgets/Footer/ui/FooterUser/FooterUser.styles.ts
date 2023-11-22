@@ -21,7 +21,8 @@ export default createStyles((theme) => ({
         marginInline: "auto",
 
         [theme.fn.smallerThan("lg")]: {
-            margin: 0,
+            width: "100%",
+            maxWidth: 1352,
         },
 
         [theme.fn.smallerThan("xs")]: {
@@ -32,7 +33,7 @@ export default createStyles((theme) => ({
         marginBottom: 48,
         gap: 24,
 
-        [theme.fn.smallerThan("lg")]: {
+        [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
         },
     },
@@ -43,6 +44,8 @@ export default createStyles((theme) => ({
 
         [theme.fn.smallerThan("lg")]: {
             minWidth: "auto",
+            width: "100%",
+            maxWidth: 392,
         },
     },
     infoSectionContainer: {
@@ -52,6 +55,8 @@ export default createStyles((theme) => ({
 
         [theme.fn.smallerThan("lg")]: {
             minWidth: "auto",
+            width: "100%",
+            maxWidth: 392,
         },
     },
     titleSection: {

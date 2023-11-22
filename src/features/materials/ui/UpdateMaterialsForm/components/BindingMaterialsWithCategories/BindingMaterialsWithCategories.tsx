@@ -5,7 +5,7 @@ import { useIntersection } from "@mantine/hooks";
 import { Checkbox, FCheckboxGroup, FControlButtons, Form, Loader } from "@shared/ui";
 import { useAdminCategories } from "@entities/category";
 import { getDataFromSessionStorage } from "@shared/utils";
-import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
+import { CreateMaterialsDataForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials/helpers";
 import useStyles from "./BindingMaterialsWithCategories.styles";
 import { initialParams } from "./constants";
 import { $BindingMaterialsFormValidation, BindingMaterialsFormValidation } from "./types";

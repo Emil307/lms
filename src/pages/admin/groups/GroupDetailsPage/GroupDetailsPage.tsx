@@ -6,9 +6,9 @@ import { useAdminGroup } from "@entities/group";
 import { InfoPanel, GroupSettings } from "@widgets/admin/groups";
 import { TRouterQueries } from "@shared/types";
 import { GroupScheduleList, StudentList } from "@features/groups";
+import { useUserRole } from "@entities/auth";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
-import { useUserRole } from "@entities/auth";
 
 const GroupDetailsPage = () => {
     const router = useRouter();
@@ -54,7 +54,7 @@ const GroupDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: groupData.name })} mb={8} />
             <InfoPanel id={id} mb={32} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}

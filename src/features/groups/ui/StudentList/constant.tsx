@@ -42,6 +42,7 @@ export const columns: TColumns<AdminGroupStudentFromList> = [
     {
         header: "Статус",
         accessorKey: "status",
+        hideTooltip: true,
         size: 140,
         Cell: ({ row }) => {
             const { classes } = useCellStyles({ statusType: row.original.status.name });

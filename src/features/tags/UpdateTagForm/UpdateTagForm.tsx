@@ -47,7 +47,8 @@ const UpdateTagForm = ({ data, onClose, ...props }: UpdateTagFormProps) => {
                 ]}
                 mutationFunction={updateAdminTag}
                 onSuccess={onSuccess}
-                onError={onError}>
+                onError={onError}
+                disableOverlay>
                 <Flex direction="column" gap={{ base: 24, xs: 32 }}>
                     <FInput name="name" label="Название" />
                     <FControlButtons variant="modal" cancelButtonText="Отмена" onClose={onClose} />

@@ -35,7 +35,7 @@ const List = () => {
     }
 
     return (
-        <Box mt={24}>
+        <Box>
             <ManagedDataGrid<AdminCourseFromList, Partial<AdminCoursesFiltersForm>>
                 queryKey={QueryKeys.GET_ADMIN_COURSES}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}

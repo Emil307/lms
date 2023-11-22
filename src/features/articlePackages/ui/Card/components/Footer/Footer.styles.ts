@@ -6,7 +6,6 @@ interface CreateStylesParamsProps {
 
 export default createStyles((theme, { hasDiscount }: CreateStylesParamsProps) => ({
     root: {
-        display: "flex",
         justifyContent: "space-between",
         margin: "0px !important",
         gap: 24,

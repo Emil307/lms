@@ -8,17 +8,18 @@ import useStyles from "./DeleteArticlePackageModal.styles";
 export interface DeleteArticlePackageModalProps {
     id: string;
     name?: string;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
-const DeleteArticlePackageModal = ({ id, name, onClose }: DeleteArticlePackageModalProps) => {
+const DeleteArticlePackageModal = ({ id, name, onSuccess, onCancel }: DeleteArticlePackageModalProps) => {
     const { classes } = useStyles();
     const deleteArticlePackage = useDeleteArticlePackage(id);
 
     const handleSubmit = () => {
         deleteArticlePackage.mutate(null, {
             onSuccess: () => {
-                onClose();
+                onSuccess();
             },
         });
     };
@@ -41,7 +42,7 @@ const DeleteArticlePackageModal = ({ id, name, onClose }: DeleteArticlePackageMo
                 cancelButtonText="Отмена"
                 submitButtonText="Удалить"
                 onSubmit={handleSubmit}
-                onClose={onClose}
+                onClose={onCancel}
                 isLoading={deleteArticlePackage.isLoading}
             />
         </Flex>

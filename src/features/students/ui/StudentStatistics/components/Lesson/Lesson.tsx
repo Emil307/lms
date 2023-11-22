@@ -1,7 +1,7 @@
 import { Box, Flex, Badge, ThemeIcon } from "@mantine/core";
-import { Paragraph } from "@shared/ui";
 import React from "react";
 import { Check as CheckIcon, Lock as LockIcon, X as XIcon } from "react-feather";
+import { Paragraph } from "@shared/ui";
 import { AdminGroupLessonForStudentStatistics } from "@entities/group";
 import useStyles from "./Lesson.styles";
 

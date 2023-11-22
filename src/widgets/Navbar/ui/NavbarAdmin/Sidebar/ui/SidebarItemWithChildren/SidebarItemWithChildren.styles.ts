@@ -22,6 +22,8 @@ export default createStyles((theme, { isActive, isMinimizedModeSidebar }: Create
     },
     control: {
         paddingInline: "0 !important",
+        paddingBottom: "0 !important",
+        backgroundColor: "initial",
     },
     content: {
         padding: "0 !important",

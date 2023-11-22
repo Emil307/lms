@@ -2,17 +2,12 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        width: 0,
-        display: "flex",
-        margin: "0 !important",
-        marginBottom: "0 !important",
+        alignItems: "center",
+        width: "100%",
         gap: 32,
 
-        [theme.fn.smallerThan("sm")]: {
-            flexWrap: "wrap",
-        },
-
         [theme.fn.smallerThan("xs")]: {
+            alignItems: "flex-start",
             flexDirection: "column",
         },
     },
@@ -24,5 +19,6 @@ export default createStyles((theme) => ({
     textContainer: {
         flexDirection: "column",
         gap: 8,
+        wordBreak: "break-word",
     },
 }));

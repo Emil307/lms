@@ -31,7 +31,6 @@ import {
     GetCourseCollectionResponse,
     GetCourseCollectionsRequest,
     GetCourseCollectionsResponse,
-    GetRandomCourseCollectionRequest,
     GetRandomCourseCollectionResponse,
     UpdateAdminCourseCollectionActivityRequest,
     UpdateAdminCourseCollectionActivityResponse,
@@ -109,8 +108,8 @@ export class CourseCollectionApi extends BaseApi {
         return $GetCourseCollectionResponse.parse(response);
     }
 
-    async getRandomCourseCollection(data: GetRandomCourseCollectionRequest): Promise<GetRandomCourseCollectionResponse> {
-        const response = await this.instance.post(`course-collections/list/random`, data);
+    async getRandomCourseCollection(): Promise<GetRandomCourseCollectionResponse> {
+        const response = await this.instance.post(`course-collections/list/random`);
         return $GetRandomCourseCollectionResponse.parse(response);
     }
 }

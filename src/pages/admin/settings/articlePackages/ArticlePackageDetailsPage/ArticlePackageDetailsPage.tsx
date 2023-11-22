@@ -43,9 +43,9 @@ const ArticlePackageDetailsPage = () => {
 
     return (
         <Box>
-            <BreadCrumbs items={getBreadCrumbsItems({ name: articlePackageData.name, id })} mb={8} />
+            <BreadCrumbs items={getBreadCrumbsItems({ name: articlePackageData.name })} mb={8} />
             <Heading mb={24}>{articlePackageData.name}</Heading>
-            <InfoPanel id={id} mb={24} />
+            <InfoPanel data={articlePackageData} mb={24} />
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} mb={32} />
             {renderContent()}
         </Box>

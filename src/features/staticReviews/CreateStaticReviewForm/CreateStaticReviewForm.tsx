@@ -89,12 +89,12 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                             />
                         </Fieldset>
 
-                        <Box component="fieldset" className={classes.fieldset} maw={512}>
-                            <Box component="legend" className={classes.legend}>
+                        <Flex className={classes.fieldset} maw={512}>
+                            <Flex className={classes.fieldsetHeading}>
                                 <User />
                                 <Heading order={4}>Карточка автора</Heading>
                                 <FSwitch variant="secondary" name="authorIsActive" />
-                            </Box>
+                            </Flex>
                             {values.authorIsActive && (
                                 <Flex direction="column" gap={24} w="100%">
                                     <FAvatarInput
@@ -117,7 +117,7 @@ const CreateStaticReviewForm = ({ onClose, ...props }: CreateStaticReviewFormPro
                                     </Flex>
                                 </Flex>
                             )}
-                        </Box>
+                        </Flex>
                         <FControlButtons onClose={onClose} />
                     </Flex>
                 )}

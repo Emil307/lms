@@ -1,8 +1,10 @@
 import { Trash2 } from "react-feather";
 import { ActionIcon } from "@mantine/core";
+import { closeModal, openModal } from "@mantine/modals";
 import { Button } from "@shared/ui";
-import { GetCoursesResponse, useDeleteFavoriteCourses } from "@entities/course";
+import { GetCoursesResponse } from "@entities/course";
 import { useMedia } from "@shared/utils";
+import { CleanFavoriteCoursesModal } from "@features/courses";
 import useStyles from "./DeleteFavoriteCoursesButton.styles";
 
 export interface DeleteFavoriteCoursesButtonProps {
@@ -14,10 +16,14 @@ const DeleteFavoriteCoursesButton = ({ data }: DeleteFavoriteCoursesButtonProps)
 
     const isTablet = useMedia("sm");
 
-    const deleteFavoriteCourses = useDeleteFavoriteCourses();
+    const handleCloseCleanFavoriteCoursesModal = () => closeModal("CLEAN_FAVORITE_COURSES");
 
-    const handleDeleteFavoriteCourses = () => {
-        deleteFavoriteCourses.mutate(null);
+    const handleOpenCleanFavoriteCoursesModal = () => {
+        openModal({
+            modalId: "CLEAN_FAVORITE_COURSES",
+            title: "Предупреждение",
+            children: <CleanFavoriteCoursesModal onClose={handleCloseCleanFavoriteCoursesModal} />,
+        });
     };
 
     if (!data?.data.length) {
@@ -26,14 +32,14 @@ const DeleteFavoriteCoursesButton = ({ data }: DeleteFavoriteCoursesButtonProps)
 
     if (isTablet) {
         return (
-            <ActionIcon className={classes.actionIcon} onClick={handleDeleteFavoriteCourses}>
+            <ActionIcon className={classes.actionIcon} onClick={handleOpenCleanFavoriteCoursesModal}>
                 <Trash2 />
             </ActionIcon>
         );
     }
 
     return (
-        <Button variant="border" leftIcon={<Trash2 />} onClick={handleDeleteFavoriteCourses}>
+        <Button variant="border" leftIcon={<Trash2 />} onClick={handleOpenCleanFavoriteCoursesModal}>
             Очистить
         </Button>
     );

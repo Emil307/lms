@@ -87,7 +87,6 @@ const LessonDetailsPage = () => {
                     nameLesson: lesson.data.name,
                     nameCourse: group.data.name,
                     groupId,
-                    lessonId,
                 })}
                 mb={32}
             />

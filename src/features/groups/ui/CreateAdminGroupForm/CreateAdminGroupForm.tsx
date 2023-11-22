@@ -47,7 +47,6 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                 keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUPS] }]}
                 mutationFunction={createGroup}
                 onSuccess={onSuccessCreated}
-                disableOverlay={true}
                 onError={onError}>
                 {({ values }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";

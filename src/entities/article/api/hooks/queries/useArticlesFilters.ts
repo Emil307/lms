@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
+import { ArticleTypes, QueryKeys } from "@shared/constant";
 import { articleApi } from "@entities/article";
 
 interface UseArticlesFiltersProps {
-    articleType?: "favorite" | "my-articles" | "by-category" | "by-course";
+    articleType?: ArticleTypes;
     courseId?: string;
 }
 
 export const useArticlesFilters = ({ articleType, courseId }: UseArticlesFiltersProps) => {
     return useQuery([QueryKeys.GET_ARTICLES_FILTERS, articleType, courseId], () => {
         switch (articleType) {
-            case "favorite":
+            case ArticleTypes.FAVORITE:
                 return articleApi.getFavoriteArticleFilters();
-            case "my-articles":
+            case ArticleTypes.MY_ARTICLE:
                 return articleApi.getMyArticleFilters();
-            case "by-course":
+            case ArticleTypes.BY_COURSE:
                 if (courseId) {
                     return articleApi.getArticlesByCourseFilters({ courseId });
                 }
