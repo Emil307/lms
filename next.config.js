@@ -21,6 +21,7 @@ const withSVGR = (nextConfig) => {
 const nextConfig = {
     reactStrictMode: true,
     experimental: {
+        outputStandalone: true,
         esmExternals: false,
     },
     swcMinify: true,
