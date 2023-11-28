@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { courseCollectionApi, GetRandomCourseCollectionResponse } from "@entities/courseCollection";
+import { FormErrorResponse } from "@shared/types";
 
-export const useRandomCourseCollection = () => {
-    return useQuery<GetRandomCourseCollectionResponse>([QueryKeys.GET_RANDOM_COURSE_COLLECTION], () =>
+export const useRandomCourseCollection = (): UseQueryResult<GetRandomCourseCollectionResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_RANDOM_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION]], () =>
         courseCollectionApi.getRandomCourseCollection()
     );
 };

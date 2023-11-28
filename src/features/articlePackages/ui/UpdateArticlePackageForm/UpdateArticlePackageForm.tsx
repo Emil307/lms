@@ -26,7 +26,7 @@ import {
     useAdminArticlePackageResourcesCreate,
 } from "@entities/articlePackage";
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { adaptUpdateArticlePackageForm, adaptUpdateArticlePackageRequest } from "./utils";
 import { radioGroupValues } from "./constants";
 import { $UpdateArticlePackageFormValidation, UpdateArticlePackageFormValidation } from "./types";
@@ -67,10 +67,7 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                 initialValues={adaptUpdateArticlePackageForm(data)}
                 validationSchema={$UpdateArticlePackageFormValidation}
                 mutationKey={[MutationKeys.UPDATE_ARTICLE_PACKAGE]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] },
-                    { queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, String(data?.id)] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.ARTICLE_PACKAGE }}
                 mutationFunction={updateArticlePackage}
                 onSuccess={onSuccess}
                 onError={onError}
@@ -78,8 +75,8 @@ const UpdateArticlePackageForm = ({ data, onClose, ...props }: UpdateArticlePack
                 {({ values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
-                        price: !errors.price ? values.price : null,
-                        amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
+                        price: !errors.price ? Number(values.price) : null,
+                        amountDiscount: !errors.discount?.amount ? Number(values.discount.amount) : null,
                         type: values.discount.type,
                     });
                     return (

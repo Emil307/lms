@@ -1,18 +1,21 @@
-import { InvalidateOptions, InvalidateQueryFilters, MutationKey, QueryKey, useMutation } from "@tanstack/react-query";
+import { MutationKey, useMutation } from "@tanstack/react-query";
 import { FormikConfig, FormikHelpers, FormikProps, FormikValues } from "formik";
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { closeModal, openModal } from "@mantine/modals";
 import { ConfirmActionModal } from "@shared/ui/ConfirmActionModal";
-import { queryClient } from "@app/providers";
 import { DetectorFormUpdate } from "@shared/ui/Forms/Form/components";
+import { InvalidateQueriesWithPredicateProps, invalidateQueriesWithPredicate } from "@shared/utils";
 import Form, { FormProps } from "./Form";
+import { queryClient } from "@app/providers";
+import { InvalidateQueriesKey } from "@shared/types";
 
 type ExtendedProps<F extends FormikValues = FormikValues> = Omit<FormProps<F>, "config">;
 
 export interface ManagedFormProps<F extends FormikValues, R> extends Omit<ExtendedProps<F>, "children"> {
     mutationKey: MutationKey;
-    keysInvalidateQueries?: { queryKey?: QueryKey; filters?: InvalidateQueryFilters<unknown>; options?: InvalidateOptions }[];
+    invalidateQueriesWithPredicateParams?: InvalidateQueriesWithPredicateProps;
+    keysInvalidateQueries?: InvalidateQueriesKey[];
     mutationFunction: (params: F) => Promise<R>;
     onChange?: (formikProps: FormikProps<F>) => void;
     onSuccess: (response: R, formikHelpers: FormikHelpers<F>) => void;
@@ -28,6 +31,7 @@ export interface ManagedFormProps<F extends FormikValues, R> extends Omit<Extend
 export default function ManagedForm<F extends FormikValues, R>({
     mutationKey,
     keysInvalidateQueries = [],
+    invalidateQueriesWithPredicateParams,
     mutationFunction,
     onSuccess,
     onChange = () => undefined,
@@ -74,6 +78,9 @@ export default function ManagedForm<F extends FormikValues, R>({
         setIsSubmiting(true);
         mutate(values, {
             onSuccess: (response) => {
+                if (invalidateQueriesWithPredicateParams) {
+                    invalidateQueriesWithPredicate(invalidateQueriesWithPredicateParams);
+                }
                 keysInvalidateQueries.forEach(({ queryKey, filters, options }) => {
                     queryClient.invalidateQueries(queryKey, filters, options);
                 });

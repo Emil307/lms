@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
@@ -6,12 +6,14 @@ import { ToastType, createNotification } from "@shared/utils";
 import { AttachArticlePackagesToStudentRequest, AttachArticlePackagesToStudentResponse, articlePackageApi } from "@entities/articlePackage";
 import { queryClient } from "@app/providers";
 
-export const useAttachArticlePackagesToStudent = ({ studentId }: Pick<AttachArticlePackagesToStudentRequest, "studentId">) => {
-    return useMutation<
-        AttachArticlePackagesToStudentResponse,
-        AxiosError<FormErrorResponse>,
-        Omit<AttachArticlePackagesToStudentRequest, "studentId">
-    >(
+export const useAttachArticlePackagesToStudent = ({
+    studentId,
+}: Pick<AttachArticlePackagesToStudentRequest, "studentId">): UseMutationResult<
+    AttachArticlePackagesToStudentResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<AttachArticlePackagesToStudentRequest, "studentId">
+> => {
+    return useMutation(
         [MutationKeys.ATTACH_ARTICLE_PACKAGES_TO_STUDENT, studentId],
         (params) => articlePackageApi.attachArticlePackagesToStudent({ ...params, studentId }),
         {

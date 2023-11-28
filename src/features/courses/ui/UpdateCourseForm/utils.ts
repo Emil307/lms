@@ -20,6 +20,7 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         createdAt,
         updatedAt,
         discountPrice,
+        price,
         id,
         ...rest
     } = data;
@@ -30,6 +31,7 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         hasTeachers,
         hasAuthors,
         hasDiscount,
+        price: price ? String(price) : "0",
         isInteractive: type === "interactive",
         description: description ?? "",
         category: category?.id.toString() ?? "",
@@ -40,6 +42,7 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         discount: discount
             ? {
                   ...discount,
+                  amount: discount.amount ? String(discount.amount) : "",
                   startingDate: new Date(String(discount.startingDate)),
                   finishingDate: new Date(String(discount.finishingDate)),
               }
@@ -48,10 +51,11 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
 };
 
 export const adaptUpdateCourseRequest = (id: string, data: UpdateCourseFormValues): UpdateCourseRequest => {
-    const { category, subCategory, discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
+    const { price, category, subCategory, discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
     return {
         id,
         ...rest,
+        price: Number(price) || 0,
         coverId: cover?.id ?? null,
         categoryId: Number(category) || undefined,
         subcategoryId: Number(subCategory) || undefined,
@@ -61,6 +65,7 @@ export const adaptUpdateCourseRequest = (id: string, data: UpdateCourseFormValue
         discount: rest.hasDiscount
             ? {
                   ...discount,
+                  amount: discount.amount ? Number(discount.amount) : 0,
                   startingDate: dayjs(discount.startingDate).format("YYYY-MM-DD"),
                   finishingDate: dayjs(discount.finishingDate).format("YYYY-MM-DD"),
               }

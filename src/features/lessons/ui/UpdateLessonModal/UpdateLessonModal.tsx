@@ -3,7 +3,7 @@ import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React from "react";
 import { FControlButtons, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { $UpdateLessonFormValues, AdminLessonFromList, lessonApi, UpdateLessonFormValues, UpdateLessonResponse } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
 import { CourseModuleLesson } from "@entities/courseModule";
@@ -44,12 +44,7 @@ const UpdateLessonModal = ({ data, onClose, lessonNumber }: UpdateLessonModalPro
             initialValues={getInitialValues(data)}
             validationSchema={$UpdateLessonFormValues}
             mutationKey={[MutationKeys.UPDATE_LESSON]}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE] },
-                { queryKey: [QueryKeys.GET_ADMIN_LESSONS] },
-                { queryKey: [QueryKeys.GET_ADMIN_LESSON] },
-                { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.LESSON }}
             mutationFunction={updateLesson}
             onSuccess={onSuccess}
             onError={onError}

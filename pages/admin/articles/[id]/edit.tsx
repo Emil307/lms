@@ -8,7 +8,7 @@ import { AdminPage } from "@components/AdminPage";
 import { UpdateArticlePage } from "@pages/admin/articles";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { ArticleApi } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -19,7 +19,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articleApi = new ArticleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_ARTICLE, id], () => articleApi.getAdminArticle({ id }));
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_ADMIN_ARTICLE, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER], id],
+            () => articleApi.getAdminArticle({ id })
+        );
 
         return {
             props: {

@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { userApi } from "@entities/user";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { UserDetailResponse, userApi } from "@entities/user";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useDetailsUser = (id: string) => {
-    return useQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id), {
+export const useDetailsUser = (id: string): UseQueryResult<UserDetailResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_ADMIN_USER, [EntityNames.USER], id], () => userApi.showUser(id), {
         enabled: !!id,
     });
 };

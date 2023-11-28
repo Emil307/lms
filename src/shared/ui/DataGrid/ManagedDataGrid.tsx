@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
+import { QueryKey, useQuery } from "@tanstack/react-query";
 import { TPagination } from "@shared/types";
 import { PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 import {
@@ -39,7 +39,7 @@ export type TManagedDataGridProps<
     Formik extends FormikValues
 > = {
     queryFunction: (params: Request) => Promise<DataGridResponse<Data, MetaData>>;
-    queryKey: string;
+    queryKey: QueryKey;
     queryCacheKeys?: Array<keyof Request>;
     disableQueryParams?: boolean;
 } & TExtendedProps<Data, Filter, Extra, Meta, MetaData, Formik> &
@@ -101,7 +101,7 @@ function ManagedDataGrid<
         isRefetching,
         isFetching,
     } = useQuery<DataGridResponse<Data, MetaData>>({
-        queryKey: [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
+        queryKey: [...queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
         queryFn: () => queryFunction(paramsForRequest),
         enabled: router.isReady && ((defaultBlock && !filters?.isEmptyFilter) || !defaultBlock),
     });

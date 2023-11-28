@@ -17,7 +17,7 @@ import {
 } from "@shared/ui";
 import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
-import { MutationKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
 import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
 import { Roles } from "@app/routes";
@@ -64,6 +64,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
             initialValues={getInitialValuesForm(defaultRole)}
             validationSchema={$CreateUserValidationFormRequest}
             mutationKey={[MutationKeys.CREATE_USER]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.USER }}
             mutationFunction={createUser}
             onSuccess={onSuccess}
             onError={onError}>

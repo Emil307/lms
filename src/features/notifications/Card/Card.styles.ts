@@ -10,15 +10,21 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.light[0],
         cursor: "pointer",
     },
-
-    createdAtNotification: {
-        color: theme.colors.gray45[0],
+    createdAt: {
+        whiteSpace: "nowrap",
+        marginLeft: 8,
+    },
+    contentWrapper: {
+        display: "table",
+        tableLayout: "fixed",
+        width: "fit-content",
+    },
+    content: {
+        overflow: "hidden",
+        textOverflow: "ellipsis",
         whiteSpace: "nowrap",
     },
-    courseName: {
-        fontWeight: 500,
-        fontSize: 12,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
+    userRole: {
+        whiteSpace: "nowrap",
     },
 }));

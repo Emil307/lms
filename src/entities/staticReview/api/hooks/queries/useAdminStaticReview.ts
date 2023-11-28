@@ -1,7 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import { GetAdminStaticReviewRequest, staticReviewApi } from "@entities/staticReview";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { GetAdminStaticReviewRequest, GetAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminStaticReview = ({ id }: GetAdminStaticReviewRequest) => {
-    return useQuery([QueryKeys.GET_ADMIN_STATIC_REVIEW, id], () => staticReviewApi.getAdminStaticReview({ id }), { enabled: !!id });
+export const useAdminStaticReview = ({
+    id,
+}: GetAdminStaticReviewRequest): UseQueryResult<GetAdminStaticReviewResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery(
+        [QueryKeys.GET_ADMIN_STATIC_REVIEW, [EntityNames.STATIC_REVIEW], id],
+        () => staticReviewApi.getAdminStaticReview({ id }),
+        { enabled: !!id }
+    );
 };

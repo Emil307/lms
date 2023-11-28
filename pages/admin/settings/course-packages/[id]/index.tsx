@@ -9,7 +9,7 @@ import { CoursePackageDetailsPage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CoursePackageApi } from "@entities/coursePackage";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,8 +19,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const coursePackageApi = new CoursePackageApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_PACKAGE, id], () =>
-            coursePackageApi.getAdminCoursePackage(id)
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_ADMIN_COURSE_PACKAGE, [EntityNames.COURSE_PACKAGE, EntityNames.COURSE, EntityNames.USER], id],
+            () => coursePackageApi.getAdminCoursePackage(id)
         );
 
         return {

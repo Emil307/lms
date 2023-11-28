@@ -161,7 +161,6 @@ export class CourseApi extends BaseApi {
 
     async getCourse({ id }: GetCourseRequest): Promise<GetCourseResponse> {
         const response = await this.instance.get(`courses/${id}`);
-
         return $GetCourseResponse.parse(response);
     }
 

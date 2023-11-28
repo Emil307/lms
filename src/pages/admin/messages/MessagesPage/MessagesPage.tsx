@@ -34,7 +34,7 @@ const MessagesPage = () => {
             <Flex className={classes.messagesBlockContainer}>
                 <Box className={classes.chatContainerWrapper}>
                     <ManagedSearch<AdminSupportConversationFromList>
-                        queryKey={QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS}
+                        queryKey={QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS_SEARCH}
                         queryFunction={(params) => supportApi.getAdminSupportConversations(params)}
                         queryCacheKeys={["page", "perPage", "query"]}
                         searchInputProps={{

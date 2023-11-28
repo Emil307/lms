@@ -5,7 +5,7 @@ import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminAuthorFromList, AdminAuthorsFiltersForm, authorApi } from "@entities/author";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
@@ -29,7 +29,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminAuthorFromList, AdminAuthorsFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_AUTHORS}
+                queryKey={[QueryKeys.GET_ADMIN_AUTHORS, [EntityNames.AUTHOR]]}
                 queryFunction={(params) => authorApi.getAdminAuthors(adaptGetAdminAuthorsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "isActive"]}
                 filter={{

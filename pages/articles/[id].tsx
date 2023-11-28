@@ -7,7 +7,7 @@ import { NextPageWithLayout } from "@shared/utils";
 import { ArticleDetailsPage } from "@pages/articles";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { ArticleApi } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { UserPage } from "@components/UserPage";
 
@@ -19,7 +19,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articleApi = new ArticleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, id], () => articleApi.getArticle({ id }));
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_ARTICLE, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL], id],
+            () => articleApi.getArticle({ id })
+        );
 
         if (!response.isAvailable) {
             return {

@@ -17,7 +17,7 @@ const FooterDropdown = ({ hasNewNotifications, onClose, ...props }: FooterDropdo
     const readAllNotifications = useReadAllNotifications();
 
     const handleReadAllNotifications = () => {
-        readAllNotifications.mutate();
+        readAllNotifications.mutate(null);
     };
 
     const handleOpenSettingsNotifications = () => {

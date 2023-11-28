@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { TransactionFromList, TransactionsFiltersForm, transactionApi, useTransactionFilters } from "@entities/transaction";
 import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, columnOrder } from "./constants";
@@ -19,7 +19,10 @@ const List = (props: ListProps) => {
     return (
         <Box className={classes.root} {...props}>
             <ManagedDataGrid<TransactionFromList, TransactionsFiltersForm>
-                queryKey={QueryKeys.GET_TRANSACTIONS}
+                queryKey={[
+                    QueryKeys.GET_TRANSACTIONS,
+                    [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
+                ]}
                 queryFunction={(params) => transactionApi.getTransactions(adaptGetTransactionsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "entityType", "paymentType", "createdAtFrom", "createdAtTo", "status"]}
                 filter={{

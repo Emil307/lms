@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminStudentGroupFromList, groupApi } from "@entities/group";
 import { StudentGroupListExtraParams } from "./types";
@@ -25,7 +25,7 @@ const AdminStudentGroupList = ({ studentId }: AdminStudentGroupListProps) => {
                 Список групп
             </Heading>
             <ManagedDataGrid<AdminStudentGroupFromList, unknown, StudentGroupListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_STUDENT_GROUPS}
+                queryKey={[QueryKeys.GET_ADMIN_STUDENT_GROUPS, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.STUDENT]]}
                 queryFunction={(params) => groupApi.getAdminStudentGroups(params)}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

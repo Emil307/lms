@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation, InfiniteData } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification, TPaginationResponse } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
@@ -26,23 +26,36 @@ export const useUpdateCourseModuleActivity = ({
         (isActive: boolean) => courseModuleApi.updateModuleActivity({ courseId, moduleId, isActive }),
         {
             onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId] });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ADMIN_COURSE_MODULE,
+                        [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
+                        moduleId,
+                    ],
+                });
+                await queryClient.cancelQueries({
+                    queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, [EntityNames.COURSE_MODULE, EntityNames.COURSE], courseId],
+                });
 
                 const previousCourseModuleData = queryClient.getQueryData<GetCourseModuleResponse>([
                     QueryKeys.GET_ADMIN_COURSE_MODULE,
+                    [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
                     moduleId,
                 ]);
                 const previousCourseModulesData = queryClient.getQueryData<InfiniteData<TPaginationResponse<CourseModuleWithoutLessons[]>>>(
-                    [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId]
+                    [QueryKeys.GET_ADMIN_COURSE_MODULES, [EntityNames.COURSE_MODULE, EntityNames.COURSE], courseId]
                 );
 
                 queryClient.setQueryData<GetCourseModuleResponse>(
-                    [QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId],
+                    [
+                        QueryKeys.GET_ADMIN_COURSE_MODULE,
+                        [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
+                        moduleId,
+                    ],
                     (previousData) => previousData && { ...previousData, isActive: updatedStatus }
                 );
                 queryClient.setQueriesData<InfiniteData<TPaginationResponse<CourseModuleWithoutLessons[]>>>(
-                    [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId],
+                    [QueryKeys.GET_ADMIN_COURSE_MODULES, [EntityNames.COURSE_MODULE, EntityNames.COURSE], courseId],
                     (previousData) => {
                         if (!previousData) {
                             return undefined;
@@ -63,10 +76,20 @@ export const useUpdateCourseModuleActivity = ({
             },
             onError: (err, _, context) => {
                 if (context?.previousCourseModuleData) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], context.previousCourseModuleData);
+                    queryClient.setQueryData(
+                        [
+                            QueryKeys.GET_ADMIN_COURSE_MODULE,
+                            [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
+                            moduleId,
+                        ],
+                        context.previousCourseModuleData
+                    );
                 }
                 if (context?.previousCourseModulesData) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_MODULES, courseId], context.previousCourseModulesData);
+                    queryClient.setQueryData(
+                        [QueryKeys.GET_ADMIN_COURSE_MODULES, [EntityNames.COURSE_MODULE, EntityNames.COURSE], courseId],
+                        context.previousCourseModulesData
+                    );
                 }
                 createNotification({
                     type: ToastType.WARN,

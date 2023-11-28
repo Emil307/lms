@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import {
     AdminArticlePackageFromList,
     AdminArticlePackagesFiltersForm,
@@ -31,7 +31,7 @@ const AdminList = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminArticlePackageFromList, AdminArticlePackagesFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLE_PACKAGES}
+                queryKey={[QueryKeys.GET_ADMIN_ARTICLE_PACKAGES, [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY]]}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}
                 queryCacheKeys={[
                     "page",

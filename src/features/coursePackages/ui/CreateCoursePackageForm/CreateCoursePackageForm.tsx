@@ -18,10 +18,10 @@ import {
     Radio,
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
-import { initialValues, radioGroupValues } from "./constants";
+import { initialValues, keysInvalidateQueries, radioGroupValues } from "./constants";
 import { $CreateCoursePackageFormValidation, CreateCoursePackageFormValidation } from "./types";
 import { adaptCreateCoursePackageFormRequest } from "./utils";
 import useStyles from "./CreateCoursePackageForm.styles";
@@ -56,15 +56,15 @@ const CreateCoursePackageForm = ({ onClose, ...props }: CreateCoursePackageFormP
                 initialValues={initialValues}
                 validationSchema={$CreateCoursePackageFormValidation}
                 mutationKey={[MutationKeys.CREATE_COURSE_PACKAGE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGES] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={(params) => coursePackageApi.createCoursePackage(adaptCreateCoursePackageFormRequest(params))}
                 onSuccess={onSuccess}
                 onError={onError}>
                 {({ values, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
-                        price: !errors.price ? values.price : null,
-                        amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
+                        price: !errors.price ? Number(values.price) : null,
+                        amountDiscount: !errors.discount?.amount ? Number(values.discount.amount) : null,
                         type: values.discount.type,
                     });
 

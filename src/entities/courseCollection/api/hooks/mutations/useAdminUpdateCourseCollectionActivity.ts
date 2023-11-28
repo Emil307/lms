@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
@@ -24,43 +24,58 @@ export const useAdminUpdateCourseCollectionActivity = ({
         (data) => courseCollectionApi.updateAdminCourseCollectionActivity({ ...data, id }),
         {
             onMutate: async ({ isActive }) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTION, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS] });
+                await queryClient.cancelQueries({
+                    queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.USER], id],
+                });
+                await queryClient.cancelQueries({
+                    queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE]],
+                });
 
                 const previousCourseCollectionData = queryClient.getQueryData<GetAdminCourseCollectionResponse>([
                     QueryKeys.GET_ADMIN_COURSE_COLLECTION,
+                    [EntityNames.COURSE_COLLECTION, EntityNames.USER],
                     id,
                 ]);
                 const previousCourseCollectionsData = queryClient.getQueriesData<GetAdminCourseCollectionsResponse>([
                     QueryKeys.GET_ADMIN_COURSE_COLLECTIONS,
+                    [EntityNames.COURSE_COLLECTION, EntityNames.COURSE],
                 ]);
 
                 queryClient.setQueryData<GetAdminCourseCollectionResponse>(
-                    [QueryKeys.GET_ADMIN_COURSE_COLLECTION, id],
+                    [QueryKeys.GET_ADMIN_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.USER], id],
                     (previousData) => previousData && { ...previousData, isActive }
                 );
 
-                queryClient.setQueriesData<GetAdminCourseCollectionsResponse>([QueryKeys.GET_ADMIN_COURSE_COLLECTIONS], (previousData) => {
-                    if (!previousData) {
-                        return undefined;
-                    }
+                queryClient.setQueriesData<GetAdminCourseCollectionsResponse>(
+                    [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE]],
+                    (previousData) => {
+                        if (!previousData) {
+                            return undefined;
+                        }
 
-                    return {
-                        ...previousData,
-                        data: previousData.data.map((courseCollection) =>
-                            String(courseCollection.id) === id ? { ...courseCollection, isActive } : courseCollection
-                        ),
-                    };
-                });
+                        return {
+                            ...previousData,
+                            data: previousData.data.map((courseCollection) =>
+                                String(courseCollection.id) === id ? { ...courseCollection, isActive } : courseCollection
+                            ),
+                        };
+                    }
+                );
 
                 return { previousCourseCollectionData, previousCourseCollectionsData };
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && "previousCourseCollectionData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_COLLECTION, id], context.previousCourseCollectionData);
+                    queryClient.setQueryData(
+                        [QueryKeys.GET_ADMIN_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.USER], id],
+                        context.previousCourseCollectionData
+                    );
                 }
                 if (typeof context === "object" && "previousCourseCollectionsData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_COURSE_COLLECTIONS], context.previousCourseCollectionsData);
+                    queryClient.setQueriesData(
+                        [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE]],
+                        context.previousCourseCollectionsData
+                    );
                 }
 
                 createNotification({
@@ -70,15 +85,23 @@ export const useAdminUpdateCourseCollectionActivity = ({
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_COLLECTIONS]);
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_COLLECTION, id]);
+                queryClient.invalidateQueries([
+                    QueryKeys.GET_ADMIN_COURSE_COLLECTION,
+                    [EntityNames.COURSE_COLLECTION, EntityNames.USER],
+                    id,
+                ]);
             },
             onSuccess: () => {
                 const courseCollectionData = queryClient.getQueryData<GetAdminCourseCollectionResponse>([
                     QueryKeys.GET_ADMIN_COURSE_COLLECTION,
+                    [EntityNames.COURSE_COLLECTION, EntityNames.USER],
                     id,
                 ]);
                 const courseCollectionFromList = queryClient
-                    .getQueriesData<GetAdminCourseCollectionsResponse>([QueryKeys.GET_ADMIN_COURSE_COLLECTIONS])?.[0]?.[1]
+                    .getQueriesData<GetAdminCourseCollectionsResponse>([
+                        QueryKeys.GET_ADMIN_COURSE_COLLECTIONS,
+                        [EntityNames.COURSE_COLLECTION, EntityNames.COURSE],
+                    ])?.[0]?.[1]
                     ?.data.find((courseCollection) => courseCollection.id.toString() === id);
 
                 const statusMessage =

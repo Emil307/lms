@@ -33,7 +33,7 @@ const ArticleListFromCategory = ({ categoryId, articlePackageId, onClose, ...pro
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
-        if (entry?.isIntersecting && hasNextPage) {
+        if (entry && entry.isIntersecting && hasNextPage) {
             fetchNextPage();
         }
     }, [entry]);

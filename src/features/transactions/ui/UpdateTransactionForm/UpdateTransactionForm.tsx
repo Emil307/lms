@@ -5,7 +5,7 @@ import { IconUserCircle } from "@tabler/icons-react";
 import { IconClipboard } from "@tabler/icons";
 import { FControlButtons, FInput, FSelect, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import {
     AdminTransactionEntityTypeName,
@@ -59,10 +59,7 @@ const UpdateTransactionForm = ({ data, onClose, ...props }: UpdateTransactionFor
                 initialValues={{ ...initialValues, ...adaptUpdateTransactionFormValues(data) }}
                 validationSchema={$UpdateTransactionFormValidation}
                 mutationKey={[MutationKeys.UPDATE_ADMIN_TRANSACTION]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_TRANSACTIONS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_TRANSACTION, String(data?.id)] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.TRANSACTION }}
                 mutationFunction={updateTransaction}
                 onSuccess={onSuccess}
                 onError={onError}

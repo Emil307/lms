@@ -3,11 +3,11 @@ import { AlignLeft as AlignLeftIcon } from "react-feather";
 import React, { useState } from "react";
 import { FControlButtons, FControlPanel, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import FileMarkIcon from "public/icons/file-mark.svg";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { $CreateLessonFormValues, CreateLessonFormValues, CreateLessonResponse, lessonApi } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
 import { useAttachLessonToCourseModule } from "@entities/courseModule";
-import { initialValues } from "./constants";
+import { initialValues, keysInvalidateQueries } from "./constants";
 import useStyles from "./CreateLessonModal.styles";
 
 export interface CreateLessonModalProps {
@@ -61,7 +61,7 @@ const CreateLessonModal = ({ courseId = "", moduleId = "", moduleName = "", less
             initialValues={initialValues}
             validationSchema={$CreateLessonFormValues}
             mutationKey={[MutationKeys.CREATE_LESSON]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSONS] }, { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] }]}
+            keysInvalidateQueries={keysInvalidateQueries}
             mutationFunction={createLesson}
             onSuccess={onSuccessCreate}
             onError={onError}

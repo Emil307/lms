@@ -22,7 +22,12 @@ export default function Sidebar() {
 
     const isTablet = useMedia("lg");
 
-    const sidebarRef = useClickOutside(() => isTablet && setIsMinimizedModeSidebar(true));
+    const sidebarRef = useClickOutside(() => {
+        if (isTablet) {
+            setIsMinimizedModeSidebar(true);
+            setActiveSidebarItemsWithChildren([]);
+        }
+    });
 
     useEffect(() => {
         setIsMinimizedModeSidebar(isTablet);

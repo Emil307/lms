@@ -2,7 +2,7 @@ import { Flex, Text } from "@mantine/core";
 import React from "react";
 import { FControlButtons, FInput, Loader, ManagedForm } from "@shared/ui";
 import { UpdateAdminCategoryResponse, categoryApi, useAdminCategory } from "@entities/category";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { $UpdateAdminCategoryFormValidation, UpdateAdminCategoryFormValidation } from "./types";
@@ -50,11 +50,7 @@ const UpdateCategoryForm = ({ id, onClose }: UpdateCategoryFormProps) => {
             initialValues={{ ...initialValues, ...adaptUpdateCategoryForm(categoryData) }}
             validationSchema={$UpdateAdminCategoryFormValidation}
             onSuccess={onSuccess}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] },
-                { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE] },
-                { queryKey: [QueryKeys.GET_ADMIN_CATEGORY, id] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.CATEGORY }}
             onError={onError}
             disableOverlay>
             <Flex direction="column" gap={{ base: 24, xs: 32 }}>

@@ -1,31 +1,29 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { UpdateUploadedFilesRequest, UpdateUploadedFilesResponse, storageApi } from "@entities/storage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
-import { queryClient } from "@app/providers";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 
-export const useUpdateUploadedFiles = (fileId?: number) => {
-    return useMutation<UpdateUploadedFilesResponse, AxiosError<FormErrorResponse>, UpdateUploadedFilesRequest>(
-        [MutationKeys.UPDATE_UPLOADED_FILES],
-        (data) => storageApi.updateUploadedFiles(data),
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_UPLOADED_FILE, fileId || {}]);
+export const useUpdateUploadedFiles = (): UseMutationResult<
+    UpdateUploadedFilesResponse,
+    AxiosError<FormErrorResponse>,
+    UpdateUploadedFilesRequest
+> => {
+    return useMutation([MutationKeys.UPDATE_UPLOADED_FILES], (data) => storageApi.updateUploadedFiles(data), {
+        onSuccess: () => {
+            createNotification({
+                type: ToastType.SUCCESS,
+                title: "Изменения сохранены",
+            });
 
-                createNotification({
-                    type: ToastType.SUCCESS,
-                    title: "Изменения сохранены",
-                });
-            },
-            onError: () => {
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка обновления файлов",
-                });
-            },
-        }
-    );
+            invalidateQueriesWithPredicate({ entityName: EntityNames.MATERIAL });
+        },
+        onError: () => {
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка обновления файлов",
+            });
+        },
+    });
 };

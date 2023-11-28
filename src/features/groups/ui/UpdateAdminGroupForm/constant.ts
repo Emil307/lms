@@ -3,7 +3,7 @@ import { UpdateGroupFormValidation } from "./types";
 export const initialValues: UpdateGroupFormValidation = {
     courseId: "",
     name: "",
-    maxStudentsCount: null,
+    maxStudentsCount: "",
     isActive: false,
     educationStartDate: null,
     educationFinishDate: null,

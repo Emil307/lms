@@ -9,7 +9,7 @@ import { UserPage } from "@components/UserPage";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GroupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,7 +19,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const groupApi = new GroupApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_GROUP, id], () => groupApi.getGroup({ id }));
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_GROUP,
+                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
+                id,
+            ],
+            () => groupApi.getGroup({ id })
+        );
 
         return {
             props: {

@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, UploadedFilesFiltersForm, storageApi, useUploadedFileResources } from "@entities/storage";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
@@ -25,7 +25,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<UploadedFileFromList, UploadedFilesFiltersForm>
-                queryKey={QueryKeys.GET_UPLOADED_FILES}
+                queryKey={[QueryKeys.GET_UPLOADED_FILES, [EntityNames.MATERIAL, EntityNames.CATEGORY]]}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialFilesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "type", "isActive", "createdAtFrom", "createdAtTo", "categoryIds"]}
                 filter={{

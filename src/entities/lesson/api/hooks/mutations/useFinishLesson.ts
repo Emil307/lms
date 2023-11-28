@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
@@ -19,7 +19,12 @@ export const useFinishLesson = ({ courseId, lessonId, name }: FinishLessonReques
                 });
 
                 queryClient.invalidateQueries([QueryKeys.GET_GROUP_MODULES]);
-                queryClient.invalidateQueries([QueryKeys.GET_LESSON, lessonId, courseId]);
+                queryClient.invalidateQueries([
+                    QueryKeys.GET_LESSON,
+                    [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK, EntityNames.LESSON_TEST, EntityNames.MATERIAL],
+                    lessonId,
+                    courseId,
+                ]);
             },
             onError: (error) => {
                 createNotification({

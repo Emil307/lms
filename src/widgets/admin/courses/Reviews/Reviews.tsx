@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { FDateRangePicker, FSearch, FSelect, Heading, ManagedDataGrid } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminCourseReviewFromList, courseReviewApi } from "@entities/courseReview";
 import { columns, radioGroupValues, filterInitialValues, columnOrder, scoreOptions } from "./constants";
 import { ListMenu } from "./components";
@@ -48,7 +48,10 @@ const Reviews = ({ courseId }: ReviewsProps) => {
 
     return (
         <ManagedDataGrid<AdminCourseReviewFromList, AdminCourseReviewsFiltersForm, AdminCourseReviewsExtraParams>
-            queryKey={QueryKeys.GET_ADMIN_COURSE_REVIEWS}
+            queryKey={[
+                QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+            ]}
             queryFunction={(params) => courseReviewApi.getAdminCourseReviews(adaptGetAdminCourseReviewsRequest(params))}
             queryCacheKeys={["page", "perPage", "sort", "query", "courseId", "createdAtFrom", "createdAtTo", "score", "isPublished"]}
             filter={{

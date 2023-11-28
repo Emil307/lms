@@ -17,7 +17,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { AdminStaticReview, UpdateAdminStaticReviewResponse, staticReviewApi } from "@entities/staticReview";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateReviewForm, adaptUpdateStaticReviewRequest } from "./utils";
@@ -66,7 +66,10 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                 mutationKey={[MutationKeys.UPDATE_STATIC_REVIEW, String(data.id)]}
                 keysInvalidateQueries={[
                     { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEWS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEW, String(data.id)] },
+                    {
+                        queryKey: [QueryKeys.GET_ADMIN_STATIC_REVIEW, [EntityNames.STATIC_REVIEW], String(data.id)],
+                    },
+                    { queryKey: [QueryKeys.GET_STATIC_REVIEWS] },
                 ]}
                 mutationFunction={updateStaticReview}
                 onSuccess={onSuccess}
@@ -94,12 +97,10 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                     <Paragraph variant="text-small-m" color="gray45">
                                         Создание:
                                     </Paragraph>
-                                    <Paragraph variant="text-small-m">
-                                        {data.createdAt ? dayjs(data.createdAt).format("DD.MM.YYYY HH:mm") : "-"}
-                                    </Paragraph>
-                                </Flex>
+                                    <Paragraph variant="text-small-m">{dayjs(data.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
+                                </Flex >
                                 <LastUpdatedInfo data={data.lastUpdated} />
-                            </Flex>
+                            </Flex >
                             <FFileInput
                                 name="preview"
                                 title="Изменить фото"
@@ -163,11 +164,11 @@ const UpdateStaticReviewForm = ({ data, onClose, ...props }: UpdateStaticReviewF
                                 )}
                             </Flex>
                             <FControlButtons onClose={onCancel} />
-                        </Flex>
+                        </Flex >
                     );
                 }}
-            </ManagedForm>
-        </Box>
+            </ManagedForm >
+        </Box >
     );
 };
 

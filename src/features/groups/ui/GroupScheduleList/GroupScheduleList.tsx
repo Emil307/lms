@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import { BoxProps } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupScheduleFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
 import { columnOrder, columns } from "./constant";
@@ -26,7 +26,7 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
             </Flex>
 
             <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupStudentsExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_GROUP_SCHEDULES}
+                queryKey={[QueryKeys.GET_ADMIN_GROUP_SCHEDULES, [EntityNames.GROUP]]}
                 queryFunction={(params) => groupApi.getAdminGroupSchedules(params)}
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}
                 columns={columns}

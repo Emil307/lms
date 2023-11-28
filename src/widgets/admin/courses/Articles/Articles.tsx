@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { AdminArticleFromList, AdminCourseArticleExtraFilters, articleApi } from "@entities/article";
@@ -37,7 +37,7 @@ const Articles = ({ courseId, ...props }: ArticlesProps) => {
             </Flex>
 
             <ManagedDataGrid<AdminArticleFromList, unknown, AdminCourseArticleExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_COURSE_ARTICLES}
+                queryKey={[QueryKeys.GET_ADMIN_COURSE_ARTICLES, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.COURSE]]}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminCourseArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "courseId", "courseId"]}
                 extraFilterParams={{ courseId }}

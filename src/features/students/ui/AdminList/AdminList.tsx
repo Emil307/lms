@@ -6,7 +6,7 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminStudentsFiltersForm, UserFromList } from "@entities/user/api/types";
 import { useAdminStudentsFilters, userApi } from "@entities/user";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
@@ -37,7 +37,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<UserFromList, Partial<AdminStudentsFiltersForm>>
-                queryKey={QueryKeys.GET_ADMIN_STUDENTS}
+                queryKey={[QueryKeys.GET_ADMIN_STUDENTS, [EntityNames.STUDENT]]}
                 queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                 filter={{

@@ -8,7 +8,7 @@ import {
     UserRating,
     articleApi,
 } from "@entities/article";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { TPaginationResponse, ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
@@ -33,14 +33,24 @@ export const useUpdateArticleRating = (
         },
         {
             onMutate: async (updatedStatus) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLE, id] });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ARTICLE,
+                        [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                        id,
+                    ],
+                });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLES] });
 
-                const previousArticleData = queryClient.getQueryData<GetArticleResponse>([QueryKeys.GET_ARTICLE, id]);
+                const previousArticleData = queryClient.getQueryData<GetArticleResponse>([
+                    QueryKeys.GET_ARTICLE,
+                    [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                    id,
+                ]);
                 const previousArticlesData = queryClient.getQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES]);
 
                 queryClient.setQueryData<GetArticleResponse>(
-                    [QueryKeys.GET_ARTICLE, id],
+                    [QueryKeys.GET_ARTICLE, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL], id],
                     (previousData) => previousData && { ...previousData, userRating: updatedStatus }
                 );
                 queryClient.setQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES], (previousData) => {
@@ -66,7 +76,10 @@ export const useUpdateArticleRating = (
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && "previousArticleData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_ARTICLE, id], context.previousArticleData);
+                    queryClient.setQueryData(
+                        [QueryKeys.GET_ARTICLE, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL], id],
+                        context.previousArticleData
+                    );
                 }
                 if (typeof context === "object" && "previousArticlesData" in context) {
                     queryClient.setQueriesData([QueryKeys.GET_ARTICLES], context.previousArticlesData);

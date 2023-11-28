@@ -7,19 +7,19 @@ import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconHeart from "public/icons/heart.svg";
 import { Logo } from "@components/Logo";
-import { CompanyLinks } from "@shared/constant";
+import { CompanyLinks, FilterTypes } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import { pageSections } from "./constants";
 import useStyles from "./FooterUser.styles";
 
-export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> {}
+export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> { }
 
 const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
     const { classes } = useStyles();
     const router = useRouter();
 
-    const courseResources = useCourseResources({ type: "select" });
+    const courseResources = useCourseResources({ type: FilterTypes.SELECT });
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
@@ -120,7 +120,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                 </Flex>
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
                 <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Paragraph variant="text-small-m">© 2023, Галерея бизнеса</Paragraph>
+                    <Paragraph variant="text-small-m">© 2023, Addamant</Paragraph>
                     <Flex className={classes.bottomWrapper}>
                         <Text fw={600} td="underline" component="a" href="/user-agreement">
                             Пользовательское соглашение

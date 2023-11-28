@@ -1,3 +1,5 @@
-export const initialValues = {
+import { UpdateTagFormValidation } from "./types";
+
+export const initialValues: UpdateTagFormValidation = {
     name: "",
 };

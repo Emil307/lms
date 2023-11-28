@@ -8,7 +8,7 @@ import { Fieldset } from "@components/Fieldset";
 import { AdminAuthor, UpdateAuthorResponse, authorApi } from "@entities/author";
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { ToastType, createNotification } from "@shared/utils";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import useStyles from "./UpdateAuthorForm.styles";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateAuthorForm, adaptUpdateAuthorRequest } from "./utils";
@@ -49,10 +49,7 @@ const UpdateAuthorForm = ({ data, onClose = () => undefined }: UpdateAuthorFormP
             initialValues={{ ...initialValues, ...adaptDataForUpdateAuthorForm(data) }}
             validationSchema={$UpdateAuthorFormValidation}
             mutationKey={[MutationKeys.UPDATE_AUTHOR, String(data?.id)]}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_AUTHORS] },
-                { queryKey: [QueryKeys.GET_ADMIN_AUTHOR, String(data?.id)] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.AUTHOR }}
             mutationFunction={updateAuthor}
             onSuccess={onSuccess}
             onError={onError}

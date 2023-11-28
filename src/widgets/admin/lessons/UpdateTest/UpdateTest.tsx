@@ -3,7 +3,7 @@ import React from "react";
 import { FControlButtons, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { AdminTest, lessonApi, UpdateAdminTestResponse } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
 import { QuestionList } from "./components";
 import { $UpdateTestFormValues, UpdateTestFormValues } from "./types";
@@ -43,7 +43,9 @@ const UpdateTest = ({ test, lessonId, onClose }: UpdateTestProps) => {
             initialValues={getInitialValues(test)}
             validationSchema={$UpdateTestFormValues}
             mutationKey={[MutationKeys.UPDATE_LESSON_TEST, lessonId]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSON_TEST, lessonId] }]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADMIN_LESSON_TEST, [EntityNames.LESSON, EntityNames.LESSON_TEST], lessonId] },
+            ]}
             mutationFunction={updateTest}
             onSuccess={onSuccessUpdate}
             onError={onError}

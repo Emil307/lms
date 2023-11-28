@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticlePackageFromList, articlePackageApi, useAttachArticlePackagesToStudent } from "@entities/articlePackage";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminArticlePackagesRequest } from "./utils";
@@ -30,7 +30,10 @@ const AddArticlePackagesToStudentModal = ({ studentId, onClose }: AddArticlePack
     return (
         <>
             <ManagedDataGrid<AdminArticlePackageFromList, unknown, StudentArticlePackageListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_NO_STUDENT_ARTICLE_PACKAGES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_NO_STUDENT_ARTICLE_PACKAGES,
+                    [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.STUDENT],
+                ]}
                 queryFunction={(params) => articlePackageApi.getAdminArticlePackages(adaptGetAdminArticlePackagesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

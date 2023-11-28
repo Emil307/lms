@@ -35,6 +35,7 @@ export default createStyles((theme) => ({
         },
     },
     main: {
+        display: "contents",
         width: "100%",
         minHeight: "100%",
     },
@@ -45,7 +46,7 @@ export default createStyles((theme) => ({
         padding: 32,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
-        height: "100%",
+        // height: "100%",
 
         [theme.fn.smallerThan("sm")]: {
             padding: 24,

@@ -8,7 +8,7 @@ import { UpdateGroupPage } from "@pages/admin/groups";
 import { AdminPage } from "@components/AdminPage";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GroupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -19,7 +19,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const groupApi = new GroupApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_GROUP, id], () => groupApi.getAdminGroup({ id }));
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_ADMIN_GROUP, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER, EntityNames.STUDENT], id],
+            () => groupApi.getAdminGroup({ id })
+        );
 
         return {
             props: {

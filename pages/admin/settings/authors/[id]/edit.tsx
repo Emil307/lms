@@ -9,7 +9,7 @@ import { UpdateAuthorPage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getFullName } from "@shared/utils";
 import { AuthorApi } from "@entities/author";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -20,7 +20,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const authorApi = new AuthorApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_AUTHOR, id], () => authorApi.getAdminAuthor({ id }));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_AUTHOR, [EntityNames.AUTHOR, EntityNames.USER], id], () =>
+            authorApi.getAdminAuthor({ id })
+        );
 
         const fullName = getFullName({ data: response });
 

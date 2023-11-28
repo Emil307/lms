@@ -16,6 +16,7 @@ export const useDeleteFavoriteCourses = (): UseMutationResult<DeleteFavoriteCour
             });
 
             queryClient.invalidateQueries([QueryKeys.GET_COURSES]);
+            queryClient.invalidateQueries([QueryKeys.GET_COURSE]);
         },
         onError: () => {
             createNotification({

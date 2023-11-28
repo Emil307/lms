@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
@@ -12,54 +12,91 @@ import {
     courseReviewApi,
 } from "@entities/courseReview";
 
-export const useUpdateCourseReviewPublishingStatus = ({ id }: Omit<UpdateCourseReviewPublishingStatusRequest, "isPublished">) => {
-    return useMutation<
-        UpdateCourseReviewPublishingStatusResponse,
-        AxiosError<FormErrorResponse>,
-        Omit<UpdateCourseReviewPublishingStatusRequest, "id">,
-        unknown
-    >(
+export const useUpdateCourseReviewPublishingStatus = ({
+    id,
+}: Omit<UpdateCourseReviewPublishingStatusRequest, "isPublished">): UseMutationResult<
+    UpdateCourseReviewPublishingStatusResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<UpdateCourseReviewPublishingStatusRequest, "id">
+> => {
+    return useMutation(
         [MutationKeys.UPDATE_COURSE_REVIEW_PUBLISHING_STATUS],
         (data) => courseReviewApi.updateCourseReviewPublishingStatus({ ...data, id }),
         {
             onMutate: async ({ isPublished }) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_REVIEW, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE_REVIEWS] });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ADMIN_COURSE_REVIEW,
+                        [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                        id,
+                    ],
+                });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                        [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                    ],
+                });
 
                 const previousCourseReviewData = queryClient.getQueryData<GetAdminCourseReviewResponse>([
                     QueryKeys.GET_ADMIN_COURSE_REVIEW,
+                    [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
                     id,
                 ]);
                 const previousCourseReviewsData = queryClient.getQueriesData<GetAdminCourseReviewsResponse>([
                     QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                    [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
                 ]);
 
                 queryClient.setQueryData<GetAdminCourseReviewResponse>(
-                    [QueryKeys.GET_ADMIN_COURSE_REVIEW, id],
+                    [
+                        QueryKeys.GET_ADMIN_COURSE_REVIEW,
+                        [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                        id,
+                    ],
                     (previousData) => previousData && { ...previousData, isPublished }
                 );
 
-                queryClient.setQueriesData<GetAdminCourseReviewsResponse>([QueryKeys.GET_ADMIN_COURSE_REVIEWS], (previousData) => {
-                    if (!previousData) {
-                        return undefined;
-                    }
+                queryClient.setQueriesData<GetAdminCourseReviewsResponse>(
+                    [
+                        QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                        [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                    ],
+                    (previousData) => {
+                        if (!previousData) {
+                            return undefined;
+                        }
 
-                    return {
-                        ...previousData,
-                        data: previousData.data.map((courseReview) =>
-                            String(courseReview.id) === id ? { ...courseReview, isPublished } : courseReview
-                        ),
-                    };
-                });
+                        return {
+                            ...previousData,
+                            data: previousData.data.map((courseReview) =>
+                                String(courseReview.id) === id ? { ...courseReview, isPublished } : courseReview
+                            ),
+                        };
+                    }
+                );
 
                 return { previousCourseReviewData, previousCourseReviewsData };
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && context !== null && "previousCourseReviewData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE_REVIEW, id], context.previousCourseReviewData);
+                    queryClient.setQueryData(
+                        [
+                            QueryKeys.GET_ADMIN_COURSE_REVIEW,
+                            [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                            id,
+                        ],
+                        context.previousCourseReviewData
+                    );
                 }
                 if (typeof context === "object" && context !== null && "previousCourseReviewsData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_COURSE_REVIEWS], context.previousCourseReviewsData);
+                    queryClient.setQueriesData(
+                        [
+                            QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                            [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                        ],
+                        context.previousCourseReviewsData
+                    );
                 }
 
                 createNotification({
@@ -71,9 +108,16 @@ export const useUpdateCourseReviewPublishingStatus = ({ id }: Omit<UpdateCourseR
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_REVIEWS]);
             },
             onSuccess: () => {
-                const courseReviewData = queryClient.getQueryData<GetAdminCourseReviewResponse>([QueryKeys.GET_ADMIN_COURSE_REVIEW, id]);
+                const courseReviewData = queryClient.getQueryData<GetAdminCourseReviewResponse>([
+                    QueryKeys.GET_ADMIN_COURSE_REVIEW,
+                    [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                    id,
+                ]);
                 const courseReviewFromList = queryClient
-                    .getQueriesData<GetAdminCourseReviewsResponse>([QueryKeys.GET_ADMIN_COURSE_REVIEWS])?.[0]?.[1]
+                    .getQueriesData<GetAdminCourseReviewsResponse>([
+                        QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                        [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                    ])?.[0]?.[1]
                     ?.data.find((courseReview) => courseReview.id.toString() === id);
 
                 const statusMessage =

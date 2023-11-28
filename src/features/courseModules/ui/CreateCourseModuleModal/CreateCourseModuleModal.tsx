@@ -2,7 +2,7 @@ import { Flex, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { Folder as FolderIcon } from "react-feather";
 import { FControlButtons, FInput, FTextarea, Heading, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
 import { $CreateCourseModuleFormValues, courseModuleApi } from "@entities/courseModule";
 import { CreateCourseModuleFormValues, CreateCourseModuleResponse } from "@entities/courseModule";
@@ -42,7 +42,9 @@ const CreateCourseModuleModal = ({ courseId, moduleNumber, onClose }: CreateCour
             initialValues={initialValues}
             validationSchema={$CreateCourseModuleFormValues}
             onSuccess={onSuccess}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, courseId] }]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULES, [EntityNames.COURSE_MODULE, EntityNames.COURSE], courseId] },
+            ]}
             onError={onError}
             disableOverlay>
             {() => (

@@ -1,6 +1,5 @@
 export * from "./Card";
 export * from "./CourseListFromPackage";
-export * from "./InvoicePaymentForm";
 export * from "./AdminList";
 export * from "./DeleteCoursePackageModal";
 export * from "./CreateCoursePackageForm";

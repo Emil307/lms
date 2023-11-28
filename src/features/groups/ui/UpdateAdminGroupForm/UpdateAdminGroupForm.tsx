@@ -15,7 +15,7 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetAdminGroupResponse, UpdateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { $UpdateGroupFormValidation, UpdateGroupFormValidation } from "./types";
 import { adaptUpdateAdminGroupForm, adaptUpdateAdminGroupRequest } from "./utils";
@@ -31,7 +31,7 @@ export interface UpdateAdminGroupFormProps extends BoxProps {
 const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }: UpdateAdminGroupFormProps) => {
     const { classes } = useStyles();
 
-    const groupFilters = useAdminGroupFilters({ type: "manipulation" });
+    const groupFilters = useAdminGroupFilters({ type: FilterTypes.MANIPULATION });
 
     const updateGroup = (values: UpdateGroupFormValidation) => {
         return groupApi.updateAdminGroup({ ...adaptUpdateAdminGroupRequest(values), id: String(data?.id) });
@@ -58,10 +58,7 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                 initialValues={adaptUpdateAdminGroupForm(data)}
                 validationSchema={$UpdateGroupFormValidation}
                 mutationKey={[MutationKeys.UPDATE_ADMIN_GROUP]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_GROUPS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_GROUP, String(data?.id)] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.GROUP }}
                 mutationFunction={updateGroup}
                 onSuccess={onSuccessUpdated}
                 onError={onError}

@@ -5,7 +5,7 @@ import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForS
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { AdminGroupFromList, AdminGroupsFiltersForm, groupApi, useAdminGroupFilters } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import { Roles } from "@app/routes";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
@@ -25,7 +25,7 @@ const AdminList = (props: AdminListProps) => {
 
     const { columns, columnOrder, filterInitialValues, adaptGetAdminGroupsRequest, renderBadge } = useGroupListData(userRole);
 
-    const groupFilters = useAdminGroupFilters({ type: "select" });
+    const groupFilters = useAdminGroupFilters({ type: FilterTypes.SELECT });
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id: String(cell.row.original.id) } });
@@ -34,7 +34,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminGroupFromList, Partial<AdminGroupsFiltersForm>>
-                queryKey={QueryKeys.GET_ADMIN_GROUPS}
+                queryKey={[QueryKeys.GET_ADMIN_GROUPS, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER, EntityNames.STUDENT]]}
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={[
                     "page",

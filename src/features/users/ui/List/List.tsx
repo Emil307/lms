@@ -7,7 +7,7 @@ import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { UserFromList, UsersFilters } from "@entities/user/api/types";
 import { useAdminUsersFilters, userApi } from "@entities/user";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { ManagedDataGrid } from "@shared/ui";
 import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, radioGroupValues } from "./constant";
@@ -50,7 +50,7 @@ const UserList = () => {
 
             <Box mt={24}>
                 <ManagedDataGrid<UserFromList, UsersFilters>
-                    queryKey={QueryKeys.GET_ADMIN_USERS}
+                    queryKey={[QueryKeys.GET_ADMIN_USERS, [EntityNames.USER]]}
                     queryFunction={(params) => userApi.getAdminUsers(params)}
                     queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
                     filter={{

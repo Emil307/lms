@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { GetGroupsCountsResponse, groupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useGroupsCounts = () => {
-    return useQuery<GetGroupsCountsResponse>([QueryKeys.GET_GROUPS_COUNTS], () => groupApi.getGroupsCounts());
+export const useGroupsCounts = (): UseQueryResult<GetGroupsCountsResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_GROUPS_COUNTS, [EntityNames.GROUP]], () => groupApi.getGroupsCounts());
 };

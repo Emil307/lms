@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleFromList, AdminArticlesFiltersForm, articleApi, useAdminArticleFilters } from "@entities/article";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
@@ -34,7 +34,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminArticleFromList, Partial<AdminArticlesFiltersForm>>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLES}
+                queryKey={[QueryKeys.GET_ADMIN_ARTICLES, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.COURSE]]}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query", "categoryId", "subcategoryId", "courseIds"]}
                 filter={{

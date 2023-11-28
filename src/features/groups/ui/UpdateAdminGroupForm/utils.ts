@@ -8,6 +8,7 @@ export const adaptUpdateAdminGroupForm = (data?: GetAdminGroupResponse): UpdateG
         ...initialValues,
         ...(data && {
             ...data,
+            maxStudentsCount: data.maxStudentsCount ? String(data.maxStudentsCount) : "",
             educationStartDate: new Date(String(data.educationStartDate)),
             educationFinishDate: new Date(String(data.educationFinishDate)),
         }),

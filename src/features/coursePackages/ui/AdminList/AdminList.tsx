@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { Button, FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, Radio, prepareOptionsForSelect } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import {
     AdminCoursePackageFromList,
     AdminCoursePackagesFiltersForm,
@@ -21,7 +21,7 @@ const AdminList = () => {
 
     const isMobile = useMedia("sm");
 
-    const coursePackageResources = useAdminCoursePackageResourses({ type: "select" });
+    const coursePackageResources = useAdminCoursePackageResourses({ type: FilterTypes.SELECT });
 
     const handleClickCell = (cell: MRT_Cell<AdminCoursePackageFromList>) => {
         router.push({ pathname: "/admin/settings/course-packages/[id]", query: { id: cell.row.original.id.toString() } });
@@ -30,7 +30,7 @@ const AdminList = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminCoursePackageFromList, AdminCoursePackagesFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_COURSE_PACKAGES}
+                queryKey={[QueryKeys.GET_ADMIN_COURSE_PACKAGES, [EntityNames.COURSE_PACKAGE, EntityNames.COURSE]]}
                 queryFunction={(params) => coursePackageApi.getAdminCoursePackages(adaptGetAdminCoursePackagesRequest(params))}
                 queryCacheKeys={[
                     "page",

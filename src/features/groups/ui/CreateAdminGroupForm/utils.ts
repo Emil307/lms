@@ -20,7 +20,7 @@ export const adaptCreateAdminGroupForm = (courseId?: string): CreateGroupFormVal
     return {
         courseId: courseId || "",
         name: "",
-        maxStudentsCount: null,
+        maxStudentsCount: "",
         isActive: false,
         educationStartDate: null,
         educationFinishDate: null,

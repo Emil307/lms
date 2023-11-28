@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
-import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
+import { useDetailsStudent, useUpdateUserActivity } from "@entities/user";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
 import useStyles from "./InfoPanel.styles";
@@ -17,7 +17,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
     const userRole = useUserRole();
 
-    const { data } = useDetailsUser(id);
+    const { data } = useDetailsStudent(id);
 
     const userFullname = getFullName({ data: data?.profile });
 

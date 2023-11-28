@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { AdminCourseFromCoursePackageFilters, useAttachCourseToCoursePackage } from "@entities/coursePackage";
 import { AdminCourseFromList, AdminCoursesForCoursePackageFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import { columnOrder, columns, filterInitialValues } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import useStyles from "./AddCourseToCoursePackageModal.styles";
@@ -17,7 +17,7 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminCourseResources({ type: "select" });
+    const courseResources = useAdminCourseResources({ type: FilterTypes.SELECT });
     const { mutate: attachCoursesToCoursePackage, isLoading } = useAttachCourseToCoursePackage(coursePackageId);
 
     const handleSubmit = () => {
@@ -34,7 +34,10 @@ const AddCourseToCoursePackageModal = ({ coursePackageId, onClose }: AddCourseTo
     return (
         <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesForCoursePackageFiltersForm, AdminCourseFromCoursePackageFilters>
-                queryKey={QueryKeys.GET_ADMIN_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "categoryId", "subcategoryId", "tags", "coursePackageId"]}
                 filter={{

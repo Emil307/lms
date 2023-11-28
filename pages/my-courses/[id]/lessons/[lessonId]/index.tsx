@@ -7,7 +7,7 @@ import { NextPageWithLayout } from "@shared/utils";
 import { LessonDetailsPage } from "@pages/lessons";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { LessonApi } from "@entities/lesson";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GroupApi } from "@entities/group";
 import { NextPageWithLayoutProps } from "@shared/types";
 import { UserPage } from "@components/UserPage";
@@ -26,13 +26,26 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const groupApi = new GroupApi(axios);
 
     try {
-        const responseGroup = await queryClient.fetchQuery([QueryKeys.GET_GROUP, groupId], () => groupApi.getGroup({ id: groupId }));
+        const responseGroup = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_GROUP,
+                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
+                groupId,
+            ],
+            () => groupApi.getGroup({ id: groupId })
+        );
 
-        const response = await queryClient.fetchQuery([QueryKeys.GET_LESSON, lessonId], () =>
-            lessonApi.getLesson({
-                id: lessonId,
-                courseId: responseGroup.courseId,
-            })
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_LESSON,
+                [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK, EntityNames.LESSON_TEST, EntityNames.MATERIAL],
+                lessonId,
+            ],
+            () =>
+                lessonApi.getLesson({
+                    id: lessonId,
+                    courseId: responseGroup.courseId,
+                })
         );
 
         return {

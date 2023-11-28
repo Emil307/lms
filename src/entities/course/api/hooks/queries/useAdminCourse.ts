@@ -1,7 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
-import { courseApi } from "@entities/course";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { GetAdminCourseResponse, courseApi } from "@entities/course";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminCourse = (id: string) => {
-    return useQuery([QueryKeys.GET_ADMIN_COURSE, id], () => courseApi.getAdminCourse(id), { enabled: !!id });
+export const useAdminCourse = (id: string): UseQueryResult<GetAdminCourseResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery(
+        [
+            QueryKeys.GET_ADMIN_COURSE,
+            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.AUTHOR, EntityNames.COURSE_REVIEW],
+            id,
+        ],
+        () => courseApi.getAdminCourse(id),
+        { enabled: !!id }
+    );
 };

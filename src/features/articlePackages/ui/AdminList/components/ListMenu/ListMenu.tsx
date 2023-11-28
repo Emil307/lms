@@ -28,7 +28,14 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "DELETE_ARTICLE_PACKAGE",
             title: "Удаление пакета",
-            children: <DeleteArticlePackageModal id={String(row.original.id)} name={row.original.name} onSuccess={handleCloseDeleteModal} onCancel={handleCloseDeleteModal} />,
+            children: (
+                <DeleteArticlePackageModal
+                    id={String(row.original.id)}
+                    name={row.original.name}
+                    onSuccess={handleCloseDeleteModal}
+                    onCancel={handleCloseDeleteModal}
+                />
+            ),
         });
     };
 

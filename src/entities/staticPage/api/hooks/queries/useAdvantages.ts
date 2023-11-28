@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetAdvantagesRequest, GetAdvantagesResponse, staticPageApi } from "@entities/staticPage";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdvantages = (params: GetAdvantagesRequest) => {
-    return useQuery<GetAdvantagesResponse>([QueryKeys.GET_ADVANTAGES, params], () => staticPageApi.getAdvantages(params));
+export const useAdvantages = (params: GetAdvantagesRequest): UseQueryResult<GetAdvantagesResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_ADVANTAGES, [EntityNames.STATIC_ADVANTAGE], params], () => staticPageApi.getAdvantages(params));
 };

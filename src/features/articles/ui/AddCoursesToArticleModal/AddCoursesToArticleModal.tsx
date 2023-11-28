@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachCoursesToArticle } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import {
     AdminArticleCoursesExtraFilters,
     AdminCourseFromList,
@@ -23,7 +23,7 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminCourseResources({ type: "select" });
+    const courseResources = useAdminCourseResources({ type: FilterTypes.SELECT });
     const { mutate: attachCoursesToArticle, isLoading } = useAttachCoursesToArticle(articleId);
 
     const handleSubmit = () => {
@@ -40,7 +40,10 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
     return (
         <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesNoIncludedArticleFiltersForm, AdminArticleCoursesExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.ARTICLE],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "categoryId", "subcategoryId", "tagIds", "articleId"]}
                 filter={{

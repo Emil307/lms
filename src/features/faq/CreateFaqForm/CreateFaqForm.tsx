@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { $CreateFaqRequest, AdminFaqItem, CreateFaqRequest, staticPageApi } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { initialValues } from "./constants";
 import useStyles from "./CreateFaqForm.styles";
 
@@ -32,7 +32,7 @@ const CreateFaqForm = ({ opened = true, onClose, ...props }: CreateFaqFormProps)
                 initialValues={initialValues}
                 validationSchema={$CreateFaqRequest}
                 mutationKey={[MutationKeys.CREATE_FAQ]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_FAQ] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_FAQ }}
                 mutationFunction={createFaq}
                 onSuccess={onSuccess}
                 disableOverlay>

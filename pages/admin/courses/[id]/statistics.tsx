@@ -5,7 +5,7 @@ import { dehydrate } from "@tanstack/react-query";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { CourseApi } from "@entities/course";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
@@ -19,7 +19,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const courseApi = new CourseApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE, id], () => courseApi.getAdminCourse(String(id)));
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_ADMIN_COURSE,
+                [
+                    EntityNames.COURSE,
+                    EntityNames.CATEGORY,
+                    EntityNames.TAG,
+                    EntityNames.USER,
+                    EntityNames.AUTHOR,
+                    EntityNames.COURSE_REVIEW,
+                ],
+                id,
+            ],
+            () => courseApi.getAdminCourse(String(id))
+        );
 
         return {
             props: {

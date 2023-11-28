@@ -45,6 +45,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
             validationSchema={$changePasswordFormValidationSchema}
             mutationKey={[MutationKeys.CHANGE_USER_PASSWORD, userData.id]}
             mutationFunction={changeUserPassword}
+            disableOverlay
             onSuccess={onSuccess}
             onError={onError}>
             {({ values }) => (

@@ -8,9 +8,10 @@ import { AdminPage } from "@components/AdminPage";
 import { UpdateUserPage } from "@pages/admin/users";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { UserApi } from "@entities/user";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { getFullName } from "@shared/utils";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
+import { Roles } from "@app/routes";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -20,7 +21,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const userApi = new UserApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, [EntityNames.USER], id], () => userApi.showUser(id));
+
+        const rolesIds = response.roles.map(({ id }) => id);
+
+        //TODO: тк у нас один рут для получения всех пользователей
+        if (!rolesIds.includes(Roles.administrator) && !rolesIds.includes(Roles.manager) && !rolesIds.includes(Roles.teacher)) {
+            return {
+                redirect: {
+                    destination: `/admin/students/${id}/edit`,
+                    permanent: false,
+                },
+            };
+        }
 
         const userFullName = getFullName({ data: response.profile });
 

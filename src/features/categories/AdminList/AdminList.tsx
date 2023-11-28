@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminCategoriesFiltersForm, AdminCategoryFromList, categoryApi } from "@entities/category";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { columnOrder, columns, filterInitialValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetAdminCategoriesRequest } from "./utils";
@@ -21,7 +21,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminCategoryFromList, AdminCategoriesFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_CATEGORIES}
+                queryKey={[QueryKeys.GET_ADMIN_CATEGORIES, [EntityNames.CATEGORY]]}
                 queryFunction={(params) => categoryApi.getAdminCategories(adaptGetAdminCategoriesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query"]}
                 filter={{

@@ -1,9 +1,8 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { queryClient } from "@app/providers";
 import { courseModuleApi, DeleteCourseModuleRequest } from "@entities/courseModule";
 
 interface Props extends DeleteCourseModuleRequest {
@@ -23,7 +22,7 @@ export const useDeleteCourseModule = ({
                 message: `Модуль "${moduleName}" успешно удален`,
             });
 
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULES, courseId]);
+            invalidateQueriesWithPredicate({ entityName: EntityNames.COURSE_MODULE, exclude: [QueryKeys.GET_ADMIN_COURSE_MODULE] });
         },
         onError: () => {
             createNotification({

@@ -1,7 +1,7 @@
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminCourseStatistics, courseApi } from "@entities/course";
 import { columns, columnOrder } from "./constants";
 import { TCourseStatisticsExtraParams } from "./types";
@@ -20,7 +20,7 @@ const Statistics = ({ courseId }: GroupsProps) => {
 
     return (
         <ManagedDataGrid<AdminCourseStatistics, unknown, TCourseStatisticsExtraParams>
-            queryKey={QueryKeys.GET_ADMIN_COURSE_STATISTICS}
+            queryKey={[QueryKeys.GET_ADMIN_COURSE_STATISTICS, [EntityNames.COURSE]]}
             queryFunction={(params) => courseApi.getAdminCourseStatistics(params)}
             queryCacheKeys={["page", "perPage", "sort", "courseId"]}
             extraFilterParams={{ courseId }}

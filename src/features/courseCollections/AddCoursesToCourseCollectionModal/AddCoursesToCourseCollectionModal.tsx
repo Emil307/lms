@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FMultiSelect, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, AdminCoursesForCourseCollectionFiltersForm, courseApi, useAdminCourseResources } from "@entities/course";
 import { AdminCoursesFromCourseCollectionExtraFilters, useAdminAttachCoursesToCourseCollection } from "@entities/courseCollection";
 import { columnOrder, columns, filterInitialValues } from "./constants";
@@ -17,7 +17,7 @@ const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose }: AddC
     const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
-    const courseResources = useAdminCourseResources({ type: "select" });
+    const courseResources = useAdminCourseResources({ type: FilterTypes.SELECT });
     const { mutate: attachCoursesToCourseCollection, isLoading } = useAdminAttachCoursesToCourseCollection({ courseCollectionId });
 
     const handleSubmit = () => {
@@ -34,7 +34,10 @@ const AddCoursesToCourseCollectionModal = ({ courseCollectionId, onClose }: AddC
     return (
         <>
             <ManagedDataGrid<AdminCourseFromList, AdminCoursesForCourseCollectionFiltersForm, AdminCoursesFromCourseCollectionExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_NO_COURSE_COLLECTION}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSES_FROM_NO_COURSE_COLLECTION,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_COLLECTION],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "categoryId", "subcategoryId", "tags", "collectionIds"]}
                 filter={{

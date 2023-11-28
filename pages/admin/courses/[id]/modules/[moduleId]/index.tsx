@@ -8,7 +8,7 @@ import { AdminPage } from "@components/AdminPage";
 import { CourseModuleDetailPage } from "@pages/admin/courses";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CourseModuleApi } from "@entities/courseModule";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { NextPageWithLayoutProps } from "@shared/types";
 
 type GetServerSidePropsContextParams = {
@@ -24,8 +24,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const courseModuleApi = new CourseModuleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId], () =>
-            courseModuleApi.getCourseModule({ courseId: String(courseId), moduleId: String(moduleId) })
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_ADMIN_COURSE_MODULE,
+                [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
+                moduleId,
+            ],
+            () => courseModuleApi.getCourseModule({ courseId: String(courseId), moduleId: String(moduleId) })
         );
 
         return {

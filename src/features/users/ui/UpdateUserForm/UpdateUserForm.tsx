@@ -21,7 +21,7 @@ import {
 import { useAdminUsersFilters, UserDetailResponse, userApi, UpdateAdminUserResponse } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ChangeUserPasswordForm } from "@features/users";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, checkRoleOrder, createNotification, getFullName } from "@shared/utils";
 import { useMe } from "@entities/auth";
 import { Roles } from "@app/routes";
@@ -87,7 +87,7 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
             validationSchema={$UpdateUserFormValidation}
             mutationKey={[MutationKeys.UPDATE_USER, data?.id]}
             mutationFunction={updateUser}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_USER, String(data?.id)] }]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.USER }}
             onCancel={onClose}
             onSuccess={onSuccess}
             onError={onError}>

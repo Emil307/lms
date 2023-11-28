@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import { MutationKeys } from "@shared/constant";
@@ -7,9 +7,9 @@ import { RecoveryPasswordFormData } from "@features/auth";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
-export const useResetPassword = () => {
+export const useResetPassword = (): UseMutationResult<ResetPasswordResponse, AxiosError<FormErrorResponse>, RecoveryPasswordFormData> => {
     const router = useRouter();
-    return useMutation<ResetPasswordResponse, AxiosError<FormErrorResponse>, RecoveryPasswordFormData>(
+    return useMutation(
         [MutationKeys.CHANGE_PASSWORD],
         (data: RecoveryPasswordFormData) =>
             authApi.resetPassword({ ...data, email: String(router.query.email), token: String(router.query.token) }),

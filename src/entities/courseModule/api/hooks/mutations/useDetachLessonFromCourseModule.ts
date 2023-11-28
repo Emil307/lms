@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
@@ -32,7 +32,11 @@ export const useDetachLessonFromCourseModule = ({
 
                 //TODO: Временное решение, так как на бэке не успевают обновиться зависимости
                 setTimeout(() => {
-                    queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE, moduleId]);
+                    queryClient.invalidateQueries([
+                        QueryKeys.GET_ADMIN_COURSE_MODULE,
+                        [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
+                        moduleId,
+                    ]);
                     queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT]);
                 }, 500);
             },

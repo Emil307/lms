@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
@@ -25,7 +25,7 @@ const AdminArticleMaterialList = ({ articleId, ...props }: AdminArticleMaterialL
                 <AddMaterialsToArticleButton articleId={articleId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminArticleMaterialsExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLE_MATERIALS}
+                queryKey={[QueryKeys.GET_ADMIN_ARTICLE_MATERIALS, [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.ARTICLE]]}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetArticleMaterialFilesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}

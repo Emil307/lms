@@ -1,9 +1,8 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { DeleteUserRequest, DeleteUserResponse, userApi } from "@entities/user";
-import { queryClient } from "@app/providers";
-import { createNotification, ToastType } from "@shared/utils";
+import { createNotification, invalidateQueriesWithPredicate, ToastType } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 
 export const useDeleteUser = ({
@@ -17,8 +16,9 @@ export const useDeleteUser = ({
                 title: "Удаление пользователя",
                 message: `Пользователь "${fio}" успешно удален`,
             });
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_USERS]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENTS]);
+
+            invalidateQueriesWithPredicate({ entityName: EntityNames.USER, exclude: [QueryKeys.GET_ADMIN_USER] });
+            invalidateQueriesWithPredicate({ entityName: EntityNames.STUDENT, exclude: [QueryKeys.GET_ADMIN_STUDENT] });
         },
         onError: () => {
             createNotification({

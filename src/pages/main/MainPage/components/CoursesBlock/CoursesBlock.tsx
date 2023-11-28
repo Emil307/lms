@@ -6,6 +6,7 @@ import { useIntersection } from "@mantine/hooks";
 import { List as CoursesList } from "@features/courses";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
+import { FilterTypes } from "@shared/constant";
 import useStyles from "./CoursesBlock.styles";
 
 export interface CoursesBlockProps extends FlexProps {}
@@ -15,7 +16,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
     const { classes } = useStyles();
     const { ref: rootBlockRef, entry } = useIntersection();
 
-    const courseResources = useCourseResources({ type: "select" }, !!(entry && entry.isIntersecting));
+    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, !!(entry && entry.isIntersecting));
 
     const handleOpenCoursesPage = () => router.push("/courses");
 

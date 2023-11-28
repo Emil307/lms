@@ -4,7 +4,7 @@ import { AlignLeft, Clipboard } from "react-feather";
 import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
 import { $UpdateContactsRequest, GetContactsResponse, UpdateContactsRequest, staticPageApi, useContacts } from "@entities/staticPage";
 import { FControlButtons, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
 import useStyles from "./UpdateContactsForm.styles";
@@ -29,7 +29,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                 initialValues={{ ...initialValues, ...adaptDataForUpdateContactsForm(data) }}
                 validationSchema={$UpdateContactsRequest}
                 mutationKey={[MutationKeys.UPDATE_CONTACTS]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_CONTACTS] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_CONTACT }}
                 mutationFunction={updateContactsPage}
                 onSuccess={onSuccess}
                 disabledLoadingOnSuccess>

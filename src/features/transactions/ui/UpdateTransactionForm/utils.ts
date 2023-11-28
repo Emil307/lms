@@ -5,7 +5,7 @@ export const adaptUpdateTransactionFormValues = (data?: GetAdminTransactionRespo
     return {
         status: data?.status.status,
         paymentType: data?.paymentType.type,
-        amount: data?.amount || null,
+        amount: data?.amount ? String(data.amount) : "",
         entityType: data?.entity.type.type,
         entityId: data?.entity.id.toString(),
         userId: data?.user.id.toString(),
@@ -16,7 +16,7 @@ export const adaptUpdateTransactionRequest = (data: UpdateTransactionFormValidat
     return {
         ...data,
         entityId: Number(data.entityId),
-        amount: data.amount || 0,
+        amount: Number(data.amount) || 0,
         userId: Number(data.userId),
     };
 };

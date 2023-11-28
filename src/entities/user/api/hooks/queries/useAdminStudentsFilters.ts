@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
-import { userApi } from "@entities/user";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { GetAdminStudentsFiltersResponse, userApi } from "@entities/user";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminStudentsFilters = () => {
-    return useQuery([QueryKeys.GET_ADMIN_STUDENTS_FILTERS], () => userApi.getAdminStudentsFilters());
+export const useAdminStudentsFilters = (): UseQueryResult<GetAdminStudentsFiltersResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_ADMIN_STUDENTS_FILTERS, [EntityNames.STUDENT]], () => userApi.getAdminStudentsFilters());
 };

@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { TPaginationResponse, ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import {
@@ -23,14 +23,64 @@ export const useUpdateCourseFavoriteStatus = ({
 > => {
     return useMutation([MutationKeys.UPDATE_COURSE_FAVORITE, id], (data) => courseApi.updateCourseFavoriteStatus({ ...data, id }), {
         onMutate: async ({ isFavorite }) => {
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSE, id] });
+            await queryClient.cancelQueries({
+                queryKey: [
+                    QueryKeys.GET_COURSE,
+                    [
+                        EntityNames.COURSE,
+                        EntityNames.COURSE_MODULE,
+                        EntityNames.GROUP,
+                        EntityNames.LESSON,
+                        EntityNames.LESSON_HOMEWORK,
+                        EntityNames.LESSON_TEST,
+                        EntityNames.CATEGORY,
+                        EntityNames.TAG,
+                        EntityNames.AUTHOR,
+                        EntityNames.USER,
+                        EntityNames.COURSE_REVIEW,
+                    ],
+                    id,
+                ],
+            });
             await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_COURSES] });
 
-            const previousCourseData = queryClient.getQueryData<GetCourseResponse>([QueryKeys.GET_COURSE, id]);
+            const previousCourseData = queryClient.getQueryData<GetCourseResponse>([
+                QueryKeys.GET_COURSE,
+                [
+                    EntityNames.COURSE,
+                    EntityNames.COURSE_MODULE,
+                    EntityNames.GROUP,
+                    EntityNames.LESSON,
+                    EntityNames.LESSON_HOMEWORK,
+                    EntityNames.LESSON_TEST,
+                    EntityNames.CATEGORY,
+                    EntityNames.TAG,
+                    EntityNames.AUTHOR,
+                    EntityNames.USER,
+                    EntityNames.COURSE_REVIEW,
+                ],
+                id,
+            ]);
             const previousCoursesData = queryClient.getQueriesData<GetCourseQueriesData>([QueryKeys.GET_COURSES]);
 
             queryClient.setQueryData<GetCourseResponse>(
-                [QueryKeys.GET_COURSE, id],
+                [
+                    QueryKeys.GET_COURSE,
+                    [
+                        EntityNames.COURSE,
+                        EntityNames.COURSE_MODULE,
+                        EntityNames.GROUP,
+                        EntityNames.LESSON,
+                        EntityNames.LESSON_HOMEWORK,
+                        EntityNames.LESSON_TEST,
+                        EntityNames.CATEGORY,
+                        EntityNames.TAG,
+                        EntityNames.AUTHOR,
+                        EntityNames.USER,
+                        EntityNames.COURSE_REVIEW,
+                    ],
+                    id,
+                ],
                 (previousData) => previousData && { ...previousData, isFavorite }
             );
 
@@ -57,12 +107,47 @@ export const useUpdateCourseFavoriteStatus = ({
             return { previousCourseData, previousCoursesData };
         },
         onSettled: () => {
-            queryClient.invalidateQueries([QueryKeys.GET_COURSE, id]);
+            queryClient.invalidateQueries([
+                QueryKeys.GET_COURSE,
+                [
+                    EntityNames.COURSE,
+                    EntityNames.COURSE_MODULE,
+                    EntityNames.GROUP,
+                    EntityNames.LESSON,
+                    EntityNames.LESSON_HOMEWORK,
+                    EntityNames.LESSON_TEST,
+                    EntityNames.CATEGORY,
+                    EntityNames.TAG,
+                    EntityNames.AUTHOR,
+                    EntityNames.USER,
+                    EntityNames.COURSE_REVIEW,
+                ],
+                id,
+            ]);
             queryClient.invalidateQueries([QueryKeys.GET_COURSES]);
         },
         onError: (err, _, context) => {
             if (context?.previousCourseData) {
-                queryClient.setQueryData([QueryKeys.GET_COURSE, id], context.previousCourseData);
+                queryClient.setQueryData(
+                    [
+                        QueryKeys.GET_COURSE,
+                        [
+                            EntityNames.COURSE,
+                            EntityNames.COURSE_MODULE,
+                            EntityNames.GROUP,
+                            EntityNames.LESSON,
+                            EntityNames.LESSON_HOMEWORK,
+                            EntityNames.LESSON_TEST,
+                            EntityNames.CATEGORY,
+                            EntityNames.TAG,
+                            EntityNames.AUTHOR,
+                            EntityNames.USER,
+                            EntityNames.COURSE_REVIEW,
+                        ],
+                        id,
+                    ],
+                    context.previousCourseData
+                );
             }
 
             if (context?.previousCoursesData) {

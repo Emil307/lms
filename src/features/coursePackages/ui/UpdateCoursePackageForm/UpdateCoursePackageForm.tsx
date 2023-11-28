@@ -19,7 +19,7 @@ import {
     Radio,
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
 import { AdminCoursePackageDetails, coursePackageApi } from "@entities/coursePackage";
 import { radioGroupValues } from "./constants";
@@ -57,10 +57,7 @@ const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackag
                 initialValues={adaptUpdateCoursePackageForm(data)}
                 validationSchema={$UpdateCoursePackageFormValidation}
                 mutationKey={[MutationKeys.UPDATE_COURSE_PACKAGE]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGES] },
-                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_PACKAGE, data?.id.toString()] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.COURSE_PACKAGE }}
                 mutationFunction={(params) =>
                     coursePackageApi.updateCoursePackage(adaptUpdateCoursePackageFormRequest(params, String(data?.id)))
                 }
@@ -70,8 +67,8 @@ const UpdateCoursePackageForm = ({ data, onClose, ...props }: UpdateCoursePackag
                 {({ values, errors, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
-                        price: !errors.price ? values.price : null,
-                        amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
+                        price: !errors.price ? Number(values.price) : null,
+                        amountDiscount: !errors.discount?.amount ? Number(values.discount.amount) : null,
                         type: values.discount.type,
                     });
 

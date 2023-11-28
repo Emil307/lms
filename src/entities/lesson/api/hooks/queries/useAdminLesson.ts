@@ -1,7 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
-import { lessonApi } from "@entities/lesson";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { GetAdminLessonResponse, lessonApi } from "@entities/lesson";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminLesson = (id: string) => {
-    return useQuery([QueryKeys.GET_ADMIN_LESSON, id], () => lessonApi.getAdminLesson(id), { enabled: !!id });
+export const useAdminLesson = (id: string): UseQueryResult<GetAdminLessonResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_ADMIN_LESSON, [EntityNames.LESSON, EntityNames.USER], id], () => lessonApi.getAdminLesson(id), {
+        enabled: !!id,
+    });
 };

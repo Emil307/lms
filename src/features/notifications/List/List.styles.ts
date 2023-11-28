@@ -12,4 +12,9 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.gray45[0],
     },
+    scrollArea: {
+        ".mantine-ScrollArea-viewport": {
+            padding: 0,
+        },
+    },
 }));

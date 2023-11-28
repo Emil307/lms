@@ -3,7 +3,7 @@ import { Flex } from "@mantine/core";
 import { lessonApi, UpdateAdminHomeworkAnswerStatusResponse } from "@entities/lesson";
 import { createNotification, ToastType } from "@shared/utils";
 import { FControlButtons, FTextarea, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import {
     $UpdateHomeworkAnswerStatusFormValues,
     UpdateHomeworkAnswerStatusFormValues,
@@ -41,10 +41,8 @@ const UpdateLessonHomeworkStatusAnswerModal = ({ homeworkAnswerId, onClose }: Up
             initialValues={initialValues}
             validationSchema={$UpdateHomeworkAnswerStatusFormValues}
             mutationKey={[MutationKeys.UPDATE_LESSON_HOMEWORK_ANSWER_STATUS, homeworkAnswerId]}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWER, homeworkAnswerId] },
-                { queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.LESSON_HOMEWORK }}
+            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_NOTIFICATIONS] }, { queryKey: [QueryKeys.GET_NEW_NOTIFICATIONS] }]}
             mutationFunction={updateHomeworkAnswerStatus}
             onSuccess={onSuccessCreate}
             onError={onError}

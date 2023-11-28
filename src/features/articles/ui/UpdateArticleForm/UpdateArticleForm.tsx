@@ -19,7 +19,7 @@ import {
 } from "@shared/ui";
 import { GetAdminArticleResponse, UpdateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
 import { Fieldset } from "@components/Fieldset";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import { initialParams, initialValues } from "./constants";
@@ -78,10 +78,7 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
             }}
             validationSchema={$UpdateArticleFormValidation}
             mutationKey={[MutationKeys.UPDATE_ARTICLE, String(data?.id)]}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_ARTICLES] },
-                { queryKey: [QueryKeys.GET_ADMIN_ARTICLE, String(data?.id)] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.ARTICLE }}
             mutationFunction={updateArticle}
             onSuccess={onSuccess}
             onError={onError}

@@ -1,16 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { GetAdminFaqResponse, staticPageApi } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 
-export const useDeleteFaq = (id: number) => {
-    return useMutation<void, AxiosError<FormErrorResponse>, null>([MutationKeys.DELETE_FAQ, id], () => staticPageApi.deleteFaq(id), {
+export const useDeleteFaq = (id: number): UseMutationResult<void, AxiosError<FormErrorResponse>, null> => {
+    return useMutation([MutationKeys.DELETE_FAQ, id], () => staticPageApi.deleteFaq(id), {
         onSuccess: () => {
             const faqFromAdminList = queryClient
-                .getQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ])[0]?.[1]
+                .getQueriesData<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ, [EntityNames.STATIC_FAQ, EntityNames.USER]])[0]?.[1]
                 ?.data.find((faq) => faq.id === id);
 
             createNotification({
@@ -19,7 +19,7 @@ export const useDeleteFaq = (id: number) => {
                 message: `Карточка с вопросом "${faqFromAdminList?.question}" успешно удалена`,
             });
 
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_FAQ]);
+            invalidateQueriesWithPredicate({ entityName: EntityNames.STATIC_FAQ });
         },
         onError: () => {
             createNotification({

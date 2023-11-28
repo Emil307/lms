@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { useAttachCoursesToStudent } from "@entities/course";
 import { columnOrder, columns } from "./constants";
@@ -31,7 +31,10 @@ const AddCoursesToStudentModal = ({ studentId, onClose }: AddCoursesToStudentMod
     return (
         <>
             <ManagedDataGrid<AdminCourseFromList, unknown, StudentCourseListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_NO_STUDENT_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.STUDENT],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

@@ -4,7 +4,7 @@ import { IconSend } from "@tabler/icons-react";
 import { FormikHelpers } from "formik";
 import { FTextarea, ManagedForm } from "@shared/ui";
 import { ToastType, createNotification } from "@shared/utils";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateSupportMessageResponse, supportApi } from "@entities/support";
 import { initialValues } from "./constants";
 import useStyles from "./CreateMessageForm.styles";
@@ -42,7 +42,12 @@ const CreateMessageForm = ({ setScrollAfterSendMessage, ...props }: CreateMessag
                 initialValues={initialValues}
                 validationSchema={$CreateMessageFormValidation.partial()}
                 mutationKey={[MutationKeys.CREATE_SUPPORT_MESSAGE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_SUPPORT_MESSAGES] }]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_SUPPORT_MESSAGES] },
+                    { queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] },
+                    { queryKey: [QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS] },
+                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.NOTIFICATION }}
                 mutationFunction={(values) => supportApi.createSupportMessage(values)}
                 onSuccess={onSuccess}
                 onError={onError}

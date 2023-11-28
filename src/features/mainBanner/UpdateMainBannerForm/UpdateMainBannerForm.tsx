@@ -6,7 +6,7 @@ import { IconClipboardText } from "@tabler/icons-react";
 import { FAvatarInput, FControlButtons, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 import { adaptDataForEditForm } from "./utils";
@@ -58,7 +58,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                 initialValues={{ ...initialValues, ...adaptDataForEditForm(data) }}
                 validationSchema={$UpdateMainBannerFormValidation}
                 mutationKey={[MutationKeys.UPDATE_MAIN_BANNER]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_MAIN_BANNER] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_MAIN_BANNER }}
                 mutationFunction={updateMainBanner}
                 onSuccess={onSuccess}
                 onCancel={onClose}

@@ -41,8 +41,13 @@ const CreateMessageForm = ({ homeworkAnswerId, courseId }: CreateMessageFormProp
             initialValues={initialValues}
             validationSchema={$CreateHomeworkAnswerMessageFormValidation}
             mutationKey={[MutationKeys.CREATE_LESSON_HOMEWORK_MESSAGE]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_LESSON_HOMEWORK_MESSAGES] }]}
+            keysInvalidateQueries={[
+                { queryKey: [QueryKeys.GET_LESSON_HOMEWORK_MESSAGES] },
+                { queryKey: [QueryKeys.GET_NOTIFICATIONS] },
+                { queryKey: [QueryKeys.GET_NEW_NOTIFICATIONS] },
+            ]}
             mutationFunction={(values) => lessonApi.createHomeworkAnswerMessage({ ...values, homeworkAnswerId, courseId })}
+            disabledLoadingOnSuccess
             onSuccess={onSuccess}
             onError={onError}>
             {({ dirty }) => {
