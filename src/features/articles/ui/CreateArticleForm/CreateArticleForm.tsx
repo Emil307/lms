@@ -17,10 +17,10 @@ import {
 } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticleResponse, articleApi, useAdminArticleResourcesCreate } from "@entities/article";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
-import { initialParams, initialValues } from "./constants";
+import { initialParams, initialValues, keysInvalidateQueries } from "./constants";
 import { $CreateArticleFormValidation, CreateArticleFormValidation } from "./types";
 import { adaptCreateArticleRequest } from "./utils";
 
@@ -74,7 +74,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                 initialValues={initialValues}
                 validationSchema={$CreateArticleFormValidation}
                 mutationKey={[MutationKeys.CREATE_ARTICLE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ARTICLES] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={createArticle}
                 onSuccess={onSuccess}
                 onError={onError}>

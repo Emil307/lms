@@ -16,7 +16,6 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
                 <Image
                     src={backgroundImageAuth}
                     alt="background"
-                    loader={({ src, width }) => `${src}?w=${width}`}
                     fill
                     sizes="100vw"
                     priority

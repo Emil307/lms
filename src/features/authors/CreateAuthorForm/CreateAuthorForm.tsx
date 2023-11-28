@@ -6,9 +6,9 @@ import { FAvatarInput, FControlButtons, FInput, FSwitch, FTextarea, ManagedForm,
 import UserDescriptionIcon from "@public/icons/userDescription.svg";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAuthorResponse, authorApi } from "@entities/author";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constants";
+import { initialValues, keysInvalidateQueries } from "./constants";
 import { $CreateAuthorFormValidation, CreateAuthorFormValidation } from "./types";
 import { adaptCreateAuthorRequest } from "./utils";
 import useStyles from "./CreateAuthorForm.styles";
@@ -47,7 +47,7 @@ const CreateAuthorForm = ({ onClose }: CreateAuthorFormProps) => {
             initialValues={initialValues}
             validationSchema={$CreateAuthorFormValidation}
             mutationKey={[MutationKeys.CREATE_AUTHOR]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_AUTHORS] }]}
+            keysInvalidateQueries={keysInvalidateQueries}
             mutationFunction={createAuthor}
             onSuccess={onSuccess}
             onError={onError}>

@@ -8,7 +8,7 @@ export const initialParams = {
 export const initialValues: CreateTransactionFormValidation = {
     entityType: "",
     entityId: "",
-    amount: null,
+    amount: "",
     userId: "",
     status: "",
     paymentType: "",

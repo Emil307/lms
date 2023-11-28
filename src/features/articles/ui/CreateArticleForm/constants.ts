@@ -1,4 +1,6 @@
 import { GetAdminSubCategoriesRequest } from "@entities/category";
+import { QueryKeys } from "@shared/constant";
+import { InvalidateQueriesKey } from "@shared/types";
 import { CreateArticleFormValidation } from "./types";
 
 export const initialParams: Omit<GetAdminSubCategoriesRequest, "filter"> = {
@@ -15,3 +17,12 @@ export const initialValues: CreateArticleFormValidation = {
     subcategories: [],
     tags: [],
 };
+
+export const keysInvalidateQueries: InvalidateQueriesKey[] = [
+    { queryKey: [QueryKeys.GET_ARTICLES] },
+    { queryKey: [QueryKeys.GET_ADMIN_ARTICLES] },
+    { queryKey: [QueryKeys.GET_ADMIN_ARTICLES_INFINITY] },
+    //ресурсы/фильтра
+    { queryKey: [QueryKeys.GET_ARTICLES_FILTERS] },
+    { queryKey: [QueryKeys.GET_ADMIN_ARTICLE_FILTERS] },
+];

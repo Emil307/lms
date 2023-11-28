@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import {
     AdminCourseReviewFiltersForm,
     AdminCourseReviewFromList,
@@ -24,7 +24,7 @@ const AdminList = (props: AdminListProps) => {
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
 
-    const courseReviewsResources = useAdminCourseReviewsResources({ type: "select" });
+    const courseReviewsResources = useAdminCourseReviewsResources({ type: FilterTypes.SELECT });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseReviewFromList>) => {
         router.push({ pathname: "/admin/settings/course-reviews/[id]", query: { id: cell.row.original.id.toString() } });
@@ -33,7 +33,10 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminCourseReviewFromList, AdminCourseReviewFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_COURSE_REVIEWS}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSE_REVIEWS,
+                    [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
+                ]}
                 queryFunction={(params) => courseReviewApi.getAdminCourseReviews(adaptGetAdminCourseReviewsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "courseId", "createdAtFrom", "createdAtTo", "score", "isPublished"]}
                 filter={{

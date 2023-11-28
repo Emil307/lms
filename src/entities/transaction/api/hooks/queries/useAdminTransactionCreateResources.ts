@@ -1,9 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { GetAdminTransactionsCreateResourcesResponse, transactionApi } from "@entities/transaction";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminTransactionCreateResources = () => {
-    return useQuery<GetAdminTransactionsCreateResourcesResponse>([QueryKeys.GET_ADMIN_TRANSACTION_CREATE_RESOURCES], () =>
-        transactionApi.getAdminTransactionsCreateResources()
+export const useAdminTransactionCreateResources = (): UseQueryResult<
+    GetAdminTransactionsCreateResourcesResponse,
+    AxiosError<FormErrorResponse>
+> => {
+    return useQuery(
+        [
+            QueryKeys.GET_ADMIN_TRANSACTION_CREATE_RESOURCES,
+            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
+        ],
+        () => transactionApi.getAdminTransactionsCreateResources()
     );
 };

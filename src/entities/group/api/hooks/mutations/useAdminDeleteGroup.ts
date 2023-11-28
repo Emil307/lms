@@ -1,36 +1,34 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { DeleteAdminGroupRequest, DeleteAdminGroupResponse, groupApi } from "@entities/group";
-import { queryClient } from "@app/providers";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 
 interface UseAdminDeleteGroupProps extends DeleteAdminGroupRequest {
     name?: string;
 }
 
-export const useAdminDeleteGroup = ({ id, name }: UseAdminDeleteGroupProps) => {
-    return useMutation<DeleteAdminGroupResponse, AxiosError<FormErrorResponse>, null>(
-        [MutationKeys.DELETE_ADMIN_GROUP, id],
-        () => groupApi.deleteAdminGroup({ id }),
-        {
-            onSuccess: () => {
-                createNotification({
-                    type: ToastType.SUCCESS,
-                    title: "Удаление группы",
-                    message: `Группа "${name}" успешно удалена`,
-                });
+export const useAdminDeleteGroup = ({
+    id,
+    name,
+}: UseAdminDeleteGroupProps): UseMutationResult<DeleteAdminGroupResponse, AxiosError<FormErrorResponse>, null> => {
+    return useMutation([MutationKeys.DELETE_ADMIN_GROUP, id], () => groupApi.deleteAdminGroup({ id }), {
+        onSuccess: () => {
+            createNotification({
+                type: ToastType.SUCCESS,
+                title: "Удаление группы",
+                message: `Группа "${name}" успешно удалена`,
+            });
 
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUPS]);
-            },
+            invalidateQueriesWithPredicate({ entityName: EntityNames.GROUP, exclude: [QueryKeys.GET_ADMIN_GROUP] });
+        },
 
-            onError: () => {
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка удаления группы",
-                });
-            },
-        }
-    );
+        onError: () => {
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка удаления группы",
+            });
+        },
+    });
 };

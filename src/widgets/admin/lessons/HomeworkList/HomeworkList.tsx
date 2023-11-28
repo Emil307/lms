@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { FDateRangePicker, FRadioGroup, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import { AdminHomeworkAnswerFromList, lessonApi, useAdminLessonHomeworkAnswersResources } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
 import { adaptGetAdminHomeworkAnswersRequest, getBadgeColors } from "./utils";
@@ -17,7 +17,7 @@ const HomeworkList = () => {
     const { classes } = useStyles();
     const isMobile = useMedia("sm");
 
-    const { data: homeworkFilters, isLoading: isLoadingFilters } = useAdminLessonHomeworkAnswersResources({ type: "select" });
+    const { data: homeworkFilters, isLoading: isLoadingFilters } = useAdminLessonHomeworkAnswersResources({ type: FilterTypes.SELECT });
 
     const optionsForSelects = useMemo(() => {
         const courses = prepareOptionsForSelect({
@@ -44,7 +44,10 @@ const HomeworkList = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminHomeworkAnswerFromList, AdminHomeworkAnswersFilters>
-                queryKey={QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_LESSON_HOMEWORK_ANSWERS,
+                    [EntityNames.LESSON_HOMEWORK, EntityNames.COURSE, EntityNames.GROUP, EntityNames.STUDENT, EntityNames.COURSE_MODULE],
+                ]}
                 queryFunction={(params) => lessonApi.getAdminHomeworkAnswers(adaptGetAdminHomeworkAnswersRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "status", "studentId", "courseId", "updatedAtFrom", "updatedAtTo"]}
                 filter={{

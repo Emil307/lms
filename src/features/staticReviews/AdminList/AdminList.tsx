@@ -1,7 +1,7 @@
 import { Box, BoxProps } from "@mantine/core";
 import { ManagedDataGrid } from "@shared/ui";
 import { AdminStaticReviewFromList, staticReviewApi } from "@entities/staticReview";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { ListMenu } from "./components";
 
@@ -11,7 +11,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminStaticReviewFromList>
-                queryKey={QueryKeys.GET_ADMIN_STATIC_REVIEWS}
+                queryKey={[QueryKeys.GET_ADMIN_STATIC_REVIEWS, [EntityNames.STATIC_REVIEW]]}
                 queryFunction={(params) => staticReviewApi.getAdminStaticReviews(params)}
                 queryCacheKeys={["page", "perPage", "sort"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

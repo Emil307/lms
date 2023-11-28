@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
@@ -26,7 +26,10 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
                 <AddArticleCourseButton articleId={articleId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminArticleCoursesExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLE_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_ARTICLE_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.ARTICLE],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetArticleCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articleId"]}
                 extraFilterParams={{ articleId }}

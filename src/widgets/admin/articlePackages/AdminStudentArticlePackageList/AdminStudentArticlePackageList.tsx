@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminStudentArticlePackageFromList, articlePackageApi } from "@entities/articlePackage";
 import { StudentArticlePackageListExtraParams } from "./types";
@@ -28,7 +28,10 @@ const AdminStudentArticlePackageList = ({ studentId, ...props }: AdminStudentArt
                 <AddStudentArticlePackageButton studentId={studentId} />
             </Flex>
             <ManagedDataGrid<AdminStudentArticlePackageFromList, unknown, StudentArticlePackageListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_STUDENT_ARTICLE_PACKAGES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_STUDENT_ARTICLE_PACKAGES,
+                    [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.STUDENT],
+                ]}
                 queryFunction={(params) => articlePackageApi.getAdminStudentArticlePackages(params)}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

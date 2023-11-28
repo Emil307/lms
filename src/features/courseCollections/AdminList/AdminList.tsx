@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
 import {
     AdminCourseCollectionFromList,
     AdminCourseCollectionsFiltersForm,
@@ -25,7 +25,7 @@ const AdminList = (props: AdminListProps) => {
 
     const isMobile = useMedia("sm");
 
-    const courseCollectionFilters = useAdminCourseCollectionResources({ type: "select" });
+    const courseCollectionFilters = useAdminCourseCollectionResources({ type: FilterTypes.SELECT });
 
     const handleClickCell = (cell: MRT_Cell<AdminCourseCollectionFromList>) => {
         router.push({ pathname: "/admin/settings/course-collections/[id]", query: { id: cell.row.original.id.toString() } });
@@ -34,7 +34,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminCourseCollectionFromList, AdminCourseCollectionsFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_COURSE_COLLECTIONS}
+                queryKey={[QueryKeys.GET_ADMIN_COURSE_COLLECTIONS, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE]]}
                 queryFunction={(params) => courseCollectionApi.getAdminCourseCollections(adaptGetAdminCourseCollectionsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "isActive", "query", "courseId", "createdAtFrom", "createdAtTo"]}
                 filter={{

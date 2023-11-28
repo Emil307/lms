@@ -1,9 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { GetGroupRequest, GetGroupResponse, groupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useGroup = ({ id }: GetGroupRequest) => {
-    return useQuery<GetGroupResponse>([QueryKeys.GET_GROUP, id], () => groupApi.getGroup({ id }), {
-        enabled: !!id,
-    });
+export const useGroup = ({ id }: GetGroupRequest): UseQueryResult<GetGroupResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery(
+        [
+            QueryKeys.GET_GROUP,
+            [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
+            id,
+        ],
+        () => groupApi.getGroup({ id }),
+        {
+            enabled: !!id,
+        }
+    );
 };

@@ -1,9 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetAdminTransactionReportFiltersResponse, reportApi } from "@entities/report";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminTransactionReportFilters = () => {
-    return useQuery<GetAdminTransactionReportFiltersResponse>([QueryKeys.GET_ADMIN_TRANSACTION_REPORT_FILTERS], () =>
-        reportApi.getAdminTransactionReportFilters()
+export const useAdminTransactionReportFilters = (): UseQueryResult<
+    GetAdminTransactionReportFiltersResponse,
+    AxiosError<FormErrorResponse>
+> => {
+    return useQuery(
+        [
+            QueryKeys.GET_ADMIN_TRANSACTION_REPORT_FILTERS,
+            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
+        ],
+        () => reportApi.getAdminTransactionReportFilters()
     );
 };

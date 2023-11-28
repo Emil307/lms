@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FDateRangePicker, FSelect, ManagedDataGridWithoutPagination, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import {
     AdminTransactionReportFromList,
@@ -34,7 +34,17 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                 unknown,
                 AdminTransactionReportsResponseMeta
             >
-                queryKey={QueryKeys.GET_ADMIN_TRANSACTION_REPORTS}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_TRANSACTION_REPORTS,
+                    [
+                        EntityNames.TRANSACTION_REPORT,
+                        EntityNames.STUDENT,
+                        EntityNames.USER,
+                        EntityNames.COURSE,
+                        EntityNames.COURSE_PACKAGE,
+                        EntityNames.ARTICLE_PACKAGE,
+                    ],
+                ]}
                 queryFunction={(params) => reportApi.getAdminTransactionReports(adaptGetAdminStudentReportsRequest(params))}
                 queryCacheKeys={[
                     "sort",

@@ -89,7 +89,7 @@ export const $UploadedFileFromList = $AdminUploadedFile.merge(
     z.object({
         categories: z.array(
             z.object({
-                id: z.number(),
+                id: z.number().optional(),
                 name: z.string(),
             })
         ),

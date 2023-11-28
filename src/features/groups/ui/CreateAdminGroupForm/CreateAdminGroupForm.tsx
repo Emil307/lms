@@ -4,10 +4,11 @@ import { Flag, FolderPlus } from "react-feather";
 import { FControlButtons, FDateRangePicker, FInput, FSelect, FSwitch, ManagedForm, prepareOptionsForSelect } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { CreateAdminGroupResponse, groupApi, useAdminGroupFilters } from "@entities/group";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { FilterTypes, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { $CreateGroupFormValidation, CreateGroupFormValidation } from "./types";
 import { adaptCreateAdminGroupRequest, adaptCreateAdminGroupForm } from "./utils";
+import { keysInvalidateQueries } from "./constants";
 
 export interface CreateAdminGroupFormProps extends BoxProps {
     courseId?: string;
@@ -16,7 +17,7 @@ export interface CreateAdminGroupFormProps extends BoxProps {
 }
 
 const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: CreateAdminGroupFormProps) => {
-    const groupFilters = useAdminGroupFilters({ type: "manipulation" });
+    const groupFilters = useAdminGroupFilters({ type: FilterTypes.MANIPULATION });
 
     const createGroup = (values: CreateGroupFormValidation) => {
         return groupApi.createAdminGroup(adaptCreateAdminGroupRequest(values));
@@ -44,7 +45,7 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                 initialValues={adaptCreateAdminGroupForm(courseId)}
                 validationSchema={$CreateGroupFormValidation}
                 mutationKey={[MutationKeys.CREATE_ADMIN_GROUP]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_GROUPS] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={createGroup}
                 onSuccess={onSuccessCreated}
                 onError={onError}>

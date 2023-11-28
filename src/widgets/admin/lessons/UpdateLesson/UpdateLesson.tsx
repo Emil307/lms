@@ -3,7 +3,7 @@ import React from "react";
 import { FControlButtons, FSwitch, FTextEditor, FVideoInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
 import { createNotification, ToastType } from "@shared/utils";
 import { AdminLesson, lessonApi, UpdateLessonContentFormValues, UpdateLessonContentResponse } from "@entities/lesson";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
 import useStyles from "./UpdateLesson.styles";
@@ -86,12 +86,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                 initialValues={getInitialValues(data)}
                 mutationKey={[MutationKeys.UPDATE_LESSON_CONTENT]}
                 mutationFunction={handleUpdateLessonContent}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_MODULE] },
-                    { queryKey: [QueryKeys.GET_ADMIN_LESSONS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_LESSON] },
-                    { queryKey: [QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.LESSON }}
                 onSuccess={onSuccess}
                 onError={onError}
                 onCancel={onClose}

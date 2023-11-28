@@ -6,7 +6,7 @@ import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid } fro
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { Button } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { Roles } from "@app/routes";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi } from "@entities/course";
 import { useMedia } from "@shared/utils";
@@ -37,7 +37,10 @@ const List = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminCourseFromList, Partial<AdminCoursesFiltersForm>>
-                queryKey={QueryKeys.GET_ADMIN_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={[
                     "page",

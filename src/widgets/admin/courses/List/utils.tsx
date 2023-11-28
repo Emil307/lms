@@ -7,9 +7,10 @@ import { AdminCourseFromList, AdminCoursesFiltersForm, GetAdminCoursesRequest, u
 import { Roles } from "@app/routes";
 import { prepareOptionsForSelect } from "@shared/ui";
 import { getHumanDate, getLocaleString, getSurnameWithInitials } from "@shared/utils";
+import { FilterTypes } from "@shared/constant";
 
 export const useCourseListData = (userRole: number = 0) => {
-    const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: "select" });
+    const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: FilterTypes.SELECT });
 
     const columns: TColumns<AdminCourseFromList> = useMemo(() => {
         return [

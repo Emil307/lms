@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
-import { useDetailsUser } from "@entities/user";
+import { useDetailsStudent } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
 import { TRouterQueries } from "@shared/types";
 import { Roles } from "@app/routes";
@@ -16,11 +16,11 @@ import { getBreadCrumbsItems, getTabList } from "./utils";
 const StudentDetailsPage = () => {
     const router = useRouter();
     const { id, tab } = router.query as TRouterQueries;
-    const { data: userData, isLoading, isError } = useDetailsUser(id);
+    const { data: studentData, isLoading, isError } = useDetailsStudent(id);
 
     const userRole = useUserRole();
 
-    const userName = getFullName({ data: userData?.profile });
+    const userName = getFullName({ data: studentData?.profile });
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/students/[id]", query: { id, tab: value } });

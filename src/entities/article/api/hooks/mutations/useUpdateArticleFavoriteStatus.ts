@@ -10,7 +10,7 @@ import {
     UpdateArticleFavoriteStatusResponse,
     articleApi,
 } from "@entities/article";
-import { ArticleTypes, MutationKeys, QueryKeys } from "@shared/constant";
+import { ArticleTypes, EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { TPaginationResponse, ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
@@ -38,23 +38,37 @@ export const useUpdateArticleFavoriteStatus = ({
         (data) => articleApi.updateArticleFavoriteStatus({ ...data, id }),
         {
             onMutate: async ({ isFavorite }) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLE, ...queryParamsArticle] });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ARTICLE,
+                        [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                        ...queryParamsArticle,
+                    ],
+                });
                 await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ARTICLES] });
 
                 const previousArticleData = queryClient.getQueryData<
                     GetArticleResponse | GetArticleByCategoryResponse | GetFavoriteArticleResponse | GetMyArticleResponse
-                >([QueryKeys.GET_ARTICLE, ...queryParamsArticle]);
+                >([
+                    QueryKeys.GET_ARTICLE,
+                    [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                    ...queryParamsArticle,
+                ]);
                 const previousArticlesData = queryClient.getQueriesData<GetArticlesQueriesData>([QueryKeys.GET_ARTICLES]);
 
                 if (articleType) {
                     queryClient.setQueryData<GetArticleByCategoryResponse | GetFavoriteArticleResponse | GetMyArticleResponse>(
-                        [QueryKeys.GET_ARTICLE, ...queryParamsArticle],
+                        [
+                            QueryKeys.GET_ARTICLE,
+                            [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                            ...queryParamsArticle,
+                        ],
                         (previousData) => previousData && { ...previousData, data: { ...previousData.data, isFavorite } }
                     );
                 }
 
                 queryClient.setQueryData<GetArticleResponse>(
-                    [QueryKeys.GET_ARTICLE, id],
+                    [QueryKeys.GET_ARTICLE, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL], id],
                     (previousData) => previousData && { ...previousData, isFavorite }
                 );
 
@@ -83,7 +97,14 @@ export const useUpdateArticleFavoriteStatus = ({
             onError: (err, _, context) => {
                 let message = "";
                 if (typeof context === "object" && "previousArticleData" in context && context.previousArticleData) {
-                    queryClient.setQueryData([QueryKeys.GET_ARTICLE, ...queryParamsArticle], context.previousArticleData);
+                    queryClient.setQueryData(
+                        [
+                            QueryKeys.GET_ARTICLE,
+                            [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                            ...queryParamsArticle,
+                        ],
+                        context.previousArticleData
+                    );
                     if ("isFavorite" in context.previousArticleData) {
                         message = context.previousArticleData.isFavorite
                             ? `Ошибка удаления статьи ${context.previousArticleData.name} из избранных`

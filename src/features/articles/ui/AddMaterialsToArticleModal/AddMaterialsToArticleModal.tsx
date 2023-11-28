@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import React, { useState } from "react";
 import { Button, ControlButtons, FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { useAttachMaterialFilesToArticle } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import {
     AdminArticleMaterialsExtraFilters,
     AdminMaterialsNoIncludedArticleFiltersForm,
@@ -40,7 +40,7 @@ const AddMaterialsToArticleModal = ({ articleId, onClose }: AddMaterialsToArticl
     return (
         <>
             <ManagedDataGrid<UploadedFileFromList, AdminMaterialsNoIncludedArticleFiltersForm, AdminArticleMaterialsExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS}
+                queryKey={[QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS, [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.ARTICLE]]}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "categoryIds", "type", "createdAtFrom", "createdAtTo", "articleId"]}
                 filter={{

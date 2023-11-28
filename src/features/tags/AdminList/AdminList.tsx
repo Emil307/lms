@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { FSearch, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
 import { AdminTagFromList, tagApi, TagsFilters } from "@entities/tag";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { columnOrder, columns, filterInitialValues } from "./constant";
 import { ListMenu } from "./components";
 
@@ -12,7 +12,7 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminTagFromList, TagsFilters>
-                queryKey={QueryKeys.GET_ADMIN_TAGS}
+                queryKey={[QueryKeys.GET_ADMIN_TAGS, [EntityNames.TAG]]}
                 queryFunction={(params) => tagApi.getAdminTags(params)}
                 queryCacheKeys={["page", "perPage", "sort", "query"]}
                 filter={{

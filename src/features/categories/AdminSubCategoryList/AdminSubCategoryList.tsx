@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminSubCategoriesExtraFilters, AdminSubCategoryFromList, categoryApi, useAdminCategory } from "@entities/category";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { columnOrder, columns } from "./constant";
 import { CreateSubCategoryButton, ListMenu } from "./components";
 import { adaptGetAdminSubCategoriesRequest } from "./utils";
@@ -35,7 +35,7 @@ const AdminSubCategoryList = ({ parentId, ...props }: AdminSubCategoryListProps)
                 <CreateSubCategoryButton onClick={openModalCreateSubCategory} isActiveCategory={categoryData?.isActive} />
             </Flex>
             <ManagedDataGrid<AdminSubCategoryFromList, unknown, AdminSubCategoriesExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE}
+                queryKey={[QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE, [EntityNames.CATEGORY]]}
                 queryFunction={(params) => categoryApi.getAdminPaginateSubCategories(adaptGetAdminSubCategoriesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "parentId"]}
                 columns={columns}

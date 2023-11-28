@@ -2,7 +2,7 @@ import { TAxiosResponseInterceptorSuccess, TFileDownloadResponse } from "../../t
 
 export const responderInterceptor: TAxiosResponseInterceptorSuccess = (response) => {
     if (response.config.responseType === "blob") {
-        const filename = response.headers["content-disposition"].split("=")[1].replaceAll('"', "");
+        const filename = response.headers["content-disposition"].split("=")[1].split(";")[0].replaceAll('"', "");
         return { data: response.data, filename } as TFileDownloadResponse;
     }
 

@@ -8,7 +8,7 @@ import { AdminPage } from "@components/AdminPage";
 import { LessonDetailPage } from "@pages/admin/lessons";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { LessonApi } from "@entities/lesson";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { NextPageWithLayoutProps } from "@shared/types";
 
 type GetServerSidePropsContextParams = {
@@ -23,7 +23,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const lessonApi = new LessonApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, lessonId], () => lessonApi.getAdminLesson(lessonId));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, [EntityNames.LESSON, EntityNames.USER], lessonId], () =>
+            lessonApi.getAdminLesson(lessonId)
+        );
 
         return {
             props: {

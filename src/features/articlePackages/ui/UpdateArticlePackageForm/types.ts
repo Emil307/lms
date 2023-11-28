@@ -9,9 +9,7 @@ export const $UpdateArticlePackageFormValidation = z
         categories: z.string().array().min(1, "Выберите категории"),
         tags: z.string().array().min(1, "Выберите теги"),
         price: z
-            .number({ required_error: "Введите стоимость" })
-            .positive("Число должно быть положительным")
-            .int("Число должно быть целым")
+            .string({ required_error: "Введите стоимость" })
             .nullable()
             .refine((value) => value !== null, {
                 message: "Введите стоимость",
@@ -21,7 +19,7 @@ export const $UpdateArticlePackageFormValidation = z
         hasDiscount: z.boolean(),
         discount: z.object({
             type: $DiscountType,
-            amount: z.number().positive("Число должно быть положительным").int("Число должно быть целым").nullable().optional(),
+            amount: z.string().nullable().optional(),
             startingDate: z.coerce.date({ required_error: "Выберите период" }).nullable(),
             finishingDate: z.coerce.date().nullable(),
         }),
@@ -31,7 +29,7 @@ export const $UpdateArticlePackageFormValidation = z
             if (!data.hasDiscount) {
                 return true;
             }
-            return data.discount.amount !== null;
+            return Number(data.discount.amount);
         },
         {
             message: "Введите размер скидки",
@@ -55,7 +53,7 @@ export const $UpdateArticlePackageFormValidation = z
             if (!data.price || !data.discount.amount || data.discount.type === "percentage") {
                 return true;
             }
-            return data.price >= data.discount.amount;
+            return Number(data.price) >= Number(data.discount.amount);
         },
         {
             message: "Размер скидки не может быть меньше стоимости",
@@ -67,7 +65,7 @@ export const $UpdateArticlePackageFormValidation = z
             if (!data.discount.amount || data.discount.type === "currency") {
                 return true;
             }
-            return 100 >= data.discount.amount;
+            return 100 >= Number(data.discount.amount);
         },
         {
             message: "Размер скидки не может быть больше 100%",

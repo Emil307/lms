@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { FControlButtons, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getIcon } from "@shared/utils";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { GetAdminCourseCollectionResponse, UpdateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
 import { SelectIconModal } from "@features/externalIcons";
 import { initialValues } from "./constants";
@@ -58,10 +58,7 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                 initialValues={{ ...initialValues, ...adaptUpdateCourseCollectionForm(data) }}
                 validationSchema={$UpdateCourseCollectionFormValidation}
                 mutationKey={[MutationKeys.UPDATE_ADMIN_COURSE_COLLECTION, String(data?.id)]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTIONS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_COURSE_COLLECTION, String(data?.id)] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.COURSE_COLLECTION }}
                 mutationFunction={updateCourseCollection}
                 onSuccess={onSuccess}
                 onError={onError}

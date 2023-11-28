@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { GetAdminLessonsResponse, GetAdminLessonResponse, lessonApi } from "@entities/lesson";
@@ -9,9 +9,13 @@ import { GetAdminLessonsResponse, GetAdminLessonResponse, lessonApi } from "@ent
 export const useDeleteLesson = (id: string): UseMutationResult<void, AxiosError<FormErrorResponse>, null> => {
     return useMutation([MutationKeys.DELETE_LESSON, id], () => lessonApi.deleteLesson(id), {
         onSuccess: () => {
-            const lesson = queryClient.getQueryData<GetAdminLessonResponse>([QueryKeys.GET_ADMIN_LESSON, id]);
+            const lesson = queryClient.getQueryData<GetAdminLessonResponse>([
+                QueryKeys.GET_ADMIN_LESSON,
+                [EntityNames.LESSON, EntityNames.USER],
+                id,
+            ]);
             const lessonFromList = queryClient
-                .getQueriesData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS])[0]?.[1]
+                .getQueriesData<GetAdminLessonsResponse>([QueryKeys.GET_ADMIN_LESSONS, [EntityNames.LESSON]])[0]?.[1]
                 ?.data.find((lesson) => lesson.id.toString() === id);
 
             createNotification({
@@ -20,9 +24,7 @@ export const useDeleteLesson = (id: string): UseMutationResult<void, AxiosError<
                 message: `Урок "${lesson?.name || lessonFromList?.name}" успешно удален`,
             });
 
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_MODULE]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSONS_FOR_SELECT]);
+            invalidateQueriesWithPredicate({ entityName: EntityNames.LESSON, exclude: [QueryKeys.GET_ADMIN_LESSON] });
         },
         onError: () => {
             createNotification({

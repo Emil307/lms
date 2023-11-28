@@ -20,7 +20,7 @@ import {
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, FilterTypes, MutationKeys } from "@shared/constant";
 import {
     $UpdateCourseFormValues,
     AdminCourse,
@@ -47,7 +47,7 @@ export interface UpdateCourseFormProps {
 const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) => {
     const { classes } = useStyles();
     const [selectedCategory, setSelectedCategory] = useState<string>();
-    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: "manipulation" });
+    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: FilterTypes.MANIPULATION });
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategory },
@@ -115,7 +115,7 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                 initialValues={adaptDataForUpdateCourseForm(data)}
                 validationSchema={$UpdateCourseFormValues}
                 mutationKey={[MutationKeys.UPDATE_COURSE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSES] }, { queryKey: [QueryKeys.GET_ADMIN_COURSE] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.COURSE }}
                 mutationFunction={updateCourse}
                 onSuccess={onSuccessUpdate}
                 onCancel={onCancel}

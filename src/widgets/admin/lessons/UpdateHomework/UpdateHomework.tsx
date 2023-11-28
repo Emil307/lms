@@ -11,7 +11,7 @@ import {
     UpdateAdminHomeworkFormValues,
     UpdateAdminHomeworkResponse,
 } from "@entities/lesson";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
 import { requiredTypeOptions } from "@widgets/admin/lessons/UpdateHomework/constants";
 import { adaptDataForUpdateHomeworkRequest, getInitialValues } from "./utils";
@@ -82,7 +82,11 @@ const UpdateHomework = ({ homework, lessonId, onClose }: UpdateHomeworkProps) =>
         <ManagedForm<UpdateAdminHomeworkFormValues, UpdateAdminHomeworkResponse>
             initialValues={getInitialValues(homework)}
             mutationKey={[MutationKeys.UPDATE_ADMIN_LESSON_HOMEWORK, lessonId]}
-            keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK, lessonId] }]}
+            keysInvalidateQueries={[
+                {
+                    queryKey: [QueryKeys.GET_ADMIN_LESSON_HOMEWORK, [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK], lessonId],
+                },
+            ]}
             mutationFunction={updateHomework}
             onSuccess={onSuccessUpdate}
             onError={onError}

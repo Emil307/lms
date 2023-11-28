@@ -4,12 +4,12 @@ import { UpdateTestFormValues } from "./types";
 export const getInitialValues = (test: AdminTest | null): UpdateTestFormValues => {
     if (!test) {
         return {
-            correctAnswersCount: 0,
+            correctAnswersCount: "",
             tasks: [],
         };
     }
     return {
-        correctAnswersCount: test.correctAnswersCount,
+        correctAnswersCount: String(test.correctAnswersCount),
         tasks: test.tasks,
     };
 };
@@ -19,7 +19,7 @@ export const adaptUpdateTestRequest = (data: UpdateTestFormValues, lessonId: str
 
     return {
         lessonId,
-        correctAnswersCount,
+        correctAnswersCount: Number(correctAnswersCount),
         tasks: tasks.map((task, index) => {
             return {
                 order: index,

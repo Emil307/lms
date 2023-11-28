@@ -5,7 +5,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
-import { useDetailsUser } from "@entities/user";
+import { useDetailsStudent } from "@entities/user";
 import { ChangeUserPasswordForm } from "@features/users";
 import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
@@ -24,7 +24,7 @@ export interface StudentSettingsProps extends BoxProps {
 const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
     const router = useRouter();
     const { classes, cx } = useStyles();
-    const { data } = useDetailsUser(id);
+    const { data } = useDetailsStudent(id);
 
     const userRole = useUserRole();
 

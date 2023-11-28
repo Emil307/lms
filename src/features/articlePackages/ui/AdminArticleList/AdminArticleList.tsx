@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleFromList, articleApi } from "@entities/article";
 import { AdminArticlesFromArticlePackageExtraFilters } from "@entities/articlePackage";
 import { columnOrder, columns } from "./constant";
@@ -28,7 +28,10 @@ const AdminArticleList = ({ articlePackageId, ...props }: AdminArticleListProps)
                 <AddArticlesToArticlePackageButton articlePackageId={articlePackageId} />
             </Flex>
             <ManagedDataGrid<AdminArticleFromList, unknown, AdminArticlesFromArticlePackageExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_ARTICLES_FROM_ARTICLE_PACKAGE}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_ARTICLES_FROM_ARTICLE_PACKAGE,
+                    [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE],
+                ]}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "articlePackageIds"]}
                 onClickCell={handleClickCell}

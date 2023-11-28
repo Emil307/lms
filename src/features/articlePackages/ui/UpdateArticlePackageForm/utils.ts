@@ -9,11 +9,11 @@ export const adaptUpdateArticlePackageForm = (data?: GetAdminArticlePackageRespo
         ...data,
         discount: {
             type: data?.discount?.type || "percentage",
-            amount: data?.discount?.amount,
+            amount: data?.discount?.amount ? String(data.discount.amount) : "",
             startingDate: data?.discount?.startingDate ? new Date(data.discount.startingDate) : null,
             finishingDate: data?.discount?.finishingDate ? new Date(data.discount.finishingDate) : null,
         },
-        price: data?.fullPrice || null,
+        price: data?.fullPrice ? String(data.fullPrice) : "",
         categories: data?.categories.map(({ id }) => id.toString()) || [],
         tags: data?.tags.map(({ id }) => id.toString()) || [],
     };
@@ -23,7 +23,7 @@ export const adaptUpdateArticlePackageRequest = (data: UpdateArticlePackageFormV
     return {
         name: data.name,
         description: data.description,
-        price: data.price,
+        price: data.price ? Number(data.price) : 0,
         categories: data.categories.map((categoryId) => Number(categoryId)),
         tags: data.tags.map((tagId) => Number(tagId)),
         isActive: data.isActive,
@@ -32,7 +32,7 @@ export const adaptUpdateArticlePackageRequest = (data: UpdateArticlePackageFormV
         ...(data.hasDiscount && {
             discount: {
                 ...data.discount,
-                amount: data.discount.amount || null,
+                amount: data.discount.amount ? Number(data.discount.amount) : 0,
                 startingDate: dayjs(data.discount.startingDate).format("YYYY-MM-DD"),
                 finishingDate: dayjs(data.discount.finishingDate).format("YYYY-MM-DD"),
             },

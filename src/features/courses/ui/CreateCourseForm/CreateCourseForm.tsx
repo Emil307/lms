@@ -20,7 +20,7 @@ import {
     prepareOptionsForSelect,
     Radio,
 } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { FilterTypes, MutationKeys } from "@shared/constant";
 import {
     $CreateCourseFormValues,
     courseApi,
@@ -34,7 +34,7 @@ import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptCreateCourseRequest } from "./utils";
-import { initialParams, initialValues, radioGroupValues } from "./constants";
+import { initialParams, initialValues, keysInvalidateQueries, radioGroupValues } from "./constants";
 import useStyles from "./CreateCourseForm.styles";
 
 export interface CreateCourseFormProps {
@@ -45,7 +45,7 @@ export interface CreateCourseFormProps {
 const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
     const { classes } = useStyles();
     const [selectedCategory, setSelectedCategory] = useState<string>();
-    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: "manipulation" });
+    const { data: coursesResources, isLoading: isLoadingResources } = useAdminCourseResources({ type: FilterTypes.MANIPULATION });
     const { data: subCategoriesResource, isLoading: isLoadingSubCategories } = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategory },
@@ -113,7 +113,7 @@ const CreateCourseForm = ({ onSuccess, onCancel }: CreateCourseFormProps) => {
                 initialValues={initialValues}
                 validationSchema={$CreateCourseFormValues}
                 mutationKey={[MutationKeys.CREATE_COURSE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_COURSES] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={createCourse}
                 onSuccess={onSuccessCreate}
                 validateOnChange={false}>

@@ -6,7 +6,7 @@ import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { ArticleByCategoryDetailsPage } from "@pages/articles";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { ArticleTypes, QueryKeys } from "@shared/constant";
+import { ArticleTypes, EntityNames, QueryKeys } from "@shared/constant";
 import { ArticleApi } from "@entities/article";
 import { NextPageWithLayoutProps } from "@shared/types";
 import { UserPage } from "@components/UserPage";
@@ -24,8 +24,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articleApi = new ArticleApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ARTICLE, ArticleTypes.BY_CATEGORY, id], () =>
-            articleApi.getArticleByCategory({ id, categoryId })
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_ARTICLE,
+                [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.MATERIAL],
+                ArticleTypes.BY_CATEGORY,
+                id,
+            ],
+            () => articleApi.getArticleByCategory({ id, categoryId })
         );
 
         if (!response.data.isAvailable) {

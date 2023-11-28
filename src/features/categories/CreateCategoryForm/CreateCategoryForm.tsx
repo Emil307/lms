@@ -2,9 +2,9 @@ import { Flex } from "@mantine/core";
 import React from "react";
 import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { categoryApi, CreateAdminCategoryResponse } from "@entities/category";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { createNotification, ToastType } from "@shared/utils";
-import { initialValues } from "./constants";
+import { initialValues, keysInvalidateQueries } from "./constants";
 import { $CreateAdminCategoryFormValidation, CreateAdminCategoryFormValidation } from "./types";
 
 export interface CreateCategoryFormProps {
@@ -41,10 +41,7 @@ const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }:
             initialValues={initialValues}
             validationSchema={$CreateAdminCategoryFormValidation}
             onSuccess={onSuccess}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADMIN_CATEGORIES] },
-                { queryKey: [QueryKeys.GET_ADMIN_SUBCATEGORIES_PAGINATE] },
-            ]}
+            keysInvalidateQueries={keysInvalidateQueries}
             onError={onError}
             disableOverlay>
             <Flex direction="column" gap={{ base: 24, xs: 32 }}>

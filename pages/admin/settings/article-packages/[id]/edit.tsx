@@ -9,7 +9,7 @@ import { UpdateArticlePackagePage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { ArticlePackageApi } from "@entities/articlePackage";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,8 +19,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const articlePackageApi = new ArticlePackageApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id], () =>
-            articlePackageApi.getAdminArticlePackage(id)
+        const response = await queryClient.fetchQuery(
+            [
+                QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
+                id,
+            ],
+            () => articlePackageApi.getAdminArticlePackage(id)
         );
 
         return {

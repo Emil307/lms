@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
@@ -6,12 +6,14 @@ import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { AttachMaterialFilesToArticleRequest, AttachMaterialFilesToArticleResponse, articleApi } from "@entities/article";
 
-export const useAttachMaterialFilesToArticle = (articleId: string) => {
-    return useMutation<
-        AttachMaterialFilesToArticleResponse,
-        AxiosError<FormErrorResponse>,
-        Omit<AttachMaterialFilesToArticleRequest, "articleId">
-    >(
+export const useAttachMaterialFilesToArticle = (
+    articleId: string
+): UseMutationResult<
+    AttachMaterialFilesToArticleResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<AttachMaterialFilesToArticleRequest, "articleId">
+> => {
+    return useMutation(
         [MutationKeys.ATTACH_MATERIALS_TO_ARTICLE, articleId],
         (params) => articleApi.attachMaterialFilesToArticle({ ...params, articleId }),
         {

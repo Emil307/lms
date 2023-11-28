@@ -9,7 +9,7 @@ import { CategoryDetailsPage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CategoryApi } from "@entities/category";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,7 +19,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const categoryApi = new CategoryApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, id], () => categoryApi.getAdminCategory({ id }));
+        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, [EntityNames.CATEGORY, EntityNames.USER], id], () =>
+            categoryApi.getAdminCategory({ id })
+        );
 
         return {
             props: {

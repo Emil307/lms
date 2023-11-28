@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
@@ -6,8 +6,14 @@ import { DeleteStudentsFromGroupRequest, DeleteStudentsFromGroupResponse, groupA
 import { ToastType, createNotification } from "@shared/utils";
 import { queryClient } from "@app/providers";
 
-export const useDeleteStudentsFromGroup = ({ groupId }: Pick<DeleteStudentsFromGroupRequest, "groupId">) => {
-    return useMutation<DeleteStudentsFromGroupResponse, AxiosError<FormErrorResponse>, Omit<DeleteStudentsFromGroupRequest, "groupId">>(
+export const useDeleteStudentsFromGroup = ({
+    groupId,
+}: Pick<DeleteStudentsFromGroupRequest, "groupId">): UseMutationResult<
+    DeleteStudentsFromGroupResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<DeleteStudentsFromGroupRequest, "groupId">
+> => {
+    return useMutation(
         [MutationKeys.DELETE_ADMIN_STUDENTS_FROM_GROUP, groupId],
         (data) => groupApi.deleteStudentsFromGroup({ ...data, groupId }),
         {

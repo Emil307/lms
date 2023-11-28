@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
@@ -14,7 +14,11 @@ export const useDetachMaterialsFromLesson = ({
         (fileIds: string[]) => lessonApi.detachMaterialsFromLesson({ lessonId, ids: fileIds }),
         {
             onSuccess: () => {
-                const lessonData = queryClient.getQueryData<GetAdminLessonResponse>([QueryKeys.GET_ADMIN_LESSON, lessonId]);
+                const lessonData = queryClient.getQueryData<GetAdminLessonResponse>([
+                    QueryKeys.GET_ADMIN_LESSON,
+                    [EntityNames.LESSON, EntityNames.USER],
+                    lessonId,
+                ]);
 
                 createNotification({
                     type: ToastType.INFO,
@@ -24,8 +28,21 @@ export const useDetachMaterialsFromLesson = ({
 
                 //TODO: Временное решение, так как на бэке не успевают обновиться зависимости
                 setTimeout(() => {
-                    queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_MATERIALS, lessonId]);
-                    queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT, lessonId]);
+                    queryClient.invalidateQueries([
+                        QueryKeys.GET_ADMIN_LESSON_MATERIALS,
+                        [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.LESSON],
+                        lessonId,
+                    ]);
+                    queryClient.invalidateQueries([
+                        QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT,
+                        [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.LESSON],
+                        lessonId,
+                    ]);
+                    queryClient.invalidateQueries([
+                        QueryKeys.GET_LESSON,
+                        [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK, EntityNames.LESSON_TEST, EntityNames.MATERIAL],
+                        lessonId,
+                    ]);
                 }, 500);
             },
             onError: () => {

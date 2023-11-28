@@ -4,8 +4,8 @@ import Image from "next/image";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
-import { InvoicePaymentForm } from "@features/coursePackages";
 import { CoursePackageDetails } from "@entities/coursePackage";
+import { SelectPaymentTypeModal } from "@features/payment";
 import { CourseList, DiscountInfo } from "./components";
 import useStyles from "./MainInfoPanel.styles";
 
@@ -16,13 +16,13 @@ export interface MainInfoPanelProps extends Omit<FlexProps, "children"> {
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const handleCloseModal = () => closeModal("INVOICE_PAYMENT");
+    const handleCloseSelectPaymentTypeModal = () => closeModal("SELECT_PAYMENT_TYPE");
 
-    const handleGetAccessPackage = () => {
+    const handleOpenSelectPaymentTypeModal = () => {
         openModal({
-            modalId: "INVOICE_PAYMENT",
-            title: "Счет на оплату",
-            children: <InvoicePaymentForm onClose={handleCloseModal} />,
+            modalId: "SELECT_PAYMENT_TYPE",
+            title: `Получить доступ к подборке курсов «${data.name}»`,
+            children: <SelectPaymentTypeModal entityType="course_package" entityId={data.id} onClose={handleCloseSelectPaymentTypeModal} />,
         });
     };
 
@@ -51,7 +51,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     </Flex>
 
                     <Flex className={classes.containerPriceWithButton}>
-                        <Button variant="secondary" onClick={handleGetAccessPackage}>
+                        <Button variant="secondary" onClick={handleOpenSelectPaymentTypeModal}>
                             Получить доступ
                         </Button>
                         <Flex direction="column">

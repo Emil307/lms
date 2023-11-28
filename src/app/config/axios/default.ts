@@ -7,6 +7,7 @@ import {
     whenArticlesMicroserviceRoute,
     whenAuthMicroserviceRoute,
     whenCoursesMicroserviceRoute,
+    whenDownloadingFiles,
     whenUsingUploadToStorageRoute,
 } from "./helpers";
 import {
@@ -14,6 +15,7 @@ import {
     articlesMicroserviceInterceptor,
     authMicroserviceInterceptor,
     coursesMicroserviceInterceptor,
+    downloadingFileInterceptor,
     storageInterceptor,
     tokenInterceptor,
 } from "./interceptors/request";
@@ -36,6 +38,11 @@ export const bindInterceptors = (axios: AxiosInstance, handleResponseInterceptor
      *  Добавляй content-type = multipart/form-data, если загружает файл.
      */
     axios.interceptors.request.use(storageInterceptor, errorLogger, { runWhen: whenUsingUploadToStorageRoute });
+
+    /**
+     *  Добавляй responseType = blob, если скачиваешь бинарный файл.
+     */
+    axios.interceptors.request.use(downloadingFileInterceptor, errorLogger, { runWhen: whenDownloadingFiles });
 
     /**
      *  Меняй baseUrl, если работаешь с API Routes.

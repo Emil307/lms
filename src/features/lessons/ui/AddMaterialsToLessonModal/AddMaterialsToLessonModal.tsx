@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { ControlButtons, FDateRangePicker, FSearch, FSelect, ManagedDataGrid } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import {
     UploadedFileFromList,
     storageApi,
@@ -79,7 +79,10 @@ const AddMaterialsToLessonModal = ({ lessonId, onClose }: AddMaterialsToLessonMo
     return (
         <>
             <ManagedDataGrid<UploadedFileFromList, AdminMaterialsNoIncludedLessonFiltersForm, AdminMaterialsNoIncludedLessonExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT,
+                    [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.LESSON],
+                ]}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialsNoIncludedLessonRequest(params))}
                 queryCacheKeys={["lessonId", "page", "perPage", "sort", "query", "type", "createdAtFrom", "createdAtTo", "categoryIds"]}
                 filter={{

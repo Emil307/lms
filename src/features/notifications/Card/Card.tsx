@@ -1,59 +1,65 @@
-import { Flex, FlexProps, Indicator } from "@mantine/core";
+import { Box, Flex, FlexProps, Indicator } from "@mantine/core";
 import { memo } from "react";
+import { useRouter } from "next/router";
 import { getFullName } from "@shared/utils";
 import { NotificationFromList } from "@entities/notification";
 import { Paragraph } from "@shared/ui";
-import { Roles } from "@app/routes";
+import { useUserRole } from "@entities/auth";
 import useStyles from "./Card.styles";
-import { getFormatCreatedAt, getNameTypeNotification } from "./utils";
+import { getFormatCreatedAt, prepareNotificationData } from "./utils";
 import { NotificationIcon } from "./components";
 
 export interface CardProps extends FlexProps {
     data: NotificationFromList;
+    handleCloseMenu: () => void;
 }
 
-const MemoizedCard = memo(function Card({ data, ...props }: CardProps) {
+const MemoizedCard = memo(function Card({ data, handleCloseMenu, ...props }: CardProps) {
     const { classes } = useStyles();
+    const router = useRouter();
+    const userRole = useUserRole();
 
-    const renderSenderInfo = () => {
-        if (data.type === "supportMessage" && data.sender.roles[0].id === Roles.administrator) {
-            return (
-                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
-                    Администрация
-                </Paragraph>
-            );
-        }
-        return (
-            <Flex gap={8}>
-                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
-                    {getFullName({ data: data.sender.profile })}
-                </Paragraph>
-                <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
-                    {data.sender.roles[0].displayName}
-                </Paragraph>
-            </Flex>
-        );
+    const { userData, content, title, link } = prepareNotificationData(data, userRole);
+
+    const handleNotificationClick = () => {
+        handleCloseMenu();
+        router.push(link);
     };
 
     return (
         <Indicator size={8} offset={16} position="top-start" color="done" disabled={!data.isNew}>
-            <Flex {...props} className={classes.root}>
+            <Flex {...props} className={classes.root} onClick={handleNotificationClick}>
                 <Flex gap={8}>
                     <NotificationIcon data={data} />
                     <Flex direction="column" sx={{ flex: 1 }}>
                         <Flex justify="space-between">
-                            <Paragraph variant="text-small-m">{getNameTypeNotification(data.type)}</Paragraph>
-                            <Paragraph variant="text-caption" className={classes.createdAtNotification}>
+                            <Box className={classes.contentWrapper}>
+                                <Paragraph className={classes.content} variant="text-small-m">
+                                    {title}
+                                </Paragraph>
+                            </Box>
+                            <Paragraph variant="text-caption" className={classes.createdAt} color="gray45">
                                 {getFormatCreatedAt(data.createdAt)}
                             </Paragraph>
                         </Flex>
-                        {renderSenderInfo()}
+                        <Flex gap={8}>
+                            <Box className={classes.contentWrapper}>
+                                <Paragraph variant="text-caption" color="gray45" className={classes.content}>
+                                    {getFullName({ data: userData.profile, hidePatronymic: true })}
+                                </Paragraph>
+                            </Box>
+                            <Paragraph variant="text-caption" color="gray45" className={classes.userRole}>
+                                {userData.roles[0].displayName}
+                            </Paragraph>
+                        </Flex>
                     </Flex>
                 </Flex>
 
-                {/* //TODO: Добавить название курса, как бекенд добавить уведомления относительно курсов */}
-                {/* <Text className={classes.courseName} lineClamp={1}>
-                </Text> */}
+                <Box className={classes.contentWrapper}>
+                    <Paragraph variant="text-caption" className={classes.content}>
+                        {content}
+                    </Paragraph>
+                </Box>
             </Flex>
         </Indicator>
     );

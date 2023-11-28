@@ -8,7 +8,7 @@ import {
     articleApi,
     useAdminArticleFilters,
 } from "@entities/article";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useAttachArticlesToCourse } from "@entities/course";
 import { columnOrder, columns, filterInitialValues } from "./constants";
 import useStyles from "./AddArticlesToCourseModal.styles";
@@ -40,7 +40,7 @@ const AddArticlesToCourseModal = ({ courseId, onClose }: AddArticlesToCourseModa
     return (
         <>
             <ManagedDataGrid<AdminArticleFromList, AdminArticleFromCourseFiltersForm, AdminArticleFromCourseExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_NO_COURSE_ARTICLES}
+                queryKey={[QueryKeys.GET_ADMIN_NO_COURSE_ARTICLES, [EntityNames.ARTICLE, EntityNames.CATEGORY, EntityNames.COURSE]]}
                 queryFunction={(params) => articleApi.getAdminArticles(adaptGetAdminArticlesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "categoryId", "subcategoryId", "courseId"]}
                 filter={{

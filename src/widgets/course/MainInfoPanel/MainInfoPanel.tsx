@@ -1,11 +1,13 @@
 import { Badge, Box, BoxProps, Flex, Group, ThemeIcon } from "@mantine/core";
 import Image from "next/image";
+import { closeModal, openModal } from "@mantine/modals";
 import { CourseDetails } from "@entities/course";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import IconUsers from "public/icons/users.svg";
 import IconStarFour from "public/icons/starFour.svg";
 import { FavoriteButton } from "@features/courses";
+import { SelectPaymentTypeModal } from "@features/payment";
 import useStyles from "./MainInfoPanel.styles";
 import { AmountInfo, DiscountInfo, RatingInfo, StartDateAvailableGroup, TagList } from "./components";
 
@@ -16,8 +18,15 @@ export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
 const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const { classes } = useStyles();
 
-    //TODO: Добавил функционал покупки курса как бек это добавит
-    const handleBuyCourse = () => undefined;
+    const handleCloseSelectPaymentTypeModal = () => closeModal("SELECT_PAYMENT_TYPE");
+
+    const handleOpenSelectPaymentTypeModal = () => {
+        openModal({
+            modalId: "SELECT_PAYMENT_TYPE",
+            title: `Получить доступ к курсу «${data.name}»`,
+            children: <SelectPaymentTypeModal entityType="course" entityId={data.id} onClose={handleCloseSelectPaymentTypeModal} />,
+        });
+    };
 
     return (
         <Box {...props} className={classes.root}>
@@ -46,7 +55,10 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     </Flex>
                     <Flex className={classes.containerActions}>
                         <Flex gap={8}>
-                            <Button variant="secondary" disabled={!data.availableGroup?.freePlacesCount} onClick={handleBuyCourse}>
+                            <Button
+                                variant="secondary"
+                                disabled={!data.availableGroup?.freePlacesCount}
+                                onClick={handleOpenSelectPaymentTypeModal}>
                                 Купить курс
                             </Button>
                             <FavoriteButton variant="compact" data={data} className={classes.favoriteActionIcon} />

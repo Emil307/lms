@@ -20,7 +20,7 @@ import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailRe
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { getInitialValuesForm } from "./constants";
 import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
 import useStyles from "./UpdateStudentForm.styles";
@@ -79,11 +79,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                 initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataUpdateStudentForm(data) }}
                 validationSchema={$UpdateStudentFormValidation}
                 mutationKey={[MutationKeys.UPDATE_USER, String(data?.id)]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_ADMIN_USER, String(data?.id)] },
-                    { queryKey: [QueryKeys.GET_ADMIN_STUDENTS] },
-                    { queryKey: [QueryKeys.GET_ADMIN_USERS] },
-                ]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STUDENT }}
                 mutationFunction={updateStudent}
                 onSuccess={onSuccess}
                 onError={onError}

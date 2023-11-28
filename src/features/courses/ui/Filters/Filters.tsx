@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Button, FSearch, FSlider, FSwitch, Form, Paragraph } from "@shared/ui";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { useMedia } from "@shared/utils";
+import { FilterTypes } from "@shared/constant";
 import { CategoryFilterList, FilterList, ToggleFilterButton } from "./components";
 import { adaptCourseFiltersForm, getCountAppliedQueries, getInitialValues, prepareQueryParams } from "./utils";
 import { TRouterQueries } from "./types";
@@ -18,7 +19,7 @@ export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
 const Filters = ({ children, title, ...props }: FiltersProps) => {
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
-    const courseResources = useCourseResources({ type: "select" });
+    const courseResources = useCourseResources({ type: FilterTypes.SELECT });
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 

@@ -303,10 +303,7 @@ export const $CreateCourseFormValues = z
         teacherIds: z.array(z.string()),
         name: z.string({ required_error: "Введите название" }),
         description: z.string().optional(),
-        price: z
-            .number({ required_error: "Введите стоимость" })
-            .int("Число должно быть целым")
-            .nonnegative("Число должно не может быть отрицательным"),
+        price: z.string({ required_error: "Введите стоимость" }),
         duration: z.string().nullable().optional(),
         isInteractive: z.boolean(),
         isActive: z.boolean(),
@@ -314,7 +311,7 @@ export const $CreateCourseFormValues = z
         hasDiscount: z.boolean(),
         discount: z.object({
             type: $DiscountType,
-            amount: z.number(),
+            amount: z.string().optional(),
             startingDate: z.date().nullable(),
             finishingDate: z.date().nullable(),
         }),
@@ -324,10 +321,10 @@ export const $CreateCourseFormValues = z
             if (!data.hasDiscount) {
                 return true;
             }
-            return Number.isInteger(data.discount.amount) && data.discount.amount > 0;
+            return Number(data.discount.amount);
         },
         {
-            message: "Размер скидки должен быть целым пложительный числом",
+            message: "Введите размер скидки",
             path: ["discount.amount"],
         }
     )
@@ -336,7 +333,7 @@ export const $CreateCourseFormValues = z
             if (!data.hasDiscount || data.discount.type === "currency") {
                 return true;
             }
-            return 100 >= data.discount.amount;
+            return 100 >= Number(data.discount.amount);
         },
         {
             message: "Размер скидки не может быть больше 100%",
@@ -348,7 +345,7 @@ export const $CreateCourseFormValues = z
             if (!data.hasDiscount || data.discount.type === "percentage") {
                 return true;
             }
-            return data.price >= data.discount.amount;
+            return Number(data.price) >= Number(data.discount.amount);
         },
         {
             message: "Размер скидки не может быть больше стоимости",

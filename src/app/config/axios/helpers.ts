@@ -20,10 +20,10 @@ export const whenUsingLkRoute: TAxiosRunWhen = (config) => {
 /**
  *
  * @param config AxiosConfigObject
- * @returns true, если responseType === blob
+ * @returns true, если запрос для скачивания файлов
  */
 export const whenDownloadingFiles: TAxiosRunWhen = (config) => {
-    return config.responseType === "blob";
+    return !!config.url?.includes("payment-invoices");
 };
 
 /**

@@ -1,6 +1,6 @@
 import { Box, Flex } from "@mantine/core";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, storageApi } from "@entities/storage";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
@@ -27,7 +27,7 @@ const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
             </Flex>
 
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminLessonMaterialsExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_LESSON_MATERIALS}
+                queryKey={[QueryKeys.GET_ADMIN_LESSON_MATERIALS, [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.LESSON]]}
                 queryFunction={(params) => storageApi.getUploadedFiles(adaptGetMaterialFilesRequest(params))}
                 queryCacheKeys={["lessonIds", "page", "perPage", "sort"]}
                 extraFilterParams={{ lessonIds: lessonId }}

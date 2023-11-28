@@ -1,10 +1,9 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
-import { ToastType, createNotification } from "@shared/utils";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
 import { courseApi, DeleteCourseRequest, DeleteCourseResponse } from "@entities/course";
-import { queryClient } from "@app/providers";
 
 interface UseDeleteCourseProps extends DeleteCourseRequest {
     name: string;
@@ -22,7 +21,7 @@ export const useDeleteCourse = ({
                 message: `Учебный курс "${name}" успешно удален`,
             });
 
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSES]);
+            invalidateQueriesWithPredicate({ entityName: EntityNames.COURSE, exclude: [QueryKeys.GET_ADMIN_COURSE] });
         },
         onError: () => {
             createNotification({

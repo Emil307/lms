@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
@@ -27,7 +27,7 @@ const List = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminLessonFromList, Partial<AdminLessonsFilters>>
-                queryKey={QueryKeys.GET_ADMIN_LESSONS}
+                queryKey={[QueryKeys.GET_ADMIN_LESSONS, [EntityNames.LESSON]]}
                 queryFunction={(params) => lessonApi.getAdminLessons(adaptGetAdminLessonsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "isActive", "createdAtFrom", "createdAtTo"]}
                 filter={{

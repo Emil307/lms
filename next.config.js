@@ -19,7 +19,6 @@ const withSVGR = (nextConfig) => {
 };
 
 const nextConfig = {
-    output: "standalone",
     reactStrictMode: true,
     experimental: {
         esmExternals: false,

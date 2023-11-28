@@ -11,6 +11,7 @@ import { QueryKeys } from "@shared/constant";
 import { UserApi } from "@entities/user";
 import { getFullName } from "@shared/utils";
 import { StudentStatisticsPage } from "@pages/admin/students";
+import { Roles } from "@app/routes";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -21,6 +22,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     try {
         const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
+
+        const rolesIds = response.roles.map(({ id }) => id);
+
+        //TODO: тк у нас один рут для получения всех пользователей
+        if (!rolesIds.includes(Roles.student) && !rolesIds.includes(Roles.employee)) {
+            return {
+                redirect: {
+                    destination: `/admin/users/${id}`,
+                    permanent: false,
+                },
+            };
+        }
 
         const userFullName = getFullName({ data: response.profile });
 

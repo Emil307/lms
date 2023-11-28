@@ -1,13 +1,19 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
-import { ToastType, createNotification } from "@shared/utils";
+import { ToastType, createNotification, invalidateQueriesWithPredicate } from "@shared/utils";
 import { AttachStudentsToGroupRequest, AttachStudentsToGroupResponse, groupApi } from "@entities/group";
 
-export const useAttachStudentsToGroup = ({ groupId }: Pick<AttachStudentsToGroupRequest, "groupId">) => {
-    return useMutation<AttachStudentsToGroupResponse, AxiosError<FormErrorResponse>, Omit<AttachStudentsToGroupRequest, "groupId">>(
+export const useAttachStudentsToGroup = ({
+    groupId,
+}: Pick<AttachStudentsToGroupRequest, "groupId">): UseMutationResult<
+    AttachStudentsToGroupResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<AttachStudentsToGroupRequest, "groupId">
+> => {
+    return useMutation(
         [MutationKeys.ATTACH_ADMIN_STUDENTS_TO_GROUP, groupId],
         (params) => groupApi.attachStudentsToGroup({ ...params, groupId }),
         {
@@ -19,6 +25,8 @@ export const useAttachStudentsToGroup = ({ groupId }: Pick<AttachStudentsToGroup
 
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_GROUP_STUDENTS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENT_GROUPS]);
+                invalidateQueriesWithPredicate({ entityName: EntityNames.NOTIFICATION });
             },
             onError: () => {
                 createNotification({

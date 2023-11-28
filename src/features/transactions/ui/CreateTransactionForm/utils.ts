@@ -5,7 +5,7 @@ export const adaptCreateTransactionRequest = (data: CreateTransactionFormValidat
     return {
         ...data,
         entityId: Number(data.entityId),
-        amount: data.amount || 0,
+        amount: data.amount ? Number(data.amount) : 0,
         userId: Number(data.userId),
     };
 };

@@ -2,7 +2,7 @@ import { Box } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { AdminCourseFromList, courseApi } from "@entities/course";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { TeacherCourseListExtraParams } from "./types";
 import { adaptGetTeacherCoursesRequest } from "./utils";
@@ -25,7 +25,7 @@ const TeacherCourseList = ({ id }: TeacherCourseListProps) => {
                 Список курсов
             </Heading>
             <ManagedDataGrid<AdminCourseFromList, unknown, TeacherCourseListExtraParams>
-                queryKey={QueryKeys.GET_TEACHER_COURSES}
+                queryKey={[QueryKeys.GET_TEACHER_COURSES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER]]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetTeacherCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "teacherId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

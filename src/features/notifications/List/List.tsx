@@ -29,18 +29,23 @@ const List = ({ maxHeightContainer, itemComponent, ...props }: ListProps) => {
         ));
     }, [notificationsData]);
 
-    if (!notificationsData?.data.length) {
+    if (!notificationsData?.data.length && !isLoading) {
         return <Text className={classes.nothingFoundTitle}>У вас пока нет новых уведомлений</Text>;
     }
 
     return (
         <Flex className={classes.root} {...props}>
-            <ScrollArea.Autosize maxHeight={maxHeightContainer} type="auto" offsetScrollbars scrollbarSize={4}>
+            <ScrollArea.Autosize
+                className={classes.scrollArea}
+                maxHeight={maxHeightContainer}
+                type="auto"
+                offsetScrollbars
+                scrollbarSize={4}>
                 <Flex direction="column" gap={2}>
                     {renderItems}
                 </Flex>
 
-                {(isLoading || isFetching || isRefetching) && <Loader w="100%" />}
+                {(isLoading || isFetching || isRefetching) && <Loader w="100%" pt={8} />}
             </ScrollArea.Autosize>
         </Flex>
     );

@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@shared/constant";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
+import { FormErrorResponse } from "@shared/types";
 
-export const useMainBanner = () => {
-    return useQuery<GetMainBannerResponse>([QueryKeys.GET_MAIN_BANNER], () => staticPageApi.getMainBanner());
+export const useMainBanner = (): UseQueryResult<GetMainBannerResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_MAIN_BANNER, [EntityNames.STATIC_MAIN_BANNER, EntityNames.USER]], () => staticPageApi.getMainBanner());
 };

@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
@@ -16,11 +16,46 @@ export const useUpdateCourseType = ({
 }: UseUpdateCourseTypeProps): UseMutationResult<UpdateCourseTypeResponse, AxiosError<FormErrorResponse>, CourseType> => {
     return useMutation([MutationKeys.UPDATE_COURSE_TYPE, id], (type) => courseApi.updateCourseType({ id, type }), {
         onMutate: async (updatedType) => {
-            await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_COURSE, id] });
-            const previousCourseData = queryClient.getQueryData<GetAdminCourseResponse>([QueryKeys.GET_ADMIN_COURSE, id]);
+            await queryClient.cancelQueries({
+                queryKey: [
+                    QueryKeys.GET_ADMIN_COURSE,
+                    [
+                        EntityNames.COURSE,
+                        EntityNames.CATEGORY,
+                        EntityNames.TAG,
+                        EntityNames.USER,
+                        EntityNames.AUTHOR,
+                        EntityNames.COURSE_REVIEW,
+                    ],
+                    id,
+                ],
+            });
+            const previousCourseData = queryClient.getQueryData<GetAdminCourseResponse>([
+                QueryKeys.GET_ADMIN_COURSE,
+                [
+                    EntityNames.COURSE,
+                    EntityNames.CATEGORY,
+                    EntityNames.TAG,
+                    EntityNames.USER,
+                    EntityNames.AUTHOR,
+                    EntityNames.COURSE_REVIEW,
+                ],
+                id,
+            ]);
 
             queryClient.setQueryData<GetAdminCourseResponse>(
-                [QueryKeys.GET_ADMIN_COURSE, id],
+                [
+                    QueryKeys.GET_ADMIN_COURSE,
+                    [
+                        EntityNames.COURSE,
+                        EntityNames.CATEGORY,
+                        EntityNames.TAG,
+                        EntityNames.USER,
+                        EntityNames.AUTHOR,
+                        EntityNames.COURSE_REVIEW,
+                    ],
+                    id,
+                ],
                 (previousData) => previousData && { ...previousData, type: updatedType }
             );
 
@@ -28,7 +63,21 @@ export const useUpdateCourseType = ({
         },
         onError: (err, _, context) => {
             if (context?.previousCourseData) {
-                queryClient.setQueryData([QueryKeys.GET_ADMIN_COURSE, id], context.previousCourseData);
+                queryClient.setQueryData(
+                    [
+                        QueryKeys.GET_ADMIN_COURSE,
+                        [
+                            EntityNames.COURSE,
+                            EntityNames.CATEGORY,
+                            EntityNames.TAG,
+                            EntityNames.USER,
+                            EntityNames.AUTHOR,
+                            EntityNames.COURSE_REVIEW,
+                        ],
+                        id,
+                    ],
+                    context.previousCourseData
+                );
             }
             createNotification({
                 type: ToastType.WARN,

@@ -6,7 +6,7 @@ import { FAvatarInput, FControlButtons, FControlPanel, FInput, FRadioGroup, FSwi
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
-import { MutationKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { adaptCreateUserFormRequest, getInitialValuesForm } from "./utils";
 import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
 import { notificationLabels, notifications } from "./constants";
@@ -49,6 +49,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                 initialValues={getInitialValuesForm(defaultRole)}
                 validationSchema={$CreateStudentValidationFormRequest}
                 mutationKey={[MutationKeys.CREATE_USER]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STUDENT }}
                 mutationFunction={createStudent}
                 onSuccess={onSuccess}
                 onError={onError}>

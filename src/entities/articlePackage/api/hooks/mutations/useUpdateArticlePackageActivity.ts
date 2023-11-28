@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import {
     GetAdminArticlePackageResponse,
@@ -29,43 +29,70 @@ export const useUpdateArticlePackageActivity = ({
         (data) => articlePackageApi.updateArticlePackageActivity({ ...data, id }),
         {
             onMutate: async ({ isActive }) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] });
+                await queryClient.cancelQueries({
+                    queryKey: [
+                        QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                        [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
+                        id,
+                    ],
+                });
+                await queryClient.cancelQueries({
+                    queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES, [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY]],
+                });
 
                 const previousArticlePackageData = queryClient.getQueryData<GetAdminArticlePackageResponse>([
                     QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                    [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
                     id,
                 ]);
                 const previousArticlePackagesData = queryClient.getQueriesData<GetAdminArticlePackagesResponse>([
                     QueryKeys.GET_ADMIN_ARTICLE_PACKAGES,
+                    [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY],
                 ]);
 
                 queryClient.setQueryData<GetAdminArticlePackageResponse>(
-                    [QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id],
+                    [
+                        QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                        [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
+                        id,
+                    ],
                     (previousData) => previousData && { ...previousData, isActive }
                 );
 
-                queryClient.setQueriesData<GetAdminArticlePackagesResponse>([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES], (previousData) => {
-                    if (!previousData) {
-                        return undefined;
-                    }
+                queryClient.setQueriesData<GetAdminArticlePackagesResponse>(
+                    [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES, [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY]],
+                    (previousData) => {
+                        if (!previousData) {
+                            return undefined;
+                        }
 
-                    return {
-                        ...previousData,
-                        data: previousData.data.map((articlePackage) =>
-                            String(articlePackage.id) === id ? { ...articlePackage, isActive } : articlePackage
-                        ),
-                    };
-                });
+                        return {
+                            ...previousData,
+                            data: previousData.data.map((articlePackage) =>
+                                String(articlePackage.id) === id ? { ...articlePackage, isActive } : articlePackage
+                            ),
+                        };
+                    }
+                );
 
                 return { previousArticlePackageData, previousArticlePackagesData };
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && "previousArticlePackageData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_ARTICLE_PACKAGE, id], context.previousArticlePackageData);
+                    queryClient.setQueryData(
+                        [
+                            QueryKeys.GET_ADMIN_ARTICLE_PACKAGE,
+                            [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
+                            id,
+                        ],
+                        context.previousArticlePackageData
+                    );
                 }
                 if (typeof context === "object" && "previousArticlePackagesData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_ARTICLE_PACKAGES], context.previousArticlePackagesData);
+                    queryClient.setQueriesData(
+                        [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES, [EntityNames.ARTICLE_PACKAGE, EntityNames.CATEGORY]],
+                        context.previousArticlePackagesData
+                    );
                 }
 
                 createNotification({

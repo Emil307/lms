@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminAddGroupStudentsExtraFilters, useAttachStudentsToGroup } from "@entities/group";
 import { UserFromList, userApi } from "@entities/user";
 import { columnOrder, columns } from "./constants";
@@ -31,7 +31,7 @@ const AddStudentsToGroupModal = ({ groupId, courseId, onClose }: AddStudentsToGr
     return (
         <>
             <ManagedDataGrid<UserFromList, unknown, AdminAddGroupStudentsExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP}
+                queryKey={[QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.STUDENT]]}
                 queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "groupId"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}

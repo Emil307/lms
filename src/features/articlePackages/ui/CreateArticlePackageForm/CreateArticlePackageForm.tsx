@@ -21,8 +21,8 @@ import {
 import { Fieldset } from "@components/Fieldset";
 import { CreateArticlePackageResponse, articlePackageApi, useAdminArticlePackageResourcesCreate } from "@entities/articlePackage";
 import { ToastType, createNotification, getDiscountPrice } from "@shared/utils";
-import { MutationKeys, QueryKeys } from "@shared/constant";
-import { initialValues, radioGroupValues } from "./constants";
+import { MutationKeys } from "@shared/constant";
+import { initialValues, keysInvalidateQueries, radioGroupValues } from "./constants";
 import { $CreateArticlePackageFormValidation, CreateArticlePackageFormValidation } from "./types";
 import { adaptCreateArticlePackageRequest } from "./utils";
 import useStyles from "./CreateArticlePackageForm.styles";
@@ -63,15 +63,15 @@ const CreateArticlePackageForm = ({ onClose, ...props }: CreateArticlePackageFor
                 initialValues={initialValues}
                 validationSchema={$CreateArticlePackageFormValidation}
                 mutationKey={[MutationKeys.CREATE_ARTICLE_PACKAGE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_ARTICLE_PACKAGES] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={createArticlePackage}
                 onSuccess={onSuccess}
                 onError={onError}>
                 {({ values, errors }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
                     const discountAmount = getDiscountPrice({
-                        price: !errors.price ? values.price : null,
-                        amountDiscount: !errors.discount?.amount ? values.discount.amount : null,
+                        price: !errors.price ? Number(values.price) : null,
+                        amountDiscount: !errors.discount?.amount ? Number(values.discount.amount) : null,
                         type: values.discount.type,
                     });
                     return (

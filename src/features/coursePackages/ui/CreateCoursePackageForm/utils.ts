@@ -7,14 +7,14 @@ export const adaptCreateCoursePackageFormRequest = (data: CreateCoursePackageFor
         name: data.name,
         description: data.description,
         isActive: data.isActive,
-        price: data.price,
+        price: data.price ? Number(data.price) : 0,
         hasDiscount: data.hasDiscount,
         coverId: data.cover?.id,
 
         ...(data.hasDiscount && {
             discount: {
                 ...data.discount,
-                amount: data.discount.amount || null,
+                amount: data.discount.amount ? Number(data.discount.amount) : 0,
                 startingDate: dayjs(data.discount.startingDate).format("YYYY-MM-DD"),
                 finishingDate: dayjs(data.discount.finishingDate).format("YYYY-MM-DD"),
             },

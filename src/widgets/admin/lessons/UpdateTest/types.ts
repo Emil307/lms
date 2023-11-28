@@ -4,10 +4,7 @@ export type UpdateTestFormValues = z.infer<typeof $UpdateTestFormValues>;
 
 export const $UpdateTestFormValues = z
     .object({
-        correctAnswersCount: z
-            .number({ required_error: "Введите количество верных ответов" })
-            .int("Число должно быть целым")
-            .nonnegative("Количество не может быть отрицательным"),
+        correctAnswersCount: z.string({ required_error: "Введите количество верных ответов" }),
         tasks: z.array(
             z
                 .object({
@@ -43,7 +40,7 @@ export const $UpdateTestFormValues = z
     })
     .refine(
         (data) => {
-            return data.correctAnswersCount <= data.tasks.length;
+            return Number(data.correctAnswersCount) <= data.tasks.length;
         },
         {
             message: "Количество верных ответов не может быть больше количества вопросов",

@@ -3,7 +3,7 @@ import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
 import { Button } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm, transactionApi, useAdminTransactionFilters } from "@entities/transaction";
 import { useMedia } from "@shared/utils";
 import { columns, filterInitialValues, columnOrder } from "./constants";
@@ -26,7 +26,16 @@ const AdminList = (props: AdminListProps) => {
     return (
         <Box {...props}>
             <ManagedDataGrid<AdminTransactionFromList, AdminTransactionsFiltersForm>
-                queryKey={QueryKeys.GET_ADMIN_TRANSACTIONS}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_TRANSACTIONS,
+                    [
+                        EntityNames.TRANSACTION,
+                        EntityNames.USER,
+                        EntityNames.COURSE,
+                        EntityNames.COURSE_PACKAGE,
+                        EntityNames.ARTICLE_PACKAGE,
+                    ],
+                ]}
                 queryFunction={(params) => transactionApi.getAdminTransactions(adaptGetAdminTransactionsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "entityType", "paymentType", "createdAtFrom", "createdAtTo", "status"]}
                 filter={{

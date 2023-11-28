@@ -2,9 +2,9 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { CreateAdminTagResponse, tagApi } from "@entities/tag";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constants";
+import { initialValues, keysInvalidateQueries } from "./constants";
 import { $CreateTagFormValidation, CreateTagFormValidation } from "./types";
 
 export interface CreateTagFormProps extends BoxProps {
@@ -38,7 +38,7 @@ const CreateTagForm = ({ onClose, ...props }: CreateTagFormProps) => {
                 initialValues={initialValues}
                 validationSchema={$CreateTagFormValidation}
                 mutationKey={[MutationKeys.CREATE_ADMIN_TAG]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_TAGS] }]}
+                keysInvalidateQueries={keysInvalidateQueries}
                 mutationFunction={createAdminTag}
                 onSuccess={onSuccess}
                 onError={onError}

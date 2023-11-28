@@ -3,8 +3,8 @@ import { closeModal, openModal } from "@mantine/modals";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { InvoicePaymentForm } from "@features/coursePackages";
 import { ArticlePackageFromList } from "@entities/articlePackage";
+import { SelectPaymentTypeModal } from "@features/payment";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
@@ -14,16 +14,17 @@ export interface FooterProps {
 const Footer = ({ data }: FooterProps) => {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    //TODO: Вызов модалки скорее всего нужно будет позднее вынести на уровни выше
-    // тк сейчас feature импортирует feature
-    const handleCloseModal = () => closeModal("INVOICE_PAYMENT");
+    const handleCloseSelectPaymentTypeModal = () => closeModal("SELECT_PAYMENT_TYPE");
 
-    const handleClickButton = () =>
+    const handleOpenSelectPaymentTypeModal = () => {
         openModal({
-            modalId: "INVOICE_PAYMENT",
-            title: "Счет на оплату",
-            children: <InvoicePaymentForm onClose={handleCloseModal} />,
+            modalId: "SELECT_PAYMENT_TYPE",
+            title: `Получить доступ к подборке статей «${data.name}»`,
+            children: (
+                <SelectPaymentTypeModal entityType="article_package" entityId={data.id} onClose={handleCloseSelectPaymentTypeModal} />
+            ),
         });
+    };
 
     const renderAmount = () => {
         const { discount, fullPrice } = data;
@@ -53,7 +54,7 @@ const Footer = ({ data }: FooterProps) => {
                 </Flex>
                 {renderAmount()}
             </Flex>
-            <Button onClick={handleClickButton} w="min-content">
+            <Button onClick={handleOpenSelectPaymentTypeModal} w="min-content">
                 Получить доступ
             </Button>
         </Flex>

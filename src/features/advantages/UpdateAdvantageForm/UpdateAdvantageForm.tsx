@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import React from "react";
 import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
 import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
 
@@ -39,10 +39,7 @@ const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
             }}
             validationSchema={$UpdateAdvantageRequest}
             mutationKey={[MutationKeys.UPDATE_ADVANTAGE]}
-            keysInvalidateQueries={[
-                { queryKey: [QueryKeys.GET_ADVANTAGE, String(data?.id)] },
-                { queryKey: [QueryKeys.GET_ADMIN_ADVANTAGES] },
-            ]}
+            invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_ADVANTAGE }}
             mutationFunction={updateAdvantage}
             onSuccess={onSuccess}
             onError={onError}

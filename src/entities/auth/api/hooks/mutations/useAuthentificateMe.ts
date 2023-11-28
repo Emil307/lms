@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { Route } from "nextjs-routes";
@@ -11,31 +11,27 @@ import { FormErrorResponse } from "@shared/types";
 import { ToastType, createNotification } from "@shared/utils";
 import { getStartPage } from "@app/routes";
 
-export const useAuthenticateMe = () => {
+export const useAuthenticateMe = (): UseMutationResult<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthFormValidationSchema> => {
     const router = useRouter();
-    return useMutation<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthFormValidationSchema>(
-        [MutationKeys.AUTHENTICATE_ME],
-        (data: AuthFormValidationSchema) => authApi.authMe(data),
-        {
-            onSuccess: async (response) => {
-                setCookie(ECookies.TOKEN, response.data.accessToken);
-                setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
-                const userRole = response.meta.user.roles[0].id;
-                setCookie(ECookies.USER_ROLE, userRole);
+    return useMutation([MutationKeys.AUTHENTICATE_ME], (data: AuthFormValidationSchema) => authApi.authMe(data), {
+        onSuccess: async (response) => {
+            setCookie(ECookies.TOKEN, response.data.accessToken);
+            setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
+            const userRole = response.meta.user.roles[0].id;
+            setCookie(ECookies.USER_ROLE, userRole);
 
-                if (router.query.redirect) {
-                    const redirectUrl = router.query.redirect as unknown as Route;
-                    await router.replace(redirectUrl);
-                } else {
-                    await router.replace(getStartPage(userRole));
-                }
-            },
-            onError: () => {
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка аутентификации",
-                });
-            },
-        }
-    );
+            if (router.query.redirect) {
+                const redirectUrl = router.query.redirect as unknown as Route;
+                await router.replace(redirectUrl);
+            } else {
+                await router.replace(getStartPage(userRole));
+            }
+        },
+        onError: () => {
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка аутентификации",
+            });
+        },
+    });
 };

@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { GetAdminFaqResponse, staticPageApi } from "@entities/staticPage";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
+import { FormErrorResponse } from "@shared/types";
 
-export const useAdminFaq = () => {
-    return useQuery<GetAdminFaqResponse>([QueryKeys.GET_ADMIN_FAQ], () => staticPageApi.getAdminFaq());
+export const useAdminFaq = (): UseQueryResult<GetAdminFaqResponse, AxiosError<FormErrorResponse>> => {
+    return useQuery([QueryKeys.GET_ADMIN_FAQ, [EntityNames.STATIC_FAQ, EntityNames.USER]], () => staticPageApi.getAdminFaq());
 };

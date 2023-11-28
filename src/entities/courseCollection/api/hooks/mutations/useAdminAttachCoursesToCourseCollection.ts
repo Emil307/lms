@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
@@ -12,12 +12,12 @@ import {
 
 export const useAdminAttachCoursesToCourseCollection = ({
     courseCollectionId,
-}: Pick<AttachAdminCoursesToCourseCollectionRequest, "courseCollectionId">) => {
-    return useMutation<
-        AttachAdminCoursesToCourseCollectionResponse,
-        AxiosError<FormErrorResponse>,
-        Omit<AttachAdminCoursesToCourseCollectionRequest, "courseCollectionId">
-    >(
+}: Pick<AttachAdminCoursesToCourseCollectionRequest, "courseCollectionId">): UseMutationResult<
+    AttachAdminCoursesToCourseCollectionResponse,
+    AxiosError<FormErrorResponse>,
+    Omit<AttachAdminCoursesToCourseCollectionRequest, "courseCollectionId">
+> => {
+    return useMutation(
         [MutationKeys.ATTACH_ADMIN_COURSE_TO_COURSE_COLLECTION, courseCollectionId],
         (data) => courseCollectionApi.attachAdminCoursesToCourseCollection({ ...data, courseCollectionId }),
         {

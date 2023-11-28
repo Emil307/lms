@@ -9,7 +9,7 @@ import { CourseCollectionDetailsPage } from "@pages/admin/settings";
 import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CourseCollectionApi } from "@entities/courseCollection";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
@@ -19,8 +19,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const courseCollectionApi = new CourseCollectionApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_COURSE_COLLECTION, id], () =>
-            courseCollectionApi.getAdminCourseCollection({ id })
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_ADMIN_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.USER], id],
+            () => courseCollectionApi.getAdminCourseCollection({ id })
         );
 
         return {

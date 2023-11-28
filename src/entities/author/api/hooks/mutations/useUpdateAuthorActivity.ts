@@ -7,7 +7,7 @@ import {
     UpdateAuthorActivityResponse,
     authorApi,
 } from "@entities/author";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
@@ -18,18 +18,25 @@ export const useUpdateAuthorActivity = ({ id, name }: Pick<UpdateAuthorActivityR
         (data) => authorApi.updateAuthorActivity({ ...data, id }),
         {
             onMutate: async ({ isActive }) => {
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHOR, id] });
-                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHORS] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHOR, [EntityNames.AUTHOR, EntityNames.USER], id] });
+                await queryClient.cancelQueries({ queryKey: [QueryKeys.GET_ADMIN_AUTHORS, [EntityNames.AUTHOR]] });
 
-                const previousAuthorData = queryClient.getQueryData<GetAdminAuthorResponse>([QueryKeys.GET_ADMIN_AUTHOR, id]);
-                const previousAuthorsData = queryClient.getQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS]);
+                const previousAuthorData = queryClient.getQueryData<GetAdminAuthorResponse>([
+                    QueryKeys.GET_ADMIN_AUTHOR,
+                    [EntityNames.AUTHOR, EntityNames.USER],
+                    id,
+                ]);
+                const previousAuthorsData = queryClient.getQueriesData<GetAdminAuthorsResponse>([
+                    QueryKeys.GET_ADMIN_AUTHORS,
+                    [EntityNames.AUTHOR],
+                ]);
 
                 queryClient.setQueryData<GetAdminAuthorResponse>(
-                    [QueryKeys.GET_ADMIN_AUTHOR, id],
+                    [QueryKeys.GET_ADMIN_AUTHOR, [EntityNames.AUTHOR, EntityNames.USER], id],
                     (previousData) => previousData && { ...previousData, isActive }
                 );
 
-                queryClient.setQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS], (previousData) => {
+                queryClient.setQueriesData<GetAdminAuthorsResponse>([QueryKeys.GET_ADMIN_AUTHORS, [EntityNames.AUTHOR]], (previousData) => {
                     if (!previousData) {
                         return undefined;
                     }
@@ -44,10 +51,13 @@ export const useUpdateAuthorActivity = ({ id, name }: Pick<UpdateAuthorActivityR
             },
             onError: (err, _, context) => {
                 if (typeof context === "object" && context !== null && "previousAuthorData" in context) {
-                    queryClient.setQueryData([QueryKeys.GET_ADMIN_AUTHOR, id], context.previousAuthorData);
+                    queryClient.setQueryData(
+                        [QueryKeys.GET_ADMIN_AUTHOR, [EntityNames.AUTHOR, EntityNames.USER], id],
+                        context.previousAuthorData
+                    );
                 }
                 if (typeof context === "object" && context !== null && "previousAuthorsData" in context) {
-                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_AUTHORS], context.previousAuthorsData);
+                    queryClient.setQueriesData([QueryKeys.GET_ADMIN_AUTHORS, [EntityNames.AUTHOR]], context.previousAuthorsData);
                 }
 
                 createNotification({

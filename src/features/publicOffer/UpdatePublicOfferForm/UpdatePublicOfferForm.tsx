@@ -10,7 +10,7 @@ import {
     usePublicOffer,
 } from "@entities/staticPage";
 import { FControlButtons, FTextEditor, Heading, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { initialValues } from "./constants";
 import { adaptDataForUpdatePublicOfferForm } from "./utils";
 import useStyles from "./UpdatePublicOfferForm.styles";
@@ -35,7 +35,7 @@ const UpdatePublicOfferForm = (props: UpdatePublicOfferFormProps) => {
                 initialValues={{ ...initialValues, ...adaptDataForUpdatePublicOfferForm(data) }}
                 validationSchema={$UpdatePublicOfferRequest}
                 mutationKey={[MutationKeys.UPDATE_PUBLIC_OFFER]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_PUBLIC_OFFER] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_PUBLIC_OFFER }}
                 mutationFunction={updatePublicOffer}
                 onSuccess={onSuccess}
                 disabledLoadingOnSuccess>

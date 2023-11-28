@@ -3,7 +3,7 @@ import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupFromList, groupApi } from "@entities/group";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { AddGroupButton, ListMenu } from "./components";
@@ -37,7 +37,7 @@ const Groups = ({ courseId }: GroupsProps) => {
             </Flex>
 
             <ManagedDataGrid<AdminGroupFromList, unknown, TCourseGroupsExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_GROUPS}
+                queryKey={[QueryKeys.GET_ADMIN_GROUPS, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER, EntityNames.STUDENT]]}
                 queryFunction={(params) => groupApi.getAdminGroups(adaptGetAdminGroupsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "courseId"]}
                 extraFilterParams={{ courseId }}

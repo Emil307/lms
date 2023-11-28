@@ -4,7 +4,7 @@ import { AlignLeft, Clipboard } from "react-feather";
 import { FormikHelpers } from "formik";
 import { FControlButtons, FFileInput, FInput, FTextEditor, FTextarea, Heading, ManagedForm } from "@shared/ui";
 import { GetAboutResponse, staticPageApi, useAbout } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { $UpdateAboutValidation, UpdateAboutValidation } from "./types";
 import { initialValues } from "./constants";
 import { adaptDataForUpdateAboutForm } from "./utils";
@@ -30,7 +30,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                 initialValues={{ ...initialValues, ...adaptDataForUpdateAboutForm(data) }}
                 validationSchema={$UpdateAboutValidation}
                 mutationKey={[MutationKeys.UPDATE_ABOUT]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ABOUT] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_ABOUT }}
                 mutationFunction={updateAboutPage}
                 onSuccess={onSuccess}
                 disabledLoadingOnSuccess>

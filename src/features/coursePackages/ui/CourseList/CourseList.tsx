@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { AdminCourseFromCoursePackageFilters } from "@entities/coursePackage";
 import { columnOrder, columns } from "./constant";
@@ -28,7 +28,10 @@ const CourseList = ({ coursePackageId }: CourseListProps) => {
                 <AddCoursesToCoursePackageButton coursePackageId={coursePackageId} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminCourseFromCoursePackageFilters>
-                queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_PACKAGE}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_PACKAGE,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "coursePackageId"]}
                 onClickCell={handleClickCell}

@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminStudentCourseFromList, courseApi } from "@entities/course";
 import { useUserRole } from "@entities/auth/hooks";
 import { Roles } from "@app/routes";
@@ -32,7 +32,10 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
                 <AddStudentCourseButton studentId={studentId} hidden={userRole === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminStudentCourseFromList, unknown, StudentCourseListExtraParams>
-                queryKey={QueryKeys.GET_ADMIN_STUDENT_COURSES}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_STUDENT_COURSES,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.GROUP, EntityNames.STUDENT],
+                ]}
                 queryFunction={(params) => courseApi.getAdminStudentCourses(params)}
                 queryCacheKeys={["page", "perPage", "sort", "studentId"]}
                 extraFilterParams={{ studentId }}

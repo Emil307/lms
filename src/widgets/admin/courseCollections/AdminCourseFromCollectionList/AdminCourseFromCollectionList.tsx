@@ -3,7 +3,7 @@ import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { Heading, ManagedDataGrid } from "@shared/ui";
-import { QueryKeys } from "@shared/constant";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminCourseFromList, courseApi } from "@entities/course";
 import { AdminCoursesFromCourseCollectionExtraFilters } from "@entities/courseCollection";
 import { AddCoursesToCourseCollectionModal } from "@features/courseCollections";
@@ -47,7 +47,10 @@ const AdminCourseFromCollectionList = ({ courseCollectionId, ...props }: AdminCo
                 <AddCoursesToCollectionButton onClick={openAddCoursesToCourseCollectionModal} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminCoursesFromCourseCollectionExtraFilters>
-                queryKey={QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_COLLECTION}
+                queryKey={[
+                    QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_COLLECTION,
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_COLLECTION],
+                ]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "collectionIds"]}
                 onClickCell={handleClickCell}

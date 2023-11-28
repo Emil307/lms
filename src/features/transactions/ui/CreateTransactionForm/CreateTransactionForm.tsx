@@ -56,7 +56,11 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                 initialValues={initialValues}
                 validationSchema={$CreateTransactionFormValidation}
                 mutationKey={[MutationKeys.CREATE_ADMIN_TRANSACTION]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_TRANSACTIONS] }]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_ADMIN_TRANSACTIONS] },
+                    { queryKey: [QueryKeys.GET_ADMIN_TRANSACTIONS_FILTERS] },
+                    { queryKey: [QueryKeys.GET_TRANSACTIONS_FILTERS] },
+                ]}
                 mutationFunction={createTransaction}
                 onSuccess={onSuccess}
                 onError={onError}>

@@ -1,10 +1,10 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React from "react";
 import { Button, FFileInputMultiple, FTextEditor, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { createNotification, ToastType, useMedia } from "@shared/utils";
 import { GetHomeworkResponse, UpdateHomeworkAnswerResponse, lessonApi } from "@entities/lesson";
-import { adaptUpdateLessonHomeworkAnswerRequest, getInitialValues } from "./utils";
+import { adaptUpdateLessonHomeworkAnswerRequest, getInitialValues, getKeysInvalidateQueries } from "./utils";
 import { $UpdateLessonHomeworkAnswerFormValidation, UpdateLessonHomeworkAnswerFormValidation } from "./types";
 
 export interface UpdateLessonHomeworkAnswerFormProps extends Omit<BoxProps, "children"> {
@@ -78,10 +78,7 @@ const UpdateLessonHomeworkAnswerForm = ({
                 initialValues={getInitialValues(data)}
                 validationSchema={$UpdateLessonHomeworkAnswerFormValidation}
                 mutationKey={[MutationKeys.UPDATE_LESSON_HOMEWORK_ANSWER]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_LESSON_HOMEWORK] },
-                    { queryKey: [QueryKeys.GET_LESSON, lessonId, courseId] },
-                ]}
+                keysInvalidateQueries={getKeysInvalidateQueries({ courseId, lessonId })}
                 mutationFunction={updateLessonHomeworkAnswer}
                 onSuccess={onSuccess}
                 onError={onError}

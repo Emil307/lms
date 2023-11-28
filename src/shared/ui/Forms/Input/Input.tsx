@@ -97,7 +97,7 @@ const Input = ({
                     return onChange(value.replace(REGEXP_INPUT_TEXT, ""));
                 case "number": {
                     const result = value.replace(REGEXP_INPUT_NUMBER, "");
-                    return result ? onChange(Number(result)) : onChange("");
+                    return onChange(result);
                 }
                 case "password":
                     return onChange(value.replace(REGEXP_INPUT_PASSWORD, ""));

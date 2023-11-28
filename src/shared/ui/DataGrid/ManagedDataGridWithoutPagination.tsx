@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
+import { QueryKey, useQuery } from "@tanstack/react-query";
 import {
     DataGridResponseWithoutPagination,
     TCollapsedFiltersBlockProps,
@@ -37,7 +37,7 @@ export type TManagedDataGridWithoutPaginationProps<
     Formik extends FormikValues
 > = {
     queryFunction: (params: Request) => Promise<DataGridResponseWithoutPagination<Data, MetaData>>;
-    queryKey: string;
+    queryKey: QueryKey;
     queryCacheKeys?: Array<keyof Request>;
     disableQueryParams?: boolean;
 } & TExtendedProps<Data, Filter, Extra, Meta, MetaData, Formik> &
@@ -95,7 +95,7 @@ function ManagedDataGridWithoutPagination<
         isRefetching,
         isFetching,
     } = useQuery<DataGridResponseWithoutPagination<Data, MetaData>>({
-        queryKey: [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
+        queryKey: [...queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
         queryFn: () => queryFunction(paramsForRequest),
         enabled: router.isReady && ((defaultBlock && !filters?.isEmptyFilter) || !defaultBlock),
     });

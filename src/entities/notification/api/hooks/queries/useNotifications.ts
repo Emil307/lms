@@ -11,6 +11,7 @@ export const useNotifications = (params: Omit<GetNotificationsRequest, "page">) 
             onSuccess: () => {
                 queryClient.invalidateQueries([QueryKeys.GET_NEW_NOTIFICATIONS]);
             },
+            cacheTime: 0,
         }
     );
 };

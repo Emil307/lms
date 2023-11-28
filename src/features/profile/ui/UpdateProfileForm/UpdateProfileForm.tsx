@@ -3,7 +3,7 @@ import { Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, FAvatarInput, FControlButtons, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { User, UpdateMeResponse, authApi, UpdateMeForm, $UpdateMeForm } from "@entities/auth";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import { adaptDataForUpdateProfileForm } from "@features/profile";
@@ -51,7 +51,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                 initialValues={{ ...initialValues, ...adaptData }}
                 validationSchema={$UpdateMeForm}
                 mutationKey={[MutationKeys.UPDATE_ME]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ME] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.AUTH }}
                 mutationFunction={updateMe}
                 isLoading={isLoading}
                 onCancel={handleCloseForm}

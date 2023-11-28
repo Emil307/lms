@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ReactNode } from "react";
 import { Button, FCheckbox, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { $UpdateFaqRequest, AdminFaqItem, UpdateFaqRequest, staticPageApi } from "@entities/staticPage";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { initialValues } from "./constants";
 import useStyles from "./UpdateFaqForm.styles";
 
@@ -29,7 +29,7 @@ const UpdateFaqForm = ({ data, actionSlot, onClose, ...props }: UpdateFaqFormPro
                 initialValues={{ ...initialValues, ...data }}
                 validationSchema={$UpdateFaqRequest}
                 mutationKey={[MutationKeys.UPDATE_FAQ]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_FAQ] }]}
+                invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STATIC_FAQ }}
                 mutationFunction={updateFaq}
                 onSuccess={onSuccess}
                 disableOverlay

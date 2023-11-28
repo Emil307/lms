@@ -3,10 +3,10 @@ import React from "react";
 import { FieldArray } from "formik";
 import { ArrowLeft } from "react-feather";
 import { Button, FProgressBar, ManagedForm } from "@shared/ui";
-import { MutationKeys, QueryKeys } from "@shared/constant";
+import { MutationKeys } from "@shared/constant";
 import { createNotification, getPluralString, ToastType } from "@shared/utils";
 import { GetTestPassResponse, UpdateTestPassResponse, lessonApi, GetTestResponse } from "@entities/lesson";
-import { adaptUpdateLessonTestPassRequest, getInitialValues } from "./utils";
+import { adaptUpdateLessonTestPassRequest, getInitialValues, getKeysInvalidateQueries } from "./utils";
 import { $UpdateLessonTestPassFormValidation, UpdateLessonTestPassFormValidation } from "./types";
 import useStyles from "./UpdateLessonTestPassForm.styles";
 import { Task } from "./components";
@@ -49,11 +49,7 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                 initialValues={getInitialValues(testData, testPassData)}
                 validationSchema={$UpdateLessonTestPassFormValidation}
                 mutationKey={[MutationKeys.UPDATE_LESSON_TEST_PASS]}
-                keysInvalidateQueries={[
-                    { queryKey: [QueryKeys.GET_LESSON_TEST_PASS] },
-                    { queryKey: [QueryKeys.GET_LESSON, lessonId, courseId] },
-                    { queryKey: [QueryKeys.GET_GROUP_MODULES] },
-                ]}
+                keysInvalidateQueries={getKeysInvalidateQueries({ lessonId, courseId })}
                 mutationFunction={updateLessonTestPass}
                 onSuccess={onSuccess}
                 onError={onError}
