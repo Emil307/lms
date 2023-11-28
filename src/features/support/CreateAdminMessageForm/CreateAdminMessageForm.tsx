@@ -12,10 +12,10 @@ import useStyles from "./CreateAdminMessageForm.styles";
 
 export interface CreateAdminMessageFormProps extends BoxProps {
     conversationId?: number;
-    setScrollAfterSendMessage: (value: boolean) => void;
+    setScrollToLastMessage: (value: boolean) => void;
 }
 
-const CreateAdminMessageForm = ({ conversationId, setScrollAfterSendMessage, ...props }: CreateAdminMessageFormProps) => {
+const CreateAdminMessageForm = ({ conversationId, setScrollToLastMessage, ...props }: CreateAdminMessageFormProps) => {
     const { classes } = useStyles();
 
     const onSuccess = (
@@ -23,7 +23,7 @@ const CreateAdminMessageForm = ({ conversationId, setScrollAfterSendMessage, ...
         { resetForm }: Omit<FormikHelpers<CreateAdminMessageFormValidation>, "setFieldError">
     ) => {
         resetForm();
-        setScrollAfterSendMessage(true);
+        setScrollToLastMessage(true);
         createNotification({
             type: ToastType.SUCCESS,
             title: "Сообщение успешно отправлено",
@@ -47,7 +47,10 @@ const CreateAdminMessageForm = ({ conversationId, setScrollAfterSendMessage, ...
                 initialValues={initialValues}
                 validationSchema={$CreateAdminMessageFormValidation.partial()}
                 mutationKey={[MutationKeys.CREATE_ADMIN_SUPPORT_MESSAGE]}
-                keysInvalidateQueries={[{ queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] }]}
+                keysInvalidateQueries={[
+                    { queryKey: [QueryKeys.GET_ADMIN_SUPPORT_MESSAGES] },
+                    { queryKey: [QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS] },
+                ]}
                 mutationFunction={(values) => supportApi.createAdminSupportMessage({ ...values, conversationId })}
                 disabledLoadingOnSuccess
                 onSuccess={onSuccess}

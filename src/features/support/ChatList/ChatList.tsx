@@ -1,7 +1,9 @@
 import { Box, Flex, FlexProps, Loader, ScrollArea } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useMemo } from "react";
-import { AdminSupportConversationFromList, useAdminSupportConversations } from "@entities/support";
+import { StringParam, useQueryParam } from "use-query-params";
+import { useRouter } from "next/router";
+import { ADMIN_MESSAGES_QUERY_SELECT_NAME, AdminSupportConversationFromList, useAdminSupportConversations } from "@entities/support";
 import { Paragraph } from "@shared/ui";
 import { ChatItem } from "./components";
 import { initialParams } from "./constants";
@@ -22,7 +24,10 @@ const ChatList = ({
     onSelect,
     ...props
 }: ChatListProps) => {
+    const router = useRouter();
     const { classes } = useStyles();
+    const [query] = useQueryParam(ADMIN_MESSAGES_QUERY_SELECT_NAME, StringParam);
+
     const {
         data: supportConversationsData,
         hasNextPage,
@@ -35,7 +40,9 @@ const ChatList = ({
             ...initialParams,
             userId: selectedConversation?.id,
             isSelectedConversationByManageSearch,
-        })
+        }),
+        //запрашиваем только тогда, когда нет выбранного диалога в серче или когда диалог выбран через серч
+        router.isReady && ((!!query && isSelectedConversationByManageSearch) || !query)
     );
     const { ref: lastElemRef, entry } = useIntersection();
 

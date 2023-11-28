@@ -1,7 +1,12 @@
 import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
-import { AdminSupportConversationFromList, supportApi } from "@entities/support";
-import { QueryKeys } from "@shared/constant";
+import {
+    ADMIN_MESSAGES_QUERY_SEARCH_NAME,
+    ADMIN_MESSAGES_QUERY_SELECT_NAME,
+    AdminSupportConversationFromList,
+    supportApi,
+} from "@entities/support";
+import { EntityNames, QueryKeys } from "@shared/constant";
 import { Heading, ManagedSearch } from "@shared/ui";
 import { AdminMessageList, ChatList, CreateAdminMessageForm } from "@features/support";
 import { HeaderSelectedConversation, SearchItemComponent } from "./components";
@@ -10,7 +15,7 @@ import useStyles from "./MessagesPage.styles";
 const MessagesPage = () => {
     const [selectedConversation, setSelectedConversation] = useState<AdminSupportConversationFromList | null>(null);
     const [isSelectedConversationByManageSearch, setIsSelectedConversationByManageSearch] = useState(false);
-    const [scrollAfterSendMessage, setScrollAfterSendMessage] = useState<boolean>(true);
+    const [scrollToLastMessage, setScrollToLastMessage] = useState<boolean>(true);
 
     const { classes } = useStyles({ hasSelectedConversation: !!selectedConversation });
 
@@ -18,14 +23,17 @@ const MessagesPage = () => {
 
     const handleSelectConversationManageSearch = (item: AdminSupportConversationFromList) => {
         setSelectedConversation(item);
+        setIsSelectedConversationByManageSearch(true);
+        setScrollToLastMessage(true);
     };
 
     const handleSelectConversationChatList = (conversation: AdminSupportConversationFromList) => {
         setSelectedConversation(conversation);
+        setScrollToLastMessage(true);
     };
 
-    const handleChangeSearchDebouncedValue = (value: string) => {
-        setIsSelectedConversationByManageSearch(!!value);
+    const handleCleanManageSearch = () => {
+        setIsSelectedConversationByManageSearch(false);
     };
 
     return (
@@ -34,9 +42,10 @@ const MessagesPage = () => {
             <Flex className={classes.messagesBlockContainer}>
                 <Box className={classes.chatContainerWrapper}>
                     <ManagedSearch<AdminSupportConversationFromList>
-                        queryKey={QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS_SEARCH}
+                        queryKey={[QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS_SEARCH, [EntityNames.USER, EntityNames.STUDENT]]}
                         queryFunction={(params) => supportApi.getAdminSupportConversations(params)}
-                        queryCacheKeys={["page", "perPage", "query"]}
+                        querySearchName={ADMIN_MESSAGES_QUERY_SEARCH_NAME}
+                        querySelectName={ADMIN_MESSAGES_QUERY_SELECT_NAME}
                         searchInputProps={{
                             placeholder: "Найти пользователя",
                         }}
@@ -44,8 +53,8 @@ const MessagesPage = () => {
                             className: classes.searchUserWrapper,
                         }}
                         onSelect={handleSelectConversationManageSearch}
+                        onClean={handleCleanManageSearch}
                         itemComponent={(props) => <SearchItemComponent {...props} />}
-                        onChangeSearchDebouncedValue={handleChangeSearchDebouncedValue}
                     />
                     <ChatList
                         maxHeightContainer={568}
@@ -61,12 +70,12 @@ const MessagesPage = () => {
                     />
                     <AdminMessageList
                         conversation={selectedConversation}
-                        scrollAfterSendMessage={scrollAfterSendMessage}
-                        setScrollAfterSendMessage={setScrollAfterSendMessage}
+                        scrollToLastMessage={scrollToLastMessage}
+                        setScrollToLastMessage={setScrollToLastMessage}
                         maxHeightContainer={450}>
                         <CreateAdminMessageForm
                             conversationId={selectedConversation?.supportConversation.id}
-                            setScrollAfterSendMessage={setScrollAfterSendMessage}
+                            setScrollToLastMessage={setScrollToLastMessage}
                             pt={{ base: 16, md: 32 }}
                         />
                     </AdminMessageList>

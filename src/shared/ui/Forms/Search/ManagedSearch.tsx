@@ -1,59 +1,64 @@
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useDebouncedValue, useIntersection } from "@mantine/hooks";
+import { useIntersection } from "@mantine/hooks";
 import { Box, BoxProps, Popover, ScrollArea } from "@mantine/core";
-import { TPaginationResponse, useInfiniteRequest } from "@shared/utils";
+import { useQuery } from "@tanstack/react-query";
+import { TPaginationResponse, useConcatOptionsForSelect, useInfiniteRequest, useSelectFilterWithQuery } from "@shared/utils";
 import { Loader, Paragraph } from "@shared/ui";
-import { TExtraFiltersProps, TFunctionParams } from "./types";
+import { REQUEST_FILTERS_DEFAULT_PARAMS } from "@shared/constant";
+import { ManagedSelectFuncParams } from "./types";
 import Search, { SearchProps } from "./Search";
 import useStyles from "./ManagedSearch.styles";
 
-export type TManagedSearchProps<T extends Record<string, any> & { id: unknown }, E, R> = {
-    queryFunction: (params: R) => Promise<TPaginationResponse<T[]>>;
-    queryKey: string;
-    queryCacheKeys?: Array<keyof R>;
-    debounceValue?: number;
+export type TManagedSearchProps<T extends Record<string, any> & { id: unknown }> = {
+    queryFunction: (params: ManagedSelectFuncParams) => Promise<TPaginationResponse<T[]>>;
+    queryKey: (string | string[])[];
+    querySearchName: string;
+    querySelectName: string;
+    debounceTime?: number;
     searchInputProps: SearchProps;
     wrapperContainerProps: Omit<BoxProps, "children">;
-    onChangeSearchDebouncedValue?: (value: string) => void;
     itemComponent: ({
         data,
         onClick,
         isSelected,
     }: {
-        data: T;
+        data?: T;
         onClick?: (item: T, newSearchValue: string) => void;
         isSelected: boolean;
     }) => ReactNode;
     onSelect: (item: T) => void;
-} & TExtraFiltersProps<E>;
+    onClean: () => void;
+};
 
 /**
  * Компонент search с react-query.
  * @template T - Тип возвращаемого массива данных.
  * @template E - Тип object для передачи дополнительных параметров для запроса
  */
-function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unknown, R = TFunctionParams<E>>(
-    props: TManagedSearchProps<T, E, R>
-) {
+function ManagedSearch<T extends Record<string, any> & { id: unknown }>(props: TManagedSearchProps<T>) {
     const router = useRouter();
     const { classes } = useStyles();
     const [popoverOpened, setPopoverOpened] = useState(false);
     const {
         queryFunction,
         queryKey,
-        queryCacheKeys = [],
-        extraFilterParams = {},
-        debounceValue = 1000,
+        querySearchName,
+        querySelectName,
+        debounceTime,
         itemComponent,
         onSelect,
+        onClean,
         searchInputProps,
         wrapperContainerProps,
-        onChangeSearchDebouncedValue = () => undefined,
     } = props;
-    const [query, setQuery] = useState("");
-    const [selectedItemId, setSelectedItemId] = useState<unknown | null>(null);
-    const [searchDebouncedValue] = useDebouncedValue(query, debounceValue);
+
+    const { searchValue, searchValueDebounced, selectedValue, handleChange, handleInput } = useSelectFilterWithQuery({
+        querySearchName,
+        querySelectName,
+        debounceTime,
+    });
+
     const { ref: lastElemRef, entry } = useIntersection();
 
     useEffect(() => {
@@ -62,43 +67,64 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
         }
     }, [entry]);
 
-    useEffect(() => {
-        onChangeSearchDebouncedValue(searchDebouncedValue);
-    }, [searchDebouncedValue]);
+    const filterForSelectedData = {
+        ...REQUEST_FILTERS_DEFAULT_PARAMS,
+        filter: { id: Number(selectedValue) },
+    } as ManagedSelectFuncParams;
 
-    const paramsForRequest = {
-        query: searchDebouncedValue,
-        ...extraFilterParams,
-    } as R;
+    const filterForSearchedData = { ...REQUEST_FILTERS_DEFAULT_PARAMS, query: searchValueDebounced } as ManagedSelectFuncParams;
+
+    const { data: selectedData } = useQuery<TPaginationResponse<T[]>>(
+        [...queryKey, filterForSelectedData],
+        () => queryFunction(filterForSelectedData),
+        {
+            enabled: !!selectedValue,
+        }
+    );
 
     const {
-        data: queryData,
+        data: searchedData,
         isLoading,
         isRefetching,
         isFetching,
         hasNextPage,
         fetchNextPage,
     } = useInfiniteRequest<T>(
-        [queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
-        ({ pageParam = 1 }) => queryFunction({ ...paramsForRequest, page: pageParam }),
+        [...queryKey, filterForSearchedData],
+        ({ pageParam = 1 }) => queryFunction({ ...filterForSearchedData, page: pageParam }),
         {
             enabled: router.isReady,
         }
     );
 
+    useEffect(() => {
+        if (router.isReady && !selectedValue) {
+            return onClean();
+        }
+        if (selectedData && selectedData.data.length) {
+            onSelect(selectedData.data[0]);
+        }
+    }, [selectedData, selectedValue, router.isReady]);
+
     const handleSelectItem = (item: T, newSearchValue: string) => {
-        onSelect(item);
-        setSelectedItemId(item.id);
+        handleChange(String(item.id));
+        handleInput(newSearchValue);
         setPopoverOpened(false);
-        setQuery(newSearchValue);
     };
 
+    const options = useConcatOptionsForSelect({
+        searched: searchedData?.data,
+        selected: selectedData?.data,
+        label: () => "",
+        withFullData: true,
+    });
+
     const renderItems = () => {
-        return queryData?.data.map((item) => {
-            const isSelected = selectedItemId === item.id;
+        return options.map((item) => {
+            const isSelected = selectedValue === item.value;
             return (
-                <Box key={String(item.id)} ref={lastElemRef}>
-                    {itemComponent({ data: item, onClick: handleSelectItem, isSelected })}
+                <Box key={String(item.value)} ref={lastElemRef}>
+                    {itemComponent({ data: item.data, onClick: handleSelectItem, isSelected })}
                 </Box>
             );
         });
@@ -117,7 +143,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
     };
 
     const renderContent = () => {
-        if (!queryData?.data.length) {
+        if (!searchedData?.data.length) {
             return renderNothingFound();
         }
         return (
@@ -138,7 +164,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }, E = unkn
             <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
                 <Popover.Target>
                     <Box onFocusCapture={() => setPopoverOpened(true)} onBlurCapture={() => setPopoverOpened(false)}>
-                        <Search {...searchInputProps} styleVariant="default" value={query} setValue={setQuery} />
+                        <Search {...searchInputProps} styleVariant="default" value={searchValue} setValue={handleInput} />
                     </Box>
                 </Popover.Target>
                 <Popover.Dropdown className={classes.dropdownContainer} p={8}>

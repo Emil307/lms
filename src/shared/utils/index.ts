@@ -21,3 +21,5 @@ export * from "./isMyCourse";
 export * from "./useMedia";
 export * from "./getArrayUniqueByKey";
 export * from "./invalidateQueriesWithPredicate";
+export * from "./useSelectWithQuery";
+export * from "./useConcatOptionsForSelect";

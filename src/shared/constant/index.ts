@@ -5,3 +5,4 @@ export * from "./companyLinks";
 export * from "./articleTypes";
 export * from "./entityNames";
 export * from "./filterTypes";
+export * from "./request";

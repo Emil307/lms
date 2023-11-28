@@ -11,16 +11,16 @@ export interface AdminMessageListProps extends Omit<FlexProps, "onSelect"> {
     conversation: AdminSupportConversationFromList | null;
     variant?: "default" | "reverse";
     maxHeightContainer: number;
-    scrollAfterSendMessage: boolean;
-    setScrollAfterSendMessage: (value: boolean) => void;
+    scrollToLastMessage: boolean;
+    setScrollToLastMessage: (value: boolean) => void;
 }
 
 const AdminMessageList = ({
     conversation,
     variant,
     maxHeightContainer,
-    scrollAfterSendMessage,
-    setScrollAfterSendMessage,
+    scrollToLastMessage,
+    setScrollToLastMessage,
     children,
     ...props
 }: AdminMessageListProps) => {
@@ -41,9 +41,9 @@ const AdminMessageList = ({
         if (!messagesData?.data) {
             return;
         }
-        if (scrollAfterSendMessage) {
+        if (scrollToLastMessage) {
             containerRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
-            setScrollAfterSendMessage(false);
+            setScrollToLastMessage(false);
         }
     }, [messagesData?.data]);
 

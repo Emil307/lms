@@ -1,8 +1,12 @@
-import { TDefaultRequestParams } from "@shared/types";
+import { z } from "zod";
 
-export type TFunctionParams<F = unknown> = TDefaultRequestParams &
-    F & {
-        query: string;
-    };
+export type ManagedSelectFuncParams = z.infer<typeof $ManagedSelectFuncParams>;
 
-export type TExtraFiltersProps<E> = E extends Record<string, any> ? { extraFilterParams: E } : { extraFilterParams?: never };
+const $ManagedSelectFuncParams = z.object({
+    page: z.number(),
+    perPage: z.number(),
+    query: z.string().optional(),
+    filter: z.object({
+        id: z.number().optional(),
+    }),
+});

@@ -5,13 +5,17 @@ import { getFullName } from "@shared/utils";
 import useStyles from "./SearchItemComponent.styles";
 
 export interface SearchItemComponentProps extends Omit<FlexProps, "onClick"> {
-    data: AdminSupportConversationFromList;
+    data?: AdminSupportConversationFromList;
     isSelected: boolean;
     onClick?: (item: AdminSupportConversationFromList, newSearchValue: string) => void;
 }
 
 const SearchItemComponent = ({ data, isSelected, onClick = () => undefined }: SearchItemComponentProps) => {
     const { classes } = useStyles({ isSelected });
+
+    if (!data) {
+        return null;
+    }
 
     const fio = getFullName({ data: data.profile });
 
