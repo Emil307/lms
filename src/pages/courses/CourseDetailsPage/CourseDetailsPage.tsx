@@ -27,8 +27,6 @@ const CourseDetailsPage = () => {
         }
     }, [courseData]);
 
-    //TODO: написать логику чтобы открывалась модалка для покупки курса
-
     if (isLoading || (courseData && isMyCourse(courseData))) {
         return <Loader />;
     }

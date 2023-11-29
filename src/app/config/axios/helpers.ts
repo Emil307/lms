@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
-import { authPath, logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
+import { authApiUrl, logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
 import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
@@ -133,7 +133,8 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
         Router.replace(notFoundPath);
         return Promise.reject(error);
     }
-    if (isAuthError && window.location.pathname === authPath) {
+    //Если поймали 401 при неудачной авторизации
+    if (isAuthError && error.config?.url === authApiUrl) {
         return Promise.reject(error);
     }
     if (isAuthError) {

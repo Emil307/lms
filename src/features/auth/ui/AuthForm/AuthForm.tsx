@@ -9,18 +9,24 @@ import { $AuthFormValidationSchema, AuthFormValidationSchema, useFormStyles } fr
 import { useAuthenticateMe } from "@entities/auth";
 import { initialValues } from "./constants";
 
-export interface AuthFormProps extends BoxProps {}
+export interface AuthFormProps extends BoxProps {
+    skipRedirectAfterAuth?: boolean;
+    onSuccess?: () => void;
+}
 
-const AuthForm = (props: AuthFormProps) => {
+const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, ...boxProps }: AuthFormProps) => {
     const { classes } = useFormStyles();
 
-    const { mutate: authenticate, isLoading, isSuccess } = useAuthenticateMe();
+    const { mutate: authenticate, isLoading, isSuccess } = useAuthenticateMe({ skipRedirect: skipRedirectAfterAuth });
 
     const config: FormikConfig<AuthFormValidationSchema> = {
         initialValues,
         validationSchema: $AuthFormValidationSchema,
         onSubmit: (values, { setFieldError }) => {
             authenticate(values, {
+                onSuccess: () => {
+                    onSuccess();
+                },
                 onError: (error) => {
                     if (axios.isAxiosError(error)) {
                         setFieldError("email", error.response?.data.message);
@@ -32,7 +38,7 @@ const AuthForm = (props: AuthFormProps) => {
     };
 
     return (
-        <Box className={classes.root} {...props}>
+        <Box className={classes.root} {...boxProps}>
             <Flex className={classes.inner}>
                 <Link href="/" className={classes.logoLink}>
                     <Logo />

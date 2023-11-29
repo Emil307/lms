@@ -3,7 +3,6 @@ import { EntityNames, QueryKeys } from "@shared/constant";
 
 export interface InvalidateQueriesWithPredicateProps {
     entityName: EntityNames;
-    // include?: EntityNames[];
     exclude?: QueryKeys[];
 }
 
@@ -14,9 +13,6 @@ export const invalidateQueriesWithPredicate = ({ entityName, exclude = [] }: Inv
                 if (exclude.includes(queryKey[0] as QueryKeys)) {
                     return false;
                 }
-                // if (include.length) {
-                //     return queryKey[1].every((key) => include.includes(key)) && queryKey[1].includes(entityName);
-                // }
                 return queryKey[1].includes(entityName);
             }
             return false;

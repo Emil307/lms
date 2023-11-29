@@ -1,10 +1,9 @@
 import { Text, Flex } from "@mantine/core";
-import { closeModal, openModal } from "@mantine/modals";
 import { getPluralString } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { ArticlePackageFromList } from "@entities/articlePackage";
-import { SelectPaymentTypeModal } from "@features/payment";
+import { useAuthPay } from "@app/utils";
 import useStyles from "./Footer.styles";
 
 export interface FooterProps {
@@ -14,17 +13,7 @@ export interface FooterProps {
 const Footer = ({ data }: FooterProps) => {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const handleCloseSelectPaymentTypeModal = () => closeModal("SELECT_PAYMENT_TYPE");
-
-    const handleOpenSelectPaymentTypeModal = () => {
-        openModal({
-            modalId: "SELECT_PAYMENT_TYPE",
-            title: `Получить доступ к подборке статей «${data.name}»`,
-            children: (
-                <SelectPaymentTypeModal entityType="article_package" entityId={data.id} onClose={handleCloseSelectPaymentTypeModal} />
-            ),
-        });
-    };
+    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "article_package" });
 
     const renderAmount = () => {
         const { discount, fullPrice } = data;
@@ -54,7 +43,7 @@ const Footer = ({ data }: FooterProps) => {
                 </Flex>
                 {renderAmount()}
             </Flex>
-            <Button onClick={handleOpenSelectPaymentTypeModal} w="min-content">
+            <Button onClick={handleBuyEntity} w="min-content">
                 Получить доступ
             </Button>
         </Flex>
