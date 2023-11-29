@@ -4,7 +4,7 @@ import calendar from "dayjs/plugin/calendar";
 import { Route } from "nextjs-routes";
 import { NotificationFromList, NotificationHomeworkMessageType, NotificationSupportMessageType } from "@entities/notification";
 import { Roles } from "@app/routes";
-import { ADMIN_MESSAGES_QUERY_SEARCH_NAME } from "@entities/support";
+import { ADMIN_MESSAGES_QUERY_SEARCH_NAME, ADMIN_MESSAGES_QUERY_SELECT_NAME } from "@entities/support";
 import { getFullName } from "@shared/utils";
 import { NotificationData } from "./types";
 
@@ -46,8 +46,7 @@ const getSupportMessageLink = (data: NotificationSupportMessageType, userRole: n
                 pathname: "/admin/messages",
                 query: {
                     [ADMIN_MESSAGES_QUERY_SEARCH_NAME]: getFullName({ data: data.sender.profile }),
-                    //TODO: Доделать ссылку на диалог
-                    // [ADMIN_MESSAGES_QUERY_SELECT_NAME]: String(data.message.id)
+                    [ADMIN_MESSAGES_QUERY_SELECT_NAME]: String(data.sender.id),
                 },
             };
         default:

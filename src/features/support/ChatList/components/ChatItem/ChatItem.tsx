@@ -1,4 +1,4 @@
-import { Avatar, Flex, FlexProps, ThemeIcon, Indicator } from "@mantine/core";
+import { Avatar, Flex, FlexProps, ThemeIcon, Indicator, Box } from "@mantine/core";
 import { memo } from "react";
 import { AdminSupportConversationFromList } from "@entities/support";
 import AvatarIcon from "public/icons/avatar.svg";
@@ -28,18 +28,22 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
                         </ThemeIcon>
                     </Avatar>
                     <Flex className={classes.userInfo}>
-                        <Paragraph variant="text-small-m" className={classes.userFullName} lineClamp={1}>
-                            {getFullName({ data: data.profile })}
-                        </Paragraph>
-                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>
+                        <Box className={classes.textWrapper}>
+                            <Paragraph variant="text-small-m" className={classes.userFullName}>
+                                {getFullName({ data: data.profile })}
+                            </Paragraph>
+                        </Box>
+                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage} color="gray45">
                             {data.lastSupportMessage ? getFormatCreatedAt(data.lastSupportMessage.createdAt) : "-"}
                         </Paragraph>
                     </Flex>
                 </Flex>
 
-                <Paragraph variant="text-caption" className={classes.lastMesssageContent} lineClamp={1}>
-                    {data.lastSupportMessage?.message}
-                </Paragraph>
+                <Box className={classes.textWrapper}>
+                    <Paragraph variant="text-caption" className={classes.lastMesssageContent}>
+                        {data.lastSupportMessage?.message}
+                    </Paragraph>
+                </Box>
             </Flex>
         </Indicator>
     );

@@ -38,6 +38,10 @@ export default createStyles((theme) => ({
         display: "contents",
         width: "100%",
         minHeight: "100%",
+
+        [theme.fn.smallerThan("sm")]: {
+            display: "block",
+        },
     },
     footer: {
         flex: "0 0 auto",
@@ -46,7 +50,6 @@ export default createStyles((theme) => ({
         padding: 32,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
-        // height: "100%",
 
         [theme.fn.smallerThan("sm")]: {
             padding: 24,

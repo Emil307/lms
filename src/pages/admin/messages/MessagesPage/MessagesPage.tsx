@@ -1,5 +1,6 @@
 import { Box, Flex } from "@mantine/core";
 import React, { useState } from "react";
+import { StringParam, useQueryParams, withDefault } from "use-query-params";
 import {
     ADMIN_MESSAGES_QUERY_SEARCH_NAME,
     ADMIN_MESSAGES_QUERY_SELECT_NAME,
@@ -13,13 +14,21 @@ import { HeaderSelectedConversation, SearchItemComponent } from "./components";
 import useStyles from "./MessagesPage.styles";
 
 const MessagesPage = () => {
+    const [_query, setQuery] = useQueryParams({
+        [ADMIN_MESSAGES_QUERY_SEARCH_NAME]: withDefault(StringParam, ""),
+        [ADMIN_MESSAGES_QUERY_SELECT_NAME]: withDefault(StringParam, ""),
+    });
+
     const [selectedConversation, setSelectedConversation] = useState<AdminSupportConversationFromList | null>(null);
     const [isSelectedConversationByManageSearch, setIsSelectedConversationByManageSearch] = useState(false);
     const [scrollToLastMessage, setScrollToLastMessage] = useState<boolean>(true);
 
     const { classes } = useStyles({ hasSelectedConversation: !!selectedConversation });
 
-    const handleCloseSelectedConversation = () => setSelectedConversation(null);
+    const handleCloseSelectedConversation = () => {
+        setSelectedConversation(null);
+        setQuery({ [ADMIN_MESSAGES_QUERY_SEARCH_NAME]: undefined, [ADMIN_MESSAGES_QUERY_SELECT_NAME]: undefined });
+    };
 
     const handleSelectConversationManageSearch = (item: AdminSupportConversationFromList) => {
         setSelectedConversation(item);

@@ -41,12 +41,22 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
     },
     userFullName: {
         color: isSelected ? theme.colors.primaryHover[0] : theme.colors.dark[0],
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
     },
     createdAtLastMessage: {
-        color: theme.colors.gray45[0],
         whiteSpace: "nowrap",
     },
     lastMesssageContent: {
         color: isSelected ? theme.colors.dark[0] : theme.colors.gray45[0],
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+    },
+    textWrapper: {
+        display: "table",
+        width: "fit-content",
+        tableLayout: "fixed",
     },
 }));
