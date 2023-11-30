@@ -99,20 +99,21 @@ export const whenCoursesMicroserviceRoute: TAxiosRunWhen = (config) => {
 export const whenArticlesMicroserviceRoute: TAxiosRunWhen = (config) => {
     return (
         !!config.url?.startsWith("admin/articles") ||
-        !!config.url?.startsWith("articles") ||
+        (!!config.url?.startsWith("articles") && !config.url.includes("payment-invoices")) ||
         !!config.url?.startsWith("admin/article-packages") ||
         (!!config.url?.startsWith("category") && config.url.includes("article")) ||
         (!!config.url?.startsWith("courses") && config.url.includes("articles")) ||
         (!!config.url?.startsWith("admin/courses") && config.url.includes("articles")) ||
         (!!config.url?.startsWith("admin/users") && config.url.includes("article-packages")) ||
         !!config.url?.startsWith("me/articles") ||
-        !!config.url?.includes("article-packages")
+        (!!config.url?.includes("article-packages") && !config.url.includes("payment-invoices"))
     );
 };
 
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);
 
-export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosError) => {
+export const handleAxiosError: TAxiosResponseInterceptorError = async (axiosError: AxiosError) => {
+    const error = axiosError;
     const errorCode = error.code;
     const isNetworkError = errorCode === "ERR_NETWORK";
     if (isNetworkError) {
@@ -124,6 +125,7 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
     const isAccessError = statusCode === 403 || statusCode === 404;
     const isServerError = statusCode === 500;
     const isAuthError = statusCode === 401;
+    const isExceedingError = statusCode === 429;
 
     if (isServerError) {
         Router.replace(serverErrorPath);
@@ -141,5 +143,22 @@ export const handleAxiosError: TAxiosResponseInterceptorError = (error: AxiosErr
         Router.replace(logoutPath);
         return Promise.reject(error);
     }
+    if (isExceedingError) {
+        return Promise.reject(error);
+    }
+
+    const errorResponseData = error.response?.data;
+
+    if (!error.response) {
+        return Promise.reject(error);
+    }
+
+    if (errorResponseData instanceof Blob) {
+        const preparedErrorResponseDataString = await errorResponseData.text();
+        error.response.data = JSON.parse(preparedErrorResponseDataString);
+    } else {
+        error.response.data = errorResponseData;
+    }
+
     return Promise.reject(error);
 };

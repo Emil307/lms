@@ -15,7 +15,7 @@ export interface MainInfoPanelProps extends Omit<FlexProps, "children"> {
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "course_package" });
+    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "coursePackage" });
 
     const renderAmount = () => {
         if (data.discount) {

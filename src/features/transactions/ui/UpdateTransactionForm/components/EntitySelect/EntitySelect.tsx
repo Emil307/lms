@@ -33,14 +33,14 @@ const EntitySelect = ({ name, entityType, entity }: EntitySelectProps) => {
     const getOptions = () => {
         switch (entityType) {
             case "course":
-            case "course_package":
+            case "coursePackage":
                 if (!entitiesResourcesData?.data.find((course) => course.id === entity?.id)) {
                     return [
                         ...prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" }),
                         { value: String(entity?.id), label: entity?.name },
                     ];
                 }
-                return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
+                return prepareOptionsForSelect({ data: entitiesResourcesData.data, value: "id", label: "name" });
 
             default:
                 return [];

@@ -13,7 +13,7 @@ export interface FooterProps {
 const Footer = ({ data }: FooterProps) => {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "article_package" });
+    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "articlePackage" });
 
     const renderAmount = () => {
         const { discount, fullPrice } = data;

@@ -15,10 +15,11 @@ export const useCreatePaymentAcquiring = (): UseMutationResult<
         [MutationKeys.CREATE_PAYMENT_ACQUIRING],
         (data: CreatePaymentAcquiringRequest) => paymentApi.cratePaymentAcquiring(data),
         {
-            onError: () => {
+            onError: (error) => {
                 createNotification({
                     type: ToastType.WARN,
                     title: "Ошибка формирование ссылки на оплату",
+                    message: error.response?.data.message,
                 });
             },
         }

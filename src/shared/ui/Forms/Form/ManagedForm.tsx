@@ -6,9 +6,9 @@ import { closeModal, openModal } from "@mantine/modals";
 import { ConfirmActionModal } from "@shared/ui/ConfirmActionModal";
 import { DetectorFormUpdate } from "@shared/ui/Forms/Form/components";
 import { InvalidateQueriesWithPredicateProps, invalidateQueriesWithPredicate } from "@shared/utils";
-import Form, { FormProps } from "./Form";
 import { queryClient } from "@app/providers";
 import { InvalidateQueriesKey } from "@shared/types";
+import Form, { FormProps } from "./Form";
 
 type ExtendedProps<F extends FormikValues = FormikValues> = Omit<FormProps<F>, "config">;
 

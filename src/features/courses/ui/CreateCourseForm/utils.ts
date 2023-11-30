@@ -15,7 +15,7 @@ export const adaptCreateCourseRequest = (data: CreateCourseFormValues): CreateCo
         discount: rest.hasDiscount
             ? {
                   ...discount,
-                  amount: discount.amount ? Number(data.price) : 0,
+                  amount: discount.amount ? Number(discount.amount) : 0,
                   startingDate: dayjs(discount.startingDate).format("YYYY-MM-DD"),
                   finishingDate: dayjs(discount.finishingDate).format("YYYY-MM-DD"),
               }

@@ -59,9 +59,7 @@ export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFilt
  *
  */
 
-//TODO: Дополнить как появятся новые типы сущностей
-
-export const $AdminTransactionEntityTypeName = z.literal("course").or(z.literal("course_package")).or(z.literal("article_package"));
+export const $AdminTransactionEntityTypeName = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
 export const $AdminTransactionEntityType = z.object({
     type: $AdminTransactionEntityTypeName,
     name: z.string(),

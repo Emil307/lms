@@ -3,7 +3,7 @@ import { NotificationProps as MNotificationProps, showNotification } from "@mant
 import Image from "next/image";
 import { ReactNode } from "react";
 import { AlertCircle, AlertTriangle, CheckCircle, Info, Image as ImageIcon } from "react-feather";
-import { FormErrorResponse } from "@shared/types";
+import { isMessageError } from "@shared/guards";
 import getStyles from "./showNotification.styles";
 import { ToastType } from "./constants";
 
@@ -14,23 +14,9 @@ export interface TNotificationProps extends Omit<MNotificationProps, "message"> 
     isMinimized?: boolean;
 }
 
-export const isErrorsArray = (error?: AxiosError): error is AxiosError<FormErrorResponse> => {
-    return (error as AxiosError<FormErrorResponse>).response?.data.errors[0] !== undefined;
-};
-
-export const isMessageError = (error: AxiosError): error is AxiosError<FormErrorResponse> => {
-    return (error as AxiosError<FormErrorResponse>).response?.data.message !== undefined;
-};
-
 export const handleShowToast = (error: AxiosError) => {
     const isValidationError = error.response?.status === 422;
 
-    if (isErrorsArray(error) && isValidationError) {
-        //обработка ошибок валидации форм (несколько ошибок)
-        Object.values(error.response?.data.errors ?? {}).forEach((errorItem) => {
-            return createNotification({ type: ToastType.ERROR, title: "Ошибка", message: errorItem[0] });
-        });
-    }
     if (!isValidationError && error.response?.data && isMessageError(error)) {
         //показываем более детальный текст ошибки, который выдает наш бэк
         return createNotification({ type: ToastType.ERROR, title: "Ошибка", message: error.response.data.message });

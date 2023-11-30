@@ -6,6 +6,7 @@ import { MutationKeys } from "@shared/constant";
 import { paymentApi } from "@entities/payment";
 import { ToastType, createNotification } from "@shared/utils";
 import { TFileDownloadResponse } from "@app/config/axios/types";
+import { isErrorsArray, isMessageError } from "@shared/guards";
 import { $InvoiceForPaymentFormValidationSchema, InvoiceForPaymentFormValidationSchema } from "./types";
 import { initialValues } from "./constants";
 import { SelectPaymentTypeModalProps } from "../../SelectPaymentTypeModal";
@@ -19,9 +20,9 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: In
         switch (entityType) {
             case "course":
                 return paymentApi.createInvoiceForPaymentCourse({ ...values, entityId });
-            case "course_package":
+            case "coursePackage":
                 return paymentApi.createInvoiceForPaymentCoursePackage({ ...values, entityId });
-            case "article_package":
+            case "articlePackage":
                 return paymentApi.createInvoiceForPaymentArticlePackage({ ...values, entityId });
         }
     };
@@ -37,11 +38,14 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: In
         onSuccess();
     };
 
-    const onError = () => {
-        createNotification({
-            type: ToastType.WARN,
-            title: "Ошибка создания счета",
-        });
+    const onError = (error: unknown) => {
+        if (!isErrorsArray(error) && isMessageError(error)) {
+            return createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка создания счета",
+                message: error.response?.data.message,
+            });
+        }
     };
 
     return (
