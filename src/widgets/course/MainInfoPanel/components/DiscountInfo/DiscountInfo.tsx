@@ -3,19 +3,21 @@ import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
 export interface DiscountInfoProps {
-    data: Discount | null;
+    discount: Discount | null;
+    discountPrice: number;
+    fullPrice: number;
 }
 
-const DiscountInfo = ({ data }: DiscountInfoProps) => {
+const DiscountInfo = ({ discount, discountPrice, fullPrice }: DiscountInfoProps) => {
     const { classes } = useStyles();
 
-    if (!data) {
+    if (!discount || discountPrice === fullPrice) {
         return null;
     }
 
-    const discountText = data.type === "percentage" ? `${data.amount} %` : `-${data.amount} ₽`;
+    const discountText = discount.type === "percentage" ? `${discount.amount} %` : `${discount.amount} ₽`;
 
-    return <Badge className={classes.root}>{discountText}</Badge>;
+    return <Badge className={classes.root}>-{discountText}</Badge>;
 };
 
 export default DiscountInfo;

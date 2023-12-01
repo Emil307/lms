@@ -15,10 +15,15 @@ export interface MainInfoPanelProps extends Omit<FlexProps, "children"> {
 const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: MainInfoPanelProps) {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "coursePackage" });
+    const { handleBuyEntity, isLoading } = useAuthPay({
+        entityId: data.id,
+        entityName: data.name,
+        entityType: "coursePackage",
+        entityPrice: data.discountPrice,
+    });
 
     const renderAmount = () => {
-        if (data.discount) {
+        if (data.discountPrice !== data.price) {
             return (
                 <Flex align="center" gap={6}>
                     <Heading order={3} className={classes.price}>{`${data.discountPrice} ₽`}</Heading>
@@ -34,7 +39,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
             <Flex className={classes.packageInfoWrapper}>
                 <Flex className={classes.packageInfo}>
                     <Flex direction="column" gap={16}>
-                        <DiscountInfo discount={data.discount} />
+                        <DiscountInfo discount={data.discount} discountPrice={data.discountPrice} fullPrice={data.price} />
                         <Heading>{data.name}</Heading>
                         <Paragraph variant="small-m" color="gray45" fw={400}>
                             {data.description}
@@ -42,7 +47,7 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     </Flex>
 
                     <Flex className={classes.containerPriceWithButton}>
-                        <Button variant="secondary" onClick={handleBuyEntity}>
+                        <Button variant="secondary" onClick={handleBuyEntity} loading={isLoading}>
                             Получить доступ
                         </Button>
                         <Flex direction="column">
@@ -56,7 +61,6 @@ const MemoizedMainInfoPanel = memo(function MainInfoPanel({ data, ...props }: Ma
                     {data.cover && (
                         <Image
                             src={data.cover.absolutePath}
-                            loader={({ src }) => `${src}`}
                             alt={data.cover.name}
                             fill
                             sizes="100vw"

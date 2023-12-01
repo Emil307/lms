@@ -19,7 +19,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const courseCollectionApi = new CourseCollectionApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION], id], () =>
+        const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE], id], () =>
             courseCollectionApi.getCourseCollection({ id })
         );
 

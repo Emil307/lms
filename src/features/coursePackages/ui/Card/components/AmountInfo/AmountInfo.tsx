@@ -10,12 +10,14 @@ export interface AmountInfoProps {
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
     const router = useRouter();
-    const { classes } = useStyles({ hasDiscount: !!data.discount });
+    const hasDiscount = !!data.discount && data.discountPrice !== data.price;
+
+    const { classes } = useStyles({ hasDiscount });
 
     const handleClickCard = () => router.push({ pathname: "/course-packages/[id]", query: { id: data.id.toString() } });
 
     const renderAmount = () => {
-        if (data.discount) {
+        if (hasDiscount) {
             return (
                 <Flex align="center" sx={{ gap: 6 }}>
                     <Heading order={3} className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>
@@ -31,7 +33,7 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
             <Button onClick={handleClickCard} w="fit-content">
                 Подробнее
             </Button>
-            <Flex direction="column" gap={data.discount ? 2 : 6}>
+            <Flex direction="column" gap={hasDiscount ? 2 : 6}>
                 <Paragraph variant="text-small-m">Стоимость пакета</Paragraph>
                 {renderAmount()}
             </Flex>

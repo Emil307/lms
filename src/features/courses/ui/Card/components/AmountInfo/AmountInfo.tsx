@@ -8,9 +8,9 @@ export interface AmountInfoProps {
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
-    const { classes } = useStyles({ hasDiscount: !!data.discount });
+    const { classes } = useStyles({ hasDiscount: !!data.discount && data.discountPrice != data.price });
 
-    if (data.discount) {
+    if (data.discount && data.discountPrice != data.price) {
         return (
             <Flex align="center" gap={6}>
                 <Heading order={3} className={classes.price}>{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>

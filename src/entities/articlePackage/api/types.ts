@@ -261,7 +261,7 @@ export const $ArticlePackageFromList = z.object({
     name: z.string(),
     description: z.string(),
     fullPrice: z.number(),
-    discountPrice: z.number().nullable(),
+    discountPrice: z.number(),
     articlesCount: z.number(),
     discount: $Discount.nullable(),
     categories: $ArticlePackageCategory.array(),

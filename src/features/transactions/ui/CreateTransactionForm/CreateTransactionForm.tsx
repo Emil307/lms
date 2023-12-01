@@ -8,7 +8,7 @@ import { Fieldset } from "@components/Fieldset";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import {
-    AdminTransactionEntityTypeName,
+    TransactionEntityTypeName,
     CreateAdminTransactionResponse,
     transactionApi,
     useAdminTransactionCreateResources,
@@ -86,7 +86,7 @@ const CreateTransactionForm = ({ onClose, ...props }: CreateTransactionFormProps
                                         label="Вид сущности"
                                         disabled={transactionResources.isLoading || !transactionResources.data?.entityTypes.length}
                                     />
-                                    <EntitySelect name="entityId" entityType={values.entityType as AdminTransactionEntityTypeName} />
+                                    <EntitySelect name="entityId" entityType={values.entityType as TransactionEntityTypeName} />
                                     <FInput name="amount" label="Стоимость (₽)" type="number" size="sm" w="100%" />
                                 </Flex>
                             </Fieldset>

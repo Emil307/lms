@@ -1,12 +1,12 @@
 import { useDebouncedState, useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
-import { AdminTransactionEntity, AdminTransactionEntityTypeName, useAdminTransactionCreateEntities } from "@entities/transaction";
+import { AdminTransactionEntity, TransactionEntityTypeName, useAdminTransactionCreateEntities } from "@entities/transaction";
 import { FSelect, prepareOptionsForSelect } from "@shared/ui";
 import { initialParams } from "./constants";
 
 export interface EntitySelectProps {
     name: string;
-    entityType: AdminTransactionEntityTypeName;
+    entityType: TransactionEntityTypeName;
     entity?: AdminTransactionEntity;
 }
 

@@ -12,6 +12,7 @@ import {
     $UpdateAdminTransactionResponse,
     CreateAdminTransactionRequest,
     CreateAdminTransactionResponse,
+    CreateFreeTransactionRequest,
     DeleteAdminTransactionRequest,
     DeleteAdminTransactionResponse,
     GetAdminTransactionRequest,
@@ -73,6 +74,10 @@ class TransactionApi extends BaseApi {
     async getTransactionsFilters(): Promise<GetTransactionsFiltersResponse> {
         const response = await this.instance.get("transactions/filters");
         return $GetTransactionsFiltersResponse.parse(response);
+    }
+
+    async createFreeTransaction(data: CreateFreeTransactionRequest): Promise<void> {
+        return await this.instance.post("transactions", data);
     }
 }
 

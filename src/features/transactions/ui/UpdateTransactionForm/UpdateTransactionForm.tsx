@@ -8,7 +8,7 @@ import { Fieldset } from "@components/Fieldset";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import {
-    AdminTransactionEntityTypeName,
+    TransactionEntityTypeName,
     CreateAdminTransactionResponse,
     GetAdminTransactionResponse,
     UpdateAdminTransactionResponse,
@@ -87,7 +87,7 @@ const UpdateTransactionForm = ({ data, onClose, ...props }: UpdateTransactionFor
                                     />
                                     <EntitySelect
                                         name="entityId"
-                                        entityType={values.entityType as AdminTransactionEntityTypeName}
+                                        entityType={values.entityType as TransactionEntityTypeName}
                                         entity={data?.entity}
                                     />
                                     <FInput name="amount" label="Стоимость (₽)" type="number" size="sm" w="100%" />

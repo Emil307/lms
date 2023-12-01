@@ -5,7 +5,7 @@ export const adaptUpdateTransactionFormValues = (data?: GetAdminTransactionRespo
     return {
         status: data?.status.status,
         paymentType: data?.paymentType.type,
-        amount: data?.amount ? String(data.amount) : "",
+        amount: String(data?.amount),
         entityType: data?.entity.type.type,
         entityId: data?.entity.id.toString(),
         userId: data?.user.id.toString(),

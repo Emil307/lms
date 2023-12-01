@@ -5,23 +5,41 @@ import { useSession } from "@entities/auth";
 import { SelectPaymentTypeModal } from "@features/payment";
 import { AuthForm } from "@features/auth";
 import { PaymentEntityType } from "@entities/payment";
+import { useCreateFreeTransaction } from "@entities/transaction";
 
 interface UseAuthPayProps {
     entityId: number;
     entityName: string;
     entityType: PaymentEntityType;
+    entityPrice: number;
 }
 
-export const useAuthPay = ({ entityType, entityId, entityName }: UseAuthPayProps) => {
+export const useAuthPay = ({ entityType, entityId, entityName, entityPrice }: UseAuthPayProps) => {
     const router = useRouter();
     const { user } = useSession();
+
+    const { mutate: createFreeTransaction, isLoading } = useCreateFreeTransaction({ entityType, entityId });
 
     useEffect(() => {
         if (router.isReady && user && router.query.buy === "true") {
             const { buy, ...query } = router.query;
-            router.replace({ pathname: router.pathname, query }, undefined, { shallow: true }).then(() => openSelectPaymentTypeModal());
+            router.replace({ pathname: router.pathname, query }, undefined, { shallow: true }).then(() => buyEntity());
         }
     }, [user, router.query, router.isReady]);
+
+    const buyEntity = () => {
+        if (entityPrice) {
+            return openSelectPaymentTypeModal();
+        }
+        createFreeTransaction(null, {
+            onSuccess: () => {
+                if (entityType === "articlePackage") {
+                    return router.push({ pathname: "/articles", query: { tab: "my-articles" } });
+                }
+                router.push("/my-courses");
+            },
+        });
+    };
 
     const handleSuccessAuthModal = () => {
         closeModal("AUTH");
@@ -61,10 +79,10 @@ export const useAuthPay = ({ entityType, entityId, entityName }: UseAuthPayProps
 
     const handleBuyEntity = () => {
         if (user) {
-            return openSelectPaymentTypeModal();
+            return buyEntity();
         }
         openAuthModal();
     };
 
-    return { handleBuyEntity };
+    return { handleBuyEntity, isLoading };
 };

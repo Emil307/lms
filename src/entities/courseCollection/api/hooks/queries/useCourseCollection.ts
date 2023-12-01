@@ -8,7 +8,7 @@ export const useCourseCollection = ({
     id,
 }: GetCourseCollectionRequest): UseQueryResult<GetCourseCollectionResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
-        [QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION], id],
+        [QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE], id],
         () => courseCollectionApi.getCourseCollection({ id }),
         {
             enabled: !!id,

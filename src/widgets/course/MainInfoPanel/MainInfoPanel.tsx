@@ -17,7 +17,12 @@ export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
 const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const { classes } = useStyles();
 
-    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "course" });
+    const { handleBuyEntity, isLoading } = useAuthPay({
+        entityId: data.id,
+        entityName: data.name,
+        entityType: "course",
+        entityPrice: data.discountPrice,
+    });
 
     return (
         <Box {...props} className={classes.root}>
@@ -26,7 +31,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     <Flex className={classes.contentBodyTextContainer}>
                         <Group>
                             <Flex gap={8} hidden={!data.category && !data.discount}>
-                                <DiscountInfo data={data.discount} />
+                                <DiscountInfo discount={data.discount} discountPrice={data.discountPrice} fullPrice={data.price} />
                                 <Badge className={classes.category} hidden={!data.category}>
                                     {data.category?.name}
                                 </Badge>
@@ -46,7 +51,11 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     </Flex>
                     <Flex className={classes.containerActions}>
                         <Flex gap={8}>
-                            <Button variant="secondary" disabled={!data.availableGroup?.freePlacesCount} onClick={handleBuyEntity}>
+                            <Button
+                                variant="secondary"
+                                disabled={!data.availableGroup?.freePlacesCount}
+                                loading={isLoading}
+                                onClick={handleBuyEntity}>
                                 Купить курс
                             </Button>
                             <FavoriteButton variant="compact" data={data} className={classes.favoriteActionIcon} />

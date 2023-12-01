@@ -6,10 +6,10 @@ import useStyles from "./Header.styles";
 import { DiscountInfo } from "../DiscountInfo";
 
 export interface HeaderProps {
-    data: Pick<ArticlePackageFromList, "name" | "description" | "discount">;
+    data: Pick<ArticlePackageFromList, "name" | "description" | "discount" | "fullPrice" | "discountPrice">;
 }
 
-const Header = ({ data: { discount, name, description } }: HeaderProps) => {
+const Header = ({ data: { discount, fullPrice, discountPrice, name, description } }: HeaderProps) => {
     const { classes } = useStyles();
 
     return (
@@ -18,7 +18,7 @@ const Header = ({ data: { discount, name, description } }: HeaderProps) => {
                 <IconBooks />
             </Box>
             <Flex className={classes.contentContainer}>
-                <DiscountInfo discount={discount} />
+                <DiscountInfo discount={discount} fullPrice={fullPrice} discountPrice={discountPrice} />
                 <Flex className={classes.textContainer}>
                     <Heading order={3}>{name}</Heading>
                     <Paragraph variant="text-small-m" color="gray45" lineClamp={2}>

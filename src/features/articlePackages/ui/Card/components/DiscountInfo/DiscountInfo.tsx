@@ -4,20 +4,22 @@ import { Discount } from "@shared/types";
 import useStyles from "./DiscountInfo.styles";
 
 export interface DiscountInfoProps {
+    fullPrice: number;
+    discountPrice: number;
     discount?: Discount | null;
 }
 
-const DiscountInfo = ({ discount }: DiscountInfoProps) => {
+const DiscountInfo = ({ discount, fullPrice, discountPrice }: DiscountInfoProps) => {
     const { classes } = useStyles();
-    if (!discount) {
+    if (!discount || fullPrice === discountPrice) {
         return null;
     }
 
-    const discountValue = discount.type === "percentage" ? `${discount.amount} %` : `-${discount.amount} ₽`;
+    const discountValue = discount.type === "percentage" ? `${discount.amount} %` : `${discount.amount} ₽`;
 
     return (
         <Flex className={classes.root}>
-            <Badge className={classes.discount}>{discountValue}</Badge>
+            <Badge className={classes.discount}>-{discountValue}</Badge>
             <Badge variant="outline" className={classes.discountEndDate}>
                 {`Доступно до ${dayjs(discount.finishingDate).format("D MMMM YYYY")}`}
             </Badge>

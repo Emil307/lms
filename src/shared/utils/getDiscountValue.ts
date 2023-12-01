@@ -13,5 +13,5 @@ export const getDiscountValue = ({ amountDiscount, type }: GetDiscountValueProps
     if (type === "percentage") {
         return value + "%";
     }
-    return `-${value} ₽`;
+    return `${value} ₽`;
 };

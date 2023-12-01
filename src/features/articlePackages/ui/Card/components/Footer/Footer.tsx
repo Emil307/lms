@@ -13,15 +13,20 @@ export interface FooterProps {
 const Footer = ({ data }: FooterProps) => {
     const { classes } = useStyles({ hasDiscount: !!data.discount });
 
-    const { handleBuyEntity } = useAuthPay({ entityId: data.id, entityName: data.name, entityType: "articlePackage" });
+    const { handleBuyEntity, isLoading } = useAuthPay({
+        entityId: data.id,
+        entityName: data.name,
+        entityType: "articlePackage",
+        entityPrice: data.discountPrice,
+    });
 
     const renderAmount = () => {
-        const { discount, fullPrice } = data;
+        const { discountPrice, fullPrice } = data;
 
-        if (discount?.amount) {
+        if (discountPrice !== fullPrice) {
             return (
                 <Flex align="center" sx={{ gap: 6 }}>
-                    <Heading order={3} className={classes.price}>{`${discount.amount.toLocaleString("ru")} ₽`}</Heading>
+                    <Heading order={3} className={classes.price}>{`${discountPrice.toLocaleString("ru")} ₽`}</Heading>
                     <Text className={classes.priceWithoutDiscount}>{`${fullPrice.toLocaleString("ru")} ₽`}</Text>
                 </Flex>
             );
@@ -43,7 +48,7 @@ const Footer = ({ data }: FooterProps) => {
                 </Flex>
                 {renderAmount()}
             </Flex>
-            <Button onClick={handleBuyEntity} w="min-content">
+            <Button onClick={handleBuyEntity} loading={isLoading} w="min-content">
                 Получить доступ
             </Button>
         </Flex>

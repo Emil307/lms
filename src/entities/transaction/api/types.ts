@@ -11,7 +11,7 @@ export type AdminTransaction = z.infer<typeof $AdminTransaction>;
 export type AdminTransactionFromList = z.infer<typeof $AdminTransactionFromList>;
 export type AdminTransactionEntity = z.infer<typeof $AdminTransactionEntity>;
 export type AdminTransactionEntityType = z.infer<typeof $AdminTransactionEntityType>;
-export type AdminTransactionEntityTypeName = z.infer<typeof $AdminTransactionEntityTypeName>;
+export type TransactionEntityTypeName = z.infer<typeof $TransactionEntityTypeName>;
 export type AdminTransactionPaymentType = z.infer<typeof $AdminTransactionPaymentType>;
 export type AdminTransactionStatus = z.infer<typeof $AdminTransactionStatus>;
 
@@ -52,6 +52,9 @@ export type TransactionsFiltersForm = z.infer<typeof $TransactionsFiltersForm>;
 export type GetTransactionsRequest = z.infer<typeof $GetTransactionsRequest>;
 export type GetTransactionsResponse = z.infer<typeof $GetTransactionsResponse>;
 export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFiltersResponse>;
+export type CreateFreeTransactionRequest = z.infer<typeof $CreateFreeTransactionRequest>;
+
+export const $TransactionEntityTypeName = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
 
 /**
  *
@@ -59,9 +62,8 @@ export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFilt
  *
  */
 
-export const $AdminTransactionEntityTypeName = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
 export const $AdminTransactionEntityType = z.object({
-    type: $AdminTransactionEntityTypeName,
+    type: $TransactionEntityTypeName,
     name: z.string(),
 });
 export const $AdminTransactionPaymentType = z.object({
@@ -188,7 +190,7 @@ export const $GetAdminTransactionCreateEntities = z.object({
 
 export const $AdminTransactionCreateEntitiesRequest = z.object({
     query: z.string().optional(),
-    entityType: $AdminTransactionEntityTypeName,
+    entityType: $TransactionEntityTypeName,
     filter: z.object({}).partial(),
 });
 
@@ -250,4 +252,9 @@ export const $GetTransactionsFiltersResponse = z.object({
     entityTypes: $TransactionEntityType.array(),
     paymentTypes: $TransactionPaymentType.array(),
     statuses: $TransactionStatus.array(),
+});
+
+export const $CreateFreeTransactionRequest = z.object({
+    entityType: $TransactionEntityTypeName,
+    entityId: z.number(),
 });
