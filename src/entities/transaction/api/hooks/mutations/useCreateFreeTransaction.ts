@@ -42,10 +42,11 @@ export const useCreateFreeTransaction = (
             invalidateQueriesWithPredicate({ entityName: EntityNames.COURSE });
             invalidateQueriesWithPredicate({ entityName: EntityNames.ARTICLE });
         },
-        onError: () => {
+        onError: (error) => {
             createNotification({
                 type: ToastType.WARN,
                 title: `Ошибка покупки ${declensionEntityName}`,
+                message: error.response?.data.message
             });
         },
     });
