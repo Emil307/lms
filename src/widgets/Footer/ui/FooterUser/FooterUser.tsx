@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Divider, Flex, Footer as MFooter, Group, Text, FooterProps as MFooterProps } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
@@ -120,7 +121,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                 </Flex>
                 <Divider my="sm" color="gray20" mt={0} mb={0} />
                 <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Paragraph variant="text-small-m">© 2023, Addamant</Paragraph>
+                    <Paragraph variant="text-small-m">{`© ${dayjs().year()}, Addamant`}</Paragraph>
                     <Flex className={classes.bottomWrapper}>
                         <Text fw={600} td="underline" component="a" href="/user-agreement">
                             Пользовательское соглашение

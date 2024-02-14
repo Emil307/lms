@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Footer as MFooter, FooterProps as MFooterProps } from "@mantine/core";
+import dayjs from "dayjs";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
@@ -8,7 +9,7 @@ import { CompanyLinks } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
 
-export interface FooterAdminProps extends Omit<MFooterProps, "children" | "height"> {}
+export interface FooterAdminProps extends Omit<MFooterProps, "children" | "height"> { }
 
 const FooterAdmin = (props: FooterAdminProps) => {
     const { classes } = useFooterAdminStyles();
@@ -56,7 +57,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                 </Flex>
             </Flex>
             <Paragraph variant="text-small-m" className={classes.companyName}>
-                © 2023, Addamant
+                {`© ${dayjs().year()}, Addamant`}
             </Paragraph>
         </MFooter>
     );
