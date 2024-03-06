@@ -11,12 +11,6 @@ publish:
     stage: publish
     services:
         - docker:dind
-    cache:
-        key:
-            files:
-                - /app/yarn.lock
-        paths:
-            - /app/node_modules/
     script:
         - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
         - docker build -t $TAG_COMMIT -t $TAG_LATEST .
