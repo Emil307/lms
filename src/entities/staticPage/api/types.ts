@@ -69,26 +69,28 @@ export const $GetContactsResponse = z.object({
 });
 
 export const $GetAboutResponse = z.object({
-    title: z.string(),
-    shortContent: z.string(),
-    fullContent: z.string(),
-    banner: z.object({
-        id: z.number(),
-        name: z.string(),
-        extension: z.string(),
-        size: z.number(),
-        absolutePath: z.string(),
-        //Для роли админа больше полей
-        type: z
-            .object({
-                value: z.string(),
-                name: z.string(),
-            })
-            .nullable()
-            .optional(),
-        isActive: z.boolean().optional(),
-        createdAt: z.coerce.date().optional(),
-    }),
+    title: z.string().nullable(),
+    shortContent: z.string().nullable(),
+    fullContent: z.string().nullable(),
+    banner: z
+        .object({
+            id: z.number(),
+            name: z.string(),
+            extension: z.string(),
+            size: z.number(),
+            absolutePath: z.string(),
+            //Для роли админа больше полей
+            type: z
+                .object({
+                    value: z.string(),
+                    name: z.string(),
+                })
+                .nullable()
+                .optional(),
+            isActive: z.boolean().optional(),
+            createdAt: z.coerce.date().optional(),
+        })
+        .nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
 
