@@ -175,9 +175,9 @@ export const $StaticUser = $User
     .pick({
         id: true,
         email: true,
-        profile: true,
     })
     .extend({
+        profile: $Profile.omit({ avatar: true }),
         coursesCount: z.number(),
     });
 
