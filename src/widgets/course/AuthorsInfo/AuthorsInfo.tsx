@@ -20,7 +20,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
                 const fullName = [author.lastName, author.firstName, author.patronymic].join(" ");
                 return (
                     <Flex key={index} className={classes.authorCard}>
-                        <Avatar src={data.cover?.absolutePath} className={classes.avatarWrapper} alt={data.cover?.name}>
+                        <Avatar src={author.avatar?.absolutePath} className={classes.avatarWrapper} alt={author.avatar?.name}>
                             <AvatarIcon />
                         </Avatar>
                         <Flex direction="column" gap={4}>
