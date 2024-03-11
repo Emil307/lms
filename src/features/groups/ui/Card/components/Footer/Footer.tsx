@@ -34,12 +34,18 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
     const renderActionContent = () => {
         switch (data.status.name) {
             case "inProgress":
+                if (!data.nextLesson) {
+                    return null;
+                }
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage}>
                         {data.nextLesson?.name}
                     </Button>
                 );
             case "notStarted":
+                if (!data.nextLesson) {
+                    return null;
+                }
                 return (
                     <Button variant="primary" onClick={handleOpenNextLessonFromMyCoursePage}>
                         Начать обучение
@@ -59,12 +65,7 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
     };
 
     return (
-        <MCard.Section
-            {...props}
-            m={0}
-            onClick={(event) => {
-                event.stopPropagation();
-            }}>
+        <MCard.Section {...props} m={0} onClick={(event) => event.stopPropagation()}>
             {renderActionContent()}
         </MCard.Section>
     );

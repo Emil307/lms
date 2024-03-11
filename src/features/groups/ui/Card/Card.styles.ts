@@ -4,6 +4,7 @@ export default createStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         padding: 16,
         gap: 24,
         borderRadius: 16,
