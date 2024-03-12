@@ -68,8 +68,8 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         <Logo />
                         <Flex direction="column" gap={8}>
                             <Paragraph variant="large">
-                                <a href="mailto:info@mail.ru" className={classes.link}>
-                                    info@mail.ru
+                                <a href="mailto:info@addamant.ru" className={classes.link}>
+                                    info@addamant.ru
                                 </a>
                             </Paragraph>
                             <Paragraph variant="text-caption" color="gray45">
@@ -78,8 +78,8 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         </Flex>
                         <Flex direction="column" gap={8}>
                             <Paragraph variant="large">
-                                <a href="tel:8 (800) 234-94-04" className={classes.link}>
-                                    8 (800) 234-94-04
+                                <a href="tel:+79339919131" className={classes.link}>
+                                    +7 (933) 991-91-31
                                 </a>
                             </Paragraph>
                             <Paragraph variant="text-caption" color="gray45" maw={180}>
