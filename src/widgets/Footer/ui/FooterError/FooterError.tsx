@@ -9,7 +9,9 @@ const FooterError = () => {
 
     return (
         <Flex className={classes.footer}>
-            <Paragraph variant="text-small-m">{`© ${dayjs().year()}, Addamant`}</Paragraph>
+            <Paragraph variant="text-small-m">
+                {`© ${dayjs().year()}, Addamant`}
+            </Paragraph>
         </Flex>
     );
 };
