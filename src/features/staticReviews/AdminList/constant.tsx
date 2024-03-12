@@ -45,7 +45,7 @@ export const columns: TColumns<AdminStaticReviewFromList> = [
     {
         header: "ФИО",
         accessorKey: "lastName",
-        size: 335,
+        size: 330,
         accessorFn: (row) => {
             if (!row.lastName || !row.firstName) {
                 return "";
@@ -56,16 +56,16 @@ export const columns: TColumns<AdminStaticReviewFromList> = [
     {
         header: "Об авторе",
         accessorKey: "position",
-        size: 335,
+        size: 330,
     },
     {
         header: "Видео",
         accessorKey: "video.name",
-        size: 335,
+        size: 330,
     },
     {
         header: "Краткий отзыв",
         accessorKey: "quote",
-        size: 335,
+        size: 330,
     },
 ];
