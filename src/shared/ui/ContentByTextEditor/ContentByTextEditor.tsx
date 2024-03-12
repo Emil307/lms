@@ -6,7 +6,7 @@ import { Fancybox } from "@shared/ui";
 import useStyles from "./ContentByTextEditor.styles";
 
 export interface ContentByTextEditorProps extends TextProps {
-    data?: string;
+    data?: string | null;
 }
 
 const ContentByTextEditor = ({ data = "", className, ...props }: ContentByTextEditorProps) => {

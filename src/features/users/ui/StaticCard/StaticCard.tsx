@@ -19,11 +19,11 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
         <MCard {...props} className={classes.root}>
             <MCard.Section className={classes.cardImageSection}>
                 <Box className={classes.imageWrapper}>
-                    {data.profile.avatar && (
+                    {data.profile.additionalImage && (
                         <Image
-                            src={data.profile.avatar.absolutePath}
+                            src={data.profile.additionalImage.absolutePath}
                             loader={({ src }) => `${src}`}
-                            alt={data.profile.avatar.name}
+                            alt={data.profile.additionalImage.name}
                             fill
                             sizes="100vw"
                             style={{

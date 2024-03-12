@@ -7,7 +7,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         color: theme.colors.dark[0],
         wordBreak: "break-word",
 
-        "&:nth-last-child(1 of :not(.ProseMirror-gapcursor))": {
+        "&:nth-last-of-type(1 of :not(.ProseMirror-gapcursor))": {
             marginBottom: 0,
         },
     },
