@@ -17,9 +17,18 @@ export interface UpdateLessonTestPassFormProps extends Omit<BoxProps, "children"
     lessonId: string;
     courseId: string;
     onClose: () => void;
+    readOnly?: boolean;
 }
 
-const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, onClose, ...props }: UpdateLessonTestPassFormProps) => {
+const UpdateLessonTestPassForm = ({
+    testPassData,
+    testData,
+    lessonId,
+    courseId,
+    readOnly,
+    onClose,
+    ...props
+}: UpdateLessonTestPassFormProps) => {
     const { classes } = useStyles();
     const progressBarLabel = getPluralString(testData?.tasks.length || 0, "вопрос", "вопроса", "вопросов");
 
@@ -72,7 +81,7 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
 
                     return (
                         <Flex className={classes.innerForm}>
-                            <FieldArray name="tasks">{() => <Task data={currentTask} />}</FieldArray>
+                            <FieldArray name="tasks">{() => <Task data={currentTask} readOnly={readOnly} />}</FieldArray>
 
                             <Box className={classes.footerInnerForm}>
                                 <ActionIcon className={classes.actionIconBack} onClick={handleClickArrowLeft}>
@@ -90,11 +99,11 @@ const UpdateLessonTestPassForm = ({ testPassData, testData, lessonId, courseId, 
                                         variant="secondary"
                                         onClick={handleClickNextQuestion}
                                         className={classes.buttonNextOrSubmit}
-                                        disabled={!isSelectedPossibleAnswerInCurrentTask}>
+                                        disabled={!isSelectedPossibleAnswerInCurrentTask && !readOnly}>
                                         Дaлee
                                     </Button>
                                 )}
-                                {isLastQuestion && (
+                                {isLastQuestion && !readOnly && (
                                     <Button
                                         variant="secondary"
                                         type="submit"

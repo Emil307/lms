@@ -5,6 +5,7 @@ import { Button, ContentByTextEditor, EmptyData, FileItem, Heading, Loader } fro
 import { useHomework } from "@entities/lesson";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import { GetGroupResponse } from "@entities/group";
 import useStyles from "./Homework.styles";
 import { PassedHomeworkInfo } from "./components";
 import { HomeworkChat } from "../HomeworkChat";
@@ -12,14 +13,15 @@ import { HomeworkChat } from "../HomeworkChat";
 export interface HomeworkProps {
     lessonId: string;
     courseId: string;
+    group?: GetGroupResponse;
 }
 
-const Homework = ({ lessonId, courseId }: HomeworkProps) => {
+const Homework = ({ lessonId, courseId, group }: HomeworkProps) => {
     const [isReadyToRender, setReadyToRender] = useState(false);
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const [openedHomeworkDetails, setOpenedHomeworkDetails] = useState(false);
     const [isVisibleCollapsedView, setVisibleCollapsedView] = useState(false);
-    const { data: homeworkData, isFetching, isError } = useHomework({ lessonId, courseId });
+    const { data: homeworkData, isFetching, isError } = useHomework({ lessonId, groupId: String(group?.groupId) });
 
     const labelToggleButton = openedHomeworkDetails ? "Скрыть задание" : "Показать задание";
     const answerStatus = homeworkData?.answer?.status.name;
@@ -37,7 +39,7 @@ const Homework = ({ lessonId, courseId }: HomeworkProps) => {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
 
-            if (answerStatus === "completed") {
+            if (answerStatus === "completed" || group?.status.name !== "inProgress") {
                 setOpenedHomeworkAnswerForm(false);
             } else {
                 setOpenedHomeworkAnswerForm(true);

@@ -22,6 +22,8 @@ const LessonDetailsPage = () => {
     const lesson = useLesson({
         id: lessonId,
         courseId: group.data?.courseId,
+        groupId: group.data?.groupId,
+        groupStatus: group.data?.status.name,
     });
 
     const tabList = getTabList({
@@ -64,9 +66,9 @@ const LessonDetailsPage = () => {
             case "materials":
                 return <MaterialList data={lesson.data} />;
             case "test":
-                return <Test lessonId={lessonId} courseId={String(group.data?.courseId)} />;
+                return <Test lessonId={lessonId} courseId={String(group.data?.courseId)} group={group.data} />;
             case "homework":
-                return <Homework lessonId={lessonId} courseId={String(group.data?.courseId)} />;
+                return <Homework lessonId={lessonId} courseId={String(group.data?.courseId)} group={group.data} />;
             default:
                 return <Flex className={classes.lessonContent}>{renderMainContent()}</Flex>;
         }

@@ -4,22 +4,24 @@ import { EmptyData, Heading, Loader } from "@shared/ui";
 import { useTest, useTestPass } from "@entities/lesson";
 import { UpdateLessonTestPassForm } from "@features/lessons";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import { GetGroupResponse } from "@entities/group";
 import useStyles from "./Test.styles";
 import { PassedTestInfo } from "./components";
 
 export interface TestProps {
     lessonId: string;
     courseId: string;
+    group?: GetGroupResponse;
 }
 
-const Test = ({ lessonId, courseId }: TestProps) => {
+const Test = ({ lessonId, courseId, group }: TestProps) => {
     const [isTestAgain, setIsTestAgain] = useState(false);
-    const { data: testData, isFetching: isFetchingTest, isError: isErrorTest } = useTest({ lessonId, courseId });
+    const { data: testData, isFetching: isFetchingTest, isError: isErrorTest } = useTest({ lessonId, groupId: String(group?.groupId) });
     const {
         data: testPassData,
         isFetching: isFetchingTestPass,
         isError: isErrorTestPass,
-    } = useTestPass({ lessonId, courseId }, !!testData);
+    } = useTestPass({ lessonId, groupId: String(group?.groupId) }, !!testData);
 
     const { classes } = useStyles({ status: testPassData?.status.name });
 
@@ -55,6 +57,7 @@ const Test = ({ lessonId, courseId }: TestProps) => {
                     lessonId={lessonId}
                     courseId={courseId}
                     onClose={handleCloseUpdateTestPassForm}
+                    readOnly={group?.status.name !== "inProgress"}
                 />
             </Box>
         );

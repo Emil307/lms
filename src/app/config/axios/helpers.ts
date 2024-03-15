@@ -87,7 +87,8 @@ export const whenCoursesMicroserviceRoute: TAxiosRunWhen = (config) => {
         !!config.url?.startsWith("course-reviews") ||
         (!!config.url?.startsWith("admin/users") && config.url.includes("courses")) ||
         (!!config.url?.startsWith("admin/users") && config.url.includes("groups")) ||
-        !!config.url?.startsWith("user/courses")
+        !!config.url?.startsWith("user/courses") ||
+        !!config.url?.startsWith("user/groups")
     );
 };
 

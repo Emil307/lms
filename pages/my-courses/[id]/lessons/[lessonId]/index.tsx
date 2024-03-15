@@ -1,74 +1,37 @@
 import React from "react";
-import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { UserLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { LessonDetailsPage } from "@pages/lessons";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { LessonApi } from "@entities/lesson";
-import { EntityNames, QueryKeys } from "@shared/constant";
-import { GroupApi } from "@entities/group";
-import { NextPageWithLayoutProps } from "@shared/types";
+import { useLesson } from "@entities/lesson";
+import { useGroup } from "@entities/group";
 import { UserPage } from "@components/UserPage";
 
-type GetServerSidePropsContextParams = {
+type TRouterQueries = {
     lessonId: string;
     id: string;
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { lessonId, id: groupId } = context.params as GetServerSidePropsContextParams;
+const LessonDetails: NextPageWithLayout = () => {
+    const router = useRouter();
+    const { lessonId, id: groupId } = router.query as TRouterQueries;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const group = useGroup({ id: groupId });
 
-    const lessonApi = new LessonApi(axios);
-    const groupApi = new GroupApi(axios);
+    const lesson = useLesson({
+        id: lessonId,
+        courseId: group.data?.courseId,
+        groupId: group.data?.groupId,
+        groupStatus: group.data?.status.name,
+    });
 
-    try {
-        const responseGroup = await queryClient.fetchQuery(
-            [
-                QueryKeys.GET_GROUP,
-                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
-                groupId,
-            ],
-            () => groupApi.getGroup({ id: groupId })
-        );
-
-        const response = await queryClient.fetchQuery(
-            [
-                QueryKeys.GET_LESSON,
-                [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK, EntityNames.LESSON_TEST, EntityNames.MATERIAL],
-                lessonId,
-            ],
-            () =>
-                lessonApi.getLesson({
-                    id: lessonId,
-                    courseId: responseGroup.courseId,
-                })
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const LessonDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <UserPage title={title}>
-            <LessonDetailsPage />
-        </UserPage>
+        <UserLayout>
+            <UserPage title={lesson.data?.name}>
+                <LessonDetailsPage />
+            </UserPage>
+        </UserLayout>
     );
-};
-
-LessonDetails.getLayout = function (page: ReactElement) {
-    return <UserLayout>{page} </UserLayout>;
 };
 
 export default LessonDetails;
