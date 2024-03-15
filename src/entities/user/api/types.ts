@@ -99,7 +99,7 @@ export const $CreateUserRequest = z.object({
                 homeworkChecked: z.boolean(),
                 groupAdded: z.boolean(),
                 supportMessage: z.boolean(),
-            })
+            }),
         ),
 });
 

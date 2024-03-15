@@ -164,7 +164,7 @@ export const $GetAdminAdvantagesResponseMeta = z.object({
 export const $GetAdminAdvantagesResponse = $getPaginationResponseType($Advantage).merge(
     z.object({
         meta: $GetAdminAdvantagesResponseMeta,
-    })
+    }),
 );
 
 export const $CreateAdvantageRequest = z.object({

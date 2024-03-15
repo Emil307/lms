@@ -44,6 +44,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
             <CoursesList
                 colProps={{ lg: 4, md: 4, xs: 6 }}
                 perPage={6}
+                isPopular
                 headerSlot={
                     <Flex direction="column" gap={32}>
                         <Heading>Популярные курсы</Heading>
@@ -59,7 +60,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     mih: 258,
                     radius: 16,
                 }}
-                visible={!!entry?.isIntersecting}
+                visible={entry && entry.isIntersecting}
                 wrapperProps={{ direction: "column", gap: 32, ...props }}
             />
         </Box>

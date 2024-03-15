@@ -735,6 +735,7 @@ export const $CoursesRequest = z.object({
             "category.id": z.string(),
             "subcategory.id": $getMultiValueObjectType(z.string(), z.literal("or")),
             isFavorite: z.boolean(),
+            isPopular: z.boolean(),
             collectionIds: z.string(),
             packageIds: $getMultiValueObjectType(z.string(), z.literal("or")),
             discountPrice: $getMultiValueObjectType(z.string(), z.literal("lte")),

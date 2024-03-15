@@ -102,8 +102,8 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 <FSlider
                                                     name="discountPrice"
                                                     labelAlwaysOn
-                                                    min={courseResources.data?.prices.lowest}
-                                                    max={courseResources.data?.prices.highest}
+                                                    min={courseResources.data?.prices.lowest || 0}
+                                                    max={courseResources.data?.prices.highest || 0}
                                                     showTextInfo
                                                 />
                                             </Flex>

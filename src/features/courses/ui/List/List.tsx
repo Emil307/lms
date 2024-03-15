@@ -13,6 +13,7 @@ export interface ListProps extends BoxProps, Pick<TListProps<CourseFromList>, "c
     collectionIds?: string;
     perPage?: number;
     isFavorite?: boolean;
+    isPopular?: boolean;
     headerSlot?: ReactNode | ((data: { data?: GetCoursesResponse }) => ReactNode);
     footerSlot?: ReactNode;
     skeletonListProps?: SkeletonProps;
@@ -27,6 +28,7 @@ const List = ({
     colProps = { md: 4, sm: 6 },
     perPage = 6,
     isFavorite,
+    isPopular,
     withPagination = false,
     skeletonListProps,
     wrapperProps,
@@ -40,7 +42,10 @@ const List = ({
         data: coursesData,
         isFetching,
         isLoading,
-    } = useCourses(adaptGetCoursesRequest({ ...initialParams, ...params, perPage, isFavorite, collectionIds }), visible && router.isReady);
+    } = useCourses(
+        adaptGetCoursesRequest({ ...initialParams, ...params, perPage, isFavorite, isPopular, collectionIds }),
+        !!visible && router.isReady,
+    );
 
     const handleClickCard = (id: unknown) => {
         const selectCourse = coursesData?.data.find((course) => String(course.id) === String(id));

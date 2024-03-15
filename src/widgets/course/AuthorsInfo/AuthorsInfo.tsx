@@ -32,7 +32,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
                     </Flex>
                 );
             }),
-        [data.authors]
+        [data.authors],
     );
 
     if (!data.authors.length) {

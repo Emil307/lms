@@ -14,12 +14,12 @@ const Header = ({ data }: HeaderProps) => {
     const ref = useRef<HTMLVideoElement | null>(null);
 
     const handleOpenVideo = () => {
-        openVideo(ref?.current);
+        openVideo(ref.current);
     };
 
     return (
         <Flex className={classes.root}>
-            <video ref={ref} className={classes.video} src={data.video.absolutePath}></video>
+            <video ref={ref} className={classes.video} src={data.video.absolutePath} controls></video>
             <Heading color="white" lineClamp={3}>
                 {data.content}
             </Heading>
