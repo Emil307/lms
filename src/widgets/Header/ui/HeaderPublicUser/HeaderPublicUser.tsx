@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ActionIcon, Flex, Header as MHeader, MediaQuery, Skeleton, useMantineTheme } from "@mantine/core";
-import { AlignLeft, Folder, Heart, Search, X } from "react-feather";
+import { AlignLeft, Heart, Search, X } from "react-feather";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { IconBrandMessenger } from "@tabler/icons";
+import IconShoppingBag from "public/icons/shoppingBag.svg";
 import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
@@ -90,18 +90,13 @@ const HeaderPublicUser = () => {
                     <Flex className={classes.containerButtonLinks}>
                         <Button
                             className={classes.buttonLink}
-                            leftIcon={<Folder />}
+                            leftIcon={<IconShoppingBag />}
                             variant="white"
                             sx={{
                                 backgroundColor: router.pathname.includes("/courses") ? theme.colors.grayLight[0] : "transparent",
                             }}
                             onClick={() => router.push("/courses")}>
                             Все курсы
-                        </Button>
-
-                        {/*TODO: Добавить вызов виджета битрикс24*/}
-                        <Button className={classes.buttonLink} leftIcon={<IconBrandMessenger />} variant="white">
-                            Консультация
                         </Button>
                     </Flex>
                 </Flex>

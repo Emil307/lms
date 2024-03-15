@@ -1,8 +1,7 @@
 import { Route } from "nextjs-routes";
 import { ReactNode } from "react";
 import { Folder } from "react-feather";
-
-import IconMessageDots from "public/icons/messageDots.svg";
+import IconShoppingBag from "public/icons/shoppingBag.svg";
 import IconArticleBook from "public/icons/articleBook.svg";
 
 export const menuLinks: { label: string; href: Route; icon: ReactNode }[] = [
@@ -17,8 +16,8 @@ export const menuLinks: { label: string; href: Route; icon: ReactNode }[] = [
         icon: <IconArticleBook />,
     },
     {
-        label: "Поддержка",
-        href: { pathname: "/support" },
-        icon: <IconMessageDots />,
+        label: "Все курсы",
+        href: { pathname: "/courses" },
+        icon: <IconShoppingBag />,
     },
 ];
