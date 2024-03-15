@@ -6,18 +6,19 @@ import { FormErrorResponse } from "@shared/types";
 
 export const useHomework = ({
     lessonId,
-    courseId,
+    groupId,
 }: GetHomeworkRequest): UseQueryResult<GetHomeworkResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
         [
             QueryKeys.GET_LESSON_HOMEWORK,
             [EntityNames.LESSON, EntityNames.LESSON_HOMEWORK, EntityNames.COURSE, EntityNames.STUDENT, EntityNames.MATERIAL],
             lessonId,
-            courseId,
+            groupId,
         ],
-        () => lessonApi.getHomework({ lessonId, courseId }),
+        () => lessonApi.getHomework({ lessonId, groupId }),
+
         {
-            enabled: !!lessonId && !!courseId,
+            enabled: !!lessonId && !!groupId,
         }
     );
 };

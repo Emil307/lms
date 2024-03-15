@@ -78,6 +78,7 @@ import {
     FinishLessonRequest,
     FinishLessonResponse,
     $FinishLessonResponse,
+    GetLessonByGroupRequest,
 } from "@entities/lesson";
 
 export class LessonApi extends BaseApi {
@@ -195,19 +196,23 @@ export class LessonApi extends BaseApi {
         const response = await this.instance.get(`user/courses/${courseId}/lessons/${id}`);
         return $GetLessonResponse.parse(response);
     }
+    async getLessonByGroup({ id, groupId }: GetLessonByGroupRequest): Promise<GetLessonResponse> {
+        const response = await this.instance.get(`user/groups/${groupId}/lessons/${id}`);
+        return $GetLessonResponse.parse(response);
+    }
     async finishLesson({ courseId, lessonId }: FinishLessonRequest): Promise<FinishLessonResponse> {
         const response = await this.instance.post(`user/courses/${courseId}/lessons/${lessonId}/finish`);
         return $FinishLessonResponse.parse(response);
     }
 
     //test
-    async getTest({ lessonId, courseId }: GetTestRequest): Promise<GetTestResponse> {
-        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/test`);
+    async getTest({ lessonId, groupId }: GetTestRequest): Promise<GetTestResponse> {
+        const response = await this.instance.get(`user/groups/${groupId}/lessons/${lessonId}/test`);
         return $GetTestResponse.parse(response);
     }
 
-    async getTestPass({ lessonId, courseId }: GetTestPassRequest): Promise<GetTestPassResponse> {
-        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/test-pass`);
+    async getTestPass({ lessonId, groupId }: GetTestPassRequest): Promise<GetTestPassResponse> {
+        const response = await this.instance.get(`user/groups/${groupId}/lessons/${lessonId}/test-pass`);
         return $GetTestPassResponse.parse(response);
     }
 
@@ -217,8 +222,8 @@ export class LessonApi extends BaseApi {
     }
 
     //homework
-    async getHomework({ lessonId, courseId }: GetHomeworkRequest): Promise<GetHomeworkResponse> {
-        const response = await this.instance.get(`user/courses/${courseId}/lessons/${lessonId}/homework`);
+    async getHomework({ lessonId, groupId }: GetHomeworkRequest): Promise<GetHomeworkResponse> {
+        const response = await this.instance.get(`user/groups/${groupId}/lessons/${lessonId}/homework`);
         return $GetHomeworkResponse.parse(response);
     }
 

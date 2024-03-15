@@ -8,14 +8,15 @@ import { PossibleAnswer } from "../PossibleAnswer";
 
 export interface TaskProps extends Omit<FlexProps, "onClick"> {
     data: TaskTestPass;
+    readOnly?: boolean;
 }
 
-const MemoizedTask = memo(function Task({ data, ...props }: TaskProps) {
+const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps) {
     const { classes } = useStyles();
 
     const { setFieldValue } = useFormikContext<UpdateLessonTestPassFormValidation>();
 
-    const taskVariant = data?.isCheckbox ? "checkbox" : "radio";
+    const taskVariant = data.isCheckbox ? "checkbox" : "radio";
 
     const handleSelectPossibleAnswer = (selectedPossibleAnswerOrder: number) => {
         if (data.isCheckbox) {
@@ -35,7 +36,13 @@ const MemoizedTask = memo(function Task({ data, ...props }: TaskProps) {
 
     const renderPossibleAnswers = () =>
         data.answers.map((possibleAnswer) => (
-            <PossibleAnswer taskVariant={taskVariant} key={possibleAnswer.id} data={possibleAnswer} onSelect={handleSelectPossibleAnswer} />
+            <PossibleAnswer
+                taskVariant={taskVariant}
+                key={possibleAnswer.id}
+                data={possibleAnswer}
+                onSelect={handleSelectPossibleAnswer}
+                readOnly={readOnly}
+            />
         ));
 
     return (

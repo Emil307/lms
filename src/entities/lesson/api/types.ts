@@ -106,6 +106,7 @@ export type HomeworkAnswerMessageFromList = z.infer<typeof $HomeworkAnswerMessag
 //REQ/RESP
 export type GetLessonRequest = z.infer<typeof $GetLessonRequest>;
 export type GetLessonResponse = z.infer<typeof $GetLessonResponse>;
+export type GetLessonByGroupRequest = z.infer<typeof $GetLessonByGroupRequest>;
 export type FinishLessonRequest = z.infer<typeof $FinishLessonRequest>;
 export type FinishLessonResponse = z.infer<typeof $FinishLessonResponse>;
 //test
@@ -555,14 +556,14 @@ export const $TestPass = z.object({
 
 export const $GetTestRequest = z.object({
     lessonId: z.string(),
-    courseId: z.string(),
+    groupId: z.string(),
 });
 
 export const $GetTestResponse = $Test.nullable();
 
 export const $GetTestPassRequest = z.object({
     lessonId: z.string(),
-    courseId: z.string(),
+    groupId: z.string(),
 });
 
 export const $GetTestPassResponse = $TestPass.nullable();
@@ -604,7 +605,7 @@ export const $Homework = z.object({
 
 export const $GetHomeworkRequest = z.object({
     lessonId: z.string(),
-    courseId: z.string(),
+    groupId: z.string(),
 });
 
 export const $GetHomeworkResponse = $Homework.nullable();
@@ -658,6 +659,11 @@ export const $GetLessonRequest = z.object({
     courseId: z.number().optional(),
 });
 
+export const $GetLessonByGroupRequest = z.object({
+    id: z.string(),
+    groupId: z.number().optional(),
+});
+
 export const $GetLessonResponse = $Lesson;
 
 export const $FinishLessonRequest = z.object({
@@ -698,3 +704,4 @@ export const $CreateHomeworkAnswerMessageRequest = z.object({
 });
 
 export const $CreateHomeworkAnswerMessageResponse = $HomeworkAnswerMessage;
+

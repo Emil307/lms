@@ -8,19 +8,20 @@ export interface PossibleAnswerProps {
     data: TaskPossibleAnswer;
     taskVariant: "checkbox" | "radio";
     onSelect: (possibleAnswerOrder: number) => void;
+    readOnly?: boolean;
 }
 
-const PossibleAnswer = ({ data, taskVariant, onSelect }: PossibleAnswerProps) => {
+const PossibleAnswer = ({ data, taskVariant, onSelect, readOnly }: PossibleAnswerProps) => {
     const { classes } = useStyles({ isSelected: data.isSelected });
 
     const handleSelectPossbleAnswer = () => onSelect(data.order);
 
     const renderSelector = () => {
         if (taskVariant === "checkbox") {
-            return <Checkbox checked={data.isSelected} onChange={handleSelectPossbleAnswer} />;
+            return <Checkbox checked={data.isSelected} onChange={handleSelectPossbleAnswer} disabled={readOnly} />;
         }
 
-        return <Radio checked={data.isSelected} onChange={handleSelectPossbleAnswer} />;
+        return <Radio checked={data.isSelected} onChange={handleSelectPossbleAnswer} disabled={readOnly} />;
     };
 
     return (

@@ -5,14 +5,14 @@ import { GetTestPassRequest, GetTestPassResponse, lessonApi } from "@entities/le
 import { FormErrorResponse } from "@shared/types";
 
 export const useTestPass = (
-    { lessonId, courseId }: GetTestPassRequest,
+    { lessonId, groupId }: GetTestPassRequest,
     enabled = false
 ): UseQueryResult<GetTestPassResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
-        [QueryKeys.GET_LESSON_TEST_PASS, [EntityNames.LESSON, EntityNames.LESSON_TEST, EntityNames.COURSE], lessonId, courseId],
-        () => lessonApi.getTestPass({ lessonId, courseId }),
+        [QueryKeys.GET_LESSON_TEST_PASS, [EntityNames.LESSON, EntityNames.LESSON_TEST, EntityNames.COURSE], lessonId, groupId],
+        () => lessonApi.getTestPass({ lessonId, groupId }),
         {
-            enabled: !!lessonId && !!courseId && enabled,
+            enabled: !!lessonId && !!groupId && enabled,
         }
     );
 };
