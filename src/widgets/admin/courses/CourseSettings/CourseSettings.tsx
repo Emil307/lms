@@ -2,18 +2,15 @@ import { Box, Flex, Text, ThemeIcon } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { closeModal, openModal } from "@mantine/modals";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
 import { IconChartBar } from "@tabler/icons-react";
 import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
-import { UpdateCoursePublicationModal } from "@features/courses";
 import { getFullName } from "@shared/utils";
 import { AdminCourse } from "@entities/course";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { InfoCard } from "@components/InfoCard";
 import { Fieldset } from "@components/Fieldset";
-import FileMarkIcon from "public/icons/file-mark.svg";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
@@ -39,24 +36,6 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
 
     const handleOpenCourseStatisticsPage = () => {
         router.push({ pathname: "/admin/courses/[id]/statistics", query: { id: courseId } });
-    };
-
-    const closeUpdateCoursePublicationModal = () => closeModal("UPDATE_COURSE_PUBLICATION");
-
-    const handleOpenCoursePublicationModal = () => {
-        openModal({
-            modalId: "UPDATE_COURSE_PUBLICATION",
-            title: "Опубликовать курс",
-            children: (
-                <UpdateCoursePublicationModal
-                    id={courseId}
-                    name={data.name}
-                    coverSrc={data.cover?.absolutePath}
-                    onCancel={closeUpdateCoursePublicationModal}
-                    onSuccess={closeUpdateCoursePublicationModal}
-                />
-            ),
-        });
     };
 
     const renderRating = () => {
@@ -85,25 +64,10 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
 
     const renderInfoCardActions = () => {
         if (userRole === Roles.teacher) {
-            if (data.isFulfillment) {
-                return (
-                    <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
-                        Статистика
-                    </Button>
-                );
-            }
-            return null;
-        }
-        if (data.isFulfillment) {
             return (
-                <>
-                    <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
-                        Редактировать данные
-                    </Button>
-                    <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
-                        Статистика
-                    </Button>
-                </>
+                <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
+                    Статистика
+                </Button>
             );
         }
         return (
@@ -111,8 +75,8 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                 <Button variant="secondary" onClick={handleGoToUpdateCoursePage}>
                     Редактировать данные
                 </Button>
-                <Button variant="border" leftIcon={<FileMarkIcon />} onClick={handleOpenCoursePublicationModal}>
-                    Опубликовать курс
+                <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
+                    Статистика
                 </Button>
             </>
         );

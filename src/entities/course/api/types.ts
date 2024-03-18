@@ -119,6 +119,16 @@ export type GetFavoriteCoursesResponse = z.infer<typeof $GetFavoriteCoursesRespo
 
 export const $CourseType = z.literal("interactive").or(z.literal("autonomous"));
 
+export const $CourseAvailableGroup = z.object({
+    id: z.number(),
+    name: z.string(),
+    status: z.object({ type: z.string(), name: z.string() }),
+    educationStartDate: z.coerce.date(),
+    educationFinishDate: z.coerce.date(),
+    studentsCount: z.number(),
+    freePlacesCount: z.number(),
+});
+
 /**
  * ADMIN ZOD
  */
@@ -189,11 +199,13 @@ export const $AdminCourse = z.object({
     createdAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     accessExpirationDate: z.coerce.date().nullable().optional(),
+    availableGroup: $CourseAvailableGroup.nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
 
 export const $CreateCourseResponse = $AdminCourse.omit({
     rating: true,
+    availableGroup: true
 });
 
 export const $GetAdminCourseResourcesRequest = z.object({
@@ -423,6 +435,7 @@ export const $UpdateCourseRequest = $CreateCourseRequest.extend({
 
 export const $UpdateCourseResponse = $AdminCourse.omit({
     rating: true,
+    availableGroup: true
 });
 
 export const $UpdateCourseActivityRequest = z.object({
@@ -580,16 +593,6 @@ export const $CourseModule = z.object({
     lessonsCount: z.number(),
     homeworksCount: z.number(),
     lessons: $CourseModuleLesson.array(),
-});
-
-export const $CourseAvailableGroup = z.object({
-    id: z.number(),
-    name: z.string(),
-    status: z.object({ type: z.string(), name: z.string() }),
-    educationStartDate: z.coerce.date(),
-    educationFinishDate: z.coerce.date(),
-    studentsCount: z.number(),
-    freePlacesCount: z.number(),
 });
 
 export const $Course = z.object({

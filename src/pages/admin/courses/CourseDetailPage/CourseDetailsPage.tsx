@@ -6,7 +6,7 @@ import { TRouterQueries } from "@shared/types";
 import { useUserRole } from "@entities/auth";
 import { Roles } from "@app/routes";
 import { InfoPanel, CourseSettings, CourseReviews, CourseArticles } from "@widgets/admin/courses";
-import { useAdminCourse } from "@entities/course";
+import { useAdminCourse, useAvailableCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
 import { CourseGroups } from "@widgets/admin/courses/Groups";
 import { getBreadCrumbsItems, getTabList } from "./utils";
@@ -17,6 +17,7 @@ const CourseDetailsPage = () => {
     const { data: courseData, isLoading, isError } = useAdminCourse(id);
 
     const userRole = useUserRole();
+    useAvailableCourse({ courseId: courseData?.id, courseName: courseData?.name, availableGroup: courseData?.availableGroup })
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id, tab: value } });

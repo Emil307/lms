@@ -8,6 +8,7 @@ export default createStyles((theme) => ({
         padding: "32px 24px",
         borderRadius: 16,
         backgroundColor: theme.colors.secondary8[0],
+        cursor: "pointer"
     },
     iconButtonLinkCourse: {
         height: 18,

@@ -46,6 +46,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
     image: {
         borderRadius: "inherit",
         zIndex: 1,
+        objectFit: "cover"
     },
     iconWrapper: {
         position: "relative",

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Loader } from "@shared/ui";
 import { AuthorsInfo, MainInfoPanel, ProgramTrainingList, TeacherList } from "@widgets/course";
-import { useCourse } from "@entities/course";
+import { useAvailableCourse, useCourse } from "@entities/course";
 import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
@@ -18,6 +18,8 @@ const CourseDetailsPage = () => {
     const { id } = router.query as TRouterQueries;
 
     const { data: courseData, isLoading, isError } = useCourse({ id });
+
+    useAvailableCourse({ courseId: Number(id), courseName: courseData?.name, availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined })
 
     //Если авторизованный пользователь попытается открыть данную страницу курса,
     //который считается 'моим курсом' => редирект на детальную страницу 'моего курса'
