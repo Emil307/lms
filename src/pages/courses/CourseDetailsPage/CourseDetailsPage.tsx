@@ -8,6 +8,7 @@ import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackag
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
 import { isMyCourse } from "@shared/utils";
+import { useUserRole } from "@entities/auth";
 import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./CourseDetailsPage.styles";
 import { RatingInfo } from "./components";
@@ -19,7 +20,9 @@ const CourseDetailsPage = () => {
 
     const { data: courseData, isLoading, isError } = useCourse({ id });
 
-    useAvailableCourse({ courseId: Number(id), courseName: courseData?.name, availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined })
+    const userRole = useUserRole()
+
+    useAvailableCourse({ userRole, courseId: Number(id), courseName: courseData?.name, availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined })
 
     //Если авторизованный пользователь попытается открыть данную страницу курса,
     //который считается 'моим курсом' => редирект на детальную страницу 'моего курса'
