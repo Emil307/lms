@@ -63,6 +63,13 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         gap: 8,
         wordBreak: "break-word",
     },
+    nextLessonButton: {
+        height: "auto",
+
+        "span": {
+            whiteSpace: "normal"
+        }
+    }
 }));
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {

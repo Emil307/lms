@@ -43,7 +43,12 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 );
             case "inProgress":
                 return (
-                    <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage} w="min-content">
+                    <Button
+                        className={classes.nextLessonButton}
+                        variant="text"
+                        leftIcon={<PlayCircle />}
+                        onClick={handleOpenNextLessonFromMyCoursePage}
+                        w="min-content">
                         {data.nextLesson?.name}
                     </Button>
                 );

@@ -33,7 +33,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
         if (!groupData?.educationStartDate) {
             return "-";
         }
-        return `${dayjs(groupData.educationStartDate).format("D MMMM YYYY")} - ${dayjs(groupData.educationStartDate).format(
+        return `${dayjs(groupData.educationStartDate).format("D MMMM YYYY")} - ${dayjs(groupData.educationFinishDate).format(
             "D MMMM YYYY"
         )}`;
     };

@@ -13,16 +13,16 @@ export const adaptGetAdminCourseReviewsRequest = (
         filter: {
             ...(isPublished && {
                 isPublished: isPublished === "1",
+                "course.id": courseId,
             }),
-            courseId: courseId,
             score: score,
             ...(createdAtFrom &&
                 createdAtTo && {
-                    createdAt: {
-                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
-                        operator: "range",
-                    },
-                }),
+                createdAt: {
+                    items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
+                    operator: "range",
+                },
+            }),
         },
     };
 };
