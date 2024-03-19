@@ -8,18 +8,18 @@ export const adaptGetAdminCourseReviewsRequest = (params: TFunctionParams<AdminC
     return {
         ...rest,
         filter: {
+            "course.id": courseId,
             ...(isPublished && {
                 isPublished: isPublished === "1",
             }),
-            courseId: courseId,
             score: score,
             ...(createdAtFrom &&
                 createdAtTo && {
-                    createdAt: {
-                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
-                        operator: "range",
-                    },
-                }),
+                createdAt: {
+                    items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
+                    operator: "range",
+                },
+            }),
         },
     };
 };
