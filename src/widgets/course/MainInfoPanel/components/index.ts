@@ -1,5 +1,5 @@
 export * from "./TagList";
 export * from "./AmountInfo";
 export * from "./RatingInfo";
-export * from "./StartDateAvailableGroup";
+export * from "./AvailableGroupInfo";
 export * from "./DiscountInfo";

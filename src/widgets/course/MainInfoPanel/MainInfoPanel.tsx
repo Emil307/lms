@@ -1,14 +1,13 @@
-import { Badge, Box, BoxProps, Flex, Group, ThemeIcon } from "@mantine/core";
+import { Badge, Box, BoxProps, Flex, Group } from "@mantine/core";
 import Image from "next/image";
 import { CourseDetails } from "@entities/course";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
-import IconUsers from "public/icons/users.svg";
 import IconStarFour from "public/icons/starFour.svg";
 import { FavoriteButton } from "@features/courses";
 import { useAuthPay } from "@app/utils";
 import useStyles from "./MainInfoPanel.styles";
-import { AmountInfo, DiscountInfo, RatingInfo, StartDateAvailableGroup, TagList } from "./components";
+import { AmountInfo, AvailableGroupInfo, DiscountInfo, RatingInfo, TagList } from "./components";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
@@ -39,15 +38,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                             <RatingInfo data={data.rating} />
                         </Group>
                         <Heading>{data.name}</Heading>
-                        <Flex className={classes.availableGroupInfoContainer}>
-                            <StartDateAvailableGroup data={data} />
-                            <Flex align="center" gap={6}>
-                                <ThemeIcon className={classes.icon}>
-                                    <IconUsers />
-                                </ThemeIcon>
-                                <Paragraph variant="text-small-m">Мест осталось: {data.availableGroup?.freePlacesCount || 0}</Paragraph>
-                            </Flex>
-                        </Flex>
+                        <AvailableGroupInfo data={data} />
                     </Flex>
                     <Flex className={classes.containerActions}>
                         <Flex gap={8}>
@@ -67,7 +58,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                                     data.lessonsCount,
                                     "урок",
                                     "урока",
-                                    "уроков"
+                                    "уроков",
                                 )}`}</Paragraph>
                             </Flex>
                             <AmountInfo data={data} />
