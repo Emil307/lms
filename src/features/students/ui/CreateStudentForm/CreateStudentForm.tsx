@@ -2,7 +2,7 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { FAvatarInput, FControlButtons, FControlPanel, FInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import { FAvatarInput, FControlButtons, FControlPanel, FInput, FPhoneInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
@@ -68,7 +68,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                     label="Загрузить аватар"
                                     description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
                                 />
-                                <Flex gap={8} wrap="wrap">
+                                <Flex gap={8} wrap="wrap" maw={772}>
                                     <FInput name="firstName" label="Имя" onlyLetters size="sm" className={classes.formInput} withAsterisk />
                                     <FInput
                                         name="lastName"
@@ -79,6 +79,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                         withAsterisk
                                     />
                                     <FInput name="patronymic" label="Отчество" onlyLetters size="sm" className={classes.formInput} />
+                                    <FPhoneInput name="phone" label="Телефон" size="sm" className={classes.formInput} withAsterisk />
                                 </Flex>
                             </Flex>
                         </Fieldset>

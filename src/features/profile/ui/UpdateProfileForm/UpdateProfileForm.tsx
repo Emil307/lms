@@ -1,12 +1,13 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
-import { Button, FAvatarInput, FControlButtons, FInput, ManagedForm, Paragraph } from "@shared/ui";
-import { User, UpdateMeResponse, authApi, UpdateMeForm, $UpdateMeForm } from "@entities/auth";
+import { Button, FAvatarInput, FControlButtons, FInput, FPhoneInput, ManagedForm, Paragraph } from "@shared/ui";
+import { User, UpdateMeResponse, authApi, UpdateMeForm, $UpdateMeForm, useUserRole } from "@entities/auth";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import { adaptDataForUpdateProfileForm } from "@features/profile";
+import { Roles } from "@app/routes";
 import useStyles from "./UpdateProfileForm.styles";
 import { initialValues } from "./constants";
 
@@ -20,9 +21,11 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
     const router = useRouter();
     const { classes } = useStyles();
 
+    const userRole = useUserRole()
+
     const adaptData = adaptDataForUpdateProfileForm(data);
 
-    const updateMe = ({ avatar, ...data }: UpdateMeForm) => {
+    const updateMe = ({ roleId, avatar, ...data }: UpdateMeForm) => {
         return authApi.updateMe({ ...data, avatarId: avatar?.id });
     };
 
@@ -66,9 +69,9 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                     label="Изменить аватар"
                                     description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
                                     title={`${adaptData.firstName} ${adaptData.lastName}`}
-                                    subtitle={adaptData.role}
+                                    subtitle={data?.roles[0].displayName}
                                 />
-                                <Flex wrap="wrap" gap={8}>
+                                <Flex wrap="wrap" gap={8} maw={772}>
                                     <FInput
                                         name="firstName"
                                         label="Имя"
@@ -85,14 +88,29 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                         miw={{ base: "100%", xs: 252 }}
                                         withAsterisk
                                     />
-                                    <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
+                                    <FInput
+                                        name="patronymic"
+                                        label="Отчество"
+                                        onlyLetters
+                                        size="sm"
+                                        miw={{ base: "100%", xs: 252 }}
+                                    />
+                                    {(userRole === Roles.student || userRole === Roles.employee) &&
+                                        <FPhoneInput
+                                            name="phone"
+                                            label="Телефон"
+                                            size="sm"
+                                            withAsterisk
+                                            miw={{ base: "100%", xs: 252 }}
+                                        />
+                                    }
                                 </Flex>
                             </Flex>
                         </Fieldset>
 
                         <Fieldset label="Системные данные" icon={<Shield />} legendProps={{ mb: 24 }}>
                             <Flex direction="column" gap={24} w="100%">
-                                <Paragraph variant="text-small-m">{`Роль: ${adaptData.role}`}</Paragraph>
+                                <Paragraph variant="text-small-m">{`Роль: ${data?.roles[0].displayName}`}</Paragraph>
                                 <Flex wrap="wrap" gap={8}>
                                     <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} disabled />
                                     <Button type="button" variant="border" onClick={onEditPassword} w="fit-content">

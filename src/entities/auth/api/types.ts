@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { $UploadedFile, $Profile, $Role, $UserNotifications } from "@shared/types";
+import { defaultPhoneLength } from "@shared/ui";
+import { Roles } from "@app/routes";
 
 export type User = z.infer<typeof $User>;
 
@@ -22,6 +24,7 @@ export const $User = z.object({
     profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
+    phone: z.string().nullish()
 });
 
 export const $ChangePasswordRequest = z.object({
@@ -51,18 +54,45 @@ export const $UpdateMeForm = z.object({
     firstName: z.string({ required_error: "Введите имя" }).max(32, "Должно быть не более 32 символов"),
     lastName: z.string({ required_error: "Введите фамилию" }).max(32, "Должно быть не более 32 символов"),
     patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
+    phone: z.string().optional(),
     email: z.string({ required_error: "Введите email" }),
     avatar: $UploadedFile.nullable().optional(),
-    role: z.string(),
-});
+    roleId: z.number(),
+})
+    .refine(
+        (data) => {
+            if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
+                return true;
+            }
+            return !!data.phone
+        },
+        {
+            message: "Введите телефон",
+            path: ["phone"],
+        },
+    )
+    .refine(
+        (data) => {
+            if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
+                return true;
+            }
+            return data.phone && data.phone.length === defaultPhoneLength
+        },
+        {
+            message: `Должно быть ${defaultPhoneLength} цифр`,
+            path: ["phone"],
+        },
+    )
 
-export const $UpdateMeRequest = $UpdateMeForm
-    .omit({
-        avatar: true,
-    })
-    .extend({
-        avatarId: z.number().optional(),
-    });
+export const $UpdateMeRequest = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    patronymic: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string(),
+}).extend({
+    avatarId: z.number().optional(),
+});
 
 export const $UpdateMeResponse = $User.omit({ roles: true, notifications: true });
 
@@ -70,6 +100,7 @@ export const $SignUpRequest = z.object({
     firstName: z.string(),
     lastName: z.string(),
     email: z.string(),
+    phone: z.string(),
     password: z.string(),
     passwordConfirmation: z.string(),
 });
@@ -82,7 +113,7 @@ export const $SignUpResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $User.omit({ notifications: true }),
+        user: $User.omit({ notifications: true, phone: true }),
     }),
 });
 
@@ -94,6 +125,6 @@ export const $AuthenticateResponse = z.object({
         refreshToken: z.string(),
     }),
     meta: z.object({
-        user: $User.omit({ notifications: true }),
+        user: $User.omit({ notifications: true, phone: true }),
     }),
 });

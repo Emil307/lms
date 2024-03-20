@@ -7,7 +7,7 @@ import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
 import { useDetailsStudent } from "@entities/user";
 import { ChangeUserPasswordForm } from "@features/users";
-import { getFullName } from "@shared/utils";
+import { getFullName, getPhoneNumberWithMask } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
@@ -84,6 +84,9 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
                     <DisplayField label="Имя" value={data?.profile.firstName} />
                     <DisplayField label="Отчество" value={data?.profile.patronymic} />
+                    {(data?.roles[0].id === Roles.student || data?.roles[0].id === Roles.employee) &&
+                        <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: data.phone })} />
+                    }
                 </Fieldset>
 
                 <Fieldset label="Системные данные" icon={<Shield />}>

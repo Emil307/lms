@@ -9,6 +9,7 @@ import {
     FAvatarInput,
     FControlButtons,
     FInput,
+    FPhoneInput,
     FRadioGroup,
     FSwitch,
     LastUpdatedInfo,
@@ -121,10 +122,11 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                                 label="Загрузить аватар"
                                 description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
                             />
-                            <Flex gap={8} wrap="wrap" mt={24}>
+                            <Flex gap={8} wrap="wrap" mt={24} maw={772}>
                                 <FInput name="firstName" label="Имя" onlyLetters size="sm" className={classes.formInput} withAsterisk />
                                 <FInput name="lastName" label="Фамилия" onlyLetters size="sm" className={classes.formInput} withAsterisk />
                                 <FInput name="patronymic" label="Отчество" onlyLetters size="sm" className={classes.formInput} />
+                                <FPhoneInput name="phone" label="Телефон" size="sm" className={classes.formInput} withAsterisk />
                             </Flex>
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />}>

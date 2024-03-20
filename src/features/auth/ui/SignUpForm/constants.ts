@@ -4,6 +4,7 @@ export const initialValues: SignUpFormValidationSchema = {
     lastName: "",
     firstName: "",
     email: "",
+    phone: "",
     passwords: {
         password: "",
         passwordConfirmation: "",

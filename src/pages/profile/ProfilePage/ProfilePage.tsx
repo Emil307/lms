@@ -4,12 +4,14 @@ import { Bell, Settings, Shield, User as UserIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
 import { BreadCrumbs, Button, DisplayField, Heading } from "@shared/ui";
-import { User, useMe } from "@entities/auth";
+import { User, useMe, useUserRole } from "@entities/auth";
 import { Fieldset } from "@components/Fieldset";
 import { ChangePasswordForm } from "@features/auth";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
+import { Roles } from "@app/routes";
+import { getPhoneNumberWithMask } from "@shared/utils";
 import { breadCrumbsItems, fields } from "./constants";
 import useStyles from "./ProfilePage.styles";
 
@@ -18,6 +20,8 @@ const ProfilePage = () => {
     const { classes } = useStyles();
     const { data: userData, isLoading } = useMe();
     const { mutate: updateNotification } = useUpdateUserNotification();
+
+    const userRole = useUserRole()
 
     const handleRedirectEditProfile = () => router.push("/profile/edit");
 
@@ -54,6 +58,9 @@ const ProfilePage = () => {
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
                         <DisplayField label="Отчество" value={userData?.profile.patronymic} />
+                        {(userRole === Roles.student || userRole === Roles.employee) &&
+                            <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: userData?.phone })} />
+                        }
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>

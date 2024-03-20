@@ -7,6 +7,7 @@ export const adaptDataUpdateStudentForm = (data?: UserDetailResponse): Partial<U
         lastName: data?.profile.lastName || "",
         patronymic: data?.profile.patronymic || "",
         email: data?.email,
+        phone: data?.phone || "",
         isActive: data?.isActive,
         avatar: data?.profile.avatar,
         roleId: data?.roles[0].id.toString(),

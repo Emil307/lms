@@ -4,13 +4,14 @@ import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Button, FCheckbox, FInput, Form, Heading, Paragraph } from "@shared/ui";
+import { IconPhone } from "@tabler/icons-react";
+import { Button, FCheckbox, FInput, FPhoneInput, Form, Heading, Paragraph } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
 import { initialValues } from "./constants";
 
-export interface SignUpFormProps extends BoxProps {}
+export interface SignUpFormProps extends BoxProps { }
 
 const SignUpForm = (props: SignUpFormProps) => {
     const router = useRouter();
@@ -89,6 +90,14 @@ const SignUpForm = (props: SignUpFormProps) => {
                                         />
                                     </Grid.Col>
                                 </Grid>
+                                <FPhoneInput
+                                    name="phone"
+                                    label="Введите телефон"
+                                    icon={
+                                        <ThemeIcon color="gray45">
+                                            <IconPhone />
+                                        </ThemeIcon>}
+                                />
                                 <FInput
                                     name="email"
                                     label="Введите email"

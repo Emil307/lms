@@ -3,6 +3,7 @@ import { CreateStudentValidationFormRequest } from "./types";
 export const getInitialValuesForm = (userRole: string): CreateStudentValidationFormRequest => {
     return {
         email: "",
+        phone: "",
         password: "",
         passwordConfirmation: "",
         firstName: "",

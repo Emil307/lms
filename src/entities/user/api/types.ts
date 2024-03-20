@@ -59,6 +59,7 @@ export const $User = z.object({
     profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
+    phone: z.string().nullish(),
     createdAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
 });

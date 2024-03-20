@@ -2,6 +2,7 @@ export const getInitialValuesForm = (defaultRole: string) => ({
     email: "",
     password: "",
     passwordConfirmation: "",
+    phone: "",
     firstName: "",
     lastName: "",
     patronymic: "",

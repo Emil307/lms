@@ -5,6 +5,7 @@ export const initialValues: UpdateMeForm = {
     lastName: "",
     patronymic: "",
     email: "",
+    phone: "",
     avatar: null,
-    role: "",
+    roleId: 0,
 };
