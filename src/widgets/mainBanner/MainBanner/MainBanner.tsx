@@ -5,7 +5,7 @@ import { Button, Heading } from "@shared/ui";
 import useStyles from "./MainBanner.styles";
 import { AuthorInfoCard } from "./components";
 
-export interface MainBannerProps extends BoxProps {}
+export interface MainBannerProps extends BoxProps { }
 
 const MainBanner = (props: MainBannerProps) => {
     const { classes } = useStyles();
@@ -22,7 +22,6 @@ const MainBanner = (props: MainBannerProps) => {
                         <Image
                             src={data?.image?.absolutePath || ""}
                             alt="background"
-                            loader={({ src }) => `${src}`}
                             fill
                             sizes="100vw"
                             style={{
@@ -30,6 +29,7 @@ const MainBanner = (props: MainBannerProps) => {
                                 objectPosition: "center",
                                 borderRadius: 24,
                             }}
+                            priority
                         />
                     </Box>
                     <Flex className={classes.wrapperContent}>

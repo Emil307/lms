@@ -63,13 +63,13 @@ export const useUpdateStaticReviewActivityStatus = ({
                 return { previousReviewData, previousReviewsData };
             },
             onError: (err, _, context) => {
-                if (typeof context === "object" && context !== null && "previousReviewData" in context) {
+                if (typeof context === "object" && "previousReviewData" in context) {
                     queryClient.setQueryData(
                         [QueryKeys.GET_ADMIN_STATIC_REVIEW, [EntityNames.STATIC_REVIEW], id],
                         context.previousReviewData
                     );
                 }
-                if (typeof context === "object" && context !== null && "previousReviewsData" in context) {
+                if (typeof context === "object" && "previousReviewsData" in context) {
                     queryClient.setQueriesData(
                         [QueryKeys.GET_ADMIN_STATIC_REVIEWS, [EntityNames.STATIC_REVIEW]],
                         context.previousReviewsData
@@ -95,7 +95,7 @@ export const useUpdateStaticReviewActivityStatus = ({
                     .getQueriesData<GetAdminStaticReviewsResponse>([
                         QueryKeys.GET_ADMIN_STATIC_REVIEWS,
                         [EntityNames.STATIC_REVIEW],
-                    ])?.[0]?.[1]
+                    ])[0]?.[1]
                     ?.data.find((review) => review.id === id);
 
                 const statusMessage = staticReviewData?.isActive || staticReviewFromList?.isActive ? "активирован" : "деактивирован";

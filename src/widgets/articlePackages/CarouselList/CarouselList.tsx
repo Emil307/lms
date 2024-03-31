@@ -1,11 +1,11 @@
 import { Flex, FlexProps } from "@mantine/core";
 import { useEffect } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { ArticlePackageFromList, useArticlePackages } from "@entities/articlePackage";
 import { Card as ArticlePackageCard } from "@features/articlePackages";
 import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { Heading } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { adaptGetArticlePackagesRequest } from "./utils";
 import { initialParams } from "./constants";
 

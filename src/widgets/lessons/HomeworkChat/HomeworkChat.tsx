@@ -1,9 +1,9 @@
 import { Box, Flex, ScrollArea, ThemeIcon } from "@mantine/core";
 import React, { useEffect, useMemo, useRef } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { Heading, Loader } from "@shared/ui";
 import { useLessonHomeworkAnswerMessages } from "@entities/lesson";
 import IconMessagesChat from "public/icons/messagesChat.svg";
+import { useIntersection } from "@shared/utils";
 import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./HomeworkChat.styles";

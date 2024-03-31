@@ -1,9 +1,9 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { useEffect, useMemo } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { useGroupModules } from "@entities/group";
 import { EmptyData, Loader } from "@shared/ui";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import { useIntersection } from "@shared/utils";
 import { ProgramModule } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./MaterialsProgramTrainingList.styles";

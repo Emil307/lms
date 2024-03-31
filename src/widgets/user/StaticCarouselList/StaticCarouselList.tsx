@@ -1,10 +1,10 @@
 import { Flex, FlexProps, Skeleton } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { Carousel } from "@components/Carousel";
 import { StaticUserFromList, useStaticUsers } from "@entities/user";
 import { StaticCard as StaticUserCard } from "@features/users";
 import { Heading } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { initialParams } from "./constants";
 import { adaptGetStaticUsersRequest } from "./utils";
 

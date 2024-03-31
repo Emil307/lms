@@ -2,21 +2,21 @@ import { Box, Flex, FlexProps } from "@mantine/core";
 import React, { useMemo } from "react";
 import { Folder } from "react-feather";
 import { useRouter } from "next/router";
-import { useIntersection } from "@mantine/hooks";
 import { List as CoursesList } from "@features/courses";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import { FilterTypes } from "@shared/constant";
+import { useIntersection } from "@shared/utils";
 import useStyles from "./CoursesBlock.styles";
 
-export interface CoursesBlockProps extends FlexProps {}
+export interface CoursesBlockProps extends FlexProps { }
 
 const CoursesBlock = (props: CoursesBlockProps) => {
     const router = useRouter();
     const { classes } = useStyles();
     const { ref: rootBlockRef, entry } = useIntersection();
 
-    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, !!(entry && entry.isIntersecting));
+    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, entry?.isIntersecting);
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
@@ -60,7 +60,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     mih: 258,
                     radius: 16,
                 }}
-                visible={entry && entry.isIntersecting}
+                visible={entry?.isIntersecting}
                 wrapperProps={{ direction: "column", gap: 32, ...props }}
             />
         </Box>

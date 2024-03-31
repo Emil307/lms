@@ -1,5 +1,4 @@
 import { Flex, Skeleton } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Button, Heading, Paragraph } from "@shared/ui";
@@ -7,6 +6,7 @@ import { Card } from "@features/courses";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { useRandomCourseCollection } from "@entities/courseCollection";
+import { useIntersection } from "@shared/utils";
 import { adaptGetCoursesFromCollectionRequest } from "./utils";
 import { initialParamsForCourses } from "./constants";
 

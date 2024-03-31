@@ -42,7 +42,6 @@ const Header = ({ data, ...props }: HeaderProps) => {
             <Box className={classes.imageWrapper}>
                 <Image
                     src={data.picture.data.path}
-                    loader={({ src }) => `${src}`}
                     alt={data.picture.data.name}
                     fill
                     sizes="100vw"

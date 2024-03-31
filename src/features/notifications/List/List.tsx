@@ -1,7 +1,7 @@
 import { Box, Flex, FlexProps, Loader, ScrollArea, Text } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { ReactNode, useEffect, useMemo } from "react";
 import { NotificationFromList, useNotifications } from "@entities/notification";
+import { useIntersection } from "@shared/utils";
 import { initialParams } from "./constants";
 import useStyles from "./List.styles";
 

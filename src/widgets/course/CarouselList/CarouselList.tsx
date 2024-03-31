@@ -1,10 +1,10 @@
 import { Box, BoxProps } from "@mantine/core";
 import { useEffect } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { Carousel } from "@components/Carousel";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
 import { Card } from "@features/courses";
+import { useIntersection } from "@shared/utils";
 import { adaptGetCoursesInfiniteRequest } from "./utils";
 import { initialParams } from "./constants";
 

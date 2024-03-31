@@ -19,7 +19,7 @@ const CustomPage404 = () => {
     return (
         <Flex direction="column" align="center" gap={48}>
             <Box className={classes.imageWrapper}>
-                <Image src={image404} fill alt="404 ошибка" />
+                <Image src={image404} fill alt="404 ошибка" priority />
             </Box>
             <Flex direction="column" gap={16}>
                 <Heading align="center">Ого! Вы нашли несуществующую страницу</Heading>

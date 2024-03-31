@@ -79,7 +79,7 @@ export const useUpdateCourseReviewPublishingStatus = ({
                 return { previousCourseReviewData, previousCourseReviewsData };
             },
             onError: (err, _, context) => {
-                if (typeof context === "object" && context !== null && "previousCourseReviewData" in context) {
+                if (typeof context === "object" && "previousCourseReviewData" in context) {
                     queryClient.setQueryData(
                         [
                             QueryKeys.GET_ADMIN_COURSE_REVIEW,
@@ -89,7 +89,7 @@ export const useUpdateCourseReviewPublishingStatus = ({
                         context.previousCourseReviewData
                     );
                 }
-                if (typeof context === "object" && context !== null && "previousCourseReviewsData" in context) {
+                if (typeof context === "object" && "previousCourseReviewsData" in context) {
                     queryClient.setQueriesData(
                         [
                             QueryKeys.GET_ADMIN_COURSE_REVIEWS,
@@ -117,7 +117,7 @@ export const useUpdateCourseReviewPublishingStatus = ({
                     .getQueriesData<GetAdminCourseReviewsResponse>([
                         QueryKeys.GET_ADMIN_COURSE_REVIEWS,
                         [EntityNames.COURSE_REVIEW, EntityNames.GROUP, EntityNames.COURSE, EntityNames.USER],
-                    ])?.[0]?.[1]
+                    ])[0]?.[1]
                     ?.data.find((courseReview) => courseReview.id.toString() === id);
 
                 const statusMessage =

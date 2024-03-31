@@ -52,11 +52,11 @@ export const useUpdateAdminUserNotification = (
                 return { previousUserData, previousStudentData };
             },
             onError: (err, _, context) => {
-                if (typeof context === "object" && context !== null && "previousUserData" in context) {
+                if (typeof context === "object" && "previousUserData" in context) {
                     queryClient.setQueryData([QueryKeys.GET_ADMIN_USER, [EntityNames.USER], userId], context.previousUserData);
                 }
 
-                if (typeof context === "object" && context !== null && "previousStudentData" in context) {
+                if (typeof context === "object" && "previousStudentData" in context) {
                     queryClient.setQueryData([QueryKeys.GET_ADMIN_STUDENT, [EntityNames.STUDENT], userId], context.previousStudentData);
                 }
 

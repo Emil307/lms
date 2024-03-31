@@ -1,10 +1,10 @@
 import { Box, Flex, FlexProps, Loader, ScrollArea } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect, useMemo } from "react";
 import { StringParam, useQueryParam } from "use-query-params";
 import { useRouter } from "next/router";
 import { ADMIN_MESSAGES_QUERY_SELECT_NAME, AdminSupportConversationFromList, useAdminSupportConversations } from "@entities/support";
 import { Paragraph } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { ChatItem } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./ChatList.styles";

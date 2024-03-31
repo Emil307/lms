@@ -10,10 +10,6 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (url.pathname === "/ui") {
-        return NextResponse.next();
-    }
-
     const isErrorPath = isPathIncluded(errorPaths, url.pathname);
 
     if (isErrorPath) {

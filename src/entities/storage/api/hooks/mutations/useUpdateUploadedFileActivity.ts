@@ -39,7 +39,7 @@ export const useUpdateUploadedFileActivity = (
                 return { previousFilesData };
             },
             onError: (err, _, context) => {
-                if (typeof context === "object" && context !== null && "previousFilesData" in context) {
+                if (typeof context === "object" && "previousFilesData" in context) {
                     queryClient.setQueriesData(
                         [QueryKeys.GET_UPLOADED_FILES, [EntityNames.MATERIAL, EntityNames.CATEGORY]],
                         context.previousFilesData

@@ -1,10 +1,10 @@
 import { Box, BoxProps, Flex, TitleProps, Skeleton } from "@mantine/core";
 import { useEffect } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { CoursePackage, useCoursePackages } from "@entities/coursePackage";
 import { CourseListFromPackage, Card as CoursePackageCard } from "@features/coursePackages";
 import { Heading, Paragraph } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { adaptGetCoursePackagesRequest } from "./utils";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {

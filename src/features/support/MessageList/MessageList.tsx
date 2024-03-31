@@ -1,8 +1,8 @@
 import { Box, Flex, FlexProps, ScrollArea } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect, useMemo, useRef } from "react";
 import { useSupportMessages } from "@entities/support";
 import { Loader } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { EmptyBlock, MessageItem } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./MessageList.styles";

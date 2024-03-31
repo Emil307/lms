@@ -69,7 +69,6 @@ export default function FileInputLoadedImage({
                 src={fileUrl}
                 width={imageMaxWidth}
                 height={imageMaxHeight}
-                loader={({ src }) => `${src}`}
                 alt="file-preview"
                 style={{
                     maxWidth: "100%",

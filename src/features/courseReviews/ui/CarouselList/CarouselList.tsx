@@ -1,9 +1,9 @@
 import { Box, BoxProps, Skeleton } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { ReactNode, useEffect } from "react";
 import { Carousel } from "@components/Carousel";
 import { CourseReviewFromList, useCourseReviews } from "@entities/courseReview";
 import { Card as CourseReviewCard } from "@features/courseReviews";
+import { useIntersection } from "@shared/utils";
 import useStyles from "./CarouselList.styles";
 import { initialParams } from "./constants";
 import { adaptGetCourseReviewsRequest } from "./utils";

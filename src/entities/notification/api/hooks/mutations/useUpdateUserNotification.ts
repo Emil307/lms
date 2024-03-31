@@ -35,7 +35,7 @@ export const useUpdateUserNotification = (): UseMutationResult<
             return { previousUserData };
         },
         onError: (err, _, context) => {
-            if (typeof context === "object" && context !== null && "previousUserData" in context) {
+            if (typeof context === "object" && "previousUserData" in context) {
                 queryClient.setQueryData([QueryKeys.GET_ME, [EntityNames.AUTH]], context.previousUserData);
             }
 

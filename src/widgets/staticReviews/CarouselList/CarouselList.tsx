@@ -1,10 +1,10 @@
 import { Box, BoxProps, Skeleton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { Carousel } from "@components/Carousel";
 import { Card as StaticReviewCard } from "@features/staticReviews";
 import { StaticReviewFromList, useStaticReviews } from "@entities/staticReview";
 import { Heading } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { CONTROLS_INITIAL_SIZE, initialParams } from "./constants";
 import useStyles from "./CarouselList.styles";
 import { CounterSlidesInfo } from "./components";

@@ -1,8 +1,8 @@
 import { Box, Flex, FlexProps, ScrollArea } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect, useMemo, useRef } from "react";
 import { AdminSupportConversationFromList, useAdminSupportMessages } from "@entities/support";
 import { Loader } from "@shared/ui";
+import { useIntersection } from "@shared/utils";
 import { DateDivider, EmptyBlock, MessageItem } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./AdminMessageList.styles";

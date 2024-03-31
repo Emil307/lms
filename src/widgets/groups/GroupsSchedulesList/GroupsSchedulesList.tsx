@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { Flex, Skeleton } from "@mantine/core";
 import { Heading } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
 import { GroupSchedulesInfo, useGroupsSchedules } from "@entities/group";
+import { useIntersection } from "@shared/utils";
 import { Card } from "./components";
 import { initialParams } from "./constants";
 

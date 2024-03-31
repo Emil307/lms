@@ -1,7 +1,8 @@
-import { useDebouncedState, useIntersection } from "@mantine/hooks";
+import { useDebouncedState } from "@mantine/hooks";
 import { useEffect } from "react";
 import { FSelect, SelectProps, prepareOptionsForSelect } from "@shared/ui";
 import { AdminTransactionableTypeName, useAdminStudentReportEntities } from "@entities/report";
+import { useIntersection } from "@shared/utils";
 import { initialParams } from "./constants";
 
 export interface EntitySelectProps extends Omit<SelectProps, "data"> {

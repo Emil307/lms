@@ -1,9 +1,9 @@
 import { Box, Flex, FlexProps, Grid, ScrollArea, Text } from "@mantine/core";
-import { useIntersection } from "@mantine/hooks";
 import { useEffect } from "react";
 import { List } from "@components/List";
 import { Button } from "@shared/ui";
 import { ArticleFromList, useArticles } from "@entities/article";
+import { useIntersection } from "@shared/utils";
 import { ArticleItem } from "./components";
 import useStyles from "./ArticleListFromCategory.styles";
 import { adaptGetArticlesRequest } from "./utils";

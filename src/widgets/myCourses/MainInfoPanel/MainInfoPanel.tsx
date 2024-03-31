@@ -86,7 +86,6 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     {data.cover && (
                         <Image
                             src={data.cover.absolutePath}
-                            loader={({ src }) => `${src}`}
                             fill
                             sizes="100vw"
                             alt={data.cover.name} />

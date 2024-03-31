@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const withRoutes = require("nextjs-routes/config")();
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  })
+
 const withSVGR = (nextConfig) => {
     nextConfig.webpack = (config) => {
         config.module.rules.map((rule) => {
@@ -23,6 +27,7 @@ const nextConfig = {
     experimental: {
         outputStandalone: true,
         esmExternals: false,
+        optimizePackageImports: ["my-lib"]
     },
     swcMinify: true,
     images: {
@@ -35,4 +40,4 @@ const nextConfig = {
     },
 };
 
-module.exports = withRoutes(withSVGR(nextConfig));
+module.exports = withBundleAnalyzer(withRoutes(withSVGR(nextConfig)));

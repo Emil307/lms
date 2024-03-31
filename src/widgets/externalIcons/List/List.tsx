@@ -1,8 +1,8 @@
 import { Box, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useEffect, useMemo } from "react";
-import { useIntersection } from "@mantine/hooks";
 import { useExternalIcons } from "@entities/externalIcon";
 import { Card } from "@features/externalIcons";
+import { useIntersection } from "@shared/utils";
 import { initialParams } from "./constants";
 
 export interface ListProps extends Omit<FlexProps, "onSelect" | "children"> {

@@ -95,7 +95,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
             {renderTopCard()}
             {test && test.tasks.length > 0 && (
                 <Flex gap={16} direction="column">
-                    {test?.tasks.map((task, taskIndex) => (
+                    {test.tasks.map((task, taskIndex) => (
                         <Flex className={classes.card} gap={24} direction="column" key={task.id}>
                             <Flex gap={4} direction="column">
                                 <Paragraph variant="small-m" color="neutral_gray">

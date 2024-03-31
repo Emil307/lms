@@ -39,7 +39,7 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
                 }
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage}>
-                        {data.nextLesson?.name}
+                        {data.nextLesson.name}
                     </Button>
                 );
             case "notStarted":

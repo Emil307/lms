@@ -22,7 +22,6 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
                     {data.profile.additionalImage && (
                         <Image
                             src={data.profile.additionalImage.absolutePath}
-                            loader={({ src }) => `${src}`}
                             alt={data.profile.additionalImage.name}
                             fill
                             sizes="100vw"
