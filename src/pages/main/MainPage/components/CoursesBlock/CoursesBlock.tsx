@@ -9,7 +9,7 @@ import { FilterTypes } from "@shared/constant";
 import { useIntersection } from "@shared/utils";
 import useStyles from "./CoursesBlock.styles";
 
-export interface CoursesBlockProps extends FlexProps { }
+export interface CoursesBlockProps extends FlexProps {}
 
 const CoursesBlock = (props: CoursesBlockProps) => {
     const router = useRouter();

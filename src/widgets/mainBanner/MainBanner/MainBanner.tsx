@@ -5,7 +5,7 @@ import { Button, Heading } from "@shared/ui";
 import useStyles from "./MainBanner.styles";
 import { AuthorInfoCard } from "./components";
 
-export interface MainBannerProps extends BoxProps { }
+export interface MainBannerProps extends BoxProps {}
 
 const MainBanner = (props: MainBannerProps) => {
     const { classes } = useStyles();

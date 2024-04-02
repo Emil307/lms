@@ -3,7 +3,7 @@ import React from "react";
 import { List as CourseSetList } from "@features/courseCollections";
 import { useIntersection } from "@shared/utils";
 
-export interface CourseCollectionsBlockProps extends BoxProps { }
+export interface CourseCollectionsBlockProps extends BoxProps {}
 
 const CourseCollectionsBlock = (props: CourseCollectionsBlockProps) => {
     const titleCourseSets = `Топовые подборки курсов ${new Date().getFullYear()}`;
@@ -21,7 +21,7 @@ const CourseCollectionsBlock = (props: CourseCollectionsBlockProps) => {
                     mih: 258,
                     radius: 16,
                 }}
-                visible={entry?.isIntersecting}
+                visible={!!entry?.isIntersecting}
                 wrapperProps={{ direction: "column", gap: 32, ...props }}
             />
         </Box>
