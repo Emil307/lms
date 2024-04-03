@@ -67,9 +67,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 </Flex>
 
                 <Box className={classes.imageWrapper}>
-                    {data.cover && (
-                        <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />
-                    )}
+                    {data.cover && <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />}
                 </Box>
             </Flex>
             <Flex className={classes.descriptionContainer} hidden={!data.description}>

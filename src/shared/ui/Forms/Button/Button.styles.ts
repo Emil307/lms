@@ -101,8 +101,8 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                 color: theme.colors.dark[0],
                 height: "auto",
 
-                "span": {
-                    whiteSpace: "normal"
+                span: {
+                    whiteSpace: "normal",
                 },
 
                 ":hover": {

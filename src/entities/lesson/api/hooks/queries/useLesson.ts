@@ -32,6 +32,6 @@ export const useLesson = ({
         },
         {
             enabled: !!id && !!courseId,
-        }
+        },
     );
 };

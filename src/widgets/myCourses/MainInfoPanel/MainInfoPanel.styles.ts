@@ -66,10 +66,10 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
     nextLessonButton: {
         height: "auto",
 
-        "span": {
-            whiteSpace: "normal"
-        }
-    }
+        span: {
+            whiteSpace: "normal",
+        },
+    },
 }));
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {

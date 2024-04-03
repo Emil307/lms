@@ -2,7 +2,13 @@ import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, BoxProps, Popover, ScrollArea } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { TPaginationResponse, useConcatOptionsForSelect, useInfiniteRequest, useIntersection, useSelectFilterWithQuery } from "@shared/utils";
+import {
+    TPaginationResponse,
+    useConcatOptionsForSelect,
+    useInfiniteRequest,
+    useIntersection,
+    useSelectFilterWithQuery,
+} from "@shared/utils";
 import { Loader, Paragraph } from "@shared/ui";
 import { REQUEST_FILTERS_DEFAULT_PARAMS } from "@shared/constant";
 import { ManagedSelectFuncParams } from "./types";

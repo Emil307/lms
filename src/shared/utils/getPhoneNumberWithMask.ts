@@ -1,13 +1,13 @@
-import { createDefaultMaskGenerator, mask as getMask } from "react-hook-mask"
-import { defaultPhoneMask } from "@shared/ui"
+import { createDefaultMaskGenerator, mask as getMask } from "react-hook-mask";
+import { defaultPhoneMask } from "@shared/ui";
 
 interface GetPhoneNumberWithMaskProps {
-    mask?: string
-    phoneNumber?: string | null
+    mask?: string;
+    phoneNumber?: string | null;
 }
 
 export const getPhoneNumberWithMask = ({ mask = defaultPhoneMask, phoneNumber }: GetPhoneNumberWithMaskProps) => {
-    const maskGenerator = createDefaultMaskGenerator(mask)
+    const maskGenerator = createDefaultMaskGenerator(mask);
 
-    return getMask(phoneNumber || "", maskGenerator)
-}
+    return getMask(phoneNumber || "", maskGenerator);
+};

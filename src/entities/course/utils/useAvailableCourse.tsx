@@ -1,20 +1,20 @@
-import { useEffect } from "react"
-import { hideNotification } from '@mantine/notifications';
-import { ToastType, createNotification } from "@shared/utils"
+import { useEffect } from "react";
+import { hideNotification } from "@mantine/notifications";
+import { ToastType, createNotification } from "@shared/utils";
 import { Roles } from "@app/routes";
-import { CourseAvailableGroup } from "../api"
+import { CourseAvailableGroup } from "../api";
 
 interface UseAvailableCourseProps {
-    userRole?: number
-    courseId?: number
-    courseName?: string
-    availableGroup?: CourseAvailableGroup | null
+    userRole?: number;
+    courseId?: number;
+    courseName?: string;
+    availableGroup?: CourseAvailableGroup | null;
 }
 
 export const useAvailableCourse = ({ userRole, courseId, courseName, availableGroup }: UseAvailableCourseProps) => {
     useEffect(() => {
         if (userRole !== Roles.administrator || availableGroup || availableGroup === undefined) {
-            return
+            return;
         }
         createNotification({
             id: String(courseId),
@@ -25,7 +25,7 @@ export const useAvailableCourse = ({ userRole, courseId, courseName, availableGr
         });
 
         return () => {
-            hideNotification(String(courseId))
-        }
-    }, [availableGroup])
-}
+            hideNotification(String(courseId));
+        };
+    }, [availableGroup]);
+};

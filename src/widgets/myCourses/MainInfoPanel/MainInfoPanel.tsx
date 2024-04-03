@@ -36,12 +36,11 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const renderActionButton = () => {
         switch (data.status.name) {
             case "notStarted":
-                return (
-                    <Button w="min-content" onClick={handleOpenNextLessonFromMyCoursePage}>
-                        Начать обучение
-                    </Button>
-                );
+                return null;
             case "inProgress":
+                if (!data.nextLesson) {
+                    return null;
+                }
                 return (
                     <Button
                         className={classes.nextLessonButton}
@@ -49,7 +48,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                         leftIcon={<PlayCircle />}
                         onClick={handleOpenNextLessonFromMyCoursePage}
                         w="min-content">
-                        {data.nextLesson?.name}
+                        {data.nextLesson.name}
                     </Button>
                 );
             default:
@@ -83,13 +82,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     {renderActionButton()}
                 </Flex>
                 <Box className={classes.imageWrapper}>
-                    {data.cover && (
-                        <Image
-                            src={data.cover.absolutePath}
-                            fill
-                            sizes="100vw"
-                            alt={data.cover.name} />
-                    )}
+                    {data.cover && <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />}
                 </Box>
             </Flex>
             <Flex className={classes.descriptionContainer} hidden={!data.description}>

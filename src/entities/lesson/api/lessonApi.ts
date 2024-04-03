@@ -151,7 +151,7 @@ export class LessonApi extends BaseApi {
     }
 
     async getAdminHomeworkAnswersResources(
-        params: GetAdminHomeworkAnswersResourcesRequest
+        params: GetAdminHomeworkAnswersResourcesRequest,
     ): Promise<GetAdminHomeworkAnswersResourcesResponse> {
         const response = await this.instance.get("admin/lessons/homeworks/answers/resources", { params });
         return $GetAdminHomeworkAnswersResourcesResponse.parse(response);

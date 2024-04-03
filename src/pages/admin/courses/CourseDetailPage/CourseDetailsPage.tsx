@@ -16,9 +16,9 @@ const CourseDetailsPage = () => {
     const { id, tab } = router.query as TRouterQueries;
     const { data: courseData, isLoading, isError } = useAdminCourse(id);
 
-    const userRole = useUserRole()
+    const userRole = useUserRole();
 
-    useAvailableCourse({ userRole, courseId: courseData?.id, courseName: courseData?.name, availableGroup: courseData?.availableGroup })
+    useAvailableCourse({ userRole, courseId: courseData?.id, courseName: courseData?.name, availableGroup: courseData?.availableGroup });
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id, tab: value } });

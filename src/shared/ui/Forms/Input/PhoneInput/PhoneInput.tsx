@@ -1,12 +1,12 @@
-import { BoxProps } from "@mantine/core"
-import { createDefaultMaskGenerator } from "react-hook-mask"
-import { defaultPhoneCode, defaultPhoneMask } from "./constants"
-import { MaskedInput, MaskedInputProps } from "../MaskedInput"
+import { BoxProps } from "@mantine/core";
+import { createDefaultMaskGenerator } from "react-hook-mask";
+import { defaultPhoneCode, defaultPhoneMask } from "./constants";
+import { MaskedInput, MaskedInputProps } from "../MaskedInput";
 
 export interface PhoneInputProps extends Omit<MaskedInputProps, "maskGenerator"> {
-    mask?: string
-    code?: string
-    wrapperProps?: Omit<BoxProps, "children">
+    mask?: string;
+    code?: string;
+    wrapperProps?: Omit<BoxProps, "children">;
 }
 
 export const PhoneInput = ({
@@ -16,21 +16,14 @@ export const PhoneInput = ({
     wrapperProps,
     ...props
 }: PhoneInputProps) => {
-    const phoneMask = createDefaultMaskGenerator(mask)
+    const phoneMask = createDefaultMaskGenerator(mask);
 
     const handleChangeMaskedInput = (value: string) => {
         if (value) {
-            return onChange(code.slice(1) + value)
+            return onChange(code.slice(1) + value);
         }
-        return onChange(value)
-    }
+        return onChange(value);
+    };
 
-    return (
-        <MaskedInput
-            {...props}
-            maskGenerator={phoneMask}
-            className={props.className}
-            onChange={handleChangeMaskedInput}
-        />
-    )
-}
+    return <MaskedInput {...props} maskGenerator={phoneMask} className={props.className} onChange={handleChangeMaskedInput} />;
+};

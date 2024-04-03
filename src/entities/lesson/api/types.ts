@@ -287,7 +287,7 @@ export const $UpdateAdminTestRequest = z.object({
     tasks: z.array(
         $AdminTestQuestion.omit({
             id: true,
-        })
+        }),
     ),
 });
 
@@ -378,7 +378,7 @@ export const $GetAdminHomeworkAnswersResourcesResponse = z.object({
         z.object({
             id: z.number(),
             name: z.string(),
-        })
+        }),
     ),
     students: z.array(
         z.object({
@@ -387,7 +387,7 @@ export const $GetAdminHomeworkAnswersResourcesResponse = z.object({
                 firstName: z.string(),
                 lastName: z.string(),
             }),
-        })
+        }),
     ),
 });
 

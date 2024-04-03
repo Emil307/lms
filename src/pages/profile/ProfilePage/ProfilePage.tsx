@@ -21,7 +21,7 @@ const ProfilePage = () => {
     const { data: userData, isLoading } = useMe();
     const { mutate: updateNotification } = useUpdateUserNotification();
 
-    const userRole = useUserRole()
+    const userRole = useUserRole();
 
     const handleRedirectEditProfile = () => router.push("/profile/edit");
 
@@ -58,9 +58,9 @@ const ProfilePage = () => {
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
                         <DisplayField label="Отчество" value={userData?.profile.patronymic} />
-                        {(userRole === Roles.student || userRole === Roles.employee) &&
+                        {(userRole === Roles.student || userRole === Roles.employee) && (
                             <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: userData?.phone })} />
-                        }
+                        )}
                     </Fieldset>
 
                     <Fieldset label="Системные данные" icon={<Shield />}>

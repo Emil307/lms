@@ -205,7 +205,7 @@ export const $AdminCourse = z.object({
 
 export const $CreateCourseResponse = $AdminCourse.omit({
     rating: true,
-    availableGroup: true
+    availableGroup: true,
 });
 
 export const $GetAdminCourseResourcesRequest = z.object({
@@ -435,7 +435,7 @@ export const $UpdateCourseRequest = $CreateCourseRequest.extend({
 
 export const $UpdateCourseResponse = $AdminCourse.omit({
     rating: true,
-    availableGroup: true
+    availableGroup: true,
 });
 
 export const $UpdateCourseActivityRequest = z.object({

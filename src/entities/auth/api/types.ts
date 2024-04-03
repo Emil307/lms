@@ -24,7 +24,7 @@ export const $User = z.object({
     profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
-    phone: z.string().nullish()
+    phone: z.string().nullish(),
 });
 
 export const $ChangePasswordRequest = z.object({
@@ -50,21 +50,22 @@ export const $ResetPasswordRequest = z.object({
 
 export const $ResetPasswordResponse = z.null();
 
-export const $UpdateMeForm = z.object({
-    firstName: z.string({ required_error: "Введите имя" }).max(32, "Должно быть не более 32 символов"),
-    lastName: z.string({ required_error: "Введите фамилию" }).max(32, "Должно быть не более 32 символов"),
-    patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
-    phone: z.string().optional(),
-    email: z.string({ required_error: "Введите email" }),
-    avatar: $UploadedFile.nullable().optional(),
-    roleId: z.number(),
-})
+export const $UpdateMeForm = z
+    .object({
+        firstName: z.string({ required_error: "Введите имя" }).max(32, "Должно быть не более 32 символов"),
+        lastName: z.string({ required_error: "Введите фамилию" }).max(32, "Должно быть не более 32 символов"),
+        patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
+        phone: z.string().optional(),
+        email: z.string({ required_error: "Введите email" }),
+        avatar: $UploadedFile.nullable().optional(),
+        roleId: z.number(),
+    })
     .refine(
         (data) => {
             if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
                 return true;
             }
-            return !!data.phone
+            return !!data.phone;
         },
         {
             message: "Введите телефон",
@@ -76,23 +77,25 @@ export const $UpdateMeForm = z.object({
             if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
                 return true;
             }
-            return data.phone && data.phone.length === defaultPhoneLength
+            return data.phone && data.phone.length === defaultPhoneLength;
         },
         {
             message: `Должно быть ${defaultPhoneLength} цифр`,
             path: ["phone"],
         },
-    )
+    );
 
-export const $UpdateMeRequest = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    patronymic: z.string().optional(),
-    phone: z.string().optional(),
-    email: z.string(),
-}).extend({
-    avatarId: z.number().optional(),
-});
+export const $UpdateMeRequest = z
+    .object({
+        firstName: z.string(),
+        lastName: z.string(),
+        patronymic: z.string().optional(),
+        phone: z.string().optional(),
+        email: z.string(),
+    })
+    .extend({
+        avatarId: z.number().optional(),
+    });
 
 export const $UpdateMeResponse = $User.omit({ roles: true, notifications: true });
 

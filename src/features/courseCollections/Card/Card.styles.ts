@@ -10,7 +10,7 @@ export default createStyles((theme) => ({
         borderRadius: 16,
         backgroundColor: theme.colors.white[0],
         height: "100%",
-        cursor: "pointer"
+        cursor: "pointer",
     },
     content: {
         alignItems: "flex-end",

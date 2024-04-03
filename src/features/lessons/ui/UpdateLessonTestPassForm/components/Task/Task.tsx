@@ -22,15 +22,15 @@ const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps)
         if (data.isCheckbox) {
             return setFieldValue(
                 `tasks.${data.order}.answers.${selectedPossibleAnswerOrder}.isSelected`,
-                !data.answers[selectedPossibleAnswerOrder].isSelected
+                !data.answers[selectedPossibleAnswerOrder].isSelected,
             );
         }
 
         data.answers.map((possibleAnswer) =>
             setFieldValue(
                 `tasks.${data.order}.answers.${possibleAnswer.order}.isSelected`,
-                possibleAnswer.order === selectedPossibleAnswerOrder
-            )
+                possibleAnswer.order === selectedPossibleAnswerOrder,
+            ),
         );
     };
 

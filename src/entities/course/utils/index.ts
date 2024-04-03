@@ -1,1 +1,1 @@
-export * from "./useAvailableCourse"
+export * from "./useAvailableCourse";

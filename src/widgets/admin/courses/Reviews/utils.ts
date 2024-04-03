@@ -18,11 +18,11 @@ export const adaptGetAdminCourseReviewsRequest = (
             score: score,
             ...(createdAtFrom &&
                 createdAtTo && {
-                createdAt: {
-                    items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
-                    operator: "range",
-                },
-            }),
+                    createdAt: {
+                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).format("YYYY-MM-DD")],
+                        operator: "range",
+                    },
+                }),
         },
     };
 };

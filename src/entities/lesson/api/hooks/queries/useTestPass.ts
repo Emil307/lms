@@ -6,13 +6,13 @@ import { FormErrorResponse } from "@shared/types";
 
 export const useTestPass = (
     { lessonId, groupId }: GetTestPassRequest,
-    enabled = false
+    enabled = false,
 ): UseQueryResult<GetTestPassResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
         [QueryKeys.GET_LESSON_TEST_PASS, [EntityNames.LESSON, EntityNames.LESSON_TEST, EntityNames.COURSE], lessonId, groupId],
         () => lessonApi.getTestPass({ lessonId, groupId }),
         {
             enabled: !!lessonId && !!groupId && enabled,
-        }
+        },
     );
 };

@@ -33,6 +33,8 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
 
     const renderActionContent = () => {
         switch (data.status.name) {
+            case "notStarted":
+                return null;
             case "inProgress":
                 if (!data.nextLesson) {
                     return null;
@@ -40,15 +42,6 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage}>
                         {data.nextLesson.name}
-                    </Button>
-                );
-            case "notStarted":
-                if (!data.nextLesson) {
-                    return null;
-                }
-                return (
-                    <Button variant="primary" onClick={handleOpenNextLessonFromMyCoursePage}>
-                        Начать обучение
                     </Button>
                 );
             default:

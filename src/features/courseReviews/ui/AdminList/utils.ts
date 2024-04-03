@@ -15,11 +15,11 @@ export const adaptGetAdminCourseReviewsRequest = (params: TFunctionParams<AdminC
             score: score,
             ...(createdAtFrom &&
                 createdAtTo && {
-                createdAt: {
-                    items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
-                    operator: "range",
-                },
-            }),
+                    createdAt: {
+                        items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
+                        operator: "range",
+                    },
+                }),
         },
     };
 };

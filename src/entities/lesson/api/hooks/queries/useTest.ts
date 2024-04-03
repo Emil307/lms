@@ -11,6 +11,6 @@ export const useTest = ({ lessonId, groupId }: GetTestRequest): UseQueryResult<G
 
         {
             enabled: !!lessonId && !!groupId,
-        }
+        },
     );
 };

@@ -11,7 +11,7 @@ import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles 
 import { useSignUp } from "@entities/auth";
 import { initialValues } from "./constants";
 
-export interface SignUpFormProps extends BoxProps { }
+export interface SignUpFormProps extends BoxProps {}
 
 const SignUpForm = (props: SignUpFormProps) => {
     const router = useRouter();
@@ -96,7 +96,8 @@ const SignUpForm = (props: SignUpFormProps) => {
                                     icon={
                                         <ThemeIcon color="gray45">
                                             <IconPhone />
-                                        </ThemeIcon>}
+                                        </ThemeIcon>
+                                    }
                                 />
                                 <FInput
                                     name="email"

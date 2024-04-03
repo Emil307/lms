@@ -1,3 +1,3 @@
-export * from "./PhoneInput"
-export * from "./FPhoneInput"
-export * from "./constants"
+export * from "./PhoneInput";
+export * from "./FPhoneInput";
+export * from "./constants";

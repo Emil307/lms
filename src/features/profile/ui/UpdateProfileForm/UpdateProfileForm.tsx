@@ -21,7 +21,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
     const router = useRouter();
     const { classes } = useStyles();
 
-    const userRole = useUserRole()
+    const userRole = useUserRole();
 
     const adaptData = adaptDataForUpdateProfileForm(data);
 
@@ -88,22 +88,10 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                         miw={{ base: "100%", xs: 252 }}
                                         withAsterisk
                                     />
-                                    <FInput
-                                        name="patronymic"
-                                        label="Отчество"
-                                        onlyLetters
-                                        size="sm"
-                                        miw={{ base: "100%", xs: 252 }}
-                                    />
-                                    {(userRole === Roles.student || userRole === Roles.employee) &&
-                                        <FPhoneInput
-                                            name="phone"
-                                            label="Телефон"
-                                            size="sm"
-                                            withAsterisk
-                                            miw={{ base: "100%", xs: 252 }}
-                                        />
-                                    }
+                                    <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
+                                    {(userRole === Roles.student || userRole === Roles.employee) && (
+                                        <FPhoneInput name="phone" label="Телефон" size="sm" withAsterisk miw={{ base: "100%", xs: 252 }} />
+                                    )}
                                 </Flex>
                             </Flex>
                         </Fieldset>

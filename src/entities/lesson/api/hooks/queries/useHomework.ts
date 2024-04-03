@@ -19,6 +19,6 @@ export const useHomework = ({
 
         {
             enabled: !!lessonId && !!groupId,
-        }
+        },
     );
 };

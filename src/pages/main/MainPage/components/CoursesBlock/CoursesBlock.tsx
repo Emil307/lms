@@ -16,7 +16,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
     const { classes } = useStyles();
     const { ref: rootBlockRef, entry } = useIntersection();
 
-    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, entry?.isIntersecting);
+    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, !!entry?.isIntersecting);
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
@@ -60,7 +60,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     mih: 258,
                     radius: 16,
                 }}
-                visible={entry?.isIntersecting}
+                visible={!!entry?.isIntersecting}
                 wrapperProps={{ direction: "column", gap: 32, ...props }}
             />
         </Box>

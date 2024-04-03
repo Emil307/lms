@@ -20,9 +20,14 @@ const CourseDetailsPage = () => {
 
     const { data: courseData, isLoading, isError } = useCourse({ id });
 
-    const userRole = useUserRole()
+    const userRole = useUserRole();
 
-    useAvailableCourse({ userRole, courseId: Number(id), courseName: courseData?.name, availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined })
+    useAvailableCourse({
+        userRole,
+        courseId: Number(id),
+        courseName: courseData?.name,
+        availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined,
+    });
 
     //Если авторизованный пользователь попытается открыть данную страницу курса,
     //который считается 'моим курсом' => редирект на детальную страницу 'моего курса'

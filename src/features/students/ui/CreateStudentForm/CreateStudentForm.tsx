@@ -2,7 +2,18 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { FAvatarInput, FControlButtons, FControlPanel, FInput, FPhoneInput, FRadioGroup, FSwitch, ManagedForm, Paragraph, Radio } from "@shared/ui";
+import {
+    FAvatarInput,
+    FControlButtons,
+    FControlPanel,
+    FInput,
+    FPhoneInput,
+    FRadioGroup,
+    FSwitch,
+    ManagedForm,
+    Paragraph,
+    Radio,
+} from "@shared/ui";
 import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
