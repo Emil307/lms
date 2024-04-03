@@ -35,6 +35,8 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
 
     const renderActionButton = () => {
         switch (data.status.name) {
+            case "notStarted":
+                return null;
             case "inProgress":
                 if (!data.nextLesson) {
                     return null;
