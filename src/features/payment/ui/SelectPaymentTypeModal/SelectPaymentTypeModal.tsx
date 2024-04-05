@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import { useState } from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { Button, ControlButtons, Paragraph } from "@shared/ui";
-import { PaymentEntityType, useCreatePaymentAcquiring } from "@entities/payment";
+import { PaymentEntityType, PaymentService, useCreatePaymentAcquiring } from "@entities/payment";
 import useStyles from "./SelectPaymentTypeModal.styles";
 import InvoiceForPaymentModal from "./components/InvoiceForPaymentModal/InvoiceForPaymentModal";
 
@@ -37,10 +37,10 @@ const SelectPaymentTypeModal = ({ entityType, entityId, onClose }: SelectPayment
         });
     };
 
-    const handleCreatePaymentAcquiring = () => {
+    const handleCreatePaymentAcquiring = (service: PaymentService) => {
         setSubmittingAcquiring(true);
         createPaymentAcquiring(
-            { entityId, entityType },
+            { entityId, entityType, service },
             {
                 onSuccess: ({ formUrl }) => {
                     const linkElement = document.createElement("a");
@@ -54,13 +54,18 @@ const SelectPaymentTypeModal = ({ entityType, entityId, onClose }: SelectPayment
         );
     };
 
+    const handleCreatePaymentYookassaAcquiring = () => handleCreatePaymentAcquiring("yookassa");
+    const handleCreatePaymentProdamusAcquiring = () => handleCreatePaymentAcquiring("prodamus");
+
     return (
         <Flex direction="column" gap={24}>
             <Flex direction="column" gap={24} align="center">
-                <Button loading={isSubmittingAcquiring} onClick={handleCreatePaymentAcquiring}>
+                <Button loading={isSubmittingAcquiring} onClick={handleCreatePaymentYookassaAcquiring}>
                     Перейти к оплате
                 </Button>
-                <Paragraph variant="large">Оплатить онлайн</Paragraph>
+                <Button loading={isSubmittingAcquiring} onClick={handleCreatePaymentProdamusAcquiring}>
+                    Оплатить онлайн в валюте
+                </Button>
             </Flex>
 
             <Flex gap={24} align="center">

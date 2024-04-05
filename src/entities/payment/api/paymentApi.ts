@@ -9,8 +9,8 @@ import {
 } from "./types";
 
 class PaymentApi extends BaseApi {
-    async cratePaymentAcquiring(data: CreatePaymentAcquiringRequest): Promise<CreatePaymentAcquiringResponse> {
-        const response = await this.instance.post("payment/make-order", data);
+    async createPaymentAcquiring({ service, ...data }: CreatePaymentAcquiringRequest): Promise<CreatePaymentAcquiringResponse> {
+        const response = await this.instance.post(`payment/${service}/make-order`, data);
         return $CreatePaymentAcquiringResponse.parse(response);
     }
 

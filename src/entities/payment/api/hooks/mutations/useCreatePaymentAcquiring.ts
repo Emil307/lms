@@ -13,7 +13,7 @@ export const useCreatePaymentAcquiring = (): UseMutationResult<
 > => {
     return useMutation(
         [MutationKeys.CREATE_PAYMENT_ACQUIRING],
-        (data: CreatePaymentAcquiringRequest) => paymentApi.cratePaymentAcquiring(data),
+        (data: CreatePaymentAcquiringRequest) => paymentApi.createPaymentAcquiring(data),
         {
             onError: (error) => {
                 createNotification({
