@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ReactNode } from "react";
 import { $PaymentService } from "@entities/payment";
 
 export type PaymentTypeValue = z.infer<typeof $PaymentTypeValue>;
@@ -13,6 +14,6 @@ export const $SelectPaymentTypeFormValidation = z.object({
 export interface PaymentType {
     id: number;
     title: string;
-    description?: string;
+    description: ReactNode;
     value: PaymentTypeValue;
 }

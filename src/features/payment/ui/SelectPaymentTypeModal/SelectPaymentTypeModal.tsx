@@ -2,11 +2,11 @@ import { Flex } from "@mantine/core";
 import { useState } from "react";
 import { closeAllModals, closeModal, openModal } from "@mantine/modals";
 import { FormikConfig } from "formik";
-import { ControlButtons, FRadioGroup, Form, Radio } from "@shared/ui";
+import { ControlButtons, FRadioGroup, Form } from "@shared/ui";
 import { PaymentEntityType, PaymentService, useCreatePaymentAcquiring } from "@entities/payment";
 import { $SelectPaymentTypeFormValidation, SelectPaymentTypeFormValidation } from "./types";
 import { initialValues, paymentTypeItems } from "./constants";
-import { InvoiceForPaymentModal } from "./components";
+import { InvoiceForPaymentModal, PaymentTypeItem } from "./components";
 import useStyles from "./SelectPaymentTypeModal.styles";
 
 export interface SelectPaymentTypeModalProps {
@@ -80,15 +80,7 @@ const SelectPaymentTypeModal = ({ entityType, entityId, onClose }: SelectPayment
                 <FRadioGroup name="paymentType">
                     <Flex className={classes.paymentTypesContainer}>
                         {paymentTypeItems.map((item) => (
-                            <Radio
-                                size="md"
-                                labelPosition="left"
-                                key={item.id}
-                                label={item.title}
-                                value={item.value}
-                                description={item.description}
-                                className={classes.paymentTypeItem}
-                            />
+                            <PaymentTypeItem key={item.id} data={item} />
                         ))}
                     </Flex>
                 </FRadioGroup>
