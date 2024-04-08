@@ -1,3 +1,3 @@
-import InvoicePaymentForm from "./InvoiceForPaymentModal";
+import InvoiceForPaymentModal from "./InvoiceForPaymentModal";
 
-export { InvoicePaymentForm };
+export { InvoiceForPaymentModal };
