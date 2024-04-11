@@ -16,9 +16,10 @@ export interface FilterListProps {
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
     data?: CourseTag[] | CourseCategory[];
+    isVisible?: boolean;
 }
 
-const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
+const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data, isVisible }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
     const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(INITIAL_MAX_HEIGHT_SPOILER_CONTAINER);
@@ -35,6 +36,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     //Для определения высоты контента для компонента Spoiler для 5 элементов с отступами
     const getMaxHeightSpoilerContainer = async () => {
         const elements = Array.from(spoilerContentRef.current?.children || []);
+
         const firstFiveElements = elements.slice(0, 5);
 
         const heightIndents = (firstFiveElements.length - 1) * HEIGHT_CONTENT_INDENT;
@@ -52,7 +54,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         setTimeout(() => {
             getMaxHeightSpoilerContainer();
         }, 1);
-    }, [data, spoilerContentRef.current]);
+    }, [data, spoilerContentRef.current, isVisible]);
 
     const handleChangeSelectFilterItem = (itemId: number | null) => {
         clear();

@@ -78,6 +78,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                         searchPlaceholder="Найти тематики"
                                         labelsPluralString={["тематика", "тематики", "тематик"]}
                                         data={articleFilters.data?.subcategories}
+                                        isVisible={openedFilters}
                                     />
                                     <FilterList
                                         field="tags"
@@ -85,6 +86,7 @@ const Filters = ({ data, onSubmitFilters, articleType, courseId, ...props }: Fil
                                         searchPlaceholder="Найти теги"
                                         labelsPluralString={["тег", "тега", "тегов"]}
                                         data={articleFilters.data?.tags}
+                                        isVisible={openedFilters}
                                     />
                                     <Flex className={classes.buttonsFormContainer}>
                                         <Button type="submit" variant="white" leftIcon={<IconFilter />}>

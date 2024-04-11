@@ -89,6 +89,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 searchPlaceholder="Найти тематики"
                                                 labelsPluralString={["тематика", "тематики", "тематик"]}
                                                 data={courseResources.data?.subcategories}
+                                                isVisible={openedFilters}
                                             />
                                             <FilterList
                                                 field="tags"
@@ -96,6 +97,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 searchPlaceholder="Найти теги"
                                                 labelsPluralString={["тег", "тега", "тегов"]}
                                                 data={courseResources.data?.tags}
+                                                isVisible={openedFilters}
                                             />
                                             <Flex direction="column" gap={16}>
                                                 <Paragraph variant="text-small-semi">Цена</Paragraph>

@@ -16,9 +16,10 @@ export interface FilterListProps {
     searchPlaceholder: string;
     labelsPluralString: [string, string, string];
     data?: ArticleCategory[] | ArticleTag[];
+    isVisible: boolean;
 }
 
-const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data }: FilterListProps) => {
+const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data, isVisible }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
     const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(INITIAL_MAX_HEIGHT_SPOILER_CONTAINER);
@@ -52,7 +53,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
         setTimeout(() => {
             getMaxHeightSpoilerContainer();
         }, 1);
-    }, [data, spoilerContentRef.current]);
+    }, [data, spoilerContentRef.current, isVisible]);
 
     const handleChangeSelectFilterItem = (itemId: number | null) => {
         clear();
