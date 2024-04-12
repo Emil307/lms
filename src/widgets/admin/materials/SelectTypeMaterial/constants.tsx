@@ -15,7 +15,7 @@ export const materialTypeCards: IMaterialTypeCard[] = [
         title: "Добавить файлы",
         icon: <FileText />,
         type: "document",
-        fileFormats: ["pdf", "doc", "docx", "mp4", "jpeg", "jpg", "png", "mpg"],
-        description: "jpg, png, pdf, doc, docx, mp4, mpg. До 8Мb (не более 10 файлов за раз)",
+        fileFormats: ["pdf", "doc", "docx", "mp4", "jpeg", "jpg", "png", "mpg", "xls", "xlsx"],
+        description: "jpg, png, pdf, doc, docx, mp4, mpg, xlsx. До 8Мb (не более 10 файлов за раз)",
     },
 ];
