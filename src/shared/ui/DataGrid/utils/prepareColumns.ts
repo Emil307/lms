@@ -11,7 +11,7 @@ export const prepareColumns = <T extends Record<string, any>>(data: TColumns<T>,
                 return prev;
             }
             return prev;
-        }
-        return prev;
-}, [] as MRT_ColumnDef<T>["columns"]);
+        },
+        [] as MRT_ColumnDef<T>["columns"],
+    );
 };

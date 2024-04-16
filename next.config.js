@@ -24,8 +24,8 @@ const withSVGR = (nextConfig) => {
 
 const nextConfig = {
     reactStrictMode: true,
+    output: "standalone",
     experimental: {
-        outputStandalone: true,
         esmExternals: false,
         optimizePackageImports: ["my-lib"]
     },

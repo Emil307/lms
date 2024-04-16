@@ -21,6 +21,9 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
+      "react": [
+        "node_modules/@types/react"
+      ],
       "@app/*": [
         "./src/app/*"
       ],
