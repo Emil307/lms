@@ -26,18 +26,3 @@ export const apiRoutesInterceptor: TAxiosRequestInterceptorSuccess = (config) =>
     config.baseURL = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_API_ROUTES_URL : "http://localhost:3000/api/";
     return config;
 };
-
-export const authMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
-    config.baseURL = process.env.NEXT_PUBLIC_API_URL_AUTH;
-    return config;
-};
-
-export const coursesMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
-    config.baseURL = process.env.NEXT_PUBLIC_API_URL_COURSES;
-    return config;
-};
-
-export const articlesMicroserviceInterceptor: TAxiosRequestInterceptorSuccess = (config) => {
-    config.baseURL = process.env.NEXT_PUBLIC_API_URL_ARTICLES;
-    return config;
-};

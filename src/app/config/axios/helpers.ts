@@ -11,15 +11,6 @@ export const defaultHeaders: Partial<AxiosRequestHeaders> = {
 /**
  *
  * @param config AxiosConfigObject
- * @returns true если запрос идет на урл не содержащий admin в URL, false иначе.
- */
-export const whenUsingLkRoute: TAxiosRunWhen = (config) => {
-    return config.url?.includes("admin") || false;
-};
-
-/**
- *
- * @param config AxiosConfigObject
  * @returns true, если запрос для скачивания файлов
  */
 export const whenDownloadingFiles: TAxiosRunWhen = (config) => {
@@ -32,7 +23,7 @@ export const whenDownloadingFiles: TAxiosRunWhen = (config) => {
  * @returns true если запрос для загрузки файлов
  */
 export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
-    return !!config.url?.includes("storage/uploads/");
+    return !!config.url?.includes("storage/uploads");
 };
 
 /**
@@ -42,73 +33,6 @@ export const whenUsingUploadToStorageRoute: TAxiosRunWhen = (config) => {
  */
 export const whenApiRoutesRoute: TAxiosRunWhen = (config) => {
     return !!config.url?.includes("external-icons");
-};
-
-/**
- *
- * @param config AxiosConfigObject
- * @returns true если запрос из микросервиса AUTH
- */
-export const whenAuthMicroserviceRoute: TAxiosRunWhen = (config) => {
-    return (
-        !!config.url?.startsWith("authentication") ||
-        !!config.url?.startsWith("authorization") ||
-        (!!config.url?.startsWith("me") && !config.url.startsWith("me/articles")) ||
-        (!!config.url?.startsWith("admin/users") &&
-            !config.url.includes("courses") &&
-            !config.url.includes("groups") &&
-            !config.url.includes("article-packages")) ||
-        (!!config.url?.startsWith("notifications") &&
-            !config.url.includes("read-all") &&
-            !config.url.includes("list") &&
-            !config.url.includes("new"))
-    );
-};
-
-/**
- *
- * @param config AxiosConfigObject
- * @returns true если запрос из микросервиса COURSES
- */
-export const whenCoursesMicroserviceRoute: TAxiosRunWhen = (config) => {
-    return (
-        !!config.url?.startsWith("admin/authors") ||
-        !!config.url?.startsWith("authors") ||
-        (!!config.url?.startsWith("admin/courses") && !config.url.includes("articles")) ||
-        (!!config.url?.startsWith("courses") && !config.url.includes("articles")) ||
-        !!config.url?.startsWith("admin/course-packages") ||
-        !!config.url?.startsWith("course-packages") ||
-        !!config.url?.startsWith("admin/course-collections") ||
-        !!config.url?.startsWith("course-collections") ||
-        !!config.url?.startsWith("admin/groups") ||
-        !!config.url?.startsWith("groups") ||
-        !!config.url?.startsWith("admin/lessons") ||
-        !!config.url?.startsWith("admin/course-reviews") ||
-        !!config.url?.startsWith("course-reviews") ||
-        (!!config.url?.startsWith("admin/users") && config.url.includes("courses")) ||
-        (!!config.url?.startsWith("admin/users") && config.url.includes("groups")) ||
-        !!config.url?.startsWith("user/courses") ||
-        !!config.url?.startsWith("user/groups")
-    );
-};
-
-/**
- *
- * @param config AxiosConfigObject
- * @returns true если запрос из микросервиса ARTICLES
- */
-export const whenArticlesMicroserviceRoute: TAxiosRunWhen = (config) => {
-    return (
-        !!config.url?.startsWith("admin/articles") ||
-        (!!config.url?.startsWith("articles") && !config.url.includes("payment-invoices")) ||
-        !!config.url?.startsWith("admin/article-packages") ||
-        (!!config.url?.startsWith("category") && config.url.includes("article")) ||
-        (!!config.url?.startsWith("courses") && config.url.includes("articles")) ||
-        (!!config.url?.startsWith("admin/courses") && config.url.includes("articles")) ||
-        (!!config.url?.startsWith("admin/users") && config.url.includes("article-packages")) ||
-        !!config.url?.startsWith("me/articles") ||
-        (!!config.url?.includes("article-packages") && !config.url.includes("payment-invoices"))
-    );
 };
 
 export const errorLogger: TAxiosResponseInterceptorError = (error) => console.error(error);

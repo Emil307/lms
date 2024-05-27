@@ -31,53 +31,53 @@ import {
 class TransactionApi extends BaseApi {
     //ADMIN
     async getAdminTransactions(params: GetAdminTransactionsRequest): Promise<GetAdminTransactionsResponse> {
-        const response = await this.instance.post("admin/transactions/list", params);
+        const response = await this.instance.post("core/admin/transactions/list", params);
         return $GetAdminTransactionsResponse.parse(response);
     }
 
     async getAdminTransaction({ id }: GetAdminTransactionRequest): Promise<GetAdminTransactionResponse> {
-        const response = await this.instance.get(`admin/transactions/${id}`);
+        const response = await this.instance.get(`core/admin/transactions/${id}`);
         return $GetAdminTransactionResponse.parse(response);
     }
 
     async getAdminTransactionsFilters(): Promise<GetAdminTransactionsFiltersResponse> {
-        const response = await this.instance.get("admin/transactions/filters");
+        const response = await this.instance.get("core/admin/transactions/filters");
         return $GetAdminTransactionsFiltersResponse.parse(response);
     }
 
     async getAdminTransactionsCreateResources(): Promise<GetAdminTransactionsCreateResourcesResponse> {
-        const response = await this.instance.get("admin/transactions/create");
+        const response = await this.instance.get("core/admin/transactions/create");
         return $GetAdminTransactionsCreateResourcesResponse.parse(response);
     }
 
     async createAdminTransaction(data: CreateAdminTransactionRequest): Promise<CreateAdminTransactionResponse> {
-        const response = await this.instance.post("admin/transactions", data);
+        const response = await this.instance.post("core/admin/transactions", data);
         return $CreateAdminTransactionResponse.parse(response);
     }
 
     async updateAdminTransaction({ id, ...data }: UpdateAdminTransactionRequest): Promise<UpdateAdminTransactionResponse> {
-        const response = await this.instance.put(`admin/transactions/${id}`, data);
+        const response = await this.instance.put(`core/admin/transactions/${id}`, data);
         return $UpdateAdminTransactionResponse.parse(response);
     }
 
     async deleteAdminTransaction({ id }: DeleteAdminTransactionRequest): Promise<DeleteAdminTransactionResponse> {
-        const response = await this.instance.delete(`admin/transactions/${id}`);
+        const response = await this.instance.delete(`core/admin/transactions/${id}`);
         return $DeleteAdminTransactionResponse.parse(response);
     }
 
     //USER
     async getTransactions(params: GetTransactionsRequest): Promise<GetTransactionsResponse> {
-        const response = await this.instance.post("transactions/list", params);
+        const response = await this.instance.post("core/transactions/list", params);
         return $GetTransactionsResponse.parse(response);
     }
 
     async getTransactionsFilters(): Promise<GetTransactionsFiltersResponse> {
-        const response = await this.instance.get("transactions/filters");
+        const response = await this.instance.get("core/transactions/filters");
         return $GetTransactionsFiltersResponse.parse(response);
     }
 
     async createFreeTransaction(data: CreateFreeTransactionRequest): Promise<void> {
-        return await this.instance.post("transactions", data);
+        return await this.instance.post("core/transactions", data);
     }
 }
 

@@ -10,20 +10,20 @@ import {
 
 class PaymentApi extends BaseApi {
     async createPaymentAcquiring({ service, ...data }: CreatePaymentAcquiringRequest): Promise<CreatePaymentAcquiringResponse> {
-        const response = await this.instance.post(`payment/${service}/make-order`, data);
+        const response = await this.instance.post(`core/payment/${service}/make-order`, data);
         return $CreatePaymentAcquiringResponse.parse(response);
     }
 
     async createInvoiceForPaymentCourse({ entityId, ...data }: CreateInvoiceForPaymentRequest): Promise<TFileDownloadResponse> {
-        return await this.instance.post(`payment-invoices/courses/${entityId}`, data);
+        return await this.instance.post(`core/payment-invoices/courses/${entityId}`, data);
     }
 
     async createInvoiceForPaymentCoursePackage({ entityId, ...data }: CreateInvoiceForPaymentRequest): Promise<TFileDownloadResponse> {
-        return await this.instance.post(`payment-invoices/course-packages/${entityId}`, data);
+        return await this.instance.post(`core/payment-invoices/course-packages/${entityId}`, data);
     }
 
     async createInvoiceForPaymentArticlePackage({ entityId, ...data }: CreateInvoiceForPaymentRequest): Promise<TFileDownloadResponse> {
-        return await this.instance.post(`payment-invoices/article-packages/${entityId}`, data);
+        return await this.instance.post(`core/payment-invoices/article-packages/${entityId}`, data);
     }
 }
 

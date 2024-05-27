@@ -41,29 +41,29 @@ import {
 export class CourseCollectionApi extends BaseApi {
     //ADMIN
     async getAdminCourseCollections(data: GetAdminCourseCollectionsRequest): Promise<GetAdminCourseCollectionsResponse> {
-        const response = await this.instance.post("admin/course-collections/list", data);
+        const response = await this.instance.post("courses/admin/course-collections/list", data);
         return $GetAdminCourseCollectionsResponse.parse(response);
     }
 
     async getAdminCourseCollection({ id }: GetAdminCourseCollectionRequest): Promise<GetAdminCourseCollectionResponse> {
-        const response = await this.instance.get(`admin/course-collections/${id}`);
+        const response = await this.instance.get(`courses/admin/course-collections/${id}`);
         return $GetAdminCourseCollectionResponse.parse(response);
     }
 
     async getAdminCourseCollectionResources(
         params: GetAdminCourseCollectionResourcesRequest
     ): Promise<GetAdminCourseCollectionResourcesResponse> {
-        const response = await this.instance.get("admin/course-collections/resources", { params });
+        const response = await this.instance.get("courses/admin/course-collections/resources", { params });
         return $GetAdminCourseCollectionResourcesResponse.parse(response);
     }
 
     async createAdminCourseCollection(data: CreateAdminCourseCollectionRequest): Promise<CreateAdminCourseCollectionResponse> {
-        const response = await this.instance.post("admin/course-collections", data);
+        const response = await this.instance.post("courses/admin/course-collections", data);
         return $CreateAdminCourseCollectionResponse.parse(response);
     }
 
     async updateAdminCourseCollection({ id, ...data }: UpdateAdminCourseCollectionRequest): Promise<UpdateAdminCourseCollectionResponse> {
-        const response = await this.instance.put(`admin/course-collections/${id}`, data);
+        const response = await this.instance.put(`courses/admin/course-collections/${id}`, data);
         return $UpdateAdminCourseCollectionResponse.parse(response);
     }
 
@@ -71,12 +71,12 @@ export class CourseCollectionApi extends BaseApi {
         id,
         ...data
     }: UpdateAdminCourseCollectionActivityRequest): Promise<UpdateAdminCourseCollectionActivityResponse> {
-        const response = await this.instance.put(`admin/course-collections/${id}/activity-status`, data);
+        const response = await this.instance.put(`courses/admin/course-collections/${id}/activity-status`, data);
         return $UpdateAdminCourseCollectionActivityResponse.parse(response);
     }
 
     async deleteAdminCourseCollection({ id }: DeleteAdminCourseCollectionRequest): Promise<DeleteAdminCourseCollectionResponse> {
-        const response = await this.instance.delete(`admin/course-collections/${id}`);
+        const response = await this.instance.delete(`courses/admin/course-collections/${id}`);
         return $DeleteAdminCourseCollectionResponse.parse(response);
     }
 
@@ -85,7 +85,7 @@ export class CourseCollectionApi extends BaseApi {
         courseCollectionId,
         ...rest
     }: AttachAdminCoursesToCourseCollectionRequest): Promise<AttachAdminCoursesToCourseCollectionResponse> {
-        const response = await this.instance.post(`admin/course-collections/${courseCollectionId}/courses`, rest);
+        const response = await this.instance.post(`courses/admin/course-collections/${courseCollectionId}/courses`, rest);
         return $AttachAdminCoursesToCourseCollectionResponse.parse(response);
     }
 
@@ -93,23 +93,23 @@ export class CourseCollectionApi extends BaseApi {
         courseCollectionId,
         ...params
     }: DeleteAdminCourseFromCourseCollectionRequest): Promise<DeleteAdminCourseFromCourseCollectionResponse> {
-        const response = await this.instance.delete(`admin/course-collections/${courseCollectionId}/courses`, { params });
+        const response = await this.instance.delete(`courses/admin/course-collections/${courseCollectionId}/courses`, { params });
         return $DeleteAdminCourseFromCourseCollectionResponse.parse(response);
     }
 
     //USER
     async getCourseCollections(data: GetCourseCollectionsRequest): Promise<GetCourseCollectionsResponse> {
-        const response = await this.instance.post("course-collections/list", data);
+        const response = await this.instance.post("courses/course-collections/list", data);
         return $GetCourseCollectionsResponse.parse(response);
     }
 
     async getCourseCollection({ id }: GetCourseCollectionRequest): Promise<GetCourseCollectionResponse> {
-        const response = await this.instance.get(`course-collections/${id}`);
+        const response = await this.instance.get(`courses/course-collections/${id}`);
         return $GetCourseCollectionResponse.parse(response);
     }
 
     async getRandomCourseCollection(): Promise<GetRandomCourseCollectionResponse> {
-        const response = await this.instance.post(`course-collections/list/random`);
+        const response = await this.instance.post(`courses/course-collections/list/random`);
         return $GetRandomCourseCollectionResponse.parse(response);
     }
 }

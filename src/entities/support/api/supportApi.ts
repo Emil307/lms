@@ -21,12 +21,12 @@ import {
 class SupportApi extends BaseApi {
     //ADMIN
     async getAdminSupportConversations(params: GetAdminSupportConversationsRequest): Promise<GetAdminSupportConversationResponse> {
-        const response = await this.instance.post("admin/support/list", params);
+        const response = await this.instance.post("core/admin/support/list", params);
         return $GetAdminSupportConversationResponse.parse(response);
     }
 
     async getAdminSupportMessages({ conversationId, ...params }: GetAdminSupportMessagesRequest): Promise<GetAdminSupportMessagesResponse> {
-        const response = await this.instance.post(`admin/support/${conversationId}/messages/list`, params);
+        const response = await this.instance.post(`core/admin/support/${conversationId}/messages/list`, params);
         return $GetAdminSupportMessagesResponse.parse(response);
     }
 
@@ -34,18 +34,18 @@ class SupportApi extends BaseApi {
         conversationId,
         ...data
     }: CreateAdminSupportMessageRequest): Promise<CreateAdminSupportMessageResponse> {
-        const response = await this.instance.post(`admin/support/${conversationId}/messages`, data);
+        const response = await this.instance.post(`core/admin/support/${conversationId}/messages`, data);
         return $CreateAdminSupportMessageResponse.parse(response);
     }
 
     //USER
     async getSupportMessages(data: GetSupportMessagesRequest): Promise<GetSupportMessagesResponse> {
-        const response = await this.instance.post(`support/list`, data);
+        const response = await this.instance.post(`core/support/list`, data);
         return $GetSupportMessagesResponse.parse(response);
     }
 
     async createSupportMessage(data: CreateSupportMessageRequest): Promise<CreateSupportMessageResponse> {
-        const response = await this.instance.post(`support`, data);
+        const response = await this.instance.post(`core/support`, data);
         return $CreateSupportMessageResponse.parse(response);
     }
 }

@@ -32,48 +32,48 @@ import {
 export class CategoryApi extends BaseApi {
     //ADMIN
     async getAdminCategories(data: GetAdminCategoriesRequest): Promise<GetAdminCategoriesResponse> {
-        const response = await this.instance.post("admin/categories/list", data);
+        const response = await this.instance.post("core/admin/categories/list", data);
         return $GetAdminCategoriesResponse.parse(response);
     }
 
     async getAdminCategory({ id }: GetAdminCategoryRequest): Promise<GetAdminCategoryResponse> {
-        const response = await this.instance.get(`admin/categories/${id}`);
+        const response = await this.instance.get(`core/admin/categories/${id}`);
         return $GetAdminCategoryResponse.parse(response);
     }
 
     async createAdminCategory(data: CreateAdminCategoryRequest): Promise<CreateAdminCategoryResponse> {
-        const response = await this.instance.post(`admin/categories`, data);
+        const response = await this.instance.post(`core/admin/categories`, data);
         return $CreateAdminCategoryResponse.parse(response);
     }
     async updateAdminCategory({ id, ...data }: UpdateAdminCategoryRequest): Promise<UpdateAdminCategoryResponse> {
-        const response = await this.instance.put(`admin/categories/${id}`, data);
+        const response = await this.instance.put(`core/admin/categories/${id}`, data);
         return $UpdateAdminCategoryResponse.parse(response);
     }
 
     async deleteAdminCategory({ id }: DeleteAdminCategoryRequest): Promise<DeleteAdminCategoryResponse> {
-        const response = await this.instance.delete(`admin/categories/${id}`);
+        const response = await this.instance.delete(`core/admin/categories/${id}`);
         return $DeleteAdminCategoryResponse.parse(response);
     }
 
     async updateAdminCategoryActivity({ id, isActive }: UpdateAdminCategoryActivityRequest): Promise<UpdateAdminCategoryActivityResponse> {
-        const response = await this.instance.put(`admin/categories/${id}/activity-status`, { isActive });
+        const response = await this.instance.put(`core/admin/categories/${id}/activity-status`, { isActive });
         return $UpdateAdminCategoryActivityResponse.parse(response);
     }
 
     //subcategories
     async getAdminPaginateSubCategories(data: GetAdminSubCategoriesRequest): Promise<GetAdminSubCategoriesPaginateResponse> {
-        const response = await this.instance.post("admin/subcategories/list", data);
+        const response = await this.instance.post("core/admin/subcategories/list", data);
         return $GetAdminSubCategoriesPaginateResponse.parse(response);
     }
 
     async getAdminSubCategories(data: GetAdminSubCategoriesRequest): Promise<GetAdminSubCategoriesResponse> {
-        const response = await this.instance.post("admin/subcategories/list", data);
+        const response = await this.instance.post("core/admin/subcategories/list", data);
         return $GetAdminSubCategoriesResponse.parse(response);
     }
 
     //USER
     async getCategory({ id }: GetCategoryRequest): Promise<GetCategoryResponse> {
-        const response = await this.instance.get(`categories/${id}`);
+        const response = await this.instance.get(`core/categories/${id}`);
         return $GetCategoryResponse.parse(response);
     }
 }
