@@ -12,7 +12,7 @@ export async function getSsrInstances(context: GetServerSidePropsContext) {
     const authorization = `${cookies.TOKEN_TYPE} ${cookies.TOKEN}`;
 
     const axios = Axios.create({
-        baseURL: process.env.NEXT_PUBLIC_API_URL_CORE,
+        baseURL: process.env.SERVER_API_URL,
         headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: authorization },
         responseType: "json",
     });
