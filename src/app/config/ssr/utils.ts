@@ -4,8 +4,9 @@ import { getCookies } from "cookies-next";
 import { QueryClient } from "@tanstack/react-query";
 import { logoutPath } from "@app/routes";
 import { bindInterceptors } from "@app/config/axios/default";
+import { REQUEST_TIMEOUT } from "./constants";
 
-export async function getSsrInstances(context: GetServerSidePropsContext) {
+export function getSsrInstances(context: GetServerSidePropsContext) {
     const cookies = getCookies(context);
     const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ export async function getSsrInstances(context: GetServerSidePropsContext) {
         baseURL: process.env.SERVER_API_URL,
         headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: authorization },
         responseType: "json",
+        timeout: REQUEST_TIMEOUT,
     });
 
     bindInterceptors(axios);
@@ -23,9 +25,9 @@ export async function getSsrInstances(context: GetServerSidePropsContext) {
 }
 
 export const handleAxiosErrorSsr = (errorSsr: unknown) => {
-    const { response: error } = errorSsr as { response: AxiosError };
+    const { response: error } = errorSsr as { response: AxiosError | undefined };
 
-    const isNetworkError = error.code === "ERR_NETWORK";
+    const isNetworkError = error?.code === "ERR_NETWORK";
 
     if (isNetworkError) {
         return {
@@ -36,7 +38,7 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
         };
     }
 
-    const statusCode = error.status;
+    const statusCode = error?.status || 500;
     const isAccessError = statusCode === 403 || statusCode === 404;
     const isAuthError = statusCode === 401;
 
