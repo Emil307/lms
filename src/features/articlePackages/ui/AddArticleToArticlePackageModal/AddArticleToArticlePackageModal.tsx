@@ -64,12 +64,7 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                     titleOpened: "Показать фильтр",
                     titleClosed: "Скрыть фильтр",
                 }}>
-                {({ dirty, resetForm, handleSubmit: handleSubmitFilters }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmitFilters();
-                    };
-
+                {({ dirty, handleReset }) => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
@@ -102,11 +97,11 @@ const AddArticleToArticlePackageModal = ({ articlePackageId, onClose }: AddArtic
                                 />
                             </Flex>
                             <Flex gap={16}>
-                                <Button w={164} type="submit" disabled={!dirty}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                    <Button type="button" variant="white" onClick={handleReset} w={164}>
                                         Cбросить
                                     </Button>
                                 )}

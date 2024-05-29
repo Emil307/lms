@@ -13,6 +13,7 @@ export interface FormProps<T extends FormikValues = FormikValues> {
     children?: React.ComponentProps<typeof Formik<T>>["children"];
     isLoading?: boolean;
     customRef?: Ref<FormikProps<T>>;
+    onSubmit?: (formikValues: FormikProps<T>["values"]) => void;
     //TODO: Улучшить работу persist:
     // Добавить параметры указания как именно сохранять,
     // добавить возможность исключать поля (например пароль из persist'a), добавить возможность указания времени debounce.
@@ -24,13 +25,15 @@ function Form<T extends FormikValues = FormikValues>({
     children,
     form,
     customRef,
+    onSubmit = () => undefined,
     persist = false,
     disableOverlay = false,
     isLoading = false,
 }: FormProps<T>) {
-    const onSubmit: FormikConfig<T>["onSubmit"] = React.useCallback(
+    const onSubmitForm: FormikConfig<T>["onSubmit"] = React.useCallback(
         (values, helpers) => {
-            Promise.resolve(config.onSubmit(values, helpers)).finally(() => helpers.setSubmitting(false));
+            config.onSubmit(values, helpers);
+            onSubmit(values);
         },
         [config.onSubmit]
     );
@@ -40,7 +43,7 @@ function Form<T extends FormikValues = FormikValues>({
     );
 
     return (
-        <Formik<T> {...config} validationSchema={validationSchema} onSubmit={onSubmit} innerRef={customRef}>
+        <Formik<T> {...config} validationSchema={validationSchema} onSubmit={onSubmitForm} innerRef={customRef}>
             {(formikProps) => (
                 <FormPersister initialValues={config.initialValues} enabled={persist}>
                     <BaseForm {...form}>

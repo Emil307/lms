@@ -64,12 +64,7 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                     titleOpened: "Показать фильтр",
                     titleClosed: "Скрыть фильтр",
                 }}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
-
+                {({ dirty, handleReset }) => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
@@ -114,11 +109,11 @@ const AddCoursesToArticleModal = ({ articleId, onClose }: AddCoursesToArticleMod
                                 />
                             </Flex>
                             <Flex gap={16}>
-                                <Button w={164} type="submit" disabled={!dirty}>
+                                <Button w={164} type="submit">
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                    <Button type="button" variant="white" onClick={handleReset} w={164}>
                                         Cбросить
                                     </Button>
                                 )}

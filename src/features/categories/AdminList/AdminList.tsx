@@ -35,20 +35,16 @@ const AdminList = (props: AdminListProps) => {
                     columnOrder,
                 }}
                 renderRowActions={({ row }) => <ListMenu row={row} />}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
+                {({ dirty, handleReset }) => {
                     return (
                         <Flex direction={{ base: "column", xs: "row" }} gap={16}>
                             <FSearch name="query" placeholder="Поиск" size="sm" w="100%" maw={512} />
                             <Flex gap={16} sx={{ flex: 1 }}>
-                                <Button type="submit" w="100%" miw={130} maw={164} disabled={!dirty}>
+                                <Button type="submit" w="100%" miw={130} maw={164}>
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button variant="white" w="100%" miw={130} maw={164} onClick={handleResetForm}>
+                                    <Button variant="white" w="100%" miw={130} maw={164} onClick={handleReset}>
                                         Сбросить
                                     </Button>
                                 )}

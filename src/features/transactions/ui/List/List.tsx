@@ -36,11 +36,7 @@ const List = (props: ListProps) => {
                 collapsedFiltersBlockProps={{
                     isCollapsed: isMobile,
                 }}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
+                {({ dirty, handleReset }) => {
                     return (
                         <Box>
                             <Flex className={classes.filterSearchAndSelects}>
@@ -99,7 +95,7 @@ const List = (props: ListProps) => {
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w={164} onClick={handleResetForm}>
+                                    <Button mt={16} variant="white" w={164} onClick={handleReset}>
                                         Сбросить
                                     </Button>
                                 )}

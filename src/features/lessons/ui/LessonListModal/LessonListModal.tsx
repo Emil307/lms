@@ -69,11 +69,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onSuccess, onClose }:
                 }}
                 disableQueryParams
                 onChangeSelect={setSelected}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
+                {({ dirty, handleReset }) => {
                     return (
                         <>
                             <Button variant="text" onClick={handleToggleVisibilityFilters} rightIcon={renderIconToggleButton()}>
@@ -95,7 +91,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onSuccess, onClose }:
                                         Найти
                                     </Button>
                                     {dirty && (
-                                        <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        <Button type="button" variant="white" onClick={handleReset} w={164}>
                                             Cбросить
                                         </Button>
                                     )}

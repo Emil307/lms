@@ -63,12 +63,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                 collapsedFiltersBlockProps={{
                     isCollapsed: isMobile,
                 }}>
-                {({ dirty, values, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
-
+                {({ dirty, values, handleReset }) => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterDatePickerAndSelects}>
@@ -116,11 +111,11 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                             </Flex>
 
                             <Flex className={classes.buttons}>
-                                <Button className={classes.button} type="submit" disabled={!dirty}>
+                                <Button className={classes.button} type="submit">
                                     Сформировать
                                 </Button>
                                 {dirty && (
-                                    <Button className={classes.button} type="button" variant="white" onClick={handleResetForm}>
+                                    <Button className={classes.button} type="button" variant="white" onClick={handleReset}>
                                         Cбросить
                                     </Button>
                                 )}

@@ -27,7 +27,7 @@ type TExtendedProps<
     TFiltersProps<Filter, Formik> &
     TExtraFiltersProps<Extra> &
     TDisplayMetaProps<Meta, MetaData> &
-    TCollapsedFiltersBlockProps<Filter>;
+    TCollapsedFiltersBlockProps<Formik>;
 
 export type TManagedDataGridProps<
     Data extends Record<string, any>,
@@ -109,7 +109,6 @@ function ManagedDataGrid<
     const collapsed = {
         ...collapsedFiltersBlockProps,
         queryParams: filters?.filterParamsForRequest,
-        initialValues: filter?.initialValues,
     };
 
     const paginationData = {

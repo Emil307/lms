@@ -1,42 +1,55 @@
 import { Collapse, Flex, FlexProps } from "@mantine/core";
 import { ReactNode, useEffect, useState } from "react";
+import { FormikProps, FormikValues } from "formik";
 import { ToggleFilterButton } from "./components";
 import { getCountAppliedFilters } from "./utils";
 import useStyles from "./CollapsedFiltersBlock.styles";
+import { Form, FormProps } from "../Forms";
 
-export type CollapsedFiltersBlockProps<F> = Omit<FlexProps, "title" | "onSubmit" | "children"> & {
+export type CollapsedFiltersBlockProps<F extends FormikValues> = Omit<FlexProps, "title" | "onSubmit" | "onChange" | "children"> & {
+    formProps: Pick<FormProps<F>, "config" | "disableOverlay" | "onSubmit" | "customRef">;
     titleOpened?: ReactNode;
     titleClosed?: ReactNode;
     queryParams?: Partial<F>;
-    initialValues?: F;
     isCollapsed?: boolean;
     leftIcon?: ReactNode;
-    children?: ReactNode;
+    children?: ReactNode | ((props: FormikProps<F>) => ReactNode);
 };
 
-/**
- * Компонент для обертки фильтров, чтобы получать свернутый вариант
- * @template F - Тип фильтра Formik.
- * @template Е - Тип object для передачи дополнительных параметров для запроса, не включаемые в фильтр Formik.
- */
-const CollapsedFiltersBlock = <F,>({
+const CollapsedFiltersBlock = <F extends FormikValues>({
     children,
     titleOpened = "Фильтр",
     titleClosed = "Фильтр",
     queryParams,
-    isCollapsed,
-    initialValues,
+    formProps: { config, onSubmit = () => undefined, ...restFormProps },
+    isCollapsed = false,
     leftIcon,
     ...props
 }: CollapsedFiltersBlockProps<F>) => {
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
+    const [submittedFormValues, setSubmittedFormValues] = useState<FormikValues>();
 
     useEffect(() => {
         setOpenedFilters(!isCollapsed);
     }, [isCollapsed]);
 
+    const handleSubmitForm = (formikValues: FormikProps<F>["values"]) => {
+        setSubmittedFormValues(formikValues);
+        onSubmit(formikValues);
+    };
+
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
+
+    const handleResetForm = (formikContext: FormikProps<F>) => {
+        formikContext.resetForm();
+        formikContext.submitForm();
+    };
+
+    const countAppliedFilters = getCountAppliedFilters({
+        initialValues: config.initialValues,
+        currentValues: queryParams || submittedFormValues,
+    });
 
     return (
         <Flex className={classes.root} {...props}>
@@ -44,14 +57,24 @@ const CollapsedFiltersBlock = <F,>({
                 <ToggleFilterButton
                     isOpened={openedFilters}
                     onClick={handleToggleVisibilityFilters}
-                    countAppliedFilters={getCountAppliedFilters(queryParams, initialValues)}
+                    countAppliedFilters={countAppliedFilters}
                     leftIcon={leftIcon}>
-                    {openedFilters ? titleClosed : titleOpened}
+                    {openedFilters ? titleOpened : titleClosed}
                 </ToggleFilterButton>
             )}
 
             <Collapse in={openedFilters} className={classes.inner}>
-                {children}
+                <Form {...restFormProps} config={config} onSubmit={handleSubmitForm}>
+                    {(formikContext) =>
+                        typeof children === "function"
+                            ? children({
+                                  ...formikContext,
+                                  dirty: formikContext.dirty || !!countAppliedFilters,
+                                  handleReset: () => handleResetForm(formikContext),
+                              })
+                            : children
+                    }
+                </Form>
             </Collapse>
         </Flex>
     );

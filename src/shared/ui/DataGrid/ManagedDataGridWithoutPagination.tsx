@@ -25,7 +25,7 @@ type TExtendedProps<
     TFiltersProps<Filter, Formik> &
     TExtraFiltersProps<Extra> &
     TDisplayMetaProps<Meta, MetaData> &
-    TCollapsedFiltersBlockProps<Filter>;
+    TCollapsedFiltersBlockProps<Formik>;
 
 export type TManagedDataGridWithoutPaginationProps<
     Data extends Record<string, any>,

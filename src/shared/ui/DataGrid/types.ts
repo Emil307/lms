@@ -36,8 +36,8 @@ export type TExtraFiltersProps<E> = E extends Record<string, any> ? { extraFilte
 
 export type TSelectProps = { selectItems?: string[]; onChangeSelect?: (selectedItems: string[]) => void };
 
-export type TCollapsedFiltersBlockProps<F> = {
-    collapsedFiltersBlockProps?: Omit<CollapsedFiltersBlockProps<F>, "queryParams" | "initialValues" | "children">;
+export type TCollapsedFiltersBlockProps<F extends FormikValues> = {
+    collapsedFiltersBlockProps?: Pick<CollapsedFiltersBlockProps<F>, "titleOpened" | "titleClosed" | "isCollapsed" | "leftIcon">;
 };
 
 export type TDisplayMetaData<G> = {

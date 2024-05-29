@@ -55,12 +55,7 @@ const AdminList = (props: AdminListProps) => {
                 collapsedFiltersBlockProps={{
                     isCollapsed: isMobile,
                 }}>
-                {({ dirty, resetForm, handleSubmit }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: filterInitialValues });
-                        handleSubmit();
-                    };
-
+                {({ dirty, handleReset }) => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
@@ -93,7 +88,7 @@ const AdminList = (props: AdminListProps) => {
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                    <Button type="button" variant="white" onClick={handleReset} w={164}>
                                         Cбросить
                                     </Button>
                                 )}

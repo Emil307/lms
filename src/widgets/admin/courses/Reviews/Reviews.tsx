@@ -66,12 +66,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                 columnOrder,
             }}
             renderRowActions={({ row }) => <ListMenu row={row} />}>
-            {({ dirty, resetForm, handleSubmit }) => {
-                const handleResetForm = () => {
-                    resetForm({ values: filterInitialValues });
-                    handleSubmit();
-                };
-
+            {({ dirty, handleReset }) => {
                 return (
                     <Box>
                         <Heading order={2}>Отзывы</Heading>
@@ -109,7 +104,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                                         Найти
                                     </Button>
                                     {dirty && (
-                                        <Button type="button" variant="white" onClick={handleResetForm} w={164}>
+                                        <Button type="button" variant="white" onClick={handleReset} w={164}>
                                             Cбросить
                                         </Button>
                                     )}
