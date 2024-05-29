@@ -14,14 +14,14 @@ export interface PossibleAnswerProps {
 const PossibleAnswer = ({ data, taskVariant, onSelect, readOnly }: PossibleAnswerProps) => {
     const { classes } = useStyles({ isSelected: data.isSelected });
 
-    const handleSelectPossbleAnswer = () => onSelect(data.order);
+    const handleSelectPossibleAnswer = () => onSelect(data.order);
 
     const renderSelector = () => {
         if (taskVariant === "checkbox") {
-            return <Checkbox checked={data.isSelected} onChange={handleSelectPossbleAnswer} disabled={readOnly} />;
+            return <Checkbox checked={data.isSelected} onChange={handleSelectPossibleAnswer} disabled={readOnly} />;
         }
 
-        return <Radio checked={data.isSelected} onChange={handleSelectPossbleAnswer} disabled={readOnly} />;
+        return <Radio checked={data.isSelected} onChange={handleSelectPossibleAnswer} disabled={readOnly} />;
     };
 
     return (

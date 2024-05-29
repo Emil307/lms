@@ -2,26 +2,27 @@ import { Badge, Collapse, Divider, Flex, Text, Box } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronUp } from "react-feather";
 import { Button, ContentByTextEditor, EmptyData, FileItem, Heading, Loader } from "@shared/ui";
-import { useHomework } from "@entities/lesson";
+import { GetLessonResponse, useHomework } from "@entities/lesson";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
-import { GetGroupResponse } from "@entities/group";
 import useStyles from "./Homework.styles";
 import { PassedHomeworkInfo } from "./components";
 import { HomeworkChat } from "../HomeworkChat";
 
 export interface HomeworkProps {
-    lessonId: string;
+    lesson: GetLessonResponse;
     courseId: string;
-    group?: GetGroupResponse;
+    groupId: string;
 }
 
-const Homework = ({ lessonId, courseId, group }: HomeworkProps) => {
+const Homework = ({ lesson, courseId, groupId }: HomeworkProps) => {
+    const lessonId = String(lesson.id);
+
     const [isReadyToRender, setReadyToRender] = useState(false);
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
     const [openedHomeworkDetails, setOpenedHomeworkDetails] = useState(false);
     const [isVisibleCollapsedView, setVisibleCollapsedView] = useState(false);
-    const { data: homeworkData, isFetching, isError } = useHomework({ lessonId, groupId: String(group?.groupId) });
+    const { data: homeworkData, isFetching, isError } = useHomework({ lessonId, groupId });
 
     const labelToggleButton = openedHomeworkDetails ? "Скрыть задание" : "Показать задание";
     const answerStatus = homeworkData?.answer?.status.name;
@@ -39,7 +40,7 @@ const Homework = ({ lessonId, courseId, group }: HomeworkProps) => {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
 
-            if (answerStatus === "completed" || group?.status.name !== "inProgress") {
+            if (answerStatus === "completed" || lesson.lessonStatus.name !== "inProgress") {
                 setOpenedHomeworkAnswerForm(false);
             } else {
                 setOpenedHomeworkAnswerForm(true);

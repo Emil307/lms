@@ -1,27 +1,24 @@
 import { Badge, Box, Flex, Text } from "@mantine/core";
 import React, { useState } from "react";
 import { EmptyData, Heading, Loader } from "@shared/ui";
-import { useTest, useTestPass } from "@entities/lesson";
+import { GetLessonResponse, useTest, useTestPass } from "@entities/lesson";
 import { UpdateLessonTestPassForm } from "@features/lessons";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
-import { GetGroupResponse } from "@entities/group";
 import useStyles from "./Test.styles";
 import { PassedTestInfo } from "./components";
 
 export interface TestProps {
-    lessonId: string;
+    lesson: GetLessonResponse;
     courseId: string;
-    group?: GetGroupResponse;
+    groupId: string;
 }
 
-const Test = ({ lessonId, courseId, group }: TestProps) => {
+const Test = ({ lesson, courseId, groupId }: TestProps) => {
+    const lessonId = String(lesson.id);
+
     const [isTestAgain, setIsTestAgain] = useState(false);
-    const { data: testData, isFetching: isFetchingTest, isError: isErrorTest } = useTest({ lessonId, groupId: String(group?.groupId) });
-    const {
-        data: testPassData,
-        isFetching: isFetchingTestPass,
-        isError: isErrorTestPass,
-    } = useTestPass({ lessonId, groupId: String(group?.groupId) }, !!testData);
+    const { data: testData, isFetching: isFetchingTest, isError: isErrorTest } = useTest({ lessonId, groupId });
+    const { data: testPassData, isFetching: isFetchingTestPass, isError: isErrorTestPass } = useTestPass({ lessonId, groupId }, !!testData);
 
     const { classes } = useStyles({ status: testPassData?.status.name });
 
@@ -57,7 +54,7 @@ const Test = ({ lessonId, courseId, group }: TestProps) => {
                     lessonId={lessonId}
                     courseId={courseId}
                     onClose={handleCloseUpdateTestPassForm}
-                    readOnly={group?.status.name !== "inProgress"}
+                    readOnly={lesson.lessonStatus.name !== "inProgress"}
                 />
             </Box>
         );

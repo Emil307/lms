@@ -17,18 +17,22 @@ const LessonDetailsPage = () => {
 
     const { id: groupId, lessonId, tab } = router.query as TRouterQueries;
 
-    const group = useGroup({ id: groupId });
+    const { data: group, isLoading: isLoadingGroup, isError: isErrorGroup } = useGroup({ id: groupId });
 
-    const lesson = useLesson({
+    const {
+        data: lesson,
+        isLoading: isLoadingLesson,
+        isError: isErrorLesson,
+    } = useLesson({
         id: lessonId,
-        courseId: group.data?.courseId,
-        groupId: group.data?.groupId,
-        groupStatus: group.data?.status.name,
+        courseId: group?.courseId,
+        groupId: group?.groupId,
+        groupStatus: group?.status.name,
     });
 
     const tabList = getTabList({
-        isTestExists: lesson.data?.testExists,
-        isHomeworkExists: lesson.data?.homeworkExists,
+        isTestExists: lesson?.testExists,
+        isHomeworkExists: lesson?.homeworkExists,
     });
 
     const currentTab = useMemo(() => {
@@ -39,24 +43,28 @@ const LessonDetailsPage = () => {
         return currentTab?.value || tabList[0].value;
     }, [router.isReady, tab, tabList]);
 
+    if (isLoadingGroup || isLoadingLesson) {
+        return <Loader />;
+    }
+
+    if (isErrorGroup || isErrorLesson) {
+        return <Text>Произошла ошибка, попробуйте позднее</Text>;
+    }
+
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId, tab: value } });
     };
 
     const renderMainContent = () => {
-        if (!lesson.data?.content && lesson.data?.videos.length === 0) {
+        if (!lesson.content && lesson.videos.length === 0) {
             return <EmptyData title="Содержание отсутствует" description="" icon={<IconEmptyBox />} />;
         }
         return (
             <>
-                {lesson.data && lesson.data.videos.length > 0 && (
-                    <VideoInput
-                        loadedFilesData={lesson.data.videos}
-                        className={classes.videoItemWrapper}
-                        fileItemStyle={{ maxHeight: 725 }}
-                    />
+                {lesson.videos.length > 0 && (
+                    <VideoInput loadedFilesData={lesson.videos} className={classes.videoItemWrapper} fileItemStyle={{ maxHeight: 725 }} />
                 )}
-                <ContentByTextEditor data={lesson.data?.content || ""} />
+                <ContentByTextEditor data={lesson.content || ""} />
             </>
         );
     };
@@ -64,36 +72,28 @@ const LessonDetailsPage = () => {
     const renderContent = () => {
         switch (currentTab) {
             case "materials":
-                return <MaterialList data={lesson.data} />;
+                return <MaterialList data={lesson} />;
             case "test":
-                return <Test lessonId={lessonId} courseId={String(group.data?.courseId)} group={group.data} />;
+                return <Test lesson={lesson} courseId={String(group.courseId)} groupId={String(group.groupId)} />;
             case "homework":
-                return <Homework lessonId={lessonId} courseId={String(group.data?.courseId)} group={group.data} />;
+                return <Homework lesson={lesson} courseId={String(group.courseId)} groupId={String(group.groupId)} />;
             default:
                 return <Flex className={classes.lessonContent}>{renderMainContent()}</Flex>;
         }
     };
 
-    if (group.isLoading || lesson.isLoading) {
-        return <Loader />;
-    }
-
-    if (group.isError || lesson.isError) {
-        return <Text>Произошла ошибка, попробуйте позднее</Text>;
-    }
-
     return (
         <Box>
             <BreadCrumbs
                 items={getBreadCrumbsItems({
-                    nameLesson: lesson.data.name,
-                    nameCourse: group.data.name,
+                    nameLesson: lesson.name,
+                    nameCourse: group.name,
                     groupId,
                 })}
                 mb={32}
             />
             <Flex className={classes.content}>
-                <MainInfoPanel data={lesson.data} myCourseData={group.data} />
+                <MainInfoPanel data={lesson} myCourseData={group} />
                 <Tabs value={currentTab} tabs={tabList} onTabChange={handleChangeTab} />
                 {renderContent()}
             </Flex>

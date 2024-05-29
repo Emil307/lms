@@ -6,14 +6,14 @@ import IconEmptyBox from "@public/icons/emptyBox.svg";
 import useStyles from "./MaterialList.styles";
 
 export interface MaterialListProps extends Omit<FlexProps, "children"> {
-    data?: GetLessonResponse;
+    data: GetLessonResponse;
 }
 
 const MaterialList = ({ data, ...props }: MaterialListProps) => {
     const { classes } = useStyles();
 
     const videos = useMemo(() => {
-        if (!data?.videos.length) return null;
+        if (!data.videos.length) return null;
 
         return (
             <Group>
@@ -22,10 +22,10 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
                 ))}
             </Group>
         );
-    }, [data?.videos]);
+    }, [data.videos]);
 
     const documents = useMemo(() => {
-        if (!data?.files.length) return null;
+        if (!data.files.length) return null;
 
         return (
             <Flex direction="column" gap={16}>
@@ -34,7 +34,7 @@ const MaterialList = ({ data, ...props }: MaterialListProps) => {
                 ))}
             </Flex>
         );
-    }, [data?.files]);
+    }, [data.files]);
 
     const emptyBlock = useMemo(() => {
         if (!videos && !documents) {
