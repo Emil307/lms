@@ -14,12 +14,12 @@ export interface RecoveryPasswordFormProps {}
 const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
     const router = useRouter();
     const { classes } = useFormStyles();
-
     const { mutate: resetPassword, isLoading } = useResetPassword();
 
     const config: FormikConfig<RecoveryPasswordFormData> = {
-        initialValues,
+        initialValues: { ...initialValues, email: String(router.query.email), token: String(router.query.token) },
         validationSchema: $RecoveryPasswordFormValidationSchema,
+        enableReinitialize: true,
         onSubmit: (values, { setFieldError }) => {
             resetPassword(values, {
                 onError: (error) => {
@@ -64,6 +64,8 @@ const RecoveryPasswordForm = (_props: RecoveryPasswordFormProps) => {
                             }
                             success="Пароли совпадают"
                         />
+                        <FInput name="email" hidden />
+                        <FInput name="token" hidden />
                     </Flex>
                     <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading}>
                         Сохранить

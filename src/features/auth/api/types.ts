@@ -34,6 +34,8 @@ export const $SignUpFormValidationSchema = z.object({
 
 export const $RecoveryPasswordFormValidationSchema = z
     .object({
+        email: z.string(),
+        token: z.string(),
         password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
         passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
     })

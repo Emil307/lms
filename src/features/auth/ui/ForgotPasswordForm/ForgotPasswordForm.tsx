@@ -62,6 +62,7 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                     mutationFunction={recoveryPassword}
                     onSuccess={onSuccess}
                     onError={onError}
+                    disabledLoadingOnSuccess
                     disableOverlay>
                     {({ dirty, isLoading }) => {
                         return (

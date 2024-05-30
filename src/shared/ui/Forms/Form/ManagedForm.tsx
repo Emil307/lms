@@ -44,7 +44,7 @@ export default function ManagedForm<F extends FormikValues, R>({
     children,
     ...form
 }: ManagedFormProps<F, R>) {
-    const [isSubmiting, setIsSubmiting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const formRef = useRef<FormikProps<F>>(null);
     const { mutate } = useMutation<R, unknown, F>(mutationKey, { mutationFn: mutationFunction });
 
@@ -75,7 +75,7 @@ export default function ManagedForm<F extends FormikValues, R>({
     };
 
     const handleSubmit = (values: F, formikHelpers: FormikHelpers<F>) => {
-        setIsSubmiting(true);
+        setIsSubmitting(true);
         mutate(values, {
             onSuccess: (response) => {
                 if (invalidateQueriesWithPredicateParams) {
@@ -86,7 +86,7 @@ export default function ManagedForm<F extends FormikValues, R>({
                 });
                 onSuccess(response, formikHelpers);
                 if (disabledLoadingOnSuccess) {
-                    setIsSubmiting(false);
+                    setIsSubmitting(false);
                 }
             },
             onError: (error) => {
@@ -96,7 +96,7 @@ export default function ManagedForm<F extends FormikValues, R>({
                     }
                 }
                 onError(error);
-                setIsSubmiting(false);
+                setIsSubmitting(false);
             },
         });
     };
@@ -105,7 +105,7 @@ export default function ManagedForm<F extends FormikValues, R>({
         if (typeof children === "function") {
             return children({
                 ...formikProps,
-                isLoading: isSubmiting,
+                isLoading: isSubmitting,
                 onCancel: () => handleCancel(formikProps.dirty),
             });
         }
@@ -121,7 +121,7 @@ export default function ManagedForm<F extends FormikValues, R>({
     };
 
     return (
-        <Form {...form} config={cfg} isLoading={isSubmiting} customRef={formRef}>
+        <Form {...form} config={cfg} isLoading={isSubmitting} customRef={formRef}>
             {(formikProps) => (
                 <>
                     {renderForm(formikProps)}

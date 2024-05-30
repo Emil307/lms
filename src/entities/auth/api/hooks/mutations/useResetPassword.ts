@@ -9,24 +9,19 @@ import { FormErrorResponse } from "@shared/types";
 
 export const useResetPassword = (): UseMutationResult<ResetPasswordResponse, AxiosError<FormErrorResponse>, RecoveryPasswordFormData> => {
     const router = useRouter();
-    return useMutation(
-        [MutationKeys.CHANGE_PASSWORD],
-        (data: RecoveryPasswordFormData) =>
-            authApi.resetPassword({ ...data, email: String(router.query.email), token: String(router.query.token) }),
-        {
-            onSuccess: () => {
-                createNotification({
-                    type: ToastType.SUCCESS,
-                    title: "Изменения сохранены",
-                });
-                router.push("/auth");
-            },
-            onError: () => {
-                createNotification({
-                    type: ToastType.WARN,
-                    title: "Ошибка восстановления пароля",
-                });
-            },
-        }
-    );
+    return useMutation([MutationKeys.CHANGE_PASSWORD], (data: RecoveryPasswordFormData) => authApi.resetPassword(data), {
+        onSuccess: () => {
+            createNotification({
+                type: ToastType.SUCCESS,
+                title: "Изменения сохранены",
+            });
+            router.push("/auth");
+        },
+        onError: () => {
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка восстановления пароля",
+            });
+        },
+    });
 };
