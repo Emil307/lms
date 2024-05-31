@@ -24,8 +24,11 @@ export const useDeleteArticleMaterial = (
                 message: `Файл "${materialFromList?.name}" успешно удален`,
             });
 
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_MATERIALS]);
+            //TODO: Временное решение, так как на бэке не успевают обновиться зависимости
+            setTimeout(() => {
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_NO_ARTICLE_MATERIALS]);
+                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_MATERIALS]);
+            }, 1500);
         },
         onError: () => {
             createNotification({
