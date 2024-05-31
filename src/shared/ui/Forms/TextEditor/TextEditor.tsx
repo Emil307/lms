@@ -38,7 +38,8 @@ const MemoizedTextEditor = memo(function TextEditor({
         parseOptions: { preserveWhitespace: "full" },
         content: value,
         onUpdate(props) {
-            setValue(props.editor.getHTML());
+            const newValue = props.editor.isEmpty ? "" : props.editor.getHTML();
+            setValue(newValue);
         },
     });
 
