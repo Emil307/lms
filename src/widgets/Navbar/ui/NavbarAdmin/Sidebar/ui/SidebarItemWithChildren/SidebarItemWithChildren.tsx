@@ -39,13 +39,12 @@ export default function SidebarItemWithChildren({
             }
             return setActiveSidebarItemsWithChildren([...activeSidebarItemsWithChildren, href]);
         }
-        if (href === activeSidebarItemsWithChildren[0]) {
+        if (isOpened) {
             setActiveSidebarItemsWithChildren([]);
-            return setIsMinimizedModeSidebar(true);
+        } else {
+            setActiveSidebarItemsWithChildren([href]);
         }
-
         setIsMinimizedModeSidebar(false);
-        setActiveSidebarItemsWithChildren([href]);
     };
 
     const handlerOpen = () => handleChangeActiveSidebarItemWithChildren();

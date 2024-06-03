@@ -6,8 +6,10 @@ import IndicatorIcon from "@public/icons/indicator.svg";
 import { Tooltip } from "@shared/ui";
 import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
+import { useMedia } from "@shared/utils";
 import useStyles from "./SidebarItem.styles";
 import { SidebarMinimizedModeContext } from "../../../utils";
+import { SidebarItemsWithChildrenContext } from "../../utils";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     icon?: ReactNode;
@@ -25,16 +27,23 @@ const SidebarItem = forwardRef(function SidebarItem(
 ) {
     const userRole = useUserRole();
     const router = useRouter();
+    const isTablet = useMedia("lg");
 
     const { classes } = useStyles({ isActive, isInner });
 
-    const { isMinimizedModeSidebar } = useContext(SidebarMinimizedModeContext);
+    const { isMinimizedModeSidebar, setIsMinimizedModeSidebar } = useContext(SidebarMinimizedModeContext);
+    const { setActiveSidebarItemsWithChildren } = useContext(SidebarItemsWithChildrenContext);
 
     const handleClickSidebarItem = () => {
         if (!href) {
             return;
         }
-        router.push(href);
+        router.push(href).then(() => {
+            if (isTablet) {
+                setActiveSidebarItemsWithChildren([]);
+                setIsMinimizedModeSidebar(true);
+            }
+        });
     };
 
     const renderIndicator = () => {
