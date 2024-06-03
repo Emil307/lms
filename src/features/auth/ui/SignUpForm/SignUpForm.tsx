@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Grid, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex, Grid, ThemeIcon, Text } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
 import { AtSign, ChevronLeft, Shield, User } from "react-feather";
@@ -15,7 +15,7 @@ export interface SignUpFormProps extends BoxProps {}
 
 const SignUpForm = (props: SignUpFormProps) => {
     const router = useRouter();
-    const { classes } = useFormStyles();
+    const { classes, cx } = useFormStyles();
 
     const { mutate: signUp, isLoading, isSuccess } = useSignUp();
 
@@ -56,7 +56,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                 </Heading>
                 <Paragraph variant="text-small-m">
                     У вас уже есть профиль?
-                    <Link href="/auth" className={classes.signUpLink}>
+                    <Link href="/auth" className={cx(classes.link, classes.signUpLink)}>
                         Войдите
                     </Link>
                 </Paragraph>
@@ -133,7 +133,14 @@ const SignUpForm = (props: SignUpFormProps) => {
                             </Flex>
                             <FCheckbox
                                 name="agreementWithConditionsAndTerms"
-                                label="Даю согласие на обработку персональных данных и принимаю пользовательское соглашение"
+                                label={
+                                    <Paragraph variant="text-small-m">
+                                        Даю согласие на обработку персональных данных и принимаю
+                                        <Text className={classes.link} component={Link} href="/user-agreement" target="_blank">
+                                            {" пользовательское соглашение"}
+                                        </Text>
+                                    </Paragraph>
+                                }
                                 wrapperProps={{ sx: { marginBottom: 24 } }}
                             />
                             <Button

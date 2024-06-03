@@ -19,12 +19,13 @@ export const useFormStyles = createStyles((theme) => ({
             padding: 0,
         },
     },
-
     signUpLink: {
         marginLeft: 8,
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "16px",
+    },
+    link: {
         color: theme.colors.primary[0],
         textDecoration: "initial",
     },

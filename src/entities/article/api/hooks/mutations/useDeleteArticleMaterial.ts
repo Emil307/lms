@@ -8,7 +8,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { GetUploadedFilesResponse } from "@entities/storage";
 
 export const useDeleteArticleMaterial = (
-    data: DeleteAdminArticleMaterialRequest
+    data: DeleteAdminArticleMaterialRequest,
 ): UseMutationResult<DeleteAdminArticleMaterialResponse, AxiosError<FormErrorResponse>, null> => {
     return useMutation([MutationKeys.DELETE_ARTICLE_MATERIAL, data], () => articleApi.deleteArticleMaterial(data), {
         onSuccess: () => {

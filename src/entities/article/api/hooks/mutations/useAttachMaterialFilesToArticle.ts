@@ -7,7 +7,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { AttachMaterialFilesToArticleRequest, AttachMaterialFilesToArticleResponse, articleApi } from "@entities/article";
 
 export const useAttachMaterialFilesToArticle = (
-    articleId: string
+    articleId: string,
 ): UseMutationResult<
     AttachMaterialFilesToArticleResponse,
     AxiosError<FormErrorResponse>,
@@ -35,6 +35,6 @@ export const useAttachMaterialFilesToArticle = (
                     title: "Ошибка добавления материалов к статье",
                 });
             },
-        }
+        },
     );
 };
