@@ -19,7 +19,7 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
         homeworkStatus: data.homeworkStatus?.name,
     });
 
-    const isVisibleFinishLessonButton = !data.homeworkExists && !data.testExists && data.lessonStatus.name !== "completed";
+    const isVisibleFinishLessonButton = !data.homeworkRequired && !data.testExists && data.lessonStatus.name !== "completed";
 
     const renderTestAndHomeworkData = () => {
         if (!data.testExists && !data.homeworkExists) {

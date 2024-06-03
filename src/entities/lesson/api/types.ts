@@ -287,7 +287,7 @@ export const $UpdateAdminTestRequest = z.object({
     tasks: z.array(
         $AdminTestQuestion.omit({
             id: true,
-        }),
+        })
     ),
 });
 
@@ -378,7 +378,7 @@ export const $GetAdminHomeworkAnswersResourcesResponse = z.object({
         z.object({
             id: z.number(),
             name: z.string(),
-        }),
+        })
     ),
     students: z.array(
         z.object({
@@ -387,7 +387,7 @@ export const $GetAdminHomeworkAnswersResourcesResponse = z.object({
                 firstName: z.string(),
                 lastName: z.string(),
             }),
-        }),
+        })
     ),
 });
 
@@ -632,6 +632,7 @@ export const $Lesson = z.object({
     description: z.string(),
     content: z.string().nullable(),
     hasTest: z.boolean(),
+    homeworkRequired: z.boolean(),
     hasHomework: z.boolean(),
     testExists: z.boolean().optional(),
     homeworkExists: z.boolean().optional(),
@@ -671,7 +672,9 @@ export const $FinishLessonRequest = z.object({
     lessonId: z.string(),
 });
 
-export const $FinishLessonResponse = $Lesson;
+export const $FinishLessonResponse = $Lesson.omit({
+    homeworkRequired: true,
+});
 
 //HOMEWORK MESSAGE
 export const $HomeworkAnswerMessage = z.object({
