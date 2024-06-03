@@ -40,6 +40,12 @@ export const useAuthenticateMe = ({
             invalidateQueriesWithPredicate({ entityName: EntityNames.AUTH });
         },
         onError: (error) => {
+            if (error.response?.status === 401) {
+                return createNotification({
+                    type: ToastType.WARN,
+                    title: "Неверно указан Email или пароль",
+                });
+            }
             if (error.response?.status === 403) {
                 return createNotification({
                     type: ToastType.WARN,
