@@ -39,7 +39,13 @@ export const useAuthenticateMe = ({
 
             invalidateQueriesWithPredicate({ entityName: EntityNames.AUTH });
         },
-        onError: () => {
+        onError: (error) => {
+            if (error.response?.status === 403) {
+                return createNotification({
+                    type: ToastType.WARN,
+                    title: "Данный пользователь неактивен",
+                });
+            }
             createNotification({
                 type: ToastType.WARN,
                 title: "Ошибка аутентификации",

@@ -53,19 +53,23 @@ export const handleAxiosError: TAxiosResponseInterceptorError = async (axiosErro
     const isExceedingError = statusCode === 429;
 
     if (isServerError) {
-        Router.replace(serverErrorPath);
-        return Promise.reject(error);
-    }
-    if (isAccessError) {
-        Router.replace(notFoundPath);
+        Router.push(serverErrorPath);
         return Promise.reject(error);
     }
     //Если поймали 401 при неудачной авторизации
-    if (isAuthError && error.config?.url === authApiUrl) {
+    if (isAuthError && error.config?.url?.includes(authApiUrl)) {
+        return Promise.reject(error);
+    }
+    //Если поймали 403 при неудачной авторизации (пользователь есть, но неактивен)
+    if (isAccessError && error.config?.url?.includes(authApiUrl)) {
+        return Promise.reject(error);
+    }
+    if (isAccessError) {
+        Router.push(notFoundPath);
         return Promise.reject(error);
     }
     if (isAuthError) {
-        Router.replace(logoutPath);
+        Router.push(logoutPath);
         return Promise.reject(error);
     }
     if (isExceedingError) {
