@@ -11,14 +11,16 @@ import { Logo } from "@components/Logo";
 import { CompanyLinks, FilterTypes } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
-import { pageSections } from "./constants";
+import { useSession } from "@entities/auth";
 import useStyles from "./FooterUser.styles";
+import { getPageSections } from "./utils";
 
-export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> { }
+export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> {}
 
 const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
     const { classes } = useStyles();
     const router = useRouter();
+    const { user } = useSession();
 
     const courseResources = useCourseResources({ type: FilterTypes.SELECT });
 
@@ -48,12 +50,12 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
 
     const renderInfoSection = useMemo(
         () =>
-            pageSections.map((section, index) => (
+            getPageSections(!!user).map((section, index) => (
                 <Link key={index} className={classes.sectionLink} href={section.href}>
                     {section.label}
                 </Link>
             )),
-        []
+        [user]
     );
 
     if (hidden) {

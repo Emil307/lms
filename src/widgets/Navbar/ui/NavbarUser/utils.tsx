@@ -30,7 +30,7 @@ export const getSidebarItems = (isUserAuth: boolean) => {
                     <IconShoppingBag />
                 </ThemeIcon>
             ),
-            isCheckRoute: "/support",
+            isCheckRoute: "/courses",
         },
     ];
 
