@@ -34,6 +34,7 @@ function Form<T extends FormikValues = FormikValues>({
         (values, helpers) => {
             config.onSubmit(values, helpers);
             onSubmit(values);
+            helpers.setSubmitting(false);
         },
         [config.onSubmit]
     );
