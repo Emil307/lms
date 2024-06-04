@@ -33,9 +33,9 @@ const EntitySelect = ({ name, entityType, ...props }: EntitySelectProps) => {
         switch (entityType) {
             case "course":
                 return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
-            case "course_package":
+            case "coursePackage":
                 return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
-            case "article_package":
+            case "articlePackage":
                 return prepareOptionsForSelect({ data: entitiesResourcesData?.data, value: "id", label: "name" });
             default:
                 return [];
