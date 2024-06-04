@@ -4,6 +4,7 @@ import { Edit3, ThumbsDown, ThumbsUp } from "react-feather";
 import { IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { FormikProps } from "formik";
+import { flushSync } from "react-dom";
 import {
     FControlButtons,
     FInput,
@@ -65,7 +66,9 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const onChangeFormValues = ({ setFieldValue, values }: FormikProps<UpdateArticleFormValidation>) => {
         if (selectedCategoryId !== values.categoryId) {
             setFieldValue("subcategories", []);
-            setSelectedCategoryId(values.categoryId);
+            flushSync(() => {
+                setSelectedCategoryId(values.categoryId);
+            });
         }
     };
 
