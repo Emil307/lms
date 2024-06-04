@@ -25,9 +25,9 @@ export const useAdminStudentReportEntities = ({ entityType, ...data }: Omit<GetA
             switch (entityType) {
                 case "course":
                     return courseApi.getAdminCourses({ ...data, page: pageParam });
-                case "course_package":
+                case "coursePackage":
                     return coursePackageApi.getAdminCoursePackages({ ...data, page: pageParam });
-                case "article_package":
+                case "articlePackage":
                     return articlePackageApi.getAdminArticlePackages({ ...data, page: pageParam });
 
                 default:
