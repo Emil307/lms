@@ -13,7 +13,7 @@ export interface StaticCardProps extends Omit<MCardProps, "children"> {
 const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCardProps) {
     const { classes } = useStyles();
 
-    const fullName = getFullName({ data: data.profile });
+    const fullName = getFullName({ data: data.profile, startWithLastName: true });
 
     return (
         <MCard {...props} className={classes.root}>
