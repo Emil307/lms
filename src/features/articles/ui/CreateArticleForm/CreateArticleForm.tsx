@@ -4,6 +4,7 @@ import { Edit3 } from "react-feather";
 import { useRouter } from "next/router";
 import { IconFileText } from "@tabler/icons-react";
 import { FormikProps } from "formik";
+import { flushSync } from "react-dom";
 import {
     FControlButtons,
     FInput,
@@ -63,7 +64,9 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const onChangeFormValues = ({ setFieldValue, values }: FormikProps<CreateArticleFormValidation>) => {
         if (selectedCategoryId !== values.categoryId) {
             setFieldValue("subcategories", []);
-            setSelectedCategoryId(values.categoryId);
+            flushSync(() => {
+                setSelectedCategoryId(values.categoryId);
+            });
         }
     };
 
@@ -80,6 +83,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
                 onError={onError}>
                 {({ values }) => {
                     const labelStatus = values.isActive ? "Деактивировать" : "Активировать";
+
                     return (
                         <Flex direction="column" gap={32}>
                             <Flex align="center" gap={8}>
