@@ -91,12 +91,13 @@ export const useUpdateArticleRating = (
             },
             onSettled() {
                 queryClient.invalidateQueries([QueryKeys.GET_ARTICLES]);
+                queryClient.invalidateQueries([QueryKeys.GET_ARTICLE]);
             },
             onSuccess: () => {
                 createNotification({
                     type: ToastType.INFO,
-                    title: "Изменение реации ",
-                    message: `Ваша реакция обновлена.`,
+                    title: "Изменение реакции",
+                    message: "Ваша реакция обновлена",
                 });
             },
         }
