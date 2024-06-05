@@ -44,8 +44,12 @@ const List = ({
         isLoading,
     } = useCourses(
         adaptGetCoursesRequest({ ...initialParams, ...params, perPage, isFavorite, isPopular, collectionIds }),
-        !!visible && router.isReady,
+        !!visible && router.isReady
     );
+
+    if (!isLoading && !coursesData?.data.length && isPopular) {
+        return null;
+    }
 
     const handleClickCard = (id: unknown) => {
         const selectCourse = coursesData?.data.find((course) => String(course.id) === String(id));
