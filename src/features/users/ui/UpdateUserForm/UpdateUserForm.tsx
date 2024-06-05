@@ -133,11 +133,13 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
                     </Fieldset>
                     <Fieldset label="Системные данные" icon={<Shield />}>
                         <Flex direction="column" gap={16} w="100%">
-                            <FRadioGroup name="roleId" className={classes.filterRadioGroup}>
-                                {filteredRoles?.map((item) => (
-                                    <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
-                                ))}
-                            </FRadioGroup>
+                            {data?.id !== profileData?.id && (
+                                <FRadioGroup name="roleId" className={classes.filterRadioGroup}>
+                                    {filteredRoles?.map((item) => (
+                                        <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
+                                    ))}
+                                </FRadioGroup>
+                            )}
                             <Flex wrap="wrap" gap={8}>
                                 <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} disabled />
                                 <Button type="button" variant="border" size="medium" onClick={handleOpenChangePasswordModal}>
