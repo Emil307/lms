@@ -339,7 +339,7 @@ export const $GetAdminGroupStudentsResponse = $getPaginationResponseType($AdminG
 
 export const $LessonStatusName = z
     .literal("blocked")
-    .or(z.literal("new"))
+    .or(z.literal("notStarted"))
     .or(z.literal("inProgress"))
     .or(z.literal("onReview"))
     .or(z.literal("completed"));

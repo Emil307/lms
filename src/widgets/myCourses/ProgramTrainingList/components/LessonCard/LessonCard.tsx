@@ -19,7 +19,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
     const { classes, cx } = useStyles({ status: data.lessonStatus.name });
 
     const handleOpenLessonDetailsPage = () => {
-        if (data.lessonStatus.name !== "blocked" && data.lessonStatus.name !== "new") {
+        if (data.lessonStatus.name !== "blocked" && data.lessonStatus.name !== "notStarted") {
             router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
         }
     };
@@ -62,7 +62,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
                     Пройти урок
                 </Button>
             )}
-            {data.lessonStatus.name === "new" && (
+            {data.lessonStatus.name === "notStarted" && (
                 <Paragraph variant="text-small-semi">Обучение начнется {dayjs(groupStartDate).format("DD.MM.YYYY")}</Paragraph>
             )}
         </Flex>
