@@ -2,11 +2,12 @@ import { Badge, Divider, Flex, Group, Text } from "@mantine/core";
 import { FControlButtons, FRating, FTextarea, Heading, Loader, ManagedForm, Paragraph, Rating } from "@shared/ui";
 import { ToastType, createNotification, getPluralString } from "@shared/utils";
 import { GroupFromList, useGroup } from "@entities/group";
-import { EntityNames, MutationKeys } from "@shared/constant";
+import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateCourseReviewResponse, courseReviewApi } from "@entities/courseReview";
 import { initialValues } from "./constants";
 import { $CreateCourseReviewFormValidation, CreateCourseReviewFormValidation } from "./types";
 import useStyles from "./CreateCourseReviewForm.styles";
+import { getKeysInvalidateQueries } from "./utils";
 
 export interface CreateCourseReviewFormProps {
     data: Pick<GroupFromList, "courseId" | "groupId">;
@@ -15,11 +16,12 @@ export interface CreateCourseReviewFormProps {
 
 const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) => {
     const { classes } = useStyles();
+    const groupId = String(data.groupId);
 
-    const { data: groupData, isLoading, isError } = useGroup({ id: String(data.groupId) });
+    const { data: groupData, isLoading, isError } = useGroup({ id: groupId });
 
     const createCourseReview = (values: CreateCourseReviewFormValidation) => {
-        return courseReviewApi.createCourseReview({ ...values, courseGroupId: String(data.groupId) });
+        return courseReviewApi.createCourseReview({ ...values, courseGroupId: groupId });
     };
 
     const onSuccess = () => {
@@ -74,6 +76,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                 initialValues={initialValues}
                 validationSchema={$CreateCourseReviewFormValidation}
                 mutationKey={[MutationKeys.CREATE_COURSE_REVIEW]}
+                keysInvalidateQueries={getKeysInvalidateQueries(groupId)}
                 invalidateQueriesWithPredicateParams={{ entityName: EntityNames.COURSE_REVIEW }}
                 mutationFunction={createCourseReview}
                 onSuccess={onSuccess}
