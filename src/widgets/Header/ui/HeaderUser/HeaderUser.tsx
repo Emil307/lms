@@ -8,6 +8,9 @@ import { Logo } from "@components/Logo";
 import { useSession } from "@entities/auth/hooks";
 import { Menu as NotificationMenu } from "@widgets/notifications";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
+import { useMedia } from "@shared/utils";
+import LogoImage from "@public/icons/logoNew.svg";
+import LogoShortImage from "@public/icons/logoShort.svg";
 import { menuLinks } from "./constants";
 import { Menu } from "./components";
 import useStyles from "./HeaderUser.styles";
@@ -20,6 +23,8 @@ const HeaderUser = ({ ...props }: HeaderUserProps) => {
     const { classes } = useStyles();
     const { user } = useSession();
     const { openedSidebar, setOpenedSidebar } = useContext(SidebarMenuContext);
+
+    const isTablet = useMedia("md");
 
     const handleChangeOpenedSidebar = () => setOpenedSidebar(!openedSidebar);
 
@@ -42,14 +47,9 @@ const HeaderUser = ({ ...props }: HeaderUserProps) => {
     return (
         <MHeader {...props} classNames={classes} height="auto" fixed={false}>
             <Flex className={classes.inner}>
-                <Flex align="center" gap={{ md: 89, sm: 8 }}>
-                    <Link href="/cabinet" className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
-                        <Logo
-                            className={classes.logo}
-                            textProps={{
-                                className: classes.logoText,
-                            }}
-                        />
+                <Flex align="center" gap={{ md: 50, sm: 8 }}>
+                    <Link href="/cabinet" onClick={() => setOpenedSidebar(false)}>
+                        <Logo icon={isTablet ? <LogoShortImage /> : <LogoImage />} />
                     </Link>
                     <Flex className={classes.containerButtonLinks}>
                         {menuLinks.map((menuItem, index) => (

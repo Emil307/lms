@@ -1,15 +1,18 @@
-import { Flex, FlexProps, TextProps } from "@mantine/core";
-import React from "react";
+import { Flex } from "@mantine/core";
+import React, { ReactNode } from "react";
 import LogoImage from "@public/icons/logoNew.svg";
+import useStyles from "./Logo.styles";
 
-export interface LogoProps extends FlexProps {
-    textProps?: TextProps;
+export interface LogoProps {
+    icon?: ReactNode;
 }
 
-export default function Logo({ textProps, ...props }: LogoProps) {
+export default function Logo({ icon = <LogoImage />, ...props }: LogoProps) {
+    const { classes } = useStyles();
+
     return (
-        <Flex align="center" gap={10} {...props}>
-            <LogoImage />
+        <Flex {...props} className={classes.root}>
+            {icon}
         </Flex>
     );
 }

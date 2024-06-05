@@ -22,22 +22,6 @@ export default createStyles((theme) => ({
             minHeight: 74,
         },
     },
-    logo: {
-        [theme.fn.smallerThan("md")]: {
-            transform: "scale(0.6)",
-        },
-    },
-
-    logoLink: {
-        color: theme.colors.dark[0],
-        textDecoration: "none",
-    },
-    logoText: {
-        [theme.fn.smallerThan("md")]: {
-            display: "none",
-        },
-    },
-
     containerButtonLinks: {
         gap: 1,
 

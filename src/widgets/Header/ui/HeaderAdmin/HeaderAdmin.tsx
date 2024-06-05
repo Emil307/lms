@@ -11,6 +11,8 @@ import { Paragraph } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import { getStartPage, logoutPath } from "@app/routes";
 import { useMedia } from "@shared/utils";
+import LogoImage from "@public/icons/logoNew.svg";
+import LogoShortImage from "@public/icons/logoShort.svg";
 import useStyles from "./HeaderAdmin.styles";
 
 const HeaderAdmin = () => {
@@ -19,7 +21,8 @@ const HeaderAdmin = () => {
     const { user } = useSession();
     const { openedSidebar, setOpenedSidebar } = useContext(AdminSidebarMenuContext);
 
-    const isTablet = useMedia("sm");
+    const isMobile = useMedia("sm");
+    const isTablet = useMedia("md");
 
     const handleRedirectProfilePage = () => router.push("/profile");
     const handleRedirectLogout = () => router.push(logoutPath);
@@ -68,16 +71,11 @@ const HeaderAdmin = () => {
 
     return (
         <MHeader classNames={classes} height="auto">
-            <Link href={getStartPage(user?.roles[0].id)} className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
-                <Logo
-                    className={classes.logo}
-                    textProps={{
-                        className: classes.logoText,
-                    }}
-                />
+            <Link href={getStartPage(user?.roles[0].id)} onClick={() => setOpenedSidebar(false)}>
+                <Logo icon={isTablet ? <LogoShortImage /> : <LogoImage />} />
             </Link>
             <Flex className={classes.wrapperRightMenu}>
-                <NotificationMenu position={isTablet ? "bottom-end" : "bottom-start"} />
+                <NotificationMenu position={isMobile ? "bottom-end" : "bottom-start"} />
 
                 <Flex align="center" gap={32}>
                     {renderUserInfo()}

@@ -8,6 +8,9 @@ import { Button } from "@shared/ui";
 import { Logo } from "@components/Logo";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
 import { useSession } from "@entities/auth/hooks";
+import LogoImage from "@public/icons/logoNew.svg";
+import LogoShortImage from "@public/icons/logoShort.svg";
+import { useMedia } from "@shared/utils";
 import useStyles from "./HeaderPublicUser.styles";
 import { Menu } from "./components";
 
@@ -17,6 +20,8 @@ const HeaderPublicUser = () => {
     const theme = useMantineTheme();
     const { user, isFetchingUser } = useSession();
     const { classes } = useStyles();
+
+    const isTablet = useMedia("md");
 
     const { openedSidebar, setOpenedSidebar } = useContext(SidebarMenuContext);
 
@@ -79,13 +84,8 @@ const HeaderPublicUser = () => {
         <MHeader classNames={classes} height="auto" fixed={false}>
             <Flex className={classes.inner}>
                 <Flex gap={{ lg: 89, md: 44, sm: 16 }}>
-                    <Link href="/" className={classes.logoLink} onClick={() => setOpenedSidebar(false)}>
-                        <Logo
-                            className={classes.logo}
-                            textProps={{
-                                className: classes.logoText,
-                            }}
-                        />
+                    <Link href="/" onClick={() => setOpenedSidebar(false)}>
+                        <Logo icon={isTablet ? <LogoShortImage /> : <LogoImage />} />
                     </Link>
                     <Flex className={classes.containerButtonLinks}>
                         <Button

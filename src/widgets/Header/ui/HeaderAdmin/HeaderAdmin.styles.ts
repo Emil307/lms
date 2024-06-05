@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         position: "sticky",
-        gap: 53,
+        gap: "calc(280px - 24px - 228px)",
         top: 0,
         left: 0,
         maxHeight: HEADER_HEIGHT,
@@ -22,23 +22,6 @@ export default createStyles((theme) => ({
             paddingInline: 16,
         },
     },
-
-    logoLink: {
-        color: theme.colors.dark[0],
-        textDecoration: "none",
-    },
-    logo: {
-        [theme.fn.smallerThan("md")]: {
-            transform: "scale(0.6)",
-        },
-    },
-
-    logoText: {
-        [theme.fn.smallerThan("md")]: {
-            display: "none",
-        },
-    },
-
     wrapperRightMenu: {
         alignItems: "center",
         justifyContent: "space-between",
