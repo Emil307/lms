@@ -11,9 +11,10 @@ import useStyles from "./ProgramTrainingList.styles";
 export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {
     groupId: string;
     courseId?: number;
+    groupStartDate: Date;
 }
 
-const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingListProps) => {
+const ProgramTrainingList = ({ groupId, courseId, groupStartDate, ...props }: ProgramTrainingListProps) => {
     const { classes, cx } = useStyles();
 
     const { data: groupModulesData, hasNextPage, fetchNextPage, isLoading, isFetching } = useGroupModules({ ...initialParams, groupId });
@@ -29,7 +30,7 @@ const ProgramTrainingList = ({ groupId, courseId, ...props }: ProgramTrainingLis
         () =>
             groupModulesData?.data.map((module, index) => (
                 <Box key={module.id} ref={lastElemRef}>
-                    <ProgramModule data={module} numberModule={index + 1} groupId={groupId} />
+                    <ProgramModule data={module} numberModule={index + 1} groupId={groupId} groupStartDate={groupStartDate} />
                 </Box>
             )),
         [groupModulesData?.data]

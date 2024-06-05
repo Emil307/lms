@@ -2,6 +2,7 @@ import { Badge, Flex, FlexProps, ThemeIcon } from "@mantine/core";
 import { Lock, PlayCircle } from "react-feather";
 import { memo } from "react";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { GroupModuleLesson } from "@entities/group";
 import useStyles from "./LessonCard.styles";
@@ -10,14 +11,15 @@ export interface LessonCardProps extends Omit<FlexProps, "children"> {
     data: GroupModuleLesson;
     moduleName: string;
     groupId: string;
+    groupStartDate: Date;
 }
 
-const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId, ...props }: LessonCardProps) {
+const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId, groupStartDate, ...props }: LessonCardProps) {
     const router = useRouter();
     const { classes, cx } = useStyles({ status: data.lessonStatus.name });
 
     const handleOpenLessonDetailsPage = () => {
-        if (data.lessonStatus.name !== "blocked") {
+        if (data.lessonStatus.name !== "blocked" && data.lessonStatus.name !== "new") {
             router.push({ pathname: "/my-courses/[id]/lessons/[lessonId]", query: { id: groupId, lessonId: String(data.id) } });
         }
     };
@@ -59,6 +61,9 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
                 <Button variant="text" leftIcon={<PlayCircle />} w="min-content" onClick={handleOpenLessonDetailsPage}>
                     Пройти урок
                 </Button>
+            )}
+            {data.lessonStatus.name === "new" && (
+                <Paragraph variant="text-small-semi">Обучение начнется {dayjs(groupStartDate).format("DD.MM.YYYY")}</Paragraph>
             )}
         </Flex>
     );

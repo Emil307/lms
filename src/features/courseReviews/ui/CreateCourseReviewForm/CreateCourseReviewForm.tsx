@@ -2,7 +2,7 @@ import { Badge, Divider, Flex, Group, Text } from "@mantine/core";
 import { FControlButtons, FRating, FTextarea, Heading, Loader, ManagedForm, Paragraph, Rating } from "@shared/ui";
 import { ToastType, createNotification, getPluralString } from "@shared/utils";
 import { GroupFromList, useGroup } from "@entities/group";
-import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
+import { EntityNames, MutationKeys } from "@shared/constant";
 import { CreateCourseReviewResponse, courseReviewApi } from "@entities/courseReview";
 import { initialValues } from "./constants";
 import { $CreateCourseReviewFormValidation, CreateCourseReviewFormValidation } from "./types";

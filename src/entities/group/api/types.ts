@@ -337,7 +337,12 @@ export const $AdminGroupStudentFromList = $AdminGroupStudent;
 
 export const $GetAdminGroupStudentsResponse = $getPaginationResponseType($AdminGroupStudentFromList);
 
-export const $LessonStatusName = z.literal("blocked").or(z.literal("inProgress")).or(z.literal("onReview")).or(z.literal("completed"));
+export const $LessonStatusName = z
+    .literal("blocked")
+    .or(z.literal("new"))
+    .or(z.literal("inProgress"))
+    .or(z.literal("onReview"))
+    .or(z.literal("completed"));
 
 export const $LessonStatus = z.object({
     name: $LessonStatusName,
@@ -595,6 +600,7 @@ export const $Group = z.object({
     description: z.string().nullable(),
     type: $CourseType,
     availableTo: z.coerce.date().nullable(),
+    educationStartDate: z.coerce.date(),
     status: $GroupStatus,
     nextLesson: z
         .object({
