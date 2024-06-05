@@ -46,6 +46,9 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
 
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
+        case "new":
+            return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
+
         case "completed":
             return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
 

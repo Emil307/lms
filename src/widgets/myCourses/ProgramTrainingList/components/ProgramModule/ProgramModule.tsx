@@ -9,13 +9,17 @@ export interface ProgramModuleProps {
     data: GroupModule;
     numberModule: number;
     groupId: string;
+    groupStartDate: Date;
 }
 
-const ProgramModule = ({ data, groupId, numberModule }: ProgramModuleProps) => {
+const ProgramModule = ({ data, groupId, groupStartDate, numberModule }: ProgramModuleProps) => {
     const { classes } = useStyles();
 
     const renderLessons = useMemo(
-        () => data.lessons.map((lesson) => <LessonCard key={lesson.id} data={lesson} moduleName={data.name} groupId={groupId} />),
+        () =>
+            data.lessons.map((lesson) => (
+                <LessonCard key={lesson.id} groupStartDate={groupStartDate} data={lesson} moduleName={data.name} groupId={groupId} />
+            )),
         [data.lessons]
     );
 

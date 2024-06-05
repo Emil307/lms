@@ -82,7 +82,7 @@ const MyCourseDetailsPage = () => {
                     </Flex>
                 );
             default:
-                return <ProgramTrainingList groupId={id} courseId={groupData.courseId} />;
+                return <ProgramTrainingList groupId={id} courseId={groupData.courseId} groupStartDate={groupData.educationStartDate} />;
         }
     };
 
