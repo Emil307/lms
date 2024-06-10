@@ -222,4 +222,4 @@ export const $GetCourseCollectionResponse = $CourseCollection.pick({
     description: true,
 });
 
-export const $GetRandomCourseCollectionResponse = $GetCourseCollectionResponse;
+export const $GetRandomCourseCollectionResponse = $GetCourseCollectionResponse.nullable();
