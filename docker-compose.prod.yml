@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+    lms_front:
+        image: registry.addamant-work.ru/lms-addamant/addamant-lms/master
+        networks:
+            - swarm
+            - lms_lms-microservices
+        deploy:
+          replicas: 1
+          placement:
+            constraints:
+             - node.hostname == test
+networks:
+    swarm:
+        external: true
+    lms_lms-microservices:
+        external: true

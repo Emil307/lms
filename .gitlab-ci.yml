@@ -1,45 +1,106 @@
 stages:
-    - publish
-    - deploy
+  - lint
+  - build
+  - deploy
+  - release
+
+workflow:
+  auto_cancel:
+    on_new_commit: conservative
+  rules:
+    - when: always
 
 variables:
-    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
-    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  STACK_NAME: "lms"
+  STACK_APP_NAME: "lms_front"
+  DOCKERFILE_PATH: "./"
+  SSH_PROJECT_PATH: "/home/addamant/projects/lms/lms-front"
+  DOCKER_HOST: tcp://192.168.0.45:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
 
-publish:
-    image: docker:latest
-    stage: publish
-    services:
-        - docker:dind
-    script:
-        - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
-        - docker build -t $TAG_COMMIT -t $TAG_LATEST .
-        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-        - docker push $TAG_COMMIT
-        - docker push $TAG_LATEST
-    only:
-        - develop
-        - master
-    tags:
-        - front
-    variables:
-        # DOCKER_HOST: tcp://docker:2375
-        DOCKER_TLS_CERTDIR: ""
-        DOCKER_DRIVER: overlay2
 
-deploy:
-    image: alpine:latest
-    stage: deploy
-    script:
-        - chmod og= $ID_RSA
-        - apk update && apk add openssh-client
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f addamant-gallery || true"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 3034:3000 --network lms-microservices --name addamant-gallery $TAG_COMMIT"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker network connect swarm addamant-gallery"
-    only:
-        - develop
-        - master
-    tags:
-        - front
+
+lint:
+  stage: lint
+  image: node:21.7.3-alpine3.20
+  interruptible: true
+  script:
+    - yarn
+    - yarn run test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+  tags:
+    - lint
+
+sonarqube-check:
+  stage: lint
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  
+    GIT_DEPTH: "0"  
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - sonar-scanner
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'develop'
+      when: always
+    - if: $CI_COMMIT_BRANCH == 'test'
+      when: always
+    - if: $CI_COMMIT_BRANCH == 'master'
+      when: always
+  tags:
+    - lint
+
+
+build:
+  stage: build
+  image: docker:20.10
+  services:
+    - docker:20.10-dind
+  script:
+    - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST -f $DOCKERFILE_PATH .
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
+      when: always
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+  tags:
+    - lint
+
+deploy develop:
+  stage: deploy
+  script:
+    - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
+    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.develop.yml $STACK_NAME && docker service scale ${STACK_NAME}_${STACK_APP_NAME}=1
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_STATE == "merged"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
+      when: always
+  tags:
+    - front
+# Нет разделения .env на данный момент.
+deploy prod:
+  stage: deploy
+  script:
+    - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
+    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.test.yml $STACK_NAME && docker service scale ${STACK_NAME}_${STACK_APP_NAME}=1
+  only:
+    - master
+  tags:
+    - front
