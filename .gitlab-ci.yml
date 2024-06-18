@@ -78,7 +78,7 @@ build:
     - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
   tags:
-    - lint
+    - front
 
 deploy develop:
   stage: deploy
