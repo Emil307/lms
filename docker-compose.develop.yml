@@ -4,7 +4,7 @@ services:
         image: registry.addamant-work.ru/lms-addamant/addamant-lms/develop
         networks:
             - swarm
-            - lms-dev-microservices
+            - lms-microservices_dev
         deploy:
           replicas: 1
           placement:
@@ -13,5 +13,5 @@ services:
 networks:
     swarm:
         external: true
-    lms-dev-microservices:
+    lms-microservices_dev:
         external: true
