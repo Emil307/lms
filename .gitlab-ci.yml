@@ -14,7 +14,8 @@ variables:
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
   STACK_NAME: "lms"
-  STACK_APP_NAME: "lms_front"
+  STACK_APP_NAME: "front"
+  STACK_NAME_DEV: 'lms_dev'
   DOCKERFILE_PATH: "./"
   SSH_PROJECT_PATH: "/home/addamant/projects/lms/lms-front"
   DOCKER_HOST: tcp://192.168.0.45:2375
@@ -74,11 +75,7 @@ build:
     - docker push $TAG_LATEST
   rules:
     - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
-      when: always
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
-      when: always
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: manual
   tags:
     - lint
 
@@ -86,12 +83,10 @@ deploy develop:
   stage: deploy
   script:
     - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
-    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.develop.yml $STACK_NAME && docker service scale ${STACK_NAME}_${STACK_APP_NAME}=1
+    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.develop.yml $STACK_NAME_DEV
   rules:
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_STATE == "merged"
-      when: always
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
-      when: always
   tags:
     - front
 # Нет разделения .env на данный момент.
@@ -99,7 +94,7 @@ deploy prod:
   stage: deploy
   script:
     - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
-    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.test.yml $STACK_NAME && docker service scale ${STACK_NAME}_${STACK_APP_NAME}=1
+    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.prod.yml $STACK_NAME
   only:
     - master
   tags:
