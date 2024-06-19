@@ -43,6 +43,7 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
     const isAuthError = statusCode === 401;
 
     if (isAccessError) {
+        console.error(`[${error?.config?.baseURL}${error?.config?.url}] [${error?.response?.status || ""}] `, error?.response?.data || '');
         return {
             notFound: true,
         };
