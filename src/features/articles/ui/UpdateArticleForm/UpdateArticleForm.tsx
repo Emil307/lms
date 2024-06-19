@@ -36,9 +36,8 @@ export interface UpdateArticleFormProps {
 const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
     const { classes } = useStyles();
     const router = useRouter();
-    const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id));
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>(String(data?.category?.id || ""));
     const articleResources = useAdminArticleResourcesCreate();
-
     const subCategoriesResources = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategoryId },

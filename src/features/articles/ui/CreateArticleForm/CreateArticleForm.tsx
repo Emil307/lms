@@ -35,7 +35,7 @@ const CreateArticleForm = ({ onClose, ...props }: CreateArticleFormProps) => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
 
     const articleResources = useAdminArticleResourcesCreate();
-
+    
     const subCategoriesResources = useAdminSubCategories({
         ...initialParams,
         filter: { parentId: selectedCategoryId },
