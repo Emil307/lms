@@ -93,6 +93,7 @@ const HomeworkList = () => {
                                     size="sm"
                                     className={classes.filterDateRangePicker}
                                     clearable
+                                    allowSingleDateInRange
                                 />
                             </Flex>
                             <FRadioGroup name="status" defaultValue="" className={classes.filterRadioGroup}>
