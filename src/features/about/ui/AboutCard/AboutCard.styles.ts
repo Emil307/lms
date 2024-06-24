@@ -51,5 +51,9 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("md")]: {
             maxWidth: "none",
         },
+
+        wordWrap: "break-word",
+        overflowWrap: "break-word",
+        whiteSpace: "pre-wrap"
     },
 }));
