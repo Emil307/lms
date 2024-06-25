@@ -1,3 +1,7 @@
 {
-    "cSpell.words": ["addamant", "interruptible", "sonarqube", "sonarsource"]
+    "cSpell.words": ["addamant", "interruptible", "sonarqube", "sonarsource"],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "AddamantSQ",
+        "projectKey": "lms-addamant_addamant-lms_AZAlD4Xt9-QrPBqZJ0Wx"
+    }
 }
