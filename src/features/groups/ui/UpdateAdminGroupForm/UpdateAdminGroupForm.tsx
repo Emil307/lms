@@ -121,7 +121,8 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                             nameTo="educationFinishDate"
                                             label="Даты обучения"
                                             allowLevelChange={false}
-                                            size="sm"
+                                            size="sm" 
+                                            disabled={data?.status.type === 'completed'}
                                         />
                                     </Grid.Col>
                                     <Grid.Col xs={6}>
