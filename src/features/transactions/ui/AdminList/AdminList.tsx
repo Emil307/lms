@@ -89,6 +89,7 @@ const AdminList = (props: AdminListProps) => {
                                     size="sm"
                                     clearable
                                     className={classes.filterDateRangePicker}
+                                    allowSingleDateInRange
                                 />
                                 <FSelect
                                     name="status"

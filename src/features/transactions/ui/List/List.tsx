@@ -74,6 +74,7 @@ const List = (props: ListProps) => {
                                     className={classes.filterDateRangePicker}
                                     size="sm"
                                     clearable
+                                    allowSingleDateInRange
                                     disabled={transactionFilters.isLoading}
                                 />
                                 <FSelect

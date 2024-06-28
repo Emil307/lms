@@ -57,6 +57,7 @@ const List = () => {
                                         nameTo="createdAtTo"
                                         label="Дата создания"
                                         size="sm"
+                                        allowSingleDateInRange
                                     />
                                 )}
                             </Flex>

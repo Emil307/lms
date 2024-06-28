@@ -79,6 +79,7 @@ const AdminList = (props: AdminListProps) => {
                                     size="sm"
                                     clearable
                                     className={classes.filterDateRangePicker}
+                                    allowSingleDateInRange
                                 />
                             </Flex>
                             <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>

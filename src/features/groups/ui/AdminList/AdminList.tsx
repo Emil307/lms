@@ -100,6 +100,7 @@ const AdminList = (props: AdminListProps) => {
                                             size="sm"
                                             className={classes.filterDateRangePicker}
                                             clearable
+                                            allowSingleDateInRange
                                         />
                                     </>
                                 )}

@@ -108,6 +108,7 @@ const List = () => {
                                             label="Дата создания"
                                             size="sm"
                                             disabled={isLoadingFilters}
+                                            allowSingleDateInRange
                                         />
                                     </>
                                 )}

@@ -74,6 +74,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                     size="sm"
                                     className={classes.filterDateRangePicker}
                                     clearable
+                                    allowSingleDateInRange
                                     disabled={studentReportResources.isLoading}
                                 />
                                 <FSelect

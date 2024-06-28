@@ -93,6 +93,7 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                                     size="sm"
                                     className={classes.filterDateRangePicker}
                                     clearable
+                                    allowSingleDateInRange
                                 />
                                 <FSelect
                                     name="transactionableType"

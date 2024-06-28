@@ -84,6 +84,7 @@ const AdminList = () => {
                                     size="sm"
                                     clearable
                                     className={classes.filterDateRangePicker}
+                                    allowSingleDateInRange
                                 />
                                 <FDateRangePicker
                                     name="discountFinishingDateFrom"

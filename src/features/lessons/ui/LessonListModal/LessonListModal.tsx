@@ -84,6 +84,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onSuccess, onClose }:
                                         nameTo="createdAtTo"
                                         label="Дата создания"
                                         size="sm"
+                                        allowSingleDateInRange
                                     />
                                 </Flex>
                                 <Flex gap={16} mt={16}>
