@@ -92,7 +92,7 @@ const UserList = () => {
                                         Найти
                                     </Button>
                                     {dirty && (
-                                        <Button type="button" variant="white" onClick={handleReset} w={164}>
+                                        <Button type="button" variant="border" onClick={handleReset} w={164}>
                                             Cбросить
                                         </Button>
                                     )}

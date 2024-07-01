@@ -96,7 +96,7 @@ const List = (props: ListProps) => {
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button mt={16} variant="white" w={164} onClick={handleReset}>
+                                    <Button mt={16} variant="border" w={164} onClick={handleReset}>
                                         Сбросить
                                     </Button>
                                 )}

@@ -116,7 +116,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                     Сформировать
                                 </Button>
                                 {dirty && (
-                                    <Button className={classes.button} type="button" variant="white" onClick={handleReset}>
+                                    <Button className={classes.button} type="button" variant="border" onClick={handleReset}>
                                         Cбросить
                                     </Button>
                                 )}

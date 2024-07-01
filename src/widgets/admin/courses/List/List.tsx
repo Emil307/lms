@@ -137,7 +137,7 @@ const List = () => {
                                     Найти
                                 </Button>
                                 {dirty && (
-                                    <Button type="button" variant="white" onClick={handleReset} w={164}>
+                                    <Button type="button" variant="border" onClick={handleReset} w={164}>
                                         Сбросить
                                     </Button>
                                 )}
