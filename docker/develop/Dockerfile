@@ -1,4 +1,4 @@
-FROM registry.addamant-work.ru/infrasrtucture/frontend-dockerfile:latest AS base
+FROM registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest AS base
 
 # 1. Install dependencies only when needed
 FROM base AS deps
