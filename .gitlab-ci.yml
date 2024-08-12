@@ -14,7 +14,9 @@ include:
     ref: develop
     file: "frontend/next-standalone-build.gitlab-ci.yml"
 
-  
+variables:
+  NODE_VERSION: registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest
+
 deploy develop:
   stage: deploy
   script:
