@@ -9,7 +9,6 @@ workflow:
   auto_cancel:
     on_new_commit: conservative
 
-
 include:
   - project: "infrastructure/ci-templates"
     ref: develop
