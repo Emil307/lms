@@ -16,6 +16,7 @@ include:
 
 variables:
   NODE_VERSION: registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest
+  DOCKERFILE_PATH: ./docker/$CI_COMMIT_BRANCH/Dockerfile
 
 deploy develop:
   stage: deploy
