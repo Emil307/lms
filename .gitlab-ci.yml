@@ -17,6 +17,10 @@ include:
 variables:
   NODE_VERSION: registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest
   DOCKERFILE_PATH: ./docker/$CI_COMMIT_BRANCH/Dockerfile
+  STACK_NAME: "lms"
+  STACK_NAME_DEV: 'lms_dev'
+  STACK_APP_NAME: "front"
+
 
 deploy develop:
   stage: deploy
