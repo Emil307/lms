@@ -7,7 +7,7 @@ import { UploadedFile } from "@shared/types";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
-    type: "document" | "video";
+    type: "document" | "video" | "images";
     withDeleteButton?: boolean;
     fileNumber?: number;
     showFileNumber?: boolean;

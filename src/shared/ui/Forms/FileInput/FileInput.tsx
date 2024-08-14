@@ -18,7 +18,7 @@ import {
 import useStyles from "./FileInput.styles";
 
 export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad" | "onDrop"> {
-    type: "image" | "document" | "video";
+    type: "image" | "document" | "video" | "images";
     title?: string;
     description?: string;
     descriptionInside?: string;

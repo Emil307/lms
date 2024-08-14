@@ -33,7 +33,7 @@ const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase 
         handleClearStorage();
     };
 
-    const handleSubmitCreateMaterials = (type: "video" | "document") => {
+    const handleSubmitCreateMaterials = (type: "video" | "document" | "images") => {
         openModal({
             modalId: "EDIT_MATERIALS",
             title: "Шаг 2/2. Редактирование",

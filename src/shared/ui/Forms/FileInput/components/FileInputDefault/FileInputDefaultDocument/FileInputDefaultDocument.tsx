@@ -4,7 +4,7 @@ import { Paragraph } from "@shared/ui/Typography";
 import useStyles from "./FileInputDefaultDocument.styles";
 
 export interface FileInputDefaultDocumentProps {
-    type: "document" | "video";
+    type: "document" | "video" | "images";
     title?: string;
     description?: string;
     onOpenFileDialog: () => void;

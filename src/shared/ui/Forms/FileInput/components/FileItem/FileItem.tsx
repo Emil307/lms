@@ -9,7 +9,7 @@ import useStyles from "./FileItem.styles";
 import { getFileExtension } from "../../utils";
 
 export interface FileItemProps {
-    type: "document" | "video";
+    type: "document" | "video" | "images";
     fileNumber?: number;
     showFileNumber?: boolean;
     fileName?: string;

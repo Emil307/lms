@@ -9,7 +9,7 @@ import useStyles from "./CreateMaterialsForm.styles";
 
 export interface CreateMaterialsFormProps {
     data: IMaterialTypeCard;
-    onSubmit: (type: "document" | "video") => void;
+    onSubmit: (type: "document" | "video" | "images") => void;
     onClose: () => void;
 }
 

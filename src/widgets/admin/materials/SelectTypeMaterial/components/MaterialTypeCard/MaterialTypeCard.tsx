@@ -11,7 +11,6 @@ export interface MaterialTypeCardProps extends Omit<FlexProps, "children" | "id"
 
 const MemoizedMaterialTypeCard = memo(function MaterialTypeCard({ title, icon, onClick, ...props }: MaterialTypeCardProps) {
     const { classes } = useStyles();
-
     return (
         <Flex {...props} className={classes.root}>
             <Flex justify="space-between" className={classes.heading}>

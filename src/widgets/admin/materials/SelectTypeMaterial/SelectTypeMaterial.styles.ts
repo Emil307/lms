@@ -15,7 +15,13 @@ export default createStyles((theme, { selectFromBase }: CreateStylesProps) => ({
         },
     },
     content: {
+        display: "flex",
+        flexWrap: "wrap",
         gap: 24,
+
+        "& > *": {
+            flex: "0 1 calc(50% - 12px)",
+        },
 
         ...(selectFromBase
             ? {
@@ -28,6 +34,9 @@ export default createStyles((theme, { selectFromBase }: CreateStylesProps) => ({
         [theme.fn.smallerThan("xs")]: {
             flexDirection: "column",
             gap: 16,
+            "& > *": {
+                flex: "0 1 100%",
+            },
         },
     },
 }));

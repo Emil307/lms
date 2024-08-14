@@ -37,8 +37,13 @@ export type GetAdminMaterialsNoIncludedLessonRequest = z.infer<typeof $GetAdminM
 export type DeleteUploadedFileRequest = z.infer<typeof $DeleteUploadedFileRequest>;
 export type DeleteUploadedFileResponse = z.infer<typeof $DeleteUploadedFileResponse>;
 
-export const $FileType = z.literal("avatar").or(z.literal("image")).or(z.literal("video")).or(z.literal("document"));
-export const $MaterialType = z.literal("document").or(z.literal("video"));
+export const $FileType = z
+    .literal("avatar")
+    .or(z.literal("image"))
+    .or(z.literal("video"))
+    .or(z.literal("document"))
+    .or(z.literal("images"));
+export const $MaterialType = z.literal("document").or(z.literal("video")).or(z.literal("images"));
 
 export const $UploadedFileType = z.object({
     name: z.string(),

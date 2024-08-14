@@ -1,7 +1,7 @@
 import { Box, Flex, ScrollArea, Text } from "@mantine/core";
 import React, { useMemo, useRef } from "react";
 import { FieldArray, FormikConfig, FormikProps } from "formik";
-import { ChevronLeft, FileText, PlayCircle } from "react-feather";
+import { ChevronLeft, FileText, PlayCircle, Image } from "react-feather";
 import axios from "axios";
 import { FControlButtons, FInput, Form, Paragraph, getFileExtension } from "@shared/ui";
 import { ToastType, createNotification, getDataFromSessionStorage, useMedia } from "@shared/utils";
@@ -36,6 +36,13 @@ const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }
             return (
                 <>
                     <FileText />
+                    <Text className={classes.extension}>{getFileExtension(file.extension)}</Text>
+                </>
+            );
+        } else if (type === "images") {
+            return (
+                <>
+                    <Image />
                     <Text className={classes.extension}>{getFileExtension(file.extension)}</Text>
                 </>
             );

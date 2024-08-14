@@ -1,4 +1,4 @@
-import { FileText, PlayCircle } from "react-feather";
+import { FileText, PlayCircle, Image } from "react-feather";
 import { IMaterialTypeCard } from "@features/materials";
 
 export const materialTypeCards: IMaterialTypeCard[] = [
@@ -17,5 +17,13 @@ export const materialTypeCards: IMaterialTypeCard[] = [
         type: "document",
         fileFormats: ["pdf", "doc", "docx", "mp4", "jpeg", "jpg", "png", "mpg", "xls", "xlsx"],
         description: "jpg, png, pdf, doc, docx, mp4, mpg, xlsx. До 8Мb (не более 10 файлов за раз)",
+    },
+    {
+        id: 2,
+        title: "Добавить изображение",
+        icon: <Image />,
+        type: "images",
+        fileFormats: ["jpg", "png"],
+        description: "jpg, png. До 8Мb (не более 10 файлов за раз)",
     },
 ];

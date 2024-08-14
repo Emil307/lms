@@ -9,7 +9,7 @@ export interface IMaterialTypeCard {
     title: string;
     description: string;
     icon: ReactNode;
-    type: "document" | "video";
+    type: "document" | "video" | "images";
     fileFormats: FileFormat[];
 }
 

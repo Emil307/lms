@@ -19,6 +19,8 @@ export const useUploadFile = (): UseMutationResult<
                     return storageApi.uploadAvatar(data);
                 case "image":
                     return storageApi.uploadImage(data);
+                case "images":
+                    return storageApi.uploadImage(data);
                 case "video":
                     return storageApi.uploadVideo(data);
                 default:
