@@ -22,7 +22,7 @@ const MemoizedSlider = memo(function Slider({ showTextInfo = false, ...props }: 
                     {`от ${props.min} до `}
                 </Paragraph>
                 <Paragraph variant="text-small-m" color="primary">
-                    {`${props.value} ₽`}
+                    {`${props.value ? props.value : props.max} ₽`}
                 </Paragraph>
             </Box>
         ),

@@ -3,7 +3,7 @@ import { FormikConfig } from "formik";
 import { IconFilter, IconFilterOff } from "@tabler/icons-react";
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Button, FSearch, FSlider, FSwitch, Form, Paragraph } from "@shared/ui";
+import { Button, FSearch, FSlider, FSwitch, Form, Paragraph, Loader } from "@shared/ui";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { useMedia } from "@shared/utils";
 import { FilterTypes } from "@shared/constant";
@@ -19,7 +19,7 @@ export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
 const Filters = ({ children, title, ...props }: FiltersProps) => {
     const { classes } = useStyles();
     const [openedFilters, setOpenedFilters] = useState(false);
-    const courseResources = useCourseResources({ type: FilterTypes.SELECT });
+    const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 
@@ -33,9 +33,12 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
     }, [isTablet]);
 
     const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
+    if (isLoading || !courseResources) {
+        return <Loader size="lg" />;
+    }
 
     const config: FormikConfig<CoursesFiltersForm> = {
-        initialValues: { ...getInitialValues(courseResources.data?.prices.highest), ...adaptCourseFiltersForm(queryParams) },
+        initialValues: { ...getInitialValues(courseResources.prices.highest), ...adaptCourseFiltersForm(queryParams) },
         validationSchema: $CoursesFiltersForm.partial(),
         enableReinitialize: true,
         onSubmit: (values) => {
@@ -53,13 +56,14 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
     return (
         <Box {...props}>
             <Form config={config} disableOverlay={false}>
-                {({ resetForm, handleSubmit }) => {
+                {({ resetForm }) => {
                     const handleResetForm = () => {
-                        resetForm({ values: getInitialValues(courseResources.data?.prices.highest) });
-                        handleSubmit();
+                        resetForm({ values: getInitialValues(courseResources.prices.highest) });
+
+                        router.push({ pathname: router.pathname, query: { page: "1" } }, undefined, { shallow: true });
                     };
 
-                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues(courseResources.data?.prices.highest));
+                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues(courseResources.prices.highest));
 
                     const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
                     return (
@@ -71,7 +75,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
 
                             <Flex className={classes.content}>
                                 <Flex className={classes.filtersBlock}>
-                                    <CategoryFilterList name="categoryId" data={courseResources.data?.categories} />
+                                    <CategoryFilterList name="categoryId" data={courseResources.categories} />
 
                                     <MediaQuery largerThan="md" styles={{ display: "none" }}>
                                         <ToggleFilterButton
@@ -88,7 +92,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 filterName="Тематика"
                                                 searchPlaceholder="Найти тематики"
                                                 labelsPluralString={["тематика", "тематики", "тематик"]}
-                                                data={courseResources.data?.subcategories}
+                                                data={courseResources.subcategories}
                                                 isVisible={openedFilters}
                                             />
                                             <FilterList
@@ -96,7 +100,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 filterName="Теги"
                                                 searchPlaceholder="Найти теги"
                                                 labelsPluralString={["тег", "тега", "тегов"]}
-                                                data={courseResources.data?.tags}
+                                                data={courseResources.tags}
                                                 isVisible={openedFilters}
                                             />
                                             <Flex direction="column" gap={16}>
@@ -104,8 +108,8 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                                 <FSlider
                                                     name="discountPrice"
                                                     labelAlwaysOn
-                                                    min={courseResources.data?.prices.lowest || 0}
-                                                    max={courseResources.data?.prices.highest || 0}
+                                                    min={courseResources.prices?.lowest || 0}
+                                                    max={courseResources.prices?.highest || 0}
                                                     showTextInfo
                                                 />
                                             </Flex>

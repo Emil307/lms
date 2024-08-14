@@ -142,30 +142,52 @@ export const useCourseListData = (userRole: number = 0) => {
     const adaptGetAdminCoursesRequest = (params: TFunctionParams<AdminCoursesFiltersForm>): GetAdminCoursesRequest => {
         const { createdAtFrom, createdAtTo, tags = [], teachers = [], discountType, isActive, category, ...rest } = params;
 
+        const filter: any = {};
+
+        // Проверка и добавление поля isActive
+        if (z.coerce.number().safeParse(isActive).success) {
+            filter.isActive = isActive === "1";
+        }
+
+        // Проверка и добавление поля discountType
+        if (discountType) {
+            filter["discount.type"] = discountType;
+        }
+
+        // Проверка и добавление поля category
+        if (category && category !== "null") {
+            filter["category.id"] = category;
+        } else if (category === "null") {
+            filter["category.id"] = null;
+        }
+
+        // Проверка и добавление тегов
+        if (tags.length > 0) {
+            filter.tagIds = {
+                items: tags,
+                operator: "or",
+            };
+        }
+
+        // Проверка и добавление учителей
+        if (teachers.length > 0) {
+            filter.teacherIds = {
+                items: teachers,
+                operator: "or",
+            };
+        }
+
+        // Проверка и добавление диапазона дат
+        if (createdAtFrom && createdAtTo) {
+            filter.createdAt = {
+                items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
+                operator: "range",
+            };
+        }
+
         return {
             ...rest,
-            filter: {
-                ...(z.coerce.number().safeParse(isActive).success && {
-                    isActive: isActive === "1",
-                }),
-                "discount.type": discountType,
-                "category.id": category === "null" ? null : category,
-                tagIds: {
-                    items: tags,
-                    operator: "or",
-                },
-                teacherIds: {
-                    items: teachers,
-                    operator: "or",
-                },
-                ...(createdAtFrom &&
-                    createdAtTo && {
-                        createdAt: {
-                            items: [dayjs(createdAtFrom).format("YYYY-MM-DD"), dayjs(createdAtTo).endOf("day").format()],
-                            operator: "range",
-                        },
-                    }),
-            },
+            filter,
         };
     };
 
