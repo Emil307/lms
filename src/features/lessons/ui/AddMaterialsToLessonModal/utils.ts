@@ -15,7 +15,7 @@ export const adaptGetMaterialsNoIncludedLessonRequest = (
         ...rest,
         filter: {
             categoryIds,
-            "type.type": type,
+            type: type,
             lessonIds: {
                 items: [lessonId],
                 operator: "not",

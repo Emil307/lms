@@ -138,7 +138,7 @@ export const $UploadedFilesRequest = z.object({
         .object({
             isActive: z.boolean(),
             categoryIds: z.string(),
-            "type.type": z.string(),
+            type: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             articleIds: z.string(),
             lessonIds: z.string(),
@@ -165,7 +165,7 @@ export const $AdminMaterialsNoIncludedArticleRequest = z.object({
     filter: z
         .object({
             categoryIds: z.string(),
-            "type.type": z.string(),
+            type: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             articleIds: $getMultiValueObjectType(z.string(), z.literal("not")),
         })
@@ -191,7 +191,7 @@ export const $AdminMaterialsNoIncludedLessonRequest = z.object({
     filter: z
         .object({
             categoryIds: z.string(),
-            "type.type": z.string(),
+            type: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             lessonIds: $getMultiValueObjectType(z.string(), z.literal("not")),
         })

@@ -15,7 +15,7 @@ export const adaptGetMaterialsRequest = (
         ...rest,
         filter: {
             categoryIds,
-            "type.type": type,
+            type: type,
             ...(articleId && {
                 articleIds: {
                     items: [articleId],

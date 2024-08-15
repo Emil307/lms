@@ -13,7 +13,7 @@ export const adaptGetMaterialFilesRequest = (params: TFunctionParams<UploadedFil
                 isActive: isActive === "1",
             }),
             categoryIds,
-            "type.type": type,
+            type: type,
             ...(createdAtFrom &&
                 createdAtTo && {
                     createdAt: {
