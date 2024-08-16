@@ -1,42 +1,26 @@
 import React from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { CategoryDetailsPage } from "@pages/admin/settings";
-import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { CategoryApi } from "@entities/category";
-import { EntityNames, QueryKeys } from "@shared/constant";
+import { NextPageWithLayout } from "@shared/utils/types";
+import { NextPageWithLayoutProps } from "@shared/types";
+import { useAdminCategory } from "@entities/category";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
+const CategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { data, isLoading, error } = useAdminCategory(id ? { id: id as string } : { id: "" });
 
-    const categoryApi = new CategoryApi(axios);
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_CATEGORY, [EntityNames.CATEGORY, EntityNames.USER], id], () =>
-            categoryApi.getAdminCategory({ id })
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const CategoryDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={data.name}>
             <CategoryDetailsPage />
         </AdminPage>
     );

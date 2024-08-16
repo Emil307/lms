@@ -1,63 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { UpdateUserPage } from "@pages/admin/users";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { UserApi } from "@entities/user";
-import { EntityNames, QueryKeys } from "@shared/constant";
-import { getFullName } from "@shared/utils";
-import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
+import { getFullName, NextPageWithLayout } from "@shared/utils";
+import { NextPageWithLayoutProps } from "@shared/types";
 import { Roles } from "@app/routes";
+import { useDetailsUser } from "@entities/user";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
+const UpdateUser: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { data, isLoading, error } = useDetailsUser(id as string);
 
-    const userApi = new UserApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, [EntityNames.USER], id], () => userApi.showUser(id));
-
-        const rolesIds = response.roles.map(({ id }) => id);
-
-        //TODO: тк у нас один рут для получения всех пользователей
-        if (!rolesIds.includes(Roles.administrator) && !rolesIds.includes(Roles.manager) && !rolesIds.includes(Roles.teacher)) {
-            return {
-                redirect: {
-                    destination: `/admin/students/${id}/edit`,
-                    permanent: false,
-                },
-            };
+    useEffect(() => {
+        if (data) {
+            const rolesIds = data.roles.map(({ id }) => id);
+            if (!rolesIds.includes(Roles.administrator) && !rolesIds.includes(Roles.manager) && !rolesIds.includes(Roles.teacher)) {
+                router.replace(`/admin/students/${id}/edit`);
+            }
         }
+    }, [data, router, id]);
 
-        const userFullName = getFullName({ data: response.profile });
+    const userFullName = data ? getFullName({ data: data.profile }) : "Loading...";
 
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: userFullName,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-const UpdateUser: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={userFullName}>
             <UpdateUserPage />
         </AdminPage>
     );
 };
 
 UpdateUser.getLayout = function (page: ReactElement) {
-    return <AdminLayout>{page} </AdminLayout>;
+    return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default UpdateUser;

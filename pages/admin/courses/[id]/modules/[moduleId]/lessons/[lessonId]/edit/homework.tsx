@@ -1,46 +1,25 @@
 import React from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { UpdateLessonHomeworkPage } from "@pages/admin/lessons";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { LessonApi } from "@entities/lesson";
-import { EntityNames, QueryKeys } from "@shared/constant";
+import { NextPageWithLayout } from "@shared/utils/types";
 import { NextPageWithLayoutProps } from "@shared/types";
+import { useAdminLesson } from "@entities/lesson";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
+const UpdateHomework: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { lessonId } = router.query;
 
-type GetServerSidePropsContextParams = {
-    lessonId: string;
-};
+    const { data, isLoading, error } = useAdminLesson(lessonId as string);
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { lessonId } = context.params as GetServerSidePropsContextParams;
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const lessonApi = new LessonApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_LESSON, [EntityNames.LESSON, EntityNames.USER], lessonId], () =>
-            lessonApi.getAdminLesson(String(lessonId))
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const UpdateHomework: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={data.name}>
             <UpdateLessonHomeworkPage />
         </AdminPage>
     );

@@ -1,56 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
-import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { NextPageWithLayout } from "@shared/utils/types";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
 import { AdminPage } from "@components/AdminPage";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { QueryKeys } from "@shared/constant";
-import { UserApi } from "@entities/user";
-import { getFullName } from "@shared/utils";
 import { StudentStatisticsPage } from "@pages/admin/students";
+import { getFullName, NextPageWithLayout } from "@shared/utils";
+import { NextPageWithLayoutProps } from "@shared/types";
 import { Roles } from "@app/routes";
+import { useDetailsUser } from "@entities/user";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
+const StudentStatisticsDetails: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-    const { axios, queryClient } = await getSsrInstances(context);
-
-    const userApi = new UserApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_USER, id], () => userApi.showUser(id));
-
-        const rolesIds = response.roles.map(({ id }) => id);
-
-        //TODO: тк у нас один рут для получения всех пользователей
-        if (!rolesIds.includes(Roles.student) && !rolesIds.includes(Roles.employee)) {
-            return {
-                redirect: {
-                    destination: `/admin/users/${id}`,
-                    permanent: false,
-                },
-            };
+    const { data, isLoading, error } = useDetailsUser(id as string);
+    useEffect(() => {
+        if (data) {
+            const rolesIds = data.roles.map(({ id }) => id);
+            if (!rolesIds.includes(Roles.student) && !rolesIds.includes(Roles.employee)) {
+                router.replace(`/admin/users/${id}`);
+            }
         }
+    }, [data, router, id]);
 
-        const userFullName = getFullName({ data: response.profile });
+    const userFullName = data ? getFullName({ data: data.profile }) : "Loading...";
 
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: userFullName,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-const StudentStatisticsDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={userFullName}>
             <StudentStatisticsPage />
         </AdminPage>
     );

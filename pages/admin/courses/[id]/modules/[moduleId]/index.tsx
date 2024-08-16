@@ -1,52 +1,28 @@
 import React from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { CourseModuleDetailPage } from "@pages/admin/courses";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { CourseModuleApi } from "@entities/courseModule";
-import { EntityNames, QueryKeys } from "@shared/constant";
+import { NextPageWithLayout } from "@shared/utils/types";
 import { NextPageWithLayoutProps } from "@shared/types";
+import { useCourseModule } from "@entities/courseModule";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-type GetServerSidePropsContextParams = {
-    moduleId: string;
-    id: string;
-};
+const CourseModuleDetail: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id: courseId, moduleId } = router.query;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { moduleId, id: courseId } = context.params as GetServerSidePropsContextParams;
+    const { data, isLoading, error } = useCourseModule(
+        courseId && moduleId ? { courseId: courseId as string, moduleId: moduleId as string } : { courseId: "", moduleId: "" }
+    );
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-    const courseModuleApi = new CourseModuleApi(axios);
-
-    try {
-        const response = await queryClient.fetchQuery(
-            [
-                QueryKeys.GET_ADMIN_COURSE_MODULE,
-                [EntityNames.COURSE_MODULE, EntityNames.COURSE, EntityNames.LESSON, EntityNames.USER],
-                moduleId,
-            ],
-            () => courseModuleApi.getCourseModule({ courseId: String(courseId), moduleId: String(moduleId) })
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const CourseModuleDetail: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={data.name}>
             <CourseModuleDetailPage />
         </AdminPage>
     );

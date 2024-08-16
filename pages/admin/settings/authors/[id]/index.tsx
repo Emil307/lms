@@ -1,52 +1,36 @@
 import React from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { AuthorDetailsPage } from "@pages/admin/settings";
-import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { AuthorApi } from "@entities/author";
-import { EntityNames, QueryKeys } from "@shared/constant";
+import { NextPageWithLayout } from "@shared/utils/types";
+import { NextPageWithLayoutProps } from "@shared/types";
 import { getFullName } from "@shared/utils";
+import { useAdminAuthor } from "@entities/author";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
+const AuthorDetails: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { data, isLoading, error } = useAdminAuthor(id ? { id: id as string } : { id: "" });
 
-    const authorApi = new AuthorApi(axios);
+    const fullName = data ? getFullName({ data }) : "Loading...";
 
-    try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_ADMIN_AUTHOR, [EntityNames.AUTHOR, EntityNames.USER], id], () =>
-            authorApi.getAdminAuthor({ id })
-        );
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-        const fullName = getFullName({ data: response });
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: fullName,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const AuthorDetails: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={fullName}>
             <AuthorDetailsPage />
         </AdminPage>
     );
 };
 
 AuthorDetails.getLayout = function (page: ReactElement) {
-    return <AdminLayout>{page} </AdminLayout>;
+    return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default AuthorDetails;

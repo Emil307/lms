@@ -1,43 +1,26 @@
 import React from "react";
 import { ReactElement } from "react";
-import { GetServerSidePropsContext } from "next";
-import { dehydrate } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
-import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
 import { UpdateCoursePackagePage } from "@pages/admin/settings";
-import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@shared/types";
-import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
-import { CoursePackageApi } from "@entities/coursePackage";
-import { EntityNames, QueryKeys } from "@shared/constant";
+import { NextPageWithLayout } from "@shared/utils/types";
+import { NextPageWithLayoutProps } from "@shared/types";
+import { useAdminCoursePackage } from "@entities/coursePackage";
+import { Loader } from "@shared/ui";
+import { CustomPage500 } from "@pages/errors";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { id } = context.params as GetServerSidePropsContextParams;
+const UpdateCoursePackage: NextPageWithLayout<NextPageWithLayoutProps> = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { data, isLoading, error } = useAdminCoursePackage(id as string);
 
-    const coursePackageApi = new CoursePackageApi(axios);
+    if (isLoading) return <Loader />;
+    if (error) return <CustomPage500 />;
 
-    try {
-        const response = await queryClient.fetchQuery(
-            [QueryKeys.GET_ADMIN_COURSE_PACKAGE, [EntityNames.COURSE_PACKAGE, EntityNames.COURSE, EntityNames.USER], id],
-            () => coursePackageApi.getAdminCoursePackage(id)
-        );
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                title: response.name,
-            },
-        };
-    } catch (error) {
-        return handleAxiosErrorSsr(error);
-    }
-}
-
-const UpdateCoursePackage: NextPageWithLayout<NextPageWithLayoutProps> = ({ title }) => {
     return (
-        <AdminPage title={title}>
+        <AdminPage title={data.name}>
             <UpdateCoursePackagePage />
         </AdminPage>
     );
