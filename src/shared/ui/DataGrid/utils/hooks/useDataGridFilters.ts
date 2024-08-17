@@ -3,7 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { FormikConfig, FormikProps, FormikValues } from "formik";
 import dayjs from "dayjs";
 import { ArrayParam, DateParam, NumberParam, StringParam, useQueryParams } from "use-query-params";
-import { TFilterTable } from "../../types";
+import { z } from "zod";
+import { $BaseValidationSchema, TFilterTable } from "../../types";
+import { BASE_FILTER_QUERY_NAME } from "../../constants";
 
 type TParams<F> = {
     disableQueryParams: boolean;
@@ -14,6 +16,7 @@ type TParams<F> = {
 export const useDataGridFilters = <F extends FormikValues>({ filter, disableQueryParams, goToFirstPage }: TParams<F>) => {
     const router = useRouter();
     const formRef = useRef<FormikProps<F>>(null);
+    const [formReady, setFormReady] = useState(false);
 
     const initialFilterParams: F = useMemo(() => {
         return Object.keys(filter?.initialValues || {}).reduce((acc, cur) => {
@@ -35,11 +38,33 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
     const [formStateForDisabledQuery, setFormStateForDisabledQuery] = useState<F | undefined>(filter?.initialValues);
 
     useEffect(() => {
-        if (!filter || disableQueryParams || !router.isReady || !formRef.current) {
+        if (formReady || !filter || disableQueryParams || !router.isReady || !formRef.current) {
             return;
         }
         formRef.current.setValues(getInitialFormValues());
-    }, [disableQueryParams, router.isReady, formRef.current]);
+        formRef.current.setFieldTouched(BASE_FILTER_QUERY_NAME);
+        setFormReady(true);
+    }, [disableQueryParams, router.isReady, formRef.current, formReady]);
+
+    const handleSubmit = async (values: F) => {
+        if (disableQueryParams) {
+            setFormStateForDisabledQuery(values);
+            goToFirstPage && goToFirstPage();
+            return;
+        }
+        setQuery({
+            ...createNewFilterParams(values),
+            page: goToFirstPage ? 1 : undefined,
+        });
+    };
+
+    const formikConfig: FormikConfig<F> = useMemo(() => {
+        return {
+            initialValues: filter?.initialValues ?? ({} as F),
+            validationSchema: $BaseValidationSchema.merge(filter?.validationSchema ?? z.object({})),
+            onSubmit: handleSubmit,
+        };
+    }, [filter]);
 
     if (!filter) {
         return;
@@ -89,24 +114,6 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
     };
 
     const isEmptyFilter = () => !paramsForRequest || !Object.keys(paramsForRequest).length;
-
-    const handleSubmit = async (values: F) => {
-        if (disableQueryParams) {
-            setFormStateForDisabledQuery(values);
-            goToFirstPage && goToFirstPage();
-            return;
-        }
-        setQuery({
-            ...createNewFilterParams(values),
-            page: goToFirstPage ? 1 : undefined,
-        });
-    };
-
-    const formikConfig: FormikConfig<F> = {
-        initialValues: filter.initialValues,
-        validationSchema: filter.validationSchema,
-        onSubmit: handleSubmit,
-    };
 
     return { formikConfig, formRef, filterParamsForRequest: paramsForRequest, isEmptyFilter: isEmptyFilter() };
 };

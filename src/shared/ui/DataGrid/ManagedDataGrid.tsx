@@ -1,7 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { QueryKey, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { TPagination } from "@shared/types";
 import { PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 import {
@@ -100,11 +101,20 @@ function ManagedDataGrid<
         isLoading,
         isRefetching,
         isFetching,
+        error,
     } = useQuery<DataGridResponse<Data, MetaData>>({
         queryKey: [...queryKey, ...queryCacheKeys.map((key) => paramsForRequest[key])],
         queryFn: () => queryFunction(paramsForRequest),
         enabled: router.isReady && ((defaultBlock && !filters?.isEmptyFilter) || !defaultBlock),
     });
+
+    useEffect(() => {
+        if (axios.isAxiosError(error) && filters?.formRef.current) {
+            for (const errorField in error.response?.data.errors) {
+                filters.formRef.current.setFieldError(errorField, error.response?.data.errors[errorField][0]);
+            }
+        }
+    }, [error]);
 
     const collapsed = {
         ...collapsedFiltersBlockProps,

@@ -1,9 +1,15 @@
 import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
 import { MRT_Cell, MRT_Column, MRT_ColumnDef, MRT_Row, MRT_TableInstance } from "mantine-react-table";
-import React from "react";
 import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
+
+export const $BaseValidationSchema = z.object({
+    query: z
+        .string()
+        .optional()
+        .refine((value) => !value || value.length <= 64, { message: "Не более 64 символов" }),
+});
 
 type DataGridResponseData<T, M> = { data: T[]; meta?: M };
 
