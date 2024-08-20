@@ -12,9 +12,12 @@ export function getSsrInstances(context: GetServerSidePropsContext) {
 
     const authorization = `${cookies.TOKEN_TYPE} ${cookies.TOKEN}`;
 
+    const forwarded = context.req.headers["x-forwarded-for"];
+    const ip = typeof forwarded === "string" ? forwarded.split(/, /)[0] : context.req.socket.remoteAddress;
+
     const axios = Axios.create({
         baseURL: process.env.SERVER_API_URL,
-        headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: authorization },
+        headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: authorization, "X-Real-IP": ip },
         responseType: "json",
         timeout: REQUEST_TIMEOUT,
     });
@@ -43,7 +46,7 @@ export const handleAxiosErrorSsr = (errorSsr: unknown) => {
     const isAuthError = statusCode === 401;
 
     if (isAccessError) {
-        console.error(`[${error?.config?.baseURL}${error?.config?.url}] [${error?.response?.status || ""}] `, error?.response?.data || '');
+        console.error(`[${error?.config?.baseURL}${error?.config?.url}] [${error?.response?.status || ""}] `, error?.response?.data || "");
         return {
             notFound: true,
         };
