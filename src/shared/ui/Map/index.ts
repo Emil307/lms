@@ -1,3 +1,3 @@
-import Map, { type MapProps } from "./Map";
+import YanMap, { type MapProps } from "./YanMap";
 
-export { Map, MapProps };
+export { YanMap, MapProps };

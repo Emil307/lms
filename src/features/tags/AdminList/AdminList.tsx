@@ -1,6 +1,5 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { FSearch, ManagedDataGrid } from "@shared/ui";
-import { Button } from "@shared/ui";
+import { FSearch, ManagedDataGrid, Button } from "@shared/ui";
 import { AdminTagFromList, tagApi, TagsFilters } from "@entities/tag";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { columnOrder, columns, filterInitialValues } from "./constant";

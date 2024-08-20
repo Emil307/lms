@@ -1,5 +1,4 @@
-import { Avatar, Box, Flex, ThemeIcon } from "@mantine/core";
-import { FileButton as MFileButton, FileButtonProps as MFileButtonProps } from "@mantine/core";
+import { Avatar, Box, Flex, ThemeIcon, FileButton as MFileButton, FileButtonProps as MFileButtonProps } from "@mantine/core";
 import React, { memo, ReactNode, useCallback, useState } from "react";
 import { AlertTriangle, Edit3, Info } from "react-feather";
 import { FileType, useUploadFile } from "@entities/storage";

@@ -8,23 +8,23 @@ export interface SearchProps extends MTextInputProps {
     setValue?: (value: string) => void;
 }
 
+const RightSection = ({ value, setValue }: { value?: string | number | readonly string[]; setValue: (value: string) => void }) => {
+    if (value) {
+        return (
+            <ThemeIcon color="gray45" w={16} h={16} onClick={() => setValue("")}>
+                <X />
+            </ThemeIcon>
+        );
+    }
+    return null;
+};
+
 const Search = ({ setValue = () => undefined, onChange = () => undefined, value, styleVariant = "default", ...props }: SearchProps) => {
     const { classes } = useSearchStyles({ styleVariant }, { name: "Search" });
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e);
         setValue(e.currentTarget.value);
-    };
-
-    const RightSection = () => {
-        if (value)
-            return (
-                <ThemeIcon color="gray45" w={16} h={16} onClick={() => setValue("")}>
-                    <X />
-                </ThemeIcon>
-            );
-
-        return null;
     };
 
     return (
@@ -37,7 +37,7 @@ const Search = ({ setValue = () => undefined, onChange = () => undefined, value,
                 </ThemeIcon>
             }
             classNames={classes}
-            rightSection={<RightSection />}
+            rightSection={<RightSection value={value} setValue={setValue} />}
             onChange={handlerChange}
         />
     );

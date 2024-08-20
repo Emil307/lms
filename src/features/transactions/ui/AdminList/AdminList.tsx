@@ -1,8 +1,7 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
-import { Button } from "@shared/ui";
+import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Button } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminTransactionFromList, AdminTransactionsFiltersForm, transactionApi, useAdminTransactionFilters } from "@entities/transaction";
 import { useMedia } from "@shared/utils";

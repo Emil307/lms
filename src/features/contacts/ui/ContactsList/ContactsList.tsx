@@ -1,6 +1,6 @@
 import { Flex, Text } from "@mantine/core";
 import React from "react";
-import { ContentByTextEditor, Heading, Loader, Map, Paragraph } from "@shared/ui";
+import { ContentByTextEditor, Heading, Loader, YanMap, Paragraph } from "@shared/ui";
 import { useContacts } from "@entities/staticPage";
 import useStyles from "./ContactsList.styles";
 import { mapState } from "./constants";
@@ -26,7 +26,7 @@ const ContactsList = () => {
                 </Paragraph>
                 <ContentByTextEditor data={contactsData.requisites} />
             </Flex>
-            <Map {...mapState} />
+            <YanMap {...mapState} />
         </Flex>
     );
 };

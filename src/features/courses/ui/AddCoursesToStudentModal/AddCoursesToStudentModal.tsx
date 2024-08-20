@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
-import { AdminCourseFromList, courseApi } from "@entities/course";
-import { useAttachCoursesToStudent } from "@entities/course";
+import { AdminCourseFromList, courseApi, useAttachCoursesToStudent } from "@entities/course";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminCoursesRequest } from "./utils";
 import { StudentCourseListExtraParams } from "./types";

@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { AuthLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils";
 import { RecoveryPasswordForm } from "@features/auth";

@@ -4,16 +4,16 @@ import { control } from "yandex-maps";
 import useStyles from "./Map.styles";
 
 export interface MapProps {
-    behaviors?: string[] | undefined;
-    bounds?: number[][] | undefined;
-    center?: number[] | undefined;
-    controls?: Array<string | control.ZoomControl | control.RulerControl | control.TypeSelector> | undefined;
-    margin?: number[][] | number[] | undefined;
-    type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid" | undefined;
-    zoom?: number | undefined;
+    behaviors?: string[];
+    bounds?: number[][];
+    center?: number[];
+    controls?: Array<string | control.ZoomControl | control.RulerControl | control.TypeSelector>;
+    margin?: number[][] | number[];
+    type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid";
+    zoom?: number;
 }
 
-const Map = (props: MapProps) => {
+const YanMap = (props: MapProps) => {
     const { classes } = useStyles();
 
     return (
@@ -38,4 +38,4 @@ const Map = (props: MapProps) => {
     );
 };
 
-export default Map;
+export default YanMap;

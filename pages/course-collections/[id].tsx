@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { GetServerSidePropsContext } from "next";
 import { dehydrate } from "@tanstack/react-query";
 import { UserLayout } from "@app/layouts";
@@ -14,13 +13,14 @@ import { UserPage } from "@components/UserPage";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { axios, queryClient } = getSsrInstances(context);
 
     const courseCollectionApi = new CourseCollectionApi(axios);
 
     try {
-        const response = await queryClient.fetchQuery([QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE], id], () =>
-            courseCollectionApi.getCourseCollection({ id })
+        const response = await queryClient.fetchQuery(
+            [QueryKeys.GET_COURSE_COLLECTION, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE], id],
+            () => courseCollectionApi.getCourseCollection({ id })
         );
 
         return {

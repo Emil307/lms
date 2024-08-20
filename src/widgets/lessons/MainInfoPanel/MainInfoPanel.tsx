@@ -1,5 +1,4 @@
-import { Badge, Flex, FlexProps } from "@mantine/core";
-import { Box } from "@mantine/core";
+import { Badge, Flex, FlexProps, Box } from "@mantine/core";
 import { Heading, Paragraph } from "@shared/ui";
 import { GetLessonResponse } from "@entities/lesson";
 import { MyCourse } from "@entities/course";

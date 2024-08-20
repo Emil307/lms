@@ -1,6 +1,5 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
-import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
-import { Button } from "@shared/ui";
+import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Button } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { TransactionFromList, TransactionsFiltersForm, transactionApi, useTransactionFilters } from "@entities/transaction";
 import { useMedia } from "@shared/utils";

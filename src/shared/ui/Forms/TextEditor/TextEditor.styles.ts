@@ -48,8 +48,6 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
         },
 
         ".resize-cursor": {
-            cursor: "ew-resize",
-            /* @ts-ignore */
             cursor: "col-resize",
         },
 

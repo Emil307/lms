@@ -50,20 +50,10 @@ const MessagesPage = () => {
             <Heading className={classes.titlePage}>Сообщения</Heading>
             <Flex className={classes.messagesBlockContainer}>
                 <Box className={classes.chatContainerWrapper}>
-                    <ManagedSearch<AdminSupportConversationFromList>
-                        queryKey={[QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS_SEARCH, [EntityNames.USER, EntityNames.STUDENT]]}
-                        queryFunction={(params) => supportApi.getAdminSupportConversations(params)}
-                        querySearchName={ADMIN_MESSAGES_QUERY_SEARCH_NAME}
-                        querySelectName={ADMIN_MESSAGES_QUERY_SELECT_NAME}
-                        searchInputProps={{
-                            placeholder: "Найти пользователя",
-                        }}
-                        wrapperContainerProps={{
-                            className: classes.searchUserWrapper,
-                        }}
-                        onSelect={handleSelectConversationManageSearch}
-                        onClean={handleCleanManageSearch}
-                        itemComponent={(props) => <SearchItemComponent {...props} />}
+                    <ManagedSearchWrapper
+                        classes={classes}
+                        handleSelectConversationManageSearch={handleSelectConversationManageSearch}
+                        handleCleanManageSearch={handleCleanManageSearch}
                     />
                     <ChatList
                         maxHeightContainer={568}
@@ -93,5 +83,33 @@ const MessagesPage = () => {
         </Flex>
     );
 };
+
+type ManagedSearchWrapperProps = {
+    classes: Record<string, string>;
+    handleSelectConversationManageSearch: (item: AdminSupportConversationFromList) => void;
+    handleCleanManageSearch: () => void;
+};
+
+const ManagedSearchItemComponent = (props: any) => {
+    return <SearchItemComponent {...props} />;
+};
+
+const ManagedSearchWrapper = ({ classes, handleSelectConversationManageSearch, handleCleanManageSearch }: ManagedSearchWrapperProps) => (
+    <ManagedSearch<AdminSupportConversationFromList>
+        queryKey={[QueryKeys.GET_ADMIN_SUPPORT_CONVERSATIONS_SEARCH, [EntityNames.USER, EntityNames.STUDENT]]}
+        queryFunction={(params) => supportApi.getAdminSupportConversations(params)}
+        querySearchName={ADMIN_MESSAGES_QUERY_SEARCH_NAME}
+        querySelectName={ADMIN_MESSAGES_QUERY_SELECT_NAME}
+        searchInputProps={{
+            placeholder: "Найти пользователя",
+        }}
+        wrapperContainerProps={{
+            className: classes.searchUserWrapper,
+        }}
+        onSelect={handleSelectConversationManageSearch}
+        onClean={handleCleanManageSearch}
+        itemComponent={ManagedSearchItemComponent}
+    />
+);
 
 export default MessagesPage;

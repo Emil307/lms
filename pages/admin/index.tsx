@@ -1,9 +1,8 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import {MainPage} from "@pages/admin/main";
+import { MainPage } from "@pages/admin/main";
 
 const AdminMain: NextPageWithLayout = () => {
     return (

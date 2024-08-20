@@ -10,6 +10,34 @@ export interface MultiSelectProps extends MMultiSelectProps {
     success?: string | boolean;
 }
 
+const RightSection = ({
+    rightSection,
+    value,
+    handlerClear,
+    openedDropdown,
+}: {
+    rightSection: React.ReactNode;
+    value: string[] | undefined;
+    handlerClear: () => void;
+    openedDropdown?: boolean;
+}) => {
+    if (rightSection) {
+        return <>{rightSection}</>;
+    }
+    if (!!value && value.length > 0) {
+        return (
+            <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: "initial" }} onClick={handlerClear}>
+                <X />
+            </ThemeIcon>
+        );
+    }
+    return (
+        <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+            <ChevronDown />
+        </ThemeIcon>
+    );
+};
+
 const MultiSelect = ({
     error,
     success = false,
@@ -28,24 +56,6 @@ const MultiSelect = ({
 
     const handlerClear = () => {
         onChange([]);
-    };
-
-    const RightSection = () => {
-        if (props.rightSection) {
-            return <>{props.rightSection}</>;
-        }
-        if (!!props.value && props.value.length > 0) {
-            return (
-                <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: "initial" }} onClick={handlerClear}>
-                    <X />
-                </ThemeIcon>
-            );
-        }
-        return (
-            <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
-                <ChevronDown />
-            </ThemeIcon>
-        );
     };
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -118,7 +128,14 @@ const MultiSelect = ({
             onBlur={onBlurHandler}
             itemComponent={props.itemComponent ?? SelectItem}
             valueComponent={MultiSelectValueItem}
-            rightSection={<RightSection />}
+            rightSection={
+                <RightSection
+                    rightSection={props.rightSection}
+                    value={props.value}
+                    handlerClear={handlerClear}
+                    openedDropdown={openedDropdown}
+                />
+            }
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}

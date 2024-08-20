@@ -5,9 +5,8 @@ import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { useUpdateAuthorActivity } from "@entities/author";
+import { useUpdateAuthorActivity, AdminAuthorFromList } from "@entities/author";
 import { DeleteAuthorModal } from "@features/authors";
-import { AdminAuthorFromList } from "@entities/author";
 import { getFullName } from "@shared/utils";
 
 interface ListMenuProps {

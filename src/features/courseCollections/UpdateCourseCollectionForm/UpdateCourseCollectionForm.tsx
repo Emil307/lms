@@ -1,7 +1,6 @@
 import { Box, Flex, BoxProps, ThemeIcon } from "@mantine/core";
 import React from "react";
-import { AlertTriangle, AlignLeft, Type } from "react-feather";
-import { Image as ImageIcon } from "react-feather";
+import { AlertTriangle, AlignLeft, Type, Image as ImageIcon } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";

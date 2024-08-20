@@ -1,5 +1,4 @@
-import { DefaultMantineColor } from "@mantine/core";
-import { Tuple } from "@mantine/core";
+import { DefaultMantineColor, Tuple } from "@mantine/core";
 
 declare module "@mantine/core" {
     export interface MantineThemeColorsOverride {

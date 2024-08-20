@@ -18,55 +18,35 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
 
     const filter: any = {};
 
-    if (collectionIds) {
-        filter.collectionIds = collectionIds;
-    }
+    const addFilter = (key: string, value: any) => {
+        if (value) {
+            filter[key] = value;
+        }
+    };
 
-    if (hasDiscount === "true") {
-        filter.hasDiscount = true;
-    }
+    const addArrayFilter = (key: string, items: any[], operator: string = "or") => {
+        if (items && items.length > 0) {
+            filter[key] = { items: Array.isArray(items) ? items : [items], operator };
+        }
+    };
 
-    if (isFavorite) {
-        filter.isFavorite = true;
-    }
-
-    if (isPopular) {
-        filter.isPopular = true;
-    }
-
-    if (categoryId) {
-        filter["category.id"] = categoryId;
-    }
+    addFilter("collectionIds", collectionIds);
+    addFilter("hasDiscount", hasDiscount === "true" ? true : undefined);
+    addFilter("isFavorite", isFavorite);
+    addFilter("isPopular", isPopular);
+    addFilter("category.id", categoryId);
 
     if (discountPrice) {
-        const formattedPrice = parseFloat(discountPrice);
-        const newPrice = formattedPrice * 100;
-        filter.discountPrice = {
-            items: [newPrice.toString()],
+        const formattedPrice = parseFloat(discountPrice) * 100;
+        addFilter("discountPrice", {
+            items: [formattedPrice.toString()],
             operator: "lte",
-        };
+        });
     }
 
-    if (tags && tags.length > 0) {
-        filter.tagIds = {
-            items: Array.isArray(tags) ? tags : [tags],
-            operator: "or",
-        };
-    }
-
-    if (packageIds && packageIds.length > 0) {
-        filter.packageIds = {
-            items: Array.isArray(packageIds) ? packageIds : [packageIds],
-            operator: "or",
-        };
-    }
-
-    if (subcategoryIds && subcategoryIds.length > 0) {
-        filter["subcategory.id"] = {
-            items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
-            operator: "or",
-        };
-    }
+    addArrayFilter("tagIds", tags);
+    addArrayFilter("packageIds", packageIds);
+    addArrayFilter("subcategory.id", subcategoryIds);
 
     return {
         ...rest,

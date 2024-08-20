@@ -4,8 +4,7 @@ import { EntityNames, MutationKeys, QueryKeys } from "@shared/constant";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 import { FormErrorResponse } from "@shared/types";
-import { UpdateUserStaticResponse, userApi } from "@entities/user";
-import { TUser } from "@entities/user";
+import { UpdateUserStaticResponse, userApi, TUser } from "@entities/user";
 
 interface Params {
     id: string;

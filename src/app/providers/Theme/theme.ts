@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { MantineColor } from "@mantine/core";
-import { MantineThemeColors } from "@mantine/core";
-import { MantineThemeOverride } from "@mantine/core";
+import { MantineColor, MantineThemeColors, MantineThemeOverride } from "@mantine/core";
 import dayjs from "dayjs";
 import * as fonts from "./fonts";
 import "dayjs/locale/ru";

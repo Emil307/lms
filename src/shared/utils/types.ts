@@ -1,8 +1,7 @@
 import { AxiosInstance, AxiosResponse } from "axios";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
-import { ReactNode } from "react";
-import { ReactElement } from "react";
+import { ReactNode, ReactElement } from "react";
 import { z } from "zod";
 import { TPagination } from "@shared/types";
 

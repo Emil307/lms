@@ -1,11 +1,10 @@
 import { Flex, ActionIcon, useMantineTheme, Box } from "@mantine/core";
-import { AlertTriangle, PlusCircle as PlusCircleIcon } from "react-feather";
+import { AlertTriangle, PlusCircle as PlusCircleIcon, ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from "react-feather";
 import React, { useRef, useState, memo, useMemo } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
-import { ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from "react-feather";
 import { FastField, FieldArray, FormikErrors, FormikHelpers } from "formik";
 import { FastFieldProps } from "formik/dist/FastField";
 import { AdminTestAnswer, AdminTestQuestion } from "@entities/lesson";

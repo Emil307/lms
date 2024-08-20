@@ -12,6 +12,7 @@ export const uploadImagePlugin = (upload: UploadFn) => {
             handlePaste(view, event) {
                 const items = Array.from(event.clipboardData?.items || []);
                 const { schema } = view.state;
+                let handled = false;
 
                 items.forEach((item) => {
                     const image = item.getAsFile();
@@ -20,20 +21,17 @@ export const uploadImagePlugin = (upload: UploadFn) => {
                         event.preventDefault();
 
                         if (upload && image) {
+                            handled = true;
                             upload(image).then((src) => {
-                                const node = schema.nodes.image.create({
-                                    src,
-                                });
+                                const node = schema.nodes.image.create({ src });
                                 const transaction = view.state.tr.replaceSelectionWith(node);
                                 view.dispatch(transaction);
                             });
-                            return true;
                         }
-                        return false;
                     }
                 });
 
-                return false;
+                return handled;
             },
             handleDOMEvents: {
                 drop(view, event) {
@@ -43,7 +41,7 @@ export const uploadImagePlugin = (upload: UploadFn) => {
                         return false;
                     }
 
-                    const images = Array.from(event!.dataTransfer!.files).filter((file) => /image/i.test(file.type));
+                    const images = Array.from(event.dataTransfer!.files).filter((file) => /image/i.test(file.type));
 
                     if (images.length === 0) {
                         return false;
@@ -53,14 +51,14 @@ export const uploadImagePlugin = (upload: UploadFn) => {
 
                     const { schema } = view.state;
                     const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY });
+                    let handled = false;
 
                     images.forEach(async (image) => {
+                        handled = true;
                         const reader = new FileReader();
 
                         if (upload) {
-                            const node = schema.nodes.image.create({
-                                src: await upload(image),
-                            });
+                            const node = schema.nodes.image.create({ src: await upload(image) });
                             const transaction = view.state.tr.insert(coordinates!.pos, node);
                             view.dispatch(transaction);
                         } else {
@@ -74,7 +72,8 @@ export const uploadImagePlugin = (upload: UploadFn) => {
                             reader.readAsDataURL(image);
                         }
                     });
-                    return false;
+
+                    return handled;
                 },
             },
         },

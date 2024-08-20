@@ -1,9 +1,8 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@shared/utils/types";
 import { AdminPage } from "@components/AdminPage";
-import {CreateCoursePage} from "@pages/admin/courses";
+import { CreateCoursePage } from "@pages/admin/courses";
 
 const CreateCourse: NextPageWithLayout = () => {
     return (

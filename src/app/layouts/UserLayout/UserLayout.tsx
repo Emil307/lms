@@ -1,6 +1,5 @@
-import { Box } from "@mantine/core";
-import { AppShell } from "@mantine/core";
-import React, { useEffect, useState, useContext } from "react";
+import { Box, AppShell } from "@mantine/core";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import { useScrollLock } from "@mantine/hooks";
 import { FooterUser } from "@widgets/Footer";
 import { HeaderPublicUser, HeaderUser } from "@widgets/Header";
@@ -20,7 +19,7 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
 
     const ctx = useContext(SessionContext);
 
-    const isAuthorized = ctx.user?.id ? true : false;
+    const isAuthorized = !!ctx.user?.id;
 
     useEffect(() => {
         if (!isMobile && openedSidebar) {
@@ -29,8 +28,10 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
         setScrollLocked(isMobile && openedSidebar);
     }, [isMobile, openedSidebar]);
 
+    const contextValue = useMemo(() => ({ openedSidebar, setOpenedSidebar }), [openedSidebar, setOpenedSidebar]);
+
     return (
-        <SidebarMenuContext.Provider value={{ openedSidebar, setOpenedSidebar }}>
+        <SidebarMenuContext.Provider value={contextValue}>
             <AppShell
                 padding={16}
                 classNames={classes}

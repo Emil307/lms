@@ -7,7 +7,6 @@ import { $LastUpdated, $getFiltersRequestType, $getPaginationResponseType } from
  *
  */
 
-// export type AdminCategory = z.infer<typeof $AdminCategory>;
 export type AdminCategoryFromList = z.infer<typeof $AdminCategoryFromList>;
 //subcategories
 export type AdminSubCategory = z.infer<typeof $AdminSubCategory>;

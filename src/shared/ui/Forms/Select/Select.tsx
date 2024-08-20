@@ -13,6 +13,38 @@ export interface SelectProps extends Omit<MSelectProps, "data"> {
     lastElementRef?: Ref<HTMLDivElement>;
 }
 
+const RightSection = ({
+    rightSection,
+    value,
+    clearable,
+    handlerClear,
+    disabled,
+    openedDropdown,
+}: {
+    rightSection: React.ReactNode;
+    value?: string | null;
+    clearable: boolean | undefined;
+    handlerClear: () => void;
+    disabled: boolean | undefined;
+    openedDropdown?: boolean;
+}) => {
+    if (rightSection) {
+        return <>{rightSection}</>;
+    }
+    if (value && clearable) {
+        return (
+            <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: disabled ? "none" : "initial" }} onClick={handlerClear}>
+                <X />
+            </ThemeIcon>
+        );
+    }
+    return (
+        <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+            <ChevronDown />
+        </ThemeIcon>
+    );
+};
+
 const MemoizedSelect = (props: SelectProps) => {
     const {
         icon,
@@ -76,24 +108,6 @@ const MemoizedSelect = (props: SelectProps) => {
 
     const handleDropdownClose = () => {
         setOpenedDropdown(false);
-    };
-
-    const RightSection = () => {
-        if (props.rightSection) {
-            return <>{props.rightSection}</>;
-        }
-        if (props.value && props.clearable) {
-            return (
-                <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: props.disabled ? "none" : "initial" }} onClick={handlerClear}>
-                    <X />
-                </ThemeIcon>
-            );
-        }
-        return (
-            <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
-                <ChevronDown />
-            </ThemeIcon>
-        );
     };
 
     const renderError = useMemo(
@@ -160,7 +174,16 @@ const MemoizedSelect = (props: SelectProps) => {
             icon={renderIcon()}
             classNames={classes}
             itemComponent={renderComponent}
-            rightSection={<RightSection />}
+            rightSection={
+                <RightSection
+                    rightSection={props.rightSection}
+                    value={props.value}
+                    clearable={props.clearable}
+                    handlerClear={handlerClear}
+                    disabled={props.disabled}
+                    openedDropdown={openedDropdown}
+                />
+            }
             inputWrapperOrder={["label", "input", "error", "description"]}
             error={renderError}
             description={renderDescription}

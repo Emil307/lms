@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode } from "react";
+import React, { createContext, ReactNode, useMemo } from "react";
 import { useMe, User } from "@entities/auth";
 
 export type SessionContextType = {
@@ -6,16 +6,21 @@ export type SessionContextType = {
     isFetchingUser: boolean;
 };
 
-export const SessionContext = createContext<SessionContextType>({ user: undefined, isFetchingUser: false });
+export const SessionContext = createContext<SessionContextType>({
+    user: undefined,
+    isFetchingUser: false,
+});
 
 export interface SessionProviderProps {
     children: ReactNode;
 }
 
 const SessionProvider = ({ children }: SessionProviderProps) => {
-    const { data, isFetching: isFetchingUser } = useMe();
+    const { data: user, isFetching: isFetchingUser } = useMe();
 
-    return <SessionContext.Provider value={{ user: data, isFetchingUser }}>{children}</SessionContext.Provider>;
+    const contextValue = useMemo(() => ({ user, isFetchingUser }), [user, isFetchingUser]);
+
+    return <SessionContext.Provider value={contextValue}>{children}</SessionContext.Provider>;
 };
 
 export default SessionProvider;

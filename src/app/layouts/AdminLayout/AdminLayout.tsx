@@ -1,6 +1,5 @@
-import { Box } from "@mantine/core";
-import { AppShell } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { Box, AppShell } from "@mantine/core";
+import React, { useEffect, useMemo, useState } from "react";
 import { useElementSize } from "@mantine/hooks";
 import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
@@ -24,6 +23,8 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
         }
     }, [isMobile]);
 
+    const contextValue = useMemo(() => ({ openedSidebar, setOpenedSidebar }), [openedSidebar, setOpenedSidebar]);
+
     const renderNavbar = () => {
         if (openedSidebar) {
             return <NavbarAdminMobile hidden={!openedSidebar} />;
@@ -33,7 +34,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
     };
 
     return (
-        <AdminSidebarMenuContext.Provider value={{ openedSidebar, setOpenedSidebar }}>
+        <AdminSidebarMenuContext.Provider value={contextValue}>
             <AppShell
                 padding={0}
                 classNames={classes}

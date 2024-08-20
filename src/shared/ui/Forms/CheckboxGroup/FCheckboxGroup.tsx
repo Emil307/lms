@@ -1,7 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import { CheckboxGroupProps } from "./CheckboxGroup";
-import CheckboxGroup from "./CheckboxGroup";
+import CheckboxGroup, { CheckboxGroupProps } from "./CheckboxGroup";
 
 export interface FCheckboxGroupProps extends CheckboxGroupProps {
     name: string;

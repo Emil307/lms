@@ -1,6 +1,6 @@
 import { MantineReactTable, MantineReactTableProps, MRT_Cell } from "mantine-react-table";
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
-import React, { ReactNode, useMemo } from "react";
+import React, { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useMemo } from "react";
 import { CSSObject, MantineTheme, useMantineTheme, Text } from "@mantine/core";
 import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
 import { TPagination } from "@shared/types";
@@ -28,6 +28,28 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     renderBadge?: (row: MRT_Cell<T>) => TCellBadge[];
     accessRole?: number;
 } & TExtendedProps<T>;
+
+function CellComponent<T extends Record<string, any>>(
+    classes: Record<string, string>,
+    column: TColumn<T>,
+    renderContent: (cellValue: ReactNode, column: TColumn<T>) => JSX.Element,
+    cellValue:
+        | undefined
+        | null
+        | string
+        | number
+        | false
+        | true
+        | ReactElement<any, string | JSXElementConstructor<any>>
+        | Iterable<React.ReactNode>
+        | ReactPortal
+) {
+    return (
+        <div className={classes.tableBodyCellValueWrapper} style={{ width: column.size ? column.size - 32 : "100%" }}>
+            {renderContent(cellValue, column)}
+        </div>
+    );
+}
 
 function BaseTable<T extends Record<string, any>>({
     data = [],
@@ -92,11 +114,7 @@ function BaseTable<T extends Record<string, any>>({
             ...column,
             Cell: (props: TCellProps<T>) => {
                 const cellValue = getCellValue(props, Cell);
-                return (
-                    <div className={classes.tableBodyCellValueWrapper} style={{ width: column.size ? column.size - 32 : "100%" }}>
-                        {renderContent(cellValue, column)}
-                    </div>
-                );
+                return CellComponent(classes, column, renderContent, cellValue);
             },
         }));
     }, [columns]);

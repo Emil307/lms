@@ -1,5 +1,4 @@
-import { Box, Flex } from "@mantine/core";
-import { AppShell } from "@mantine/core";
+import { Box, Flex, AppShell } from "@mantine/core";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";

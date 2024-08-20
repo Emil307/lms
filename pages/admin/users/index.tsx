@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { AdminLayout } from "@app/layouts";
 import { List as UserList } from "src/features/users";
 import { NextPageWithLayout } from "@shared/utils/types";

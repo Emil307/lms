@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { GetServerSidePropsContext } from "next";
 import { dehydrate } from "@tanstack/react-query";
 import { CoursePackageDetailPage } from "@pages/coursePackages";
@@ -14,7 +13,7 @@ import { UserPage } from "@components/UserPage";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
 
-    const { axios, queryClient } = await getSsrInstances(context);
+    const { axios, queryClient } = getSsrInstances(context);
 
     const coursePackageApi = new CoursePackageApi(axios);
 

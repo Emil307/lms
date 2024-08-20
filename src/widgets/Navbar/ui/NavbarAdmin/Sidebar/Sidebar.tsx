@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen, Home } from "react-feather";
@@ -34,12 +34,13 @@ export default function Sidebar() {
         setActiveSidebarItemsWithChildren([]);
     }, [isTablet]);
 
+    const contextValue = useMemo(
+        () => ({ activeSidebarItemsWithChildren, setActiveSidebarItemsWithChildren }),
+        [activeSidebarItemsWithChildren, setActiveSidebarItemsWithChildren]
+    );
+
     return (
-        <SidebarItemsWithChildrenContext.Provider
-            value={{
-                activeSidebarItemsWithChildren,
-                setActiveSidebarItemsWithChildren,
-            }}>
+        <SidebarItemsWithChildrenContext.Provider value={contextValue}>
             <Box className={classes.root} ref={sidebarRef}>
                 <Box className={classes.inner}>
                     <SidebarItem label="Главная" isActive={router.pathname === "/admin"} icon={<Home />} href="/admin" />

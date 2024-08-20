@@ -1,5 +1,4 @@
-import { Divider, Flex } from "@mantine/core";
-import { Text } from "@mantine/core";
+import { Divider, Flex, Text } from "@mantine/core";
 import { CourseRating } from "@entities/course";
 import { Rating } from "@shared/ui";
 import { getPluralString } from "@shared/utils";

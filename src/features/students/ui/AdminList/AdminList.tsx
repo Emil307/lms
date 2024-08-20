@@ -1,9 +1,8 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect } from "@shared/ui";
+import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Button } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
-import { Button } from "@shared/ui";
 import { AdminStudentsFiltersForm, UserFromList } from "@entities/user/api/types";
 import { useAdminStudentsFilters, userApi } from "@entities/user";
 import { EntityNames, QueryKeys } from "@shared/constant";

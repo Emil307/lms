@@ -15,7 +15,6 @@ import { $Course } from "@entities/course";
 export type CoursePackage = z.infer<typeof $CoursePackage>;
 export type CoursePackageDetails = z.infer<typeof $CoursePackageDetails>;
 export type CourseFromCoursePackage = z.infer<typeof $CourseFromCoursePackage>;
-// export type AdminCoursePackage = z.infer<typeof $AdminCoursePackage>;
 export type AdminCoursePackageFromList = z.infer<typeof $AdminCoursePackageFromList>;
 export type AdminCoursePackageDetails = z.infer<typeof $AdminCoursePackageDetails>;
 

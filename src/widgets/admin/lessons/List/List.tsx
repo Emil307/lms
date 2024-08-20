@@ -1,6 +1,5 @@
 import { Box, Flex } from "@mantine/core";
-import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio } from "@shared/ui";
-import { Button } from "@shared/ui";
+import { FDateRangePicker, FRadioGroup, FSearch, ManagedDataGrid, Radio, Button } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
