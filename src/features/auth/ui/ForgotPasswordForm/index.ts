@@ -1,3 +1,3 @@
-import ForgotPasswordForm, { type ForgotPasswordFormProps } from "./ForgotPasswordForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 
-export { ForgotPasswordForm, ForgotPasswordFormProps };
+export { ForgotPasswordForm };
