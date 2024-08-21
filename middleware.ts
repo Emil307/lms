@@ -40,7 +40,7 @@ export function middleware(req: NextRequest) {
     if (notAuthUserTryToPrivatePage) {
         url.search = `redirect=${url.pathname}`;
         url.pathname = logoutPath;
-        return NextResponse.redirect(url);
+        // return NextResponse.redirect(url);
     }
 
     const userHasAccessToPage = isAccessAllowed(userRole, url.pathname);
@@ -48,10 +48,9 @@ export function middleware(req: NextRequest) {
     if (userHasAccessToPage) {
         return NextResponse.next();
     }
-
     return NextResponse.redirect(url.origin);
 }
 
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+    matcher: ["/((?!api|_next/static|_next/image|site.webmanifest|.*\\..*|favicon.ico).*)"],
 };

@@ -481,9 +481,9 @@ export const $AdminArticleCoursesExtraFilters = z.object({
 
 export const $AdminCoursesNoIncludedArticleFiltersForm = z.object({
     query: z.string(),
-    categoryId: z.string(),
-    subcategoryId: z.string(),
-    tagIds: z.string().array(),
+    categoryId: z.string().nullish(),
+    subcategoryId: z.string().nullish(),
+    tagIds: z.string().array().nullish(),
 });
 
 //courses <-> articles

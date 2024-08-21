@@ -6,7 +6,7 @@ export const adaptGetAdminCoursesRequest = (
 ): GetAdminCoursesRequest => {
     const { categoryId, subcategoryId, articleId, tagIds = [], ...rest } = params;
 
-    return {
+    return <GetAdminCoursesRequest>{
         ...rest,
         filter: {
             "category.id": categoryId,
