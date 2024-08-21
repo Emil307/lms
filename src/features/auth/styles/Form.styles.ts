@@ -2,55 +2,53 @@ import { createStyles } from "@mantine/core";
 
 export const useFormStyles = createStyles((theme) => ({
     root: {
-        position: "relative",
-        width: "100%",
-        padding: 24,
-        paddingTop: 32,
-        borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        height: "95%",
+        overflow: "auto",
+        paddingRight: 20,
     },
     inner: {
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "left",
         gap: 24,
-        form: {
-            width: "100%",
-            border: "none",
-            padding: 0,
-        },
-    },
-    signUpLink: {
-        marginLeft: 8,
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
+        height: "100%",
     },
     link: {
         color: theme.colors.primary[0],
         textDecoration: "initial",
-    },
-    logoLink: {
-        color: theme.colors.dark[0],
-        textDecoration: "none",
     },
     recoveryPasswordLink: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
         color: theme.colors.dark[0],
+        textDecoration: "none",
+        cursor: "pointer",
     },
-    buttonBack: {
-        position: "absolute",
-        width: 56,
-        height: 56,
-        left: -28,
-        top: 40,
-        padding: 0,
-        borderRadius: "50%",
-        filter: " drop-shadow(0px 1px 2px rgba(0, 18, 110, 0.04)) drop-shadow(0px 0px 16px rgba(0, 18, 110, 0.04))",
-
-        [theme.fn.smallerThan("xs")]: {
-            left: -7,
+    rememberPassword: {
+        cursor: "pointer",
+        "&:hover": {
+            textDecoration: "underline",
         },
+    },
+    signUpButton: {
+        backgroundColor: "#F5F5F5",
+        borderRadius: 56,
+    },
+    signInButton: {
+        borderRadius: 56,
+        minWidth: 117,
+        minHeight: 56,
+        padding: "16px 32px",
+        fontSize: 18,
+        fontWeight: 500,
+        lineHeight: "24px",
+    },
+    form: {
+        height: "100%",
+    },
+    linkButton: {
+        display: "flex",
+        justifyContent: "center",
+        textDecoration: "none",
     },
 }));

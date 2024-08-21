@@ -15,7 +15,10 @@ export const useResetPassword = (): UseMutationResult<ResetPasswordResponse, Axi
                 type: ToastType.SUCCESS,
                 title: "Изменения сохранены",
             });
-            router.push("/auth");
+            router.push({
+                pathname: "/",
+                query: { action: "auth" },
+            });
         },
         onError: () => {
             createNotification({

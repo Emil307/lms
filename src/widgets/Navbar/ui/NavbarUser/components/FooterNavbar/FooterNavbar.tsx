@@ -1,11 +1,12 @@
 import React from "react";
 import { Flex, FlexProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { CompanyLinks } from "@shared/constant";
 import { Button } from "@shared/ui";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
-import { CompanyLinks } from "@shared/constant";
 import useStyles from "./FooterNavbar.styles";
 
 export interface FooterNavbarProps extends FlexProps {
@@ -16,14 +17,14 @@ const FooterNavbar = ({ isUserAuth = false, ...props }: FooterNavbarProps) => {
     const { classes } = useStyles();
     const router = useRouter();
 
-    const handleRedirectSignUpPage = () => router.push("/auth/sign-up");
-
     return (
         <Flex className={classes.root} {...props}>
             {!isUserAuth && (
-                <Button variant="secondary" onClick={handleRedirectSignUpPage} w="fit-content">
-                    Регистрация
-                </Button>
+                <Link href={`${router.asPath}/?action=sign-up`}>
+                    <Button variant="secondary" w="fit-content">
+                        Регистрация
+                    </Button>
+                </Link>
             )}
             <Flex direction="column" gap={32}>
                 <Flex direction="column" maw={179}>

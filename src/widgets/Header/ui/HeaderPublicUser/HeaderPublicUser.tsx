@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ActionIcon, Flex, Header as MHeader, MediaQuery, Skeleton, useMantineTheme } from "@mantine/core";
 import { AlignLeft, Heart, Search, X } from "react-feather";
 import { useRouter } from "next/router";
@@ -22,7 +22,6 @@ const HeaderPublicUser = () => {
     const { classes } = useStyles();
 
     const isTablet = useMedia("md");
-
     const { openedSidebar, setOpenedSidebar } = useContext(SidebarMenuContext);
 
     useEffect(() => {
@@ -30,16 +29,6 @@ const HeaderPublicUser = () => {
     }, []);
 
     const handleChangeOpenedSidebar = () => setOpenedSidebar(!openedSidebar);
-
-    const handleRedirectLoginPage = () => {
-        router.push("/auth");
-        setOpenedSidebar(false);
-    };
-
-    const handleRedirectSignUpPage = () => {
-        router.push("/auth/sign-up");
-        setOpenedSidebar(false);
-    };
 
     const renderSidebarBurger = () => {
         if (openedSidebar) {
@@ -69,13 +58,13 @@ const HeaderPublicUser = () => {
         return (
             <>
                 <MediaQuery smallerThan="md" styles={{ display: "none" }}>
-                    <Button variant="secondary" onClick={handleRedirectSignUpPage}>
-                        Регистрация
-                    </Button>
+                    <Link href={`${router.asPath}/?action=sign-up`}>
+                        <Button variant="secondary">Регистрация</Button>
+                    </Link>
                 </MediaQuery>
-                <Button variant="border" onClick={handleRedirectLoginPage}>
-                    Войти
-                </Button>
+                <Link href={`${router.asPath}/?action=auth`}>
+                    <Button variant="border">Войти</Button>
+                </Link>
             </>
         );
     };

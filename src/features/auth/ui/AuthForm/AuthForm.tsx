@@ -1,13 +1,13 @@
-import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex } from "@mantine/core";
 import { FormikConfig } from "formik";
-import Link from "next/link";
-import { AtSign, Shield } from "react-feather";
 import axios from "axios";
-import { Button, Checkbox, FInput, Form, Heading, Paragraph } from "@shared/ui";
-import { Logo } from "@components/Logo";
+import { Button, Checkbox, FInput, Form, Paragraph } from "@shared/ui";
 import { $AuthFormValidationSchema, AuthFormValidationSchema, useFormStyles } from "@features/auth";
 import { useAuthenticateMe } from "@entities/auth";
 import { initialValues } from "./constants";
+import Link from "next/link";
+import React from "react";
+import { getPath } from "@features/auth/ui/utils";
 
 export interface AuthFormProps extends BoxProps {
     skipRedirectAfterAuth?: boolean;
@@ -40,49 +40,37 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
     return (
         <Box className={classes.root} {...boxProps}>
             <Flex className={classes.inner}>
-                <Link href="/" className={classes.logoLink}>
-                    <Logo />
-                </Link>
-                <Heading order={3} ta="center">
-                    Войдите в свой профиль, <br /> чтобы начать учиться
-                </Heading>
-                <Paragraph variant="text-small-m">
-                    Новый пользователь?
-                    <Link href="/auth/sign-up" className={classes.signUpLink}>
-                        Создайте аккаунт
-                    </Link>
+                <Paragraph variant="small-semi" color="gray45">
+                    Войдите в свой профиль, чтобы начать учиться
                 </Paragraph>
                 <Form config={config} disableOverlay>
-                    <Flex direction="column" gap={8} mb={16}>
-                        <FInput
-                            name="email"
-                            label="Email"
-                            icon={
-                                <ThemeIcon color="gray45">
-                                    <AtSign />
-                                </ThemeIcon>
-                            }
-                        />
-                        <FInput
-                            name="password"
-                            label="Пароль"
-                            type="password"
-                            icon={
-                                <ThemeIcon color="gray45">
-                                    <Shield />
-                                </ThemeIcon>
-                            }
-                        />
+                    <Flex direction={"column"}>
+                        <Flex direction="column" gap={8} mb={16}>
+                            <FInput name="email" label="Email" />
+                            <FInput name="password" label="Пароль" type="password" />
+                        </Flex>
+                        <Flex justify="space-between" mb={48} align="center">
+                            <Checkbox color="green" label="Запомнить меня" />
+                            <Link href={`${getPath()}/?action=forgot-password`} className={classes.linkButton}>
+                                <Button variant={"text"} className={classes.recoveryPasswordLink}>
+                                    Забыли пароль?
+                                </Button>
+                            </Link>
+                        </Flex>
+                        <Flex direction="column" gap={16} ta="center" align="center" justify="center">
+                            <Paragraph variant="small-m">Новый пользователь?</Paragraph>
+                            <Link href={`${getPath()}/?action=sign-up`} className={classes.linkButton}>
+                                <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
+                                    Создать аккаунт
+                                </Button>
+                            </Link>
+                        </Flex>
                     </Flex>
-                    <Flex justify="space-between" mb={24}>
-                        <Checkbox label="Запомнить меня" />
-                        <Link href="/auth/forgot-password" className={classes.recoveryPasswordLink}>
-                            Забыли пароль?
-                        </Link>
+                    <Flex pos="absolute" bottom={24}>
+                        <Button className={classes.signInButton} type="submit" variant="secondary" loading={isLoading || isSuccess}>
+                            Войти
+                        </Button>
                     </Flex>
-                    <Button type="submit" variant="secondary" size="large" w="100%" loading={isLoading || isSuccess}>
-                        Войти
-                    </Button>
                 </Form>
             </Flex>
         </Box>

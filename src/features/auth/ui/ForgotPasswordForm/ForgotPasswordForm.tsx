@@ -1,25 +1,15 @@
-import { Box, BoxProps, Flex, ThemeIcon } from "@mantine/core";
-import Link from "next/link";
-import { AtSign, ChevronLeft } from "react-feather";
-import { useRouter } from "next/router";
-import { Button, FInput, Heading, ManagedForm, Paragraph } from "@shared/ui";
-import { Logo } from "@components/Logo";
+import { Box, Flex } from "@mantine/core";
+import { Button, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, RecoveryPasswordResponse, authApi } from "@entities/auth";
 import { MutationKeys } from "@shared/constant";
-import { ToastType, createNotification, useMedia } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
-
-export interface ForgotPasswordFormProps extends BoxProps {}
-
-const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
-    const router = useRouter();
+import Link from "next/link";
+import { getPath } from "@features/auth/ui/utils";
+import React from "react";
+const ForgotPasswordForm = () => {
     const { classes } = useFormStyles();
-
-    const isTablet = useMedia("md");
-
-    const handleClickBack = () => router.push("/auth");
-
     const recoveryPassword = (values: RecoveryPasswordRequest) => {
         return authApi.recoveryPassword(values);
     };
@@ -40,20 +30,10 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
     };
 
     return (
-        <Box className={classes.root} {...props}>
-            <Button variant="white" className={classes.buttonBack} onClick={handleClickBack}>
-                <ChevronLeft />
-            </Button>
+        <Box className={classes.root}>
             <Flex className={classes.inner}>
-                <Link href="/" className={classes.logoLink}>
-                    <Logo />
-                </Link>
-                <Heading order={3}>Забыли пароль?</Heading>
-                <Paragraph variant="text-small-m">
-                    Вспомнили пароль?
-                    <Link href="/auth" className={classes.signUpLink}>
-                        Войдите
-                    </Link>
+                <Paragraph variant="small-semi" color="gray45">
+                    Пришлем вам ссылку на восстановление пароля
                 </Paragraph>
                 <ManagedForm<RecoveryPasswordRequest, RecoveryPasswordResponse>
                     initialValues={initialValues}
@@ -67,29 +47,34 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                     {({ dirty, isLoading }) => {
                         return (
                             <Flex direction="column" gap={24}>
-                                <FInput
-                                    name="email"
-                                    label="Введите email"
-                                    icon={
-                                        <ThemeIcon color="gray45">
-                                            <AtSign />
-                                        </ThemeIcon>
-                                    }
-                                    description="Пришлем вам ссылку на восстановление пароля"
-                                />
-                                <Button
-                                    type="submit"
-                                    variant="secondary"
-                                    size={isTablet ? "medium" : "large"}
-                                    w="100%"
-                                    disabled={!dirty}
-                                    loading={isLoading}>
-                                    Выслать
-                                </Button>
+                                <FInput name="email" label="Email" />
+                                <Flex direction="column" gap={16} ta="center" align="center" justify="center" mt={24} pb={20}>
+                                    <Link href={`${getPath()}/?action=auth`}>
+                                        <Button variant="text" className={classes.rememberPassword}>
+                                            Вспомнили пароль?
+                                        </Button>
+                                    </Link>
+                                    <Button
+                                        type="submit"
+                                        variant="secondary"
+                                        className={classes.signUpButton}
+                                        size="medium"
+                                        disabled={!dirty}
+                                        loading={isLoading}>
+                                        Войти
+                                    </Button>
+                                </Flex>
                             </Flex>
                         );
                     }}
                 </ManagedForm>
+                <Flex pos="absolute" bottom={24}>
+                    <Link href={`${getPath()}/?action=sign-up`}>
+                        <Button variant="secondary" className={classes.signInButton}>
+                            Создать аккаунт
+                        </Button>
+                    </Link>
+                </Flex>
             </Flex>
         </Box>
     );

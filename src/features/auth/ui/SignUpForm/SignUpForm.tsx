@@ -1,21 +1,16 @@
-import { Box, BoxProps, Flex, Grid, ThemeIcon, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
-import { AtSign, ChevronLeft, Shield, User } from "react-feather";
-import { useRouter } from "next/router";
 import axios from "axios";
-import { IconPhone } from "@tabler/icons-react";
-import { Button, FCheckbox, FInput, FPhoneInput, Form, Heading, Paragraph } from "@shared/ui";
-import { Logo } from "@components/Logo";
+import { Button, FCheckbox, FInput, FPhoneInput, Form, Paragraph } from "@shared/ui";
 import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
 import { initialValues } from "./constants";
+import { getPath } from "@features/auth/ui/utils";
+import React from "react";
 
-export interface SignUpFormProps extends BoxProps {}
-
-const SignUpForm = (props: SignUpFormProps) => {
-    const router = useRouter();
-    const { classes, cx } = useFormStyles();
+const SignUpForm = () => {
+    const { classes } = useFormStyles();
 
     const { mutate: signUp, isLoading, isSuccess } = useSignUp();
 
@@ -40,118 +35,67 @@ const SignUpForm = (props: SignUpFormProps) => {
             );
         },
     };
-    const handleClickBack = () => router.push("/auth");
 
     return (
-        <Box className={classes.root} {...props}>
-            <Button variant="white" className={classes.buttonBack} onClick={handleClickBack}>
-                <ChevronLeft />
-            </Button>
+        <Box className={classes.root}>
             <Flex className={classes.inner}>
-                <Link href="/" className={classes.logoLink}>
-                    <Logo />
-                </Link>
-                <Heading order={3} ta="center">
-                    Создайте аккаунт <br /> и начните свое обучение
-                </Heading>
-                <Paragraph variant="text-small-m">
-                    У вас уже есть профиль?
-                    <Link href="/auth" className={cx(classes.link, classes.signUpLink)}>
-                        Войдите
-                    </Link>
+                <Paragraph variant="small-semi" color="gray45">
+                    Создайте аккаунт и начните свое обучение
                 </Paragraph>
                 <Form config={config} disableOverlay>
                     {({ values }) => (
                         <>
-                            <Flex direction="column" gap={8} mb={16}>
-                                <Grid gutter={8}>
-                                    <Grid.Col xs={6}>
-                                        <FInput
-                                            name="firstName"
-                                            label="Ваше имя"
-                                            onlyLetters
-                                            icon={
-                                                <ThemeIcon color="gray45">
-                                                    <User />
-                                                </ThemeIcon>
-                                            }
-                                        />
-                                    </Grid.Col>
-                                    <Grid.Col xs={6}>
-                                        <FInput
-                                            name="lastName"
-                                            label="Ваша фамилия"
-                                            onlyLetters
-                                            icon={
-                                                <ThemeIcon color="gray45">
-                                                    <User />
-                                                </ThemeIcon>
-                                            }
-                                        />
-                                    </Grid.Col>
-                                </Grid>
-                                <FPhoneInput
-                                    name="phone"
-                                    label="Введите телефон"
-                                    icon={
-                                        <ThemeIcon color="gray45">
-                                            <IconPhone />
-                                        </ThemeIcon>
+                            <Flex direction={"column"}>
+                                <Flex direction="column" gap={8} mb={16}>
+                                    <FInput name="firstName" label="Имя" onlyLetters />
+                                    <FInput name="lastName" label="Фамилия" onlyLetters />
+                                    <FPhoneInput name="phone" label="Телефон" />
+                                    <FInput name="email" label="Введите email" description="Отправим код подтверждения" />
+                                    <FInput
+                                        name="passwords.password"
+                                        label="Придумайте пароль"
+                                        type="password"
+                                        description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
+                                    />
+                                    <FInput
+                                        name="passwords.passwordConfirmation"
+                                        label="Повторите пароль"
+                                        type="password"
+                                        success="Пароли совпадают"
+                                    />
+                                </Flex>
+                                <FCheckbox
+                                    name="agreementWithConditionsAndTerms"
+                                    label={
+                                        <Paragraph variant="text-small-m">
+                                            Даю согласие на обработку персональных данных и принимаю
+                                            <Text className={classes.link} component={Link} href="/user-agreement" target="_blank">
+                                                {" пользовательское соглашение"}
+                                            </Text>
+                                        </Paragraph>
                                     }
+                                    color={"green"}
+                                    wrapperProps={{ sx: { marginBottom: 48 } }}
                                 />
-                                <FInput
-                                    name="email"
-                                    label="Введите email"
-                                    icon={
-                                        <ThemeIcon color="gray45">
-                                            <AtSign />
-                                        </ThemeIcon>
-                                    }
-                                />
-                                <FInput
-                                    name="passwords.password"
-                                    label="Придумайте пароль"
-                                    type="password"
-                                    icon={
-                                        <ThemeIcon color="gray45">
-                                            <Shield />
-                                        </ThemeIcon>
-                                    }
-                                    description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
-                                />
-                                <FInput
-                                    name="passwords.passwordConfirmation"
-                                    label="Повторите пароль"
-                                    type="password"
-                                    icon={
-                                        <ThemeIcon color="gray45">
-                                            <Shield />
-                                        </ThemeIcon>
-                                    }
-                                    success="Пароли совпадают"
-                                />
+                                <Flex direction="column" gap={16} ta="center" align="center" justify="center" pb={20}>
+                                    <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
+                                    <Link href={`${getPath()}/?action=auth`} className={classes.linkButton}>
+                                        <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
+                                            Войти
+                                        </Button>
+                                    </Link>
+                                </Flex>
                             </Flex>
-                            <FCheckbox
-                                name="agreementWithConditionsAndTerms"
-                                label={
-                                    <Paragraph variant="text-small-m">
-                                        Даю согласие на обработку персональных данных и принимаю
-                                        <Text className={classes.link} component={Link} href="/user-agreement" target="_blank">
-                                            {" пользовательское соглашение"}
-                                        </Text>
-                                    </Paragraph>
-                                }
-                                wrapperProps={{ sx: { marginBottom: 24 } }}
-                            />
-                            <Button
-                                type="submit"
-                                variant="secondary"
-                                size="large"
-                                w="100%"
-                                loading={isLoading || isSuccess}
-                                disabled={!values.agreementWithConditionsAndTerms}>
-                                Начать обучение
-                            </Button>
+                            <Flex pos="absolute" bottom={24}>
+                                <Button
+                                    className={classes.signInButton}
+                                    type="submit"
+                                    variant="secondary"
+                                    loading={isLoading || isSuccess}
+                                    disabled={!values.agreementWithConditionsAndTerms}>
+                                    Создать аккаунт
+                                </Button>
+                            </Flex>
                         </>
                     )}
                 </Form>
