@@ -39,7 +39,7 @@ export function middleware(req: NextRequest) {
     // Неавторизованный пользователь пытается зайти на приватную страницу
     if (!isAuthAction && !isPublicPage && !isUserAuth) {
         url.pathname = logoutPath;
-        return NextResponse.redirect(url);
+        // return NextResponse.redirect(url);
     }
 
     // Проверка доступа пользователя к странице на основе его роли
