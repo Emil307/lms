@@ -5,6 +5,7 @@ import { Heading } from "@shared/ui";
 import { AuthForm, ForgotPasswordForm, RecoveryPasswordForm, SignUpForm } from "@features/auth";
 import { useSession } from "@entities/auth";
 import useStyles from "./AuthDrawer.styles";
+import { useMedia } from "@shared/utils";
 
 function AuthDrawer() {
     const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -15,6 +16,7 @@ function AuthDrawer() {
     useEffect(() => {
         setInitialRenderComplete(true);
     }, []);
+    const isTablet = useMedia("sm");
 
     const actionMapper: Record<string, { children: React.ReactNode; title: string }> = {
         auth: {
@@ -73,7 +75,7 @@ function AuthDrawer() {
                 );
             }}
             position="right"
-            size="25%"
+            size={isTablet ? "100%" : "450px"}
             zIndex={400}
             padding={4}
             classNames={classes}
