@@ -58,7 +58,7 @@ const HeaderPublicUser = () => {
         return (
             <>
                 <MediaQuery smallerThan="md" styles={{ display: "none" }}>
-                    <Link href={`${router.asPath}/?action=sign-up`}>
+                    <Link href={`${router.asPath}?action=sign-up`}>
                         <Button variant="secondary">Регистрация</Button>
                     </Link>
                 </MediaQuery>

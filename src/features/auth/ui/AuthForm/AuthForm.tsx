@@ -59,7 +59,7 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                         </Flex>
                         <Flex direction="column" gap={16} ta="center" align="center" justify="center">
                             <Paragraph variant="small-m">Новый пользователь?</Paragraph>
-                            <Link href={`${getPath()}/?action=sign-up`} className={classes.linkButton}>
+                            <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
                                 <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
                                     Создать аккаунт
                                 </Button>

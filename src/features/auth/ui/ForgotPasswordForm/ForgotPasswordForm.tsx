@@ -69,7 +69,7 @@ const ForgotPasswordForm = () => {
                     }}
                 </ManagedForm>
                 <Flex pos="absolute" bottom={24}>
-                    <Link href={`${getPath()}/?action=sign-up`}>
+                    <Link href={`${getPath()}?action=sign-up`}>
                         <Button variant="secondary" className={classes.signInButton}>
                             Создать аккаунт
                         </Button>

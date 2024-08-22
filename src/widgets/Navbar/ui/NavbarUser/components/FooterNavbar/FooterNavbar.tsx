@@ -20,7 +20,7 @@ const FooterNavbar = ({ isUserAuth = false, ...props }: FooterNavbarProps) => {
     return (
         <Flex className={classes.root} {...props}>
             {!isUserAuth && (
-                <Link href={`${router.asPath}/?action=sign-up`}>
+                <Link href={`${router.asPath}?action=sign-up`}>
                     <Button variant="secondary" w="fit-content">
                         Регистрация
                     </Button>
