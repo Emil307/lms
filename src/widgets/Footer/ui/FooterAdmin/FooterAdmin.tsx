@@ -21,7 +21,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                     <Logo />
                     <Flex direction="column" gap={8}>
                         <Paragraph variant="large">
-                            <a href="mailto:info@addamant.ru">info@addamant.ru</a>
+                            <a href={`mailto:${CONTACT.EMAIL}`}>{CONTACT.EMAIL}</a>
                         </Paragraph>
                         <Paragraph variant="text-caption" color="gray45">
                             Пишите, если есть вопросы
@@ -29,7 +29,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                     </Flex>
                     <Flex direction="column" gap={8}>
                         <Paragraph variant="large">
-                            <a href="tel:+79339919131">+7 (933) 991-91-31</a>
+                            <a href={`tel:${CONTACT.PHONE_NUMBER_LINK}`}>{CONTACT.PHONE_NUMBER}</a>
                         </Paragraph>
                         <Paragraph variant="text-caption" color="gray45" maw={180}>
                             Звоните, если нужна помощь. Звонок по России бесплатный.

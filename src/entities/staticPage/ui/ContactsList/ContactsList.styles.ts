@@ -41,4 +41,8 @@ export default createStyles((theme) => ({
             backgroundColor: theme.colors.done[0],
         },
     },
+    link: {
+        textDecoration: "none",
+        color: theme.colors.dark[0],
+    },
 }));

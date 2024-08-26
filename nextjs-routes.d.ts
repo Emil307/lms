@@ -94,6 +94,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
     | StaticRoute<"/articles">
     | DynamicRoute<"/articles/my/[id]", { "id": string }>
+    | DynamicRoute<"/articles/[id]", { "id": string }>
     | StaticRoute<"/cabinet">
     | StaticRoute<"/contacts">
     | StaticRoute<"/course-collections">

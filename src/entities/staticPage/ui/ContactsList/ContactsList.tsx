@@ -21,13 +21,21 @@ const ContactsList = ({ address }: ContactsListProps) => {
                     <Paragraph variant="text-caption" color="gray45">
                         По вопросам покупки курсов
                     </Paragraph>
-                    <Paragraph variant="small-m">{CONTACT.PHONE_NUMBER}</Paragraph>
+                    <Paragraph variant="small-m">
+                        <a href={`tel:${CONTACT.PHONE_NUMBER_LINK}`} className={classes.link}>
+                            {CONTACT.PHONE_NUMBER}
+                        </a>
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.listItem}>
                     <Paragraph variant="text-caption" color="gray45">
                         Пишите, если есть вопросы
                     </Paragraph>
-                    <Paragraph variant="small-m">{CONTACT.EMAIL}</Paragraph>
+                    <Paragraph variant="small-m">
+                        <a href={`mailto:${CONTACT.EMAIL}`} className={classes.link}>
+                            {CONTACT.EMAIL}
+                        </a>
+                    </Paragraph>
                 </Flex>
                 <Flex className={classes.listItem}>
                     <Paragraph variant="small-m">{address}</Paragraph>
