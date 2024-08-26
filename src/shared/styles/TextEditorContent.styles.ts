@@ -41,7 +41,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         lineHeight: "32px",
 
         "+ *": {
-            marginTop: 32,
+            marginTop: 24,
         },
 
         [theme.fn.smallerThan("md")]: {
@@ -55,8 +55,8 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         marginTop: 0,
         marginBottom: 24,
         fontWeight: 500,
-        fontSize: 20,
-        lineHeight: "24px",
+        fontSize: 22,
+        lineHeight: "26px",
 
         [theme.fn.smallerThan("md")]: {
             fontSize: 18,
@@ -68,12 +68,12 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         marginTop: 0,
         marginBottom: 18,
         fontWeight: 500,
-        fontSize: 18,
-        lineHeight: "24px",
+        fontSize: 20,
+        lineHeight: "26px",
 
         [theme.fn.smallerThan("md")]: {
             fontSize: 16,
-            lineHeight: "20px",
+            lineHeight: "22px",
         },
     },
 
@@ -81,11 +81,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         marginTop: 0,
         marginBottom: 18,
         fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "22px",
+        fontSize: 18,
+        lineHeight: "24px",
 
         [theme.fn.smallerThan("md")]: {
-            lineHeight: "18px",
+            lineHeight: "20px",
         },
     },
 
@@ -128,12 +128,11 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         display: "flex",
         flexDirection: "column",
         marginBottom: 8,
-        paddingLeft: 56,
+        paddingLeft: 24,
         paddingRight: 24,
         gap: 8,
 
         [theme.fn.smallerThan("md")]: {
-            paddingLeft: 40,
             paddingRight: 8,
         },
 
@@ -146,13 +145,12 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         display: "flex",
         flexDirection: "column",
         marginBottom: 8,
-        paddingLeft: 56,
+        paddingLeft: 24,
         paddingRight: 24,
         gap: 8,
         listStyleType: "none",
 
         [theme.fn.smallerThan("md")]: {
-            paddingLeft: 40,
             paddingRight: 8,
         },
 
@@ -163,12 +161,20 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             "::before": {
                 content: '""',
                 position: "absolute",
-                top: 8,
+                top: 6,
                 left: -16,
-                width: 8,
-                height: 8,
+                width: 4,
+                height: 4,
                 borderRadius: 8,
-                border: `2px solid ${theme.colors.secondary[0]}`,
+                backgroundColor: theme.colors.gray45[0],
+            },
+
+            p: {
+                fontWeight: 500,
+                fontSize: 14,
+                lineHeight: "16px",
+                minHeight: 16,
+                color: theme.colors.gray45[0],
             },
         },
     },
@@ -203,8 +209,6 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         },
         overflowX: "auto",
         width: "100%",
-        paddingBottom: 3,
-        marginBottom: 24,
     },
 
     table: {
@@ -240,6 +244,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             textAlign: "left",
 
             "> p": {
+                color: theme.colors.gray45[0],
                 fontWeight: "bold",
             },
         },

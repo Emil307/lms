@@ -1,17 +1,27 @@
-import { Box, MediaQuery } from "@mantine/core";
+import { Box, Flex, MediaQuery } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs, Heading } from "@shared/ui";
+import { BreadCrumbs, Display, Paragraph } from "@shared/ui";
 import { AccordionList as FaqAccordionList } from "@features/faq";
 import { breadCrumbsItems } from "./constants";
+import useStyles from "./FAQPage.styles";
 
 const FAQPage = () => {
+    const { classes } = useStyles();
+
     return (
         <Box>
-            <MediaQuery smallerThan="md" styles={{ display: "none" }}>
-                <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            </MediaQuery>
-            <Heading mb={32}>Вопрос-ответ</Heading>
-            <FaqAccordionList />
+            <BreadCrumbs items={breadCrumbsItems} mb={16} />
+            <Flex className={classes.wrapper}>
+                <Flex direction="column" gap={24} maw={667}>
+                    <Display>Вопросы и ответы</Display>
+                    <MediaQuery smallerThan="md" styles={{ display: "none" }}>
+                        <Paragraph variant="large" color="gray45">
+                            Если у вас есть вопросы, вы всегда можете задать его нашим специалистам. Мы ответим максимально быстро
+                        </Paragraph>
+                    </MediaQuery>
+                </Flex>
+                <FaqAccordionList />
+            </Flex>
         </Box>
     );
 };

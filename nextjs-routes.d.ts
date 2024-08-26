@@ -16,10 +16,12 @@ declare module "nextjs-routes" {
     | StaticRoute<"/about">
     | StaticRoute<"/admin/analytics/student-report">
     | StaticRoute<"/admin/analytics/transaction-report">
-    | DynamicRoute<"/admin/articles/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/articles/[id]", { "id": string }>
     | StaticRoute<"/admin/articles/create">
     | StaticRoute<"/admin/articles">
+    | DynamicRoute<"/admin/articles/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/articles/[id]", { "id": string }>
+    | StaticRoute<"/admin/courses/create">
+    | StaticRoute<"/admin/courses">
     | DynamicRoute<"/admin/courses/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/courses/[id]", { "id": string }>
     | DynamicRoute<"/admin/courses/[id]/modules/[moduleId]", { "id": string; "moduleId": string }>
@@ -28,87 +30,84 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]/edit/test", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/modules/[moduleId]/lessons/[lessonId]", { "id": string; "moduleId": string; "lessonId": string }>
     | DynamicRoute<"/admin/courses/[id]/statistics", { "id": string }>
-    | StaticRoute<"/admin/courses/create">
-    | StaticRoute<"/admin/courses">
+    | StaticRoute<"/admin/groups/create">
+    | StaticRoute<"/admin/groups">
     | DynamicRoute<"/admin/groups/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]", { "id": string }>
     | DynamicRoute<"/admin/groups/[id]/statistics/[studentId]", { "id": string; "studentId": string }>
-    | StaticRoute<"/admin/groups/create">
-    | StaticRoute<"/admin/groups">
-    | DynamicRoute<"/admin/homeworks/[id]", { "id": string }>
     | StaticRoute<"/admin/homeworks">
+    | DynamicRoute<"/admin/homeworks/[id]", { "id": string }>
     | StaticRoute<"/admin">
+    | StaticRoute<"/admin/lessons">
     | DynamicRoute<"/admin/lessons/[lessonId]/edit/homework", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]/edit", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]/edit/test", { "lessonId": string }>
     | DynamicRoute<"/admin/lessons/[lessonId]", { "lessonId": string }>
-    | StaticRoute<"/admin/lessons">
     | StaticRoute<"/admin/messages">
-    | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/article-packages/create">
     | StaticRoute<"/admin/settings/article-packages">
-    | DynamicRoute<"/admin/settings/authors/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/authors/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/article-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/article-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/authors/create">
     | StaticRoute<"/admin/settings/authors">
-    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/authors/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/authors/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/categories">
-    | DynamicRoute<"/admin/settings/course-collections/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/course-collections/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/categories/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-collections/create">
     | StaticRoute<"/admin/settings/course-collections">
-    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-collections/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-collections/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-packages/create">
     | StaticRoute<"/admin/settings/course-packages">
-    | DynamicRoute<"/admin/settings/course-reviews/[id]", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-reviews">
+    | DynamicRoute<"/admin/settings/course-reviews/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">
-    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/main-page/reviews/create">
     | StaticRoute<"/admin/settings/main-page/reviews">
+    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
     | StaticRoute<"/admin/static-pages/about">
     | StaticRoute<"/admin/static-pages/contacts">
     | StaticRoute<"/admin/static-pages/faq">
     | StaticRoute<"/admin/static-pages/user-agreement">
+    | StaticRoute<"/admin/students/create">
+    | StaticRoute<"/admin/students">
     | DynamicRoute<"/admin/students/[id]/edit", { "id": string }>
     | DynamicRoute<"/admin/students/[id]", { "id": string }>
     | DynamicRoute<"/admin/students/[id]/statistics/[groupId]", { "id": string; "groupId": string }>
-    | StaticRoute<"/admin/students/create">
-    | StaticRoute<"/admin/students">
-    | DynamicRoute<"/admin/transactions/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/transactions/[id]", { "id": string }>
     | StaticRoute<"/admin/transactions/create">
     | StaticRoute<"/admin/transactions">
-    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
-    | DynamicRoute<"/admin/users/[id]", { "id": string }>
+    | DynamicRoute<"/admin/transactions/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/transactions/[id]", { "id": string }>
     | StaticRoute<"/admin/users/create">
     | StaticRoute<"/admin/users">
+    | DynamicRoute<"/admin/users/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/users/[id]", { "id": string }>
     | StaticRoute<"/api/external-icons">
-    | DynamicRoute<"/articles/[id]", { "id": string }>
     | DynamicRoute<"/articles/by-category/[categoryId]/article/[id]", { "categoryId": string; "id": string }>
     | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
     | StaticRoute<"/articles">
     | DynamicRoute<"/articles/my/[id]", { "id": string }>
     | StaticRoute<"/cabinet">
     | StaticRoute<"/contacts">
-    | DynamicRoute<"/course-collections/[id]", { "id": string }>
     | StaticRoute<"/course-collections">
+    | DynamicRoute<"/course-collections/[id]", { "id": string }>
     | DynamicRoute<"/course-packages/[id]", { "id": string }>
-    | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/courses">
+    | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/faq">
     | StaticRoute<"/">
     | StaticRoute<"/logout">
-    | DynamicRoute<"/my-courses/[id]", { "id": string }>
-    | DynamicRoute<"/my-courses/[id]/lessons/[lessonId]", { "id": string; "lessonId": string }>
     | StaticRoute<"/my-courses/favorite">
     | StaticRoute<"/my-courses">
+    | DynamicRoute<"/my-courses/[id]", { "id": string }>
+    | DynamicRoute<"/my-courses/[id]/lessons/[lessonId]", { "id": string; "lessonId": string }>
     | StaticRoute<"/profile/edit">
     | StaticRoute<"/profile">
     | StaticRoute<"/support">

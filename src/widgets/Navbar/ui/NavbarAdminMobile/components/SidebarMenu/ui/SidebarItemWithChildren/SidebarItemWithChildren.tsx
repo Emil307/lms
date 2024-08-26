@@ -37,7 +37,10 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
 
     return (
         <Accordion classNames={classes} chevron={isOpen ? <Minus /> : <Plus />}>
-            <Accordion.Item value={label} sx={{ backgroundColor: "transparent", "&[data-active]": { boxShadow: "none" } }}>
+            <Accordion.Item
+                value={label}
+                className={classes.accordionItem}
+                sx={{ backgroundColor: "transparent", "&[data-active]": { boxShadow: "none" } }}>
                 <Accordion.Control p={0} onClick={handlerOpen}>
                     <SidebarItem icon={icon} isActive={isActive} label={label} isOpenInnerContent={isOpen} />
                 </Accordion.Control>

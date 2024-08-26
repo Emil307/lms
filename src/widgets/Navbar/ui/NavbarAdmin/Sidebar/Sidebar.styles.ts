@@ -19,7 +19,7 @@ export default createStyles((theme, { isMinimizedModeSidebar }: CreateStylesPara
     inner: {
         position: isMinimizedModeSidebar ? "static" : "relative",
         height: "100%",
-        paddingRight: isMinimizedModeSidebar ? 0 : 24,
+        paddingRight: isMinimizedModeSidebar ? 0 : 16,
         overflow: "auto",
     },
 }));

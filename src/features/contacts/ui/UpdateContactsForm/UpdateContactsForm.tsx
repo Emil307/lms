@@ -9,7 +9,7 @@ import { adaptDataForUpdateContactsForm } from "./utils";
 import { initialValues } from "./constants";
 import useStyles from "./UpdateContactsForm.styles";
 
-export interface UpdateContactsFormProps extends BoxProps { }
+export interface UpdateContactsFormProps extends BoxProps {}
 
 const UpdateContactsForm = (props: UpdateContactsFormProps) => {
     const { classes } = useStyles();
@@ -39,7 +39,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             <ThemeIcon color="gray45">
                                 <Clipboard />
                             </ThemeIcon>
-                            <Heading order={4}>Заголовок</Heading>
+                            <Heading order={4}>Адрес</Heading>
                         </Flex>
                         <FTextarea
                             name="contactPageTitle"

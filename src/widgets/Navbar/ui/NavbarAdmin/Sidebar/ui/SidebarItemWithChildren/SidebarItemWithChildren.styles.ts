@@ -20,6 +20,9 @@ export default createStyles((theme, { isActive, isMinimizedModeSidebar }: Create
             backgroundColor: "inherit",
         },
     },
+    accordionItem: {
+        padding: 0,
+    },
     control: {
         paddingInline: "0 !important",
         paddingBottom: "0 !important",
@@ -27,6 +30,7 @@ export default createStyles((theme, { isActive, isMinimizedModeSidebar }: Create
     },
     content: {
         padding: "0 !important",
+        marginTop: 2,
     },
     chevron: {
         marginBlock: "auto",

@@ -276,7 +276,7 @@ export const defaultTheme: MantineThemeOverride = {
                 root: {
                     fontFamily: ManropeFont.style.fontFamily,
                     fontWeight: 600,
-                    borderRadius: 8,
+                    borderRadius: 56,
                     minWidth: "fit-content",
                 },
             }),
@@ -355,15 +355,15 @@ export const defaultTheme: MantineThemeOverride = {
             styles: (theme) => ({
                 root: {},
                 item: {
-                    borderRadius: 16,
-                    backgroundColor: theme.colors.white[0],
+                    padding: 32,
+                    borderRadius: 24,
+                    backgroundColor: theme.colors.neutralLight[0],
 
                     "&[data-active]": {
-                        border: "none",
-                        boxShadow: " 0px 16px 32px rgba(2, 6, 46, 0.08)",
+                        borderColor: theme.colors.grayLight[0],
 
                         ".mantine-Accordion-control": {
-                            paddingBottom: 24,
+                            padding: 0,
                             borderBottomLeftRadius: "0 !important",
                             borderBottomRightRadius: "0 !important",
                         },
@@ -374,13 +374,10 @@ export const defaultTheme: MantineThemeOverride = {
                     },
                 },
                 control: {
-                    padding: 32,
-                    borderRadius: 16,
-                    backgroundColor: theme.colors.white[0],
-
-                    [theme.fn.smallerThan("md")]: {
-                        paddingInline: 24,
-                    },
+                    padding: 0,
+                },
+                panel: {
+                    marginTop: "0 !important",
                 },
                 chevron: {
                     alignSelf: "self-start",
@@ -392,21 +389,20 @@ export const defaultTheme: MantineThemeOverride = {
                     color: theme.colors.dark[0],
 
                     [theme.fn.smallerThan("md")]: {
-                        fontSize: 18,
+                        fontSize: 16,
                         lineHeight: "24px",
                     },
                 },
                 content: {
-                    paddingInline: 32,
-                    paddingTop: 8,
-                    paddingBottom: 40,
+                    padding: 0,
+                    marginTop: 32,
                     fontWeight: 500,
                     fontSize: 16,
-                    lineHeight: "24px",
+                    lineHeight: "22px",
                     color: theme.colors.gray45[0],
 
                     [theme.fn.smallerThan("md")]: {
-                        paddingInline: 24,
+                        marginTop: 16,
                     },
                 },
             }),

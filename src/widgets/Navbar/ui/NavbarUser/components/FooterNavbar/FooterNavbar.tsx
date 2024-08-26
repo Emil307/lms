@@ -2,11 +2,11 @@ import React from "react";
 import { Flex, FlexProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CompanyLinks } from "@shared/constant";
 import { Button } from "@shared/ui";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
+import { CONTACT } from "@entities/staticPage";
 import useStyles from "./FooterNavbar.styles";
 
 export interface FooterNavbarProps extends FlexProps {
@@ -46,19 +46,19 @@ const FooterNavbar = ({ isUserAuth = false, ...props }: FooterNavbarProps) => {
             </Flex>
 
             <Flex gap={16}>
-                <a href={CompanyLinks.VK} target="_blank" rel="noreferrer">
+                <a href={CONTACT.VK} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconVK />
                     </Flex>
                 </a>
 
-                <a href={CompanyLinks.WHATSAPP} target="_blank" rel="noreferrer">
+                <a href={CONTACT.WHATSAPP} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconWhatsapp />
                     </Flex>
                 </a>
 
-                <a href={CompanyLinks.TELEGRAM} target="_blank" rel="noreferrer">
+                <a href={CONTACT.TELEGRAM} target="_blank" rel="noreferrer">
                     <Flex className={classes.socialLinkInner}>
                         <IconTelegram />
                     </Flex>

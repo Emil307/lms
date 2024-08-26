@@ -19,6 +19,9 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
             backgroundColor: "inherit",
         },
     },
+    accordionItem: {
+        padding: 0,
+    },
     control: {
         paddingInline: "0 !important",
         paddingBottom: "0 !important",
@@ -26,6 +29,10 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
     },
     content: {
         padding: "0 !important",
+
+        [theme.fn.smallerThan("md")]: {
+            marginTop: 2,
+        },
     },
     chevron: {
         marginBlock: "auto",

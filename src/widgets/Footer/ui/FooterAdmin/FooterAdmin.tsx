@@ -5,11 +5,11 @@ import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import { Logo } from "@components/Logo";
-import { CompanyLinks } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
+import { CONTACT } from "@entities/staticPage";
 import { useFooterAdminStyles } from "./FooterAdmin.styles";
 
-export interface FooterAdminProps extends Omit<MFooterProps, "children" | "height"> { }
+export interface FooterAdminProps extends Omit<MFooterProps, "children" | "height"> {}
 
 const FooterAdmin = (props: FooterAdminProps) => {
     const { classes } = useFooterAdminStyles();
@@ -37,19 +37,19 @@ const FooterAdmin = (props: FooterAdminProps) => {
                     </Flex>
                 </Flex>
                 <Flex gap={16}>
-                    <a href={CompanyLinks.VK} target="_blank" rel="noreferrer">
+                    <a href={CONTACT.VK} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconVK />
                         </Flex>
                     </a>
 
-                    <a href={CompanyLinks.WHATSAPP} target="_blank" rel="noreferrer">
+                    <a href={CONTACT.WHATSAPP} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconWhatsapp />
                         </Flex>
                     </a>
 
-                    <a href={CompanyLinks.TELEGRAM} target="_blank" rel="noreferrer">
+                    <a href={CONTACT.TELEGRAM} target="_blank" rel="noreferrer">
                         <Flex className={classes.link}>
                             <IconTelegram />
                         </Flex>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { memo } from "react";
 import { useRouter } from "next/router";
 import { GetAboutResponse } from "@entities/staticPage";
-import { Button, Heading, Paragraph } from "@shared/ui";
+import { Button, ContentByTextEditor, Heading, Paragraph } from "@shared/ui";
 import useStyles from "./AboutCard.styles";
 
 export interface AboutCardProps extends Omit<FlexProps, "children"> {
@@ -18,22 +18,21 @@ const MemoizedAboutCard = memo(function AboutCard({ data, className, ...props }:
 
     return (
         <Flex className={cx(classes.root, className)} {...props}>
-            {data?.banner && (
-                <Box className={classes.imageSection}>
-                    <Image src={data.banner.absolutePath} alt={data.banner.name} fill sizes="100vw" className={classes.bannerImage} />
-                </Box>
-            )}
             <Flex className={classes.contentSection}>
-                <Flex className={classes.headingContentSection}>
-                    <Heading order={2}>{data?.title}</Heading>
-                    <Button w="min-content" onClick={handleOpenCoursesPage}>
-                        Подобрать курс
-                    </Button>
-                </Flex>
+                <Heading order={2}>{data?.title}</Heading>
+                <Button w="min-content" onClick={handleOpenCoursesPage}>
+                    Подобрать курс
+                </Button>
                 <Paragraph variant="small-m" className={classes.shortContent}>
                     {data?.shortContent}
                 </Paragraph>
+                <ContentByTextEditor data={data?.fullContent} />
             </Flex>
+            {data?.banner && (
+                <Box className={classes.imageSection}>
+                    <Image src={data.banner.absolutePath} alt={data.banner.name} fill className={classes.bannerImage} />
+                </Box>
+            )}
         </Flex>
     );
 });

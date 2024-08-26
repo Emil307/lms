@@ -2,58 +2,42 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        flexDirection: "column",
         width: "100%",
-        padding: 32,
-        gap: 48,
-        borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
-
-        [theme.fn.smallerThan("md")]: {
-            padding: 24,
-        },
-    },
-    imageSection: {
-        position: "relative",
-        overflow: "hidden",
-        width: "100%",
-        height: 420,
-        marginTop: "0 !important",
-        borderRadius: 16,
-        backgroundColor: theme.colors.darkGray[0],
-    },
-    bannerImage: {
-        objectFit: "cover",
-    },
-    contentSection: {
-        justifyContent: "space-between",
-        gap: 32,
+        gap: 56,
+        alignItems: "flex-start",
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
         },
     },
-    headingContentSection: {
+    contentSection: {
         flexDirection: "column",
-        maxWidth: 410,
-        gap: 48,
+        gap: 32,
+    },
+    shortContent: {
+        wordBreak: "break-word",
+    },
+    imageSection: {
+        position: "relative",
+        overflow: "hidden",
+        paddingTop: "42%",
+        width: "calc(50% - 56px)",
+        flexShrink: 0,
+        marginTop: "0 !important",
+        borderRadius: 56,
+        backgroundColor: theme.colors.darkGray[0],
 
         [theme.fn.smallerThan("md")]: {
-            maxWidth: "none",
-            gap: 24,
+            width: "66%",
+            paddingTop: "66%",
+        },
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+            paddingTop: "138%",
         },
     },
-
-    shortContent: {
-        width: "100%",
-        maxWidth: 604,
-
-        [theme.fn.smallerThan("md")]: {
-            maxWidth: "none",
-        },
-
-        wordWrap: "break-word",
-        overflowWrap: "break-word",
-        whiteSpace: "pre-wrap"
+    bannerImage: {
+        objectFit: "cover",
     },
 }));

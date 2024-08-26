@@ -1,10 +1,12 @@
-import { Box, MediaQuery, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 import React from "react";
-import { BreadCrumbs, ContentByTextEditor, Heading, Loader } from "@shared/ui";
+import { BreadCrumbs, ContentByTextEditor, Display, Loader } from "@shared/ui";
 import { usePublicOffer } from "@entities/staticPage";
 import { breadCrumbsItems } from "./constants";
+import useStyles from "./UserAgreementPage.styles";
 
 const UserAgreementPage = () => {
+    const { classes } = useStyles();
     const { data: publicOfferData, isLoading, isError } = usePublicOffer();
 
     const renderContent = () => {
@@ -21,11 +23,11 @@ const UserAgreementPage = () => {
 
     return (
         <Box>
-            <MediaQuery smallerThan="md" styles={{ display: "none" }}>
-                <BreadCrumbs items={breadCrumbsItems} mb={8} />
-            </MediaQuery>
-            <Heading mb={32}>Пользовательское соглашение</Heading>
-            {renderContent()}
+            <BreadCrumbs items={breadCrumbsItems} mb={16} />
+            <Flex className={classes.wrapper}>
+                <Display>Пользовательское соглашение</Display>
+                {renderContent()}
+            </Flex>
         </Box>
     );
 };

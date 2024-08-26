@@ -5,18 +5,19 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
     switch (varian) {
         case "primary": {
             return {
-                backgroundColor: theme.colors.primary[0],
+                backgroundColor: theme.colors.dark[0],
                 ":hover": {
-                    backgroundColor: theme.colors.primaryHover[0],
+                    color: theme.colors.dark[0],
+                    backgroundColor: theme.colors.done[0],
                 },
                 ":disabled": {
                     backgroundColor: theme.colors.grayLight[0],
-                    color: theme.colors.gray45[0],
+                    color: theme.colors.gray20[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.gray45[0],
+                        color: theme.colors.gray20[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.gray45[0],
+                            color: theme.colors.gray20[0],
                         },
                     },
                 },
@@ -24,18 +25,19 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
         }
         case "secondary": {
             return {
-                backgroundColor: theme.colors.dark[0],
+                color: theme.colors.dark[0],
+                backgroundColor: theme.colors.neutralLight[0],
                 ":hover": {
-                    backgroundColor: theme.colors.primaryHover[0],
+                    backgroundColor: theme.colors.grayLight[0],
                 },
                 ":disabled": {
                     backgroundColor: theme.colors.grayLight[0],
-                    color: theme.colors.gray45[0],
+                    color: theme.colors.gray20[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.gray45[0],
+                        color: theme.colors.dark[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.gray45[0],
+                            color: theme.colors.dark[0],
                         },
                     },
                 },

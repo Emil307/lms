@@ -8,10 +8,11 @@ import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
 import IconHeart from "public/icons/heart.svg";
 import { Logo } from "@components/Logo";
-import { CompanyLinks, FilterTypes } from "@shared/constant";
+import { FilterTypes } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import { useSession } from "@entities/auth";
+import { CONTACT } from "@entities/staticPage";
 import useStyles from "./FooterUser.styles";
 import { getPageSections } from "./utils";
 
@@ -102,19 +103,19 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         </Flex>
                     </Flex>
                     <Flex gap={16}>
-                        <a href={CompanyLinks.VK} target="_blank" rel="noreferrer">
+                        <a href={CONTACT.VK} target="_blank" rel="noreferrer">
                             <Flex className={classes.socialLink}>
                                 <IconVK />
                             </Flex>
                         </a>
 
-                        <a href={CompanyLinks.WHATSAPP} target="_blank" rel="noreferrer">
+                        <a href={CONTACT.WHATSAPP} target="_blank" rel="noreferrer">
                             <Flex className={classes.socialLink}>
                                 <IconWhatsapp />
                             </Flex>
                         </a>
 
-                        <a href={CompanyLinks.TELEGRAM} target="_blank" rel="noreferrer">
+                        <a href={CONTACT.TELEGRAM} target="_blank" rel="noreferrer">
                             <Flex className={classes.socialLink}>
                                 <IconTelegram />
                             </Flex>
@@ -128,7 +129,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         <Text fw={600} td="underline" component="a" href="/user-agreement">
                             Пользовательское соглашение
                         </Text>
-                        <Text className={classes.addamant} component="a" href={CompanyLinks.ADDAMANT} target="_blank">
+                        <Text className={classes.addamant} component="a" href={CONTACT.ADDAMANT} target="_blank">
                             <Paragraph className={classes.addamantText} variant="text-small-m" component="span">
                                 <Paragraph variant="text-small-m" component="span">
                                     Created with
