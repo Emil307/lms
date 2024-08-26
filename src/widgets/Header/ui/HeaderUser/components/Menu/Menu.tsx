@@ -26,6 +26,7 @@ const Menu = ({ user }: MenuProps) => {
                     router.push(item.href);
                     setOpenedSidebar(false);
                 };
+
                 return (
                     <MMenu.Item key={item.id} className={classes.menuItem} icon={item.icon} onClick={handleClickItem}>
                         {item.label}

@@ -62,7 +62,7 @@ const HeaderPublicUser = () => {
                         <Button variant="secondary">Регистрация</Button>
                     </Link>
                 </MediaQuery>
-                <Link href={`${router.asPath}/?action=auth`}>
+                <Link href={`${router.asPath}?action=auth`}>
                     <Button variant="border">Войти</Button>
                 </Link>
             </>

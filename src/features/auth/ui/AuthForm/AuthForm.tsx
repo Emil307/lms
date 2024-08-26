@@ -1,13 +1,13 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { FormikConfig } from "formik";
 import axios from "axios";
+import Link from "next/link";
+import React from "react";
 import { Button, Checkbox, FInput, Form, Paragraph } from "@shared/ui";
 import { $AuthFormValidationSchema, AuthFormValidationSchema, useFormStyles } from "@features/auth";
 import { useAuthenticateMe } from "@entities/auth";
-import { initialValues } from "./constants";
-import Link from "next/link";
-import React from "react";
 import { getPath } from "@features/auth/ui/utils";
+import { initialValues } from "./constants";
 
 export interface AuthFormProps extends BoxProps {
     skipRedirectAfterAuth?: boolean;
@@ -44,15 +44,15 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                     Войдите в свой профиль, чтобы начать учиться
                 </Paragraph>
                 <Form config={config} disableOverlay>
-                    <Flex direction={"column"}>
+                    <Flex direction="column">
                         <Flex direction="column" gap={8} mb={16}>
                             <FInput name="email" label="Email" />
                             <FInput name="password" label="Пароль" type="password" />
                         </Flex>
                         <Flex justify="space-between" mb={48} align="center">
                             <Checkbox color="green" label="Запомнить меня" />
-                            <Link href={`${getPath()}/?action=forgot-password`} className={classes.linkButton}>
-                                <Button variant={"text"} className={classes.recoveryPasswordLink}>
+                            <Link href={`${getPath()}?action=forgot-password`} className={classes.linkButton}>
+                                <Button variant="text" className={classes.recoveryPasswordLink}>
                                     Забыли пароль?
                                 </Button>
                             </Link>

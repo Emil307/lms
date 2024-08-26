@@ -1,13 +1,9 @@
-export const authPath = "/auth";
-
 export const logoutPath = "/logout";
 
 export const notFoundPath = "/404";
 export const serverErrorPath = "/500";
 
 export const errorPaths = [notFoundPath, serverErrorPath];
-
-export const authPaths = ["/auth"];
 
 export const publicPaths = [
     "/$",
@@ -19,6 +15,7 @@ export const publicPaths = [
     "/faq",
     "/contacts",
     "/user-agreement",
+    logoutPath,
 ];
 
 export const studentPaths = publicPaths.concat([
@@ -66,4 +63,4 @@ export const managerPaths = teacherPaths.concat([
 
 export const adminPaths = managerPaths.concat(["/admin/settings"]);
 
-export const allPaths = adminPaths.concat(authPaths).concat([logoutPath]);
+export const allPaths = adminPaths.concat([logoutPath]);

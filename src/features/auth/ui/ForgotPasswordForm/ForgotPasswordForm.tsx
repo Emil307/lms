@@ -1,13 +1,13 @@
 import { Box, Flex } from "@mantine/core";
+import Link from "next/link";
+import React from "react";
 import { Button, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, RecoveryPasswordResponse, authApi } from "@entities/auth";
 import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constants";
-import Link from "next/link";
 import { getPath } from "@features/auth/ui/utils";
-import React from "react";
+import { initialValues } from "./constants";
 const ForgotPasswordForm = () => {
     const { classes } = useFormStyles();
     const recoveryPassword = (values: RecoveryPasswordRequest) => {
@@ -49,7 +49,7 @@ const ForgotPasswordForm = () => {
                             <Flex direction="column" gap={24}>
                                 <FInput name="email" label="Email" />
                                 <Flex direction="column" gap={16} ta="center" align="center" justify="center" mt={24} pb={20}>
-                                    <Link href={`${getPath()}/?action=auth`}>
+                                    <Link href={`${getPath()}?action=auth`}>
                                         <Button variant="text" className={classes.rememberPassword}>
                                             Вспомнили пароль?
                                         </Button>

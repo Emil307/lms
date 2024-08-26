@@ -79,7 +79,7 @@ const SignUpForm = () => {
                                 />
                                 <Flex direction="column" gap={16} ta="center" align="center" justify="center" pb={20}>
                                     <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
-                                    <Link href={`${getPath()}/?action=auth`} className={classes.linkButton}>
+                                    <Link href={`${getPath()}?action=auth`} className={classes.linkButton}>
                                         <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
                                             Войти
                                         </Button>
