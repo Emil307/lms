@@ -4,8 +4,26 @@ import { useRouter } from "next/router";
 import { Heading } from "@shared/ui";
 import { AuthForm, ForgotPasswordForm, RecoveryPasswordForm, SignUpForm } from "@features/auth";
 import { useSession } from "@entities/auth";
-import useStyles from "./AuthDrawer.styles";
 import { useMedia } from "@shared/utils";
+import useStyles from "./AuthDrawer.styles";
+const actionMapper: Record<string, { children: React.ReactNode; title: string } | undefined> = {
+    auth: {
+        children: <AuthForm />,
+        title: "Вход в личный кабинет",
+    },
+    "sign-up": {
+        children: <SignUpForm />,
+        title: "Регистрация",
+    },
+    "forgot-password": {
+        children: <ForgotPasswordForm />,
+        title: "Забыли пароль?",
+    },
+    "recovery-password": {
+        children: <RecoveryPasswordForm />,
+        title: "Восстановление пароля",
+    },
+};
 
 function AuthDrawer() {
     const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -16,36 +34,8 @@ function AuthDrawer() {
     useEffect(() => {
         setInitialRenderComplete(true);
     }, []);
-    const isTablet = useMedia("sm");
-
-    const actionMapper: Record<string, { children: React.ReactNode; title: string }> = {
-        auth: {
-            children: <AuthForm />,
-            title: "Вход в личный кабинет",
-        },
-        "sign-up": {
-            children: <SignUpForm />,
-            title: "Регистрация",
-        },
-        "forgot-password": {
-            children: <ForgotPasswordForm />,
-            title: "Забыли пароль?",
-        },
-        "recovery-password": {
-            children: <RecoveryPasswordForm />,
-            title: "Восстановление пароля",
-        },
-    };
-
-    const { children, title } = useMemo(() => {
-        const action = router.query.action as string;
-        return actionMapper[action] || { children: null, title: "" };
-    }, [router.query.action]);
-
-    if (!initialRenderComplete || isFetchingUser) {
-        return <></>;
-    }
-    if (user) {
+    useEffect(() => {
+        if (!user) return;
         const { action, ...restQuery } = router.query;
         router.replace(
             {
@@ -55,6 +45,20 @@ function AuthDrawer() {
             undefined,
             { shallow: true }
         );
+    }, [user]);
+
+    const isTablet = useMedia("sm");
+
+    const { children, title } = useMemo(() => {
+        const action = router.query.action as string;
+        return actionMapper[action] || { children: null, title: "" };
+    }, [router.query.action]);
+
+    if (!initialRenderComplete || isFetchingUser) {
+        return <></>;
+    }
+
+    if (user) {
         return <></>;
     }
 
