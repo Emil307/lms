@@ -43,7 +43,10 @@ const CollapsedFiltersBlock = <F extends FormikValues>({
 
     const handleResetForm = (formikContext: FormikProps<F>) => {
         formikContext.resetForm();
-        formikContext.submitForm();
+        // без таймаута форма не делает submit, так как resetForm не успевает очистить ошибки валидации формы
+        setTimeout(() => {
+            formikContext.submitForm();
+        });
     };
 
     const countAppliedFilters = getCountAppliedFilters({
