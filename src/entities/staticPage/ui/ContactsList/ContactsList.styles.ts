@@ -14,6 +14,7 @@ export default createStyles((theme) => ({
         },
     },
     list: {
+        flexGrow: 1,
         alignItems: "flex-start",
         gap: 8,
 
@@ -25,8 +26,12 @@ export default createStyles((theme) => ({
     listItem: {
         maxWidth: 267,
         width: "100%",
+        flexShrink: 1,
         flexDirection: "column",
         gap: 8,
+    },
+    address: {
+        wordBreak: "break-word",
     },
     socialLink: {
         alignItems: "center",

@@ -275,9 +275,11 @@ export const defaultTheme: MantineThemeOverride = {
             styles: () => ({
                 root: {
                     fontFamily: ManropeFont.style.fontFamily,
-                    fontWeight: 600,
                     borderRadius: 56,
                     minWidth: "fit-content",
+                },
+                label: {
+                    fontWeight: 500,
                 },
             }),
         },

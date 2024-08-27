@@ -27,7 +27,7 @@ const ContactsList = ({ address }: ContactsListProps) => {
                         </a>
                     </Paragraph>
                 </Flex>
-                <Flex className={classes.listItem}>
+                <Flex className={classes.listItem} maw={256}>
                     <Paragraph variant="text-caption" color="gray45">
                         Пишите, если есть вопросы
                     </Paragraph>
@@ -38,7 +38,9 @@ const ContactsList = ({ address }: ContactsListProps) => {
                     </Paragraph>
                 </Flex>
                 <Flex className={classes.listItem}>
-                    <Paragraph variant="small-m">{address}</Paragraph>
+                    <Paragraph variant="small-m" className={classes.address}>
+                        {address}
+                    </Paragraph>
                 </Flex>
             </Flex>
             <Flex gap={8}>

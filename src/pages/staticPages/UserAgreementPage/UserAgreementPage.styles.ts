@@ -9,4 +9,7 @@ export default createStyles((theme) => ({
             gap: 48,
         },
     },
+    title: {
+        letterSpacing: "-1px",
+    },
 }));

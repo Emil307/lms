@@ -25,7 +25,7 @@ const UserAgreementPage = () => {
         <Box>
             <BreadCrumbs items={breadCrumbsItems} mb={16} />
             <Flex className={classes.wrapper}>
-                <Display>Пользовательское соглашение</Display>
+                <Display className={classes.title}>Пользовательское соглашение</Display>
                 {renderContent()}
             </Flex>
         </Box>
