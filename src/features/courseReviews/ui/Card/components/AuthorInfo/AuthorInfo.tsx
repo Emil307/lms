@@ -1,8 +1,7 @@
 import { Avatar, Flex, FlexProps } from "@mantine/core";
-import dayjs from "dayjs";
 import { CourseReviewFromList } from "@entities/courseReview";
 import AvatarIcon from "public/icons/avatar.svg";
-import { Heading, Paragraph } from "@shared/ui";
+import { Heading } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 
 export interface AuthorInfoProps extends FlexProps {
@@ -27,9 +26,6 @@ const AuthorInfo = ({ data, ...props }: AuthorInfoProps) => {
                 <Heading order={4} lineClamp={1}>
                     {userFullName}
                 </Heading>
-                <Paragraph variant="text-small-m" color="gray45">
-                    {dayjs(data.createdAt).format("D MMMM YYYY HH:mm")}
-                </Paragraph>
             </Flex>
         </Flex>
     );

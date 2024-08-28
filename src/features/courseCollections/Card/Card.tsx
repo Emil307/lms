@@ -1,10 +1,11 @@
-import { Box, BoxProps, Flex, Group, ThemeIcon } from "@mantine/core";
+import { Box, BoxProps, Flex, Group } from "@mantine/core";
 import { memo } from "react";
-import { ChevronRight } from "react-feather";
-import { Button, Heading, Paragraph } from "@shared/ui";
-import { getIcon, getPluralString } from "@shared/utils";
+import { Button, Heading } from "@shared/ui";
+import { getPluralString } from "@shared/utils";
+import Image from "next/image";
 import { CourseCollectionFromList } from "@entities/courseCollection";
 import useStyles from "./Card.styles";
+import { useRouter } from "next/router";
 
 export interface CardProps extends Omit<BoxProps, "children"> {
     data: CourseCollectionFromList;
@@ -13,32 +14,39 @@ export interface CardProps extends Omit<BoxProps, "children"> {
 
 const MemoizedCard = memo(function Card({ data, onClick, ...props }: CardProps) {
     const { classes } = useStyles();
-
-    const handleClick = () => onClick?.(data.id);
+    const router = useRouter();
+    const handleClickCard = () => router.push({ pathname: "/course-collections/[id]", query: { id: String(data.id) } });
 
     return (
-        <Box {...props} className={classes.root} onClick={handleClick}>
+        <Box {...props} className={classes.root} onClick={handleClickCard}>
             <Group className={classes.content}>
-                <Flex direction="column" gap={16} miw={224} sx={{ flex: 1 }}>
+                <Flex direction="column" gap={35} miw={264}>
+                    <Flex className={classes.imageContent}>
+                        <Flex className={classes.courseInfo}>
+                            <Button variant="primary" size="small">{`${data.coursesCount} ${getPluralString(
+                                data.coursesCount,
+                                "курс",
+                                "курса",
+                                "курсов"
+                            )}`}</Button>
+                        </Flex>
+                        {data.cover && (
+                            <Image
+                                src={data.cover.absolutePath}
+                                alt={data.cover.name}
+                                fill
+                                sizes="100%"
+                                style={{
+                                    objectFit: "cover",
+                                }}
+                            />
+                        )}
+                    </Flex>
                     <Heading order={3} lineClamp={2}>
                         {data.name}
                     </Heading>
-                    <Paragraph variant="text-small-m" color="gray45" lineClamp={4}>
-                        {data.description}
-                    </Paragraph>
                 </Flex>
-                <Flex className={classes.iconWrapper}>{getIcon({ iconName: data.iconName })}</Flex>
             </Group>
-            <Box>
-                <Button
-                    variant="text"
-                    size="small"
-                    rightIcon={
-                        <ThemeIcon className={classes.iconButtonLinkCourse}>
-                            <ChevronRight />
-                        </ThemeIcon>
-                    }>{`${data.coursesCount} ${getPluralString(data.coursesCount, "курс", "курса", "курсов")}`}</Button>
-            </Box>
         </Box>
     );
 });

@@ -1,13 +1,12 @@
-import { Box, Flex, FlexProps } from "@mantine/core";
-import React, { useMemo } from "react";
+import { Box, FlexProps } from "@mantine/core";
+import React, { useState } from "react";
 import { Folder } from "react-feather";
 import { useRouter } from "next/router";
 import { List as CoursesList } from "@features/courses";
-import { Button, Heading, Paragraph } from "@shared/ui";
-import { useCourseResources } from "@entities/course";
-import { FilterTypes } from "@shared/constant";
+import { Button, Heading } from "@shared/ui";
 import { useIntersection } from "@shared/utils";
 import useStyles from "./CoursesBlock.styles";
+import { initialParams } from "./constants";
 
 export interface CoursesBlockProps extends FlexProps {}
 
@@ -16,52 +15,42 @@ const CoursesBlock = (props: CoursesBlockProps) => {
     const { classes } = useStyles();
     const { ref: rootBlockRef, entry } = useIntersection();
 
-    const courseResources = useCourseResources({ type: FilterTypes.SELECT }, !!entry?.isIntersecting);
+    const [visibleCourses, setVisibleCourses] = useState(initialParams.countCoursesPerOpen);
+    const [totalCoursesCount, setTotalCoursesCount] = useState(0);
+
+    const handleShowMoreCourses = () => {
+        setVisibleCourses((prev) => prev + initialParams.countCoursesPerOpen);
+    };
 
     const handleOpenCoursesPage = () => router.push("/courses");
 
-    const renderCategories = useMemo(() => {
-        if (!courseResources.data?.categories.length) {
-            return null;
-        }
-
-        return (
-            <Flex className={classes.wrapperCategoryList}>
-                {courseResources.data.categories.map((category) => {
-                    const handleClick = () => router.push({ pathname: "/courses", query: { categoryId: category.id.toString() } });
-                    return (
-                        <Paragraph variant="text-small-semi" key={category.id} className={classes.category} onClick={handleClick}>
-                            {category.name}
-                        </Paragraph>
-                    );
-                })}
-            </Flex>
-        );
-    }, [courseResources]);
-
     return (
-        <Box ref={rootBlockRef}>
+        <Box ref={rootBlockRef} maw={1320} m={"auto"}>
             <CoursesList
-                colProps={{ lg: 4, md: 4, xs: 6 }}
-                perPage={6}
+                colProps={{ lg: 4, md: 4, xs: 12 }}
                 isPopular
-                headerSlot={
-                    <Flex direction="column" gap={32}>
-                        <Heading>Популярные курсы</Heading>
-                        {renderCategories}
-                    </Flex>
-                }
+                visibleCourses={visibleCourses}
+                headerSlot={<Heading className={classes.title}>Курсы для карьеры и жизни</Heading>}
                 footerSlot={
-                    <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>
-                        Смотреть все курсы
-                    </Button>
+                    <>
+                        {visibleCourses < totalCoursesCount ? (
+                            <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleShowMoreCourses}>
+                                Еще {Math.min(initialParams.countCoursesPerOpen, totalCoursesCount - visibleCourses)} курсов
+                            </Button>
+                        ) : (
+                            <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>
+                                Показать все курсы
+                            </Button>
+                        )}
+                    </>
                 }
                 skeletonListProps={{
                     mih: 258,
                     radius: 16,
                 }}
                 visible={!!entry?.isIntersecting}
-                wrapperProps={{ direction: "column", gap: 32, ...props }}
+                wrapperProps={{ direction: "column", gap: 48, ...props }}
+                setTotalCoursesCount={setTotalCoursesCount}
             />
         </Box>
     );

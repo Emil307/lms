@@ -1,6 +1,10 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    title: {
+        textAlign: "center",
+        fontSize: 42,
+    },
     wrapperCategoryList: {
         width: "100%",
         gap: 8,

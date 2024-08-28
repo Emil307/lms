@@ -1,20 +1,29 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
-    root: {},
+    root: {
+        padding: 16,
+    },
     viewport: {
         marginBottom: 48,
     },
+    container: {
+        alignItems: "center",
+    },
+    slide: {
+        opacity: 1,
+    },
+    activeSlide: {
+        transform: "scale(1.1)",
+        transition: "all 0.3s",
+        margin: "0px 24px",
+        opacity: 1,
+    },
     controls: {
-        top: "calc(50% - 60px)",
-        left: -22,
-        right: -22,
         padding: 0,
-
-        "@media (max-width: 1440px)": {
-            left: -8,
-            right: -8,
-        },
+        position: "relative",
+        justifyContent: "center",
+        gap: 8,
     },
     control: {
         width: 56,

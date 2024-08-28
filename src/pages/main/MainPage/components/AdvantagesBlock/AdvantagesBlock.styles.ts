@@ -3,18 +3,43 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     advantageItem: {
         flexDirection: "column",
-        justifyContent: "center",
+        padding: "32px 24px",
         height: "100%",
-        minHeight: 160,
-        paddingBlock: 32,
-        paddingInline: 16,
-        gap: 8,
+        minHeight: 232,
+        maxWidth: 424,
+        width: "100%",
+        gap: 16,
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
-        textAlign: "center",
+        textAlign: "left",
 
         [theme.fn.smallerThan("sm")]: {
+            borderRadius: 24,
             paddingBlock: 16,
+        },
+    },
+    headerTitle: {
+        textAlign: "left",
+        height: 56,
+        gap: 16,
+        fontWeight: 600,
+    },
+    titleIcon: {
+        width: 56,
+        height: 56,
+    },
+    title: {
+        fontSize: 20,
+        lineHeight: "20px",
+        alignItems: "center",
+    },
+    container: {
+        backgroundColor: theme.colors.gray[0],
+        display: "flex",
+        justifyContent: "center",
+        [theme.fn.smallerThan("sm")]: {
+            borderRadius: 0,
+            padding: "0 16px",
         },
     },
 }));

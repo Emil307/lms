@@ -8,6 +8,7 @@ export default createStyles((theme) => ({
         gap: 32,
         borderRadius: 16,
         backgroundColor: theme.colors.grayLight[0],
+        height: "100%",
     },
     section: {
         display: "flex",
@@ -29,12 +30,7 @@ export default createStyles((theme) => ({
     rating: {
         alignItems: "center",
         alignSelf: "self-start",
-        width: "min-content",
-        padding: "6px 16px",
-        marginLeft: "auto",
-        borderRadius: 60,
         gap: 4,
-        backgroundColor: theme.colors.white[0],
 
         [theme.fn.smallerThan("xs")]: {
             marginLeft: 0,

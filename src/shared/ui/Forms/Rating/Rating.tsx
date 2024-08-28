@@ -56,8 +56,8 @@ const MemoizedRating = memo(function Rating({
                         sx={(theme) => ({
                             width: 24,
                             path: {
-                                fill: theme.colors.secondary[0],
-                                stroke: theme.colors.secondary[0],
+                                fill: theme.colors.golden[0],
+                                stroke: theme.colors.golden[0],
                             },
                         })}>
                         {fullSymbol}

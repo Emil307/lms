@@ -1,7 +1,7 @@
 import { UpdateCourseCollectionFormValidation } from "./types";
 
 export const initialValues: UpdateCourseCollectionFormValidation = {
-    iconName: "",
+    cover: null,
     name: "",
     description: "",
     isActive: false,

@@ -4,8 +4,8 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     root: {
         ref: getRef("root"),
         width: "100%",
-        borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        borderRadius: 32,
+        backgroundColor: theme.colors.neutralLight[0],
         cursor: "pointer",
 
         ":hover": {
@@ -23,23 +23,25 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        height: 168,
+        height: 240,
+        borderRadius: 32,
         backgroundColor: theme.colors.darkGray[0],
     },
     cardSectionContent: {
-        position: "absolute",
-        bottom: 16,
-        left: 16,
+        paddingLeft: 24,
         gap: 8,
     },
     discount: {
-        backgroundColor: theme.colors.dark[0],
+        backgroundColor: theme.colors.done[0],
         boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-        color: theme.colors.white[0],
+        padding: "6px 10px",
+        color: theme.colors.dark[0],
+        borderRadius: 8,
     },
     category: {
-        backgroundColor: theme.colors.white[0],
-        color: theme.colors.dark[0],
+        backgroundColor: theme.colors.dark[0],
+        color: theme.colors.white[0],
+        borderRadius: 8,
     },
     cardContentBody: {
         display: "flex",
@@ -99,5 +101,8 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
             color: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
             fill: isFavorite ? theme.colors.secondary[0] : "transparent",
         },
+    },
+    moreButton: {
+        borderRadius: 56,
     },
 }));

@@ -3,12 +3,20 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         position: "relative",
+        justifyContent: "center",
+        [theme.fn.smallerThan("sm")]: {
+            padding: "0 16px",
+        },
     },
     inner: {
         position: "relative",
         overflow: "hidden",
-        height: 576,
-        borderRadius: 24,
+        height: 634,
+        borderRadius: 56,
+        maxWidth: 1728,
+        width: "100%",
+
+        justifyContent: "center",
 
         [theme.fn.smallerThan("sm")]: {
             height: 442,
@@ -40,14 +48,19 @@ export default createStyles((theme) => ({
 
     headerContent: {
         flexDirection: "column",
+        justifyContent: "space-between",
         maxWidth: 743,
-        marginLeft: 96,
-        marginBlock: "auto",
-        gap: 56,
-
+        padding: "4rem",
         [theme.fn.smallerThan("sm")]: {
-            marginLeft: 24,
-            marginRight: 24,
+            padding: 24,
+        },
+    },
+
+    titleContent: {
+        flexDirection: "column",
+        gap: 32,
+        [theme.fn.smallerThan("sm")]: {
+            gap: 24,
         },
     },
 
@@ -60,6 +73,17 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("md")]: {
             fontSize: 32,
             lineHeight: "36px",
+        },
+    },
+    subtitle: {
+        opacity: "50%",
+    },
+    button: {
+        borderRadius: 56,
+        height: 72,
+
+        [theme.fn.smallerThan("md")]: {
+            height: 56,
         },
     },
 }));

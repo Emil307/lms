@@ -6,17 +6,13 @@ import { useIntersection } from "@shared/utils";
 export interface CourseCollectionsBlockProps extends BoxProps {}
 
 const CourseCollectionsBlock = (props: CourseCollectionsBlockProps) => {
-    const titleCourseSets = `Топовые подборки курсов ${new Date().getFullYear()}`;
-
     const { ref: rootBlockRef, entry } = useIntersection();
 
     return (
         <Box ref={rootBlockRef}>
             <CourseSetList
                 hasCardMore
-                perPage={2}
                 colProps={{ sm: 6, md: 4 }}
-                title={titleCourseSets}
                 skeletonListProps={{
                     mih: 258,
                     radius: 16,

@@ -1,5 +1,5 @@
 import { Box, BoxProps, Skeleton } from "@mantine/core";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "@components/Carousel";
 import { CourseReviewFromList, useCourseReviews } from "@entities/courseReview";
 import { Card as CourseReviewCard } from "@features/courseReviews";
@@ -7,6 +7,7 @@ import { useIntersection } from "@shared/utils";
 import useStyles from "./CarouselList.styles";
 import { initialParams } from "./constants";
 import { adaptGetCourseReviewsRequest } from "./utils";
+import { EmblaCarouselType } from "embla-carousel-react";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     headerSlot?: ReactNode;
@@ -16,6 +17,9 @@ export interface CarouselListProps extends Omit<BoxProps, "children"> {
 
 const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListProps) => {
     const { classes } = useStyles();
+
+    const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
+    const [_activeIndex, setActiveIndex] = useState(0);
 
     const {
         data: courseReviewsData,
@@ -31,6 +35,21 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
             fetchNextPage();
         }
     }, [entry]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+
+        const handleSelect = () => {
+            setActiveIndex(emblaApi.selectedScrollSnap());
+        };
+
+        emblaApi.on("select", handleSelect);
+        handleSelect();
+
+        return () => {
+            emblaApi.off("select", handleSelect);
+        };
+    }, [emblaApi]);
 
     if (!courseReviewsData?.data.length) {
         return null;
@@ -49,7 +68,16 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
                     data={courseReviewsData.data}
                     lastElemRef={lastElemRef}
                     slideSize={448}
-                    breakpoints={[{ maxWidth: "xs", slideSize: "100%" }]}>
+                    breakpoints={[
+                        { maxWidth: "md", slideSize: "50%" },
+                        { maxWidth: "xs", slideSize: "100%" },
+                        { minWidth: "lg", slideSize: "20%" },
+                    ]}
+                    getEmblaApi={setEmblaApi}
+                    emblaApi={emblaApi}
+                    loop
+                    align="center"
+                    customStyles={useStyles}>
                     {(props) => <CourseReviewCard {...props} w="100%" />}
                 </Carousel>
             </Skeleton>

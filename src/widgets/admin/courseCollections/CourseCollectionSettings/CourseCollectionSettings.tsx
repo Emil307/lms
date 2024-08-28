@@ -39,7 +39,10 @@ const CourseCollectionSettings = ({ id, ...props }: CourseCollectionSettingsProp
                 </Flex>
             </Flex>
             <InfoCard<GetAdminCourseCollectionResponse>
-                iconName={courseCollectionData?.iconName}
+                image={{
+                    src: courseCollectionData?.cover?.absolutePath,
+                    alt: "courseImage",
+                }}
                 variant="whiteBg"
                 fields={fields}
                 hideFieldIfEmpty

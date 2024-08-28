@@ -95,12 +95,10 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
     | StaticRoute<"/articles">
     | DynamicRoute<"/articles/my/[id]", { "id": string }>
-    | DynamicRoute<"/articles/[id]", { "id": string }>
     | StaticRoute<"/cabinet">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-collections/[id]", { "id": string }>
     | StaticRoute<"/course-collections">
-    | DynamicRoute<"/course-packages/[id]", { "id": string }>
     | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/courses">
     | StaticRoute<"/faq">

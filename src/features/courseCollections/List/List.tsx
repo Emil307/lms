@@ -1,11 +1,13 @@
-import { Box, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
+import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
-import { List as ListComponent, ListProps as TListProps } from "@components/List";
+import { ListProps as TListProps } from "@components/List";
 import { Heading, HeadingProps } from "@shared/ui";
 import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import { Card } from "../Card";
-import { CardMore } from "../CardMore";
+import React from "react";
+import useStyles from "./List.styles";
+import { Carousel } from "@components/Carousel";
 
 export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "colProps"> {
     exceptionCourseCollectionId?: string;
@@ -19,71 +21,45 @@ export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "c
     visible?: boolean;
 }
 
-const List = ({
-    perPage,
-    hasCardMore,
-    exceptionCourseCollectionId,
-    title,
-    wrapperProps,
-    skeletonListProps,
-    headingProps,
-    withPagination,
-    ...props
-}: ListProps) => {
+const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPagination }: ListProps) => {
     const router = useRouter();
     const page = withPagination ? router.query.page || 1 : 1;
+    const { classes } = useStyles();
 
-    const {
-        data: courseCollectionsData,
-        isFetching,
-        isLoading,
-    } = useCourseCollections(
+    const { data: courseCollectionsData, isLoading } = useCourseCollections(
         adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
     );
-
-    const handleClickCard = (id: unknown) => router.push({ pathname: "/course-collections/[id]", query: { id: String(id) } });
-
-    const getCountSets = () => {
-        if (!courseCollectionsData?.pagination.total) {
-            return 0;
-        }
-
-        return courseCollectionsData.pagination.total - (perPage || 0);
-    };
-
-    const renderCardMore = () => {
-        if (!hasCardMore || !courseCollectionsData?.pagination.total || courseCollectionsData.pagination.total < 2) {
-            return;
-        }
-        return <CardMore countCardSet={getCountSets()} h="100%" mih={256} />;
-    };
-
     if (!courseCollectionsData?.data.length) {
         return null;
     }
 
     return (
         <Flex direction="column" {...wrapperProps}>
-            {title && (
-                <Skeleton visible={isLoading} mih={40} radius={24}>
-                    <Heading {...headingProps}>{title}</Heading>
-                </Skeleton>
-            )}
-            <Box w="100%">
-                <Skeleton visible={isLoading} {...skeletonListProps}>
-                    <ListComponent<CourseCollectionFromList>
-                        {...props}
-                        data={courseCollectionsData.data}
-                        renderItem={(props) => <Card {...props} />}
-                        pagination={courseCollectionsData.pagination}
-                        withPagination={withPagination}
-                        declensionWordCountItems={["подборка", "подборки", "подборок"]}
-                        isLoading={isFetching || isLoading}
-                        cardMore={renderCardMore()}
-                        onClick={handleClickCard}
-                    />
-                </Skeleton>
-            </Box>
+            <Skeleton visible={isLoading} mih={40} radius={24}>
+                <Heading mb={24}>
+                    <Flex direction={"column"} gap={24}>
+                        <Text ta={"center"} className={classes.title}>
+                            Больше знаний в комплексе
+                        </Text>
+                        <Text ta={"center"} className={classes.description}>
+                            Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов.
+                        </Text>
+                    </Flex>
+                </Heading>
+            </Skeleton>
+            <Skeleton visible={isLoading} mih={410} radius={24}>
+                <Carousel<CourseCollectionFromList>
+                    data={courseCollectionsData.data}
+                    slideSize="25%"
+                    breakpoints={[
+                        { maxWidth: "md", slideSize: "50%" },
+                        { maxWidth: "xs", slideSize: "100%" },
+                    ]}
+                    loop
+                    align="center">
+                    {(props) => <Card {...props} />}
+                </Carousel>
+            </Skeleton>
         </Flex>
     );
 };

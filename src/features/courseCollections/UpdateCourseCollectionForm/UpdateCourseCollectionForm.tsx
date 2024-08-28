@@ -1,15 +1,13 @@
-import { Box, Flex, BoxProps, ThemeIcon } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { AlertTriangle, AlignLeft, Type, Image as ImageIcon } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft, Type } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { FControlButtons, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FFileInput, FInput, FSwitch, FTextarea, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { GetAdminCourseCollectionResponse, UpdateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
-import { SelectIconModal } from "@features/externalIcons";
 import { initialValues } from "./constants";
 import { adaptUpdateCourseCollectionForm } from "./utils";
 import { $UpdateCourseCollectionFormValidation, UpdateCourseCollectionFormValidation } from "./types";
@@ -25,7 +23,10 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
     const { classes } = useStyles();
 
     const updateCourseCollection = (values: UpdateCourseCollectionFormValidation) => {
-        return courseCollectionApi.updateAdminCourseCollection({ ...values, id: String(data?.id) });
+        const adaptedValues = {
+            ...adaptUpdateCourseCollectionForm(String(data?.id), values),
+        };
+        return courseCollectionApi.updateAdminCourseCollection(adaptedValues);
     };
 
     const onSuccess = () => {
@@ -43,18 +44,13 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
         });
     };
 
-    const renderIconError = (error?: string) =>
-        error && (
-            <Flex className={classes.wrapperIconError}>
-                <AlertTriangle />
-                <Paragraph variant="text-smaller">{error}</Paragraph>
-            </Flex>
-        );
-
     return (
         <Box {...props}>
             <ManagedForm<UpdateCourseCollectionFormValidation, UpdateAdminCourseCollectionResponse>
-                initialValues={{ ...initialValues, ...adaptUpdateCourseCollectionForm(data) }}
+                initialValues={{
+                    ...initialValues,
+                    ...adaptUpdateCourseCollectionForm(String(data?.id), data),
+                }}
                 validationSchema={$UpdateCourseCollectionFormValidation}
                 mutationKey={[MutationKeys.UPDATE_ADMIN_COURSE_COLLECTION, String(data?.id)]}
                 invalidateQueriesWithPredicateParams={{ entityName: EntityNames.COURSE_COLLECTION }}
@@ -62,31 +58,8 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                 onSuccess={onSuccess}
                 onError={onError}
                 onCancel={onClose}>
-                {({ values, errors, onCancel, setFieldValue }) => {
+                {({ values, onCancel }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
-                    const icon = getIcon({ iconName: values.iconName });
-
-                    const handleCloseSelectIconModal = () => closeModal("SELECT_ICON");
-
-                    const handleSubmitSelectIconModal = (iconName?: string) => {
-                        setFieldValue("iconName", iconName);
-                        closeModal("SELECT_ICON");
-                    };
-
-                    const openSelectIconModal = () => {
-                        openModal({
-                            modalId: "SELECT_ICON",
-                            title: "Изображение подборки",
-                            children: (
-                                <SelectIconModal
-                                    initialSelectedIcon={values.iconName}
-                                    onSubmit={handleSubmitSelectIconModal}
-                                    onClose={handleCloseSelectIconModal}
-                                />
-                            ),
-                            size: 912,
-                        });
-                    };
 
                     return (
                         <Flex direction="column" gap={32}>
@@ -113,18 +86,17 @@ const UpdateCourseCollectionForm = ({ data, onClose, ...props }: UpdateCourseCol
                                 </Flex>
                                 <LastUpdatedInfo data={data?.lastUpdated} />
                             </Flex>
-                            <Box>
-                                <Flex className={classes.wrapperIcon} onClick={openSelectIconModal}>
-                                    {icon}
-                                    <Box className={classes.imageBack}>
-                                        <ThemeIcon className={classes.control}>
-                                            <ImageIcon />
-                                        </ThemeIcon>
-                                    </Box>
-                                </Flex>
-                                {renderIconError(errors.iconName)}
+                            <Box className={classes.imageInputWrapper}>
+                                <FFileInput
+                                    className={classes.imageInput}
+                                    name="cover"
+                                    title="Изменить фото"
+                                    type="image"
+                                    fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
+                                    withDeleteButton
+                                    description="До 1Mb"
+                                />
                             </Box>
-
                             <Fieldset label="Заголовок" icon={<Type />} maw={512} legendProps={{ mb: 24 }}>
                                 <FInput name="name" label="Название подборки" size="sm" w="100%" />
                             </Fieldset>

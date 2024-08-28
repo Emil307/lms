@@ -27,7 +27,7 @@ const FavoriteButton = ({ data, variant = "default", ...props }: FavoriteButtonP
 
     if (variant === "compact") {
         return (
-            <ActionIcon {...props} className={cx(classes.favoriteActionIcon, props.className)} onClick={handleChangeFavorite}>
+            <ActionIcon {...props} onClick={handleChangeFavorite}>
                 <Heart />
             </ActionIcon>
         );
@@ -36,11 +36,10 @@ const FavoriteButton = ({ data, variant = "default", ...props }: FavoriteButtonP
         <Button
             {...props}
             variant="white"
-            leftIcon={<Heart />}
             size="small"
             className={cx(classes.favoriteActionButton, props.className)}
             onClick={handleChangeFavorite}>
-            Избранное
+            <Heart />
         </Button>
     );
 };

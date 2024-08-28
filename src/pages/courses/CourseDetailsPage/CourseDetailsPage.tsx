@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Loader } from "@shared/ui";
 import { AuthorsInfo, MainInfoPanel, ProgramTrainingList, TeacherList } from "@widgets/course";
 import { useAvailableCourse, useCourse } from "@entities/course";
-import { CarouselList as CoursePackageCarouselList } from "@widgets/coursePackage";
 import { TRouterQueries } from "@shared/types";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
 import { isMyCourse } from "@shared/utils";
@@ -55,12 +54,6 @@ const CourseDetailsPage = () => {
                 </Flex>
                 <ProgramTrainingList data={courseData} />
                 <TeacherList data={courseData.teachers} />
-                <CoursePackageCarouselList
-                    title={`Курс «${courseData.name}» содержится в пакетах`}
-                    description="Выберите дополнительный курс по более выгодной цене."
-                    courseId={id}
-                    titleProps={{ order: 2 }}
-                />
                 <CourseReviewCarouselList
                     headerSlot={
                         <Group sx={{ justifyContent: "space-between", gap: 24, marginBottom: 32 }}>

@@ -17,8 +17,8 @@ const $sortOrder = z.literal("asc").or(z.literal("desc"));
 const $sortRequest = z.record(z.string(), $sortOrder);
 
 const $pageParams = z.object({
-    perPage: z.number(),
-    page: z.number(),
+    perPage: z.number().optional(),
+    page: z.number().optional(),
 });
 
 const $sortParams = z.object({

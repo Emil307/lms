@@ -1,11 +1,14 @@
-import { GetAdminCourseCollectionResponse } from "@entities/courseCollection";
 import { UpdateCourseCollectionFormValidation } from "./types";
+import { UpdateAdminCourseCollectionRequest } from "@entities/courseCollection";
 
-export const adaptUpdateCourseCollectionForm = (data?: GetAdminCourseCollectionResponse): Partial<UpdateCourseCollectionFormValidation> => {
+export const adaptUpdateCourseCollectionForm = (
+    id: string,
+    data?: UpdateCourseCollectionFormValidation
+): UpdateAdminCourseCollectionRequest => {
+    const { ...rest } = data;
     return {
-        iconName: data?.iconName,
-        name: data?.name,
-        description: data?.description,
-        isActive: data?.isActive,
+        id,
+        ...rest,
+        coverId: data?.cover?.id ?? null,
     };
 };

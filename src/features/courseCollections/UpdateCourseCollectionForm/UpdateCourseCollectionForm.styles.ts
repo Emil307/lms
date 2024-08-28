@@ -107,4 +107,22 @@ export default createStyles((theme, _params, getRef) => ({
             minHeight: 190,
         },
     },
+    imageInputWrapper: {
+        [theme.fn.smallerThan("xs")]: {
+            position: "relative",
+            paddingTop: "61%",
+        },
+    },
+    imageInput: {
+        maxWidth: 512,
+        width: "100%",
+        height: 308,
+
+        [theme.fn.smallerThan("xs")]: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: "100%",
+        },
+    },
 }));

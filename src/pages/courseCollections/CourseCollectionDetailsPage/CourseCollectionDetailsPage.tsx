@@ -6,7 +6,6 @@ import { List as CourseCollectionList } from "@features/courseCollections";
 import { TRouterQueries } from "@shared/types";
 import { List as CoursesList } from "@features/courses";
 import { useCourseCollection } from "@entities/courseCollection";
-import { getIcon } from "@shared/utils";
 import { getBreadCrumbsItems } from "./utils";
 
 const CourseCollectionDetailsPage = () => {
@@ -20,9 +19,6 @@ const CourseCollectionDetailsPage = () => {
             <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name })} mb={8} />
             <Flex direction="column" gap={32}>
                 <Flex align="center" gap={12}>
-                    <Flex sx={(theme) => ({ svg: { color: theme.colors.primary[0] } })}>
-                        {getIcon({ iconName: data?.iconName, color: "primary", size: 32, strokeWidth: 1.5 })}
-                    </Flex>
                     <Heading>{data?.name}</Heading>
                 </Flex>
                 <CoursesList collectionIds={id} withPagination />

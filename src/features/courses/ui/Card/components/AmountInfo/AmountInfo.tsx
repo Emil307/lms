@@ -8,7 +8,7 @@ export interface AmountInfoProps {
 }
 
 const AmountInfo = ({ data }: AmountInfoProps) => {
-    const { classes } = useStyles({ hasDiscount: !!data.discount && data.discountPrice != data.price });
+    const { classes } = useStyles();
 
     if (data.discount && data.discountPrice != data.price) {
         return (

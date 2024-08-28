@@ -48,6 +48,7 @@ export const defaultTheme: MantineThemeOverride = {
         neutral_gray: addMantineColor("#00042973"),
         shadowGray: addMantineColor("#00126e"),
         darkGray: addMantineColor("#D9D9D9"),
+        golden: addMantineColor("#D6913D"),
     },
     defaultRadius: "sm",
     breakpoints: {

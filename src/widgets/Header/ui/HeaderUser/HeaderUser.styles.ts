@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
     },
     inner: {
         justifyContent: "space-between",
-        maxWidth: 1320,
+        maxWidth: 1728,
         minHeight: 96,
         marginInline: "auto",
 

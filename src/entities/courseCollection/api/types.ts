@@ -6,6 +6,7 @@ import {
     $getFiltersRequestType,
     $getMultiValueObjectType,
     $getPaginationResponseType,
+    $UploadedFile,
 } from "@shared/types";
 
 /**
@@ -74,13 +75,13 @@ export const $AdminCourseCollectionCourse = z.object({
 
 export const $AdminCourseCollection = z.object({
     id: z.number(),
-    iconName: z.string(),
     name: z.string(),
     description: z.string(),
     isActive: z.boolean(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     lastUpdated: $LastUpdated.nullable(),
+    cover: $UploadedFile.nullable(),
     coursesCount: z.number(),
 });
 
@@ -130,7 +131,7 @@ export const $GetAdminCourseCollectionResourcesResponse = z.object({
 });
 
 export const $CreateAdminCourseCollectionRequest = z.object({
-    iconName: z.string(),
+    coverId: z.number().nullable(),
     name: z.string(),
     description: z.string(),
     isActive: z.boolean(),
@@ -140,6 +141,7 @@ export const $CreateAdminCourseCollectionResponse = $AdminCourseCollection.omit(
 
 export const $UpdateAdminCourseCollectionRequest = $CreateAdminCourseCollectionRequest.extend({
     id: z.string(),
+    cover: $UploadedFile.nullable(),
 });
 
 export const $UpdateAdminCourseCollectionResponse = $AdminCourseCollection.omit({ coursesCount: true });
@@ -186,7 +188,7 @@ export const $DeleteAdminCourseFromCourseCollectionResponse = z.null();
 
 const $CourseCollection = z.object({
     id: z.number(),
-    iconName: z.string(),
+    cover: $UploadedFile.nullable(),
     name: z.string(),
     description: z.string(),
     coursesCount: z.number(),

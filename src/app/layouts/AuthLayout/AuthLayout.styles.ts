@@ -34,7 +34,7 @@ export default createStyles((theme) => ({
         justifyContent: "space-between",
         flexWrap: "wrap",
         width: "100%",
-        maxWidth: 1320,
+        maxWidth: 1920,
         marginInline: "auto",
         padding: "32px 0",
         gap: 16,

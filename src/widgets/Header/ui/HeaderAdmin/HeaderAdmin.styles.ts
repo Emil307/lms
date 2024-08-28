@@ -14,6 +14,7 @@ export default createStyles((theme) => ({
         border: "none",
         backgroundColor: theme.colors.light[0],
         zIndex: 399,
+        maxWidth: 1920,
 
         [theme.fn.smallerThan("md")]: {
             maxHeight: 82,

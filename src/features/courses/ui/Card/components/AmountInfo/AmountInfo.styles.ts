@@ -1,18 +1,9 @@
 import { createStyles } from "@mantine/core";
 
-interface CreateStylesParamsProps {
-    hasDiscount: boolean;
-}
-
-export default createStyles((theme, { hasDiscount }: CreateStylesParamsProps) => ({
+export default createStyles((theme) => ({
     price: {
-        color: hasDiscount ? theme.colors.doneDark[0] : theme.colors.dark[0],
-        background: hasDiscount ? theme.colors.done16[0] : "transparent",
-
-        ...(hasDiscount && {
-            border: "4px solid transparent",
-            borderRadius: 8,
-        }),
+        color: theme.colors.dark[0],
+        fontSize: 24,
     },
     priceWithoutDiscount: {
         fontWeight: 400,

@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { List as ListComponent, ListProps as TListProps } from "@components/List";
 import { CourseFromList, GetCoursesResponse, useCourses } from "@entities/course";
 import { EmptyData } from "@shared/ui";
@@ -11,7 +11,6 @@ import { Card } from "../Card";
 
 export interface ListProps extends BoxProps, Pick<TListProps<CourseFromList>, "colProps" | "withPagination"> {
     collectionIds?: string;
-    perPage?: number;
     isFavorite?: boolean;
     isPopular?: boolean;
     headerSlot?: ReactNode | ((data: { data?: GetCoursesResponse }) => ReactNode);
@@ -19,20 +18,24 @@ export interface ListProps extends BoxProps, Pick<TListProps<CourseFromList>, "c
     skeletonListProps?: SkeletonProps;
     wrapperProps?: FlexProps;
     visible?: boolean;
+    setTotalCoursesCount?: React.Dispatch<React.SetStateAction<number>>;
+    visibleCourses?: number;
+    perPage?: number;
 }
 
 const List = ({
     collectionIds,
     headerSlot,
     footerSlot,
-    colProps = { md: 4, sm: 6 },
-    perPage = 6,
+    colProps = { md: 4, sm: 12 },
     isFavorite,
     isPopular,
     withPagination = false,
     skeletonListProps,
     wrapperProps,
     visible = true,
+    setTotalCoursesCount,
+    visibleCourses = 6,
     ...props
 }: ListProps) => {
     const router = useRouter();
@@ -43,9 +46,17 @@ const List = ({
         isFetching,
         isLoading,
     } = useCourses(
-        adaptGetCoursesRequest({ ...initialParams, ...params, perPage, isFavorite, isPopular, collectionIds }),
+        adaptGetCoursesRequest({ ...initialParams, ...params, isFavorite, isPopular, collectionIds }),
         !!visible && router.isReady
     );
+
+    // Установка общего количества курсов
+    // TODO: Тестово указал perPage как количество курсов, тк total не возвращает сразу все курсы при запросе
+    useEffect(() => {
+        if (coursesData && coursesData.pagination && setTotalCoursesCount) {
+            setTotalCoursesCount(coursesData.pagination.perPage || 0);
+        }
+    }, [coursesData, setTotalCoursesCount]);
 
     if (!isLoading && !coursesData?.data.length && isPopular) {
         return null;
@@ -69,10 +80,12 @@ const List = ({
             return <EmptyData title="У вас нет избранных курсов" description="Добавьте курсы в избранные на странице курсов или курса" />;
         }
 
+        const visibleCoursesData = coursesData?.data.slice(0, visibleCourses);
+
         return (
             <Box {...props} w="100%">
                 <ListComponent<CourseFromList>
-                    data={coursesData?.data}
+                    data={visibleCoursesData}
                     renderItem={(props) => <Card {...props} buttonVariant="favorite" />}
                     colProps={colProps}
                     withPagination={withPagination}

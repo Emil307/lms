@@ -1,17 +1,16 @@
-import { Box, Flex, BoxProps, ThemeIcon } from "@mantine/core";
+import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
-import { AlertTriangle, AlignLeft, Type, Image as ImageIcon } from "react-feather";
-import { closeModal, openModal } from "@mantine/modals";
+import { AlignLeft, Type } from "react-feather";
 import { useRouter } from "next/router";
-import { FControlButtons, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
+import { FControlButtons, FFileInput, FInput, FSwitch, FTextarea, ManagedForm, Paragraph } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
-import { ToastType, createNotification, getIcon } from "@shared/utils";
+import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
-import { SelectIconModal } from "@features/externalIcons";
 import { initialValues } from "./constants";
 import { $CreateCourseCollectionFormValidation, CreateCourseCollectionFormValidation } from "./types";
 import useStyles from "./CreateCourseCollectionForm.styles";
+import { adaptCreateCoursCollectionFormRequest } from "@features/courseCollections/CreateCourseCollectionForm/utils";
 
 export interface CreateCourseCollectionFormProps extends BoxProps {
     onClose: () => void;
@@ -22,7 +21,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
     const { classes } = useStyles();
 
     const createCourseCollection = (values: CreateCourseCollectionFormValidation) => {
-        return courseCollectionApi.createAdminCourseCollection(values);
+        return courseCollectionApi.createAdminCourseCollection(adaptCreateCoursCollectionFormRequest(values));
     };
 
     const onSuccess = (response: CreateAdminCourseCollectionResponse) => {
@@ -41,14 +40,6 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
         });
     };
 
-    const renderIconError = (error?: string) =>
-        error && (
-            <Flex className={classes.wrapperIconError}>
-                <AlertTriangle />
-                <Paragraph variant="text-smaller">{error}</Paragraph>
-            </Flex>
-        );
-
     return (
         <Box {...props}>
             <ManagedForm<CreateCourseCollectionFormValidation, CreateAdminCourseCollectionResponse>
@@ -59,31 +50,8 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                 mutationFunction={createCourseCollection}
                 onSuccess={onSuccess}
                 onError={onError}>
-                {({ values, setFieldValue, errors }) => {
+                {({ values }) => {
                     const labelActivitySwitch = values.isActive ? "Деактивировать" : "Активировать";
-                    const icon = getIcon({ iconName: values.iconName });
-
-                    const handleCloseSelectIconModal = () => closeModal("SELECT_ICON");
-
-                    const handleSubmitSelectIconModal = (iconName?: string) => {
-                        setFieldValue("iconName", iconName);
-                        closeModal("SELECT_ICON");
-                    };
-
-                    const openSelectIconModal = () => {
-                        openModal({
-                            modalId: "SELECT_ICON",
-                            title: "Изображение подборки",
-                            children: (
-                                <SelectIconModal
-                                    initialSelectedIcon={values.iconName}
-                                    onSubmit={handleSubmitSelectIconModal}
-                                    onClose={handleCloseSelectIconModal}
-                                />
-                            ),
-                            size: 912,
-                        });
-                    };
 
                     return (
                         <Flex direction="column" gap={32}>
@@ -94,15 +62,15 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
                             <Box>
-                                <Flex className={classes.wrapperIcon} onClick={openSelectIconModal}>
-                                    {icon}
-                                    <Box className={classes.imageBack}>
-                                        <ThemeIcon className={classes.control}>
-                                            <ImageIcon />
-                                        </ThemeIcon>
-                                    </Box>
-                                </Flex>
-                                {renderIconError(errors.iconName)}
+                                <FFileInput
+                                    className={classes.imageInput}
+                                    name="cover"
+                                    title="Изменить фото"
+                                    type="image"
+                                    fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
+                                    withDeleteButton
+                                    description="До 1Mb"
+                                />
                             </Box>
                             <Fieldset label="Заголовок" icon={<Type />} maw={512} legendProps={{ mb: 24 }}>
                                 <FInput name="name" label="Название подборки" size="sm" w="100%" />
