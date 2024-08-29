@@ -5,11 +5,7 @@ import { GetTransactionsFiltersResponse, transactionApi } from "@entities/transa
 import { FormErrorResponse } from "@shared/types";
 
 export const useTransactionFilters = (): UseQueryResult<GetTransactionsFiltersResponse, AxiosError<FormErrorResponse>> => {
-    return useQuery(
-        [
-            QueryKeys.GET_TRANSACTIONS_FILTERS,
-            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
-        ],
-        () => transactionApi.getTransactionsFilters()
+    return useQuery([QueryKeys.GET_TRANSACTIONS_FILTERS, [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE]], () =>
+        transactionApi.getTransactionsFilters()
     );
 };

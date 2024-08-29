@@ -9,10 +9,7 @@ export const useAdminTransactionReportFilters = (): UseQueryResult<
     AxiosError<FormErrorResponse>
 > => {
     return useQuery(
-        [
-            QueryKeys.GET_ADMIN_TRANSACTION_REPORT_FILTERS,
-            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
-        ],
+        [QueryKeys.GET_ADMIN_TRANSACTION_REPORT_FILTERS, [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE]],
         () => reportApi.getAdminTransactionReportFilters()
     );
 };

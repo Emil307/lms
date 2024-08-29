@@ -36,10 +36,7 @@ const List = () => {
     return (
         <Box>
             <ManagedDataGrid<AdminCourseFromList, Partial<AdminCoursesFiltersForm>>
-                queryKey={[
-                    QueryKeys.GET_ADMIN_COURSES,
-                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
-                ]}
+                queryKey={[QueryKeys.GET_ADMIN_COURSES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER]]}
                 queryFunction={(params) => courseApi.getAdminCourses(adaptGetAdminCoursesRequest(params))}
                 queryCacheKeys={[
                     "page",

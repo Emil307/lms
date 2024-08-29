@@ -56,13 +56,6 @@ export const keysInvalidateQueries: InvalidateQueriesKey[] = [
     },
     {
         queryKey: [
-            QueryKeys.GET_ADMIN_COURSE_PACKAGE_RESOURCES,
-            [EntityNames.ARTICLE_PACKAGE, EntityNames.COURSE],
-            { type: FilterTypes.MANIPULATION },
-        ],
-    },
-    {
-        queryKey: [
             QueryKeys.GET_ADMIN_COURSE_REVIEW_RESOURCES,
             [EntityNames.COURSE_REVIEW, EntityNames.COURSE],
             { type: FilterTypes.MANIPULATION },

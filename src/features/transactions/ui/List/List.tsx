@@ -18,10 +18,7 @@ const List = (props: ListProps) => {
     return (
         <Box className={classes.root} {...props}>
             <ManagedDataGrid<TransactionFromList, TransactionsFiltersForm>
-                queryKey={[
-                    QueryKeys.GET_TRANSACTIONS,
-                    [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
-                ]}
+                queryKey={[QueryKeys.GET_TRANSACTIONS, [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE]]}
                 queryFunction={(params) => transactionApi.getTransactions(adaptGetTransactionsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "entityType", "paymentType", "createdAtFrom", "createdAtTo", "status"]}
                 filter={{

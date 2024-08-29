@@ -18,7 +18,6 @@ export const useCourses = (
                 EntityNames.GROUP,
                 EntityNames.TAG,
                 EntityNames.COURSE_COLLECTION,
-                EntityNames.COURSE_PACKAGE,
             ],
             data,
         ],

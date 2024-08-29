@@ -8,7 +8,7 @@ export const useAdminStudentReportFilters = (): UseQueryResult<GetAdminStudentRe
     return useQuery(
         [
             QueryKeys.GET_ADMIN_STUDENT_REPORT_FILTERS,
-            [EntityNames.STUDENT_REPORT, EntityNames.STUDENT, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
+            [EntityNames.STUDENT_REPORT, EntityNames.STUDENT, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE],
         ],
         () => reportApi.getAdminStudentReportFilters()
     );

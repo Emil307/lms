@@ -9,10 +9,7 @@ export const useAdminTransactionCreateResources = (): UseQueryResult<
     AxiosError<FormErrorResponse>
 > => {
     return useQuery(
-        [
-            QueryKeys.GET_ADMIN_TRANSACTION_CREATE_RESOURCES,
-            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
-        ],
+        [QueryKeys.GET_ADMIN_TRANSACTION_CREATE_RESOURCES, [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE]],
         () => transactionApi.getAdminTransactionsCreateResources()
     );
 };

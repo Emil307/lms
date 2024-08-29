@@ -6,10 +6,7 @@ import { FormErrorResponse } from "@shared/types";
 
 export const useAdminTransactionFilters = (): UseQueryResult<GetAdminTransactionsFiltersResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
-        [
-            QueryKeys.GET_ADMIN_TRANSACTIONS_FILTERS,
-            [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.COURSE_PACKAGE, EntityNames.ARTICLE_PACKAGE],
-        ],
+        [QueryKeys.GET_ADMIN_TRANSACTIONS_FILTERS, [EntityNames.TRANSACTION, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE]],
         () => transactionApi.getAdminTransactionsFilters()
     );
 };

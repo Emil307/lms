@@ -10,14 +10,7 @@ export const useAdminTransaction = ({
     return useQuery(
         [
             QueryKeys.GET_ADMIN_TRANSACTION,
-            [
-                EntityNames.TRANSACTION,
-                EntityNames.USER,
-                EntityNames.STUDENT,
-                EntityNames.COURSE,
-                EntityNames.COURSE_PACKAGE,
-                EntityNames.ARTICLE_PACKAGE,
-            ],
+            [EntityNames.TRANSACTION, EntityNames.USER, EntityNames.STUDENT, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE],
             id,
         ],
         () => transactionApi.getAdminTransaction({ id }),

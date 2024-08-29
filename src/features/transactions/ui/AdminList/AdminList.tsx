@@ -27,13 +27,7 @@ const AdminList = (props: AdminListProps) => {
             <ManagedDataGrid<AdminTransactionFromList, AdminTransactionsFiltersForm>
                 queryKey={[
                     QueryKeys.GET_ADMIN_TRANSACTIONS,
-                    [
-                        EntityNames.TRANSACTION,
-                        EntityNames.USER,
-                        EntityNames.COURSE,
-                        EntityNames.COURSE_PACKAGE,
-                        EntityNames.ARTICLE_PACKAGE,
-                    ],
+                    [EntityNames.TRANSACTION, EntityNames.USER, EntityNames.COURSE, EntityNames.ARTICLE_PACKAGE],
                 ]}
                 queryFunction={(params) => transactionApi.getAdminTransactions(adaptGetAdminTransactionsRequest(params))}
                 queryCacheKeys={["page", "perPage", "sort", "query", "entityType", "paymentType", "createdAtFrom", "createdAtTo", "status"]}

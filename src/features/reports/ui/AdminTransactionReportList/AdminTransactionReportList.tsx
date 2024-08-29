@@ -40,7 +40,6 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                         EntityNames.STUDENT,
                         EntityNames.USER,
                         EntityNames.COURSE,
-                        EntityNames.COURSE_PACKAGE,
                         EntityNames.ARTICLE_PACKAGE,
                     ],
                 ]}

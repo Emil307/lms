@@ -41,10 +41,7 @@ export const useUpdateCourseActivity = ({
                 ],
             });
             await queryClient.cancelQueries({
-                queryKey: [
-                    QueryKeys.GET_ADMIN_COURSES,
-                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
-                ],
+                queryKey: [QueryKeys.GET_ADMIN_COURSES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER]],
             });
 
             const previousCourseData = queryClient.getQueryData<GetAdminCourseResponse>([
@@ -61,7 +58,7 @@ export const useUpdateCourseActivity = ({
             ]);
             const previousCoursesData = queryClient.getQueriesData<GetAdminCoursesResponse>([
                 QueryKeys.GET_ADMIN_COURSES,
-                [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
+                [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
             ]);
 
             queryClient.setQueryData<GetAdminCourseResponse>(
@@ -81,10 +78,7 @@ export const useUpdateCourseActivity = ({
             );
 
             queryClient.setQueriesData<GetAdminCoursesResponse>(
-                [
-                    QueryKeys.GET_ADMIN_COURSES,
-                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
-                ],
+                [QueryKeys.GET_ADMIN_COURSES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER]],
                 (previousData) => {
                     if (!previousData) {
                         return undefined;
@@ -119,10 +113,7 @@ export const useUpdateCourseActivity = ({
             }
             if (context?.previousCoursesData) {
                 queryClient.setQueriesData(
-                    [
-                        QueryKeys.GET_ADMIN_COURSES,
-                        [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_PACKAGE],
-                    ],
+                    [QueryKeys.GET_ADMIN_COURSES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER]],
                     context.previousCoursesData
                 );
             }
@@ -149,7 +140,6 @@ export const useUpdateCourseActivity = ({
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSE_COLLECTION_RESOURCES]);
             //[entityName] has article
             queryClient.invalidateQueries([QueryKeys.GET_TEACHER_COURSES]);
-            queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_PACKAGE]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSES_FROM_NO_COURSE_COLLECTION]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_COURSES_FROM_COURSE_COLLECTION]);
             queryClient.invalidateQueries([QueryKeys.GET_ADMIN_ARTICLE_COURSES]);
