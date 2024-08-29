@@ -28,7 +28,7 @@ export default createStyles((theme) => ({
         flex: "0 0 auto",
     },
     wrapperContent: {
-        maxWidth: 1320,
+        maxWidth: 1920,
         marginInline: "auto",
         paddingTop: 32,
         paddingBottom: 96,

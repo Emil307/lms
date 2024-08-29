@@ -1,5 +1,5 @@
-import { UpdateCourseCollectionFormValidation } from "./types";
 import { UpdateAdminCourseCollectionRequest } from "@entities/courseCollection";
+import { UpdateCourseCollectionFormValidation } from "./types";
 
 export const adaptUpdateCourseCollectionForm = (
     id: string,

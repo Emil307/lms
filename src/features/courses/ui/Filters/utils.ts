@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { CoursesFiltersForm } from "@entities/course";
 import { TRouterQueries } from "./types";
 
-export const getInitialValues = (discountPrice?: number): CoursesFiltersForm => ({
+export const getInitialValues = (discountPrice?: number[]): CoursesFiltersForm => ({
     query: "",
     hasDiscount: false,
     tags: [],
@@ -11,7 +11,7 @@ export const getInitialValues = (discountPrice?: number): CoursesFiltersForm => 
     isFavorite: false,
     collectionIds: "",
     packageIds: [],
-    discountPrice: discountPrice ?? 0,
+    discountPrice: discountPrice ?? [0],
 });
 
 export const prepareQueryParams = (values: CoursesFiltersForm): Record<string, any> => {
@@ -36,7 +36,7 @@ export const adaptCourseFiltersForm = (queryParams: TRouterQueries): Partial<Cou
         tags: Array.isArray(tags) ? tags : [tags],
         subcategoryIds: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
         packageIds: Array.isArray(packageIds) ? packageIds : [packageIds],
-        discountPrice: discountPrice ? Number(discountPrice) : undefined,
+        discountPrice: discountPrice ? discountPrice : undefined,
         hasDiscount: hasDiscount === "true",
     };
 };

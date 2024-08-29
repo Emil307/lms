@@ -730,7 +730,7 @@ export const $CoursesFiltersForm = z.object({
     isFavorite: z.boolean(),
     collectionIds: z.string(),
     packageIds: z.array(z.string()),
-    discountPrice: z.number(),
+    discountPrice: z.array(z.number()),
 });
 
 export const $CoursesRequest = z.object({

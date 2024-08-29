@@ -109,7 +109,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                 };
                 return (
                     <Box>
-                        <Paragraph variant="text-small-semi" mb={16}>
+                        <Paragraph variant="text-small-semi" mb={16} opacity={0.5}>
                             {filterName}
                         </Paragraph>
                         <Flex className={classes.filterContainer}>
@@ -132,7 +132,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                                 maxHeight={maxHeightSpoilerContainer}
                                 showLabel={showLabel()}
                                 hideLabel={hideLabel}>
-                                <Flex ref={spoilerContentRef} direction="column" gap={HEIGHT_CONTENT_INDENT}>
+                                <Flex ref={spoilerContentRef} wrap={"wrap"} gap={HEIGHT_CONTENT_INDENT}>
                                     {renderItems}
                                 </Flex>
                             </MSpoiler>

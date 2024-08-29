@@ -2,9 +2,10 @@ import { createStyles } from "@mantine/core";
 
 interface CreateStylesParams {
     selected?: boolean;
+    isSelected?: boolean;
 }
 
-export default createStyles((theme, { selected }: CreateStylesParams) => ({
+export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
     tooltip: {
         display: "flex",
         alignItems: "center",
@@ -27,7 +28,20 @@ export default createStyles((theme, { selected }: CreateStylesParams) => ({
         },
     },
     tooltipInner: {
-        width: selected ? "calc(100% - 48px)" : "100%",
         transition: "width 0.1s",
+        width: "fit-content",
+        paddingBlock: 12,
+        paddingInline: 16,
+        borderRadius: 12,
+        backgroundColor: isSelected ? theme.colors.dark[0] : theme.colors.white[0],
+        cursor: "pointer",
+        border: `1px solid ${theme.colors.dark[0]}`,
+    },
+    button: {
+        color: isSelected ? theme.colors.white[0] : theme.colors.dark[0],
+
+        [theme.fn.smallerThan("md")]: {
+            whiteSpace: "nowrap",
+        },
     },
 }));

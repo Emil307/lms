@@ -4,7 +4,6 @@ import { useField } from "formik";
 import { CourseCategory } from "@entities/course";
 import { CategoryItem } from "./components";
 import useStyles from "./CategoryFilterList.styles";
-import { categoryAll } from "./constants";
 
 export interface CategoryFilterListProps extends FlexProps {
     name: string;
@@ -18,10 +17,16 @@ const CategoryFilterList = ({ data, name, onSubmit, ...props }: CategoryFilterLi
 
     const handleSelectCategory = (id: number) => {
         if (!id) {
-            helpers.setValue("");
+            helpers.setValue(null);
             return onSubmit?.();
         }
-        helpers.setValue(String(id));
+
+        if (field.value === id) {
+            helpers.setValue(null);
+        } else {
+            helpers.setValue(String(id));
+        }
+
         onSubmit?.();
     };
 
@@ -29,7 +34,9 @@ const CategoryFilterList = ({ data, name, onSubmit, ...props }: CategoryFilterLi
         () =>
             data?.map((category) => {
                 const isActive = field.value === category.id.toString();
-                return <CategoryItem key={category.id} data={category} isActive={isActive} onClick={handleSelectCategory} />;
+                return (
+                    <CategoryItem key={category.id} data={category} isActive={isActive} onClick={() => handleSelectCategory(category.id)} />
+                );
             }),
         [data, field.value]
     );
@@ -40,7 +47,6 @@ const CategoryFilterList = ({ data, name, onSubmit, ...props }: CategoryFilterLi
 
     return (
         <Flex {...props} className={classes.root}>
-            <CategoryItem key={categoryAll.id} data={categoryAll} isActive={!field.value} onClick={handleSelectCategory} />
             {renderItems}
         </Flex>
     );

@@ -37,11 +37,18 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
     addFilter("category.id", categoryId);
 
     if (discountPrice) {
-        const formattedPrice = parseFloat(discountPrice) * 100;
-        addFilter("discountPrice", {
-            items: [formattedPrice.toString()],
-            operator: "lte",
-        });
+        const prices = Array.isArray(discountPrice) ? discountPrice.map(parseFloat) : [parseFloat(discountPrice)];
+        if (prices.length === 1) {
+            addFilter("discountPrice", {
+                items: [prices[0].toString()],
+                operator: "lte",
+            });
+        } else if (prices.length === 2) {
+            addFilter("discountPrice", {
+                items: [(prices[0] * 100).toString(), (prices[1] * 100).toString()],
+                operator: "between",
+            });
+        }
     }
 
     addArrayFilter("tagIds", tags);

@@ -13,7 +13,6 @@ export default createStyles((theme) => ({
     },
     titleSearch: {
         width: "100%",
-        maxWidth: 264,
         alignSelf: "self-end",
 
         [theme.fn.smallerThan("xs")]: {
@@ -21,11 +20,14 @@ export default createStyles((theme) => ({
         },
     },
     content: {
+        flexDirection: "column",
+        maxHeight: "70svh",
+        overflowY: "auto",
         gap: 40,
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
-            gap: 48,
+            maxHeight: "60svh",
         },
     },
     wrapperFiltersBlock: {
@@ -35,7 +37,8 @@ export default createStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        maxWidth: 264,
+        maxHeight: 912,
+        overflowY: "auto",
         gap: 32,
 
         [theme.fn.smallerThan("md")]: {
@@ -57,11 +60,36 @@ export default createStyles((theme) => ({
 
     buttonsFormContainer: {
         alignItems: "center",
-        justifyContent: "center",
-        gap: 8,
+        justifyContent: "space-between",
+        width: "100%",
+        maxWidth: 402,
+        position: "absolute",
+        bottom: 24,
+        left: 24,
 
         [theme.fn.smallerThan("md")]: {
-            justifyContent: "flex-start",
+            maxWidth: "calc(100svw - 36px)",
+            justifyContent: "space-between",
         },
+    },
+    searchButton: {
+        borderRadius: 56,
+        minWidth: 117,
+        minHeight: 56,
+        padding: "16px 32px",
+        fontSize: 18,
+        fontWeight: 500,
+        lineHeight: "24px",
+        backgroundColor: theme.colors.dark[0],
+        color: theme.colors.white,
+    },
+    resetButton: {
+        borderRadius: 56,
+        minWidth: 117,
+        minHeight: 56,
+        padding: "16px 32px",
+        fontSize: 18,
+        fontWeight: 500,
+        lineHeight: "24px",
     },
 }));

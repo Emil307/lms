@@ -1,10 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-interface CreateStylesProps {
-    isActive: boolean;
-}
-
-export default createStyles((theme, { isActive }: CreateStylesProps) => ({
+export default createStyles((theme, isActive: boolean) => ({
     root: {
         width: "fit-content",
         paddingBlock: 12,

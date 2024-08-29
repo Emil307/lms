@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        flexDirection: "column",
+        flexWrap: "wrap",
         gap: 8,
         wordBreak: "break-word",
 
@@ -13,7 +13,6 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("md")]: {
             flexDirection: "row",
             width: "100%",
-            overflowX: "auto",
         },
     },
 }));

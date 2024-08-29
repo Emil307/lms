@@ -1,136 +1,94 @@
-import { ActionIcon, Box, Collapse, Flex, FlexProps, MediaQuery } from "@mantine/core";
+import { Box, Flex, FlexProps } from "@mantine/core";
 import { FormikConfig } from "formik";
-import { IconFilter, IconFilterOff } from "@tabler/icons-react";
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { Button, FSearch, FSlider, FSwitch, Form, Paragraph, Loader } from "@shared/ui";
-import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
-import { useMedia } from "@shared/utils";
+import { Button, Form, Paragraph, Loader } from "@shared/ui";
+import { CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { FilterTypes } from "@shared/constant";
-import { CategoryFilterList, FilterList, ToggleFilterButton } from "./components";
-import { adaptCourseFiltersForm, getCountAppliedQueries, getInitialValues, prepareQueryParams } from "./utils";
+import PriceRangeInput from "@shared/ui/Forms/PriceRangeInput/PriceRangeInput";
+import { DiscountFilter } from "@features/courses/ui/Filters/components/DiscountFilter";
+import { CategoryFilterList, FilterList } from "./components";
+import { getCountAppliedQueries, getInitialValues } from "./utils";
 import { TRouterQueries } from "./types";
 import useStyles from "./Filters.styles";
 
 export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
-    title: ReactNode;
+    title?: ReactNode;
+    config: FormikConfig<CoursesFiltersForm>;
 }
 
 const Filters = ({ children, title, ...props }: FiltersProps) => {
     const { classes } = useStyles();
-    const [openedFilters, setOpenedFilters] = useState(false);
     const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 
-    const isTablet = useMedia("md");
-
-    useEffect(() => {
-        if (isTablet) {
-            return setOpenedFilters(false);
-        }
-        return setOpenedFilters(true);
-    }, [isTablet]);
-
-    const handleToggleVisibilityFilters = () => setOpenedFilters((prevState) => !prevState);
     if (isLoading || !courseResources) {
         return <Loader size="lg" />;
     }
 
-    const config: FormikConfig<CoursesFiltersForm> = {
-        initialValues: { ...getInitialValues(courseResources.prices.highest), ...adaptCourseFiltersForm(queryParams) },
-        validationSchema: $CoursesFiltersForm.partial(),
-        enableReinitialize: true,
-        onSubmit: (values) => {
-            router.push(
-                {
-                    pathname: router.pathname,
-                    query: { ...router.query, ...prepareQueryParams(values), page: "1" },
-                },
-                undefined,
-                { shallow: true }
-            );
-        },
-    };
-
     return (
         <Box {...props}>
-            <Form config={config} disableOverlay={false}>
+            <Form config={props.config} disableOverlay={false}>
                 {({ resetForm }) => {
                     const handleResetForm = () => {
-                        resetForm({ values: getInitialValues(courseResources.prices.highest) });
+                        resetForm({ values: getInitialValues([courseResources.prices.highest]) });
 
                         router.push({ pathname: router.pathname, query: { page: "1" } }, undefined, { shallow: true });
                     };
 
-                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues(courseResources.prices.highest));
+                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues([courseResources.prices.highest]));
 
                     const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
                     return (
-                        <>
-                            <Flex className={classes.wrapperTitle}>
-                                {title}
-                                <FSearch name="query" placeholder="Область, тематика" className={classes.titleSearch} />
-                            </Flex>
-
+                        <Box h="100%">
                             <Flex className={classes.content}>
                                 <Flex className={classes.filtersBlock}>
+                                    <Paragraph variant="text-small-semi" opacity={0.5}>
+                                        Категория
+                                    </Paragraph>
                                     <CategoryFilterList name="categoryId" data={courseResources.categories} />
 
-                                    <MediaQuery largerThan="md" styles={{ display: "none" }}>
-                                        <ToggleFilterButton
-                                            isOpened={openedFilters}
-                                            onClick={handleToggleVisibilityFilters}
-                                            countAppliedQueries={countAppliedQueries}
+                                    <Flex className={classes.filtersBlockCollapseInner}>
+                                        <FilterList
+                                            field="subcategoryIds"
+                                            filterName="Тематика"
+                                            searchPlaceholder="Найти тематики"
+                                            labelsPluralString={["тематика", "тематики", "тематик"]}
+                                            data={courseResources.subcategories}
                                         />
-                                    </MediaQuery>
-
-                                    <Collapse in={openedFilters} className={classes.wrapperFiltersBlock}>
-                                        <Flex className={classes.filtersBlockCollapseInner}>
-                                            <FilterList
-                                                field="subcategoryIds"
-                                                filterName="Тематика"
-                                                searchPlaceholder="Найти тематики"
-                                                labelsPluralString={["тематика", "тематики", "тематик"]}
-                                                data={courseResources.subcategories}
-                                                isVisible={openedFilters}
+                                        <FilterList
+                                            field="tags"
+                                            filterName="Теги"
+                                            searchPlaceholder="Найти теги"
+                                            labelsPluralString={["тег", "тега", "тегов"]}
+                                            data={courseResources.tags}
+                                        />
+                                        <Flex direction="column" gap={16}>
+                                            <Paragraph variant="text-small-semi" opacity={0.5}>
+                                                Цена
+                                            </Paragraph>
+                                            <PriceRangeInput
+                                                name="discountPrice"
+                                                min={courseResources.prices.lowest || 0}
+                                                max={courseResources.prices.highest || 0}
                                             />
-                                            <FilterList
-                                                field="tags"
-                                                filterName="Теги"
-                                                searchPlaceholder="Найти теги"
-                                                labelsPluralString={["тег", "тега", "тегов"]}
-                                                data={courseResources.tags}
-                                                isVisible={openedFilters}
-                                            />
-                                            <Flex direction="column" gap={16}>
-                                                <Paragraph variant="text-small-semi">Цена</Paragraph>
-                                                <FSlider
-                                                    name="discountPrice"
-                                                    labelAlwaysOn
-                                                    min={courseResources.prices?.lowest || 0}
-                                                    max={courseResources.prices?.highest || 0}
-                                                    showTextInfo
-                                                />
-                                            </Flex>
-                                            <FSwitch name="hasDiscount" variant="primary" label="Курс со скидкой" labelPosition="left" />
-                                            <Flex className={classes.buttonsFormContainer}>
-                                                <Button type="submit" variant="white" leftIcon={<IconFilter />}>
-                                                    Подобрать
-                                                </Button>
-                                                {isDirty && (
-                                                    <ActionIcon onClick={handleResetForm}>
-                                                        <IconFilterOff />
-                                                    </ActionIcon>
-                                                )}
-                                            </Flex>
                                         </Flex>
-                                    </Collapse>
+                                        <DiscountFilter name="hasDiscount" />
+                                    </Flex>
                                 </Flex>
-
-                                {children}
+                                <Flex className={classes.buttonsFormContainer}>
+                                    <Button className={classes.searchButton} type="submit" variant="secondary">
+                                        Показать
+                                    </Button>
+                                    {isDirty && (
+                                        <Button className={classes.resetButton} type="button" variant="secondary" onClick={handleResetForm}>
+                                            Сбросить
+                                        </Button>
+                                    )}
+                                </Flex>
                             </Flex>
-                        </>
+                        </Box>
                     );
                 }}
             </Form>

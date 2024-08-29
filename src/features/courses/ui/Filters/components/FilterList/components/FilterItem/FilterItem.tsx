@@ -1,9 +1,9 @@
 import { useFormikContext } from "formik";
-import { ChangeEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { Box, ThemeIcon } from "@mantine/core";
 import { IconFilter } from "@tabler/icons-react";
 import { CourseCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
-import { Checkbox, Tooltip } from "@shared/ui";
+import { Paragraph, Tooltip } from "@shared/ui";
 import useStyles from "./FilterItem.styles";
 
 export interface FilterItemProps {
@@ -14,38 +14,37 @@ export interface FilterItemProps {
 }
 
 const MemoizedFilterItem = function FilterItem({ field, data, selected, onChangeSelected = () => undefined }: FilterItemProps) {
-    const { classes } = useStyles({ selected });
     const { setFieldValue, values, handleSubmit, isSubmitting } = useFormikContext<CoursesFiltersForm>();
 
-    const isChecked = !![...values[field]].find((value) => value === data.id.toString());
+    const isSelected = !![...values[field]].find((value) => value === data.id.toString());
+    const { classes } = useStyles({ selected, isSelected });
 
-    //Нужен для сброса плавующей иконки фильтра при submit'e формы
+    //Нужен для сброса плавающей иконки фильтра при submit'е формы
     useEffect(() => {
         onChangeSelected(null);
     }, [isSubmitting]);
 
-    const handleChange = (newValue: ChangeEvent<HTMLInputElement>) => {
+    const handleButtonClick = () => {
         onChangeSelected(data.id);
 
-        if (newValue.target.checked) {
+        if (isSelected) {
+            setFieldValue(
+                field,
+                [...values[field]].filter((value) => value !== data.id.toString())
+            );
+        } else {
             const array = [...values[field]];
-
             array.push(String(data.id));
-            return setFieldValue(field, array);
+            setFieldValue(field, array);
         }
 
-        setFieldValue(
-            field,
-            [...values[field]].filter((value) => value !== data.id.toString())
-        );
+        handleSubmit();
     };
-
-    const handleIconSubmit = () => handleSubmit();
 
     return (
         <Tooltip
             label={
-                <ThemeIcon className={classes.filterIcon} onClick={handleIconSubmit}>
+                <ThemeIcon className={classes.filterIcon} onClick={handleButtonClick}>
                     <IconFilter />
                 </ThemeIcon>
             }
@@ -53,8 +52,10 @@ const MemoizedFilterItem = function FilterItem({ field, data, selected, onChange
             opened={selected}
             classNames={classes}
             events={{ hover: false, focus: true, touch: true }}>
-            <Box className={classes.tooltipInner}>
-                <Checkbox checked={isChecked} onChange={handleChange} label={data.name} />
+            <Box className={classes.tooltipInner} onClick={handleButtonClick}>
+                <Paragraph variant="text-small-semi" className={`${classes.button}`}>
+                    {data.name}
+                </Paragraph>
             </Box>
         </Tooltip>
     );

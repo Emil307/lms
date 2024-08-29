@@ -1,11 +1,11 @@
 import { Box, BoxProps, Flex, Group } from "@mantine/core";
 import { memo } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
 import { Button, Heading } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
-import Image from "next/image";
 import { CourseCollectionFromList } from "@entities/courseCollection";
 import useStyles from "./Card.styles";
-import { useRouter } from "next/router";
 
 export interface CardProps extends Omit<BoxProps, "children"> {
     data: CourseCollectionFromList;

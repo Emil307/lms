@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useAdvantages } from "@entities/staticPage";
 import { Paragraph } from "@shared/ui";
 import { useMedia } from "@shared/utils";
+import testIcon from "public/test-icon.png";
 import { initialParams } from "./constants";
 import useStyles from "./AdvantagesBlock.styles";
-import testIcon from "public/test-icon.png";
 
 export interface AdvantagesBlockProps extends Omit<BoxProps, "children"> {}
 

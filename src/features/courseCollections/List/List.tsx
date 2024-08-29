@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
@@ -5,7 +6,6 @@ import { ListProps as TListProps } from "@components/List";
 import { Heading, HeadingProps } from "@shared/ui";
 import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import { Card } from "../Card";
-import React from "react";
 import useStyles from "./List.styles";
 import { Carousel } from "@components/Carousel";
 
