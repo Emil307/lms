@@ -27,8 +27,6 @@ export type UpdateAdminUserResponse = z.infer<typeof $UpdateAdminUserResponse>;
 export type CreateUserRequest = z.infer<typeof $CreateUserRequest>;
 export type UpdateUserActivityRequest = z.infer<typeof $UpdateUserActivityRequest>;
 export type UpdateUserActivityResponse = z.infer<typeof $UpdateUserActivityResponse>;
-export type UpdateUserStaticRequest = z.infer<typeof $UpdateUserStaticRequest>;
-export type UpdateUserStaticResponse = z.infer<typeof $UpdateUserStaticResponse>;
 export type ChangeUserPasswordRequest = z.infer<typeof $ChangeUserPasswordRequest>;
 export type ChangeUserPasswordResponse = z.infer<typeof $ChangeUserPasswordResponse>;
 export type DeleteUserRequest = z.infer<typeof $DeleteUserRequest>;
@@ -55,7 +53,6 @@ export const $User = z.object({
     id: z.number(),
     email: z.string(),
     isActive: z.boolean().optional(),
-    isStatic: z.boolean(),
     profile: $Profile,
     roles: z.array($Role),
     notifications: $UserNotifications,
@@ -126,15 +123,6 @@ export const $UpdateUserActivityRequest = z.object({
 
 export const $UpdateUserActivityResponse = z.object({
     isActive: z.boolean(),
-});
-
-export const $UpdateUserStaticRequest = z.object({
-    id: z.string(),
-    isStatic: z.boolean(),
-});
-
-export const $UpdateUserStaticResponse = z.object({
-    isStatic: z.boolean(),
 });
 
 export const $GetUsersAdminFiltersResponse = z.object({

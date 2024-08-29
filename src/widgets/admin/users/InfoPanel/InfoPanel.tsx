@@ -1,10 +1,9 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
-import { Checkbox, Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
-import { useDetailsUser, useUpdateUserActivity, useUpdateUserStatic } from "@entities/user";
+import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
+import { useDetailsUser, useUpdateUserActivity } from "@entities/user";
 import { checkRoleOrder, getFullName } from "@shared/utils";
-import { Roles } from "@app/routes";
 import { useSession } from "@entities/auth";
 import { useInfoPanelStyles } from "./InfoPanel.styles";
 
@@ -22,12 +21,10 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
     const fio = getFullName({ data: data?.profile });
     const { mutate: updateActivityStatus } = useUpdateUserActivity({ id, fio });
-    const { mutate: updateStaticStatus } = useUpdateUserStatic({ id, fio });
 
     const labelActivitySwitch = data?.isActive ? "Деактивировать" : "Активировать";
 
     const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateActivityStatus(newValue.target.checked);
-    const handleChangeStaticStatus = (newValue: ChangeEvent<HTMLInputElement>) => updateStaticStatus(newValue.target.checked);
 
     return (
         <Box {...props}>
@@ -54,15 +51,6 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                             disabled={!isRoleOrder}
                         />
                     </Flex>
-                )}
-
-                {Roles.teacher === data?.roles[0].id && (
-                    <Checkbox
-                        label="Отображать на главной"
-                        checked={data.isStatic}
-                        onChange={handleChangeStaticStatus}
-                        className={classes.checkboxStatic}
-                    />
                 )}
                 <Flex gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">

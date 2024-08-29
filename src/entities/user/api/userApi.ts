@@ -26,9 +26,6 @@ import {
     $GetAdminStudentsResponse,
     UpdateUserActivityResponse,
     $UpdateUserActivityResponse,
-    UpdateUserStaticRequest,
-    UpdateUserStaticResponse,
-    $UpdateUserStaticResponse,
     DeleteUserRequest,
     DeleteUserResponse,
     $DeleteUserResponse,
@@ -61,11 +58,6 @@ export class UserApi extends BaseApi {
     async updateUserActivity({ id, isActive }: UpdateUserActivityRequest): Promise<UpdateUserActivityResponse> {
         const response = await this.instance.put(`auth/admin/users/${id}/activity-status`, { isActive });
         return $UpdateUserActivityResponse.parse(response);
-    }
-
-    async updateUserStatic({ id, isStatic }: UpdateUserStaticRequest): Promise<UpdateUserStaticResponse> {
-        const response = await this.instance.put(`auth/admin/users/${id}/static-status`, { isStatic });
-        return $UpdateUserStaticResponse.parse(response);
     }
 
     async showUser(id: string): Promise<UserDetailResponse> {
