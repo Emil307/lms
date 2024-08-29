@@ -89,7 +89,7 @@ const UpdateProfileForm = ({ data, isLoading, onEditPassword, ...props }: Update
                                         withAsterisk
                                     />
                                     <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
-                                    {(userRole === Roles.student || userRole === Roles.employee) && (
+                                    {userRole === Roles.student && (
                                         <FPhoneInput name="phone" label="Телефон" size="sm" withAsterisk miw={{ base: "100%", xs: 252 }} />
                                     )}
                                 </Flex>

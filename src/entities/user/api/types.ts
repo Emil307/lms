@@ -85,8 +85,6 @@ export const $CreateUserRequest = z.object({
     description: z.string().optional(),
     isActive: z.boolean(),
     roleId: z.number(),
-    // avatar: $UploadedFile.nullable(),
-    // additionalImage: $UploadedFile.nullable(),
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),
     notifications: z
@@ -100,7 +98,7 @@ export const $CreateUserRequest = z.object({
                 homeworkChecked: z.boolean(),
                 groupAdded: z.boolean(),
                 supportMessage: z.boolean(),
-            }),
+            })
         ),
 });
 
@@ -115,8 +113,6 @@ export const $UpdateAdminUserRequest = z.object({
     isActive: z.boolean(),
     roleId: z.string(),
     description: z.string().optional(),
-    // avatar: $UploadedFile.nullable(),
-    // additionalImage: $UploadedFile.nullable(),
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),
 });
@@ -206,7 +202,6 @@ export const $GetStaticUsersResponse = $getPaginationResponseType($StaticUserFro
 export const $AdminStudentsFiltersForm = z.object({
     query: z.string(),
     isActive: z.literal("1").or(z.literal("0")).or(z.literal("")),
-    roleName: z.string(),
 });
 
 export const $AdminStudentsRequest = z.object({
@@ -216,7 +211,6 @@ export const $AdminStudentsRequest = z.object({
             studentCourseIds: z.number(),
             studentGroupIds: $getMultiValueObjectType(z.string(), z.literal("not")),
             isActive: z.boolean(),
-            roleName: z.string(),
         })
         .partial(),
 });

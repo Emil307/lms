@@ -11,6 +11,5 @@ export const $UpdateStudentFormValidation = z.object({
     lastName: z.string({ required_error: "Это обязательное поле" }).max(32, "Должно быть не более 32 символов"),
     patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
     isActive: z.boolean(),
-    roleId: z.string(),
     avatar: $UploadedFile.nullable(),
 });

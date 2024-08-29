@@ -19,7 +19,7 @@ const StudentStatisticsDetails: NextPageWithLayout<NextPageWithLayoutProps> = ()
     useEffect(() => {
         if (data) {
             const rolesIds = data.roles.map(({ id }) => id);
-            if (!rolesIds.includes(Roles.student) && !rolesIds.includes(Roles.employee)) {
+            if (!rolesIds.includes(Roles.student)) {
                 router.replace(`/admin/users/${id}`);
             }
         }

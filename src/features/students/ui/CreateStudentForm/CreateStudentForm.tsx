@@ -2,25 +2,14 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import {
-    FAvatarInput,
-    FControlButtons,
-    FControlPanel,
-    FInput,
-    FPhoneInput,
-    FRadioGroup,
-    FSwitch,
-    ManagedForm,
-    Paragraph,
-    Radio,
-} from "@shared/ui";
-import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
+import { FAvatarInput, FControlButtons, FControlPanel, FInput, FPhoneInput, FSwitch, ManagedForm, Paragraph } from "@shared/ui";
+import { CreateUserResponse, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import { EntityNames, MutationKeys } from "@shared/constant";
-import { adaptCreateUserFormRequest, getInitialValuesForm } from "./utils";
+import { adaptCreateUserFormRequest } from "./utils";
 import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
-import { notificationLabels, notifications } from "./constants";
+import { initialValues, notificationLabels, notifications } from "./constants";
 import useStyles from "./CreateStudentForm.styles";
 
 export interface CreateStudentFormProps extends Omit<BoxProps, "children"> {
@@ -30,9 +19,6 @@ export interface CreateStudentFormProps extends Omit<BoxProps, "children"> {
 const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-
-    const { data: options } = useAdminStudentsFilters();
-    const defaultRole = String(options?.roles.at(0)?.id ?? 0);
 
     const createStudent = (values: CreateStudentValidationFormRequest) => {
         return userApi.createUser(adaptCreateUserFormRequest(values));
@@ -57,7 +43,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     return (
         <Box {...props}>
             <ManagedForm<CreateStudentValidationFormRequest, CreateUserResponse>
-                initialValues={getInitialValuesForm(defaultRole)}
+                initialValues={initialValues}
                 validationSchema={$CreateStudentValidationFormRequest}
                 mutationKey={[MutationKeys.CREATE_USER]}
                 invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STUDENT }}
@@ -96,11 +82,6 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />} legendProps={{ mb: 24 }} maw={772}>
                             <Flex direction="column" gap={24} w="100%">
-                                <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
-                                    {options?.roles.map((item) => (
-                                        <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
-                                    ))}
-                                </FRadioGroup>
                                 <Flex gap={8} wrap="wrap">
                                     <FInput name="email" label="Email" size="sm" className={classes.formInput} withAsterisk />
                                     <FInput

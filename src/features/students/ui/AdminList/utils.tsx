@@ -18,40 +18,33 @@ export const useStudentListData = (userRole: number = 0) => {
                 header: "ФИО",
                 accessorKey: "profile",
                 id: "fullName",
-                size: 339,
+                size: 452,
                 accessorFn: ({ profile }) => getFullName({ data: profile }),
-            },
-            {
-                header: "Роль",
-                accessorKey: "roles",
-                id: "roleName",
-                size: 339,
-                accessorFn: ({ roles }) => roles[0].displayName,
             },
             {
                 header: "Email",
                 accessorKey: "email",
-                size: 339,
+                size: 452,
             },
             {
                 header: "Статус",
                 accessorKey: "isActive",
                 access: [Roles.administrator, Roles.manager],
-                size: 339,
+                size: 452,
                 Cell: ({ cell }) => <>{cell.getValue() ? "Активен" : "Неактивен"}</>,
             },
         ];
     }, []);
 
     const columnOrder = useMemo(() => {
-        return ["id", "fullName", "roleName", "email", "isActive", "mrt-row-actions"];
+        return ["id", "fullName", "email", "isActive", "mrt-row-actions"];
     }, []);
 
     const filterInitialValues: Partial<AdminStudentsFiltersForm> = useMemo(() => {
         if (userRole === Roles.teacher) {
-            return { query: "", roleName: "" };
+            return { query: "" };
         }
-        return { isActive: "", query: "", roleName: "" };
+        return { isActive: "", query: "" };
     }, [userRole]);
 
     const renderBadge = useCallback(() => {
@@ -62,12 +55,11 @@ export const useStudentListData = (userRole: number = 0) => {
     }, [userRole]);
 
     const adaptGetAdminStudentsRequest = (params: TFunctionParams<AdminStudentsFiltersForm>): GetAdminStudentsRequest => {
-        const { isActive, roleName, ...rest } = params;
+        const { isActive, ...rest } = params;
 
         return {
             ...rest,
             filter: {
-                roleName,
                 ...(z.coerce.number().safeParse(isActive).success && {
                     isActive: isActive === "1",
                 }),

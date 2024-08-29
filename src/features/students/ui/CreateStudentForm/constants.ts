@@ -1,3 +1,5 @@
+import { CreateStudentValidationFormRequest } from "./types";
+
 export const notificationLabels = {
     newHomework: "Уведомлять о домашних заданиях требующих проверки",
     supportMessage: "Уведомлять о новых сообщениях в чате поддержки",
@@ -7,3 +9,22 @@ export const notificationLabels = {
 };
 
 export const notifications = ["homeworkChecked", "groupAdded", "supportMessage"];
+
+export const initialValues: CreateStudentValidationFormRequest = {
+    email: "",
+    phone: "",
+    password: "",
+    passwordConfirmation: "",
+    firstName: "",
+    lastName: "",
+    patronymic: "",
+    description: "",
+    isActive: false,
+    avatar: null,
+    additionalImage: null,
+    notifications: {
+        homeworkChecked: false,
+        groupAdded: false,
+        supportMessage: false,
+    },
+};

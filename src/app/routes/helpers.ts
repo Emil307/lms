@@ -14,7 +14,6 @@ export const isAccessAllowed = (userRole: number, newUrlPath: string) => {
             return isPathIncluded(managerPaths, newUrlPath);
         case Roles.teacher:
             return isPathIncluded(teacherPaths, newUrlPath);
-        case Roles.employee:
         case Roles.student:
             return isPathIncluded(studentPaths, newUrlPath);
         default:
@@ -28,7 +27,6 @@ export const getStartPage = (userRole?: number): Route => {
         case Roles.manager:
         case Roles.teacher:
             return { pathname: "/admin" };
-        case Roles.employee:
         case Roles.student:
             return { pathname: "/cabinet" };
         default:

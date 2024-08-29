@@ -84,13 +84,12 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
                     <DisplayField label="Имя" value={data?.profile.firstName} />
                     <DisplayField label="Отчество" value={data?.profile.patronymic} />
-                    {(data?.roles[0].id === Roles.student || data?.roles[0].id === Roles.employee) && (
+                    {data?.roles[0].id === Roles.student && (
                         <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: data.phone })} />
                     )}
                 </Fieldset>
 
                 <Fieldset label="Системные данные" icon={<Shield />}>
-                    <DisplayField label="Роль" value={data?.roles[0].displayName} />
                     <DisplayField label="Email" value={data?.email} />
                 </Fieldset>
 

@@ -62,7 +62,7 @@ export const $UpdateMeForm = z
     })
     .refine(
         (data) => {
-            if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
+            if (data.roleId !== Roles.student) {
                 return true;
             }
             return !!data.phone;
@@ -70,11 +70,11 @@ export const $UpdateMeForm = z
         {
             message: "Введите телефон",
             path: ["phone"],
-        },
+        }
     )
     .refine(
         (data) => {
-            if (data.roleId !== Roles.student && data.roleId !== Roles.employee) {
+            if (data.roleId !== Roles.student) {
                 return true;
             }
             return data.phone && data.phone.length === defaultPhoneLength;
@@ -82,7 +82,7 @@ export const $UpdateMeForm = z
         {
             message: `Должно быть ${defaultPhoneLength} цифр`,
             path: ["phone"],
-        },
+        }
     );
 
 export const $UpdateMeRequest = z

@@ -1,4 +1,4 @@
-export const getInitialValuesForm = (defaultRole: string) => ({
+export const initialValues = {
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -8,7 +8,6 @@ export const getInitialValuesForm = (defaultRole: string) => ({
     patronymic: "",
     description: "",
     isActive: false,
-    roleId: defaultRole,
     avatar: null,
     additionalImage: null,
-});
+};

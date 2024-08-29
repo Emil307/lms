@@ -4,25 +4,13 @@ import { Shield, User } from "react-feather";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
-import {
-    Button,
-    FAvatarInput,
-    FControlButtons,
-    FInput,
-    FPhoneInput,
-    FRadioGroup,
-    FSwitch,
-    LastUpdatedInfo,
-    ManagedForm,
-    Paragraph,
-    Radio,
-} from "@shared/ui";
-import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
+import { Button, FAvatarInput, FControlButtons, FInput, FPhoneInput, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
+import { UpdateAdminUserResponse, userApi, UserDetailResponse } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
 import { EntityNames, MutationKeys } from "@shared/constant";
-import { getInitialValuesForm } from "./constants";
+import { initialValues } from "./constants";
 import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
 import useStyles from "./UpdateStudentForm.styles";
 import { adaptDataUpdateStudentForm, adaptUpdateStudentRequest } from "./utils";
@@ -35,9 +23,6 @@ export interface UpdateStudentFormProps extends Omit<BoxProps, "children"> {
 const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
-    const { data: options } = useAdminStudentsFilters();
-
-    const currentRole = String(options?.roles.find((role) => role.id === data?.roles[0].id)?.id);
 
     const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
 
@@ -77,7 +62,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
     return (
         <Box {...props}>
             <ManagedForm<UpdateStudentFormValidation, UpdateAdminUserResponse>
-                initialValues={{ ...getInitialValuesForm(currentRole), ...adaptDataUpdateStudentForm(data) }}
+                initialValues={{ ...initialValues, ...adaptDataUpdateStudentForm(data) }}
                 validationSchema={$UpdateStudentFormValidation}
                 mutationKey={[MutationKeys.UPDATE_USER, String(data?.id)]}
                 invalidateQueriesWithPredicateParams={{ entityName: EntityNames.STUDENT }}
@@ -131,11 +116,6 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                         </Fieldset>
                         <Fieldset label="Системные данные" icon={<Shield />}>
                             <Flex direction="column" gap={16} w="100%">
-                                <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
-                                    {options?.roles.map((item) => (
-                                        <Radio size="md" key={item.id} label={item.displayName} value={String(item.id)} />
-                                    ))}
-                                </FRadioGroup>
                                 <Flex wrap="wrap" gap={8}>
                                     <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} disabled />
                                     <Button

@@ -1,10 +1,10 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import { MRT_Cell } from "mantine-react-table";
 import { useRouter } from "next/router";
-import { FSearch, FSelect, ManagedDataGrid, prepareOptionsForSelect, Button } from "@shared/ui";
+import { FSearch, ManagedDataGrid, Button } from "@shared/ui";
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { AdminStudentsFiltersForm, UserFromList } from "@entities/user/api/types";
-import { useAdminStudentsFilters, userApi } from "@entities/user";
+import { userApi } from "@entities/user";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
@@ -25,8 +25,6 @@ const AdminList = (props: AdminListProps) => {
 
     const { columns, columnOrder, filterInitialValues, adaptGetAdminStudentsRequest, renderBadge } = useStudentListData(userRole);
 
-    const studentFilters = useAdminStudentsFilters();
-
     const openUserDetailPage = (id: number) => router.push({ pathname: "/admin/students/[id]", query: { id: String(id) } });
 
     const handlerClickCell = (cell: MRT_Cell<UserFromList>) => {
@@ -38,7 +36,7 @@ const AdminList = (props: AdminListProps) => {
             <ManagedDataGrid<UserFromList, Partial<AdminStudentsFiltersForm>>
                 queryKey={[QueryKeys.GET_ADMIN_STUDENTS, [EntityNames.STUDENT]]}
                 queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
-                queryCacheKeys={["page", "perPage", "sort", "roleName", "isActive", "query"]}
+                queryCacheKeys={["page", "perPage", "sort", "isActive", "query"]}
                 filter={{
                     initialValues: filterInitialValues,
                 }}
@@ -59,19 +57,6 @@ const AdminList = (props: AdminListProps) => {
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
                                 <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
-                                <FSelect
-                                    name="roleName"
-                                    size="sm"
-                                    data={prepareOptionsForSelect({
-                                        data: studentFilters.data?.roles,
-                                        value: "name",
-                                        label: "displayName",
-                                    })}
-                                    clearable
-                                    label="Роль"
-                                    className={classes.filterSelect}
-                                    disabled={studentFilters.isLoading || !studentFilters.data?.roles.length}
-                                />
                             </Flex>
 
                             {userRole !== Roles.teacher && (

@@ -58,7 +58,7 @@ const ProfilePage = () => {
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
                         <DisplayField label="Отчество" value={userData?.profile.patronymic} />
-                        {(userRole === Roles.student || userRole === Roles.employee) && (
+                        {userRole === Roles.student && (
                             <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: userData?.phone })} />
                         )}
                     </Fieldset>

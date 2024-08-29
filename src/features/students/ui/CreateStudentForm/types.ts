@@ -16,7 +16,6 @@ export const $CreateStudentValidationFormRequest = z
         patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
         description: z.string().optional(),
         isActive: z.boolean(),
-        roleId: z.string(),
         avatar: $UploadedFile.nullable(),
         additionalImage: $UploadedFile.nullable(),
         avatarId: z.number().optional(),
