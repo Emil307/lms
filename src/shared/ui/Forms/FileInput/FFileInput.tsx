@@ -22,7 +22,9 @@ export default function FFileInput({ name, onLoad = () => undefined, onDeleteLoa
         helpers.setValue(null);
     };
 
-    const loadedFilesData = field.value ? [field.value] : [];
+    const loadedFilesData = useMemo(() => {
+        return field.value ? [field.value] : [];
+    }, [field.value]);
 
     return (
         <FileInput
