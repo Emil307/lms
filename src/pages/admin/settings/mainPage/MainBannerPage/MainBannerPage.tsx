@@ -18,7 +18,7 @@ const MainBannerPage = () => {
             case "advantages":
                 return router.push({ pathname: "/admin/settings/main-page/advantages" });
             default:
-                return router.push({ pathname: "/admin/settings/main-page/reviews" });
+                return router.push({ pathname: "/admin/settings/main-page/banner" });
         }
     };
 

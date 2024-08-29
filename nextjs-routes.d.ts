@@ -63,9 +63,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">
-    | StaticRoute<"/admin/settings/main-page/reviews/create">
-    | StaticRoute<"/admin/settings/main-page/reviews">
-    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
     | StaticRoute<"/admin/static-pages/about">
