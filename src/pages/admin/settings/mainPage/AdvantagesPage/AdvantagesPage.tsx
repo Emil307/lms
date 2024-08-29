@@ -34,7 +34,7 @@ const AdvantagesPage = () => {
             <Flex direction="column" gap={24}>
                 <Heading>Титульная страница</Heading>
                 <LastUpdatedInfo data={advantagesData?.meta.lastUpdated} />
-                <Tabs value={tabsList[2].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
+                <Tabs value={tabsList[1].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
                 <Prompt
                     isOpened={openedPrompt}
                     content="Данные из этого раздела используются для главного баннера на титульной странице."

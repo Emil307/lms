@@ -4,6 +4,6 @@ export const initialParams = {
 };
 
 export const tabsList = [
-    { id: 2, label: "Главный баннер", value: "banner" },
-    { id: 3, label: "Преимущества", value: "advantages" },
+    { id: 1, label: "Главный баннер", value: "banner" },
+    { id: 2, label: "Преимущества", value: "advantages" },
 ];

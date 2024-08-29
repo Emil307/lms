@@ -29,7 +29,7 @@ const MainBannerPage = () => {
             <Flex direction="column" gap={24}>
                 <Heading>Титульная страница</Heading>
                 <LastUpdatedInfo data={data?.lastUpdated} scrollable />
-                <Tabs value={tabsList[1].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
+                <Tabs value={tabsList[0].value} tabs={tabsList} onTabChange={handleChangeTab} maw={1162} />
                 <Prompt
                     isOpened={openedPrompt}
                     content="Данные из этого раздела используются для главного баннера на титульной странице."
