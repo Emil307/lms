@@ -1,4 +1,4 @@
-import { AdminCoursesForCoursePackageFiltersForm } from "@entities/course";
+import { AdminCoursesForArticlePackageFiltersForm } from "@entities/course";
 import { AdminArticleFromList } from "@entities/article";
 import { TColumns } from "@shared/ui/DataGrid/types";
 import { AttachArticlesToArticlePackageFormValidation } from "./types";
@@ -7,7 +7,7 @@ export const initialValues: AttachArticlesToArticlePackageFormValidation = {
     ids: [],
 };
 
-export const filterInitialValues: AdminCoursesForCoursePackageFiltersForm = {
+export const filterInitialValues: AdminCoursesForArticlePackageFiltersForm = {
     query: "",
     categoryId: "",
     subcategoryId: "",

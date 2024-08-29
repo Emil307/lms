@@ -13,7 +13,7 @@ export const $PaymentAcquiring = z.object({
     orderId: z.string(),
 });
 
-export const $PaymentEntityType = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
+export const $PaymentEntityType = z.literal("course").or(z.literal("articlePackage"));
 export const $PaymentService = z.literal("prodamus").or(z.literal("yookassa"));
 
 export const $CreatePaymentAcquiringRequest = z.object({

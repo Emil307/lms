@@ -10,7 +10,6 @@ export const publicPaths = [
     "/courses$",
     "/courses/(\\d+|\\[\\w+])$",
     "/course-collections",
-    "/course-packages",
     "/about",
     "/faq",
     "/contacts",

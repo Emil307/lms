@@ -20,8 +20,6 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: In
         switch (entityType) {
             case "course":
                 return paymentApi.createInvoiceForPaymentCourse({ ...values, entityId });
-            case "coursePackage":
-                return paymentApi.createInvoiceForPaymentCoursePackage({ ...values, entityId });
             case "articlePackage":
                 return paymentApi.createInvoiceForPaymentArticlePackage({ ...values, entityId });
         }

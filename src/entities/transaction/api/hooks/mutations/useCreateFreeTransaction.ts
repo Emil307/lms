@@ -12,8 +12,6 @@ export const useCreateFreeTransaction = (
         switch (data.entityType) {
             case "course":
                 return "Курс";
-            case "coursePackage":
-                return "Пакет курсов";
             case "articlePackage":
                 return "Пакет статей";
         }
@@ -22,8 +20,6 @@ export const useCreateFreeTransaction = (
         switch (data.entityType) {
             case "course":
                 return "курса";
-            case "coursePackage":
-                return "пакета курсов";
             case "articlePackage":
                 return "пакета статей";
         }
@@ -46,7 +42,7 @@ export const useCreateFreeTransaction = (
             createNotification({
                 type: ToastType.WARN,
                 title: `Ошибка покупки ${declensionEntityName}`,
-                message: error.response?.data.message
+                message: error.response?.data.message,
             });
         },
     });

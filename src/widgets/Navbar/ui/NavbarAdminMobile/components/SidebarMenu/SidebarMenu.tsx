@@ -148,12 +148,6 @@ export default function SidebarMenu() {
                 />
                 <SidebarItem
                     inner={true}
-                    label="Пакеты курсов"
-                    href="/admin/settings/course-packages"
-                    isActive={router.pathname.includes("/admin/settings/course-packages")}
-                />
-                <SidebarItem
-                    inner={true}
                     label="Пакеты базы знаний"
                     href="/admin/settings/article-packages"
                     isActive={router.pathname.includes("/admin/settings/article-packages")}

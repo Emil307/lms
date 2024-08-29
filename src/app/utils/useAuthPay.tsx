@@ -54,8 +54,6 @@ export const useAuthPay = ({ entityType, entityId, entityName, entityPrice }: Us
         switch (entityType) {
             case "course":
                 return `Получить доступ к курсу «${entityName}»`;
-            case "coursePackage":
-                return `Получить доступ к подборке курсов «${entityName}»`;
             case "articlePackage":
                 return `Получить доступ к подборке статей «${entityName}»`;
         }

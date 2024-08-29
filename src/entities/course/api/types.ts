@@ -34,9 +34,8 @@ export type AdminStudentCourseStatusType = z.infer<typeof $AdminStudentCourseSta
 
 //FILTERS
 export type AdminCoursesFiltersForm = z.infer<typeof $AdminCoursesFiltersForm>;
-export type AdminCoursesForCoursePackageFiltersForm = z.infer<typeof $AdminCoursesForCoursePackageFiltersForm>;
 export type AdminCoursesForCourseCollectionFiltersForm = z.infer<typeof $AdminCoursesForCourseCollectionFiltersForm>;
-export type CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.infer<typeof $CoursesWithoutSelectedCoursesFromCoursePackageFilters>;
+export type AdminCoursesForArticlePackageFiltersForm = z.infer<typeof $AdminCoursesForArticlePackageFiltersForm>;
 export type AdminCoursesNoIncludedArticleFiltersForm = z.infer<typeof $AdminCoursesNoIncludedArticleFiltersForm>;
 export type AdminArticleCoursesExtraFilters = z.infer<typeof $AdminArticleCoursesExtraFilters>;
 
@@ -249,14 +248,19 @@ export const $AdminCoursesFiltersForm = z.object({
     discountType: z.string(),
 });
 
-export const $AdminCoursesForCoursePackageFiltersForm = z.object({
+export const $AdminCoursesForArticlePackageFiltersForm = z.object({
     query: z.string(),
     tags: z.array(z.string()),
     categoryId: z.string(),
     subcategoryId: z.string(),
 });
 
-export const $AdminCoursesForCourseCollectionFiltersForm = $AdminCoursesForCoursePackageFiltersForm;
+export const $AdminCoursesForCourseCollectionFiltersForm = z.object({
+    query: z.string(),
+    tags: z.array(z.string()),
+    categoryId: z.string(),
+    subcategoryId: z.string(),
+});
 
 export const $AdminCoursesRequest = z.object({
     query: z.string().optional(),
@@ -834,16 +838,3 @@ export const $CourseBlock = z.object({
 });
 
 export const $GetFavoriteCoursesResponse = $getPaginationResponseType($Course);
-
-export const $CoursesWithoutSelectedCoursesFromCoursePackageFilters = z.object({
-    query: z.string().optional(),
-    filter: z
-        .object({
-            isActive: z.boolean(),
-            tags: $getMultiValueObjectType(z.string(), z.literal("or")),
-            "category.id": z.string(),
-            "subcategory.id": z.string(),
-            packageIds: $getMultiValueObjectType(z.string(), z.literal("not")),
-        })
-        .partial(),
-});

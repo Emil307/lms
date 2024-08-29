@@ -54,7 +54,7 @@ export type GetTransactionsResponse = z.infer<typeof $GetTransactionsResponse>;
 export type GetTransactionsFiltersResponse = z.infer<typeof $GetTransactionsFiltersResponse>;
 export type CreateFreeTransactionRequest = z.infer<typeof $CreateFreeTransactionRequest>;
 
-export const $TransactionEntityTypeName = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
+export const $TransactionEntityTypeName = z.literal("course").or(z.literal("articlePackage"));
 
 /**
  *

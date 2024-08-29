@@ -18,10 +18,6 @@ class PaymentApi extends BaseApi {
         return await this.instance.post(`core/payment-invoices/courses/${entityId}`, data);
     }
 
-    async createInvoiceForPaymentCoursePackage({ entityId, ...data }: CreateInvoiceForPaymentRequest): Promise<TFileDownloadResponse> {
-        return await this.instance.post(`core/payment-invoices/course-packages/${entityId}`, data);
-    }
-
     async createInvoiceForPaymentArticlePackage({ entityId, ...data }: CreateInvoiceForPaymentRequest): Promise<TFileDownloadResponse> {
         return await this.instance.post(`core/payment-invoices/article-packages/${entityId}`, data);
     }

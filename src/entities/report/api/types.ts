@@ -47,7 +47,7 @@ export type GetAdminTransactionReportEntitiesRequest = z.infer<typeof $GetAdminT
  *
  */
 
-export const $AdminTransactionableTypeName = z.literal("course").or(z.literal("coursePackage")).or(z.literal("articlePackage"));
+export const $AdminTransactionableTypeName = z.literal("course").or(z.literal("articlePackage"));
 
 export const $AdminTransactionableType = z.object({
     type: $AdminTransactionableTypeName,

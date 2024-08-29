@@ -13,7 +13,6 @@ export const useCoursesInfinite = (data: GetCoursesRequest, enabled = true) => {
                 EntityNames.GROUP,
                 EntityNames.TAG,
                 EntityNames.COURSE_COLLECTION,
-                EntityNames.COURSE_PACKAGE,
             ],
             data,
         ],
