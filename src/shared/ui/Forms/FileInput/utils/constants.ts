@@ -30,6 +30,12 @@ export const MIME_TYPES: { [key in FileFormat]: string } = {
     mpg: "video/mpeg",
 };
 
+export const MIME_TYPES_DOCUMENT = ["txt", "rtf", "zip", "csv", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "exe"];
+
+export const MIME_TYPES_IMAGE = ["png", "gif", "jpeg", "jpg", "svg", "webp"];
+
+export const MIME_TYPES_VIDEO = ["mp4", "avi", "mpg"];
+
 export const getCorrectFileFormatsForDropZone = (formats: FileFormat[]) => formats.map((format) => MIME_TYPES[format]);
 
 export const getCorrectFileFormatsForInput = (formats?: FileFormat[]) => formats?.map((format) => MIME_TYPES[format]);
@@ -40,7 +46,7 @@ export const isCorrectLoadedFileFormat = (file: File, formats: FileFormat[]) => 
 };
 
 export const getFileExtension = (fileName: string) => {
-    return fileName.split(".").pop()?.toUpperCase();
+    return fileName.split(".").pop()!;
 };
 
 export const getLoadFileError = (errorType: FileErrorType | string) => {
@@ -48,7 +54,7 @@ export const getLoadFileError = (errorType: FileErrorType | string) => {
         case "file-invalid-type":
             return "Неверный формат";
         case "file-too-large":
-            return "Слишкой большой файл";
+            return "Слишком большой файл";
         default:
             return "Загрузка не удалась";
     }

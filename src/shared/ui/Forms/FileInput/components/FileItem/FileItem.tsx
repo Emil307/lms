@@ -50,7 +50,7 @@ const MemoizedFileItem = memo(function FileItem({
                     <>
                         {type === "document" ? <FileText /> : <PlayCircle />}
                         <Text className={classes.extension} lineClamp={1}>
-                            {getFileExtension(fileName)}
+                            {getFileExtension(fileName).toUpperCase()}
                         </Text>
                     </>
                 );

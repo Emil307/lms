@@ -4,6 +4,7 @@ import { Flex, ActionIcon } from "@mantine/core";
 import { isFile } from "@shared/ui";
 import { useUploadFile } from "@entities/storage";
 import { UploadedFile } from "@shared/types";
+import { getFileTypeRequestByExtension } from "./utils";
 import { FileItem, FileItemProps } from "../../FileItem";
 
 export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "status" | "actionSlot"> {
@@ -37,8 +38,9 @@ export default function FileInputLoadedDocument({
 
     useEffect(() => {
         if (isFile(file) && !error) {
+            const fileType = getFileTypeRequestByExtension(file.name);
             uploadFile(
-                { file, type, educational },
+                { file, type: fileType, educational },
                 {
                     onSuccess: (resp) => {
                         onUpdateFile(fileId, resp);

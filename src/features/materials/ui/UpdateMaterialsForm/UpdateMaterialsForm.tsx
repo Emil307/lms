@@ -36,14 +36,14 @@ const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }
             return (
                 <>
                     <FileText />
-                    <Text className={classes.extension}>{getFileExtension(file.extension)}</Text>
+                    <Text className={classes.extension}>{getFileExtension(file.extension).toUpperCase()}</Text>
                 </>
             );
         } else if (type === "images") {
             return (
                 <>
                     <Image />
-                    <Text className={classes.extension}>{getFileExtension(file.extension)}</Text>
+                    <Text className={classes.extension}>{getFileExtension(file.extension).toUpperCase()}</Text>
                 </>
             );
         }
@@ -51,7 +51,7 @@ const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }
         return (
             <>
                 <PlayCircle />
-                <Text className={classes.extension}>{getFileExtension(file.extension)}</Text>
+                <Text className={classes.extension}>{getFileExtension(file.extension).toUpperCase()}</Text>
             </>
         );
     };

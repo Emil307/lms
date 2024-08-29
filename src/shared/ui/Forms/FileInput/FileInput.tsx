@@ -66,7 +66,7 @@ const MemoizedFileInput = memo(function FileInput({
     const loadedFilesCount = useRef(loadedFilesData.length);
     const replaceLoadedFileId = useRef<number | null>(null);
     const [errorLoadFile, setErrorLoadFile] = useState<string | false>(false);
-    const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData?.map((file, index) => ({ id: index + 1, data: file })));
+    const [loadedFiles, setLoadedFiles] = useState<LoadedFile[]>(loadedFilesData.map((file, index) => ({ id: index + 1, data: file })));
 
     const resultMaxFileSize = maxFileSize || getMaxFileSizeByType(type);
     const isDisabled = disabled || maxFiles <= loadedFiles.length;
@@ -216,7 +216,7 @@ const MemoizedFileInput = memo(function FileInput({
 
         return (
             <Box
-                mt={loadedFiles?.length ? 16 : 0}
+                mt={loadedFiles.length ? 16 : 0}
                 {...containerFilesProps}
                 className={cx(classes.containerFiles, containerFilesProps?.className)}>
                 {loadedFiles.map((file, index) => {
