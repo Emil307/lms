@@ -66,8 +66,6 @@ export const useUpdateAdminUserNotification = (
                 });
             },
             onSettled: () => {
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_USER, [EntityNames.USER], userId]);
-                queryClient.invalidateQueries([QueryKeys.GET_ADMIN_STUDENT, [EntityNames.STUDENT], userId]);
                 invalidateQueriesWithPredicate({ entityName: EntityNames.NOTIFICATION });
             },
             onSuccess: () => {
