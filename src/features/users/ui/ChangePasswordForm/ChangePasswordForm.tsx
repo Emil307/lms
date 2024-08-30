@@ -1,6 +1,6 @@
 import { Flex, ThemeIcon } from "@mantine/core";
 import { Shield } from "react-feather";
-import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FInput, ManagedForm, PASSWORD_INPUT_DESCRIPTION } from "@shared/ui";
 import { ChangeUserPasswordResponse, userApi } from "@entities/user";
 import { MutationKeys } from "@shared/constant";
 import { $changePasswordFormValidationSchema, ChangePasswordFormValidationSchema } from "@features/users";
@@ -73,7 +73,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
                                 </ThemeIcon>
                             }
                             success
-                            description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
+                            description={PASSWORD_INPUT_DESCRIPTION}
                         />
                         <FInput
                             name="passwordConfirmation"

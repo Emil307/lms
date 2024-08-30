@@ -6,7 +6,7 @@ export type ChangePasswordFormValidationSchema = z.infer<typeof $changePasswordF
 export const $changePasswordFormValidationSchema = z
     .object({
         isOldPassword: z.boolean(),
-        oldPassword: z.string().regex(REGEXP_PASSWORD, "Неверный формат").optional(),
+        oldPassword: z.string().optional(),
         password: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
         passwordConfirmation: z.string({ required_error: "Введите пароль" }).regex(REGEXP_PASSWORD, "Неверный формат"),
     })

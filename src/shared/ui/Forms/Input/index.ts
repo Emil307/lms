@@ -4,3 +4,4 @@ export { Input, FInput };
 export type { InputProps, FInputProps };
 
 export * from "./PhoneInput";
+export * from "./constants";

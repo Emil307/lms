@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { FormikConfig } from "formik";
 import { useRouter } from "next/router";
-import { Button, FInput, Form } from "@shared/ui";
+import { Button, FInput, Form, PASSWORD_INPUT_DESCRIPTION } from "@shared/ui";
 import { $RecoveryPasswordFormValidationSchema, RecoveryPasswordFormData, useFormStyles } from "@features/auth";
 import { useResetPassword } from "@entities/auth";
 import { initialValues } from "./constants";
@@ -28,12 +28,7 @@ const RecoveryPasswordForm = () => {
             <Flex className={classes.inner}>
                 <Form config={config} disableOverlay>
                     <Flex direction="column" gap={16}>
-                        <FInput
-                            name="password"
-                            label="Придумайте новый пароль"
-                            type="password"
-                            description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
-                        />
+                        <FInput name="password" label="Придумайте новый пароль" type="password" description={PASSWORD_INPUT_DESCRIPTION} />
                         <FInput name="passwordConfirmation" label="Повторите новый пароль" type="password" success="Пароли совпадают" />
                         <FInput name="email" hidden />
                         <FInput name="token" hidden />

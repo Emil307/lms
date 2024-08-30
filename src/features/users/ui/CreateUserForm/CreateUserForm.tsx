@@ -13,6 +13,7 @@ import {
     FTextarea,
     ManagedForm,
     Paragraph,
+    PASSWORD_INPUT_DESCRIPTION,
     Radio,
 } from "@shared/ui";
 import { CreateUserResponse, useAdminUsersFilters, userApi } from "@entities/user";
@@ -102,6 +103,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                                     type="password"
                                     label="Пароль"
                                     size="sm"
+                                    description={PASSWORD_INPUT_DESCRIPTION}
                                     miw={{ base: "100%", xs: 252 }}
                                     withAsterisk
                                 />

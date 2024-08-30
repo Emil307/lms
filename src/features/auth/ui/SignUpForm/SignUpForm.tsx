@@ -2,13 +2,13 @@ import { Box, Flex, Text } from "@mantine/core";
 import { FormikConfig } from "formik";
 import Link from "next/link";
 import axios from "axios";
-import { Button, FCheckbox, FInput, FPhoneInput, Form, Paragraph } from "@shared/ui";
+import React from "react";
+import { Button, FCheckbox, FInput, FPhoneInput, Form, PASSWORD_INPUT_DESCRIPTION, Paragraph } from "@shared/ui";
 import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
-import { initialValues } from "./constants";
 import { getPath } from "@features/auth/ui/utils";
-import React from "react";
 import { useMedia } from "@shared/utils";
+import { initialValues } from "./constants";
 
 const SignUpForm = () => {
     const { classes } = useFormStyles();
@@ -47,7 +47,7 @@ const SignUpForm = () => {
                 <Form config={config} disableOverlay>
                     {({ values }) => (
                         <>
-                            <Flex direction={"column"}>
+                            <Flex direction="column">
                                 <Flex direction="column" gap={8} mb={16}>
                                     <FInput name="firstName" label="Имя" onlyLetters />
                                     <FInput name="lastName" label="Фамилия" onlyLetters />
@@ -57,7 +57,7 @@ const SignUpForm = () => {
                                         name="passwords.password"
                                         label="Придумайте пароль"
                                         type="password"
-                                        description="Пароль должен содержать не менее 8 символов, буквы латинского алфавита (a–z и A–Z), цифры (0–9). Не используйте пробел в пароле."
+                                        description={PASSWORD_INPUT_DESCRIPTION}
                                     />
                                     <FInput
                                         name="passwords.passwordConfirmation"
@@ -76,7 +76,7 @@ const SignUpForm = () => {
                                             </Text>
                                         </Paragraph>
                                     }
-                                    color={"green"}
+                                    color="green"
                                     wrapperProps={{ sx: { marginBottom: 48 } }}
                                 />
                                 <Flex direction="column" gap={16} ta="center" align="flex-start" justify="center" pb={20}>

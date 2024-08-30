@@ -2,7 +2,17 @@ import { Box, Flex, BoxProps } from "@mantine/core";
 import React from "react";
 import { Bell, Shield, User } from "react-feather";
 import { useRouter } from "next/router";
-import { FAvatarInput, FControlButtons, FControlPanel, FInput, FPhoneInput, FSwitch, ManagedForm, Paragraph } from "@shared/ui";
+import {
+    FAvatarInput,
+    FControlButtons,
+    FControlPanel,
+    FInput,
+    FPhoneInput,
+    FSwitch,
+    ManagedForm,
+    Paragraph,
+    PASSWORD_INPUT_DESCRIPTION,
+} from "@shared/ui";
 import { CreateUserResponse, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
@@ -89,6 +99,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                                         type="password"
                                         label="Пароль"
                                         size="sm"
+                                        description={PASSWORD_INPUT_DESCRIPTION}
                                         className={classes.formInput}
                                         withAsterisk
                                     />
