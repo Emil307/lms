@@ -8,11 +8,13 @@ import { useSignUp } from "@entities/auth";
 import { initialValues } from "./constants";
 import { getPath } from "@features/auth/ui/utils";
 import React from "react";
+import { useMedia } from "@shared/utils";
 
 const SignUpForm = () => {
     const { classes } = useFormStyles();
 
     const { mutate: signUp, isLoading, isSuccess } = useSignUp();
+    const isTablet = useMedia("md");
 
     const config: FormikConfig<SignUpFormValidationSchema> = {
         initialValues,
@@ -77,24 +79,32 @@ const SignUpForm = () => {
                                     color={"green"}
                                     wrapperProps={{ sx: { marginBottom: 48 } }}
                                 />
-                                <Flex direction="column" gap={16} ta="center" align="center" justify="center" pb={20}>
-                                    <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
-                                    <Link href={`${getPath()}?action=auth`} className={classes.linkButton}>
-                                        <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
-                                            Войти
-                                        </Button>
-                                    </Link>
+                                <Flex direction="column" gap={16} ta="center" align="flex-start" justify="center" pb={20}>
+                                    <Button
+                                        className={classes.signInButton}
+                                        type="submit"
+                                        variant="primary"
+                                        loading={isLoading || isSuccess}
+                                        disabled={!values.agreementWithConditionsAndTerms}>
+                                        Создать аккаунт
+                                    </Button>
                                 </Flex>
                             </Flex>
-                            <Flex pos="absolute" bottom={24}>
-                                <Button
-                                    className={classes.signInButton}
-                                    type="submit"
-                                    variant="secondary"
-                                    loading={isLoading || isSuccess}
-                                    disabled={!values.agreementWithConditionsAndTerms}>
-                                    Создать аккаунт
-                                </Button>
+                            <Flex
+                                pos="absolute"
+                                bottom={isTablet ? 24 : 96}
+                                direction="column"
+                                gap={16}
+                                ta="center"
+                                align="stretch"
+                                justify="center"
+                                className={classes.absoluteButton}>
+                                <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
+                                <Link href={`${getPath()}?action=auth`}>
+                                    <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
+                                        Войти
+                                    </Button>
+                                </Link>
                             </Flex>
                         </>
                     )}

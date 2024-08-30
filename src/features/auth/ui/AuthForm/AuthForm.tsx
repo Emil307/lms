@@ -57,19 +57,27 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                                 </Button>
                             </Link>
                         </Flex>
-                        <Flex direction="column" gap={16} ta="center" align="center" justify="center">
-                            <Paragraph variant="small-m">Новый пользователь?</Paragraph>
-                            <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
-                                <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
-                                    Создать аккаунт
-                                </Button>
-                            </Link>
+                        <Flex>
+                            <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading || isSuccess}>
+                                Войти
+                            </Button>
                         </Flex>
                     </Flex>
-                    <Flex pos="absolute" bottom={24}>
-                        <Button className={classes.signInButton} type="submit" variant="secondary" loading={isLoading || isSuccess}>
-                            Войти
-                        </Button>
+                    <Flex
+                        pos="absolute"
+                        bottom={92}
+                        className={classes.absoluteButton}
+                        direction="column"
+                        gap={16}
+                        ta="center"
+                        align="center"
+                        justify="center">
+                        <Paragraph variant="small-m">Новый пользователь?</Paragraph>
+                        <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
+                            <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
+                                Создать аккаунт
+                            </Button>
+                        </Link>
                     </Flex>
                 </Form>
             </Flex>

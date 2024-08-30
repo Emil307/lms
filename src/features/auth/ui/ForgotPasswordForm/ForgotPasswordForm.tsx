@@ -46,9 +46,26 @@ const ForgotPasswordForm = () => {
                     disableOverlay>
                     {({ dirty, isLoading }) => {
                         return (
-                            <Flex direction="column" gap={24}>
-                                <FInput name="email" label="Email" />
-                                <Flex direction="column" gap={16} ta="center" align="center" justify="center" mt={24} pb={20}>
+                            <>
+                                <Flex direction="column" gap={24}>
+                                    <FInput name="email" label="Email" />
+                                    <Flex justify="flex-start" mt={24} pb={20}>
+                                        <Link href={`${getPath()}?action=sign-up`}>
+                                            <Button variant="primary" className={classes.signInButton}>
+                                                Создать аккаунт
+                                            </Button>
+                                        </Link>
+                                    </Flex>
+                                </Flex>
+                                <Flex
+                                    direction="column"
+                                    pos="absolute"
+                                    bottom={92}
+                                    gap={16}
+                                    ta="center"
+                                    align="center"
+                                    justify="center"
+                                    className={classes.absoluteButton}>
                                     <Link href={`${getPath()}?action=auth`}>
                                         <Button variant="text" className={classes.rememberPassword}>
                                             Вспомнили пароль?
@@ -64,17 +81,10 @@ const ForgotPasswordForm = () => {
                                         Войти
                                     </Button>
                                 </Flex>
-                            </Flex>
+                            </>
                         );
                     }}
                 </ManagedForm>
-                <Flex pos="absolute" bottom={24}>
-                    <Link href={`${getPath()}?action=sign-up`}>
-                        <Button variant="secondary" className={classes.signInButton}>
-                            Создать аккаунт
-                        </Button>
-                    </Link>
-                </Flex>
             </Flex>
         </Box>
     );

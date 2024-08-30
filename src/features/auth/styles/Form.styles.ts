@@ -5,6 +5,9 @@ export const useFormStyles = createStyles((theme) => ({
         height: "95%",
         overflow: "auto",
         paddingRight: 20,
+        [theme.fn.smallerThan("md")]: {
+            height: "80%",
+        },
     },
     inner: {
         flexDirection: "column",
@@ -50,5 +53,9 @@ export const useFormStyles = createStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         textDecoration: "none",
+    },
+    absoluteButton: {
+        left: "50%",
+        transform: "translate(-50%)",
     },
 }));

@@ -27,7 +27,7 @@ const RecoveryPasswordForm = () => {
         <Box className={classes.root}>
             <Flex className={classes.inner}>
                 <Form config={config} disableOverlay>
-                    <Flex direction="column" gap={16} mb={24}>
+                    <Flex direction="column" gap={16}>
                         <FInput
                             name="password"
                             label="Придумайте новый пароль"
@@ -38,8 +38,8 @@ const RecoveryPasswordForm = () => {
                         <FInput name="email" hidden />
                         <FInput name="token" hidden />
                     </Flex>
-                    <Flex pos="absolute" bottom={24}>
-                        <Button className={classes.signInButton} type="submit" variant="secondary" loading={isLoading}>
+                    <Flex>
+                        <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading}>
                             Сохранить
                         </Button>
                     </Flex>
