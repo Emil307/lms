@@ -1,7 +1,7 @@
 import { Avatar, Menu as MMenu, Flex, ThemeIcon } from "@mantine/core";
 import { useContext, useMemo, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { User } from "@entities/auth";
 import AvatarIcon from "public/icons/avatar.svg";
 import { SidebarMenuContext } from "@app/layouts/UserLayout/utils";
@@ -14,7 +14,6 @@ export interface MenuProps {
 
 const Menu = ({ user }: MenuProps) => {
     const { classes } = useStyles();
-    const router = useRouter();
     const [opened, setOpened] = useState(false);
 
     const { setOpenedSidebar } = useContext(SidebarMenuContext);
@@ -23,12 +22,17 @@ const Menu = ({ user }: MenuProps) => {
         () =>
             dropdownMenuItems.map((item) => {
                 const handleClickItem = () => {
-                    router.push(item.href);
                     setOpenedSidebar(false);
                 };
 
                 return (
-                    <MMenu.Item key={item.id} className={classes.menuItem} icon={item.icon} onClick={handleClickItem}>
+                    <MMenu.Item
+                        key={item.id}
+                        component={Link}
+                        href={item.href}
+                        className={classes.menuItem}
+                        icon={item.icon}
+                        onClick={handleClickItem}>
                         {item.label}
                     </MMenu.Item>
                 );

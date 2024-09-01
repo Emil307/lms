@@ -1,61 +1,72 @@
-import { createStyles, keyframes } from "@mantine/core";
-
-const pulse = keyframes({
-    "0%": { transform: "scale(1)" },
-    "25%": { transform: "scale(1.33)" },
-    "50%": { transform: "scale(1)" },
-    "75%": { transform: "scale(1.33)" },
-    "100%": { transform: "scale(1)" },
-});
+import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
         position: "inherit",
-        paddingTop: 56,
         border: "none",
+        backgroundColor: theme.colors.neutralDark[0],
     },
     inner: {
         flexDirection: "column",
-        width: "min-content",
         paddingInline: 16,
+        paddingTop: 56,
+        paddingBottom: 32,
         marginInline: "auto",
+        maxWidth: 1720,
+        width: "100%",
 
         [theme.fn.smallerThan("lg")]: {
-            width: "100%",
             maxWidth: 1352,
         },
-
-        [theme.fn.smallerThan("xs")]: {
-            width: "100%",
-        },
     },
-    content: {
-        marginBottom: 48,
+    topContent: {
+        alignItems: "flex-start",
         gap: 24,
+        flexGrow: 1,
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
+            gap: 32,
         },
     },
-    popularSectionContainer: {
+    topContentItem: {
+        maxWidth: 370,
+        width: "100%",
+    },
+    mainInfo: {
         flexDirection: "column",
-        minWidth: 392,
+        gap: 32,
+
+        svg: {
+            color: theme.colors.white[0],
+        },
+    },
+    mainItem: {
+        flexDirection: "column",
+        gap: 8,
+    },
+    item: {
+        flexDirection: "column",
+
+        [theme.fn.smallerThan("md")]: {
+            gap: 8,
+        },
+    },
+    education: {
+        flexDirection: "column",
         gap: 16,
 
         [theme.fn.smallerThan("lg")]: {
             minWidth: "auto",
-            width: "100%",
             maxWidth: 392,
         },
     },
-    infoSectionContainer: {
+    info: {
         flexDirection: "column",
-        minWidth: 392,
         gap: 16,
 
         [theme.fn.smallerThan("lg")]: {
             minWidth: "auto",
-            width: "100%",
             maxWidth: 392,
         },
     },
@@ -65,69 +76,70 @@ export default createStyles((theme) => ({
         lineHeight: "26px",
         color: theme.colors.dark,
     },
-    sectionLink: {
-        fontWeight: 500,
-        fontSize: 16,
-        lineHeight: "24px",
-        color: theme.colors.gray45,
-        textDecoration: "none",
-        cursor: "pointer",
-
-        ":hover": {
-            textDecoration: "underline",
-        },
+    wordBreak: {
+        wordBreak: "break-word",
     },
-
     link: {
         textDecoration: "none",
-        color: theme.colors.dark[0],
+        color: theme.colors.white[0],
     },
     socialLink: {
         alignItems: "center",
         justifyContent: "center",
-        height: 56,
-        width: 56,
-        borderRadius: 8,
-        backgroundColor: theme.colors.primary[0],
-
-        ":hover": {
-            backgroundColor: theme.colors.primaryHover[0],
-        },
-    },
-    bottomWrapper: {
-        gap: 32,
-        alignItems: "center",
-
-        [theme.fn.smallerThan("lg")]: {
-            flexDirection: "column",
-            gap: 16,
-        },
-    },
-    heartIcon: {
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 24,
-        height: 24,
+        height: 40,
+        width: 40,
+        borderRadius: 56,
+        color: theme.colors.dark[0],
+        backgroundColor: theme.colors.white[0],
 
         svg: {
             width: 18,
+            height: 18,
+        },
+
+        ":hover": {
+            backgroundColor: theme.colors.neutralLight[0],
         },
     },
-    addamant: {
-        "&:hover": {
-            "span:last-of-type": {
-                color: theme.colors.primaryHover[0],
-            },
-            svg: {
-                animation: `${pulse} 2s ease-in-out`,
-                animationIterationCount: "infinite",
-            },
+    divider: {
+        marginTop: "48px !important",
+        marginBottom: "32px !important",
+    },
+    middleContent: {
+        width: "100%",
+        gap: 16,
+
+        [theme.fn.smallerThan("md")]: {
+            flexDirection: "column",
+            gap: 32,
         },
     },
-    addamantText: {
-        display: "inline-flex",
+    middleItem: {
+        width: "100%",
+        flexDirection: "column",
+        gap: 8,
+    },
+    middleLink: {
+        textDecoration: "underline",
+    },
+    bottomContent: {
         alignItems: "center",
-        gap: 2,
+        justifyContent: "space-between",
+        gap: 24,
+        marginTop: 64,
+
+        svg: {
+            color: theme.colors.white[0],
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
+    },
+    skeleton: {
+        "&:after": {
+            background: theme.colors.gray45[0],
+        },
     },
 }));

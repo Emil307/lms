@@ -6,6 +6,7 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         minHeight: "100vh",
         maxWidth: "100vw",
+        overflowX: "hidden",
 
         [theme.fn.smallerThan("sm")]: {
             maxWidth: "none",

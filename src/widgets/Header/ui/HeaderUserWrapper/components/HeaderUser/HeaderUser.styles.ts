@@ -5,30 +5,35 @@ export default createStyles((theme) => ({
     root: {
         backgroundColor: theme.colors.white[0],
         position: "sticky",
+        maxHeight: HEADER_HEIGHT,
         top: 0,
         left: 0,
-        maxHeight: HEADER_HEIGHT,
+        paddingInline: 16,
         borderBottom: "none",
         zIndex: 399,
     },
     inner: {
         alignItems: "center",
-        justifyContent: "space-between",
-        maxWidth: 1728,
+        maxWidth: 1320,
         minHeight: 96,
         marginInline: "auto",
-        paddingInline: 16,
 
         [theme.fn.smallerThan("md")]: {
             minHeight: 74,
         },
     },
     containerButtonLinks: {
-        alignItems: "center",
         gap: 12,
+        marginLeft: 24,
+        overflowX: "auto",
+
+        "::-webkit-scrollbar": {
+            display: "none",
+        },
 
         [theme.fn.smallerThan("md")]: {
             gap: 4,
+            marginLeft: 16,
         },
 
         [theme.fn.smallerThan("sm")]: {
@@ -38,33 +43,46 @@ export default createStyles((theme) => ({
     buttonLink: {
         borderRadius: 160,
         padding: "8px 16px",
-    },
-    actionIcon: {
         height: 40,
-        width: 56,
-        color: theme.colors.dark[0],
-        borderRadius: 160,
-
-        ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+    },
+    logo: {
+        svg: {
+            color: theme.colors.dark[0],
         },
     },
     wrapperRightMenu: {
+        marginLeft: "auto",
         alignItems: "center",
-        gap: 56,
-
-        [theme.fn.smallerThan("lg")]: {
-            gap: 36,
-        },
+        gap: 24,
 
         [theme.fn.smallerThan("md")]: {
             gap: 12,
         },
     },
+    actionIcon: {
+        width: 56,
+        height: 56,
+        borderRadius: 56,
 
+        svg: {
+            color: theme.colors.dark[0],
+            width: 24,
+            height: 24,
+        },
+
+        "&:hover": {
+            backgroundColor: theme.colors.neutralLight[0],
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            width: 48,
+            height: 48,
+        },
+    },
     burgerSidebarIcon: {
-        width: 40,
-        height: 40,
+        display: "none",
+        width: 48,
+        height: 48,
         color: theme.colors.dark[0],
 
         svg: {
@@ -72,16 +90,15 @@ export default createStyles((theme) => ({
             height: 24,
         },
 
-        [theme.fn.largerThan("sm")]: {
-            display: "none",
+        [theme.fn.smallerThan("sm")]: {
+            display: "flex",
         },
     },
-
     closeSidebarIcon: {
-        width: 40,
-        height: 40,
+        display: "none",
+        width: 48,
+        height: 48,
         borderRadius: 60,
-        backgroundColor: theme.colors.primary8[0],
         color: theme.colors.primary[0],
 
         svg: {
@@ -89,8 +106,12 @@ export default createStyles((theme) => ({
             height: 24,
         },
 
-        [theme.fn.largerThan("sm")]: {
-            display: "none",
+        "&:hover": {
+            backgroundColor: theme.colors.primary8[0],
+        },
+
+        [theme.fn.smallerThan("sm")]: {
+            display: "flex",
         },
     },
 }));

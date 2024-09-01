@@ -7,6 +7,7 @@ export default createStyles((theme) => ({
         alignItems: "center",
         flexDirection: "column",
         minHeight: "100vh",
+        overflowX: "hidden",
 
         main: {
             maxWidth: 726,

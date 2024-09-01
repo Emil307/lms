@@ -1,6 +1,6 @@
-import { Menu as MMenu, MenuProps as MMenuProps, Indicator, Box } from "@mantine/core";
+import { Menu as MMenu, MenuProps as MMenuProps, ActionIcon } from "@mantine/core";
 import { useState } from "react";
-import { IconBell } from "@tabler/icons-react";
+import IconBell from "@public/icons/bell.svg";
 import { useNewNotifications } from "@entities/notification";
 import { Card as NotificationCard, List as NotificationList } from "@features/notifications";
 import { FooterDropdown, HeaderDropdown } from "./components";
@@ -28,11 +28,9 @@ const Menu = (props: MenuProps) => {
             opened={opened}
             onChange={setOpened}>
             <MMenu.Target>
-                <Box className={classes.rootTarget}>
-                    <Indicator className={classes.indicator} color="done" disabled={!newNotificationsData?.hasNew}>
-                        <IconBell />
-                    </Indicator>
-                </Box>
+                <ActionIcon className={classes.rootTarget}>
+                    <IconBell />
+                </ActionIcon>
             </MMenu.Target>
             <MMenu.Dropdown className={classes.dropdown}>
                 <HeaderDropdown onClose={handleCloseMenu} mb={8} />

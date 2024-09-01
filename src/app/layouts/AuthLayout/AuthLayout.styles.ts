@@ -5,6 +5,7 @@ export default createStyles((theme) => ({
         position: "absolute",
         width: "100vw",
         minHeight: "100vh",
+        overflowX: "hidden",
 
         main: {
             display: "flex",

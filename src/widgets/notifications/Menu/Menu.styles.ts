@@ -6,19 +6,25 @@ interface CreateStylesProps {
 
 export default createStyles((theme, { isOpened }: CreateStylesProps) => ({
     rootTarget: {
-        paddingBlock: 8,
-        paddingInline: 16,
-        borderRadius: 160,
-        backgroundColor: isOpened ? theme.colors.grayLight[0] : theme.colors.white[0],
-        cursor: "pointer",
+        width: 56,
+        height: 56,
+        borderRadius: 56,
+        backgroundColor: isOpened ? theme.colors.neutralLight[0] : theme.colors.white[0],
 
-        ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+        svg: {
+            color: theme.colors.dark[0],
+            width: 24,
+            height: 24,
         },
-    },
 
-    indicator: {
-        display: "flex",
+        "&:hover": {
+            backgroundColor: theme.colors.neutralLight[0],
+        },
+
+        [theme.fn.smallerThan("md")]: {
+            width: 48,
+            height: 48,
+        },
     },
 
     dropdown: {

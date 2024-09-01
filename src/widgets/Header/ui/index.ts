@@ -1,3 +1,2 @@
 export * from "./HeaderAdmin";
-export * from "./HeaderUser";
-export * from "./HeaderPublicUser";
+export * from "./HeaderUserWrapper";

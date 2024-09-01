@@ -39,7 +39,13 @@ export default createStyles((theme) => ({
         height: 48,
         width: 48,
         borderRadius: 56,
+        color: theme.colors.white[0],
         backgroundColor: theme.colors.dark[0],
+
+        svg: {
+            width: 24,
+            height: 24,
+        },
 
         ":hover": {
             color: theme.colors.dark[0],

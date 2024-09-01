@@ -23,7 +23,11 @@ const SupportPage = () => {
             </Flex>
 
             <Flex className={classes.contentContainer}>
-                <FaqAccordionList wrapperProps={{ className: classes.faqContainer }} />
+                <FaqAccordionList
+                    wrapperProps={{ className: classes.faqContainer }}
+                    titleProps={{ display: "none" }}
+                    skeletonTitleProps={{ display: "none" }}
+                />
                 <Box className={classes.chatContainer}>
                     <Heading order={3} lineClamp={1} className={classes.chatHeader}>
                         Задать вопрос поддержке

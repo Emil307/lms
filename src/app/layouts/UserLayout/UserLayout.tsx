@@ -1,9 +1,10 @@
 import { Box, AppShell } from "@mantine/core";
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import { useScrollLock } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { FooterUser } from "@widgets/Footer";
-import { HeaderPublicUser, HeaderUser } from "@widgets/Header";
-import { NavbarUser } from "@widgets/Navbar";
+import { HeaderUserWrapper } from "@widgets/Header";
+import { NavbarPublicUser, NavbarUser } from "@widgets/Navbar";
 import { useMedia } from "@shared/utils";
 import { SessionContext } from "@app/providers/SessionProvider";
 import useStyles from "./UserLayout.styles";
@@ -12,6 +13,7 @@ import { SidebarMenuContext, useWideLayout } from "./utils";
 export default function UserLayout({ children }: React.PropsWithChildren) {
     const [openedSidebar, setOpenedSidebar] = useState(false);
     const { classes } = useStyles();
+    const router = useRouter();
 
     const [_scrollLocked, setScrollLocked] = useScrollLock();
     const isWideLayout = useWideLayout();
@@ -21,6 +23,12 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
     const ctx = useContext(SessionContext);
 
     const isAuthorized = !!ctx.user?.id;
+
+    useEffect(() => {
+        if (isMobile) {
+            setOpenedSidebar(false);
+        }
+    }, [router.pathname]);
 
     useEffect(() => {
         if (!isMobile && openedSidebar) {
@@ -38,8 +46,8 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
                 classNames={classes}
                 layout="alt"
                 data-wide={isWideLayout}
-                header={isAuthorized ? <HeaderUser /> : <HeaderPublicUser />}
-                navbar={<NavbarUser hidden={!openedSidebar} />}
+                header={<HeaderUserWrapper />}
+                navbar={isAuthorized ? <NavbarUser hidden={!openedSidebar} /> : <NavbarPublicUser hidden={!openedSidebar} />}
                 footer={<FooterUser hidden={openedSidebar} />}>
                 <Box className={classes.wrapperContent} data-wide={isWideLayout}>
                     {children}

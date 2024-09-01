@@ -8,12 +8,22 @@ import useStyles from "./AccordionList.styles";
 export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {
     visible?: boolean;
     skeletonListProps?: SkeletonProps;
+    skeletonTitleProps?: SkeletonProps;
     wrapperProps?: FlexProps;
     titleProps?: HeadingProps;
     isStatic?: boolean;
 }
 
-const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleProps, isStatic, ...props }: AccordionListProps) => {
+const AccordionList = ({
+    title,
+    visible,
+    skeletonListProps,
+    skeletonTitleProps,
+    wrapperProps,
+    titleProps,
+    isStatic,
+    ...props
+}: AccordionListProps) => {
     const [selected, setSelected] = useState<string[]>([]);
     const { data: faqData, isLoading, isError } = useFaq({ paginate: false, filter: { isStatic } }, visible);
     const { classes } = useStyles();
@@ -39,14 +49,14 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleP
         return <Text>Произошла ошибка, попробуйте позднее</Text>;
     }
 
-    if (!faqData?.length) {
+    if (!isLoading && !faqData.length) {
         return null;
     }
 
     return (
         <Flex {...wrapperProps} className={classes.faqContainer}>
-            <Skeleton visible={isLoading}>
-                <Flex direction={"column"} className={classes.titleContainer}>
+            <Skeleton {...skeletonTitleProps} visible={isLoading}>
+                <Flex direction="column" className={classes.titleContainer}>
                     <Heading {...titleProps} className={classes.title}>
                         Вопросы и ответы
                     </Heading>
@@ -55,7 +65,7 @@ const AccordionList = ({ title, visible, skeletonListProps, wrapperProps, titleP
                     </Heading>
                 </Flex>
             </Skeleton>
-            <Skeleton visible={isLoading} {...skeletonListProps} style={{ flexGrow: 1 }}>
+            <Skeleton visible={isLoading} {...skeletonListProps} width="100%" mih={90} style={{ flexGrow: 1 }}>
                 <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
                     {renderFaq}
                 </Accordion>

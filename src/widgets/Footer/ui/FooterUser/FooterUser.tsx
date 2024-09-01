@@ -1,48 +1,71 @@
 import React, { useMemo } from "react";
-import { Divider, Flex, Footer as MFooter, Group, Text, FooterProps as MFooterProps } from "@mantine/core";
+import { Divider, Flex, Footer as MFooter, FooterProps as MFooterProps, Skeleton } from "@mantine/core";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Image from "next/image";
 import dayjs from "dayjs";
 import IconWhatsapp from "public/icons/icon24px/social/whatsapp.svg";
 import IconTelegram from "public/icons/icon24px/social/telegram.svg";
 import IconVK from "public/icons/icon24px/social/VK.svg";
-import IconHeart from "public/icons/heart.svg";
+import License from "public/license.png";
+import LogoShort from "public/icons/logoShort.svg";
 import { Logo } from "@components/Logo";
 import { FilterTypes } from "@shared/constant";
 import { Paragraph } from "@shared/ui";
 import { useCourseResources } from "@entities/course";
 import { useSession } from "@entities/auth";
-import { CONTACT } from "@entities/staticPage";
+import { CONTACT, useContacts } from "@entities/staticPage";
 import useStyles from "./FooterUser.styles";
 import { getPageSections } from "./utils";
 
 export interface FooterUserProps extends Omit<MFooterProps, "children" | "height"> {}
 
 const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
-    const { classes } = useStyles();
-    const router = useRouter();
+    const { classes, cx } = useStyles();
     const { user } = useSession();
 
-    const courseResources = useCourseResources({ type: FilterTypes.SELECT });
+    const { data: contactsData, isLoading: isLoadingContacts } = useContacts();
 
-    const handleOpenCoursesPage = () => router.push("/courses");
+    const renderAddress = () => {
+        if (!contactsData?.title && !isLoadingContacts) {
+            return null;
+        }
+        return (
+            <Skeleton className={classes.skeleton} visible={isLoadingContacts} color="dark" mih={24} w={235}>
+                <Paragraph className={classes.wordBreak} variant="small-m" color="white" maw={235}>
+                    {contactsData?.title}
+                </Paragraph>
+            </Skeleton>
+        );
+    };
+
+    const { data: courseResources, isLoading: isLoadingCourseResources } = useCourseResources({ type: FilterTypes.SELECT });
 
     const renderCategories = useMemo(() => {
-        if (!courseResources.data?.categories.length) {
+        if (!courseResources && isLoadingCourseResources) {
+            return <Skeleton className={classes.skeleton} visible={isLoadingCourseResources} color="dark" mih={60} w="100%" />;
+        }
+
+        if (!courseResources?.categories.length) {
             return null;
         }
 
         return (
             <Flex direction="column" gap={8}>
-                {courseResources.data.categories.slice(0, 5).map((category) => {
-                    const handleClick = () => router.push({ pathname: "/courses", query: { categoryId: category.id.toString() } });
+                {courseResources.categories.slice(0, 5).map((category) => {
                     return (
-                        <Paragraph variant="small-m" key={category.id} className={classes.sectionLink} onClick={handleClick}>
+                        <Paragraph
+                            className={classes.wordBreak}
+                            variant="small-m"
+                            component={Link}
+                            href={{ pathname: "/courses", query: { categoryId: category.id.toString() } }}
+                            color="white56"
+                            w="fit-content"
+                            key={category.id}>
                             {category.name}
                         </Paragraph>
                     );
                 })}
-                <Paragraph variant="small-m" className={classes.sectionLink} onClick={handleOpenCoursesPage}>
+                <Paragraph variant="small-m" component={Link} href="/courses" color="white56" w="fit-content">
                     Все курсы
                 </Paragraph>
             </Flex>
@@ -52,9 +75,16 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
     const renderInfoSection = useMemo(
         () =>
             getPageSections(!!user).map((section, index) => (
-                <Link key={index} className={classes.sectionLink} href={section.href}>
+                <Paragraph
+                    className={classes.wordBreak}
+                    variant="small-m"
+                    component={Link}
+                    href={section.href}
+                    color="white56"
+                    w="fit-content"
+                    key={index}>
                     {section.label}
-                </Link>
+                </Paragraph>
             )),
         [user]
     );
@@ -66,42 +96,63 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
     return (
         <MFooter classNames={classes} height="auto" {...props}>
             <Flex className={classes.inner}>
-                <Flex className={classes.content}>
-                    <Flex direction="column" gap={32} miw={264}>
+                <Flex className={classes.topContent}>
+                    <Flex className={cx(classes.topContentItem, classes.mainInfo)}>
                         <Logo />
-                        <Flex direction="column" gap={8}>
-                            <Paragraph variant="large">
-                                <a href={`mailto:${CONTACT.EMAIL}`} className={classes.link}>
-                                    {CONTACT.EMAIL}
-                                </a>
-                            </Paragraph>
-                            <Paragraph variant="text-caption" color="gray45">
-                                Пишите, если есть вопросы
-                            </Paragraph>
-                        </Flex>
-                        <Flex direction="column" gap={8}>
-                            <Paragraph variant="large">
-                                <a href={`tel:${CONTACT.PHONE_NUMBER_LINK}`} className={classes.link}>
+                        <Flex className={classes.mainItem}>
+                            <Flex className={classes.item}>
+                                <Paragraph variant="small-m" component="a" href={`tel:${CONTACT.PHONE_NUMBER_LINK}`} color="white">
                                     {CONTACT.PHONE_NUMBER}
-                                </a>
-                            </Paragraph>
-                            <Paragraph variant="text-caption" color="gray45" maw={180}>
-                                Звоните, если нужна помощь. Звонок по России бесплатный.
-                            </Paragraph>
+                                </Paragraph>
+                                <Paragraph variant="text-caption" color="white56">
+                                    По вопросам покупки курсов
+                                </Paragraph>
+                            </Flex>
+                            <Flex className={classes.item}>
+                                <Paragraph variant="small-m" component="a" href={`mailto:${CONTACT.EMAIL}`} color="white">
+                                    {CONTACT.EMAIL}
+                                </Paragraph>
+                                <Paragraph variant="text-caption" color="white56">
+                                    Пишите, если есть вопросы
+                                </Paragraph>
+                            </Flex>
+                            {renderAddress()}
                         </Flex>
                     </Flex>
 
-                    <Flex className={classes.popularSectionContainer}>
-                        <Text className={classes.titleSection}>Популярные разделы</Text>
+                    <Flex className={classes.topContentItem} direction="column" gap={8}>
+                        <Image
+                            src={License}
+                            width={70}
+                            height={100}
+                            alt="Государственная лицензия"
+                            quality={100}
+                            style={{
+                                objectFit: "cover",
+                            }}
+                        />
+                        <Paragraph variant="text-small-m" color="white">
+                            Государственная
+                            <br /> лицензия
+                        </Paragraph>
+                    </Flex>
+
+                    <Flex className={cx(classes.topContentItem, classes.education)}>
+                        <Paragraph variant="large" color="white">
+                            Направления обучения
+                        </Paragraph>
                         {renderCategories}
                     </Flex>
 
-                    <Flex className={classes.infoSectionContainer}>
-                        <Text className={classes.titleSection}>Информация</Text>
+                    <Flex className={cx(classes.topContentItem, classes.info)}>
+                        <Paragraph variant="large" color="white">
+                            Информация
+                        </Paragraph>
                         <Flex direction="column" gap={8}>
                             {renderInfoSection}
                         </Flex>
                     </Flex>
+
                     <Flex gap={16}>
                         <a href={CONTACT.VK} target="_blank" rel="noreferrer">
                             <Flex className={classes.socialLink}>
@@ -122,31 +173,50 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         </a>
                     </Flex>
                 </Flex>
-                <Divider my="sm" color="gray20" mt={0} mb={0} />
-                <Group sx={{ paddingBlock: 32, justifyContent: "space-between" }}>
-                    <Paragraph variant="text-small-m">{`© ${dayjs().year()}, Addamant`}</Paragraph>
-                    <Flex className={classes.bottomWrapper}>
-                        <Text fw={600} td="underline" component="a" href="/user-agreement">
-                            Пользовательское соглашение
-                        </Text>
-                        <Text className={classes.addamant} component="a" href={CONTACT.ADDAMANT} target="_blank">
-                            <Paragraph className={classes.addamantText} variant="text-small-m" component="span">
-                                <Paragraph variant="text-small-m" component="span">
-                                    Created with
-                                </Paragraph>
-                                <Text className={classes.heartIcon} component="span">
-                                    <IconHeart />
-                                </Text>
-                                <Paragraph variant="text-small-m" component="span">
-                                    at
-                                </Paragraph>
-                                <Paragraph variant="text-small-semi" td="underline" component="span">
-                                    addamant
-                                </Paragraph>
+
+                <Divider className={classes.divider} my="sm" color="white16" />
+
+                <Flex className={classes.middleContent}>
+                    <Paragraph variant="text-small-m" component={Link} href="/user-agreement">
+                        <Flex className={classes.middleItem}>
+                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
+                                Оферта на заключение договора об оказании платных образовательных услуг
                             </Paragraph>
-                        </Text>
+                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
+                                Политика обработки персональных данных
+                            </Paragraph>
+                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
+                                Сведения об образовательной организации
+                            </Paragraph>
+                        </Flex>
+                    </Paragraph>
+
+                    <Flex className={classes.middleItem} gap={16}>
+                        <Paragraph variant="text-small-m" color="white56">
+                            Мы{" "}
+                            <Paragraph className={classes.middleLink} variant="text-small-m" component="span" color="white">
+                                используем файлы сoокie
+                            </Paragraph>{" "}
+                            для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование,
+                            поменяйте настройки браузера.
+                        </Paragraph>
+                        <Paragraph variant="text-small-m" color="white56">
+                            Образовательные услуги оказываются АНО ДПО «МИПО» на основании Лицензии Nº Л035-01298-77/01108943.
+                        </Paragraph>
                     </Flex>
-                </Group>
+                </Flex>
+
+                <Flex className={classes.bottomContent}>
+                    <Paragraph variant="text-small-m" color="white56">
+                        © {dayjs().year()}, Name
+                    </Paragraph>
+                    <Flex align="center" gap={8}>
+                        <Paragraph variant="text-small-m" color="white56">
+                            Создано в
+                        </Paragraph>
+                        <Logo icon={<LogoShort />} />
+                    </Flex>
+                </Flex>
             </Flex>
         </MFooter>
     );

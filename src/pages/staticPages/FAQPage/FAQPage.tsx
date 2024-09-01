@@ -20,7 +20,7 @@ const FAQPage = () => {
                         </Paragraph>
                     </MediaQuery>
                 </Flex>
-                <FaqAccordionList />
+                <FaqAccordionList titleProps={{ display: "none" }} skeletonTitleProps={{ display: "none" }} />
             </Flex>
         </Box>
     );

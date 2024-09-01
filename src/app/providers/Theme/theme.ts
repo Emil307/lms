@@ -51,6 +51,7 @@ export const defaultTheme: MantineThemeOverride = {
         shadowGray: addMantineColor("#00126e"),
         darkGray: addMantineColor("#D9D9D9"),
         golden: addMantineColor("#D6913D"),
+        neutralDark: addMantineColor("#0F1420"),
     },
     defaultRadius: "sm",
     breakpoints: {
@@ -125,6 +126,30 @@ export const defaultTheme: MantineThemeOverride = {
                     minWidth: "auto",
                     minHeight: "auto",
                     border: "none",
+                },
+            }),
+        },
+        Menu: {
+            styles: (theme) => ({
+                dropdown: {
+                    padding: "8px !important",
+                    borderRadius: 16,
+                    border: theme.colors.white[0],
+                    boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
+
+                    "> div": {
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                    },
+                },
+                item: {
+                    padding: 12,
+                    borderRadius: 8,
+
+                    "&:hover": {
+                        backgroundColor: theme.colors.grayLight[0],
+                    },
                 },
             }),
         },
@@ -405,6 +430,7 @@ export const defaultTheme: MantineThemeOverride = {
                     fontSize: 16,
                     lineHeight: "22px",
                     color: theme.colors.gray45[0],
+                    textAlign: "left",
 
                     [theme.fn.smallerThan("md")]: {
                         marginTop: 16,

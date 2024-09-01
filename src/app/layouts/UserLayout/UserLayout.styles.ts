@@ -5,6 +5,7 @@ export default createStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
+        overflowX: "hidden",
 
         "&[data-wide='true']": {
             ".mantine-AppShell-main": {
