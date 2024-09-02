@@ -34,19 +34,19 @@ const FooterNavbar = (props: FooterNavbarProps) => {
 
             <Flex gap={16}>
                 <a href={CONTACT.VK} target="_blank" rel="noreferrer">
-                    <Flex className={classes.socialLinkInner}>
+                    <Flex className={classes.socialLink}>
                         <IconVK />
                     </Flex>
                 </a>
 
                 <a href={CONTACT.WHATSAPP} target="_blank" rel="noreferrer">
-                    <Flex className={classes.socialLinkInner}>
+                    <Flex className={classes.socialLink}>
                         <IconWhatsapp />
                     </Flex>
                 </a>
 
                 <a href={CONTACT.TELEGRAM} target="_blank" rel="noreferrer">
-                    <Flex className={classes.socialLinkInner}>
+                    <Flex className={classes.socialLink}>
                         <IconTelegram />
                     </Flex>
                 </a>

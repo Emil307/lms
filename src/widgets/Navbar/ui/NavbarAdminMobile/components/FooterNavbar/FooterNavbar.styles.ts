@@ -8,16 +8,23 @@ export default createStyles((theme) => ({
         backgroundColor: theme.colors.light[0],
     },
 
-    socialLinkInner: {
+    socialLink: {
         alignItems: "center",
         justifyContent: "center",
         height: 56,
         width: 56,
-        borderRadius: 8,
-        backgroundColor: theme.colors.primary[0],
+        borderRadius: 56,
+        color: theme.colors.white[0],
+        backgroundColor: theme.colors.dark[0],
+
+        svg: {
+            width: 24,
+            height: 24,
+        },
 
         ":hover": {
-            backgroundColor: theme.colors.primaryHover[0],
+            color: theme.colors.dark[0],
+            backgroundColor: theme.colors.done[0],
         },
     },
 }));

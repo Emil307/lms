@@ -28,10 +28,6 @@ export default createStyles((theme, { isOpened }: CreateStylesProps) => ({
     },
     indicator: {
         display: "flex",
-        [theme.fn.smallerThan("md")]: {
-            width: 48,
-            height: 48,
-        },
     },
     dropdown: {
         padding: 8,

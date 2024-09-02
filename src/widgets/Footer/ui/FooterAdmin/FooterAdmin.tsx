@@ -38,19 +38,19 @@ const FooterAdmin = (props: FooterAdminProps) => {
                 </Flex>
                 <Flex gap={16}>
                     <a href={CONTACT.VK} target="_blank" rel="noreferrer">
-                        <Flex className={classes.link}>
+                        <Flex className={classes.socialLink}>
                             <IconVK />
                         </Flex>
                     </a>
 
                     <a href={CONTACT.WHATSAPP} target="_blank" rel="noreferrer">
-                        <Flex className={classes.link}>
+                        <Flex className={classes.socialLink}>
                             <IconWhatsapp />
                         </Flex>
                     </a>
 
                     <a href={CONTACT.TELEGRAM} target="_blank" rel="noreferrer">
-                        <Flex className={classes.link}>
+                        <Flex className={classes.socialLink}>
                             <IconTelegram />
                         </Flex>
                     </a>

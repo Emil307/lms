@@ -14,7 +14,6 @@ export default createStyles((theme) => ({
         border: "none",
         backgroundColor: theme.colors.light[0],
         zIndex: 399,
-        maxWidth: 1920,
 
         [theme.fn.smallerThan("md")]: {
             maxHeight: 82,
@@ -34,7 +33,11 @@ export default createStyles((theme) => ({
             gap: 12,
         },
     },
-
+    logo: {
+        svg: {
+            color: theme.colors.dark[0],
+        },
+    },
     avatarWrapper: {
         width: 50,
         minWidth: 50,
