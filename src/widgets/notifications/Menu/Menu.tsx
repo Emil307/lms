@@ -1,4 +1,4 @@
-import { Menu as MMenu, MenuProps as MMenuProps, ActionIcon } from "@mantine/core";
+import { Menu as MMenu, MenuProps as MMenuProps, ActionIcon, Indicator } from "@mantine/core";
 import { useState } from "react";
 import IconBell from "@public/icons/bell.svg";
 import { useNewNotifications } from "@entities/notification";
@@ -29,7 +29,9 @@ const Menu = (props: MenuProps) => {
             onChange={setOpened}>
             <MMenu.Target>
                 <ActionIcon className={classes.rootTarget}>
-                    <IconBell />
+                    <Indicator className={classes.indicator} color="done" disabled={!newNotificationsData?.hasNew}>
+                        <IconBell />
+                    </Indicator>
                 </ActionIcon>
             </MMenu.Target>
             <MMenu.Dropdown className={classes.dropdown}>
