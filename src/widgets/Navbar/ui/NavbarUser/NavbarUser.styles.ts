@@ -15,5 +15,6 @@ export default createStyles((theme) => ({
         border: "none",
         backgroundColor: theme.colors.white[0],
         overflowY: "auto",
+        zIndex: 102,
     },
 }));

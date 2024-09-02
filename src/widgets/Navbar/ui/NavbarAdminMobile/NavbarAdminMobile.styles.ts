@@ -10,7 +10,7 @@ export default createStyles((theme) => ({
         paddingTop: 82,
         border: "none",
         backgroundColor: theme.colors.light[0],
-        zIndex: 101,
+        zIndex: 102,
     },
     inner: {
         flexDirection: "column",

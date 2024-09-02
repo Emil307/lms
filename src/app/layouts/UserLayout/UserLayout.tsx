@@ -7,6 +7,7 @@ import { HeaderUserWrapper } from "@widgets/Header";
 import { NavbarPublicUser, NavbarUser } from "@widgets/Navbar";
 import { useMedia } from "@shared/utils";
 import { SessionContext } from "@app/providers/SessionProvider";
+import { CookiePanel } from "@entities/auth";
 import useStyles from "./UserLayout.styles";
 import { SidebarMenuContext, useWideLayout } from "./utils";
 
@@ -52,6 +53,7 @@ export default function UserLayout({ children }: React.PropsWithChildren) {
                 <Box className={classes.wrapperContent} data-wide={isWideLayout}>
                     {children}
                 </Box>
+                <CookiePanel />
             </AppShell>
         </SidebarMenuContext.Provider>
     );

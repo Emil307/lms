@@ -5,6 +5,7 @@ import { FooterAdmin } from "@widgets/Footer";
 import { HeaderAdmin } from "@widgets/Header";
 import { NavbarAdmin, NavbarAdminMobile } from "@widgets/Navbar";
 import { useMedia } from "@shared/utils";
+import { CookiePanel } from "@entities/auth";
 import useStyles from "./AdminLayout.styles";
 import { AdminSidebarMenuContext } from "./utils";
 
@@ -45,6 +46,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                 <Box ref={ref} className={classes.wrapperContent}>
                     {children}
                 </Box>
+                <CookiePanel />
             </AppShell>
         </AdminSidebarMenuContext.Provider>
     );
