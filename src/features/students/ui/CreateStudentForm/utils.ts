@@ -1,11 +1,9 @@
 import { CreateUserRequest } from "@entities/user";
-import { Roles } from "@app/routes";
 import { CreateStudentValidationFormRequest } from "./types";
 
-export const adaptCreateUserFormRequest = (values: CreateStudentValidationFormRequest): CreateUserRequest => {
+export const adaptCreateUserFormRequest = (values: CreateStudentValidationFormRequest): Omit<CreateUserRequest, "roleId"> => {
     return {
         ...values,
-        roleId: Roles.student,
         avatarId: values.avatar?.id,
         additionalImageId: values.additionalImage?.id,
     };

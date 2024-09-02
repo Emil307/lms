@@ -106,12 +106,21 @@ export default createStyles((theme) => ({
         marginBottom: "32px !important",
     },
     middleContent: {
+        justifyContent: "space-between",
         width: "100%",
         gap: 16,
+
+        "> div": {
+            width: "51%",
+        },
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
             gap: 32,
+
+            "> div": {
+                width: "100%",
+            },
         },
     },
     middleItem: {
@@ -141,5 +150,8 @@ export default createStyles((theme) => ({
         "&:after": {
             background: theme.colors.gray45[0],
         },
+    },
+    addamantLink: {
+        textDecoration: "none",
     },
 }));

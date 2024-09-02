@@ -5,12 +5,12 @@ import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { useUpdateLessonActivity } from "@entities/lesson";
 import { DetachLessonFromCourseModuleModal } from "@features/courseModules";
 import { UpdateLessonModal } from "@features/lessons";
 import { CourseModuleLesson } from "@entities/courseModule";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     courseId: string;
@@ -66,7 +66,7 @@ const ListMenu = ({ courseId, moduleId, moduleName, lessonNumber, data }: ListMe
     const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             if (!isMobile) {
                 return null;
             }

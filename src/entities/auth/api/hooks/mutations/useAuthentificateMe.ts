@@ -23,7 +23,7 @@ export const useAuthenticateMe = ({
         onSuccess: async (response) => {
             setCookie(ECookies.TOKEN, response.data.accessToken);
             setCookie(ECookies.TOKEN_TYPE, response.data.tokenType);
-            const userRole = response.meta.user.roles[0].id;
+            const userRole = response.meta.user.roles[0].name;
             setCookie(ECookies.USER_ROLE, userRole);
 
             if (skipRedirect) {

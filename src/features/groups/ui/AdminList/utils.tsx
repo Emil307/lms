@@ -5,12 +5,12 @@ import { MRT_Cell } from "mantine-react-table";
 import { Badge, Flex } from "@mantine/core";
 import { AdminGroupFromList, AdminGroupsFiltersForm, GetAdminGroupsRequest } from "@entities/group";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
-import { Roles } from "@app/routes";
 import { Paragraph, Tooltip } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useCellStyles } from "@features/groups/ui/AdminList/AdminList.styles";
+import { RoleName, Roles } from "@shared/types";
 
-export const useGroupListData = (userRole: number = 0) => {
+export const useGroupListData = (userRole?: RoleName) => {
     const columns: TColumns<AdminGroupFromList> = useMemo(() => {
         return [
             {

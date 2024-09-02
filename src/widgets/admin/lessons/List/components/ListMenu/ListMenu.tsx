@@ -9,7 +9,7 @@ import { AdminLessonFromList, useUpdateLessonActivity } from "@entities/lesson";
 import { UpdateLessonModal } from "@features/lessons";
 import DeleteLessonModal from "@features/lessons/ui/DeleteLessonModal/DeleteLessonModal";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 interface ListMenuProps {
     row: MRT_Row<AdminLessonFromList>;
@@ -58,7 +58,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
     };
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleOpenLessonDetail}>
                     <ThemeIcon w={16} h={16} color="primary">

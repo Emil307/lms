@@ -3,10 +3,10 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
-import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth";
 import { CourseList } from "@widgets/admin/courses";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./CoursesPage.styles";
 
 const CoursesPage = () => {
@@ -24,7 +24,7 @@ const CoursesPage = () => {
             <Flex className={classes.headingContainer}>
                 <Heading>Курсы</Heading>
 
-                {userRole && userRole !== Roles.teacher && (
+                {userRole && userRole.name !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

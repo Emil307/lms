@@ -6,9 +6,9 @@ import { FDateRangePicker, FMultiSelect, FSearch, FSelect, ManagedDataGrid, Butt
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { useUserRole } from "@entities/auth";
 import { EntityNames, QueryKeys } from "@shared/constant";
-import { Roles } from "@app/routes";
 import { AdminCourseFromList, AdminCoursesFiltersForm, courseApi } from "@entities/course";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
@@ -21,7 +21,7 @@ const List = () => {
     const userRole = useUserRole();
 
     const { adaptGetAdminCoursesRequest, columns, columnOrder, filterInitialValues, renderBadge, optionsForSelects, isLoadingFilters } =
-        useCourseListData(userRole);
+        useCourseListData(userRole?.name);
 
     const isMobile = useMedia("sm");
 
@@ -58,7 +58,7 @@ const List = () => {
                 renderRowActions={({ row }) => <ListMenu row={row} />}
                 renderBadge={renderBadge()}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole.name}
                 countName="Курсов"
                 initialState={{
                     columnOrder,
@@ -88,7 +88,7 @@ const List = () => {
                                     disabled={isLoadingFilters}
                                 />
 
-                                {userRole !== Roles.teacher && (
+                                {userRole.name !== Roles.teacher && (
                                     <>
                                         <FMultiSelect
                                             className={classes.filterSelect}
@@ -120,7 +120,7 @@ const List = () => {
                                 />
                             </Flex>
 
-                            {userRole !== Roles.teacher && (
+                            {userRole.name !== Roles.teacher && (
                                 <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => {
                                         return <Radio size="md" key={item.id} label={item.label} value={item.value} />;

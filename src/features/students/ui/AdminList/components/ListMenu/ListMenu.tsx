@@ -4,12 +4,12 @@ import React, { ChangeEvent } from "react";
 import { Edit3, Eye, Trash } from "react-feather";
 import { useRouter } from "next/router";
 import { closeModal, openModal } from "@mantine/modals";
-import { Roles } from "@app/routes";
 import { UserFromList, useUpdateUserActivity } from "@entities/user";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UserDeleteModal } from "@features/users";
 import { getFullName } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     row: MRT_Row<UserFromList>;
@@ -49,7 +49,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
         router.push({ pathname: "/admin/students/[id]/edit", query: { id: String(row.original.id) } });
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleOpenStudentDetails}>
                     <ThemeIcon w={16} h={16} color="primary">

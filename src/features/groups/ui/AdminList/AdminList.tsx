@@ -5,9 +5,9 @@ import { FDateRangePicker, FSearch, FSelect, ManagedDataGrid, prepareOptionsForS
 import { FRadioGroup, Radio } from "@shared/ui/Forms/RadioGroup";
 import { AdminGroupFromList, AdminGroupsFiltersForm, groupApi, useAdminGroupFilters } from "@entities/group";
 import { EntityNames, FilterTypes, QueryKeys } from "@shared/constant";
-import { Roles } from "@app/routes";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@shared/types";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./AdminList.styles";
@@ -22,7 +22,7 @@ const AdminList = (props: AdminListProps) => {
 
     const userRole = useUserRole();
 
-    const { columns, columnOrder, filterInitialValues, adaptGetAdminGroupsRequest, renderBadge } = useGroupListData(userRole);
+    const { columns, columnOrder, filterInitialValues, adaptGetAdminGroupsRequest, renderBadge } = useGroupListData(userRole?.name);
 
     const groupFilters = useAdminGroupFilters({ type: FilterTypes.SELECT });
 
@@ -53,7 +53,7 @@ const AdminList = (props: AdminListProps) => {
                 renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole?.name}
                 countName="Групп"
                 initialState={{
                     columnOrder,
@@ -77,7 +77,7 @@ const AdminList = (props: AdminListProps) => {
                                     disabled={groupFilters.isLoading || !groupFilters.data?.courses.length}
                                 />
 
-                                {userRole !== Roles.teacher && (
+                                {userRole?.name !== Roles.teacher && (
                                     <>
                                         <FSelect
                                             name="teacherId"
@@ -119,7 +119,7 @@ const AdminList = (props: AdminListProps) => {
                                 />
                             </Flex>
 
-                            {userRole !== Roles.teacher && (
+                            {userRole?.name !== Roles.teacher && (
                                 <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => (
                                         <Radio size="md" key={item.id} label={item.label} value={item.value} />

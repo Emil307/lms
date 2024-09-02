@@ -8,4 +8,5 @@ export const initialValues: UpdateMeForm = {
     phone: "",
     avatar: null,
     roleId: 0,
+    roleName: "",
 };

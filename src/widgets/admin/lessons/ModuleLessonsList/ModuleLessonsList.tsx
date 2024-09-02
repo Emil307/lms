@@ -7,11 +7,11 @@ import { useRouter } from "next/router";
 import { DndCard, Heading, Paragraph } from "@shared/ui";
 import { useUpdateLessonOrder } from "@entities/lesson";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import PositivelyIcon from "@public/icons/positively.svg";
 import FalsyIcon from "@public/icons/falsy.svg";
 import { CourseModule, CourseModuleLesson } from "@entities/courseModule";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import { AddLessonButton, ListMenu } from "./components";
 import useStyles from "./ModuleLessonsList.styles";
 
@@ -74,7 +74,7 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
     };
 
     const getListMenu = (lesson: CourseModuleLesson, lessonNumber: number) => {
-        if (isMobile || userRole !== Roles.teacher) {
+        if (isMobile || userRole?.name !== Roles.teacher) {
             return <ListMenu data={lesson} courseId={courseId} moduleId={moduleId} moduleName={module.name} lessonNumber={lessonNumber} />;
         }
         return null;
@@ -100,7 +100,7 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
                                 listMenu={getListMenu(lesson, index + 1)}
                                 onOpen={() => handleGoAdminLessonPage(lesson.id)}
                                 isActive={lesson.isActive}
-                                hideDrag={userRole === Roles.teacher}
+                                hideDrag={userRole?.name === Roles.teacher}
                                 key={lesson.id}>
                                 <Flex className={classes.homeworkAndTest}>
                                     <Flex gap={6}>
@@ -124,7 +124,7 @@ const ModuleLessonsList = ({ courseId, module }: ModuleLessonsListProps) => {
         <Flex direction="column" gap={32} maw={1162} w="100%">
             <Flex className={classes.heading}>
                 <Heading order={2}>Уроки модуля</Heading>
-                <AddLessonButton courseId={courseId} module={module} hidden={userRole === Roles.teacher} />
+                <AddLessonButton courseId={courseId} module={module} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <Flex className={classes.wrapper}>{renderContent()}</Flex>
         </Flex>

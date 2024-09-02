@@ -3,10 +3,10 @@ import React from "react";
 import { ContentByTextEditor, Heading, Paragraph, TextEditor, VideoInput } from "@shared/ui";
 import { AdminLesson } from "@entities/lesson";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import FalsyIcon from "public/icons/falsy.svg";
 import PositivelyIcon from "public/icons/positively.svg";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./LessonSettings.styles";
 import { DeleteLessonButton } from "./components";
 
@@ -67,7 +67,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
         <Flex direction="column" gap={32} w="100%">
             <Flex className={classes.heading}>
                 <Heading order={2}>Данные урока</Heading>
-                <DeleteLessonButton lessonId={String(data.id)} lessonName={data.name} hidden={userRole === Roles.teacher} />
+                <DeleteLessonButton lessonId={String(data.id)} lessonName={data.name} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <Flex className={classes.wrapper}>
                 <Box className={classes.card}>

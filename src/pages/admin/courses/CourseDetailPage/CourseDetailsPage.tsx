@@ -2,9 +2,8 @@ import { Box, Text } from "@mantine/core";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
-import { TRouterQueries } from "@shared/types";
+import { Roles, TRouterQueries } from "@shared/types";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { InfoPanel, CourseSettings, CourseReviews, CourseArticles } from "@widgets/admin/courses";
 import { useAdminCourse, useAvailableCourse } from "@entities/course";
 import { ModuleList } from "@widgets/admin/courseModules";
@@ -18,7 +17,12 @@ const CourseDetailsPage = () => {
 
     const userRole = useUserRole();
 
-    useAvailableCourse({ userRole, courseId: courseData?.id, courseName: courseData?.name, availableGroup: courseData?.availableGroup });
+    useAvailableCourse({
+        userRole: userRole?.name,
+        courseId: courseData?.id,
+        courseName: courseData?.name,
+        availableGroup: courseData?.availableGroup,
+    });
 
     const handleChangeTab = (value: string) => {
         router.push({ pathname: "/admin/courses/[id]", query: { id, tab: value } });
@@ -27,7 +31,7 @@ const CourseDetailsPage = () => {
     const tabList = getTabList({
         isInteractive: courseData?.type === "interactive",
         isPublished: !!courseData?.isFulfillment,
-        isTeacher: userRole === Roles.teacher,
+        isTeacher: userRole?.name === Roles.teacher,
     });
 
     const currentTab = useMemo(() => {

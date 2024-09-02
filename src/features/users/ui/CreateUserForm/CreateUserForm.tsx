@@ -21,7 +21,7 @@ import { Fieldset } from "@components/Fieldset";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { useMe } from "@entities/auth";
 import { ToastType, checkRoleOrder, createNotification } from "@shared/utils";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { adaptCreateUserFormRequest, getInitialValuesForm, getNotificationList } from "./utils";
 import { notificationLabels } from "./constants";
 import { $CreateUserValidationFormRequest, CreateUserValidationFormRequest } from "./types";
@@ -39,9 +39,10 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
 
     const filteredRoles = options?.roles.filter((role) => checkRoleOrder(profileData?.roles[0].id, role.id) >= 0);
     const defaultRole = String(filteredRoles?.at(0)?.id ?? 0);
+    const teacherRoleId = options?.roles.find((role) => role.name === Roles.teacher)?.id;
 
     const createUser = (values: CreateUserValidationFormRequest) => {
-        return userApi.createUser(adaptCreateUserFormRequest(values));
+        return userApi.createUser(adaptCreateUserFormRequest(values, teacherRoleId));
     };
 
     const onSuccess = (response: CreateUserResponse) => {
@@ -118,7 +119,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                             </Flex>
                         </Flex>
                     </Fieldset>
-                    {Roles.teacher === Number(values.roleId) && (
+                    {teacherRoleId === Number(values.roleId) && (
                         <Fieldset label="О преподавателе" icon={<UserCheck />} legendProps={{ mb: 24 }} showDivider={false}>
                             <Flex direction="column" gap={24} w="100%">
                                 <FFileInput
@@ -143,7 +144,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
 
                     <Fieldset label="Настройки уведомлений" icon={<Bell />} legendProps={{ mb: 24 }}>
                         <Box className={classes.notificationsContainer}>
-                            {getNotificationList(values.roleId).map((notificationName, index) => (
+                            {getNotificationList(values.roleId, teacherRoleId).map((notificationName, index) => (
                                 <FControlPanel
                                     name={`notifications[${notificationName}]`}
                                     key={index}

@@ -3,10 +3,10 @@ import { PlusCircle as PlusCircleIcon, Edit3 as EditIcon, HelpCircle as HelpCirc
 import React from "react";
 import { Button, Heading, Loader, Paragraph } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { useAdminLessonTest } from "@entities/lesson";
 import MarkCheckCircleIcon from "public/icons/mark-check-circle.svg";
 import { getAnswerLetterFromRussianAlphabet, getPluralString } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./Test.styles";
 
 export interface TestProps {
@@ -40,7 +40,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                         </Paragraph>
                     </Flex>
 
-                    {userRole !== Roles.teacher && (
+                    {userRole?.name !== Roles.teacher && (
                         <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
                             Добавить тест
                         </Button>
@@ -80,7 +80,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                     </Flex>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
                         Редактировать
                     </Button>

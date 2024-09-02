@@ -13,7 +13,7 @@ const CustomPage500 = () => {
     const userRole = useUserRole();
 
     const handleGoToMainPage = () => {
-        router.push(getStartPage(userRole));
+        router.push(getStartPage(userRole?.name));
     };
 
     return (

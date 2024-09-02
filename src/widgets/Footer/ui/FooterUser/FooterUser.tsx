@@ -193,12 +193,8 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
 
                     <Flex className={classes.middleItem} gap={16}>
                         <Paragraph variant="text-small-m" color="white56">
-                            Мы{" "}
-                            <Paragraph className={classes.middleLink} variant="text-small-m" component="span" color="white">
-                                используем файлы сoокie
-                            </Paragraph>{" "}
-                            для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование,
-                            поменяйте настройки браузера.
+                            Мы используем файлы сoокie для персонализации сервисов и повышения удобства пользования сайтом. Если вы не
+                            согласны на их использование, поменяйте настройки браузера.
                         </Paragraph>
                         <Paragraph variant="text-small-m" color="white56">
                             Образовательные услуги оказываются АНО ДПО «МИПО» на основании Лицензии Nº Л035-01298-77/01108943.
@@ -208,14 +204,16 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
 
                 <Flex className={classes.bottomContent}>
                     <Paragraph variant="text-small-m" color="white56">
-                        © {dayjs().year()}, Name
+                        © {dayjs().year()}, Addamant
                     </Paragraph>
-                    <Flex align="center" gap={8}>
-                        <Paragraph variant="text-small-m" color="white56">
-                            Создано в
-                        </Paragraph>
-                        <Logo icon={<LogoShort />} />
-                    </Flex>
+                    <a className={classes.addamantLink} href={CONTACT.ADDAMANT} target="_blank" rel="noreferrer">
+                        <Flex align="center" gap={8}>
+                            <Paragraph variant="text-small-m" color="white56">
+                                Создано в
+                            </Paragraph>
+                            <Logo icon={<LogoShort />} />
+                        </Flex>
+                    </a>
                 </Flex>
             </Flex>
         </MFooter>

@@ -4,10 +4,10 @@ import { PlusCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button, Heading } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { LessonList } from "@widgets/admin/lessons";
 import { CreateLessonModal } from "@features/lessons";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./LessonListPage.styles";
 
 const LessonListPage = () => {
@@ -31,7 +31,7 @@ const LessonListPage = () => {
             <Flex className={classes.headingContainer}>
                 <Heading>Уроки</Heading>
 
-                {userRole && userRole !== Roles.teacher && (
+                {userRole && userRole.name !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

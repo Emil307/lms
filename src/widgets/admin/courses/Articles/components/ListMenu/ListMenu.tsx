@@ -5,10 +5,10 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { AdminArticleFromList, useUpdateArticleActivity } from "@entities/article";
 import { DeleteCourseArticleModal } from "@features/courses";
+import { Roles } from "@shared/types";
 
 interface ListMenuProps {
     row: MRT_Row<AdminArticleFromList>;
@@ -53,7 +53,7 @@ const ListMenu = ({ row, courseId }: ListMenuProps) => {
         router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(row.original.id) } });
     };
 
-    if (userRole === Roles.teacher) {
+    if (userRole?.name === Roles.teacher) {
         return null;
     }
 

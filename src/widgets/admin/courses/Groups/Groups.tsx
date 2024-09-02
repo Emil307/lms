@@ -5,7 +5,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupFromList, groupApi } from "@entities/group";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { AddGroupButton, ListMenu } from "./components";
 import { useCourseGroupsListData } from "./utils";
 import { TCourseGroupsExtraParams } from "./types";
@@ -21,7 +21,7 @@ const Groups = ({ courseId }: GroupsProps) => {
 
     const userRole = useUserRole();
 
-    const { columns, columnOrder, adaptGetAdminGroupsRequest, renderBadge } = useCourseGroupsListData(userRole);
+    const { columns, columnOrder, adaptGetAdminGroupsRequest, renderBadge } = useCourseGroupsListData(userRole?.name);
 
     const handleClickCell = (cell: MRT_Cell<AdminGroupFromList>) => {
         router.push({ pathname: "/admin/groups/[id]", query: { id: String(cell.row.original.id) } });
@@ -33,7 +33,7 @@ const Groups = ({ courseId }: GroupsProps) => {
                 <Heading order={2} color="dark">
                     Группы
                 </Heading>
-                <AddGroupButton courseId={courseId} hidden={userRole === Roles.teacher} />
+                <AddGroupButton courseId={courseId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<AdminGroupFromList, unknown, TCourseGroupsExtraParams>
@@ -44,7 +44,7 @@ const Groups = ({ courseId }: GroupsProps) => {
                 renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole?.name}
                 countName="Групп"
                 initialState={{
                     columnOrder,

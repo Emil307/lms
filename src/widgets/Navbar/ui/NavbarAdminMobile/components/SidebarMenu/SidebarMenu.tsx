@@ -3,8 +3,8 @@ import { Box } from "@mantine/core";
 import { useRouter } from "next/router";
 import { Briefcase, Folder, Layout, Settings, User, Users, Layers, BookOpen, Home } from "react-feather";
 import { IconClipboardText, IconMessageDots, IconReceipt } from "@tabler/icons-react";
-import { Roles } from "@app/routes";
 import CloseBookIcon from "@public/icons/closeBook.svg";
+import { Roles } from "@shared/types";
 import { SidebarItem, SidebarItemWithChildren } from "./ui";
 
 export default function SidebarMenu() {

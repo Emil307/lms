@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Tabs, Loader, Button } from "@shared/ui";
 import { useAdminCourse } from "@entities/course";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { LessonInfoPanel, LessonSettings, LessonMaterials, Test, Homework } from "@widgets/admin/lessons";
 import { useCourseModule } from "@entities/courseModule";
 import { useAdminLesson } from "@entities/lesson/api";
 import { InfoCard } from "@components/InfoCard";
+import { Roles } from "@shared/types";
 import { fields } from "./constants";
 import { getBreadCrumbsItems, getTabList } from "./utils";
 import { TLessonInfoCard, TQueryParams } from "./types";
@@ -97,7 +97,7 @@ const LessonDetailPage = () => {
     };
 
     const renderInfoCardActions = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return null;
         }
         return (

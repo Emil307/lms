@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { $UploadedFile, $Profile, $Role, $UserNotifications } from "@shared/types";
+import { $UploadedFile, $Profile, $Role, $UserNotifications, Roles } from "@shared/types";
 import { defaultPhoneLength } from "@shared/ui";
-import { Roles } from "@app/routes";
 
 export type User = z.infer<typeof $User>;
 
@@ -59,10 +58,11 @@ export const $UpdateMeForm = z
         email: z.string({ required_error: "Введите email" }),
         avatar: $UploadedFile.nullable().optional(),
         roleId: z.number(),
+        roleName: z.string(),
     })
     .refine(
         (data) => {
-            if (data.roleId !== Roles.student) {
+            if (data.roleName !== Roles.student) {
                 return true;
             }
             return !!data.phone;
@@ -74,7 +74,7 @@ export const $UpdateMeForm = z
     )
     .refine(
         (data) => {
-            if (data.roleId !== Roles.student) {
+            if (data.roleName !== Roles.student) {
                 return true;
             }
             return data.phone && data.phone.length === defaultPhoneLength;

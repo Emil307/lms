@@ -2,9 +2,9 @@ import { Flex, Text } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminLesson, useUpdateLessonActivity } from "@entities/lesson";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -43,7 +43,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     </Paragraph>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <>
                         <Flex className={classes.item}>
                             <Paragraph variant="text-small-m" color="gray45">
@@ -68,7 +68,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     </>
                 )}
 
-                <LastUpdatedInfo data={lessonData.lastUpdated} hidden={userRole === Roles.teacher} />
+                <LastUpdatedInfo data={lessonData.lastUpdated} hidden={userRole?.name === Roles.teacher} />
             </Flex>
         </>
     );

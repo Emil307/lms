@@ -1,12 +1,12 @@
 import { Route } from "nextjs-routes";
-import { Roles } from "./roles";
+import { RoleName, Roles } from "@shared/types";
 import { adminPaths, managerPaths, publicPaths, studentPaths, teacherPaths } from "./index";
 
 export const isCorrectPath = (regex: string, newUrlPath: string) => new RegExp(`^${regex}`).test(newUrlPath);
 
 export const isPathIncluded = (pathArray: string[], newUrlPath: string) => pathArray.some((path) => isCorrectPath(path, newUrlPath));
 
-export const isAccessAllowed = (userRole: number, newUrlPath: string) => {
+export const isAccessAllowed = (userRole: string | undefined, newUrlPath: string) => {
     switch (userRole) {
         case Roles.administrator:
             return isPathIncluded(adminPaths, newUrlPath);
@@ -21,7 +21,7 @@ export const isAccessAllowed = (userRole: number, newUrlPath: string) => {
     }
 };
 
-export const getStartPage = (userRole?: number): Route => {
+export const getStartPage = (userRole?: RoleName): Route => {
     switch (userRole) {
         case Roles.administrator:
         case Roles.manager:

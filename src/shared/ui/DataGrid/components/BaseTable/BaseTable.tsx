@@ -3,7 +3,7 @@ import { MRT_Localization_RU } from "mantine-react-table/locales/ru";
 import React, { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useMemo } from "react";
 import { CSSObject, MantineTheme, useMantineTheme, Text } from "@mantine/core";
 import { ColumnSort, RowSelectionState, SortingState, Updater } from "@tanstack/table-core";
-import { TPagination } from "@shared/types";
+import { RoleName, Roles, TPagination } from "@shared/types";
 import { Tooltip } from "@shared/ui";
 import { PAGE_DEFAULT, PER_PAGE_OPTIONS_DEFAULT } from "@shared/ui/DataGrid/constants";
 import { useBaseTableStyles, getStylesForCell } from "./BaseTable.styles";
@@ -26,7 +26,7 @@ export type TBaseTableProps<T extends Record<string, any>> = {
     disableClickCell?: boolean;
     stylesForCell?: (cell: MRT_Cell<T>, theme: MantineTheme) => CSSObject;
     renderBadge?: (row: MRT_Cell<T>) => TCellBadge[];
-    accessRole?: number;
+    accessRole?: RoleName;
 } & TExtendedProps<T>;
 
 function CellComponent<T extends Record<string, any>>(
@@ -64,7 +64,7 @@ function BaseTable<T extends Record<string, any>>({
     onSortingChange,
     rowSelection,
     renderBadge,
-    accessRole = 0,
+    accessRole = Roles.student,
     ...rest
 }: TBaseTableProps<T>) {
     const theme = useMantineTheme();

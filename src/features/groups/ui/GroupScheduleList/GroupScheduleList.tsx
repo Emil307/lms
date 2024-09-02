@@ -4,7 +4,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupScheduleFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { CreateGroupScheduleButton, ListMenu } from "./components";
 import useStyles from "./GroupScheduleList.styles";
@@ -22,7 +22,7 @@ const GroupScheduleList = ({ groupId, ...props }: GroupScheduleListProps) => {
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Расписание группы</Heading>
-                <CreateGroupScheduleButton groupId={groupId} hidden={userRole === Roles.teacher} />
+                <CreateGroupScheduleButton groupId={groupId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<AdminGroupScheduleFromList, unknown, AdminGroupStudentsExtraFilters>

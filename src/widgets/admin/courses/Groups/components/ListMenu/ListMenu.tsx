@@ -8,7 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { AdminGroupFromList, useUpdateGroupActivity } from "@entities/group";
 import { DeleteGroupModal } from "@features/groups";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminGroupFromList>;
@@ -53,7 +53,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleOpenGroupDetails}>
                     <ThemeIcon w={16} h={16} color="primary">

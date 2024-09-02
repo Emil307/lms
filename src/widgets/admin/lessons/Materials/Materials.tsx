@@ -3,7 +3,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, storageApi } from "@entities/storage";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columnOrder, columns } from "./constants";
 import { AddMaterialsButton, ListMenu } from "./components";
 import { AdminLessonMaterialsExtraParams } from "./types";
@@ -23,7 +23,7 @@ const Materials = ({ lessonId, lessonName }: MaterialsProps) => {
         <Box>
             <Flex className={classes.heading}>
                 <Heading order={2}>Материалы урока</Heading>
-                <AddMaterialsButton lessonId={lessonId} hidden={userRole === Roles.teacher} />
+                <AddMaterialsButton lessonId={lessonId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
 
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminLessonMaterialsExtraParams>

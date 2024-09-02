@@ -5,10 +5,10 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { Roles } from "@app/routes";
 import { AdminCourseFromList, useUpdateCourseActivity } from "@entities/course";
 import { DeleteCourseModal } from "@features/courses";
 import { useUserRole } from "@entities/auth";
+import { Roles } from "@shared/types";
 
 interface ListMenuProps {
     row: MRT_Row<AdminCourseFromList>;
@@ -54,7 +54,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
     };
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleGoToCoursePage}>
                     <ThemeIcon w={16} h={16} color="primary">

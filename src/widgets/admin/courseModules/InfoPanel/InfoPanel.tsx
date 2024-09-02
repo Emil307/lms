@@ -2,9 +2,9 @@ import { Box, Flex, Text } from "@mantine/core";
 import React, { ChangeEvent, memo } from "react";
 import dayjs from "dayjs";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useCourseModule, useUpdateCourseModuleActivity } from "@entities/courseModule";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -45,7 +45,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
                     </Paragraph>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Flex className={classes.item}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Статус:
@@ -68,7 +68,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
                         {dayjs(moduleData.createdAt).format("DD.MM.YYYY HH:mm")}
                     </Paragraph>
                 </Flex>
-                <LastUpdatedInfo data={moduleData.lastUpdated} hidden={userRole === Roles.teacher} />
+                <LastUpdatedInfo data={moduleData.lastUpdated} hidden={userRole?.name === Roles.teacher} />
             </Flex>
         </Box>
     );

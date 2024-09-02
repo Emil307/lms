@@ -9,12 +9,12 @@ export default createStyles((theme) => ({
         top: 0,
         left: 0,
         paddingInline: 16,
-        borderBottom: "none",
+        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
         zIndex: 399,
     },
     inner: {
         alignItems: "center",
-        maxWidth: 1320,
+        maxWidth: 1728,
         minHeight: 96,
         marginInline: "auto",
 
@@ -41,6 +41,7 @@ export default createStyles((theme) => ({
         },
     },
     buttonLink: {
+        fontSize: 18,
         borderRadius: 160,
         padding: "8px 16px",
         height: 40,

@@ -7,8 +7,8 @@ import { Fieldset } from "@components/Fieldset";
 import { Button, ContentByTextEditor, DisplayField, Heading } from "@shared/ui";
 import { GetAdminArticleResponse, useAdminArticle } from "@entities/article";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { InfoCard } from "@components/InfoCard";
+import { Roles } from "@shared/types";
 import { fields } from "./constants";
 import useStyles from "./ArticleSettings.styles";
 import { DeleteArticleButton } from "./components";
@@ -31,7 +31,7 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
     const subcategoriesNames = articleData?.subcategories.map((tag) => tag.name).join(", ");
 
     const renderInfoCardActions = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return null;
         }
         return (
@@ -46,7 +46,7 @@ const ArticleSettings = ({ id, ...props }: ArticleSettingsProps) => {
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные статьи</Heading>
-                    <DeleteArticleButton data={articleData} hidden={userRole === Roles.teacher} />
+                    <DeleteArticleButton data={articleData} hidden={userRole?.name === Roles.teacher} />
                 </Flex>
                 <Fieldset label="Настройки" icon={<Edit3 />}>
                     <DisplayField label="Название статьи" value={articleData?.name} />

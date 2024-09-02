@@ -5,7 +5,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { AdminGroupStudentFromList, AdminGroupStudentsExtraFilters, groupApi } from "@entities/group";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columnOrder, columns } from "./constant";
 import { AddStudentsToGroupButton, ListMenu } from "./components";
 import useStyles from "./StudentList.styles";
@@ -29,7 +29,7 @@ const StudentList = ({ groupId, courseId, ...props }: StudentListProps) => {
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Состав группы</Heading>
-                <AddStudentsToGroupButton groupId={groupId} courseId={courseId} hidden={userRole === Roles.teacher} />
+                <AddStudentsToGroupButton groupId={groupId} courseId={courseId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminGroupStudentFromList, unknown, AdminGroupStudentsExtraFilters>
                 queryKey={[

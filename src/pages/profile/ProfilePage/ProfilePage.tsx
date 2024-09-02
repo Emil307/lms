@@ -10,8 +10,8 @@ import { ChangePasswordForm } from "@features/auth";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
-import { Roles } from "@app/routes";
 import { getPhoneNumberWithMask } from "@shared/utils";
+import { Roles } from "@shared/types";
 import { breadCrumbsItems, fields } from "./constants";
 import useStyles from "./ProfilePage.styles";
 
@@ -58,7 +58,7 @@ const ProfilePage = () => {
                         <DisplayField label="Фамилия" value={userData?.profile.lastName} />
                         <DisplayField label="Имя" value={userData?.profile.firstName} />
                         <DisplayField label="Отчество" value={userData?.profile.patronymic} />
-                        {userRole === Roles.student && (
+                        {userRole?.name === Roles.student && (
                             <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: userData?.phone })} />
                         )}
                     </Fieldset>

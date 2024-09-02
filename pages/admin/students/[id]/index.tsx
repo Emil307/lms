@@ -4,8 +4,7 @@ import { AdminLayout } from "@app/layouts";
 import { StudentDetailsPage } from "@pages/admin/students";
 import { AdminPage } from "@components/AdminPage";
 import { getFullName, NextPageWithLayout } from "@shared/utils";
-import { NextPageWithLayoutProps } from "@shared/types";
-import { Roles } from "@app/routes";
+import { NextPageWithLayoutProps, Roles } from "@shared/types";
 import { useDetailsUser } from "@entities/user";
 import { Loader } from "@shared/ui";
 import { CustomPage500 } from "@pages/errors";
@@ -18,7 +17,7 @@ const StudentDetails: NextPageWithLayout<NextPageWithLayoutProps> = () => {
 
     useEffect(() => {
         if (data) {
-            const rolesIds = data.roles.map(({ id }) => id);
+            const rolesIds = data.roles.map(({ name }) => name);
             if (!rolesIds.includes(Roles.student)) {
                 router.replace(`/admin/users/${id}`);
             }

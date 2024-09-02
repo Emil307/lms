@@ -5,10 +5,10 @@ import { Edit3, Eye, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
-import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth";
 import { AdminArticleFromList, useUpdateArticleActivity } from "@entities/article";
 import { DeleteArticleModal } from "@features/articles";
+import { Roles } from "@shared/types";
 
 interface ListMenuProps {
     row: MRT_Row<AdminArticleFromList>;
@@ -47,7 +47,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
     const handleOpenEditArticle = () => router.push({ pathname: "/admin/articles/[id]/edit", query: { id: String(row.original.id) } });
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleOpenArticleDetail}>
                     <ThemeIcon w={16} h={16} color="primary">

@@ -3,7 +3,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleMaterialsExtraFilters, UploadedFileFromList, storageApi } from "@entities/storage";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columns, columnOrder } from "./constants";
 import { AddMaterialsToArticleButton, ListMenu } from "./components";
 import { adaptGetArticleMaterialFilesRequest } from "./utils";
@@ -22,7 +22,7 @@ const AdminArticleMaterialList = ({ articleId, ...props }: AdminArticleMaterialL
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Материалы</Heading>
-                <AddMaterialsToArticleButton articleId={articleId} hidden={userRole === Roles.teacher} />
+                <AddMaterialsToArticleButton articleId={articleId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<UploadedFileFromList, unknown, AdminArticleMaterialsExtraFilters>
                 queryKey={[QueryKeys.GET_ADMIN_ARTICLE_MATERIALS, [EntityNames.MATERIAL, EntityNames.CATEGORY, EntityNames.ARTICLE]]}

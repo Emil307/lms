@@ -4,7 +4,7 @@ import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminLessonFromList, AdminLessonsFilters, lessonApi } from "@entities/lesson";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import useStyles from "./List.styles";
@@ -17,7 +17,7 @@ const List = () => {
 
     const userRole = useUserRole();
 
-    const { adaptGetAdminLessonsRequest, columns, columnOrder, filterInitialValues, handlerClickCell } = useLessonListData(userRole);
+    const { adaptGetAdminLessonsRequest, columns, columnOrder, filterInitialValues, handlerClickCell } = useLessonListData(userRole?.name);
 
     if (!userRole) {
         return null;
@@ -32,10 +32,10 @@ const List = () => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={userRole !== Roles.teacher ? (cell) => [{ condition: !!cell.row.original.isActive }] : undefined}
+                renderBadge={userRole.name !== Roles.teacher ? (cell) => [{ condition: !!cell.row.original.isActive }] : undefined}
                 onClickCell={handlerClickCell}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole.name}
                 countName="Уроков"
                 initialState={{
                     columnOrder,
@@ -49,7 +49,7 @@ const List = () => {
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
                                 <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
-                                {userRole !== Roles.teacher && (
+                                {userRole.name !== Roles.teacher && (
                                     <FDateRangePicker
                                         className={classes.filterDateRangePicker}
                                         name="createdAtFrom"
@@ -60,7 +60,7 @@ const List = () => {
                                     />
                                 )}
                             </Flex>
-                            {userRole !== Roles.teacher && (
+                            {userRole.name !== Roles.teacher && (
                                 <FRadioGroup name="isActive" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => (
                                         <Radio size="md" key={item.id} label={item.label} value={item.value} />

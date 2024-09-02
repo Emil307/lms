@@ -11,8 +11,8 @@ import { getFullName, getPhoneNumberWithMask } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
-import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@shared/types";
 import { fields } from "./constants";
 import useStyles from "./StudentSettings.styles";
 import { DeleteStudentButton } from "./components";
@@ -58,7 +58,7 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
         });
 
     const renderInfoCardActions = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return null;
         }
         return (
@@ -78,13 +78,13 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Настройки пользователя</Heading>
-                    <DeleteStudentButton data={data} hidden={userRole === Roles.teacher} />
+                    <DeleteStudentButton data={data} hidden={userRole?.name === Roles.teacher} />
                 </Flex>
                 <Fieldset label="Личные данные" icon={<UserIcon />}>
                     <DisplayField label="Фамилия" value={data?.profile.lastName} />
                     <DisplayField label="Имя" value={data?.profile.firstName} />
                     <DisplayField label="Отчество" value={data?.profile.patronymic} />
-                    {data?.roles[0].id === Roles.student && (
+                    {data?.roles[0].name === Roles.student && (
                         <DisplayField label="Телефон" value={getPhoneNumberWithMask({ phoneNumber: data.phone })} />
                     )}
                 </Fieldset>
@@ -93,7 +93,7 @@ const StudentSettings = ({ id, ...props }: StudentSettingsProps) => {
                     <DisplayField label="Email" value={data?.email} />
                 </Fieldset>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Fieldset label="Настройки уведомлений" icon={<Bell />}>
                         <SettingsNotificationList
                             notifications={data?.notifications}

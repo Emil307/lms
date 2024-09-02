@@ -5,11 +5,10 @@ import { Edit3, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { useRouter } from "next/router";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { DeleteScheduleModal, UpdateScheduleForm } from "@features/groups";
 import { AdminGroupScheduleFromList } from "@entities/group";
-import { TRouterQueries } from "@shared/types";
+import { Roles, TRouterQueries } from "@shared/types";
 
 interface ListMenuProps {
     row: MRT_Row<AdminGroupScheduleFromList>;
@@ -40,7 +39,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
         });
     };
 
-    if (userRole === Roles.teacher) {
+    if (userRole?.name === Roles.teacher) {
         return null;
     }
 

@@ -5,7 +5,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminStudentCourseFromList, courseApi } from "@entities/course";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columns, columnOrder } from "./constants";
 import { AddStudentCourseButton, ListMenu } from "./components";
 import useStyles from "./AdminStudentCourseList.styles";
@@ -29,7 +29,7 @@ const AdminStudentCourseList = ({ studentId, ...props }: AdminStudentCourseListP
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Список курсов</Heading>
-                <AddStudentCourseButton studentId={studentId} hidden={userRole === Roles.teacher} />
+                <AddStudentCourseButton studentId={studentId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminStudentCourseFromList, unknown, StudentCourseListExtraParams>
                 queryKey={[

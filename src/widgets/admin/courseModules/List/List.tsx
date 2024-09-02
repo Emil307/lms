@@ -7,9 +7,9 @@ import { Folder as FolderIcon } from "react-feather";
 import { useRouter } from "next/router";
 import { DndCard, Heading, Loader, Paragraph } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { CourseModuleWithoutLessons, useCourseModules, useUpdateCourseModuleOrder } from "@entities/courseModule";
 import { useIntersection, useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import { AddModuleButton, ListMenu } from "./components";
 import { initialValues } from "./constants";
 import useStyles from "./List.styles";
@@ -70,7 +70,7 @@ const List = ({ courseId }: ModuleListProps) => {
     };
 
     const getListMenu = (module: CourseModuleWithoutLessons, moduleNumber: number) => {
-        if (isMobile || userRole !== Roles.teacher) {
+        if (isMobile || userRole?.name !== Roles.teacher) {
             return <ListMenu data={module} courseId={courseId} moduleNumber={moduleNumber} />;
         }
         return null;
@@ -98,7 +98,7 @@ const List = ({ courseId }: ModuleListProps) => {
                                 isActive={module.isActive}
                                 leftIcon={<FolderIcon />}
                                 elementRef={lastElementRef}
-                                hideDrag={userRole === Roles.teacher}
+                                hideDrag={userRole?.name === Roles.teacher}
                                 key={module.id}
                             />
                         );
@@ -115,7 +115,7 @@ const List = ({ courseId }: ModuleListProps) => {
                 <AddModuleButton
                     courseId={courseId}
                     moduleNumber={modulesData ? modulesData.pagination.total + 1 : 1}
-                    hidden={userRole === Roles.teacher}
+                    hidden={userRole?.name === Roles.teacher}
                 />
             </Flex>
             <Flex className={classes.wrapper}>{renderContent()}</Flex>

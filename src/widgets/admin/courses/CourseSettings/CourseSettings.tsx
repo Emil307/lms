@@ -8,12 +8,12 @@ import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { AdminCourse } from "@entities/course";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { InfoCard } from "@components/InfoCard";
 import { Fieldset } from "@components/Fieldset";
 import FileLeftIcon from "public/icons/file-left.svg";
 import UserLeftIcon from "public/icons/user-left.svg";
 import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
+import { Roles } from "@shared/types";
 import { DeleteCourseButton } from "./components";
 import useStyles from "./CourseSettings.styles";
 import { getInfoCardFields } from "./utils";
@@ -63,7 +63,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
     };
 
     const renderInfoCardActions = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <Button variant="border" leftIcon={<IconChartBar />} onClick={handleOpenCourseStatisticsPage}>
                     Статистика
@@ -87,7 +87,7 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
             <Flex direction="column" gap={32} w="100%">
                 <Flex className={classes.heading}>
                     <Heading order={2}>Настройки курса</Heading>
-                    <DeleteCourseButton courseId={courseId} courseName={data.name} hidden={userRole === Roles.teacher} />
+                    <DeleteCourseButton courseId={courseId} courseName={data.name} hidden={userRole?.name === Roles.teacher} />
                 </Flex>
 
                 <Fieldset label="Общая информация" icon={<FileLeftIcon />}>

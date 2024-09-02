@@ -3,8 +3,8 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { Heading, Loader } from "@shared/ui";
 import { useAdminLessonHomeworkAnswerMessages } from "@entities/lesson";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
 import { useIntersection } from "@shared/utils";
+import { Roles } from "@shared/types";
 import { DateDivider, MessageItem, CreateMessageForm, EmptyBlock } from "./components";
 import { initialParams } from "./constants";
 import useStyles from "./HomeworkChat.styles";
@@ -79,7 +79,7 @@ const HomeworkChat = ({ homeworkAnswerId, answerIsCompleted }: MessageListProps)
                     <Heading order={2} mb={32}>
                         Диалог с учеником
                     </Heading>
-                    {userRole === Roles.teacher && (
+                    {userRole?.name === Roles.teacher && (
                         <Box maw={772} mb={32}>
                             <CreateMessageForm homeworkAnswerId={homeworkAnswerId} />
                         </Box>

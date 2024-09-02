@@ -3,9 +3,9 @@ import { useCallback, useMemo } from "react";
 import { MRT_Cell } from "mantine-react-table";
 import { AdminArticleFromList, AdminArticlesFiltersForm, GetAdminArticlesRequest } from "@entities/article";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
-import { Roles } from "@app/routes";
+import { RoleName, Roles } from "@shared/types";
 
-export const useArticleListData = (userRole: number = 0) => {
+export const useArticleListData = (userRole?: RoleName) => {
     const columns: TColumns<AdminArticleFromList> = useMemo(() => {
         return [
             {

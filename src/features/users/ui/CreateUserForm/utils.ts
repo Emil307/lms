@@ -1,5 +1,4 @@
 import { CreateUserRequest } from "@entities/user";
-import { Roles } from "@app/routes";
 import { CreateUserValidationFormRequest } from "./types";
 
 export const getInitialValuesForm = (userRole: string): CreateUserValidationFormRequest => {
@@ -23,21 +22,21 @@ export const getInitialValuesForm = (userRole: string): CreateUserValidationForm
     };
 };
 
-export const getNotificationList = (roleId: string) => {
-    if (roleId === Roles.teacher.toString()) {
+export const getNotificationList = (roleId: string, teacherRoleId?: number) => {
+    if (roleId === teacherRoleId?.toString()) {
         return ["newHomework"];
     }
     return ["newHomework", "supportMessage", "invoiceForPayment"];
 };
 
-export const adaptCreateUserFormRequest = (values: CreateUserValidationFormRequest): CreateUserRequest => {
+export const adaptCreateUserFormRequest = (values: CreateUserValidationFormRequest, teacherRoleId?: number): CreateUserRequest => {
     return {
         ...values,
         avatarId: values.avatar?.id,
         additionalImageId: values.additionalImage?.id,
         roleId: Number(values.roleId),
         notifications:
-            values.roleId === Roles.teacher.toString()
+            values.roleId === String(teacherRoleId)
                 ? { newHomework: values.notifications.newHomework, supportMessage: false, invoiceForPayment: false }
                 : values.notifications,
     };

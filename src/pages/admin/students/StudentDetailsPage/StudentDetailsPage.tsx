@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { useDetailsStudent } from "@entities/user";
 import { InfoPanel, StudentSettings } from "@widgets/admin/students";
-import { TRouterQueries } from "@shared/types";
-import { Roles } from "@app/routes";
+import { Roles, TRouterQueries } from "@shared/types";
 import { useUserRole } from "@entities/auth";
 import { getFullName } from "@shared/utils";
 import { AdminStudentCourseList } from "@widgets/admin/courses";
@@ -26,7 +25,7 @@ const StudentDetailsPage = () => {
         router.push({ pathname: "/admin/students/[id]", query: { id, tab: value } });
     };
 
-    const tabList = getTabList({ isTeacher: userRole === Roles.teacher });
+    const tabList = getTabList({ isTeacher: userRole?.name === Roles.teacher });
 
     const currentTab = useMemo(() => {
         if (!router.isReady) {

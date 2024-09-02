@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { hideNotification } from "@mantine/notifications";
 import { ToastType, createNotification } from "@shared/utils";
-import { Roles } from "@app/routes";
+import { RoleName, Roles } from "@shared/types";
 import { CourseAvailableGroup } from "../api";
 
 interface UseAvailableCourseProps {
-    userRole?: number;
+    userRole?: RoleName;
     courseId?: number;
     courseName?: string;
     availableGroup?: CourseAvailableGroup | null;

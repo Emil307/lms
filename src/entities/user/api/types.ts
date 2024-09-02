@@ -108,7 +108,7 @@ export const $UpdateAdminUserRequest = z.object({
     lastName: z.string(),
     patronymic: z.string().optional(),
     isActive: z.boolean(),
-    roleId: z.string(),
+    roleId: z.number(),
     description: z.string().optional(),
     avatarId: z.number().optional(),
     additionalImageId: z.number().optional(),

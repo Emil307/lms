@@ -10,8 +10,8 @@ import FolderIcon from "public/icons/folder.svg";
 import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { UpdateLessonHomeworkStatusAnswerModal } from "@features/lessons";
 import { useMedia } from "@shared/utils";
-import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth/hooks";
+import { Roles } from "@shared/types";
 import useStyles from "./HomeworkTask.styles";
 import { getFormatUpdatedAt } from "./utils";
 
@@ -66,7 +66,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
     };
 
     const renderActionButtons = () => {
-        if (userRole === Roles.manager) {
+        if (userRole?.name === Roles.manager) {
             return null;
         }
         switch (homeworkAnswer.status.name) {

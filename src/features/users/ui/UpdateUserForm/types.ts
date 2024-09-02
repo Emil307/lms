@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { $UploadedFile } from "@shared/types";
-import { Roles } from "@app/routes";
+import { $UploadedFile, Roles } from "@shared/types";
 
 export type UpdateUserFormValidation = z.infer<typeof $UpdateUserFormValidation>;
 
@@ -12,13 +11,14 @@ export const $UpdateUserFormValidation = z
         patronymic: z.string().max(32, "Должно быть не более 32 символов").optional(),
         isActive: z.boolean(),
         roleId: z.string(),
+        roleName: z.string(),
         description: z.string().optional(),
         avatar: $UploadedFile.nullable(),
         additionalImage: $UploadedFile.nullable(),
     })
     .refine(
         (data) => {
-            if (data.roleId !== String(Roles.teacher) || !data.description) {
+            if (data.roleName !== String(Roles.teacher) || !data.description) {
                 return true;
             }
             return data.description.length <= 190;

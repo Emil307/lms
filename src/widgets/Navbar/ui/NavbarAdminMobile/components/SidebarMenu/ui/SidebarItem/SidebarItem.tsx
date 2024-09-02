@@ -7,6 +7,7 @@ import { Tooltip } from "@shared/ui";
 import { AdminSidebarMenuContext } from "@app/layouts/AdminLayout/utils";
 import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
+import { RoleName } from "@shared/types";
 import useStyles from "./SidebarItemStyles";
 
 export interface SidebarItemProps extends Omit<FlexProps, "children"> {
@@ -15,7 +16,7 @@ export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     isActive?: boolean;
     href?: LinkProps["href"];
     inner?: boolean;
-    roles?: number[];
+    roles?: RoleName[];
     isOpenInnerContent?: boolean;
 }
 
@@ -52,7 +53,7 @@ const SidebarItem = forwardRef(function SidebarItem(
         return <Box className={classes.indicatorCloseInnerContent} />;
     };
 
-    if (isMenuItemDenied(roles, userRole)) {
+    if (isMenuItemDenied(roles, userRole?.name)) {
         return null;
     }
 

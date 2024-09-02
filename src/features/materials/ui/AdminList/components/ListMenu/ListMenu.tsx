@@ -8,7 +8,7 @@ import { MenuDataGrid, MenuItemDataGrid, Switch } from "@shared/ui";
 import { UploadedFileFromList, useUpdateUploadedFileActivity } from "@entities/storage";
 import { DeleteMaterialModal, UpdateMaterialsForm, MATERIALS_LOCAL_STORAGE_KEY } from "@features/materials";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 interface UsersListMenuProps {
     row: MRT_Row<UploadedFileFromList>;
@@ -63,7 +63,7 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
     const labelActivitySwitch = row.original.isActive ? "Деактивировать" : "Активировать";
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return (
                 <MenuItemDataGrid onClick={handleDownload}>
                     <ThemeIcon w={16} h={16} color="primary">

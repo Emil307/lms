@@ -4,12 +4,12 @@ import { useCallback, useMemo } from "react";
 import { MRT_Cell } from "mantine-react-table";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminCourseFromList, AdminCoursesFiltersForm, GetAdminCoursesRequest, useAdminCourseResources } from "@entities/course";
-import { Roles } from "@app/routes";
 import { prepareOptionsForSelect } from "@shared/ui";
 import { getHumanDate, getLocaleString, getSurnameWithInitials } from "@shared/utils";
 import { FilterTypes } from "@shared/constant";
+import { RoleName, Roles } from "@shared/types";
 
-export const useCourseListData = (userRole: number = 0) => {
+export const useCourseListData = (userRole?: RoleName) => {
     const { data: coursesFilters, isLoading: isLoadingFilters } = useAdminCourseResources({ type: FilterTypes.SELECT });
 
     const columns: TColumns<AdminCourseFromList> = useMemo(() => {

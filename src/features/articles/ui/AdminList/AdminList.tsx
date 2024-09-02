@@ -7,7 +7,7 @@ import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleFromList, AdminArticlesFiltersForm, articleApi, useAdminArticleFilters } from "@entities/article";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { radioGroupValues } from "./constants";
 import { ListMenu } from "./components";
 import { useArticleListData } from "./utils";
@@ -22,7 +22,7 @@ const AdminList = (props: AdminListProps) => {
 
     const userRole = useUserRole();
 
-    const { adaptGetAdminArticlesRequest, columns, columnOrder, filterInitialValues, renderBadge } = useArticleListData(userRole);
+    const { adaptGetAdminArticlesRequest, columns, columnOrder, filterInitialValues, renderBadge } = useArticleListData(userRole?.name);
 
     const articleResources = useAdminArticleFilters();
 
@@ -42,7 +42,7 @@ const AdminList = (props: AdminListProps) => {
                 renderBadge={renderBadge()}
                 onClickCell={handleClickCell}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole?.name}
                 countName="Статей"
                 initialState={{
                     columnOrder,
@@ -89,7 +89,7 @@ const AdminList = (props: AdminListProps) => {
                                 />
                             </Flex>
 
-                            {userRole !== Roles.teacher && (
+                            {userRole?.name !== Roles.teacher && (
                                 <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => (
                                         <Radio size="md" key={item.id} label={item.label} value={item.value} />

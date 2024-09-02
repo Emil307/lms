@@ -9,7 +9,7 @@ import { GetAdminGroupResponse, useAdminGroup } from "@entities/group";
 import { getFullName } from "@shared/utils";
 import { InfoCard } from "@components/InfoCard";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { useSettingUserStyles } from "./GroupSettings.styles";
 import { fields } from "./constants";
 import { DeleteGroupButton } from "./components";
@@ -39,7 +39,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
     };
 
     const renderInfoCardActions = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return null;
         }
         return (
@@ -54,7 +54,7 @@ const GroupSettings = ({ id, ...props }: GroupSettingsProps) => {
             <Flex className={classes.settingsInfo}>
                 <Flex className={classes.headingSettingsInfo}>
                     <Heading order={2}>Данные группы</Heading>
-                    <DeleteGroupButton data={groupData} hidden={userRole === Roles.teacher} />
+                    <DeleteGroupButton data={groupData} hidden={userRole?.name === Roles.teacher} />
                 </Flex>
                 <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }}>
                     <DisplayField label="Учебный курс" value={groupData?.course.name} />

@@ -5,7 +5,7 @@ import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { getFullName } from "@shared/utils";
 import { useDetailsStudent, useUpdateUserActivity } from "@entities/user";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends Omit<BoxProps, "children"> {
@@ -38,7 +38,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Статус:
@@ -61,7 +61,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                         {data?.lastLoginAt ? dayjs(data.lastLoginAt).format("DD.MM.YYYY HH:mm") : "-"}
                     </Paragraph>
                 </Flex>
-                <LastUpdatedInfo data={data?.lastUpdated} hidden={userRole === Roles.teacher} />
+                <LastUpdatedInfo data={data?.lastUpdated} hidden={userRole?.name === Roles.teacher} />
             </Flex>
         </Box>
     );

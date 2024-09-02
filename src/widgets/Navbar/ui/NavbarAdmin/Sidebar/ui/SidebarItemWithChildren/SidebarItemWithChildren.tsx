@@ -59,7 +59,7 @@ export default function SidebarItemWithChildren({
         }
     }, [isOpened]);
 
-    if (isMenuItemDenied(roles, userRole)) {
+    if (isMenuItemDenied(roles, userRole?.name)) {
         return null;
     }
 

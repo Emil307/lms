@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
         top: 0,
         left: 0,
         paddingInline: 16,
-        borderBottom: "none",
+        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
         zIndex: 399,
     },
     inner: {

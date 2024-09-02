@@ -7,6 +7,7 @@ import { Tooltip } from "@shared/ui";
 import { useUserRole } from "@entities/auth/hooks";
 import { isMenuItemDenied } from "@widgets/Navbar/utils";
 import { useMedia } from "@shared/utils";
+import { RoleName } from "@shared/types";
 import useStyles from "./SidebarItem.styles";
 import { SidebarMinimizedModeContext } from "../../../utils";
 import { SidebarItemsWithChildrenContext } from "../../utils";
@@ -17,7 +18,7 @@ export interface SidebarItemProps extends Omit<FlexProps, "children"> {
     isActive?: boolean;
     href?: LinkProps["href"];
     isInner?: boolean;
-    roles?: number[];
+    roles?: RoleName[];
     isOpenInnerContent?: boolean;
 }
 
@@ -62,7 +63,7 @@ const SidebarItem = forwardRef(function SidebarItem(
         return <Box className={classes.indicatorCloseInnerContent} />;
     };
 
-    if (isMenuItemDenied(roles, userRole)) {
+    if (isMenuItemDenied(roles, userRole?.name)) {
         return null;
     }
 

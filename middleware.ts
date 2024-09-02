@@ -18,7 +18,7 @@ export function middleware(req: NextRequest) {
     //TODO Сделать проверку на существование страницы, в противном случае редирект на 404
 
     const token = req.cookies.get(ECookies.TOKEN)?.value;
-    const userRole = Number(req.cookies.get(ECookies.USER_ROLE)?.value);
+    const userRole = req.cookies.get(ECookies.USER_ROLE)?.value;
     const isUserAuth = token && userRole;
 
     // Получаем значение action из query параметра

@@ -12,7 +12,7 @@ import { useSession } from "@entities/auth/hooks";
 import { SettingsList as SettingsNotificationList } from "@widgets/notifications";
 import { useUpdateAdminUserNotification } from "@entities/notification";
 import { InfoCard } from "@components/InfoCard";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { fields } from "./constants";
 import { useSettingUserStyles } from "./UserSettings.styles";
 import { DeleteUserButton } from "./components";
@@ -91,7 +91,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                     <DisplayField label="Email" value={data?.email} />
                 </Fieldset>
 
-                {Roles.teacher === data?.roles[0].id && (
+                {Roles.teacher === data?.roles[0].name && (
                     <Fieldset label="О преподавателе" icon={<UserCheck />} showDivider={false}>
                         <Flex direction="column" gap={16} w="100%">
                             {data.profile.additionalImage?.absolutePath && (

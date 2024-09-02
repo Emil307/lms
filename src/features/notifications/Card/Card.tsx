@@ -19,7 +19,7 @@ const MemoizedCard = memo(function Card({ data, handleCloseMenu, ...props }: Car
     const router = useRouter();
     const userRole = useUserRole();
 
-    const { userData, content, title, link } = prepareNotificationData(data, userRole);
+    const { userData, content, title, link } = prepareNotificationData(data, userRole?.name);
 
     const handleNotificationClick = () => {
         handleCloseMenu();

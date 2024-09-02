@@ -1,5 +1,4 @@
 import { UpdateAdminUserRequest, UserDetailResponse } from "@entities/user";
-import { Roles } from "@app/routes";
 import { UpdateStudentFormValidation } from "./types";
 
 export const adaptDataUpdateStudentForm = (data?: UserDetailResponse): Partial<UpdateStudentFormValidation> => {
@@ -14,11 +13,10 @@ export const adaptDataUpdateStudentForm = (data?: UserDetailResponse): Partial<U
     };
 };
 
-export const adaptUpdateStudentRequest = (data: UpdateStudentFormValidation): Omit<UpdateAdminUserRequest, "id"> => {
+export const adaptUpdateStudentRequest = (data: UpdateStudentFormValidation): Omit<UpdateAdminUserRequest, "id" | "roleId"> => {
     const { avatar, ...rest } = data;
     return {
         ...rest,
-        roleId: Roles.student.toString(),
         avatarId: avatar?.id,
     };
 };

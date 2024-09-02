@@ -71,7 +71,7 @@ const HeaderAdmin = () => {
 
     return (
         <MHeader classNames={classes} height="auto">
-            <Link className={classes.logo} href={getStartPage(user?.roles[0].id)} onClick={() => setOpenedSidebar(false)}>
+            <Link className={classes.logo} href={getStartPage(user?.roles[0].name)} onClick={() => setOpenedSidebar(false)}>
                 <Logo icon={isTablet ? <LogoShortImage /> : <LogoImage />} />
             </Link>
             <Flex className={classes.wrapperRightMenu}>

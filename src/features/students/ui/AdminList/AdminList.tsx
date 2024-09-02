@@ -8,7 +8,7 @@ import { userApi } from "@entities/user";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { ListMenu } from "./components";
 import { radioGroupValues } from "./constants";
 import { useStudentListData } from "./utils";
@@ -23,7 +23,7 @@ const AdminList = (props: AdminListProps) => {
 
     const userRole = useUserRole();
 
-    const { columns, columnOrder, filterInitialValues, adaptGetAdminStudentsRequest, renderBadge } = useStudentListData(userRole);
+    const { columns, columnOrder, filterInitialValues, adaptGetAdminStudentsRequest, renderBadge } = useStudentListData(userRole?.name);
 
     const openUserDetailPage = (id: number) => router.push({ pathname: "/admin/students/[id]", query: { id: String(id) } });
 
@@ -43,7 +43,7 @@ const AdminList = (props: AdminListProps) => {
                 renderBadge={renderBadge()}
                 onClickCell={handlerClickCell}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole?.name}
                 countName="Учеников"
                 initialState={{
                     columnOrder,
@@ -59,7 +59,7 @@ const AdminList = (props: AdminListProps) => {
                                 <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
                             </Flex>
 
-                            {userRole !== Roles.teacher && (
+                            {userRole?.name !== Roles.teacher && (
                                 <FRadioGroup name="isActive" defaultValue="" className={classes.filterRadioGroup}>
                                     {radioGroupValues.map((item) => (
                                         <Radio size="md" key={item.id} label={item.label} value={item.value} />

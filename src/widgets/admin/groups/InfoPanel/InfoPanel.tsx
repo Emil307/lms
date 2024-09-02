@@ -2,9 +2,9 @@ import { Badge, Box, BoxProps, Flex } from "@mantine/core";
 import React, { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import { Heading, LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
-import { Roles } from "@app/routes";
 import { useUserRole } from "@entities/auth/hooks";
 import { useAdminGroup, useUpdateGroupActivity } from "@entities/group";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends Omit<BoxProps, "children"> {
@@ -38,7 +38,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m">{groupData?.id}</Paragraph>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Flex align="center" gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Статус:
@@ -60,7 +60,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m">{groupData?.course.name}</Paragraph>
                 </Flex>
 
-                {userRole !== Roles.teacher && (
+                {userRole?.name !== Roles.teacher && (
                     <Flex gap={8}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Создание:
@@ -71,7 +71,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Flex>
                 )}
 
-                <LastUpdatedInfo data={groupData?.lastUpdated} hidden={userRole === Roles.teacher} />
+                <LastUpdatedInfo data={groupData?.lastUpdated} hidden={userRole?.name === Roles.teacher} />
             </Flex>
         </Box>
     );

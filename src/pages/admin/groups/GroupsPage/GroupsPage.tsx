@@ -3,10 +3,10 @@ import React from "react";
 import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
-import { Roles } from "@app/routes";
 import { AdminList as AdminGroupList } from "@features/groups";
 import { useUserRole } from "@entities/auth";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./GroupsPage.styles";
 
 const GroupsPage = () => {
@@ -23,7 +23,7 @@ const GroupsPage = () => {
         <Box>
             <Flex className={classes.headingContainer}>
                 <Heading>Группы</Heading>
-                {userRole && userRole !== Roles.teacher && (
+                {userRole && userRole.name !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

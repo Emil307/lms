@@ -6,9 +6,9 @@ import { closeModal, openModal } from "@mantine/modals";
 import { saveAs } from "file-saver";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { DeleteArticleMaterialModal } from "@features/articles";
 import { UploadedFileFromList } from "@entities/storage";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     row: MRT_Row<UploadedFileFromList>;
@@ -46,7 +46,7 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
                 Скачать
             </MenuItemDataGrid>
 
-            {userRole !== Roles.teacher && (
+            {userRole?.name !== Roles.teacher && (
                 <MenuItemDataGrid onClick={openDeleteModal}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Trash />

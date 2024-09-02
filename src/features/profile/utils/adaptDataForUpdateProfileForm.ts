@@ -8,6 +8,7 @@ export const adaptDataForUpdateProfileForm = (user?: User): Partial<UpdateMeForm
         email: user?.email,
         phone: user?.phone || "",
         roleId: user?.roles[0].id,
+        roleName: user?.roles[0].name,
         avatar: user?.profile.avatar,
     };
 };

@@ -3,8 +3,8 @@ import React, { ChangeEvent } from "react";
 import { ThumbsDown, ThumbsUp } from "react-feather";
 import { LastUpdatedInfo, Paragraph, Switch } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { useAdminArticle, useUpdateArticleActivity } from "@entities/article";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 export interface InfoPanelProps extends BoxProps {
@@ -32,7 +32,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                 <Paragraph variant="text-small-m">{articleData?.id}</Paragraph>
             </Flex>
 
-            {userRole !== Roles.teacher && (
+            {userRole?.name !== Roles.teacher && (
                 <Flex align="center" gap={8}>
                     <Paragraph variant="text-small-m" color="gray45">
                         Статус:
@@ -66,7 +66,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                     </Flex>
                 </Flex>
             </Flex>
-            <LastUpdatedInfo data={articleData?.lastUpdated} hidden={userRole === Roles.teacher} />
+            <LastUpdatedInfo data={articleData?.lastUpdated} hidden={userRole?.name === Roles.teacher} />
         </Flex>
     );
 };

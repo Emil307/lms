@@ -6,7 +6,7 @@ import { AdminList as AdminStudentList } from "@features/students";
 import { Button, Heading } from "@shared/ui";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import useStyles from "./StudentsPage.styles";
 
 const StudentsPage = () => {
@@ -23,7 +23,7 @@ const StudentsPage = () => {
         <Box>
             <Flex className={classes.headingContainer}>
                 <Heading>Ученики</Heading>
-                {userRole && userRole !== Roles.teacher && (
+                {userRole && userRole.name !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

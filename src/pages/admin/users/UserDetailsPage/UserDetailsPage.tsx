@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { InfoPanel, UserSettings } from "@widgets/admin/users";
 import { useDetailsUser } from "@entities/user";
-import { TRouterQueries } from "@shared/types";
-import { Roles } from "@app/routes";
+import { Roles, TRouterQueries } from "@shared/types";
 import { TeacherCourseList } from "@widgets/admin/courses";
 import { TeacherGroupList } from "@widgets/admin/groups";
 import { getBreadCrumbsItems } from "./utils";
@@ -37,7 +36,7 @@ const UserDetailsPage = () => {
     }
 
     const renderComponent = () => {
-        if (Roles.teacher !== data.roles[0].id) {
+        if (Roles.teacher !== data.roles[0].name) {
             return <UserSettings id={id} />;
         }
         switch (currentTab) {
@@ -56,7 +55,7 @@ const UserDetailsPage = () => {
         <Box>
             <BreadCrumbs items={getBreadCrumbsItems({ data })} mb={8} />
             <InfoPanel id={id} mb={32} />
-            {Roles.teacher === data.roles[0].id && (
+            {Roles.teacher === data.roles[0].name && (
                 <Tabs tabs={tabsList} value={currentTab} onTabChange={handleChangeTab} maw={1162} mb={32} />
             )}
             {renderComponent()}

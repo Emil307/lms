@@ -3,7 +3,7 @@ import { Heading, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
 import { AdminArticleCoursesExtraFilters, AdminCourseFromList, courseApi } from "@entities/course";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { AddArticleCourseButton, ListMenu } from "./components";
 import { useArticleCoursesListData } from "./utils";
 import useStyles from "./AdminArticleCourseList.styles";
@@ -17,13 +17,13 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
 
     const userRole = useUserRole();
 
-    const { columns, columnOrder, adaptGetArticleCoursesRequest, renderBadge } = useArticleCoursesListData(userRole);
+    const { columns, columnOrder, adaptGetArticleCoursesRequest, renderBadge } = useArticleCoursesListData(userRole?.name);
 
     return (
         <Box {...props}>
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Привязка к курсу</Heading>
-                <AddArticleCourseButton articleId={articleId} hidden={userRole === Roles.teacher} />
+                <AddArticleCourseButton articleId={articleId} hidden={userRole?.name === Roles.teacher} />
             </Flex>
             <ManagedDataGrid<AdminCourseFromList, unknown, AdminArticleCoursesExtraFilters>
                 queryKey={[
@@ -35,7 +35,7 @@ const AdminArticleCourseList = ({ articleId, ...props }: AdminArticleCourseListP
                 extraFilterParams={{ articleId }}
                 renderBadge={renderBadge()}
                 columns={columns}
-                accessRole={userRole}
+                accessRole={userRole?.name}
                 countName="Курсов"
                 initialState={{
                     columnOrder,

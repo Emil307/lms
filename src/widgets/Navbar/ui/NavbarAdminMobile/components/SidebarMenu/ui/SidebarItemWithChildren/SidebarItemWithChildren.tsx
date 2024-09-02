@@ -31,7 +31,7 @@ export default function SidebarItemWithChildren({ children, icon, isActive = fal
         }
     }, [isOpen]);
 
-    if (isMenuItemDenied(roles, userRole)) {
+    if (isMenuItemDenied(roles, userRole?.name)) {
         return null;
     }
 

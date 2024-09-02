@@ -13,10 +13,11 @@ import {
     Paragraph,
     PASSWORD_INPUT_DESCRIPTION,
 } from "@shared/ui";
-import { CreateUserResponse, userApi } from "@entities/user";
+import { CreateUserResponse, useAdminStudentsFilters, userApi } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import { EntityNames, MutationKeys } from "@shared/constant";
+import { Roles } from "@shared/types";
 import { adaptCreateUserFormRequest } from "./utils";
 import { $CreateStudentValidationFormRequest, CreateStudentValidationFormRequest } from "./types";
 import { initialValues, notificationLabels, notifications } from "./constants";
@@ -30,8 +31,13 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
 
+    const { data: studentFilters } = useAdminStudentsFilters();
+
     const createStudent = (values: CreateStudentValidationFormRequest) => {
-        return userApi.createUser(adaptCreateUserFormRequest(values));
+        return userApi.createUser({
+            ...adaptCreateUserFormRequest(values),
+            roleId: studentFilters?.roles.find((role) => role.name === Roles.student)?.id!,
+        });
     };
 
     const onSuccess = (response: CreateUserResponse) => {

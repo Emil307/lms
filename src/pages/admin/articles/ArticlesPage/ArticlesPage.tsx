@@ -4,9 +4,9 @@ import { PlusCircle } from "react-feather";
 import { useRouter } from "next/router";
 import { Button, Heading } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { AdminList as AdminArticleList } from "@features/articles";
 import { useMedia } from "@shared/utils";
+import { Roles } from "@shared/types";
 import useStyles from "./ArticlesPage.styles";
 
 const ArticlesPage = () => {
@@ -24,7 +24,7 @@ const ArticlesPage = () => {
             <Flex className={classes.headingContainer}>
                 <Heading>База знаний</Heading>
 
-                {userRole && userRole !== Roles.teacher && (
+                {userRole && userRole.name !== Roles.teacher && (
                     <Button
                         variant="secondary"
                         size={isTablet ? "medium" : "large"}

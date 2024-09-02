@@ -8,7 +8,7 @@ import { CourseModuleWithoutLessons, useUpdateCourseModuleActivity } from "@enti
 import { DeleteCourseModuleModal, UpdateCourseModuleModal } from "@features/courseModules";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     courseId: string;
@@ -67,7 +67,7 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
     const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
     const renderItems = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             if (!isMobile) {
                 return null;
             }

@@ -28,7 +28,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                             {getFullName({ data: data.user.profile })}
                         </Paragraph>
                         <Paragraph variant="text-caption" color="gray45" lineClamp={1}>
-                            {data.user.roles?.[0].displayName}
+                            {data.user.roles[0].displayName}
                         </Paragraph>
                     </Flex>
                     <Paragraph variant="text-caption" className={classes.createdAtLastMessage}>

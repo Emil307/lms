@@ -28,7 +28,7 @@ const SidebarMenu = () => {
                                 component={Link}
                                 href={{ pathname: "/courses", query: { categoryId: category.id.toString() } }}
                                 className={classes.link}
-                                variant="text-small-m"
+                                variant="small-m"
                                 key={category.id}>
                                 {category.name}
                             </Paragraph>
@@ -48,7 +48,7 @@ const SidebarMenu = () => {
                 </Paragraph>
                 <Flex className={classes.listItems}>
                     {INFORMATION_MENU_ITEMS.map((item, index) => (
-                        <Paragraph component={Link} href={item.href} className={classes.link} variant="text-small-m" key={index}>
+                        <Paragraph component={Link} href={item.href} className={classes.link} variant="small-m" key={index}>
                             {item.label}
                         </Paragraph>
                     ))}

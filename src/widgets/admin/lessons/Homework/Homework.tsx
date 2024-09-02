@@ -9,7 +9,7 @@ import {
 import { Button, ContentByTextEditor, FileItem, Heading, Loader, Paragraph } from "@shared/ui";
 import { useAdminLessonHomework } from "@entities/lesson";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import useStyles from "./Homework.styles";
 
 interface HomeworkProps {
@@ -43,7 +43,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
                         </Paragraph>
                     </Flex>
 
-                    {userRole !== Roles.teacher && (
+                    {userRole?.name !== Roles.teacher && (
                         <Button className={classes.button} variant="white" size="small" leftIcon={<PlusCircleIcon />} onClick={onUpdate}>
                             Добавить задание
                         </Button>
@@ -68,7 +68,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
                         </Flex>
                     </Flex>
 
-                    {userRole !== Roles.teacher && (
+                    {userRole?.name !== Roles.teacher && (
                         <Button className={classes.button} variant="white" size="small" leftIcon={<EditIcon />} onClick={onUpdate}>
                             Редактировать
                         </Button>

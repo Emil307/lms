@@ -5,7 +5,7 @@ import { useUserRole } from "@entities/auth";
 import { Heading, LastUpdatedInfo, Loader, Paragraph, Switch } from "@shared/ui";
 import { useAdminCourse, useUpdateCourseActivity, useUpdateCoursePopularity, useUpdateCourseType } from "@entities/course";
 import { Checkbox } from "@shared/ui/Forms";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import useStyles from "./InfoPanel.styles";
 
 interface InfoPanelProps {
@@ -38,7 +38,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
     const labelActivitySwitch = courseData.isActive ? "Деактивировать" : "Активировать";
 
     const renderContent = () => {
-        if (userRole === Roles.teacher) {
+        if (userRole?.name === Roles.teacher) {
             return null;
         }
         return (
@@ -88,7 +88,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     <Paragraph variant="text-small-m">{courseData.id}</Paragraph>
                 </Flex>
                 {renderContent()}
-                <LastUpdatedInfo data={courseData.lastUpdated} hidden={userRole === Roles.teacher} />
+                <LastUpdatedInfo data={courseData.lastUpdated} hidden={userRole?.name === Roles.teacher} />
             </Flex>
         </>
     );

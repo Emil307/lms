@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { closeModal, openModal } from "@mantine/modals";
 import { Button, FAvatarInput, FControlButtons, FInput, FPhoneInput, FSwitch, LastUpdatedInfo, ManagedForm, Paragraph } from "@shared/ui";
-import { UpdateAdminUserResponse, userApi, UserDetailResponse } from "@entities/user";
+import { UpdateAdminUserResponse, useAdminStudentsFilters, userApi, UserDetailResponse } from "@entities/user";
 import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification, getFullName } from "@shared/utils";
 import { ChangeUserPasswordForm } from "@features/users";
 import { EntityNames, MutationKeys } from "@shared/constant";
+import { Roles } from "@shared/types";
 import { initialValues } from "./constants";
 import { $UpdateStudentFormValidation, UpdateStudentFormValidation } from "./types";
 import useStyles from "./UpdateStudentForm.styles";
@@ -23,6 +24,8 @@ export interface UpdateStudentFormProps extends Omit<BoxProps, "children"> {
 const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) => {
     const router = useRouter();
     const { classes } = useStyles();
+
+    const { data: studentFilters } = useAdminStudentsFilters();
 
     const handleCloseChangePasswordModal = () => closeModal("CHANGE_PASSWORD");
 
@@ -41,7 +44,11 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
     };
 
     const updateStudent = (values: UpdateStudentFormValidation) => {
-        return userApi.updateUser({ ...adaptUpdateStudentRequest(values), id: String(data?.id) });
+        return userApi.updateUser({
+            ...adaptUpdateStudentRequest(values),
+            id: String(data?.id),
+            roleId: studentFilters?.roles.find((role) => role.name === Roles.student)?.id!,
+        });
     };
 
     const onSuccess = (response: UserDetailResponse) => {

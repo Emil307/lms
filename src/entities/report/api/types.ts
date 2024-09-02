@@ -112,12 +112,7 @@ export const $GetAdminStudentReportsRequest = $getFiltersRequestWithoutPaginatio
 
 export const $GetAdminStudentReportFiltersResponse = z.object({
     transactionableTypes: $AdminTransactionableType.array(),
-    roles: $Role
-        .pick({
-            id: true,
-            displayName: true,
-        })
-        .array(),
+    roles: $Role.array(),
 });
 
 export const $AdminStudentReportEntitiesRequest = z.object({
@@ -199,12 +194,7 @@ export const $GetAdminTransactionReportsRequest = $getFiltersRequestWithoutPagin
 
 export const $GetAdminTransactionReportFiltersResponse = z.object({
     transactionableTypes: $AdminTransactionableType.array(),
-    roles: $Role
-        .pick({
-            id: true,
-            displayName: true,
-        })
-        .array(),
+    roles: $Role.array(),
     paymentTypes: $AdminTransactionPaymentType.array(),
     statuses: $AdminTransactionStatus.array(),
 });

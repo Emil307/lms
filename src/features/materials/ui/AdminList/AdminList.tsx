@@ -4,7 +4,7 @@ import { EntityNames, QueryKeys } from "@shared/constant";
 import { UploadedFileFromList, UploadedFilesFiltersForm, storageApi, useUploadedFileResources } from "@entities/storage";
 import { useMedia } from "@shared/utils";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 import { columnOrder, columns, filterInitialValues, radioGroupValues } from "./constant";
 import { ListMenu } from "./components";
 import { adaptGetMaterialFilesRequest } from "./utils";
@@ -30,7 +30,7 @@ const AdminList = (props: AdminListProps) => {
                 filter={{
                     initialValues: filterInitialValues,
                 }}
-                renderBadge={userRole !== Roles.teacher ? (cell) => [{ condition: !!cell.row.original.isActive }] : undefined}
+                renderBadge={userRole?.name !== Roles.teacher ? (cell) => [{ condition: !!cell.row.original.isActive }] : undefined}
                 columns={columns}
                 countName="Материалов"
                 initialState={{

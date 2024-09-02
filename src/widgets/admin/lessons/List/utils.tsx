@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { AdminLessonFromList, AdminLessonsFilters, GetAdminLessonsRequest } from "@entities/lesson";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
 import { getHumanDate } from "@shared/utils";
-import { Roles } from "@app/routes";
+import { RoleName, Roles } from "@shared/types";
 
-export const useLessonListData = (userRole?: number) => {
+export const useLessonListData = (userRole?: RoleName) => {
     const router = useRouter();
 
     const columns: TColumns<AdminLessonFromList> = useMemo(() => {

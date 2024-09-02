@@ -3,9 +3,9 @@ import { MRT_Cell } from "mantine-react-table";
 import { AdminCourseFromList, GetAdminCoursesRequest } from "@entities/course";
 import { AdminArticleMaterialsExtraFilters } from "@entities/storage";
 import { TColumns, TFunctionParams } from "@shared/ui/DataGrid/types";
-import { Roles } from "@app/routes";
+import { RoleName, Roles } from "@shared/types";
 
-export const useArticleCoursesListData = (userRole: number = 0) => {
+export const useArticleCoursesListData = (userRole?: RoleName) => {
     const columns: TColumns<AdminCourseFromList> = useMemo(() => {
         return [
             {

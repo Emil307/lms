@@ -5,9 +5,9 @@ import { Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { DeleteArticleCourseModal } from "@features/articles";
 import { AdminCourseFromList } from "@entities/course";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminCourseFromList>;
@@ -34,7 +34,7 @@ const ListMenu = ({ row, articleId }: ListMenuProps) => {
         });
     };
 
-    if (userRole === Roles.teacher) {
+    if (userRole?.name === Roles.teacher) {
         return null;
     }
 

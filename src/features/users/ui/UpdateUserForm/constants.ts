@@ -1,4 +1,6 @@
-export const getInitialValuesForm = (defaultRole: string) => ({
+import { Role } from "@shared/types";
+
+export const getInitialValuesForm = (defaultRole: Role) => ({
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -7,7 +9,8 @@ export const getInitialValuesForm = (defaultRole: string) => ({
     patronymic: "",
     description: "",
     isActive: false,
-    roleId: defaultRole,
+    roleId: String(defaultRole.id),
+    roleName: defaultRole.name,
     avatar: null,
     additionalImage: null,
 });

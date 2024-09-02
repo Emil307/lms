@@ -5,10 +5,10 @@ import { Download, Trash } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
 import { saveAs } from "file-saver";
 import { useUserRole } from "@entities/auth";
-import { Roles } from "@app/routes";
 import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { UploadedFileFromList } from "@entities/storage";
 import { DeleteMaterialFromLessonModal } from "@features/lessons";
+import { Roles } from "@shared/types";
 
 interface LessonMaterialsListMenuProps {
     row: MRT_Row<UploadedFileFromList>;
@@ -48,7 +48,7 @@ const ListMenu = ({ row, lessonId, lessonName }: LessonMaterialsListMenuProps) =
                 Скачать
             </MenuItemDataGrid>
 
-            {userRole !== Roles.teacher && (
+            {userRole?.name !== Roles.teacher && (
                 <MenuItemDataGrid onClick={handleOpenDeleteModal}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Trash />

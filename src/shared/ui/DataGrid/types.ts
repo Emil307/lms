@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { FormikConfig, FormikValues } from "formik";
 import { MRT_Cell, MRT_Column, MRT_ColumnDef, MRT_Row, MRT_TableInstance } from "mantine-react-table";
-import { $getPaginationResponseType, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
+import { $getPaginationResponseType, RoleName, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
 
 export const $BaseValidationSchema = z.object({
@@ -76,10 +76,10 @@ export type TCellBadge = {
     color?: string;
 };
 
-export type TColumn<T extends Record<string, any>, R extends number[] = number[]> = MRT_ColumnDef<T> & {
+export type TColumn<T extends Record<string, any>, R extends RoleName[] = RoleName[]> = MRT_ColumnDef<T> & {
     access?: R;
     hideTooltip?: boolean;
     sizes?: { [key in R[number]]: number };
 };
 
-export type TColumns<T extends Record<string, any>, R extends number[] = number[]> = TColumn<T, R>[];
+export type TColumns<T extends Record<string, any>, R extends RoleName[] = RoleName[]> = TColumn<T, R>[];

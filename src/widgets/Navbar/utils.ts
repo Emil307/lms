@@ -1,4 +1,6 @@
-export const isMenuItemDenied = (accessRoles: number[], userRole?: number) => {
+import { RoleName } from "@shared/types";
+
+export const isMenuItemDenied = (accessRoles: RoleName[], userRole?: RoleName) => {
     if (!userRole) {
         return true;
     }

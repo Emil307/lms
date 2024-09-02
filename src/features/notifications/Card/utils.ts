@@ -3,9 +3,9 @@ import updateLocale from "dayjs/plugin/updateLocale";
 import calendar from "dayjs/plugin/calendar";
 import { Route } from "nextjs-routes";
 import { NotificationFromList, NotificationHomeworkMessageType, NotificationSupportMessageType } from "@entities/notification";
-import { Roles } from "@app/routes";
 import { ADMIN_MESSAGES_QUERY_SEARCH_NAME, ADMIN_MESSAGES_QUERY_SELECT_NAME } from "@entities/support";
 import { getFullName } from "@shared/utils";
+import { RoleName, Roles } from "@shared/types";
 import { NotificationData } from "./types";
 
 dayjs.extend(updateLocale);
@@ -20,7 +20,7 @@ export const getFormatCreatedAt = (date: Date): string => {
     });
 };
 
-const getHomeworkMessageLink = (data: NotificationHomeworkMessageType, userRole: number): Route => {
+const getHomeworkMessageLink = (data: NotificationHomeworkMessageType, userRole?: RoleName): Route => {
     switch (userRole) {
         case Roles.administrator:
         case Roles.manager:
@@ -37,7 +37,7 @@ const getHomeworkMessageLink = (data: NotificationHomeworkMessageType, userRole:
     }
 };
 
-const getSupportMessageLink = (data: NotificationSupportMessageType, userRole: number): Route => {
+const getSupportMessageLink = (data: NotificationSupportMessageType, userRole?: RoleName): Route => {
     switch (userRole) {
         case Roles.administrator:
         case Roles.manager:
@@ -56,7 +56,7 @@ const getSupportMessageLink = (data: NotificationSupportMessageType, userRole: n
     }
 };
 
-export const prepareNotificationData = (data: NotificationFromList, userRole = 0): NotificationData => {
+export const prepareNotificationData = (data: NotificationFromList, userRole?: RoleName): NotificationData => {
     switch (data.type) {
         case "groupAdded":
             return {

@@ -10,7 +10,7 @@ import { AdminGroupStudentFromList } from "@entities/group";
 import { DeleteStudentFromGroupModal } from "@features/groups";
 import { getFullName } from "@shared/utils";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 interface ListMenuProps {
     groupId: string;
@@ -60,7 +60,7 @@ const ListMenu = ({ groupId, row }: ListMenuProps) => {
                 </ThemeIcon>
                 Статистика
             </MenuItemDataGrid>
-            {userRole !== Roles.teacher && (
+            {userRole?.name !== Roles.teacher && (
                 <MenuItemDataGrid onClick={openDeleteStudentFromGroupModal}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Trash />

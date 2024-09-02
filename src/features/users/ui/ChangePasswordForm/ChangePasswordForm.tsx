@@ -41,7 +41,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
 
     return (
         <ManagedForm<Omit<ChangePasswordFormValidationSchema, "id">, ChangeUserPasswordResponse>
-            initialValues={getInitialValues(userData.roleId, userRole)}
+            initialValues={getInitialValues(userData.roleId, userRole?.id)}
             validationSchema={$changePasswordFormValidationSchema}
             mutationKey={[MutationKeys.CHANGE_USER_PASSWORD, userData.id]}
             mutationFunction={changeUserPassword}

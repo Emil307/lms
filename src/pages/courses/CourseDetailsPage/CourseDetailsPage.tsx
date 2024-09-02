@@ -22,7 +22,7 @@ const CourseDetailsPage = () => {
     const userRole = useUserRole();
 
     useAvailableCourse({
-        userRole,
+        userRole: userRole?.name,
         courseId: Number(id),
         courseName: courseData?.name,
         availableGroup: courseData && !isMyCourse(courseData) ? courseData.availableGroup : undefined,

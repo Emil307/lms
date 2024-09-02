@@ -9,7 +9,7 @@ import { MenuDataGrid, MenuItemDataGrid } from "@shared/ui";
 import { AdminStudentCourseFromList } from "@entities/course";
 import { DeleteStudentCourseModal } from "@features/courses";
 import { useUserRole } from "@entities/auth/hooks";
-import { Roles } from "@app/routes";
+import { Roles } from "@shared/types";
 
 export interface ListMenuProps {
     row: MRT_Row<AdminStudentCourseFromList>;
@@ -63,7 +63,7 @@ const ListMenu = ({ row, studentId }: ListMenuProps) => {
                     Статистика
                 </MenuItemDataGrid>
             )}
-            {userRole !== Roles.teacher && (
+            {userRole?.name !== Roles.teacher && (
                 <MenuItemDataGrid onClick={openDeleteModal}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Trash />
