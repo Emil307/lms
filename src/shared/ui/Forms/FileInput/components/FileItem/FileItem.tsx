@@ -1,11 +1,12 @@
 import React, { memo, ReactNode, useMemo } from "react";
 import { Box, Text, Flex } from "@mantine/core";
-import { FileText, PlayCircle, Slash } from "react-feather";
+import { Slash } from "react-feather";
 import { saveAs } from "file-saver";
 import { Loader, Paragraph, Button } from "@shared/ui";
 import { FileStatus } from "@shared/types";
 import { getFileSize } from "@shared/utils";
 import useStyles from "./FileItem.styles";
+import { getFileIcon } from "./utils";
 import { getFileExtension } from "../../utils";
 
 export interface FileItemProps {
@@ -48,7 +49,7 @@ const MemoizedFileItem = memo(function FileItem({
             default:
                 return (
                     <>
-                        {type === "document" ? <FileText /> : <PlayCircle />}
+                        {getFileIcon(type)}
                         <Text className={classes.extension} lineClamp={1}>
                             {getFileExtension(fileName).toUpperCase()}
                         </Text>
