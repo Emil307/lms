@@ -20,6 +20,13 @@ export default createStyles((theme) => ({
             overflowX: "auto",
         },
     },
+    formInput: {
+        width: 252,
+
+        [theme.fn.smallerThan("xs")]: {
+            width: "100%",
+        },
+    },
 
     avatarWrapper: {
         width: 84,

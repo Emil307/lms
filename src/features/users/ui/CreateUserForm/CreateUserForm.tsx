@@ -89,7 +89,7 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                             <FInput name="patronymic" label="Отчество" onlyLetters size="sm" miw={{ base: "100%", xs: 252 }} />
                         </Flex>
                     </Fieldset>
-                    <Fieldset label="Системные данные" icon={<Shield />}>
+                    <Fieldset label="Системные данные" icon={<Shield />} maw={772}>
                         <Flex direction="column" gap={16}>
                             <FRadioGroup name="roleId" className={classes.rolesRadioGroup}>
                                 {filteredRoles?.map((item) => (
@@ -97,22 +97,22 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
                                 ))}
                             </FRadioGroup>
                             <Flex gap={8} wrap="wrap">
-                                <FInput name="email" label="Email" size="sm" miw={{ base: "100%", xs: 252 }} withAsterisk />
+                                <FInput className={classes.formInput} name="email" label="Email" size="sm" withAsterisk />
                                 <FInput
                                     name="password"
                                     type="password"
                                     label="Пароль"
                                     size="sm"
+                                    className={classes.formInput}
                                     description={PASSWORD_INPUT_DESCRIPTION}
-                                    miw={{ base: "100%", xs: 252 }}
                                     withAsterisk
                                 />
                                 <FInput
+                                    className={classes.formInput}
                                     name="passwordConfirmation"
                                     type="password"
                                     label="Повторите пароль"
                                     size="sm"
-                                    miw={{ base: "100%", xs: 252 }}
                                     withAsterisk
                                 />
                             </Flex>
