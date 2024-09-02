@@ -44,15 +44,12 @@ export const useUpdateUserNotification = (): UseMutationResult<
                 title: "Ошибка обновления настроек уведомлений",
             });
         },
-        onSettled: () => {
-            queryClient.invalidateQueries([QueryKeys.GET_ME]);
-            invalidateQueriesWithPredicate({ entityName: EntityNames.NOTIFICATION });
-        },
         onSuccess: () => {
             createNotification({
                 type: ToastType.SUCCESS,
                 title: "Изменения сохранены",
             });
+            invalidateQueriesWithPredicate({ entityName: EntityNames.NOTIFICATION });
         },
     });
 };
