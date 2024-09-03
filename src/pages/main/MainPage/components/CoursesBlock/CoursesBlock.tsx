@@ -1,6 +1,6 @@
 import { Box, FlexProps } from "@mantine/core";
 import React, { useState } from "react";
-import { Folder } from "react-feather";
+import { ArrowRight } from "react-feather";
 import { useRouter } from "next/router";
 import { List as CoursesList } from "@features/courses";
 import { Button, Heading } from "@shared/ui";
@@ -34,12 +34,12 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                 footerSlot={
                     <>
                         {visibleCourses < totalCoursesCount ? (
-                            <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleShowMoreCourses}>
+                            <Button variant="white" w="min-content" mx="auto" onClick={handleShowMoreCourses}>
                                 Еще {Math.min(initialParams.countCoursesPerOpen, totalCoursesCount - visibleCourses)} курсов
                             </Button>
                         ) : (
-                            <Button variant="white" leftIcon={<Folder />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>
-                                Показать все курсы
+                            <Button variant="primary" rightIcon={<ArrowRight />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>
+                                Все курсы
                             </Button>
                         )}
                     </>

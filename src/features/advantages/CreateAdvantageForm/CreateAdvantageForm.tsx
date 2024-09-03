@@ -1,18 +1,21 @@
 import { Flex } from "@mantine/core";
 import React from "react";
-import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
+import { FControlButtons, FFileInput, FInput, ManagedForm } from "@shared/ui";
 import { $CreateAdvantageRequest, Advantage, CreateAdvantageRequest, staticPageApi } from "@entities/staticPage";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
+import useStyles from "./CreateAdvantageForm.styles";
+import { adaptCreateAdvantageRequest } from "@features/advantages/CreateAdvantageForm/utils";
 
 export interface CreateAdvantageFormProps {
     onClose: () => void;
 }
 
 const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
+    const { classes } = useStyles();
     const createAdvantage = (values: CreateAdvantageRequest) => {
-        return staticPageApi.createAdvantage(values);
+        return staticPageApi.createAdvantage(adaptCreateAdvantageRequest(values));
     };
 
     const onSuccess = () => {
@@ -42,6 +45,15 @@ const CreateAdvantageForm = ({ onClose }: CreateAdvantageFormProps) => {
             onError={onError}
             disableOverlay>
             <Flex direction="column" gap={8}>
+                <FFileInput
+                    className={classes.imageInput}
+                    name="icon"
+                    title="Изменить фото"
+                    type="image"
+                    fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
+                    withDeleteButton
+                    description="До 1Mb"
+                />
                 <FInput name="title" label="Заголовок" />
                 <FInput name="description" label="Пояснение" />
             </Flex>

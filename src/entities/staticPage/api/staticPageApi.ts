@@ -80,8 +80,8 @@ class StaticPageApi extends BaseApi {
         const response = await this.instance.post("core/admin/static-page/advantages/list", data);
         return $GetAdminAdvantagesResponse.parse(response);
     }
-    async getAdvantage(id: string): Promise<Advantage> {
-        const response = await this.instance.get(`core/static-page/advantages/${id}`);
+    async getAdvantage(id: number): Promise<Advantage> {
+        const response = await this.instance.get(`core/admin/static-page/advantages/${id}`);
         return $Advantage.parse(response);
     }
 

@@ -1,5 +1,6 @@
 import { Box, BoxProps, Skeleton } from "@mantine/core";
 import { ReactNode, useEffect, useState } from "react";
+import { EmblaCarouselType } from "embla-carousel-react";
 import { Carousel } from "@components/Carousel";
 import { CourseReviewFromList, useCourseReviews } from "@entities/courseReview";
 import { Card as CourseReviewCard } from "@features/courseReviews";
@@ -7,7 +8,6 @@ import { useIntersection } from "@shared/utils";
 import useStyles from "./CarouselList.styles";
 import { initialParams } from "./constants";
 import { adaptGetCourseReviewsRequest } from "./utils";
-import { EmblaCarouselType } from "embla-carousel-react";
 
 export interface CarouselListProps extends Omit<BoxProps, "children"> {
     headerSlot?: ReactNode;
@@ -67,15 +67,13 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
                 <Carousel<CourseReviewFromList>
                     data={courseReviewsData.data}
                     lastElemRef={lastElemRef}
-                    slideSize={448}
                     breakpoints={[
                         { maxWidth: "md", slideSize: "50%" },
-                        { maxWidth: "xs", slideSize: "100%" },
-                        { minWidth: "lg", slideSize: "20%" },
+                        { maxWidth: "xs", slideSize: "80%" },
+                        { minWidth: "lg", slideSize: "25%" },
                     ]}
                     getEmblaApi={setEmblaApi}
                     emblaApi={emblaApi}
-                    loop
                     align="center"
                     customStyles={useStyles}>
                     {(props) => <CourseReviewCard {...props} w="100%" />}

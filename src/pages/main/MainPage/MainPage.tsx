@@ -8,8 +8,8 @@ const MainPage = () => {
     return (
         <Box>
             <MainBanner />
-            <CourseCollectionsBlock mt={112} />
             <CoursesBlock mt={112} />
+            <CourseCollectionsBlock mt={112} />
             <AdvantagesBlock my={64} />
             <CourseReviewsBlock mt={64} />
             <TGBannerBlock mt={112} />

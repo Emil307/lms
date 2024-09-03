@@ -58,6 +58,8 @@ export type GetAdvantagesRequest = TDefaultRequestParams;
 
 export const $Advantage = z.object({
     id: z.number(),
+    icon: $UploadedFile.nullable().optional(),
+    iconId: z.number().nullable().optional(),
     title: z.string(),
     description: z.string(),
 });
@@ -164,15 +166,19 @@ export const $GetAdminAdvantagesResponseMeta = z.object({
 export const $GetAdminAdvantagesResponse = $getPaginationResponseType($Advantage).merge(
     z.object({
         meta: $GetAdminAdvantagesResponseMeta,
-    }),
+    })
 );
 
 export const $CreateAdvantageRequest = z.object({
+    icon: $UploadedFile.nullable(),
+    iconId: z.number().nullable(),
     title: z.string({ required_error: "Введите заголовок" }),
     description: z.string({ required_error: "Введите пояснение" }),
 });
 
 export const $UpdateAdvantageRequest = z.object({
+    icon: $UploadedFile.nullable(),
+    iconId: z.number().nullable(),
     title: z.string({ required_error: "Введите заголовок" }),
     description: z.string({ required_error: "Введите пояснение" }),
 });

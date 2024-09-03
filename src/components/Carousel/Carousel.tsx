@@ -33,7 +33,7 @@ function Carousel<T extends { id: unknown }>({ data = [], lastElemRef, emblaApi,
         <MCarousel
             classNames={classes}
             align="start"
-            slideGap={24}
+            slideGap={16}
             previousControlIcon={<ArrowLeft />}
             nextControlIcon={<ArrowRight />}
             slidesToScroll={1}

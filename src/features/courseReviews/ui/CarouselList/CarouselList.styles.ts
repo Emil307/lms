@@ -10,6 +10,9 @@ export default createStyles((theme) => ({
     container: {
         height: 585,
         alignItems: "center",
+        [theme.fn.smallerThan("sm")]: {
+            height: 563,
+        },
     },
     slide: {
         height: 532,
@@ -20,6 +23,11 @@ export default createStyles((theme) => ({
         transition: "all 0.3s",
         margin: "0px 24px",
         opacity: 1,
+        [theme.fn.smallerThan("sm")]: {
+            transform: "scale(1)",
+            height: 563,
+            margin: "auto",
+        },
     },
     controls: {
         padding: 0,

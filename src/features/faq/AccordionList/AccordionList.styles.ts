@@ -6,12 +6,17 @@ export default createStyles((theme) => ({
         width: "100%",
         flexDirection: "row",
         textAlign: "left",
+        gap: 24,
 
         [theme.fn.smallerThan("sm")]: {
             textAlign: "center",
-            gap: 24,
             flexDirection: "column",
         },
+    },
+    skeletonTitleContainer: {
+        width: "100%",
+        maxWidth: 456,
+        gap: "24px",
     },
     titleContainer: {
         flexBasis: "54%",
@@ -20,12 +25,11 @@ export default createStyles((theme) => ({
     },
     title: {
         fontSize: 42,
+        lineHeight: "46px",
         color: theme.colors.dark[0],
     },
     description: {
-        fontSize: 20,
         color: theme.colors.dark[0],
         opacity: 0.5,
-        lineHeight: "24px",
     },
 }));

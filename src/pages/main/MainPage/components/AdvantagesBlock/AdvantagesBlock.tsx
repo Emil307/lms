@@ -22,10 +22,15 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
                 <Grid.Col key={advantage.id} sm={isTablet ? 12 : 4} span={isTablet ? 12 : 6}>
                     <Flex className={classes.advantageItem}>
                         <Flex className={classes.headerTitle}>
-                            <Image src={testIcon} alt="testIcon" className={classes.titleIcon}></Image>
+                            <Image
+                                src={advantage.icon?.absolutePath !== undefined ? advantage.icon.absolutePath : testIcon}
+                                alt="testIcon"
+                                width={56}
+                                height={56}
+                                className={classes.titleIcon}></Image>
                             <Flex className={classes.title}>{advantage.title}</Flex>
                         </Flex>
-                        <Paragraph fz={18} variant="text-small-m" color="gray45">
+                        <Paragraph fz={18} variant="text-small-m" color="gray45" lh="24px">
                             {advantage.description}
                         </Paragraph>
                     </Flex>

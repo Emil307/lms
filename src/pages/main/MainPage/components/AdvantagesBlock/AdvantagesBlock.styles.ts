@@ -25,12 +25,11 @@ export default createStyles((theme) => ({
         fontWeight: 600,
     },
     titleIcon: {
-        width: 56,
-        height: 56,
+        borderRadius: 64,
     },
     title: {
         fontSize: 20,
-        lineHeight: "20px",
+        lineHeight: "24px",
         alignItems: "center",
     },
     container: {

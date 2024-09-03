@@ -2,7 +2,7 @@ import { Accordion, Flex, FlexProps, AccordionProps as MAccordionProps, Skeleton
 import { useMemo, useState } from "react";
 import { Minus, Plus } from "react-feather";
 import { useFaq } from "@entities/staticPage";
-import { Heading, HeadingProps } from "@shared/ui";
+import { Heading, HeadingProps, Paragraph } from "@shared/ui";
 import useStyles from "./AccordionList.styles";
 
 export interface AccordionListProps extends Omit<MAccordionProps, "children" | "defaultValue"> {
@@ -55,14 +55,14 @@ const AccordionList = ({
 
     return (
         <Flex {...wrapperProps} className={classes.faqContainer}>
-            <Skeleton {...skeletonTitleProps} visible={isLoading}>
+            <Skeleton {...skeletonTitleProps} visible={isLoading} className={classes.skeletonTitleContainer}>
                 <Flex direction="column" className={classes.titleContainer}>
-                    <Heading {...titleProps} className={classes.title}>
+                    <Heading order={1} {...titleProps} className={classes.title}>
                         Вопросы и ответы
                     </Heading>
-                    <Heading {...titleProps} className={classes.description}>
+                    <Paragraph variant="large" className={classes.description}>
                         Если у вас есть вопросы, вы всегда <br /> можете задать его нашим специалистам. <br /> Мы ответим максимально быстро
-                    </Heading>
+                    </Paragraph>
                 </Flex>
             </Skeleton>
             <Skeleton visible={isLoading} {...skeletonListProps} width="100%" mih={90} style={{ flexGrow: 1 }}>

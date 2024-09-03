@@ -6,9 +6,13 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         padding: "24px 24px 40px !important",
         gap: 32,
-        borderRadius: 16,
-        backgroundColor: theme.colors.grayLight[0],
+        borderRadius: 35,
         height: "100%",
+        backgroundColor: theme.colors.white[0],
+        border: `1px solid ${theme.colors.grayLight[0]}`,
+        "&.activeSlide": {
+            backgroundColor: theme.colors.grayLight[0],
+        },
     },
     section: {
         display: "flex",

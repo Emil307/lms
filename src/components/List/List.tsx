@@ -46,7 +46,7 @@ function List<T extends { id?: unknown; groupId?: unknown }>({
         <>
             {isLoading && <Loader size="lg" />}
             <Box ref={targetRef} w={1} h={1}></Box>
-            <Grid {...props} gutter={24}>
+            <Grid {...props} gutter={24} m={0}>
                 {data?.map((row) => (
                     <Grid.Col {...colProps} key={`row-${row.id || row.groupId}`} ref={lastElemRef}>
                         {renderItem({ data: row, onClick })}

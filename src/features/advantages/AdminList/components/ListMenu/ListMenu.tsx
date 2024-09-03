@@ -29,7 +29,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
         openModal({
             modalId: "UPDATE_ADVANTAGE",
             title: "Редактирование",
-            children: <UpdateAdvantageForm data={row.original} onClose={handleCloseEditAdvantageModal} />,
+            children: <UpdateAdvantageForm list={row.original} onClose={handleCloseEditAdvantageModal} />,
         });
     };
 

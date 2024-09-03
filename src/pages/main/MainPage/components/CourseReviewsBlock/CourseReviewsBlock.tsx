@@ -15,7 +15,7 @@ const CourseReviewsBlock = (props: CourseReviewsBlockProps) => {
         <Box ref={rootBlockRef}>
             <CourseReviewCarouselList
                 headerSlot={
-                    <Heading mb={24}>
+                    <Heading mb={48}>
                         <Flex direction={"column"} gap={24}>
                             <Text ta={"center"} className={classes.title}>
                                 О нас говорят

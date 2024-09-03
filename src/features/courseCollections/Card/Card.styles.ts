@@ -7,8 +7,10 @@ export default createStyles((theme) => ({
         border: `1px solid ${theme.colors.grayLight[0]}`,
         transition: "all 0.1s",
         cursor: "pointer",
-        ":hover": {
-            border: `none`,
+        [theme.fn.smallerThan("sm")]: {
+            padding: 16,
+        },
+        "&.activeSlide": {
             backgroundColor: theme.colors.grayLight[0],
         },
     },
@@ -18,6 +20,7 @@ export default createStyles((theme) => ({
         flexWrap: "wrap-reverse",
         minHeight: 136,
         gap: 32,
+        width: "100%",
     },
     imageContent: {
         height: 264,
@@ -38,5 +41,8 @@ export default createStyles((theme) => ({
             padding: "6px 10px",
             color: theme.colors.dark,
         },
+    },
+    title: {
+        fontSize: 24,
     },
 }));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
@@ -8,6 +8,7 @@ import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import { Card } from "../Card";
 import useStyles from "./List.styles";
 import { Carousel } from "@components/Carousel";
+import { EmblaCarouselType } from "embla-carousel-react";
 
 export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "colProps"> {
     exceptionCourseCollectionId?: string;
@@ -23,12 +24,30 @@ export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "c
 
 const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPagination }: ListProps) => {
     const router = useRouter();
+    const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
+    const [_activeIndex, setActiveIndex] = useState(0);
     const page = withPagination ? router.query.page || 1 : 1;
     const { classes } = useStyles();
 
     const { data: courseCollectionsData, isLoading } = useCourseCollections(
         adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
     );
+
+    useEffect(() => {
+        if (!emblaApi) return;
+
+        const handleSelect = () => {
+            setActiveIndex(emblaApi.selectedScrollSnap());
+        };
+
+        emblaApi.on("select", handleSelect);
+        handleSelect();
+
+        return () => {
+            emblaApi.off("select", handleSelect);
+        };
+    }, [emblaApi]);
+
     if (!courseCollectionsData?.data.length) {
         return null;
     }
@@ -53,10 +72,12 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                     slideSize="25%"
                     breakpoints={[
                         { maxWidth: "md", slideSize: "50%" },
-                        { maxWidth: "xs", slideSize: "100%" },
+                        { maxWidth: "xs", slideSize: "80%" },
                     ]}
-                    loop
-                    align="center">
+                    getEmblaApi={setEmblaApi}
+                    emblaApi={emblaApi}
+                    align="center"
+                    customStyles={useStyles}>
                     {(props) => <Card {...props} />}
                 </Carousel>
             </Skeleton>

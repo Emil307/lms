@@ -1,19 +1,27 @@
 import { Flex } from "@mantine/core";
 import React from "react";
-import { FControlButtons, FInput, ManagedForm } from "@shared/ui";
-import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi } from "@entities/staticPage";
+import { FControlButtons, FFileInput, FInput, Loader, ManagedForm } from "@shared/ui";
+import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi, useAdvantage } from "@entities/staticPage";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { initialValues } from "./constants";
+import useStyles from "@features/advantages/CreateAdvantageForm/CreateAdvantageForm.styles";
+import { adaptCreateAdvantageRequest } from "@features/advantages/CreateAdvantageForm/utils";
 
 export interface UpdateAdvantageFormProps {
-    data?: Advantage;
+    list: Advantage;
     onClose: () => void;
 }
 
-const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
+const UpdateAdvantageForm = ({ list, onClose }: UpdateAdvantageFormProps) => {
+    const { classes } = useStyles();
+    const { data, isLoading } = useAdvantage(list.id);
+
+    if (isLoading) return <Loader />;
+
     const updateAdvantage = (values: UpdateAdvantageRequest) => {
-        return staticPageApi.updateAdvantage({ ...values, id: data?.id });
+        const adaptValues = adaptCreateAdvantageRequest(values);
+        return staticPageApi.updateAdvantage({ ...adaptValues, id: data?.id });
     };
 
     const onSuccess = () => {
@@ -45,6 +53,15 @@ const UpdateAdvantageForm = ({ data, onClose }: UpdateAdvantageFormProps) => {
             onError={onError}
             disableOverlay>
             <Flex direction="column" gap={8}>
+                <FFileInput
+                    className={classes.imageInput}
+                    name="icon"
+                    title="Изменить фото"
+                    type="image"
+                    fileFormats={["png", "gif", "jpeg", "jpg", "svg", "webp"]}
+                    withDeleteButton
+                    description="До 1Mb"
+                />
                 <FInput name="title" label="Заголовок" />
                 <FInput name="description" label="Пояснение" />
             </Flex>

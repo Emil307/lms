@@ -38,7 +38,6 @@ export function middleware(req: NextRequest) {
 
     // Неавторизованный пользователь пытается зайти на приватную страницу
     if (!isAuthAction && !isPublicPage && !isUserAuth) {
-        url.search = `redirect=${url.pathname}`;
         url.pathname = logoutPath;
         return NextResponse.redirect(url);
     }
