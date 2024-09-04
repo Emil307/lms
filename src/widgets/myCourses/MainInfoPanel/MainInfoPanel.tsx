@@ -85,11 +85,11 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     {data.cover && <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />}
                 </Box>
             </Flex>
-            <Flex className={classes.descriptionContainer} hidden={!data.description}>
+            <Flex className={classes.descriptionContainer} hidden={!data.shortDescription}>
                 <Paragraph variant="text-small-m" color="gray45">
                     Описание курса
                 </Paragraph>
-                <Paragraph variant="small-m">{data.description}</Paragraph>
+                <Paragraph variant="small-m">{data.shortDescription}</Paragraph>
             </Flex>
             <TagList data={data.tags} mt={16} />
         </Box>

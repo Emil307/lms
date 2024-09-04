@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         width: "100%",
         padding: 32,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralLight[0],
 
         [theme.fn.smallerThan("md")]: {
             padding: 24,
@@ -27,18 +27,12 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         gap: 16,
     },
-
-    containerActions: {
-        flexWrap: "wrap-reverse",
-        columnGap: 24,
-        rowGap: 16,
-
-        [theme.fn.smallerThan("xs")]: {
-            flexDirection: "column-reverse",
-        },
+    description: {
+        wordBreak: "break-word",
+        overflow: "break-word",
     },
-
     category: {
+        border: `1px solid ${theme.colors.dark[0]}`,
         backgroundColor: theme.colors.light[0],
         color: theme.colors.dark[0],
     },
@@ -53,30 +47,6 @@ export default createStyles((theme) => ({
         },
     },
 
-    imageWrapper: {
-        position: "relative",
-        overflow: "hidden",
-        width: 424,
-        height: 260,
-        borderRadius: 16,
-        backgroundColor: theme.colors.grayLight[0],
-
-        img: {
-            objectFit: "cover",
-        },
-
-        [theme.fn.smallerThan("md")]: {
-            width: 350,
-            height: 215,
-        },
-
-        [theme.fn.smallerThan("xs")]: {
-            width: "100%",
-            maxWidth: 295,
-            height: 181,
-        },
-    },
-
     icon: {
         width: 24,
         height: 24,
@@ -86,11 +56,19 @@ export default createStyles((theme) => ({
             fill: theme.colors.secondaryHover[0],
         },
     },
-
+    getCourseWrapper: {
+        gap: 16,
+        paddingTop: 32,
+        alignItems: "center",
+        [theme.fn.smallerThan("md")]: {
+            alignItems: "flex-start",
+            flexDirection: "column",
+        },
+    },
     favoriteActionIcon: {
         height: 48,
         width: 48,
-        borderRadius: 8,
+        borderRadius: 56,
     },
 
     descriptionContainer: {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { ReactNode, forwardRef } from "react";
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { PremadeControlProps } from "@mantine/tiptap/lib/controls/Control/Control";

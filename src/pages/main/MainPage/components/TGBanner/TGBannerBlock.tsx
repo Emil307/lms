@@ -8,8 +8,8 @@ export interface TGBannerBlockProps extends Omit<BoxProps, "children"> {}
 const TGBannerBlock = (props: TGBannerBlockProps) => {
     const { classes } = useStyles();
     return (
-        <Flex justify={"center"} {...props}>
-            <Image src={tgBanner} alt={"tgBanner"} className={classes.image} />
+        <Flex justify="center" {...props}>
+            <Image src={tgBanner} alt="tgBanner" className={classes.image} />
         </Flex>
     );
 };

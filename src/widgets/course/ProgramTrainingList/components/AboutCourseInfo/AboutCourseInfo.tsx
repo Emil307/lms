@@ -7,7 +7,9 @@ import { getCourseInfoList } from "./utils";
 export interface AboutCourseInfoProps {
     data: CourseDetails;
 }
-
+/**
+    Deprecated
+ */
 const AboutCourseInfo = ({ data }: AboutCourseInfoProps) => {
     const { classes } = useStyles();
 

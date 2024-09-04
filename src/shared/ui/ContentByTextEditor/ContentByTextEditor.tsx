@@ -7,9 +7,18 @@ import useStyles from "./ContentByTextEditor.styles";
 
 export interface ContentByTextEditorProps extends TextProps {
     data?: string | null;
+    hideFancybox?: boolean;
 }
 
-const transformNode = (reactNode: string | JSX.Element, domNode: DOMNode, classes: Record<string, string>, index: number) => {
+interface TransformNodeProps {
+    reactNode: string | JSX.Element;
+    domNode: DOMNode;
+    classes: Record<string, string>;
+    index: number;
+    hideFancybox: boolean;
+}
+
+const transformNode = ({ reactNode, domNode, classes, index, hideFancybox }: TransformNodeProps) => {
     if (typeof reactNode === "string") {
         return reactNode;
     }
@@ -22,16 +31,25 @@ const transformNode = (reactNode: string | JSX.Element, domNode: DOMNode, classe
     }
     if (reactNode.type === "td" || reactNode.type === "th") {
         const tableCell = domNode as Element;
-        const cellWidth = tableCell.attribs.colwidth + "px";
+        const cellWidth = Number(tableCell.attribs.colwidth);
+
+        let styleForWidth = {} as React.CSSProperties;
+
+        if (Number.isInteger(cellWidth)) {
+            styleForWidth = {
+                minWidth: cellWidth + "px",
+            };
+        }
+
         if (reactNode.type === "td") {
             return (
-                <td {...reactNode.props} style={{ minWidth: cellWidth }} key={index}>
+                <td {...reactNode.props} style={styleForWidth} key={index}>
                     {reactNode.props.children}
                 </td>
             );
         }
         return (
-            <th {...reactNode.props} style={{ minWidth: cellWidth }} key={index}>
+            <th {...reactNode.props} style={styleForWidth} key={index}>
                 {reactNode.props.children}
             </th>
         );
@@ -39,6 +57,13 @@ const transformNode = (reactNode: string | JSX.Element, domNode: DOMNode, classe
     if (reactNode.props.className === "imageWrapper") {
         const imageWrapper = domNode as Element;
         const image = imageWrapper.firstChild as Element;
+        if (hideFancybox) {
+            return (
+                <Box className="imageWrapper" key={index}>
+                    <img src={image.attribs.src} alt={image.attribs.alt} />
+                </Box>
+            );
+        }
         return (
             <a data-fancybox="gallery" className="imageWrapper" href={image.attribs.src} key={index}>
                 <img src={image.attribs.src} alt={image.attribs.alt} />
@@ -51,25 +76,37 @@ const transformNode = (reactNode: string | JSX.Element, domNode: DOMNode, classe
     return reactNode;
 };
 
-const ContentByTextEditor = ({ data = "", className, ...props }: ContentByTextEditorProps) => {
+const ContentByTextEditor = ({ data = "", hideFancybox = false, className, ...props }: ContentByTextEditorProps) => {
     const { classes, cx } = useStyles();
 
     if (!data) {
         return null;
     }
 
+    const renderContent = () => {
+        const content = parse(data, {
+            transform: (reactNode, domNode, index) => transformNode({ reactNode, domNode, classes, index, hideFancybox }),
+        });
+
+        if (!hideFancybox) {
+            return (
+                <Fancybox
+                    options={{
+                        Carousel: {
+                            infinite: true,
+                        },
+                    }}>
+                    {content}
+                </Fancybox>
+            );
+        }
+
+        return content;
+    };
+
     return (
         <Box className={cx(classes.root, className)} {...props}>
-            <Fancybox
-                options={{
-                    Carousel: {
-                        infinite: true,
-                    },
-                }}>
-                {parse(data, {
-                    transform: (reactNode, domNode, index) => transformNode(reactNode, domNode, classes, index),
-                })}
-            </Fancybox>
+            {renderContent()}
         </Box>
     );
 };

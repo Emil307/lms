@@ -5,6 +5,9 @@ import useStyles from "./TagList.styles";
 export interface TagListProps extends Omit<GroupProps, "children"> {
     data: CourseTag[];
 }
+/**
+ * Deprecated
+ */
 
 const TagList = ({ data, ...props }: TagListProps) => {
     const { classes, cx } = useStyles();

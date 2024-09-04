@@ -69,10 +69,10 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
                         {data.name}
                     </Heading>
                     <Heading order={5} lineClamp={2}>
-                        {data.description}
+                        {data.shortDescription}
                     </Heading>
                 </Box>
-                <Group sx={{ justifyContent: "space-between" }}>
+                <Group sx={{ justifyContent: "space-between", gap: 0 }}>
                     <Flex direction="column">
                         <AmountInfo data={data} />
                     </Flex>

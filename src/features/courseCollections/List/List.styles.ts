@@ -1,6 +1,18 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    wrapper: {
+        gap: 32,
+        marginTop: 112,
+        paddingRight: 0,
+        paddingLeft: 0,
+        [theme.fn.smallerThan("sm")]: {
+            gap: 0,
+            marginTop: 48,
+            paddingRight: 16,
+            paddingLeft: 16,
+        },
+    },
     title: {
         fontSize: 42,
         lineHeight: "46px",

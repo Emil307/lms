@@ -9,7 +9,6 @@ import { GetServerSidePropsContextParams, NextPageWithLayoutProps } from "@share
 import { getSsrInstances, handleAxiosErrorSsr } from "@app/config/ssr";
 import { CourseApi } from "@entities/course";
 import { EntityNames, QueryKeys } from "@shared/constant";
-
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.params as GetServerSidePropsContextParams;
 

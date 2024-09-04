@@ -21,7 +21,10 @@ export default createStyles((theme) => ({
     titleContainer: {
         flexBasis: "54%",
         marginRight: 24,
-        gap: 24,
+        [theme.fn.smallerThan("md")]: {
+            gap: 24,
+            marginBottom: 48,
+        },
     },
     title: {
         fontSize: 42,

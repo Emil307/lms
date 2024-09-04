@@ -180,6 +180,7 @@ export const $AdminCourse = z.object({
     discountPrice: z.number(),
     cover: $UploadedFile.nullable(),
     isActive: z.boolean().optional(),
+    shortDescription: z.string().nullable(),
     description: z.string().nullable(),
     category: $AdminCourseCategory.nullable(),
     tags: z.array($AdminCourseTag),
@@ -318,6 +319,10 @@ export const $CreateCourseFormValues = z
         hasTeachers: z.boolean(),
         teacherIds: z.array(z.string()),
         name: z.string({ required_error: "Введите название" }),
+        shortDescription: z
+            .string()
+            .optional()
+            .refine((value) => !value || value.length <= 200, { message: "Не более 200 символов" }),
         description: z.string().optional(),
         price: z.string({ required_error: "Введите стоимость" }),
         duration: z.string().nullable().optional(),
@@ -603,6 +608,7 @@ export const $Course = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string().nullable(),
+    shortDescription: z.string().nullable(),
     price: z.number(),
     discountPrice: z.number(),
     type: $CourseType,
@@ -665,6 +671,7 @@ export const $MyCourse = z.object({
     courseId: z.number(),
     name: z.string(),
     description: z.string().nullable(),
+    shortDescription: z.string().nullable(),
     type: $CourseType,
     availableTo: z.coerce.date().nullable(),
     status: $MyCourseStatus,
@@ -698,7 +705,7 @@ export const $CourseFromList = $Course
     .pick({
         id: true,
         name: true,
-        description: true,
+        shortDescription: true,
         price: true,
         discountPrice: true,
         type: true,
@@ -769,6 +776,7 @@ export const $CourseDetails = $Course.pick({
     id: true,
     name: true,
     description: true,
+    shortDescription: true,
     price: true,
     discountPrice: true,
     type: true,

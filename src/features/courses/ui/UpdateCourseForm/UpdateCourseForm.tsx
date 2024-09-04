@@ -2,6 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import React, { useMemo, useState } from "react";
 import { FormikProps } from "formik";
 import { AlignLeft as AlignLeftIcon, Percent as PercentIcon, Users as UsersIcon } from "react-feather";
+import IconBurger from "@public/icons/burger.svg";
 import {
     FCheckbox,
     FControlButtons,
@@ -13,6 +14,7 @@ import {
     FSelect,
     FSwitch,
     FTextarea,
+    FTextEditor,
     Heading,
     Input,
     ManagedForm,
@@ -192,8 +194,12 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                 <FInput className={classes.costInput} name="price" label="Стоимость курса (₽)" type="number" size="sm" />
                             </Fieldset>
 
-                            <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={772} showDivider={false}>
-                                <FTextarea name="description" placeholder="Описание курса" w="100%" minRows={9} />
+                            <Fieldset label="Краткое описание курса" icon={<IconBurger width={24} />} maw={772} showDivider={false}>
+                                <FTextarea name="shortDescription" placeholder="Краткое Описание курса" minRows={9} />
+                            </Fieldset>
+
+                            <Fieldset label="Описание курса" icon={<AlignLeftIcon />} maw={1320} showDivider={false}>
+                                <FTextEditor name="description" contentHeight={320} w="100%" />
                             </Fieldset>
 
                             <Fieldset

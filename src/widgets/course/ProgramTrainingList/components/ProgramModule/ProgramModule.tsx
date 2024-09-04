@@ -1,12 +1,11 @@
 import { Accordion, Flex } from "@mantine/core";
-import { memo } from "react";
-import { Minus, Plus } from "react-feather";
+import React, { memo } from "react";
+import { Folder, Minus, Plus } from "react-feather";
 import { Heading, Paragraph } from "@shared/ui";
-import IconStarFour from "public/icons/starFour.svg";
 import { CourseModule } from "@entities/course";
-import { getPluralString } from "@shared/utils";
 import useStyles from "./ProgramModule.styles";
 import { ProgramModuleLessonsList } from "../ProgramModuleLessonsList";
+import { useMedia } from "@shared/utils";
 
 export interface ProgramModuleProps {
     data: CourseModule;
@@ -16,39 +15,40 @@ export interface ProgramModuleProps {
 
 const MemoizedProgramModule = memo(function ProgramModule({ data, numberModule, isSelected }: ProgramModuleProps) {
     const { classes } = useStyles();
+    const isTablet = useMedia("md");
 
     const getChevron = () => {
         if (isSelected) {
-            return <Minus />;
+            return (
+                <Flex className={classes.iconChevronContainer}>
+                    <Minus />
+                </Flex>
+            );
         }
-        return <Plus />;
+        return (
+            <Flex className={classes.iconChevronContainer}>
+                <Plus />
+            </Flex>
+        );
     };
 
     return (
-        <Accordion.Item value={`${data.name}_${data.id}`} sx={{ marginTop: "16px !important" }}>
+        <Accordion.Item
+            className={classes.accordionItem}
+            value={`${data.name}_${data.id}`}
+            sx={{ marginTop: isTablet ? 0 : `16px !important` }}>
             <Accordion.Control className={classes.accordionControl} chevron={getChevron()}>
-                <Flex className={classes.accordionControlInner}>
-                    <Heading order={3}>{`Модуль ${numberModule}. ${data.name}`}</Heading>
-                    <Flex align="center" gap={16}>
-                        <Flex align="center" gap={6}>
-                            <IconStarFour />
-                            <Paragraph variant="text-small-m">{`${data.lessonsCount} ${getPluralString(
-                                data.lessonsCount,
-                                "урок",
-                                "урока",
-                                "уроков"
-                            )}`}</Paragraph>
+                <Paragraph variant="text-small-m" color="gray45">
+                    {`Часть ${numberModule}`}
+                </Paragraph>
+                <Flex direction="column" gap={16}>
+                    <Flex className={classes.accordionControlInner}>
+                        <Flex className={classes.iconContainer}>
+                            <Folder />
                         </Flex>
-                        <Flex align="center" gap={6}>
-                            <IconStarFour />
-                            <Paragraph variant="text-small-m">{`${data.homeworksCount} ${getPluralString(
-                                data.homeworksCount,
-                                "практика",
-                                "практики",
-                                "практик"
-                            )}`}</Paragraph>
-                        </Flex>
+                        <Heading order={2}>{`${data.name}`}</Heading>
                     </Flex>
+                    <Paragraph variant="large">{`${data.description}`}</Paragraph>
                 </Flex>
             </Accordion.Control>
             <Accordion.Panel className={classes.accordionPanel}>

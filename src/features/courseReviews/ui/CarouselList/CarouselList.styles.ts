@@ -3,6 +3,12 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     root: {
         width: "100%",
+        paddingLeft: 0,
+        paddingRight: 0,
+        [theme.fn.smallerThan("sm")]: {
+            paddingLeft: 16,
+            paddingRight: 16,
+        },
     },
     viewport: {
         marginBottom: 48,

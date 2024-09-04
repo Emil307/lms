@@ -97,10 +97,10 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                     <DisplayField label="Стоимость курса" value={data.price > 0 ? `${data.price.toLocaleString("ru")} ₽` : "Бесплатно"} />
                 </Fieldset>
 
-                {data.description && (
+                {data.shortDescription && (
                     <Fieldset label="Описание курса" icon={<AlignLeftIcon />}>
                         <Paragraph variant="small-m" color="neutral_gray">
-                            {data.description}
+                            {data.shortDescription}
                         </Paragraph>
                     </Fieldset>
                 )}

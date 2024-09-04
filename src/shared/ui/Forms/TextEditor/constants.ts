@@ -9,11 +9,17 @@ import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
+import { Heading as BaseHeading } from "@tiptap/extension-heading";
 import { storageApi } from "@entities/storage";
-import { TipTapCustomImage } from "./lib";
+import { CustomBulletList, CustomListItem, CustomOrderedList, ListHeading, TipTapCustomImage } from "./lib";
 
 export const extensions = [
     StarterKit,
+    CustomOrderedList,
+    CustomBulletList,
+    CustomListItem,
+    ListHeading.configure({ levels: [1, 2, 3, 4] }),
+    BaseHeading.configure({ levels: [1, 2, 3, 4] }),
     Underline,
     Link.extend({
         inclusive: false,

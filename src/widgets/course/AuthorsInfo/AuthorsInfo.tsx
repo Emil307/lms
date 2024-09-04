@@ -9,6 +9,9 @@ export interface AuthorsInfoProps extends Omit<BoxProps, "children"> {
     data: GetCourseResponse;
 }
 
+/**
+ *Deprecated
+ */
 const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
     const { classes } = useStyles();
 
@@ -32,7 +35,7 @@ const AuthorInfo = ({ data, ...props }: AuthorsInfoProps) => {
                     </Flex>
                 );
             }),
-        [data.authors],
+        [data.authors]
     );
 
     if (!data.authors.length) {

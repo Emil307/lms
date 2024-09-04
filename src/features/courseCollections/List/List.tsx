@@ -53,7 +53,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     }
 
     return (
-        <Flex direction="column" {...wrapperProps}>
+        <Flex direction="column" {...wrapperProps} className={classes.wrapper}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
                 <Heading mb={24}>
                     <Flex direction={"column"} gap={24}>

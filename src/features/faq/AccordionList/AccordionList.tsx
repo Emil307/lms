@@ -56,7 +56,7 @@ const AccordionList = ({
     return (
         <Flex {...wrapperProps} className={classes.faqContainer}>
             <Skeleton {...skeletonTitleProps} visible={isLoading} className={classes.skeletonTitleContainer}>
-                <Flex direction="column" className={classes.titleContainer}>
+                <Flex direction="column" gap={24} className={classes.titleContainer}>
                     <Heading order={1} {...titleProps} className={classes.title}>
                         Вопросы и ответы
                     </Heading>

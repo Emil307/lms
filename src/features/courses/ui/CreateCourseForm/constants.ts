@@ -19,6 +19,7 @@ export const initialValues: CreateCourseFormValues = {
     name: "",
     category: "",
     subCategory: "",
+    shortDescription: "",
     description: "",
     duration: "",
     price: "0",

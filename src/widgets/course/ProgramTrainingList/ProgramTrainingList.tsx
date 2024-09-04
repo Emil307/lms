@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Heading } from "@shared/ui";
 import { CourseDetails } from "@entities/course";
 import useStyles from "./ProgramTrainingList.styles";
-import { AboutCourseInfo, ProgramModule } from "./components";
+import { ProgramModule } from "./components";
 
 export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
@@ -22,12 +22,15 @@ const ProgramTrainingList = ({ data, ...props }: ProgramTrainingListProps) => {
         [data, selected]
     );
 
+    if (data.modules.length === 0) {
+        return null;
+    }
+
     return (
         <Box {...props} className={classes.root}>
             <Heading order={2} mb={32}>
                 Программа обучения
             </Heading>
-            <AboutCourseInfo data={data} />
             <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
                 {renderModules}
             </Accordion>

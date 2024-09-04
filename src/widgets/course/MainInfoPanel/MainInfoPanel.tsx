@@ -1,13 +1,10 @@
 import { Badge, Box, BoxProps, Flex, Group } from "@mantine/core";
-import Image from "next/image";
 import { CourseDetails } from "@entities/course";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { getPluralString } from "@shared/utils";
-import IconStarFour from "public/icons/starFour.svg";
 import { FavoriteButton } from "@features/courses";
-import { useAuthPay } from "@app/utils";
 import useStyles from "./MainInfoPanel.styles";
-import { AmountInfo, AvailableGroupInfo, DiscountInfo, RatingInfo, TagList } from "./components";
+import { AvailableGroupInfo, DiscountInfo } from "./components";
+import ModulesInfo from "./components/ModulesInfo/ModulesInfo";
 
 export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
@@ -16,12 +13,12 @@ export interface MainInfoPanelProps extends Omit<BoxProps, "children"> {
 const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
     const { classes } = useStyles();
 
-    const { handleBuyEntity, isLoading } = useAuthPay({
-        entityId: data.id,
-        entityName: data.name,
-        entityType: "course",
-        entityPrice: data.discountPrice,
-    });
+    const scrollToBuyCourse = () => {
+        const element = document.getElementById("buy-course-block");
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
         <Box {...props} className={classes.root}>
@@ -35,49 +32,33 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                                     {data.category?.name}
                                 </Badge>
                             </Flex>
-                            <RatingInfo data={data.rating} />
                         </Group>
-                        <Heading>{data.name}</Heading>
-                        <AvailableGroupInfo data={data} />
                     </Flex>
-                    <Flex className={classes.containerActions}>
-                        <Flex gap={8}>
-                            <Button
-                                variant="secondary"
-                                disabled={!data.availableGroup?.freePlacesCount}
-                                loading={isLoading}
-                                onClick={handleBuyEntity}>
-                                Купить курс
-                            </Button>
-                            <FavoriteButton variant="compact" data={data} className={classes.favoriteActionIcon} />
+                    <Box w="100%">
+                        <Flex direction="column" gap={16} w="100%">
+                            <Heading>{data.name}</Heading>
+                            <Paragraph variant="small-m" className={classes.description}>
+                                {data.shortDescription}
+                            </Paragraph>
                         </Flex>
-                        <Flex direction="column" gap={2}>
-                            <Flex gap={6}>
-                                <IconStarFour />
-                                <Paragraph variant="text-small-m">{`${data.lessonsCount} ${getPluralString(
-                                    data.lessonsCount,
-                                    "урок",
-                                    "урока",
-                                    "уроков",
-                                )}`}</Paragraph>
+                        <Flex className={classes.getCourseWrapper}>
+                            <Flex gap={16}>
+                                <Button variant="primary" disabled={!data.availableGroup?.freePlacesCount} onClick={scrollToBuyCourse}>
+                                    Получить курс
+                                </Button>
+                                <FavoriteButton data={data} className={classes.favoriteActionIcon} />
                             </Flex>
-                            <AmountInfo data={data} />
+                            <Paragraph variant="text-small-m" color="gray45">
+                                Начните обучение <br /> прямо сейчас!
+                            </Paragraph>
                         </Flex>
-                    </Flex>
+                        <Flex pt={24}>
+                            <AvailableGroupInfo data={data} />
+                        </Flex>
+                    </Box>
                 </Flex>
-
-                <Box className={classes.imageWrapper}>
-                    {data.cover && <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />}
-                </Box>
             </Flex>
-            <Flex className={classes.descriptionContainer} hidden={!data.description}>
-                <Paragraph variant="text-small-m" color="gray45">
-                    Описание курса
-                </Paragraph>
-                <Paragraph variant="small-m">{data.description}</Paragraph>
-            </Flex>
-
-            <TagList data={data.tags} mt={16} />
+            <ModulesInfo data={data} />
         </Box>
     );
 };

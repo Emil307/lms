@@ -31,6 +31,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     cardSectionContent: {
         paddingLeft: 24,
         gap: 8,
+        height: 28,
     },
     discount: {
         backgroundColor: theme.colors.done[0],

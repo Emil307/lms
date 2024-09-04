@@ -1,24 +1,25 @@
-import { Flex, ThemeIcon } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import dayjs from "dayjs";
-import IconUsers from "public/icons/users.svg";
 import { CourseDetails } from "@entities/course";
 import { Paragraph } from "@shared/ui";
-import IconCalendar from "public/icons/calendar.svg";
 import useStyles from "./AvailableGroupInfo.styles";
 
 interface AvailableGroupInfoProps {
     data: CourseDetails;
+    grayColor?: boolean;
 }
 
-const AvailableGroupInfo = ({ data }: AvailableGroupInfoProps) => {
-    const { classes, cx } = useStyles();
+const AvailableGroupInfo = ({ data, grayColor }: AvailableGroupInfoProps) => {
+    const { classes } = useStyles({ grayColor });
 
     const renderFinishDate = () => {
         if (data.type === "autonomous") {
             return (
-                <Paragraph variant="text-small-m">{`Доступ: до ${dayjs(data.availableGroup?.educationFinishDate).format(
-                    "D MMMM YYYY",
-                )}`}</Paragraph>
+                <Flex className={classes.groupInfoButton}>
+                    <Paragraph variant="text-small-m" color="gray45">{`Стартует ${dayjs(data.availableGroup?.educationFinishDate).format(
+                        "D MMMM"
+                    )}`}</Paragraph>
+                </Flex>
             );
         }
         return <Paragraph variant="text-small-m">Свободное прохождение</Paragraph>;
@@ -29,11 +30,10 @@ const AvailableGroupInfo = ({ data }: AvailableGroupInfoProps) => {
             return null;
         }
         return (
-            <Flex align="center" gap={6}>
-                <ThemeIcon className={classes.icon}>
-                    <IconUsers />
-                </ThemeIcon>
-                <Paragraph variant="text-small-m">Мест осталось: {data.availableGroup.freePlacesCount}</Paragraph>
+            <Flex align="center" gap={6} className={classes.groupInfoButton}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    Осталось {data.availableGroup.freePlacesCount} места
+                </Paragraph>
             </Flex>
         );
     };
@@ -41,9 +41,6 @@ const AvailableGroupInfo = ({ data }: AvailableGroupInfoProps) => {
     return (
         <Flex className={classes.availableGroupInfoContainer}>
             <Flex align="center" gap={6}>
-                <ThemeIcon className={cx(classes.icon, classes.iconCalendar)}>
-                    <IconCalendar />
-                </ThemeIcon>
                 {renderFinishDate()}
             </Flex>
             {renderFreePlaces()}

@@ -597,6 +597,7 @@ export const $Group = z.object({
     groupId: z.number(),
     courseId: z.number(),
     name: z.string(),
+    shortDescription: z.string().nullable(),
     description: z.string().nullable(),
     type: $CourseType,
     availableTo: z.coerce.date().nullable(),

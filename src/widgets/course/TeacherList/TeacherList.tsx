@@ -8,7 +8,9 @@ import useStyles from "./TeacherList.styles";
 export interface TeacherListProps extends Omit<FlexProps, "children"> {
     data: StaticUserFromList[];
 }
-
+/**
+ *Deprecated
+ */
 const TeacherList = ({ data, ...props }: TeacherListProps) => {
     const { classes, cx } = useStyles();
 

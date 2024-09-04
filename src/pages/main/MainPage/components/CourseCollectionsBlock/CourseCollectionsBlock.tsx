@@ -14,11 +14,11 @@ const CourseCollectionsBlock = (props: CourseCollectionsBlockProps) => {
                 hasCardMore
                 colProps={{ sm: 6, md: 4 }}
                 skeletonListProps={{
-                    mih: 258,
+                    mih: 389,
                     radius: 16,
                 }}
                 visible={!!entry?.isIntersecting}
-                wrapperProps={{ direction: "column", gap: 32, ...props }}
+                wrapperProps={{ direction: "column", ...props }}
             />
         </Box>
     );

@@ -1,4 +1,5 @@
 import { Flex, List as MList, ListProps as MListProps } from "@mantine/core";
+import React from "react";
 import { CourseModuleLesson } from "@entities/course";
 import { Paragraph } from "@shared/ui";
 import useStyles from "./ProgramModuleLessonsList.styles";
@@ -10,39 +11,22 @@ export interface ProgramModuleLessonsListProps extends Omit<MListProps, "childre
 const ProgramModuleLessonsList = ({ data, ...props }: ProgramModuleLessonsListProps) => {
     const { classes } = useStyles();
 
-    const renderTaskTypes = (lesson: CourseModuleLesson) => {
-        if (!lesson.hasHomework && !lesson.hasTest) {
-            return null;
-        }
-
-        return (
-            <Flex gap={10}>
-                {lesson.hasHomework && (
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Домашнее задание
-                    </Paragraph>
-                )}
-                {lesson.hasTest && (
-                    <Paragraph variant="text-small-m" color="gray45">
-                        Тестирование
-                    </Paragraph>
-                )}
-            </Flex>
-        );
-    };
-
     if (!data.length) {
         return null;
     }
 
     return (
-        <MList type="ordered" {...props}>
-            {data.map((lesson) => (
-                <MList.Item key={lesson.name} className={classes.listItem}>
-                    <Paragraph variant="text-small-m">{lesson.name}</Paragraph>
-                    {renderTaskTypes(lesson)}
-                </MList.Item>
-            ))}
+        <MList type="ordered" {...props} w="100%">
+            <Flex direction="column" gap={8}>
+                {data.map((lesson, index) => (
+                    <Flex key={lesson.name} gap={16} className={classes.listItem}>
+                        <Paragraph variant="text-small-m" color="gray45">
+                            Урок {index + 1}
+                        </Paragraph>
+                        <Paragraph variant="text-small-m">{lesson.name}</Paragraph>
+                    </Flex>
+                ))}
+            </Flex>
         </MList>
     );
 };
