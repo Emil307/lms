@@ -6,6 +6,7 @@ interface CreateStylesParams {
 
 export default createStyles((theme, { hasDiscount }: CreateStylesParams) => ({
     price: {
+        width: "fit-content",
         color: hasDiscount ? theme.colors.doneDark[0] : theme.colors.dark[0],
         background: hasDiscount ? theme.colors.done16[0] : "transparent",
 

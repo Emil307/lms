@@ -19,14 +19,18 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
 
     const handleClickCard = () => onClick(data.id);
 
-    const discountValue = getDiscountValue({ amountDiscount: data.discount?.amount, type: data.discount?.type });
+    const discountValue = getDiscountValue({
+        amountDiscount: data.discount?.amount,
+        type: data.discount?.type,
+        finishingDate: data.discount?.finishingDate,
+    });
 
     const renderButton = () => {
         switch (buttonVariant) {
             case "favorite":
                 return (
                     <Flex justify="flex-end" onClick={(event) => event.stopPropagation()}>
-                        <FavoriteButton data={data} variant={"default"} />
+                        <FavoriteButton data={data} variant="default" />
                     </Flex>
                 );
             default:

@@ -1,5 +1,5 @@
 import { Text, Flex } from "@mantine/core";
-import { getPluralString } from "@shared/utils";
+import { getPluralString, hasDiscount } from "@shared/utils";
 import IconStarFour from "public/icons/starFour.svg";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { ArticlePackageFromList } from "@entities/articlePackage";
@@ -21,9 +21,9 @@ const Footer = ({ data }: FooterProps) => {
     });
 
     const renderAmount = () => {
-        const { discountPrice, fullPrice } = data;
+        const { discountPrice, fullPrice, discount } = data;
 
-        if (discountPrice !== fullPrice) {
+        if (hasDiscount({ discount, defaultPrice: fullPrice, discountPrice })) {
             return (
                 <Flex align="center" sx={{ gap: 6 }}>
                     <Heading order={3} className={classes.price}>{`${discountPrice.toLocaleString("ru")} ₽`}</Heading>

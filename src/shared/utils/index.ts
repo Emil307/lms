@@ -25,3 +25,4 @@ export * from "./useSelectWithQuery";
 export * from "./useConcatOptionsForSelect";
 export * from "./getPhoneNumberWithMask";
 export * from "./useIntersection";
+export * from "./hasDiscount";
