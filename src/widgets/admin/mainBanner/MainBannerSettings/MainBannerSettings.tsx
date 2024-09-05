@@ -1,6 +1,5 @@
 import { Box, Flex, FlexProps } from "@mantine/core";
-import React from "react";
-import { IconAlignLeft, IconClipboardText } from "@tabler/icons-react";
+import { IconClipboardText } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { Fieldset } from "@components/Fieldset";
 import { Button, DisplayField, Heading } from "@shared/ui";
@@ -18,14 +17,6 @@ const MainBannerSettings = (props: MainBannerSettingsProps) => {
 
     const handleOpenUpdateMainBannerPage = () => router.push("/admin/settings/main-page/banner/edit");
 
-    const getFullName = () => {
-        if (!data?.authorFirstName && !data?.authorLastName) {
-            return "-";
-        }
-
-        return `${data.authorFirstName} ${data.authorLastName}`;
-    };
-
     return (
         <Flex className={classes.info} {...props}>
             <Flex className={classes.settingsInfo}>
@@ -35,12 +26,6 @@ const MainBannerSettings = (props: MainBannerSettingsProps) => {
                     <DisplayField label="Заголовок баннера" value={data?.title} />
                     <DisplayField label="Подзаголовок" value={data?.subTitle} />
                     <DisplayField label="Программируемая кнопка" value={data?.buttonText} />
-                </Fieldset>
-
-                <Fieldset label="Содержание цитаты" icon={<IconAlignLeft />}>
-                    <DisplayField label="Автор" value={getFullName()} />
-                    <DisplayField label="Об авторе" value={data?.authorAbout} />
-                    <DisplayField label="Цитата" value={data?.authorShortQuote} />
                 </Fieldset>
             </Flex>
             <Box>

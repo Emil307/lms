@@ -7,9 +7,4 @@ export const fields: TInfoCardDisplayFields<GetMainBannerResponse> = [
         name: "buttonText",
         label: "Программириемая кнопка",
     },
-    {
-        name: "authorShortQuote",
-        label: "Карточка с цитатой",
-        renderString: (_value, item) => (item?.authorShortQuote ? "Есть" : "Отсутствует"),
-    },
 ];

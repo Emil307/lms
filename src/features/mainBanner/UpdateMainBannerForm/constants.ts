@@ -6,5 +6,4 @@ export const initialValues: UpdateMainBannerFormValidation = {
     indexBannerSubTitle: "",
     indexBannerButtonText: "",
     indexBannerButtonLink: "",
-    indexBannerAuthorActive: false,
 };

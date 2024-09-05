@@ -81,7 +81,6 @@ export const $GetAboutResponse = z.object({
             extension: z.string(),
             size: z.number(),
             absolutePath: z.string(),
-            //Для роли админа больше полей
             type: z
                 .object({
                     value: z.string(),
@@ -148,12 +147,6 @@ export const $GetMainBannerResponse = z.object({
     subTitle: z.string(),
     buttonText: z.string(),
     buttonLink: z.string(),
-    authorActive: z.boolean(),
-    authorImage: $UploadedFile.nullable(),
-    authorFirstName: z.string().nullable(),
-    authorLastName: z.string().nullable(),
-    authorAbout: z.string().nullable(),
-    authorShortQuote: z.string().nullable(),
     lastUpdated: $LastUpdated.nullable(),
 });
 
@@ -189,15 +182,7 @@ export const $UpdateMainBannerRequest = z.object({
     indexBannerSubTitle: z.string(),
     indexBannerButtonText: z.string(),
     indexBannerButtonLink: z.string(),
-    indexBannerAuthorActive: z.boolean(),
-    indexBannerAuthorImage: z.number().nullish(),
-    indexBannerAuthorFirstName: z.string().optional(),
-    indexBannerAuthorLastName: z.string().optional(),
-    indexBannerAuthorAbout: z.string().optional(),
-    indexBannerAuthorShortQuote: z.string().optional(),
 });
-
-//TODO: refactoring !!!!!
 
 export const $UpdateAboutRequest = z.object({
     aboutPageBannerImage: z.number().optional(),

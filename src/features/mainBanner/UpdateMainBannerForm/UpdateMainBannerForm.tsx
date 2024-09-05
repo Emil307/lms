@@ -1,9 +1,7 @@
 import { Box, Flex, BoxProps } from "@mantine/core";
-import React from "react";
-import { User } from "react-feather";
 import { useRouter } from "next/router";
 import { IconClipboardText } from "@tabler/icons-react";
-import { FAvatarInput, FControlButtons, FFileInput, FInput, FSwitch, FTextarea, Heading, ManagedForm } from "@shared/ui";
+import { FControlButtons, FFileInput, FInput, ManagedForm } from "@shared/ui";
 import { Fieldset } from "@components/Fieldset";
 import { GetMainBannerResponse, staticPageApi } from "@entities/staticPage";
 import { EntityNames, MutationKeys } from "@shared/constant";
@@ -22,18 +20,10 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
     const { classes } = useStyles();
     const router = useRouter();
 
-    const renderAuthorFullName = () => {
-        if (!data.authorFirstName || !data.authorLastName) {
-            return null;
-        }
-        return `${data.authorFirstName} ${data.authorLastName}`;
-    };
-
     const updateMainBanner = (values: UpdateMainBannerFormValidation) => {
         return staticPageApi.updateMainBanner({
             ...values,
             indexBannerImage: values.indexBannerFile?.id,
-            indexBannerAuthorImage: values.indexBannerAuthorAvatar?.id,
         });
     };
 
@@ -63,7 +53,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                 onSuccess={onSuccess}
                 onCancel={onClose}
                 onError={onError}>
-                {({ values, onCancel }) => {
+                {({ onCancel }) => {
                     return (
                         <Flex direction="column" gap={32}>
                             <FFileInput
@@ -86,52 +76,6 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
                                     </Flex>
                                 </Flex>
                             </Fieldset>
-
-                            <Flex className={classes.fieldset} maw={512}>
-                                <Flex className={classes.fieldsetHeading}>
-                                    <User />
-                                    <Heading order={4}>Карточка автора</Heading>
-                                    <FSwitch variant="secondary" name="indexBannerAuthorActive" />
-                                </Flex>
-                                {values.indexBannerAuthorActive && (
-                                    <Flex direction="column" gap={24} w="100%">
-                                        <FAvatarInput
-                                            name="indexBannerAuthorAvatar"
-                                            label="Изменить аватар"
-                                            description="Рекомендуемый размер изображения: 1024х1024 px, до 500Kb"
-                                            title={renderAuthorFullName()}
-                                        />
-                                        <Flex direction="column" gap={8}>
-                                            <Flex direction={{ base: "column", xs: "row" }} gap={8}>
-                                                <FInput
-                                                    name="indexBannerAuthorFirstName"
-                                                    label="Имя"
-                                                    onlyLetters
-                                                    size="sm"
-                                                    withAsterisk
-                                                    w="100%"
-                                                />
-                                                <FInput
-                                                    name="indexBannerAuthorLastName"
-                                                    label="Фамилия"
-                                                    onlyLetters
-                                                    size="sm"
-                                                    withAsterisk
-                                                    w="100%"
-                                                />
-                                            </Flex>
-
-                                            <FInput name="indexBannerAuthorAbout" label="Об авторе" size="sm" w="100%" />
-                                            <FTextarea
-                                                name="indexBannerAuthorShortQuote"
-                                                placeholder="Краткая цитата"
-                                                description="Краткая цитата автора до 150 символов"
-                                                className={classes.quoteTextarea}
-                                            />
-                                        </Flex>
-                                    </Flex>
-                                )}
-                            </Flex>
                             <FControlButtons onClose={onCancel} />
                         </Flex>
                     );
