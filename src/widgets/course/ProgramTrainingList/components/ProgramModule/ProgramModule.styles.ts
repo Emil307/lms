@@ -46,4 +46,11 @@ export default createStyles((theme) => ({
             padding: 0,
         },
     },
+    title: {
+        fontSize: 24,
+    },
+    mainTitle: {
+        fontSize: 16,
+        lineHeight: "22px",
+    },
 }));

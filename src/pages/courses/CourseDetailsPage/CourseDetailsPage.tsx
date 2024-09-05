@@ -49,8 +49,8 @@ const CourseDetailsPage = () => {
         <Flex className={classes.root}>
             <Flex direction="column" className={classes.blocksWrapper}>
                 <Flex direction="column" maw={1320} w="100%" m="auto" className={classes.mainInfoWrapper}>
-                    <MainBanner data={courseData} />
-                    <Flex direction="column">
+                    <MainBanner mb={8} data={courseData} />
+                    <Flex direction="column" mb={64}>
                         <MainInfoPanel data={courseData} />
                     </Flex>
 
@@ -75,7 +75,7 @@ const CourseDetailsPage = () => {
                 />
                 <CourseCollectionsBlock />
                 <BuyCourseBlock data={courseData} id="buy-course-block" />
-                <FaqBlock mt={112} />
+                <FaqBlock />
             </Flex>
         </Flex>
     );

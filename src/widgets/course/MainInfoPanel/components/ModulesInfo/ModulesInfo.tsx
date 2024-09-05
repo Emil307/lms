@@ -23,10 +23,10 @@ const ModulesInfo = ({ data, ...props }: MainInfoPanelProps) => {
                         <Folder />
                     </Flex>
                     <Flex direction="column">
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.title}>
                             Курс состоит
                         </Paragraph>
-                        <Paragraph variant="large">{`из ${data.modules.length} модулей`}</Paragraph>
+                        <Paragraph variant="large" className={classes.description}>{`из ${data.modules.length} модулей`}</Paragraph>
                     </Flex>
                 </Flex>
             );
@@ -41,10 +41,10 @@ const ModulesInfo = ({ data, ...props }: MainInfoPanelProps) => {
                         <BookOpen />
                     </Flex>
                     <Flex direction="column">
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.title}>
                             Всего в курсе
                         </Paragraph>
-                        <Paragraph variant="large">{`${data.lessonsCount} ${getPluralString(
+                        <Paragraph variant="large" className={classes.description}>{`${data.lessonsCount} ${getPluralString(
                             data.lessonsCount,
                             "урок",
                             "урока",
@@ -64,11 +64,11 @@ const ModulesInfo = ({ data, ...props }: MainInfoPanelProps) => {
                         <Edit3 />
                     </Flex>
                     <Flex direction="column">
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.title}>
                             Для закрепления знаний
                         </Paragraph>
-                        <Paragraph variant="large">
-                            {`${data.testsCount}
+                        <Paragraph variant="large" className={classes.description}>
+                            {`${data.testsCount + data.homeworksCount}
                                 обучающих заданий`}
                         </Paragraph>
                     </Flex>

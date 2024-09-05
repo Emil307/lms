@@ -1,7 +1,8 @@
-import { Flex } from "@mantine/core";
+import { Flex, ThemeIcon } from "@mantine/core";
 import { CourseRating } from "@entities/course";
-import { Heading, Paragraph, Rating } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
+import IconStarDefault from "public/icons/icon24px/rating/star-default.svg";
 import useStyles from "./RatingInfo.styles";
 
 export interface RatingInfoProps {
@@ -18,13 +19,23 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
     return (
         <Flex align="center" gap={16} className={classes.ratingWrapper}>
             <Flex className={classes.iconWrapper}>
-                <Rating defaultValue={1} count={1} readOnly size="small" />
+                <ThemeIcon
+                    sx={(theme) => ({
+                        width: 24,
+                        path: {
+                            stroke: theme.colors.golden[0],
+                        },
+                    })}>
+                    {<IconStarDefault />}
+                </ThemeIcon>
             </Flex>
-            <Flex direction="column" gap={4}>
-                <Flex align="center" gap={2}>
-                    <Heading order={2}>{data.averageRating}</Heading>
+            <Flex direction="column">
+                <Flex align="center">
+                    <Heading order={2} className={classes.title}>
+                        {data.averageRating}
+                    </Heading>
                 </Flex>
-                <Paragraph variant="small-semi" color="gray45">{`${data.reviewsCount} ${getPluralString(
+                <Paragraph variant="small-semi" color="gray45" className={classes.description}>{`${data.reviewsCount} ${getPluralString(
                     data.reviewsCount,
                     "отзыв",
                     "отзыва",

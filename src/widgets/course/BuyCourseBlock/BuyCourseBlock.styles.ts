@@ -1,12 +1,16 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
+    title: {
+        fontSize: 42,
+        lineHeight: "46px",
+    },
     blockWrapper: {
         backgroundColor: theme.colors.neutralLight[0],
         marginTop: 112,
         padding: 96,
         [theme.fn.smallerThan("md")]: {
-            padding: 24,
+            padding: "64px 16px",
         },
     },
     blockContainer: {
@@ -15,8 +19,7 @@ export default createStyles((theme) => ({
         width: "100%",
         margin: "auto",
         justifyContent: "space-between",
-        alignItems: "center",
-        padding: "0px 56px 56px 56px",
+        padding: "56px 56px 56px 56px",
         borderRadius: 32,
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column-reverse",
@@ -24,6 +27,7 @@ export default createStyles((theme) => ({
         },
     },
     image: {
+        height: 398,
         [theme.fn.smallerThan("md")]: {
             height: 272,
             objectFit: "cover",
@@ -43,5 +47,13 @@ export default createStyles((theme) => ({
             alignItems: "flex-start",
             flexDirection: "column",
         },
+    },
+    button: {
+        fontSize: 18,
+        lineHeight: "24px",
+    },
+    description: {
+        fontSize: 16,
+        lineHeight: "22px",
     },
 }));

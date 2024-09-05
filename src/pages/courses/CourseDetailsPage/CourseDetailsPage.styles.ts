@@ -12,11 +12,9 @@ export default createStyles((theme) => ({
         },
     },
     mainInfoWrapper: {
-        gap: 64,
         paddingRight: 0,
         paddingLeft: 0,
         [theme.fn.smallerThan("md")]: {
-            gap: 8,
             paddingRight: 16,
             paddingLeft: 16,
         },

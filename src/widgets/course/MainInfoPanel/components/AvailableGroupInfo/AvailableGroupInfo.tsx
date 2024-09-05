@@ -1,15 +1,15 @@
-import { Flex } from "@mantine/core";
+import { BoxProps, Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { CourseDetails } from "@entities/course";
 import { Paragraph } from "@shared/ui";
 import useStyles from "./AvailableGroupInfo.styles";
 
-interface AvailableGroupInfoProps {
+interface AvailableGroupInfoProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
     grayColor?: boolean;
 }
 
-const AvailableGroupInfo = ({ data, grayColor }: AvailableGroupInfoProps) => {
+const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoProps) => {
     const { classes } = useStyles({ grayColor });
 
     const renderFinishDate = () => {
@@ -39,7 +39,7 @@ const AvailableGroupInfo = ({ data, grayColor }: AvailableGroupInfoProps) => {
     };
 
     return (
-        <Flex className={classes.availableGroupInfoContainer}>
+        <Flex {...props} className={classes.availableGroupInfoContainer}>
             <Flex align="center" gap={6}>
                 {renderFinishDate()}
             </Flex>

@@ -27,9 +27,20 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         gap: 16,
     },
+    title: {
+        fontSize: 42,
+        lineHeight: "46px",
+    },
     description: {
+        fontWeight: 600,
+        fontSize: 20,
+        lineHeight: "24px",
         wordBreak: "break-word",
         overflow: "break-word",
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 18,
+            lineHeight: "24px",
+        },
     },
     category: {
         border: `1px solid ${theme.colors.dark[0]}`,
@@ -65,10 +76,19 @@ export default createStyles((theme) => ({
             flexDirection: "column",
         },
     },
+    getCourseButton: {
+        fontSize: 18,
+        lineHeight: "24px",
+    },
+    getCourseDescription: {
+        fontSize: 16,
+        lineHeight: "22px",
+    },
     favoriteActionIcon: {
-        height: 48,
-        width: 48,
+        height: 56,
+        width: 56,
         borderRadius: 56,
+        margin: 0,
     },
 
     descriptionContainer: {

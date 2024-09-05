@@ -4,6 +4,10 @@ export default createStyles((theme) => ({
     root: {
         width: "100%",
     },
+    title: {
+        fontSize: 42,
+        lineHeight: "46px",
+    },
     containerAboutCourse: {
         padding: "24px 32px",
         borderRadius: 16,

@@ -13,11 +13,21 @@ export default createStyles((theme) => ({
             paddingLeft: 16,
         },
     },
+    headingContainer: {
+        marginBottom: 24,
+        [theme.fn.smallerThan("md")]: {
+            marginBottom: 0,
+        },
+    },
     title: {
         fontSize: 42,
         lineHeight: "46px",
         color: theme.colors.dark[0],
         textAlign: "center",
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 24,
+            lineHeight: "32px",
+        },
     },
     description: {
         fontSize: 20,
@@ -25,6 +35,10 @@ export default createStyles((theme) => ({
         color: theme.colors.dark[0],
         textAlign: "center",
         opacity: 0.5,
+        [theme.fn.smallerThan("md")]: {
+            fontSize: 18,
+            lineHeight: "24px",
+        },
     },
     viewport: {
         marginBottom: 48,

@@ -28,7 +28,7 @@ const ProgramTrainingList = ({ data, ...props }: ProgramTrainingListProps) => {
 
     return (
         <Box {...props} className={classes.root}>
-            <Heading order={2} mb={32}>
+            <Heading order={1} mb={32} className={classes.title}>
                 Программа обучения
             </Heading>
             <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>

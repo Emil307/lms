@@ -36,19 +36,23 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                     </Flex>
                     <Box w="100%">
                         <Flex direction="column" gap={16} w="100%">
-                            <Heading>{data.name}</Heading>
-                            <Paragraph variant="small-m" className={classes.description}>
+                            <Heading className={classes.title}>{data.name}</Heading>
+                            <Paragraph variant="large" className={classes.description}>
                                 {data.shortDescription}
                             </Paragraph>
                         </Flex>
                         <Flex className={classes.getCourseWrapper}>
-                            <Flex gap={16}>
-                                <Button variant="primary" disabled={!data.availableGroup?.freePlacesCount} onClick={scrollToBuyCourse}>
+                            <Flex gap={16} align="center">
+                                <Button
+                                    variant="primary"
+                                    disabled={!data.availableGroup?.freePlacesCount}
+                                    onClick={scrollToBuyCourse}
+                                    className={classes.getCourseButton}>
                                     Получить курс
                                 </Button>
                                 <FavoriteButton data={data} className={classes.favoriteActionIcon} />
                             </Flex>
-                            <Paragraph variant="text-small-m" color="gray45">
+                            <Paragraph variant="text-small-m" color="gray45" className={classes.getCourseDescription}>
                                 Начните обучение <br /> прямо сейчас!
                             </Paragraph>
                         </Flex>

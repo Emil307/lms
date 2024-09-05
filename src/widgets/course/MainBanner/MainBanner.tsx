@@ -7,10 +7,10 @@ import RatingInfo from "@widgets/course/MainBanner/components/RatingInfo/RatingI
 export interface MainBannerProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
 }
-const MainBanner = ({ data }: MainBannerProps) => {
+const MainBanner = ({ data, ...props }: MainBannerProps) => {
     const { classes } = useStyles();
     return (
-        <Flex justify="center" pos="relative">
+        <Flex {...props} justify="center" pos="relative">
             <Box className={classes.image}>
                 {data.cover && <Image src={data.cover.absolutePath} fill sizes="100vw" alt={data.cover.name} />}
             </Box>

@@ -51,11 +51,12 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     if (!courseCollectionsData?.data.length) {
         return null;
     }
+    // const isTablet = useMedia("md");
 
     return (
         <Flex direction="column" {...wrapperProps} className={classes.wrapper}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
-                <Heading mb={24}>
+                <Heading className={classes.headingContainer}>
                     <Flex direction={"column"} gap={24}>
                         <Text ta={"center"} className={classes.title}>
                             Больше знаний в комплексе

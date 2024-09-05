@@ -20,10 +20,12 @@ const ProgramModuleLessonsList = ({ data, ...props }: ProgramModuleLessonsListPr
             <Flex direction="column" gap={8}>
                 {data.map((lesson, index) => (
                     <Flex key={lesson.name} gap={16} className={classes.listItem}>
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.title}>
                             Урок {index + 1}
                         </Paragraph>
-                        <Paragraph variant="text-small-m">{lesson.name}</Paragraph>
+                        <Paragraph variant="text-small-m" className={classes.description}>
+                            {lesson.name}
+                        </Paragraph>
                     </Flex>
                 ))}
             </Flex>

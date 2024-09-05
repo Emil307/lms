@@ -21,18 +21,24 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
     return (
         <Flex {...props} className={classes.blockWrapper}>
             <Flex className={classes.blockContainer}>
-                <Flex direction="column" gap={24} className={classes.priceContainer}>
-                    <Heading order={1}>Стоимость</Heading>
-                    <Paragraph variant="large" color="gray45">
+                <Flex direction="column" className={classes.priceContainer}>
+                    <Heading order={1} className={classes.title} pb={24}>
+                        Стоимость
+                    </Heading>
+                    <Paragraph variant="large" color="gray45" pb={32}>
                         Оплатить курс можно с помощью QR или счета на оплату
                     </Paragraph>
                     <PriceBlock discountPrice={data.discountPrice} price={data.price} />
-                    <AvailableGroupInfo data={data} grayColor />
+                    <AvailableGroupInfo data={data} grayColor py={24} />
                     <Flex className={classes.buyButtonContainer}>
-                        <Button variant="primary" disabled={!data.availableGroup?.freePlacesCount} onClick={() => setOpened(true)}>
+                        <Button
+                            variant="primary"
+                            disabled={!data.availableGroup?.freePlacesCount}
+                            className={classes.button}
+                            onClick={() => setOpened(true)}>
                             Купить курс
                         </Button>
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="gray45" className={classes.description}>
                             Начните обучение <br /> прямо сейчас!
                         </Paragraph>
                     </Flex>

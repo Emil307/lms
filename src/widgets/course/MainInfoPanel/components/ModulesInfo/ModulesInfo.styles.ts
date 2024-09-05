@@ -10,9 +10,13 @@ export default createStyles((theme) => ({
         },
     },
     iconContainer: {
-        padding: 12,
+        padding: 11,
         border: `1px solid ${theme.colors.neutral_gray300[0]}`,
         borderRadius: 16,
+        svg: {
+            width: 32,
+            height: 32,
+        },
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
         },
@@ -28,5 +32,13 @@ export default createStyles((theme) => ({
             alignItems: "flex-start",
             flexDirection: "column",
         },
+    },
+    title: {
+        fontSize: 16,
+        lineHeight: "22px",
+    },
+    description: {
+        fontSize: 18,
+        lineHeight: "24px",
     },
 }));
