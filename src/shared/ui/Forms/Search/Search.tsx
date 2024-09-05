@@ -6,6 +6,7 @@ import { useSearchStyles } from "./Search.styles";
 export interface SearchProps extends MTextInputProps {
     styleVariant?: "default" | "course";
     setValue?: (value: string) => void;
+    iconSize?: number;
 }
 
 const RightSection = ({ value, setValue }: { value?: string | number | readonly string[]; setValue: (value: string) => void }) => {
@@ -19,7 +20,14 @@ const RightSection = ({ value, setValue }: { value?: string | number | readonly 
     return null;
 };
 
-const Search = ({ setValue = () => undefined, onChange = () => undefined, value, styleVariant = "default", ...props }: SearchProps) => {
+const Search = ({
+    setValue = () => undefined,
+    onChange = () => undefined,
+    value,
+    styleVariant = "default",
+    iconSize,
+    ...props
+}: SearchProps) => {
     const { classes } = useSearchStyles({ styleVariant }, { name: "Search" });
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +40,7 @@ const Search = ({ setValue = () => undefined, onChange = () => undefined, value,
             {...props}
             value={value}
             icon={
-                <ThemeIcon color="primary" w={16} h={16}>
+                <ThemeIcon color="primary" w={iconSize || 16} h={iconSize || 16}>
                     <SearchIcon />
                 </ThemeIcon>
             }

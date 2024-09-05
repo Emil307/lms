@@ -6,6 +6,10 @@ export default createStyles((theme) => ({
             padding: "0 16px",
         },
     },
+    header: {
+        fontSize: 56,
+        lineHeight: "62px",
+    },
     coursesBlock: {
         [theme.fn.smallerThan("md")]: {
             padding: "0 16px",
@@ -34,12 +38,19 @@ export default createStyles((theme) => ({
         "& input": {
             backgroundColor: "transparent",
             border: "none",
-            "&:hover, &:focus": {
+            height: 32,
+            padding: "0px 36px 0px 40px",
+            ":hover, :focus": {
                 backgroundColor: "transparent",
                 border: "none",
-                outline: "none",
+                boxShadow: "none",
             },
         },
+    },
+    searchButton: {
+        fontSize: 18,
+        padding: "16px 32px",
+        height: "100%",
     },
     resetButton: {
         borderRadius: 56,

@@ -46,7 +46,9 @@ const CoursesPage = () => {
         <Box m="auto">
             <Box maw={1320} m="auto" className={classes.filtersBlock}>
                 <BreadCrumbs items={breadCrumbsItems} mb={16} />
-                <Heading mb={64}>Онлайн-курсы</Heading>
+                <Heading className={classes.header} mb={64}>
+                    Онлайн-курсы
+                </Heading>
                 <Form config={config} disableOverlay={false}>
                     {({ resetForm }) => {
                         const handleResetForm = () => {
@@ -68,9 +70,17 @@ const CoursesPage = () => {
 
                         return (
                             <Flex direction="column" gap={16}>
-                                <Flex gap={16} align="center" justify="center" mb={64}>
-                                    <FSearch name="query" placeholder="Какой курс вам нужен?" w="100%" className={classes.searchInput} />
-                                    <Button type="submit" variant="primary">
+                                <Flex gap={16} align="center" justify="center" mb={64} h={56}>
+                                    <FSearch
+                                        name="query"
+                                        placeholder="Какой курс вам нужен?"
+                                        w="100%"
+                                        className={classes.searchInput}
+                                        px={16}
+                                        py={12}
+                                        iconSize={24}
+                                    />
+                                    <Button type="submit" variant="primary" className={classes.searchButton}>
                                         Найти курс
                                     </Button>
                                 </Flex>
