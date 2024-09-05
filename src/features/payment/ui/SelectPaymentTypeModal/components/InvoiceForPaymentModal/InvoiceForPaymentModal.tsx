@@ -1,7 +1,6 @@
 import { Flex } from "@mantine/core";
 import { saveAs } from "file-saver";
-import { ChevronLeft } from "react-feather";
-import { FControlButtons, FInput, ManagedForm, Paragraph } from "@shared/ui";
+import { ManagedForm, Paragraph } from "@shared/ui";
 import { MutationKeys } from "@shared/constant";
 import { paymentApi } from "@entities/payment";
 import { ToastType, createNotification } from "@shared/utils";
@@ -10,12 +9,14 @@ import { isErrorsArray, isMessageError } from "@shared/guards";
 import { $InvoiceForPaymentFormValidationSchema, InvoiceForPaymentFormValidationSchema } from "./types";
 import { initialValues } from "./constants";
 import { SelectPaymentTypeModalProps } from "../../SelectPaymentTypeModal";
+import FBillForm from "./components/FBillForm";
 
 export interface InvoiceForPaymentModalProps extends SelectPaymentTypeModalProps {
     onSuccess: () => void;
+    setOpen?: boolean;
 }
 
-const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: InvoiceForPaymentModalProps) => {
+const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose, setOpen }: InvoiceForPaymentModalProps) => {
     const createInvoiceForPayment = (values: InvoiceForPaymentFormValidationSchema) => {
         switch (entityType) {
             case "course":
@@ -46,11 +47,20 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: In
         }
     };
 
-    return (
-        <Flex direction="column" gap={24}>
+    function renderHeader() {
+        if (setOpen) {
+            return null;
+        }
+        return (
             <Paragraph variant="small-m" color="gray45">
                 Заполните необходимые поля для формирования счета на оплату.
             </Paragraph>
+        );
+    }
+
+    return (
+        <Flex direction="column" gap={24}>
+            {renderHeader()}
             <ManagedForm<InvoiceForPaymentFormValidationSchema, TFileDownloadResponse>
                 initialValues={initialValues}
                 validationSchema={$InvoiceForPaymentFormValidationSchema}
@@ -59,26 +69,7 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose }: In
                 disableOverlay
                 onSuccess={onSuccessForm}
                 onError={onError}>
-                <Flex direction="column" gap={24}>
-                    <Flex direction="column" gap={8}>
-                        <FInput name="organizationName" label="Название организации" />
-                        <FInput name="organizationOGRN" label="ОГРН" />
-                        <FInput name="organizationPaymentAccount" label="Расчетный счет" type="number" />
-                        <FInput name="organizationINN" label="ИНН" type="number" />
-                        <FInput name="organizationKPP" label="КПП" type="number" />
-                        <FInput name="organizationJuridicalAddress" label="Юридический адрес" />
-                        <FInput name="organizationBankName" label="Банк" />
-                    </Flex>
-                    <FControlButtons
-                        variant="modal"
-                        cancelButtonText="Назад"
-                        submitButtonText="Скачать"
-                        onClose={onClose}
-                        cancelButtonProps={{
-                            leftIcon: <ChevronLeft />,
-                        }}
-                    />
-                </Flex>
+                <FBillForm onClose={onClose} setOpen={setOpen} />
             </ManagedForm>
         </Flex>
     );

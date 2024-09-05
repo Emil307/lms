@@ -13,8 +13,6 @@ const FControlButtons = ({ ignoreDirty, isLoading, ...props }: FControlButtonsPr
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const isDirtyForm = formikContext ? formikContext.dirty : true;
 
-    // const
-
     return <ControlButtons {...props} disabledSubmit={!isDirtyForm && !ignoreDirty} isLoading={loading} />;
 };
 

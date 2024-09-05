@@ -7,6 +7,7 @@ import { AvailableGroupInfo } from "@widgets/course/MainInfoPanel/components";
 import { CourseDetails } from "@entities/course";
 import PriceBlock from "@widgets/course/BuyCourseBlock/components/PriceBlock/PriceBlock";
 import BuyCourseDrawer from "@widgets/course/BuyCourseBlock/components/BuyCourseDrawer/BuyCourseDrawer";
+import { useAuthPay } from "@app/utils";
 import useStyles from "./BuyCourseBlock.styles";
 
 export interface BuyCourseProps extends Omit<BoxProps, "children"> {
@@ -18,6 +19,15 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
     const { classes } = useStyles();
     const [opened, setOpened] = useState(false);
     const [step, setStep] = useState(1);
+
+    const { handleBuyEntity, isLoading } = useAuthPay({
+        entityId: data.id,
+        entityName: data.name,
+        entityType: "course",
+        entityPrice: data.discountPrice,
+        setOpened,
+    });
+
     return (
         <Flex {...props} className={classes.blockWrapper}>
             <Flex className={classes.blockContainer}>
@@ -35,8 +45,9 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
                             variant="primary"
                             disabled={!data.availableGroup?.freePlacesCount}
                             className={classes.button}
-                            onClick={() => setOpened(true)}>
-                            Купить курс
+                            loading={isLoading}
+                            onClick={handleBuyEntity}>
+                            {data.discountPrice > 0 ? "Купить курс" : "Получить курс"}
                         </Button>
                         <Paragraph variant="text-small-m" color="gray45" className={classes.description}>
                             Начните обучение <br /> прямо сейчас!

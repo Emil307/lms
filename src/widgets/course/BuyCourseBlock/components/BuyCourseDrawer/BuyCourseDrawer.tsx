@@ -1,15 +1,12 @@
 import { Divider, Drawer, Flex, Group } from "@mantine/core";
 import React, { SetStateAction } from "react";
 import Image from "next/image";
-import { FormikConfig } from "formik";
-import { Button, Form, Heading, Paragraph } from "@shared/ui";
+import { Button, Heading, Paragraph } from "@shared/ui";
 import { handleNextStep, handleSend } from "@widgets/course/BuyCourseBlock/utils";
 import { CourseDetails } from "@entities/course";
 import { useMedia } from "@shared/utils";
 import testQr from "@public/test-qr-code.png";
-import { $CreateInvoiceForPaymentRequest, CreateInvoiceForPaymentRequest } from "@entities/payment";
-import FInput from "@shared/ui/Forms/Input/FInput";
-import { initialValues } from "./constants";
+import { InvoiceForPaymentModal } from "@features/payment/ui/SelectPaymentTypeModal/components";
 import useStyles from "./BuyCourseDrawer.styles";
 
 const BuyCourseDrawer = (
@@ -19,15 +16,8 @@ const BuyCourseDrawer = (
     step: number,
     data: CourseDetails
 ) => {
-    const config: FormikConfig<CreateInvoiceForPaymentRequest> = {
-        initialValues: { ...initialValues },
-        validationSchema: $CreateInvoiceForPaymentRequest,
-        enableReinitialize: true,
-        onSubmit: () => {
-            handleSend(setOpened, setStep);
-        },
-    };
     const { classes } = useStyles();
+
     const isTablet = useMedia("sm");
 
     const renderContent = () => {
@@ -69,29 +59,18 @@ const BuyCourseDrawer = (
         } else if (step === 2) {
             return (
                 <>
-                    <Paragraph variant="small-m" color="gray45" mt={4}>
+                    <Paragraph variant="small-m" color="gray45" mt={4} mb={24}>
                         Заполните реквизиты и распечатай готовый счет на оплату.
                     </Paragraph>
-                    <Form config={config} disableOverlay>
-                        <Flex direction="column" gap={8} my={24}>
-                            <FInput name="organizationName" label="Название организации" type="string" size="sm" w="100%" />
-                            <FInput name="organizationOGRN" label="ОГРН" type="number" size="sm" w="100%" />
-                            <FInput name="organizationPaymentAccount" label="Расчетный счет" type="number" size="sm" w="100%" />
-                            <FInput name="organizationINN" label="ИНН" type="number" size="sm" w="100%" />
-                            <FInput name="organizationKPP" label="КПП" type="number" size="sm" w="100%" />
-                            <FInput name="organizationJuridicalAddress" label="Юридический адрес" type="string" size="sm" w="100%" />
-                            <FInput name="organizationBankName" label="Банк" type="string" size="sm" w="100%" />
-                        </Flex>
-                    </Form>
-                    <Group position="left" mt="md">
-                        <Button
-                            variant="primary"
-                            onClick={() => {
-                                handleSend(setOpened, setStep);
-                            }}>
-                            Скачать
-                        </Button>
-                    </Group>
+                    <InvoiceForPaymentModal
+                        entityType="course"
+                        entityId={data.id}
+                        onSuccess={() => {
+                            handleSend(setOpened, setStep);
+                        }}
+                        onClose={() => setOpened(false)}
+                        setOpen
+                    />
                 </>
             );
         }

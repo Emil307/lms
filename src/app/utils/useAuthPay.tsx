@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import React, { SetStateAction, useEffect, useMemo } from "react";
 import { closeModal, openModal } from "@mantine/modals";
 import { useSession } from "@entities/auth";
 import { SelectPaymentTypeModal } from "@features/payment";
@@ -12,9 +12,10 @@ interface UseAuthPayProps {
     entityName: string;
     entityType: PaymentEntityType;
     entityPrice: number;
+    setOpened?: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export const useAuthPay = ({ entityType, entityId, entityName, entityPrice }: UseAuthPayProps) => {
+export const useAuthPay = ({ entityType, entityId, entityName, entityPrice, setOpened }: UseAuthPayProps) => {
     const router = useRouter();
     const { user } = useSession();
 
@@ -29,6 +30,9 @@ export const useAuthPay = ({ entityType, entityId, entityName, entityPrice }: Us
 
     const buyEntity = () => {
         if (entityPrice) {
+            if (setOpened) {
+                return setOpened(true);
+            }
             return openSelectPaymentTypeModal();
         }
         createFreeTransaction(null, {
@@ -78,6 +82,10 @@ export const useAuthPay = ({ entityType, entityId, entityName, entityPrice }: Us
     const handleBuyEntity = () => {
         if (user) {
             return buyEntity();
+        }
+
+        if (setOpened) {
+            return router.push({ pathname: router.pathname, query: { ...router.query, action: "auth" } }, undefined, { shallow: true });
         }
         openAuthModal();
     };
