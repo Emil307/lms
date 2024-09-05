@@ -275,13 +275,13 @@ export const $CreateAdminGroupRequest = z.object({
     educationFinishDate: z.string().datetime(),
 });
 
-export const $CreateAdminGroupResponse = $AdminGroup.omit({ lastUpdated: true });
+export const $CreateAdminGroupResponse = $AdminGroup.omit({ studentsCount: true, freePlacesCount: true, lastUpdated: true });
 
 export const $UpdateAdminGroupRequest = $CreateAdminGroupRequest.extend({
     id: z.string(),
 });
 
-export const $UpdateAdminGroupResponse = $AdminGroup;
+export const $UpdateAdminGroupResponse = $CreateAdminGroupResponse;
 
 export const $UpdateGroupActivityRequest = z.object({
     id: z.string(),
