@@ -6,7 +6,6 @@ export * from "./CreateCourseForm";
 export * from "./UpdateCourseForm";
 export * from "./UpdateCoursePublicationModal";
 export * from "./DeleteCourseModal";
-export * from "./Filters";
 export * from "./FavoriteButton";
 export * from "./AddArticlesToCourseModal";
 export * from "./DeleteCourseArticleModal";

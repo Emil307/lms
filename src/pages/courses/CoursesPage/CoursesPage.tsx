@@ -1,22 +1,30 @@
 import { Box, Drawer, Flex } from "@mantine/core";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IconFilter } from "@tabler/icons-react";
 import { FormikConfig } from "formik";
 import { useRouter } from "next/router";
-import { BreadCrumbs, Button, Heading, Form, FSearch, Loader } from "@shared/ui";
-import { List as CoursesList, Filters } from "@features/courses";
+import { BreadCrumbs, Button, Heading, Form, FSearch, Loader, Paragraph } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { FilterTypes } from "@shared/constant";
 import { useIntersection, useMedia } from "@shared/utils";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
-import { adaptCourseFiltersForm, getCountAppliedQueries, getInitialValues, prepareQueryParams } from "@features/courses/ui/Filters/utils";
-import { TRouterQueries } from "@features/courses/ui/Filters/types";
+import { InfiniteCourseList } from "@widgets/course";
 import useStyles from "./CoursesPage.styles";
 import { breadCrumbsItems } from "./constants";
+import {
+    adaptCourseFiltersForm,
+    Filters,
+    getInitialValues,
+    TRouterQueries,
+    prepareQueryParams,
+    getCountAppliedQueries,
+} from "./components";
 
 const CoursesPage = () => {
     const { classes } = useStyles();
     const [openedDrawer, setOpenDrawer] = useState(false);
+    const [coursesCount, setCoursesCount] = useState(0);
+
     const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
     const { ref: rootBlockRef, entry } = useIntersection();
     const isTablet = useMedia("sm");
@@ -34,7 +42,7 @@ const CoursesPage = () => {
             router.push(
                 {
                     pathname: router.pathname,
-                    query: { ...router.query, ...prepareQueryParams(values), page: "1" },
+                    query: { ...router.query, ...prepareQueryParams(values) },
                 },
                 undefined,
                 { shallow: true }
@@ -57,7 +65,7 @@ const CoursesPage = () => {
                             router.push(
                                 {
                                     pathname: router.pathname,
-                                    query: { page: "1" },
+                                    query: {},
                                 },
                                 undefined,
                                 { shallow: true }
@@ -69,8 +77,8 @@ const CoursesPage = () => {
                         const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
 
                         return (
-                            <Flex direction="column" gap={16}>
-                                <Flex gap={16} align="center" justify="center" mb={64} h={56}>
+                            <Flex className={classes.filters}>
+                                <Flex gap={16} align="center" justify="center">
                                     <FSearch
                                         name="query"
                                         placeholder="Какой курс вам нужен?"
@@ -80,26 +88,28 @@ const CoursesPage = () => {
                                         py={12}
                                         iconSize={24}
                                     />
-                                    <Button type="submit" variant="primary" className={classes.searchButton}>
+                                    <Button type="submit" size="large" variant="primary">
                                         Найти курс
                                     </Button>
                                 </Flex>
-                                <Flex gap={8}>
-                                    <Button
-                                        onClick={() => {
-                                            setOpenDrawer(true);
-                                        }}
-                                        variant="secondary"
-                                        className={classes.button}
-                                        mb={48}>
-                                        <IconFilter />
-                                        Фильтры
-                                    </Button>
-                                    {isDirty && (
-                                        <Button className={classes.resetButton} type="button" variant="text" onClick={handleResetForm}>
-                                            Сбросить
+                                <Flex className={classes.buttonsWrapper}>
+                                    <Flex gap={8}>
+                                        <Button
+                                            onClick={() => {
+                                                setOpenDrawer(true);
+                                            }}
+                                            variant="secondary"
+                                            className={classes.button}>
+                                            <IconFilter />
+                                            Фильтры
                                         </Button>
-                                    )}
+                                        {isDirty && (
+                                            <Button className={classes.resetButton} type="button" variant="text" onClick={handleResetForm}>
+                                                Сбросить
+                                            </Button>
+                                        )}
+                                    </Flex>
+                                    <Paragraph variant="small-m">Найдено: {coursesCount}</Paragraph>
                                 </Flex>
                             </Flex>
                         );
@@ -107,7 +117,7 @@ const CoursesPage = () => {
                 </Form>
             </Box>
             <Flex direction="column" maw={1320} m="auto" mb={64} className={classes.coursesBlock}>
-                <CoursesList colProps={{ sm: 4 }} />
+                <InfiniteCourseList onChangeCoursesCount={setCoursesCount} />
             </Flex>
             <Box ref={rootBlockRef}>
                 <CourseCollectionList

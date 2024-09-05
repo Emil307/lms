@@ -767,9 +767,7 @@ export const $CoursesFiltersForm = z.object({
     tags: z.array(z.string()),
     categoryId: z.string(),
     subcategoryIds: z.array(z.string()),
-    isFavorite: z.boolean(),
     collectionIds: z.string(),
-    packageIds: z.array(z.string()),
     discountPrice: z.array(z.number()),
 });
 

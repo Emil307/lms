@@ -8,9 +8,7 @@ export const getInitialValues = (discountPrice?: number[]): CoursesFiltersForm =
     tags: [],
     categoryId: "",
     subcategoryIds: [],
-    isFavorite: false,
     collectionIds: "",
-    packageIds: [],
     discountPrice: discountPrice ?? [0],
 });
 
@@ -29,13 +27,12 @@ export const prepareQueryParams = (values: CoursesFiltersForm): Record<string, a
 };
 
 export const adaptCourseFiltersForm = (queryParams: TRouterQueries): Partial<CoursesFiltersForm> => {
-    const { tags = [], subcategoryIds = [], hasDiscount, packageIds = [], isFavorite, discountPrice, ...rest } = queryParams;
+    const { tags = [], subcategoryIds = [], hasDiscount, discountPrice, ...rest } = queryParams;
 
     return {
         ...rest,
         tags: Array.isArray(tags) ? tags : [tags],
         subcategoryIds: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
-        packageIds: Array.isArray(packageIds) ? packageIds : [packageIds],
         discountPrice: discountPrice ? discountPrice : undefined,
         hasDiscount: hasDiscount === "true",
     };
@@ -43,7 +40,7 @@ export const adaptCourseFiltersForm = (queryParams: TRouterQueries): Partial<Cou
 
 export const getCountAppliedQueries = (data: TRouterQueries, initialValues: CoursesFiltersForm): number => {
     return Object.entries(data).reduce((acc, [key, value]) => {
-        if (key === "page" || key === "categoryId" || initialValues[key as keyof TRouterQueries]?.toString() === value) {
+        if (key === "page" || key === "categoryId" || initialValues[key as keyof TRouterQueries].toString() === value) {
             return acc;
         }
 

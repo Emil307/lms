@@ -2,12 +2,10 @@ import { Box, Flex, FlexProps } from "@mantine/core";
 import { FormikConfig } from "formik";
 import React, { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { Button, Form, Paragraph, Loader } from "@shared/ui";
+import { Button, Form, Paragraph, Loader, FPriceRangeInput } from "@shared/ui";
 import { CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { FilterTypes } from "@shared/constant";
-import PriceRangeInput from "@shared/ui/Forms/PriceRangeInput/PriceRangeInput";
-import { DiscountFilter } from "@features/courses/ui/Filters/components/DiscountFilter";
-import { CategoryFilterList, FilterList } from "./components";
+import { CategoryFilterList, DiscountFilter, FilterList } from "./components";
 import { getCountAppliedQueries, getInitialValues } from "./utils";
 import { TRouterQueries } from "./types";
 import useStyles from "./Filters.styles";
@@ -68,7 +66,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                             <Paragraph variant="text-small-semi" opacity={0.5}>
                                                 Цена
                                             </Paragraph>
-                                            <PriceRangeInput
+                                            <FPriceRangeInput
                                                 name="discountPrice"
                                                 min={courseResources.prices.lowest || 0}
                                                 max={courseResources.prices.highest || 0}

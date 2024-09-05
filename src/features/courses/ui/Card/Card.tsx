@@ -10,14 +10,14 @@ import { FavoriteButton } from "../FavoriteButton";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
     data: CourseFromList;
-    onClick?: (courseId: number) => void;
+    onClick?: (courseId: number, courseData: CourseFromList) => void;
     buttonVariant?: "favorite" | "more";
 }
 
 const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => undefined, ...props }: CardProps) {
     const { classes } = useStyles({ isFavorite: data.isFavorite });
 
-    const handleClickCard = () => onClick(data.id);
+    const handleClickCard = () => onClick(data.id, data);
 
     const discountValue = getDiscountValue({
         amountDiscount: data.discount?.amount,

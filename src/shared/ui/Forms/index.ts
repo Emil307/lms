@@ -22,3 +22,4 @@ export * from "./CheckboxGroup";
 export * from "./ControlPanel";
 export * from "./VideoInput";
 export * from "./ControlButtons";
+export * from "./PriceRangeInput";

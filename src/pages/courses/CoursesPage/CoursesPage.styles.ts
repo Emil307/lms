@@ -24,6 +24,25 @@ export default createStyles((theme) => ({
             borderTopLeftRadius: 0,
         },
     },
+    filters: {
+        flexDirection: "column",
+        gap: 64,
+        marginBottom: 36,
+
+        [theme.fn.smallerThan("xs")]: {
+            gap: 48,
+        },
+    },
+    buttonsWrapper: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 16,
+
+        [theme.fn.smallerThan("xs")]: {
+            flexDirection: "column",
+            alignItems: "flex-start",
+        },
+    },
     button: {
         span: {
             display: "flex",
@@ -55,12 +74,10 @@ export default createStyles((theme) => ({
     resetButton: {
         borderRadius: 56,
         minWidth: 76,
-        minHeight: 48,
         padding: "12px 24px",
         fontSize: 16,
         fontWeight: 500,
         height: "48px",
-        // lineHeight: "24px",
         border: `1px solid ${theme.colors.neutral_main50[0]}`,
         backgroundColor: `${theme.colors.white} !important`,
         ":hover": {
