@@ -8,8 +8,8 @@ import { TFileDownloadResponse } from "@app/config/axios/types";
 import { isErrorsArray, isMessageError } from "@shared/guards";
 import { $InvoiceForPaymentFormValidationSchema, InvoiceForPaymentFormValidationSchema } from "./types";
 import { initialValues } from "./constants";
-import { SelectPaymentTypeModalProps } from "../../SelectPaymentTypeModal";
 import FBillForm from "./components/FBillForm";
+import { SelectPaymentTypeModalProps } from "../../SelectPaymentTypeModal";
 
 export interface InvoiceForPaymentModalProps extends SelectPaymentTypeModalProps {
     onSuccess: () => void;

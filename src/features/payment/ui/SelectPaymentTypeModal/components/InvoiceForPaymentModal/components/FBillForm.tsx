@@ -5,7 +5,7 @@ import { FControlButtons, FInput } from "@shared/ui";
 import useStyles from "./FBillFormStyles";
 
 interface FBillFormProps {
-    onClose?: () => void;
+    onClose: () => void;
     setOpen?: boolean;
 }
 
