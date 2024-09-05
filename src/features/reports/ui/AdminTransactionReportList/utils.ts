@@ -12,14 +12,13 @@ export const adaptGetAdminStudentReportsRequest = (
         filter: {
             transactionableType,
             transactionableIds,
-            roleId,
             ...(paymentTypes && {
                 paymentTypes: [paymentTypes],
             }),
             ...(statuses && {
                 statuses: [statuses],
             }),
-            date: {
+            createdAt: {
                 from: dayjs(createdAtFrom).format("YYYY-MM-DD HH:mm:ss"),
                 to: dayjs(createdAtTo).endOf("day").format("YYYY-MM-DD HH:mm:ss"),
             },

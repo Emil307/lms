@@ -35,7 +35,7 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
             >
                 queryKey={[QueryKeys.GET_ADMIN_STUDENT_REPORTS, [EntityNames.STUDENT_REPORT, EntityNames.STUDENT, EntityNames.USER]]}
                 queryFunction={(params) => reportApi.getAdminStudentReports(adaptGetAdminStudentReportsRequest(params))}
-                queryCacheKeys={["sort", "createdAtFrom", "createdAtTo", "transactionableType", "transactionableIds", "roleId"]}
+                queryCacheKeys={["sort", "createdAtFrom", "createdAtTo", "transactionableType", "transactionableIds"]}
                 filter={{
                     initialValues: filterInitialValues,
                     validationSchema: $AdminStudentReportsFiltersFormValidation,
@@ -94,19 +94,6 @@ const AdminStudentReportList = (props: AdminStudentReportListProps) => {
                                     entityType={values.transactionableType as AdminTransactionableTypeName}
                                     className={classes.filterSelect}
                                     disabled={studentReportResources.isLoading}
-                                />
-                                <FSelect
-                                    name="roleId"
-                                    size="sm"
-                                    data={prepareOptionsForSelect({
-                                        data: studentReportResources.data?.roles,
-                                        value: "id",
-                                        label: "displayName",
-                                    })}
-                                    clearable
-                                    label="Тип ученика"
-                                    className={classes.filterSelect}
-                                    disabled={studentReportResources.isLoading || !studentReportResources.data?.roles.length}
                                 />
                             </Flex>
 

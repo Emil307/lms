@@ -50,7 +50,6 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                     "createdAtTo",
                     "transactionableType",
                     "transactionableIds",
-                    "roleId",
                     "paymentTypes",
                     "statuses",
                 ]}
@@ -139,19 +138,6 @@ const AdminTransactionReportList = (props: AdminTransactionReportListProps) => {
                                     label="Статус платежа"
                                     className={classes.filterSelect}
                                     disabled={transactionReportResources.isLoading || !transactionReportResources.data?.statuses.length}
-                                />
-                                <FSelect
-                                    name="roleId"
-                                    size="sm"
-                                    data={prepareOptionsForSelect({
-                                        data: transactionReportResources.data?.roles,
-                                        value: "id",
-                                        label: "displayName",
-                                    })}
-                                    clearable
-                                    label="Тип ученика"
-                                    className={classes.filterSelect}
-                                    disabled={transactionReportResources.isLoading || !transactionReportResources.data?.roles.length}
                                 />
                             </Flex>
 

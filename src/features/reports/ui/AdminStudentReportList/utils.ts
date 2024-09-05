@@ -5,15 +5,14 @@ import { AdminStudentReportsFiltersForm, GetAdminStudentReportsRequest } from "@
 export const adaptGetAdminStudentReportsRequest = (
     params: TFunctionParamsWithoutPagination<AdminStudentReportsFiltersForm>
 ): GetAdminStudentReportsRequest => {
-    const { transactionableType, createdAtFrom, createdAtTo, roleId, transactionableIds, ...rest } = params;
+    const { transactionableType, createdAtFrom, createdAtTo, transactionableIds, ...rest } = params;
 
     return {
         ...rest,
         filter: {
             transactionableType,
             transactionableIds,
-            roleId,
-            date: {
+            createdAt: {
                 from: dayjs(createdAtFrom).format("YYYY-MM-DD HH:mm:ss"),
                 to: dayjs(createdAtTo).endOf("day").format("YYYY-MM-DD HH:mm:ss"),
             },

@@ -12,41 +12,34 @@ export const columns: TColumns<AdminTransactionReportFromList> = [
         header: "ФИО ученика",
         accessorKey: "user.profile",
         id: "fullName",
-        size: 248,
+        size: 289,
         accessorFn: ({ user }) => getFullName({ data: user.profile }),
-    },
-    {
-        header: "Тип ученика",
-        accessorKey: "user.roles",
-        id: "role",
-        size: 248,
-        accessorFn: ({ user }) => user.roles[0].displayName,
     },
     {
         header: "Название сущности",
         accessorKey: "entity.name",
         id: "entityName",
-        size: 248,
+        size: 289,
     },
 
     {
         header: "Дата платежа",
         accessorKey: "paidAt",
-        size: 248,
+        size: 289,
         accessorFn: ({ paidAt }) => dayjs(paidAt).format("DD.MM.YYYY"),
     },
 
     {
         header: "Тип платежа",
         accessorKey: "paymentType",
-        size: 248,
+        size: 289,
         accessorFn: ({ paymentType }) => paymentType.name,
     },
     {
         header: "Статус платежа",
         accessorKey: "status",
         hideTooltip: true,
-        size: 164,
+        size: 205,
         Cell: ({ row }) => {
             const { classes } = useCellStyles({ status: row.original.status });
             return <Badge className={classes.status}>{row.original.status.name}</Badge>;
@@ -55,7 +48,7 @@ export const columns: TColumns<AdminTransactionReportFromList> = [
     {
         header: "Сумма оплат",
         accessorKey: "amount",
-        size: 140,
+        size: 181,
         accessorFn: ({ amount }) => `${amount.toLocaleString("ru")} ₽`,
     },
 ];
@@ -63,7 +56,6 @@ export const columns: TColumns<AdminTransactionReportFromList> = [
 export const filterInitialValues: AdminTransactionReportsFiltersForm = {
     transactionableType: "",
     transactionableIds: [],
-    roleId: "",
     statuses: "",
     paymentTypes: "",
     createdAtFrom: null,

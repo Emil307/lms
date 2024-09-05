@@ -89,7 +89,6 @@ export const $GetAdminStudentReportsResponse = z.object({
 export const $AdminStudentReportsFiltersForm = z.object({
     transactionableType: z.string(),
     transactionableIds: z.string().array(),
-    roleId: z.string(),
     createdAtFrom: z.coerce.date().nullable(),
     createdAtTo: z.coerce.date().nullable(),
 });
@@ -99,8 +98,7 @@ export const $AdminStudentReportsRequest = z.object({
         .object({
             transactionableType: z.string(),
             transactionableIds: z.string().array(),
-            roleId: z.string(),
-            date: z.object({
+            createdAt: z.object({
                 from: z.string(),
                 to: z.string(),
             }),
@@ -139,7 +137,6 @@ export const $AdminTransactionReport = z.object({
         .pick({
             id: true,
             email: true,
-            roles: true,
         })
         .extend({
             profile: $Profile.pick({
@@ -179,10 +176,9 @@ export const $AdminTransactionReportsRequest = z.object({
         .object({
             transactionableType: z.string(),
             transactionableIds: z.string().array(),
-            roleId: z.string(),
             paymentTypes: z.string().array(),
             statuses: z.string().array(),
-            date: z.object({
+            createdAt: z.object({
                 from: z.string(),
                 to: z.string(),
             }),
@@ -194,7 +190,6 @@ export const $GetAdminTransactionReportsRequest = $getFiltersRequestWithoutPagin
 
 export const $GetAdminTransactionReportFiltersResponse = z.object({
     transactionableTypes: $AdminTransactionableType.array(),
-    roles: $Role.array(),
     paymentTypes: $AdminTransactionPaymentType.array(),
     statuses: $AdminTransactionStatus.array(),
 });

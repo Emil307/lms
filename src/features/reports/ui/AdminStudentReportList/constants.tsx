@@ -15,13 +15,6 @@ export const columns: TColumns<AdminStudentReportFromList> = [
         header: "Email",
         accessorKey: "user.email",
     },
-
-    {
-        header: "Тип ученика",
-        accessorKey: "user.roles",
-        id: "role",
-        accessorFn: ({ user }) => user.roles[0].displayName,
-    },
     {
         header: "Сумма оплат",
         accessorKey: "amount",
@@ -32,7 +25,6 @@ export const columns: TColumns<AdminStudentReportFromList> = [
 export const filterInitialValues: AdminStudentReportsFiltersForm = {
     transactionableType: "",
     transactionableIds: [],
-    roleId: "",
     createdAtFrom: null,
     createdAtTo: null,
 };
