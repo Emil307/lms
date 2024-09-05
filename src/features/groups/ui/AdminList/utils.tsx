@@ -126,7 +126,7 @@ export const useGroupListData = (userRole?: RoleName) => {
             filter: {
                 "course.id": courseId,
                 "teacher.id": teacherId,
-                "status.type": statusType,
+                state: statusType,
                 ...(z.coerce.number().safeParse(isActive).success && {
                     isActive: isActive === "1",
                 }),

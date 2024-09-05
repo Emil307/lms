@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ControlButtons, ManagedDataGrid } from "@shared/ui";
 import { EntityNames, QueryKeys } from "@shared/constant";
-import { AdminAddGroupStudentsExtraFilters, useAttachStudentsToGroup } from "@entities/group";
-import { UserFromList, userApi } from "@entities/user";
+import { useAttachStudentsToGroup } from "@entities/group";
+import { UserFromList } from "@entities/user";
+import { AdminCourseStudentsRequestExtraFilter, courseApi } from "@entities/course";
 import { columnOrder, columns } from "./constants";
 import { adaptGetAdminStudentsRequest } from "./utils";
 
@@ -30,17 +31,17 @@ const AddStudentsToGroupModal = ({ groupId, courseId, onClose }: AddStudentsToGr
 
     return (
         <>
-            <ManagedDataGrid<UserFromList, unknown, AdminAddGroupStudentsExtraFilters>
+            <ManagedDataGrid<UserFromList, unknown, AdminCourseStudentsRequestExtraFilter>
                 queryKey={[QueryKeys.GET_ADMIN_STUDENTS_NO_INCLUDED_GROUP, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.STUDENT]]}
-                queryFunction={(params) => userApi.getAdminStudents(adaptGetAdminStudentsRequest(params))}
-                queryCacheKeys={["page", "perPage", "sort", "groupId"]}
+                queryFunction={(params) => courseApi.getAdminCourseStudents(adaptGetAdminStudentsRequest(params))}
+                queryCacheKeys={["page", "perPage", "sort", "attachableToCourse"]}
                 renderBadge={(cell) => [{ condition: cell.row.original.isActive }]}
                 columns={columns}
                 countName="Учеников"
-                extraFilterParams={{ groupId, courseId }}
                 initialState={{
                     columnOrder,
                 }}
+                extraFilterParams={{ attachableToCourse: courseId }}
                 disableQueryParams
                 onChangeSelect={setSelected}
             />

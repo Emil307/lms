@@ -48,7 +48,6 @@ export type AdminStudentGroupStatus = z.infer<typeof $AdminStudentGroupStatus>;
 export type AdminGroupsFiltersForm = z.infer<typeof $AdminGroupsFiltersForm>;
 //students
 export type AdminGroupStudentsExtraFilters = z.infer<typeof $AdminGroupStudentsExtraFilters>;
-export type AdminAddGroupStudentsExtraFilters = z.infer<typeof $AdminAddGroupStudentsExtraFilters>;
 //schedules
 export type AdminGroupSchedulesExtraFilters = z.infer<typeof $AdminGroupSchedulesExtraFilters>;
 
@@ -239,7 +238,7 @@ export const $AdminGroupsRequest = z.object({
             "course.id": z.string(),
             "teacher.id": z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
-            "status.type": z.string(),
+            state: z.string(),
         })
         .partial(),
 });
@@ -418,11 +417,6 @@ export const $AdminGroupStudentStatistics = z.object({
 });
 
 export const $GetAdminGroupStudentStatisticsResponse = $AdminGroupStudentStatistics;
-
-export const $AdminAddGroupStudentsExtraFilters = z.object({
-    groupId: z.string(),
-    courseId: z.number(),
-});
 
 export const $AdminGroupStudentsExtraFilters = z.object({
     groupId: z.string(),

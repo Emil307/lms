@@ -1,20 +1,15 @@
 import { TFunctionParams } from "@shared/ui/DataGrid/types";
-import { GetAdminStudentsRequest } from "@entities/user";
-import { AdminAddGroupStudentsExtraFilters } from "@entities/group";
+import { AdminCourseStudentsRequestExtraFilter, GetAdminCourseStudentsRequest } from "@entities/course";
 
 export const adaptGetAdminStudentsRequest = (
-    params: TFunctionParams<unknown, AdminAddGroupStudentsExtraFilters>
-): GetAdminStudentsRequest => {
-    const { groupId, courseId, ...rest } = params;
+    params: TFunctionParams<unknown, AdminCourseStudentsRequestExtraFilter>
+): GetAdminCourseStudentsRequest => {
+    const { attachableToCourse, ...rest } = params;
 
     return {
         ...rest,
         filter: {
-            studentCourseIds: courseId,
-            studentGroupIds: {
-                items: [groupId],
-                operator: "not",
-            },
+            attachableToCourse,
         },
     };
 };

@@ -9,6 +9,8 @@ import {
     $DiscountType,
     $LastUpdated,
     $FilterType,
+    $Profile,
+    $Role,
 } from "@shared/types";
 import { $StaticUserFromList } from "@entities/user";
 
@@ -67,6 +69,9 @@ export type DeleteCourseResponse = z.infer<typeof $DeleteCourseResponse>;
 //student <---> courses
 export type GetAdminStudentCoursesRequest = z.infer<typeof $GetAdminStudentCoursesRequest>;
 export type GetAdminStudentCoursesResponse = z.infer<typeof $GetAdminStudentCoursesResponse>;
+export type GetAdminCourseStudentsRequest = z.infer<typeof $GetAdminCourseStudentsRequest>;
+export type AdminCourseStudentsRequestExtraFilter = z.infer<typeof $AdminCourseStudentsRequestExtraFilter>;
+export type GetAdminCourseStudentsResponse = z.infer<typeof $GetAdminCourseStudentsResponse>;
 export type AttachCoursesToStudentRequest = z.infer<typeof $AttachCoursesToStudentRequest>;
 export type AttachCoursesToStudentResponse = z.infer<typeof $AttachCoursesToStudentResponse>;
 export type DeleteStudentCoursesRequest = z.infer<typeof $DeleteStudentCoursesRequest>;
@@ -547,6 +552,34 @@ export const $AdminStudentCoursesRequest = z.object({
 
 export const $GetAdminStudentCoursesRequest = $getFiltersRequestType($AdminStudentCoursesRequest);
 
+export const $AdminCourseStudentsRequest = z.object({
+    query: z.string().optional(),
+    filter: z
+        .object({
+            attachableToCourse: z.number(),
+        })
+        .partial(),
+});
+
+export const $GetAdminCourseStudentsRequest = $getFiltersRequestType($AdminCourseStudentsRequest);
+
+export const $AdminCourseStudentsRequestExtraFilter = z.object({
+    attachableToCourse: z.number(),
+});
+
+export const $AdminCourseStudent = z.object({
+    id: z.number(),
+    email: z.string(),
+    isActive: z.boolean().optional(),
+    profile: $Profile,
+    roles: z.array($Role),
+    phone: z.string().nullish(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
+});
+
+export const $GetAdminCourseStudentsResponse = $getPaginationResponseType($AdminCourseStudent);
+
 export const $AttachCoursesToStudentRequest = z.object({
     studentId: z.string(),
     ids: z.string().array(),
@@ -809,10 +842,6 @@ export const $UpdateCourseFavoriteStatusRequest = z.object({
 export const $UpdateCourseFavoriteStatusResponse = z.object({
     isFavorite: z.boolean(),
 });
-
-// TODO:
-// MOCKS
-//
 
 export const $CourseBlock = z.object({
     id: z.number(),

@@ -62,6 +62,9 @@ import {
     GetAdminCourseStatisticsResponse,
     $GetAdminCourseStatisticsResponse,
     GetAdminCourseStatisticsRequest,
+    GetAdminCourseStudentsRequest,
+    GetAdminCourseStudentsResponse,
+    $GetAdminCourseStudentsResponse,
 } from "./types";
 
 export class CourseApi extends BaseApi {
@@ -125,6 +128,11 @@ export class CourseApi extends BaseApi {
     async getAdminStudentCourses({ studentId, ...data }: GetAdminStudentCoursesRequest): Promise<GetAdminStudentCoursesResponse> {
         const response = await this.instance.post(`courses/admin/users/${studentId}/courses/list`, data);
         return $GetAdminStudentCoursesResponse.parse(response);
+    }
+
+    async getAdminCourseStudents(params: GetAdminCourseStudentsRequest): Promise<GetAdminCourseStudentsResponse> {
+        const response = await this.instance.post("courses/admin/users/list", params);
+        return $GetAdminCourseStudentsResponse.parse(response);
     }
 
     async attachCoursesToStudent({ studentId, ...data }: AttachCoursesToStudentRequest): Promise<AttachCoursesToStudentResponse> {
