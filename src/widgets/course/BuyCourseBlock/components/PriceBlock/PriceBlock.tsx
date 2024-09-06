@@ -2,20 +2,21 @@ import React from "react";
 import { BoxProps, Flex } from "@mantine/core";
 import { Heading, Paragraph } from "@shared/ui";
 import { formatPrice } from "@widgets/course/BuyCourseBlock/utils";
+import { hasDiscount } from "@shared/utils";
+import { CourseDetails } from "@entities/course";
 import useStyles from "./PriceBlock.styles";
 
 export interface PriceBlockProps extends Omit<BoxProps, "children"> {
-    discountPrice?: number;
-    price?: number;
+    data: CourseDetails;
 }
 
-const PriceBlock = ({ discountPrice, price, ...props }: PriceBlockProps) => {
+const PriceBlock = ({ data, ...props }: PriceBlockProps) => {
     const { classes } = useStyles();
-    if (discountPrice === price) {
+    if (!hasDiscount({ discount: data.discount, discountPrice: data.discountPrice, defaultPrice: data.price })) {
         return (
             <Flex align="center" gap={16}>
                 <Heading order={1} className={classes.price}>
-                    {formatPrice(price)} ₽
+                    {formatPrice(data.price)} ₽
                 </Heading>
                 <Paragraph variant="large" className={classes.button}>
                     /курс
@@ -27,7 +28,7 @@ const PriceBlock = ({ discountPrice, price, ...props }: PriceBlockProps) => {
         <Flex {...props} direction="column" gap={8}>
             <Flex align="center" gap={16}>
                 <Paragraph variant="large" color="gray45" className={classes.fullPrice}>
-                    {formatPrice(price)} ₽
+                    {formatPrice(data.price)} ₽
                 </Paragraph>
                 <Paragraph variant="large" className={classes.button}>
                     /курс
@@ -35,7 +36,7 @@ const PriceBlock = ({ discountPrice, price, ...props }: PriceBlockProps) => {
             </Flex>
             <Flex align="center" gap={16}>
                 <Heading order={1} className={classes.price}>
-                    {formatPrice(discountPrice)} ₽
+                    {formatPrice(data.discountPrice)} ₽
                 </Heading>
                 <Paragraph variant="large" className={classes.button}>
                     /курс

@@ -8,6 +8,7 @@ import { CourseDetails } from "@entities/course";
 import PriceBlock from "@widgets/course/BuyCourseBlock/components/PriceBlock/PriceBlock";
 import BuyCourseDrawer from "@widgets/course/BuyCourseBlock/components/BuyCourseDrawer/BuyCourseDrawer";
 import { useAuthPay } from "@app/utils";
+import { hasDiscount } from "@shared/utils";
 import useStyles from "./BuyCourseBlock.styles";
 
 export interface BuyCourseProps extends Omit<BoxProps, "children"> {
@@ -24,7 +25,9 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
         entityId: data.id,
         entityName: data.name,
         entityType: "course",
-        entityPrice: data.discountPrice,
+        entityPrice: !hasDiscount({ discount: data.discount, discountPrice: data.discountPrice, defaultPrice: data.price })
+            ? data.price
+            : data.discountPrice,
         setOpened,
     });
 
@@ -38,7 +41,7 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
                     <Paragraph variant="large" color="gray45" pb={32}>
                         Оплатить курс можно с помощью QR или счета на оплату
                     </Paragraph>
-                    <PriceBlock discountPrice={data.discountPrice} price={data.price} />
+                    <PriceBlock data={data} />
                     <AvailableGroupInfo data={data} grayColor py={24} />
                     <Flex className={classes.buyButtonContainer}>
                         <Button
