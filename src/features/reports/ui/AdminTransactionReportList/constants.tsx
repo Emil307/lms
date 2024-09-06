@@ -56,6 +56,7 @@ export const columns: TColumns<AdminTransactionReportFromList> = [
 export const filterInitialValues: AdminTransactionReportsFiltersForm = {
     transactionableType: "",
     transactionableIds: [],
+    roleId: "",
     statuses: "",
     paymentTypes: "",
     createdAtFrom: null,
