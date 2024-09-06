@@ -38,10 +38,26 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
         );
     };
 
+    const renderDuration = () => {
+        if (!data.duration) {
+            return null;
+        }
+        return (
+            <Flex align="center" gap={6} className={classes.groupInfoButton}>
+                <Paragraph variant="text-small-m" color="gray45">
+                    {data.duration}
+                </Paragraph>
+            </Flex>
+        );
+    };
+
     return (
         <Flex {...props} className={classes.availableGroupInfoContainer}>
             <Flex align="center" gap={6}>
                 {renderFinishDate()}
+            </Flex>
+            <Flex align="center" gap={6}>
+                {renderDuration()}
             </Flex>
             {renderFreePlaces()}
         </Flex>

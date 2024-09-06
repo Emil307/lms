@@ -3,13 +3,9 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme, { grayColor }: { grayColor?: boolean }) => ({
     availableGroupInfoContainer: {
         flexWrap: "wrap",
-        columnGap: 16,
+        columnGap: 8,
         rowGap: 8,
         width: "fit-content",
-
-        [theme.fn.smallerThan("xs")]: {
-            flexDirection: "column",
-        },
     },
     groupInfoButton: {
         backgroundColor: grayColor ? theme.colors.neutralLight[0] : theme.colors.white[0],
