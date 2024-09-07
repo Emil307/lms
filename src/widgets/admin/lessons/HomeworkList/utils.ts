@@ -14,7 +14,7 @@ export const adaptGetAdminHomeworkAnswersRequest = ({
 }: TFunctionParams<AdminHomeworkAnswersFilters>): GetAdminHomeworkAnswersRequest => ({
     ...rest,
     filter: {
-        "status.type": status === "" ? undefined : status,
+        status: status === "" ? undefined : status,
         "course.id": courseId,
         "student.id": studentId,
         ...(updatedAtFrom &&
@@ -30,15 +30,15 @@ export const adaptGetAdminHomeworkAnswersRequest = ({
 export const getBadgeColors = (cell: MRT_Cell<AdminHomeworkAnswerFromList>): TCellBadge[] => {
     return [
         {
-            condition: cell.row.original.status?.name === "onReview",
+            condition: cell.row.original.status.name === "onReview",
             color: "error",
         },
         {
-            condition: cell.row.original.status?.name === "needsEdit",
+            condition: cell.row.original.status.name === "needsEdit",
             color: "warning",
         },
         {
-            condition: cell.row.original.status?.name === "completed",
+            condition: cell.row.original.status.name === "completed",
             color: "done",
         },
     ];
