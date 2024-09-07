@@ -12,6 +12,7 @@ export default createStyles((theme) => ({
         borderRadius: 24,
         backgroundColor: theme.colors.white[0],
         textAlign: "left",
+        overflowWrap: "anywhere",
 
         [theme.fn.smallerThan("sm")]: {
             borderRadius: 24,
