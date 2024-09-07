@@ -11,7 +11,7 @@ export const adaptGetAdminArticlePackagesRequest = (
         ...rest,
         filter: {
             isActive: isActive === "" ? undefined : isActive,
-            categoryIds: categoryId,
+            "categories.id": categoryId,
 
             ...(createdAtFrom &&
                 createdAtTo && {

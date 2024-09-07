@@ -174,7 +174,7 @@ export const $AdminArticlePackagesRequest = z.object({
     filter: z
         .object({
             isActive: z.literal("1").or(z.literal("0")),
-            categoryIds: z.string(),
+            "categories.id": z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
             userIds: $getMultiValueObjectType(z.string(), z.literal("not")),
             "discount.finishingDate": $getDateObjectType(z.literal("range")),
