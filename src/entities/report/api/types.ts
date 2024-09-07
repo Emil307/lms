@@ -99,8 +99,8 @@ export const $AdminStudentReportsRequest = z.object({
             transactionableType: z.string(),
             transactionableIds: z.string().array(),
             createdAt: z.object({
-                from: z.string(),
-                to: z.string(),
+                items: z.array(z.string()),
+                operator: z.string(),
             }),
         })
         .partial(),
@@ -179,8 +179,8 @@ export const $AdminTransactionReportsRequest = z.object({
             paymentTypes: z.string().array(),
             statuses: z.string().array(),
             createdAt: z.object({
-                from: z.string(),
-                to: z.string(),
+                items: z.array(z.string()),
+                operator: z.string(),
             }),
         })
         .partial(),

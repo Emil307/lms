@@ -19,8 +19,8 @@ export const adaptGetAdminStudentReportsRequest = (
                 statuses: [statuses],
             }),
             createdAt: {
-                from: dayjs(createdAtFrom).format("YYYY-MM-DD HH:mm:ss"),
-                to: dayjs(createdAtTo).endOf("day").format("YYYY-MM-DD HH:mm:ss"),
+                items: [dayjs(createdAtFrom).format("YYYY-MM-DD HH:mm:ss"), dayjs(createdAtTo).endOf("day").format("YYYY-MM-DD HH:mm:ss")],
+                operator: "between",
             },
         },
     };
