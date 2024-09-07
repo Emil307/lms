@@ -45,7 +45,7 @@ const ControlButtons = ({
             </Button>
             <Button
                 type="submit"
-                variant="secondary"
+                variant="primary"
                 size={isMediumSize ? "medium" : "large"}
                 loading={isLoading}
                 disabled={disabledSubmit}
