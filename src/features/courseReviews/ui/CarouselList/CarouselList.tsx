@@ -58,7 +58,7 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
     return (
         <Box {...props} className={classes.root}>
             {headerSlot && (
-                <Skeleton visible={isLoading} radius={24}>
+                <Skeleton visible={isLoading} w="60%" m="auto" radius={24}>
                     {headerSlot}
                 </Skeleton>
             )}
