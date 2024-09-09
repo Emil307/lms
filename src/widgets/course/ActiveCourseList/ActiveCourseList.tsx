@@ -4,7 +4,6 @@ import { Button, EmptyData, Heading, Paragraph } from "@shared/ui";
 import { Card } from "@features/groups";
 import { GroupFromList, useGroups } from "@entities/group";
 import { List as ListComponent } from "@components/List";
-import IconEmptyBox from "@public/icons/emptyBox.svg";
 import { initialParamsForCoursesInProgress, initialParamsForNewCourses } from "./constants";
 
 const ActiveCourseList = () => {
@@ -31,13 +30,7 @@ const ActiveCourseList = () => {
 
     const renderContent = () => {
         if (!groupList.length) {
-            return (
-                <EmptyData
-                    title="У Вас нет новых и текущих курсов"
-                    description="Чтобы посмотреть Ваши курсы нажмите на кнопку ”Все”"
-                    icon={<IconEmptyBox />}
-                />
-            );
+            return <EmptyData title="У Вас нет новых и текущих курсов" description="Чтобы посмотреть Ваши курсы нажмите на кнопку ”Все”" />;
         }
         return (
             <ListComponent<GroupFromList>

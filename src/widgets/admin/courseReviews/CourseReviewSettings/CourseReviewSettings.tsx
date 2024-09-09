@@ -3,7 +3,7 @@ import React from "react";
 import { AlignLeft } from "react-feather";
 import { IconClipboardText } from "@tabler/icons-react";
 import { Fieldset } from "@components/Fieldset";
-import { Button, DisplayField, Heading, Paragraph, Rating } from "@shared/ui";
+import { Button, DisplayField, Heading, Paragraph } from "@shared/ui";
 import { InfoCard } from "@components/InfoCard";
 import { useAdminCourseReview, useUpdateCourseReviewPublishingStatus } from "@entities/courseReview";
 import { fields } from "./constants";
@@ -45,7 +45,6 @@ const CourseReviewSettings = ({ id, ...props }: CourseReviewSettingsProps) => {
                             render={() => (
                                 <Flex gap={4}>
                                     <Flex align="center" gap={2}>
-                                        <Rating defaultValue={1} count={1} readOnly size="small" />
                                         <Paragraph variant="small-semi">{courseReviewData?.score}</Paragraph>
                                     </Flex>
                                     <Paragraph variant="small-m" color="gray45">
