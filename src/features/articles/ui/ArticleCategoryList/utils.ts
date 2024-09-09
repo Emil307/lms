@@ -6,17 +6,24 @@ export const adaptGetArticleCategoriesRequest = (
 ): GetArticleCategoriesRequest => {
     const { tags = [], subcategoryIds = [], ...rest } = params;
 
+    const filter: any = {};
+
+    if (tags.length > 0) {
+        filter.tagIds = {
+            items: Array.isArray(tags) ? tags : [tags],
+            operator: "or",
+        };
+    }
+
+    if (subcategoryIds.length > 0) {
+        filter.subcategoryIds = {
+            items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
+            operator: "or",
+        };
+    }
+
     return {
         ...rest,
-        filter: {
-            tagIds: {
-                items: Array.isArray(tags) ? tags : [tags],
-                operator: "or",
-            },
-            subcategoryIds: {
-                items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
-                operator: "or",
-            },
-        },
+        filter: Object.keys(filter).length > 0 ? filter : {},
     };
 };

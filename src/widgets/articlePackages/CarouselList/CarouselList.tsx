@@ -6,6 +6,7 @@ import { Card as ArticlePackageCard } from "@features/articlePackages";
 import { CategoryListFromPackage } from "@widgets/admin/articlePackages";
 import { Heading } from "@shared/ui";
 import { useIntersection } from "@shared/utils";
+import { useMe } from "@entities/auth";
 import { adaptGetArticlePackagesRequest } from "./utils";
 import { initialParams } from "./constants";
 
@@ -15,11 +16,13 @@ export interface CarouselListProps extends Omit<FlexProps, "children"> {
 }
 
 const CarouselList = ({ title = "Пакетные предложения", courseId, ...props }: CarouselListProps) => {
+    const { data: user } = useMe();
+
     const {
         data: articlePackages,
         hasNextPage,
         fetchNextPage,
-    } = useArticlePackages(adaptGetArticlePackagesRequest({ ...initialParams, courseIds: courseId }));
+    } = useArticlePackages(adaptGetArticlePackagesRequest({ ...initialParams, courseIds: courseId, userId: user?.id }));
 
     const { ref: lastElemRef, entry } = useIntersection();
 

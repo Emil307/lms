@@ -4,21 +4,32 @@ import { ArticleAndArticleCategoryFiltersForm, GetArticlesRequest } from "@entit
 export const adaptGetArticlesRequest = (params: TFunctionParams<ArticleAndArticleCategoryFiltersForm>): GetArticlesRequest => {
     const { tags = [], subcategoryIds = [], categoryId, courseId, ...rest } = params;
 
+    const filters: any = {};
+
+    if (categoryId) {
+        filters["category.id"] = categoryId;
+    }
+
+    if (tags.length > 0) {
+        filters.tagIds = {
+            items: Array.isArray(tags) ? tags : [tags],
+            operator: "or",
+        };
+    }
+
+    if (subcategoryIds.length > 0) {
+        filters.subcategoryIds = {
+            items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
+            operator: "or",
+        };
+    }
+
+    if (courseId) {
+        filters.courseIds = courseId;
+    }
+
     return {
         ...rest,
-        filter: {
-            "category.id": categoryId,
-            tagIds: {
-                items: Array.isArray(tags) ? tags : [tags],
-                operator: "or",
-            },
-            subcategoryIds: {
-                items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
-                operator: "or",
-            },
-            ...(courseId && {
-                courseIds: courseId,
-            }),
-        },
+        filter: Object.keys(filters).length > 0 ? filters : {},
     };
 };

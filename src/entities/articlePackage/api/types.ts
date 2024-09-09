@@ -271,6 +271,7 @@ export const $ArticlePackagesFiltersForm = z.object({
     query: z.string(),
     paginate: z.boolean(),
     courseIds: z.number(),
+    userId: z.number(),
 });
 
 export const $ArticlePackagesRequest = z.object({
