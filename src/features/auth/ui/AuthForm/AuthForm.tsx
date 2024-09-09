@@ -49,8 +49,8 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                             <FInput name="email" label="Email" />
                             <FInput name="password" label="Пароль" type="password" />
                         </Flex>
-                        <Flex justify="space-between" mb={48} align="center">
-                            <Checkbox color="green" label="Запомнить меня" />
+                        <Flex justify="space-between" mb={24} align="center">
+                            <Checkbox color="doneDark100" label="Запомнить меня" />
                             <Link href={`${getPath()}?action=forgot-password`} className={classes.linkButton}>
                                 <Button variant="text" className={classes.recoveryPasswordLink}>
                                     Забыли пароль?
@@ -72,7 +72,9 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                         ta="center"
                         align="center"
                         justify="center">
-                        <Paragraph variant="small-m">Новый пользователь?</Paragraph>
+                        <Paragraph variant="small-m" className={classes.createUserText}>
+                            Новый пользователь?
+                        </Paragraph>
                         <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
                             <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
                                 Создать аккаунт

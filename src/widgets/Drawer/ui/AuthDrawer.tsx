@@ -47,7 +47,7 @@ function AuthDrawer() {
         );
     }, [user]);
 
-    const isTablet = useMedia("sm");
+    const isTablet = useMedia("md");
 
     const { children, title } = useMemo(() => {
         const action = router.query.action as string;
@@ -78,13 +78,13 @@ function AuthDrawer() {
                     { shallow: true }
                 );
             }}
-            position="right"
+            position={isTablet ? "bottom" : "right"}
             size={isTablet ? "100%" : "450px"}
             zIndex={400}
             padding={4}
             classNames={classes}
             title={
-                <Heading order={3} ta="center" pt={12}>
+                <Heading order={3} ta="center">
                     {title}
                 </Heading>
             }>

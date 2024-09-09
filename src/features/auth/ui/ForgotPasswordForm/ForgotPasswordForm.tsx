@@ -49,10 +49,10 @@ const ForgotPasswordForm = () => {
                             <>
                                 <Flex direction="column" gap={24}>
                                     <FInput name="email" label="Email" />
-                                    <Flex justify="flex-start" mt={24} pb={20}>
+                                    <Flex justify="flex-start" pb={20}>
                                         <Link href={`${getPath()}?action=sign-up`}>
-                                            <Button variant="primary" className={classes.signInButton}>
-                                                Создать аккаунт
+                                            <Button variant="primary" className={classes.recoveryButton} disabled={!dirty}>
+                                                Выслать
                                             </Button>
                                         </Link>
                                     </Flex>
@@ -76,7 +76,6 @@ const ForgotPasswordForm = () => {
                                         variant="secondary"
                                         className={classes.signUpButton}
                                         size="medium"
-                                        disabled={!dirty}
                                         loading={isLoading}>
                                         Войти
                                     </Button>
