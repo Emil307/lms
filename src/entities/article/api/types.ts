@@ -349,6 +349,7 @@ export const $ArticleAndArticleCategoryFiltersForm = z.object({
     subcategoryIds: z.array(z.string()),
     categoryId: z.string().optional(),
     courseId: z.string().optional(),
+    userId: z.number(),
 });
 
 export const $GetArticlesFiltersResponse = z.object({

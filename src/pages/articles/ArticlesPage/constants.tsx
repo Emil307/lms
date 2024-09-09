@@ -27,6 +27,7 @@ export const initialBreadCrumbsItems: TBreadCrumbItem[] = [
 ];
 
 export const initialFilterValues: ArticleAndArticleCategoryFiltersForm = {
+    userId: 0,
     query: "",
     tags: [],
     subcategoryIds: [],

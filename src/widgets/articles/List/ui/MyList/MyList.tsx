@@ -9,6 +9,7 @@ import { ArticleTypes } from "@shared/constant";
 import { initialParams } from "./constants";
 import { adaptGetMyArticlesRequest } from "./utils";
 import useStyles from "./MyList.styles";
+import { useMe } from "@entities/auth";
 
 export interface MyListProps extends FlexProps {
     filterParams?: ArticleAndArticleCategoryFiltersForm;
@@ -17,6 +18,7 @@ export interface MyListProps extends FlexProps {
 const MyList = ({ filterParams, ...props }: MyListProps) => {
     const { classes, cx } = useStyles();
     const router = useRouter();
+    const { data: user } = useMe();
 
     const {
         data: articlesData,
@@ -24,7 +26,7 @@ const MyList = ({ filterParams, ...props }: MyListProps) => {
         isLoading,
         hasNextPage,
         fetchNextPage,
-    } = useMyArticles(adaptGetMyArticlesRequest({ ...initialParams, ...filterParams }));
+    } = useMyArticles(adaptGetMyArticlesRequest({ ...initialParams, ...filterParams, userId: user?.id }));
 
     const handleClickShowMore = () => hasNextPage && fetchNextPage();
 
