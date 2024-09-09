@@ -42,7 +42,7 @@ const NotificationIcon = ({ data }: NotificationIconProps) => {
 
         default:
             return (
-                <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
+                <Avatar src={data.sender?.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
                     <ThemeIcon className={classes.avatarDefaultIconWrapper}>
                         <AvatarIcon />
                     </ThemeIcon>

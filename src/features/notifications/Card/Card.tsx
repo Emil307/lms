@@ -45,11 +45,11 @@ const MemoizedCard = memo(function Card({ data, handleCloseMenu, ...props }: Car
                         <Flex gap={8}>
                             <Box className={classes.contentWrapper}>
                                 <Paragraph variant="text-caption" color="gray45" className={classes.content}>
-                                    {getFullName({ data: userData.profile, hidePatronymic: true })}
+                                    {getFullName({ data: userData?.profile, hidePatronymic: true })}
                                 </Paragraph>
                             </Box>
                             <Paragraph variant="text-caption" color="gray45" className={classes.userRole}>
-                                {userData.roles[0].displayName}
+                                {userData?.roles[0].displayName}
                             </Paragraph>
                         </Flex>
                     </Flex>

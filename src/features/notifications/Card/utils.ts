@@ -45,8 +45,8 @@ const getSupportMessageLink = (data: NotificationSupportMessageType, userRole?: 
             return {
                 pathname: "/admin/messages",
                 query: {
-                    [ADMIN_MESSAGES_QUERY_SEARCH_NAME]: getFullName({ data: data.sender.profile }),
-                    [ADMIN_MESSAGES_QUERY_SELECT_NAME]: String(data.sender.id),
+                    [ADMIN_MESSAGES_QUERY_SEARCH_NAME]: getFullName({ data: data.sender?.profile }),
+                    [ADMIN_MESSAGES_QUERY_SELECT_NAME]: String(data.sender?.id),
                 },
             };
         default:

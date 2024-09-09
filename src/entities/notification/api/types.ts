@@ -77,11 +77,13 @@ export const $NotificationUser = $User
                     })
                     .nullable(),
             }),
-    });
+    })
+    .nullish();
 
 export const $NotificationSupportMessageType = z.object({
     type: z.literal("supportMessage"),
-    message: z.string(),
+    conversationId: z.number(),
+    message: z.string().optional(),
     sender: $NotificationUser,
 });
 
@@ -118,7 +120,7 @@ export const $NotificationGroupAddedType = z.object({
         name: z.string(),
     }),
     groupId: z.number(),
-    teacher: $NotificationUser,
+    teacher: $NotificationUser.nullish(),
 });
 
 export const $NotificationInvoiceForPaymentType = z.object({
@@ -127,7 +129,7 @@ export const $NotificationInvoiceForPaymentType = z.object({
         id: z.number(),
         name: z.string(),
     }),
-    student: $NotificationUser,
+    student: $NotificationUser.optional(),
 });
 
 export const $NotificationType = z.union([
