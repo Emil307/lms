@@ -2,6 +2,7 @@ import { BoxProps, Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { CourseDetails } from "@entities/course";
 import { Paragraph } from "@shared/ui";
+import { getPlaceWord } from "@widgets/course/MainInfoPanel/components/utils";
 import useStyles from "./AvailableGroupInfo.styles";
 
 interface AvailableGroupInfoProps extends Omit<BoxProps, "children"> {
@@ -29,10 +30,13 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
         if (data.type === "interactive" || !data.availableGroup?.freePlacesCount) {
             return null;
         }
+        const freePlacesCount = data.availableGroup.freePlacesCount;
+        const placeWord = getPlaceWord(freePlacesCount);
+
         return (
             <Flex align="center" gap={6} className={classes.groupInfoButton}>
                 <Paragraph variant="text-small-m" color="gray45">
-                    Осталось {data.availableGroup.freePlacesCount} места
+                    Осталось {freePlacesCount} {placeWord}
                 </Paragraph>
             </Flex>
         );
