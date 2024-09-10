@@ -158,7 +158,10 @@ export const useCourseListData = (userRole?: RoleName) => {
         if (category && category !== "null") {
             filter["category.id"] = category;
         } else if (category === "null") {
-            filter["category.id"] = null;
+            filter["category.id"] = {
+                items: [null],
+                operator: "and",
+            };
         }
 
         // Проверка и добавление тегов

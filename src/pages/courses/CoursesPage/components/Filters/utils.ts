@@ -40,11 +40,10 @@ export const adaptCourseFiltersForm = (queryParams: TRouterQueries): Partial<Cou
 
 export const getCountAppliedQueries = (data: TRouterQueries, initialValues: CoursesFiltersForm): number => {
     return Object.entries(data).reduce((acc, [key, value]) => {
-        if (key === "page" || key === "categoryId" || initialValues[key as keyof TRouterQueries].toString() === value) {
+        const initialValue = initialValues[key as keyof TRouterQueries];
+        if (key === "page" || key === "categoryId" || (initialValue && initialValue.toString() === value)) {
             return acc;
         }
-
-        const count = Array.isArray(value) ? value.length : 1;
-        return acc + count;
+        return acc + 1;
     }, 0);
 };
