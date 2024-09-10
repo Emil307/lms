@@ -31,59 +31,48 @@ const ForgotPasswordForm = () => {
 
     return (
         <Box className={classes.root}>
-            <Flex className={classes.inner}>
-                <Paragraph variant="small-semi" color="gray45">
-                    Пришлем вам ссылку на восстановление пароля
-                </Paragraph>
-                <ManagedForm<RecoveryPasswordRequest, RecoveryPasswordResponse>
-                    initialValues={initialValues}
-                    validationSchema={$RecoveryPasswordRequest}
-                    mutationKey={[MutationKeys.CHANGE_PASSWORD]}
-                    mutationFunction={recoveryPassword}
-                    onSuccess={onSuccess}
-                    onError={onError}
-                    disabledLoadingOnSuccess
-                    disableOverlay>
-                    {({ dirty, isLoading }) => {
-                        return (
-                            <>
-                                <Flex direction="column" gap={24}>
-                                    <FInput name="email" label="Email" />
-                                    <Flex justify="flex-start" pb={20}>
-                                        <Link href={`${getPath()}?action=sign-up`}>
-                                            <Button variant="primary" className={classes.recoveryButton} disabled={!dirty}>
+            <Flex className={classes.contentWrapper}>
+                <Flex className={classes.inner}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Пришлем вам ссылку на восстановление пароля
+                    </Paragraph>
+                    <ManagedForm<RecoveryPasswordRequest, RecoveryPasswordResponse>
+                        initialValues={initialValues}
+                        validationSchema={$RecoveryPasswordRequest}
+                        mutationKey={[MutationKeys.CHANGE_PASSWORD]}
+                        mutationFunction={recoveryPassword}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                        disabledLoadingOnSuccess
+                        disableOverlay>
+                        {({ dirty }) => {
+                            return (
+                                <Flex direction="column" justify="space-between">
+                                    <Flex direction="column" gap={24}>
+                                        <FInput name="email" label="Email" />
+                                        <Flex justify="flex-start" pb={20}>
+                                            <Button type="submit" variant="primary" className={classes.recoveryButton} disabled={!dirty}>
                                                 Выслать
                                             </Button>
-                                        </Link>
+                                        </Flex>
                                     </Flex>
                                 </Flex>
-                                <Flex
-                                    direction="column"
-                                    pos="absolute"
-                                    bottom={92}
-                                    gap={16}
-                                    ta="center"
-                                    align="center"
-                                    justify="center"
-                                    className={classes.absoluteButton}>
-                                    <Link href={`${getPath()}?action=auth`}>
-                                        <Button variant="text" className={classes.rememberPassword}>
-                                            Вспомнили пароль?
-                                        </Button>
-                                    </Link>
-                                    <Button
-                                        type="submit"
-                                        variant="secondary"
-                                        className={classes.signUpButton}
-                                        size="medium"
-                                        loading={isLoading}>
-                                        Войти
-                                    </Button>
-                                </Flex>
-                            </>
-                        );
-                    }}
-                </ManagedForm>
+                            );
+                        }}
+                    </ManagedForm>
+                </Flex>
+                <Flex direction="column" gap={16} ta="center" align="center" justify="center">
+                    <Link href={`${getPath()}?action=auth`}>
+                        <Button variant="text" className={classes.rememberPassword}>
+                            Вспомнили пароль?
+                        </Button>
+                    </Link>
+                    <Link href={`${getPath()}?action=auth`}>
+                        <Button variant="secondary" className={classes.signUpButton} size="medium">
+                            Войти
+                        </Button>
+                    </Link>
+                </Flex>
             </Flex>
         </Box>
     );

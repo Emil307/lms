@@ -39,49 +39,43 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
 
     return (
         <Box className={classes.root} {...boxProps}>
-            <Flex className={classes.inner}>
-                <Paragraph variant="small-semi" color="gray45">
-                    Войдите в свой профиль, чтобы начать учиться
-                </Paragraph>
-                <Form config={config} disableOverlay>
-                    <Flex direction="column">
-                        <Flex direction="column" gap={8} mb={16}>
-                            <FInput name="email" label="Email" />
-                            <FInput name="password" label="Пароль" type="password" />
-                        </Flex>
-                        <Flex justify="space-between" mb={24} align="center">
-                            <Checkbox color="doneDark100" label="Запомнить меня" />
-                            <Link href={`${getPath()}?action=forgot-password`} className={classes.linkButton}>
-                                <Button variant="text" className={classes.recoveryPasswordLink}>
-                                    Забыли пароль?
+            <Flex className={classes.contentWrapper}>
+                <Flex className={classes.inner}>
+                    <Paragraph variant="text-small-m" color="gray45">
+                        Войдите в свой профиль, чтобы начать учиться
+                    </Paragraph>
+                    <Form config={config} disableOverlay>
+                        <Flex direction="column">
+                            <Flex direction="column" gap={8} mb={16}>
+                                <FInput name="email" label="Email" />
+                                <FInput name="password" label="Пароль" type="password" />
+                            </Flex>
+                            <Flex justify="space-between" mb={24} align="center">
+                                <Checkbox color="doneDark100" label="Запомнить меня" />
+                                <Link href={`${getPath()}?action=forgot-password`} className={classes.linkButton}>
+                                    <Button variant="text" className={classes.recoveryPasswordLink}>
+                                        Забыли пароль?
+                                    </Button>
+                                </Link>
+                            </Flex>
+                            <Flex>
+                                <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading || isSuccess}>
+                                    Войти
                                 </Button>
-                            </Link>
+                            </Flex>
                         </Flex>
-                        <Flex>
-                            <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading || isSuccess}>
-                                Войти
-                            </Button>
-                        </Flex>
-                    </Flex>
-                    <Flex
-                        pos="absolute"
-                        bottom={92}
-                        className={classes.absoluteButton}
-                        direction="column"
-                        gap={16}
-                        ta="center"
-                        align="center"
-                        justify="center">
-                        <Paragraph variant="small-m" className={classes.createUserText}>
-                            Новый пользователь?
-                        </Paragraph>
-                        <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
-                            <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
-                                Создать аккаунт
-                            </Button>
-                        </Link>
-                    </Flex>
-                </Form>
+                    </Form>
+                </Flex>
+                <Flex direction="column" gap={16} ta="center" align="center" justify="center">
+                    <Paragraph variant="small-m" className={classes.createUserText}>
+                        Новый пользователь?
+                    </Paragraph>
+                    <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
+                        <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
+                            Создать аккаунт
+                        </Button>
+                    </Link>
+                </Flex>
             </Flex>
         </Box>
     );

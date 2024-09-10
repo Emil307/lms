@@ -5,6 +5,16 @@ export const useFormStyles = createStyles((theme) => ({
         height: "100%",
         paddingRight: 20,
     },
+    contentWrapper: {
+        height: "100%",
+        paddingBottom: 92,
+        flexDirection: "column",
+        [theme.fn.smallerThan("md")]: {
+            paddingBottom: 0,
+            paddingRight: 0,
+            justifyContent: "space-between",
+        },
+    },
     inner: {
         height: "100%",
         flexDirection: "column",
@@ -41,6 +51,7 @@ export const useFormStyles = createStyles((theme) => ({
         borderRadius: 56,
         textDecoration: "none",
         color: theme.colors.dark[0],
+        fontWeight: 500,
     },
     signInButton: {
         borderRadius: 56,
@@ -56,7 +67,7 @@ export const useFormStyles = createStyles((theme) => ({
         width: 114,
         minHeight: 48,
         padding: "12px 24px",
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 500,
         lineHeight: "24px",
     },
