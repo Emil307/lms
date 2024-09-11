@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Box, Flex, ScrollArea, Text } from "@mantine/core";
 import React, { useMemo, useRef } from "react";
 import { FieldArray, FormikConfig, FormikProps } from "formik";
@@ -19,8 +20,11 @@ export interface UpdateMaterialsFormProps {
     onSubmit: (fileIds: string[]) => void;
     multiple?: boolean;
 }
-
-//TODO: НЕ ПЕРЕНОСИТЬ НА ДРУГИЕ ПРОЕКТЫ!!!
+/**
+ *
+ * @deprecated Не переносите на другие проекты.
+ * @returns
+ */
 const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }: UpdateMaterialsFormProps) => {
     const { classes } = useStyles();
     const formRef = useRef<FormikProps<UpdateMaterialsFormValidation>>(null);

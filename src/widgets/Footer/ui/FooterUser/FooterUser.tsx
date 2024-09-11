@@ -74,7 +74,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
 
     const renderInfoSection = useMemo(
         () =>
-            getPageSections(!!user).map((section, index) => (
+            getPageSections(!!user).map((section) => (
                 <Paragraph
                     className={classes.wordBreak}
                     variant="small-m"
@@ -82,7 +82,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                     href={section.href}
                     color="white56"
                     w="fit-content"
-                    key={index}>
+                    key={section.label}>
                     {section.label}
                 </Paragraph>
             )),

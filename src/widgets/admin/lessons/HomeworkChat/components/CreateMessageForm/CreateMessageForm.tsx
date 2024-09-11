@@ -7,7 +7,7 @@ import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateAdminHomeworkAnswerMessageResponse, lessonApi } from "@entities/lesson";
 import { initialValues } from "./constants";
-import { $CreateMessageForm, CreateMessageForm } from "./types";
+import { $CreateMessageForm, TCreateMessageForm } from "./types";
 import useStyles from "./CreateMessageForm.styles";
 
 interface CreateMessageFormProps {
@@ -19,7 +19,7 @@ const CreateMessageForm = ({ homeworkAnswerId }: CreateMessageFormProps) => {
 
     const onSuccess = (
         response: CreateAdminHomeworkAnswerMessageResponse,
-        { resetForm }: Omit<FormikHelpers<CreateMessageForm>, "setFieldError">
+        { resetForm }: Omit<FormikHelpers<TCreateMessageForm>, "setFieldError">
     ) => {
         resetForm();
         createNotification({
@@ -36,7 +36,7 @@ const CreateMessageForm = ({ homeworkAnswerId }: CreateMessageFormProps) => {
     };
 
     return (
-        <ManagedForm<CreateMessageForm, CreateAdminHomeworkAnswerMessageResponse>
+        <ManagedForm<TCreateMessageForm, CreateAdminHomeworkAnswerMessageResponse>
             initialValues={initialValues}
             validationSchema={$CreateMessageForm}
             mutationKey={[MutationKeys.CREATE_ADMIN_LESSON_HOMEWORK_MESSAGE]}

@@ -14,7 +14,8 @@ export function onChangeInput(
         const newValue = inputValue === "" ? "" : parseInt(inputValue, 10);
 
         const updatedValues = [...values];
-        updatedValues[index] = newValue === "" ? (index === 0 ? min : max) : newValue;
+        const defaultValue = index === 0 ? min : max;
+        updatedValues[index] = newValue === "" ? defaultValue : newValue;
 
         setValues(updatedValues as IndexNumbers);
 

@@ -1,3 +1,3 @@
-import CreateMessageForm from "./CreateMessageForm";
+import TCreateMessageForm from "./CreateMessageForm";
 
-export { CreateMessageForm };
+export { TCreateMessageForm as CreateMessageForm };

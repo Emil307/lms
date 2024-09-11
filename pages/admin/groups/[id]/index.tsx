@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { useRouter } from "next/router";
 import { AdminLayout } from "@app/layouts";
 import { GroupDetailsPage } from "@pages/admin/groups";
@@ -20,7 +19,7 @@ const GroupDetails: NextPageWithLayout<NextPageWithLayoutProps> = () => {
     if (error) return <CustomPage500 />;
 
     return (
-        <AdminPage title={data?.name}>
+        <AdminPage title={data.name}>
             <GroupDetailsPage />
         </AdminPage>
     );

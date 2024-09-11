@@ -93,8 +93,8 @@ const HeaderPublicUser = ({ isTablet }: HeaderPublicUserProps) => {
                                     </Button>
                                 </MMenu.Target>
                                 <MMenu.Dropdown>
-                                    {INFORMATION_MENU_ITEMS.map((item, index) => (
-                                        <MMenu.Item component={Link} href={item.href} key={index}>
+                                    {INFORMATION_MENU_ITEMS.map((item) => (
+                                        <MMenu.Item component={Link} href={item.href} key={item.href}>
                                             <Paragraph className={classes.wordBreak} variant="text-small-m">
                                                 {item.label}
                                             </Paragraph>

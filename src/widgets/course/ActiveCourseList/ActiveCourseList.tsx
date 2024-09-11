@@ -24,7 +24,7 @@ const ActiveCourseList = () => {
         return null;
     }
 
-    const groupList = coursesInProgress.data.concat(newCourses.data || []);
+    const groupList = coursesInProgress.data.concat(newCourses.data);
 
     const handleOpenMyCourseDetails = (id: unknown) => router.push({ pathname: "/my-courses/[id]", query: { id: String(id) } });
 

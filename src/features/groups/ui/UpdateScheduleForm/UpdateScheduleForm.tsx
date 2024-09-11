@@ -68,7 +68,7 @@ const UpdateScheduleForm = ({ groupId, data, onClose, ...props }: UpdateSchedule
                                             {values.scheduleTimings.map((_scheduleTiming, index) => {
                                                 const handleRemoveInterval = () => remove(index);
                                                 return (
-                                                    <Flex key={index} align="center" justify="space-between">
+                                                    <Flex key={_scheduleTiming.id ?? index} align="center" justify="space-between">
                                                         <Flex gap={8}>
                                                             <FTimeInput
                                                                 name={`scheduleTimings.${index}.from`}

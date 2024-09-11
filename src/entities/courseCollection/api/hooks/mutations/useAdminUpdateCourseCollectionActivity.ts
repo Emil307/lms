@@ -101,6 +101,7 @@ export const useAdminUpdateCourseCollectionActivity = ({
                     .getQueriesData<GetAdminCourseCollectionsResponse>([
                         QueryKeys.GET_ADMIN_COURSE_COLLECTIONS,
                         [EntityNames.COURSE_COLLECTION, EntityNames.COURSE],
+                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     ])?.[0]?.[1]
                     ?.data.find((courseCollection) => courseCollection.id.toString() === id);
 
@@ -110,7 +111,7 @@ export const useAdminUpdateCourseCollectionActivity = ({
                 createNotification({
                     type: ToastType.INFO,
                     title: "Изменение статуса",
-                    message: `Подборка курсов "${courseCollectionData?.name || courseCollectionFromList?.name}" ${statusMessage}.`,
+                    message: `Подборка курсов "${courseCollectionData?.name ?? courseCollectionFromList?.name}" ${statusMessage}.`,
                 });
             },
         }

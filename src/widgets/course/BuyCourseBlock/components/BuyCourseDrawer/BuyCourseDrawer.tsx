@@ -79,7 +79,10 @@ const BuyCourseDrawer = (
     return (
         <Drawer
             opened={opened}
-            onClose={() => (setOpened(false), setStep(1))}
+            onClose={() => {
+                setOpened(false);
+                setStep(1);
+            }}
             title={<Heading order={3}>{step === 1 ? `Получить доступ к курсу «${data.name}»` : "Счет на оплату"}</Heading>}
             padding={24}
             size={isTablet ? "100%" : "450px"}

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
+import { EmblaCarouselType } from "embla-carousel-react";
 import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
 import { ListProps as TListProps } from "@components/List";
 import { Heading, HeadingProps } from "@shared/ui";
-import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
-import { Card } from "../Card";
-import useStyles from "./List.styles";
 import { Carousel } from "@components/Carousel";
-import { EmblaCarouselType } from "embla-carousel-react";
+import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
+import useStyles from "./List.styles";
+import { Card } from "../Card";
 
 export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "colProps"> {
     exceptionCourseCollectionId?: string;
@@ -25,7 +25,7 @@ export interface ListProps extends Pick<TListProps<CourseCollectionFromList>, "c
 const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPagination }: ListProps) => {
     const router = useRouter();
     const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
-    const [_activeIndex, setActiveIndex] = useState(0);
+    const [, setActiveIndex] = useState(0);
     const page = withPagination ? router.query.page || 1 : 1;
     const { classes } = useStyles();
 
@@ -51,17 +51,16 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     if (!courseCollectionsData?.data.length) {
         return null;
     }
-    // const isTablet = useMedia("md");
 
     return (
         <Flex direction="column" {...wrapperProps} className={classes.wrapper}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
                 <Heading className={classes.headingContainer}>
-                    <Flex direction={"column"} gap={24}>
-                        <Text ta={"center"} className={classes.title}>
+                    <Flex direction="column" gap={24}>
+                        <Text ta="center" className={classes.title}>
                             Больше знаний в комплексе
                         </Text>
-                        <Text ta={"center"} className={classes.description}>
+                        <Text ta="center" className={classes.description}>
                             Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов.
                         </Text>
                     </Flex>

@@ -66,7 +66,6 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                                                 Добавить интервал
                                             </Button>
                                             {values.scheduleTimings.map((_scheduleTiming, index) => {
-                                                const handleRemoveInterval = () => remove(index);
                                                 return (
                                                     <Flex key={index} align="center" justify="space-between">
                                                         <Flex gap={8}>
@@ -89,7 +88,7 @@ const CreateScheduleForm = ({ groupId, onClose, ...props }: CreateScheduleFormPr
                                                                 variant="text"
                                                                 size="small"
                                                                 leftIcon={<Trash />}
-                                                                onClick={handleRemoveInterval}>
+                                                                onClick={() => remove(index)}>
                                                                 Удалить
                                                             </Button>
                                                         )}

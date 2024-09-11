@@ -15,8 +15,6 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    //TODO Сделать проверку на существование страницы, в противном случае редирект на 404
-
     const token = req.cookies.get(ECookies.TOKEN)?.value;
     const userRole = req.cookies.get(ECookies.USER_ROLE)?.value;
     const isUserAuth = token && userRole;
@@ -39,7 +37,7 @@ export function middleware(req: NextRequest) {
     // Неавторизованный пользователь пытается зайти на приватную страницу
     if (!isAuthAction && !isPublicPage && !isUserAuth) {
         url.pathname = logoutPath;
-        // return NextResponse.redirect(url);
+        return NextResponse.redirect(url);
     }
 
     // Проверка доступа пользователя к странице на основе его роли

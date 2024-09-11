@@ -1,8 +1,8 @@
 import { Box, BoxProps, Flex } from "@mantine/core";
 import Image from "next/image";
 import { CourseDetails } from "@entities/course";
-import useStyles from "./MainBanner.styles";
 import RatingInfo from "@widgets/course/MainBanner/components/RatingInfo/RatingInfo";
+import useStyles from "./MainBanner.styles";
 
 export interface MainBannerProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;

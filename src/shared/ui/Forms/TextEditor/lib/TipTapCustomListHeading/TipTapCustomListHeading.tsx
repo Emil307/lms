@@ -13,10 +13,11 @@ export const ListHeading = Node.create({
     },
 
     renderHTML({ node, HTMLAttributes }) {
-        const tag = node.attrs.level === 1 ? "h1" : node.attrs.level === 2 ? "h2" : node.attrs.level === 3 ? "h3" : "h4";
+        const tags = ["h1", "h2", "h3", "h4"];
+        const tag = tags[node.attrs.level - 1];
         return [tag, mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
     },
-
+    
     addAttributes() {
         return {
             level: {

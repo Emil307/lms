@@ -1,5 +1,5 @@
-import { CreateMessageForm } from "./types";
+import { TCreateMessageForm } from "./types";
 
-export const initialValues: CreateMessageForm = {
+export const initialValues: TCreateMessageForm = {
     content: "",
 };

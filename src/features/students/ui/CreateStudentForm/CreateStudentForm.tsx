@@ -123,10 +123,10 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
 
                         <Fieldset label="Настройки уведомлений" icon={<Bell />} legendProps={{ mb: 24 }} maw={772}>
                             <Box className={classes.notificationsContainer}>
-                                {notifications.map((name, index) => (
+                                {notifications.map((name) => (
                                     <FControlPanel
                                         name={`notifications[${name}]`}
-                                        key={index}
+                                        key={name}
                                         label={notificationLabels[name as keyof typeof notificationLabels]}
                                         variant="secondary"
                                     />

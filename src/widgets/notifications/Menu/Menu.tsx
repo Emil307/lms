@@ -38,7 +38,7 @@ const Menu = (props: MenuProps) => {
                 <HeaderDropdown onClose={handleCloseMenu} mb={8} />
                 <NotificationList
                     maxHeightContainer={390}
-                    itemComponent={(props) => <NotificationCard {...props} handleCloseMenu={handleCloseMenu} />}
+                    itemComponent={(props) => <NotificationCard key={props.data.id} {...props} handleCloseMenu={handleCloseMenu} />}
                 />
                 <FooterDropdown hasNewNotifications={newNotificationsData?.hasNew} onClose={handleCloseMenu} />
             </MMenu.Dropdown>

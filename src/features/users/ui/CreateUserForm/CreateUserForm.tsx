@@ -144,10 +144,10 @@ const CreateUserForm = ({ onClose }: CreateUserFormProps) => {
 
                     <Fieldset label="Настройки уведомлений" icon={<Bell />} legendProps={{ mb: 24 }}>
                         <Box className={classes.notificationsContainer}>
-                            {getNotificationList(values.roleId, teacherRoleId).map((notificationName, index) => (
+                            {getNotificationList(values.roleId, teacherRoleId).map((notificationName) => (
                                 <FControlPanel
                                     name={`notifications[${notificationName}]`}
-                                    key={index}
+                                    key={notificationName}
                                     label={notificationLabels[notificationName as keyof typeof notificationLabels]}
                                     variant="secondary"
                                 />

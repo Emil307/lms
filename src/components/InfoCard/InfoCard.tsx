@@ -29,7 +29,7 @@ function InfoCard<T>({
     values,
     actionSlot,
     variant = "whiteBg",
-}: TInfoCardProps<T>) {
+}: Readonly<TInfoCardProps<T>>) {
     const { classes } = useStyles({ variant });
 
     const renderImage = useCallback(() => {
@@ -79,14 +79,14 @@ function InfoCard<T>({
 
     const renderFields = useCallback(
         () =>
-            fields.map(({ value, ...field }, index) => {
+            fields.map(({ value, ...field }) => {
                 const getValue = field.renderString ? field.renderString(get(values, field.name), values) : get(values, field.name);
                 const isHidden = typeof field.hidden === "function" ? field.hidden(get(values, field.name), values) : !!field.hidden;
 
                 if ((hideFieldIfEmpty && !getValue) || isHidden) {
                     return null;
                 }
-                return <DisplayField key={index} {...field} value={getValue} variant="compact" textAlign="start" />;
+                return <DisplayField key={field.label} {...field} value={getValue} variant="compact" textAlign="start" />;
             }),
         [fields, values]
     );

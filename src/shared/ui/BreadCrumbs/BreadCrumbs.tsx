@@ -28,7 +28,7 @@ const MemoizedBreadcrumbs = memo(function Breadcrumbs({ items, ...props }: TBrea
     return (
         <MBreadcrumbs {...props} separator={separator} classNames={classes}>
             {items.map((item, index) => (
-                <Crumb key={index} item={item} isActive={index === items.length - 1} />
+                <Crumb key={item.title} item={item} isActive={index === items.length - 1} />
             ))}
         </MBreadcrumbs>
     );
