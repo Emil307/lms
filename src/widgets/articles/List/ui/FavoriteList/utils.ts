@@ -9,14 +9,18 @@ export const adaptGetFavoriteArticlesRequest = (
     return {
         ...rest,
         filter: {
-            tagIds: {
-                items: Array.isArray(tags) ? tags : [tags],
-                operator: "or",
-            },
-            subcategoryIds: {
-                items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
-                operator: "or",
-            },
+            ...(tags.length > 0 && {
+                tagIds: {
+                    items: Array.isArray(tags) ? tags : [tags],
+                    operator: "or",
+                },
+            }),
+            ...(subcategoryIds.length > 0 && {
+                subcategoryIds: {
+                    items: Array.isArray(subcategoryIds) ? subcategoryIds : [subcategoryIds],
+                    operator: "or",
+                },
+            }),
         },
     };
 };
