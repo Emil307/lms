@@ -58,7 +58,7 @@ const CoursesPage = () => {
                     Онлайн-курсы
                 </Heading>
                 <Form config={config} disableOverlay={false}>
-                    {({ resetForm }) => {
+                    {({ dirty, resetForm }) => {
                         const handleResetForm = () => {
                             resetForm({ values: getInitialValues([courseResources.prices.highest]) });
 
@@ -88,7 +88,7 @@ const CoursesPage = () => {
                                         py={12}
                                         iconSize={24}
                                     />
-                                    <Button type="submit" size="large" variant="primary">
+                                    <Button type="submit" size="large" variant="primary" disabled={!dirty}>
                                         Найти курс
                                     </Button>
                                 </Flex>
@@ -146,7 +146,7 @@ const CoursesPage = () => {
                         Фильтры
                     </Heading>
                 }>
-                <Filters config={config}></Filters>
+                <Filters config={config} />
             </Drawer>
         </Box>
     );

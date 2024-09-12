@@ -1,5 +1,4 @@
 import { useFormikContext } from "formik";
-import { useEffect } from "react";
 import { Box, ThemeIcon } from "@mantine/core";
 import { IconFilter } from "@tabler/icons-react";
 import { CourseCategory, CourseTag, CoursesFiltersForm } from "@entities/course";
@@ -14,15 +13,10 @@ export interface FilterItemProps {
 }
 
 const MemoizedFilterItem = function FilterItem({ field, data, selected, onChangeSelected = () => undefined }: FilterItemProps) {
-    const { setFieldValue, values, handleSubmit, isSubmitting } = useFormikContext<CoursesFiltersForm>();
+    const { setFieldValue, values } = useFormikContext<CoursesFiltersForm>();
 
     const isSelected = !![...values[field]].find((value) => value === data.id.toString());
     const { classes } = useStyles({ selected, isSelected });
-
-    //Нужен для сброса плавающей иконки фильтра при submit'е формы
-    useEffect(() => {
-        onChangeSelected(null);
-    }, [isSubmitting]);
 
     const handleButtonClick = () => {
         onChangeSelected(data.id);
@@ -37,8 +31,6 @@ const MemoizedFilterItem = function FilterItem({ field, data, selected, onChange
             array.push(String(data.id));
             setFieldValue(field, array);
         }
-
-        handleSubmit();
     };
 
     return (

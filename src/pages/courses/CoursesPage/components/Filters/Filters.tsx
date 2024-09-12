@@ -28,13 +28,12 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
     return (
         <Box {...props}>
             <Form config={props.config} disableOverlay={false}>
-                {({ resetForm }) => {
+                {({ dirty, resetForm }) => {
                     const handleResetForm = () => {
                         resetForm({ values: getInitialValues([courseResources.prices.highest]) });
 
                         router.push({ pathname: router.pathname, query: { page: "1" } }, undefined, { shallow: true });
                     };
-
                     const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues([courseResources.prices.highest]));
 
                     const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
@@ -76,7 +75,7 @@ const Filters = ({ children, title, ...props }: FiltersProps) => {
                                     </Flex>
                                 </Flex>
                                 <Flex className={classes.buttonsFormContainer}>
-                                    <Button className={classes.searchButton} type="submit" variant="secondary">
+                                    <Button className={classes.searchButton} type="submit" variant="secondary" disabled={!dirty}>
                                         Показать
                                     </Button>
                                     {isDirty && (

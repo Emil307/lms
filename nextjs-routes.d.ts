@@ -58,11 +58,18 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/admin/settings/course-collections/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-collections/create">
     | StaticRoute<"/admin/settings/course-collections">
+    | DynamicRoute<"/admin/settings/course-packages/[id]/edit", { "id": string }>
+    | DynamicRoute<"/admin/settings/course-packages/[id]", { "id": string }>
+    | StaticRoute<"/admin/settings/course-packages/create">
+    | StaticRoute<"/admin/settings/course-packages">
     | DynamicRoute<"/admin/settings/course-reviews/[id]", { "id": string }>
     | StaticRoute<"/admin/settings/course-reviews">
     | StaticRoute<"/admin/settings/main-page/advantages">
     | StaticRoute<"/admin/settings/main-page/banner/edit">
     | StaticRoute<"/admin/settings/main-page/banner">
+    | DynamicRoute<"/admin/settings/main-page/reviews/[id]/edit", { "id": string }>
+    | StaticRoute<"/admin/settings/main-page/reviews/create">
+    | StaticRoute<"/admin/settings/main-page/reviews">
     | StaticRoute<"/admin/settings/materials">
     | StaticRoute<"/admin/settings/tags">
     | StaticRoute<"/admin/static-pages/about">
@@ -88,10 +95,15 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/articles/favorite/[id]", { "id": string }>
     | StaticRoute<"/articles">
     | DynamicRoute<"/articles/my/[id]", { "id": string }>
+    | StaticRoute<"/auth/forgot-password">
+    | StaticRoute<"/auth">
+    | StaticRoute<"/auth/recovery-password">
+    | StaticRoute<"/auth/sign-up">
     | StaticRoute<"/cabinet">
     | StaticRoute<"/contacts">
     | DynamicRoute<"/course-collections/[id]", { "id": string }>
     | StaticRoute<"/course-collections">
+    | DynamicRoute<"/course-packages/[id]", { "id": string }>
     | DynamicRoute<"/courses/[id]", { "id": string }>
     | StaticRoute<"/courses">
     | StaticRoute<"/faq">
