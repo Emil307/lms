@@ -30,7 +30,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     const { classes } = useStyles();
 
     const { data: courseCollectionsData, isLoading } = useCourseCollections(
-        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
+        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId }),
     );
 
     useEffect(() => {
@@ -76,6 +76,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                     ]}
                     getEmblaApi={setEmblaApi}
                     emblaApi={emblaApi}
+                    initialSlide={Math.min(courseCollectionsData.data.length, 2)}
                     align="center"
                     customStyles={useStyles}>
                     {(props) => <Card {...props} />}

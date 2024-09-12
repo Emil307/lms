@@ -74,6 +74,7 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
                     ]}
                     getEmblaApi={setEmblaApi}
                     emblaApi={emblaApi}
+                    initialSlide={Math.min(courseReviewsData.data.length,2)}
                     align="center"
                     customStyles={useStyles}>
                     {(props) => <CourseReviewCard {...props} w="100%" />}
