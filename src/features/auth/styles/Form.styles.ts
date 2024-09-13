@@ -64,10 +64,10 @@ export const useFormStyles = createStyles((theme) => ({
     },
     recoveryButton: {
         borderRadius: 56,
-        width: 114,
-        minHeight: 48,
+        width: 138,
+        minHeight: 56,
         padding: "12px 24px",
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 500,
         lineHeight: "24px",
     },
