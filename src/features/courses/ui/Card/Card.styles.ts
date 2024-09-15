@@ -4,7 +4,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     root: {
         ref: getRef("root"),
         width: "100%",
-        height: 492,
+        height: 520,
         borderRadius: 32,
         backgroundColor: theme.colors.neutralLight[0],
         cursor: "pointer",
@@ -55,7 +55,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     headingContent: {
         display: "flex",
         flexDirection: "column",
-        height: 88,
+        height: 106,
         gap: 8,
     },
     title: {

@@ -835,6 +835,8 @@ export const $DeleteFavoriteCoursesResponse = z.null();
 export const $UpdateCourseFavoriteStatusRequest = z.object({
     id: z.string(),
     isFavorite: z.boolean(),
+    name: z.string().optional(),
+    absolutePath: z.string().optional(),
 });
 
 export const $UpdateCourseFavoriteStatusResponse = z.object({

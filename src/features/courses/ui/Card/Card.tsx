@@ -65,7 +65,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
             </MCard.Section>
             <MCard.Section className={classes.cardContentBody} ml={0}>
                 <Box className={classes.headingContent}>
-                    <Heading order={4} className={classes.title} lineClamp={1}>
+                    <Heading order={4} className={classes.title} lineClamp={2}>
                         {data.name}
                     </Heading>
                     <Heading order={5} lineClamp={2}>

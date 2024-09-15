@@ -16,7 +16,9 @@ type GetCourseQueriesData = { pages: TPaginationResponse<CourseFromList[]>[]; pa
 
 export const useUpdateCourseFavoriteStatus = ({
     id,
-}: Pick<UpdateCourseFavoriteStatusRequest, "id">): UseMutationResult<
+    name,
+    absolutePath,
+}: Pick<UpdateCourseFavoriteStatusRequest, "id" | "name" | "absolutePath">): UseMutationResult<
     UpdateCourseFavoriteStatusResponse,
     AxiosError<FormErrorResponse>,
     Omit<UpdateCourseFavoriteStatusRequest, "id">
@@ -105,6 +107,16 @@ export const useUpdateCourseFavoriteStatus = ({
             });
 
             return { previousCourseData, previousCoursesData };
+        },
+        onSuccess: (data) => {
+            if (data.isFavorite) {
+                createNotification({
+                    type: ToastType.IMAGE,
+                    srcImage: absolutePath,
+                    title: name,
+                    message: "Курс добавлен в избранное",
+                });
+            }
         },
         onSettled: () => {
             queryClient.invalidateQueries([

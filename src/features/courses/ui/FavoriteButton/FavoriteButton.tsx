@@ -15,7 +15,7 @@ const FavoriteButton = ({ data, variant = "default", ...props }: FavoriteButtonP
     const { classes, cx } = useStyles({ isFavorite: data.isFavorite });
     const { user } = useSession();
 
-    const updateFavorite = useUpdateCourseFavoriteStatus({ id: String(data.id) });
+    const updateFavorite = useUpdateCourseFavoriteStatus({ id: String(data.id), name: data.name, absolutePath: data.cover?.absolutePath });
 
     const handleChangeFavorite = () => {
         updateFavorite.mutate({ isFavorite: !data.isFavorite });
