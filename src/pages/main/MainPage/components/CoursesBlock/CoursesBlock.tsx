@@ -25,7 +25,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
     const handleOpenCoursesPage = () => router.push("/courses");
 
     return (
-        <Box ref={rootBlockRef} maw={1320} m={"auto"}>
+        <Box ref={rootBlockRef} maw={1320} m="auto">
             <CoursesList
                 colProps={{ lg: 4, md: 4, xs: 12 }}
                 isPopular

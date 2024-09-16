@@ -9,19 +9,23 @@ import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<BoxProps, "children"> {
     data: CourseCollectionFromList;
-    isActive: boolean;
+    isActive?: boolean;
     onClick?: (id: unknown) => void;
+    courseCollection?: boolean;
+    customStyles?: () => { classes: any; cx: (...args: any) => string };
+    gap?: number;
 }
 
-const MemoizedCard = memo(function Card({ data, isActive, onClick, ...props }: CardProps) {
-    const { classes, cx } = useStyles();
+const MemoizedCard = memo(function Card({ data, isActive, onClick, courseCollection, customStyles, gap = 35, ...props }: CardProps) {
+    const defaultStyles = useStyles();
+    const { classes, cx } = customStyles ? customStyles() : defaultStyles;
     const router = useRouter();
     const handleClickCard = () => router.push({ pathname: "/course-collections/[id]", query: { id: String(data.id) } });
 
     return (
         <Box {...props} className={cx(classes.root, { activeSlide: isActive })} onClick={handleClickCard}>
             <Group className={classes.content}>
-                <Flex direction="column" gap={35} miw={264} w={"100%"}>
+                <Flex direction="column" gap={gap} miw={264} w="100%">
                     <Flex className={classes.imageContent}>
                         <Flex className={classes.courseInfo}>
                             <Button variant="primary" size="small">{`${data.coursesCount} ${getPluralString(

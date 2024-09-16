@@ -2,11 +2,15 @@ import { TBreadCrumbItem } from "@shared/ui";
 
 interface TGetBreadCrumbsProps {
     name?: string;
+    isTablet?: boolean;
 }
 
-export const getBreadCrumbsItems = ({ name = "" }: TGetBreadCrumbsProps): TBreadCrumbItem[] => [
-    { title: "Главная страница", href: { pathname: "/" } },
-    { title: "Курсы", href: { pathname: "/courses" } },
-    { title: `Топовые подборки курсов ${new Date().getFullYear()}`, href: { pathname: "/course-collections" } },
-    { title: name },
-];
+export const getBreadCrumbsItems = ({ name = "", isTablet }: TGetBreadCrumbsProps): TBreadCrumbItem[] => {
+    return [
+        { title: "Главная страница", href: { pathname: "/" } },
+        !isTablet && { title: "Курсы", href: { pathname: "/courses" } },
+        !isTablet && { title: `Подборки`, href: { pathname: "/course-collections" } },
+        isTablet && { title: "..." },
+        { title: name },
+    ].filter(Boolean) as TBreadCrumbItem[];
+};

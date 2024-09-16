@@ -3,7 +3,6 @@ export * from "./useArticlesFilters";
 export * from "./useArticles";
 export * from "./useAdminArticleResourcesCreate";
 export * from "./useAdminArticle";
-export * from "./useAdminArticles";
 export * from "./useArticle";
 export * from "./useAdminArticleFilters";
 export * from "./useFavoriteArticles";

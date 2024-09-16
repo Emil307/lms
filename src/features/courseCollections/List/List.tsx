@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { EmblaCarouselType } from "embla-carousel-react";
-import { CourseCollectionFromList, useCourseCollections } from "@entities/courseCollection";
+import { CourseCollectionFromList, useCourseCollectionsPaginate } from "@entities/courseCollection";
 import { ListProps as TListProps } from "@components/List";
 import { Heading, HeadingProps } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
@@ -29,8 +29,8 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     const page = withPagination ? router.query.page || 1 : 1;
     const { classes } = useStyles();
 
-    const { data: courseCollectionsData, isLoading } = useCourseCollections(
-        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId }),
+    const { data: courseCollectionsData, isLoading } = useCourseCollectionsPaginate(
+        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
     );
 
     useEffect(() => {

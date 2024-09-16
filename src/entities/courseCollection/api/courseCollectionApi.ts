@@ -2,6 +2,7 @@ import { axios } from "@app/config/axios";
 import { BaseApi } from "@shared/utils";
 import {
     $AttachAdminCoursesToCourseCollectionResponse,
+    $CourseCollectionFromListArray,
     $CreateAdminCourseCollectionResponse,
     $DeleteAdminCourseCollectionResponse,
     $DeleteAdminCourseFromCourseCollectionResponse,
@@ -27,6 +28,7 @@ import {
     GetAdminCourseCollectionResponse,
     GetAdminCourseCollectionsRequest,
     GetAdminCourseCollectionsResponse,
+    GetAllCourseCollectionsResponse,
     GetCourseCollectionRequest,
     GetCourseCollectionResponse,
     GetCourseCollectionsRequest,
@@ -98,9 +100,13 @@ export class CourseCollectionApi extends BaseApi {
     }
 
     //USER
-    async getCourseCollections(data: GetCourseCollectionsRequest): Promise<GetCourseCollectionsResponse> {
+    async getCourseCollectionsPaginate(data: GetCourseCollectionsRequest): Promise<GetCourseCollectionsResponse> {
         const response = await this.instance.post("courses/course-collections/list", data);
         return $GetCourseCollectionsResponse.parse(response);
+    }
+    async getCourseCollections(data: GetCourseCollectionsRequest): Promise<GetAllCourseCollectionsResponse> {
+        const response = await this.instance.post("courses/course-collections/list", data);
+        return $CourseCollectionFromListArray.parse(response);
     }
 
     async getCourseCollection({ id }: GetCourseCollectionRequest): Promise<GetCourseCollectionResponse> {

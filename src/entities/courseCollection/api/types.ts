@@ -50,6 +50,7 @@ export type DeleteAdminCourseFromCourseCollectionResponse = z.infer<typeof $Dele
  */
 export type CourseCollection = z.infer<typeof $CourseCollection>;
 export type CourseCollectionFromList = z.infer<typeof $CourseCollectionFromList>;
+export type CourseCollectionAll = z.infer<typeof $GetAllCourseCollectionsResponse>;
 
 //FILTERS
 export type CourseCollectionsExtraFilters = z.infer<typeof $CourseCollectionsExtraFilters>;
@@ -57,6 +58,7 @@ export type CourseCollectionsExtraFilters = z.infer<typeof $CourseCollectionsExt
 //REQ/RESP
 export type GetCourseCollectionsRequest = z.infer<typeof $GetCourseCollectionsRequest>;
 export type GetCourseCollectionsResponse = z.infer<typeof $GetCourseCollectionsResponse>;
+export type GetAllCourseCollectionsResponse = z.infer<typeof $CourseCollectionFromListArray>;
 export type GetCourseCollectionRequest = z.infer<typeof $GetCourseCollectionRequest>;
 export type GetCourseCollectionResponse = z.infer<typeof $GetCourseCollectionResponse>;
 export type GetRandomCourseCollectionResponse = z.infer<typeof $GetRandomCourseCollectionResponse>;
@@ -196,10 +198,15 @@ const $CourseCollection = z.object({
 
 export const $CourseCollectionFromList = $CourseCollection;
 
+export const $CourseCollectionFromListArray = z.array($CourseCollection);
+
 export const $GetCourseCollectionsResponse = $getPaginationResponseType($CourseCollectionFromList);
+
+export const $GetAllCourseCollectionsResponse = $getPaginationResponseType($CourseCollectionFromListArray);
 
 export const $CourseCollectionsExtraFilters = z.object({
     id: z.string().optional(),
+    paginate: z.boolean().optional(),
 });
 
 export const $CourseCollectionsRequest = z.object({
