@@ -40,11 +40,21 @@ const UpdateLessonHomeworkAnswerForm = ({
         onClose();
     };
 
-    const onError = () => {
-        createNotification({
-            type: ToastType.WARN,
-            title: "Ошибка отправки решения домашнего задания",
-        });
+    // У либы тип error: unknown, поэтому использую any
+    const onError = (error: any) => {
+        if (error.response?.status === 400) {
+            createNotification({
+                type: ToastType.WARN,
+                title: "Ошибка",
+                message: "Домашнее задание было обновлено. Обновите страницу",
+            });
+        } else {
+            createNotification({
+                type: ToastType.ERROR,
+                title: "Ошибка",
+                message: error.message || "Произошла ошибка при отправке решения",
+            });
+        }
     };
 
     if (hidden) {
