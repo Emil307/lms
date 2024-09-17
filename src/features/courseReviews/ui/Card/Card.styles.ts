@@ -46,7 +46,13 @@ export default createStyles((theme) => ({
         lineHeight: "16px",
         color: theme.colors.dark[0],
     },
-
+    description: {
+        overflowY: "auto",
+        height: 280,
+        [theme.fn.smallerThan("sm")]: {
+            height: 300,
+        },
+    },
     courseName: {
         fontWeight: 500,
         fontSize: 14,

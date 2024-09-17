@@ -1,4 +1,4 @@
-import { Card as MCard, CardProps as MCardProps, Flex, Text, Spoiler } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps, Flex, Text } from "@mantine/core";
 import { memo } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
@@ -41,9 +41,9 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
 
                         <Text className={classes.ratingValue}>{data.score} из 5</Text>
                     </Flex>
-                    <Spoiler maxHeight={192} showLabel="еще" hideLabel="свернуть">
+                    <Flex className={classes.description}>
                         <Paragraph variant="large">{data.content}</Paragraph>
-                    </Spoiler>
+                    </Flex>
                 </MCard.Section>
                 <MCard.Section className={classes.section}>
                     <Flex direction="column" gap={2}>
