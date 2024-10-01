@@ -4,7 +4,7 @@ export const initialValues: UpdateGroupFormValidation = {
     courseId: "",
     name: "",
     maxStudentsCount: "",
-    isActive: false,
+    isActive: true,
     educationStartDate: null,
     educationFinishDate: null,
 };

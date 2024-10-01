@@ -7,7 +7,7 @@ export const initialValues = {
     lastName: "",
     patronymic: "",
     description: "",
-    isActive: false,
+    isActive: true,
     avatar: null,
     additionalImage: null,
 };

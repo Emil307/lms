@@ -21,7 +21,7 @@ export const adaptCreateAdminGroupForm = (courseId?: string): CreateGroupFormVal
         courseId: courseId || "",
         name: "",
         maxStudentsCount: "",
-        isActive: false,
+        isActive: true,
         educationStartDate: null,
         educationFinishDate: null,
     };

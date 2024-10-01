@@ -24,7 +24,7 @@ export const initialValues: CreateCourseFormValues = {
     duration: "",
     price: "0",
     isInteractive: false,
-    isActive: false,
+    isActive: true,
     isPopular: false,
     hasAuthors: false,
     authorIds: [],

@@ -2,6 +2,6 @@ import { UpdateAdminCategoryFormValidation } from "./types";
 
 export const initialValues: UpdateAdminCategoryFormValidation = {
     name: "",
-    isActive: false,
+    isActive: true,
     parentId: null,
 };

@@ -1,7 +1,7 @@
 import { UpdateArticlePackageFormValidation } from "./types";
 
 export const initialValues: UpdateArticlePackageFormValidation = {
-    isActive: false,
+    isActive: true,
     name: "",
     description: "",
     price: null,

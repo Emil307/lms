@@ -7,7 +7,7 @@ export const initialValues: CreateAuthorFormValidation = {
     lastName: "",
     patronymic: "",
     description: "",
-    isActive: false,
+    isActive: true,
     avatar: null,
 };
 

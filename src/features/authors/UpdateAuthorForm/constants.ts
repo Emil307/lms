@@ -5,6 +5,6 @@ export const initialValues: UpdateAuthorFormValidation = {
     lastName: "",
     patronymic: "",
     description: "",
-    isActive: false,
+    isActive: true,
     avatar: null,
 };

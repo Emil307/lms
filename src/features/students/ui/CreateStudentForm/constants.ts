@@ -19,7 +19,7 @@ export const initialValues: CreateStudentValidationFormRequest = {
     lastName: "",
     patronymic: "",
     description: "",
-    isActive: false,
+    isActive: true,
     avatar: null,
     additionalImage: null,
     notifications: {

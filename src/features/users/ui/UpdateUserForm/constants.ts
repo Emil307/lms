@@ -8,7 +8,7 @@ export const getInitialValuesForm = (defaultRole: Role) => ({
     lastName: "",
     patronymic: "",
     description: "",
-    isActive: false,
+    isActive: true,
     roleId: String(defaultRole.id),
     roleName: defaultRole.name,
     avatar: null,

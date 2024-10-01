@@ -10,7 +10,7 @@ export const initialParams: Omit<GetAdminSubCategoriesRequest, "filter"> = {
 export const initialValues: UpdateArticleFormValidation = {
     name: "",
     content: "",
-    isActive: false,
+    isActive: true,
     categoryId: "",
     subcategories: [],
     tags: [],

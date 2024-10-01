@@ -22,7 +22,7 @@ export const initialValues: UpdateCourseFormValues = {
     duration: "",
     price: "",
     isInteractive: false,
-    isActive: false,
+    isActive: true,
     isPopular: false,
     hasAuthors: false,
     authorIds: [],

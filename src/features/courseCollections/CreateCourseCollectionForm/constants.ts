@@ -4,5 +4,5 @@ export const initialValues: CreateCourseCollectionFormValidation = {
     cover: null,
     name: "",
     description: "",
-    isActive: false,
+    isActive: true,
 };

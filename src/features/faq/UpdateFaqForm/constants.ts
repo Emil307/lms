@@ -3,6 +3,6 @@ import { UpdateFaqRequest } from "@entities/staticPage";
 export const initialValues: UpdateFaqRequest = {
     question: "",
     answer: "",
-    isActive: false,
+    isActive: true,
     isStatic: false,
 };

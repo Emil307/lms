@@ -10,7 +10,7 @@ export const getInitialValuesForm = (userRole: string): CreateUserValidationForm
         lastName: "",
         patronymic: "",
         description: "",
-        isActive: false,
+        isActive: true,
         roleId: userRole,
         avatar: null,
         additionalImage: null,

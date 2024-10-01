@@ -3,7 +3,7 @@ import { QueryKeys } from "@shared/constant";
 import { CreateArticlePackageFormValidation } from "./types";
 
 export const initialValues: CreateArticlePackageFormValidation = {
-    isActive: false,
+    isActive: true,
     name: "",
     description: "",
     price: "",
