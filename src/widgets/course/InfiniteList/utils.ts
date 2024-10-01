@@ -33,7 +33,7 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
         } else if (prices.length === 2) {
             addFilter("discountPrice", {
                 items: [(prices[0] * 100).toString(), (prices[1] * 100).toString()],
-                operator: "between",
+                operator: "range",
             });
         }
     }
