@@ -6,7 +6,7 @@ import { CategoriesPage } from "@pages/admin/settings";
 
 const Categories: NextPageWithLayout = () => {
     return (
-        <AdminPage title="Категории курсов">
+        <AdminPage title="Категории">
             <CategoriesPage />
         </AdminPage>
     );

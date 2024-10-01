@@ -112,7 +112,7 @@ export default function SidebarMenu() {
                 />
                 <SidebarItem
                     inner={true}
-                    label="Категории курсов"
+                    label="Категории"
                     href="/admin/settings/categories"
                     isActive={router.pathname.includes("/admin/settings/categories")}
                 />

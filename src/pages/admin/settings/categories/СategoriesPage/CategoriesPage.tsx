@@ -24,7 +24,7 @@ const CategoriesPage = () => {
     return (
         <Box>
             <Flex className={classes.headingContainer}>
-                <Heading>Категории курсов</Heading>
+                <Heading>Категории</Heading>
                 <Button
                     variant="secondary"
                     size={isTablet ? "medium" : "large"}
