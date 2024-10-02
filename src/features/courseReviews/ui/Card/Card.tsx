@@ -44,11 +44,14 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                         <Paragraph variant="text-small-m" color="gray45">
                             Курс
                         </Paragraph>
-                        <Link href={{ pathname: "/courses/[id]", query: { id: String(data.course?.id) } }}>
-                            <Flex align="center" gap={8}>
-                                <Text className={classes.courseName}>{data.course?.name}</Text>
-                            </Flex>
-                        </Link>
+                        <Flex align="center" gap={8}>
+                            <Text
+                                component={Link}
+                                href={{ pathname: "/courses/[id]", query: { id: String(data.course?.id) } }}
+                                className={classes.courseName}>
+                                {data.course?.name}
+                            </Text>
+                        </Flex>
                     </Flex>
                 </MCard.Section>
             </Flex>
