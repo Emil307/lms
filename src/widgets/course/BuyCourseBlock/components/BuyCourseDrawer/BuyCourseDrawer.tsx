@@ -24,7 +24,7 @@ const BuyCourseDrawer = (
         if (step === 1) {
             return (
                 <Flex direction="column" align="center">
-                    <Image src={testQr} alt="qr-code" />
+                    <Image src={testQr} width={224} height={220} alt="qr-code" />
                     <Group position="center" mt={24} spacing={4}>
                         <Paragraph variant="large">Платите с помощью QR</Paragraph>
                         <Paragraph variant="small-m" ta="center" color="gray45">
