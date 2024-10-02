@@ -8,6 +8,7 @@ import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
 import { getPath } from "@features/auth/ui/utils";
 import { initialValues } from "./constants";
+
 const ForgotPasswordForm = () => {
     const { classes } = useFormStyles();
     const recoveryPassword = (values: RecoveryPasswordRequest) => {
@@ -45,13 +46,18 @@ const ForgotPasswordForm = () => {
                         onError={onError}
                         disabledLoadingOnSuccess
                         disableOverlay>
-                        {({ dirty }) => {
+                        {({ dirty, isSubmitting }) => {
                             return (
                                 <Flex direction="column" justify="space-between">
                                     <Flex direction="column" gap={24}>
                                         <FInput name="email" label="Email" />
                                         <Flex justify="flex-start" pb={20}>
-                                            <Button type="submit" variant="primary" className={classes.recoveryButton} disabled={!dirty}>
+                                            <Button
+                                                type="submit"
+                                                variant="primary"
+                                                className={classes.recoveryButton}
+                                                disabled={!dirty}
+                                                loading={isSubmitting}>
                                                 Выслать
                                             </Button>
                                         </Flex>
@@ -62,11 +68,9 @@ const ForgotPasswordForm = () => {
                     </ManagedForm>
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
-                    <Link href={`${getPath()}?action=auth`}>
-                        <Button variant="text" className={classes.rememberPassword}>
-                            Вспомнили пароль?
-                        </Button>
-                    </Link>
+                    <Button variant="text" className={classes.rememberPassword}>
+                        Вспомнили пароль?
+                    </Button>
                     <Link href={`${getPath()}?action=auth`}>
                         <Button variant="secondary" className={classes.signUpButton} size="medium">
                             Войти

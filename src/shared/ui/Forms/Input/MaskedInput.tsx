@@ -17,17 +17,17 @@ export interface MaskedInputProps extends Omit<MantineInputProps, "onChange" | "
 export function MaskedInput({ keepMask = false, maskGenerator, value, size, error, ...props }: MaskedInputProps) {
     const [focused, setFocused] = useState(false);
 
-    const { classes } = useInputStyles({
-        floating: !!value?.toString().length || focused,
-        icon: props.icon,
-        size,
-    });
-
     const maskProps = useWebMask({
         maskGenerator,
         value: value as string,
         onChange: (val) => props.onChange?.(val),
         keepMask,
+    });
+
+    const { classes } = useInputStyles({
+        floating: !!value?.toString().length || focused || !!maskProps.value,
+        icon: props.icon,
+        size,
     });
 
     const renderError = useCallback(() => {
