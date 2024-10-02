@@ -1,7 +1,7 @@
 import { Card as MCard, CardProps as MCardProps, Flex, Text } from "@mantine/core";
 import { memo } from "react";
-import { useRouter } from "next/router";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { Paragraph, Rating } from "@shared/ui";
 import { CourseReviewFromList } from "@entities/courseReview";
 import { useMedia } from "@shared/utils";
@@ -14,14 +14,8 @@ export interface CardProps extends Omit<MCardProps, "children"> {
 }
 
 const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps) {
-    const router = useRouter();
     const { classes, cx } = useStyles();
 
-    const handleOpenCourse = () =>
-        router.push({
-            pathname: "/courses/[id]",
-            query: { id: String(data.course?.id) },
-        });
     const isTablet = useMedia("sm");
 
     return (
@@ -50,9 +44,11 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                         <Paragraph variant="text-small-m" color="gray45">
                             Курс
                         </Paragraph>
-                        <Flex align="center" gap={8} onClick={handleOpenCourse}>
-                            <Text className={classes.courseName}>{data.course?.name}</Text>
-                        </Flex>
+                        <Link href={{ pathname: "/courses/[id]", query: { id: String(data.course?.id) } }}>
+                            <Flex align="center" gap={8}>
+                                <Text className={classes.courseName}>{data.course?.name}</Text>
+                            </Flex>
+                        </Link>
                     </Flex>
                 </MCard.Section>
             </Flex>
