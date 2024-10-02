@@ -61,7 +61,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                             Больше знаний в комплексе
                         </Text>
                         <Text ta="center" className={classes.description}>
-                            Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов.
+                            Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов
                         </Text>
                     </Flex>
                 </Heading>
