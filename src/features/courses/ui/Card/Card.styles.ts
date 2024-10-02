@@ -4,6 +4,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
     root: {
         ref: getRef("root"),
         width: "100%",
+        minWidth: 392,
         height: 520,
         borderRadius: 32,
         backgroundColor: theme.colors.neutralLight[0],
@@ -15,6 +16,10 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }, get
             [`.${getRef("title")}`]: {
                 color: theme.colors.gray45[0],
             },
+        },
+
+        [theme.fn.smallerThan("sm")]: {
+            minWidth: 343,
         },
     },
     cardImageSection: {
