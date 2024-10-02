@@ -85,7 +85,11 @@ export const useAuthPay = ({ entityType, entityId, entityName, entityPrice, setO
         }
 
         if (setOpened) {
-            return router.push({ pathname: router.pathname, query: { ...router.query, action: "auth" } }, undefined, { shallow: true });
+            return router.push(
+                { pathname: router.pathname, query: { ...router.query, action: "auth", redirect: "none", buy: "true" } },
+                undefined,
+                { shallow: true }
+            );
         }
         openAuthModal();
     };

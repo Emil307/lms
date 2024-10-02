@@ -19,6 +19,12 @@ export const useAuthenticateMe = ({
     skipRedirect,
 }: UseAuthenticateMeProps): UseMutationResult<AuthenticateResponse, AxiosError<FormErrorResponse>, AuthFormValidationSchema> => {
     const router = useRouter();
+
+    const removeRedirectParam = () => {
+        const { redirect, ...query } = router.query;
+        router.replace({ pathname: router.pathname, query }, undefined, { shallow: true });
+    };
+
     return useMutation([MutationKeys.AUTHENTICATE_ME], (data: AuthFormValidationSchema) => authApi.authMe(data), {
         onSuccess: async (response) => {
             setCookie(ECookies.TOKEN, response.data.accessToken);
@@ -26,7 +32,8 @@ export const useAuthenticateMe = ({
             const userRole = response.meta.user.roles[0].name;
             setCookie(ECookies.USER_ROLE, userRole);
 
-            if (skipRedirect) {
+            if (skipRedirect || router.query.redirect === "none") {
+                removeRedirectParam();
                 return;
             }
 
