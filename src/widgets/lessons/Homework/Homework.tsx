@@ -40,7 +40,7 @@ const Homework = ({ lesson, courseId, groupId }: HomeworkProps) => {
             setVisibleCollapsedView(false);
             setOpenedHomeworkDetails(true);
 
-            if (answerStatus === "completed" || lesson.lessonStatus.name !== "inProgress") {
+            if (answerStatus === "completed") {
                 setOpenedHomeworkAnswerForm(false);
             } else {
                 setOpenedHomeworkAnswerForm(true);
