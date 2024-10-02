@@ -98,6 +98,9 @@ export type GroupFromList = z.infer<typeof $GroupFromList>;
 export type GroupsCount = z.infer<typeof $GroupsCount>;
 export type GroupStatus = z.infer<typeof $GroupStatus>;
 export type GroupStatusName = z.infer<typeof $GroupStatusName>;
+/**
+ * @deprecated
+ */
 export type GroupAuthor = z.infer<typeof $GroupAuthor>;
 export type GroupTag = z.infer<typeof $GroupTag>;
 export type GroupCategory = z.infer<typeof $GroupCategory>;
@@ -194,6 +197,9 @@ export const $AdminGroup = z.object({
         isDemonstrative: true,
         isFulfillment: true,
         hasDiscount: true,
+        /**
+         * @deprecated
+         */
         hasAuthors: true,
         hasTeachers: true,
         createdAt: true,
@@ -573,13 +579,16 @@ export const $GroupStatus = z.object({
 });
 
 //TODO: Заменить из апи авторов
+/**
+ * @deprecated
+ */
 export const $GroupAuthor = z.object({
     firstName: z.string(),
     lastName: z.string(),
     patronymic: z.string().nullable(),
     description: z.string().nullable(),
     avatar: $UploadedFile.nullable(),
-});
+}).nullish();
 
 export const $GroupsCount = z.object({
     name: z.string(),
@@ -616,7 +625,10 @@ export const $Group = z.object({
     cover: $UploadedFile.nullable(),
     category: $GroupCategory.nullable(),
     tags: $GroupTag.array(),
-    authors: $GroupAuthor.array(),
+    /**
+     * @deprecated
+     */
+    authors: $GroupAuthor.array().nullish(),
     rating: z.object({
         reviewsCount: z.number(),
         averageRating: z.number(),

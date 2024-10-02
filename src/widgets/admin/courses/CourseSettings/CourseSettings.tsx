@@ -11,7 +11,6 @@ import { useUserRole } from "@entities/auth";
 import { InfoCard } from "@components/InfoCard";
 import { Fieldset } from "@components/Fieldset";
 import FileLeftIcon from "public/icons/file-left.svg";
-import UserLeftIcon from "public/icons/user-left.svg";
 import IconStarFull from "@public/icons/icon24px/rating/star-full.svg";
 import { Roles } from "@shared/types";
 import { DeleteCourseButton } from "./components";
@@ -125,17 +124,6 @@ const CourseSettings = ({ data }: CourseSettingsProps) => {
                             label="ФИО"
                             value={data.teachers
                                 .map((teacher) => getFullName({ data: teacher.profile, startWithLastName: false, hidePatronymic: true }))
-                                .join(", ")}
-                        />
-                    </Fieldset>
-                )}
-
-                {data.hasAuthors && data.authors.length > 0 && (
-                    <Fieldset label="Авторы курса" icon={<UserLeftIcon />}>
-                        <DisplayField
-                            label="ФИО"
-                            value={data.authors
-                                .map((author) => getFullName({ data: author, startWithLastName: false, hidePatronymic: true }))
                                 .join(", ")}
                         />
                     </Fieldset>

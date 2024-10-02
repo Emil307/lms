@@ -14,7 +14,7 @@ export const keysInvalidateQueries: InvalidateQueriesKey[] = [
     {
         queryKey: [
             QueryKeys.GET_ADMIN_COURSE_RESOURCES,
-            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR, EntityNames.USER],
+            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER],
             { type: FilterTypes.MANIPULATION },
         ],
     },

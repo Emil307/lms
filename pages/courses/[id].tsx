@@ -29,7 +29,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                     EntityNames.LESSON_TEST,
                     EntityNames.CATEGORY,
                     EntityNames.TAG,
-                    EntityNames.AUTHOR,
                     EntityNames.USER,
                     EntityNames.COURSE_REVIEW,
                 ],

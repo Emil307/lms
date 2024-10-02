@@ -171,12 +171,6 @@ export default function Sidebar() {
                             isInner
                         />
                         <SidebarItem
-                            label="Авторы курсов"
-                            href="/admin/settings/authors"
-                            isActive={router.pathname.includes("/admin/settings/authors")}
-                            isInner
-                        />
-                        <SidebarItem
                             label="Справочник материалов"
                             href="/admin/settings/materials"
                             isActive={router.pathname.includes("/admin/settings/materials")}

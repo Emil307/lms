@@ -5,7 +5,7 @@ import { closeModal, openModal } from "@mantine/modals";
 import { BreadCrumbs, Loader, Tabs } from "@shared/ui";
 import { TRouterQueries } from "@shared/types";
 import { useGroup } from "@entities/group";
-import { AuthorsInfo, MainInfoPanel, MaterialsProgramTrainingList, MyCourseArticles, ProgramTrainingList } from "@widgets/myCourses";
+import { MainInfoPanel, MaterialsProgramTrainingList, MyCourseArticles, ProgramTrainingList } from "@widgets/myCourses";
 import { CarouselList as ArticlePackageCarouselList } from "@widgets/articlePackages";
 import { AboutFinishGroupModal } from "@features/groups";
 import { CreateCourseReviewForm } from "@features/courseReviews";
@@ -92,7 +92,6 @@ const MyCourseDetailsPage = () => {
 
             <Flex direction="column" gap={16}>
                 <MainInfoPanel data={groupData} />
-                <AuthorsInfo data={groupData} />
             </Flex>
             <Tabs value={currentTab} tabs={tabsList} onTabChange={handleChangeTab} />
             {renderContent()}

@@ -6,11 +6,7 @@ import { FormErrorResponse } from "@shared/types";
 
 export const useGroup = ({ id }: GetGroupRequest): UseQueryResult<GetGroupResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
-        [
-            QueryKeys.GET_GROUP,
-            [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
-            id,
-        ],
+        [QueryKeys.GET_GROUP, [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG], id],
         () => groupApi.getGroup({ id }),
         {
             enabled: !!id,

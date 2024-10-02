@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Paragraph, Rating } from "@shared/ui";
 import { CourseReviewFromList } from "@entities/courseReview";
 import { useMedia } from "@shared/utils";
-import { AuthorInfo } from "./components";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
@@ -23,7 +22,6 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
             <Flex direction="column" justify="space-between" h="100%">
                 <MCard.Section className={classes.section}>
                     <Flex gap={16} direction={{ base: "column", xs: "row" }}>
-                        <AuthorInfo data={data} />
                         {!isTablet && (
                             <Paragraph variant="text-small-m" color="gray45" m="auto">
                                 {dayjs(data.createdAt).format("D MMM YYYY")}

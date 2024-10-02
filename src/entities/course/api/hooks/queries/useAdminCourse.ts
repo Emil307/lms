@@ -8,7 +8,7 @@ export const useAdminCourse = (id: string): UseQueryResult<GetAdminCourseRespons
     return useQuery(
         [
             QueryKeys.GET_ADMIN_COURSE,
-            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.AUTHOR, EntityNames.COURSE_REVIEW],
+            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_REVIEW],
             id,
         ],
         () => courseApi.getAdminCourse(id),

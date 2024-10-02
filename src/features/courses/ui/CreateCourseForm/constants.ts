@@ -26,7 +26,13 @@ export const initialValues: CreateCourseFormValues = {
     isInteractive: false,
     isActive: true,
     isPopular: false,
+    /**
+     * @deprecated
+     */
     hasAuthors: false,
+    /**
+     * @deprecated
+     */
     authorIds: [],
     hasTeachers: false,
     teacherIds: [],

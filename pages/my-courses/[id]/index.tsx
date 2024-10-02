@@ -21,7 +21,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         const response = await queryClient.fetchQuery(
             [
                 QueryKeys.GET_GROUP,
-                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
+                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG],
                 id,
             ],
             () => groupApi.getGroup({ id })

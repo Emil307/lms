@@ -8,11 +8,7 @@ export const useAdminCourseResources = (
     params: GetAdminCourseResourcesRequest
 ): UseQueryResult<GetAdminCourseResourcesResponse, AxiosError<FormErrorResponse>> => {
     return useQuery(
-        [
-            QueryKeys.GET_ADMIN_COURSE_RESOURCES,
-            [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR, EntityNames.USER],
-            params,
-        ],
+        [QueryKeys.GET_ADMIN_COURSE_RESOURCES, [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER], params],
         () => courseApi.getAdminCourseResources(params)
     );
 };

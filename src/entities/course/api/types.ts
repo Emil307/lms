@@ -91,6 +91,9 @@ export type CourseDetails = z.infer<typeof $CourseDetails>;
 export type MyCourse = z.infer<typeof $MyCourse>;
 export type CourseFromList = z.infer<typeof $CourseFromList>;
 export type CourseRating = z.infer<typeof $CourseRating>;
+/**
+ * @deprecated
+ */
 export type CourseAuthor = z.infer<typeof $CourseAuthor>;
 export type CourseModule = z.infer<typeof $CourseModule>;
 export type CourseModuleLesson = z.infer<typeof $CourseModuleLesson>;
@@ -160,12 +163,16 @@ const $AdminCourseTeacher = z.object({
         })
         .optional(),
 });
-
-const $AdminCourseAuthor = z.object({
-    id: z.number().optional(),
-    firstName: z.string(),
-    lastName: z.string(),
-});
+/**
+ * @deprecated
+ */
+const $AdminCourseAuthor = z
+    .object({
+        id: z.number().optional(),
+        firstName: z.string(),
+        lastName: z.string(),
+    })
+    .nullish();
 
 const $AdminCourseDiscountType = z.object({
     type: z.string(),
@@ -192,8 +199,14 @@ export const $AdminCourse = z.object({
     hasTeachers: z.boolean().optional(),
     teachers: z.array($AdminCourseTeacher),
     subcategory: $AdminCourseCategory.nullable(),
-    hasAuthors: z.boolean().optional(),
-    authors: z.array($AdminCourseAuthor),
+    /**
+     * @deprecated
+     */
+    hasAuthors: z.boolean().optional().nullish(),
+    /**
+     * @deprecated
+     */
+    authors: z.array($AdminCourseAuthor).nullish(),
     rating: $AdminCourseRating.nullable(),
     duration: z.string().nullable(),
     hasDiscount: z.boolean().optional(),
@@ -221,7 +234,10 @@ export const $GetAdminCourseResourcesResponse = z.object({
     categories: z.array($AdminCourseCategory),
     subcategories: z.array($AdminCourseCategory),
     tags: z.array($AdminCourseTag),
-    authors: z.array($AdminCourseAuthor),
+    /**
+     * @deprecated
+     */
+    authors: z.array($AdminCourseAuthor).nullish(),
     teachers: z.array($AdminCourseTeacher),
     discountTypes: z.array($AdminCourseDiscountType),
 });
@@ -319,8 +335,14 @@ export const $CreateCourseFormValues = z
         category: z.string().optional(),
         subCategory: z.string().optional(),
         tagIds: z.array(z.string()),
-        hasAuthors: z.boolean(),
-        authorIds: z.array(z.string()),
+        /**
+         * @deprecated
+         */
+        hasAuthors: z.boolean().nullish(),
+        /**
+         * @deprecated
+         */
+        authorIds: z.array(z.string()).nullish(),
         hasTeachers: z.boolean(),
         teacherIds: z.array(z.string()),
         name: z.string({ required_error: "Введите название" }),
@@ -401,18 +423,6 @@ export const $CreateCourseFormValues = z
             message: "Выберите преподавателей",
             path: ["teacherIds"],
         }
-    )
-    .refine(
-        (data) => {
-            if (!data.hasAuthors) {
-                return true;
-            }
-            return data.authorIds.length > 0;
-        },
-        {
-            message: "Выберите Авторов",
-            path: ["authorIds"],
-        }
     );
 
 export const $CreateCourseRequest = z.object({
@@ -420,8 +430,14 @@ export const $CreateCourseRequest = z.object({
     categoryId: z.number().optional(),
     subcategoryId: z.number().optional(),
     tagIds: z.array(z.string()),
-    hasAuthors: z.boolean(),
-    authorIds: z.array(z.string()),
+    /**
+     * @deprecated
+     */
+    hasAuthors: z.boolean().nullish(),
+    /**
+     * @deprecated
+     */
+    authorIds: z.array(z.string()).nullish(),
     hasTeachers: z.boolean(),
     teacherIds: z.array(z.string()),
     name: z.string(),
@@ -611,13 +627,18 @@ export const $CourseRating = z.object({
 });
 
 //TODO: Заменить из апи авторов
-export const $CourseAuthor = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    patronymic: z.string().nullable(),
-    description: z.string().nullable(),
-    avatar: $UploadedFile.nullable(),
-});
+/**
+ * @deprecated
+ */
+export const $CourseAuthor = z
+    .object({
+        firstName: z.string(),
+        lastName: z.string(),
+        patronymic: z.string().nullable(),
+        description: z.string().nullable(),
+        avatar: $UploadedFile.nullable(),
+    })
+    .nullish();
 
 export const $CourseModuleLesson = z.object({
     id: z.number(),
@@ -655,7 +676,10 @@ export const $Course = z.object({
     category: $CourseCategory.nullable(),
     subcategory: $CourseCategory.nullable(),
     tags: $CourseTag.array(),
-    authors: $CourseAuthor.array(),
+    /**
+     * @deprecated
+     */
+    authors: $CourseAuthor.array().nullish(),
     teachers: $StaticUserFromList.array(),
     discount: $Discount.nullable(),
     rating: $CourseRating.nullable(),
@@ -685,13 +709,18 @@ export const $MyCourseStatus = z.object({
 });
 
 //TODO: Заменить из апи авторов
-export const $MyCourseAuthor = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    patronymic: z.string().nullable(),
-    description: z.string().nullable(),
-    avatar: $UploadedFile.nullable(),
-});
+/**
+ * @deprecated
+ */
+export const $MyCourseAuthor = z
+    .object({
+        firstName: z.string(),
+        lastName: z.string(),
+        patronymic: z.string().nullable(),
+        description: z.string().nullable(),
+        avatar: $UploadedFile.nullable(),
+    })
+    .nullish();
 
 export const $GroupsCount = z.object({
     name: z.string(),
@@ -725,7 +754,10 @@ export const $MyCourse = z.object({
     cover: $UploadedFile.nullable(),
     category: $MyCourseCategory.nullable(),
     tags: $MyCourseTag.array(),
-    authors: $MyCourseAuthor.array(),
+    /**
+     * @deprecated
+     */
+    authors: $MyCourseAuthor.array().nullish(),
     rating: z.object({
         reviewsCount: z.number(),
         averageRating: z.number(),
@@ -819,6 +851,9 @@ export const $CourseDetails = $Course.pick({
     cover: true,
     category: true,
     tags: true,
+    /**
+     * @deprecated
+     */
     authors: true,
     teachers: true,
     discount: true,

@@ -37,7 +37,7 @@ export const useUpdateCourseFavoriteStatus = ({
                         EntityNames.LESSON_TEST,
                         EntityNames.CATEGORY,
                         EntityNames.TAG,
-                        EntityNames.AUTHOR,
+
                         EntityNames.USER,
                         EntityNames.COURSE_REVIEW,
                     ],
@@ -57,7 +57,7 @@ export const useUpdateCourseFavoriteStatus = ({
                     EntityNames.LESSON_TEST,
                     EntityNames.CATEGORY,
                     EntityNames.TAG,
-                    EntityNames.AUTHOR,
+
                     EntityNames.USER,
                     EntityNames.COURSE_REVIEW,
                 ],
@@ -77,7 +77,7 @@ export const useUpdateCourseFavoriteStatus = ({
                         EntityNames.LESSON_TEST,
                         EntityNames.CATEGORY,
                         EntityNames.TAG,
-                        EntityNames.AUTHOR,
+
                         EntityNames.USER,
                         EntityNames.COURSE_REVIEW,
                     ],
@@ -130,7 +130,7 @@ export const useUpdateCourseFavoriteStatus = ({
                     EntityNames.LESSON_TEST,
                     EntityNames.CATEGORY,
                     EntityNames.TAG,
-                    EntityNames.AUTHOR,
+
                     EntityNames.USER,
                     EntityNames.COURSE_REVIEW,
                 ],
@@ -152,7 +152,7 @@ export const useUpdateCourseFavoriteStatus = ({
                             EntityNames.LESSON_TEST,
                             EntityNames.CATEGORY,
                             EntityNames.TAG,
-                            EntityNames.AUTHOR,
+
                             EntityNames.USER,
                             EntityNames.COURSE_REVIEW,
                         ],

@@ -35,7 +35,6 @@ import { Fieldset } from "@components/Fieldset";
 import { createNotification, getDiscountPrice, ToastType } from "@shared/utils";
 import { useAdminSubCategories } from "@entities/category";
 import FileLeftIcon from "public/icons/file-left.svg";
-import UserLeftIcon from "public/icons/user-left.svg";
 import { adaptDataForUpdateCourseForm, adaptUpdateCourseRequest } from "./utils";
 import { initialParams, radioGroupValues } from "./constants";
 import useStyles from "./UpdateCourseForm.styles";
@@ -92,13 +91,8 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
             value: "id",
             label: (data) => `${data.profile?.lastName} ${data.profile?.firstName}`,
         });
-        const authorIds = prepareOptionsForSelect({
-            data: coursesResources?.authors,
-            value: "id",
-            label: (data) => `${data.lastName} ${data.firstName}`,
-        });
 
-        return { categories, subCategories, tags, teacherIds, authorIds };
+        return { categories, subCategories, tags, teacherIds };
     }, [coursesResources, subCategoriesResource]);
 
     const onSuccessUpdate = () => {
@@ -262,23 +256,6 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                                 />
                             </Fieldset>
 
-                            <Fieldset
-                                label="Авторы курса"
-                                icon={<UserLeftIcon />}
-                                extraElement={<FSwitch name="hasAuthors" variant="secondary" disabled={isLoadingResources} />}
-                                isOpen={values.hasAuthors}
-                                maw={772}
-                                legendProps={{ mb: values.hasAuthors ? 24 : 0 }}>
-                                <FMultiSelect
-                                    name="authorIds"
-                                    size="sm"
-                                    data={optionsForSelects.authorIds}
-                                    clearable
-                                    label="Найти авторов"
-                                    disabled={isLoadingResources || !optionsForSelects.authorIds.length}
-                                    w="100%"
-                                />
-                            </Fieldset>
                             <FControlButtons onClose={onCancel} />
                         </Flex>
                     );

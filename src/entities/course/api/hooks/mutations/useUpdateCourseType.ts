@@ -19,41 +19,20 @@ export const useUpdateCourseType = ({
             await queryClient.cancelQueries({
                 queryKey: [
                     QueryKeys.GET_ADMIN_COURSE,
-                    [
-                        EntityNames.COURSE,
-                        EntityNames.CATEGORY,
-                        EntityNames.TAG,
-                        EntityNames.USER,
-                        EntityNames.AUTHOR,
-                        EntityNames.COURSE_REVIEW,
-                    ],
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_REVIEW],
                     id,
                 ],
             });
             const previousCourseData = queryClient.getQueryData<GetAdminCourseResponse>([
                 QueryKeys.GET_ADMIN_COURSE,
-                [
-                    EntityNames.COURSE,
-                    EntityNames.CATEGORY,
-                    EntityNames.TAG,
-                    EntityNames.USER,
-                    EntityNames.AUTHOR,
-                    EntityNames.COURSE_REVIEW,
-                ],
+                [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_REVIEW],
                 id,
             ]);
 
             queryClient.setQueryData<GetAdminCourseResponse>(
                 [
                     QueryKeys.GET_ADMIN_COURSE,
-                    [
-                        EntityNames.COURSE,
-                        EntityNames.CATEGORY,
-                        EntityNames.TAG,
-                        EntityNames.USER,
-                        EntityNames.AUTHOR,
-                        EntityNames.COURSE_REVIEW,
-                    ],
+                    [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_REVIEW],
                     id,
                 ],
                 (previousData) => previousData && { ...previousData, type: updatedType }
@@ -66,14 +45,7 @@ export const useUpdateCourseType = ({
                 queryClient.setQueryData(
                     [
                         QueryKeys.GET_ADMIN_COURSE,
-                        [
-                            EntityNames.COURSE,
-                            EntityNames.CATEGORY,
-                            EntityNames.TAG,
-                            EntityNames.USER,
-                            EntityNames.AUTHOR,
-                            EntityNames.COURSE_REVIEW,
-                        ],
+                        [EntityNames.COURSE, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.USER, EntityNames.COURSE_REVIEW],
                         id,
                     ],
                     context.previousCourseData

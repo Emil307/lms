@@ -8,13 +8,11 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         isPopular = false,
         hasDiscount = false,
         hasTeachers = false,
-        hasAuthors = false,
         discount,
         type,
         category,
         subcategory,
         teachers,
-        authors,
         tags,
         description,
         shortDescription,
@@ -30,7 +28,6 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         isActive,
         isPopular,
         hasTeachers,
-        hasAuthors,
         hasDiscount,
         price: price ? String(price) : "0",
         isInteractive: type === "interactive",
@@ -39,7 +36,10 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
         category: category?.id.toString() ?? "",
         subCategory: subcategory?.id.toString() ?? "",
         teacherIds: teachers.map((teacher) => String(teacher.id)),
-        authorIds: authors.map((author) => String(author.id)),
+        /**
+         * @deprecated
+         */
+        authorIds: [],
         tagIds: tags.map((tag) => String(tag.id)),
         discount: discount
             ? {
@@ -53,7 +53,7 @@ export const adaptDataForUpdateCourseForm = (data: AdminCourse): UpdateCourseFor
 };
 
 export const adaptUpdateCourseRequest = (id: string, data: UpdateCourseFormValues): UpdateCourseRequest => {
-    const { price, category, subCategory, discount, isInteractive, cover, teacherIds, authorIds, ...rest } = data;
+    const { price, category, subCategory, discount, isInteractive, cover, teacherIds, ...rest } = data;
     return {
         id,
         ...rest,
@@ -63,7 +63,10 @@ export const adaptUpdateCourseRequest = (id: string, data: UpdateCourseFormValue
         subcategoryId: Number(subCategory) || undefined,
         type: isInteractive ? "interactive" : "autonomous",
         teacherIds: rest.hasTeachers ? teacherIds : [],
-        authorIds: rest.hasAuthors ? authorIds : [],
+        /**
+         * @deprecated
+         */
+        authorIds: [],
         discount: rest.hasDiscount
             ? {
                   ...discount,

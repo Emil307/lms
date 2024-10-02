@@ -5,7 +5,7 @@ export const getKeysInvalidateQueries = (groupId: string) => {
         {
             queryKey: [
                 QueryKeys.GET_GROUP,
-                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG, EntityNames.AUTHOR],
+                [EntityNames.GROUP, EntityNames.COURSE, EntityNames.LESSON, EntityNames.CATEGORY, EntityNames.TAG],
                 groupId,
             ],
         },
