@@ -12,7 +12,7 @@ workflow:
 include:
   - project: "infrastructure/ci-templates"
     ref: develop
-    file: "frontend/next-standalone-build.gitlab-ci.yml"
+    file: "frontend/next-standalone-build.v2.gitlab-ci.yml"
 
 
 variables:
