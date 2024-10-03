@@ -3,13 +3,10 @@ import { BaseApi, HTTPMethod } from "@shared/utils";
 import {
     $AttachStudentsToGroupResponse,
     $CreateAdminGroupResponse,
-    $CreateAdminGroupScheduleResponse,
     $DeleteAdminGroupResponse,
-    $DeleteAdminGroupScheduleResponse,
     $DeleteStudentsFromGroupResponse,
     $GetAdminGroupFiltersResponse,
     $GetAdminGroupResponse,
-    $GetAdminGroupSchedulesResponse,
     $GetAdminGroupStudentsResponse,
     $GetAdminGroupsResponse,
     $GetAdminStudentGroupsResponse,
@@ -20,26 +17,19 @@ import {
     $GetGroupsResponse,
     $GetGroupsSchedulesInfoResponse,
     $UpdateAdminGroupResponse,
-    $UpdateAdminGroupScheduleResponse,
     $UpdateGroupActivityResponse,
     AttachStudentsToGroupRequest,
     AttachStudentsToGroupResponse,
     CreateAdminGroupRequest,
     CreateAdminGroupResponse,
-    CreateAdminGroupScheduleRequest,
-    CreateAdminGroupScheduleResponse,
     DeleteAdminGroupRequest,
     DeleteAdminGroupResponse,
-    DeleteAdminGroupScheduleRequest,
-    DeleteAdminGroupScheduleResponse,
     DeleteStudentsFromGroupRequest,
     DeleteStudentsFromGroupResponse,
     GetAdminGroupFiltersRequest,
     GetAdminGroupFiltersResponse,
     GetAdminGroupRequest,
     GetAdminGroupResponse,
-    GetAdminGroupSchedulesRequest,
-    GetAdminGroupSchedulesResponse,
     GetAdminGroupStudentsRequest,
     GetAdminGroupStudentsResponse,
     GetAdminGroupsRequest,
@@ -54,8 +44,6 @@ import {
     GetGroupsSchedulesInfoResponse,
     UpdateAdminGroupRequest,
     UpdateAdminGroupResponse,
-    UpdateAdminGroupScheduleRequest,
-    UpdateAdminGroupScheduleResponse,
     UpdateGroupActivityRequest,
     UpdateGroupActivityResponse,
     GetAdminGroupStudentStatisticsRequest,
@@ -113,31 +101,6 @@ export class GroupApi extends BaseApi {
     async deleteStudentsFromGroup({ groupId, ...data }: DeleteStudentsFromGroupRequest): Promise<DeleteStudentsFromGroupResponse> {
         const response = await this.instance.delete(`courses/admin/groups/${groupId}/students`, { data });
         return $DeleteStudentsFromGroupResponse.parse(response);
-    }
-
-    //schedules
-    async getAdminGroupSchedules({ groupId, ...params }: GetAdminGroupSchedulesRequest): Promise<GetAdminGroupSchedulesResponse> {
-        const response = await this.instance.post(`courses/admin/groups/${groupId}/schedules/list`, params);
-        return $GetAdminGroupSchedulesResponse.parse(response);
-    }
-
-    async createAdminGroupSchedule({ groupId, ...data }: CreateAdminGroupScheduleRequest): Promise<CreateAdminGroupScheduleResponse> {
-        const response = await this.instance.post(`courses/admin/groups/${groupId}/schedules`, data);
-        return $CreateAdminGroupScheduleResponse.parse(response);
-    }
-
-    async updateAdminGroupSchedule({
-        groupId,
-        scheduleId,
-        ...data
-    }: UpdateAdminGroupScheduleRequest): Promise<UpdateAdminGroupScheduleResponse> {
-        const response = await this.instance.put(`courses/admin/groups/${groupId}/schedules/${scheduleId}`, data);
-        return $UpdateAdminGroupScheduleResponse.parse(response);
-    }
-
-    async deleteAdminGroupSchedule({ groupId, scheduleId }: DeleteAdminGroupScheduleRequest): Promise<DeleteAdminGroupScheduleResponse> {
-        const response = await this.instance.delete(`courses/admin/groups/${groupId}/schedules/${scheduleId}`);
-        return $DeleteAdminGroupScheduleResponse.parse(response);
     }
 
     //students <-> group

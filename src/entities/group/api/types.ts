@@ -38,7 +38,7 @@ export type AdminGroupStudentHomeworksStatistics = z.infer<typeof $AdminGroupStu
 //schedules
 export type AdminGroupSchedule = z.infer<typeof $AdminGroupSchedule>;
 export type AdminGroupScheduleTiming = z.infer<typeof $AdminGroupScheduleTiming>;
-export type AdminGroupScheduleFromList = z.infer<typeof $AdminGroupScheduleFromList>;
+
 //students <-> group
 export type AdminStudentGroupFromList = z.infer<typeof $AdminStudentGroupFromList>;
 export type AdminStudentGroupStatusType = z.infer<typeof $AdminStudentGroupStatusType>;
@@ -75,15 +75,9 @@ export type AttachStudentsToGroupRequest = z.infer<typeof $AttachStudentsToGroup
 export type AttachStudentsToGroupResponse = z.infer<typeof $AttachStudentsToGroupResponse>;
 export type DeleteStudentsFromGroupRequest = z.infer<typeof $DeleteStudentsFromGroupRequest>;
 export type DeleteStudentsFromGroupResponse = z.infer<typeof $DeleteStudentsFromGroupResponse>;
-//schedules
-export type GetAdminGroupSchedulesRequest = z.infer<typeof $GetAdminGroupSchedulesRequest>;
-export type GetAdminGroupSchedulesResponse = z.infer<typeof $GetAdminGroupSchedulesResponse>;
-export type CreateAdminGroupScheduleRequest = z.infer<typeof $CreateAdminGroupScheduleRequest>;
-export type CreateAdminGroupScheduleResponse = z.infer<typeof $CreateAdminGroupScheduleResponse>;
-export type UpdateAdminGroupScheduleRequest = z.infer<typeof $UpdateAdminGroupScheduleRequest>;
-export type UpdateAdminGroupScheduleResponse = z.infer<typeof $UpdateAdminGroupScheduleResponse>;
-export type DeleteAdminGroupScheduleRequest = z.infer<typeof $DeleteAdminGroupScheduleRequest>;
-export type DeleteAdminGroupScheduleResponse = z.infer<typeof $DeleteAdminGroupScheduleResponse>;
+
+
+
 //students <-> group
 export type GetAdminStudentGroupsRequest = z.infer<typeof $GetAdminStudentGroupsRequest>;
 export type GetAdminStudentGroupsResponse = z.infer<typeof $GetAdminStudentGroupsResponse>;
@@ -461,58 +455,11 @@ export const $AdminGroupSchedule = z.object({
     timings: $AdminGroupScheduleTiming.array(),
 });
 
-export const $AdminGroupScheduleFromList = $AdminGroupSchedule;
-
-export const $GetAdminGroupSchedulesResponse = $getPaginationResponseType($AdminGroupScheduleFromList);
-
 export const $AdminGroupSchedulesExtraFilters = z.object({
     groupId: z.string(),
 });
 
-export const $AdminGroupSchedulesRequest = z.object({
-    groupId: z.string(),
-});
 
-export const $GetAdminGroupSchedulesRequest = $getFiltersRequestType($AdminGroupSchedulesRequest);
-
-export const $CreateAdminGroupScheduleRequest = z.object({
-    groupId: z.string(),
-    scheduleDate: z.string().datetime(),
-    scheduleTimings: z.array(
-        z
-            .object({
-                from: z.string().datetime(),
-                to: z.string().datetime(),
-            })
-            .optional()
-    ),
-});
-
-export const $CreateAdminGroupScheduleResponse = z.null();
-
-export const $UpdateAdminGroupScheduleRequest = z.object({
-    groupId: z.string(),
-    scheduleDate: z.string().datetime(),
-    scheduleTimings: z.array(
-        z
-            .object({
-                id: z.number().optional(),
-                from: z.string().datetime(),
-                to: z.string().datetime(),
-            })
-            .optional()
-    ),
-    scheduleId: z.number(),
-});
-
-export const $UpdateAdminGroupScheduleResponse = z.null();
-
-export const $DeleteAdminGroupScheduleRequest = z.object({
-    groupId: z.string(),
-    scheduleId: z.number(),
-});
-
-export const $DeleteAdminGroupScheduleResponse = z.null();
 
 //students <-> group
 
@@ -582,13 +529,15 @@ export const $GroupStatus = z.object({
 /**
  * @deprecated
  */
-export const $GroupAuthor = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    patronymic: z.string().nullable(),
-    description: z.string().nullable(),
-    avatar: $UploadedFile.nullable(),
-}).nullish();
+export const $GroupAuthor = z
+    .object({
+        firstName: z.string(),
+        lastName: z.string(),
+        patronymic: z.string().nullable(),
+        description: z.string().nullable(),
+        avatar: $UploadedFile.nullable(),
+    })
+    .nullish();
 
 export const $GroupsCount = z.object({
     name: z.string(),

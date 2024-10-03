@@ -5,7 +5,7 @@ import { BreadCrumbs, Tabs, Loader } from "@shared/ui";
 import { useAdminGroup } from "@entities/group";
 import { InfoPanel, GroupSettings } from "@widgets/admin/groups";
 import { TRouterQueries } from "@shared/types";
-import { GroupScheduleList, StudentList } from "@features/groups";
+import { StudentList } from "@features/groups";
 import { useUserRole } from "@entities/auth";
 import { tabsList } from "./constants";
 import { getBreadCrumbsItems } from "./utils";
@@ -45,8 +45,6 @@ const GroupDetailsPage = () => {
         switch (currentTab) {
             case "composition":
                 return <StudentList groupId={id} courseId={groupData.course.id} />;
-            case "schedule":
-                return <GroupScheduleList groupId={id} />;
             default:
                 return <GroupSettings id={id} />;
         }
