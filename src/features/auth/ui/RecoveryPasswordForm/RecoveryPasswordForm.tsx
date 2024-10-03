@@ -34,7 +34,7 @@ const RecoveryPasswordForm = () => {
                         <FInput name="token" hidden />
                     </Flex>
                     <Flex>
-                        <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading}>
+                        <Button type="submit" variant="primary" size="large" loading={isLoading}>
                             Сохранить
                         </Button>
                     </Flex>

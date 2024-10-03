@@ -52,14 +52,12 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                             </Flex>
                             <Flex justify="space-between" mb={24} align="center">
                                 <Checkbox color="doneDark100" label="Запомнить меня" />
-                                <Link href={`${getPath()}?action=forgot-password`} className={classes.linkButton}>
-                                    <Button variant="text" className={classes.recoveryPasswordLink}>
-                                        Забыли пароль?
-                                    </Button>
-                                </Link>
+                                <Button component={Link} href={`${getPath()}?action=forgot-password`} variant="text" size="small">
+                                    Забыли пароль?
+                                </Button>
                             </Flex>
                             <Flex>
-                                <Button className={classes.signInButton} type="submit" variant="primary" loading={isLoading || isSuccess}>
+                                <Button type="submit" variant="primary" size="large" loading={isLoading || isSuccess}>
                                     Войти
                                 </Button>
                             </Flex>
@@ -67,14 +65,10 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                     </Form>
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
-                    <Paragraph variant="small-m" className={classes.createUserText}>
-                        Новый пользователь?
-                    </Paragraph>
-                    <Link href={`${getPath()}?action=sign-up`} className={classes.linkButton}>
-                        <Button variant="white" className={classes.signUpButton} size="medium" w={40}>
-                            Создать аккаунт
-                        </Button>
-                    </Link>
+                    <Paragraph variant="small-m">Новый пользователь?</Paragraph>
+                    <Button href={`${getPath()}?action=sign-up`} component={Link} variant="secondary" size="large">
+                        Создать аккаунт
+                    </Button>
                 </Flex>
             </Flex>
         </Box>

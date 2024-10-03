@@ -80,9 +80,8 @@ const SignUpForm = () => {
                                     />
                                     <Flex direction="column" gap={16} ta="center" align="flex-start" justify="center" pb={20}>
                                         <Button
-                                            className={classes.signInButton}
                                             type="submit"
-                                            variant="primary"
+                                            size="large"
                                             loading={isLoading || isSuccess}
                                             disabled={!values.agreementWithConditionsAndTerms}>
                                             Создать аккаунт
@@ -94,9 +93,9 @@ const SignUpForm = () => {
                     </Form>
                     <Flex direction="column" justify="center" align="center" gap={16} className={classes.buttonsWrapper}>
                         <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
-                        <Link href={`${getPath()}?action=auth`} className={classes.signUpButton}>
+                        <Button component={Link} href={`${getPath()}?action=auth`} variant="secondary" size="large">
                             Войти
-                        </Link>
+                        </Button>
                     </Flex>
                 </Flex>
             </Flex>

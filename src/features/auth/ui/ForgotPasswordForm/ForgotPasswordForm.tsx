@@ -52,12 +52,7 @@ const ForgotPasswordForm = () => {
                                     <Flex direction="column" gap={24}>
                                         <FInput name="email" label="Email" />
                                         <Flex justify="flex-start" pb={20}>
-                                            <Button
-                                                type="submit"
-                                                variant="primary"
-                                                className={classes.recoveryButton}
-                                                disabled={!dirty}
-                                                loading={isSubmitting}>
+                                            <Button type="submit" variant="primary" size="large" disabled={!dirty} loading={isSubmitting}>
                                                 Выслать
                                             </Button>
                                         </Flex>
@@ -68,14 +63,10 @@ const ForgotPasswordForm = () => {
                     </ManagedForm>
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
-                    <Button variant="text" className={classes.rememberPassword}>
-                        Вспомнили пароль?
+                    <Paragraph variant="small-m">Вспомнили пароль?</Paragraph>
+                    <Button component={Link} href={`${getPath()}?action=auth`} variant="secondary" size="large">
+                        Войти
                     </Button>
-                    <Link href={`${getPath()}?action=auth`}>
-                        <Button variant="secondary" className={classes.signUpButton} size="medium">
-                            Войти
-                        </Button>
-                    </Link>
                 </Flex>
             </Flex>
         </Box>
