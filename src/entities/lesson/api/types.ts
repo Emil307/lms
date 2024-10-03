@@ -331,7 +331,7 @@ export const $UpdateAdminHomeworkResponse = $AdminHomework;
 export const $AdminHomeworkAnswer = z.object({
     id: z.number(),
     answer: z.string(),
-    status: $HomeworkAnswerStatus,
+    status: $HomeworkAnswerStatus.nullish(),
     updatedAt: z.coerce.date(),
     files: $UploadedFile.array(),
     student: z.object({

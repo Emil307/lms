@@ -62,7 +62,7 @@ export const columns: TColumns<AdminHomeworkAnswerFromList> = [
         accessorKey: "status.name",
         hideTooltip: true,
         Cell: ({ cell }) => {
-            const status = cell.row.original.status.name;
+            const status = cell.row.original.status?.name;
             const { classes } = useCellStyles({ status });
             switch (status) {
                 case "onReview":

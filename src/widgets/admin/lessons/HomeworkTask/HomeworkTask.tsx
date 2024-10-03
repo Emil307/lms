@@ -69,7 +69,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
         if (userRole?.name === Roles.manager) {
             return null;
         }
-        switch (homeworkAnswer.status.name) {
+        switch (homeworkAnswer.status?.name) {
             case "onReview":
                 return (
                     <Flex gap={8} wrap="wrap">
@@ -99,7 +99,7 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
             <Loader isLoading={isLoading} overlay />
             <Flex className={classes.headingContainer}>
                 <Heading order={2}>Домашнее задание</Heading>
-                {homeworkAnswer.status.name === "completed" && (
+                {homeworkAnswer.status?.name === "completed" && (
                     <Box className={classes.status}>
                         <Paragraph variant="text-small-m">Выполнено</Paragraph>
                     </Box>

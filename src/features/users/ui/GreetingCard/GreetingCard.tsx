@@ -14,7 +14,7 @@ const GreetingCard = () => {
     return (
         <Flex gap={32} align="center">
             <Avatar
-                src={user?.profile.avatar?.absolutePath}
+                src={user.profile.avatar?.absolutePath}
                 alt="avatar"
                 w={72}
                 h={72}
@@ -24,7 +24,7 @@ const GreetingCard = () => {
             </Avatar>
             <Flex gap={4} direction="column">
                 <Heading order={2}>Добро пожаловать,</Heading>
-                <Paragraph variant="large">{user?.profile.firstName}!</Paragraph>
+                <Paragraph variant="large">{user.profile.firstName}!</Paragraph>
             </Flex>
         </Flex>
     );

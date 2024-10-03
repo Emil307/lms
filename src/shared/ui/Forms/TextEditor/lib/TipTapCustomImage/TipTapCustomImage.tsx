@@ -101,6 +101,7 @@ export const TipTapCustomImage = (uploadFn: UploadFn) => {
                     (attrs) =>
                     ({ state, dispatch }) => {
                         const { selection } = state;
+                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                         const position = selection.$head ? selection.$head.pos : selection.$to.pos;
 
                         const node = this.type.create(attrs);

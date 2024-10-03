@@ -2,7 +2,7 @@ import { createStyles, MantineTheme } from "@mantine/core";
 import { HomeworkAnswerStatusName } from "@entities/lesson";
 
 interface CreateStylesProps {
-    status: HomeworkAnswerStatusName;
+    status?: HomeworkAnswerStatusName;
 }
 
 export default createStyles((theme, { status }: CreateStylesProps) => ({
@@ -37,7 +37,7 @@ export default createStyles((theme, { status }: CreateStylesProps) => ({
     },
 }));
 
-const getStatusStyle = (theme: MantineTheme, status: HomeworkAnswerStatusName) => {
+const getStatusStyle = (theme: MantineTheme, status?: HomeworkAnswerStatusName) => {
     switch (status) {
         case "onReview":
             return {

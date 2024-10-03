@@ -3,9 +3,9 @@ import React, { memo } from "react";
 import { Folder, Minus, Plus } from "react-feather";
 import { Heading, Paragraph } from "@shared/ui";
 import { CourseModule } from "@entities/course";
+import { useMedia } from "@shared/utils";
 import useStyles from "./ProgramModule.styles";
 import { ProgramModuleLessonsList } from "../ProgramModuleLessonsList";
-import { useMedia } from "@shared/utils";
 
 export interface ProgramModuleProps {
     data: CourseModule;

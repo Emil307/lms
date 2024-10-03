@@ -1,15 +1,17 @@
 import { Box, Flex } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
 import { Button, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, RecoveryPasswordResponse, authApi } from "@entities/auth";
 import { MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { getPath } from "@features/auth/ui/utils";
 import { initialValues } from "./constants";
 
 const ForgotPasswordForm = () => {
+    const router = useRouter();
+
     const { classes } = useFormStyles();
     const recoveryPassword = (values: RecoveryPasswordRequest) => {
         return authApi.recoveryPassword(values);
@@ -64,7 +66,7 @@ const ForgotPasswordForm = () => {
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
                     <Paragraph variant="small-m">Вспомнили пароль?</Paragraph>
-                    <Button component={Link} href={`${getPath()}?action=auth`} variant="secondary" size="large">
+                    <Button component={Link} href={{ query: { ...router.query, action: "auth" } }} variant="secondary" size="large">
                         Войти
                     </Button>
                 </Flex>

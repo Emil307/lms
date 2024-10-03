@@ -6,7 +6,7 @@ import { Plugin } from "prosemirror-state";
  */
 export type UploadFn = (image: File) => Promise<string>;
 
-export const uploadImagePlugin = (upload: UploadFn) => {
+export const uploadImagePlugin = (upload?: UploadFn) => {
     return new Plugin({
         props: {
             handlePaste(view, event) {

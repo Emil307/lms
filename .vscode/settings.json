@@ -1,17 +1,16 @@
 {
     "cSpell.words": [
-        "addamant",
-        "embla",
-        "fancyapps",
-        "interruptible",
-        "sonarqube",
-        "sonarsource",
-        "tabler",
         "Аддамант",
         "МИПО",
         "Отсканируй",
-        "сoокie",
-        "сoокіе"
+        "addamant",
+        "embla",
+        "fancyapps",
+        "fancybox",
+        "interruptible",
+        "sonarqube",
+        "sonarsource",
+        "tabler"
     ],
     "sonarlint.connectedMode.project": {
         "connectionId": "AddamantSQ",

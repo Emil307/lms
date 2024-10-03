@@ -2,6 +2,7 @@ import { ActionIcon, Box, TextProps } from "@mantine/core";
 import parse, { DOMNode, Element } from "html-react-parser";
 import React from "react";
 import { ZoomIn as ZoomInIcon } from "react-feather";
+import Image from "next/image";
 import { Fancybox } from "@shared/ui";
 import useStyles from "./ContentByTextEditor.styles";
 
@@ -60,13 +61,27 @@ const transformNode = ({ reactNode, domNode, classes, index, hideFancybox }: Tra
         if (hideFancybox) {
             return (
                 <Box className="imageWrapper" key={index}>
-                    <img src={image.attribs.src} alt={image.attribs.alt} />
+                    <Image
+                        src={image.attribs.src}
+                        alt={image.attribs.alt}
+                        fill
+                        style={{
+                            objectFit: "contain",
+                        }}
+                    />
                 </Box>
             );
         }
         return (
             <a data-fancybox="gallery" className="imageWrapper" href={image.attribs.src} key={index}>
-                <img src={image.attribs.src} alt={image.attribs.alt} />
+                <Image
+                    src={image.attribs.src}
+                    alt={image.attribs.alt}
+                    fill
+                    style={{
+                        objectFit: "contain",
+                    }}
+                />
                 <ActionIcon w={56} h={40} className={classes.zoomIconWrapper}>
                     <ZoomInIcon />
                 </ActionIcon>

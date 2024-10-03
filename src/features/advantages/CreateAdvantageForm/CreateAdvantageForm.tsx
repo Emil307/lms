@@ -4,9 +4,9 @@ import { FControlButtons, FFileInput, FInput, ManagedForm } from "@shared/ui";
 import { $CreateAdvantageRequest, Advantage, CreateAdvantageRequest, staticPageApi } from "@entities/staticPage";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
+import { adaptCreateAdvantageRequest } from "@features/advantages/CreateAdvantageForm/utils";
 import { initialValues } from "./constants";
 import useStyles from "./CreateAdvantageForm.styles";
-import { adaptCreateAdvantageRequest } from "@features/advantages/CreateAdvantageForm/utils";
 
 export interface CreateAdvantageFormProps {
     onClose: () => void;

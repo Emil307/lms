@@ -49,7 +49,7 @@ const HomeworkDetailsPage = () => {
                     <HomeworkChat
                         homeworkAnswerId={String(homeworkAnswer.id)}
                         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                        answerIsCompleted={homeworkAnswer?.status.name === "completed"}
+                        answerIsCompleted={homeworkAnswer?.status?.name === "completed"}
                     />
                 );
             default:

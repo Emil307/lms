@@ -53,7 +53,7 @@ const List = ({
     // Установка общего количества курсов
     // TODO: Тестово указал perPage как количество курсов, тк total не возвращает сразу все курсы при запросе
     useEffect(() => {
-        if (coursesData && coursesData.pagination && setTotalCoursesCount) {
+        if (coursesData?.pagination && setTotalCoursesCount) {
             setTotalCoursesCount(coursesData.pagination.perPage || 0);
         }
     }, [coursesData, setTotalCoursesCount]);

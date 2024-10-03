@@ -7,10 +7,10 @@ import { Fieldset } from "@components/Fieldset";
 import { ToastType, createNotification } from "@shared/utils";
 import { MutationKeys, QueryKeys } from "@shared/constant";
 import { CreateAdminCourseCollectionResponse, courseCollectionApi } from "@entities/courseCollection";
+import { adaptCreateCoursCollectionFormRequest } from "@features/courseCollections/CreateCourseCollectionForm/utils";
 import { initialValues } from "./constants";
 import { $CreateCourseCollectionFormValidation, CreateCourseCollectionFormValidation } from "./types";
 import useStyles from "./CreateCourseCollectionForm.styles";
-import { adaptCreateCoursCollectionFormRequest } from "@features/courseCollections/CreateCourseCollectionForm/utils";
 
 export interface CreateCourseCollectionFormProps extends BoxProps {
     onClose: () => void;

@@ -24,8 +24,8 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
         }
     };
 
-    const addArrayFilter = (key: string, items: any[], operator: string = "or") => {
-        if (items && items.length > 0) {
+    const addArrayFilter = (key: string, items?: any[], operator: string = "or") => {
+        if (items?.length && items.length > 0) {
             filter[key] = { items: Array.isArray(items) ? items : [items], operator };
         }
     };

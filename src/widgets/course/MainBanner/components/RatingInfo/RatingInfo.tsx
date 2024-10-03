@@ -26,7 +26,7 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
                             stroke: theme.colors.golden[0],
                         },
                     })}>
-                    {<IconStarDefault />}
+                    <IconStarDefault />
                 </ThemeIcon>
             </Flex>
             <Flex direction="column">

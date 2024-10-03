@@ -6,10 +6,10 @@ import { Button, EmptyData, Loader, Paragraph } from "@shared/ui";
 import { Card as ArticleCard, Rating as ArticleRating, FavoriteButton } from "@features/articles";
 import { getPluralString } from "@shared/utils";
 import { ArticleTypes } from "@shared/constant";
+import { useMe } from "@entities/auth";
 import { initialParams } from "./constants";
 import { adaptGetMyArticlesRequest } from "./utils";
 import useStyles from "./MyList.styles";
-import { useMe } from "@entities/auth";
 
 export interface MyListProps extends FlexProps {
     filterParams?: ArticleAndArticleCategoryFiltersForm;

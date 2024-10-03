@@ -1,5 +1,5 @@
 export const openVideo = (videoElement: HTMLVideoElement | null) => {
-    if (videoElement && videoElement.requestFullscreen) {
+    if (videoElement?.requestFullscreen) {
         videoElement.requestFullscreen().then(() => {
             videoElement.setAttribute("style", "display: block");
             videoElement.addEventListener("fullscreenchange", onExitFullScreen);

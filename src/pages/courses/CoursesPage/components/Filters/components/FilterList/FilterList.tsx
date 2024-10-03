@@ -132,7 +132,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                                 maxHeight={maxHeightSpoilerContainer}
                                 showLabel={showLabel()}
                                 hideLabel={hideLabel}>
-                                <Flex ref={spoilerContentRef} wrap={"wrap"} gap={HEIGHT_CONTENT_INDENT}>
+                                <Flex ref={spoilerContentRef} wrap="wrap" gap={HEIGHT_CONTENT_INDENT}>
                                     {renderItems}
                                 </Flex>
                             </MSpoiler>

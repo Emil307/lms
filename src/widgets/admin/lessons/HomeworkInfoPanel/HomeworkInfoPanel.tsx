@@ -11,10 +11,10 @@ interface HomeworkInfoPanelProps {
 }
 
 const HomeworkInfoPanel = ({ homeworkAnswer, studentFio }: HomeworkInfoPanelProps) => {
-    const { classes } = useStyles({ status: homeworkAnswer.status.name });
+    const { classes } = useStyles({ status: homeworkAnswer.status?.name });
 
     const getStatusName = () => {
-        switch (homeworkAnswer.status.name) {
+        switch (homeworkAnswer.status?.name) {
             case "onReview":
                 return "Проверка";
             case "needsEdit":
@@ -28,7 +28,7 @@ const HomeworkInfoPanel = ({ homeworkAnswer, studentFio }: HomeworkInfoPanelProp
         <>
             <Heading>{studentFio}</Heading>
             <Flex className={classes.infoPanel}>
-                {homeworkAnswer.status.name !== "completed" && (
+                {homeworkAnswer.status?.name !== "completed" && (
                     <Flex className={classes.item}>
                         <Paragraph variant="text-small-m" color="gray45">
                             Статус:

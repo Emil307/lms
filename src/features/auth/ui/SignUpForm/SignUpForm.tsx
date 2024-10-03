@@ -3,13 +3,14 @@ import { FormikConfig } from "formik";
 import Link from "next/link";
 import axios from "axios";
 import React from "react";
+import { useRouter } from "next/router";
 import { Button, FCheckbox, FInput, FPhoneInput, Form, PASSWORD_INPUT_DESCRIPTION, Paragraph } from "@shared/ui";
 import { $SignUpFormValidationSchema, SignUpFormValidationSchema, useFormStyles } from "@features/auth";
 import { useSignUp } from "@entities/auth";
-import { getPath } from "@features/auth/ui/utils";
 import { initialValues } from "./constants";
 
 const SignUpForm = () => {
+    const router = useRouter();
     const { classes } = useFormStyles();
 
     const { mutate: signUp, isLoading, isSuccess } = useSignUp();
@@ -42,7 +43,7 @@ const SignUpForm = () => {
                 <Paragraph variant="text-small-m" color="gray45">
                     Создайте аккаунт и начните свое обучение
                 </Paragraph>
-                <Flex direction="column" h={"100%"} justify="space-between">
+                <Flex direction="column" h="100%" justify="space-between">
                     <Form config={config} disableOverlay>
                         {({ values }) => (
                             <>
@@ -93,7 +94,7 @@ const SignUpForm = () => {
                     </Form>
                     <Flex direction="column" justify="center" align="center" gap={16} className={classes.buttonsWrapper}>
                         <Paragraph variant="small-m">У вас уже есть профиль?</Paragraph>
-                        <Button component={Link} href={`${getPath()}?action=auth`} variant="secondary" size="large">
+                        <Button component={Link} href={{ query: { ...router.query, action: "auth" } }} variant="secondary" size="large">
                             Войти
                         </Button>
                     </Flex>

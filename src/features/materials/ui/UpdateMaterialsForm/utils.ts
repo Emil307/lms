@@ -43,6 +43,7 @@ export const getInitialValues = ({ sessionStorageData, data }: TGetInitialValues
     const filesArr = files.map(({ id, name, extension }) => ({ id, name: name.replace(new RegExp(`.${extension}$`), ""), extension }));
 
     const materialValues = materials.reduce((prev, curr) => {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (objectFiles[curr.id]) {
             return [...prev, curr];
         }

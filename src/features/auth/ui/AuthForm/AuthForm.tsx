@@ -3,10 +3,10 @@ import { FormikConfig } from "formik";
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
 import { Button, Checkbox, FInput, Form, Paragraph } from "@shared/ui";
 import { $AuthFormValidationSchema, AuthFormValidationSchema, useFormStyles } from "@features/auth";
 import { useAuthenticateMe } from "@entities/auth";
-import { getPath } from "@features/auth/ui/utils";
 import { initialValues } from "./constants";
 
 export interface AuthFormProps extends BoxProps {
@@ -15,6 +15,7 @@ export interface AuthFormProps extends BoxProps {
 }
 
 const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, ...boxProps }: AuthFormProps) => {
+    const router = useRouter();
     const { classes } = useFormStyles();
 
     const { mutate: authenticate, isLoading, isSuccess } = useAuthenticateMe({ skipRedirect: skipRedirectAfterAuth });
@@ -52,7 +53,11 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                             </Flex>
                             <Flex justify="space-between" mb={24} align="center">
                                 <Checkbox color="doneDark100" label="Запомнить меня" />
-                                <Button component={Link} href={`${getPath()}?action=forgot-password`} variant="text" size="small">
+                                <Button
+                                    component={Link}
+                                    href={{ query: { ...router.query, action: "forgot-password" } }}
+                                    variant="text"
+                                    size="small">
                                     Забыли пароль?
                                 </Button>
                             </Flex>
@@ -66,7 +71,7 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
                     <Paragraph variant="small-m">Новый пользователь?</Paragraph>
-                    <Button href={`${getPath()}?action=sign-up`} component={Link} variant="secondary" size="large">
+                    <Button href={{ query: { ...router.query, action: "sign-up" } }} component={Link} variant="secondary" size="large">
                         Создать аккаунт
                     </Button>
                 </Flex>

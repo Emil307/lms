@@ -128,7 +128,7 @@ const HeaderPublicUser = ({ isTablet }: HeaderPublicUserProps) => {
                     <Flex align="center" gap={12}>
                         <Button
                             component={Link}
-                            href={`${router.asPath}?action=auth`}
+                            href={{ query: { ...router.query, action: "auth" } }}
                             variant="border"
                             size={isTablet ? "medium" : "large"}>
                             Войти

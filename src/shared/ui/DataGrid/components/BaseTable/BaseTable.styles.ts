@@ -104,6 +104,7 @@ const getBadgeColor = (theme: MantineTheme, cellBadges: TCellBadge[]) => {
     if (!badgeInfo.color) {
         return theme.colors.done[0];
     }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return theme.colors[badgeInfo.color] ? theme.colors[badgeInfo.color] : badgeInfo.color;
 };
 

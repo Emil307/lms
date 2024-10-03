@@ -2,7 +2,7 @@ import { createStyles, MantineTheme } from "@mantine/core";
 import { HomeworkAnswerStatusName } from "@entities/lesson";
 
 interface UseCellStylesParams {
-    status: HomeworkAnswerStatusName;
+    status?: HomeworkAnswerStatusName;
 }
 
 export default createStyles((theme) => ({
@@ -68,7 +68,7 @@ export const useCellStyles = createStyles((theme, { status }: UseCellStylesParam
     },
 }));
 
-const getStatusStyle = (theme: MantineTheme, status: HomeworkAnswerStatusName) => {
+const getStatusStyle = (theme: MantineTheme, status?: HomeworkAnswerStatusName) => {
     switch (status) {
         case "onReview":
             return {

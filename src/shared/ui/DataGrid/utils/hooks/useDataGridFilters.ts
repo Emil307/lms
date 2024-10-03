@@ -113,7 +113,7 @@ export const useDataGridFilters = <F extends FormikValues>({ filter, disableQuer
         return initialValues;
     };
 
-    const isEmptyFilter = () => !paramsForRequest || !Object.keys(paramsForRequest).length;
+    const isEmptyFilter = () => !Object.keys(paramsForRequest).length;
 
     return { formikConfig, formRef, filterParamsForRequest: paramsForRequest, isEmptyFilter: isEmptyFilter() };
 };

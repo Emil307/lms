@@ -4,9 +4,9 @@ import { FControlButtons, FFileInput, FInput, Loader, ManagedForm } from "@share
 import { $UpdateAdvantageRequest, Advantage, UpdateAdvantageRequest, staticPageApi, useAdvantage } from "@entities/staticPage";
 import { EntityNames, MutationKeys } from "@shared/constant";
 import { ToastType, createNotification } from "@shared/utils";
-import { initialValues } from "./constants";
 import useStyles from "@features/advantages/CreateAdvantageForm/CreateAdvantageForm.styles";
 import { adaptCreateAdvantageRequest } from "@features/advantages/CreateAdvantageForm/utils";
+import { initialValues } from "./constants";
 
 export interface UpdateAdvantageFormProps {
     list: Advantage;
