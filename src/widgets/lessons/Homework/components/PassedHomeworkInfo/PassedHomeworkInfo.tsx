@@ -40,7 +40,7 @@ const PassedHomeworkInfo = ({ data, lessonId, courseId, ...props }: PassedHomewo
             );
         }
 
-        return <StudentAnswerDetails data={answer} openUpdateLessonHomeworkAnswerForm={handleOpenUpdateLessonHomeworkAnswerForm} />;
+        return <StudentAnswerDetails data={answer} />;
     };
 
     return (

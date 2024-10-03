@@ -1,5 +1,4 @@
-import { ActionIcon, Avatar, Box, Flex, ThemeIcon } from "@mantine/core";
-import { Edit3 } from "react-feather";
+import { Avatar, Box, Flex, ThemeIcon } from "@mantine/core";
 import { HomeworkAnswer } from "@entities/lesson";
 import AvatarIcon from "public/icons/avatar.svg";
 import { ContentByTextEditor, FileItem, Paragraph } from "@shared/ui";
@@ -9,10 +8,9 @@ import { getFormatUpdatedAt } from "./utils";
 
 export interface StudentAnswerDetailsProps {
     data: HomeworkAnswer | null;
-    openUpdateLessonHomeworkAnswerForm: () => void;
 }
 
-const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: StudentAnswerDetailsProps) => {
+const StudentAnswerDetails = ({ data }: StudentAnswerDetailsProps) => {
     const { classes } = useStyles();
 
     if (!data) {
@@ -51,11 +49,6 @@ const StudentAnswerDetails = ({ data, openUpdateLessonHomeworkAnswerForm }: Stud
             <ContentByTextEditor data={data.answer} className={classes.answerContent} />
 
             {renderDocuments()}
-            {data.status.name === "onReview" && (
-                <ActionIcon className={classes.editActionIcon} onClick={openUpdateLessonHomeworkAnswerForm}>
-                    <Edit3 size={18} />
-                </ActionIcon>
-            )}
         </Box>
     );
 };
