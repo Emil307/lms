@@ -23,6 +23,12 @@ const ForgotPasswordForm = () => {
             title: "Восстановление пароля",
             message: "Письмо отправлено на указанный email",
         });
+        removeActionParam();
+    };
+
+    const removeActionParam = () => {
+        const { action, ...query } = router.query;
+        router.replace({ pathname: router.pathname, query }, undefined, { shallow: true });
     };
 
     const onError = () => {
@@ -48,20 +54,18 @@ const ForgotPasswordForm = () => {
                         onError={onError}
                         disabledLoadingOnSuccess
                         disableOverlay>
-                        {({ dirty, isSubmitting }) => {
-                            return (
-                                <Flex direction="column" justify="space-between">
-                                    <Flex direction="column" gap={24}>
-                                        <FInput name="email" label="Email" />
-                                        <Flex justify="flex-start" pb={20}>
-                                            <Button type="submit" variant="primary" size="large" disabled={!dirty} loading={isSubmitting}>
-                                                Выслать
-                                            </Button>
-                                        </Flex>
+                        {({ dirty, isSubmitting }) => (
+                            <Flex direction="column" justify="space-between">
+                                <Flex direction="column" gap={24}>
+                                    <FInput name="email" label="Email" />
+                                    <Flex justify="flex-start" pb={20}>
+                                        <Button type="submit" variant="primary" size="large" disabled={!dirty} loading={isSubmitting}>
+                                            Выслать
+                                        </Button>
                                     </Flex>
                                 </Flex>
-                            );
-                        }}
+                            </Flex>
+                        )}
                     </ManagedForm>
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
