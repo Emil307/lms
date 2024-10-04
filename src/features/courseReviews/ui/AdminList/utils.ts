@@ -3,12 +3,11 @@ import { TFunctionParams } from "@shared/ui/DataGrid/types";
 import { AdminCourseReviewFiltersForm, GetAdminCourseReviewsRequest } from "@entities/courseReview";
 
 export const adaptGetAdminCourseReviewsRequest = (params: TFunctionParams<AdminCourseReviewFiltersForm>): GetAdminCourseReviewsRequest => {
-    const { isPublished, courseId, score, createdAtFrom, createdAtTo, ...rest } = params;
+    const { isPublished, score, createdAtFrom, createdAtTo, ...rest } = params;
 
     return {
         ...rest,
         filter: {
-            "course.id": courseId,
             ...(isPublished && {
                 isPublished: isPublished === "1",
             }),

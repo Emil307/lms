@@ -135,7 +135,7 @@ export const $AdminCourseReviewsRequest = z.object({
     filter: z
         .object({
             isPublished: z.boolean(),
-            "course.id": z.string(),
+            courseId: z.number(),
             score: z.string(),
             createdAt: $getDateObjectType(z.literal("range")),
         })

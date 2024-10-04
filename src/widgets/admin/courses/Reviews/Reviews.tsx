@@ -56,7 +56,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
             filter={{
                 initialValues: filterInitialValues,
             }}
-            extraFilterParams={{ courseId }}
+            extraFilterParams={{ courseId: Number(courseId) }}
             renderBadge={(cell) => [{ condition: cell.row.original.isPublished }]}
             onClickCell={handleClickCell}
             columns={columns}

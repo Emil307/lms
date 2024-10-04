@@ -11,9 +11,9 @@ export const adaptGetAdminCourseReviewsRequest = (
     return {
         ...rest,
         filter: {
+            courseId,
             ...(isPublished && {
                 isPublished: isPublished === "1",
-                "course.id": courseId,
             }),
             score: score,
             ...(createdAtFrom &&
