@@ -65,6 +65,7 @@ export const $GetCourseModuleResponse = $CourseModule;
 export const $CreateCourseModuleFormValues = z.object({
     name: z.string({ required_error: "Введите название" }),
     description: z.string({ required_error: "Введите описание" }).max(1024, "Должно быть не более 1024 символов"),
+    isActive: z.boolean(),
 });
 
 export const $CreateCourseModuleRequest = $CreateCourseModuleFormValues

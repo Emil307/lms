@@ -13,9 +13,9 @@ export interface CreateCategoryFormProps {
     onClose: () => void;
 }
 
-const CreateCategoryForm = ({ parentId = null, isSubcategory = false, onClose }: CreateCategoryFormProps) => {
+const CreateCategoryForm = ({ parentId = null, onClose }: CreateCategoryFormProps) => {
     const createCategory = (values: CreateAdminCategoryFormValidation) => {
-        return categoryApi.createAdminCategory({ ...values, parentId, isActive: isSubcategory });
+        return categoryApi.createAdminCategory({ ...values, parentId });
     };
 
     const onSuccess = (response: CreateAdminCategoryResponse) => {

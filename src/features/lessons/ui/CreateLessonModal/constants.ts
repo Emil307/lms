@@ -7,6 +7,7 @@ export const initialValues: CreateLessonFormValues = {
     description: "",
     hasTest: false,
     hasHomework: false,
+    isActive: true,
 };
 
 export const keysInvalidateQueries: InvalidateQueriesKey[] = [

@@ -196,6 +196,7 @@ export const $CreateLessonFormValues = z.object({
     description: z.string({ required_error: "Введите описание" }),
     hasTest: z.boolean(),
     hasHomework: z.boolean(),
+    isActive: z.boolean(),
 });
 
 export const $CreateLessonRequest = $CreateLessonFormValues;

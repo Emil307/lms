@@ -6,9 +6,11 @@ export const getInitialValues = ({
     description,
     hasTest,
     hasHomework,
+    isActive,
 }: AdminLessonFromList | CourseModuleLesson): UpdateLessonFormValues => ({
     name,
     description,
     hasTest,
     hasHomework,
+    isActive: !!isActive,
 });
