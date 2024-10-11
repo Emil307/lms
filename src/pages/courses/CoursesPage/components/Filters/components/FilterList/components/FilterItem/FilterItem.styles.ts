@@ -30,7 +30,7 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
     tooltipInner: {
         transition: "width 0.1s",
         width: "fit-content",
-        paddingBlock: 12,
+        paddingBlock: 10,
         paddingInline: 16,
         borderRadius: 12,
         backgroundColor: isSelected ? theme.colors.dark[0] : theme.colors.white[0],

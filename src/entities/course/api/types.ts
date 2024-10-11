@@ -797,7 +797,7 @@ export const $CoursesFiltersForm = z.object({
     query: z.string().max(64, "Должно быть не более 64 символов"),
     hasDiscount: z.boolean(),
     tags: z.array(z.string()),
-    categoryId: z.string(),
+    categoryIds: z.array(z.string()),
     subcategoryIds: z.array(z.string()),
     collectionIds: z.string(),
     discountPrice: z.array(z.number()),

@@ -1,8 +1,9 @@
-import { Box, Flex, TextInput } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { memo, useCallback, useState } from "react";
 import { useField } from "formik";
 import { IndexNumbers, normalizeRange, onChangeInput } from "@shared/ui/Forms/PriceRangeInput/utils";
 import useStyles from "./PriceRangeInput.styles";
+import { Input } from "../Input";
 
 interface PriceRangeInputProps {
     name: string;
@@ -45,7 +46,7 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
     return (
         <Box>
             <Flex gap={4} justify="space-between">
-                <TextInput
+                <Input
                     className={classes.priceInput}
                     label="от"
                     onChange={handleTextInputChange(0)}
@@ -53,7 +54,7 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
                     maxLength={maxLengthPrice}
                     onBlur={handleBlur}
                 />
-                <TextInput
+                <Input
                     className={classes.priceInput}
                     label="до"
                     onChange={handleTextInputChange(1)}

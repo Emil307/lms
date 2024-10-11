@@ -1,88 +1,87 @@
-import { Box, Flex, FlexProps } from "@mantine/core";
+import { Box, Flex, FlexProps, Stack } from "@mantine/core";
 import { FormikConfig } from "formik";
-import React, { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { Button, Form, Paragraph, Loader, FPriceRangeInput } from "@shared/ui";
-import { CoursesFiltersForm, useCourseResources } from "@entities/course";
+import { ReactNode } from "react";
+import { getCountAppliedFilters } from "@shared/ui/CollapsedFiltersBlock/utils";
+import { Button, Form, FPriceRangeInput, Loader, Paragraph } from "@shared/ui";
 import { FilterTypes } from "@shared/constant";
-import { CategoryFilterList, DiscountFilter, FilterList } from "./components";
-import { getCountAppliedQueries, getInitialValues } from "./utils";
-import { TRouterQueries } from "./types";
+import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
+import { DiscountFilter, FilterList } from "./components";
 import useStyles from "./Filters.styles";
+import { prepareQueryParams } from "./utils";
+import { initialCourseFilters } from "../../constants";
 
 export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
     title?: ReactNode;
-    config: FormikConfig<CoursesFiltersForm>;
+    initialValues: CoursesFiltersForm;
+    onSubmit?: (values: CoursesFiltersForm) => void;
 }
 
-const Filters = ({ children, title, ...props }: FiltersProps) => {
+const Filters = ({ children, title, initialValues, onSubmit, ...props }: FiltersProps) => {
     const { classes } = useStyles();
     const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
     const router = useRouter();
-    const queryParams = router.query as TRouterQueries;
 
     if (isLoading || !courseResources) {
         return <Loader size="lg" />;
     }
 
+    const config: FormikConfig<CoursesFiltersForm> = {
+        initialValues,
+        validationSchema: $CoursesFiltersForm.partial(),
+        enableReinitialize: true,
+        onSubmit: (values) => {
+            const query = prepareQueryParams(values);
+            router.push({ query }, undefined, { shallow: true });
+            onSubmit?.(values);
+        },
+    };
+
     return (
         <Box {...props}>
-            <Form config={props.config} disableOverlay={false}>
-                {({ dirty, resetForm }) => {
-                    const handleResetForm = () => {
-                        resetForm({ values: getInitialValues([courseResources.prices.highest]) });
+            <Form config={config} disableOverlay={false}>
+                {({ dirty, values, setValues }) => {
+                    const { query, ...currentValues } = values;
 
-                        router.push({ pathname: router.pathname, query: { page: "1" } }, undefined, { shallow: true });
-                    };
-                    const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues([courseResources.prices.highest]));
+                    const countAppliedFilters = getCountAppliedFilters({ initialValues: initialCourseFilters, currentValues });
 
-                    const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
+                    const handleResetForm = () => setValues({ ...initialCourseFilters, query: values.query });
+
                     return (
                         <Box h="100%">
                             <Flex className={classes.content}>
                                 <Flex className={classes.filtersBlock}>
-                                    <Paragraph variant="text-small-semi" opacity={0.5}>
-                                        Категория
-                                    </Paragraph>
-                                    <CategoryFilterList name="categoryId" data={courseResources.categories} />
-
                                     <Flex className={classes.filtersBlockCollapseInner}>
-                                        <FilterList
-                                            field="subcategoryIds"
-                                            filterName="Тематика"
-                                            searchPlaceholder="Найти тематики"
-                                            labelsPluralString={["тематика", "тематики", "тематик"]}
-                                            data={courseResources.subcategories}
-                                        />
-                                        <FilterList
-                                            field="tags"
-                                            filterName="Теги"
-                                            searchPlaceholder="Найти теги"
-                                            labelsPluralString={["тег", "тега", "тегов"]}
-                                            data={courseResources.tags}
-                                        />
-                                        <Flex direction="column" gap={16}>
-                                            <Paragraph variant="text-small-semi" opacity={0.5}>
-                                                Цена
-                                            </Paragraph>
-                                            <FPriceRangeInput
-                                                name="discountPrice"
-                                                min={courseResources.prices.lowest || 0}
-                                                max={courseResources.prices.highest || 0}
-                                            />
-                                        </Flex>
-                                        <DiscountFilter name="hasDiscount" />
+                                        <FilterList field="categoryIds" filterName="Категория" data={courseResources.categories} />
+                                        <FilterList field="subcategoryIds" filterName="Тематика" data={courseResources.subcategories} />
+                                        <FilterList field="tags" filterName="Теги" data={courseResources.tags} />
+                                        <Stack spacing={16}>
+                                            <Stack spacing={8}>
+                                                <Paragraph variant="large" c="neutral_main50">
+                                                    Цена
+                                                </Paragraph>
+                                                <FPriceRangeInput
+                                                    name="discountPrice"
+                                                    min={courseResources.prices.lowest}
+                                                    max={courseResources.prices.highest}
+                                                />
+                                            </Stack>
+                                            <DiscountFilter name="hasDiscount" />
+                                        </Stack>
                                     </Flex>
                                 </Flex>
                                 <Flex className={classes.buttonsFormContainer}>
-                                    <Button className={classes.searchButton} type="submit" variant="secondary" disabled={!dirty}>
-                                        Показать
+                                    <Button type="submit" variant="primary" size="large" disabled={!dirty}>
+                                        Показать курсы
                                     </Button>
-                                    {isDirty && (
-                                        <Button className={classes.resetButton} type="button" variant="secondary" onClick={handleResetForm}>
-                                            Сбросить
-                                        </Button>
-                                    )}
+                                    <Button
+                                        type="button"
+                                        variant="secondary"
+                                        size="large"
+                                        onClick={handleResetForm}
+                                        disabled={!countAppliedFilters}>
+                                        Сбросить
+                                    </Button>
                                 </Flex>
                             </Flex>
                         </Box>

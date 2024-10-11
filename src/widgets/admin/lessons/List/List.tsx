@@ -48,7 +48,7 @@ const List = () => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
-                                <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                <FSearch className={classes.filterSearch}  name="query" placeholder="Поиск" />
                                 {userRole.name !== Roles.teacher && (
                                     <FDateRangePicker
                                         className={classes.filterDateRangePicker}

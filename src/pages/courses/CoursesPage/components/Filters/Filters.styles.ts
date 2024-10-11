@@ -21,9 +21,11 @@ export default createStyles((theme) => ({
     },
     content: {
         flexDirection: "column",
-        maxHeight: "70svh",
+        maxHeight: "calc(100svh - 92px)",
+        // maxHeight: "calc(100svh - 92px)",
         overflowY: "auto",
         gap: 40,
+        paddingBottom: 90,
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column",
@@ -64,8 +66,10 @@ export default createStyles((theme) => ({
         width: "100%",
         maxWidth: 402,
         position: "absolute",
-        bottom: 24,
+        bottom: 0,
         left: 24,
+        paddingTop: 12,
+        paddingBottom: 24,
 
         [theme.fn.smallerThan("md")]: {
             maxWidth: "calc(100svw - 36px)",

@@ -3,36 +3,38 @@ import { TextInput as MInput, TextInputProps as MTextInputProps, ThemeIcon } fro
 import { Search as SearchIcon, X } from "react-feather";
 import { useSearchStyles } from "./Search.styles";
 
-export interface SearchProps extends MTextInputProps {
-    styleVariant?: "default" | "course";
+export type SearchSize = "large" | "medium";
+export interface SearchProps
+    extends Omit<MTextInputProps, "size" | "variant">,
+        Omit<React.ComponentPropsWithoutRef<"input">, keyof MTextInputProps> {
     setValue?: (value: string) => void;
-    iconSize?: number;
+    onClear?: () => void;
+    size?: SearchSize;
 }
 
-const RightSection = ({ value, setValue }: { value?: string | number | readonly string[]; setValue: (value: string) => void }) => {
-    if (value) {
-        return (
-            <ThemeIcon color="gray45" w={16} h={16} onClick={() => setValue("")}>
-                <X />
-            </ThemeIcon>
-        );
-    }
-    return null;
-};
+const XIcon = () => (
+    <ThemeIcon color="gray45" w={16} h={16} mr={16}>
+        <X />
+    </ThemeIcon>
+);
 
 const Search = ({
     setValue = () => undefined,
     onChange = () => undefined,
+    onClear = () => undefined,
     value,
-    styleVariant = "default",
-    iconSize,
+    size = "medium",
     ...props
 }: SearchProps) => {
-    const { classes } = useSearchStyles({ styleVariant }, { name: "Search" });
+    const { classes } = useSearchStyles({ size }, { name: "Search" });
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e);
         setValue(e.currentTarget.value);
+    };
+    const handleClear = () => {
+        setValue("");
+        onClear();
     };
 
     return (
@@ -40,12 +42,13 @@ const Search = ({
             {...props}
             value={value}
             icon={
-                <ThemeIcon color="primary" w={iconSize || 16} h={iconSize || 16}>
+                <ThemeIcon color="primary">
                     <SearchIcon />
                 </ThemeIcon>
             }
             classNames={classes}
-            rightSection={<RightSection value={value} setValue={setValue} />}
+            rightSection={value ? <XIcon /> : null}
+            rightSectionProps={{ onClick: handleClear }}
             onChange={handlerChange}
         />
     );

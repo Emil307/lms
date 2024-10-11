@@ -169,7 +169,7 @@ function ManagedSearch<T extends Record<string, any> & { id: unknown }>(props: T
             <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
                 <Popover.Target>
                     <Box onFocusCapture={() => setPopoverOpened(true)} onBlurCapture={() => setPopoverOpened(false)}>
-                        <Search {...searchInputProps} styleVariant="default" value={searchValue} setValue={handleInput} />
+                        <Search {...searchInputProps} value={searchValue} setValue={handleInput} />
                     </Box>
                 </Popover.Target>
                 <Popover.Dropdown className={classes.dropdownContainer} p={8}>

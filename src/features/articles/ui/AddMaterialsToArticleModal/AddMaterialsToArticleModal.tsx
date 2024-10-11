@@ -65,7 +65,7 @@ const AddMaterialsToArticleModal = ({ articleId, onClose }: AddMaterialsToArticl
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
-                                <FSearch name="query" placeholder="Поиск" size="sm" className={classes.filterSearch} />
+                                <FSearch name="query" placeholder="Поиск" className={classes.filterSearch} />
                                 <FSelect
                                     name="categoryIds"
                                     label="Категория"

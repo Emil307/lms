@@ -1,8 +1,9 @@
-import { ColProps, Flex, Grid, Skeleton } from "@mantine/core";
+import { ColProps, Flex, Grid, Stack, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect } from "react";
+import Link from "next/link";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
-import { Button, EmptyData, Loader } from "@shared/ui";
+import { Button, EmptyData, Heading, Loader } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { Card } from "@features/courses";
 import { initialParams } from "./constants";
@@ -45,11 +46,29 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
 
     const renderContent = () => {
         if (isLoading) {
-            return <Loader size="lg" />;
+            return (
+                <Flex h={492} align="center" justify="center">
+                    <Loader size="lg" />
+                </Flex>
+            );
         }
 
         if (!coursesData?.data.length && Object.values(params).find((param) => !!param)) {
-            return <EmptyData title="Такого пока нет. Попробуете изменить запрос?" />;
+            return (
+                <Stack spacing={32}>
+                    <Stack spacing={8}>
+                        <Heading order={2} maw={250}>
+                            По этому запросу пока нет программ
+                        </Heading>
+                        <Text c="neutral_main50" size="lg" maw={300}>
+                            Попробуйте набрать другой запрос или посмотрите курсы в каталоге
+                        </Text>
+                    </Stack>
+                    <Button component={Link} href="/courses" variant="border" maw={126}>
+                        Все курсы
+                    </Button>
+                </Stack>
+            );
         }
 
         if (!coursesData?.data.length) {
@@ -74,11 +93,7 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
         );
     };
 
-    return (
-        <Skeleton width="100%" height={isLoading ? 100 : "auto"} visible={isLoading}>
-            {renderContent()}
-        </Skeleton>
-    );
+    return <>{renderContent()}</>;
 };
 
 export default memo(InfiniteList);

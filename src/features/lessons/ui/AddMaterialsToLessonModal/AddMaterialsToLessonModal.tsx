@@ -106,7 +106,6 @@ const AddMaterialsToLessonModal = ({ lessonId, onClose }: AddMaterialsToLessonMo
                                 <Flex className={classes.filter}>
                                     <FSearch
                                         className={classes.filterSearch}
-                                        size="sm"
                                         name="query"
                                         placeholder="Поиск"
                                         disabled={isLoadingResources}

@@ -3,7 +3,7 @@ import { GetCoursesRequest } from "@entities/course";
 import { TRouterQueries } from "./types";
 
 export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>): GetCoursesRequest => {
-    const { tags = [], categoryId, hasDiscount, subcategoryIds = [], collectionIds, discountPrice, ...rest } = params;
+    const { tags = [], categoryIds = [], hasDiscount, subcategoryIds = [], collectionIds, discountPrice, ...rest } = params;
 
     const filter: any = {};
 
@@ -21,7 +21,6 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
 
     addFilter("collectionIds", collectionIds);
     addFilter("hasDiscount", hasDiscount === "true" ? true : undefined);
-    addFilter("category.id", categoryId);
 
     if (discountPrice) {
         const prices = Array.isArray(discountPrice) ? discountPrice.map(parseFloat) : [parseFloat(discountPrice)];
@@ -39,6 +38,7 @@ export const adaptGetCoursesRequest = (params: TFunctionParams<TRouterQueries>):
     }
 
     addArrayFilter("tagIds", tags);
+    addArrayFilter("category.id", categoryIds);
     addArrayFilter("subcategory.id", subcategoryIds);
 
     return {

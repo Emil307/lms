@@ -125,12 +125,7 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
                         <Flex className={classes.filterContainer}>
                             {isOpen && (
                                 <>
-                                    <Search
-                                        styleVariant="course"
-                                        placeholder={searchPlaceholder}
-                                        value={searchValue}
-                                        setValue={setSearchValue}
-                                    />
+                                    <Search placeholder={searchPlaceholder} value={searchValue} setValue={setSearchValue} />
                                     <Divider color="gray20" />
                                 </>
                             )}

@@ -4,7 +4,6 @@ import Search, { SearchProps } from "./Search";
 
 export interface FSearchProps extends SearchProps {
     name: string;
-    iconSize?: number;
 }
 
 const FSearch = (props: FSearchProps) => {

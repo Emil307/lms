@@ -36,7 +36,7 @@ const List = (props: ListProps) => {
                     return (
                         <Box>
                             <Flex className={classes.filterSearchAndSelects}>
-                                <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                <FSearch className={classes.filterSearch}  name="query" placeholder="Поиск" />
                                 <FSelect
                                     name="entityType"
                                     size="sm"

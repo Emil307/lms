@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SetStateAction } from "react";
+import React, { SetStateAction } from "react";
 
 export type IndexNumbers = [number | "", number | ""];
 
@@ -9,8 +9,8 @@ export function onChangeInput(
     setValues: React.Dispatch<SetStateAction<IndexNumbers>>,
     handleOnChange: (newValue: number[]) => void
 ) {
-    return (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-        const inputValue = event.target.value;
+    return (index: number) => (value: string | number) => {
+        const inputValue = value.toString();
         const newValue = inputValue === "" ? "" : parseInt(inputValue, 10);
 
         const updatedValues = [...values];

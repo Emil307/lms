@@ -77,7 +77,7 @@ const LessonListModal = ({ courseId, moduleId, moduleName, onSuccess, onClose }:
                             </Button>
                             <Collapse in={openedFilters} mt={16}>
                                 <Flex className={classes.filter}>
-                                    <FSearch className={classes.filterSearch} name="query" size="sm" placeholder="Поиск" />
+                                    <FSearch className={classes.filterSearch} name="query"  placeholder="Поиск" />
                                     <FDateRangePicker
                                         className={classes.filterDateRangePicker}
                                         name="createdAtFrom"

@@ -16,7 +16,7 @@ const Loader = ({ overlay = false, isLoading = true, ...props }: LoaderProps) =>
 
     return (
         <Flex justify="center">
-            <MLoader {...props} />
+            <MLoader {...props} color="dark" />
         </Flex>
     );
 };

@@ -17,3 +17,4 @@ export * from "./Typography";
 export * from "./CollapsedFiltersBlock";
 export * from "./VideoItem";
 export * from "./Fancybox";
+export * from "./ButtonSwitch";

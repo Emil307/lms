@@ -75,7 +75,7 @@ const Reviews = ({ courseId }: ReviewsProps) => {
                         <Collapse in={openedFilters} w="100%" mt={16}>
                             <Flex className={classes.filterWrapper}>
                                 <Flex className={classes.filterSearchAndSelects}>
-                                    <FSearch className={classes.filterSearch} size="sm" name="query" placeholder="Поиск" />
+                                    <FSearch className={classes.filterSearch}  name="query" placeholder="Поиск" />
                                     <FSelect
                                         className={classes.filterSelect}
                                         name="score"

@@ -7,8 +7,9 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "test": "yarn lint",
-        "cm": "cz"
+        "cm": "cz",
+        "types": "tsc --noEmit && eslint -c .eslintrc.json",
+        "test": "yarn lint && yarn types"
     },
     "sideEffects": false,
     "dependencies": {

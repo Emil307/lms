@@ -35,6 +35,10 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                         color: theme.colors.dark[0],
                     },
                 },
+                svg: {
+                    stroke: theme.colors.dark[0],
+                    strokeWidth: 2,
+                },
 
                 ":hover": {
                     color: theme.colors.neutral_main50[0],
@@ -46,6 +50,9 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                             color: theme.colors.neutral_main50[0],
                         },
                     },
+                    svg: {
+                        stroke: theme.colors.neutral_main50[0],
+                    },
                 },
                 ":disabled": {
                     color: theme.colors.neutral_gray300[0],
@@ -56,6 +63,9 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                         ".mantine-ThemeIcon-root": {
                             color: theme.colors.neutral_gray300[0],
                         },
+                    },
+                    svg: {
+                        stroke: theme.colors.neutral_gray300[0],
                     },
                 },
             };
@@ -185,6 +195,10 @@ const getStylesForSize = (size: ButtonSize): CSSObject => {
                 fontWeight: 500,
                 fontSize: 16,
                 lineHeight: "24px",
+
+                ".mantine-Button-inner": {
+                    height: 24,
+                },
 
                 ".mantine-Button-icon": {
                     width: 24,

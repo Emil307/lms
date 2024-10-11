@@ -1,28 +1,24 @@
 import { Box, Drawer, Flex } from "@mantine/core";
 import { useState } from "react";
-import { IconFilter } from "@tabler/icons-react";
 import { FormikConfig } from "formik";
 import { useRouter } from "next/router";
+import { useDisclosure } from "@mantine/hooks";
+import IconFilter from "public/icons/icon24px/filter/filter-default.svg";
 import { BreadCrumbs, Button, Heading, Form, FSearch, Loader, Paragraph } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { FilterTypes } from "@shared/constant";
 import { useIntersection, useMedia } from "@shared/utils";
 import { $CoursesFiltersForm, CoursesFiltersForm, useCourseResources } from "@entities/course";
 import { InfiniteCourseList } from "@widgets/course";
+import { getCountAppliedFilters } from "@shared/ui/CollapsedFiltersBlock/utils";
 import useStyles from "./CoursesPage.styles";
-import { breadCrumbsItems } from "./constants";
-import {
-    adaptCourseFiltersForm,
-    Filters,
-    getInitialValues,
-    TRouterQueries,
-    prepareQueryParams,
-    getCountAppliedQueries,
-} from "./components";
+import { breadCrumbsItems, initialCourseFilters } from "./constants";
+import { adaptCourseFiltersForm, Filters, TRouterQueries, prepareQueryParams } from "./components";
+import { CountAppliedFilters } from "./CountAppliedFilters";
 
 const CoursesPage = () => {
     const { classes } = useStyles();
-    const [openedDrawer, setOpenDrawer] = useState(false);
+    const [openedDrawer, { open: openDrawer, close: closeDrawer }] = useDisclosure(false);
     const [coursesCount, setCoursesCount] = useState(0);
 
     const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
@@ -34,19 +30,16 @@ const CoursesPage = () => {
     if (isLoading || !courseResources) {
         return <Loader size="lg" />;
     }
+
+    const initialValues = { ...initialCourseFilters, ...adaptCourseFiltersForm(queryParams) };
+
     const config: FormikConfig<CoursesFiltersForm> = {
-        initialValues: { ...getInitialValues([courseResources.prices.highest]), ...adaptCourseFiltersForm(queryParams) },
+        initialValues,
         validationSchema: $CoursesFiltersForm.partial(),
         enableReinitialize: true,
         onSubmit: (values) => {
-            router.push(
-                {
-                    pathname: router.pathname,
-                    query: { ...router.query, ...prepareQueryParams(values) },
-                },
-                undefined,
-                { shallow: true }
-            );
+            closeDrawer();
+            router.push({ query: { ...router.query, ...prepareQueryParams(values) } }, undefined, { shallow: true });
         },
     };
 
@@ -58,59 +51,41 @@ const CoursesPage = () => {
                     Онлайн-курсы
                 </Heading>
                 <Form config={config} disableOverlay={false}>
-                    {({ dirty, resetForm }) => {
+                    {({ dirty, resetForm, values }) => {
                         const handleResetForm = () => {
-                            resetForm({ values: getInitialValues([courseResources.prices.highest]) });
-
-                            router.push(
-                                {
-                                    pathname: router.pathname,
-                                    query: {},
-                                },
-                                undefined,
-                                { shallow: true }
-                            );
+                            resetForm({ values: { ...initialValues, query: values.query } });
+                            router.push({ query: { ...(values.query ? { query: values.query } : {}) } }, undefined, { shallow: true });
                         };
-
-                        const countAppliedQueries = getCountAppliedQueries(queryParams, getInitialValues([courseResources.prices.highest]));
-
-                        const isDirty = !!countAppliedQueries || !!queryParams.categoryId;
-
+                        const { query, ...currentValues } = values;
+                        const countAppliedFilters = getCountAppliedFilters({ initialValues: initialCourseFilters, currentValues });
                         return (
                             <Flex className={classes.filters}>
                                 <Flex gap={16} align="center" justify="center">
-                                    <FSearch
-                                        name="query"
-                                        placeholder="Какой курс вам нужен?"
-                                        w="100%"
-                                        className={classes.searchInput}
-                                        px={16}
-                                        py={12}
-                                        iconSize={24}
-                                    />
+                                    <FSearch size="large" name="query" placeholder="Какой курс вам нужен?" w="100%" />
                                     <Button type="submit" size="large" variant="primary" disabled={!dirty}>
                                         Найти курс
                                     </Button>
                                 </Flex>
-                                <Flex className={classes.buttonsWrapper}>
-                                    <Flex gap={8}>
-                                        <Button
-                                            onClick={() => {
-                                                setOpenDrawer(true);
-                                            }}
-                                            variant="secondary"
-                                            className={classes.button}>
-                                            <IconFilter />
-                                            Фильтры
-                                        </Button>
-                                        {isDirty && (
-                                            <Button className={classes.resetButton} type="button" variant="text" onClick={handleResetForm}>
-                                                Сбросить
+                                {!!coursesCount && (
+                                    <Flex className={classes.buttonsWrapper}>
+                                        <Flex gap={8}>
+                                            <Button onClick={openDrawer} variant="secondary" leftIcon={<IconFilter />}>
+                                                Фильтры
+                                                <CountAppliedFilters countAppliedFilters={countAppliedFilters} />
                                             </Button>
-                                        )}
+                                            {!!countAppliedFilters && (
+                                                <Button
+                                                    className={classes.resetButton}
+                                                    type="button"
+                                                    variant="text"
+                                                    onClick={handleResetForm}>
+                                                    Сбросить
+                                                </Button>
+                                            )}
+                                        </Flex>
+                                        <Paragraph variant="small-m">Найдено: {coursesCount}</Paragraph>
                                     </Flex>
-                                    <Paragraph variant="small-m">Найдено: {coursesCount}</Paragraph>
-                                </Flex>
+                                )}
                             </Flex>
                         );
                     }}
@@ -133,9 +108,7 @@ const CoursesPage = () => {
             </Box>
             <Drawer
                 opened={openedDrawer}
-                onClose={() => {
-                    setOpenDrawer(false);
-                }}
+                onClose={closeDrawer}
                 position="right"
                 size={isTablet ? "100%" : "450px"}
                 zIndex={400}
@@ -146,7 +119,7 @@ const CoursesPage = () => {
                         Фильтры
                     </Heading>
                 }>
-                <Filters config={config} />
+                <Filters initialValues={initialValues} onSubmit={closeDrawer} />
             </Drawer>
         </Box>
     );

@@ -66,7 +66,7 @@ const HomeworkList = () => {
                     return (
                         <Flex className={classes.filterWrapper}>
                             <Flex className={classes.filterSearchAndSelects}>
-                                <FSearch size="sm" name="query" placeholder="Поиск" className={classes.filterSearch} />
+                                <FSearch size="medium" name="query" placeholder="Поиск" className={classes.filterSearch} />
                                 <FSelect
                                     name="courseId"
                                     size="sm"
