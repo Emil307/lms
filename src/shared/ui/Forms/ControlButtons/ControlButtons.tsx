@@ -13,7 +13,7 @@ export interface ControlButtonsProps extends Omit<FlexProps, "children"> {
     disabledSubmit?: boolean;
     cancelButtonProps?: Omit<ButtonProps, "children">;
     onSubmit?: () => void;
-    onClose: () => void;
+    onClose?: () => void;
 }
 
 const ControlButtons = ({
@@ -34,15 +34,17 @@ const ControlButtons = ({
 
     return (
         <Flex {...props} className={cx(classes.root, props.className)} gap={gap}>
-            <Button
-                {...cancelButtonProps}
-                variant="border"
-                size={isMediumSize ? "medium" : "large"}
-                onClick={onClose}
-                disabled={isLoading}
-                w="100%">
-                {cancelButtonText}
-            </Button>
+            {!!onClose && (
+                <Button
+                    {...cancelButtonProps}
+                    variant="border"
+                    size={isMediumSize ? "medium" : "large"}
+                    onClick={onClose}
+                    disabled={isLoading}
+                    w="100%">
+                    {cancelButtonText}
+                </Button>
+            )}
             <Button
                 type="submit"
                 variant="primary"

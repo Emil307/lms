@@ -2,7 +2,7 @@ import { Box, Flex } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
-import { Button, FInput, ManagedForm, Paragraph } from "@shared/ui";
+import { Button, FControlButtons, FInput, ManagedForm, Paragraph } from "@shared/ui";
 import { useFormStyles } from "@features/auth";
 import { $RecoveryPasswordRequest, RecoveryPasswordRequest, RecoveryPasswordResponse, authApi } from "@entities/auth";
 import { MutationKeys } from "@shared/constant";
@@ -54,18 +54,14 @@ const ForgotPasswordForm = () => {
                         onError={onError}
                         disabledLoadingOnSuccess
                         disableOverlay>
-                        {({ dirty, isSubmitting }) => (
-                            <Flex direction="column" justify="space-between">
-                                <Flex direction="column" gap={24}>
-                                    <FInput name="email" label="Email" />
-                                    <Flex justify="flex-start" pb={20}>
-                                        <Button type="submit" variant="primary" size="large" disabled={!dirty} loading={isSubmitting}>
-                                            Выслать
-                                        </Button>
-                                    </Flex>
+                        <Flex direction="column" justify="space-between">
+                            <Flex direction="column" gap={24}>
+                                <FInput name="email" label="Email" />
+                                <Flex justify="flex-start" pb={20}>
+                                    <FControlButtons submitButtonText="Выслать" />
                                 </Flex>
                             </Flex>
-                        )}
+                        </Flex>
                     </ManagedForm>
                 </Flex>
                 <Flex direction="column" gap={16} ta="center" align="center" justify="center">
