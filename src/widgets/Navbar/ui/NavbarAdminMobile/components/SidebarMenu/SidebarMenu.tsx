@@ -75,6 +75,12 @@ export default function SidebarMenu() {
                 icon={<Layout />}>
                 <SidebarItem
                     inner={true}
+                    label="Титульная страница"
+                    href="/admin/settings/main-page/banner"
+                    isActive={router.pathname.includes("/admin/settings/main-page")}
+                />
+                <SidebarItem
+                    inner={true}
                     label="О проекте"
                     href="/admin/static-pages/about"
                     isActive={router.pathname.includes("/admin/static-pages/about")}
@@ -133,12 +139,6 @@ export default function SidebarMenu() {
                     label="Отзывы"
                     href="/admin/settings/course-reviews"
                     isActive={router.pathname.includes("/admin/settings/course-reviews")}
-                />
-                <SidebarItem
-                    inner={true}
-                    label="Титульная страница"
-                    href="/admin/settings/main-page/banner"
-                    isActive={router.pathname.includes("/admin/settings/main-page")}
                 />
                 <SidebarItem
                     inner={true}
