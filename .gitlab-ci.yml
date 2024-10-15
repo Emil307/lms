@@ -22,6 +22,15 @@ variables:
   STACK_NAME_DEV: 'lms_dev'
   STACK_APP_NAME: "front"
 
+build app:
+  before_script:
+  - |
+    if [ -f ".env.$CI_COMMIT_BRANCH.example" ]; then
+      cp .env.$CI_COMMIT_BRANCH.example .env
+    else
+      cp .env.example .env
+    fi
+
 
 deploy develop:
   stage: deploy

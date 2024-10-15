@@ -1,46 +1,16 @@
 FROM registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest AS base
-
-# 1. Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-
-WORKDIR /app
-
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile --network-timeout 600000; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-# 2. Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-# This will do the trick, use the corresponding env file for each environment.
-COPY .env.example .env
-
-RUN yarn build
-
-# 3. Production image, copy all the files and run next
-FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV HOSTNAME 0.0.0.0
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+RUN export NEXT_SHARP_PATH=/app/node_modules/sharp
 
-COPY --from=builder /app/public ./public
+COPY --chown=nextjs:nodejs .next/standalone ./
+COPY --chown=nextjs:nodejs ./.next/static ./.next/static
+COPY --chown=nextjs:nodejs ./public ./public
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
+RUN mkdir -p /app/.next/cache/images && chown -R nextjs:nodejs /app/
 
 USER nextjs
 
