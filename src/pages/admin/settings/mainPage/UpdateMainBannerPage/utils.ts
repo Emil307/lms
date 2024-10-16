@@ -5,6 +5,6 @@ interface TGetBreadCrumbsItemsProps {
 }
 
 export const getBreadCrumbsItems = ({ title }: TGetBreadCrumbsItemsProps): TBreadCrumbItem[] => [
-    { title: "Главный баннер", href: { pathname: "/admin/settings/main-page/banner" } },
+    { title: "Главный баннер", href: { pathname: "/admin/static-pages/main-page/banner" } },
     { title },
 ];

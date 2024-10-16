@@ -11,7 +11,7 @@ const UpdateMainBannerPage = () => {
     const { data, isLoading, isError } = useMainBanner();
 
     const handleCloseUpdateMainBannerForm = () => {
-        router.push("/admin/settings/main-page/banner");
+        router.push("/admin/static-pages/main-page/banner");
     };
 
     if (!router.isReady || isLoading) {

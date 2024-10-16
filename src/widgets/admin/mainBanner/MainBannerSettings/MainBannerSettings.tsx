@@ -15,7 +15,7 @@ const MainBannerSettings = (props: MainBannerSettingsProps) => {
     const router = useRouter();
     const { data } = useMainBanner();
 
-    const handleOpenUpdateMainBannerPage = () => router.push("/admin/settings/main-page/banner/edit");
+    const handleOpenUpdateMainBannerPage = () => router.push("/admin/static-pages/main-page/banner/edit");
 
     return (
         <Flex className={classes.info} {...props}>

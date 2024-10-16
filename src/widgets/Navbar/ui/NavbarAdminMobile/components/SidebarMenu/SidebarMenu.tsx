@@ -76,8 +76,8 @@ export default function SidebarMenu() {
                 <SidebarItem
                     inner={true}
                     label="Титульная страница"
-                    href="/admin/settings/main-page/banner"
-                    isActive={router.pathname.includes("/admin/settings/main-page")}
+                    href="/admin/static-pages/main-page/banner"
+                    isActive={router.pathname.includes("/admin/static-pages/main-page")}
                 />
                 <SidebarItem
                     inner={true}

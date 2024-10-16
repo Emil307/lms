@@ -14,11 +14,11 @@ const MainBannerPage = () => {
     const handleChangeTab = (value: string | null) => {
         switch (value) {
             case "banner":
-                return router.push({ pathname: "/admin/settings/main-page/banner" });
+                return router.push({ pathname: "/admin/static-pages/main-page/banner" });
             case "advantages":
-                return router.push({ pathname: "/admin/settings/main-page/advantages" });
+                return router.push({ pathname: "/admin/static-pages/main-page/advantages" });
             default:
-                return router.push({ pathname: "/admin/settings/main-page/banner" });
+                return router.push({ pathname: "/admin/static-pages/main-page/banner" });
         }
     };
 

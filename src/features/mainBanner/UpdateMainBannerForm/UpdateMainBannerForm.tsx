@@ -32,7 +32,7 @@ const UpdateMainBannerForm = ({ data, onClose, ...props }: UpdateMainBannerFormP
             type: ToastType.SUCCESS,
             title: "Изменения сохранены",
         });
-        router.push({ pathname: "/admin/settings/main-page/banner" });
+        router.push({ pathname: "/admin/static-pages/main-page/banner" });
     };
 
     const onError = () => {
