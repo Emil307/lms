@@ -3,7 +3,9 @@ import { useState } from "react";
 import { FormikConfig } from "formik";
 import { useRouter } from "next/router";
 import { useDisclosure } from "@mantine/hooks";
+import { Search as SearchIcon } from "react-feather";
 import IconFilter from "public/icons/icon24px/filter/filter-default.svg";
+import IconResetFilter from "public/icons/icon24px/filter/filter-slash-low.svg";
 import { BreadCrumbs, Button, Heading, Form, FSearch, Loader, Paragraph } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { FilterTypes } from "@shared/constant";
@@ -23,7 +25,7 @@ const CoursesPage = () => {
 
     const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
     const { ref: rootBlockRef, entry } = useIntersection();
-    const isTablet = useMedia("sm");
+    const isTablet = useMedia("md");
     const router = useRouter();
     const queryParams = router.query as TRouterQueries;
 
@@ -63,7 +65,7 @@ const CoursesPage = () => {
                                 <Flex gap={16} align="center" justify="center">
                                     <FSearch size="large" name="query" placeholder="Какой курс вам нужен?" w="100%" />
                                     <Button type="submit" size="large" variant="primary" disabled={!dirty}>
-                                        Найти курс
+                                        {isTablet ? <SearchIcon /> : "Найти курс"}
                                     </Button>
                                 </Flex>
                                 {!!coursesCount && (
@@ -75,9 +77,9 @@ const CoursesPage = () => {
                                             </Button>
                                             {!!countAppliedFilters && (
                                                 <Button
-                                                    className={classes.resetButton}
+                                                    leftIcon={<IconResetFilter />}
                                                     type="button"
-                                                    variant="text"
+                                                    variant="border"
                                                     onClick={handleResetForm}>
                                                     Сбросить
                                                 </Button>
@@ -109,7 +111,7 @@ const CoursesPage = () => {
             <Drawer
                 opened={openedDrawer}
                 onClose={closeDrawer}
-                position="right"
+                position={isTablet ? "bottom" : "right"}
                 size={isTablet ? "100%" : "450px"}
                 zIndex={400}
                 padding={24}

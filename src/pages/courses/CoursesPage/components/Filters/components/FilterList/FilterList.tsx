@@ -38,7 +38,7 @@ const FilterList = ({ field, filterName, data }: FilterListProps) => {
 
     const hideLabel = useMemo(
         () => (
-            <Flex gap={8}>
+            <Flex gap={8} mt={16}>
                 <Button variant="text">Свернуть</Button>
                 <ThemeIcon color="info" bg="info20" style={{ borderRadius: "50%", height: 24, width: 24 }}>
                     <ChevronUp width={12} height={12} />
@@ -61,7 +61,7 @@ const FilterList = ({ field, filterName, data }: FilterListProps) => {
                         {filterName}
                     </Paragraph>
                     <MSpoiler classNames={classes} maxHeight={85} showLabel={showLabel} hideLabel={hideLabel} transitionDuration={0}>
-                        <Flex wrap="wrap" gap={8} mb={16}>
+                        <Flex wrap="wrap" gap={8} mb={1}>
                             {renderItems}
                         </Flex>
                     </MSpoiler>

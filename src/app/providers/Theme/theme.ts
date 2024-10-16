@@ -82,7 +82,7 @@ export const defaultTheme: MantineThemeOverride = {
             },
 
             h2: {
-                fontSize: 26,
+                fontSize: 24,
                 lineHeight: "32px",
                 fontWeight: 600,
             },

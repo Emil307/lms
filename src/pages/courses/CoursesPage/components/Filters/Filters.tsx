@@ -19,7 +19,7 @@ export interface FiltersProps extends Omit<FlexProps, "title" | "onSubmit"> {
 
 const Filters = ({ children, title, initialValues, onSubmit, ...props }: FiltersProps) => {
     const { classes } = useStyles();
-    const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.SELECT });
+    const { data: courseResources, isLoading } = useCourseResources({ type: FilterTypes.MANIPULATION });
     const router = useRouter();
 
     if (isLoading || !courseResources) {
@@ -72,7 +72,7 @@ const Filters = ({ children, title, initialValues, onSubmit, ...props }: Filters
                                 </Flex>
                                 <Flex className={classes.buttonsFormContainer}>
                                     <Button type="submit" variant="primary" size="large" disabled={!dirty}>
-                                        Показать курсы
+                                        Показать
                                     </Button>
                                     <Button
                                         type="button"

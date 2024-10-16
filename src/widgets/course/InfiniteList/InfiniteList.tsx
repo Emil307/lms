@@ -1,9 +1,9 @@
-import { ColProps, Flex, Grid, Stack, Text } from "@mantine/core";
+import { ColProps, Flex, Grid, Stack } from "@mantine/core";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { CourseFromList, useCoursesInfinite } from "@entities/course";
-import { Button, EmptyData, Heading, Loader } from "@shared/ui";
+import { Button, EmptyData, Heading, Loader, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { Card } from "@features/courses";
 import { initialParams } from "./constants";
@@ -60,9 +60,9 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
                         <Heading order={2} maw={250}>
                             По этому запросу пока нет программ
                         </Heading>
-                        <Text c="neutral_main50" size="lg" maw={300}>
+                        <Paragraph variant="large" color="neutral_main50" maw={320}>
                             Попробуйте набрать другой запрос или посмотрите курсы в каталоге
-                        </Text>
+                        </Paragraph>
                     </Stack>
                     <Button component={Link} href="/courses" variant="border" maw={126}>
                         Все курсы
@@ -79,7 +79,7 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
             <Flex direction="column" gap={48} w="100%">
                 <Grid gutter={24} m={0}>
                     {coursesData.data.map((course) => (
-                        <Grid.Col {...colProps} key={course.id}>
+                        <Grid.Col {...colProps} px={0} py={12} key={course.id}>
                             <Card data={course} onClick={handleClickCard} buttonVariant="favorite" />
                         </Grid.Col>
                     ))}

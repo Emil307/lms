@@ -1,8 +1,9 @@
 import { Box, Flex } from "@mantine/core";
-import { memo, useCallback, useState } from "react";
+import { memo, useState } from "react";
 import { useField } from "formik";
-import { IndexNumbers, normalizeRange, onChangeInput } from "@shared/ui/Forms/PriceRangeInput/utils";
 import useStyles from "./PriceRangeInput.styles";
+import { IndexNumbers } from "./types";
+import { normalizeRange } from "./utils";
 import { Input } from "../Input";
 
 interface PriceRangeInputProps {
@@ -24,23 +25,25 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
     const { classes } = useStyles();
     const [values, setValues] = useState<IndexNumbers>([min, max]);
 
-    const handleOnChange = useCallback((newValue: number[]) => {
-        helpers.setValue(newValue);
-    }, []);
-
-    const handleTextInputChange = onChangeInput(values, min, max, setValues, handleOnChange);
-
     const handleBlur = () => {
         if (!shouldNormalizeRange) {
             return;
         }
-        const [from, to] = values;
-        const startValue = from ? Number(from) : min;
-        const endValue = to ? Number(to) : max;
-        const normalizedRange = normalizeRange([startValue, endValue], min, max);
+        const [from, to] = getValidValues(values, min, max);
 
-        setValues(normalizedRange);
-        helpers.setValue(normalizedRange);
+        const normalizedRange = normalizeRange([from, to], min, max);
+
+        updateValues(normalizedRange);
+    };
+
+    const getValidValues = ([from, to]: IndexNumbers, minVal: number, maxVal: number): [number, number] => [
+        from || from === 0 ? Number(from) : minVal,
+        to || to === 0 ? Number(to) : maxVal,
+    ];
+
+    const updateValues = (value: [number, number]) => {
+        setValues(value);
+        helpers.setValue(value.map((x) => x.toString()));
     };
 
     return (
@@ -49,7 +52,7 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
                 <Input
                     className={classes.priceInput}
                     label="от"
-                    onChange={handleTextInputChange(0)}
+                    onChange={(value) => setValues((prev) => [value ? Number(value) : "", prev[1]])}
                     value={values[0] !== "" ? values[0].toString() : ""}
                     maxLength={maxLengthPrice}
                     onBlur={handleBlur}
@@ -57,7 +60,7 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
                 <Input
                     className={classes.priceInput}
                     label="до"
-                    onChange={handleTextInputChange(1)}
+                    onChange={(value) => setValues((prev) => [prev[0], value ? Number(value) : ""])}
                     value={values[1] !== "" ? values[1].toString() : ""}
                     maxLength={maxLengthPrice}
                     onBlur={handleBlur}

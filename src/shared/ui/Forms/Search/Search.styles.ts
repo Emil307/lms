@@ -5,12 +5,16 @@ const getInputStylesForSize = (size: SearchSize): CSSObject => {
     switch (size) {
         case "large":
             return {
+                fontSize: 16,
+                lineHeight: 22,
                 height: 56,
                 borderRadius: 12,
                 padding: "17px 40px 17px 48px",
             };
         case "medium":
             return {
+                fontSize: 14,
+                lineHeight: 16,
                 height: 48,
                 borderRadius: 8,
                 padding: "16px 40px",
@@ -52,9 +56,9 @@ export const useSearchStyles = createStyles((theme, { size }: { size: SearchSize
         },
         input: {
             ...getInputStylesForSize(size),
+
             backgroundColor: theme.colors.neutralLight[0],
             border: "1px solid transparent",
-            lineHeight: 16,
             ":focus": {
                 backgroundColor: theme.colors.white[0],
                 border: `1px solid ${theme.colors.neutral_gray300[0]}`,

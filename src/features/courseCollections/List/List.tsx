@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, FlexProps, Skeleton, SkeletonProps, Text } from "@mantine/core";
+import { Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
 import { useRouter } from "next/router";
 import { EmblaCarouselType } from "embla-carousel-react";
 import { CourseCollectionFromList, useCourseCollectionsPaginate } from "@entities/courseCollection";
@@ -55,16 +55,14 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     return (
         <Flex direction="column" {...wrapperProps} className={classes.wrapper}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
-                <Heading className={classes.headingContainer}>
-                    <Flex direction="column" gap={24}>
-                        <Text ta="center" className={classes.title}>
-                            Больше знаний в комплексе
-                        </Text>
-                        <Text ta="center" className={classes.description}>
-                            Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов
-                        </Text>
-                    </Flex>
-                </Heading>
+                <Flex direction="column" gap={24} align="center">
+                    <Heading order={1} ta="center" color="dark">
+                        Больше знаний в комплексе
+                    </Heading>
+                    <Heading order={3} ta="center" color="neutral_main50" maw={500}>
+                        Расширяйте кругозор и получайте удовольствие от новых знаний с нашими наборами курсов
+                    </Heading>
+                </Flex>
             </Skeleton>
             <Skeleton visible={isLoading} mih={410} radius={24}>
                 <Carousel<CourseCollectionFromList>
@@ -72,7 +70,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                     slideSize="25%"
                     breakpoints={[
                         { maxWidth: "md", slideSize: "50%" },
-                        { maxWidth: "xs", slideSize: "80%" },
+                        { maxWidth: "xs", slideSize: "100%" },
                     ]}
                     getEmblaApi={setEmblaApi}
                     emblaApi={emblaApi}

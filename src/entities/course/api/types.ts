@@ -800,7 +800,7 @@ export const $CoursesFiltersForm = z.object({
     categoryIds: z.array(z.string()),
     subcategoryIds: z.array(z.string()),
     collectionIds: z.string(),
-    discountPrice: z.array(z.number()),
+    discountPrice: z.array(z.string()),
 });
 
 export const $CoursesRequest = z.object({
