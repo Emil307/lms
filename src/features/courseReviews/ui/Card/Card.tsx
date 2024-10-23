@@ -1,4 +1,4 @@
-import { Card as MCard, CardProps as MCardProps, Flex, Text } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps, Flex, Text, Avatar } from "@mantine/core";
 import { memo } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
@@ -18,15 +18,23 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
     const isTablet = useMedia("sm");
 
     return (
-        <MCard {...props} className={cx(classes.root, { activeSlide: isActive })}>
+        <MCard {...props} className={cx(classes.root, { activeSlide: isActive })} w={424}>
             <Flex direction="column" justify="space-between" h="100%">
                 <MCard.Section className={classes.section}>
-                    <Flex gap={16} direction={{ base: "column", xs: "row" }}>
-                        {!isTablet && (
-                            <Paragraph variant="text-small-m" color="gray45" m="auto">
-                                {dayjs(data.createdAt).format("D MMM YYYY")}
+                    <Flex align="center" justify="space-between">
+                        <Flex align="center" gap="18px">
+                            <Avatar size={48} src={data.user.profile.avatar?.absolutePath} style={{ borderRadius: "50%" }} />
+                            <Paragraph variant="large">
+                                {data.user.profile.firstName} {data.user.profile.lastName}
                             </Paragraph>
-                        )}
+                        </Flex>
+                        <Flex gap={16} direction={{ base: "column", xs: "row" }}>
+                            {!isTablet && (
+                                <Paragraph variant="text-small-m" color="gray45" m="auto">
+                                    {dayjs(data.createdAt).format("D MMM YYYY")}
+                                </Paragraph>
+                            )}
+                        </Flex>
                     </Flex>
                     <Flex className={classes.rating}>
                         <Rating defaultValue={1} count={1} readOnly size="small" />
