@@ -180,13 +180,10 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                     <Paragraph variant="text-small-m" component={Link} href="/user-agreement">
                         <Flex className={classes.middleItem}>
                             <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
-                                Оферта на заключение договора об оказании платных образовательных услуг
+                                Оферта и сведения об образовательных услугах и организации
                             </Paragraph>
                             <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
                                 Политика обработки персональных данных
-                            </Paragraph>
-                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
-                                Сведения об образовательной организации
                             </Paragraph>
                         </Flex>
                     </Paragraph>
