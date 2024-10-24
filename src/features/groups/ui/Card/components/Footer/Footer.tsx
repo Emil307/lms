@@ -1,4 +1,4 @@
-import { Card as MCard, CardProps as MCardProps } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps, Text } from "@mantine/core";
 import { memo } from "react";
 import { PlayCircle } from "react-feather";
 import { closeModal, openModal } from "@mantine/modals";
@@ -41,7 +41,9 @@ const MemoizedFooter = memo(function Footer({ data, ...props }: FooterProps) {
                 }
                 return (
                     <Button variant="text" leftIcon={<PlayCircle />} onClick={handleOpenNextLessonFromMyCoursePage}>
-                        {data.nextLesson.name}
+                        <Text h={24} lineClamp={1}>
+                            {data.nextLesson.name}
+                        </Text>
                     </Button>
                 );
             default:
