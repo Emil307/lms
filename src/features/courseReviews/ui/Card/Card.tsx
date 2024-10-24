@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { Paragraph, Rating } from "@shared/ui";
 import { CourseReviewFromList } from "@entities/courseReview";
-import { useMedia } from "@shared/utils";
 import useStyles from "./Card.styles";
 
 export interface CardProps extends Omit<MCardProps, "children"> {
@@ -15,25 +14,27 @@ export interface CardProps extends Omit<MCardProps, "children"> {
 const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps) {
     const { classes, cx } = useStyles();
 
-    const isTablet = useMedia("sm");
-
     return (
-        <MCard {...props} className={cx(classes.root, { activeSlide: isActive })} w={424}>
-            <Flex direction="column" justify="space-between" h="100%">
+        <MCard {...props} className={cx(classes.root, { activeSlide: isActive })} w={{ base: 343, sm: 424 }}>
+            <Flex direction="column" justify={{ base: "none", sm: "space-between" }} h="100%">
                 <MCard.Section className={classes.section}>
-                    <Flex align="center" justify="space-between">
-                        <Flex align="center" gap="18px">
+                    <Flex align={{ base: "none", sm: "center" }}>
+                        <Flex align="center" gap="18px" w="100%">
                             <Avatar size={48} src={data.user.profile.avatar?.absolutePath} style={{ borderRadius: "50%" }} />
-                            <Paragraph variant="large">
-                                {data.user.profile.firstName} {data.user.profile.lastName}
-                            </Paragraph>
-                        </Flex>
-                        <Flex gap={16} direction={{ base: "column", xs: "row" }}>
-                            {!isTablet && (
-                                <Paragraph variant="text-small-m" color="gray45" m="auto">
-                                    {dayjs(data.createdAt).format("D MMM YYYY")}
+                            <Flex
+                                align={{ base: "start", sm: "center" }}
+                                direction={{ base: "column", sm: "row" }}
+                                justify="space-between"
+                                w="100%">
+                                <Paragraph variant="large">
+                                    {data.user.profile.firstName} {data.user.profile.lastName}
                                 </Paragraph>
-                            )}
+                                <Flex gap={16} direction={{ base: "column", xs: "row" }}>
+                                    <Paragraph variant="text-small-m" color="gray45" m="auto">
+                                        {dayjs(data.createdAt).format("D MMM YYYY")}
+                                    </Paragraph>
+                                </Flex>
+                            </Flex>
                         </Flex>
                     </Flex>
                     <Flex className={classes.rating}>
