@@ -15,7 +15,6 @@ import {
     $GetGroupsCountsResponse,
     $GetGroupsRequest,
     $GetGroupsResponse,
-    $GetGroupsSchedulesInfoResponse,
     $UpdateAdminGroupResponse,
     $UpdateGroupActivityResponse,
     AttachStudentsToGroupRequest,
@@ -40,8 +39,6 @@ import {
     GetGroupModulesResponse,
     GetGroupRequest,
     GetGroupResponse,
-    GetGroupsSchedulesInfoRequest,
-    GetGroupsSchedulesInfoResponse,
     UpdateAdminGroupRequest,
     UpdateAdminGroupResponse,
     UpdateGroupActivityRequest,
@@ -131,11 +128,6 @@ export class GroupApi extends BaseApi {
     async getGroupModules({ groupId, ...params }: GetGroupModulesRequest): Promise<GetGroupModulesResponse> {
         const response = await this.instance.get(`courses/groups/${groupId}/structure`, { params });
         return $GetGroupModulesResponse.parse(response);
-    }
-
-    async getGroupsSchedules(params: GetGroupsSchedulesInfoRequest): Promise<GetGroupsSchedulesInfoResponse> {
-        const response = await this.instance.post(`courses/groups/schedules/list`, params);
-        return $GetGroupsSchedulesInfoResponse.parse(response);
     }
 }
 
