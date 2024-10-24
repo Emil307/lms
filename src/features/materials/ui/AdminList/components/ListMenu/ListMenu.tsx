@@ -40,9 +40,6 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
     };
 
     const openModalEditFile = () => {
-        if (row.original.type.value === "image" || row.original.type.value === "avatar") {
-            return;
-        }
         openModal({
             modalId: "EDIT_MATERIAL",
             title: "Редактирование материала",

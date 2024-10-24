@@ -43,7 +43,12 @@ export const $FileType = z
     .or(z.literal("video"))
     .or(z.literal("document"))
     .or(z.literal("images"));
-export const $MaterialType = z.literal("document").or(z.literal("video")).or(z.literal("images"));
+export const $MaterialType = z
+    .literal("document")
+    .or(z.literal("video"))
+    .or(z.literal("images"))
+    .or(z.literal("avatar"))
+    .or(z.literal("image"));
 
 export const $UploadedFileType = z.object({
     name: z.string(),
