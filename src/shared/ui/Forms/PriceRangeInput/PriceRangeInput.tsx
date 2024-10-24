@@ -1,5 +1,5 @@
 import { Box, Flex } from "@mantine/core";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useField } from "formik";
 import useStyles from "./PriceRangeInput.styles";
 import { IndexNumbers } from "./types";
@@ -21,9 +21,13 @@ const MemoizedPriceRangeInput = memo(function PriceRangeInput({
     maxLengthPrice = 15,
     shouldNormalizeRange = true,
 }: PriceRangeInputProps) {
-    const [_field, _meta, helpers] = useField(name);
+    const [field, _meta, helpers] = useField(name);
     const { classes } = useStyles();
     const [values, setValues] = useState<IndexNumbers>([min, max]);
+
+    useEffect(() => {
+        updateValues(getValidValues([field.value?.[0], field.value?.[1]], min, max));
+    }, []);
 
     const handleBlur = () => {
         if (!shouldNormalizeRange) {
