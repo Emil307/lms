@@ -45,6 +45,11 @@ const CoursesPage = () => {
         },
     };
 
+    const handleClearSearch = () => {
+        const { query, ...rest } = router.query;
+        router.push({ query: { ...rest } }, undefined, { shallow: true });
+    };
+
     return (
         <Box m="auto">
             <Box maw={1320} m="auto" className={classes.filtersBlock}>
@@ -63,7 +68,13 @@ const CoursesPage = () => {
                         return (
                             <Flex className={classes.filters}>
                                 <Flex gap={16} align="center" justify="center">
-                                    <FSearch size="large" name="query" placeholder="Какой курс вам нужен?" w="100%" />
+                                    <FSearch
+                                        size="large"
+                                        name="query"
+                                        placeholder="Какой курс вам нужен?"
+                                        w="100%"
+                                        onClear={handleClearSearch}
+                                    />
                                     <Button type="submit" size="large" variant="primary" disabled={!dirty}>
                                         {isTablet ? <SearchIcon /> : "Найти курс"}
                                     </Button>
