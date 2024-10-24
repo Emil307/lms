@@ -43,7 +43,7 @@ const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProp
             />
             {hasNextPage && (
                 <Button className={classes.buttonLoadMore} variant="white" onClick={handleClickShowMore} loading={isFetching}>
-                    Показать еще категории
+                    Показать еще
                 </Button>
             )}
             {articleCategoriesData.meta && (

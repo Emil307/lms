@@ -1,5 +1,4 @@
 export * from "./Card";
-export * from "./CardMore";
 export * from "./List";
 export * from "./AdminList";
 export * from "./DeleteCourseCollectionModal";

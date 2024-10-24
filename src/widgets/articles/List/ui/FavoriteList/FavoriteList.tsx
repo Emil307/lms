@@ -65,7 +65,7 @@ const FavoriteList = ({ filterParams, ...props }: FavoriteListProps) => {
             />
             {hasNextPage && (
                 <Button className={classes.buttonLoadMore} variant="white" onClick={handleClickShowMore} loading={isFetching}>
-                    Показать еще статьи
+                    Показать еще
                 </Button>
             )}
             <Box>

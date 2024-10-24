@@ -35,7 +35,7 @@ const CoursesBlock = (props: CoursesBlockProps) => {
                     <>
                         {visibleCourses < totalCoursesCount ? (
                             <Button variant="white" w="min-content" mx="auto" onClick={handleShowMoreCourses}>
-                                Еще {Math.min(initialParams.countCoursesPerOpen, totalCoursesCount - visibleCourses)} курсов
+                                Показать еще
                             </Button>
                         ) : (
                             <Button variant="primary" rightIcon={<ArrowRight />} w="min-content" mx="auto" onClick={handleOpenCoursesPage}>

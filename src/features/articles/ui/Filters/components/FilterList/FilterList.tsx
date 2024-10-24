@@ -4,7 +4,6 @@ import { useEventListener, useTimeout } from "@mantine/hooks";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { FieldArray } from "formik";
 import { ArticleCategory, ArticleTag } from "@entities/article";
-import { getPluralString } from "@shared/utils";
 import { Button, Paragraph, Search } from "@shared/ui";
 import useStyles from "./FilterList.styles";
 import { DELAY_VISABILITY_FILTER_ICON, HEIGHT_CONTENT_INDENT, INITIAL_MAX_HEIGHT_SPOILER_CONTAINER } from "./constants";
@@ -19,7 +18,7 @@ export interface FilterListProps {
     isVisible: boolean;
 }
 
-const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, data, isVisible }: FilterListProps) => {
+const FilterList = ({ field, filterName, searchPlaceholder, data, isVisible }: FilterListProps) => {
     const spoilerRef = useRef<HTMLDivElement>(null);
     const spoilerContentRef = useRef<HTMLDivElement>(null);
     const [maxHeightSpoilerContainer, setMaxHeightSpoilerContainer] = useState(INITIAL_MAX_HEIGHT_SPOILER_CONTAINER);
@@ -84,13 +83,9 @@ const FilterList = ({ field, filterName, searchPlaceholder, labelsPluralString, 
     const handleChangeOpen = () => setIsOpen((prev) => !prev);
 
     const showLabel = () => {
-        const hiddenCountItems = data && data.length > 5 ? data.length - 5 : 0;
         return (
             <Flex gap={8} onClick={handleChangeOpen}>
-                <Text className={classes.spoilerLabelText}>{`Еще ${hiddenCountItems} ${getPluralString(
-                    hiddenCountItems,
-                    ...labelsPluralString
-                )}`}</Text>
+                <Text className={classes.spoilerLabelText}>Показать еще</Text>
                 <ThemeIcon color="dark">
                     <ChevronDown />
                 </ThemeIcon>
