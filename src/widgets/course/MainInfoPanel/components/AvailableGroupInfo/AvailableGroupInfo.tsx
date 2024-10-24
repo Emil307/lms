@@ -14,7 +14,7 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
     const { classes } = useStyles({ grayColor });
 
     const renderFinishDate = () => {
-        if (data.type === "autonomous") {
+        if (data.type === "autonomous" && data.availableGroup?.educationStartDate) {
             return (
                 <Flex className={classes.groupInfoButton}>
                     <Paragraph variant="text-small-m" color="gray45">{`Стартует ${dayjs(data.availableGroup?.educationStartDate).format(
