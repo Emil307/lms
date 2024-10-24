@@ -132,6 +132,7 @@ const MemoizedFileInput = memo(function FileInput({
             })
         );
         onUploaded(uploadedFile);
+        removeReplaceLoadedFileId();
     };
 
     const handleLoadFile = async (files: FileWithPath[], rejected?: string) => {
@@ -159,20 +160,19 @@ const MemoizedFileInput = memo(function FileInput({
         } else {
             setLoadedFiles([{ id: ++loadedFilesCount.current, data: files[0], error: rejected }]);
         }
-        replaceLoadedFileId.current = null;
     };
 
     const handleDropFiles = (files: FileWithPath[]) => {
         if (!files.length) {
-            replaceLoadedFileId.current = null;
+            removeReplaceLoadedFileId();
             return;
         }
         handleLoadFile(files);
     };
 
-    const handleFileDialogCancel = () => {
-        replaceLoadedFileId.current = null;
-    };
+    const handleFileDialogCancel = () => removeReplaceLoadedFileId();
+
+    const removeReplaceLoadedFileId = () => (replaceLoadedFileId.current = null);
 
     const contentInsideDropzone = useMemo(() => {
         if (!multiple && type === "image" && loadedFiles[0]?.id && !loadedFiles[0].error) {
