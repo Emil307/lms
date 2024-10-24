@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
     courseWrapper: {
         gap: 64,
         [theme.fn.smallerThan("sm")]: {
-            gap: 0,
+            gap: 48,
         },
     },
     container: {

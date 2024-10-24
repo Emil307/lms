@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { BreadCrumbs, Heading } from "@shared/ui";
 import { List as CourseCollectionList } from "@features/courseCollections";
 import { TRouterQueries } from "@shared/types";
-import { List as CoursesList } from "@features/courses";
 import { useCourseCollection } from "@entities/courseCollection";
 import { useMedia } from "@shared/utils";
 import { getBreadCrumbsItems } from "./utils";
 import useStyles from "./CourseCollectionDetailsPage.styles";
+import { CoursesList } from "./components";
 
 const CourseCollectionDetailsPage = () => {
     const router = useRouter();
@@ -22,17 +22,13 @@ const CourseCollectionDetailsPage = () => {
     return (
         <>
             <Flex direction="column" className={classes.container}>
-                <BreadCrumbs
-                    items={getBreadCrumbsItems({ name: data?.name, isTablet: isTablet })}
-                    mb={16}
-                    className={classes.breadCrumbs}
-                />
+                <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name, isTablet })} mb={16} className={classes.breadCrumbs} />
                 <Flex direction="column" className={classes.courseWrapper}>
                     <Flex align="center" gap={12} className={classes.heading}>
                         <Heading className={classes.title}>{data?.name}</Heading>
                     </Flex>
                     <Flex className={classes.courseList}>
-                        <CoursesList collectionIds={id} pt={48} />
+                        <CoursesList collectionIds={id} />
                     </Flex>
                 </Flex>
             </Flex>

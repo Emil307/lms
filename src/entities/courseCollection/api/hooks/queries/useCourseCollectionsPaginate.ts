@@ -29,8 +29,6 @@ export const useCourseCollections = (
     return useQuery(
         [QueryKeys.GET_COURSE_COLLECTIONS, [EntityNames.COURSE_COLLECTION, EntityNames.COURSE], params],
         () => courseCollectionApi.getCourseCollections(params),
-        {
-            enabled,
-        }
+        { enabled }
     );
 };

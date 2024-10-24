@@ -1,21 +1,22 @@
-import { Badge, Box, Card as MCard, CardProps as MCardProps, Group, Flex } from "@mantine/core";
-import { memo } from "react";
+import { Badge, Box, Flex, Stack, StackProps } from "@mantine/core";
 import Image from "next/image";
-import { CourseFromList } from "@entities/course";
+import { memo } from "react";
+import Link from "next/link";
 import { getDiscountValue } from "@shared/utils";
-import { Button, Heading } from "@shared/ui";
-import { AmountInfo } from "./components";
+import { Button, Heading, Paragraph } from "@shared/ui";
+import { CourseFromList } from "@entities/course";
 import useStyles from "./Card.styles";
+import { AmountInfo } from "./components";
 import { FavoriteButton } from "../FavoriteButton";
 
-export interface CardProps extends Omit<MCardProps, "children"> {
+export interface CardProps extends Omit<StackProps, "children" | "onClick"> {
     data: CourseFromList;
     onClick?: (courseId: number, courseData: CourseFromList) => void;
     buttonVariant?: "favorite" | "more";
 }
 
-const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => undefined, ...props }: CardProps) {
-    const { classes } = useStyles({ isFavorite: data.isFavorite });
+const MemoizedCard = memo(function Card({ data, buttonVariant = "favorite", onClick = () => undefined, ...props }: CardProps) {
+    const { classes } = useStyles();
 
     const handleClickCard = () => onClick(data.id, data);
 
@@ -29,7 +30,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
         switch (buttonVariant) {
             case "favorite":
                 return (
-                    <Flex justify="flex-end" onClick={(event) => event.stopPropagation()}>
+                    <Flex justify="flex-end" onClick={(event) => event.preventDefault()}>
                         <FavoriteButton data={data} variant="default" />
                     </Flex>
                 );
@@ -39,8 +40,8 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
     };
 
     return (
-        <MCard {...props} className={classes.root} onClick={handleClickCard}>
-            <MCard.Section className={classes.cardImageSection} p={24} pb={16}>
+        <Link className={classes.linkCourse} href={{ pathname: "/courses/[id]", query: { id: String(data.id) } }}>
+            <Stack spacing={16} className={classes.root} onClick={handleClickCard} {...props}>
                 <Box className={classes.imageWrapper}>
                     {data.cover && (
                         <Image
@@ -55,33 +56,31 @@ const MemoizedCard = memo(function Card({ data, buttonVariant, onClick = () => u
                     )}
                     {renderButton()}
                 </Box>
-            </MCard.Section>
-            <MCard.Section>
-                <Group className={classes.cardSectionContent}>
+
+                <Flex gap={6} wrap="wrap">
                     {discountValue && data.discountPrice !== data.price && <Badge className={classes.discount}>-{discountValue}</Badge>}
                     {data.category && <Badge className={classes.category}>{data.category.name}</Badge>}
                     {data.subcategory && <Badge className={classes.category}>{data.subcategory.name}</Badge>}
-                </Group>
-            </MCard.Section>
-            <MCard.Section className={classes.cardContentBody} ml={0}>
-                <Box className={classes.headingContent}>
-                    <Heading order={3} className={classes.title} lineClamp={2}>
+                </Flex>
+                <Stack className={classes.content} spacing={8}>
+                    <Heading order={3} lineClamp={2}>
                         {data.name}
                     </Heading>
-                    <Heading order={5} lineClamp={2}>
+                    <Paragraph variant="small-m" lineClamp={2} c="neutral_main50">
                         {data.shortDescription}
-                    </Heading>
-                </Box>
-                <Group sx={{ justifyContent: "space-between", gap: 0 }}>
+                    </Paragraph>
+                </Stack>
+
+                <Flex justify="space-between" align="center">
                     <Flex direction="column">
                         <AmountInfo data={data} />
                     </Flex>
-                    <Button className={classes.moreButton} variant="white" onClick={handleClickCard}>
+                    <Button variant="white" onClick={handleClickCard}>
                         Подробнее
                     </Button>
-                </Group>
-            </MCard.Section>
-        </MCard>
+                </Flex>
+            </Stack>
+        </Link>
     );
 });
 

@@ -2,13 +2,13 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     root: {
-        padding: 35,
+        padding: 32,
         borderRadius: 32,
         border: `1px solid ${theme.colors.grayLight[0]}`,
         transition: "all 0.1s",
         cursor: "pointer",
         [theme.fn.smallerThan("sm")]: {
-            padding: 16,
+            padding: 24,
         },
         "&.activeSlide": {
             backgroundColor: theme.colors.grayLight[0],
@@ -23,7 +23,7 @@ export default createStyles((theme) => ({
         width: "100%",
     },
     imageContent: {
-        height: 264,
+        height: 240,
         position: "relative",
         borderRadius: 32,
         overflow: "hidden",
@@ -44,5 +44,9 @@ export default createStyles((theme) => ({
     },
     title: {
         fontSize: 24,
+    },
+    linkCourse: {
+        color: "inherit",
+        textDecoration: "none",
     },
 }));

@@ -3,3 +3,4 @@ export * from "./useAdminCourseCollectionResources";
 export * from "./useCourseCollection";
 export * from "./useCourseCollectionsPaginate";
 export * from "./useRandomCourseCollection";
+export * from "./useCourseCollectionsInfinite";

@@ -56,7 +56,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
         <Flex direction="column" {...wrapperProps} className={classes.wrapper}>
             <Skeleton visible={isLoading} mih={40} radius={24}>
                 <Flex direction="column" gap={24} align="center">
-                    <Heading order={1} ta="center" color="dark">
+                    <Heading className={classes.title} order={1} ta="center" color="dark">
                         Больше знаний в комплексе
                     </Heading>
                     <Heading order={3} ta="center" color="neutral_main50" maw={500}>
@@ -67,7 +67,8 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
             <Skeleton visible={isLoading} mih={410} radius={24}>
                 <Carousel<CourseCollectionFromList>
                     data={courseCollectionsData.data}
-                    slideSize="25%"
+                    slideSize="23%"
+                    slideGap={24}
                     breakpoints={[
                         { maxWidth: "md", slideSize: "50%" },
                         { maxWidth: "xs", slideSize: "100%" },

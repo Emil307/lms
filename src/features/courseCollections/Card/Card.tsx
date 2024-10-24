@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex, Group } from "@mantine/core";
+import { Box, BoxProps, Flex, Group, Paper } from "@mantine/core";
 import { memo } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import { Button, Heading } from "@shared/ui";
+import Link from "next/link";
+import { Heading, Paragraph } from "@shared/ui";
 import { getPluralString } from "@shared/utils";
 import { CourseCollectionFromList } from "@entities/courseCollection";
 import useStyles from "./Card.styles";
@@ -13,46 +13,41 @@ export interface CardProps extends Omit<BoxProps, "children"> {
     onClick?: (id: unknown) => void;
     courseCollection?: boolean;
     customStyles?: () => { classes: any; cx: (...args: any) => string };
-    gap?: number;
 }
 
-const MemoizedCard = memo(function Card({ data, isActive, onClick, courseCollection, customStyles, gap = 35, ...props }: CardProps) {
-    const defaultStyles = useStyles();
-    const { classes, cx } = customStyles ? customStyles() : defaultStyles;
-    const router = useRouter();
-    const handleClickCard = () => router.push({ pathname: "/course-collections/[id]", query: { id: String(data.id) } });
+const MemoizedCard = memo(function Card({ data, isActive, onClick, courseCollection, customStyles, ...props }: CardProps) {
+    const { classes, cx } = useStyles();
 
     return (
-        <Box {...props} className={cx(classes.root, { activeSlide: isActive })} onClick={handleClickCard}>
-            <Group className={classes.content}>
-                <Flex direction="column" gap={gap} miw={264} w="100%">
-                    <Flex className={classes.imageContent}>
-                        <Flex className={classes.courseInfo}>
-                            <Button variant="primary" size="small">{`${data.coursesCount} ${getPluralString(
-                                data.coursesCount,
-                                "курс",
-                                "курса",
-                                "курсов"
-                            )}`}</Button>
+        <Link className={classes.linkCourse} href={{ pathname: "/course-collections/[id]", query: { id: String(data.id) } }}>
+            <Box {...props} className={cx(classes.root, { activeSlide: isActive })} h={{ base: 376, sm: 432 }}>
+                <Group className={classes.content}>
+                    <Flex direction="column" gap={{ base: 16, sm: 32 }} miw={264} w="100%">
+                        <Flex className={classes.imageContent}>
+                            <Flex className={classes.courseInfo}>
+                                <Paper h={28} pt={6.6} pr={11} pb={6.6} pl={11} bg="neutralLight" radius={8}>
+                                    <Paragraph variant="text-caption" color="dark">
+                                        {`${data.coursesCount} ${getPluralString(data.coursesCount, "курс", "курса", "курсов")}`}
+                                    </Paragraph>
+                                </Paper>
+                            </Flex>
+                            {data.cover && (
+                                <Image
+                                    src={data.cover.absolutePath}
+                                    alt={data.cover.name}
+                                    fill
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
+                                />
+                            )}
                         </Flex>
-                        {data.cover && (
-                            <Image
-                                src={data.cover.absolutePath}
-                                alt={data.cover.name}
-                                fill
-                                sizes="100%"
-                                style={{
-                                    objectFit: "cover",
-                                }}
-                            />
-                        )}
+                        <Heading order={2} lineClamp={3}>
+                            {data.name}
+                        </Heading>
                     </Flex>
-                    <Heading order={2} lineClamp={2} className={classes.title}>
-                        {data.name}
-                    </Heading>
-                </Flex>
-            </Group>
-        </Box>
+                </Group>
+            </Box>
+        </Link>
     );
 });
 

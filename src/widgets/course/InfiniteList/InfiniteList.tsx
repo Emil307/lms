@@ -1,26 +1,22 @@
-import { ColProps, Flex, Grid, Stack } from "@mantine/core";
+import { Flex, Stack, Box, Center } from "@mantine/core";
 import { useRouter } from "next/router";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useEffect } from "react";
 import Link from "next/link";
-import { CourseFromList, useCoursesInfinite } from "@entities/course";
+import { useCoursesInfinite } from "@entities/course";
 import { Button, EmptyData, Heading, Loader, Paragraph } from "@shared/ui";
-import { getPluralString } from "@shared/utils";
 import { Card } from "@features/courses";
 import { initialParams } from "./constants";
 import { adaptGetCoursesRequest } from "./utils";
 import { TRouterQueries } from "./types";
-import useStyles from "./InfiniteList.styles";
 
 export interface InfiniteListProps {
-    colProps?: ColProps;
     onChangeCoursesCount?: (count: number) => void;
     perPage?: number;
 }
 
-const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perPage = initialParams.perPage }: InfiniteListProps) => {
+const InfiniteList = ({ onChangeCoursesCount, perPage = initialParams.perPage }: InfiniteListProps) => {
     const router = useRouter();
     const params = router.query as TRouterQueries;
-    const { classes } = useStyles();
 
     const {
         data: coursesData,
@@ -30,19 +26,11 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
         fetchNextPage,
     } = useCoursesInfinite(adaptGetCoursesRequest({ ...initialParams, perPage, ...params }), router.isReady);
 
-    const handleMoreCourses = () => {
-        fetchNextPage();
-    };
-
     useEffect(() => {
         if (onChangeCoursesCount && coursesData) {
             onChangeCoursesCount(coursesData.pagination.total || 0);
         }
     }, [coursesData, onChangeCoursesCount]);
-
-    const handleClickCard = useCallback((_id: unknown, course: CourseFromList) => {
-        router.push({ pathname: "/courses/[id]", query: { id: String(course.id) } });
-    }, []);
 
     const renderContent = () => {
         if (isLoading) {
@@ -77,17 +65,19 @@ const InfiniteList = ({ colProps = { md: 4, sm: 12 }, onChangeCoursesCount, perP
 
         return (
             <Flex direction="column" gap={48} w="100%">
-                <Grid gutter={24} m={0}>
+                <Flex gap={24} wrap="wrap">
                     {coursesData.data.map((course) => (
-                        <Grid.Col {...colProps} px={0} py={12} key={course.id}>
-                            <Card data={course} onClick={handleClickCard} buttonVariant="favorite" />
-                        </Grid.Col>
+                        <Box key={course.id} w={{ base: "100%", sm: 343, md: 500, lg: 424 }} mb={{ base: 0, sm: 8 }}>
+                            <Card data={course} />
+                        </Box>
                     ))}
-                </Grid>
+                </Flex>
                 {hasNextPage && (
-                    <Button className={classes.buttonMore} variant="border" size="large" loading={isFetching} onClick={handleMoreCourses}>
-                        Еще {initialParams.perPage} {getPluralString(initialParams.perPage, "курс", "курса", "курсов")}
-                    </Button>
+                    <Center>
+                        <Button variant="border" size="large" loading={isFetching} onClick={fetchNextPage}>
+                            Показать еще
+                        </Button>
+                    </Center>
                 )}
             </Flex>
         );

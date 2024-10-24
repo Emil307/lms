@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     wrapper: {
-        gap: 32,
+        gap: 48,
         marginTop: 112,
         paddingRight: 0,
         paddingLeft: 0,
@@ -42,21 +42,20 @@ export default createStyles((theme) => ({
     },
     viewport: {
         marginBottom: 48,
+        overflow: "visible",
     },
     container: {
         height: 475,
         alignItems: "center",
     },
-    slide: {
-        opacity: 0.6,
-    },
+
     activeSlide: {
         transform: "scale(1.1)",
         transition: "all 0.3s",
         margin: "0px 24px",
         opacity: 1,
         [theme.fn.smallerThan("sm")]: {
-            transform: "scale(1)",
+            transform: "scale(1.035)",
             margin: "auto",
         },
     },
