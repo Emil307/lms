@@ -17,7 +17,7 @@ const TagList = ({ data, ...props }: TagListProps) => {
         <Group {...props} className={cx(classes.root, props.className)}>
             {data.map((tag) => (
                 <Badge key={tag.id} className={classes.tag}>
-                    #{tag.name}
+                    {tag.name}
                 </Badge>
             ))}
         </Group>

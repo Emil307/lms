@@ -17,7 +17,7 @@ const TagList = ({ data }: TagListProps) => {
         <Group sx={{ gap: 4 }}>
             {data.map((tag) => (
                 <Badge key={tag.id} className={classes.tag}>
-                    #{tag.name}
+                    {tag.name}
                 </Badge>
             ))}
         </Group>
