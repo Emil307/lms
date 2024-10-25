@@ -47,7 +47,7 @@ const MainBanner = (props: MainBannerProps) => {
                                     href={data.buttonLink as unknown as Route}
                                     size="large"
                                     w="min-content"
-                                    variant="secondary"
+                                    variant="primary"
                                     className={classes.button}>
                                     {data.buttonText}
                                 </Button>

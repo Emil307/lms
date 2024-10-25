@@ -38,11 +38,19 @@ const AccordionList = ({
         () =>
             faqData?.map((faqItem) => (
                 <Accordion.Item key={faqItem.id} value={faqItem.id.toString()}>
-                    <Accordion.Control chevron={getChevron(selected.includes(faqItem.id.toString()))}>{faqItem.question}</Accordion.Control>
-                    <Accordion.Panel>{faqItem.answer}</Accordion.Panel>
+                    <Accordion.Control chevron={getChevron(selected.includes(faqItem.id.toString()))}>
+                        <Heading order={3} color="dark">
+                            {faqItem.question}
+                        </Heading>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <Paragraph variant="small-m" color="neutral_main50">
+                            {faqItem.answer}
+                        </Paragraph>
+                    </Accordion.Panel>
                 </Accordion.Item>
             )),
-        [faqData, selected]
+        [faqData, selected],
     );
 
     if (isError) {

@@ -16,8 +16,8 @@ const getStylesByOrder = (theme: MantineTheme, { order = 1 }: CreateStylesParams
         case 1: {
             return {
                 fontWeight: 600,
-                fontSize: 32,
-                lineHeight: "40px",
+                fontSize: 42,
+                lineHeight: "46.2px",
 
                 [theme.fn.smallerThan("md")]: {
                     fontSize: 24,
@@ -51,7 +51,7 @@ const getStylesByOrder = (theme: MantineTheme, { order = 1 }: CreateStylesParams
         }
         case 4: {
             return {
-                fontWeight: 600,
+                fontWeight: 500,
                 fontSize: 18,
                 lineHeight: "24px",
 

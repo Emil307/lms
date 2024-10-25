@@ -12,6 +12,7 @@ export default createStyles((theme) => ({
     },
     viewport: {
         marginBottom: 48,
+        overflow: "visible",
     },
     container: {
         height: 585,

@@ -2,7 +2,7 @@ import { Flex, Grid, Skeleton, BoxProps, Box } from "@mantine/core";
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { useAdvantages } from "@entities/staticPage";
-import { Paragraph } from "@shared/ui";
+import { Heading, Paragraph } from "@shared/ui";
 import testIcon from "public/test-icon.png";
 import { initialParams } from "./constants";
 import useStyles from "./AdvantagesBlock.styles";
@@ -26,15 +26,17 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
                                 width={56}
                                 height={56}
                                 className={classes.titleIcon}></Image>
-                            <Flex className={classes.title}>{advantage.title}</Flex>
+                            <Heading order={3} color="dark">
+                                {advantage.title}
+                            </Heading>
                         </Flex>
-                        <Paragraph fz={18} variant="text-small-m" color="gray45" lh="24px">
+                        <Paragraph variant="large" color="neutral_main50">
                             {advantage.description}
                         </Paragraph>
                     </Flex>
                 </Grid.Col>
             )),
-        [advantagesData]
+        [advantagesData],
     );
 
     if (!advantagesData?.data.length) {
@@ -42,7 +44,7 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
     }
 
     return (
-        <Skeleton visible={isLoading} mih={160} radius={24} mt={112} className={classes.container}>
+        <Skeleton visible={isLoading} mih={160} radius={24} mt={{ base: 64, sm: 112 }} className={classes.container}>
             <Box {...props}>
                 <Grid gutter={24} gutterMd={24} maw={1320}>
                     {renderAdvantages}

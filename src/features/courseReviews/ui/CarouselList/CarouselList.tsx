@@ -58,7 +58,7 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
     return (
         <Box {...props} className={classes.root}>
             {headerSlot && (
-                <Skeleton visible={isLoading} w="60%" m="auto" radius={24}>
+                <Skeleton visible={isLoading} m="auto" radius={24}>
                     {headerSlot}
                 </Skeleton>
             )}
@@ -67,10 +67,11 @@ const CarouselList = ({ headerSlot, courseId, visible, ...props }: CarouselListP
                 <Carousel<CourseReviewFromList>
                     data={courseReviewsData.data}
                     lastElemRef={lastElemRef}
+                    slideSize="23%"
+                    slideGap={16}
                     breakpoints={[
-                        { maxWidth: "xs", slideSize: "80%" },
-                        { maxWidth: "lg", slideSize: "25%" },
-                        { minWidth: "lg", slideSize: "25%" },
+                        { maxWidth: "md", slideSize: "50%" },
+                        { maxWidth: "xs", slideSize: "100%" },
                     ]}
                     getEmblaApi={setEmblaApi}
                     emblaApi={emblaApi}

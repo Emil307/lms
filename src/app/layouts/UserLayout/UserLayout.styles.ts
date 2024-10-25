@@ -40,6 +40,7 @@ export default createStyles((theme) => ({
 
         [theme.fn.smallerThan("md")]: {
             paddingTop: 24,
+            paddingBottom: 48,
         },
     },
 }));

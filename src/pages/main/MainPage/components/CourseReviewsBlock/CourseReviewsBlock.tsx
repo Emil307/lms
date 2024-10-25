@@ -1,28 +1,23 @@
-import { Box, Flex, FlexProps, Text } from "@mantine/core";
+import { Box, FlexProps, Stack } from "@mantine/core";
 import React from "react";
 import { CarouselList as CourseReviewCarouselList } from "@features/courseReviews";
 import { Heading } from "@shared/ui";
-import useStyles from "./CourseReviewBlock.styles";
 
 export interface CourseReviewsBlockProps extends FlexProps {}
 
 const CourseReviewsBlock = (props: CourseReviewsBlockProps) => {
-    const { classes } = useStyles();
-
     return (
         <Box>
             <CourseReviewCarouselList
                 headerSlot={
-                    <Heading mb={48}>
-                        <Flex direction="column" gap={24}>
-                            <Text ta="center" className={classes.title}>
-                                О нас говорят
-                            </Text>
-                            <Text ta="center" className={classes.description}>
-                                Расширяйте кругозор и получайте удовольствие <br /> от новых знаний с нашими наборами курсов
-                            </Text>
-                        </Flex>
-                    </Heading>
+                    <Stack spacing={24} mb={48} align="center">
+                        <Heading order={1} ta="center" color="dark">
+                            О нас говорят
+                        </Heading>
+                        <Heading order={3} ta="center" color="neutral_main50" maw={500}>
+                            Расширяйте кругозор и&nbsp;получайте удовольствие от&nbsp;новых знаний с&nbsp;нашими наборами курсов
+                        </Heading>
+                    </Stack>
                 }
                 {...props}
             />

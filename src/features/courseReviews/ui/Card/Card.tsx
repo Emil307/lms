@@ -16,9 +16,9 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
 
     return (
         <MCard {...props} className={cx(classes.root, { activeSlide: isActive })} w={{ base: 343, sm: 424 }}>
-            <Flex direction="column" justify={{ base: "none", sm: "space-between" }} h="100%">
+            <Flex direction="column" justify="space-between" h="100%">
                 <MCard.Section className={classes.section}>
-                    <Flex align={{ base: "none", sm: "center" }}>
+                    <Flex align="center">
                         <Flex align="center" gap="18px" w="100%">
                             <Avatar size={48} src={data.user.profile.avatar?.absolutePath} style={{ borderRadius: "50%" }} />
                             <Flex
@@ -39,8 +39,14 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                     </Flex>
                     <Flex className={classes.rating}>
                         <Rating defaultValue={1} count={1} readOnly size="small" />
-
-                        <Text className={classes.ratingValue}>{data.score} из 5</Text>
+                        <Flex gap={4}>
+                            <Paragraph variant="large" color="dark">
+                                {data.score}
+                            </Paragraph>
+                            <Paragraph variant="large" color="neutral_main50">
+                                из 5
+                            </Paragraph>
+                        </Flex>
                     </Flex>
                     <Flex className={classes.description}>
                         <Paragraph variant="large">{data.content}</Paragraph>

@@ -3,7 +3,6 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme) => ({
     wrapper: {
         gap: 48,
-        marginTop: 112,
         paddingRight: 0,
         paddingLeft: 0,
         [theme.fn.smallerThan("sm")]: {
@@ -57,6 +56,7 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("sm")]: {
             transform: "scale(1.035)",
             margin: "auto",
+            marginBottom: 0,
         },
     },
     controls: {

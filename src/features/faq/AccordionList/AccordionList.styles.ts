@@ -23,7 +23,8 @@ export default createStyles((theme) => ({
         marginRight: 24,
         [theme.fn.smallerThan("md")]: {
             gap: 24,
-            marginBottom: 48,
+            marginBottom: 0,
+            marginRight: 0,
         },
     },
     title: {

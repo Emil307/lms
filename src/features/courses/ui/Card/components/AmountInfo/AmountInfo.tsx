@@ -10,7 +10,7 @@ export interface AmountInfoProps {
 const AmountInfo = ({ data }: AmountInfoProps) => {
     if (hasDiscount({ discount: data.discount, defaultPrice: data.price, discountPrice: data.discountPrice })) {
         return (
-            <Flex align="flex-start" gap={6}>
+            <Flex align="flex-start" gap={12}>
                 <Heading order={2} color="dark">{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>
                 <Paragraph variant="large" td="line-through" color="gray45">{`${data.price.toLocaleString("ru")} ₽`}</Paragraph>
             </Flex>

@@ -19,7 +19,7 @@ export default createStyles((theme) => ({
         justifyContent: "center",
 
         [theme.fn.smallerThan("sm")]: {
-            height: 442,
+            height: 508,
         },
     },
 
@@ -79,7 +79,6 @@ export default createStyles((theme) => ({
         opacity: "50%",
     },
     button: {
-        borderRadius: 56,
         height: 72,
 
         [theme.fn.smallerThan("md")]: {
