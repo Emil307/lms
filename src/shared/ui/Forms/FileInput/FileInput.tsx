@@ -34,6 +34,7 @@ export interface FileInputProps extends Omit<DropzoneProps, "children" | "onLoad
     titleButtonFileDialog?: string;
     containerFilesProps?: BoxProps;
     educational?: boolean;
+    invalidateOnSuccess?: boolean;
     onUploaded?: (file: UploadedFile, oldUploadedFileId?: number) => void;
     onError?: () => void;
     onDeleteLoadedFile?: (file: UploadedFile) => void;
@@ -57,6 +58,7 @@ const MemoizedFileInput = memo(function FileInput({
     titleButtonFileDialog,
     containerFilesProps,
     disabled,
+    invalidateOnSuccess,
     onUploaded = () => undefined,
     onError = () => undefined,
     onDeleteLoadedFile = () => undefined,
@@ -188,6 +190,7 @@ const MemoizedFileInput = memo(function FileInput({
                     imageMaxHeight={imageMaxHeight}
                     educational={educational}
                     withDeleteButton={withDeleteButton}
+                    invalidateOnSuccess={invalidateOnSuccess}
                     onOpenFileDialog={handleOnOpenFileDialog}
                     onDelete={handleDeleteLoadedFile}
                     onUpdateFile={handleUploadedFile}
@@ -234,6 +237,7 @@ const MemoizedFileInput = memo(function FileInput({
                             type={type}
                             withDeleteButton={withDeleteButton}
                             educational={educational}
+                            invalidateOnSuccess={invalidateOnSuccess}
                             onEdit={handleReplaceLoadedFile}
                             onDelete={handleDeleteLoadedFile}
                             onUpdateFile={handleUploadedFile}

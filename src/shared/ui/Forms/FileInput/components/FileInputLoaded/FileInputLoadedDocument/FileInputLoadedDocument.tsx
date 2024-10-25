@@ -16,6 +16,7 @@ export interface FileInputLoadedDocumentProps extends Omit<FileItemProps, "statu
     file: File | UploadedFile;
     error?: string;
     educational?: boolean;
+    invalidateOnSuccess?: boolean;
     onDelete?: (fileId: number) => void;
     onEdit?: (fileId: number) => void;
     onUpdateFile: (fileId: number, data: UploadedFile) => void;
@@ -28,13 +29,14 @@ export default function FileInputLoadedDocument({
     file,
     error,
     educational = false,
+    invalidateOnSuccess,
     onDelete = () => undefined,
     onEdit = () => undefined,
     onUpdateFile,
     onError,
     ...props
 }: FileInputLoadedDocumentProps) {
-    const { mutate: uploadFile, isLoading, isError } = useUploadFile();
+    const { mutate: uploadFile, isLoading, isError } = useUploadFile(invalidateOnSuccess);
 
     useEffect(() => {
         if (isFile(file) && !error) {

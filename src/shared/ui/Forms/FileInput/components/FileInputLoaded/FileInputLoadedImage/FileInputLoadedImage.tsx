@@ -17,6 +17,7 @@ export interface FileInputLoadedImageProps {
     withDeleteButton?: boolean;
     educational?: boolean;
     error?: string;
+    invalidateOnSuccess?: boolean;
     onOpenFileDialog?: () => void;
     onDelete?: (fileId: number) => void;
     onUpdateFile: (fileId: number, data: UploadedFile) => void;
@@ -33,6 +34,7 @@ export default function FileInputLoadedImage({
     educational,
     error,
     withDeleteButton = false,
+    invalidateOnSuccess,
     onOpenFileDialog = () => undefined,
     onDelete = () => undefined,
     onUpdateFile,
@@ -40,7 +42,7 @@ export default function FileInputLoadedImage({
 }: FileInputLoadedImageProps) {
     const { classes } = useStyles();
 
-    const { mutate: uploadFile, isLoading } = useUploadFile();
+    const { mutate: uploadFile, isLoading } = useUploadFile(invalidateOnSuccess);
 
     useEffect(() => {
         if (isFile(file) && !error) {

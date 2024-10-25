@@ -6,11 +6,9 @@ import { FormErrorResponse } from "@shared/types";
 import { queryClient } from "@app/providers";
 import { ToastType, createNotification } from "@shared/utils";
 
-export const useUploadFile = (): UseMutationResult<
-    UploadFileResponse,
-    AxiosError<FormErrorResponse>,
-    UploadFileRequest & { type: FileType }
-> => {
+export const useUploadFile = (
+    invalidateOnSuccess = true,
+): UseMutationResult<UploadFileResponse, AxiosError<FormErrorResponse>, UploadFileRequest & { type: FileType }> => {
     return useMutation(
         [MutationKeys.UPLOAD_FILE],
         ({ type, ...data }) => {
@@ -29,6 +27,9 @@ export const useUploadFile = (): UseMutationResult<
         },
         {
             onSuccess: () => {
+                if (!invalidateOnSuccess) {
+                    return;
+                }
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILES]);
                 queryClient.invalidateQueries([QueryKeys.GET_UPLOADED_FILE_RESOURCE]);
                 queryClient.invalidateQueries([QueryKeys.GET_ADMIN_LESSON_MATERIALS_FOR_SELECT]);

@@ -37,6 +37,7 @@ const CreateMaterialsForm = ({ data, onSubmit, onClose }: CreateMaterialsFormPro
                 w="100%"
                 containerFilesProps={{ className: classes.fileInputContainerFiles }}
                 descriptionInside={data.description}
+                invalidateOnSuccess={false}
             />
             <FControlButtons variant="modal" cancelButtonText="Отмена" submitButtonText="Далее" onClose={onClose} ignoreDirty />
         </Form>
