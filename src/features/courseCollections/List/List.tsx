@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Flex, FlexProps, Skeleton, SkeletonProps } from "@mantine/core";
+import { Flex, FlexProps, Skeleton, SkeletonProps, Group } from "@mantine/core";
 import { useRouter } from "next/router";
 import { EmblaCarouselType } from "embla-carousel-react";
+import Link from "next/link";
 import { CourseCollectionFromList, useCourseCollectionsPaginate } from "@entities/courseCollection";
 import { ListProps as TListProps } from "@components/List";
-import { Heading, HeadingProps } from "@shared/ui";
+import { Heading, HeadingProps, Button } from "@shared/ui";
 import { Carousel } from "@components/Carousel";
 import { adaptGetCourseCollectionsRequest, getInitialParams } from "./utils";
 import useStyles from "./List.styles";
@@ -65,21 +66,28 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                 </Flex>
             </Skeleton>
             <Skeleton visible={isLoading} mih={410} radius={24}>
-                <Carousel<CourseCollectionFromList>
-                    data={courseCollectionsData.data}
-                    slideSize="23%"
-                    slideGap={24}
-                    breakpoints={[
-                        { maxWidth: "md", slideSize: "50%" },
-                        { maxWidth: "xs", slideSize: "100%" },
-                    ]}
-                    getEmblaApi={setEmblaApi}
-                    emblaApi={emblaApi}
-                    initialSlide={Math.min(courseCollectionsData.data.length, 2)}
-                    align="center"
-                    customStyles={useStyles}>
-                    {(props) => <Card {...props} />}
-                </Carousel>
+                <Flex direction="column" align="center" gap={48}>
+                    <Carousel<CourseCollectionFromList>
+                        data={courseCollectionsData.data}
+                        slideSize="23%"
+                        slideGap={24}
+                        breakpoints={[
+                            { maxWidth: "md", slideSize: "50%" },
+                            { maxWidth: "xs", slideSize: "100%" },
+                        ]}
+                        getEmblaApi={setEmblaApi}
+                        emblaApi={emblaApi}
+                        initialSlide={Math.min(courseCollectionsData.data.length, 2)}
+                        align="center"
+                        customStyles={useStyles}>
+                        {(props) => <Card {...props} />}
+                    </Carousel>
+                    <Group>
+                        <Button component={Link} href="/course-collections" variant="border" size="large">
+                            Все подборки
+                        </Button>
+                    </Group>
+                </Flex>
             </Skeleton>
         </Flex>
     );
