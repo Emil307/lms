@@ -9,7 +9,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: "100%",
         padding: 32,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("md")]: {
             padding: 24,
@@ -31,7 +31,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         ...getColorsByStatus(theme, { status }),
     },
     category: {
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.dark[0],
     },
     imageWrapper: {
@@ -40,7 +40,7 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: 424,
         height: 260,
         borderRadius: 16,
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
 
         img: {
             objectFit: "cover",
@@ -75,15 +75,15 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
         case "notStarted":
-            return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
+            return { backgroundColor: theme.colors.error20[0], color: theme.colors.errorDark[0] };
 
         case "inProgress":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         case "completed":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         default:
-            return { backgroundColor: theme.colors.grayLight[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray200[0], color: theme.colors.neutralMain50[0] };
     }
 };

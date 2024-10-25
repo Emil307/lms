@@ -52,7 +52,7 @@ const ActiveCourseList = () => {
                         Все
                     </Button>
                 </Flex>
-                <Paragraph variant="large" color="neutral_gray">
+                <Paragraph variant="large" color="neutralGray300">
                     Текущие и новые курсы
                 </Paragraph>
             </Flex>

@@ -25,7 +25,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
     return (
         <Flex className={classes.wrapper}>
             <Paragraph variant="text-small-m">{title}</Paragraph>
-            <Paragraph variant="text-caption" color="gray45">
+            <Paragraph variant="text-caption" color="neutralMain50">
                 или
             </Paragraph>
             <Button
@@ -35,7 +35,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                     fontWeight: 600,
                     fontSize: 16,
                     lineHeight: "24px",
-                    color: theme.colors.white[0],
+                    color: theme.colors.neutralWhite[0],
                     padding: "12px 24px",
                 })}
                 type="button"
@@ -50,7 +50,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                         fontWeight: 600,
                         fontSize: 16,
                         lineHeight: "24px",
-                        color: theme.colors.white[0],
+                        color: theme.colors.neutralWhite[0],
                         padding: "12px 24px",
                     })}
                     type="button"
@@ -59,7 +59,7 @@ const MemoizedFileInputDefaultDocument = memo(function FileInputDefaultDocument(
                 </Button>
             )}
             {description && (
-                <Paragraph variant="text-caption" color="gray45" ta="center">
+                <Paragraph variant="text-caption" color="neutralMain50" ta="center">
                     {description}
                 </Paragraph>
             )}

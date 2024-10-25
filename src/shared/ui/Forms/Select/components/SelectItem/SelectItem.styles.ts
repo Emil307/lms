@@ -38,7 +38,7 @@ export const useSelectItemStyles = createStyles((theme, { isActive, selected }: 
                   height: 10,
                   marginLeft: 4,
                   borderRadius: 8,
-                  backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
+                  backgroundColor: isActive ? theme.colors.secondary[0] : theme.colors.neutralGray300[0],
               },
           }
         : {}),

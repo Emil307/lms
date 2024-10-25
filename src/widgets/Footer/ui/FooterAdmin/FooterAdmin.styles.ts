@@ -22,7 +22,7 @@ export const useFooterAdminStyles = createStyles((theme) => ({
         padding: "32px 24px",
         marginBottom: 8,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         a: {
             textDecoration: "none",
@@ -39,7 +39,7 @@ export const useFooterAdminStyles = createStyles((theme) => ({
         height: 56,
         width: 56,
         borderRadius: 56,
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
         backgroundColor: theme.colors.dark[0],
 
         svg: {
@@ -49,7 +49,7 @@ export const useFooterAdminStyles = createStyles((theme) => ({
 
         ":hover": {
             color: theme.colors.dark[0],
-            backgroundColor: theme.colors.done[0],
+            backgroundColor: theme.colors.secondary[0],
         },
     },
     companyName: {

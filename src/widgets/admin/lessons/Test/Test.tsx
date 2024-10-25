@@ -35,7 +35,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                 <Flex className={classes.topCard} gap={18} align="center" justify="space-between">
                     <Flex gap={8} direction="column">
                         <Heading order={3}>Тест</Heading>
-                        <Paragraph variant="text-small-m" color="neutral_gray">
+                        <Paragraph variant="text-small-m" color="neutralGray300">
                             Нет добавленных вопросов.
                         </Paragraph>
                     </Flex>
@@ -98,7 +98,7 @@ const Test = ({ lessonId, onUpdate }: TestProps) => {
                     {test.tasks.map((task, taskIndex) => (
                         <Flex className={classes.card} gap={24} direction="column" key={task.id}>
                             <Flex gap={4} direction="column">
-                                <Paragraph variant="small-m" color="neutral_gray">
+                                <Paragraph variant="small-m" color="neutralGray300">
                                     {taskIndex + 1} вопрос
                                 </Paragraph>
                                 <Heading order={3}>{task.content}</Heading>

@@ -47,7 +47,7 @@ const CourseReviewSettings = ({ id, ...props }: CourseReviewSettingsProps) => {
                                     <Flex align="center" gap={2}>
                                         <Paragraph variant="small-semi">{courseReviewData?.score}</Paragraph>
                                     </Flex>
-                                    <Paragraph variant="small-m" color="gray45">
+                                    <Paragraph variant="small-m" color="neutralMain50">
                                         из 5
                                     </Paragraph>
                                 </Flex>

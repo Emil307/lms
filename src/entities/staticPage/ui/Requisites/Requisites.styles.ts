@@ -4,7 +4,7 @@ export default createStyles((theme) => ({
     root: {
         padding: 32,
         borderRadius: 32,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
     content: {
         table: {
@@ -32,7 +32,7 @@ export default createStyles((theme) => ({
                 backgroundColor: "transparent",
 
                 "> p": {
-                    color: theme.colors.gray45[0],
+                    color: theme.colors.neutralMain50[0],
                     fontWeight: 500,
                 },
             },

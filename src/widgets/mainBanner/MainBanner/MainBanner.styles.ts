@@ -68,7 +68,7 @@ export default createStyles((theme) => ({
         fontWeight: 700,
         fontSize: 56,
         lineHeight: "62px",
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("md")]: {
             fontSize: 32,

@@ -72,7 +72,7 @@ const List = ({ filterParams, onClickCard, ...props }: ListProps) => {
                 </Button>
             )}
             <Box>
-                <Paragraph variant="text-small-m" component="span" color="gray45">
+                <Paragraph variant="text-small-m" component="span" color="neutralMain50">
                     {"Всего: "}
                 </Paragraph>
                 <Paragraph variant="text-small-m" component="span">

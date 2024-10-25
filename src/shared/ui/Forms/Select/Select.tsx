@@ -33,13 +33,13 @@ const RightSection = ({
     }
     if (value && clearable) {
         return (
-            <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: disabled ? "none" : "initial" }} onClick={handlerClear}>
+            <ThemeIcon color="neutralMain50" w={16} h={16} sx={{ pointerEvents: disabled ? "none" : "initial" }} onClick={handlerClear}>
                 <X />
             </ThemeIcon>
         );
     }
     return (
-        <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+        <ThemeIcon color="neutralMain50" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
             <ChevronDown />
         </ThemeIcon>
     );
@@ -76,7 +76,7 @@ const MemoizedSelect = (props: SelectProps) => {
             size: size,
             isActive: props.data.find((option) => option.value === props.value)?.isActive,
         },
-        { name: "Select", classNames, styles, unstyled }
+        { name: "Select", classNames, styles, unstyled },
     );
 
     const onFocusHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -118,7 +118,7 @@ const MemoizedSelect = (props: SelectProps) => {
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -130,7 +130,7 @@ const MemoizedSelect = (props: SelectProps) => {
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>
@@ -161,7 +161,7 @@ const MemoizedSelect = (props: SelectProps) => {
 
     const renderComponent = useCallback(
         (props: any) => props.itemComponent ?? <SelectItem {...props} ref={lastElementRef} />,
-        [props.itemComponent, lastElementRef]
+        [props.itemComponent, lastElementRef],
     );
 
     return (

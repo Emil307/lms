@@ -15,7 +15,7 @@ export default createStyles((theme, { variant }: CreateStylesParams) => ({
     },
     label: {
         alignSelf: "flex-start",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         textAlign: "start",
         whiteSpace: "nowrap",
     },

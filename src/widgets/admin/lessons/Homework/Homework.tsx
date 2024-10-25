@@ -38,7 +38,7 @@ const Homework = ({ lessonId, onUpdate }: HomeworkProps) => {
                 <Flex className={classes.topCard}>
                     <Flex gap={8} direction="column">
                         <Title order={3}>Задание</Title>
-                        <Paragraph variant="text-small-m" color="neutral_gray">
+                        <Paragraph variant="text-small-m" color="neutralGray300">
                             Без проверки домашнего задания доступ к следующему уроку будет закрыт
                         </Paragraph>
                     </Flex>

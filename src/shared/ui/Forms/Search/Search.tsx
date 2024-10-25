@@ -13,7 +13,7 @@ export interface SearchProps
 }
 
 const XIcon = () => (
-    <ThemeIcon color="gray45" w={16} h={16} mr={16}>
+    <ThemeIcon color="neutralMain50" w={16} h={16} mr={16}>
         <X />
     </ThemeIcon>
 );

@@ -61,6 +61,6 @@ export default createStyles((theme) => ({
         fontWeight: 400,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
 }));

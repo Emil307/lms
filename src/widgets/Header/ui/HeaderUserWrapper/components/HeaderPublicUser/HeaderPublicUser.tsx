@@ -113,7 +113,7 @@ const HeaderPublicUser = ({ isTablet }: HeaderPublicUserProps) => {
                                 <MediaQuery smallerThan="md" styles={{ display: "none" }}>
                                     <Flex direction="column" align="flex-end">
                                         <Paragraph variant="small-m">Поддержка в Telegram</Paragraph>
-                                        <Paragraph className={classes.email} variant="text-small-m" color="gray45">
+                                        <Paragraph className={classes.email} variant="text-small-m" color="neutralMain50">
                                             {CONTACT.EMAIL}
                                         </Paragraph>
                                     </Flex>

@@ -31,7 +31,7 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
         }
         return (
             <Skeleton className={classes.skeleton} visible={isLoadingContacts} color="dark" mih={24} w={235}>
-                <Paragraph className={classes.wordBreak} variant="small-m" color="white" maw={235}>
+                <Paragraph className={classes.wordBreak} variant="small-m" color="neutralWhite" maw={235}>
                     {contactsData?.title}
                 </Paragraph>
             </Skeleton>
@@ -58,14 +58,14 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                             variant="small-m"
                             component={Link}
                             href={{ pathname: "/courses", query: { categoryId: category.id.toString() } }}
-                            color="white56"
+                            color="neutralWhite50"
                             w="fit-content"
                             key={category.id}>
                             {category.name}
                         </Paragraph>
                     );
                 })}
-                <Paragraph variant="small-m" component={Link} href="/courses" color="white56" w="fit-content">
+                <Paragraph variant="small-m" component={Link} href="/courses" color="neutralWhite50" w="fit-content">
                     Все курсы
                 </Paragraph>
             </Flex>
@@ -80,13 +80,13 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                     variant="small-m"
                     component={Link}
                     href={section.href}
-                    color="white56"
+                    color="neutralWhite50"
                     w="fit-content"
                     key={section.label}>
                     {section.label}
                 </Paragraph>
             )),
-        [user]
+        [user],
     );
 
     if (hidden) {
@@ -101,18 +101,18 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                         <Logo />
                         <Flex className={classes.mainItem}>
                             <Flex className={classes.item}>
-                                <Paragraph variant="small-m" component="a" href={`tel:${CONTACT.PHONE_NUMBER_LINK}`} color="white">
+                                <Paragraph variant="small-m" component="a" href={`tel:${CONTACT.PHONE_NUMBER_LINK}`} color="neutralWhite">
                                     {CONTACT.PHONE_NUMBER}
                                 </Paragraph>
-                                <Paragraph variant="text-caption" color="white56">
+                                <Paragraph variant="text-caption" color="neutralWhite50">
                                     По вопросам покупки курсов
                                 </Paragraph>
                             </Flex>
                             <Flex className={classes.item}>
-                                <Paragraph variant="small-m" component="a" href={`mailto:${CONTACT.EMAIL}`} color="white">
+                                <Paragraph variant="small-m" component="a" href={`mailto:${CONTACT.EMAIL}`} color="neutralWhite">
                                     {CONTACT.EMAIL}
                                 </Paragraph>
-                                <Paragraph variant="text-caption" color="white56">
+                                <Paragraph variant="text-caption" color="neutralWhite50">
                                     Пишите, если есть вопросы
                                 </Paragraph>
                             </Flex>
@@ -131,21 +131,21 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                                 objectFit: "cover",
                             }}
                         />
-                        <Paragraph variant="text-small-m" color="white">
+                        <Paragraph variant="text-small-m" color="neutralWhite">
                             Государственная
                             <br /> лицензия
                         </Paragraph>
                     </Flex>
 
                     <Flex className={cx(classes.topContentItem, classes.education)}>
-                        <Paragraph variant="large" color="white">
+                        <Paragraph variant="large" color="neutralWhite">
                             Направления обучения
                         </Paragraph>
                         {renderCategories}
                     </Flex>
 
                     <Flex className={cx(classes.topContentItem, classes.info)}>
-                        <Paragraph variant="large" color="white">
+                        <Paragraph variant="large" color="neutralWhite">
                             Информация
                         </Paragraph>
                         <Flex direction="column" gap={8}>
@@ -174,38 +174,38 @@ const FooterUser = ({ hidden = false, ...props }: FooterUserProps) => {
                     </Flex>
                 </Flex>
 
-                <Divider className={classes.divider} my="sm" color="white16" />
+                <Divider className={classes.divider} my="sm" color="neutralWhite16" />
 
                 <Flex className={classes.middleContent}>
                     <Paragraph variant="text-small-m" component={Link} href="/user-agreement">
                         <Flex className={classes.middleItem}>
-                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
+                            <Paragraph className={classes.middleLink} variant="text-small-m" color="neutralWhite">
                                 Оферта и сведения об образовательных услугах и организации
                             </Paragraph>
-                            <Paragraph className={classes.middleLink} variant="text-small-m" color="white">
+                            <Paragraph className={classes.middleLink} variant="text-small-m" color="neutralWhite">
                                 Политика обработки персональных данных
                             </Paragraph>
                         </Flex>
                     </Paragraph>
 
                     <Flex className={classes.middleItem} gap={16}>
-                        <Paragraph variant="text-small-m" color="white56">
+                        <Paragraph variant="text-small-m" color="neutralWhite50">
                             Мы используем файлы сoокie для персонализации сервисов и повышения удобства пользования сайтом. Если вы не
                             согласны на их использование, поменяйте настройки браузера.
                         </Paragraph>
-                        <Paragraph variant="text-small-m" color="white56">
+                        <Paragraph variant="text-small-m" color="neutralWhite50">
                             Образовательные услуги оказываются ООО &#34;Аддамант&#34; на основании Лицензии № ХХ00-13313131313-13-133131313
                         </Paragraph>
                     </Flex>
                 </Flex>
 
                 <Flex className={classes.bottomContent}>
-                    <Paragraph variant="text-small-m" color="white56">
+                    <Paragraph variant="text-small-m" color="neutralWhite50">
                         © {dayjs().year()}, Addamant
                     </Paragraph>
                     <a className={classes.addamantLink} href={CONTACT.ADDAMANT} target="_blank" rel="noreferrer">
                         <Flex align="center" gap={8}>
-                            <Paragraph variant="text-small-m" color="white56">
+                            <Paragraph variant="text-small-m" color="neutralWhite50">
                                 Создано в
                             </Paragraph>
                             <Logo icon={<LogoShort />} />

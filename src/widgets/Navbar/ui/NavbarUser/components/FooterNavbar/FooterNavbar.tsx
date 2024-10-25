@@ -18,7 +18,7 @@ const FooterNavbar = () => {
                     </ThemeIcon>
                     <Flex direction="column">
                         <Paragraph variant="small-m">Поддержка в Telegram</Paragraph>
-                        <Paragraph className={classes.email} variant="text-small-m" color="gray45">
+                        <Paragraph className={classes.email} variant="text-small-m" color="neutralMain50">
                             {CONTACT.EMAIL}
                         </Paragraph>
                     </Flex>
@@ -28,7 +28,7 @@ const FooterNavbar = () => {
                 <Paragraph component="a" variant="large" href={`mailto:${CONTACT.EMAIL}`}>
                     {CONTACT.EMAIL}
                 </Paragraph>
-                <Paragraph variant="text-caption" color="gray45">
+                <Paragraph variant="text-caption" color="neutralMain50">
                     Пишите, если есть вопросы
                 </Paragraph>
             </Flex>
@@ -36,7 +36,7 @@ const FooterNavbar = () => {
                 <Paragraph component="a" variant="large" href={`tel:${CONTACT.PHONE_NUMBER_LINK}`}>
                     {CONTACT.PHONE_NUMBER}
                 </Paragraph>
-                <Paragraph variant="text-caption" color="gray45">
+                <Paragraph variant="text-caption" color="neutralMain50">
                     Звоните, если нужна помощь.
                     <br />
                     Звонок по России бесплатный.

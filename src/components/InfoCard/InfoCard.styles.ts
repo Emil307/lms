@@ -8,8 +8,8 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         gap: 24,
         padding: "24px 32px",
         borderRadius: 16,
-        backgroundColor: variant === "whiteBg" ? theme.colors.white[0] : theme.colors.light[0],
-        boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.shadowGray[0], 0.08)}` : "none",
+        backgroundColor: variant === "whiteBg" ? theme.colors.neutralWhite[0] : theme.colors.neutralGray100[0],
+        boxShadow: variant === "whiteBg" ? `0px 16px 32px ${theme.fn.rgba(theme.colors.primary[0], 0.08)}` : "none",
 
         [theme.fn.smallerThan("md")]: {
             width: "100%",
@@ -30,7 +30,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
         borderRadius: 16,
 
         svg: {
@@ -40,7 +40,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
             width: 86,
             height: 86,
             transform: "translateX(-50%) translateY(-50%)",
-            color: theme.colors.gray20[0],
+            color: theme.colors.neutralGray300[0],
         },
     },
     image: {
@@ -54,7 +54,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         paddingTop: "62%",
         marginBottom: 16,
         borderRadius: 16,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.primary[0],
 
         svg: {
@@ -73,7 +73,7 @@ export default createStyles((theme, { variant }: { variant: "whiteBg" | "grayBg"
         borderRadius: 50,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
 

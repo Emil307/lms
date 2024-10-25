@@ -89,7 +89,7 @@ export default createStyles((theme) => ({
         height: 6,
         width: 11,
         borderRadius: 8,
-        backgroundColor: theme.colors.gray20[0],
+        backgroundColor: theme.colors.neutralGray300[0],
 
         "&[data-active]": {
             width: 23,

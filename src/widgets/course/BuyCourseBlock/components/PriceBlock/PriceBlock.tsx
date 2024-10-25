@@ -27,7 +27,7 @@ const PriceBlock = ({ data, ...props }: PriceBlockProps) => {
     return (
         <Flex {...props} direction="column" gap={8}>
             <Flex align="center" gap={16}>
-                <Paragraph variant="large" color="gray45" className={classes.fullPrice}>
+                <Paragraph variant="large" color="neutralMain50" className={classes.fullPrice}>
                     {formatPrice(data.price)} ₽
                 </Paragraph>
                 <Paragraph variant="large" className={classes.button}>

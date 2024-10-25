@@ -31,7 +31,7 @@ export const useMultiSelectValueItemStyles = createStyles((theme, { isActive }: 
                   marginRight: 4,
                   marginLeft: 4,
                   borderRadius: 8,
-                  backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
+                  backgroundColor: isActive ? theme.colors.secondary[0] : theme.colors.neutralGray300[0],
               },
           }
         : {}),

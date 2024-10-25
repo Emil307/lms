@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
     },
     iconContainer: {
         padding: 11,
-        border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+        border: `1px solid ${theme.colors.neutralGray300[0]}`,
         borderRadius: 16,
         svg: {
             width: 32,
@@ -22,7 +22,7 @@ export default createStyles((theme) => ({
         },
     },
     modulesContainer: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         padding: 16,
         borderRadius: 16,
         alignItems: "center",

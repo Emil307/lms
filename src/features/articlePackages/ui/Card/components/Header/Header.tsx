@@ -21,7 +21,7 @@ const Header = ({ data: { discount, fullPrice, discountPrice, name, description 
                 <DiscountInfo discount={discount} fullPrice={fullPrice} discountPrice={discountPrice} />
                 <Flex className={classes.textContainer}>
                     <Heading order={3}>{name}</Heading>
-                    <Paragraph variant="text-small-m" color="gray45" lineClamp={2}>
+                    <Paragraph variant="text-small-m" color="neutralMain50" lineClamp={2}>
                         {description}
                     </Paragraph>
                 </Flex>

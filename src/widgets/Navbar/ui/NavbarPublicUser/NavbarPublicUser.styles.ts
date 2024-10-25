@@ -13,7 +13,7 @@ export default createStyles((theme) => ({
         paddingBottom: 56,
         paddingInline: 16,
         border: "none",
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         overflowY: "auto",
         zIndex: 102,
     },

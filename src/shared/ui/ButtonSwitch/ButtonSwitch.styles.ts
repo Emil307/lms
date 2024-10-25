@@ -8,17 +8,17 @@ export const useButtonSwitchStyles = createStyles((theme) => ({
 
         ":hover": {
             backgroundColor: "transparent",
-            border: `1px solid ${theme.colors.neutral_main50[0]}`,
-            color: theme.colors.neutral_main50[0],
+            border: `1px solid ${theme.colors.neutralMain50[0]}`,
+            color: theme.colors.neutralMain50[0],
         },
         "&[data-active='true']": {
             backgroundColor: theme.colors.dark[0],
             border: "1px solid transparent",
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
             ":hover": {
                 backgroundColor: "transparent",
-                border: `1px solid ${theme.colors.neutral_main50[0]}`,
-                color: theme.colors.neutral_main50[0],
+                border: `1px solid ${theme.colors.neutralMain50[0]}`,
+                color: theme.colors.neutralMain50[0],
             },
         },
 
@@ -39,7 +39,7 @@ export const useButtonSwitchStyles = createStyles((theme) => ({
                 minWidth: 24,
             },
             svg: {
-                stroke: theme.colors.neutral_main50[0],
+                stroke: theme.colors.neutralMain50[0],
             },
         },
     },

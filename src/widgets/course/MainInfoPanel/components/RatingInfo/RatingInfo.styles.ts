@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     reviewInfo: {
         fontWeight: 600,

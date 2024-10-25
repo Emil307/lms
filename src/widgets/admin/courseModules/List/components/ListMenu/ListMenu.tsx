@@ -92,7 +92,7 @@ const ListMenu = ({ courseId, moduleNumber, data }: ListMenuProps) => {
                         w="100%"
                     />
                 </MenuItemDataGrid>
-                <Divider size={1} color="light" mx={12} />
+                <Divider size={1} color="neutralGray100" mx={12} />
 
                 {isMobile && (
                     <MenuItemDataGrid mt={8} mb={-8} onClick={handleOpenModuleDetail}>

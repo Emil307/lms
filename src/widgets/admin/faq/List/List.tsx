@@ -66,7 +66,7 @@ const List = (props: ListProps) => {
     return (
         <Flex {...props} className={classes.root}>
             {!faqItems.length && (
-                <Paragraph variant="large" color="gray45" ta="center">
+                <Paragraph variant="large" color="neutralMain50" ta="center">
                     Нет добавленных вопросов.
                 </Paragraph>
             )}

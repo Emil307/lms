@@ -8,7 +8,7 @@ export default createStyles((theme) => ({
         width: "100%",
         height: "360px",
         borderRadius: 32,
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
         img: {
             objectFit: "cover",
         },

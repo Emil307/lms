@@ -4,7 +4,7 @@ export const useSettingUserStyles = createStyles((theme) => ({
     info: {
         gap: 56,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "column-reverse",
@@ -34,6 +34,6 @@ export const useSettingUserStyles = createStyles((theme) => ({
     settingsNotification: {
         padding: 4,
         borderRadius: 12,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
 }));

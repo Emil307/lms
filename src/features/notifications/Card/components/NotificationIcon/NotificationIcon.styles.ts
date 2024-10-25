@@ -8,7 +8,7 @@ export default createStyles((theme) => ({
         borderRadius: 160,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -34,15 +34,15 @@ export default createStyles((theme) => ({
         width: 32,
         height: 32,
         borderRadius: 56,
-        backgroundColor: theme.colors.info16[0],
+        backgroundColor: theme.colors.info20[0],
     },
 
     groupAddedIcon: {
         width: 32,
         height: 32,
         borderRadius: 56,
-        backgroundColor: theme.colors.done16[0],
-        color: theme.colors.done[0],
+        backgroundColor: theme.colors.done20[0],
+        color: theme.colors.secondary[0],
 
         svg: {
             width: 18,

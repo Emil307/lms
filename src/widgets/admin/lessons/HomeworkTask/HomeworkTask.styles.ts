@@ -19,7 +19,7 @@ export default createStyles((theme) => ({
         height: 48,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary[0],
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
     headingHomeworkContainer: {
         alignItems: "flex-start",
@@ -47,14 +47,14 @@ export default createStyles((theme) => ({
         padding: 24,
         gap: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("xs")]: {
             padding: 16,
         },
     },
     answerContent: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         padding: 16,
         gap: 8,
         borderRadius: 8,
@@ -77,7 +77,7 @@ export default createStyles((theme) => ({
         borderRadius: 56,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -88,9 +88,9 @@ export default createStyles((theme) => ({
     status: {
         borderRadius: 32,
         padding: "8px 12px",
-        backgroundColor: theme.colors.done16[0],
+        backgroundColor: theme.colors.done20[0],
         p: {
-            color: theme.colors.done[0],
+            color: theme.colors.secondary[0],
         },
     },
 }));

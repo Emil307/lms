@@ -40,7 +40,7 @@ export default createStyles((theme, { isActive }: CreateStylesParams) => ({
             width: 16,
             height: 16,
             strokeWidth: 3,
-            color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
+            color: isActive ? theme.colors.dark[0] : theme.colors.neutralMain50[0],
         },
     },
 }));

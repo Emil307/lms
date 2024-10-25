@@ -29,7 +29,7 @@ export default createStyles((theme, _params, getRef) => ({
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     content: {
         display: "flex",
@@ -52,7 +52,7 @@ export default createStyles((theme, _params, getRef) => ({
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     buttonDownload: {
         width: "fit-content",

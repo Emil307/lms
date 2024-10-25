@@ -101,19 +101,19 @@ const UpdateUserForm = ({ data, onClose }: UpdateUserFormProps) => {
                     <Flex direction="column" gap={32}>
                         <Flex className={classes.infoPanel}>
                             <Flex gap={8} align="center">
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     ID:
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                             </Flex>
                             <Flex gap={8} align="center">
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Статус:
                                 </Paragraph>
                                 <FSwitch name="isActive" variant="secondary" label="Деактивировать" labelPosition="left" />
                             </Flex>
                             <Flex gap={8} align="center">
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Последний вход:
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">

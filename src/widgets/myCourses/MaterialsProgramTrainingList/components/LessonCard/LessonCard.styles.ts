@@ -11,8 +11,8 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         padding: 24,
         gap: 32,
         borderRadius: 16,
-        border: status === "blocked" ? "none" : `1px solid ${theme.colors.grayLight[0]}`,
-        backgroundColor: status === "blocked" ? theme.colors.grayLight[0] : theme.colors.white[0],
+        border: status === "blocked" ? "none" : `1px solid ${theme.colors.neutralGray200[0]}`,
+        backgroundColor: status === "blocked" ? theme.colors.neutralGray200[0] : theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             padding: 16,
@@ -23,8 +23,8 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: "min-content",
         height: 28,
         borderRadius: 32,
-        color: theme.colors.gray45[0],
-        backgroundColor: theme.colors.white[0],
+        color: theme.colors.neutralMain50[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         span: {
             display: "flex",
@@ -36,6 +36,6 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         height: 16,
         minHeight: 16,
         minWidth: 16,
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
 }));

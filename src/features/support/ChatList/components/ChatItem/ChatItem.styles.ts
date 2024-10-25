@@ -11,11 +11,11 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
         paddingTop: 24,
         gap: 8,
         borderRadius: 8,
-        backgroundColor: isSelected ? theme.colors.secondary8[0] : theme.colors.white[0],
+        backgroundColor: isSelected ? theme.colors.secondary8[0] : theme.colors.neutralWhite[0],
         cursor: "pointer",
 
         ":hover": {
-            backgroundColor: theme.colors.light[0],
+            backgroundColor: theme.colors.neutralGray100[0],
         },
     },
     avatarWrapper: {
@@ -25,7 +25,7 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
         borderRadius: 160,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -49,7 +49,7 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
         whiteSpace: "nowrap",
     },
     lastMesssageContent: {
-        color: isSelected ? theme.colors.dark[0] : theme.colors.gray45[0],
+        color: isSelected ? theme.colors.dark[0] : theme.colors.neutralMain50[0],
         textOverflow: "ellipsis",
         overflow: "hidden",
         whiteSpace: "nowrap",

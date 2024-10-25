@@ -11,7 +11,7 @@ const EmptyBlock = () => {
             <ThemeIcon className={classes.icon}>
                 <IconMessageDots />
             </ThemeIcon>
-            <Paragraph variant="large" color="gray45">
+            <Paragraph variant="large" color="neutralMain50">
                 Нет активного диалога
             </Paragraph>
         </Flex>

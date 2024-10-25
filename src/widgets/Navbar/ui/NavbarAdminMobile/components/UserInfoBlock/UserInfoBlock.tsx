@@ -37,7 +37,7 @@ const UserInfoBlock = (props: UserInfoBlockProps) => {
                 </Avatar>
                 <Flex direction="column">
                     <Paragraph variant="small-m">{`${user?.profile.firstName} ${user?.profile.lastName}`}</Paragraph>
-                    <Paragraph variant="text-caption" color="gray45">
+                    <Paragraph variant="text-caption" color="neutralMain50">
                         {user?.roles[0].displayName}
                     </Paragraph>
                 </Flex>

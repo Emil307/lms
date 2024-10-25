@@ -19,7 +19,7 @@ export default createStyles((theme, { hasSelectedConversation }: CreateStylesPar
     messagesBlockContainer: {
         flexGrow: 1,
         borderRadius: 16,
-        border: `1px solid ${theme.colors.grayLight[0]}`,
+        border: `1px solid ${theme.colors.neutralGray200[0]}`,
 
         [theme.fn.smallerThan("md")]: {
             border: "none",
@@ -27,7 +27,7 @@ export default createStyles((theme, { hasSelectedConversation }: CreateStylesPar
     },
     chatContainerWrapper: {
         width: 382,
-        borderRight: `1px solid ${theme.colors.grayLight[0]}`,
+        borderRight: `1px solid ${theme.colors.neutralGray200[0]}`,
 
         [theme.fn.smallerThan("md")]: {
             display: hasSelectedConversation ? "none" : "block",
@@ -38,7 +38,7 @@ export default createStyles((theme, { hasSelectedConversation }: CreateStylesPar
     searchUserWrapper: {
         paddingInline: 20,
         paddingBlock: 24,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
 
         [theme.fn.smallerThan("md")]: {
             paddingInline: 0,
@@ -49,7 +49,7 @@ export default createStyles((theme, { hasSelectedConversation }: CreateStylesPar
         paddingBlock: 24,
         paddingInline: 32,
         gap: 8,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
     },
     messageListContainerWrapper: {
         flexDirection: "column",

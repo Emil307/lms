@@ -23,7 +23,7 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
                     sx={(theme) => ({
                         width: 24,
                         path: {
-                            stroke: theme.colors.golden[0],
+                            stroke: theme.colors.errorDark[0],
                         },
                     })}>
                     <IconStarDefault />
@@ -35,11 +35,14 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
                         {data.averageRating}
                     </Heading>
                 </Flex>
-                <Paragraph variant="small-semi" color="gray45" className={classes.description}>{`${data.reviewsCount} ${getPluralString(
+                <Paragraph
+                    variant="small-semi"
+                    color="neutralMain50"
+                    className={classes.description}>{`${data.reviewsCount} ${getPluralString(
                     data.reviewsCount,
                     "отзыв",
                     "отзыва",
-                    "отзывов"
+                    "отзывов",
                 )}`}</Paragraph>
             </Flex>
         </Flex>

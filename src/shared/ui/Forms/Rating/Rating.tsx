@@ -30,7 +30,7 @@ const MemoizedRating = memo(function Rating({
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </Flex>
             ),
-        [error]
+        [error],
     );
 
     return (
@@ -44,7 +44,7 @@ const MemoizedRating = memo(function Rating({
                         sx={(theme) => ({
                             width: 24,
                             path: {
-                                stroke: error ? theme.colors.warning[0] : theme.colors.gray45[0],
+                                stroke: error ? theme.colors.warning[0] : theme.colors.neutralMain50[0],
                             },
                         })}>
                         {emptySymbol}
@@ -56,8 +56,8 @@ const MemoizedRating = memo(function Rating({
                         sx={(theme) => ({
                             width: 24,
                             path: {
-                                fill: theme.colors.golden[0],
-                                stroke: theme.colors.golden[0],
+                                fill: theme.colors.errorDark[0],
+                                stroke: theme.colors.errorDark[0],
                             },
                         })}>
                         {fullSymbol}

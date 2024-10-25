@@ -9,7 +9,7 @@ export default createStyles((theme, { isOpened }: CreateStylesProps) => ({
         width: 56,
         height: 56,
         borderRadius: 56,
-        backgroundColor: isOpened ? theme.colors.neutralLight[0] : theme.colors.white[0],
+        backgroundColor: isOpened ? theme.colors.neutralGray100[0] : theme.colors.neutralWhite[0],
 
         svg: {
             color: theme.colors.dark[0],
@@ -18,7 +18,7 @@ export default createStyles((theme, { isOpened }: CreateStylesProps) => ({
         },
 
         "&:hover": {
-            backgroundColor: theme.colors.neutralLight[0],
+            backgroundColor: theme.colors.neutralGray100[0],
         },
 
         [theme.fn.smallerThan("md")]: {

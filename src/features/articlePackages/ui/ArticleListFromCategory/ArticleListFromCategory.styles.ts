@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     wrapperList: {
         height: 304,

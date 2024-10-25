@@ -33,7 +33,7 @@ const Lesson = ({ data, lessonNumber }: LessonProps) => {
     return (
         <Flex className={classes.lesson}>
             <Box>
-                <Paragraph variant="text-caption" color="neutral_gray">
+                <Paragraph variant="text-caption" color="neutralGray300">
                     {data.name}
                 </Paragraph>
                 <Paragraph variant="text-small-m">
@@ -43,7 +43,7 @@ const Lesson = ({ data, lessonNumber }: LessonProps) => {
             <Flex className={classes.results}>
                 <Flex className={classes.resultsMain}>
                     <Flex className={classes.resultItem}>
-                        <Paragraph variant="text-small-m" color="neutral_gray">
+                        <Paragraph variant="text-small-m" color="neutralGray300">
                             Тест:
                         </Paragraph>
                         <Paragraph className={classes.testResult} variant="text-small-m">
@@ -51,7 +51,7 @@ const Lesson = ({ data, lessonNumber }: LessonProps) => {
                         </Paragraph>
                     </Flex>
                     <Flex className={classes.resultItem}>
-                        <Paragraph variant="text-small-m" color="neutral_gray">
+                        <Paragraph variant="text-small-m" color="neutralGray300">
                             Задание:
                         </Paragraph>
                         <Paragraph className={classes.homeworkResult} variant="text-small-m">

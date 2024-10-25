@@ -46,7 +46,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
 
         if (!data.content) {
             return (
-                <Heading color="neutral_gray" order={3}>
+                <Heading color="neutralGray300" order={3}>
                     Содержание урока
                 </Heading>
             );
@@ -77,7 +77,7 @@ const LessonSettings = ({ data, moduleName }: LessonSettingsProps) => {
                             <Heading order={3}>{data.name}</Heading>
                         </Flex>
                     </Flex>
-                    <Paragraph variant="small-m" color="neutral_gray" className={classes.lessonDescription}>
+                    <Paragraph variant="small-m" color="neutralGray300" className={classes.lessonDescription}>
                         {data.description}
                     </Paragraph>
                     <Flex className={classes.testAndHomeworkWrapper}>

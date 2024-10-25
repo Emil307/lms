@@ -70,7 +70,7 @@ const MemoizedTextEditor = memo(function TextEditor({
             <Flex direction="column">
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex className={classes.description}>
-                        <ThemeIcon color="done" className={classes.wrapperIcon}>
+                        <ThemeIcon color="secondary" className={classes.wrapperIcon}>
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller" pt={2}>

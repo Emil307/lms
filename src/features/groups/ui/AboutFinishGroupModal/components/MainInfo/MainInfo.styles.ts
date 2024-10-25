@@ -31,10 +31,10 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
         width: 96,
         height: 96,
         borderRadius: 12,
-        backgroundColor: theme.colors.darkGray[0],
+        backgroundColor: theme.colors.neutralGray200[0],
     },
     category: {
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.dark[0],
     },
     status: {
@@ -46,13 +46,13 @@ export default createStyles((theme, { status }: CreateStylesParams) => ({
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
         case "notStarted":
-            return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
+            return { backgroundColor: theme.colors.error20[0], color: theme.colors.errorDark[0] };
 
         case "inProgress":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         case "completed":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         default:
             break;

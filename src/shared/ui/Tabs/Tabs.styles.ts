@@ -7,7 +7,7 @@ interface IUseTabsStylesProps {
 export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps) => ({
     tabsList: {
         borderBottom: "none",
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
         gap: 4,
         padding: 4,
         width: "100%",
@@ -24,18 +24,18 @@ export const useTabsStyles = createStyles((theme, { count }: IUseTabsStylesProps
     tab: {
         width: "100%",
         padding: 0,
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         borderRadius: 8,
         ":hover, &[data-active]": {
-            borderColor: theme.colors.grayLight[0],
-            backgroundColor: theme.colors.white[0],
+            borderColor: theme.colors.neutralGray200[0],
+            backgroundColor: theme.colors.neutralWhite[0],
 
             ">p": {
                 color: theme.colors.dark[0],
             },
         },
         "&[data-active]:hover": {
-            borderColor: theme.colors.grayLight[0],
+            borderColor: theme.colors.neutralGray200[0],
         },
     },
     tabLabel: {

@@ -33,10 +33,10 @@ export default createStyles((theme) => ({
         width: 48,
         height: 48,
         borderRadius: 8,
-        border: `2px solid ${theme.colors.gray20[0]}`,
+        border: `2px solid ${theme.colors.neutralGray300[0]}`,
 
         svg: {
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     progressBarWrapper: {

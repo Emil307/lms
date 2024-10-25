@@ -62,7 +62,7 @@ export default createStyles((theme) => ({
         paddingTop: 12,
         paddingBottom: 24,
         paddingRight: 48,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     searchButton: {
         borderRadius: 56,

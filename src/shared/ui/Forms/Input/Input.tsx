@@ -48,11 +48,11 @@ const Input = ({
         if (rightSection) return rightSection;
         if (isPasswordField)
             return isPasswordVisible ? (
-                <ThemeIcon color="gray45" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
+                <ThemeIcon color="neutralMain50" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <Eye />
                 </ThemeIcon>
             ) : (
-                <ThemeIcon color="gray45" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
+                <ThemeIcon color="neutralMain50" sx={{ pointerEvents: "initial" }} onClick={toggleVisibility}>
                     <EyeOff />
                 </ThemeIcon>
             );
@@ -67,7 +67,7 @@ const Input = ({
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const handleKeyDown = useCallback(
@@ -83,7 +83,7 @@ const Input = ({
                 return event.preventDefault();
             }
         },
-        [type]
+        [type],
     );
 
     const handleChange = useCallback(
@@ -105,7 +105,7 @@ const Input = ({
                     return onChange(value);
             }
         },
-        [type]
+        [type],
     );
 
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
@@ -119,7 +119,7 @@ const Input = ({
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>

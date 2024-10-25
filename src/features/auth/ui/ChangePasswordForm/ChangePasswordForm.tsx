@@ -47,7 +47,7 @@ const ChangePasswordForm = ({ onClose, ...props }: ChangePasswordFormProps) => {
                         label="Введите старый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <Shield />
                             </ThemeIcon>
                         }
@@ -57,7 +57,7 @@ const ChangePasswordForm = ({ onClose, ...props }: ChangePasswordFormProps) => {
                         label="Придумайте новый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <Shield />
                             </ThemeIcon>
                         }
@@ -69,7 +69,7 @@ const ChangePasswordForm = ({ onClose, ...props }: ChangePasswordFormProps) => {
                         label="Повторите новый пароль"
                         type="password"
                         icon={
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <Shield />
                             </ThemeIcon>
                         }

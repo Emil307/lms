@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         padding: 32,
         gap: 32,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     wrapperDocumentIcon: {
         minHeight: "auto",

@@ -30,7 +30,7 @@ const MemoizedCheckboxGroup = memo(function CheckboxGroup({ children, error, suc
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>

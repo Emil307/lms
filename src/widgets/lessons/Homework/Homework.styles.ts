@@ -12,7 +12,7 @@ export default createStyles((theme, { status, openedHomeworkDetails }: CreateSty
         paddingBottom: 56,
         gap: 32,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     headingContainer: {
         flexWrap: "wrap",
@@ -52,15 +52,15 @@ export default createStyles((theme, { status, openedHomeworkDetails }: CreateSty
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesParams) => {
     switch (status) {
         case "needsEdit":
-            return { backgroundColor: theme.colors.warning16[0], color: theme.colors.warning[0] };
+            return { backgroundColor: theme.colors.warning20[0], color: theme.colors.warning[0] };
 
         case "completed":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         case "onReview":
-            return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
+            return { backgroundColor: theme.colors.error20[0], color: theme.colors.errorDark[0] };
 
         default:
-            return { backgroundColor: theme.colors.grayLight[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray200[0], color: theme.colors.neutralMain50[0] };
     }
 };

@@ -50,23 +50,23 @@ const getIconStylesForSize = (size: SearchSize): CSSObject => {
 export const useSearchStyles = createStyles((theme, { size }: { size: SearchSize }) => ({
     root: {
         "&:hover .mantine-TextInput-input": {
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
             border: "1px solid transparent !important",
             boxShadow: "0px 0px 16px 0px #00126E0A, 0px 1px 2px 0px #00126E0A",
         },
         input: {
             ...getInputStylesForSize(size),
 
-            backgroundColor: theme.colors.neutralLight[0],
+            backgroundColor: theme.colors.neutralGray100[0],
             border: "1px solid transparent",
             ":focus": {
-                backgroundColor: theme.colors.white[0],
-                border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+                backgroundColor: theme.colors.neutralWhite[0],
+                border: `1px solid ${theme.colors.neutralGray300[0]}`,
                 boxShadow: "0px 0px 16px 0px #00126E0A, 0px 1px 2px 0px #00126E0A",
             },
             ":placeholder-shown": {
-                backgroundColor: theme.colors.white[0],
-                border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+                backgroundColor: theme.colors.neutralWhite[0],
+                border: `1px solid ${theme.colors.neutralGray300[0]}`,
             },
         },
         svg: {

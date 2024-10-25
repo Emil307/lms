@@ -41,7 +41,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -53,7 +53,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>
@@ -73,7 +73,7 @@ const MemoizedTimeRangeInput = memo(function TimeRangeInput({ value, ...props }:
 
     const getValues: TimeRangeInputValue = useMemo(
         () => [value?.[0] ? new Date(value[0]) : null, value?.[1] ? new Date(value[1]) : null],
-        [value]
+        [value],
     );
     const handleFocus = () => setFocused(true);
     const handleBlur = () => setFocused(false);

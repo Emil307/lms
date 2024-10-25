@@ -23,10 +23,10 @@ export default createStyles((theme) => ({
         width: "100%",
         height: 220,
         borderRadius: 14,
-        backgroundColor: theme.colors.darkGray[0],
+        backgroundColor: theme.colors.neutralGray200[0],
     },
     countCourse: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         color: theme.colors.dark[0],
     },
     cardSectionContent: {

@@ -30,7 +30,7 @@ const AdvantagesBlock = (props: AdvantagesBlockProps) => {
                                 {advantage.title}
                             </Heading>
                         </Flex>
-                        <Paragraph variant="large" color="neutral_main50">
+                        <Paragraph variant="large" color="neutralMain50">
                             {advantage.description}
                         </Paragraph>
                     </Flex>

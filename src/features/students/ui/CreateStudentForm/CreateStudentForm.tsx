@@ -69,7 +69,7 @@ const CreateStudentForm = ({ onClose, ...props }: CreateStudentFormProps) => {
                 {() => (
                     <Flex direction="column" gap={32}>
                         <Flex align="center" gap={8}>
-                            <Paragraph variant="text-small-m" color="gray45">
+                            <Paragraph variant="text-small-m" color="neutralMain50">
                                 Статус:
                             </Paragraph>
                             <FSwitch labelPosition="left" variant="secondary" name="isActive" label="Активировать" />

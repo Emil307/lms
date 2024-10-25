@@ -4,7 +4,7 @@ export default createStyles((theme) => ({
     wrapper: {
         borderRadius: 16,
         padding: 8,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
     heading: {
         gap: 16,

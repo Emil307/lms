@@ -19,7 +19,7 @@ const SidebarMenu = () => {
                     leftIcon={item.icon}
                     variant="white"
                     sx={(theme) => ({
-                        backgroundColor: router.pathname.startsWith(item.href.pathname) ? theme.colors.neutralLight[0] : "transparent",
+                        backgroundColor: router.pathname.startsWith(item.href.pathname) ? theme.colors.neutralGray100[0] : "transparent",
                     })}
                     key={index}>
                     {item.label}

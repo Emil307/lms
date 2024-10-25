@@ -23,7 +23,7 @@ const MainPage = () => {
                             w="100%"
                             h="100%"
                             radius={160}
-                            styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                            styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.neutralGray200[0] } })}>
                             <AvatarIcon />
                         </Avatar>
                     </Skeleton>
@@ -33,7 +33,7 @@ const MainPage = () => {
                         <Heading>Привет, {user?.profile.firstName}!</Heading>
                     </Skeleton>
                     <Skeleton visible={!user} radius={160}>
-                        <Heading order={3} color="neutral_gray">
+                        <Heading order={3} color="neutralGray300">
                             Добро пожаловать в раздел администрирования платформы.
                         </Heading>
                     </Skeleton>

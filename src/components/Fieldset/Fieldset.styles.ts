@@ -10,7 +10,7 @@ export default createStyles((theme, { isOpen }: { isOpen: boolean }) => ({
         marginBottom: isOpen ? 16 : 0,
 
         svg: {
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     item: {

@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
         height: "100vh",
         paddingTop: 82,
         border: "none",
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         zIndex: 102,
     },
     inner: {

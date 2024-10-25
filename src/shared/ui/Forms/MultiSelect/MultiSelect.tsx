@@ -26,13 +26,13 @@ const RightSection = ({
     }
     if (!!value && value.length > 0) {
         return (
-            <ThemeIcon color="gray45" w={16} h={16} sx={{ pointerEvents: "initial" }} onClick={handlerClear}>
+            <ThemeIcon color="neutralMain50" w={16} h={16} sx={{ pointerEvents: "initial" }} onClick={handlerClear}>
                 <X />
             </ThemeIcon>
         );
     }
     return (
-        <ThemeIcon color="gray45" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
+        <ThemeIcon color="neutralMain50" sx={{ transform: `rotate(${openedDropdown ? 180 : 0}deg)` }}>
             <ChevronDown />
         </ThemeIcon>
     );
@@ -89,7 +89,7 @@ const MultiSelect = ({
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -101,7 +101,7 @@ const MultiSelect = ({
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>

@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         padding: "24px 32px",
         gap: 16,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         cursor: "pointer",
 
         ":hover": {
@@ -24,7 +24,7 @@ export default createStyles((theme) => ({
         minWidth: 48,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary[0],
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
 
     arrowIcon: {

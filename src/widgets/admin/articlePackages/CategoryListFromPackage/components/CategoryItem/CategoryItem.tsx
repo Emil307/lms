@@ -26,12 +26,12 @@ const MemoizedCategoryItem = memo(function CategoryItem({ data, onClick }: Categ
                     </ActionIcon>
                 </Tooltip>
             </Flex>
-            <Divider my="xs" sx={{ flex: 1 }} color="gray45" variant="dashed" />
+            <Divider my="xs" sx={{ flex: 1 }} color="neutralMain50" variant="dashed" />
             <Paragraph variant="text-small-semi" className={classes.articlesCount}>{`${data.articlesCount} ${getPluralString(
                 data.articlesCount,
                 "статья",
                 "статьи",
-                "статей"
+                "статей",
             )} `}</Paragraph>
         </Flex>
     );

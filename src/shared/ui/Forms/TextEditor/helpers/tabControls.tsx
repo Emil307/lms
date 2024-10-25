@@ -97,7 +97,7 @@ export const TableControls = {
                     svg: {
                         transform: "scale(0.9) !important",
                         path: {
-                            fill: theme.colors.gray45[0],
+                            fill: theme.colors.neutralMain50[0],
                         },
                     },
                 })}
@@ -116,7 +116,7 @@ export const TableControls = {
                     svg: {
                         transform: "scale(0.9) !important",
                         path: {
-                            fill: theme.colors.gray45[0],
+                            fill: theme.colors.neutralMain50[0],
                         },
                     },
                 })}

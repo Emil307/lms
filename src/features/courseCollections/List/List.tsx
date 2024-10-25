@@ -31,7 +31,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
     const { classes } = useStyles();
 
     const { data: courseCollectionsData, isLoading } = useCourseCollectionsPaginate(
-        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId })
+        adaptGetCourseCollectionsRequest({ ...getInitialParams(perPage), page: Number(page), id: exceptionCourseCollectionId }),
     );
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                     <Heading className={classes.title} order={1} ta="center" color="dark">
                         Больше знаний в комплексе
                     </Heading>
-                    <Heading order={3} ta="center" color="neutral_main50" maw={500}>
+                    <Heading order={3} ta="center" color="neutralMain50" maw={500}>
                         Расширяйте кругозор и получайте удовольствие от новых знаний с нашими наборами курсов
                     </Heading>
                 </Flex>

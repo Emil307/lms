@@ -10,7 +10,7 @@ export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) =
     content: {
         overflow: isOpen ? "auto" : "hidden",
 
-        borderBottom: isOpen ? `1px solid ${theme.colors.gray20[0]}` : "none",
+        borderBottom: isOpen ? `1px solid ${theme.colors.neutralGray300[0]}` : "none",
 
         "> div": {
             maxHeight: 272,
@@ -54,7 +54,7 @@ export default createStyles((theme, { isOpen, hasSpoiler }: CreateStylesProps) =
     },
     notFound: {
         paddingBottom: 16,
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         wordBreak: "break-word",
     },
 }));

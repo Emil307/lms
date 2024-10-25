@@ -27,17 +27,17 @@ export default createStyles((theme) => ({
     },
     iconContainer: {
         padding: 12,
-        border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+        border: `1px solid ${theme.colors.neutralGray300[0]}`,
         borderRadius: 16,
     },
     iconChevronContainer: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         borderRadius: 100,
         padding: 12,
     },
     accordionItem: {
         "&[data-active]": {
-            backgroundColor: theme.colors.neutralLight[0],
+            backgroundColor: theme.colors.neutralGray100[0],
             [theme.fn.smallerThan("md")]: {
                 padding: "24px 24px 0 24px",
             },

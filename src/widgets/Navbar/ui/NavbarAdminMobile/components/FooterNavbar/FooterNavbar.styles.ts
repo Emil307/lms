@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         paddingInline: 16,
         gap: 32,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
 
     socialLink: {
@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
         height: 56,
         width: 56,
         borderRadius: 56,
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
         backgroundColor: theme.colors.dark[0],
 
         svg: {
@@ -24,7 +24,7 @@ export default createStyles((theme) => ({
 
         ":hover": {
             color: theme.colors.dark[0],
-            backgroundColor: theme.colors.done[0],
+            backgroundColor: theme.colors.secondary[0],
         },
     },
 }));

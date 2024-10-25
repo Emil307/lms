@@ -43,7 +43,7 @@ const MemoizedFileItem = memo(function FileItem({
     const renderIcon = useMemo(() => {
         switch (status) {
             case "loading":
-                return <Loader color="done" w={29} h={29} />;
+                return <Loader color="secondary" w={29} h={29} />;
             case "error":
                 return <Slash strokeWidth={4} />;
             default:
@@ -113,7 +113,7 @@ const MemoizedFileItem = memo(function FileItem({
                             </Paragraph>
                         </Box>
                         {fileSize > 0 && (
-                            <Paragraph variant="text-small-m" color="gray45" className={classes.fileSize}>
+                            <Paragraph variant="text-small-m" color="neutralMain50" className={classes.fileSize}>
                                 {getFileSize(fileSize)}
                             </Paragraph>
                         )}

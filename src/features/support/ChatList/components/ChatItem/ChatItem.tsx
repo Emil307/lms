@@ -19,7 +19,7 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
     const handleClick = () => onClick(data);
 
     return (
-        <Indicator size={8} offset={16} position="top-start" color="done" disabled={!data.hasSupportMessage}>
+        <Indicator size={8} offset={16} position="top-start" color="secondary" disabled={!data.hasSupportMessage}>
             <Flex {...props} className={classes.root} onClick={handleClick}>
                 <Flex gap={8}>
                     <Avatar src={data.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
@@ -33,7 +33,7 @@ const MemoizedChatItem = memo(function ChatItem({ data, onClick = () => undefine
                                 {getFullName({ data: data.profile })}
                             </Paragraph>
                         </Box>
-                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage} color="gray45">
+                        <Paragraph variant="text-caption" className={classes.createdAtLastMessage} color="neutralMain50">
                             {data.lastSupportMessage ? getFormatCreatedAt(data.lastSupportMessage.createdAt) : "-"}
                         </Paragraph>
                     </Flex>

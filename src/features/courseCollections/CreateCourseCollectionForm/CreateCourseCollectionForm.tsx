@@ -56,7 +56,7 @@ const CreateCourseCollectionForm = ({ onClose, ...props }: CreateCourseCollectio
                     return (
                         <Flex direction="column" gap={32}>
                             <Flex gap={8} align="center">
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Статус:
                                 </Paragraph>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />

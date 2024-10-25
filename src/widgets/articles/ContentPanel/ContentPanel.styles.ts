@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         padding: "48px 24px 56px",
         gap: 48,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             paddingTop: 24,

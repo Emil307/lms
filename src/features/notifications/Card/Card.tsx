@@ -27,7 +27,7 @@ const MemoizedCard = memo(function Card({ data, handleCloseMenu, ...props }: Car
     };
 
     return (
-        <Indicator size={8} offset={16} position="top-start" color="done" disabled={!data.isNew}>
+        <Indicator size={8} offset={16} position="top-start" color="secondary" disabled={!data.isNew}>
             <Flex {...props} className={classes.root} onClick={handleNotificationClick}>
                 <Flex gap={8}>
                     <NotificationIcon data={data} />
@@ -38,17 +38,17 @@ const MemoizedCard = memo(function Card({ data, handleCloseMenu, ...props }: Car
                                     {title}
                                 </Paragraph>
                             </Box>
-                            <Paragraph variant="text-caption" className={classes.createdAt} color="gray45">
+                            <Paragraph variant="text-caption" className={classes.createdAt} color="neutralMain50">
                                 {getFormatCreatedAt(data.createdAt)}
                             </Paragraph>
                         </Flex>
                         <Flex gap={8}>
                             <Box className={classes.contentWrapper}>
-                                <Paragraph variant="text-caption" color="gray45" className={classes.content}>
+                                <Paragraph variant="text-caption" color="neutralMain50" className={classes.content}>
                                     {getFullName({ data: userData?.profile, hidePatronymic: true })}
                                 </Paragraph>
                             </Box>
-                            <Paragraph variant="text-caption" color="gray45" className={classes.userRole}>
+                            <Paragraph variant="text-caption" color="neutralMain50" className={classes.userRole}>
                                 {userData?.roles[0].displayName}
                             </Paragraph>
                         </Flex>

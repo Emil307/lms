@@ -18,7 +18,7 @@ const Tabs = ({ tabs, ...props }: TabsProps) => {
                 <MTabs.Tab value={value}>
                     {label}
                     {typeof count === "number" && (
-                        <Paragraph variant="small-m" color="gray45">
+                        <Paragraph variant="small-m" color="neutralMain50">
                             {count}
                         </Paragraph>
                     )}

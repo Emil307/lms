@@ -60,7 +60,7 @@ const SelectTypeMaterial = ({ description, onSuccessLoadFiles, onSelectFromBase 
 
     return (
         <Box>
-            <Paragraph className={classes.description} variant="small-m" color="neutral_gray">
+            <Paragraph className={classes.description} variant="small-m" color="neutralGray300">
                 {description}
             </Paragraph>
             <Flex className={classes.content}>

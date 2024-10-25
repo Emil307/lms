@@ -48,7 +48,7 @@ const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProp
             )}
             {articleCategoriesData.meta && (
                 <Box>
-                    <Paragraph variant="text-small-m" component="span" color="gray45">
+                    <Paragraph variant="text-small-m" component="span" color="neutralMain50">
                         {"Всего: "}
                     </Paragraph>
                     <Paragraph variant="text-small-m" component="span">
@@ -56,7 +56,7 @@ const ArticleCategoryList = ({ filterParams, ...props }: ArticleCategoryListProp
                             articleCategoriesData.meta.articlesCount,
                             "статья",
                             "статьи",
-                            "статей"
+                            "статей",
                         )}`}
                     </Paragraph>
                 </Box>

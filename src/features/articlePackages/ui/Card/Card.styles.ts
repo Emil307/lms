@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         height: "100%",
         padding: 24,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     contentSectionWrapper: {
         flex: 1,

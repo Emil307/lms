@@ -44,7 +44,7 @@ const AccordionList = ({
                         </Heading>
                     </Accordion.Control>
                     <Accordion.Panel>
-                        <Paragraph variant="small-m" color="neutral_main50">
+                        <Paragraph variant="small-m" color="neutralMain50">
                             {faqItem.answer}
                         </Paragraph>
                     </Accordion.Panel>

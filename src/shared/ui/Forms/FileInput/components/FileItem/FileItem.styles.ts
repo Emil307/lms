@@ -54,7 +54,7 @@ export default createStyles((theme, { status }: { status?: FileStatus }, getRef)
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         textAlign: "center",
     },
     content: {

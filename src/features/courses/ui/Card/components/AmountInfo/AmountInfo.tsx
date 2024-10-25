@@ -12,7 +12,7 @@ const AmountInfo = ({ data }: AmountInfoProps) => {
         return (
             <Flex align="flex-start" gap={12}>
                 <Heading order={2} color="dark">{`${data.discountPrice.toLocaleString("ru")} ₽`}</Heading>
-                <Paragraph variant="large" td="line-through" color="gray45">{`${data.price.toLocaleString("ru")} ₽`}</Paragraph>
+                <Paragraph variant="large" td="line-through" color="neutralMain50">{`${data.price.toLocaleString("ru")} ₽`}</Paragraph>
             </Flex>
         );
     }

@@ -10,9 +10,9 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         width: "100%",
         padding: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         border: "1px solid",
-        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
+        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralGray100[0],
     },
     topCard: {
         gap: 32,
@@ -21,9 +21,9 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         width: "100%",
         padding: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         border: "1px solid",
-        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
+        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
             flexDirection: "column",
@@ -36,13 +36,13 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         flexDirection: "column",
         padding: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         border: "1px solid",
-        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralLight[0],
+        borderColor: hasError ? theme.colors.warning[0] : theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
             padding: "0 0 32px 0",
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
             border: "none",
         },
     },
@@ -72,8 +72,8 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
         padding: "16px 18px",
         borderRadius: 8,
         border: "1px solid",
-        borderColor: theme.colors.grayLight[0],
-        backgroundColor: theme.colors.white[0],
+        borderColor: theme.colors.neutralGray200[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             flexWrap: "wrap",
@@ -96,11 +96,11 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
     actionIcon: {
         minWidth: 40,
         height: 40,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             "&:hover": {
-                backgroundColor: theme.colors.grayLight[0],
+                backgroundColor: theme.colors.neutralGray200[0],
             },
         },
     },
@@ -131,15 +131,15 @@ export default createStyles((theme, { greenCheckIcon = true, hasError }: StylesP
 const getCheckIconWrapper = (theme: MantineTheme, greenCheckIcon: boolean) => {
     if (greenCheckIcon) {
         return {
-            backgroundColor: theme.colors.done16[0],
+            backgroundColor: theme.colors.done20[0],
             borderRadius: 56,
         };
     }
     return {
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         borderRadius: 56,
         path: {
-            fill: theme.colors.neutral_gray[0],
+            fill: theme.colors.neutralGray300[0],
         },
     };
 };

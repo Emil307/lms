@@ -9,7 +9,7 @@ export default createStyles((theme, { status }: CreateStylesProps) => ({
     root: {
         padding: 24,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     status: {
         ...getColorsByStatus(theme, { status }),
@@ -58,12 +58,12 @@ export default createStyles((theme, { status }: CreateStylesProps) => ({
 const getColorsByStatus = (theme: MantineTheme, { status }: CreateStylesProps) => {
     switch (status?.status) {
         case "new":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         case "paid":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         default:
-            return { backgroundColor: theme.colors.light[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray100[0], color: theme.colors.neutralMain50[0] };
     }
 };

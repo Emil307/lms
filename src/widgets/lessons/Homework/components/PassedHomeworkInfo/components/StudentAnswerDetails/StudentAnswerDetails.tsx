@@ -39,10 +39,10 @@ const StudentAnswerDetails = ({ data }: StudentAnswerDetailsProps) => {
                 </ThemeIcon>
             </Avatar>
             <Flex className={classes.answerTextHeadingContainer}>
-                <Paragraph variant="text-caption" color="gray45">
+                <Paragraph variant="text-caption" color="neutralMain50">
                     {getFullName({ data: data.student.profile })}
                 </Paragraph>
-                <Paragraph variant="text-caption" color="gray45" sx={{ whiteSpace: "nowrap" }}>
+                <Paragraph variant="text-caption" color="neutralMain50" sx={{ whiteSpace: "nowrap" }}>
                     {getFormatUpdatedAt(data.updatedAt)}
                 </Paragraph>
             </Flex>

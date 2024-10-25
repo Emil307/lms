@@ -150,10 +150,10 @@ const HomeworkTask = ({ homeworkAnswer, studentFio }: HomeworkTaskProps) => {
                     </Avatar>
                     <Box className={classes.answerStudentContainer}>
                         <Flex className={classes.answerStudentInfo}>
-                            <Paragraph variant="text-caption" color="gray45">
+                            <Paragraph variant="text-caption" color="neutralMain50">
                                 {studentFio}
                             </Paragraph>
-                            <Paragraph variant="text-caption" color="gray45" sx={{ whiteSpace: "nowrap" }}>
+                            <Paragraph variant="text-caption" color="neutralMain50" sx={{ whiteSpace: "nowrap" }}>
                                 {getFormatUpdatedAt(homeworkAnswer.updatedAt)}
                             </Paragraph>
                         </Flex>

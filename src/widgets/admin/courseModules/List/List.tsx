@@ -79,7 +79,7 @@ const List = ({ courseId }: ModuleListProps) => {
     const renderContent = () => {
         if (!modules.length) {
             return (
-                <Paragraph variant="small-m" color="neutral_gray">
+                <Paragraph variant="small-m" color="neutralGray300">
                     В данном курсе пока нет модулей.
                 </Paragraph>
             );

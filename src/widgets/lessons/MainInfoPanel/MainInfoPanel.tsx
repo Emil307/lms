@@ -55,7 +55,7 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
                         <Paragraph variant="text-small-m">{myCourseData.name}</Paragraph>
                         <Heading>{data.name}</Heading>
                     </Box>
-                    <Paragraph variant="small-m" color="gray45">
+                    <Paragraph variant="small-m" color="neutralMain50">
                         {data.description}
                     </Paragraph>
                     {renderTestAndHomeworkData()}

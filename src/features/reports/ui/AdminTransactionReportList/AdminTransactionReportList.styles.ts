@@ -63,12 +63,12 @@ export const useCellStyles = createStyles((theme, { status }: UseCellStylesProps
 const getColorsByStatus = (theme: MantineTheme, { status }: UseCellStylesProps) => {
     switch (status?.status) {
         case "new":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         case "paid":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         default:
-            return { backgroundColor: theme.colors.light[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray100[0], color: theme.colors.neutralMain50[0] };
     }
 };

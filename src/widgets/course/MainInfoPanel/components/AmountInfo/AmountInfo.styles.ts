@@ -7,8 +7,8 @@ interface CreateStylesParams {
 export default createStyles((theme, { hasDiscount }: CreateStylesParams) => ({
     price: {
         width: "fit-content",
-        color: hasDiscount ? theme.colors.doneDark[0] : theme.colors.dark[0],
-        background: hasDiscount ? theme.colors.done16[0] : "transparent",
+        color: hasDiscount ? theme.colors.secondaryHover[0] : theme.colors.dark[0],
+        background: hasDiscount ? theme.colors.done20[0] : "transparent",
 
         ...(hasDiscount && {
             border: "4px solid transparent",
@@ -19,7 +19,7 @@ export default createStyles((theme, { hasDiscount }: CreateStylesParams) => ({
         fontWeight: 400,
         fontSize: 16,
         lineHeight: "24px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         textDecoration: "line-through",
     },
 }));

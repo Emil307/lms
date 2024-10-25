@@ -15,7 +15,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
     const { classes } = useStyles();
 
     return (
-        <Indicator size={8} offset={16} position="top-start" color="done" disabled={data.isRead}>
+        <Indicator size={8} offset={16} position="top-start" color="secondary" disabled={data.isRead}>
             <Flex {...props} className={classes.root}>
                 <Flex gap={8}>
                     <Avatar src={data.sender.profile.avatar?.absolutePath} alt="avatar" className={classes.avatarWrapper}>
@@ -26,7 +26,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                     <Flex className={classes.userInfo}>
                         <Flex direction="column">
                             <Paragraph variant="text-small-m">{getFullName({ data: data.sender.profile })}</Paragraph>
-                            <Paragraph variant="text-caption" color="gray45">
+                            <Paragraph variant="text-caption" color="neutralMain50">
                                 {data.sender.roles[0].displayName}
                             </Paragraph>
                         </Flex>

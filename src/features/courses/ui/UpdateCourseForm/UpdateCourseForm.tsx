@@ -122,19 +122,19 @@ const UpdateCourseForm = ({ data, onSuccess, onCancel }: UpdateCourseFormProps) 
                         <Flex gap={32} direction="column">
                             <Flex className={classes.wrapper}>
                                 <Flex className={classes.item}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Статус:
                                     </Paragraph>
                                     <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                                 </Flex>
                                 <Flex className={classes.item}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Тип курса:
                                     </Paragraph>
                                     <FCheckbox name="isInteractive" label="Интерактивный" />
                                 </Flex>
                                 <Flex className={classes.item}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Отображать в популярных:
                                     </Paragraph>
                                     <FCheckbox name="isPopular" label="Да" />

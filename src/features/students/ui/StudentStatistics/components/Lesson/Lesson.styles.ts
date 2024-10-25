@@ -13,7 +13,7 @@ export default createStyles((theme, { testStatus, homeworkStatus, lessonStatus }
         alignItems: "center",
         justifyContent: "space-between",
         padding: "16px 24px",
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         borderRadius: 8,
 
         [theme.fn.smallerThan("md")]: {
@@ -87,7 +87,7 @@ const getTestStatusColor = (theme: MantineTheme, { testStatus }: Pick<CreateStyl
         case "needsEdit":
             return theme.colors.info[0];
         case "completed":
-            return theme.colors.done[0];
+            return theme.colors.secondary[0];
         default:
             return theme.colors.dark[0];
     }
@@ -102,7 +102,7 @@ const getHomeworkStatusColor = (theme: MantineTheme, { homeworkStatus }: Pick<Cr
         case "onReview":
             return theme.colors.error[0];
         case "completed":
-            return theme.colors.done[0];
+            return theme.colors.secondary[0];
         default:
             return theme.colors.dark[0];
     }
@@ -111,25 +111,25 @@ const getHomeworkStatusColor = (theme: MantineTheme, { homeworkStatus }: Pick<Cr
 const getLessonStatusColor = (theme: MantineTheme, { lessonStatus }: Pick<CreateStylesProps, "lessonStatus">) => {
     switch (lessonStatus) {
         case "blocked":
-            return theme.colors.neutralLight[0];
+            return theme.colors.neutralGray100[0];
         case "inProgress":
-            return theme.colors.warning16[0];
+            return theme.colors.warning20[0];
         case "completed":
-            return theme.colors.done16[0];
+            return theme.colors.done20[0];
         default:
-            return theme.colors.neutralLight[0];
+            return theme.colors.neutralGray100[0];
     }
 };
 
 const getLessonStatusTextColor = (theme: MantineTheme, { lessonStatus }: Pick<CreateStylesProps, "lessonStatus">) => {
     switch (lessonStatus) {
         case "blocked":
-            return theme.colors.gray45[0];
+            return theme.colors.neutralMain50[0];
         case "inProgress":
             return theme.colors.warning[0];
         case "completed":
-            return theme.colors.done[0];
+            return theme.colors.secondary[0];
         default:
-            return theme.colors.gray45[0];
+            return theme.colors.neutralMain50[0];
     }
 };

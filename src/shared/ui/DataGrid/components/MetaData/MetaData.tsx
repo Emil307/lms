@@ -18,7 +18,7 @@ function MetaData<M extends Record<string, any>>({ meta, displayMeta }: TMetaDat
 
     return (
         <Box>
-            <Paragraph variant="text-small-m" component="span" color="neutral_gray">
+            <Paragraph variant="text-small-m" component="span" color="neutralGray300">
                 {displayMeta.name || "Итого:"}
             </Paragraph>
             <Paragraph variant="text-small-m" component="span" color="dark">

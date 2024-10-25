@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         padding: 16,
         gap: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         ".mantine-Switch-body": {
             alignItems: "center",
@@ -19,7 +19,7 @@ export default createStyles((theme) => ({
         minWidth: 56,
         padding: "8px 16px",
         borderRadius: 160,
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
         svg: {
             width: 24,
             height: 24,

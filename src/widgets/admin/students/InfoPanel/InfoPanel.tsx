@@ -32,7 +32,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
             <Heading mb={24}>{userFullname}</Heading>
             <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         ID:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{data?.id}</Paragraph>
@@ -40,7 +40,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
 
                 {userRole?.name !== Roles.teacher && (
                     <Flex align="center" gap={8}>
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="neutralMain50">
                             Статус:
                         </Paragraph>
                         <Switch
@@ -54,7 +54,7 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
                 )}
 
                 <Flex gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Последний вход:
                     </Paragraph>
                     <Paragraph variant="text-small-m">

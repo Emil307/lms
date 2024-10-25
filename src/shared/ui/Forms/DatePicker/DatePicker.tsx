@@ -46,7 +46,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
     const statusSuccess = useMemo(() => !!props.value && !error && !!success, [props.value, error, success]);
 
     const rightSection = (
-        <ThemeIcon color="gray45">
+        <ThemeIcon color="neutralMain50">
             <Calendar />
         </ThemeIcon>
     );
@@ -66,7 +66,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -78,7 +78,7 @@ const MemoizedDatePicker = memo(function DatePicker(props: DatePickerProps) {
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>

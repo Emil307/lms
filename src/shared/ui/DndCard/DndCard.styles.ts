@@ -11,7 +11,7 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
         width: "100%",
         padding: 32,
         borderRadius: 16,
-        backgroundColor: isActive ? theme.colors.white[0] : theme.colors.light[0],
+        backgroundColor: isActive ? theme.colors.neutralWhite[0] : theme.colors.neutralGray100[0],
         cursor: "pointer",
 
         ...(isActive &&
@@ -21,11 +21,11 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
 
         [theme.fn.smallerThan("sm")]: {
             padding: "15px 16px",
-            border: `1px solid ${theme.colors.grayLight[0]}`,
+            border: `1px solid ${theme.colors.neutralGray200[0]}`,
         },
     },
     title: {
-        color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
+        color: isActive ? theme.colors.dark[0] : theme.colors.neutralMain50[0],
         wordBreak: "break-word",
     },
     actionIcon: {
@@ -34,7 +34,7 @@ export default createStyles((theme, { isActive, expanded, hasOpenButton }: Creat
         cursor: "grab",
 
         "&:hover": {
-            backgroundColor: theme.colors.neutralLight[0],
+            backgroundColor: theme.colors.neutralGray100[0],
         },
     },
     openButton: {

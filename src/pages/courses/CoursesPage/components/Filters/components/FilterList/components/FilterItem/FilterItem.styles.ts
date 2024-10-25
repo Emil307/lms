@@ -13,7 +13,7 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
         height: 48,
         width: 48,
         borderRadius: 8,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         boxShadow: "0px 16px 32px 0px rgba(2, 6, 46, 0.08)",
         pointerEvents: "auto",
 
@@ -33,12 +33,12 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
         paddingBlock: 10,
         paddingInline: 16,
         borderRadius: 12,
-        backgroundColor: isSelected ? theme.colors.dark[0] : theme.colors.white[0],
+        backgroundColor: isSelected ? theme.colors.dark[0] : theme.colors.neutralWhite[0],
         cursor: "pointer",
         border: `1px solid ${theme.colors.dark[0]}`,
     },
     button: {
-        color: isSelected ? theme.colors.white[0] : theme.colors.dark[0],
+        color: isSelected ? theme.colors.neutralWhite[0] : theme.colors.dark[0],
 
         [theme.fn.smallerThan("md")]: {
             whiteSpace: "nowrap",

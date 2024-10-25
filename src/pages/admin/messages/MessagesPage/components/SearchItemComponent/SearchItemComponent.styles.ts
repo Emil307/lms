@@ -24,7 +24,7 @@ export default createStyles((theme, { isSelected }: CreateStylesProps) => ({
         borderRadius: 160,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {

@@ -48,7 +48,7 @@ const InfiniteList = ({ onChangeCoursesCount, perPage = initialParams.perPage }:
                         <Heading order={2} maw={250}>
                             По этому запросу пока нет программ
                         </Heading>
-                        <Paragraph variant="large" color="neutral_main50" maw={320}>
+                        <Paragraph variant="large" color="neutralMain50" maw={320}>
                             Попробуйте набрать другой запрос или посмотрите курсы в каталоге
                         </Paragraph>
                     </Stack>

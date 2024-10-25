@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
         },
         ":disabled": {
             backgroundColor: "transparent",
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     addArticlePackagesToStudentModalWrapper: {

@@ -37,7 +37,7 @@ const MainBanner = (props: MainBannerProps) => {
                         <Flex className={classes.headerContent}>
                             <Flex className={classes.titleContent}>
                                 <Text className={classes.title}>{data?.title}</Text>
-                                <Heading className={classes.subtitle} order={3} color="white">
+                                <Heading className={classes.subtitle} order={3} color="neutralWhite">
                                     {data?.subTitle}
                                 </Heading>
                             </Flex>

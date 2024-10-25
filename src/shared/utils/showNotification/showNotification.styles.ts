@@ -4,17 +4,17 @@ import { ToastType } from "./constants";
 const getColorsByType = (theme: MantineTheme, type: ToastType) => {
     switch (type) {
         case ToastType.INFO:
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
         case ToastType.SUCCESS:
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.done[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondary[0] };
         case ToastType.WARN:
-            return { backgroundColor: theme.colors.warning16[0], color: theme.colors.warning[0] };
+            return { backgroundColor: theme.colors.warning20[0], color: theme.colors.warning[0] };
         case ToastType.ERROR:
-            return { backgroundColor: theme.colors.error16[0], color: theme.colors.error[0] };
+            return { backgroundColor: theme.colors.error20[0], color: theme.colors.error[0] };
         case ToastType.IMAGE:
-            return { backgroundColor: theme.colors.grayLight[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray200[0], color: theme.colors.neutralMain50[0] };
         default:
-            return { backgroundColor: theme.colors.white[0], color: theme.colors.white[0] };
+            return { backgroundColor: theme.colors.neutralWhite[0], color: theme.colors.neutralWhite[0] };
     }
 };
 

@@ -17,12 +17,12 @@ const MemoizedRingProgress = memo(function RingProgress({ value, label, ...props
         () => (
             <Flex direction="column" align="center">
                 <Heading order={3}>{value}%</Heading>
-                <Paragraph variant="text-caption" color="gray45">
+                <Paragraph variant="text-caption" color="neutralMain50">
                     {label}
                 </Paragraph>
             </Flex>
         ),
-        [value]
+        [value],
     );
     return (
         <MRingProgress

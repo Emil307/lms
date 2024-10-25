@@ -69,25 +69,25 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                         <Flex direction="column" gap={32}>
                             <Flex className={classes.infoPanel}>
                                 <Flex gap={8}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         ID:
                                     </Paragraph>
                                     <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                                 </Flex>
                                 <Flex align="center" gap={8}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Статус:
                                     </Paragraph>
                                     <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
                                 </Flex>
                                 <Flex gap={8}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Учебный курс:
                                     </Paragraph>
                                     <Paragraph variant="text-small-m">{data?.course.name}</Paragraph>
                                 </Flex>
                                 <Flex gap={8}>
-                                    <Paragraph variant="text-small-m" color="gray45">
+                                    <Paragraph variant="text-small-m" color="neutralMain50">
                                         Создание:
                                     </Paragraph>
                                     <Paragraph variant="text-small-m">{dayjs(data?.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
@@ -121,8 +121,8 @@ const UpdateAdminGroupForm = ({ data, courseId, onSuccess, onCancel, ...props }:
                                             nameTo="educationFinishDate"
                                             label="Даты обучения"
                                             allowLevelChange={false}
-                                            size="sm" 
-                                            disabled={data?.status.type === 'completed'}
+                                            size="sm"
+                                            disabled={data?.status.type === "completed"}
                                         />
                                     </Grid.Col>
                                     <Grid.Col xs={6}>

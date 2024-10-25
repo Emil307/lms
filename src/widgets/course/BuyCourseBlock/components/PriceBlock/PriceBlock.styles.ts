@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
     },
     button: {
         padding: "8px 12px",
-        border: `1px solid ${theme.colors.neutralDark[0]}`,
+        border: `1px solid ${theme.colors.darkHover[0]}`,
         borderRadius: 60,
     },
     price: {

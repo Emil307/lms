@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         width: "100%",
         padding: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("xs")]: {
             flexDirection: "column",
@@ -17,7 +17,7 @@ export default createStyles((theme) => ({
         borderRadius: 56,
     },
     warningIconWrapper: {
-        backgroundColor: theme.colors.warning16[0],
+        backgroundColor: theme.colors.warning20[0],
         borderRadius: 56,
     },
 }));

@@ -6,9 +6,9 @@ export default createStyles((theme) => ({
         padding: 16,
         paddingTop: 24,
         gap: 16,
-        border: `1px solid ${theme.colors.grayLight[0]}`,
+        border: `1px solid ${theme.colors.neutralGray200[0]}`,
         borderRadius: 8,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     avatarWrapper: {
         width: 32,
@@ -17,7 +17,7 @@ export default createStyles((theme) => ({
         borderRadius: 160,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -31,7 +31,7 @@ export default createStyles((theme) => ({
         gap: 6,
     },
     createdAtLastMessage: {
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         whiteSpace: "nowrap",
     },
 }));

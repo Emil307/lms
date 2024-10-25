@@ -6,12 +6,12 @@ export default createStyles((theme, isActive: boolean) => ({
         paddingBlock: 12,
         paddingInline: 16,
         borderRadius: 12,
-        backgroundColor: isActive ? theme.colors.dark[0] : theme.colors.white[0],
+        backgroundColor: isActive ? theme.colors.dark[0] : theme.colors.neutralWhite[0],
         cursor: "pointer",
         border: `1px solid ${theme.colors.dark[0]}`,
     },
     content: {
-        color: isActive ? theme.colors.white[0] : theme.colors.dark[0],
+        color: isActive ? theme.colors.neutralWhite[0] : theme.colors.dark[0],
 
         [theme.fn.smallerThan("md")]: {
             whiteSpace: "nowrap",

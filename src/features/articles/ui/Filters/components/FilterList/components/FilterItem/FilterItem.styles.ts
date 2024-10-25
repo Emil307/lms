@@ -12,7 +12,7 @@ export default createStyles((theme, { selected }: CreateStylesParams) => ({
         height: 48,
         width: 48,
         borderRadius: 8,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         boxShadow: "0px 16px 32px 0px rgba(2, 6, 46, 0.08)",
         pointerEvents: "auto",
 

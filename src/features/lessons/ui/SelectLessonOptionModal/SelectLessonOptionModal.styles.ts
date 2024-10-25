@@ -21,7 +21,7 @@ export default createStyles((theme) => ({
         gap: 16,
         justifyContent: "space-between",
         padding: 24,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         borderRadius: "16px",
     },
     cardContent: {
@@ -41,7 +41,7 @@ export default createStyles((theme) => ({
         minWidth: 64,
         minHeight: 64,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         svg: {
             width: 32,

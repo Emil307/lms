@@ -8,12 +8,12 @@ export default createStyles((theme, { editMode }: CreateStylesProps) => ({
     wrapper: {
         padding: 24,
         borderRadius: 8,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         ...(editMode
             ? {
                   [theme.fn.smallerThan("sm")]: {
-                      backgroundColor: theme.colors.white[0],
+                      backgroundColor: theme.colors.neutralWhite[0],
                       padding: 0,
                   },
               }

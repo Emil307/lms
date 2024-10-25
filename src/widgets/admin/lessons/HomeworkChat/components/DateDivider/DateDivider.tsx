@@ -12,11 +12,11 @@ const DateDivider = ({ date }: DateDividerProps) => {
 
     return (
         <Flex className={classes.root}>
-            <Divider className={classes.divider} size={1} color="grayLight" />
-            <Paragraph variant="text-small-m" color="gray45">
+            <Divider className={classes.divider} size={1} color="neutralGray200" />
+            <Paragraph variant="text-small-m" color="neutralMain50">
                 {getFormatCreatedAt(date)}
             </Paragraph>
-            <Divider className={classes.divider} size={1} color="grayLight" />
+            <Divider className={classes.divider} size={1} color="neutralGray200" />
         </Flex>
     );
 };

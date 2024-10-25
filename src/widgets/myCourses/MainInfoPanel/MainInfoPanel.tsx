@@ -86,7 +86,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                 </Box>
             </Flex>
             <Flex className={classes.descriptionContainer} hidden={!data.shortDescription}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Описание курса
                 </Paragraph>
                 <Paragraph variant="small-m">{data.shortDescription}</Paragraph>

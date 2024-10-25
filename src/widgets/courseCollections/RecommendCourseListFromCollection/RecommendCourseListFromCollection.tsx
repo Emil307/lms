@@ -22,7 +22,7 @@ const RecommendCourseListFromCollection = () => {
         fetchNextPage,
     } = useCoursesInfinite(
         adaptGetCoursesFromCollectionRequest({ ...initialParamsForCourses, collectionIds: String(courseCollection?.id) }),
-        !!courseCollection
+        !!courseCollection,
     );
 
     const { ref: lastElemRef, entry } = useIntersection();
@@ -59,7 +59,7 @@ const RecommendCourseListFromCollection = () => {
                         Все
                     </Button>
                 </Flex>
-                <Paragraph variant="large" color="neutral_gray">
+                <Paragraph variant="large" color="neutralGray300">
                     {courseCollection.name}
                 </Paragraph>
             </Flex>

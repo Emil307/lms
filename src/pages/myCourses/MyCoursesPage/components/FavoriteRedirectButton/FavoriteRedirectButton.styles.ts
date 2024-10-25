@@ -8,7 +8,7 @@ export default createStyles((theme) => ({
         paddingInline: 24,
         paddingBlock: 12,
         borderRadius: 8,
-        border: `2px solid ${theme.colors.gray20[0]}`,
+        border: `2px solid ${theme.colors.neutralGray300[0]}`,
         backgroundColor: "transparent",
         color: theme.colors.dark[0],
 
@@ -18,7 +18,7 @@ export default createStyles((theme) => ({
         },
         ":disabled": {
             backgroundColor: "transparent",
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
 }));

@@ -29,7 +29,7 @@ export default createStyles((theme) => ({
         gap: 16,
 
         svg: {
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     priceInput: {

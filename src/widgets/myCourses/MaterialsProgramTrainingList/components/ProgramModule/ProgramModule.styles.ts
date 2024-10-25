@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         padding: 24,
         borderRadius: 16,
         gap: 32,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
 
     content: {

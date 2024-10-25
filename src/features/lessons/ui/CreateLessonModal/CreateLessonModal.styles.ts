@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         width: "100%",
         padding: 4,
         borderRadius: 12,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
     description: {
         lineHeight: "16px",

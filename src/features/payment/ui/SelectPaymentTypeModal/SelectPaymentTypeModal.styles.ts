@@ -4,7 +4,7 @@ export default createStyles((theme) => ({
     divider: {
         flexGrow: 1,
         height: 1,
-        backgroundColor: theme.colors.gray45[0],
+        backgroundColor: theme.colors.neutralMain50[0],
     },
     paymentTypesContainer: {
         flexDirection: "column",

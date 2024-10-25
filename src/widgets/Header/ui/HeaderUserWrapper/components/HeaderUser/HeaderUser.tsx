@@ -61,7 +61,7 @@ const HeaderUser = ({ isTablet }: HeaderUserProps) => {
                             variant="white"
                             sx={(theme) => ({
                                 backgroundColor: router.pathname.startsWith(menuItem.href.pathname)
-                                    ? theme.colors.neutralLight[0]
+                                    ? theme.colors.neutralGray100[0]
                                     : "transparent",
                             })}
                             key={index}>
@@ -77,7 +77,8 @@ const HeaderUser = ({ isTablet }: HeaderUserProps) => {
                             component={Link}
                             href="/my-courses/favorite"
                             sx={{
-                                backgroundColor: router.pathname === "/my-courses/favorite" ? theme.colors.neutralLight[0] : "transparent",
+                                backgroundColor:
+                                    router.pathname === "/my-courses/favorite" ? theme.colors.neutralGray100[0] : "transparent",
                             }}>
                             <IconHeart />
                         </ActionIcon>

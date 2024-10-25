@@ -18,7 +18,7 @@ const ContactsList = ({ address }: ContactsListProps) => {
         <Flex className={classes.root}>
             <Flex className={classes.list}>
                 <Flex className={classes.listItem}>
-                    <Paragraph variant="text-caption" color="gray45">
+                    <Paragraph variant="text-caption" color="neutralMain50">
                         По вопросам покупки курсов
                     </Paragraph>
                     <Paragraph variant="small-m">
@@ -28,7 +28,7 @@ const ContactsList = ({ address }: ContactsListProps) => {
                     </Paragraph>
                 </Flex>
                 <Flex className={classes.listItem} maw={256}>
-                    <Paragraph variant="text-caption" color="gray45">
+                    <Paragraph variant="text-caption" color="neutralMain50">
                         Пишите, если есть вопросы
                     </Paragraph>
                     <Paragraph variant="small-m">

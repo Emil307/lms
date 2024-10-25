@@ -11,8 +11,8 @@ export default createStyles((theme) => ({
         padding: 16,
         columnGap: 8,
         borderRadius: 8,
-        border: `1px solid ${theme.colors.grayLight[0]}`,
-        backgroundColor: theme.colors.white[0],
+        border: `1px solid ${theme.colors.neutralGray200[0]}`,
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             gridTemplateAreas: `'avatar textHeadingContainer'
@@ -38,7 +38,7 @@ export default createStyles((theme) => ({
         borderRadius: 50,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -50,7 +50,7 @@ export default createStyles((theme) => ({
         gridArea: "editIcon",
         width: 32,
         height: 32,
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
 
         [theme.fn.smallerThan("sm")]: {
             display: "none",

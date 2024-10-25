@@ -8,10 +8,10 @@ export default createStyles((theme) => ({
         gap: 32,
         borderRadius: 35,
         height: "100%",
-        backgroundColor: theme.colors.white[0],
-        border: `1px solid ${theme.colors.grayLight[0]}`,
+        backgroundColor: theme.colors.neutralWhite[0],
+        border: `1px solid ${theme.colors.neutralGray200[0]}`,
         "&.activeSlide": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     section: {

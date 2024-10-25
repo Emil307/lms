@@ -15,7 +15,7 @@ const FAQPage = () => {
                 <Flex direction="column" gap={24} maw={667}>
                     <Display>Вопросы и ответы</Display>
                     <MediaQuery smallerThan="md" styles={{ display: "none" }}>
-                        <Paragraph variant="large" color="gray45">
+                        <Paragraph variant="large" color="neutralMain50">
                             Если у вас есть вопросы, вы всегда можете задать его нашим специалистам. Мы ответим максимально быстро
                         </Paragraph>
                     </MediaQuery>

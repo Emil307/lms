@@ -29,7 +29,7 @@ const Menu = (props: MenuProps) => {
             onChange={setOpened}>
             <MMenu.Target>
                 <ActionIcon className={classes.rootTarget}>
-                    <Indicator className={classes.indicator} color="done" disabled={!newNotificationsData?.hasNew}>
+                    <Indicator className={classes.indicator} color="secondary" disabled={!newNotificationsData?.hasNew}>
                         <IconBell />
                     </Indicator>
                 </ActionIcon>

@@ -30,7 +30,7 @@ export default createStyles((theme) => ({
         lineHeight: "46px",
     },
     reviews: {
-        color: theme.colors.neutral_main50[0],
+        color: theme.colors.neutralMain50[0],
     },
     description: {
         table: {

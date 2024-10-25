@@ -37,7 +37,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
             <Heading>{moduleData.name}</Heading>
             <Flex className={classes.wrapper}>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         ID:
                     </Paragraph>
                     <Paragraph variant="text-small-m" color="dark">
@@ -47,7 +47,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
 
                 {userRole?.name !== Roles.teacher && (
                     <Flex className={classes.item}>
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="neutralMain50">
                             Статус:
                         </Paragraph>
                         <Switch
@@ -61,7 +61,7 @@ const InfoPanel = ({ courseId, moduleId, moduleName }: InfoPanelProps) => {
                 )}
 
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Создание:
                     </Paragraph>
                     <Paragraph variant="text-small-m" color="dark">

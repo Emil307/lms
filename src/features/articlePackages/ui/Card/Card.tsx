@@ -17,7 +17,7 @@ const MemoizedCard = memo(function Card({ data, children, ...props }: CardProps)
         <Flex {...props} className={classes.root}>
             <Header data={data} />
             <Flex className={classes.contentSectionWrapper}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Содержание:
                 </Paragraph>
                 {children({ data })}

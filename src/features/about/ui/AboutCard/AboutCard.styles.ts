@@ -25,7 +25,7 @@ export default createStyles((theme) => ({
         flexShrink: 0,
         marginTop: "0 !important",
         borderRadius: 56,
-        backgroundColor: theme.colors.darkGray[0],
+        backgroundColor: theme.colors.neutralGray200[0],
 
         [theme.fn.smallerThan("md")]: {
             width: "66%",

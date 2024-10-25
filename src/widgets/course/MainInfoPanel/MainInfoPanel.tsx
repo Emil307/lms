@@ -52,7 +52,7 @@ const MainInfoPanel = ({ data, ...props }: MainInfoPanelProps) => {
                                 </Button>
                                 <FavoriteButton data={data} className={classes.favoriteActionIcon} />
                             </Flex>
-                            <Paragraph variant="text-small-m" color="gray45" className={classes.getCourseDescription}>
+                            <Paragraph variant="text-small-m" color="neutralMain50" className={classes.getCourseDescription}>
                                 Начните обучение <br /> прямо сейчас!
                             </Paragraph>
                         </Flex>

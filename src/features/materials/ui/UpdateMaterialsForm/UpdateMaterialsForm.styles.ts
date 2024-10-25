@@ -14,13 +14,13 @@ export default createStyles((theme) => ({
         minHeight: 48,
         gap: 4,
         borderRadius: 8,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.secondary[0],
     },
     extension: {
         fontWeight: 700,
         fontSize: 8,
         lineHeight: "8px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
 }));

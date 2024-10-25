@@ -38,7 +38,7 @@ const MemoizedProgramModule = memo(function ProgramModule({ data, numberModule, 
             value={`${data.name}_${data.id}`}
             sx={{ marginTop: isTablet ? 0 : `16px !important` }}>
             <Accordion.Control className={classes.accordionControl} chevron={getChevron()}>
-                <Paragraph variant="text-small-m" color="gray45" className={classes.mainTitle}>
+                <Paragraph variant="text-small-m" color="neutralMain50" className={classes.mainTitle}>
                     {`Часть ${numberModule}`}
                 </Paragraph>
                 <Flex direction="column" gap={16}>

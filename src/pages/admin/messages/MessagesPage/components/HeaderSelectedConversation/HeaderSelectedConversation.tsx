@@ -29,7 +29,7 @@ const HeaderSelectedConversation = ({ selectedConversation, onCloseConversation 
                     <Paragraph variant="text-small-semi" lineClamp={1}>
                         {getFullName({ data: selectedConversation.profile })}
                     </Paragraph>
-                    <Paragraph variant="text-caption" color="gray45">
+                    <Paragraph variant="text-caption" color="neutralMain50">
                         {selectedConversation.roles[0].displayName}
                     </Paragraph>
                 </Box>
@@ -42,7 +42,7 @@ const HeaderSelectedConversation = ({ selectedConversation, onCloseConversation 
             <Heading order={3} lineClamp={1}>
                 {getFullName({ data: selectedConversation.profile })}
             </Heading>
-            <Paragraph variant="text-small-m" color="gray45">
+            <Paragraph variant="text-small-m" color="neutralMain50">
                 {selectedConversation.roles[0].displayName}
             </Paragraph>
         </Flex>

@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     category: {
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.dark[0],
     },
     ratingValue: {
@@ -15,7 +15,7 @@ export default createStyles((theme) => ({
         fontWeight: 600,
         fontSize: 14,
         lineHeight: "24px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     reviewInfo: {
         fontWeight: 600,

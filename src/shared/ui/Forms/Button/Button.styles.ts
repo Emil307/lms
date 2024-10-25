@@ -5,20 +5,20 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
     switch (varian) {
         case "primary": {
             return {
-                color: theme.colors.white[0],
+                color: theme.colors.neutralWhite[0],
                 backgroundColor: theme.colors.dark[0],
                 ":hover": {
                     color: theme.colors.dark[0],
-                    backgroundColor: theme.colors.done[0],
+                    backgroundColor: theme.colors.secondaryHover[0],
                 },
                 ":disabled": {
-                    color: theme.colors.neutral_gray300[0],
-                    backgroundColor: theme.colors.grayLight[0],
+                    color: theme.colors.neutralGray300[0],
+                    backgroundColor: theme.colors.neutralGray200[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_gray300[0],
+                        color: theme.colors.neutralGray300[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_gray300[0],
+                            color: theme.colors.neutralGray300[0],
                         },
                     },
                 },
@@ -27,7 +27,7 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
         case "secondary": {
             return {
                 color: theme.colors.dark[0],
-                backgroundColor: theme.colors.grayLight[0],
+                backgroundColor: theme.colors.neutralGray200[0],
 
                 ".mantine-Button-icon": {
                     color: theme.colors.dark[0],
@@ -41,31 +41,31 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                 },
 
                 ":hover": {
-                    color: theme.colors.neutral_main50[0],
-                    backgroundColor: theme.colors.grayLight[0],
+                    color: theme.colors.neutralMain50[0],
+                    backgroundColor: theme.colors.neutralGray200[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_main50[0],
+                        color: theme.colors.neutralMain50[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_main50[0],
+                            color: theme.colors.neutralMain50[0],
                         },
                     },
                     svg: {
-                        stroke: theme.colors.neutral_main50[0],
+                        stroke: theme.colors.neutralMain50[0],
                     },
                 },
                 ":disabled": {
-                    color: theme.colors.neutral_gray300[0],
-                    backgroundColor: theme.colors.grayLight[0],
+                    color: theme.colors.neutralGray300[0],
+                    backgroundColor: theme.colors.neutralGray200[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_gray300[0],
+                        color: theme.colors.neutralGray300[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_gray300[0],
+                            color: theme.colors.neutralGray300[0],
                         },
                     },
                     svg: {
-                        stroke: theme.colors.neutral_gray300[0],
+                        stroke: theme.colors.neutralGray300[0],
                     },
                 },
             };
@@ -73,7 +73,7 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
         case "border": {
             return {
                 backgroundColor: "transparent",
-                border: `1px solid ${theme.colors.neutral_main50[0]}`,
+                border: `1px solid ${theme.colors.neutralMain50[0]}`,
                 color: theme.colors.dark[0],
 
                 ".mantine-Button-icon": {
@@ -103,17 +103,17 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                 },
                 ":disabled": {
                     backgroundColor: "transparent",
-                    color: theme.colors.neutral_gray300[0],
-                    border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+                    color: theme.colors.neutralGray300[0],
+                    border: `1px solid ${theme.colors.neutralGray300[0]}`,
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_gray300[0],
+                        color: theme.colors.neutralGray300[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_gray300[0],
+                            color: theme.colors.neutralGray300[0],
                         },
                     },
                     svg: {
-                        stroke: theme.colors.neutral_gray300[0],
+                        stroke: theme.colors.neutralGray300[0],
                     },
                 },
                 "&[data-loading]": {
@@ -128,19 +128,19 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
         }
         case "white": {
             return {
-                backgroundColor: theme.colors.white[0],
+                backgroundColor: theme.colors.neutralWhite[0],
                 color: theme.colors.dark[0],
                 ":hover": {
-                    backgroundColor: theme.colors.neutralLight[0],
+                    backgroundColor: theme.colors.neutralGray100[0],
                 },
                 ":disabled": {
-                    backgroundColor: theme.colors.grayLight[0],
-                    color: theme.colors.neutral_gray300[0],
+                    backgroundColor: theme.colors.neutralGray200[0],
+                    color: theme.colors.neutralGray300[0],
 
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_gray300[0],
+                        color: theme.colors.neutralGray300[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_gray300[0],
+                            color: theme.colors.neutralGray300[0],
                         },
                     },
                 },
@@ -165,22 +165,22 @@ const getStylesForVariant = (varian: ButtonVariant, theme: MantineTheme): CSSObj
                 },
 
                 ":hover": {
-                    color: theme.colors.neutral_main50[0],
+                    color: theme.colors.neutralMain50[0],
                     backgroundColor: "transparent",
 
                     ".mantine-Button-icon": {
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_main50[0],
+                            color: theme.colors.neutralMain50[0],
                         },
                     },
                 },
                 ":disabled": {
-                    color: theme.colors.neutral_gray300[0],
+                    color: theme.colors.neutralGray300[0],
                     backgroundColor: "transparent",
                     ".mantine-Button-icon": {
-                        color: theme.colors.neutral_gray300[0],
+                        color: theme.colors.neutralGray300[0],
                         ".mantine-ThemeIcon-root": {
-                            color: theme.colors.neutral_gray300[0],
+                            color: theme.colors.neutralGray300[0],
                         },
                     },
                 },

@@ -80,7 +80,7 @@ const ListMenu = ({ row }: ListMenuProps) => {
                         w="100%"
                     />
                 </MenuItemDataGrid>
-                <Divider size={1} color="light" mx={12} />
+                <Divider size={1} color="neutralGray100" mx={12} />
                 <MenuItemDataGrid mt={8} onClick={handleOpenLessonDetail}>
                     <ThemeIcon w={16} h={16} color="primary">
                         <Eye />

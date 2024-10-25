@@ -19,7 +19,7 @@ const GreetingCard = () => {
                 w={72}
                 h={72}
                 radius={160}
-                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.grayLight[0] } })}>
+                styles={(theme) => ({ placeholder: { backgroundColor: theme.colors.neutralGray200[0] } })}>
                 <AvatarIcon />
             </Avatar>
             <Flex gap={4} direction="column">

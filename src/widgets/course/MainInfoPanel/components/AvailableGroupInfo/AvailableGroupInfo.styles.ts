@@ -8,7 +8,7 @@ export default createStyles((theme, { grayColor }: { grayColor?: boolean }) => (
         width: "fit-content",
     },
     groupInfoButton: {
-        backgroundColor: grayColor ? theme.colors.neutralLight[0] : theme.colors.white[0],
+        backgroundColor: grayColor ? theme.colors.neutralGray100[0] : theme.colors.neutralWhite[0],
         padding: "6px 10px",
         borderRadius: 8,
     },

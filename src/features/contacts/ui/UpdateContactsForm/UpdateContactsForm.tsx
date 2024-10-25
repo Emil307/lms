@@ -36,7 +36,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                 {({ onCancel }) => (
                     <>
                         <Flex gap={16} align="center">
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <Clipboard />
                             </ThemeIcon>
                             <Heading order={4}>Адрес</Heading>
@@ -54,7 +54,7 @@ const UpdateContactsForm = (props: UpdateContactsFormProps) => {
                             }}
                         />
                         <Flex gap={16} align="center" mt={32}>
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <AlignLeft />
                             </ThemeIcon>
                             <Heading order={4}>Реквизиты</Heading>

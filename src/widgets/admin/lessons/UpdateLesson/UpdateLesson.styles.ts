@@ -12,10 +12,10 @@ export default createStyles((theme) => ({
     card: {
         padding: 24,
         borderRadius: 8,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
             padding: 0,
         },
     },

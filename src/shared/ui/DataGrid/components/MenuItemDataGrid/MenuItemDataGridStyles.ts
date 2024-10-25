@@ -3,7 +3,7 @@ import { createStyles } from "@mantine/core";
 export const useMenuItemStyles = createStyles((theme) => ({
     wrapper: {
         ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     menuItem: {

@@ -39,7 +39,7 @@ export default createStyles((theme) => ({
         height: 48,
         width: 48,
         borderRadius: 56,
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
         backgroundColor: theme.colors.dark[0],
 
         svg: {
@@ -49,7 +49,7 @@ export default createStyles((theme) => ({
 
         ":hover": {
             color: theme.colors.dark[0],
-            backgroundColor: theme.colors.done[0],
+            backgroundColor: theme.colors.secondary[0],
         },
     },
     link: {

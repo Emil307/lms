@@ -44,7 +44,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
         return (
             <>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Статус:
                     </Paragraph>
                     <Switch
@@ -56,19 +56,19 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
                     />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Тип курса:
                     </Paragraph>
                     <Checkbox label="Интерактивный" onChange={handleChangeType} checked={courseData.type === "interactive"} />
                 </Flex>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Создание:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{dayjs(courseData.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>
                 </Flex>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Отображать в популярных:
                     </Paragraph>
                     <Checkbox label="Да" onChange={handleChangePopularity} checked={courseData.isPopular} />
@@ -82,7 +82,7 @@ const InfoPanel = ({ id }: InfoPanelProps) => {
             <Heading>{courseData.name}</Heading>
             <Flex className={classes.wrapper}>
                 <Flex className={classes.item}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         ID:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{courseData.id}</Paragraph>

@@ -99,7 +99,7 @@ const VideoInput = ({
                     return { ...file, data: uploadedFile };
                 }
                 return file;
-            })
+            }),
         );
         onUploaded(uploadedFile);
     };
@@ -120,7 +120,7 @@ const VideoInput = ({
                     return { ...file, error: message };
                 }
                 return file;
-            })
+            }),
         );
     };
 
@@ -129,7 +129,7 @@ const VideoInput = ({
             return (
                 <>
                     <Heading order={3}>Видеоуроки</Heading>
-                    <Paragraph variant="text-small-m" color="neutral_gray">
+                    <Paragraph variant="text-small-m" color="neutralGray300">
                         Нет загруженных видеоуроков.
                     </Paragraph>
                 </>
@@ -139,12 +139,12 @@ const VideoInput = ({
             return (
                 <>
                     <Heading order={3}>Видеоуроки</Heading>
-                    <Paragraph variant="text-small-m" color="neutral_gray">
+                    <Paragraph variant="text-small-m" color="neutralGray300">
                         {`${loadedFilesData.length} ${getPluralString(
                             loadedFilesData.length,
                             "видеоурок",
                             "видеоурока",
-                            "видеоуроков"
+                            "видеоуроков",
                         )} ${getPluralString(loadedFilesData.length, "загружен", "загружено", "загружено")}`}
                     </Paragraph>
                 </>

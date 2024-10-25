@@ -10,7 +10,7 @@ export default createStyles((theme) => ({
         width: "100%",
         gap: 16,
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         textAlign: "left",
         overflowWrap: "anywhere",
         margin: "auto",

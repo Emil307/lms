@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         width: "100%",
         padding: 32,
         borderRadius: 24,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("md")]: {
             padding: 24,
@@ -44,7 +44,7 @@ export default createStyles((theme) => ({
     },
     category: {
         border: `1px solid ${theme.colors.dark[0]}`,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.dark[0],
     },
 

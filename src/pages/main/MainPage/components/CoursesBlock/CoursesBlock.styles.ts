@@ -18,12 +18,12 @@ export default createStyles((theme) => ({
         paddingBlock: 12,
         paddingInline: 16,
         borderRadius: 160,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         whiteSpace: "nowrap",
         cursor: "pointer",
 
         ":hover": {
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
             backgroundColor: theme.colors.primary[0],
         },
     },

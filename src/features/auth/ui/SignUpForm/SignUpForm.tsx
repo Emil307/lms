@@ -32,7 +32,7 @@ const SignUpForm = () => {
                             }
                         }
                     },
-                }
+                },
             );
         },
     };
@@ -40,7 +40,7 @@ const SignUpForm = () => {
     return (
         <Box className={classes.root}>
             <Flex className={classes.inner}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Создайте аккаунт и начните свое обучение
                 </Paragraph>
                 <Flex direction="column" h="100%" justify="space-between">

@@ -53,7 +53,7 @@ export const useGroupListData = (userRole?: RoleName) => {
                         <Tooltip label={`c ${startDate} до ${endDate}`} position="top">
                             <Flex direction="column">
                                 <Paragraph variant="text-small-m">{`c ${startDate}`}</Paragraph>
-                                <Paragraph variant="text-caption" color="gray45">
+                                <Paragraph variant="text-caption" color="neutralMain50">
                                     {`до ${endDate}`}
                                 </Paragraph>
                             </Flex>

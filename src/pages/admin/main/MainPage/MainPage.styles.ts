@@ -42,7 +42,7 @@ export default createStyles((theme) => ({
         height: 144,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         borderRadius: 160,
 
         [theme.fn.smallerThan("sm")]: {

@@ -31,7 +31,7 @@ export default createStyles((theme) => ({
         position: "absolute",
         top: 16,
         left: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         borderRadius: 60,
         padding: "6px 16px",
         zIndex: 2,
@@ -52,6 +52,6 @@ export default createStyles((theme) => ({
     },
     maxRating: {
         display: "inline",
-        color: theme.colors.neutral_gray[0],
+        color: theme.colors.neutralGray300[0],
     },
 }));

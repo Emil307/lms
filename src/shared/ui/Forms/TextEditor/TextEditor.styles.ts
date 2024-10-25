@@ -43,7 +43,7 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
             top: 0,
             bottom: -2,
             width: 2,
-            backgroundColor: theme.colors.gray45[0],
+            backgroundColor: theme.colors.neutralMain50[0],
             pointerEvents: "none",
         },
 
@@ -65,7 +65,7 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
                 display: "table-row",
                 width: "100%",
                 "&:last-of-type td": {
-                    borderBottom: `1px solid ${theme.colors.gray20[0]}`,
+                    borderBottom: `1px solid ${theme.colors.neutralGray300[0]}`,
                 },
 
                 [theme.fn.smallerThan("md")]: {
@@ -77,7 +77,7 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
                 position: "relative",
                 minWidth: "1em",
                 padding: 12,
-                border: `1px solid ${theme.colors.gray20[0]}`,
+                border: `1px solid ${theme.colors.neutralGray300[0]}`,
                 verticalAlign: "top",
                 backgroundClip: "padding-box",
 
@@ -121,10 +121,10 @@ export default createStyles((theme, { isError, statusSuccess, readonly }: TCreat
     controlsGroup: {
         button: {
             ":hover, &[data-active]": {
-                backgroundColor: theme.colors.gray20[0],
+                backgroundColor: theme.colors.neutralGray300[0],
             },
             svg: {
-                color: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
             },
             ":first-of-type": {
                 borderRadius: "8px 0px 0px 8px !important",
@@ -158,11 +158,11 @@ const getStylesByStatus = ({ theme, isError, statusSuccess }: Omit<TGetStylesByS
 
     if (statusSuccess) {
         return {
-            border: `1px solid ${theme.colors.done[0]}`,
+            border: `1px solid ${theme.colors.secondary[0]}`,
         };
     }
 
     return {
-        border: `1px solid ${theme.colors.gray20[0]}`,
+        border: `1px solid ${theme.colors.neutralGray300[0]}`,
     };
 };

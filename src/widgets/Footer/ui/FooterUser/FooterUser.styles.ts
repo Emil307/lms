@@ -4,7 +4,7 @@ export default createStyles((theme) => ({
     root: {
         position: "inherit",
         border: "none",
-        backgroundColor: theme.colors.neutralDark[0],
+        backgroundColor: theme.colors.darkHover[0],
     },
     inner: {
         flexDirection: "column",
@@ -38,7 +38,7 @@ export default createStyles((theme) => ({
         gap: 32,
 
         svg: {
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
         },
     },
     mainItem: {
@@ -81,7 +81,7 @@ export default createStyles((theme) => ({
     },
     link: {
         textDecoration: "none",
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
     socialLink: {
         alignItems: "center",
@@ -90,7 +90,7 @@ export default createStyles((theme) => ({
         width: 40,
         borderRadius: 56,
         color: theme.colors.dark[0],
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         svg: {
             width: 18,
@@ -98,7 +98,7 @@ export default createStyles((theme) => ({
         },
 
         ":hover": {
-            backgroundColor: theme.colors.neutralLight[0],
+            backgroundColor: theme.colors.neutralGray100[0],
         },
     },
     divider: {
@@ -138,7 +138,7 @@ export default createStyles((theme) => ({
         marginTop: 64,
 
         svg: {
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
         },
 
         [theme.fn.smallerThan("md")]: {
@@ -148,7 +148,7 @@ export default createStyles((theme) => ({
     },
     skeleton: {
         "&:after": {
-            background: theme.colors.gray45[0],
+            background: theme.colors.neutralMain50[0],
         },
     },
     addamantLink: {

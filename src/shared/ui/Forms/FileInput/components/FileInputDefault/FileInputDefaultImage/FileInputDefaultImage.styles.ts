@@ -14,7 +14,7 @@ export default createStyles((theme, _params, getRef) => ({
         bottom: 0,
         borderRadius: 16,
         padding: 0,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         gap: 50,
 
         "> img": {
@@ -29,7 +29,7 @@ export default createStyles((theme, _params, getRef) => ({
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: theme.colors.gray45[0],
+                background: theme.colors.neutralMain50[0],
                 opacity: 1,
                 borderRadius: 16,
             },
@@ -75,7 +75,7 @@ export default createStyles((theme, _params, getRef) => ({
         svg: {
             width: 64,
             height: 64,
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
         },
     },
     buttons: {
@@ -86,7 +86,7 @@ export default createStyles((theme, _params, getRef) => ({
     },
     defaultIconBackground: {
         transform: "scale(5.2)",
-        color: theme.colors.gray20[0],
+        color: theme.colors.neutralGray300[0],
 
         svg: {
             strokeWidth: 1.5,

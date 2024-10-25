@@ -15,7 +15,7 @@ export default createStyles((theme) => ({
         paddingBottom: 56,
         gap: 48,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     videoItemWrapper: {
         paddingInline: 24,

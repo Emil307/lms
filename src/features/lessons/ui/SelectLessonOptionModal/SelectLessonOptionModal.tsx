@@ -15,7 +15,7 @@ const SelectLessonOptionModal = ({ onCreate, onSelect }: SelectLessonOptionModal
 
     return (
         <Box>
-            <Paragraph className={classes.description} variant="small-m" color="gray45">
+            <Paragraph className={classes.description} variant="small-m" color="neutralMain50">
                 Выберите способ добавления урока
             </Paragraph>
             <Flex className={classes.content}>

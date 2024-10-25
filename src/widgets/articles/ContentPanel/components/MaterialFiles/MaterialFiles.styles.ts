@@ -16,6 +16,6 @@ export default createStyles((theme) => ({
         minWidth: 60,
         borderRadius: 56,
         backgroundColor: theme.colors.secondary[0],
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
 }));

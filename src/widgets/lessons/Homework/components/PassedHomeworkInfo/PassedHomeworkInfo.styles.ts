@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         padding: 24,
         gap: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
             padding: 16,
@@ -16,7 +16,7 @@ export default createStyles((theme) => ({
         display: "none",
         width: 32,
         height: 32,
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
 
         [theme.fn.smallerThan("sm")]: {
             display: "initial",

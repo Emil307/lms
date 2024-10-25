@@ -67,7 +67,7 @@ const UpdateLesson = ({ data, moduleName, onClose }: UpdateLessonProps) => {
                     </Flex>
                     <UpdateLessonButton data={data} />
                 </Flex>
-                <Paragraph variant="small-m" color="neutral_gray" className={classes.lessonDescription}>
+                <Paragraph variant="small-m" color="neutralGray300" className={classes.lessonDescription}>
                     {data.description}
                 </Paragraph>
                 <Flex className={classes.testAndHomeworkWrapper}>

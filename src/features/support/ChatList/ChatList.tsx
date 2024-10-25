@@ -42,7 +42,7 @@ const ChatList = ({
             isSelectedConversationByManageSearch,
         }),
         //запрашиваем только тогда, когда нет выбранного диалога в серче или когда диалог выбран через серч
-        router.isReady && ((!!query && isSelectedConversationByManageSearch) || !query)
+        router.isReady && ((!!query && isSelectedConversationByManageSearch) || !query),
     );
     const { ref: lastElemRef, entry } = useIntersection();
 
@@ -65,7 +65,7 @@ const ChatList = ({
                 <Paragraph variant="small-m" color="dark">
                     Список диалогов пуст
                 </Paragraph>
-                <Paragraph variant="text-caption" color="gray45">
+                <Paragraph variant="text-caption" color="neutralMain50">
                     Воспользуйтесь поиском для добавления диалога
                 </Paragraph>
             </Box>
@@ -82,7 +82,7 @@ const ChatList = ({
                     </Box>
                 );
             }),
-        [supportConversationsData, selectedConversation]
+        [supportConversationsData, selectedConversation],
     );
 
     return (

@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     listItem: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         padding: 24,
         borderRadius: 16,
         [theme.fn.smallerThan("md")]: {

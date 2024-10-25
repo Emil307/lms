@@ -30,7 +30,7 @@ export default createStyles((theme) => ({
         },
 
         "&[data-active]": {
-            color: theme.colors.white[0],
+            color: theme.colors.neutralWhite[0],
             backgroundColor: theme.colors.dark[0],
 
             ":hover": {
@@ -41,11 +41,11 @@ export default createStyles((theme) => ({
         "&[data-dots]": {
             paddingTop: 10,
             color: theme.colors.dark[0],
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
         },
 
         ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     perPageInfo: {

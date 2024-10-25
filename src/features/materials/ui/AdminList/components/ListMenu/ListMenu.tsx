@@ -83,7 +83,7 @@ const ListMenu = ({ row }: UsersListMenuProps) => {
                     />
                 </MenuItemDataGrid>
 
-                <Divider size={1} color="light" mx={12} />
+                <Divider size={1} color="neutralGray100" mx={12} />
 
                 <MenuItemDataGrid mt={8} onClick={handleDownload}>
                     <ThemeIcon w={16} h={16} color="primary">

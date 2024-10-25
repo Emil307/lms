@@ -54,7 +54,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
                     {data.hasHomework && <Paragraph variant="text-small-semi">Домашнее задание</Paragraph>}
                 </Flex>
             </Flex>
-            <Paragraph variant="text-small-m" color="gray45">
+            <Paragraph variant="text-small-m" color="neutralMain50">
                 {data.description}
             </Paragraph>
             {data.lessonStatus.name === "inProgress" && (

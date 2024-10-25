@@ -107,7 +107,7 @@ const UserSettings = ({ id, ...props }: UserSettingsProps) => {
                             )}
                         </Flex>
                         {data.profile.description && (
-                            <Paragraph variant="small-m" color="gray45">
+                            <Paragraph variant="small-m" color="neutralMain50">
                                 {data.profile.description}
                             </Paragraph>
                         )}

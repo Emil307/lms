@@ -80,7 +80,7 @@ const DndCard = ({
             </Flex>
             <Collapse in={expanded}>
                 <Flex gap={24} direction="column">
-                    <Paragraph variant="small-m" color="gray45" className={classes.textContent}>
+                    <Paragraph variant="small-m" color="neutralMain50" className={classes.textContent}>
                         {text}
                     </Paragraph>
                     {children}

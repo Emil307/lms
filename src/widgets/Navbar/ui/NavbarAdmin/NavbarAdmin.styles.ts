@@ -43,7 +43,7 @@ export default createStyles((theme, { isMinimizedModeSidebar, maxHeight }: Creat
             top: 0,
             paddingBlock: 32,
             width: 280,
-            backgroundColor: theme.colors.light[0],
+            backgroundColor: theme.colors.neutralGray100[0],
             overflow: "hidden",
         },
     },

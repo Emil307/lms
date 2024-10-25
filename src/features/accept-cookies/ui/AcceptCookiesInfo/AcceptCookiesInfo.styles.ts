@@ -17,6 +17,6 @@ export default createStyles((theme) => ({
         fontSize: 14,
         lineHeight: "16px",
         textAlign: "center",
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
 }));

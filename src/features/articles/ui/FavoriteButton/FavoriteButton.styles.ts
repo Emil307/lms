@@ -5,7 +5,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
         height: 40,
         width: 56,
         borderRadius: 160,
-        backgroundColor: isFavorite ? theme.colors.grayLight[0] : "transparent",
+        backgroundColor: isFavorite ? theme.colors.neutralGray200[0] : "transparent",
         color: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
 
         svg: {
@@ -14,7 +14,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
         },
 
         ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
                 color: theme.colors.secondary[0],
                 fill: theme.colors.secondary[0],
@@ -22,24 +22,24 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
         },
 
         ":active": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
                 color: theme.colors.dark[0],
                 fill: theme.colors.dark[0],
             },
         },
         ":disabled": {
-            color: theme.colors.gray45[0],
-            backgroundColor: theme.colors.grayLight[0],
+            color: theme.colors.neutralMain50[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
-                color: theme.colors.gray45[0],
-                fill: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
+                fill: theme.colors.neutralMain50[0],
             },
         },
     },
     favoriteActionButton: {
         borderRadius: 160,
-        backgroundColor: isFavorite ? theme.colors.grayLight[0] : "transparent",
+        backgroundColor: isFavorite ? theme.colors.neutralGray200[0] : "transparent",
         fontSize: 16,
 
         svg: {
@@ -49,7 +49,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
         },
 
         ":hover": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
                 color: theme.colors.secondary[0],
                 fill: theme.colors.secondary[0],
@@ -57,19 +57,19 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
         },
 
         ":active": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
                 color: theme.colors.dark[0],
                 fill: theme.colors.dark[0],
             },
         },
         ":disabled": {
-            color: theme.colors.gray45[0],
-            backgroundColor: theme.colors.grayLight[0],
+            color: theme.colors.neutralMain50[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             svg: {
-                color: theme.colors.gray45[0],
-                fill: theme.colors.gray45[0],
-                stroke: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
+                fill: theme.colors.neutralMain50[0],
+                stroke: theme.colors.neutralMain50[0],
             },
         },
     },

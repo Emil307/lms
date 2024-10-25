@@ -13,8 +13,8 @@ export default createStyles((theme) => ({
         width: 24,
         height: 24,
         borderRadius: 8,
-        borderColor: theme.colors.grayLight[0],
-        backgroundColor: theme.colors.grayLight[0],
+        borderColor: theme.colors.neutralGray200[0],
+        backgroundColor: theme.colors.neutralGray200[0],
         cursor: "pointer",
 
         "& + svg": {
@@ -30,16 +30,16 @@ export default createStyles((theme) => ({
 
         ":checked": {
             "& + svg": {
-                color: theme.colors.white[0],
+                color: theme.colors.neutralWhite[0],
             },
         },
 
         ":hover": {
             borderColor: theme.colors.primary[0],
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
 
             ":checked": {
-                backgroundColor: theme.colors.white[0],
+                backgroundColor: theme.colors.neutralWhite[0],
 
                 "& + svg": {
                     color: theme.colors.primary[0],
@@ -49,12 +49,12 @@ export default createStyles((theme) => ({
 
         ":disabled": {
             border: "none",
-            backgroundColor: theme.colors.gray20[0],
+            backgroundColor: theme.colors.neutralGray300[0],
         },
 
         ":disabled:checked": {
             border: "none",
-            backgroundColor: theme.colors.gray20[0],
+            backgroundColor: theme.colors.neutralGray300[0],
             "& + svg": {
                 color: theme.colors.dark[0],
             },

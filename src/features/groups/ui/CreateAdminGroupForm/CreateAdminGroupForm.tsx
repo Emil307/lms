@@ -54,7 +54,7 @@ const CreateAdminGroupForm = ({ courseId, onSuccess, onCancel, ...props }: Creat
                     return (
                         <Flex direction="column" gap={32}>
                             <Flex align="center" gap={8}>
-                                <Text color="gray45">Статус:</Text>
+                                <Text color="neutralMain50">Статус:</Text>
                                 <FSwitch labelPosition="left" variant="secondary" name="isActive" label={labelActivitySwitch} />
                             </Flex>
                             <Fieldset label="Направление обучения" icon={<Flag />} legendProps={{ mb: 24 }}>

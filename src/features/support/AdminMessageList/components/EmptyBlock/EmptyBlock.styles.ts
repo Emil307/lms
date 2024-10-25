@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         justifyContent: "center",
         height: "100%",
         gap: 16,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
     },
     icon: {
         display: "flex",

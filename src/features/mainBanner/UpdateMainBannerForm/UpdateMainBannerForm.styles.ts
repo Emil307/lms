@@ -10,7 +10,7 @@ export default createStyles((theme) => ({
         gap: 16,
 
         svg: {
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     avatarWrapper: {
@@ -20,7 +20,7 @@ export default createStyles((theme) => ({
         borderRadius: 50,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
 

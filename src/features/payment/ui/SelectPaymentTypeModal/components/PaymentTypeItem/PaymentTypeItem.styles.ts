@@ -5,7 +5,7 @@ export default createStyles((theme) => ({
         width: "100%",
         gap: 8,
         borderRadius: 16,
-        border: `1px solid ${theme.colors.gray20[0]}`,
+        border: `1px solid ${theme.colors.neutralGray300[0]}`,
         backgroundColor: "transparent",
         cursor: "pointer",
 
@@ -35,7 +35,7 @@ export default createStyles((theme) => ({
 
         ".mantine-Radio-label": {
             padding: 0,
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
             fontSize: theme.fontSizes.lg,
             fontWeight: 600,
             lineHeight: "24px",

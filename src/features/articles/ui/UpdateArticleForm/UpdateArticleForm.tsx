@@ -91,19 +91,19 @@ const UpdateArticleForm = ({ data, onClose }: UpdateArticleFormProps) => {
                     <Flex direction="column" gap={32}>
                         <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     ID:
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                             </Flex>
                             <Flex align="center" gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Статус:
                                 </Paragraph>
                                 <FSwitch name="isActive" variant="secondary" label={labelActivitySwitch} labelPosition="left" />
                             </Flex>
                             <Flex align="center" gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Рейтинг:
                                 </Paragraph>
                                 <Flex gap={16}>

@@ -18,7 +18,7 @@ const SidebarMenu = () => {
 
         return (
             <Flex className={classes.group}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Направления обучения
                 </Paragraph>
                 <Flex className={classes.listItems}>
@@ -43,7 +43,7 @@ const SidebarMenu = () => {
         <Flex direction="column" gap={24}>
             {categories}
             <Flex className={classes.group}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Информация
                 </Paragraph>
                 <Flex className={classes.listItems}>

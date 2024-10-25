@@ -23,7 +23,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                         <Paragraph variant="large">
                             <a href={`mailto:${CONTACT.EMAIL}`}>{CONTACT.EMAIL}</a>
                         </Paragraph>
-                        <Paragraph variant="text-caption" color="gray45">
+                        <Paragraph variant="text-caption" color="neutralMain50">
                             Пишите, если есть вопросы
                         </Paragraph>
                     </Flex>
@@ -31,7 +31,7 @@ const FooterAdmin = (props: FooterAdminProps) => {
                         <Paragraph variant="large">
                             <a href={`tel:${CONTACT.PHONE_NUMBER_LINK}`}>{CONTACT.PHONE_NUMBER}</a>
                         </Paragraph>
-                        <Paragraph variant="text-caption" color="gray45" maw={180}>
+                        <Paragraph variant="text-caption" color="neutralMain50" maw={180}>
                             Звоните, если нужна помощь. Звонок по России бесплатный.
                         </Paragraph>
                     </Flex>

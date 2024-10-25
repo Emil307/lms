@@ -65,7 +65,7 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                             groupData.rating.reviewsCount,
                             "отзыв",
                             "отзыва",
-                            "отзывов"
+                            "отзывов",
                         )}`}</Text>
                     </Flex>
                 </Group>
@@ -91,9 +91,9 @@ const CreateCourseReviewForm = ({ data, onClose }: CreateCourseReviewFormProps) 
                                     values.score,
                                     "балл",
                                     "балла",
-                                    "баллов"
+                                    "баллов",
                                 )}`}</Paragraph>
-                                <Paragraph variant="small-m" color="gray45">
+                                <Paragraph variant="small-m" color="neutralMain50">
                                     из 5
                                 </Paragraph>
                             </Flex>

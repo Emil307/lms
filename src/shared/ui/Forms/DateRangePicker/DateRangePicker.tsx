@@ -50,7 +50,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
         <ThemeIcon
             sx={(theme) => ({
                 "svg path": {
-                    fill: theme.colors.gray45[0],
+                    fill: theme.colors.neutralMain50[0],
                     fillOpacity: 1,
                 },
             })}>
@@ -73,7 +73,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
                     <Paragraph variant="text-smaller">{error}</Paragraph>
                 </>
             ),
-        [error]
+        [error],
     );
 
     const renderDescription = useMemo(() => {
@@ -85,7 +85,7 @@ const MemoizedDateRangePicker = memo(function DateRangePicker({ value, ...props 
             <>
                 {statusSuccess && !z.boolean().safeParse(success).success && (
                     <Flex gap={16}>
-                        <ThemeIcon color="done">
+                        <ThemeIcon color="secondary">
                             <CheckCircle />
                         </ThemeIcon>
                         <Paragraph variant="text-smaller">{success}</Paragraph>

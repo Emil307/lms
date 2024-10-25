@@ -32,7 +32,7 @@ export const usePaginationStyles = createStyles((theme) => ({
             lineHeight: "24px",
             ":hover, &[data-active]": {
                 backgroundColor: theme.colors.dark[0],
-                color: theme.colors.white[0],
+                color: theme.colors.neutralWhite[0],
             },
 
             [theme.fn.smallerThan("xs")]: {
@@ -50,7 +50,7 @@ export const usePaginationStyles = createStyles((theme) => ({
             fontSize: 14,
             lineHeight: "16px",
             fontWeight: 500,
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
             whiteSpace: "nowrap",
             top: "50%",
             left: 0,

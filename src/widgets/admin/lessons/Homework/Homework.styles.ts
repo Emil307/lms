@@ -7,10 +7,10 @@ export default createStyles((theme) => ({
         justifyContent: "space-between",
         padding: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
             border: `1px solid rgba(0, 4, 41, 0.2)`,
         },
 
@@ -24,15 +24,15 @@ export default createStyles((theme) => ({
         borderRadius: 56,
     },
     warningIconWrapper: {
-        backgroundColor: theme.colors.warning16[0],
+        backgroundColor: theme.colors.warning20[0],
         borderRadius: 56,
     },
     taskCard: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         padding: "16px 18px",
         borderRadius: 8,
         border: "1px solid",
-        borderColor: theme.colors.grayLight[0],
+        borderColor: theme.colors.neutralGray200[0],
     },
     letter: {
         minWidth: 40,
@@ -45,7 +45,7 @@ export default createStyles((theme) => ({
         borderRadius: 160,
     },
     checkIconWrapper: {
-        backgroundColor: theme.colors.done16[0],
+        backgroundColor: theme.colors.done20[0],
         borderRadius: 56,
     },
     helpIconWrapper: {

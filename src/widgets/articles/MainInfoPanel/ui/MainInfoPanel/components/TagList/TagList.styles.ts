@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
     tag: {
-        backgroundColor: theme.colors.light[0],
-        color: theme.colors.gray45[0],
+        backgroundColor: theme.colors.neutralGray100[0],
+        color: theme.colors.neutralMain50[0],
     },
 }));

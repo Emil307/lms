@@ -13,7 +13,7 @@ export default createStyles((theme, { isMinimizedModeSidebar }: CreateStylesPara
             paddingBlock: 32,
             height: "100%",
             width: isMinimizedModeSidebar ? 72 : 280,
-            backgroundColor: theme.colors.light[0],
+            backgroundColor: theme.colors.neutralGray100[0],
         },
     },
     inner: {

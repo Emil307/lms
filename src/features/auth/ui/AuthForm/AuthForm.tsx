@@ -42,7 +42,7 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
         <Box className={classes.root} {...boxProps}>
             <Flex className={classes.contentWrapper}>
                 <Flex className={classes.inner}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Войдите в свой профиль, чтобы начать учиться
                     </Paragraph>
                     <Form config={config} disableOverlay>
@@ -52,7 +52,7 @@ const AuthForm = ({ skipRedirectAfterAuth = false, onSuccess = () => undefined, 
                                 <FInput name="password" label="Пароль" type="password" />
                             </Flex>
                             <Flex justify="space-between" mb={24} align="center">
-                                <Checkbox color="doneDark100" label="Запомнить меня" />
+                                <Checkbox color="doneDark" label="Запомнить меня" />
                                 <Button
                                     component={Link}
                                     href={{ query: { ...router.query, action: "forgot-password" } }}

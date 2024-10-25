@@ -23,7 +23,7 @@ const CustomPage404 = () => {
             </Box>
             <Flex direction="column" gap={16}>
                 <Heading align="center">Ого! Вы нашли несуществующую страницу</Heading>
-                <Heading order={3} color="neutral_gray" align="center">
+                <Heading order={3} color="neutralGray300" align="center">
                     Воспользуйтесь кнопкой «Перейти на главную» для перехода на страницу которая точно существует.
                 </Heading>
             </Flex>

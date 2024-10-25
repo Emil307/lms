@@ -94,7 +94,9 @@ export const columns: TColumns<AdminArticlePackageFromList> = [
                 <Tooltip label={resultString}>
                     <Flex direction="column">
                         {startDate && <Paragraph variant="text-small-m" lineClamp={1}>{`с ${startDate}`}</Paragraph>}
-                        {finishDate && <Paragraph variant="text-caption" color="gray45" lineClamp={1}>{`до ${finishDate}`}</Paragraph>}
+                        {finishDate && (
+                            <Paragraph variant="text-caption" color="neutralMain50" lineClamp={1}>{`до ${finishDate}`}</Paragraph>
+                        )}
                     </Flex>
                 </Tooltip>
             );

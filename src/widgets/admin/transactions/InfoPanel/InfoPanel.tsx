@@ -21,13 +21,13 @@ const InfoPanel = ({ id, ...props }: InfoPanelProps) => {
             </Flex>
             <Flex className={classes.infoPanelListInfo}>
                 <Flex gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         ID:
                     </Paragraph>
                     <Paragraph variant="text-small-m">{transactionData?.id}</Paragraph>
                 </Flex>
                 <Flex gap={8}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Создание:
                     </Paragraph>
                     <Paragraph variant="text-small-m">

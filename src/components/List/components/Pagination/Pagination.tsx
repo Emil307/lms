@@ -36,7 +36,7 @@ const Pagination = ({ data, declensionWordCountItems, onPaginationChange = () =>
             />
 
             {declensionWordCountItems && (
-                <Paragraph variant="text-small-m" color="gray45" className={classes.perPageInfo}>
+                <Paragraph variant="text-small-m" color="neutralMain50" className={classes.perPageInfo}>
                     Всего: <span>{`${lastElemIndex} ${getPluralString(lastElemIndex, ...declensionWordCountItems)}`}</span> из
                     <span>{` ${data.total}`}</span>
                 </Paragraph>

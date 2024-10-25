@@ -42,7 +42,7 @@ const ForgotPasswordForm = () => {
         <Box className={classes.root}>
             <Flex className={classes.contentWrapper}>
                 <Flex className={classes.inner}>
-                    <Paragraph variant="text-small-m" color="gray45">
+                    <Paragraph variant="text-small-m" color="neutralMain50">
                         Пришлем вам ссылку на восстановление пароля
                     </Paragraph>
                     <ManagedForm<RecoveryPasswordRequest, RecoveryPasswordResponse>

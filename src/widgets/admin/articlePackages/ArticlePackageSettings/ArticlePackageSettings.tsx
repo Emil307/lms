@@ -32,7 +32,7 @@ const ArticlePackageSettings = ({ id, ...props }: ArticlePackageSettingsProps) =
         }
 
         return `${dayjs(articlePackageData.discount.startingDate).format("DD.MM.YYYY")} - ${dayjs(
-            articlePackageData.discount.finishingDate
+            articlePackageData.discount.finishingDate,
         ).format("DD.MM.YYYY")}`;
     };
 
@@ -50,7 +50,7 @@ const ArticlePackageSettings = ({ id, ...props }: ArticlePackageSettingsProps) =
                     <DisplayField label="Полная стоимость пакета" value={`${articlePackageData?.fullPrice.toLocaleString("ru")} ₽`} />
                 </Fieldset>
                 <Fieldset label="Описание пакетного предложения" icon={<AlignLeft />}>
-                    <Paragraph variant="small-m" color="gray45">
+                    <Paragraph variant="small-m" color="neutralMain50">
                         {articlePackageData?.description}
                     </Paragraph>
                 </Fieldset>

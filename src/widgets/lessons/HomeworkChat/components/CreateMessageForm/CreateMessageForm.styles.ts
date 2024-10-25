@@ -9,7 +9,7 @@ export default createStyles((theme) => ({
             paddingRight: 72,
 
             "::placeholder": {
-                color: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
             },
         },
     },
@@ -28,7 +28,7 @@ export default createStyles((theme) => ({
 
         ":disabled": {
             border: "none",
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
             backgroundColor: "transparent",
             cursor: "none",
         },

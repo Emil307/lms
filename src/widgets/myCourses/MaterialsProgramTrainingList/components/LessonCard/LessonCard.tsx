@@ -65,7 +65,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, courseId
                     </Flex>
                 </Flex>
                 {!isBlocked && (
-                    <Paragraph variant="small-m" color="gray45">
+                    <Paragraph variant="small-m" color="neutralMain50">
                         {data.description}
                     </Paragraph>
                 )}

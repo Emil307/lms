@@ -29,7 +29,7 @@ export default createStyles((theme, _params, getRef) => ({
         height: 120,
         borderRadius: 16,
         color: theme.colors.secondary[0],
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         cursor: "pointer",
 
         svg: {
@@ -45,7 +45,7 @@ export default createStyles((theme, _params, getRef) => ({
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: theme.colors.gray45[0],
+                background: theme.colors.neutralMain50[0],
                 opacity: 1,
                 borderRadius: 16,
             },
@@ -81,7 +81,7 @@ export default createStyles((theme, _params, getRef) => ({
         alignItems: "center",
         width: 64,
         height: 64,
-        color: theme.colors.white[0],
+        color: theme.colors.neutralWhite[0],
     },
 
     wrapperIconError: {

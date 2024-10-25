@@ -12,13 +12,13 @@ export default createStyles((theme) => ({
         padding: "24px 32px",
         borderRadius: 16,
         columnGap: 56,
-        backgroundColor: theme.colors.grayLight[0],
+        backgroundColor: theme.colors.neutralGray200[0],
     },
     aboutCourseLabel: {
         fontWeight: 500,
         fontSize: 14,
         lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
     },
     aboutCourseValue: {
         fontWeight: 500,

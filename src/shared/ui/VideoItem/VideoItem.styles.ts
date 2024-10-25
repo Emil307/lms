@@ -44,7 +44,7 @@ export default createStyles((theme, { status, autoAdapt, disableTitleWrapping }:
               }),
     },
     size: {
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         whiteSpace: "nowrap",
     },
     extra: {

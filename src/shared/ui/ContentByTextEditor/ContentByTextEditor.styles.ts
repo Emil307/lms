@@ -11,6 +11,6 @@ export default createStyles((theme) => ({
         bottom: 14,
         left: 14,
         borderRadius: 160,
-        background: theme.colors.white[0],
+        background: theme.colors.neutralWhite[0],
     },
 }));

@@ -19,7 +19,7 @@ const MemoizedTaskAnswer = memo(function TaskAnswer({ data, numberTaskAnswer, ..
     return (
         <Flex {...props} className={classes.root}>
             <Flex direction="column" gap={4}>
-                <Paragraph variant="small-m" color="gray45">{`${numberTaskAnswer} вопрос`}</Paragraph>
+                <Paragraph variant="small-m" color="neutralMain50">{`${numberTaskAnswer} вопрос`}</Paragraph>
                 <Heading order={3}>{data.question}</Heading>
             </Flex>
             <Flex direction="column" gap={8}>

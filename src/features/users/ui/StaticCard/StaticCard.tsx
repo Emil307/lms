@@ -41,7 +41,7 @@ const MemoizedStaticCard = memo(function StaticCard({ data, ...props }: StaticCa
                 <Heading order={3} lineClamp={2}>
                     {fullName}
                 </Heading>
-                <Paragraph variant="text-small-m" color="gray45" lineClamp={5}>
+                <Paragraph variant="text-small-m" color="neutralMain50" lineClamp={5}>
                     {data.profile.description}
                 </Paragraph>
             </MCard.Section>

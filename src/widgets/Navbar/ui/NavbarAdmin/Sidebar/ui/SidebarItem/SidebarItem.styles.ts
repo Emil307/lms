@@ -8,7 +8,7 @@ interface CreateStylesParams {
 export default createStyles((theme, { isActive, isInner }: CreateStylesParams, getRef) => ({
     root: {
         position: "relative",
-        color: isActive ? theme.colors.dark[0] : theme.colors.gray45[0],
+        color: isActive ? theme.colors.dark[0] : theme.colors.neutralMain50[0],
         cursor: "pointer",
 
         "&:hover": {
@@ -38,7 +38,7 @@ export default createStyles((theme, { isActive, isInner }: CreateStylesParams, g
 
     iconWrapper: {
         ref: getRef("iconWrapper"),
-        color: isActive ? theme.colors.secondary[0] : theme.colors.gray45[0],
+        color: isActive ? theme.colors.secondary[0] : theme.colors.neutralMain50[0],
     },
     inner: {
         paddingBlock: isInner ? 8 : 12,

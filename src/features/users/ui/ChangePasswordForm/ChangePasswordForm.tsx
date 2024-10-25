@@ -57,7 +57,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
                                 label="Введите старый пароль"
                                 type="password"
                                 icon={
-                                    <ThemeIcon color="gray45">
+                                    <ThemeIcon color="neutralMain50">
                                         <Shield />
                                     </ThemeIcon>
                                 }
@@ -68,7 +68,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
                             label="Придумайте новый пароль"
                             type="password"
                             icon={
-                                <ThemeIcon color="gray45">
+                                <ThemeIcon color="neutralMain50">
                                     <Shield />
                                 </ThemeIcon>
                             }
@@ -80,7 +80,7 @@ const ChangeUserPasswordForm = ({ userData, onClose }: ChangeUserPasswordFormPro
                             label="Повторите новый пароль"
                             type="password"
                             icon={
-                                <ThemeIcon color="gray45">
+                                <ThemeIcon color="neutralMain50">
                                     <Shield />
                                 </ThemeIcon>
                             }

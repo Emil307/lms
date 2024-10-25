@@ -22,13 +22,13 @@ const InfoPanel = ({ data, ...props }: InfoPanelProps) => {
     return (
         <Flex {...props} className={cx(classes.root, props.className)}>
             <Flex gap={8}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     ID:
                 </Paragraph>
                 <Paragraph variant="text-small-m">{data.id}</Paragraph>
             </Flex>
             <Flex align="center" gap={8}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Статус:
                 </Paragraph>
                 <Switch
@@ -40,7 +40,7 @@ const InfoPanel = ({ data, ...props }: InfoPanelProps) => {
                 />
             </Flex>
             <Flex gap={8}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Создание:
                 </Paragraph>
                 <Paragraph variant="text-small-m">{dayjs(data.createdAt).format("DD.MM.YYYY HH:mm")}</Paragraph>

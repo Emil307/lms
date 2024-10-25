@@ -7,10 +7,10 @@ export default createStyles((theme) => ({
         padding: 24,
         gap: 8,
         borderRadius: 12,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
-            backgroundColor: theme.colors.white[0],
+            backgroundColor: theme.colors.neutralWhite[0],
             padding: 0,
         },
     },

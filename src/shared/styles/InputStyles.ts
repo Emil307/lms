@@ -19,7 +19,7 @@ export const useInputStyles = createStyles(
             clearable?: boolean;
             statusSuccess?: boolean;
             isActive?: boolean;
-        }
+        },
     ) => ({
         root: {
             position: "relative",
@@ -43,7 +43,7 @@ export const useInputStyles = createStyles(
             transform: floating ? `translate(0px, -6px)` : "none",
             fontSize: floating ? "10px" : "14px",
             lineHeight: floating ? "12px" : "16px",
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
             pointerEvents: "none",
         },
         icon: {
@@ -55,7 +55,7 @@ export const useInputStyles = createStyles(
             paddingLeft: 18,
             paddingRight: rightSection ? 50 : 18,
             paddingBottom: 8,
-            border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : `1px solid ${theme.colors.gray20[0]}`,
+            border: statusSuccess ? `1px solid ${theme.colors.secondary[0]}` : `1px solid ${theme.colors.neutralGray300[0]}`,
             borderRadius: "8px",
             fontSize: "14px",
             lineHeight: "16px",
@@ -79,7 +79,7 @@ export const useInputStyles = createStyles(
 
             ":hover, :focus": {
                 boxShadow: "0px 1px 2px rgba(0, 18, 110, 0.04), 0px 0px 16px rgba(0, 18, 110, 0.04)",
-                border: statusSuccess ? `1px solid ${theme.colors.done[0]}` : "1px solid rgba(0,0,0,0.0)",
+                border: statusSuccess ? `1px solid ${theme.colors.secondary[0]}` : "1px solid rgba(0,0,0,0.0)",
             },
             ":disabled": {
                 border: "1px solid rgba(0, 4, 41, 0.2)",
@@ -139,7 +139,7 @@ export const useInputStyles = createStyles(
                 },
             },
         },
-    })
+    }),
 );
 
 interface GetActiveBadgeStylesProps {
@@ -163,7 +163,7 @@ const getActiveBadgeStyles = ({ theme, icon, size, isActive }: GetActiveBadgeSty
             width: 4,
             height: 10,
             borderRadius: 8,
-            backgroundColor: isActive ? theme.colors.done[0] : theme.colors.gray20[0],
+            backgroundColor: isActive ? theme.colors.secondary[0] : theme.colors.neutralGray300[0],
         },
     };
 };

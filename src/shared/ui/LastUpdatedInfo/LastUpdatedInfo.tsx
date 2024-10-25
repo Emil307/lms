@@ -22,7 +22,7 @@ const LastUpdatedInfo = ({ data, scrollable = false, hidden }: LastUpdatedInfoPr
 
     return (
         <Flex className={classes.root}>
-            <Paragraph variant="text-small-m" color="gray45">
+            <Paragraph variant="text-small-m" color="neutralMain50">
                 Изменение:
             </Paragraph>
             <Paragraph variant="text-small-m" className={classes.date}>

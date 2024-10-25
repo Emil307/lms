@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         paddingBlock: 24,
         paddingInline: 32,
         gap: 8,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
 
         [theme.fn.smallerThan("md")]: {
             flexDirection: "row",

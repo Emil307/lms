@@ -3,13 +3,13 @@ import { HEADER_HEIGHT } from "@shared/constant";
 
 export default createStyles((theme) => ({
     root: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         position: "sticky",
         top: 0,
         left: 0,
         maxHeight: HEADER_HEIGHT,
         paddingInline: 16,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
         zIndex: 399,
     },
     inner: {
@@ -30,7 +30,7 @@ export default createStyles((theme) => ({
     },
     menuButton: {
         "&[data-expanded='true']": {
-            color: theme.colors.gray45[0],
+            color: theme.colors.neutralMain50[0],
         },
     },
     wordBreak: {
@@ -55,7 +55,7 @@ export default createStyles((theme) => ({
     buttonIcon: {
         width: 56,
         height: 56,
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         borderRadius: 56,
 
         svg: {
@@ -65,7 +65,7 @@ export default createStyles((theme) => ({
         },
 
         "&:hover": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
 
         [theme.fn.smallerThan("md")]: {

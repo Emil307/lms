@@ -10,7 +10,7 @@ import { initialValues } from "./constants";
 import { adaptDataForUpdateAboutForm } from "./utils";
 import useStyles from "./UpdateAboutForm.styles";
 
-export interface UpdateAboutFormProps extends BoxProps { }
+export interface UpdateAboutFormProps extends BoxProps {}
 
 const UpdateAboutForm = (props: UpdateAboutFormProps) => {
     const { classes } = useStyles();
@@ -46,7 +46,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                             description="До 1Mb"
                         />
                         <Flex gap={16} align="center" mt={24}>
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <Clipboard />
                             </ThemeIcon>
                             <Heading order={4}>Заголовок и описание</Heading>
@@ -54,7 +54,7 @@ const UpdateAboutForm = (props: UpdateAboutFormProps) => {
                         <FInput mt={24} label="Заголовок" size="sm" name="aboutPageTitle" maw={772} />
                         <FTextarea name="aboutPageShortContent" mt={8} autosize maw={772} />
                         <Flex gap={16} align="center" mt={32}>
-                            <ThemeIcon color="gray45">
+                            <ThemeIcon color="neutralMain50">
                                 <AlignLeft />
                             </ThemeIcon>
                             <Heading order={4}>Общая информация</Heading>

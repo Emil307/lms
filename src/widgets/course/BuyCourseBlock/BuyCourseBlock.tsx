@@ -38,7 +38,7 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
                     <Heading order={1} className={classes.title} pb={24}>
                         Стоимость
                     </Heading>
-                    <Paragraph variant="large" color="gray45" pb={32}>
+                    <Paragraph variant="large" color="neutralMain50" pb={32}>
                         Оплатить курс можно с помощью QR или счета на оплату
                     </Paragraph>
                     <PriceBlock data={data} />
@@ -52,7 +52,7 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
                             onClick={handleBuyEntity}>
                             {data.discountPrice > 0 ? "Купить курс" : "Получить курс"}
                         </Button>
-                        <Paragraph variant="text-small-m" color="gray45" className={classes.description}>
+                        <Paragraph variant="text-small-m" color="neutralMain50" className={classes.description}>
                             Начните обучение <br /> прямо сейчас!
                         </Paragraph>
                     </Flex>

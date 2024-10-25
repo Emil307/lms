@@ -69,7 +69,7 @@ export default createStyles((theme) => ({
     },
     searchInput: {
         width: "100%",
-        border: `1px solid ${theme.colors.neutral_gray300[0]}`,
+        border: `1px solid ${theme.colors.neutralGray300[0]}`,
         borderRadius: 12,
         "& input": {
             backgroundColor: "transparent",
@@ -95,7 +95,7 @@ export default createStyles((theme) => ({
         fontSize: 16,
         fontWeight: 500,
         height: "48px",
-        border: `1px solid ${theme.colors.neutral_main50[0]}`,
+        border: `1px solid ${theme.colors.neutralMain50[0]}`,
         backgroundColor: `${theme.colors.white} !important`,
         ":hover": {
             color: theme.colors.dark[0],

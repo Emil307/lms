@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         lineHeight: "46px",
     },
     blockWrapper: {
-        backgroundColor: theme.colors.neutralLight[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         marginTop: 112,
         padding: 96,
         [theme.fn.smallerThan("md")]: {
@@ -14,7 +14,7 @@ export default createStyles((theme) => ({
         },
     },
     blockContainer: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         maxWidth: 1320,
         width: "100%",
         margin: "auto",
@@ -41,7 +41,7 @@ export default createStyles((theme) => ({
     buyButtonContainer: {
         gap: 24,
         alignItems: "center",
-        borderTop: `1px solid ${theme.colors.grayLight[0]}`,
+        borderTop: `1px solid ${theme.colors.neutralGray200[0]}`,
         paddingTop: 25,
         [theme.fn.smallerThan("md")]: {
             alignItems: "flex-start",

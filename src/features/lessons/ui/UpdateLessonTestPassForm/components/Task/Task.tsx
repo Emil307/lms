@@ -48,7 +48,7 @@ const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps)
     return (
         <Flex {...props} className={classes.root}>
             <Flex direction="column" gap={4}>
-                <Paragraph variant="small-m" color="gray45">{`${data.order + 1} вопрос`}</Paragraph>
+                <Paragraph variant="small-m" color="neutralMain50">{`${data.order + 1} вопрос`}</Paragraph>
                 <Heading order={3}>{data.content}</Heading>
             </Flex>
             <Flex direction="column" gap={8}>

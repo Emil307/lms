@@ -26,7 +26,7 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
             </Box>
             <Flex className={classes.content}>{children}</Flex>
             <Flex className={classes.footerPanel}>
-                <Paragraph variant="text-small-m" color="white">
+                <Paragraph variant="text-small-m" color="neutralWhite">
                     &#169; {`${new Date().getFullYear()}, Addamant `}
                 </Paragraph>
                 <Flex className={classes.linksGroup}>

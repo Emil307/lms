@@ -26,11 +26,11 @@ const MemoizedArticleCategoryItem = memo(function ArticleCategoryItem({ data, ..
                 <Heading order={3} lineClamp={1}>
                     {data.name}
                 </Heading>
-                <Paragraph variant="text-caption" color="gray45">{`${data.articlesCount} ${getPluralString(
+                <Paragraph variant="text-caption" color="neutralMain50">{`${data.articlesCount} ${getPluralString(
                     data.articlesCount,
                     "статья",
                     "статьи",
-                    "статей"
+                    "статей",
                 )}`}</Paragraph>
             </Flex>
             <ThemeIcon className={classes.arrowIcon}>

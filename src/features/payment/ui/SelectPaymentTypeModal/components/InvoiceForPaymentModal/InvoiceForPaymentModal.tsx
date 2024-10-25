@@ -52,7 +52,7 @@ const InvoiceForPaymentModal = ({ entityType, entityId, onSuccess, onClose, setO
             return null;
         }
         return (
-            <Paragraph variant="small-m" color="gray45">
+            <Paragraph variant="small-m" color="neutralMain50">
                 Заполните необходимые поля для формирования счета на оплату.
             </Paragraph>
         );

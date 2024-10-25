@@ -14,7 +14,7 @@ const CourseReviewsBlock = (props: CourseReviewsBlockProps) => {
                         <Heading order={1} ta="center" color="dark">
                             О нас говорят
                         </Heading>
-                        <Heading order={3} ta="center" color="neutral_main50" maw={500}>
+                        <Heading order={3} ta="center" color="neutralMain50" maw={500}>
                             Расширяйте кругозор и&nbsp;получайте удовольствие от&nbsp;новых знаний с&nbsp;нашими наборами курсов
                         </Heading>
                     </Stack>

@@ -38,7 +38,7 @@ export default function Pagination<T extends Record<string, any>>(props: TPagina
         <Box className={classes.root}>
             <Box className={classes.elementsCount}>
                 <Paragraph variant="text-small-m" component="span">{`${firstElemIndex}-${lastElemIndex}`}</Paragraph>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     {" из "}
                 </Paragraph>
                 <Paragraph variant="text-small-m" component="span">

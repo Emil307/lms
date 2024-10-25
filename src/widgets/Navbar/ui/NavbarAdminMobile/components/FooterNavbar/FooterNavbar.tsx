@@ -18,7 +18,7 @@ const FooterNavbar = (props: FooterNavbarProps) => {
                     <Text component="a" fw={500} fz={18} lh="24px" href={`mailto:${CONTACT.EMAIL}`}>
                         {CONTACT.EMAIL}
                     </Text>
-                    <Text fw={500} fz={12} lh="16px" color="gray45">
+                    <Text fw={500} fz={12} lh="16px" color="neutralMain50">
                         Пишите, если есть вопросы
                     </Text>
                 </Flex>
@@ -26,7 +26,7 @@ const FooterNavbar = (props: FooterNavbarProps) => {
                     <Text component="a" fw={500} fz={18} lh="24px" href={`tel:${CONTACT.PHONE_NUMBER_LINK}`}>
                         {CONTACT.PHONE_NUMBER}
                     </Text>
-                    <Text size="md" fw={500} fz={12} color="gray45">
+                    <Text size="md" fw={500} fz={12} color="neutralMain50">
                         Звоните, если нужна помощь. Звонок по России бесплатный.
                     </Text>
                 </Flex>

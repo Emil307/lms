@@ -16,7 +16,7 @@ const AboutCourseInfo = ({ data }: AboutCourseInfoProps) => {
     const renderAboutCourse = () =>
         getCourseInfoList(data).map((item) => (
             <Flex key={item.id} direction="column" gap={2}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     {item.label}
                 </Paragraph>
                 <Paragraph variant="text-small-m">{item.value}</Paragraph>

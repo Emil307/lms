@@ -30,7 +30,7 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                                     {data.user.profile.firstName} {data.user.profile.lastName}
                                 </Paragraph>
                                 <Flex gap={16} direction={{ base: "column", xs: "row" }}>
-                                    <Paragraph variant="text-small-m" color="gray45" m="auto">
+                                    <Paragraph variant="text-small-m" color="neutralMain50" m="auto">
                                         {dayjs(data.createdAt).format("D MMM YYYY")}
                                     </Paragraph>
                                 </Flex>
@@ -43,7 +43,7 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                             <Paragraph variant="large" color="dark">
                                 {data.score}
                             </Paragraph>
-                            <Paragraph variant="large" color="neutral_main50">
+                            <Paragraph variant="large" color="neutralMain50">
                                 из 5
                             </Paragraph>
                         </Flex>
@@ -54,7 +54,7 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                 </MCard.Section>
                 <MCard.Section className={classes.section}>
                     <Flex direction="column" gap={2}>
-                        <Paragraph variant="text-small-m" color="gray45">
+                        <Paragraph variant="text-small-m" color="neutralMain50">
                             Курс
                         </Paragraph>
                         <Flex align="center" gap={8}>

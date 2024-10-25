@@ -7,7 +7,7 @@ export default createStyles((theme, { isAvailable }: { isAvailable: boolean }) =
         paddingBlock: 24,
         gap: 16,
         borderRadius: 16,
-        backgroundColor: isAvailable ? theme.colors.white[0] : theme.colors.grayLight[0],
+        backgroundColor: isAvailable ? theme.colors.neutralWhite[0] : theme.colors.neutralGray200[0],
         cursor: "pointer",
         pointerEvents: isAvailable ? "auto" : "none",
 
@@ -30,8 +30,8 @@ export default createStyles((theme, { isAvailable }: { isAvailable: boolean }) =
         height: 48,
         width: 48,
         borderRadius: 56,
-        color: isAvailable ? theme.colors.secondary[0] : theme.colors.gray45[0],
-        backgroundColor: isAvailable ? theme.colors.secondary8[0] : theme.colors.light[0],
+        color: isAvailable ? theme.colors.secondary[0] : theme.colors.neutralMain50[0],
+        backgroundColor: isAvailable ? theme.colors.secondary8[0] : theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
             display: "none",

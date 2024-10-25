@@ -19,6 +19,6 @@ export default createStyles((theme) => ({
 
     content: {
         borderRadius: 24,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
 }));

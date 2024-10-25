@@ -81,13 +81,13 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                     <Flex direction="column" gap={32}>
                         <Flex className={classes.infoPanel}>
                             <Flex gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     ID:
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">{data?.id}</Paragraph>
                             </Flex>
                             <Flex align="center" gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Статус:
                                 </Paragraph>
                                 <FSwitch
@@ -98,7 +98,7 @@ const UpdateStudentForm = ({ data, onClose, ...props }: UpdateStudentFormProps) 
                                 />
                             </Flex>
                             <Flex gap={8}>
-                                <Paragraph variant="text-small-m" color="gray45">
+                                <Paragraph variant="text-small-m" color="neutralMain50">
                                     Последний вход:
                                 </Paragraph>
                                 <Paragraph variant="text-small-m">

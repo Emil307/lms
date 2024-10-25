@@ -147,7 +147,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 width: 72,
                 height: 72,
                 flexShrink: 0,
-                border: `1px solid ${theme.colors.gray20[0]}`,
+                border: `1px solid ${theme.colors.neutralGray300[0]}`,
                 borderRadius: 56,
             },
 
@@ -163,7 +163,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 fontSize: 16,
                 fontWeight: 500,
                 lineHeight: "22px",
-                color: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
             },
         },
     },
@@ -192,7 +192,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 width: 4,
                 height: 4,
                 borderRadius: 8,
-                backgroundColor: theme.colors.gray45[0],
+                backgroundColor: theme.colors.neutralMain50[0],
             },
 
             p: {
@@ -200,7 +200,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
                 fontSize: 14,
                 lineHeight: "16px",
                 minHeight: 16,
-                color: theme.colors.gray45[0],
+                color: theme.colors.neutralMain50[0],
             },
         },
     },
@@ -211,7 +211,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         maxWidth: "100%",
         paddingTop: "47%",
         borderRadius: 32,
-        background: theme.colors.neutralLight[0],
+        background: theme.colors.neutralGray100[0],
 
         [theme.fn.smallerThan("sm")]: {
             paddingTop: "60%",
@@ -251,7 +251,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
         tr: {
             width: "100%",
             "&:last-of-type td": {
-                borderBottom: `1px solid ${theme.colors.gray20[0]}`,
+                borderBottom: `1px solid ${theme.colors.neutralGray300[0]}`,
             },
 
             [theme.fn.smallerThan("md")]: {
@@ -264,7 +264,7 @@ export const textEditorContentStyles = (theme: MantineTheme): CSSObject => ({
             position: "relative",
             minWidth: "1em",
             padding: 12,
-            border: `1px solid ${theme.colors.gray20[0]}`,
+            border: `1px solid ${theme.colors.neutralGray300[0]}`,
             verticalAlign: "top",
             backgroundClip: "padding-box",
 

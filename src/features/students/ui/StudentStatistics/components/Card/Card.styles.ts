@@ -43,12 +43,12 @@ export default createStyles((theme, { type }: CreateStylesProps) => ({
 const getBackgroundColor = (theme: MantineTheme, { type }: Pick<CreateStylesProps, "type">) => {
     switch (type) {
         case "homework":
-            return theme.colors.grayLight[0];
+            return theme.colors.neutralGray200[0];
         case "test":
-            return theme.colors.info16[0];
+            return theme.colors.info20[0];
         case "lessons":
             return theme.colors.secondary16[0];
         default:
-            return theme.colors.grayLight[0];
+            return theme.colors.neutralGray200[0];
     }
 };

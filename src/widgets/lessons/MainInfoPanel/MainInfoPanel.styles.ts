@@ -15,7 +15,7 @@ export default createStyles((theme, { status, testStatus, homeworkStatus }: Crea
         padding: 24,
         gap: 32,
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
     },
     inner: {
         justifyContent: "space-between",
@@ -64,23 +64,23 @@ export default createStyles((theme, { status, testStatus, homeworkStatus }: Crea
 const getColorsByLessonStatus = (theme: MantineTheme, { status }: Pick<CreateStylesParams, "status">) => {
     switch (status) {
         case "completed":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         case "onReview":
-            return { backgroundColor: theme.colors.error16[0], color: theme.colors.errorDark[0] };
+            return { backgroundColor: theme.colors.error20[0], color: theme.colors.errorDark[0] };
 
         case "inProgress":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         default:
-            return { backgroundColor: theme.colors.light[0], color: theme.colors.gray45[0] };
+            return { backgroundColor: theme.colors.neutralGray100[0], color: theme.colors.neutralMain50[0] };
     }
 };
 
 const getColorsByTestStatus = (theme: MantineTheme, { testStatus }: Pick<CreateStylesParams, "testStatus">) => {
     switch (testStatus) {
         case "completed":
-            return { color: theme.colors.doneDark[0] };
+            return { color: theme.colors.secondaryHover[0] };
 
         case "needsEdit":
             return { color: theme.colors.warning[0] };
@@ -93,7 +93,7 @@ const getColorsByTestStatus = (theme: MantineTheme, { testStatus }: Pick<CreateS
 const getColorsByHomeworkStatus = (theme: MantineTheme, { homeworkStatus }: Pick<CreateStylesParams, "homeworkStatus">) => {
     switch (homeworkStatus) {
         case "completed":
-            return { color: theme.colors.doneDark[0] };
+            return { color: theme.colors.secondaryHover[0] };
 
         case "needsEdit":
             return { color: theme.colors.warning[0] };

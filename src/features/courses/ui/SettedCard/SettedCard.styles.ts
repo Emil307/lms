@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         padding: 16,
         gap: 24,
         borderRadius: 16,
-        border: `1px solid ${theme.colors.light[0]}`,
+        border: `1px solid ${theme.colors.neutralGray100[0]}`,
     },
     section: {
         margin: "0 !important",

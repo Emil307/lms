@@ -3,7 +3,7 @@ import { createStyles } from "@mantine/core";
 export default createStyles((theme, { variant }: { variant: "primary" | "secondary" }) => ({
     track: {
         minWidth: 48,
-        backgroundColor: variant === "secondary" ? theme.colors.gray20[0] : theme.colors.dark[0],
+        backgroundColor: variant === "secondary" ? theme.colors.neutralGray300[0] : theme.colors.dark[0],
         border: "none",
         cursor: "pointer",
     },
@@ -22,29 +22,29 @@ export default createStyles((theme, { variant }: { variant: "primary" | "seconda
 
         ":checked": {
             "+ .mantine-Switch-track": {
-                backgroundColor: variant === "secondary" ? theme.colors.done[0] : theme.colors.primary[0],
+                backgroundColor: variant === "secondary" ? theme.colors.secondary[0] : theme.colors.primary[0],
 
                 ".mantine-Switch-thumb": {
-                    backgroundColor: theme.colors.white[0],
+                    backgroundColor: theme.colors.neutralWhite[0],
                 },
             },
         },
 
         ":disabled": {
             "+ .mantine-Switch-track": {
-                backgroundColor: theme.colors.grayLight[0],
+                backgroundColor: theme.colors.neutralGray200[0],
 
                 ".mantine-Switch-thumb": {
-                    backgroundColor: theme.colors.gray20[0],
+                    backgroundColor: theme.colors.neutralGray300[0],
                 },
             },
 
             ":checked": {
                 "+ .mantine-Switch-track": {
-                    backgroundColor: theme.colors.gray45[0],
+                    backgroundColor: theme.colors.neutralMain50[0],
 
                     ".mantine-Switch-thumb": {
-                        backgroundColor: theme.colors.grayLight[0],
+                        backgroundColor: theme.colors.neutralGray200[0],
                     },
                 },
             },

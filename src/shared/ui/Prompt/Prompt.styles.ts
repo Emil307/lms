@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         paddingRight: 12,
         gap: 16,
         borderRadius: 8,
-        backgroundColor: theme.colors.info16[0],
+        backgroundColor: theme.colors.info20[0],
     },
     icon: {
         color: theme.colors.info[0],
@@ -18,7 +18,7 @@ export default createStyles((theme) => ({
     },
     closeIcon: {
         borderRadius: 50,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         color: theme.colors.primary[0],
 
         svg: {

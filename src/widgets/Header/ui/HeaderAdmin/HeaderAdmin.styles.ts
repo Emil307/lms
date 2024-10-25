@@ -12,7 +12,7 @@ export default createStyles((theme) => ({
         maxHeight: HEADER_HEIGHT,
         padding: "16px 24px",
         border: "none",
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         zIndex: 399,
 
         [theme.fn.smallerThan("md")]: {
@@ -45,7 +45,7 @@ export default createStyles((theme) => ({
         borderRadius: 160,
 
         ".mantine-Avatar-placeholder": {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
     avatarDefaultIconWrapper: {
@@ -66,16 +66,16 @@ export default createStyles((theme) => ({
         height: 40,
         borderRadius: 160,
         color: theme.colors.dark[0],
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         ":hover": {
             color: theme.colors.secondary[0],
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
 
         ":active": {
             color: theme.colors.dark[0],
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
         },
     },
 

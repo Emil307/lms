@@ -8,7 +8,7 @@ interface BaseTableStylesProps {
 export const useBaseTableStyles = createStyles((theme, { hasActionButton = false }: BaseTableStylesProps) => ({
     selectCheckbox: {
         input: {
-            backgroundColor: theme.colors.grayLight[0],
+            backgroundColor: theme.colors.neutralGray200[0],
             border: "none",
             borderRadius: 8,
             cursor: "pointer",
@@ -83,7 +83,7 @@ export const useBaseTableStyles = createStyles((theme, { hasActionButton = false
             : {}),
     },
     tableHeadRow: {
-        backgroundColor: `${theme.colors.light[0]} !important`,
+        backgroundColor: `${theme.colors.neutralGray100[0]} !important`,
     },
     skeleton: {
         maxWidth: 48,
@@ -99,10 +99,10 @@ type TGetStylesForCellProps = {
 const getBadgeColor = (theme: MantineTheme, cellBadges: TCellBadge[]) => {
     const badgeInfo = cellBadges.find((item) => item.condition);
     if (!badgeInfo) {
-        return theme.colors.light[0];
+        return theme.colors.neutralGray100[0];
     }
     if (!badgeInfo.color) {
-        return theme.colors.done[0];
+        return theme.colors.secondary[0];
     }
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return theme.colors[badgeInfo.color] ? theme.colors[badgeInfo.color] : badgeInfo.color;
@@ -133,7 +133,7 @@ export const getStylesForCell = createStyles((theme, { cellBadges, columnId }: T
         border: "none !important",
         fontSize: "14px !important",
         lineHeight: "16px !important",
-        borderBottom: `1px solid ${theme.colors.light[0]} !important`,
+        borderBottom: `1px solid ${theme.colors.neutralGray100[0]} !important`,
         padding: "0 16px !important",
         zIndex: 99,
         ":first-of-type": {

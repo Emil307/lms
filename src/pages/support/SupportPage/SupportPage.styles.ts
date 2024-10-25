@@ -55,7 +55,7 @@ export default createStyles((theme) => ({
         minHeight: 550,
         height: "min-content",
         borderRadius: 16,
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("md")]: {
             maxWidth: "none",
@@ -65,7 +65,7 @@ export default createStyles((theme) => ({
     chatHeader: {
         paddingBlock: 24,
         paddingInline: 32,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
 
         [theme.fn.smallerThan("md")]: {
             paddingInline: 24,

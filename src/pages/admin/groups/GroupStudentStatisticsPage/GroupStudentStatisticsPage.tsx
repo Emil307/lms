@@ -36,7 +36,7 @@ const GroupStudentStatisticsPage = () => {
             />
             <Heading mb={24}>{studentFullName}</Heading>
             <Flex gap={8} wrap="wrap" mb={32}>
-                <Paragraph variant="text-small-m" color="neutral_gray">
+                <Paragraph variant="text-small-m" color="neutralGray300">
                     Учебный курс:
                 </Paragraph>
                 <Paragraph variant="text-small-m">{data.course.name}</Paragraph>

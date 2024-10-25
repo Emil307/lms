@@ -17,9 +17,9 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
         if (data.type === "autonomous" && data.availableGroup?.educationStartDate) {
             return (
                 <Flex className={classes.groupInfoButton}>
-                    <Paragraph variant="text-small-m" color="gray45">{`Стартует ${dayjs(data.availableGroup?.educationStartDate).format(
-                        "D MMMM"
-                    )}`}</Paragraph>
+                    <Paragraph variant="text-small-m" color="neutralMain50">{`Стартует ${dayjs(
+                        data.availableGroup?.educationStartDate,
+                    ).format("D MMMM")}`}</Paragraph>
                 </Flex>
             );
         }
@@ -35,7 +35,7 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
 
         return (
             <Flex align="center" gap={6} className={classes.groupInfoButton}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Осталось {freePlacesCount} {placeWord}
                 </Paragraph>
             </Flex>
@@ -48,7 +48,7 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
         }
         return (
             <Flex align="center" gap={6} className={classes.groupInfoButton}>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     {data.duration}
                 </Paragraph>
             </Flex>

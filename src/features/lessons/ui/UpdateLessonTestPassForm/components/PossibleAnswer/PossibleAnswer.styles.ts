@@ -11,8 +11,8 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
         paddingBlock: 16,
         gap: 16,
         borderRadius: 8,
-        border: `1px solid ${theme.colors.grayLight[0]}`,
-        backgroundColor: theme.colors.white[0],
+        border: `1px solid ${theme.colors.neutralGray200[0]}`,
+        backgroundColor: theme.colors.neutralWhite[0],
 
         [theme.fn.smallerThan("sm")]: {
             paddingInline: 16,
@@ -31,7 +31,7 @@ export default createStyles((theme, { isSelected }: CreateStylesParams) => ({
         fontWeight: 600,
         fontSize: 16,
         lineHeight: "24px",
-        color: isSelected ? theme.colors.white[0] : theme.colors.primaryHover[0],
+        color: isSelected ? theme.colors.neutralWhite[0] : theme.colors.primaryHover[0],
     },
     content: {
         overflowWrap: "anywhere",

@@ -23,7 +23,7 @@ const CustomPage500 = () => {
             </Box>
             <Flex direction="column" gap={16}>
                 <Heading align="center">Внутренняя ошибка сервера</Heading>
-                <Heading order={3} color="neutral_gray" align="center">
+                <Heading order={3} color="neutralGray300" align="center">
                     Наши специалисты уже работают над устранением данной ошибки. Пожалуйста, подождите или попробуйте воспользоваться
                     кнопкой «Перейти на главную».
                 </Heading>

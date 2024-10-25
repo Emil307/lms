@@ -22,7 +22,7 @@ export default createStyles((theme, { isActiveCrumb }: CreateStylesParams, getRe
     content: {
         ref: getRef("imageBack"),
         display: "block",
-        color: isActiveCrumb ? theme.colors.dark[0] : theme.colors.gray45[0],
+        color: isActiveCrumb ? theme.colors.dark[0] : theme.colors.neutralMain50[0],
         whiteSpace: "nowrap",
     },
 }));

@@ -25,7 +25,7 @@ const CookiePanel = () => {
 
     return (
         <Flex className={classes.root}>
-            <Paragraph variant="text-small-m" color="white">
+            <Paragraph variant="text-small-m" color="neutralWhite">
                 Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его лучше. Продолжая
                 пользоваться сайтом, <br /> вы соглашаетесь с использованием файлов cookie.
             </Paragraph>

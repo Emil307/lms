@@ -3,13 +3,13 @@ import { HEADER_HEIGHT } from "@shared/constant";
 
 export default createStyles((theme) => ({
     root: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         position: "sticky",
         maxHeight: HEADER_HEIGHT,
         top: 0,
         left: 0,
         paddingInline: 16,
-        borderBottom: `1px solid ${theme.colors.grayLight[0]}`,
+        borderBottom: `1px solid ${theme.colors.neutralGray200[0]}`,
         zIndex: 399,
     },
     inner: {

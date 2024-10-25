@@ -72,18 +72,18 @@ const getStatusStyle = (theme: MantineTheme, status?: HomeworkAnswerStatusName) 
     switch (status) {
         case "onReview":
             return {
-                backgroundColor: theme.colors.error16[0],
+                backgroundColor: theme.colors.error20[0],
                 color: theme.colors.errorDark[0],
             };
         case "needsEdit":
             return {
-                backgroundColor: theme.colors.warning16[0],
+                backgroundColor: theme.colors.warning20[0],
                 color: theme.colors.warning[0],
             };
         case "completed":
             return {
-                backgroundColor: theme.colors.done16[0],
-                color: theme.colors.done[0],
+                backgroundColor: theme.colors.done20[0],
+                color: theme.colors.secondary[0],
             };
         default:
             return null;

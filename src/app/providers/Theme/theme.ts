@@ -16,44 +16,49 @@ export const defaultTheme: MantineThemeOverride = {
     fontFamily: ManropeFont.style.fontFamily,
     primaryColor: "primary",
     colors: {
+        // main/Blue
         primary: addMantineColor("#3E74ED"),
         primaryHover: addMantineColor("#6493FD"),
-        primary16: addMantineColor("rgba(62, 116, 237, 0.2)"),
-        primary8: addMantineColor("rgba(238, 243, 252, 1)"),
-        secondary: addMantineColor("#753EED"),
-        secondaryHover: addMantineColor("#8F5FF9"),
-        secondary16: addMantineColor("rgba(117, 62, 237, 0.2)"),
-        secondary8: addMantineColor("rgba(249, 247, 255, 1)"),
+        primary16: addMantineColor("#3E74ED33"),
+        primary8: addMantineColor("#EDF2FF"),
+
+        // main/Lime
+        secondary: addMantineColor("#C9F258"),
+        secondaryHover: addMantineColor("#BEEF31"),
+        secondary16: addMantineColor("#C9F25880"),
+        secondary8: addMantineColor("#F8F5FF"),
+
+        // neutral/Dark
         dark: addMantineColor("#18233A"),
-        gray45: addMantineColor("rgba(24, 35, 58, 0.5)"),
-        gray20: addMantineColor("rgba(0, 4, 41, 0.2)"),
-        grayLight: addMantineColor("#E9E9EA"),
-        neutralLight: addMantineColor("#F5F5F5"),
-        light: addMantineColor("#F7F7F7"),
-        white: addMantineColor("#FFFFFF"),
-        white56: addMantineColor("rgba(255, 255, 255, 0.5)"),
-        white16: addMantineColor("rgba(255, 255, 255, 0.16)"),
+        darkHover: addMantineColor("#0F1420"),
+
+        // neutral/Main
+        neutralMain50: addMantineColor("#18233A80"),
+
+        // neutral/Gray
+        neutralGray300: addMantineColor("#00042933"),
+        neutralGray200: addMantineColor("#E9E9EA"),
+        neutralGray100: addMantineColor("#F5F5F5"),
+
+        // neutral/White
+        neutralWhite: addMantineColor("#FFFFFF"),
+        neutralWhite50: addMantineColor("#FFFFFF80"),
+        neutralWhite16: addMantineColor("#FFFFFF29"),
+
+        // Validation
         info: addMantineColor("#3E74ED"),
-        info16: addMantineColor("rgba(62, 116, 237, 0.2)"),
         info20: addMantineColor("#3E74ED33"),
-        done: addMantineColor("#BEEF31"),
-        doneDark: addMantineColor("#9ED600"),
-        doneDark100: addMantineColor("#0CA31C"),
-        done16: addMantineColor("rgba(190, 239, 49, 0.2)"),
+
+        done: addMantineColor("#3ECB4C"),
+        doneDark: addMantineColor("#0CA31C"),
+        done20: addMantineColor("#BEEF3133"),
+
         error: addMantineColor("#EDB13E"),
         errorDark: addMantineColor("#E39500"),
-        error16: addMantineColor("rgba(237, 177, 62, 0.2)"),
-        warning: addMantineColor("#FF5151"),
-        warning16: addMantineColor("rgba(255, 81, 81, 0.2)"),
+        error20: addMantineColor("#EDB13E33"),
 
-        background: addMantineColor("#F7F7F7"),
-        neutral_gray: addMantineColor("#00042973"),
-        neutral_gray300: addMantineColor("#00042933"),
-        neutral_main50: addMantineColor("#18233A80"),
-        shadowGray: addMantineColor("#00126e"),
-        darkGray: addMantineColor("#D9D9D9"),
-        golden: addMantineColor("#D6913D"),
-        neutralDark: addMantineColor("#0F1420"),
+        warning: addMantineColor("#FF5151"),
+        warning20: addMantineColor("#FF515133"),
     },
     defaultRadius: "sm",
     breakpoints: {
@@ -76,8 +81,8 @@ export const defaultTheme: MantineThemeOverride = {
 
         sizes: {
             h1: {
-                fontSize: 32,
-                lineHeight: "40px",
+                fontSize: 42,
+                lineHeight: "46.2px",
                 fontWeight: 600,
             },
 
@@ -89,12 +94,12 @@ export const defaultTheme: MantineThemeOverride = {
             h3: {
                 fontSize: 20,
                 lineHeight: "24px",
-                fontWeight: 600,
+                fontWeight: 500,
             },
             h4: {
                 fontSize: 18,
                 lineHeight: "24px",
-                fontWeight: 600,
+                fontWeight: 500,
             },
             h5: {
                 fontSize: 15,
@@ -112,7 +117,7 @@ export const defaultTheme: MantineThemeOverride = {
             width: 4,
         },
         "::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.colors.gray20[0],
+            backgroundColor: theme.colors.neutralGray300[0],
             borderRadius: 2,
         },
     }),
@@ -136,7 +141,7 @@ export const defaultTheme: MantineThemeOverride = {
                 dropdown: {
                     padding: "8px !important",
                     borderRadius: 16,
-                    border: theme.colors.white[0],
+                    border: theme.colors.neutralWhite[0],
                     boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
 
                     "> div": {
@@ -150,7 +155,7 @@ export const defaultTheme: MantineThemeOverride = {
                     borderRadius: 8,
 
                     "&:hover": {
-                        backgroundColor: theme.colors.grayLight[0],
+                        backgroundColor: theme.colors.neutralGray200[0],
                     },
                 },
             }),
@@ -169,7 +174,7 @@ export const defaultTheme: MantineThemeOverride = {
                     fontWeight: 500,
                     fontSize: 12,
                     lineHeight: "16px",
-                    color: theme.colors.white[0],
+                    color: theme.colors.neutralWhite[0],
                     textTransform: "inherit",
                     letterSpacing: "unset",
                 },
@@ -257,7 +262,7 @@ export const defaultTheme: MantineThemeOverride = {
                     },
 
                     "&[data-outside]": {
-                        color: theme.colors.gray45[0],
+                        color: theme.colors.neutralMain50[0],
                     },
 
                     "&[data-in-range]": {
@@ -268,7 +273,7 @@ export const defaultTheme: MantineThemeOverride = {
                     "&[data-selected]": {
                         borderRadius: 6,
                         backgroundColor: theme.colors.primary[0],
-                        color: theme.colors.white[0],
+                        color: theme.colors.neutralWhite[0],
                     },
                 },
             }),
@@ -336,7 +341,7 @@ export const defaultTheme: MantineThemeOverride = {
                     flexDirection: "column",
                     padding: "32px 24px 24px !important",
                     borderRadius: 16,
-                    background: theme.colors.white[0],
+                    background: theme.colors.neutralWhite[0],
                     boxShadow: "0px 16px 32px rgba(2, 6, 46, 0.08)",
                     maxWidth: "100%",
 
@@ -389,10 +394,10 @@ export const defaultTheme: MantineThemeOverride = {
                 item: {
                     padding: 32,
                     borderRadius: 24,
-                    backgroundColor: theme.colors.neutralLight[0],
+                    backgroundColor: theme.colors.neutralGray100[0],
 
                     "&[data-active]": {
-                        borderColor: theme.colors.grayLight[0],
+                        borderColor: theme.colors.neutralGray200[0],
 
                         ".mantine-Accordion-control": {
                             padding: 0,
@@ -431,7 +436,7 @@ export const defaultTheme: MantineThemeOverride = {
                     fontWeight: 500,
                     fontSize: 16,
                     lineHeight: "22px",
-                    color: theme.colors.gray45[0],
+                    color: theme.colors.neutralMain50[0],
                     textAlign: "left",
 
                     [theme.fn.smallerThan("md")]: {

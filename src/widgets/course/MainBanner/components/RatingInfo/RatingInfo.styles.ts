@@ -11,7 +11,7 @@ export default createStyles((theme) => ({
         backdropFilter: "blur(20px)",
     },
     iconWrapper: {
-        backgroundColor: theme.colors.white[0],
+        backgroundColor: theme.colors.neutralWhite[0],
         padding: 16,
         borderRadius: 12,
     },

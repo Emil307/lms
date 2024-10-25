@@ -27,7 +27,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
         left: 16,
         fontSize: "14px",
         lineHeight: "16px",
-        color: theme.colors.gray45[0],
+        color: theme.colors.neutralMain50[0],
         pointerEvents: "none",
     },
     input: {
@@ -35,7 +35,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
         minHeight: 48,
         paddingLeft: 18,
         paddingRight: 36,
-        border: statusSuccess ? `1px solid ${theme.colors.done[0]} !important` : `1px solid ${theme.colors.gray20[0]}`,
+        border: statusSuccess ? `1px solid ${theme.colors.secondary[0]} !important` : `1px solid ${theme.colors.neutralGray300[0]}`,
         borderRadius: 8,
         fontSize: 14,
         lineHeight: "16px",
@@ -44,7 +44,7 @@ export const useMultiSelectStyles = createStyles((theme, { isValue, statusSucces
             cursor: "pointer",
         },
         ":disabled": {
-            border: `1px solid ${theme.fn.rgba(theme.colors.neutral_gray[0], 0.2)} `,
+            border: `1px solid ${theme.fn.rgba(theme.colors.neutralGray300[0], 0.2)} `,
             color: theme.colors.dark[0],
         },
 

@@ -26,10 +26,10 @@ export default createStyles((theme, { statusType }: CreateStylesProps) => ({
 const getColorsByStatus = (theme: MantineTheme, { statusType }: CreateStylesProps) => {
     switch (statusType) {
         case "inProgress":
-            return { backgroundColor: theme.colors.info16[0], color: theme.colors.info[0] };
+            return { backgroundColor: theme.colors.info20[0], color: theme.colors.info[0] };
 
         case "notStarted":
-            return { backgroundColor: theme.colors.done16[0], color: theme.colors.doneDark[0] };
+            return { backgroundColor: theme.colors.done20[0], color: theme.colors.secondaryHover[0] };
 
         default:
             return { backgroundColor: theme.colors.secondary16[0], color: theme.colors.secondary[0] };

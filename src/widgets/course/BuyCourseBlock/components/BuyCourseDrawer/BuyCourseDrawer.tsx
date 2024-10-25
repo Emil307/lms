@@ -14,7 +14,7 @@ const BuyCourseDrawer = (
     setOpened: React.Dispatch<SetStateAction<boolean>>,
     setStep: React.Dispatch<SetStateAction<number>>,
     step: number,
-    data: CourseDetails
+    data: CourseDetails,
 ) => {
     const { classes } = useStyles();
 
@@ -27,7 +27,7 @@ const BuyCourseDrawer = (
                     <Image src={testQr} width={224} height={220} alt="qr-code" />
                     <Group position="center" mt={24} spacing={4}>
                         <Paragraph variant="large">Платите с помощью QR</Paragraph>
-                        <Paragraph variant="small-m" ta="center" color="gray45">
+                        <Paragraph variant="small-m" ta="center" color="neutralMain50">
                             Отсканируй QR код, чтобы оплатить
                         </Paragraph>
                     </Group>
@@ -42,7 +42,7 @@ const BuyCourseDrawer = (
 
                     <Group position="center">
                         <Paragraph variant="large">Сформируйте счет на оплату</Paragraph>
-                        <Paragraph variant="small-m" ta="center" color="gray45">
+                        <Paragraph variant="small-m" ta="center" color="neutralMain50">
                             Заполните реквизиты и распечатай готовый счет на оплату.
                         </Paragraph>
 
@@ -59,7 +59,7 @@ const BuyCourseDrawer = (
         } else if (step === 2) {
             return (
                 <>
-                    <Paragraph variant="small-m" color="gray45" mt={4} mb={24}>
+                    <Paragraph variant="small-m" color="neutralMain50" mt={4} mb={24}>
                         Заполните реквизиты и распечатай готовый счет на оплату.
                     </Paragraph>
                     <InvoiceForPaymentModal

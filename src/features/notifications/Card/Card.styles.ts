@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
         paddingTop: 24,
         gap: 8,
         borderRadius: 8,
-        backgroundColor: theme.colors.light[0],
+        backgroundColor: theme.colors.neutralGray100[0],
         cursor: "pointer",
     },
     createdAt: {
