@@ -1,5 +1,12 @@
-# bgallery-front
+# adm-lms
+ https://lms-dev.addamant-work.ru/ - dev
 
+Доступы к Админу:
+ login: administrator@addamant.ru
+ pass: addamant
+
+Figma - https://www.figma.com/design/zCiWxuONB32wxrQYI28tpO/ADM-LMS?node-id=0-1&node-type=canvas&t=NnSKXrGHl84VpFGN-0
+ТЗ - N/A (форк проекта bussnes-gallery)
 
 
 ## Getting started
