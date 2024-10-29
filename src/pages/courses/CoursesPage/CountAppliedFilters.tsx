@@ -17,7 +17,7 @@ export const CountAppliedFilters = ({ countAppliedFilters }: { countAppliedFilte
                 color: "#fff",
                 height: 24,
             }}>
-            <Paragraph variant="text-caption" color="#FFFFFF">
+            <Paragraph variant="text-caption" color="white">
                 {countAppliedFilters}
             </Paragraph>
         </Box>

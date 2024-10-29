@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { Indicator, Tabs as MTabs, TabsProps as MTabsProps } from "@mantine/core";
-import { defaultTheme } from "@app/providers/Theme/theme";
 import { TabItem } from "./types";
 import { useTabsStyles } from "./Tabs.styles";
 import { Paragraph } from "../Typography";
@@ -14,7 +13,7 @@ const Tabs = ({ tabs, ...props }: TabsProps) => {
     const tabsList = tabs.map((item) => {
         const { id, label, value, count, withIndicator } = item;
         return (
-            <Indicator offset={12} key={id} disabled={!withIndicator} size={8} color={defaultTheme.colors?.done?.[0]}>
+            <Indicator offset={12} key={id} disabled={!withIndicator} size={8} color="done">
                 <MTabs.Tab value={value}>
                     {label}
                     {typeof count === "number" && (

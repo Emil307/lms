@@ -3,6 +3,7 @@ import { FormikConfig, FormikValues } from "formik";
 import { MRT_Cell, MRT_Column, MRT_ColumnDef, MRT_Row, MRT_TableInstance } from "mantine-react-table";
 import { $getPaginationResponseType, RoleName, TDefaultRequestParams, TSortOrder, TSortParams } from "@shared/types";
 import { CollapsedFiltersBlockProps } from "../CollapsedFiltersBlock";
+import { Colors } from "@mantine/core";
 
 export const $BaseValidationSchema = z.object({
     query: z
@@ -73,7 +74,7 @@ export type TCellProps<T extends Record<string, any>> = {
 
 export type TCellBadge = {
     condition?: boolean;
-    color?: string;
+    color?: Colors;
 };
 
 export type TColumn<T extends Record<string, any>, R extends RoleName[] = RoleName[]> = MRT_ColumnDef<T> & {

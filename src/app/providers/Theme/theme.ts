@@ -59,6 +59,15 @@ export const defaultTheme: MantineThemeOverride = {
 
         warning: addMantineColor("#FF5151"),
         warning20: addMantineColor("#FF515133"),
+
+        // error colors
+        neutral_main50: addMantineColor("#18233A80"),
+        neutralLight: addMantineColor("#F5F5F5"),
+        gray45: addMantineColor("rgba(24, 35, 58, 0.5)"),
+        white: addMantineColor("#FFFFFF"),
+        neutral_gray: addMantineColor("#00042973"),
+        grayLight: addMantineColor("#E9E9EA"),
+        white56: addMantineColor("rgba(255, 255, 255, 0.5)"),
     },
     defaultRadius: "sm",
     breakpoints: {

@@ -1,4 +1,4 @@
-import { Flex, RingProgress as MRingProgress, RingProgressProps as MRingProgressProps } from "@mantine/core";
+import { Colors, Flex, RingProgress as MRingProgress, RingProgressProps as MRingProgressProps } from "@mantine/core";
 import { memo, useMemo } from "react";
 
 import { Heading, Paragraph } from "@shared/ui";
@@ -8,10 +8,13 @@ export interface RingProgressProps extends Omit<MRingProgressProps, "label" | "s
     value: number;
     label?: string;
 }
-
+type RingProgressSection = {
+    value: number;
+    color: Colors;
+};
 const MemoizedRingProgress = memo(function RingProgress({ value, label, ...props }: RingProgressProps) {
     const { classes } = useStyles();
-    const sections = useMemo(() => [{ value, color: "done" }], [value]);
+    const sections: RingProgressSection[] = useMemo(() => [{ value, color: "done" }], [value]);
 
     const labelContent = useMemo(
         () => (
@@ -22,7 +25,7 @@ const MemoizedRingProgress = memo(function RingProgress({ value, label, ...props
                 </Paragraph>
             </Flex>
         ),
-        [value],
+        [value]
     );
     return (
         <MRingProgress

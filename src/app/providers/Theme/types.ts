@@ -1,13 +1,26 @@
-import { DefaultMantineColor, Tuple } from "@mantine/core";
+import { Tuple } from "@mantine/core";
 
 declare module "@mantine/core" {
     export interface MantineThemeColorsOverride {
         colors: Record<Colors, Tuple<string, 10>>;
     }
+    export type DefaultMantineColorWithoutEmpty =
+        | "dark"
+        | "gray"
+        | "red"
+        | "pink"
+        | "grape"
+        | "violet"
+        | "indigo"
+        | "blue"
+        | "cyan"
+        | "green"
+        | "lime"
+        | "yellow"
+        | "orange"
+        | "teal";
     export type Colors =
         | "primary"
-        | "background"
-        | "neutral_gray"
         | "primaryHover"
         | "primary16"
         | "primary8"
@@ -16,23 +29,31 @@ declare module "@mantine/core" {
         | "secondary16"
         | "secondary8"
         | "dark"
-        | "gray45"
-        | "gray20"
-        | "grayLight"
-        | "light"
-        | "white"
-        | "white56"
-        | "white16"
+        | "darkHover"
+        | "neutralMain50"
+        | "neutralGray300"
+        | "neutralGray200"
+        | "neutralGray100"
+        | "neutralWhite"
+        | "neutralWhite50"
+        | "neutralWhite16"
         | "info"
-        | "info16"
+        | "info20"
         | "done"
         | "doneDark"
-        | "done16"
+        | "done20"
         | "error"
         | "errorDark"
-        | "error16"
+        | "error20"
         | "warning"
-        | "warning16"
-        | "shadowGray"
-        | DefaultMantineColor;
+        | "warning20"
+        | "gray20"
+        | "neutralLight"
+        | "neutral_main50"
+        | "gray45"
+        | "white"
+        | "neutral_gray"
+        | "grayLight"
+        | "white56"
+        | DefaultMantineColorWithoutEmpty;
 }
