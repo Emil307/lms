@@ -12,12 +12,12 @@ workflow:
 include:
   - project: "infrastructure/ci-templates"
     ref: develop
-    file: "frontend/next-standalone-build.v2.gitlab-ci.yml"
+    file: "frontend/next-standalone-build.v3.gitlab-ci.yml"
 
 
 variables:
   NODE_VERSION: registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest
-  DOCKERFILE_PATH: ./docker/$CI_COMMIT_BRANCH/Dockerfile
+  DOCKERFILE_PATH: ./docker/Dockerfile
   STACK_NAME: "lms"
   STACK_NAME_DEV: 'lms_dev'
   STACK_APP_NAME: "front"
@@ -31,12 +31,16 @@ build app:
       cp .env.example .env
     fi
 
-
+build balancer:
+ before_script:
+  - |
+    if [ -f "./docker/$CI_COMMIT_BRANCH/nginx.conf" ]; then
+      cp ./docker/$CI_COMMIT_BRANCH/nginx.conf ./docker/nginx.conf
 deploy develop:
   stage: deploy
   script:
     - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
-    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.develop.yml $STACK_NAME_DEV
+    - docker stack deploy --with-registry-auth --resolve-image=always -c ./docker/docker-compose.develop.yml $STACK_NAME_DEV
   rules:
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_STATE == "merged"
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
@@ -49,7 +53,7 @@ deploy prod:
   stage: deploy
   script:
     - docker login -u $ROOT_USER -p $ROOT_USER_TOKEN $CI_REGISTRY
-    - docker stack deploy --with-registry-auth --resolve-image=always -c docker-compose.prod.yml $STACK_NAME
+    - docker stack deploy --with-registry-auth --resolve-image=always -c ./docker/docker-compose.prod.yml $STACK_NAME
   only:
     - master
   tags:
