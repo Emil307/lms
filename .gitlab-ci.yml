@@ -36,6 +36,7 @@ build balancer:
   - |
     if [ -f "./docker/$CI_COMMIT_BRANCH/nginx.conf" ]; then
       cp ./docker/$CI_COMMIT_BRANCH/nginx.conf ./docker/nginx.conf
+    fi
 deploy develop:
   stage: deploy
   script:
