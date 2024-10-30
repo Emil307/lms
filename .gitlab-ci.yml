@@ -1,6 +1,7 @@
 stages:
   - prepare
   - lint
+  - alert
   - build
   - deploy
   - release
@@ -14,31 +15,35 @@ include:
     ref: develop
     file: "frontend/next-standalone-build.v3.gitlab-ci.yml"
 
+  - project: "infrastructure/ci-templates"
+    ref: develop
+    file: "frontend/planfix.v1.gitlab-ci.yml"
 
 variables:
   NODE_VERSION: registry.addamant-work.ru/infrastructure/frontend-dockerfile:latest
   DOCKERFILE_PATH: ./docker/Dockerfile
   STACK_NAME: "lms"
-  STACK_NAME_DEV: 'lms_dev'
+  STACK_NAME_DEV: "lms_dev"
   STACK_APP_NAME: "front"
 
 build app:
   before_script:
-  - |
-    if [ -f ".env.$CI_COMMIT_BRANCH.example" ]; then
-      cp .env.$CI_COMMIT_BRANCH.example .env
-    else
-      cp .env.example .env
-    fi
+    - |
+      if [ -f ".env.$CI_COMMIT_BRANCH.example" ]; then
+        cp .env.$CI_COMMIT_BRANCH.example .env
+      else
+        cp .env.example .env
+      fi
 
 build balancer:
- before_script:
-  - echo $ROOT_USER_TOKEN | docker login -u $ROOT_USER --password-stdin $CI_REGISTRY
-  - echo $CI_DEPENDENCY_PROXY_PASSWORD | docker login -u $CI_DEPENDENCY_PROXY_USER --password-stdin $CI_DEPENDENCY_PROXY_SERVER
-  - |
-    if [ -f "./docker/$CI_COMMIT_BRANCH/nginx.conf" ]; then
-      cp ./docker/$CI_COMMIT_BRANCH/nginx.conf ./docker/nginx.conf
-    fi
+  before_script:
+    - echo $ROOT_USER_TOKEN | docker login -u $ROOT_USER --password-stdin $CI_REGISTRY
+    - echo $CI_DEPENDENCY_PROXY_PASSWORD | docker login -u $CI_DEPENDENCY_PROXY_USER --password-stdin $CI_DEPENDENCY_PROXY_SERVER
+    - |
+      if [ -f "./docker/$CI_COMMIT_BRANCH/nginx.conf" ]; then
+        cp ./docker/$CI_COMMIT_BRANCH/nginx.conf ./docker/nginx.conf
+      fi
+
 deploy develop:
   stage: deploy
   script:
