@@ -4,7 +4,7 @@ import { memo } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Button, Heading, Paragraph } from "@shared/ui";
-import { GroupModuleLesson } from "@entities/group";
+import { GroupModuleLesson, useGroup } from "@entities/group";
 import useStyles from "./LessonCard.styles";
 
 export interface LessonCardProps extends Omit<FlexProps, "children"> {
@@ -17,6 +17,7 @@ export interface LessonCardProps extends Omit<FlexProps, "children"> {
 const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId, groupStartDate, ...props }: LessonCardProps) {
     const router = useRouter();
     const { classes, cx } = useStyles({ status: data.lessonStatus.name });
+    const { data: groupData } = useGroup({ id: groupId });
 
     const handleOpenLessonDetailsPage = () => {
         if (data.lessonStatus.name !== "blocked" && data.lessonStatus.name !== "notStarted") {
@@ -59,7 +60,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
             </Paragraph>
             {data.lessonStatus.name === "inProgress" && (
                 <Button variant="text" leftIcon={<PlayCircle />} w="min-content" onClick={handleOpenLessonDetailsPage}>
-                    Пройти урок
+                    {`${groupData?.status.name === "completed" ? "Посмотреть урок" : "Пройти урок"}`}
                 </Button>
             )}
             {data.lessonStatus.name === "notStarted" && (

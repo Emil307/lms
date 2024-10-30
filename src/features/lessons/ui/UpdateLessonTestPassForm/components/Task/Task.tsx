@@ -8,10 +8,11 @@ import { PossibleAnswer } from "../PossibleAnswer";
 
 export interface TaskProps extends Omit<FlexProps, "onClick"> {
     data: TaskTestPass;
+    status?: string;
     readOnly?: boolean;
 }
 
-const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps) {
+const MemoizedTask = memo(function Task({ data, readOnly, status, ...props }: TaskProps) {
     const { classes } = useStyles();
 
     const { setFieldValue } = useFormikContext<UpdateLessonTestPassFormValidation>();
@@ -22,15 +23,15 @@ const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps)
         if (data.isCheckbox) {
             return setFieldValue(
                 `tasks.${data.order}.answers.${selectedPossibleAnswerOrder}.isSelected`,
-                !data.answers[selectedPossibleAnswerOrder].isSelected,
+                !data.answers[selectedPossibleAnswerOrder].isSelected
             );
         }
 
         data.answers.map((possibleAnswer) =>
             setFieldValue(
                 `tasks.${data.order}.answers.${possibleAnswer.order}.isSelected`,
-                possibleAnswer.order === selectedPossibleAnswerOrder,
-            ),
+                possibleAnswer.order === selectedPossibleAnswerOrder
+            )
         );
     };
 
@@ -51,9 +52,11 @@ const MemoizedTask = memo(function Task({ data, readOnly, ...props }: TaskProps)
                 <Paragraph variant="small-m" color="neutralMain50">{`${data.order + 1} вопрос`}</Paragraph>
                 <Heading order={3}>{data.content}</Heading>
             </Flex>
-            <Flex direction="column" gap={8}>
-                {renderPossibleAnswers()}
-            </Flex>
+            {status !== "completed" && (
+                <Flex direction="column" gap={8}>
+                    {renderPossibleAnswers()}
+                </Flex>
+            )}
         </Flex>
     );
 });

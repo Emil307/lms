@@ -53,6 +53,7 @@ const Test = ({ lesson, courseId, groupId }: TestProps) => {
                     testPassData={testPassData}
                     lessonId={lessonId}
                     courseId={courseId}
+                    groupId={groupId}
                     onClose={handleCloseUpdateTestPassForm}
                     readOnly={lesson.lessonStatus.name !== "inProgress"}
                 />

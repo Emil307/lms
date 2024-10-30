@@ -5,6 +5,7 @@ import { Button, ContentByTextEditor, EmptyData, FileItem, Heading, Loader } fro
 import { GetLessonResponse, useHomework } from "@entities/lesson";
 import { UpdateLessonHomeworkAnswerForm } from "@features/lessons";
 import IconEmptyBox from "@public/icons/emptyBox.svg";
+import { useGroup } from "@entities/group";
 import useStyles from "./Homework.styles";
 import { PassedHomeworkInfo } from "./components";
 import { HomeworkChat } from "../HomeworkChat";
@@ -17,6 +18,7 @@ export interface HomeworkProps {
 
 const Homework = ({ lesson, courseId, groupId }: HomeworkProps) => {
     const lessonId = String(lesson.id);
+    const { data: groupData } = useGroup({ id: groupId });
 
     const [isReadyToRender, setReadyToRender] = useState(false);
     const [openedHomeworkAnswerForm, setOpenedHomeworkAnswerForm] = useState(false);
@@ -87,17 +89,19 @@ const Homework = ({ lesson, courseId, groupId }: HomeworkProps) => {
                     <PassedHomeworkInfo data={homeworkData} lessonId={lessonId} courseId={courseId} />
                 </Box>
 
-                <UpdateLessonHomeworkAnswerForm
-                    data={homeworkData}
-                    lessonId={lessonId}
-                    courseId={courseId}
-                    onClose={handleCloseUpdateLessonHomeworkAnswerForm}
-                    hidden={!openedHomeworkAnswerForm}
-                />
+                {groupData?.status.name !== "completed" && (
+                    <UpdateLessonHomeworkAnswerForm
+                        data={homeworkData}
+                        lessonId={lessonId}
+                        courseId={courseId}
+                        onClose={handleCloseUpdateLessonHomeworkAnswerForm}
+                        hidden={!openedHomeworkAnswerForm}
+                    />
+                )}
 
                 <Divider size={1} color="gray20" my={48} hidden={!homeworkData.answer || homeworkData.answer.status.name === "completed"} />
 
-                {homeworkData.answer && (
+                {groupData?.status.name !== "completed" && homeworkData.answer && (
                     <HomeworkChat
                         homeworkAnswerId={String(homeworkData.answer.id)}
                         courseId={courseId}

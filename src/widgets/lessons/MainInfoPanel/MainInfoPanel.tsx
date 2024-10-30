@@ -60,14 +60,16 @@ const MainInfoPanel = ({ data, myCourseData, ...props }: MainInfoPanelProps) => 
                     </Paragraph>
                     {renderTestAndHomeworkData()}
                 </Flex>
-                <FinishLessonButton
-                    courseId={String(myCourseData.courseId)}
-                    lessonId={String(data.id)}
-                    visible={isVisibleFinishLessonButton}
-                    nameLesson={data.name}
-                    w="100%"
-                    maw={170}
-                />
+                {myCourseData.status.name !== "completed" && (
+                    <FinishLessonButton
+                        courseId={String(myCourseData.courseId)}
+                        lessonId={String(data.id)}
+                        visible={isVisibleFinishLessonButton}
+                        nameLesson={data.name}
+                        w="100%"
+                        maw={170}
+                    />
+                )}
             </Flex>
 
             <NeighboringLessons prevLesson={data.prevLesson} nextLesson={data.nextLesson} />

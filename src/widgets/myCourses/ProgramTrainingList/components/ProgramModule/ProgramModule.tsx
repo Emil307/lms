@@ -20,7 +20,7 @@ const ProgramModule = ({ data, groupId, groupStartDate, numberModule }: ProgramM
             data.lessons.map((lesson) => (
                 <LessonCard key={lesson.id} groupStartDate={groupStartDate} data={lesson} moduleName={data.name} groupId={groupId} />
             )),
-        [data.lessons],
+        [data.lessons]
     );
 
     return (

@@ -10,12 +10,14 @@ import { adaptUpdateLessonTestPassRequest, getInitialValues, getKeysInvalidateQu
 import { $UpdateLessonTestPassFormValidation, UpdateLessonTestPassFormValidation } from "./types";
 import useStyles from "./UpdateLessonTestPassForm.styles";
 import { Task } from "./components";
+import { useGroup } from "@entities/group";
 
 export interface UpdateLessonTestPassFormProps extends Omit<BoxProps, "children"> {
     testData: GetTestResponse;
     testPassData?: GetTestPassResponse;
     lessonId: string;
     courseId: string;
+    groupId: string;
     onClose: () => void;
     readOnly?: boolean;
 }
@@ -25,10 +27,12 @@ const UpdateLessonTestPassForm = ({
     testData,
     lessonId,
     courseId,
+    groupId,
     readOnly,
     onClose,
     ...props
 }: UpdateLessonTestPassFormProps) => {
+    const { data: groupData } = useGroup({ id: groupId });
     const { classes } = useStyles();
     const progressBarLabel = getPluralString(testData?.tasks.length || 0, "вопрос", "вопроса", "вопросов");
 
@@ -79,9 +83,47 @@ const UpdateLessonTestPassForm = ({
 
                     const handleClickNextQuestion = () => setFieldValue("progressCounter", ++values.progressCounter);
 
+                    const renderButtons = () => {
+                        if (!isLastQuestion) {
+                            return (
+                                <Button
+                                    variant="secondary"
+                                    onClick={handleClickNextQuestion}
+                                    className={classes.buttonNextOrSubmit}
+                                    disabled={!isSelectedPossibleAnswerInCurrentTask && !readOnly}>
+                                    Дaлee
+                                </Button>
+                            );
+                        } else if (!readOnly) {
+                            <Button
+                                variant="secondary"
+                                type="submit"
+                                className={classes.buttonNextOrSubmit}
+                                disabled={!isSelectedPossibleAnswerInCurrentTask}>
+                                Завершить
+                            </Button>;
+                        }
+                    };
+                    const renderCompletedButtons = () => {
+                        if (!isLastQuestion) {
+                            return (
+                                <Button
+                                    variant="secondary"
+                                    onClick={handleClickNextQuestion}
+                                    className={classes.buttonNextOrSubmit}
+                                    disabled={false}>
+                                    Дaлee
+                                </Button>
+                            );
+                        } else {
+                            return <></>;
+                        }
+                    };
                     return (
                         <Flex className={classes.innerForm}>
-                            <FieldArray name="tasks">{() => <Task data={currentTask} readOnly={readOnly} />}</FieldArray>
+                            <FieldArray name="tasks">
+                                {() => <Task data={currentTask} readOnly={readOnly} status={groupData?.status.name} />}
+                            </FieldArray>
 
                             <Box className={classes.footerInnerForm}>
                                 <ActionIcon className={classes.actionIconBack} onClick={handleClickArrowLeft}>
@@ -93,25 +135,7 @@ const UpdateLessonTestPassForm = ({
                                     label={progressBarLabel}
                                     wrapperProps={{ className: classes.progressBarWrapper }}
                                 />
-
-                                {!isLastQuestion && (
-                                    <Button
-                                        variant="secondary"
-                                        onClick={handleClickNextQuestion}
-                                        className={classes.buttonNextOrSubmit}
-                                        disabled={!isSelectedPossibleAnswerInCurrentTask && !readOnly}>
-                                        Дaлee
-                                    </Button>
-                                )}
-                                {isLastQuestion && !readOnly && (
-                                    <Button
-                                        variant="secondary"
-                                        type="submit"
-                                        className={classes.buttonNextOrSubmit}
-                                        disabled={!isSelectedPossibleAnswerInCurrentTask}>
-                                        Завершить
-                                    </Button>
-                                )}
+                                {groupData?.status.name === "completed" ? renderCompletedButtons() : renderButtons()}
                             </Box>
                         </Flex>
                     );
