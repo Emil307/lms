@@ -1,6 +1,6 @@
 FROM nginx:alpine AS result
 
-WORKDIR /var/www/amd-lms
+WORKDIR /var/www/adm-lms
 
 RUN mkdir -p /tmp/cache/nginx_minio_cache
 
