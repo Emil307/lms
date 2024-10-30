@@ -10,6 +10,16 @@ services:
           placement:
             constraints:
              - node.hostname == test
+    front_balancer:
+        image: registry.addamant-work.ru/lms-addamant/addamant-lms/develop/balancer
+        networks:
+            - swarm
+            - lms-microservices_dev
+        deploy:
+          replicas: 1
+          placement:
+            constraints:
+             - node.hostname == test
 networks:
     swarm:
         external: true

@@ -1,6 +1,6 @@
 FROM nginx:alpine AS result
 
-WORKDIR /var/www/geometrium
+WORKDIR /var/www/amd-lms
 
 COPY  ./.next/static ./.next/static
 COPY  ./public ./.next/public
