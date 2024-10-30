@@ -33,6 +33,8 @@ build app:
 
 build balancer:
  before_script:
+  - echo $ROOT_USER_TOKEN | docker login -u $ROOT_USER --password-stdin $CI_REGISTRY
+  - echo $CI_DEPENDENCY_PROXY_PASSWORD | docker login -u $CI_DEPENDENCY_PROXY_USER --password-stdin $CI_DEPENDENCY_PROXY_SERVER
   - |
     if [ -f "./docker/$CI_COMMIT_BRANCH/nginx.conf" ]; then
       cp ./docker/$CI_COMMIT_BRANCH/nginx.conf ./docker/nginx.conf
