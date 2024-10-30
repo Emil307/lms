@@ -2,6 +2,8 @@ FROM nginx:alpine AS result
 
 WORKDIR /var/www/amd-lms
 
+RUN mkdir -p /tmp/cache/nginx_minio_cache
+
 COPY  ./.next/static ./.next/static
 COPY  ./public ./.next/public
 
