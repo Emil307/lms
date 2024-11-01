@@ -1,6 +1,7 @@
 import { AxiosError, AxiosRequestHeaders } from "axios";
 import Router from "next/router";
 import { authApiUrl, logoutPath, notFoundPath, serverErrorPath } from "@app/routes";
+import { createNotification, ToastId, ToastType } from "@shared/utils";
 import { TAxiosResponseInterceptorError, TAxiosRunWhen } from "./types";
 
 export const defaultHeaders: Partial<AxiosRequestHeaders> = {
@@ -41,16 +42,12 @@ export const handleAxiosError: TAxiosResponseInterceptorError = async (axiosErro
     const error = axiosError;
     const errorCode = error.code;
     const isNetworkError = errorCode === "ERR_NETWORK";
-    if (isNetworkError) {
-        error.message = "Ошибка соединения";
-        return Promise.reject(error);
-    }
     const statusCode = error.response?.status;
 
     const isAccessError = statusCode === 403 || statusCode === 404;
     const isServerError = statusCode === 500;
     const isAuthError = statusCode === 401;
-    const isExceedingError = statusCode === 429;
+    const isExceedingError = statusCode === 429 || error.request.status == 429;
 
     if (isServerError) {
         Router.push(serverErrorPath);
@@ -73,6 +70,17 @@ export const handleAxiosError: TAxiosResponseInterceptorError = async (axiosErro
         return Promise.reject(error);
     }
     if (isExceedingError) {
+        createNotification({
+            id: ToastId.TO_MANY_REQS,
+            type: ToastType.WARN,
+            title: "Слишком много запросов",
+        });
+
+        return Promise.reject(error);
+    }
+
+    if (isNetworkError) {
+        error.message = "Ошибка соединения";
         return Promise.reject(error);
     }
 

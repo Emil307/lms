@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { NotificationProps as MNotificationProps, showNotification } from "@mantine/notifications";
+import { NotificationProps as MNotificationProps, showNotification, updateNotification } from "@mantine/notifications";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { AlertCircle, AlertTriangle, CheckCircle, Info, Image as ImageIcon } from "react-feather";
@@ -44,10 +44,19 @@ export const createNotification = ({ type, srcImage, message = "", isMinimized =
         }
     };
 
-    return showNotification({
-        ...props,
-        message,
-        styles: (theme) => getStyles({ type, isMinimized })(theme),
-        icon: getIcon(),
-    });
+    return (
+        showNotification({
+            ...props,
+            message,
+            styles: (theme) => getStyles({ type, isMinimized })(theme),
+            icon: getIcon(),
+        }),
+        updateNotification({
+            id: String(props.id),
+            ...props,
+            message,
+            styles: (theme) => getStyles({ type, isMinimized })(theme),
+            icon: getIcon(),
+        })
+    );
 };
