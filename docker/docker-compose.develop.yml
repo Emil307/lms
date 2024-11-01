@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
     front:
         image: registry.addamant-work.ru/lms-addamant/addamant-lms/develop
@@ -6,20 +6,20 @@ services:
             - swarm
             - lms-microservices_dev
         deploy:
-          replicas: 1
-          placement:
-            constraints:
-             - node.hostname == develop
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==develop
     front_balancer:
         image: registry.addamant-work.ru/lms-addamant/addamant-lms/develop/balancer
         networks:
             - swarm
             - lms-microservices_dev
         deploy:
-          replicas: 1
-          placement:
-            constraints:
-             - node.hostname == develop
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==develop
 networks:
     swarm:
         external: true
