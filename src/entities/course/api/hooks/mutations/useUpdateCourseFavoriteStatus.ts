@@ -109,6 +109,14 @@ export const useUpdateCourseFavoriteStatus = ({
             return { previousCourseData, previousCoursesData };
         },
         onSuccess: (data) => {
+            if (!data.isFavorite) {
+                createNotification({
+                    type: ToastType.IMAGE,
+                    srcImage: absolutePath,
+                    title: name,
+                    message: "Курс удален из избранных",
+                });
+            }
             if (data.isFavorite) {
                 createNotification({
                     type: ToastType.IMAGE,

@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         height: 72,
         padding: 8,
         paddingRight: 26,
-        backgroundColor: theme.colors.white56[0],
+        backgroundColor: theme.colors.white56,
         borderRadius: 16,
         backdropFilter: "blur(20px)",
     },
