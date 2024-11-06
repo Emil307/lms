@@ -103,11 +103,11 @@ const List = ({
     };
 
     return (
-        <Flex direction="column" {...wrapperProps}>
+        <Flex direction="column" gap={isLoading ? "1.5rem" : ""} {...wrapperProps}>
             <Skeleton visible={isLoading} radius={16}>
                 {renderHeader()}
             </Skeleton>
-            <Skeleton visible={isLoading} {...skeletonListProps}>
+            <Skeleton visible={isLoading} {...skeletonListProps} radius={32}>
                 {renderContent()}
             </Skeleton>
             <Skeleton visible={isLoading} radius={16} sx={{ display: "flex" }}>

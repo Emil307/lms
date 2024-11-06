@@ -44,7 +44,7 @@ function List<T extends { id?: unknown; groupId?: unknown }>({
 
     return (
         <>
-            {isLoading && <Loader size="lg" />}
+            {isLoading && <Loader height={520} />}
             <Box ref={targetRef} w={1} h={1}></Box>
             <Grid {...props} gutter={24} m={0}>
                 {data?.map((row) => (
