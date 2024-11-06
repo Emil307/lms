@@ -19,7 +19,7 @@ const FaqPage = () => {
         <Box>
             <Flex direction="column" gap={24} mb={32}>
                 <Heading>Вопрос-ответ</Heading>
-                <LastUpdatedInfo data={faqData.meta.lastUpdated} scrollable />
+                <LastUpdatedInfo data={faqData.meta?.lastUpdated} scrollable />
             </Flex>
 
             <FaqList maw={1162} />

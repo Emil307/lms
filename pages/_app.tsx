@@ -9,6 +9,7 @@ import { Adapter } from "@app/config/query";
 import SessionProvider from "@app/providers/SessionProvider";
 import "@app/styles/index.scss";
 import AuthDrawer from "../src/widgets/Drawer/ui/AuthDrawer";
+import { ErrorBoundary } from "@widgets/ErrorBoundary";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const router = useRouter();
@@ -19,20 +20,22 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }, [router]);
 
     return (
-        <ThemeProvider>
-            <QueryProvider pageProps={pageProps}>
-                <QueryParamProvider adapter={Adapter}>
-                    <SessionProvider>
-                        <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
-                            <ModalsProvider>
-                                {getLayout(<Component {...pageProps} />)}
-                                <AuthDrawer />
-                            </ModalsProvider>
-                        </NotificationsProvider>
-                    </SessionProvider>
-                </QueryParamProvider>
-            </QueryProvider>
-        </ThemeProvider>
+        <ErrorBoundary>
+            <ThemeProvider>
+                <QueryProvider pageProps={pageProps}>
+                    <QueryParamProvider adapter={Adapter}>
+                        <SessionProvider>
+                            <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
+                                <ModalsProvider>
+                                    {getLayout(<Component {...pageProps} />)}
+                                    <AuthDrawer />
+                                </ModalsProvider>
+                            </NotificationsProvider>
+                        </SessionProvider>
+                    </QueryParamProvider>
+                </QueryProvider>
+            </ThemeProvider>
+        </ErrorBoundary>
     );
 }
 
