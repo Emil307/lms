@@ -18,6 +18,7 @@ const FavoriteButton = ({ data, variant = "default", ...props }: FavoriteButtonP
     const updateFavorite = useUpdateCourseFavoriteStatus({ id: String(data.id), name: data.name, absolutePath: data.cover?.absolutePath });
 
     const handleChangeFavorite = () => {
+        event?.preventDefault();
         updateFavorite.mutate({ isFavorite: !data.isFavorite });
     };
 
@@ -32,6 +33,7 @@ const FavoriteButton = ({ data, variant = "default", ...props }: FavoriteButtonP
             </ActionIcon>
         );
     }
+
     return (
         <Button
             {...props}

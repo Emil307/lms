@@ -30,7 +30,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant = "favorite", onCl
         switch (buttonVariant) {
             case "favorite":
                 return (
-                    <Flex justify="flex-end" onClick={(event) => event.preventDefault()}>
+                    <Flex justify="flex-end" onClick={(event) => event.stopPropagation()}>
                         <FavoriteButton data={data} variant="default" />
                     </Flex>
                 );
