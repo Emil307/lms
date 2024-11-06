@@ -1,4 +1,4 @@
-import { Card as MCard, CardProps as MCardProps, Flex, Text, Avatar } from "@mantine/core";
+import { Avatar, Card as MCard, CardProps as MCardProps, Flex, Text } from "@mantine/core";
 import { memo } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
