@@ -8,8 +8,8 @@ import { AppPropsWithLayout } from "@shared/utils";
 import { Adapter } from "@app/config/query";
 import SessionProvider from "@app/providers/SessionProvider";
 import "@app/styles/index.scss";
-import AuthDrawer from "../src/widgets/Drawer/ui/AuthDrawer";
 import { ErrorBoundary } from "@widgets/ErrorBoundary";
+import AuthDrawer from "../src/widgets/Drawer/ui/AuthDrawer";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const router = useRouter();
