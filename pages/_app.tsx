@@ -20,22 +20,22 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }, [router]);
 
     return (
-        <ErrorBoundary>
-            <ThemeProvider>
-                <QueryProvider pageProps={pageProps}>
-                    <QueryParamProvider adapter={Adapter}>
-                        <SessionProvider>
-                            <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
-                                <ModalsProvider>
+        <ThemeProvider>
+            <QueryProvider pageProps={pageProps}>
+                <QueryParamProvider adapter={Adapter}>
+                    <SessionProvider>
+                        <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
+                            <ModalsProvider>
+                                <ErrorBoundary>
                                     {getLayout(<Component {...pageProps} />)}
                                     <AuthDrawer />
-                                </ModalsProvider>
-                            </NotificationsProvider>
-                        </SessionProvider>
-                    </QueryParamProvider>
-                </QueryProvider>
-            </ThemeProvider>
-        </ErrorBoundary>
+                                </ErrorBoundary>
+                            </ModalsProvider>
+                        </NotificationsProvider>
+                    </SessionProvider>
+                </QueryParamProvider>
+            </QueryProvider>
+        </ThemeProvider>
     );
 }
 
