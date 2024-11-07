@@ -42,7 +42,6 @@ export const useUpdateFaqActivity = ({
             return { previousFaqData };
         },
         onError: (err, _, context) => {
-            console.log("error");
             if (err.response?.status === 429) {
                 const error = new Error("Too Many Requests") as any;
                 error.code = 429;
