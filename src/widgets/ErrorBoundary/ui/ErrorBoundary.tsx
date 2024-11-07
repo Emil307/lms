@@ -23,10 +23,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         console.error("Error occurred:", error, errorInfo);
     }
 
+    handleRetry = () => {
+        this.setState({ hasError: false, errorCode: null });
+    };
+
     render() {
         if (this.state.hasError) {
             if (this.state.errorCode === 429) {
-                return <h1>Слишком много запросов. Пожалуйста, попробуйте позже.</h1>;
+                return <></>;
             }
 
             return <h1>Что-то пошло не так.</h1>;
