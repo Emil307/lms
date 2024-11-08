@@ -7,7 +7,7 @@ export default createStyles((theme) => ({
             width: "100%",
             height: 56,
             borderRadius: 8,
-            border: `1px solid ${theme.colors.neutral_gray}`,
+            border: `1px solid ${theme.colors.neutralGray300[0]}`,
         },
     },
 }));

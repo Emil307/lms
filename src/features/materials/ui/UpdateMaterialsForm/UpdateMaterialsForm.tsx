@@ -113,7 +113,7 @@ const UpdateMaterialsForm = ({ data, type, multiple = false, onClose, onSubmit }
                                             <Flex key={index} gap={16} align="flex-end">
                                                 <Box className={classes.icon}>{renderIcon(file)}</Box>
                                                 <FInput name={`materials.${index}.name`} label="Название" size="sm" sx={{ flex: 1 }} />
-                                                <Paragraph variant="text-small-semi" pb={8}>
+                                                <Paragraph variant="text-small-b" pb={8}>
                                                     .{file.extension}
                                                 </Paragraph>
                                             </Flex>

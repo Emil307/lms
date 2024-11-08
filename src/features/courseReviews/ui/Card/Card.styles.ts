@@ -40,12 +40,6 @@ export default createStyles((theme) => ({
             marginLeft: 0,
         },
     },
-    ratingValue: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: "16px",
-        color: theme.colors.dark[0],
-    },
     description: {
         overflowY: "auto",
         height: 280,
@@ -55,26 +49,8 @@ export default createStyles((theme) => ({
     },
     courseName: {
         fontWeight: 500,
-        fontSize: 14,
+        fontSize: 16,
         lineHeight: "24px",
         color: theme.colors.dark[0],
-    },
-    iconLinkCourse: {
-        height: 18,
-        width: 18,
-        minHeight: 18,
-        minWidth: 18,
-        borderRadius: 56,
-        backgroundColor: theme.colors.secondary16[0],
-        color: theme.colors.dark[0],
-        ":hover": {
-            backgroundColor: theme.colors.secondary8[0],
-        },
-
-        svg: {
-            width: 9,
-            color: theme.colors.secondaryHover[0],
-            strokeWidth: 5,
-        },
     },
 }));

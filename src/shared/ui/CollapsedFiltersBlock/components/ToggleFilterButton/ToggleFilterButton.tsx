@@ -22,7 +22,7 @@ const ToggleFilterButton = ({
             <Flex align="center" gap={8}>
                 {!!countAppliedFilters && (
                     <Badge variant="filled" color="secondary" px={12} py={4}>
-                        <Paragraph variant="text-small-semi" color="neutralWhite">
+                        <Paragraph variant="text-small-b" color="neutralWhite">
                             {countAppliedFilters}
                         </Paragraph>
                     </Badge>

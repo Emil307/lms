@@ -108,7 +108,7 @@ const MemoizedFileItem = memo(function FileItem({
                 <Flex className={classes.content}>
                     <Flex gap={2} align="center" w="100%">
                         <Box className={classes.fileNameWrapper}>
-                            <Paragraph variant="text-small-semi" className={classes.fileName}>
+                            <Paragraph variant="text-small-b" className={classes.fileName}>
                                 {fileName}
                             </Paragraph>
                         </Box>

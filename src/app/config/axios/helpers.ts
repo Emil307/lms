@@ -75,8 +75,6 @@ export const handleAxiosError: TAxiosResponseInterceptorError = async (axiosErro
             type: ToastType.WARN,
             title: "Слишком много запросов",
         });
-
-        return Promise.reject(error);
     }
 
     if (isNetworkError) {

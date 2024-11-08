@@ -9,6 +9,7 @@ import { AppPropsWithLayout } from "@shared/utils";
 import { Adapter } from "@app/config/query";
 import SessionProvider from "@app/providers/SessionProvider";
 import "@app/styles/index.scss";
+import { Fallback } from "@widgets/ErrorBoundary";
 import AuthDrawer from "../src/widgets/Drawer/ui/AuthDrawer";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
@@ -19,36 +20,23 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         closeAllModals();
     }, [router]);
 
-    function handleBoom() {
-        throw new Error("Boom");
-    }
-
     return (
-        <ErrorBoundary fallback={<div>Something went wrong</div>}>
-            <ThemeProvider>
+        <ThemeProvider>
+            <ErrorBoundary FallbackComponent={Fallback}>
                 <QueryProvider pageProps={pageProps}>
                     <QueryParamProvider adapter={Adapter}>
                         <SessionProvider>
                             <NotificationsProvider position="bottom-right" limit={2} zIndex={1000}>
                                 <ModalsProvider>
-                                    {getLayout(
-                                        <>
-                                            <Component {...pageProps} />
-                                            <button
-                                                onClick={handleBoom}
-                                                style={{ position: "absolute", top: 0, left: 0, border: "1px solid red" }}>
-                                                click b omb
-                                            </button>
-                                        </>
-                                    )}
+                                    {getLayout(<Component {...pageProps} />)}
                                     <AuthDrawer />
                                 </ModalsProvider>
                             </NotificationsProvider>
                         </SessionProvider>
                     </QueryParamProvider>
                 </QueryProvider>
-            </ThemeProvider>
-        </ErrorBoundary>
+            </ErrorBoundary>
+        </ThemeProvider>
     );
 }
 

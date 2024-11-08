@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { BoxProps, Flex } from "@mantine/core";
+import { BoxProps, Flex, Stack } from "@mantine/core";
 import rightSideImage from "public/buy-course-block-rightSide.png";
 import { Button, Heading, Paragraph } from "@shared/ui";
 import { AvailableGroupInfo } from "@widgets/course/MainInfoPanel/components";
@@ -35,27 +35,31 @@ const BuyCourseBlock = ({ data, ...props }: BuyCourseProps) => {
         <Flex {...props} className={classes.blockWrapper}>
             <Flex className={classes.blockContainer}>
                 <Flex direction="column" className={classes.priceContainer}>
-                    <Heading order={1} className={classes.title} pb={24}>
-                        Стоимость
-                    </Heading>
-                    <Paragraph variant="large" color="neutralMain50" pb={32}>
-                        Оплатить курс можно с помощью QR или счета на оплату
-                    </Paragraph>
-                    <PriceBlock data={data} />
-                    <AvailableGroupInfo data={data} grayColor py={24} />
-                    <Flex className={classes.buyButtonContainer}>
-                        <Button
-                            variant="primary"
-                            disabled={!data.availableGroup?.freePlacesCount}
-                            className={classes.button}
-                            loading={isLoading}
-                            onClick={handleBuyEntity}>
-                            {data.discountPrice > 0 ? "Купить курс" : "Получить курс"}
-                        </Button>
-                        <Paragraph variant="text-small-m" color="neutralMain50" className={classes.description}>
-                            Начните обучение <br /> прямо сейчас!
+                    <Stack spacing={24}>
+                        <Heading order={1}>Стоимость</Heading>
+                        <Paragraph variant="large" color="neutralMain50" pb={32}>
+                            Оплатить курс можно с помощью QR или счета на оплату
                         </Paragraph>
-                    </Flex>
+                    </Stack>
+                    <Stack spacing={24}>
+                        <PriceBlock data={data} />
+                        <AvailableGroupInfo data={data} grayColor />
+                        <Flex className={classes.buyButtonContainer}>
+                            <Button
+                                size="large"
+                                variant="primary"
+                                disabled={!data.availableGroup?.freePlacesCount}
+                                loading={isLoading}
+                                onClick={handleBuyEntity}>
+                                {data.discountPrice ? "Купить курс" : "Получить курс"}
+                            </Button>
+                            {data.availableGroup?.freePlacesCount && (
+                                <Paragraph variant="small-m" color="neutralMain50">
+                                    Начните обучение <br /> прямо сейчас!
+                                </Paragraph>
+                            )}
+                        </Flex>
+                    </Stack>
                 </Flex>
                 <Flex>
                     <Image src={rightSideImage} alt="buyCourseImage" className={classes.image} />

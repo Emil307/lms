@@ -42,12 +42,6 @@ export const useUpdateFaqActivity = ({
             return { previousFaqData };
         },
         onError: (err, _, context) => {
-            if (err.response?.status === 429) {
-                const error = new Error("Too Many Requests") as any;
-                error.code = 429;
-                throw error;
-            }
-
             if (typeof context === "object" && "previousFaqData" in context) {
                 queryClient.setQueriesData([QueryKeys.GET_ADMIN_FAQ, [EntityNames.STATIC_FAQ, EntityNames.USER]], context.previousFaqData);
             }

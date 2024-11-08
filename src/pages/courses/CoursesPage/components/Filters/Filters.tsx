@@ -57,7 +57,7 @@ const Filters = ({ children, title, initialValues, onSubmit, ...props }: Filters
                                         <FilterList field="tags" filterName="Теги" data={courseResources.tags} />
                                         <Stack spacing={16}>
                                             <Stack spacing={8}>
-                                                <Paragraph variant="large" c="neutral_main50">
+                                                <Paragraph variant="large" c="neutralMain50">
                                                     Цена
                                                 </Paragraph>
                                                 <FPriceRangeInput

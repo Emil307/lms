@@ -1,8 +1,7 @@
-import { Box, BoxProps, Accordion } from "@mantine/core";
+import { Box, BoxProps, Accordion, Stack } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { Heading } from "@shared/ui";
 import { CourseDetails } from "@entities/course";
-import useStyles from "./ProgramTrainingList.styles";
 import { ProgramModule } from "./components";
 
 export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {
@@ -10,7 +9,6 @@ export interface ProgramTrainingListProps extends Omit<BoxProps, "children"> {
 }
 
 const ProgramTrainingList = ({ data, ...props }: ProgramTrainingListProps) => {
-    const { classes } = useStyles();
     const [selected, setSelected] = useState<string[]>([]);
 
     const renderModules = useMemo(
@@ -27,13 +25,15 @@ const ProgramTrainingList = ({ data, ...props }: ProgramTrainingListProps) => {
     }
 
     return (
-        <Box {...props} className={classes.root}>
-            <Heading order={1} mb={32} className={classes.title}>
-                Программа обучения
-            </Heading>
-            <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
-                {renderModules}
-            </Accordion>
+        <Box {...props} w="100%">
+            <Stack spacing={32}>
+                <Heading order={1} color="dark">
+                    Программа обучения
+                </Heading>
+                <Accordion {...props} multiple variant="separated" value={selected} onChange={setSelected}>
+                    {renderModules}
+                </Accordion>
+            </Stack>
         </Box>
     );
 };

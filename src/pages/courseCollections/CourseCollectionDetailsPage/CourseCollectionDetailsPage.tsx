@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core";
+import { Flex, Stack } from "@mantine/core";
 import React from "react";
 import { useRouter } from "next/router";
 import { BreadCrumbs, Heading } from "@shared/ui";
@@ -20,7 +20,7 @@ const CourseCollectionDetailsPage = () => {
     const isTablet = useMedia("sm");
 
     return (
-        <>
+        <Stack spacing={160}>
             <Flex direction="column" className={classes.container}>
                 <BreadCrumbs items={getBreadCrumbsItems({ name: data?.name, isTablet })} mb={16} className={classes.breadCrumbs} />
                 <Flex direction="column" className={classes.courseWrapper}>
@@ -32,10 +32,10 @@ const CourseCollectionDetailsPage = () => {
                     </Flex>
                 </Flex>
             </Flex>
-            <Flex direction="column" gap={32} mt={64}>
-                <CourseCollectionList perPage={10} hasCardMore exceptionCourseCollectionId={id} colProps={{ sm: 6, xs: 12 }} />
+            <Flex direction="column" gap={32}>
+                <CourseCollectionList hasCardMore exceptionCourseCollectionId={id} colProps={{ sm: 6, xs: 12 }} />
             </Flex>
-        </>
+        </Stack>
     );
 };
 

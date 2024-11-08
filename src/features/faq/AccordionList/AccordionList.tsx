@@ -50,7 +50,7 @@ const AccordionList = ({
                     </Accordion.Panel>
                 </Accordion.Item>
             )),
-        [faqData, selected],
+        [faqData, selected]
     );
 
     if (isError) {
@@ -65,10 +65,10 @@ const AccordionList = ({
         <Flex {...wrapperProps} className={classes.faqContainer}>
             <Skeleton {...skeletonTitleProps} visible={isLoading} className={classes.skeletonTitleContainer}>
                 <Flex direction="column" gap={24} className={classes.titleContainer}>
-                    <Heading order={1} {...titleProps} className={classes.title}>
+                    <Heading order={1} color="dark" {...titleProps}>
                         Вопросы и ответы
                     </Heading>
-                    <Paragraph variant="large" className={classes.description}>
+                    <Paragraph variant="large" color="neutralMain50">
                         Если у вас есть вопросы, вы всегда <br /> можете задать его нашим специалистам. <br /> Мы ответим максимально быстро
                     </Paragraph>
                 </Flex>

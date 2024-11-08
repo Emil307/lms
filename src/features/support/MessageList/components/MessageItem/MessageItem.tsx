@@ -24,7 +24,7 @@ const MemoizedMessageItem = memo(function MessageItem({ data, ...props }: Messag
                 </Avatar>
                 <Flex className={classes.userInfo}>
                     <Flex direction="column">
-                        <Paragraph variant="text-small-semi" lineClamp={1}>
+                        <Paragraph variant="text-small-b" lineClamp={1}>
                             {getFullName({ data: data.user.profile })}
                         </Paragraph>
                         <Paragraph variant="text-caption" color="neutralMain50" lineClamp={1}>

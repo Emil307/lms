@@ -7,7 +7,6 @@ export default createStyles((theme) => ({
         paddingLeft: 0,
         [theme.fn.smallerThan("sm")]: {
             gap: 0,
-            marginTop: 48,
             paddingRight: 16,
             paddingLeft: 16,
         },
@@ -56,7 +55,6 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan("sm")]: {
             transform: "scale(1.035)",
             margin: "auto",
-            marginBottom: 0,
         },
     },
     controls: {

@@ -38,6 +38,7 @@ const nextConfig = {
             },
         ],
     },
+    assetPrefix: process.env.NEXT_PUBLIC_FRONTEND_URL ? process.env.NEXT_PUBLIC_FRONTEND_URL : undefined,
 };
 
 module.exports = withBundleAnalyzer(withRoutes(withSVGR(nextConfig)));

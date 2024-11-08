@@ -73,7 +73,7 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         lineHeight: "24px",
         backgroundColor: theme.colors.dark[0],
-        color: theme.colors.white,
+        color: theme.colors.neutralWhite[0],
     },
     resetButton: {
         borderRadius: 56,

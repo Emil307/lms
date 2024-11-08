@@ -16,9 +16,8 @@ const ListMenu = ({ data, openUpdateForm }: ListMenuProps) => {
 
     const labelActivitySwitch = data.isActive ? "Деактивировать" : "Активировать";
 
-    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeActiveStatus = (newValue: ChangeEvent<HTMLInputElement>) =>
         updateActivityStatus({ isActive: newValue.target.checked });
-    };
 
     const handleOpenUpdateForm = () => openUpdateForm(data.id);
 

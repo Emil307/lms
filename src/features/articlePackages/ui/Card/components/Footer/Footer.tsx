@@ -39,7 +39,7 @@ const Footer = ({ data }: FooterProps) => {
             <Flex direction="column" gap={6}>
                 <Flex gap={8}>
                     <IconStarFour />
-                    <Paragraph variant="text-small-semi">{`${data.articlesCount} ${getPluralString(
+                    <Paragraph variant="text-small-b">{`${data.articlesCount} ${getPluralString(
                         data.articlesCount,
                         "статья",
                         "статьи",

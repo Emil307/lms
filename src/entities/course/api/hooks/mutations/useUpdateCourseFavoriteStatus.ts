@@ -145,6 +145,7 @@ export const useUpdateCourseFavoriteStatus = ({
                 id,
             ]);
             queryClient.invalidateQueries([QueryKeys.GET_COURSES]);
+            queryClient.invalidateQueries([QueryKeys.GET_COURSES_INFINITE]);
         },
         onError: (err, _, context) => {
             if (context?.previousCourseData) {

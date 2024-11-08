@@ -42,7 +42,7 @@ const getStyles =
             ...(isMinimized && {
                 fontSize: 14,
                 lineHeight: "18px",
-                color: theme.colors.gray45,
+                color: theme.colors.neutralMain50[0],
             }),
         },
         description: {
@@ -89,10 +89,10 @@ const getStyles =
             margin: 16,
             marginRight: 32,
             circle: {
-                stroke: theme.colors.grayLight,
+                stroke: theme.colors.neutralGray200[0],
 
                 "& + path": {
-                    stroke: theme.colors.done,
+                    stroke: theme.colors.done[0],
                 },
             },
         },

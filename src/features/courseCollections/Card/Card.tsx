@@ -25,7 +25,7 @@ const MemoizedCard = memo(function Card({ data, isActive, onClick, courseCollect
                     <Flex direction="column" gap={{ base: 16, sm: 32 }} miw={264} w="100%">
                         <Flex className={classes.imageContent}>
                             <Flex className={classes.courseInfo}>
-                                <Paper h={28} pt={6.6} pr={11} pb={6.6} pl={11} bg="neutralLight" radius={8}>
+                                <Paper h={28} pt={6.6} pr={11} pb={6.6} pl={11} bg="neutralGray100" radius={8}>
                                     <Paragraph variant="text-caption" color="dark">
                                         {`${data.coursesCount} ${getPluralString(data.coursesCount, "курс", "курса", "курсов")}`}
                                     </Paragraph>

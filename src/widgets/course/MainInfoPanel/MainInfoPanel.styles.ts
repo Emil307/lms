@@ -27,25 +27,12 @@ export default createStyles((theme) => ({
         flexDirection: "column",
         gap: 16,
     },
-    title: {
-        fontSize: 42,
-        lineHeight: "46px",
-    },
-    description: {
-        fontWeight: 600,
-        fontSize: 20,
-        lineHeight: "24px",
-        wordBreak: "break-word",
-        overflow: "break-word",
-        [theme.fn.smallerThan("md")]: {
-            fontSize: 18,
-            lineHeight: "24px",
-        },
-    },
+
     category: {
         border: `1px solid ${theme.colors.dark[0]}`,
         backgroundColor: theme.colors.neutralGray100[0],
         color: theme.colors.dark[0],
+        borderRadius: 8,
     },
 
     availableGroupInfoContainer: {
@@ -69,7 +56,6 @@ export default createStyles((theme) => ({
     },
     getCourseWrapper: {
         gap: 16,
-        paddingTop: 32,
         alignItems: "center",
         [theme.fn.smallerThan("md")]: {
             alignItems: "flex-start",

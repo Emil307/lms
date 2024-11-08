@@ -20,10 +20,10 @@ export const paymentTypeItems: PaymentType[] = [
         title: "Оплата зарубежной картой",
         description: (
             <Box>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Visa/Mastercard, USD.
                 </Paragraph>
-                <Paragraph variant="text-small-m" color="gray45">
+                <Paragraph variant="text-small-m" color="neutralMain50">
                     Оплата счета в USD, дебетовые и кредитные карты.
                 </Paragraph>
             </Box>

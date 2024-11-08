@@ -51,8 +51,8 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
                     <Paragraph variant="text-caption">{moduleName}</Paragraph>
                 </Flex>
                 <Flex gap={8}>
-                    {data.hasTest && <Paragraph variant="text-small-semi">Тест</Paragraph>}
-                    {data.hasHomework && <Paragraph variant="text-small-semi">Домашнее задание</Paragraph>}
+                    {data.hasTest && <Paragraph variant="text-small-b">Тест</Paragraph>}
+                    {data.hasHomework && <Paragraph variant="text-small-b">Домашнее задание</Paragraph>}
                 </Flex>
             </Flex>
             <Paragraph variant="text-small-m" color="neutralMain50">
@@ -64,7 +64,7 @@ const MemoizedLessonCard = memo(function LessonCard({ data, moduleName, groupId,
                 </Button>
             )}
             {data.lessonStatus.name === "notStarted" && (
-                <Paragraph variant="text-small-semi">Обучение начнется {dayjs(groupStartDate).format("DD.MM.YYYY")}</Paragraph>
+                <Paragraph variant="text-small-b">Обучение начнется {dayjs(groupStartDate).format("DD.MM.YYYY")}</Paragraph>
             )}
         </Flex>
     );

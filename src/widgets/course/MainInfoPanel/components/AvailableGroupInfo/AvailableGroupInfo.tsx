@@ -1,9 +1,9 @@
 import { BoxProps, Flex } from "@mantine/core";
 import dayjs from "dayjs";
 import { CourseDetails } from "@entities/course";
-import { Paragraph } from "@shared/ui";
 import { getPlaceWord } from "@widgets/course/MainInfoPanel/components/utils";
 import useStyles from "./AvailableGroupInfo.styles";
+import { AvailableGroupInfoBadge } from "./components";
 
 interface AvailableGroupInfoProps extends Omit<BoxProps, "children"> {
     data: CourseDetails;
@@ -11,19 +11,18 @@ interface AvailableGroupInfoProps extends Omit<BoxProps, "children"> {
 }
 
 const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoProps) => {
-    const { classes } = useStyles({ grayColor });
+    const { classes } = useStyles();
 
     const renderFinishDate = () => {
         if (data.type === "autonomous" && data.availableGroup?.educationStartDate) {
             return (
-                <Flex className={classes.groupInfoButton}>
-                    <Paragraph variant="text-small-m" color="neutralMain50">{`Стартует ${dayjs(
-                        data.availableGroup?.educationStartDate,
-                    ).format("D MMMM")}`}</Paragraph>
-                </Flex>
+                <AvailableGroupInfoBadge
+                    grayColor={grayColor}
+                    title={`Стартует ${dayjs(data.availableGroup.educationStartDate).format("D MMMM")}`}
+                />
             );
         }
-        return <Paragraph variant="text-small-m">Свободное прохождение</Paragraph>;
+        return <AvailableGroupInfoBadge grayColor={grayColor} title="Свободное прохождение" />;
     };
 
     const renderFreePlaces = () => {
@@ -33,36 +32,13 @@ const AvailableGroupInfo = ({ data, grayColor, ...props }: AvailableGroupInfoPro
         const freePlacesCount = data.availableGroup.freePlacesCount;
         const placeWord = getPlaceWord(freePlacesCount);
 
-        return (
-            <Flex align="center" gap={6} className={classes.groupInfoButton}>
-                <Paragraph variant="text-small-m" color="neutralMain50">
-                    Осталось {freePlacesCount} {placeWord}
-                </Paragraph>
-            </Flex>
-        );
-    };
-
-    const renderDuration = () => {
-        if (!data.duration) {
-            return null;
-        }
-        return (
-            <Flex align="center" gap={6} className={classes.groupInfoButton}>
-                <Paragraph variant="text-small-m" color="neutralMain50">
-                    {data.duration}
-                </Paragraph>
-            </Flex>
-        );
+        return <AvailableGroupInfoBadge title={`Осталось ${freePlacesCount} ${placeWord}`} />;
     };
 
     return (
         <Flex {...props} className={classes.availableGroupInfoContainer}>
-            <Flex align="center" gap={6}>
-                {renderFinishDate()}
-            </Flex>
-            <Flex align="center" gap={6}>
-                {renderDuration()}
-            </Flex>
+            {renderFinishDate()}
+            <AvailableGroupInfoBadge grayColor={grayColor} title={data.duration} />
             {renderFreePlaces()}
         </Flex>
     );

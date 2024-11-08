@@ -21,7 +21,7 @@ const Prompt = ({ isOpened, content, onClose, ...props }: PromptProps) => {
             <ThemeIcon className={classes.icon}>
                 <Info width={32} height={32} />
             </ThemeIcon>
-            <Paragraph variant="text-small-semi" color="neutralMain50" sx={{ flex: 1 }}>
+            <Paragraph variant="text-small-b" color="neutralMain50" sx={{ flex: 1 }}>
                 {content}
             </Paragraph>
             <ActionIcon className={classes.closeIcon} onClick={onClose}>

@@ -48,12 +48,5 @@ declare module "@mantine/core" {
         | "warning"
         | "warning20"
         | "gray20"
-        | "neutralLight"
-        | "neutral_main50"
-        | "gray45"
-        | "white"
-        | "neutral_gray"
-        | "grayLight"
-        | "white56"
         | DefaultMantineColorWithoutEmpty;
 }

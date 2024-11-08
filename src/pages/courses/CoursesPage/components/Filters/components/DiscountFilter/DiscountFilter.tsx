@@ -20,7 +20,7 @@ const DiscountFilter = ({ name, onSubmit, ...props }: DiscountFilter) => {
     const renderItems = useMemo(() => {
         return (
             <Box {...props} className={classes.root} onClick={handleClick}>
-                <Paragraph variant="text-small-semi" className={classes.content}>
+                <Paragraph variant="text-small-b" className={classes.content}>
                     Курс со скидкой
                 </Paragraph>
             </Box>

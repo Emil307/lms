@@ -58,7 +58,7 @@ const DndCard = ({
                             <IconDragDots />
                         </ActionIcon>
                     )}
-                    {leftIcon && <ThemeIcon color={isActive ? "primaryHover" : "neutral_gray"}>{leftIcon}</ThemeIcon>}
+                    {leftIcon && <ThemeIcon color={isActive ? "primaryHover" : "neutralGray300"}>{leftIcon}</ThemeIcon>}
                     <Heading className={classes.title} order={3}>
                         {title}
                     </Heading>

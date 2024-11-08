@@ -1,4 +1,4 @@
-import { Flex, Text } from "@mantine/core";
+import { Box, Flex, Stack, Text } from "@mantine/core";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { ContentByTextEditor, Heading, Loader } from "@shared/ui";
@@ -46,38 +46,43 @@ const CourseDetailsPage = () => {
     }
 
     return (
-        <Flex className={classes.root}>
-            <Flex direction="column" className={classes.blocksWrapper}>
-                <Flex direction="column" maw={1320} w="100%" m="auto" className={classes.mainInfoWrapper}>
-                    <MainBanner mb={8} data={courseData} />
-                    <Flex direction="column" mb={64}>
+        <Stack spacing={64} mt={16} mb={16}>
+            <Box maw={1320} w="100%" m="auto" className={classes.mainInfoWrapper}>
+                <Stack spacing={160}>
+                    <Stack spacing={8}>
+                        <MainBanner data={courseData} />
                         <MainInfoPanel data={courseData} />
-                    </Flex>
-
-                    <ContentByTextEditor data={courseData.description} className={classes.description} hideFancybox />
+                    </Stack>
+                    {courseData.description && (
+                        <Box>
+                            <ContentByTextEditor data={courseData.description} className={classes.description} hideFancybox />
+                        </Box>
+                    )}
                     <ProgramTrainingList data={courseData} />
-                </Flex>
 
-                <CourseReviewCarouselList
-                    headerSlot={
-                        <Heading mb={48}>
-                            <Flex direction="column" gap={24}>
-                                <Heading order={1} ta="center" className={classes.title}>
-                                    Отзывы о курсе
-                                </Heading>
-                                <Heading order={3} ta="center" className={classes.reviews}>
-                                    Проверенные отзывы наших студентов
-                                </Heading>
-                            </Flex>
-                        </Heading>
-                    }
-                    courseId={id}
-                />
-                <CourseCollectionsBlock />
+                    <CourseReviewCarouselList
+                        headerSlot={
+                            <Heading mb={48}>
+                                <Flex direction="column" gap={24}>
+                                    <Heading order={1} ta="center" color="dark">
+                                        Отзывы о курсе
+                                    </Heading>
+                                    <Heading order={3} ta="center" color="neutralMain50">
+                                        Проверенные отзывы наших студентов
+                                    </Heading>
+                                </Flex>
+                            </Heading>
+                        }
+                        courseId={id}
+                    />
+                    <CourseCollectionsBlock />
+                </Stack>
+            </Box>
+            <Stack spacing={112}>
                 <BuyCourseBlock data={courseData} id="buy-course-block" />
                 <FaqBlock />
-            </Flex>
-        </Flex>
+            </Stack>
+        </Stack>
     );
 };
 

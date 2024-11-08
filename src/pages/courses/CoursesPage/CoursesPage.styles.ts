@@ -96,7 +96,7 @@ export default createStyles((theme) => ({
         fontWeight: 500,
         height: "48px",
         border: `1px solid ${theme.colors.neutralMain50[0]}`,
-        backgroundColor: `${theme.colors.white} !important`,
+        backgroundColor: `${theme.colors.neutralWhite[0]} !important`,
         ":hover": {
             color: theme.colors.dark[0],
         },

@@ -17,7 +17,7 @@ const ToggleFilterButton = ({ isOpened = false, countAppliedQueries, ...props }:
                 <Flex align="center" gap={8}>
                     {!!countAppliedQueries && (
                         <Badge variant="filled" color="secondary">
-                            <Paragraph variant="text-small-semi" color="neutralWhite">
+                            <Paragraph variant="text-small-b" color="neutralWhite">
                                 {countAppliedQueries}
                             </Paragraph>
                         </Badge>
@@ -33,7 +33,7 @@ const ToggleFilterButton = ({ isOpened = false, countAppliedQueries, ...props }:
             <Flex align="center" gap={8}>
                 {!!countAppliedQueries && (
                     <Badge variant="filled" color="secondary">
-                        <Paragraph variant="text-small-semi" color="neutralWhite">
+                        <Paragraph variant="text-small-b" color="neutralWhite">
                             {countAppliedQueries}
                         </Paragraph>
                     </Badge>

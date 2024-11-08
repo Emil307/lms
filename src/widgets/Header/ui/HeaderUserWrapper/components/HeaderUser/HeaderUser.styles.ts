@@ -25,6 +25,7 @@ export default createStyles((theme) => ({
     containerButtonLinks: {
         gap: 12,
         marginLeft: 24,
+        overflow: "hidden",
         overflowX: "auto",
 
         "::-webkit-scrollbar": {

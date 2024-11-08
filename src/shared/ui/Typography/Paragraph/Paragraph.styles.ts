@@ -25,7 +25,7 @@ const getStylesByVariant = ({ variant }: CreateStylesParams): CSSObject => {
             return {
                 fontWeight: 500,
                 fontSize: 16,
-                lineHeight: "24px",
+                lineHeight: "22px",
             };
         }
         case "small-semi": {
@@ -42,7 +42,7 @@ const getStylesByVariant = ({ variant }: CreateStylesParams): CSSObject => {
                 lineHeight: "16px",
             };
         }
-        case "text-small-semi": {
+        case "text-small-b": {
             return {
                 fontWeight: 600,
                 fontSize: 14,

@@ -36,7 +36,7 @@ const MemoizedRingProgress = memo(function RingProgress({ value, label, ...props
             sections={sections}
             roundCaps
             thickness={14}
-            rootColor="white"
+            rootColor="neutralWhite"
         />
     );
 });

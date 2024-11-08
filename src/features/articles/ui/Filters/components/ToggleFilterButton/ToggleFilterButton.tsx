@@ -16,7 +16,7 @@ const ToggleFilterButton = ({ isOpened = false, countAppliedQueries, ...props }:
             <Flex className={classes.root}>
                 {!!countAppliedQueries && (
                     <Badge variant="filled" color="secondary" px={12} py={4}>
-                        <Paragraph variant="text-small-semi" color="neutralWhite">
+                        <Paragraph variant="text-small-b" color="neutralWhite">
                             {countAppliedQueries}
                         </Paragraph>
                     </Badge>

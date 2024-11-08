@@ -7,7 +7,7 @@ export const $ParagraphVariant = z.enum([
     "small-m",
     "small-semi",
     "text-small-m",
-    "text-small-semi",
+    "text-small-b",
     "text-caption",
     "text-smaller",
     "text-micro",

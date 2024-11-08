@@ -69,11 +69,11 @@ const List = ({ perPage, exceptionCourseCollectionId, wrapperProps, withPaginati
                 <Flex direction="column" align="center" gap={48}>
                     <Carousel<CourseCollectionFromList>
                         data={courseCollectionsData.data}
-                        slideSize="23%"
+                        slideSize="448px"
                         slideGap={24}
                         breakpoints={[
-                            { maxWidth: "md", slideSize: "50%" },
-                            { maxWidth: "xs", slideSize: "100%" },
+                            { maxWidth: "sm", slideSize: "448px" },
+                            { maxWidth: "xs", slideSize: "356px" },
                         ]}
                         getEmblaApi={setEmblaApi}
                         emblaApi={emblaApi}

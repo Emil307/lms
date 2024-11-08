@@ -66,7 +66,7 @@ const MemoizedCard = memo(function Card({ data, buttonVariant = "favorite", onCl
                     <Heading order={3} lineClamp={2}>
                         {data.name}
                     </Heading>
-                    <Paragraph variant="small-m" lineClamp={2} c="neutral_main50">
+                    <Paragraph variant="small-m" lineClamp={2} c="neutralMain50">
                         {data.shortDescription}
                     </Paragraph>
                 </Stack>

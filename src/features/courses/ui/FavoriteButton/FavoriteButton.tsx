@@ -1,5 +1,5 @@
 import { ActionIcon, BoxProps } from "@mantine/core";
-import { Heart } from "react-feather";
+import Heart from "public/icons/icon24px/rating/heart_1.svg";
 import { Button } from "@shared/ui";
 import { CourseDetails, CourseFromList, useUpdateCourseFavoriteStatus } from "@entities/course";
 import { useSession } from "@entities/auth/hooks";

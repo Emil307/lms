@@ -16,6 +16,9 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
         return null;
     }
 
+    const reviewsCountLabel = data.reviewsCount >= 100 ? "99+" : data.reviewsCount;
+    const reviewsCount = Math.min(data.reviewsCount, 100);
+
     return (
         <Flex align="center" gap={16} className={classes.ratingWrapper}>
             <Flex className={classes.iconWrapper}>
@@ -31,18 +34,15 @@ const RatingInfo = ({ data }: RatingInfoProps) => {
             </Flex>
             <Flex direction="column">
                 <Flex align="center">
-                    <Heading order={2} className={classes.title}>
+                    <Heading order={2} color="dark">
                         {data.averageRating}
                     </Heading>
                 </Flex>
-                <Paragraph
-                    variant="small-semi"
-                    color="neutralMain50"
-                    className={classes.description}>{`${data.reviewsCount} ${getPluralString(
-                    data.reviewsCount,
+                <Paragraph variant="small-m" color="neutralMain50">{`${reviewsCountLabel} ${getPluralString(
+                    reviewsCount,
                     "отзыв",
                     "отзыва",
-                    "отзывов",
+                    "отзывов"
                 )}`}</Paragraph>
             </Flex>
         </Flex>

@@ -1,4 +1,4 @@
-import { Avatar, Card as MCard, CardProps as MCardProps, Flex, Text } from "@mantine/core";
+import { Card as MCard, CardProps as MCardProps, Flex, Text, Avatar, Stack } from "@mantine/core";
 import { memo } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
@@ -37,24 +37,28 @@ const MemoizedCard = memo(function Card({ data, isActive, ...props }: CardProps)
                             </Flex>
                         </Flex>
                     </Flex>
-                    <Flex className={classes.rating}>
-                        <Rating defaultValue={1} count={1} readOnly size="small" />
-                        <Flex gap={4}>
+                    <Stack spacing={12}>
+                        <Flex className={classes.rating}>
+                            <Rating defaultValue={1} count={1} readOnly size="small" />
+                            <Flex gap={4}>
+                                <Paragraph variant="large" color="dark">
+                                    {data.score}
+                                </Paragraph>
+                                <Paragraph variant="large" color="neutralMain50">
+                                    из 5
+                                </Paragraph>
+                            </Flex>
+                        </Flex>
+                        <Flex className={classes.description}>
                             <Paragraph variant="large" color="dark">
-                                {data.score}
-                            </Paragraph>
-                            <Paragraph variant="large" color="neutralMain50">
-                                из 5
+                                {data.content}
                             </Paragraph>
                         </Flex>
-                    </Flex>
-                    <Flex className={classes.description}>
-                        <Paragraph variant="large">{data.content}</Paragraph>
-                    </Flex>
+                    </Stack>
                 </MCard.Section>
                 <MCard.Section className={classes.section}>
                     <Flex direction="column" gap={2}>
-                        <Paragraph variant="text-small-m" color="neutralMain50">
+                        <Paragraph variant="small-m" color="neutralMain50">
                             Курс
                         </Paragraph>
                         <Flex align="center" gap={8}>

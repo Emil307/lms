@@ -16,6 +16,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
             width: 20,
             color: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
             fill: isFavorite ? theme.colors.secondary[0] : "transparent",
+            stroke: isFavorite ? theme.colors.secondary[0] : theme.colors.dark[0],
         },
 
         ":hover": {
@@ -23,6 +24,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
             svg: {
                 color: theme.colors.secondary[0],
                 fill: theme.colors.secondary[0],
+                stroke: `${theme.colors.secondary[0]} !important`,
             },
         },
 
@@ -31,6 +33,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
             svg: {
                 color: theme.colors.dark[0],
                 fill: theme.colors.dark[0],
+                stroke: `${theme.colors.dark[0]} !important`,
             },
         },
         ":disabled": {
@@ -39,7 +42,7 @@ export default createStyles((theme, { isFavorite }: { isFavorite: boolean }) => 
             svg: {
                 color: theme.colors.neutralMain50[0],
                 fill: theme.colors.neutralMain50[0],
-                stroke: theme.colors.neutralMain50[0],
+                stroke: `${theme.colors.neutralMain50[0]} !important`,
             },
         },
     },

@@ -12,6 +12,10 @@ services:
                     - node.hostname==develop
     front_balancer:
         image: registry.addamant-work.ru/lms-addamant/addamant-lms/develop/balancer
+        environment: 
+            FRONTEND_URL: http://lms_dev_front:3000
+            MINIO_PROXY_URL: http://192.168.0.45:9010
+            MINIO_BUCKET: lms-dev-public
         networks:
             - swarm
             - lms-microservices_dev

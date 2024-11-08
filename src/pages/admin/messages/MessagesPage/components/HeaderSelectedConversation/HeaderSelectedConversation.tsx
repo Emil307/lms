@@ -26,7 +26,7 @@ const HeaderSelectedConversation = ({ selectedConversation, onCloseConversation 
                     <ChevronLeft />
                 </ActionIcon>
                 <Box>
-                    <Paragraph variant="text-small-semi" lineClamp={1}>
+                    <Paragraph variant="text-small-b" lineClamp={1}>
                         {getFullName({ data: selectedConversation.profile })}
                     </Paragraph>
                     <Paragraph variant="text-caption" color="neutralMain50">

@@ -57,7 +57,7 @@ const FilterList = ({ field, filterName, data }: FilterListProps) => {
             name={field}
             render={() => (
                 <Stack spacing={16}>
-                    <Paragraph variant="large" c="neutral_main50">
+                    <Paragraph variant="large" c="neutralMain50">
                         {filterName}
                     </Paragraph>
                     <MSpoiler classNames={classes} maxHeight={85} showLabel={showLabel} hideLabel={hideLabel} transitionDuration={0}>

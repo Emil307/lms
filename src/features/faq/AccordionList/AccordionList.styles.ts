@@ -27,13 +27,4 @@ export default createStyles((theme) => ({
             marginRight: 0,
         },
     },
-    title: {
-        fontSize: 42,
-        lineHeight: "46px",
-        color: theme.colors.dark[0],
-    },
-    description: {
-        color: theme.colors.dark[0],
-        opacity: 0.5,
-    },
 }));
